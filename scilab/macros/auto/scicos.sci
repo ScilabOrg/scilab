@@ -9,27 +9,12 @@ function [scs_m,newparameters,needcompile,edited]=scicos(scs_m,menus)
 // menus : vector of character strings,optional parameter giving usable menus 
 //!
 // Copyright INRIA
-
-	noguimode=find(sciargs()=="-nogui");
-	if (noguimode <>[]) then
-	 clear noguimode
-	 warning(" Scilab in no gui mode : Scicos unavailable");
-	 abort;
-	end;
-	clear noguimode
-
 [lhs,rhs]=argn(0)
 
-// Define Scicos data tables ===========================================
-if ( ~isdef("scicos_pal") | ~isdef("%scicos_menu") | ..
-     ~isdef("%scicos_short") | ~isdef("%scicos_help") | ..
-     ~isdef("%scicos_display_mode") | ~isdef("modelica_libs") | ..
-     ~isdef("scicos_pal_libs") ) then
-  [scicos_pal,%scicos_menu,%scicos_short,%scicos_help,..
-	%scicos_display_mode,modelica_libs,scicos_pal_libs]=initial_scicos_tables()
-  clear initial_scicos_tables
-end
-//======================================================================
+// if ~%scicos then
+//   warning('scicos isn''t installed.');
+//   abort;
+// end
 
 //xset('window',curwin);
 olds=get('old_style')
@@ -125,7 +110,7 @@ end
 
 
 
-scicos_ver='scicos2.7.3' // set current version of scicos
+scicos_ver='scicos4' // set current version of scicos
 Main_Scicos_window=1000
 
 //Initialisation
