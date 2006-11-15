@@ -17,11 +17,14 @@ extern int intdiffobjs _PARAMS((char *fname,unsigned long l));
 extern int intxproperty _PARAMS((char *fname,unsigned long l));
 extern int intphasesim _PARAMS((char *fname,unsigned long l));
 extern int intsetxproperty _PARAMS((char *fname,unsigned long l));
-extern int intcpass2 _PARAMS((char *fname,unsigned long l));
 extern int intsetblockerror _PARAMS((char *fname,unsigned long l));
 extern int inttree2 _PARAMS((char *fname,unsigned long l));
 extern int inttree3 _PARAMS((char *fname,unsigned long l));
 extern int inttree4 _PARAMS((char *fname,unsigned long l));
+extern int intscicosimc _PARAMS((char *fname, unsigned long l));
+extern int intgetscicosvarsc _PARAMS((char *fname, unsigned long l));
+extern int intcurblkc _PARAMS((char *fname, unsigned long l));
+extern int intbuildouttb _PARAMS((char *fname));
 /*-----------------------------------------------------------------------------------*/ 
 static intcscicosTable Tab[]={
   {inttimescicos,"scicos_time"},
@@ -30,11 +33,14 @@ static intcscicosTable Tab[]={
   {intxproperty,"pointer_xproperty"},
   {intphasesim,"phase_simulation"},
   {intsetxproperty,"set_xproperty"},
-  {intcpass2,"scicos_cpass2"},
   {intsetblockerror,"set_blockerror"},
   {inttree2,"ctree2"},
   {inttree3,"ctree3"},
   {inttree4,"ctree4"},
+  {intscicosimc,"scicosim"},
+  {intgetscicosvarsc,"getscicosvars"},
+  {intcurblkc,"curblockc"},
+  {intbuildouttb,"buildouttb"},
 };
 /*-----------------------------------------------------------------------------------*/ 
 int C2F(intcscicos)()
