@@ -42,7 +42,7 @@ end
 [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
 if ~ok then return; end
 
-lnkptr=lnkptrcomp(bllst,inpptr,outptr,inplnk,outlnk)
+[lnksz,lnktyp]=lnkptrcomp(bllst,inpptr,outptr,inplnk,outlnk)
 //
 xptr=1;zptr=1;rpptr=1;ipptr=1;xc0=[];xcd0=[];xd0=[];
 rpar=[];ipar=[];initexe=[];funtyp=[];labels=[];
@@ -80,8 +80,9 @@ for i=1:length(bllst)
   
   rpptr=[rpptr;rpptr($)+size(rpark,'*')]
   //
-  if type(ll.ipar)==1 then 
-    ipar=[ipar;ll.ipar(:)];ipptr=[ipptr;ipptr($)+size(ll.ipar,'*')]
+  if type(ll.ipar)==1 then
+    ipar=[ipar;ll.ipar(:)]
+    ipptr=[ipptr;ipptr($)+size(ll.ipar,'*')]
   else
     ipptr=[ipptr;ipptr($)]
   end
@@ -109,7 +110,6 @@ sim.inpptr=inpptr
 sim.outptr=outptr
 sim.inplnk=inplnk
 sim.outlnk=outlnk
-sim.lnkptr=lnkptr
 sim.rpar=rpar
 sim.rpptr=rpptr
 sim.ipar=ipar
@@ -118,7 +118,8 @@ sim.clkptr=clkptr
 sim.labels=labels
 cpr.sim=sim;
 
-outtb=0*ones(lnkptr($)-1,1)
+outtb=list();
+outtb=buildouttb(lnksz,lnktyp);
 
 if exists('%scicos_solver')==0 then %scicos_solver=0,end
 if max(funtyp)>10000 &%scicos_solver==0 then
