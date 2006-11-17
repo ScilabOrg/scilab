@@ -1,21 +1,12 @@
-function [%pt,scs_m]=do_move(%pt,scs_m)
+function [scs_m]=do_move(%pt,scs_m)
 // Copyright INRIA
 // get a scicos object to move, and move it with connected objects
 //!
 //get block to move
-  while %t
-    if %pt==[] then
-      [btn,%pt,win,Cmenu]=cosclick()
-      if Cmenu<>[] then
-	[%win,Cmenu]=resume(win,Cmenu)
-      end
-    else
-      win=%win;
-    end
-    xc=%pt(1);yc=%pt(2);%pt=[]
-    [k,wh]=getobj(scs_m,[xc;yc])
-    if k<>[] then break,end
-  end
+  win=%win;
+  xc=%pt(1);yc=%pt(2);
+  [k,wh]=getobj(scs_m,[xc;yc])
+  if k==[] then return,end
 
   scs_m_save=scs_m
   if typeof(scs_m.objs(k))=='Block'|typeof(scs_m.objs(k))=='Text' then
@@ -170,7 +161,7 @@ function scs_m=moveblock(scs_m,k,xc,yc)
     
     pat=xget('pattern')
     xset('pattern',default_color(0))
-    while and(rep(3)<>[3 0 2 5]) ,  // move loop
+    while rep(3)==-1 ,  // move loop
 			
       // draw block shape
       xrect(xc,yc+sz(2),sz(1),sz(2))
@@ -183,7 +174,7 @@ function scs_m=moveblock(scs_m,k,xc,yc)
 
       // get new position
       if pixmap then xset('wshow'),end    
-      rep=xgetmouse( 0);
+      rep=xgetmouse(0,[%t,%t]);
       if rep(3)==-100 then //active window has been closed
 	driver(dr);
 	[%win,Cmenu]=resume(curwin,'Quit')
@@ -277,12 +268,12 @@ function scs_m=moveblock(scs_m,k,xc,yc)
     drawobj(o)
     dr=driver()
     if dr=='Rec' then driver('X11'),end
-    while and(rep(3)<>[3 0 2 5]), //move loop
+    while rep(3)==-1 , //move loop
       
       // draw block shape
       xrect(xc,yc+sz(2),sz(1),sz(2))
       // get new position
-      rep=xgetmouse(0)
+      rep=xgetmouse(0,[%t,%t])
       if rep(3)==-100 then //active window has been closed
 	driver(dr);
 	[%win,Cmenu]=resume(curwin,'Quit')
@@ -332,9 +323,9 @@ function scs_m=movelink(scs_m,k,xc,yc,wh)
       x1=X1;y1=Y1;
       xpolys(x1,y1,ct(1)) //erase moving part of the link
       rep(3)=-1
-      while and(rep(3)<>[3 0 2 5]) do
+      while rep(3)==-1 do
 	xpolys(x1,y1,ct(1))//draw moving part of the link
-	rep=xgetmouse(0);
+	rep=xgetmouse(0,[%t,%t]);
 	if rep(3)==-100 then //active window has been closed
 	  driver(dr);
 	  [%win,Cmenu]=resume(curwin,'Quit')
@@ -374,9 +365,9 @@ function scs_m=movelink(scs_m,k,xc,yc,wh)
       x1=X1;y1=Y1;
       xpolys(x1,y1,ct(1)) //erase moving part of the link
       rep(3)=-1
-      while and(rep(3)<>[3 0 2 5]) do
+      while rep(3)==-1 do
 	xpolys(x1,y1,ct(1))//draw moving part of the link
-	rep=xgetmouse(0);
+	rep=xgetmouse(0,[%t,%t]);
 	if rep(3)==-100 then //active window has been closed
 	  driver(dr);
 	  [%win,Cmenu]=resume(curwin,'Quit')
@@ -414,9 +405,9 @@ function scs_m=movelink(scs_m,k,xc,yc,wh)
     x1=X1;y1=Y1;
     xpolys(x1,y1,ct(1)) //erase moving part of the link
     rep(3)=-1
-    while and(rep(3)<>[3 0 2 5]) do
+    while rep(3)==-1 do
       xpolys(x1,y1,ct(1))//draw moving part of the link
-      rep=xgetmouse(0);
+      rep=xgetmouse(0,[%t,%t]);
       if rep(3)==-100 then //active window has been closed
 	driver(dr);
 	[%win,Cmenu]=resume(curwin,'Quit')
@@ -459,10 +450,10 @@ function scs_m=movelink4(scs_m)
   x1=X1;y1=Y1;
   xpolys(x1,y1,ct(1)) //erase moving part of the link
   rep(3)=-1
-  while and(rep(3)<>[3 0 2 5]) do
+  while rep(3)==-1 do
     xpolys(x1,y1,ct(1))//draw moving part of the link
     if pixmap then xset('wshow'),end
-    rep=xgetmouse(0);
+    rep=xgetmouse(0,[%t,%t]);
     if rep(3)==-100 then //active window has been closed
       driver(dr);
       [%win,Cmenu]=resume(curwin,'Quit')
@@ -497,10 +488,10 @@ function scs_m=movelink1(scs_m)
   xpolys(xx,yy,ct(1))//erase  the link
   X1=xx;Y1=yy
   rep(3)=-1
-  while and(rep(3)<>[3 0 2 5]) do
+  while rep(3)==-1 do
     xpolys(xx,yy,ct(1))  //draw  the link
     if pixmap then xset('wshow'),end
-    rep=xgetmouse(0);
+    rep=xgetmouse(0,[%t,%t]);
     if rep(3)==-100 then //active window has been closed
       driver(dr);
       [%win,Cmenu]=resume(curwin,'Quit')
@@ -600,10 +591,10 @@ function scs_m=movelink2(scs_m)
   xpolys(x1,y1,ct(1))//erase  moving part of the link
   if pixmap then xset('wshow'),end
   rep(3)=-1
-  while and(rep(3)<>[3 0 2 5]) do
+  while rep(3)==-1 do
     xpolys(x1,y1,ct(1))  //draw moving part of the link
     if pixmap then xset('wshow'),end
-    rep=xgetmouse(0);
+    rep=xgetmouse(0,[%t,%t]);
     if rep(3)==-100 then //active window has been closed
       driver(dr)
       [%win,Cmenu]=resume(curwin,'Quit')
@@ -700,9 +691,9 @@ function scs_m=movelink3(scs_m)
   x1=X1;y1=Y1;
   xpolys(x1,y1,ct(1)) //erase moving part of the link
   rep(3)=-1
-  while and(rep(3)<>[3 0 2 5]) do
+  while rep(3)==-1 do
     xpolys(x1,y1,ct(1))//draw moving part of the link
-    rep=xgetmouse(0);
+    rep=xgetmouse(0,[%t,%t]);
     if rep(3)==-100 then //active window has been closed
       driver(dr)
       [%win,Cmenu]=resume(curwin,'Quit')
@@ -789,9 +780,9 @@ function scs_m=movecorner(scs_m,k,xc,yc,wh)
   xpolys(x1,y1,ct(1)) //erase moving part of the link
   rep(3)=-1
 
-  while and(rep(3)<>[3 0 2 5]) do
+  while rep(3)==-1 do
     xpolys(x1,y1,ct(1))//draw moving part of the link
-    rep=xgetmouse(0);
+    rep=xgetmouse(0,[%t,%t]);
     if rep(3)==-100 then //active window has been closed
       driver(dr)
       [%win,Cmenu]=resume(curwin,'Quit')

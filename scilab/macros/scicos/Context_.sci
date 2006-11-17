@@ -24,7 +24,7 @@ function Context_()
       //end of for backward compatibility for scifunc
       enablemenus()
       if ierr <>0 then
-	message(['Error occurs when evaluating context:'
+	message(['Error occur when evaluating context:'
 		 lasterror() ])
       else
 	scs_m.props.context=context;
