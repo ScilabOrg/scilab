@@ -1,6 +1,6 @@
 function Popup_()
 //** INRIA 
-  
+//**
   // gh_curwin = gh_current_window ; 
   //gh_curwin.pixmap ='on'; //set the pixmap mode
   
@@ -19,10 +19,12 @@ function Popup_()
   //**------------------------------------------------------------------------------
   if kc==[] then
     
+  //** ------------- It's NOT a Scicos window -------------------
     message('This window is not an active scicos window')
     Cmenu = []; %pt=[]; %ppt=[]; Select=[]; return ; //** ---> Exit point 
   
-  elseif windows(kc,1)<0 then //click inside a palette window
+  //**--------------- Palette -----------------------------------
+  elseif windows(kc,1)<0 then // click inside a palette window
   
     gh_curwin = scf(%win) ;
     o_size = size(gh_curwin.children.children)
@@ -34,18 +36,18 @@ function Popup_()
     if k<>[] then 
       gh_k = o_size(1) - k + 1 ;  
       gh_blk = gh_curwin.children.children(gh_k);
-      twinkle(gh_blk,2);
-    
-      // hilite_obj(palette.objs(k),%win)
-      // xpause(200000)
-      // unhilite_obj(palette.objs(k),%win)
       
-      j=3 ; Select = [k,%win];
-    else
-    
+      //** twinkle(gh_blk,2);
+      state_var = 3 ; //** magic number by Ramine 
+      Select = [k,%win];
+	  selecthilite(Select, 'on') ;       // update the image
+      
+    else   
       Cmenu==[];%pt=[];%ppt=[];Select=[];return
+    
     end
-  
+    
+  //**--------------- Current Scicos window --------------------
   elseif %win==curwin then //click inside the current window 
     
     gh_curwin = scf(%win) ;
@@ -54,20 +56,19 @@ function Popup_()
     k = getobj(scs_m,%pt)
     
     if k<>[] then
-      j = 1
-      
+      state_var = 1; //** Magic number by Ramine
       gh_k = o_size(1) - k + 1 ;  
       gh_blk = gh_curwin.children.children(gh_k);
-      twinkle(gh_blk,2);
-      
-      // hilite_obj(scs_m.objs(k),%win);
-      // xpause(200000)
-      // hilite_obj(scs_m.objs(k),%win);
+      //** twinkle(gh_blk,2);
       Select = [k,%win]
+      selecthilite(Select, 'on') ;       // update the image
+      
     else
-      j = 2; %ppt = %pt    // for pasting
+      state_var = 2; //** magic number by Ramine
+      %ppt = %pt    // for pasting
     end
   
+  //**--------------- Superblock Scicos window -----------------
   elseif slevel>1 then
     execstr('k=getobj(scs_m_'+string(windows(kc,1))+',%pt)')
     
@@ -78,12 +79,10 @@ function Popup_()
     
       gh_k = o_size(1) - k + 1 ;  
       gh_blk = gh_curwin.children.children(gh_k);
-      twinkle(gh_blk,2);
-  
-      // execstr('hilite_obj(scs_m_'+string(windows(kc,1))+'.objs(k),%" + "win)')
-      // xpause(200000)
-      // execstr('hilite_obj(scs_m_'+string(windows(kc,1))+'.objs(k),%" + "win)')
-      Select=[k,%win];j=3
+      //** twinkle(gh_blk,2);
+      Select=[k,%win];
+      selecthilite(Select, 'on') ;       // update the image
+      state_var = 3 ; //** Magic number by Ramine 
     else
       Cmenu==[];%pt=[];%ppt=[];Select=[];return
     end
@@ -95,8 +94,13 @@ function Popup_()
   
   end //** end of the main if() switch case structure 
    
-  Cmenu = mpopup(%scicos_lhb_list(j)) ;
+  Cmenu = mpopup( %scicos_lhb_list(state_var) ) ;
   
-  if Cmenu==[] then %pt=[];%ppt=[];Select=[];end
+  if Cmenu==[] then
+       %pt  = [];
+       %ppt = [];
+       selecthilite(Select, 'off') ;       // update the image
+       Select = [];
+  end
 
 endfunction

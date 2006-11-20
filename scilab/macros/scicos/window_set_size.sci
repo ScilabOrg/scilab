@@ -1,81 +1,69 @@
+function window_set_size(gh_window)
 //** 24 May 2006 
 //** Modified by Simone Mannori 09 Jan 2006 
-
+//*  10 Jul 2006
+//**
 //** Set the size of the internal "virtual window workspace" of the phisical graphic window
 
-function window_set_size()
+  rhs = argn(2) ; //** get the number of right side arguments  
+  
+  if rhs==0 then //** without arguments (default) assume ... 
+     //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
+     gh_curwin = gh_current_window ; //** get the handle of the current graphics window     
+     
+  else //** the arguments is explicit 
+     //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
+     gh_curwin = gh_window ; //** get the handle of the current graphics window     
 
-  //** [lhs,rhs] = argn(0) //** removed : NEVER USED
-  
-  
-  //** NEW graphics
-  //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
-  gh_curwin = gh_current_window ; //** get the handle of the current graphics window
-  
-  //** r = xget('wpdim'); 
-  //** xset("wpdim",width,height): Sets the width and the height of the current physical graphic window
-  //**                             (which can be different from the actual size in mode wresize 1). 
+  end    
   
   r = gh_curwin.figure_size ; //** acquire the current figure phisical size 
-  //**             figure_size: This property controls the size in pixel of the screen's graphics window.
-  //**             The size is the vector [width,height]. 
- 
+                              //** figure_size: This property controls the size in pixel
+			      //**  of the screen's graphics window.
+                              //**             The size is the vector [width,height]. 
+  
+  //** Scicos diagram size
+  
   rect = dig_bound(scs_m) ;
-
-  //** disp ("Window parameters"); disp (rect) ; //** debug only 
   
-  if rect==[] then rect=[0,0,r(1),r(2)] ; end //** 
-  
+  if rect==[] then //** if the schematics is not defined  
+      rect=[0,0,r(1),r(2)] ; //** take the figure phisical size as reference
+  end  
+    
   w = rect(3)-rect(1);
   h = rect(4)-rect(2);
   j = min(1.5,max(1,1600/(%zoom*w)),max(1,1200/(%zoom*h)))  ;
-  ax= max(r(1)/(%zoom*w),j);
+  ax= max(r(1)/(%zoom*w),j); //** amplitute correction if the user resize the window 
   ay= max(r(2)/(%zoom*h),j);
-
-//** xbasc(); //** obsolete, removed 
-
-//** clf(); //** 
-
-//**   xset("wresize",0);
-//**   xset("wresize",flag) If flag=1 then the graphic is automatically resized to fill the graphics
-//**                        if flag=0 the scale of the graphic is left unchanged when the graphics window is resized.
-//**                        Top left panner or keyboard arrows may be used to scroll over the graphic.  
-
-  gh_curwin.auto_resize = "off" ; //** I'm not 100% sure about that 
   
-  width = %zoom * w * ax; height = %zoom * h * ay
+  gh_curwin.auto_resize = "off" ; //**
+    
+  width  = %zoom * w * ax  ;   //** compute and set the axes dimesions 
+  height = %zoom * h * ay  ;
+  gh_curwin.axes_size = [width height] ; 
   
-  //** xset('wdim',width,height);
-  
-  gh_curwin.axes_size = [width height];
+  //** axes settings 
+  gh_axes = gh_curwin.children ; //** axes handle
+  gh_axes.tight_limits = "on"  ; //** set the limit "gh_axes.data_bounds" in "hard mode"
   
   //** The default margin are [ 0.125 0.125 0.125 0.125 ]
   arect = [0.02,0.02,0.02,0.02] //** margins (default normalized values)
+  gh_axes.margins = arect ;     //**
   
   //** 
   mrect = [rect(1) rect(2) ; rect(3) rect(4)] ; //** vector to matrix conversion   
-  
-  bx = (1 - 1/ax)/2; by=(1 - 1/ay)/2;
-  
-  wrect = [bx , by, 1/ax, 1/ay]
-  
-  //** xsetech(wrect=wrect,frect=rect,arect=arect) //** bastard operation //** obsolete, removed 
- 
-  gh_axes = gh_curwin.children ;
-  
-  //** some problems around here <----------------------
-  
-  gh_axes.margins     = arect ; //** arect=[0.02,0.02,0.02,0.02]
-  
   gh_axes.data_bounds = mrect ; //** default : data_bounds = [0,0 ; 1,1] = [xmin ymin ; xmax ymax ]
   
+  bx = (1 - 1/ax)/2           ;
+  by = (1 - 1/ay)/2           ;
+  wrect = [bx , by, 1/ax, 1/ay] ;
   gh_axes.axes_bounds = wrect ; //** default : axes_bounds = [0,0 , 1,1] = [xmin ymin xmax ymax] 
     
   %XSHIFT = max( (width - r(1) ) / 2, 0) ;
   %YSHIFT = max( (height- r(2) ) / 2, 0) ;
   
   //** This correction is really needed BUT uses old graphics primitives :(
-  //if ~MSDOS then %YSHIFT = %YSHIFT+30 ; end //** correction for the UNIX system 
+  if ~MSDOS then %YSHIFT = %YSHIFT+30 ; end //** correction for the UNIX system 
   
   //** Beware ! : I'm forced to use a couple of old graphics instructions because there are not 
   //**            direct equivalent inside the new graphics (24 may 2006) 
@@ -84,11 +72,9 @@ function window_set_size()
 
   xselect(); //** put the current window in foreground
   
-  
 endfunction
 
 //**------------------------------------------------------------------------------------------------------
-
 //**----------------------------- original code ------------------------------------
 //function window_set_size()
 //  [lhs,rhs]=argn(0)
@@ -99,6 +85,7 @@ endfunction
 //  w=rect(3)-rect(1);
 //  h=rect(4)-rect(2);
 //  j=min(1.5,max(1,1600/(%zoom*w)),max(1,1200/(%zoom*h)))  ;
+//
 //  ax=max(r(1)/(%zoom*w),j);
 //  ay=max(r(2)/(%zoom*h),j);
 //
@@ -107,13 +94,33 @@ endfunction
 //  xset("wresize",0);
 //  width=%zoom*w*ax;height=%zoom*h*ay
 //  xset('wdim',width,height);
+//
 //  bx=(1-1/ax)/2;
 //  by=(1-1/ay)/2;
 //  wrect=[bx,by,1/ax,1/ay]
 //  arect=[0.02,0.02,0.02,0.02]
 //
-//  xsetech(wrect=wrect,frect=rect,arect=arect)
+//  xsetech(wrect=wrect, frect=rect, arect=arect)
 //
+
+// wrect=wrect:
+// The sub-window is specified with the parameter wrect=[x,y,w,h] (upper-left point, width, height).
+// The values in wrect are specified using proportion of the width or height of the current graphic window.
+// For instance wrect=[0,0,1,1] means that the whole graphics window will be used,
+// and wrect=[0.5,0,0.5,1] means that the graphics region will be the right half of the graphics window.
+
+
+// frect=rect
+// frect=[xmin,ymin,xmax,ymax] is used to set the graphics scale and is just like the rect argument of plot2d.
+// If frect is not given the current value of the graphic scale remains unchanged.
+// The default value of rect is [0,0,1,1] (at window creation, when switching back to default value with
+// xset('default') or when clearing graphic recorded events xbasc()). 
+
+// arect=arect
+// arect=[x_left, x_right, y_up, y_down] is used to set the graphic frame inside the subwindow.
+// The graphic frame is specified (like wrect) using proportion of the width or height of the current graphic
+// subwindow. Default value is 1/8*[1,1,1,1]. If arect is not given, current value remains unchanged. 
+ 
 //  %XSHIFT=max((width-r(1))/2,0)
 //  %YSHIFT=max((height-r(2))/2,0)
 //  if ~MSDOS then %YSHIFT=%YSHIFT+30,end

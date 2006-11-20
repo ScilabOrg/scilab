@@ -3,40 +3,42 @@ function scs_m=changeports(scs_m,path,o_n)
 //!
 //look at connected links
 // Copyright INRIA
-  connected=[];dx=[];dy=[]
-  o=scs_m(path)
-  k=path($)
-  [nin_n,nout_n,ncin_n,ncout_n]=(o_n.model.in,o_n.model.out,o_n.model.evtin,o_n.model.evtout)
-  [sz,orient,ip,op,cip,cop]=(o.graphics.sz,o.graphics.flip,o.graphics.pin,o.graphics.pout,..
-			     o.graphics.pein,o.graphics.peout)
-  [nin,nout,ncin,ncout]=(o_n.model.in,o_n.model.out,o_n.model.evtin,o_n.model.evtout)
+  connected = []; dx=[]; dy=[] ;
+  o = scs_m(path)
+  k = path($)
+  [nin_n,nout_n,ncin_n,ncout_n] = (o_n.model.in,o_n.model.out,o_n.model.evtin,o_n.model.evtout)
+  [sz,orient,ip,op,cip,cop] = (o.graphics.sz,o.graphics.flip,o.graphics.pin,o.graphics.pout,..
+			       o.graphics.pein,o.graphics.peout);
+  [nin,nout,ncin,ncout] = (o_n.model.in, o_n.model.out, o_n.model.evtin, o_n.model.evtout);
+  
   //standard inputs
-  nip=size(ip,'*')
-  nipn=size(nin_n,'*')
-  ipn=ip
+  nip  = size(ip,'*')
+  nipn = size(nin_n,'*')
+  ipn = ip
   if nip>nipn then
     //number of input ports decreased
     if or(ip(nipn+1:$)>0) then
       message('Connected ports cannot be suppressed')
       return
     end
-    kc=find(ip>0)
-    ipn=ip(1:nipn)
+    kc  = find(ip>0) ;
+    ipn = ip(1:nipn) ;
   elseif nip<nipn then
     //number of input ports increased 
     if ip<>[] then kc=find(ip>0),else kc=[];end
-    ipn=[ip;zeros(nipn-nip,1)]
+    ipn = [ip; zeros(nipn-nip,1)]
   end
+  
   if  nip<>nipn then
-    connected=[connected ip(kc)']
+    connected = [connected ip(kc)'];
     dy=[dy,(-sz(2)/(nipn+1)+sz(2)/(nip+1))*kc]; //new-old
     dx=[dx,0*kc];
   end
 
   //standard outputs
-  nop=size(op,'*')
-  nopn=size(nout_n,'*')
-  opn=op
+  nop  = size(op,'*')
+  nopn = size(nout_n,'*')
+  opn = op
   if nop>nopn then
     //number of output ports decreased
     if or(op(nopn+1:$)>0) then
@@ -50,12 +52,12 @@ function scs_m=changeports(scs_m,path,o_n)
     if op<>[] then kc=find(op>0),else kc=[];end
     opn=[op;zeros(nopn-nop,1)]
   end
+  
   if nop<>nopn then
     connected=[connected op(kc)']
     dy=[dy,(-sz(2)/(nopn+1)+sz(2)/(nop+1))*kc]; //new-old
     dx=[dx,0*kc];
   end
-
 
   //event inputs
   ncip=size(cip,'*')
@@ -74,6 +76,7 @@ function scs_m=changeports(scs_m,path,o_n)
     if cip<>[] then kc=find(cip>0),else kc=[];end
     cipn=[cip;zeros(ncipn-ncip,1)]
   end
+  
   if ncip<>ncipn then
     connected=[connected cip(kc)']
     dx=[dx,(sz(1)/(ncipn+1)-sz(1)/(ncip+1))*kc]
@@ -97,20 +100,21 @@ function scs_m=changeports(scs_m,path,o_n)
     if cop<>[] then kc=find(cop>0),else kc=[];end
     copn=[cop;zeros(ncopn-ncop,1)]
   end
+  
   if ncop<>ncopn then
     connected=[connected,cop(kc)']
     dx=[dx, (sz(1)/(ncopn+1)-sz(1)/(ncop+1))*kc]
     dy=[dy,0*kc]
   end
   // update  block
-  o_n.graphics.pin=ipn
-  o_n.graphics.pout=opn
-  o_n.graphics.pein=cipn
-  o_n.graphics.peout=copn
-  o_n.model.in=nin_n
-  o_n.model.out=nout_n
-  o_n.model.evtin=ncin_n
-  o_n.model.evtout=ncout_n
+  o_n.graphics.pin = ipn;
+  o_n.graphics.pout=opn;
+  o_n.graphics.pein=cipn;
+  o_n.graphics.peout = copn;
+  o_n.model.in = nin_n;
+  o_n.model.out = nout_n;
+  o_n.model.evtin = ncin_n;
+  o_n.model.evtout = ncout_n;
   //*********************************
   if nip<>nipn|nop<>nopn|ncip<>ncipn|ncop<>ncopn then
     // build movable segments for all connected links
@@ -209,15 +213,19 @@ function scs_m=changeports(scs_m,path,o_n)
 	xx=[xx x1];yy=[yy y1] 
       end
     end
+    
     [mxx,nxx]=size(xx)
+    
     if connected<>[] then // move connected links  
       
       // erase moving part of links
-      xpolys(xx,yy,clr)
+      //** xpolys(xx,yy,clr) ; //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
+      
       // draw moving part of links
       xx=xx+mx
       yy=yy+my
-      xpolys(xx,yy,clr)
+      //** xpolys(xx,yy,clr); //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
+      
       //udate moved links in scicos structure
       for i=1:prod(size(ii))
 	oi=scs_m.objs(abs(ii(i)))
@@ -258,10 +266,12 @@ function scs_m=changeports(scs_m,path,o_n)
 
   end
   // redraw block
-  drawobj(o) //clear old block
-  drawobj(o_n)// draw new block
+  //** drawobj(o) //clear old block //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
+  //** drawobj(o_n)// draw new block//** OLD GRAPHIC HERE !   <---------!!!!!!!!!
 
-  if pixmap then xset('wshow'),end
+  //** if pixmap then xset('wshow'),end
+  
   // update block in scicos structure
-  scs_m.objs(k)=o_n
+  scs_m.objs(k) = o_n ;
+
 endfunction

@@ -1,18 +1,27 @@
-function [scs_m] = do_stupidmove(%pt,scs_m)
+function [scs_m] = do_stupidmove(%pt, scs_m)
 // Copyright INRIA
 // get a scicos object to move, and move it with connected objects
 //!
+//  This file contains all the functions relatives to the object (Block Link and Text)
+//
 //**
 //** 28 Jun 2006 : restart :(
-//**  
+//** 21 Aou 2006 : move W , W/O link equalization  
 //**
+
+// Acquire the current window and put to "on" the pixmap mode
+  gh_curwin = gh_current_window ;
+  gh_curwin.pixmap = "on" 
+
 // get block to move
-  rela = .1   ; 
-  win  = %win ;
-  xc =%pt(1); yc = %pt(2) ; //** recover mouse position at the last event
+  rela = .1   ; //** ? 
+  win  = %win ; //** window id 
+  
+  xc = %pt(1) ; //** recover mouse position at the last event
+  yc = %pt(2) ; 
    
   //** look for a valid object 
-  [k,wh,scs_m] = stupid_getobj(scs_m,[xc;yc]) ;
+  [k, wh, scs_m] = stupid_getobj(scs_m,[xc;yc]) ; //** see below in this file :)
   
   //** "k" is the object index in the data structure "scs_m" 
   if k==[] then return , end ;//** if NO object found -> exit 
@@ -22,43 +31,40 @@ function [scs_m] = do_stupidmove(%pt,scs_m)
   //**-------------------------------------------------------------------
   if typeof(scs_m.objs(k))=='Block'| typeof(scs_m.objs(k))=='Text' then
     //**-------------------- Block --------------------------------------
-      needreplay = replayifnecessary()         ;
-      scs_m = stupid_moveblock(scs_m,k,xc,yc)  ;
+      needreplay = replayifnecessary() ; //** to be removed later (obsolete)
+      //** scs_m , k (scs_m object index), xc yc (mouse coodinate of the last valid event) 
+      scs_m = stupid_moveblock(scs_m, k, xc, yc)  ;
   
   elseif typeof(scs_m.objs(k))=='Link' then
     //**------------------- Link ------------------------------ 
-    scs_m=stupid_movecorner(scs_m,k,xc,yc,wh)  ;
+    //** scs_m , k (scs_m object index), xc yc (mouse coodinate of the last valid event) 
+    scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)  ;
   
-  elseif typeof(scs_m.objs(k))=='Text' then
-    //**------------------- Text ------------------------------
-    //**.... do nothing ...
   end
   //**------------------------------------------------------------------
   
   if Cmenu=='Quit' then
     //active window has been closed
-    [%win,Cmenu]=resume(%win,Cmenu)
+    [%win,Cmenu] = resume(%win,Cmenu)
   end
   
   [scs_m_save,enable_undo,edited,nc_save,needreplay] = resume(scs_m_save,%t,%t,needcompile,needreplay)
 endfunction
-//**-----------------------------------------------------------------------------------------------------------
+//**------------------------------------------------------------------------------------------------------
 //**
-//*************************************************************************************************************
+//********************************************************************************************************
 //
-//       ---------------------------- Move Blocks and connected Link(s) --------------------------------------- 
+//  ---------------------------- Move Blocks and connected Link(s) --------------------------------------- 
 //
 // Move  block k and modify connected links if any
 // look at connected links
 //
+
 function scs_m = stupid_moveblock(scs_m,k,xc,yc)
-// Move  block k and modify connected links if any
-// look at connected links
   
   //**----------------------------------------------------------------------------------
   //** the code below is modified according the new graphics API
   gh_curwin = gh_current_window ; 
-  gh_curwin.pixmap ='on'; //set the pixmap mode
   
   //** at this point I need to build the [scs_m] <-> [gh_window] datastructure 
   //** I need an equivalent index for the graphics 
@@ -68,7 +74,6 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure 
   gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) 
-  disp (gh_k);
   gh_blk = gh_curwin.children.children(gh_k);
   
   //**-----------------------------------------------------------------------------------
@@ -91,7 +96,7 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   //** [xm , ym] for the links data points 
   //** gh_link_i fro the associated graphic handles 
   for l=1:length(connected)
-    
+ 
     i  = connected(l) ; 
     
     oi = scs_m.objs(i) ;
@@ -121,8 +126,15 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   end //** end of the for() loop 
   //** ----------------------------------------------------------------------
 
-
   xmt = xm ; ymt = ym ; //** init ...
+  
+  [xmin, ymin] = getorigin(o) ; //** acquire the block origin coordinate 
+  dx = xc - xmin ; dy = yc - ymin ; //** calc the differential 
+  //** cursor_coordinate@the_user_press - coordinate of the object orgin
+  //** this variable is used to move the object leaveng the cursor in the original
+  //** position of the user press. At the end of the move [dx dy] are used to offset
+  //** the cursor coordinate to obtain the block orgin coordinate and use this values
+  //** to correcly update the scs_m datastructure 
   
   // move a block and connected links
   //=================================
@@ -130,37 +142,35 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   
   if size(connected,2)>0 then // move a block and connected links
     
-    //** ------------- MOVE BLOCK AND CONNECTED LINKS LINKS -----------------
+    //** ------------- MOVE BLOCK AND CONNECTED LINKS LINKS --------------
     disp("do_stupidmove.sci : Move block WITH connected links ");
-    
-    [xmin,ymin] = getorigin(o) ;
     
     xco = xc; yco = yc;
    
-    [xy,sz] = (o.graphics.orig,o.graphics.sz)
-    
-    dx = xc - xmin ; dy = yc - ymin ;
+    [xy,sz] = (o.graphics.orig, o.graphics.sz)
     
     //**-------------------------------------------------------------------
-    //** rep(3) = -1 ;
     gh_link_mod = [] ;
     tmp_data = [] ;
     t_xmt = [] ; t_ymt  = []; 
     while 1 do //** interactive move loop
       
+      //rep = xgetmouse([%t,%t]);
       rep = xgetmouse(0,[%t,%t]);
       
-      if or(rep(3)==[0,2,3,5,-5,-100]) then
+      if or(rep(3)==[0,2,3,5,-5]) then
           break ; //** ---> EXIT point of the while 
       end
       
-      //** rep = xgetmouse(0,[%t,%t]);
-      
-      if xget('window')<>curwin|rep(3)==-100 then
-	[%win,Cmenu]=resume(curwin,'Quit')
+      //** gh_curwin.figure_id 
+      //** if xget('window')<>curwin | rep(3)==-100 then
+      gh_figure = gcf();
+      if gh_figure.figure_id<>curwin | rep(3)==-100 then
+	[%win,Cmenu] = resume(curwin,'Quit') ; 
       end
       
-      delta_x = rep(1) - xc ; delta_y = rep(2) - yc ; //** calc the differential position ...
+      delta_x = rep(1) - xc ;
+      delta_y = rep(2) - yc ; //** calc the differential position ...
       
       drawlater();
 	     
@@ -204,9 +214,10 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
       
     end //** ...  of while 
     //**-------------------------------------------------------------------
-    
-    if xget('window')<>curwin|rep(3)==-100 then
-      [%win,Cmenu]=resume(curwin,'Quit')
+      
+    gh_figure = gcf();
+    if gh_figure.figure_id<>curwin | rep(3)==-100 then
+         [%win,Cmenu] = resume(curwin,'Quit') ; 
     end
     
     xy = [xc-dx,yc-dy];
@@ -244,45 +255,40 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
     
   //** ---------------------------- MOVE BLOCK W/O LINKS ------------------------
   else // move an unconnected block
-    disp("Move block without links");
+    disp("do_stupidmove.sci : Move block without links");
     
     [xy,sz] = (o.graphics.orig,o.graphics.sz)
     
     //**----------------------------------------------------------------------
-    %xc = xy(1); %yc = xy(2); //** default start position 
+    // %xc = xy(1); %yc = xy(2); //** default start position 
     while 1 do
         
       rep = xgetmouse(0,[%t,%t]); // get new position
-    
+       
       if or(rep(3)==[0, 2, 3, 5, -5, -100]) then break ; end //** ---> EXIT point of the while 
-     
-      xc = rep(1) ; yc = rep(2) ;
-     
-      dx = xc - %xc ; dy = yc - %yc ;
-     
+      
+      delta_x = rep(1) - xc ; delta_y = rep(2) - yc ; //** calc the differential position ...
+      
       drawlater();
-  
-        move (gh_blk , [dx dy]);
-     
+        move (gh_blk , [delta_x , delta_y]);  //** ..because "move()" works only in differential 
+	xc = rep(1); yc = rep(2) ;
       drawnow();
       show_pixmap();
- 
-      %xc = xc ; %yc = yc ; //** block position absolute position update 
-     
+      
     end
     //**---------------------------------------------------------------------
     
-    if xget('window')<>curwin|rep(3)==-100 then
-      //   active window has been closed
-         [%win,Cmenu]=resume(curwin,'Quit')
+    gh_figure = gcf();
+    if gh_figure.figure_id<>curwin | rep(3)==-100 then
+	[%win,Cmenu] = resume(curwin,'Quit') ; 
     end
-      
-    // update and draw block
+    
+    // Update block coordinates 
     if and(rep(3)<>[2 5]) then
-        // update and draw block
-        xy = [%xc, %yc] ; //** compute the new position 
-        o.graphics.orig = xy ; //** update the local data strucure 
-        scs_m.objs(k) = o    ; //** update the global data structure 
+        //update block coordinates
+	xy = [xc - dx, yc - dy];   
+        o.graphics.orig = xy; 
+        scs_m.objs(k) = o; 
     end
    
   end // end of Move Block with / without Link(s)  
@@ -290,54 +296,104 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
 endfunction
 //**--------------------------------------------------------------------------
 
-function scs_m = stupid_movecorner(scs_m,k,xc,yc,wh)
+//** ----> This function works only with links <-----
+//** ---------- Link Supid Move ---------------------
+function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   
-  o = scs_m.objs(k) ;
+  //**----------------------------------------------------------------------------------
+  //** the code below is modified according the new graphics API
+  gh_curwin = gh_current_window ; 
   
-  [xx,yy,ct] = (o.xx,o.yy,o.ct) ;
+  //** at this point I need to build the [scs_m] <-> [gh_window] datastructure 
+  //** I need an equivalent index for the graphics 
   
-  //** dr=driver()
-
-  seg = [-wh-1:-wh+1] ;
-
-  //** if dr=='Rec' then driver('X11'),end
-
-  xpolys(xx(seg),yy(seg),ct(1)) //draw thin link
-  //** if pixmap then xset('wshow'),end
+  o_size = size (gh_curwin.children.children ) ; //** the size:number of all the object 
   
-  X1 = xx(seg)
-  Y1 = yy(seg) 
-  x1 = X1 ; y1 = Y1;
+  //** "k" is the object index in the data structure "scs_m"
+  //** compute the equivalent "gh_k" for the graphics datastructure 
+  gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) 
+  //** disp (gh_k);
+  gh_blk = gh_curwin.children.children(gh_k);
+  
+  //**-----------------------------------------------------------------------------------
+  
+  o = scs_m.objs(k) ; //** take the Scicos object 
+  
+  [xx, yy, ct] = (o.xx,o.yy,o.ct) ;
+  //** ct(1) is the color ; never used because it is not modified :)
+  
+  o_link = size (xx)     ;
+  link_size =  o_link(1) ; //** number of element of link (polyline) 
 
-  xpolys(x1,y1,ct(1)) //erase moving part of the link
-  rep(3)=-1
+  //** wh point to the subsegment (sublink interested by the move) 
+  moving_seg = [-wh-1:-wh+1] ;
+  
+  if (-wh-1) == 1 then //** the moving include the starting point  
+    start_seg = [];
+    X_start = []  ;
+    Y_start = []  ;
+  else                 //** the move need some static point from the beginning 
+    start_seg = [1 : -wh-1]  ; 
+    X_start = xx(start_seg)  ;
+    Y_start = yy(start_seg)  ;
+  end    
+  
+  if (-wh+1) == link_size then //** the moving include the endpoint 
+    end_seg = [] ;
+    X_end = []  ;
+    Y_end = []  ;
+  else                //** the moving need some static point to the end 
+    end_seg = [-wh+1 : link_size] ;
+    X_end = xx(end_seg) ;
+    Y_end = yy(end_seg) ;
+  end   
+      
+  //** disp("...subsegment -> Link move --> seg:..."); disp(moving_seg) ; 
+  
+  //** xpolys(xx(seg),yy(seg),ct(1)) //draw thin link
+  //** gh_blk.children.data = [xx(seg), yy(seg)]; //** modify the fixed part of the link 
+  
+  X1 = xx(moving_seg) ; //** costant starting values
+  Y1 = yy(moving_seg) ; 
+  x1 = X1 ;  //** temp variables for the move 
+  y1 = Y1 ;
 
+  //** xpolys(x1,y1,ct(1)) //erase moving part of the link
+  //** not necessary with the new graphics 
+  
+  //** pause 
+  
+  //**-----------------------------------------------------------------
+  rep(3) = -1; drawlater();
   while 1 do
     
-    if or(rep(3)==[0,2,3,5,-5,-100]) then break,end
+    if or(rep(3)==[0,2,3,5,-5,-100]) then break,end ; //** exit point 
     
-    xpolys(x1,y1,ct(1))//draw moving part of the link
+    //** xpolys(x1,y1,ct(1)) //draw moving part of the link
+    //** disp("... interactive link move ..."); pause;
+    drawlater();
+      gh_blk.children.data = [X_start,Y_start ; x1, y1 ; X_end, Y_end ];
+    drawnow(); show_pixmap();
     
-    rep=xgetmouse(0,[%t,%t]);
+    rep = xgetmouse(0,[%t,%t]);
     
-    if xget('window')<>curwin|rep(3)==-100 then
-      //active window has been closed
-      // driver(dr);
-      [%win,Cmenu]=resume(curwin,'Quit')
+    gh_figure = gcf();
+    if gh_figure.figure_id<>curwin | rep(3)==-100 then
+         [%win,Cmenu] = resume(curwin,'Quit') ; 
     end
     
-    //** if pixmap then xset('wshow'),end
-    
-    xpolys(x1,y1,ct(1)) //erase moving part of the link
-    xc1 = rep(1); yc1 = rep(2)
-    x1(2)=X1(2)-(xc-xc1)
-    y1(2)=Y1(2)-(yc-yc1)
-  end //** of the while 
+    //** xpolys(x1,y1,ct(1)) //erase moving part of the link
+    xc1 = rep(1) ;
+    yc1 = rep(2) ;
+    x1(2) = X1(2) - (xc - xc1) ;
+    y1(2) = Y1(2) - (yc - yc1) ;
+  end
+  //** of the while "interactive" loop  
+  //**------------------------------------------------------------------
   
-  if xget('window')<>curwin|rep(3)==-100 then
-    //active window has been closed
-    //** driver(dr);
-    [%win,Cmenu]=resume(curwin,'Quit')
+  gh_figure = gcf();
+  if gh_figure.figure_id<>curwin | rep(3)==-100 then
+      [%win,Cmenu] = resume(curwin,'Quit') ; 
   end
   
   if and(rep(3)<>[2 5]) then
@@ -351,59 +407,78 @@ function scs_m = stupid_movecorner(scs_m,k,xc,yc,wh)
     elseif abs(y1(2)-y1(3))<rela*abs(x1(2)-x1(3)) then
       y1(2)=y1(3)
     end  
-    d=projaff([x1(1);x1(3)],[y1(1);y1(3)],[x1(2);y1(2)])
+    d = projaff([x1(1);x1(3)],[y1(1);y1(3)],[x1(2);y1(2)])
     if norm(d(:)-[x1(2);y1(2)])<..
 	  rela*max(norm(d(:)-[x1(3);y1(3)]),norm(d(:)-[x1(1);y1(1)])) then
-      xx(seg)=x1
-      yy(seg)=y1
-      xx(seg(2))=[]
-      yy(seg(2))=[]
-      x1(2)=[];y1(2)=[];seg(3)=[]
+      xx(moving_seg)=x1
+      yy(moving_seg)=y1
+      xx(moving_seg(2))=[]
+      yy(moving_seg(2))=[]
+      x1(2)=[];y1(2)=[];moving_seg(3)=[]
     else
-      xx(seg)=x1
-      yy(seg)=y1
+      xx(moving_seg)=x1
+      yy(moving_seg)=y1
     end
     o.xx=xx;o.yy=yy
     scs_m.objs(k)=o
   end
-  //** driver(dr)
-  draw_link_seg(o,seg)
-  //** if pixmap then xset('wshow'),end
+  
 endfunction
 
 //**-----------------------------------------------------------------------------------------------
 
 function [k,wh,scs_m] = stupid_getobj(scs_m,pt)
-  n=lstsize(scs_m.objs)
-  wh=[];
-  x=pt(1);y=pt(2)
-  data=[]
-  k=[]
+  n = lstsize(scs_m.objs)
+  wh = [];
+  x = pt(1); y = pt(2) ; //** mouse coordinate 
+  data = [] ;
+  k = []; 
+  
+  //** -------------------- Loop for every object --------------------------------------
   for i=1:n //loop on objects
-    o=scs_m.objs(i)
+    
+    o = scs_m.objs(i); 
+    
+    //**-------- If it is a Block ---------------------------------------
     if typeof(o)=='Block' then
-      graphics=o.graphics
-      [orig,sz]=(graphics.orig,graphics.sz)
-      data=[(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
-      if data(1)<0&data(2)<0 then k=i,break,end
+      graphics = o.graphics
+      [orig,sz] = (graphics.orig,graphics.sz)
+      data = [(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
+      if data(1)<0&data(2)<0 then k=i, break, end ;
+    
+    //**--------- If it is a Link ----------------------------------------    
     elseif typeof(o)=='Link' then
-      [frect1,frect]=xgetech();
-      eps=3    
-      xx=o.xx;yy=o.yy;
-      [d,ptp,ind]=stupid_dist2polyline(xx,yy,pt,.85)
+      //** [frect1,frect] = xgetech(); //** never used, obsolete, removed  
+      eps = 3 ;    
+      xx = o.xx; yy = o.yy;
+      [d, ptp, ind] = stupid_dist2polyline(xx, yy, pt, 0.85)
+      
       if d<eps then 
+	
 	if ind==-1 then 
-	  k=o.from(1),break,
+	  k = o.from(1); //** click near an input 
+	  break ;
 	elseif ind==-size(xx,1) then 
-	  k=o.to(1),break,
+	  k = o.to(1) ; //** click near an output 
+	  break ;
 	elseif ind>0 then 
-	  draw_link_seg(o,[ind,ind+1])
-	  o.xx=[xx(1:ind);ptp(1);xx(ind+1:$)];
-	  o.yy=[yy(1:ind);ptp(2);yy(ind+1:$)];
-	  scs_m.objs(i)=o
-	  k=i,wh=-ind-1,break,
-	else k=i,wh=ind,draw_link_seg(o,[-ind-1:-ind+1]);break,end
+	  // draw_link_seg(o,[ind,ind+1]) //** debug only 
+	  o.xx = [xx(1:ind);ptp(1);xx(ind+1:$)];
+	  o.yy = [yy(1:ind);ptp(2);yy(ind+1:$)];
+	  scs_m.objs(i) = o ;
+	  k  = i ;       
+	  wh = -ind - 1 ; //** click in the middle (case 1) of a link 
+	  break ;
+	else
+	  k = i
+	  wh = ind      ; //** click in the middle (case 2) of a link 
+	  // draw_link_seg(o,[-ind-1:-ind+1]); //** debug only 
+	  break ;
+	end
+      
       end
+    
+    //**---------- If it is a Text --------------------------------------    
     elseif typeof(o)=='Text' then
       graphics=o.graphics
       [orig,sz]=(graphics.orig,graphics.sz)
@@ -414,55 +489,56 @@ function [k,wh,scs_m] = stupid_getobj(scs_m,pt)
 endfunction
 
 //**---------------------------------------------------------------------------------------
-function [d,pt,ind]=stupid_dist2polyline(xp,yp,pt,pereps)
+function [d,pt,ind] = stupid_dist2polyline(xp,yp,pt,pereps)
 // computes minimum distance from a point to a polyline
-//d    minimum distance to polyline
-//pt   coordinate of the polyline closest point
-//ind  
-//     if negative polyline closest point is a polyline corner:
-//        pt=[xp(-ind) yp(-ind)]
-//     if positive pt lies on segment [ind ind+1]
+// d    minimum distance to polyline
+// pt   coordinate of the polyline closest point
+// ind  
+//      if negative polyline closest point is a polyline corner:
+//         pt=[xp(-ind) yp(-ind)]
+//      if positive pt lies on segment [ind ind+1]
 //
-  x=pt(1)
-  y=pt(2)
-  xp=xp(:);yp=yp(:)
-  cr=4*sign((xp(1:$-1)-x).*(xp(1:$-1)-xp(2:$))+..
-	    (yp(1:$-1)-y).*(yp(1:$-1)-yp(2:$)))+..
-     sign((xp(2:$)-x).*(xp(2:$)-xp(1:$-1))+..
-          (yp(2:$)-y).*(yp(2:$)-yp(1:$-1)))
+  x = pt(1) ;
+  y = pt(2) ;
+  xp = xp(:); yp=yp(:)
+  cr = 4*sign((xp(1:$-1)-x).*(xp(1:$-1)-xp(2:$))+..
+	      (yp(1:$-1)-y).*(yp(1:$-1)-yp(2:$)))+..
+         sign((xp(2:$)-x).*(xp(2:$)-xp(1:$-1))+..
+              (yp(2:$)-y).*(yp(2:$)-yp(1:$-1)))
 
-  ki=find(cr==5) // index of segments for which projection fall inside
-  np=size(xp,'*')
+  ki = find(cr==5) // index of segments for which projection fall inside
+  np = size(xp,'*')
   if ki<>[] then
     //projection on segments
-    x=[xp(ki) xp(ki+1)]
-    y=[yp(ki) yp(ki+1)]
-    dx=x(:,2)-x(:,1)
-    dy=y(:,2)-y(:,1)
-    d_d=dx.^2+dy.^2
-    d_x=( dy.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dx.*(dx*pt(1)+dy*pt(2)))./d_d
-    d_y=(-dx.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dy.*(dx*pt(1)+dy*pt(2)))./d_d
-    xp=[xp;d_x]
-    yp=[yp;d_y]
+    x = [xp(ki) xp(ki+1)];
+    y = [yp(ki) yp(ki+1)];
+    dx = x(:,2)-x(:,1);
+    dy = y(:,2)-y(:,1);
+    d_d = dx.^2 + dy.^2 ;
+    d_x = ( dy.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dx.*(dx*pt(1)+dy*pt(2)))./d_d
+    d_y = (-dx.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dy.*(dx*pt(1)+dy*pt(2)))./d_d
+    xp  = [xp;d_x]
+    yp  = [yp;d_y]
   end
 
-  zzz=[ones(np,1);zeros(size(ki,'*'),1)]*eps
-  zz=[ones(np,1)*pereps;ones(size(ki,'*'),1)]
-  [d,k]=min(sqrt((xp-pt(1)).^2+(yp-pt(2)).^2).*zz-zzz) 
-  pt(1)=xp(k)
-  pt(2)=yp(k)
-  if k>np then ind=ki(k-np),else ind=-k,end
+  zzz = [ones(np,1) ; zeros(size(ki,'*'),1)] * eps
+  zz  = [ones(np,1)*pereps ; ones(size(ki,'*'),1)]
+  [d,k] = min(sqrt((xp-pt(1)).^2+(yp-pt(2)).^2).*zz - zzz) 
+  pt(1) = xp(k)
+  pt(2) = yp(k)
+  if k>np then ind=ki(k-np), else ind=-k, end
 endfunction
 
 //**-----------------------------------------------------------------------------------------
 
-function draw_link_seg(o,seg)
-  if o.thick(2)>=0 then
-    d=xget('dashes');thick=xget('thickness')
-    t=maxi(o.thick(1),1)*maxi(o.thick(2),1)
-    xset('thickness',t);xset('dashes',o.ct(1))
-    xpoly(o.xx(seg),o.yy(seg),'lines')
-    xset('dashes',d);xset('thickness',thick)
-  end
-endfunction
+//function draw_link_seg(o,seg)
+//  if o.thick(2)>=0 then
+//    disp("Warning: draw_link_seg"); 
+//    // d = xget('dashes');thick=xget('thickness')
+//    // t = maxi(o.thick(1),1)*maxi(o.thick(2),1)
+//    // xset('thickness',t);xset('dashes',o.ct(1))
+//    // xpoly(o.xx(seg),o.yy(seg),'lines')
+//    // xset('dashes',d);xset('thickness',thick)
+//  end
+// endfunction
 

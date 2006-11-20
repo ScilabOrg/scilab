@@ -1,6 +1,7 @@
 function [palettes,windows] = do_palettes(palettes,windows)
 //** 19 Jan 2006 
-//** 26 Jun 2006 
+//** 26 Jun 2006
+//** 22 Aug 2006  
 //** Comments and mods by Simone Mannori 
 //**
 //      Copyright INRIA
@@ -12,10 +13,9 @@ function [palettes,windows] = do_palettes(palettes,windows)
   //** if no Palette are choosen the exit 
   if kpal==0 then return,end
 
-  lastwin = curwin ; //** save the current graphic window id 
+  lastwin = curwin ; //** save the current graphic window_id 
   
-  winpal = find(windows(:,1)==-kpal) 
-  
+  winpal = find(windows(:,1)==-kpal) ; //** look for the winid of the selected palette 
   
   //** First level protection 
   if winpal<>[] then
@@ -28,7 +28,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
   end
 
   //** Second level protection
-  if winpal==[] then  //selected palettes isnt loaded yet
+  if winpal==[] then  //selected palettes isn't loaded yet
     curwin = get_new_window(windows)
     
     if or(curwin==winsid()) then
@@ -43,20 +43,17 @@ function [palettes,windows] = do_palettes(palettes,windows)
   
   else //selected palettes is already loaded 
   
-    curwin=windows(winpal,2)
+    curwin = windows(winpal,2) ; 
   
   end
     
   //
-  // xset('window',curwin),
-  
+  //** xset('window',curwin),
   gh_current_window = [];
   gh_current_window = scf(curwin) ; //** open a graphic window and get the handler
   gh_curwin = gh_current_window   ;
   gh_palette = gh_curwin          ;
   
-  //** gh_palette.pixmap = "on" ; <------- //** eliminato perche' NON funziona ! 
-
   //** delete the unuseful menu options 
 
   if ~MSDOS then
@@ -80,11 +77,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
   end
   
   xselect(); //** rise the current graphics window 
-  
-  //** obsolete, removed
-  //** xset('alufunction',3) //** copy mode 
-  //** if pixmap then xset('pixmap',1),end,xbasc();
-  
+ 
   //**-------------------------------------------------------
   rect = dig_bound(palettes(kpal));
   if rect==[] then rect=[0 0 400,600],end
@@ -131,7 +124,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
 
 //  xsetech(wrect=[0 0 1 1] ; frect=rect, arect=[1 1 1 1]/32 ) ; 
 
-  wrect=[0 0 1 1] ; //** default value 
+  wrect = [0 0 1 1] ; //** default value 
   frect = [rect(1) rect(2) ; rect(3) rect(4)] ; //** vector to matrix conversion       ; 
   arect = [1 1 1 1] / 32 ; //** 1/32 of margin  
 
@@ -143,54 +136,19 @@ function [palettes,windows] = do_palettes(palettes,windows)
   
   gh_pal_axes.margins     = arect ; //** arect
  
-
-//** eliminating the load / save 
-
-  // graph=TMPDIR+'/'+scicos_pal(kpal,1)+'.pal'
-
-  //Check if the graph file exists
-  // [u,ierr]=file('open',graph,'old')
-  /// if u<>[] then file('close',u);end
-
-  // if ierr<>0 then
+  options = palettes(kpal).props.options
     
-    options = palettes(kpal).props.options
-    
-    // set_background()
-    //** I switch to the direct acces 
-    gh_palette.background = options.Background(1) ; //** "options" is sub structure of scs_m  
-    
-    
-    if ~set_cmap(palettes(kpal).props.options('Cmap')) then 
-	    palettes(kpal).props.options('3D')(1)=%f //disable 3D block shape 
-    end
-    
-    // drawlater();
-    
-      drawobjs( palettes(kpal)); //** draw all the object of the palettes 
-    
-    // drawnow();
-    
-    // show_pixmap();  
+  // set_background()
+  //** I switch to the direct acces 
+  gh_palette.background = options.Background(1) ; //** "options" is sub structure of scs_m  
+     
+  if ~set_cmap(palettes(kpal).props.options('Cmap')) then 
+       palettes(kpal).props.options('3D')(1)=%f //disable 3D block shape 
+  end
+        
+  drawobjs( palettes(kpal)); //** draw all the object of the palettes 
       
-      
-    //** if pixmap then xset('wshow'),end
-
-
-//** eliminating the load / save 
-  // xsave(graph)
-  // else
-  //  xload(graph)
-  // xname(palettes(kpal).props.title(1))
-  //
-  // end
-  
-  
   xinfo('Palette: may be used to copy  blocks or regions')  
-  
-  //** if pixmap then xset('wshow'),end
-
-  //** xset('window',lastwin)
   
   set ("current_figure" , lastwin ); //** new graphic 
 

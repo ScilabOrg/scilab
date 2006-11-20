@@ -21,15 +21,11 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
 //
 //  
   ok = %t
-  
-  //** obsolete removed :
-  //** alu = xget('alufunction')
-  
+ 
   wins = curwin
   
-  //** obsolete removed : set the xor mode for the current window 
-  // xset('window',win
-  // xset('alufunction',6)
+  // xset('window',win)
+  scf(win);
   
   reg = list(); rect = []
   
@@ -59,9 +55,7 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
 
   
   [ox, oy, w, h, ok] = get_rectangle(xc,yc) ; //** <-- key function !
-  
-  disp("x_1");
-  
+
   if ~ok then
      prt = [];
      rect = [];
@@ -70,9 +64,6 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
 
   [keep,del] = get_blocks_in_rect(scs_m,ox,oy,w,h); //** see file "get_blocks_in_rect.sci" 
   // keep:objects in the region ,del :object outside the region
-
-  // disp("take a look at the object :") ; pause
-  
   
   for bkeep=keep
 
@@ -103,8 +94,8 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
   rect = [ox,oy-h,w,h]
 
   // xset('window',wins)
-  // xset('alufunction',alu)
-
+  scf(wins); 
+  
   nin   = 0
   nout  = 0
   ncin  = 0
@@ -226,5 +217,5 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
     reg.objs(nreg+2)=lk
     reg.objs(k1)=o1
   end
-  reg=do_purge(reg)
+  reg = do_purge(reg)
 endfunction

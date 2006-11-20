@@ -16,16 +16,22 @@ function [%pt,scs_m,needcompile] = do_delete(%pt,scs_m,needcompile)
          return ;
   end
 
-  needreplay = replayifnecessary();
-  scs_m_save = scs_m,nc_save=needcompile;
+  needreplay = replayifnecessary() ;
+  scs_m_save = scs_m               ;
+  nc_save = needcompile            ;
   
   [scs_m,DEL] = do_delete1(scs_m,K,%t);
-  //** I'm here :)
   
+  //** 28 Aug 2006: Defused :)
   //** WARNING! : potentially dangerous code here : can ruin the coherence !
-  //**            it not create problema because is impossible to manipoulate
+  //**            it not create problems because is impossible to manipoulate
   //*             deleted object (that results as negative gh_ datastructure 
   //**            index  
+  //** 28 Aug 2006: I fixed thi potential problems using the standard mechanism
+  //**              to update the graphics datastructure: now the coherency is 
+  //**              re-estabilished (La-Li-Lu-Le-Lo). 
+  
+  gh_curwin = gh_current_window ; //** acquire the current window handler
   
   
   if DEL<>[] then //** if any object ha been deleted .....
@@ -33,10 +39,14 @@ function [%pt,scs_m,needcompile] = do_delete(%pt,scs_m,needcompile)
     needcompile = 4 ; //** signal to the compiler 
     
     //suppress right-most deleted elements
+    //** while ("the last elements of "scs_m.objs" is 'Deleted' type ....
     while getfield(1,scs_m.objs($)) == 'Deleted' then
       
-      scs_m.objs($) = null();
+      scs_m.objs($) = null(); //** erase the 'Deleted' elements from scs_m.objs
       
+      gh_object_to_delete = gh_curwin.children.children(1); //** the top element
+      delete(gh_object_to_delete) ; //** delete the elements from the graphics datastructure 
+                                    //** in order to mantain the coherency 
       if lstsize(scs_m.objs)==0 then
            break
       end

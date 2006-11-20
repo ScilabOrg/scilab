@@ -1,24 +1,27 @@
 function Paste_()
 //** INRIA 
 //** 
+  //** if I am in the current window and the cursor informationa are valid 
   if %win == curwin & %ppt<>[] then
     
+    drawlater(); 
+    //** if is a "Block" or a "Text"
     if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
     
-      //** Old graphics
       //** xset("window",curwin)
       scf(curwin);
        
-      scs_m_save = scs_m,nc_save=needcompile
+      scs_m_save = scs_m,nc_save = needcompile ;
       
       blk = Clipboard
       blk.graphics.orig = %ppt
       scs_m.objs($+1) = blk
-        drawobj(blk); //** <---
+        drawobj(blk); //** draw the single object 
       edited = %t
       enable_undo = %t
-      Select = [size(scs_m.objs),%win]
+      Select = [size(scs_m.objs),%win];
     
+    //** if is a full diagram
     elseif  typeof(Clipboard)=='diagram' then
       reg = Clipboard;
       Clipboard = list()  // region is not persistent
@@ -32,6 +35,7 @@ function Paste_()
 	xc = %ppt(1),yc=%ppt(2)
 	rect = dig_bound(reg)
 	
+	//** scann all the obj of the diagram to paste 
 	for k=1:size(reg.objs)
 	  o = reg.objs(k)
 	  

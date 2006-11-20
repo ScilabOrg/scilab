@@ -1,64 +1,101 @@
 function [scs_m,needcompile] = do_copy_region(scs_m,needcompile,%pt)
 //  Copyright INRIA
-//** 28 June 2006 
+//** 28 June 2006
+//** 19 July 2006  
   
   xc = %pt(1) ; yc = %pt(2);
   
-  win = %win
+  win = %win ;
   
-  disablemenus()
+  disablemenus() ; 
   
-  [reg,rect] = get_region(xc,yc,win)
+  [reg,rect] = get_region(xc,yc,win) ; //** acquire the geometric region 
 
-  if rect==[] then enablemenus();return,end
+  if rect==[] then enablemenus(); return, end ; //** EXIT point 
   
-  modified = length(reg)>1
+  modified = length(reg)>1 ; 
 
 
   xinfo('Drag to destination position and click (left to fix, right to cancel)')
   
-
-  
   yc = yc-rect(4)  
   //** dr = driver()
   //** if dr=='Rec' then driver('X11'),end
-  pat = xget('pattern')
+  //** pat = xget('pattern')
   
-  xset('pattern',default_color(0))
+  //** xset('pattern',default_color(0))
   
   //move loop
-  rep(3) = -1 ;
-  while rep(3)==-1 then 
-    // draw block shape
-    xrect(xc,yc+rect(4),rect(3),rect(4))
-    //** if pixmap then xset('wshow'),end
-    
-    // get new position
-    rep=xgetmouse()
-    
-    if rep(3)==-100 then //active window has been closed
-    //**  driver(dr);
-      [%win,Cmenu]=resume(curwin,'Quit')
-    end
-    // erase block shape
-    
-    xrect(xc,yc+rect(4),rect(3),rect(4))
-    
-    //** if pixmap then xset('wshow'),end
-    xc = rep(1);yc=rep(2)
-    xy = [xc,yc];
-  end //... while ()
+  
+  [x_topleft, y_topleft] = (xc , yc )
+
+  rub_width  = 0 ;
+  rub_height = 0 ;
+
+  //** [x_left, y_top, width, height]
+
+  [final_rect, button] = rubberbox([xc; yc; rub_width; rub_height]) ;
+
+ if button == [2 5 12 -100] then // right button exit 
+    ok = %f ;                    // OR active window has been closed
+    return ; //** ---> Exit point 
+ end
+
+
+ //** final_rect: a rectangle defined by [x_left, y_top, width, height] 
+ x_left = final_rect(1) ; 
+ y_top  = final_rect(2) ; 
+ wid    = final_rect(3) ; 
+ hei    = final_rect(4) ; 
+
+ 
+  // rep(3) = -1 ;
+  // while rep(3)==-1 then 
+  //  // draw block shape
+  //  xrect(xc,yc+rect(4),rect(3),rect(4))
+  //  //** if pixmap then xset('wshow'),end
+  //  
+  //  // get new position
+  //  rep=xgetmouse()
+  //  
+  //  if rep(3)==-100 then //active window has been closed
+  //  //**  driver(dr);
+  //    [%win,Cmenu]=resume(curwin,'Quit')
+  //  end
+  //  // erase block shape
+  //  
+  //  xrect(xc,yc+rect(4),rect(3),rect(4))
+  //  
+  //  //** if pixmap then xset('wshow'),end
+  //  xc = rep(1);yc=rep(2)
+  //  xy = [xc,yc];
+  /// end //... while ()
   
   if xget('window')<>curwin then
     //active window has been closed
     [%win,Cmenu] = resume(curwin,'Quit')
   end
 
-  //** driver(dr);
-  xset('pattern',pat)
   
+  rep(3) = -1 ;
+  while rep(3)==-1 then 
+    // get new position
+    rep = xgetmouse()
+    if rep(3)==-100 then //active window has been closed
+      [%win,Cmenu]=resume(curwin,'Quit')
+    end
+    xc = rep(1);yc=rep(2)
+    xy = [xc,yc];
+  end //... while ()
+  
+  //** 
   if or(rep(3)==[2 5]) then enablemenus();return,end
-
+    
+  xc = rep(1) ; yc=rep(2); 
+  xy = [xc,yc];
+  
+  
+  
   scs_m_save = scs_m,nc_save = needcompile
   n = lstsize(scs_m.objs)
   

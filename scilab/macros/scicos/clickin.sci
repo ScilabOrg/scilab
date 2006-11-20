@@ -1,55 +1,90 @@
 function [o,modified,newparameters,needcompile,edited]=clickin(o)
-//  o             : structure of clicked object, may be modified
-//  modified      : boolean, indicates if simulation time parameters
-//                  have been changed
-//  newparameters : only defined for super blocks, gives pointers to
-//                  sub-blocks for which parameters or states have been changed
-//  needcompile   : indicates if modification implies a new compilation
 //!
 // Copyright INRIA
+//
+//  o             : structure of clicked object, may be modified
+//
+//  modified      : boolean, indicates if simulation time parameters
+//                  have been changed
+//
+//  newparameters : only defined for super blocks, gives pointers to
+//                  sub-blocks for which parameters or states have been changed
+//
+//  needcompile   : indicates if modification implies a new compilation
+//
+//  
 
-if needcompile==4 then %cpr=list(),end  // for standard_document to work
+if needcompile==4 then
+      %cpr=list()
+end  // for standard_document to work
 
-modified=%f;newparameters=list();needcompile=0;
-Cmenu=check_edge(o,Cmenu,%pt)
+modified = %f; newparameters = list(); needcompile = 0;
+
+Cmenu = check_edge(o,Cmenu,%pt); 
+
 if Cmenu==('Link') then
   //we have clicked near a port
-  [Cmenu]=resume('Link')
+  [Cmenu] = resume('Link')
 end
 
+//**---------------------------------------------------------------------
 if typeof(o)=='Block' then  
+  //** ----------------------------- Block ------------------------------
+  
+  //**------------------- SuperBlock ------------------------------------
   if o.model.sim=='super' then
-    lastwin=curwin
-    curwin=get_new_window(windows)
-    xset('window',curwin)
-    execstr('scs_m_'+string(slevel)+'=scs_m')
-    execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)')
+    
+    lastwin = curwin; // save the current window
+    
+    curwin = get_new_window(windows)
+    
+    //** xset('window', curwin); 
+    
+    gh_curwin = scf(curwin); 
+    
+    execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
+    
+    //** Inside the 'set' section of 'scicos_blocs/Misc/SUPER_f.sci' there is a recursive call
+    //** at 'scicos' with the sub->scs_m as parameter 
+    execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)') ; //** ???
+    
     //edited variable is returned by SUPER_f -- NO LONGER TRUE
     if ~%exit then
-      edited=diffobjs(o,o_n)
+      edited = diffobjs(o,o_n)
+      
       if edited then
-	o=o_n
-	modified=prod(size(newparameters))>0
+	o = o_n
+	modified = prod( size(newparameters) )>0
       end
+    
     end
     
-    curwin=lastwin
-    if(~(or(curwin==winsid()))) then Cmenu=resume('Open/Set');end
-    xset('window',curwin)
-    xselect()
+    curwin = lastwin
+    if (~(or(curwin==winsid()))) then
+          Cmenu = resume('Open/Set');
+    end
+    
+    //** xset('window',curwin)
+    //** xselect()
+    gh_curwin = scf(curwin); 
+  
+  //**-------------------- C superblock ??? -----------------------------  
   elseif o.model.sim=='csuper' then
     execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)')
-    modified=prod(size(newparameters))>0
-    edited=modified
+    modified = prod(size(newparameters))>0
+    edited = modified
     if edited then
-      o=o_n
+      o = o_n
     end
+  
+  //**--------------------- Standard block -------------------------------  
   else
-    execstr('o_n='+o.gui+'(''set'',o)')
-    edited=or(o<>o_n)
+  
+    execstr('o_n='+o.gui+'(''set'',o)') ;
+    edited = or(o<>o_n) ;
     if edited then
-      model=o.model
-      model_n=o_n.model
+      model = o.model
+      model_n = o_n.model
       if ~is_modelica_block(o) then
 	modified=or(model.sim<>model_n.sim)|..
 		 ~isequal(model.state,model_n.state)|..
@@ -103,11 +138,14 @@ if typeof(o)=='Block' then
       o=o_n
     end
   end
+//**---------------------- Link -------------------------------------------------
 elseif typeof(o)=='Link' then  
-  [Cmenu]=resume('Link')
+  [Cmenu] = resume('Link')
+//**---------------------- Text -------------------------------------------------  
 elseif typeof(o)=='Text' then
-  execstr('o_n='+o.gui+'(''set'',o)')
-  edited=or(o<>o_n)
-  o=o_n
+  execstr('o_n='+o.gui+'(''set'',o)') ;
+  edited = or(o<>o_n) ; 
+  o = o_n ; 
 end
+
 endfunction

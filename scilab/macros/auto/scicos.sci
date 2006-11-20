@@ -1,4 +1,7 @@
 function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
+//** INRIA
+//** 
+//** 20 dec 2005: Code modified by Simone Mannori 
 //** 06 Feb 2006 : restart of the mods job :
 //** 
 //** 22 May 2006 : New restart
@@ -7,6 +10,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 //**
 //** 10 Jul 2006 : looking for a residual oldgraphics instruction 
 //**
+//**  1 Set 2006 : SCICOS menu sub-system
 //** Comments & mods by Simone Mannori
 //** 
 //**----------------------------------------------------------------------------------------
@@ -22,82 +26,118 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 //--------------------------------------------------------------------------------------------
 // Copyright INRIA
 
-//** 20 dec 2005: Code modified by Simone Mannori 
+//** Check for Scilab "command line mode" that does not support SCICOS 
+noguimode = find(sciargs()=="-nogui");
+if (noguimode <>[]) then
+   clear noguimode
+   warning(" Scilab in no gui mode : Scicos unavailable");
+   abort;
+end;
 
-	noguimode=find(sciargs()=="-nogui");
-	if (noguimode <>[]) then
-	 clear noguimode
-	 warning(" Scilab in no gui mode : Scicos unavailable");
-	 abort;
-	end;
-	clear noguimode
+clear noguimode
 
-    [lhs,rhs] = argn(0) ;
+[lhs,rhs] = argn(0) ;
 
 //** ----------------------------- Check the recurring calling level of scicos_new -------------------------------
   
-  //check if superblock editing mode
-  [%ljunk,%mac] = where()
-  slevel = prod ( size ( find ( %mac=='scicos') ) )
-  super_block = slevel > 1
+//check if superblock editing mode
+[%ljunk, %mac] = where() ; //** where I am ? 
+                  //** looking for the position inside the tree
+slevel = prod ( size ( find ( %mac=='scicos') ) ) ; //** "slevel" is the superblock level 
+super_block = slevel > 1 ; //** ... means that the actual SCICOS is a superblock diagram 
 
-
+//**----------------------------------------------------------------------------------------------------------------------------------------------------------
+//** Check about the initialization of the SCICOS internal datastructures that require init in case of 
 if ~super_block then   
-  // TO BE REMOVED LATER
-  [scicos_pal,%scicos_menu,%scicos_short,%scicos_help, %scicos_display_mode,modelica_libs,scicos_pal_libs] = initial_scicosnew_tables() ;
-   //
 
-  // define scicos libraries
+  //**-----------------------------------------------------------------------------------------------------------------------------------------
+  // Check and define SCICOS palette , menu , shortcut , display mode , palette libraries 
   if exists('scicos_pal')==0 | exists('%scicos_menu')==0 | exists('%scicos_short')==0 | exists('%scicos_display_mode')==0| exists('scicos_pal_libs')==0 then 
-    [scicos_pal_0,%scicos_menu_0,%scicos_short_0,%scicos_help_0, %scicos_display_mode_0,modelica_libs_0,scicos_pal_libs_0]=initial_scicos_tables()
+    
+    [scicos_pal_d, %scicos_menu_d, %scicos_short_d, %scicos_help_d, %scicos_display_mode_d, modelica_libs_d, scicos_pal_libs_d] = initial_scicos_tables() ;
     
     if exists('scicos_pal')==0 then
       x_message(['scicos_pal not defined'; 'using default values'])
-      scicos_pal=scicos_pal_0
+      scicos_pal = scicos_pal_d ;
     end
     
     if exists('%scicos_menu')==0 then
       x_message(['%scicos_menu not defined'; 'using default values'])
-      %scicos_menu=%scicos_menu_0
+      %scicos_menu = %scicos_menu_d ;
     end
     
     if exists('%scicos_short')==0 then
       x_message(['%scicos_short not defined'; 'using default values'])
-      %scicos_short=%scicos_short_0
+      %scicos_short = %scicos_short_d ;
     end
     
     if exists('%scicos_help')==0 then
       x_message(['%scicos_help not defined'; 'using default values'])
-      %scicos_help=%scicos_help_0
+      %scicos_help = %scicos_help_d ;
     end
     
     if exists('%scicos_display_mode')==0 then
       x_message(['%scicos_display_mode not defined'; 'using default values'])
-      %scicos_display_mode=%scicos_display_mode_0
+      %scicos_display_mode = %scicos_display_mode_d ;
     end
     
     if exists('modelica_libs')==0 then
       x_message(['modelica_libs not defined'; 'using default values']) 
-      modelica_libs=modelica_libs_0
+      modelica_libs = modelica_libs_d ;
     end
     
     if exists('scicos_pal_libs')==0 then
       x_message(['scicos_pal_libs not defined'; 'using default values']) 
-      scicos_pal_libs=scicos_pal_libs_0
+      scicos_pal_libs = scicos_pal_libs_d ;
     end
-  end
-//**-------------------------------------------------------------------------------------------------------------------------------------------------------  
+  
+  end //** ... of the initialization variable 
+  //**---------------------------------------------------------------------------------------------------------------------------------  
+   
+  //** 'CmenuTypeOneVector' store the list of the commands/function to be colled  that require both 'Cmenu' AND '%pt'
+  // menus of type 1 (require %pt)
+   CmenuTypeOneVector =.. 
+     ['Region to Super Block', 'Click, drag region and click (left to fix, right to cancel)'        ;
+      'Smart Move',            'Click object to move, drag and click (left to fix, right to cancel)';
+      'Move',                  'Click object to move, drag and click (left to fix, right to cancel)';
+      'Duplicate',             'Click on the object to duplicate, drag, click (left to copy, right to cancel)';
+      'Duplicate Region',      'Duplicate Region: Click, drag region, click (left to fix, right to cancel)'; 
+      'Replace',               'Click on new object , click on object to be replaced'; 
+      'Align',                 'Click on an a port , click on a port of object to be moved'; 
+      'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel'; 
+      'Delete',                'Delete: Click on the object to delete'; 
+      'Delete Region',         'Delete Region: Click, drag region and click (left to delete, right to cancel)'; 
+      'Flip',                  'Click on block to be flipped'      ; 
+      'Open/Set',              'Click to open block or make a link'; 
+      'MoveLink',              ''                                  ;
+      'SelectLink',            ''                                  ;
+      'CtrlSelect',            ''                                  ;
+      'SelectRegion',          ''                                  ;
+      'Popup',                 ''                                  ;
+      'Label',                 'Click block to label';
+      'Get Info',              'Click on object  to get information on it';
+      'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
+      'Icon',                  'Click on block to edit its icon';
+      'Color',                 'Click on object to paint';
+      'Help',                  'Click on object or menu to get help'
+      'Identification',        'Click on an object to set or get identification';
+      'Resize',                'Click block to resize';
+      'Block Documentation',   'Click on a block to set or get it''s documentation'
+     ]
+  //
 
+  //**--------------------------------------------------------------------------------------
+  
+  //** initialize the "scicos_contex" datastructure (Scilab script inside SCICOS simulation)
   if ~exists('%scicos_context') then
-    %scicos_context=struct()
+    %scicos_context = struct() ; 
   end
   
-//**--------------------------------------------------------------------------------------------------------------------------------------------------------  
-  
+  //**--------------------------------------------------------------------------------------  
+
   //intialize lhb menu
- 
- %scicos_lhb_list = list()
- %scicos_lhb_list(1) = list('Open/Set',..
+  %scicos_lhb_list = list()
+  %scicos_lhb_list(1) = list('Open/Set',..
 			  'Cut',..
 			  'Copy',..
 			  'Smart Move'  ,..
@@ -120,56 +160,22 @@ if ~super_block then
 			  'Code Generation',..
 			  'Help'); 
 			  
- %scicos_lhb_list(2)=list('Undo','Paste','Palettes','Context','Add new block',..
+   %scicos_lhb_list(2)=list('Undo','Paste','Palettes','Context','Add new block',..
 			  'Duplicate Region','Delete Region','Region to Super Block',..
 			  'Replot','Save','Save As',..
 			  'Load','Export','Quit','Background color','Aspect',..
 			  'Zoom in',  'Zoom out','Help');
  
- %scicos_lhb_list(3)=list('Copy','Duplicate','Duplicate Region','Help');
+   %scicos_lhb_list(3)=list('Copy','Duplicate','Duplicate Region','Help');
  
- 
- // menus of type 1 (require %pt)
- CmenuTypeOneVector =.. 
-     ['Region to Super Block',' Click, drag region and click (left to fix, right to cancel)';
-      'Smart Move','Click object to move, drag and click (left to fix, right to cancel)';
-      'Move','Click object to move, drag and click (left to fix, right to cancel)';
-      'Duplicate','Click on the object to duplicate, drag, click (left to copy, right to cancel)';
-      'Duplicate Region','Duplicate Region: Click, drag region, click (left to fix, right to cancel)'; 
-      'Replace','Click on new object , click on object to be replaced'; 
-      'Align','Click on an a port , click on a port of object to be moved'; 
-      'Link','Click link origi-n, drag, click left for final or intermediate points or right to cancel'; 
-      'Delete','Delete: Click on the object to delete'; 
-      'Delete Region','Delete Region: Click, drag region and click (left to delete, right to cancel)'; 
-      'Flip','Click on block to be flipped'; 
-      'Open/Set','Click to open block or make a link'; 
-      'MoveLink','';
-      'SelectLink','';
-      'CtrlSelect','';
-      'SelectRegion','';
-      'Popup','';
-      'Label', 'Click block to label';
-      'Get Info','Click on object  to get information on it';
-      'Code Generation','Click on a Superblock (without activation output) t"+...
-      "o obtain a coded block!';
-      'Icon', 'Click on block to edit its icon';
-      'Color', 'Click on object to paint';
-      'Help', 'Click on object or menu to get help'
-      'Identification','Click on an object to set or get identification';
-      'Resize','Click block to resize';
-      'Documentation','Click on a block to set or get it''s documentation'
-     ]
-  //
-
  if exists('scicoslib')==0 then 
    load('SCI/macros/scicos/lib') ; //** load all the libraries relative to the palettes  
  end
  
  exec(loadpallibs,-1) // to load the palettes libraries
  
- end
+end //** end of the main if() not superblock 
 //** ------------------------------------ End the NOT-Superbloc initialization and check ----------------------------------------
-
 
 scicos_ver = 'scicos4' // set current version of scicos
 
@@ -185,26 +191,25 @@ needreplay = %f
 
 global %tableau  
 
-if ~super_block then // global variables
-  %zoom = 1.4
-  pal_mode=%f // Palette edition mode
+if ~super_block then // init of some global variables
+  %zoom    = 1.4      ; //** original value by Ramine  
+  pal_mode = %f       ;  // Palette edition mode
 //  newblocks=[] // table of added functions in pal_mode
   super_path=[] // path to the currently opened superblock
 
-  scicos_paltmp=scicos_pal ;
+  scicos_paltmp = scicos_pal ;
   
   if execstr('load(''.scicos_pal'')','errcatch')==0 then
-    scicos_pal=[scicos_paltmp;scicos_pal]
-    [%junk,%palce]=gunique(scicos_pal(:,2))
-    %palce=-sort(-%palce);
-    scicos_pal=scicos_pal(%palce,:);
+    scicos_pal = [scicos_paltmp;scicos_pal]
+    [%junk,%palce] = gunique(scicos_pal(:,2))
+    %palce = -sort(-%palce);
+    scicos_pal = scicos_pal(%palce,:);
   end
 
   execstr('load(''.scicos_short'')','errcatch')  // keyboard shortcuts
 
 end
 //
-
 
 //** --- Temp assignements to move to the new graphics  
 global gh_Main_Scicos_window; //** 
@@ -234,7 +239,9 @@ if rhs>=1 then //** scicos_new(...) is called with some arguments
   end
 
 else //** scicos_new() is called without arguments (AND - implicitly - is NOT a superblock)
-//**----------- Normal : not a superblock -----------------  
+//** ----------- Normal : not a superblock -----------------  
+//** ------------- NORMAL OPENING OF A BRAND NEW GRAPHICS WINDOW--------------------------------
+
   gh_Main_Scicos_window = scf(Main_Scicos_window); //** new way to open a brand new graphics windows  
   
   scs_m = scicos_diagram() ;
@@ -247,39 +254,47 @@ end
 
 if typeof(scs_m)<>'diagram' then error('first argument must be a scicos diagram'),end
 
-%cor_item_exec=[];
 
+//**-------------------------------------------------------------------------------------------
+//** Dynamic menu preparation
+//** 
+%cor_item_exec = []; //** init 
+
+//** scan all the "%scicos_menu" an load "%cor_item_exec" ; dispose the first string (2:$) because
+//** is the name of the dynamic menu 
 for %Y=1 : length(%scicos_menu)
-  %cor_item_exec=[%cor_item_exec,%scicos_menu(%Y)(2:$)];
+  %cor_item_exec = [%cor_item_exec, %scicos_menu(%Y)(2:$)] ;
 end
 
-%cor_item_exec = %cor_item_exec';
+%cor_item_exec = %cor_item_exec'; //** transpose the vector 
 %R = %cor_item_exec; 
-%R = stripblanks(%R)+'_'
-%R = strsubst(%R,'/','')
-%R = strsubst(%R,' ','')
-%R = strsubst(%R,'.','')
-%R = strsubst(%R,'-','');
-%cor_item_exec = [%cor_item_exec, %R];
+%R = stripblanks(%R)+'_' ; //** delete all the blanks and add an underscore at the end "Save As PAlette" -> "SaveAsPalette_" 
+%R = strsubst(%R,'/','') ; //** delete "/"
+%R = strsubst(%R,' ','') ; //** delete " " 
+%R = strsubst(%R,'.','') ; //** delete "."
+%R = strsubst(%R,'-','') ; //** delete "-"
+%cor_item_exec = [%cor_item_exec, %R]; //** create the two column matrix [<MenuName> <FunctionToCall>]
 
-//add fixed menu items not visible 
-%cor_item_exec=[%cor_item_exec;
-		'MoveLink','MoveLink_';
-		'SelectLink','SelectLink_';
-		'CtrlSelect','CtrlSelect_';
-		'SelectRegion','SelectRegion_';
-	       'Popup','Popup_'];
+// add fixed menu items not visible 
+%cor_item_exec = [%cor_item_exec;
+                  'Link'        , 'Link_'         ;
+		  'Open/Set'    , 'OpenSet_'      ;
+		  'MoveLink'    , 'MoveLink_'     ;
+		  'SelectLink'  , 'SelectLink_'   ;
+		  'CtrlSelect'  , 'CtrlSelect_'   ;
+		  'SelectRegion', 'SelectRegion_' ;
+	          'Popup'       , 'Popup_'       ];
 
 menus = tlist('xxx')
 
 for %Y=1:length(%scicos_menu)
-  menus(1)=[menus(1),%scicos_menu(%Y)(1)];
-  menus($+1)=%scicos_menu(%Y)(2:$); 
+  menus(1)  = [menus(1), %scicos_menu(%Y)(1)];
+  menus($+1)= %scicos_menu(%Y)(2:$); 
 end
 
 for %Y=1:length(%scicos_menu)
-  %R= %scicos_menu(%Y);
-  %w='menus('''+%R(1)+''')('+ string(1:(size(%R,'*')-1)) + ')';
+  %R = %scicos_menu(%Y);
+  %w = 'menus('''+%R(1)+''')('+ string(1:(size(%R,'*')-1)) + ')';
   execstr(%R(1)+ '=%w;');
 end
 
@@ -326,7 +341,7 @@ if ~super_block then
     
      if MSDOS then
          mpopup = tk_mpopup
-      else
+     else
          mpopup = tk_mpopupX
      end
     
@@ -337,21 +352,26 @@ if ~super_block then
      funcprot(0);
      getcolor = tk_getcolor;
      funcprot(1);
+  
   else
+    
     deff('x=getfile(varargin)','x=xgetfile(varargin(1:$))');
     savefile = getfile;
     deff('Cmenu=mpopup(x)','Cmenu=[]')
     deff('x=choose(varargin)','x=x_choose(varargin(1:$))');
-  end
+  
+  end //** of %scicos_gui_mode==1
 //
 else //** super blok case 
-  noldwin = size(windows,1)
-  windows = [windows;slevel curwin]
-  palettes = palettes;
-end
+  
+  noldwin = size(windows,1)           ;
+  windows = [windows ; slevel curwin] ;
+  palettes = palettes                 ;
 
+end //** end of not superblock 
 
 //** --------------------------------------- GRAPHICS INITIALIZATION -----------------------------------
+//** This section is executed in any case
 //   initialize graphics
 
 clf(); //** clear current graphic window and delete all his children 
@@ -369,21 +389,23 @@ pwindow_set_size() //** phisical window set size --> ok
 
 window_set_size()  //** virtual window set sixe --> ok 
 
+//** Add the "_" character at the end of menu to call the corresponding function 
 for %Y=1:length(%scicos_menu)
-    execstr( %scicos_menu(%Y)(1)+'_'+string(curwin)+'='+%scicos_menu(%Y)(1))
+    execstr( %scicos_menu(%Y)(1)+'_'+string(curwin)+'='+%scicos_menu(%Y)(1) )
 end
 
-menu_stuff() //** delete the default menus in the graphics window
+menu_stuff(); //** delete the default menus in the graphics window and
+              //** create the SCICOS menu using the 'menus' data structure
+	      //** and the macro "
 
 //** The expandend superblock windows does not have the [stop] simulation button 
 if ~super_block then
-  delmenu (curwin,'stop')
-  addmenu (curwin,'stop',list(1,'haltscicos'))
-  unsetmenu(curwin,'stop')
+  delmenu (curwin,'stop')  ; 
+  addmenu (curwin,'stop', list(1,'haltscicos')) ;
+  unsetmenu(curwin,'stop') ;
 else
-  unsetmenu(curwin,'Simulate')
+  unsetmenu(curwin,'Simulate') ;
 end
-
 
 //** ----------------------------------------------------------------------------------------------
 
@@ -450,9 +472,14 @@ Cmenu = [];
 %win = curwin;
 
 //state machine variables windowish behavior
+//** 'Select' 'Select_back' are matrix; each line is [object_id win_id]; 'object_is" is the same INDEX of 'scs_m'
+//** and 'win_id" is the Scilab window id. Multiple selection is permitted.                            
 
-Select = [];
-Select_back=[];
+//** This kind of approach is too risky 
+//** global Select ; //** risky businnes here ;)
+           
+Select = []      ;
+Select_back = [] ;
 
 %ppt = [];
 
@@ -478,35 +505,39 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
     if ~or(Select(1,2) == winsid()) then Select=[],end
   end
   
-  [CmenuType,mess] = CmType(Cmenu);
+  [CmenuType, mess] = CmType(Cmenu);
+  
   //** clear the %pt information for backward compatibility 
-  if (  %pt <> [] & Cmenu == [] ) then %pt=[]; end 
+  
+  //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
+  if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end 
+  
+  //** if 'Cmenu' is NOT empty and 'CmenuType' is "i don't' need '%pt' then clear '%pt' 
   if ( Cmenu<> [] & CmenuType==0) then %pt=[]; end  
   
   // no argument needed
   if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
-       [%pt,%win]=get_selection(Select) //in case object selected
+       [%pt,%win] = get_selection(Select) //in case object selected
   end
 
   xinfo(mess);
+    
+  if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then 
+  //** I'm not ready to exec a command: I need more information  
   
-    if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then // need MORE information
+      [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <------
 
-      [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <-------------------
-           // disp("|*"); pause
       if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType == 1 & %pt==[] then
-           // disp ("|:") ; pause
-
-	   if %pt_n <> [] then %pt = %pt_n; end
+	   if %pt_n<>[] then %pt = %pt_n;     end
        else
          if Cmenu_n<>[] then Cmenu = Cmenu_n; end
-         if %pt_n <> [] then %pt = %pt_n; end
+         if %pt_n <> [] then %pt = %pt_n;     end
       end
       
       %win = win_n
       
-    else
-
+  else
+  //** I'm ready to exec a command 
       %koko = find( Cmenu==%cor_item_exec(:,1) );
 
       //**------------------------------------------------------
@@ -514,11 +545,12 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
       
         //** need carefull modification 
 
-        Select_back=Select;
+        Select_back = Select;
       
         //** ---------- For debugging purpose only ------------------
         exestring = "Executing ...... " + %cor_item_exec(%koko,2); //
-        disp(exestring)       ;                                    //
+        
+	disp(exestring)       ;                                    //
         //** --------------------------------------------------------
         //** Don't ever think to touch this line of code ;)
         execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
@@ -532,47 +564,59 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
 	//supprimer les doublons dans Select et select_back
 	
+	disp("Selection_Monitor:Select"); disp(Select);
+	disp("Selection_Monitor:Select_back"); disp(Select_back);
+	
 	if or(Select<>Select_back) then  
 	  // Select_back: objects to
 	  // unselect, Select :object to select
-	  selecthilite(Select_back, 'off') ; // update the image    
-	  selecthilite(Select, 'on') ;       // update the image
-	                                     //** hilite the selected object and update the data struct 
+	  drawlater(); 
+	    selecthilite(Select_back, 'off') ; // unHilite previous objects
+	    selecthilite(Select, 'on') ;       // Hilithe the actual sected object 
+ 	  drawnow(); show_pixmap() ; //** refresh, on screen  				      
 	end
 	
       else
      
          Cmenu=[]; %pt=[]
       
-      end
+      end //** a command to exec 
       //**-------------------------------------------------------
       
     end 
 
-end //** ---------------- end of the while loop ---------------------------------------------------------------
+end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
 
-do_exit()
+do_exit() ; //** this function is esecuted in case od 'Quit' command 
 
 endfunction
 
 //** ----------------------------------------------------------------------------------------------------------------   
 //*******************************************************************************************************************  
 
-function [itype,mess] = CmType(Cmenu)
+function [itype, mess] = CmType(Cmenu)
 
-  k=find (Cmenu == CmenuTypeOneVector(:,1));
-  if k==[] then itype=0;mess=''; return ; end
+  k = find (Cmenu == CmenuTypeOneVector(:,1));
+  
+  if k==[] then
+    itype=0;
+    mess='';
+    return ;
+  end
+  
   if size(k,'*')>1 then 
     message('Warning '+string( size(k,'*'))+' menus have identical name '+Cmenu);
     k=k(1);
   end
+  
   itype = 1
-  mess=CmenuTypeOneVector(k,2)
+  
+  mess = CmenuTypeOneVector(k,2)
 endfunction 
 
 //** ----------------------------------------------------------------------------------------------------------------
 
-function [x,k]=gunique(x)
+function [x,k] = gunique(x)
     [x,k]=gsort(x);
     keq=find(x(2:$)==x(1:$-1))
     x(keq)=[]
@@ -616,7 +660,7 @@ function selecthilite(Select, flag)  // update the image
     
   end //** end the for(..) loop 
   
-  drawnow(); show_pixmap(); 
+  //** drawnow(); show_pixmap(); 
     
   scf(gh_winback)
   

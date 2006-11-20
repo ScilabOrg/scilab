@@ -1,42 +1,54 @@
-function gh_blk = drawobj(o)
+function gh_blk = drawobj(o, gh_window)
 //
 // Copyright INRIA
 //!
 //** Comments by Simone Mannori 
 //
 //** 22 May 2006 : this function IS substantially different from the standard
-//**               SCICOS because came back
-//**               with the graphic handler of the object drawn 
-//
+//**               SCICOS because came back with the graphic handler of 
+//**               the compount that contains all the object(s) drawn. 
+//**
 //** 07 June 2006: adding of an empty box for the Select / HighLith operations 
 //**
-//** the code below is modified according the new graphics API
-//  
-  gh_blk = [] ; //** default value 
-  gh_curwin = gh_current_window ; 
+//** 22 Aug 2006: adding text support 
+//**  
+  
+  rhs = argn(2) ; //** get the number of right side arguments  
+  
+  if rhs==1 then //** without arguments (default) assume ... 
+     //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
+     gh_curwin = gh_current_window ; //** get the handle of the current graphics window     
+     
+  else //** the arguments is explicit 
+     //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
+     gh_curwin = gh_window ; //** get the handle of the current graphics window     
+
+  end  
+  
+  gh_blk = [] ; //** create the empty object value 
   
   if typeof(o)=='Block' then //** Block draw 
     //** ---------------------- Block -----------------------------
   
     o_size = size ( gh_curwin.children.children ) ; //** initial size
  
-      //** Block drawing works throught call (execstr) the block function 
-      ierr = execstr(o.gui+'(''plot'',o);','errcatch')
+    //** Block drawing works throught call (execstr) the block function
+    //** ... see "standard_draw" function  
+    ierr = execstr(o.gui+'(''plot'',o);','errcatch')
     
      [orig, sz, orient] = (o.graphics.orig, o.graphics.sz, o.graphics.flip) ;
      
-     //** orig = [0,0]
-     //** sz = [40,40]
+     //** Add the 'select' box and put it invisible, ready for 'Select' operation
      sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
      sel_w = sz(1)   ; sel_h = sz(2)   ;
        
       xrect(sel_x, sel_y, sel_w, sel_h);
-      gh_e = gce();
+      gh_e = gce()              ;
       gh_e.mark_background = -1 ;
       gh_e.mark_mode = "on"     ;
       gh_e.mark_style = 11      ;
       gh_e.line_mode="off"      ;
-      gh_e.visible = "off"      ;  
+      gh_e.visible = "off"      ; //** 
 
     p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
     //** aggregate the graphics entities
@@ -50,20 +62,19 @@ function gh_blk = drawobj(o)
     
   //** ---------- Link -------------------------------    
   elseif typeof(o)=='Link' then //** Link draw 
-    
-    //**  ------ Put the new graphics here --------------------------------
-    //**
+  
     o_size = size ( gh_curwin.children.children ) ; //** initial size
       
-        xpoly(o.xx, o.yy,'lines') ;
-        gh_e = gce();
+        xpoly(o.xx, o.yy,'lines')  ; //** draw the polyline "Link" 
+        gh_e = gce()               ;
         gh_e.thickness = maxi( o.thick(1) , 1) * maxi(o.thick(2), 1) ; //** thickness
-        gh_e.foreground = o.ct(1);         //** color
+        gh_e.foreground = o.ct(1)  ; //** color
 	gh_e.mark_style = 11       ;  
         gh_e.mark_mode = "off"     ;
+	
     p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
     //** aggregate the graphics entities
-    d_size =  p_size(1) - o_size(1) ;
+    d_size = p_size(1) - o_size(1) ;
     gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
      
   //** ---------- Deleted ----- CAUTION: also "Deleted object MUST be draw ! ----    
@@ -80,11 +91,12 @@ function gh_blk = drawobj(o)
     
     //**  ------ Put the new graphics here -----------
     //**
-    execstr(o.gui+'(''plot'',o)')
-  
+    o_size = size ( gh_curwin.children.children ) ; //** initial size
+       execstr(o.gui+'(''plot'',o)') ;
+    p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
+    //** aggregate the graphics entities
+    d_size =  p_size(1) - o_size(1) ;
+    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
   end //** of the main if  
-  
-  //** disp("gh_DataStructure --> "); //** debug only
-  //** disp( gh_curwin.children.children);
   
 endfunction
