@@ -24,7 +24,7 @@ extern int inttree4 _PARAMS((char *fname,unsigned long l));
 extern int intscicosimc _PARAMS((char *fname, unsigned long l));
 extern int intgetscicosvarsc _PARAMS((char *fname, unsigned long l));
 extern int intcurblkc _PARAMS((char *fname, unsigned long l));
-extern int intbuildouttb _PARAMS((char *fname));
+extern int intbuildouttb _PARAMS((char *fname, unsigned long l));
 /*-----------------------------------------------------------------------------------*/ 
 static intcscicosTable Tab[]={
   {inttimescicos,"scicos_time"},

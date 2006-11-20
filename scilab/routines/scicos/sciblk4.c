@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #include "../machine.h"
-#include "../os_specific/sci_mem_alloc.h"  /* malloc */
 #include "../stack-c.h"
 #include "scicos_block4.h"
 

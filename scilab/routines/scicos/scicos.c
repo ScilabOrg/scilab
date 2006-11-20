@@ -1022,6 +1022,13 @@ int C2F(scicos)(
     FREE(ihot);
     return;
   }
+
+  /* initialize array */
+  for ( jj = 0 ; jj < ng ; jj++ )
+  {
+    jroot[jj] = 0 ;
+  }
+
   if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
     *ierr =10000;
     FREE(rhot);
@@ -2558,7 +2565,8 @@ callf(t,xtd,xt,residual,g,flag)
   double* args[SZ_SIZE];
   integer sz[SZ_SIZE];
   double intabl[TB_SIZE],outabl[TB_SIZE];
-  int ii,kf,in,out,ki,ko,ni,no,k,j;
+  int ii,kf,in,out,ki,ko,no,k,j;
+  int ni = 0 ;
   int lprt,szi,flagi;
   int solver=C2F(cmsolver).solver;
   int cosd=C2F(cosdebug).cosd;
@@ -2668,6 +2676,11 @@ callf(t,xtd,xt,residual,g,flag)
     if(solver==100) {
       Blocks[kf-1].res=&residual[xptr[kf]-1];
     }
+  }
+  else
+  {
+    Blocks[kf-1].x  = NULL ;
+    Blocks[kf-1].xd = NULL ;
   }
 
   switch (Blocks[kf-1].type) {
@@ -3003,7 +3016,7 @@ integer C2F(funnum)(fname)
     if ( strcmp(fname,tabsim[i].name) == 0 ) return(i+1);
     i++;
   }
-  ln=strlen(fname);
+  ln=(int)strlen(fname);
   C2F(iislink)(fname,&loc);C2F(iislink)(fname,&loc);
   if (loc >= 0) return(ntabsim+(int)loc+1);
   return(0);
