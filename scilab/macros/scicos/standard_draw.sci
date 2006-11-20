@@ -36,7 +36,9 @@ function standard_draw (o,frame,draw_ports,up)
 //** ----------------------------------
 
 //** local haldler(read/write) = semiglobalhandler(read/only)  
-  gh_curwin = gh_current_window ; //** get the handle of the current graphics window
+  gh_curwin = gh_current_window     ; //** get the handle of the current graphics window
+  background = gh_curwin.background ; 
+ 
   
   gr_i = o.graphics.gr_i
 
@@ -154,6 +156,8 @@ function standard_draw (o,frame,draw_ports,up)
    gh_winpal.font_size  = default_font_size  ;
    gh_winpal.font_color = default_font_color ;
 
+   gh_curwin.background = background; 
+   
   //** Obsolete (old Graphics)
   // xset('thickness',1)
   // xset('pattern',pat)
