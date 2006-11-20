@@ -1,9 +1,12 @@
 function Context_()
     Cmenu='Replot'
     while %t do
-      %now_win=xget('window')
+      //** %now_win=xget('window')
+      gh_now_win = gcf() ;
+      %now_win = gh_now_win.figure_id ;
       [context,ok]=do_context(scs_m.props.context)
-      xset('window',%now_win)
+      //** xset('window',%now_win)
+      scf(%now_win) ;
       if ~ok then break,end
       clear %scicos_context  // to make sure only parent context is used
       if ~exists('%scicos_context') then

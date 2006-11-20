@@ -1,20 +1,11 @@
-//** 19 Jan 2006
-//** Comments and mods by Simone Mannori 
+function standard_draw (o,frame,draw_ports,up)
 //
 // Copyright INRIA
-
-//** This function needs careful attention because contains a lots of graphics
-//** instructions 
-
-//** This function draw the most of the graphics blocks 
-
-
-function standard_draw (o,frame,draw_ports,up)
-
-//** ---------- Tracing ------------
- // disp("*standard_draw(..)");     //
-//** -------------------------------
-  
+//
+//** Comments and mods by Simone Mannori 
+//** 19 Jan 2006
+//** This function is used to draw the object from the most of (but NOT all)
+//** interface functions 
   
   xf = 60 ; yf = 40 ;
   
@@ -27,7 +18,7 @@ function standard_draw (o,frame,draw_ports,up)
   if rhs<3 then
       draw_ports = standard_draw_ports     //** left right ports
                                            //** the function 'standard_draw_ports' it's copied in 'draw_ports'
-  elseif rhs==4 then                   //** otherwise 
+  elseif rhs==4 then                       //** otherwise 
       draw_ports = standard_draw_ports_up  //** up / down ports 
   end                                      //** the function 'standard_draw_ports_up' it's copied in 'draw_ports'
 
@@ -37,51 +28,34 @@ function standard_draw (o,frame,draw_ports,up)
   clkout= size(o.model.evtout,1);
   [orig,sz,orient] = (o.graphics.orig,o.graphics.sz,o.graphics.flip)
 
-//  [orig,sz,orient]=o(2)(1:3)
-
-
 //** Default values -------------------
-  //thick = xget('thickness');
-  // xset('thickness',2)
-  thick = 1 ; //** patch di Simone 
-  
-  // pat = xget('pattern')
-  // xset('pattern',default_color(0))
-  pat = default_color(0) ; //** patch di Simone 
-  
-  e=4
-  With3D=options('3D')(1)
+  thick = 1              ; //** patch Simone 
+  pat = default_color(0) ; //**   
+  e = 4 ;
+  With3D = options('3D')(1)
 //** ----------------------------------
 
 //** local haldler(read/write) = semiglobalhandler(read/only)  
   gh_curwin = gh_current_window ; //** get the handle of the current graphics window
-  //** drawlater ; //** all the draw operation are postponed 
+  
+  gr_i = o.graphics.gr_i
+
+  if type(gr_i) == 15 then 
+     [gr_i,coli] = gr_i(1:2) ;
+  else
+      coli = [] ;
+  end
 
   // draw box
+  if frame then 
 
-  if frame then
-    
-    gr_i = o.graphics.gr_i
-  
-      if type(gr_i) == 15 then 
-           [gr_i,coli]=gr_i(1:2),
-      else 
-	       coli=[]
-      end
-
-  
     if With3D then  //** this is the code relative to the block's "window dressing" 
-      #Color3D = options('3D')(2)
-      //3D aspect
-      // xset('thickness',2);
-      // xset('pattern',#Color3D)
-      
-      // pause ;
-      
+      //**---------- 3D Mode ON -----------------------------------------------------------------------
+      #Color3D = options('3D')(2)      
       // xpoly([orig(1)+e;orig(1)+sz(1);orig(1)+sz(1)],[orig(2)+sz(2);orig(2)+sz(2);orig(2)+e],'lines')
       xrect( orig(1)+e, orig(2)+sz(2), sz(1)-e, sz(2)-e) ;
-      gh_e = gce();
-      gh_e.thickness = 0 ; //** 
+      gh_e = gce(); //** new graphics :)
+      gh_e.thickness = 0 ;  
       gh_e.foreground = #Color3D ;
       
       if coli<>[] then 
@@ -89,26 +63,26 @@ function standard_draw (o,frame,draw_ports,up)
           gh_e.background = coli ;
       end
       
-      eps=0.3
+      eps = 0.3 ;
       
-      xx = [ orig(1) , orig(1)
-	           orig(1) , orig(1)+sz(1)-e
-	           orig(1)+e   , orig(1)+sz(1)
-	           orig(1)+e   , orig(1)+e];
+      xx = [ orig(1)   , orig(1)
+	     orig(1)   , orig(1)+sz(1)-e
+	     orig(1)+e , orig(1)+sz(1)
+	     orig(1)+e , orig(1)+e] ;
       
       yy = [orig(2)         , orig(2)
-	          orig(2)+sz(2)-e   , orig(2)
-	          orig(2)+sz(2) , orig(2)+e
-	          orig(2)+e           , orig(2)+e];     
+	    orig(2)+sz(2)-e , orig(2)
+	    orig(2)+sz(2)   , orig(2)+e
+	    orig(2)+e       , orig(2)+e];     
       
-      //** xset('pattern',default_color(0))
-      //** xset('thickness',1)
-      xfpolys(xx,yy,-[1,1]*#Color3D)
-      gh_e = gce();gh_c=gh_e.children(1:2)
+      xfpolys(xx,yy,-[1,1]*#Color3D); //** fill a set of polygons
+      gh_e = gce()              ;              
+      gh_c = gh_e.children(1:2) ;
       gh_c.foreground = default_color(0) ;
       gh_c.thickness = 2 ;
       
-    else
+    else //** not in 3D mode 
+      //**----------3D Mode OFF -------------------------------------------------------------------------
       e = 0   
       xrect(orig(1),orig(2)+sz(2),sz(1),sz(2));
       gh_e = gce();
@@ -120,10 +94,8 @@ function standard_draw (o,frame,draw_ports,up)
       end
       
       
-    end //** of 3D mode 
-    
-    //**  xset('thickness',2); 
-  
+    end //** of 3D mode ON/OFF  
+      
   end //** of the frame mode 
 
   draw_ports(o) ; //** 'standard_draw_ports' or 'standard_draw_ports_up'
@@ -131,74 +103,59 @@ function standard_draw (o,frame,draw_ports,up)
 //** --------------------------------------------------------------------------------------------------------------
 
 //** -------------------------------- Identification --------------------------------------------------------------
- // draw Identification
-  //------------------------
+
+ //------------------------
   ident = o.graphics.id
-  fnt = xget('font')
   
+  //** fnt = xget('font') ; //** store the current/default font type/size in order to restore later  
+  gh_winpal = gca(); //** get the Axes proprieties 
+ 
+  default_font_style = gh_winpal.font_style ;
+  default_font_size  = gh_winpal.font_size  ;
+  default_font_color = gh_winpal.font_color ;
+  
+  // draw Identification
   if ident <> []& ident <> ''  then
-      xset('font', options.ID(1)(1), options.ID(1)(2))
-      rectangle = xstringl(orig(1), orig(2), ident)
+      //** xset('font', options.ID(1)(1), options.ID(1)(2)) ;//** old graphics 
+      gh_winpal.font_style = options.ID(1)(1) ; 
+      gh_winpal.font_size  = options.ID(1)(2) ;
+      //** font color not yet used 
+      rectangle = xstringl(orig(1), orig(2), ident) ;
       w = max(rectangle(3), sz(1)) ;
       h = rectangle(4) * 1.3 ;
       xstringb(orig(1) + sz(1) / 2 - w / 2, orig(2) - h , ident , w, h) ;
-      xset('font', fnt(1), fnt(2)) 
+      //** xset('font', fnt(1), fnt(2)) ; //** restore font attribute
+      gh_winpal.font_style = default_font_style ;
+      gh_winpal.font_size  = default_font_size  ;
+      gh_winpal.font_color = default_font_color ; 
   end
 
- // xset('thickness',thick)
-
-  deff('c=scs_color(c)',' ') 
-  flag='foreground'
-
-//  gr_i = o.graphics.gr_i
-//  
-//   if type(gr_i) == 15 then 
-//         [gr_i,coli]=gr_i(1:2),
-//    else 
-//       coli=[]
-//   end
-//
-//    if coli==[] then
-//      colixrect(orig(1),orig(2)+sz(2),sz(1),sz(2)) = xget('background')
-//    end
+  deff('c=scs_color(c)',' ') ; //** on line function definition 
+  
+  flag = 'foreground'
     
-   gr_i = [gr_i ] ; //** simple but not simpler :) 
+  gr_i = [gr_i ] ; //** simple but not simpler :) 
         
-//** ------- Old code that support the xor mode --------------------------------------
-
-//    gr_i=['pcoli=xget(''pattern'')';..
-//	  'xset(''pattern'',coli)';
-//	  'xfrect(orig(1),orig(2)+sz(2),sz(1),sz(2))';
-//	  'flag=''background'';'
-//	  gr_i;
-//	  'xset(''pattern'',pcoli)'
-//	  'flag=''foreground'';';
-//	  gr_i]
-
-//**----------------------------------------------------------------------------------
-
   model = o.model
   
   if With3D&frame then
-    orig=orig+e
-    sz=sz-e
+    orig = orig+e
+    sz = sz-e
   end
 
 //** Phisical draw AND check of the graphics object   
   if execstr(gr_i,'errcatch')<>0 then 
       message(['Error in Icon defintion'; 'See error message in scilab window'])
   end
-  
-  //** drawnow ;
-  //** show_pixmap ; //** eliminato perche' NON funziona ! 
-  
-  
-  
-  //**-------- RESET the default value : OLD CODE TO REMOVE LATER ! 
+    
+  //** restore the default font after an eventual gr_i modification 
   //** xset('font',fnt(1),fnt(2))
-  
-  // xset('thickness',1)
+   gh_winpal.font_style = default_font_style ;
+   gh_winpal.font_size  = default_font_size  ;
+   gh_winpal.font_color = default_font_color ;
 
+  //** Obsolete (old Graphics)
+  // xset('thickness',1)
   // xset('pattern',pat)
 
 endfunction

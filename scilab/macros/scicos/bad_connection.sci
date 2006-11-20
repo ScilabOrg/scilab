@@ -38,10 +38,11 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
   end
 
   if path_in==-1 then
-    hilite_obj(scs_m.objs(path_out));
+    //** hilite_obj(scs_m.objs(path_out)); //**
+    hilite_obj(path_out); //** new
     message(['Hilited block has connected ports ';
 	     'with  incompatible sizes'])
-    hilite_obj(scs_m.objs(path_out));
+    //** hilite_obj(scs_m.objs(path_out)); //**
     return;
   end
 
@@ -54,31 +55,42 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
     path_in=path_in(k(1))   // "to" block number
   
     if path==[] then
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      //** hilite_obj(scs_m.objs(path_out)) //** set
+      hilite_obj(path_out); //**
+      if or(path_in<>path_out) then
+          //** hilite_obj(scs_m.objs(path_in))
+          hilite_obj(path_in)
+      end
 
       message(['Hilited block(s) have connected ports ';
 	       'with  incompatible sizes';
 	       ' output port '+string(prt_out)+' size is :'+sci2exp(nout);
 	       ' input port '+string(prt_in)+' size is  :'+sci2exp(nin)]); 
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      //** hilite_obj(scs_m.objs(path_out))
+      //** if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
     else
       mxwin=maxi(winsid())
       for k=1:size(path,'*')
-	hilite_obj(scs_m.objs(path(k)))
+	//** hilite_obj(scs_m.objs(path(k))) //**
+	hilite_obj(path(k)) ; //**
 	scs_m=scs_m.objs(path(k)).model.rpar;
-	scs_show(scs_m,mxwin+k)
+	//** scs_show(scs_m,mxwin+k)
       end
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      //** hilite_obj(scs_m.objs(path_out)) //**
+      hilite_obj(path_out) ; //**
+      if or(path_in<>path_out) then
+        //** hilite_obj(scs_m.objs(path_in))
+        hilite_obj(path_in)
+      end
       message(['Hilited block(s) have connected ports ';
 	       'with  incompatible sizes';
 	       string(prt_out)+' output port size is :'+sci2exp(nout);
 	       string(prt_in)+' input port size is  :'+sci2exp(nin)]); 
-      for k=size(path,'*'):-1:1,xdel(mxwin+k),end
+      for k=size(path,'*'):-1:1
+           //xdel(mxwin+k) //** WARNING !
+      end
       scs_m=null()
-      unhilite_obj(scs_m.objs(path(1)))
+      //** unhilite_obj(scs_m.objs(path(1))) //** WARNING
     end
   else // connected links do not verify block contraints
     mess=prt_out;
@@ -88,21 +100,26 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
       path=path_out(1:$-1) // superbloc path
       path_out=path_out($) //  block number
       if path==[] then
-	hilite_obj(scs_m.objs(path_out))
+	//** hilite_obj(scs_m.objs(path_out)) ;//** set
+	hilite_obj(path_out) ;//** set
 	message(mess)
-	hilite_obj(scs_m.objs(path_out))
+	//** hilite_obj(scs_m.objs(path_out)) //** clear
       else
 	mxwin=maxi(winsid())
 	for k=1:size(path,'*')
-	  hilite_obj(scs_m.objs(path(k)))
+	  //** hilite_obj(scs_m.objs(path(k))) //**
+	  hilite_obj(path(k)) ; //**
 	  scs_m=scs_m.objs(path(k)).model.rpar;
-	  scs_show(scs_m,mxwin+k)
+	  //** scs_show(scs_m,mxwin+k) //**
 	end
-	hilite_obj(scs_m.objs(path_out))
+	//** hilite_obj(scs_m.objs(path_out)) //**
+	hilite_obj(path_out) ; //**
 	message(mess)
-	for k=size(path,'*'):-1:1,xdel(mxwin+k),end
+	for k=size(path,'*'):-1:1
+          //**WARNING: xdel(mxwin+k) //** delete (mxwin+k) graphic window
+        end
 	scs_m=null()
-	unhilite_obj(scs_m.objs(path(1)))
+	//** unhilite_obj(scs_m.objs(path(1))) //**
       end
     end
   end
