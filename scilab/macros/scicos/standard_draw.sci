@@ -158,6 +158,9 @@ function standard_draw (o,frame,draw_ports,up)
 
    gh_curwin.background = background; 
    
+   //** I use - temporally - an old graphics instruction to fix a bug 
+   xset('thickness',1)
+   
   //** Obsolete (old Graphics)
   // xset('thickness',1)
   // xset('pattern',pat)
