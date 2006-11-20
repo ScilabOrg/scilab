@@ -18,8 +18,8 @@ static int c__21 = 21;
 static int c__3 = 3;
 static double c_b84 = 0.;
 
-extern int getVersionFlag(void); //** external  (1 old ; 0 new) 
-extern void setVersionFlag(int newFlag);
+/*extern int getVersionFlag(void);*/ //** external  (1 old ; 0 new) 
+/*extern void setVersionFlag(int newFlag);*/
 
 
 void cscope(scicos_block *block,int flag)
@@ -30,6 +30,7 @@ void cscope(scicos_block *block,int flag)
   int *ipar, nipar,nu,kfun;
   
   //** Patch to OLD graphics
+  extern int versionflag ; //** external global variable  (1 old ; 0 new) 
   int default_graphics ;
  
   /* Initialized data */
@@ -206,8 +207,10 @@ void cscope(scicos_block *block,int flag)
     }
     
     //** --------------------- 
-    default_graphics = getVersionFlag() ;
-    setVersionFlag(1) ; //** force the old graphics
+    /*default_graphics = getVersionFlag() ;*/
+    /*setVersionFlag(1) ;*/ //** force the old graphics
+    default_graphics = versionflag ;
+    versionflag = 1 ; //** force the old graphics
     
     C2F(sciwin)();
     C2F(dr1)("xset\000", "window\000", &wid, &v, &v, &v, &v, &v, &dv, &dv, &
@@ -261,7 +264,8 @@ void cscope(scicos_block *block,int flag)
     C2F(dset)(&i__1, &c_b84, &z__[3], &c__1);
     
     //** --- restore the graphics mode 
-    setVersionFlag(default_graphics) ;
+    /*setVersionFlag(default_graphics) ;*/
+    versionflag = default_graphics ;
   
   } else if (flag == 5) {
     z__=*block->work; 
@@ -292,11 +296,14 @@ void cscope(scicos_block *block,int flag)
 
 void C2F (oldgraphics) (int *flag)
 {
+  //** Patch to OLD graphics
+  extern int versionflag ; //** external global variable  (1 old ; 0 new) 
   
   //** flag = 1 ; old graphics back compatibility
   //** flag = 0 ; default graphics mode 
       
-  setVersionFlag(*flag) ; //** force the old graphics
+  /*setVersionFlag(*flag) ;*/ //** force the old graphics
+  versionflag = *flag ; //** force the old graphics
   
   // debug only :)
   // printf("\n versionflag = %d \n  ", versionflag);
