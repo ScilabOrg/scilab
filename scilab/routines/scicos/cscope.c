@@ -1,3 +1,7 @@
+//** 6 July 2006: 
+//** ---- OLD GRAPHICS SUPPORT FOR OLD  C and Fortran computational functions
+
+
 #include "scicos_block.h"
 #include <math.h>
 #include "../machine.h"
@@ -14,6 +18,10 @@ static int c__21 = 21;
 static int c__3 = 3;
 static double c_b84 = 0.;
 
+extern int getVersionFlag(void); //** external  (1 old ; 0 new) 
+extern void setVersionFlag(int newFlag);
+
+
 void cscope(scicos_block *block,int flag)
 {
   double t;
@@ -21,6 +29,8 @@ void cscope(scicos_block *block,int flag)
   double *rpar;
   int *ipar, nipar,nu,kfun;
   
+  //** Patch to OLD graphics
+  int default_graphics ;
  
   /* Initialized data */
   
@@ -168,7 +178,8 @@ void cscope(scicos_block *block,int flag)
 			&c__4, &c__21);
 	}
 	t = tsave;
-	
+
+    //** init : initialization  		
   } else if (flag == 4) {/* the workspace is used to store buffer 
 			     */
     if ((*block->work=
@@ -193,6 +204,11 @@ void cscope(scicos_block *block,int flag)
     if (t <= 0.) {
       --n1;
     }
+    
+    //** --------------------- 
+    default_graphics = getVersionFlag() ;
+    setVersionFlag(1) ; //** force the old graphics
+    
     C2F(sciwin)();
     C2F(dr1)("xset\000", "window\000", &wid, &v, &v, &v, &v, &v, &dv, &dv, &
 	     dv, &dv);
@@ -243,6 +259,10 @@ void cscope(scicos_block *block,int flag)
     z__[2] = t;
     i__1 = nu * n;
     C2F(dset)(&i__1, &c_b84, &z__[3], &c__1);
+    
+    //** --- restore the graphics mode 
+    setVersionFlag(default_graphics) ;
+  
   } else if (flag == 5) {
     z__=*block->work; 
     --z__;
@@ -267,3 +287,19 @@ void cscope(scicos_block *block,int flag)
     scicos_free(*block->work);
   }
 }
+
+//** ---- OLD GRAPHICS SUPPORT FOR OLD Computational function   
+
+void C2F (oldgraphics) (int *flag)
+{
+  
+  //** flag = 1 ; old graphics back compatibility
+  //** flag = 0 ; default graphics mode 
+      
+  setVersionFlag(*flag) ; //** force the old graphics
+  
+  // debug only :)
+  // printf("\n versionflag = %d \n  ", versionflag);
+
+}
+

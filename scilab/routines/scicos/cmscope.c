@@ -12,6 +12,9 @@ static int c_n1 = -1;
 static int c__3 = 3;
 static double c_b103 = 0.;
 
+extern int getVersionFlag(void); //** external  (1 old ; 0 new) 
+extern void setVersionFlag(int newFlag);
+
 void cmscope(scicos_block *block,int flag)
 {
   double t;
@@ -19,6 +22,10 @@ void cmscope(scicos_block *block,int flag)
   double *rpar;
   int *ipar, nipar,nu;
   
+  //** Patch to OLD graphics
+  
+  int default_graphics ;
+ 
 
 
   static int cur = 0;
@@ -221,6 +228,11 @@ void cmscope(scicos_block *block,int flag)
     if (t <= 0.) {
       --n1;
     }
+    
+    //** --------------------- 
+    default_graphics = getVersionFlag() ;
+    setVersionFlag(1) ; //** force the old graphics
+    
     C2F(sciwin)();
     C2F(dr1)("xget\000", "window\000", &verb, &cur, &na, &v, &v, &v, &dv, &dv,
 	     &dv, &dv);
@@ -280,6 +292,10 @@ void cmscope(scicos_block *block,int flag)
     z__[2] = t;
     i__1 = sum * n;
     C2F(dset)(&i__1, &c_b103, &z__[3], &c__1);
+    
+    //** --- restore the graphics mode 
+    setVersionFlag(default_graphics);
+    
   } else if (flag == 5) {
     z__=*block->work; 
     --z__;
