@@ -1,40 +1,114 @@
 function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	  %scicos_display_mode, modelica_libs,scicos_pal_libs] = initial_scicos_tables()
+//**
+//** INRIA
+//** 04 Sep 2006 : updated file with the last "scicos_new" mods
+//**
+//** Called from "scilab/scilab.star" at scilab startup
   
-    %scicos_display_mode = 0 
+	    
+  %scicos_display_mode = 0 ; //** obsolete: with the new graphics the display mode
+                             //** is fixed 
 
-
-  //Scicos palettes =======================================================
-  pal_names=['Sources';'Sinks';'Linear';'Non_linear';'Events';'Threshold';
-	     'Others';'Branching';'Electrical';'ThermoHydraulics'; ...
-	     'OldBlocks';'DemoBlocks'];
-  scicos_pal=[pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
+  //Scicos palettes =================================================================
+  //** 
+  pal_names = ['Sources';'Sinks'    ;'Linear';    'Non_linear';'Events';'Threshold';
+	       'Others' ;'Branching';'Electrical';'ThermoHydraulics'; ...
+	       'OldBlocks'; 'DemoBlocks'];
+  scicos_pal= [pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
   //Scicos palettes loading ===========================================
-  scicos_pal_libs=['Branching','Events','Misc','Sinks','Threshold','Linear', ...
+  scicos_pal_libs = ['Branching','Events','Misc','Sinks','Threshold','Linear', ...
 	  'NonLinear','Sources','Electrical','Hydraulics','PDE'];
 
-  //Scicos Menu definitions================================================
-  Diagram  = ['Diagram','Replot','New','Region to Super Block','Purge',..
-	      'Rename','Save','Save As','Load','Load as Palette',..
-	      'Save as Palette','Save as Interf Func',..
-	      'Set Diagram Info','Navigator','Export','Export All','Quit'];
-  Edit     = ['Edit','Palettes','Context','Smart Move','Move','Copy',..
-	      'Copy Region','Replace','Align','Link','Delete','Delete Region',..
-	      'Add new block','Flip','Undo','Pal editor'];
-  Simulate = ['Simulate','Setup','Compile','Eval','Debug Level','Run'];
-  Object   = ['Object','Open/Set','Resize','Icon','Icon Editor','Color',..
-	      'Label','Get Info','Identification','Documentation',...
-	      'Code Generation'];
-  Misc     = ['Misc','Background color','Default link colors','ID fonts',..
-	      'Aspect','Add color','Shortcuts','Display mode','Zoom in',..
-	      'Zoom out','Help','Calc'];
-  %scicos_menu=list(Diagram,Edit,Simulate,Object,Misc);
+  //Scicos Menu definitions==========================================================
+  //**
+  
+  File     = ['File',..
+              'New',..
+	      'Open',..
+	      'Rename',..
+	      'Save',..
+	      'Save As',..
+	      'Save as Interf Func',..
+	      'Export',..
+	      'Export All',..
+	      'Quit' ];
+  
+  Diagram  = ['Diagram',..
+              'Replot',..
+	      'Purge',..
+	      'Set Diagram Info',..
+	      'Region to Super Block',..
+	      'Context' ];
+  
+  Palette  = ['Palette',..
+              'Palettes',..
+	      'Pal editor',..
+	      'Load as Palette',..
+	      'Save as Palette'];
+	      
+  Edit     = ['Edit',..
+              'Undo',..
+	      'Cut',..
+	      'Copy',..
+	      'Paste',..
+	      'Duplicate',..
+	      'Duplicate Region',..
+	      'Delete',..
+	      'Delete Region',..
+	      'Move',..
+	      'Smart Move',..
+	      'Replace',..
+	      'Align',..
+	      'Flip',..
+	      'Add new block',..
+	      'Block Documentation'..
+	      'Label'];
+
+  View     = ['View',..
+              'Zoom in',..
+	      'Zoom out'];
+	            	      
+  Simulate = ['Simulate',..
+              'Setup',..
+	      'Compile',..
+	      'Eval',..
+	      'Debug Level',..
+	      'Run'];
+	      	      
+  Format   = ['Format',..
+   	      'Add color',..
+	      'Default link colors',..
+	      'Color',..
+	      'Background color',..
+	      'Show Block Shadow',..
+	      'Resize',..
+	      'Identification',..
+	      'ID fonts',..
+	      'Icon',..
+	      'Icon Editor' ]; 
+	      
+  Tools    = ['Tools',..
+              'Get Info',..
+	      'Navigator'..
+	      'Code Generation',..
+	      'Shortcuts',..
+	      'Calc'];
+  
+  Help     = ['Help',..
+              'Help',..
+	      'About SCICOS'];	      
+	      
+	      
+  %scicos_menu = list(File,Diagram,Palette,Edit,View,Simulate,Format,Tools,Help);
   
   //Scicos Shortcuts definitions===========================================
+  //** single key shortcut "quick menu" 
   %scicos_short=['a','Align'
 		 'd','Delete';
-		 'c','Copy';
+		 'c','Duplicate';
 		 'm','Move';
+		 'z','Smart Move';
 		 'u','Undo';
 		 'f','Flip';
 		 'o','Open/Set';
@@ -43,23 +117,20 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		 'r','Replot';
 		 'l','Link';
 		 'q','Quit']
-  //Scicos Modelica librabry path definitions==============================
-  modelica_libs='SCI/macros/scicos_blocks/'+['Electrical','Hydraulics']
   
-  //add TMPDIR/Modelica for generic modelica blocks
-  status=mkdir(TMPDIR,'Modelica');
-  if isdir(TMPDIR+'/Modelica') then 
-    modelica_libs=[modelica_libs,TMPDIR+'/Modelica'];
-  end
+  //Scicos Modelica librabry path definitions==============================
+
+  modelica_libs='SCI/macros/scicos_blocks/'+['Electrical','Hydraulics'];
 
   //Scicos Menus Help definitions===========================================
 
 
-  %scicos_help=tlist(..
+  %scicos_help = tlist(..
 		     ['sch','Display mode','Window','Background color','Default link colors',..
 		      'ID fonts','Aspect','Add color','Focus','Shift','Zoom in','Zoom out',..
-		      'Help','Calc','Palettes','Context','Smart Move','Move','Copy',..
-		      'Copy Region','Replace','Align','Link','Delete','Delete Region',..
+		      'Help','Calc','Palettes','Context','Cut','Copy','Paste',..
+		      'Smart Move','Move','Duplicate',..
+		      'Duplicate Region','Replace','Align','Link','Delete','Delete Region',..
 		      'Add new block','Flip','Undo','Setup','Compile','Eval','Debug Level','Run',..
 		      'Replot','New','Region to Super Block','Purge','Rename','Save',..
 		      'Save As','Load','Load as Palette','Save as Palette','Save as Interf Func',..
@@ -115,6 +186,11 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		      ' ';
 		      ' If you  change the value of a symbolic Scicos parameters in ';
 		      ' the context, all the blocks are updated (Eval is performed).'],..
+		     [' Cut is used to remove the selected object from the diagram";
+		      ' and keep a copy in the clipboard if the object is a block.'],..
+		     [' Copy is used to place a copy of the selected object';
+		      ' in the clipboard if the object is a block.'],..
+		     [' Paste places the object in the Clipboard in the diagram.'],..  
 		     [' To move a block in  the active editor Scicos window';
 		      ' or in edited palette keeping horizontal and vertical';
 		      ' links, select first the ""Smart Move"" menu item, ';
@@ -131,8 +207,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		      ' and click left again to fix the position.';
 		      ' ';
 		      ' Right click cancel the move action.'],..
-		     ['To copy a block in the active editor Scicos window';
-		      ' select first the Copy menu item, then';
+		     ['To duplicate a block in the active editor Scicos window';
+		      ' select first the Duplicate menu item, then';
 		      ' click (with left button) on the to-be-copied block';
 		      ' in Scicos windows or in a palette) ,  and';
 		      ' finally click left where you want the copy';
@@ -397,4 +473,3 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		     [' Icon Editor allows you to define graphically the icon of the block.'],..
 		     [' Used to define personalized shortcuts.'])
 endfunction
-
