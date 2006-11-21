@@ -786,7 +786,7 @@ function scs_m = movelink(scs_m, k, xc, yc, wh)
   //**----------------------------------------------------------------
     
   elseif nl<4 then
-  //**---> the link has 3 (three) elements (nor the fist, nor the last)
+  //**---> the link has 3 (three) elements (nor the first, nor the last)
   //**     is a click in the intemediate segment (wh=2 allways so is not necessary :)
   //**     check it ) 
      
@@ -845,18 +845,9 @@ function scs_m = movelink(scs_m, k, xc, yc, wh)
   
   end
   
-  //** At the exit of the interactive loop and after the scs_m update, go back to the "copy" mode 
-  drawlater();
-  gh_curwin.pixel_drawing_mode = "copy"  ; //** normal mode 
-   
-  if gh_interactive_move <> [] 
-    delete(gh_interactive_move) ; //** delete all the object used during the interactive move
-  end
-    
-  //** Clear the graphic window WHITOUT changing his pamaters ! :)
+  //** Clear the graphic window WHITOUT changing his parameters AND recreate all the good graphics object
   drawlater() ; 
-     //**delete(gh_curwin.children.children) ; //** wipe out all the temp graphics object
-     clf(gh_curwin) ;
+     delete(gh_curwin.children.children) ; //** wipe out all the temp graphics object
      
      gh_curwin.background = options.Background(1) ; //** "options" is sub structure of scs_m
      gh_curwin.children.background =  options.Background(1) ;
