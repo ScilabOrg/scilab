@@ -12,7 +12,8 @@ function gh_blk = drawobj(o, gh_window)
 //**
 //** 22 Aug 2006: adding text support 
 //**  
-  
+//** 21 Nov 2006: Save / restore graphics attribute machanism
+//**   
   rhs = argn(2) ; //** get the number of right side arguments  
   
   if rhs==1 then //** without arguments (default) assume ... 
@@ -27,29 +28,52 @@ function gh_blk = drawobj(o, gh_window)
   
   gh_blk = [] ; //** create the empty object value 
   
+  //** Save the state of the graphics window to avoid problems in case of not "well behaved"
+  //** incorrect "gr_i" old graphics instructions 
+      gh_axes = gh_curwin.children ;
+      
+      axes_font_style = gh_axes.font_style ;
+      axes_font_size  = gh_axes.font_size  ;
+      //** axes_font_color = gh_axes.font_color ; //** optional 
+      
+      //** axes_line_mode   = gh_axes.line_mode ; //** optional 
+      axes_line_style  = gh_axes.line_style  ;
+      axes_thickness   = gh_axes.thickness   ;
+      
+      //** axes_mark_mode       = gh_axes.mark_mode       ; //** optional 
+      axes_mark_style      = gh_axes.mark_style      ;
+      axes_mark_size       = gh_axes.mark_size       ;
+      //** axes_mark_foreground = gh_axes.mark_foreground ; //** optional 
+      //** axes_mark_background = gh_axes.mark_background ; //** optional 
+      
+      axes_foreground = gh_axes.foreground ;
+      //** axes_background = gh_axes.background ; //** optional 
+ 
+  //**... end of figure and axes saving 
+  
+  
   if typeof(o)=='Block' then //** Block draw 
     //** ---------------------- Block -----------------------------
   
-    o_size = size ( gh_curwin.children.children ) ; //** initial size
- 
-    //** Block drawing works throught call (execstr) the block function
-    //** ... see "standard_draw" function  
-    ierr = execstr(o.gui+'(''plot'',o);','errcatch')
+    o_size = size ( gh_curwin.children.children ) ; //** initial size (number of graphic object
+      
+      //** Block drawing works throught call (execstr) the block function
+      //** ... see "standard_draw" function  
+      ierr = execstr(o.gui+'(''plot'',o);','errcatch')
     
-     [orig, sz, orient] = (o.graphics.orig, o.graphics.sz, o.graphics.flip) ;
+      [orig, sz, orient] = (o.graphics.orig, o.graphics.sz, o.graphics.flip) ;
      
-     //** Add the 'select' box and put it invisible, ready for 'Select' operation
-     sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
-     sel_w = sz(1)   ; sel_h = sz(2)   ;
-       
-      xrect(sel_x, sel_y, sel_w, sel_h);
-      gh_e = gce()              ;
-      gh_e.mark_background = -1 ;
-      gh_e.mark_mode = "on"     ;
-      gh_e.mark_style = 11      ;
-      gh_e.line_mode="off"      ;
-      gh_e.visible = "off"      ; //** 
-
+      //** Add the 'select' box and put it invisible, ready for 'Select' operation
+      sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
+      sel_w = sz(1)   ; sel_h = sz(2)   ;
+       xrect(sel_x, sel_y, sel_w, sel_h);
+       gh_e = gce()              ; //** get the "select box" handle
+       gh_e.mark_background = -1 ; //** 
+       gh_e.mark_mode = "on"     ;
+       gh_e.mark_style = 11      ;
+       gh_e.line_mode="off"      ;
+       gh_e.visible = "off"      ; //** put invisible 
+ 
     p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
     //** aggregate the graphics entities
     d_size =  p_size(1) - o_size(1) ;
@@ -77,7 +101,7 @@ function gh_blk = drawobj(o, gh_window)
     d_size = p_size(1) - o_size(1) ;
     gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
      
-  //** ---------- Deleted ----- CAUTION: also "Deleted object MUST be draw ! ----    
+  //** ---------- Deleted ----- CAUTION: also "Deleted" object MUST be draw ! ----    
   elseif typeof(o)=='Deleted' then //** Dummy "deleted" draw     
     
     //** draw a dummy object 
@@ -98,5 +122,26 @@ function gh_blk = drawobj(o, gh_window)
     d_size =  p_size(1) - o_size(1) ;
     gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
   end //** of the main if  
+
+  //** Restore the state of the graphics window 
+      
+      gh_axes.font_style = axes_font_style ;
+      gh_axes.font_size  = axes_font_size  ;
+      //** gh_axes.font_color = axes_font_color ; //** optional 
+      
+      //** gh_axes.line_mode   = axes_line_mode   ; //** optional 
+      gh_axes.line_style  = axes_line_style  ;
+      gh_axes.thickness   = axes_thickness   ;
+      
+      //** gh_axes.mark_mode       = axes_mark_mode       ; //** optional 
+      gh_axes.mark_style      = axes_mark_style      ;
+      gh_axes.mark_size       = axes_mark_size       ;
+      //** gh_axes.mark_foreground = axes_mark_foreground ; //** optional 
+      //** gh_axes.mark_background = axes_mark_background ; //** optional 
+      
+      gh_axes.foreground = axes_foreground ;
+      //** gh_axes.background = axes_background ; //** optional 
+                  
+   //**... end of figure and axes state restoring  
   
 endfunction
