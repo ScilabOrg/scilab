@@ -18,7 +18,7 @@
  * int createblklist(scicos_block *Blocks, int *ierr)
  * int intgetscicosvarsc(fname,fname_len)
  * int intcurblkc(fname,fname_len)
- * int intbuildouttb(fname)
+ * int intbuildouttb(fname,fname_len)
  */
 
 /*     Copyright INRIA */
@@ -2875,15 +2875,17 @@ int intcurblkc(fname,fname_len)
  * lhs 1 : a list of size n
  *
  * 02/07/06, Alan : Initial version.
+ * 21/11/06, Alan : Allow void rhs input param.
  *
  */
 
-int intbuildouttb(fname)
+int intbuildouttb(fname,fname_len)
  char *fname;
+ unsigned long fname_len;
 {
- static int l1, m1, n1;
- static int l2, m2, n2;
- static int l3,n3=1;
+ static int l1, m1,   n1;
+ static int l2, m2,   n2;
+ static int l3, n3=1;
  SciIntMat M1,M2,M3;
 
  int n_lnksz,n_lnktyp;
@@ -2916,21 +2918,7 @@ int intbuildouttb(fname)
  }
  else
  {
-  Scierror(888,"%s : first argument must be double or int32.\n",fname);
-  return 0;
- }
- /*check size of Rhs 1*/
- if (m1==2) n_lnksz=n1;
- else if (n1==2) n_lnksz=m1;
- else
- {
-  Scierror(888,"%s : bad dimension for first argument.\n",fname);
-  return 0;
- }
- /*allocate lnksz*/
- if ((lnksz=MALLOC(2*n_lnksz*sizeof(int)))==NULL)
- {
-  Scierror(999,"%s : No more free memory.\n",fname);
+  Scierror(888,"%s : lnksz argument must be double or integer.\n",fname);
   return 0;
  }
 
@@ -2945,26 +2933,68 @@ int intbuildouttb(fname)
  }
  else
  {
-  Scierror(888,"%s : second argument must be double or int32.\n",fname);
+  Scierror(888,"%s : lnktyp argument must be double or integer.\n",fname);
   if (lnksz!=NULL) FREE(lnksz);
   return 0;
  }
+
+ /*check size of Rhs 1*/
+ if (m1==2) n_lnksz=n1;
+ else if (n1==2) n_lnksz=m1;
+ /*void double input give void list output*/
+ else if ((n1==0)||(m1==0))
+ {
+  if ((n2==0)||(m2==0))
+  {
+    /*manually code a void list on rhs(1)*/
+    ptr_i=(int*)GetData(1);
+    ptr_i[0]=15;
+    ptr_i[1]=0;
+    ptr_i[2]=1;
+    LhsVar(1)=1;
+    return 0;
+  }
+  else
+  {
+   Scierror(888,"%s : inconsistent dimension between lnksz and lnktyp.\n",fname);
+   return 0;
+  }
+ }
+ else
+ {
+  Scierror(888,"%s : bad dimension for lnksz argument.\n",fname);
+  return 0;
+ }
+
  /*check size of Rhs 2*/
  if (m2==1) n_lnktyp=n2;
  else if (n2==1) n_lnktyp=m2;
+ else if ((n2==0)||(m2==0))
+ {
+  if ((n1!=0)&&(m1!=0))
+  {
+   Scierror(888,"%s : inconsistent dimension between lnksz and lnktyp.\n",fname);
+   return 0;
+  }
+ }
  else
  {
-  Scierror(888,"%s : bad dimension for second argument.\n",fname);
-  if (lnksz!=NULL) FREE(lnksz);
+  Scierror(888,"%s : bad dimension for lnktyp argument.\n",fname);
   return 0;
  }
 
  /*cross size checking*/
  if (n_lnksz!=n_lnktyp)
  {
-  Scierror(888,"%s : first and second argument must have "
+  Scierror(888,"%s : lnksz and lnktyp argument must have "
                "the same length.\n",fname);
-  if (lnksz!=NULL) FREE(lnksz);
+  return 0;
+ }
+
+ /*allocate lnksz*/
+ if ((lnksz=MALLOC(2*n_lnksz*sizeof(int)))==NULL)
+ {
+  Scierror(999,"%s : No more free memory.\n",fname);
   return 0;
  }
 
