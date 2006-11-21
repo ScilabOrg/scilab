@@ -30,6 +30,9 @@ function gh_blk = drawobj(o, gh_window)
   
   //** Save the state of the graphics window to avoid problems in case of not "well behaved"
   //** incorrect "gr_i" old graphics instructions 
+      
+      figure_background = gh_curwin.background  ;
+      
       gh_axes = gh_curwin.children ;
       
       axes_font_style = gh_axes.font_style ;
@@ -47,7 +50,7 @@ function gh_blk = drawobj(o, gh_window)
       //** axes_mark_background = gh_axes.mark_background ; //** optional 
       
       axes_foreground = gh_axes.foreground ;
-      //** axes_background = gh_axes.background ; //** optional 
+      axes_background = gh_axes.background ; //** optional 
  
   //**... end of figure and axes saving 
   
@@ -140,8 +143,10 @@ function gh_blk = drawobj(o, gh_window)
       //** gh_axes.mark_background = axes_mark_background ; //** optional 
       
       gh_axes.foreground = axes_foreground ;
-      //** gh_axes.background = axes_background ; //** optional 
+      gh_axes.background = axes_background ;
                   
+      gh_curwin.background = figure_background ;
+
    //**... end of figure and axes state restoring  
   
 endfunction
