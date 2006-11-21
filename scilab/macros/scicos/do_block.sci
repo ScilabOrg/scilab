@@ -2,7 +2,8 @@ function [scs_m] = do_block(%pt,scs_m)
 //
 // Copyright INRIA
 // 
-//** 18 Sept 2006 
+//** 18 Sept 2006
+//**  
 //
 // do_block - edit a block icon
 // 
