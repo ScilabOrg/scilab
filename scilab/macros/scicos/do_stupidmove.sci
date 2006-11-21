@@ -143,7 +143,9 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   if size(connected,2)>0 then // move a block and connected links
     
     //** ------------- MOVE BLOCK AND CONNECTED LINKS LINKS --------------
-    disp("do_stupidmove.sci : Move block WITH connected links ");
+    if %scicos_debug_gr then
+      disp("do_stupidmove.sci : Move block WITH connected links ");
+    end
     
     xco = xc; yco = yc;
    
@@ -255,7 +257,9 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
     
   //** ---------------------------- MOVE BLOCK W/O LINKS ------------------------
   else // move an unconnected block
-    disp("do_stupidmove.sci : Move block without links");
+    if %scicos_debug_gr then
+      disp("do_stupidmove.sci : Move block without links");
+    end
     
     [xy,sz] = (o.graphics.orig,o.graphics.sz)
     

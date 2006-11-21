@@ -48,11 +48,13 @@ function SelectLink_()
        
        if k<>[] then
          Cmenu = check_edge(scs_m.objs(k),[],%pt)
-         //** 
-         disp("*Link="); disp(Cmenu) ; disp("Link*");
-           if Cmenu==[] then
-	              Select=[k,%win]; Cmenu==[]; %pt=[]; return
-           end
+         //**
+         if %scicos_debug_gr then
+          disp("*Link="); disp(Cmenu) ; disp("Link*");
+         end
+         if Cmenu==[] then
+              Select=[k,%win]; Cmenu==[]; %pt=[]; return
+         end
        else
                Cmenu==[]; %ppt=%pt; %pt=[];return  //position %ppt for Paste
        end

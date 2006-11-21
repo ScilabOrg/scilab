@@ -92,7 +92,9 @@ while K<>[] do
       // erase and delete link "k"
       if gr==%t then
           //** drawobj(o)
-          disp("d-> Link ")
+          if %scicos_debug_gr then
+            disp("d-> Link ")
+          end
 	  gr_k = o_size(1) - k + 1 ;
 	  gh_object_invisible = gh_curwin.children.children(gr_k);
 	  gh_object_invisible.visible = "off";
@@ -117,7 +119,9 @@ while K<>[] do
 	    // clear  split block
 	    if gr==%t then
 	         //** drawobj( scs_m.objs( from(1) ) )
-                 disp("d->split block_from ") ; //** debug 
+                 if %scicos_debug_gr then
+                   disp("d->split block_from ") ; //** debug 
+                 end
 	         object_k = from(1)
 		 gr_k = o_size(1) - object_k + 1 ;
 	         gh_object_invisible = gh_curwin.children.children(gr_k);
@@ -192,7 +196,9 @@ while K<>[] do
 	  else
 	    if gr==%t then
 	         //** drawobj(scs_m.objs(to(1)))
-	         disp("d->split block_to ") ; //** debug 
+                 if %scicos_debug_gr then
+	            disp("d->split block_to ") ; //** debug 
+                 end
 	         object_k = to(1)
 		 gr_k = o_size(1) - object_k + 1 ;
 	         gh_object_invisible = gh_curwin.children.children(gr_k);
@@ -245,7 +251,9 @@ while K<>[] do
       // erase and delete block
       if gr==%t then
            // drawobj(scs_m.objs(k))
-	   disp("d->Block")
+           if %scicos_debug_gr then
+	     disp("d->Block")
+           end
 	   gr_k = o_size(1) - k + 1 ;
 	   gh_object_invisible = gh_curwin.children.children(gr_k);
 	   gh_object_invisible.visible = "off";
@@ -257,7 +265,9 @@ while K<>[] do
       
       if gr==%t then
            // drawobj(o)
-	   disp("d->Text")
+           if %scicos_debug_gr then
+             disp("d->Text")
+           end
 	   gr_k = o_size(1) - k + 1 ;
 	   gh_object_invisible = gh_curwin.children.children(gr_k);
 	   gh_object_invisible.visible = "off";

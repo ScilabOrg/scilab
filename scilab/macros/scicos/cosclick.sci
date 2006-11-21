@@ -30,7 +30,9 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
 
   %pt = [xc,yc] ; //** acquire the position  
   
-  disp(btn); //** debug
+  if %scicos_debug_gr then
+    disp(btn); //** debug
+  end
   
   //** -----------------------------------------------------------
   if or( btn==[2 5] ) then    //   button 3 ("right" mouse button) "pressed" OR "clicked"
@@ -52,7 +54,9 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     //**-------------------------------------------------------------    
   elseif btn == -2 then  // click in a dynamic menu
     win = curwin ;
-    disp("Dyn.Menu Callback string...");disp(str) ; //** debug only
+    if %scicos_debug_gr then
+      disp("Dyn.Menu Callback string...");disp(str) ; //** debug only
+    end
     //** the format of the 'str' callback string is :
     //** "execstr(<Name_of_menu>_<win_id>(<menu_index>)) .... eg ... execstr(Diagram_1000(1))
     //** <Name_of_menu> : is the label at the top of menu selection (static allways present on the window) eg Diagram

@@ -184,7 +184,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	        drawnow() ; show_pixmap(); //** display the buffer
 	   end 	 
 	     
-	  disp("d1"); //** Debug
+          if %scicos_debug_gr then
+	    disp("d1"); //** Debug
+          end
 	  return; //** -----> Exit from the function  
       end
 
@@ -198,7 +200,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
     end //---------------- end of last segment while loop ------------------------------
     //** ----------------- end of last segment while loop -------------------------------
 
-    disp("-->"); //** debug only
+    if %scicos_debug_gr then
+      disp("-->"); //** debug only
+    end
     
     //** ---------- YOU ARE STILL IN THE "Link" Block-to-Block MAIN LOOP ----------------  
     //** The last segment end with [xe ye] coordinate: 
@@ -227,7 +231,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	           delete (gh_compound_delete); //** delete the object 
               end 	  
 	  drawnow(); show_pixmap();//** display the buffer
-	  disp("d2");   //** Debug
+          if %scicos_debug_gr then
+	    disp("d2");   //** Debug
+          end
 	  return ;      //** EXIT point from the function   
       end
       
@@ -248,7 +254,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	       delete (gh_compound_delete); //** delete the object 
 	  end 	  
 	  drawnow(); show_pixmap(); //** display the buffer 
-	  disp("d3")   ; //** Debug 
+          if %scicos_debug_gr then
+	    disp("d3")   ; //** Debug 
+          end
 	  return; //** EXIT point from the function   
       end
       
@@ -265,7 +273,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	       delete (gh_compound_delete); //** delete the object 
 	   end 	  
 	   drawnow(); show_pixmap(); //** display the buffer
-	   disp("d4");//** Debug 
+           if %scicos_debug_gr then
+	     disp("d4");//** Debug 
+           end
 	   return
 	
 	end
@@ -330,7 +340,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	       delete (gh_compound_delete); //** delete the object 
 	   end 	  
 	   drawnow(); show_pixmap();  //** display the buffer
-           disp("d5");//** Debug 
+           if %scicos_debug_gr then
+             disp("d5");//** Debug 
+           end
 	   return ; //** Exit point 
 	end
 	
@@ -359,7 +371,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	       delete (gh_compound_delete); //** delete the object 
 	   end
 	   drawnow() ; show_pixmap();  //** display the buffer 	  
-	   disp("d6");//** Debug 
+           if %scicos_debug_gr then
+             disp("d6");//** Debug
+           end
 	   return; //** Exit point
 	end
 	
@@ -387,7 +401,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	        delete (gh_compound_delete); //** delete the object 
             end 
             drawnow(); show_pixmap();  //** display the buffer	  
-	    disp("d7");//** Debug 
+            if %scicos_debug_gr then
+              disp("d7");//** Debug
+            end
             return; //** Exit point	
 	end
 	
@@ -403,8 +419,10 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       end
       //**********************************
       //fin
-      
-      disp("|->>")
+
+      if %scicos_debug_gr then
+        disp("|->>")
+      end
       
         //** ------------- VERY DANGEROUS CODE HERE ---------------------------------------------
         //** There is the serious possibility of residual "xor-mode" code 
@@ -436,7 +454,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	gh_link.data =  [xo yo ; xc2 yc2 ] ; //** temp
 	gh_link.foreground = clr           ; //** put the color here   
         drawnow() ; show_pixmap();           //** display the buffer 
-        disp("d8");//** Debug 
+        if %scicos_debug_gr then
+          disp("d8");//** Debug 
+        end
 	
 	xl=[xl;xc2]
 	yl=[yl;yc2]
@@ -467,7 +487,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 	   delete (gh_compound_delete); //** delete the object 
 	   drawnow ; show_pixmap();  //** display the buffer
       end 	  
-      disp("d9");//** Debug 
+      if %scicos_debug_gr then
+        disp("d9");//** Debug
+      end
       Replot_(); //** force a replot  
       return //** exit point 
   end

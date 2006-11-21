@@ -52,14 +52,18 @@ function [scs_m] = do_move(%pt, scs_m)
    //** filter the two possible link cases 
     if wh>0 then
       // if positive 'pt' lies on segment [ind ind+1] where 'ind = wh; '
-      disp ("SmartMove:Link:-->Segment... wh= "); disp(wh) ;
+      if %scicos_debug_gr
+        disp ("SmartMove:Link:-->Segment... wh= "); disp(wh) ;
+      end
       scs_m = movelink(scs_m, k, xc, yc, wh); //** tmp disbled for debug 
     
     else  
       // if 'wh' is negative, the polyline closest point is a polyline corner of
       //**  coordinate pt = [xp(-ind) yp(-ind)] ,   where 'ind = wh;'
       //** WARNING:  the "dist2polyline" routine has some corner detection problems 
-      disp ("SmartMove:Link:-->Corner...wh= "); disp(wh) ;
+      if %scicos_debug_gr
+        disp ("SmartMove:Link:-->Corner...wh= "); disp(wh) ;
+      end
       scs_m = movecorner(scs_m,k,xc,yc,wh) ; //** tmp disbled for debug 
     end
    //**-------------------------------------------------------
@@ -69,8 +73,9 @@ function [scs_m] = do_move(%pt, scs_m)
        //active window has been closed
        [%win,Cmenu] = resume(%win,Cmenu) ;
   end
-  
-  disp ("SmartMove:...End") ; 
+  if %scicos_debug_gr
+    disp ("SmartMove:...End") ;
+  end
   
   [scs_m_save,enable_undo,edited,nc_save,needreplay] = resume(scs_m_save,%t,%t,needcompile,needreplay); 
   
@@ -438,8 +443,9 @@ function scs_m = moveblock(scs_m,k,xc,yc)
     gh_curwin.pixel_drawing_mode = "copy"  ; //** normal mode 
     
     delete(gh_interactive_move) ; //** delete all the object used during the interc move
-    
-    disp("SmartMoveConnLink:End_Interactive_Loop"); //** pause ; //** debug only
+    if %scicos_debug_gr then
+      disp("SmartMoveConnLink:End_Interactive_Loop"); //** pause ; //** debug only
+    end
  
  //**----------   
 
@@ -515,7 +521,9 @@ function scs_m = moveblock(scs_m,k,xc,yc)
 //**---  
   else // move an unconnected block
 //**------------------- UnConnected Block : move Block only ... -------------------------
-    disp("SmartMove : Move block without links");
+    if %scicos_debug_gr then
+      disp("SmartMove : Move block without links");
+    end
     [xy,sz] = (o.graphics.orig,o.graphics.sz)
    
     //**----------------------------------------------------
@@ -946,7 +954,9 @@ function scs_m = movelink1(scs_m)
 //** As Serge correcty point out is the case of a "short" (one or two segment link ) 
 //** between two split  
   
-  disp ("SmartMove::movelink1");
+  if %debug_scicos_gr then
+    disp ("SmartMove::movelink1");
+  end
   
   o; //** local copy of an external variable "o" 
   e = [min(yy)-max(yy), min(xx)-max(xx)];

@@ -135,6 +135,11 @@ if ~super_block then
   
   //**--------------------------------------------------------------------------------------  
 
+  //** initialize a "scicos_debug_gr" variable for debugging editor
+  if ~exists('%scicos_debug_gr') then
+    %scicos_debug_gr = %f;
+  end
+
   //intialize lhb menu
   %scicos_lhb_list = list()
   %scicos_lhb_list(1) = list('Open/Set',..
@@ -548,9 +553,11 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
         Select_back = Select;
       
         //** ---------- For debugging purpose only ------------------
-        exestring = "Executing ...... " + %cor_item_exec(%koko,2); //
+        if %scicos_debug_gr then
+          exestring = "Executing ...... " + %cor_item_exec(%koko,2); //
         
-	disp(exestring)       ;                                    //
+	  disp(exestring)       ;                                    //
+        end
         //** --------------------------------------------------------
         //** Don't ever think to touch this line of code ;)
         execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
@@ -558,14 +565,18 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 	//** after the execution I will show the graphics datastructure
 	gh_test = gcf(1000); 
 	gh_spy = gh_test.children.children ; 
-	disp (size(gh_spy)); disp (size(scs_m.objs) );
+        if %scicos_debug_gr then
+          disp (size(gh_spy)); disp (size(scs_m.objs) );
+        end
 	
         //** need carefull modification 
 
 	//supprimer les doublons dans Select et select_back
 	
-	disp("Selection_Monitor:Select"); disp(Select);
-	disp("Selection_Monitor:Select_back"); disp(Select_back);
+        if %scicos_debug_gr then
+          disp("Selection_Monitor:Select"); disp(Select);
+          disp("Selection_Monitor:Select_back"); disp(Select_back);
+        end
 	
 	if or(Select<>Select_back) then  
 	  // Select_back: objects to
