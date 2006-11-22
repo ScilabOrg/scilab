@@ -2,7 +2,7 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
 // Copyright INRIA
 //** Comments by Simone Mannori
 //** If you double click an object in a palettes windows, a call at "Duplicate_" is generated ->
-//** then the "do_duplicate":  - this very function - is executed : welcome to the real mess :) 
+//** then the "do_duplicate":  - this very function - is is executed : Welcome to the Real Mess :) 
 //**
 
   xinfo('Click where you want object to be placed (right-click to cancel)');
@@ -54,8 +54,6 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
   //** the duplicate function move an empty box until the user 
     
     //** xset('window',curwin); //** put the focus 
-    //** dr=driver()
-    //** if dr=='Rec' then driver('X11'),end
     
     [xy, sz] = (o.graphics.orig, o.graphics.sz) //** origin and size
     
@@ -122,8 +120,7 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
     //** the user has click or press the mouse right button (ESC)   
     if or(rep(3)==[2 5]) then
        drawnow(); show_pixmap();
-      // if pixmap then xset('wshow'),end
-      return ;       //**   the program came back with no action 
+      return ;  //**   the program came back with no action 
     end
     
     xinfo(' ')
