@@ -7,6 +7,7 @@ CurrentDirectoryScicosBlocks=pwd();
 		    "NonLinear",
 		    "Sinks",
 		    "Sources",
+		    "MatrixOp",
 		    "Threshold",
 		    "Hydraulics",
 		    "Electrical",

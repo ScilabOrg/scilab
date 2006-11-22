@@ -18,7 +18,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   scicos_pal= [pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
   //Scicos palettes loading ===========================================
   scicos_pal_libs = ['Branching','Events','Misc','Sinks','Threshold','Linear', ...
-	  'NonLinear','Sources','Electrical','Hydraulics','PDE'];
+	  'MatrixOp','NonLinear','Sources','Electrical','Hydraulics','PDE'];
 
   //Scicos Menu definitions==========================================================
   //**

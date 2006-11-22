@@ -14,7 +14,8 @@ demos_name=[
     'Controller.cosf'
     'System-Observer.cosf'
 	'bouncing balls'	
-    'Synchro Block demo'];
+    'Synchro Block demo'
+    'Kalman filter'];
 
 if ~MSDOS then demos_name=[demos_name;'sound demo'];end
 if with_modelica_compiler() then
@@ -30,6 +31,8 @@ while %t do
   n=tk_choose(demos_name,'Choose a demo')
   if n ==0 then break,end
   select demos_name(n)
+  case 'Kalman filter' then  
+    scicos('SCI/demos/scicos/Kalman_1.cosf');
   case 'Simple Thermostat' then  
     scicos('SCI/demos/scicos/demo1.cosf');
   case 'Continuous Plant discrete controller' then  

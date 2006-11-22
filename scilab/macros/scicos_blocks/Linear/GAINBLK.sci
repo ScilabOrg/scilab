@@ -104,9 +104,13 @@ function [x,y,typ]=GAINBLK(job,arg1,arg2)
       else
 	[out,in]=size(gain)
 	if out*in<>1 then
-	  [model,graphics,ok]=check_io(model,graphics,in,out,[],[])
+	  [model,graphics,ok]=set_io(model,graphics,...
+				     list([in,-1],1),...
+				     list([out,-1],1),[],[])
 	else
-	  [model,graphics,ok]=check_io(model,graphics,-1,-1,[],[])
+	  [model,graphics,ok]=set_io(model,graphics,...
+				     list([-1,-2],1),...
+				     list([-1,-2],1),[],[])
 	end
 	if ok then
 	  graphics.exprs=exprs
@@ -119,10 +123,13 @@ function [x,y,typ]=GAINBLK(job,arg1,arg2)
     case 'define' then
     gain=1
     in=-1;out=-1
+    in2=-2;out2=-2
     model=scicos_model()
     model.sim=list('gainblk',4)
     model.in=in
     model.out=out
+    model.in2=in2
+    model.out2=out2
     model.rpar=gain
     model.blocktype='c'
     model.dep_ut=[%t %f]

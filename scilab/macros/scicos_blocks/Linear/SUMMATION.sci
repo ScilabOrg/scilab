@@ -26,25 +26,27 @@ case 'set' then
 	message('Number of inputs must be > 0')
 	ok=%f
       elseif sgn==1 then
-	in=-1
+	in=-1;in2=-2
 	sgn=[]
-	nout=1
+	nout=1;nout2=1
       else
-	in=-ones(sgn,1)
+	in=-ones(sgn,1);in2=-2*in
 	sgn=ones(sgn,1)
-	nout=-1
+	nout=-1;nout2=-2
       end
     else
       if ~and(abs(sgn)==1) then
 	message('Signs can only be +1 or -1')
 	ok=%f
       else
-	in=-ones(size(sgn,1),1)
-	nout=-1
+	in=-ones(size(sgn,1),1);in2=-2*in
+	nout=-1;nout2=-2
       end
     end
     if ok then
-      [model,graphics,ok]=check_io(model,graphics,in,nout,[],[])
+      [model,graphics,ok]=set_io(model,graphics,...
+                                 list([in,in2],ones(size(sgn,1),1)),...
+                                 list([nout,nout2],1),[],[])
     end
     if ok then
       model.ipar=sgn
@@ -59,6 +61,8 @@ case 'define' then
   model.sim=list('summation',4)
   model.in=[-1;-1]
   model.out=-1
+  model.in2=[-2;-2]
+  model.out2=-2
   model.ipar=sgn
   model.blocktype='c'
   model.dep_ut=[%t %f]

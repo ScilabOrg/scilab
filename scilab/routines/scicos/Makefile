@@ -43,7 +43,8 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	deriv.o sin_blk.o cos_blk.o tan_blk.o asin_blk.o acos_blk.o atan_blk.o \
         sinh_blk.o cosh_blk.o tanh_blk.o asinh_blk.o acosh_blk.o atanh_blk.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
-	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o
+	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
+	matmul_m.o mattran_m.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \
@@ -185,4 +186,5 @@ dollar4.o: dollar4.c scicos_block.h
 invblk4.o: invblk4.c scicos_block.h
 delay4.o: delay4.c scicos_block.h
 tree.o: tree.c ../machine.h ../sci_mem_alloc.h
-
+matmul_m.o: matmul_m.c scicos_block4.h
+mattram_m.o: mattran_m.c scicos_block4.h
