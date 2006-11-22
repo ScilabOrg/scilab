@@ -2258,7 +2258,7 @@ int C2F(scicos)(
       }
     }
 
-    if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
+    if (Blocks[C2F(curblk).kfun - 1].nevout > 0 && funtyp[C2F(curblk).kfun] < 0) {
       if (funtyp[C2F(curblk).kfun] == -1) {
         outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	if (outtbdptr[0] <= 0.) {
