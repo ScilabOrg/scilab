@@ -1,6 +1,8 @@
 function [palettes,windows] = do_load_as_palette(palettes,windows)
 // Copyright INRIA
-  
+//** 
+//** Comments and mods by Simone Mannori 
+//**   
   [ok,scs_m,cpr,edited] = do_load() ;
   
   if ~ok then return,end //** if fail --> Exit 
@@ -45,11 +47,8 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
      // English
   	delmenu(curwin,'&Edit')
   	delmenu(curwin,'&Tools')
-    
   end
 
-  //** if pixmap then xset('pixmap',1),end,xbasc();
-  
   rect = dig_bound(scs_m);
 
   if rect==[] then rect=[0 0 400,600],end
@@ -114,10 +113,9 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
   
   drawobjs(palettes(kpal))
   
-  //** if pixmap then xset('wshow'),end
-  
   xinfo('Palette: may be used to copy  blocks or regions'); 
   
   //**xset('window',lastwin)
   scf(lastwin) ;
+  
 endfunction
