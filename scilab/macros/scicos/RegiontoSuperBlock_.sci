@@ -1,43 +1,29 @@
 function RegiontoSuperBlock_()
 //** 29 June 2006
-//** This is a quite f..ing function : handle with care    
+//** Very complex and critical functions inside : handle with care ;)     
   
   disablemenus() ;
 
   %win = curwin // only in main window
  
-  if Select==[] then
-    
-    // %pt = []
-    // pause
-    // disp (".... do_region2block()... ");
-    
-      [%pt, scs_m] = do_region2block(%pt,scs_m); //** see file: 
-    
-    disp ("dd_6 "); // pause
-    
-    //** evenually put "%pt = [] " here 
-                                  
+  if Select==[] then 
+      //** if nothing is selected -> call a region selection function 
+      [%pt, scs_m] = do_region2block(%pt,scs_m); //** see file: "do_region2block.sci"
+                                       
   else
     
     if Select(1,2)<>curwin then
-         return ; //** --> Exit point 
+         //** if the selected object are not in the current window ... exit  
+	 return ; //** --> Exit point 
     end
-    
+    //** if the selected object are in the current window use the function below in this file 
     [%pt,scs_m] = do_select2block(%pt,scs_m);  //** ---> see below in this file :)    
   end
   
   enablemenus()
   
   Cmenu='Replot'; %pt=[];
-  
-  // Cmenu=[];%pt=[];
-    
-  // drawnow();show_pixmap(); 
-  
-  // pause
- 
-  
+
 endfunction
 //**---------------------------------------------------------------------
 
