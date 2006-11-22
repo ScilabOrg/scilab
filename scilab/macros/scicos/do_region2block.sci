@@ -1,7 +1,7 @@
 function [%pt,scs_m] = do_region2block(%pt,scs_m)
 // Copyright INRIA
 //** 29 June 2006
-//** This is a quite f..ing function : handle with care
+//** Very complex and critical functions inside : handle with care ;) 
   
   win = %win;
   xc = %pt(1); yc = %pt(2);
