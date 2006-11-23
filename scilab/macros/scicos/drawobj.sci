@@ -28,8 +28,17 @@ function gh_blk = drawobj(o, gh_window)
   
   gh_blk = [] ; //** create the empty object value 
   
-  //** Save the state of the graphics window to avoid problems in case of not "well behaved"
-  //** incorrect "gr_i" old graphics instructions 
+  
+  
+  if typeof(o)=='Block' then //** Block draw 
+    //** ---------------------- Block -----------------------------
+  
+    o_size = size ( gh_curwin.children.children ) ; //** initial size (number of graphic object
+      
+      
+    //** Save graphics axes state 
+      //** Save the state of the graphics window to avoid problems in case of not "well behaved"
+      //** incorrect "gr_i" old graphics instructions 
       
       //** figure_background = gh_curwin.background  ;
       
@@ -52,20 +61,40 @@ function gh_blk = drawobj(o, gh_window)
       axes_foreground = gh_axes.foreground ;
       axes_background = gh_axes.background ; //** if not used cause some problem
  
-  //**... end of figure and axes saving 
-  
-  
-  if typeof(o)=='Block' then //** Block draw 
-    //** ---------------------- Block -----------------------------
-  
-    o_size = size ( gh_curwin.children.children ) ; //** initial size (number of graphic object
-      
+   //**... end of figure and axes saving 
+ 
       //** Block drawing works throught call (execstr) the block function
       //** ... see "standard_draw" function  
+      //** WARINING: this indirect "gr_i" execution can ruin the axis graphics proprieties because a not
+      //**           formaly correct use of OLD graphics global primitives with "xset(..,..)"     
       ierr = execstr(o.gui+'(''plot'',o);','errcatch')
     
       [orig, sz, orient] = (o.graphics.orig, o.graphics.sz, o.graphics.flip) ;
-     
+
+   //** Restore graphics axes state 
+      //** Restore the state of the graphics window 
+      
+      gh_axes.font_style = axes_font_style ;
+      gh_axes.font_size  = axes_font_size  ;
+      //** gh_axes.font_color = axes_font_color ; //** optional 
+      
+      //** gh_axes.line_mode   = axes_line_mode   ; //** optional 
+      gh_axes.line_style  = axes_line_style  ;
+      gh_axes.thickness   = axes_thickness   ;
+      
+      //** gh_axes.mark_mode       = axes_mark_mode       ; //** optional 
+      gh_axes.mark_style      = axes_mark_style      ;
+      gh_axes.mark_size       = axes_mark_size       ;
+      //** gh_axes.mark_foreground = axes_mark_foreground ; //** optional 
+      //** gh_axes.mark_background = axes_mark_background ; //** optional 
+      
+      gh_axes.foreground = axes_foreground ;
+      gh_axes.background = axes_background ;
+                  
+      //** gh_curwin.background = figure_background ;
+
+   //**... end of figure and axes state restoring  
+        
       //** Add the 'select' box and put it invisible, ready for 'Select' operation
       sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
       sel_w = sz(1)   ; sel_h = sz(2)   ;
@@ -125,28 +154,5 @@ function gh_blk = drawobj(o, gh_window)
     d_size =  p_size(1) - o_size(1) ;
     gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
   end //** of the main if  
-
-  //** Restore the state of the graphics window 
-      
-      gh_axes.font_style = axes_font_style ;
-      gh_axes.font_size  = axes_font_size  ;
-      //** gh_axes.font_color = axes_font_color ; //** optional 
-      
-      //** gh_axes.line_mode   = axes_line_mode   ; //** optional 
-      gh_axes.line_style  = axes_line_style  ;
-      gh_axes.thickness   = axes_thickness   ;
-      
-      //** gh_axes.mark_mode       = axes_mark_mode       ; //** optional 
-      gh_axes.mark_style      = axes_mark_style      ;
-      gh_axes.mark_size       = axes_mark_size       ;
-      //** gh_axes.mark_foreground = axes_mark_foreground ; //** optional 
-      //** gh_axes.mark_background = axes_mark_background ; //** optional 
-      
-      gh_axes.foreground = axes_foreground ;
-      gh_axes.background = axes_background ;
-                  
-      //** gh_curwin.background = figure_background ;
-
-   //**... end of figure and axes state restoring  
   
 endfunction
