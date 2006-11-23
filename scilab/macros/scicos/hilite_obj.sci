@@ -10,6 +10,10 @@ function hilite_obj(k,win)
 //** 	             
 //**          'o' was the object
 //**          'k' IS the object INDEX inside 'scs_m' 
+//**
+//** 23 Nov 2006: New mechanism that use ONLY the "mark_mode" ["on","off"]
+//**              graphics attribute for BOTH "Block" and "Link"
+//**
 
 rhs = argn(2)
 if rhs>1 then //** if the function is called with two arguments 
@@ -36,42 +40,14 @@ end
 
 //**-------------------------------------------------------------------
 
-//** Too risky 
-//** global Select; //** obtain local write access to the variable 
-
 o_size = size ( gh_curwin.children.children ) ; 
 gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) 
 
 drawlater();
 
-  o = scs_m.objs(k); //** get the object 
-  if typeof(o)=='Block' then
-  
-
-      //**------------------------------------------------
-      //** Draw a 6 times thick rectangle around the designed object 
-      //** graphics = o.graphics;
-      //** [orig,sz] = (graphics.orig,graphics.sz)
-      //** thick = xget('thickness') ;
-      //** thick = xget('thickness')
-      //** xset('thickness',6*thick);
-      //** xrect(orig(1),orig(2)+sz(2),sz(1),sz(2));
-      
-      //**--- New Graphics --------------------------------
-      gh_blk = gh_curwin.children.children(gh_k);
-      gh_blk.children(1).visible = "on" ; //** active the selection markers
-      Select = [Select ; k win ] ;  
-      
-    elseif typeof(o)=='Link' then
-      //**--------------------------------------------------
-      //** Increase 5 times the thickness of the link 
-      //** o.thick(1) = 5*max(o.thick(1),1)
-      //** drawobj(o)
       gh_blk = gh_curwin.children.children(gh_k);
       gh_blk.children(1).mark_mode = "on"  ; //** active the selection markers 
       Select = [Select ; k win ] ;  
-      
-  end
 
 drawnow(); show_pixmap(); //** update the display   
 
