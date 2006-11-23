@@ -1,6 +1,20 @@
-function unhilite_obj(o,win)
-//
+function unhilite_obj(k,win)
 // Copyright INRIA
+// 
+//** 21 Set 2006:
+//** WARNING: I changed mechanism AND input values:
+//**          from:
+//**                hilite_obj(o,win)
+//**          to
+//**                hilite_obj(k,win)
+//** 	             
+//**          'o' was the object
+//**          'k' IS the object INDEX inside 'scs_m' 
+//**
+//** 23 Nov 2006: New mechanism that use ONLY the "mark_mode" ["on","off"]
+//**              graphics attribute for BOTH "Block" and "Link"
+//**
+
 rhs = argn(2)
 if rhs>1 then
   
@@ -10,45 +24,33 @@ if rhs>1 then
     gh_winback = gcf(); //** save the handle of the sel. windows
     
     //** xset('window',win) 
-    gh_win = scf(win) ; 
-    
-    //** alu = xget('alufunction') //** save the mode
-    //** xset('alufunction',6)     //** pass to the xor mode 
-                                   //** ---> XOR MODE FROM HERE 
+    gh_curwin = scf(win) ; 
+
   else
     return; //** exit point: the 'win' specified is not in the SCICOS
   end       //** valid window
+  
+
+else //** use the default active window 
+   
+   gh_curwin = gcf() ; //** get the handle of the current figure
+   win =  gh_curwin.figure_id ; //** get the 'win_id' of the current figure
+   
 end
 
-//** dr = driver()
-//** if dr=='Rec' then driver('X11'),end
+o_size = size ( gh_curwin.children.children ) ; 
+gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) 
 
-if typeof(o)=='Block' then
-  
-  graphics = o.graphics ;
-  [orig, sz] = (graphics.orig, graphics.sz) ;
-  
-  //**------------------------------------------------
-  //** Draw a 6 times thick rectangle around the designed object 
-  //** thick = xget('thickness') ;
-  //** xset('thickness',6*thick);
-  //** xrect(orig(1), orig(2)+sz(2), sz(1), sz(2));
-  //** if pixmap then xset('wshow'),end  
-  //** xset('thickness',thick);
+drawlater();
 
-elseif typeof(o)=='Link' then
-  //**--------------------------------------------------
-  //** Intrease 5 times the thickness of the link 
-  //** o.thick(1)=5*max(o.thick(1),1)
-  //** drawobj(o)
-  //** if pixmap then xset('wshow'),end
+    gh_blk = gh_curwin.children.children(gh_k);
+    gh_blk.children(1).mark_mode = "off"  ; //** deactive the selection markers 
+    Select = [Select ; k win ] ;  
 
-end
+drawnow(); show_pixmap(); //** update the display   
 
-//** driver(dr)  
 
 if rhs>1 then 
-  //** xset('alufunction',alu)
   //** xset('window',winback)
   scf(gh_winback); //** restore the active window 
 end
