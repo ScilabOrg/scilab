@@ -1,7 +1,10 @@
 function scs_m=delete_unconnected(scs_m);
+// Copyright INRIA
+//**
 // delete unconnected blocks and all relevant parts of a diagram
 // may be used before compilation
-//   Copyright INRIA
+//**
+
 n = lstsize(scs_m.objs); 
 
 if n==0 then return, end ; //** exit point 
@@ -60,35 +63,41 @@ end
 // Notify by hiliting and message edition
 
 if DEL<>[] then 
-  //** wins = xget('window')
+
   gh_wins = gcf(); 
-  
-  
+    
   if path<>[] then
-    mxwin=maxi(winsid())
+    mxwin = maxi(winsid()) ;
     
     for k=1:size(path,'*')
-      hilite_obj(scs_m_s.objs(path(k)))
+      hilite_obj(scs_m_s.objs(path(k))) //** WARNING: not yet updated 
       scs_m_s = scs_m_s.objs(path(k)).model.rpar;
-      scs_show(scs_m_s,mxwin+k)
+      scs_show(scs_m_s, mxwin+k)
     end
   
   end
   
   for k=DEL
-    if find(k==DELL)==[] then hilite_obj(scs_m_s.objs(k)),end
+    if find(k==DELL)==[] then
+      hilite_obj(k) //** New Graphics 
+    end
   end
+  
   message(['Hilited blocks or links are ignored because of'
       'undefined input(s)'])
-  for k=DEL
-    if find(k==DELL)==[] then unhilite_obj(scs_m_s.objs(k)),end
+  for k = DEL
+    if find(k==DELL)==[] then
+      unhilite_obj(k) //** New Graphics
+    end
   end
-  for k=size(path,'*'):-1:1,xdel(mxwin+k),end
-  scs_m_s=null()
   
-  //**xset('window',wins)
+  for k=size(path,'*'):-1:1,xdel(mxwin+k),end
+  
+  scs_m_s = null()
+  
   scf(gh_wins); 
   
   if path<>[] then unhilite_obj(scs_m_s.objs(path(1))),end
 end
+
 endfunction
