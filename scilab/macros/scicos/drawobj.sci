@@ -12,7 +12,9 @@ function gh_blk = drawobj(o, gh_window)
 //**
 //** 22 Aug 2006: adding text support 
 //**  
-//** 21 Nov 2006: Save / restore graphics attribute machanism
+//** 21 Nov 2006: Save / Restore graphics attribute mechanism
+//**
+//** 23 Nov 2006: Faster Save/Restore, new "flat" object selection mechanism 
 //**   
   rhs = argn(2) ; //** get the number of right side arguments  
   
@@ -95,22 +97,22 @@ function gh_blk = drawobj(o, gh_window)
 
    //**... end of figure and axes state restoring  
         
-      //** Add the 'select' box and put it invisible, ready for 'Select' operation
+      //** Add the 'select' box and put "mark_mode" off, ready for 'Select' operation
       sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
       sel_w = sz(1)   ; sel_h = sz(2)   ;
        xrect(sel_x, sel_y, sel_w, sel_h);
        gh_e = gce()              ; //** get the "select box" handle
        gh_e.mark_background = -1 ; //** 
-       gh_e.mark_mode = "on"     ;
        gh_e.mark_style = 11      ;
-       gh_e.line_mode="off"      ;
-       gh_e.visible = "off"      ; //** put invisible 
+       gh_e.mark_mode = "off"    ; //** used 
+       gh_e.line_mode = "off"    ;
+       // gh_e.visible = "off"      ; //** put invisible 
  
     p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
     //** aggregate the graphics entities
     d_size =  p_size(1) - o_size(1) ;
     gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
- 
+
     if ierr<>0 then 
       message(['Block '+o.gui+ ' not defined'; 'You must leave scicos and define it now.']) ;
       gh_blk = [];
@@ -124,9 +126,9 @@ function gh_blk = drawobj(o, gh_window)
         xpoly(o.xx, o.yy,'lines')  ; //** draw the polyline "Link" 
         gh_e = gce()               ;
         gh_e.thickness = maxi( o.thick(1) , 1) * maxi(o.thick(2), 1) ; //** thickness
-        gh_e.foreground = o.ct(1)  ; //** color
+        gh_e.foreground = o.ct(1)  ; //** link color
 	gh_e.mark_style = 11       ;  
-        gh_e.mark_mode = "off"     ;
+        gh_e.mark_mode = "off"     ; //** put "mark_mode" off, ready for 'Select' operation
 	
     p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
     //** aggregate the graphics entities
@@ -140,7 +142,10 @@ function gh_blk = drawobj(o, gh_window)
     
     xpoly ([0;1],[0;1]) ; //** just a dummy object 
     gh_blk = glue( gh_curwin.children.children(1) ) ; //** create the Compound macro object 
-    gh_blk.visible = "off" ; //** set to invisible :)
+    
+    //** gh_blk.visible = "off"  ; //** set to invisible :)
+    set (gh_blk,"visible","off"); //** set to invisible -> faster version 
+    
      
   //** ---------- Text -------------------------------  
   elseif typeof(o)=='Text' then //** Text draw 
