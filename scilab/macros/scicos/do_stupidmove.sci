@@ -7,15 +7,16 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
 //**
 //** 28 Jun 2006 : restart :(
 //** 21 Aou 2006 : move W , W/O link equalization  
-//**
+//** 23 Nov 2006 : introduce some mechanism to limit the "off window" object move  
+
 
 // Acquire the current window and put to "on" the pixmap mode
   gh_curwin = gh_current_window ;
   gh_curwin.pixmap = "on" 
 
 // get block to move
-  rela = .1   ; //** ? 
-  win  = %win ; //** window id 
+  rela = 0.1   ; //** ? "relative object position tollerance"  
+  win  = %win ;  //** window id 
   
   xc = %pt(1) ; //** recover mouse position at the last event
   yc = %pt(2) ; 
@@ -29,7 +30,7 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
   scs_m_save = scs_m ; //** make a backup of the data structure  
   
   //**-------------------------------------------------------------------
-  if typeof(scs_m.objs(k))=='Block'| typeof(scs_m.objs(k))=='Text' then
+  if typeof(scs_m.objs(k))=='Block' | typeof(scs_m.objs(k))=='Text' then
     //**-------------------- Block --------------------------------------
       needreplay = replayifnecessary() ; //** to be removed later (obsolete)
       //** scs_m , k (scs_m object index), xc yc (mouse coodinate of the last valid event) 
@@ -60,8 +61,9 @@ endfunction
 // look at connected links
 //
 
-function scs_m = stupid_moveblock(scs_m,k,xc,yc)
-  
+function scs_m = stupid_moveblock(scs_m, k, xc, yc)
+  //**                            scs_m ,k (scs_m object index), xc yc (mouse coodinate of the last valid event) 
+  //**
   //**----------------------------------------------------------------------------------
   //** the code below is modified according the new graphics API
   gh_curwin = gh_current_window ; 
@@ -76,6 +78,18 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
   gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) 
   gh_blk = gh_curwin.children.children(gh_k);
   
+  //**-----------------------------------------------------------------------------------
+  //** Acquire axes phisical limits (visible limits are smaller)    
+     
+  figure_axes_size = gh_curwin.axes_size ; //** size in pixel 
+  x_f = figure_axes_size(1) ;
+  y_f = figure_axes_size(2) ;
+  
+  [x1_f, y1_f, rect_f] = xchange([0,x_f],[0,y_f],"i2f"); //** convert to local coordinate 
+  
+  x_min = x1_f(1) ; x_max = x1_f(2) ; //** hor. limits
+  y_min = y1_f(2) ; y_max = y1_f(1) ; //** ver. limits (inverted because the upper left corner effect)  
+    
   //**-----------------------------------------------------------------------------------
     
   o = scs_m.objs(k) ;
@@ -154,7 +168,8 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
     //**-------------------------------------------------------------------
     gh_link_mod = [] ;
     tmp_data = [] ;
-    t_xmt = [] ; t_ymt  = []; 
+    t_xmt = [] ; t_ymt  = [];
+     
     while 1 do //** interactive move loop
       
       //rep = xgetmouse([%t,%t]);
@@ -171,14 +186,27 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
 	[%win,Cmenu] = resume(curwin,'Quit') ; 
       end
       
-      delta_x = rep(1) - xc ;
-      delta_y = rep(2) - yc ; //** calc the differential position ...
+      //**------------------------------------------------------------------
+      //** Mouse movement limitation 
+       if rep(1)>x_min & rep(1)<x_max 
+           delta_x = rep(1) - xc ; //** calc the differential position ...
+	   xc = rep(1);  
+       else
+           delta_x = 0.0 ;
+       end 
       
+       if rep(2)>y_min & rep(2)<y_max
+           delta_y = rep(2) - yc ; //** calc the differential position ...
+	   yc = rep(2) 
+       else
+           delta_y = 0.0 ;
+       end     
+      //**------------------------------------------------------------------
       drawlater();
 	     
 	     move (gh_blk , [delta_x , delta_y]);  //** ..because "move()" works only in differential 
 	     
-	     xc = rep(1); yc = rep(2)      
+	     //** xc = rep(1); yc = rep(2)      
       
              xmt(2,:) = xm(2,:) - xco + xc ; //** update datas of links 
              ymt(2,:) = ym(2,:) - yco + yc ; 
@@ -270,12 +298,26 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
       rep = xgetmouse(0,[%t,%t]); // get new position
        
       if or(rep(3)==[0, 2, 3, 5, -5, -100]) then break ; end //** ---> EXIT point of the while 
+         
+      //**------------------------------------------------------------------
+      //** Mouse movement limitation 
+       if rep(1)>x_min & rep(1)<x_max 
+           delta_x = rep(1) - xc ; //** calc the differential position ...
+	   xc = rep(1);  
+       else
+           delta_x = 0.0 ;
+       end 
       
-      delta_x = rep(1) - xc ; delta_y = rep(2) - yc ; //** calc the differential position ...
+       if rep(2)>y_min & rep(2)<y_max
+           delta_y = rep(2) - yc ; //** calc the differential position ...
+	   yc = rep(2) 
+       else
+           delta_y = 0.0 ;
+       end     
+      //**------------------------------------------------------------------
       
       drawlater();
         move (gh_blk , [delta_x , delta_y]);  //** ..because "move()" works only in differential 
-	xc = rep(1); yc = rep(2) ;
       drawnow();
       show_pixmap();
       
@@ -300,7 +342,7 @@ function scs_m = stupid_moveblock(scs_m,k,xc,yc)
 endfunction
 //**--------------------------------------------------------------------------
 
-//** ----> This function works only with links <-----
+//** ----------------------> This function works only with links <----------------------
 //** ---------- Link Supid Move ---------------------
 function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   
@@ -308,9 +350,22 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   //** the code below is modified according the new graphics API
   gh_curwin = gh_current_window ; 
   
+  //**-----------------------------------------------------------------------------------
+  //** Acquire axes phisical limits (visible limits are smaller)    
+     
+  figure_axes_size = gh_curwin.axes_size ; //** size in pixel 
+  x_f = figure_axes_size(1) ;
+  y_f = figure_axes_size(2) ;
+  
+  [x1_f, y1_f, rect_f] = xchange([0,x_f],[0,y_f],"i2f"); //** convert to local coordinate 
+  
+  x_min = x1_f(1) ; x_max = x1_f(2) ; //** hor. limits
+  y_min = y1_f(2) ; y_max = y1_f(1) ; //** ver. limits (inverted because the upper left corner effect)  
+    
+  //**-----------------------------------------------------------------------------------
+  
   //** at this point I need to build the [scs_m] <-> [gh_window] datastructure 
   //** I need an equivalent index for the graphics 
-  
   o_size = size (gh_curwin.children.children ) ; //** the size:number of all the object 
   
   //** "k" is the object index in the data structure "scs_m"
@@ -361,11 +416,6 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   Y1 = yy(moving_seg) ; 
   x1 = X1 ;  //** temp variables for the move 
   y1 = Y1 ;
-
-  //** xpolys(x1,y1,ct(1)) //erase moving part of the link
-  //** not necessary with the new graphics 
-  
-  //** pause 
   
   //**-----------------------------------------------------------------
   rep(3) = -1; drawlater();
@@ -373,8 +423,6 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
     
     if or(rep(3)==[0,2,3,5,-5,-100]) then break,end ; //** exit point 
     
-    //** xpolys(x1,y1,ct(1)) //draw moving part of the link
-    //** disp("... interactive link move ..."); pause;
     drawlater();
       gh_blk.children.data = [X_start,Y_start ; x1, y1 ; X_end, Y_end ];
     drawnow(); show_pixmap();
@@ -386,13 +434,20 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
          [%win,Cmenu] = resume(curwin,'Quit') ; 
     end
     
-    //** xpolys(x1,y1,ct(1)) //erase moving part of the link
-    xc1 = rep(1) ;
-    yc1 = rep(2) ;
+    //**------------------------------------------------------------------
+      //** Mouse movement limitation 
+       if rep(1)>x_min & rep(1)<x_max 
+	   xc1 = rep(1);  
+       end 
+      
+       if rep(2)>y_min & rep(2)<y_max
+	   yc1 = rep(2) 
+       end     
+    //**------------------------------------------------------------------
+    
     x1(2) = X1(2) - (xc - xc1) ;
     y1(2) = Y1(2) - (yc - yc1) ;
-  end
-  //** of the while "interactive" loop  
+  end //** of the while "interactive" loop  
   //**------------------------------------------------------------------
   
   gh_figure = gcf();
@@ -428,6 +483,10 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   end
   
 endfunction
+
+//**
+//** ----------------------------------------------------------------------------------------------
+//**
 
 //**-----------------------------------------------------------------------------------------------
 
