@@ -1,7 +1,9 @@
+function Move_()
+//** INRIA
+//** 
 //** Comment by Simone Mannori 
 //**
 //**
-function Move_()
 
   Cmenu=[]; // Cmenu Quit can come out
   
