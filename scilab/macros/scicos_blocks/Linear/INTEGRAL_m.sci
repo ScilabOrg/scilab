@@ -65,7 +65,7 @@ case 'define' then
   maxp=1;minp=-1;rpar=[]
   model=scicos_model()
   model.state=0
-  model.sim=list('integral_func_m',4)
+  model.sim=list('integral_func',4)
   model.in=1
   model.out=1
   model.in2=1

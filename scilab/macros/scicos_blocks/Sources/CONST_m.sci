@@ -31,7 +31,7 @@ case 'set' then
     end
   end
 case 'define' then
-  C=[1 2;3 4]
+  C=[1]
 
   model=scicos_model()
   model.sim=list('cstblk4',4)
