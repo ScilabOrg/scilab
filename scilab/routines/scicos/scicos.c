@@ -3125,8 +3125,24 @@ int C2F(grblk)(neq1, t, xc, ng1, g)
   /* Function Body */
   *ierr1 = 0;
   if (evtspt[*evtnb] != -1) {
-    *ierr1 = 1;
-    return;
+    if (evtspt[*evtnb] == 0) {
+      tevts[*evtnb] = t;
+    }else{
+      if (*pointi != 0) {
+	/* find parent of evtnb    */
+	if (*pointi == *evtnb) {
+	  *pointi =evtspt[*evtnb]; /* remove from chain */
+	}else{
+	  i= *pointi;
+	  while (*evtnb != evtspt[i]){
+	    i=evtspt[i];
+	  }
+	  evtspt[i]=evtspt[*evtnb]; /* remove old evtnb from chain */
+	}
+      }
+      evtspt[*evtnb] = 0;
+      tevts[*evtnb] = t;
+    }
   } else {
     evtspt[*evtnb] = 0;
     tevts[*evtnb] = t;
@@ -3164,7 +3180,7 @@ int C2F(grblk)(neq1, t, xc, ng1, g)
 /* Subroutine */ void putevs(t, evtnb, ierr1)
      double *t;
      integer *evtnb, *ierr1;
-{
+{ 
 
   /* Function Body */
   *ierr1 = 0;
