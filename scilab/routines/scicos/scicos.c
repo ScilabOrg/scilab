@@ -1407,7 +1407,7 @@ int C2F(scicos)(
     return;
   }
 
-  if((Mode_save=MALLOC(sizeof(double)*nmod))== NULL ){
+  if((Mode_save=MALLOC(sizeof(integer)*nmod))== NULL ){
     *ierr =10000;
     FREE(rhot);
     FREE(ihot);
@@ -1749,7 +1749,7 @@ int C2F(scicos)(
 		  }
 		}
 		/*     .              update state */
-		if (Blocks[C2F(curblk).kfun-1].nx > 0) {
+		if ((Blocks[C2F(curblk).kfun-1].nx > 0) || (*Blocks[C2F(curblk).kfun-1].work != NULL) ) {
 		  /*     .call corresponding block to update state */
 		  flag__ = 2;
 		  nclock = -kev;
