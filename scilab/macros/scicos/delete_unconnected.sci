@@ -31,7 +31,7 @@ while ~finish
 	else
 	  kk=[find(scs_m.objs(k).graphics.pin==0)]
 	  if kk<>[] then // at least one  input port is not connected delete the block
-	    
+
 	    if or(getfield(1,scs_m.objs(k).graphics)=="in_implicit") then
 	      if or(scs_m.objs(k).graphics.in_implicit(kk)<>"I") then 
 		[scs_m,DEL1,DELL1]=do_delete1(scs_m,k,%f)
@@ -39,7 +39,7 @@ while ~finish
 		DELL=[DELL DELL1]
 		finish=%f
 	      end
-	    
+
 	    else
 	      [scs_m,DEL1,DELL1]=do_delete1(scs_m,k,%f)
 	      DEL=[DEL DEL1]
@@ -64,40 +64,56 @@ end
 
 if DEL<>[] then 
 
-  gh_wins = gcf(); 
-    
+  gh_wins = gcf();
+
   if path<>[] then
     mxwin = maxi(winsid()) ;
-    
+
     for k=1:size(path,'*')
-      hilite_obj(scs_m_s.objs(path(k))) //** WARNING: not yet updated 
+      hilite_obj(path(k))
       scs_m_s = scs_m_s.objs(path(k)).model.rpar;
+      //scs_show must be modified for new editor
       scs_show(scs_m_s, mxwin+k)
+      //DEL=[]; //only here to disable scicos crash.
+              //Must be removed later
+              //when scs_show is alright for new graphic
     end
-  
+
   end
-  
-  for k=DEL
-    if find(k==DELL)==[] then
-      hilite_obj(k) //** New Graphics 
-    end
+
+  //for k=DEL
+  //  if find(k==DELL)==[] then
+  k=DEL
+  ind_k=find(k<>DELL)
+  if ind_k<>[] then
+    k=k(ind_k)
+    hilite_obj(k) //** New Graphics
+  //end
+  //  end
+  //end
+
+    message(['Hilited block(s) or link(s) are ignored because of'
+             'undefined input(s)'])
+  //for k = DEL
+  //  if find(k==DELL)==[] then
+    unhilite_obj(k) //** New Graphics
+  //  end
   end
-  
-  message(['Hilited blocks or links are ignored because of'
-      'undefined input(s)'])
-  for k = DEL
-    if find(k==DELL)==[] then
-      unhilite_obj(k) //** New Graphics
-    end
+
+  for k=size(path,'*'):-1:1
+    //xdel(mxwin+k) //TOBEDONE
+                    //Must be removed later
+                    //when scs_show is alright for new graphic
+    clf(mxwin+k)
   end
-  
-  for k=size(path,'*'):-1:1,xdel(mxwin+k),end
-  
+
   scs_m_s = null()
-  
-  scf(gh_wins); 
-  
-  if path<>[] then unhilite_obj(scs_m_s.objs(path(1))),end
+
+  scf(gh_wins);
+
+  if path<>[] then
+    unhilite_obj(path(1))
+  end
 end
 
 endfunction

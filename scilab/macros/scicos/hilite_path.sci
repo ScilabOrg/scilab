@@ -6,27 +6,32 @@ function hilite_path(path,mess,with_intermediates)
   if argn(2)<2 then mess=' ',end
   scs_m;
   mxwin=maxi(winsid()),opened_windows=[]
-  hilite_obj(scs_m.objs(path(1)))
+  //hilite_obj(scs_m.objs(path(1)))
+  hilite_obj(path(1))
   
   if with_intermediates then
     scs_m=scs_m.objs(path(1)).model.rpar;
     for k=2:size(path,'*')
       scs_show(scs_m,mxwin+k);opened_windows=[mxwin+k opened_windows]
-      hilite_obj(scs_m.objs(path(k)))
+      //hilite_obj(scs_m.objs(path(k)))
+      hilite_obj(path(k))
       scs_m=scs_m.objs(path(k)).model.rpar;
     end
   else
     if size(path,'*')==1 then
-      hilite_obj(scs_m.objs(path))
+      //hilite_obj(scs_m.objs(path))
+      hilite_obj(path)
     else
       for k=1:size(path,'*')-1;scs_m=scs_m.objs(path(k)).model.rpar;end
       scs_show(scs_m,mxwin+1);opened_windows=[mxwin+1 opened_windows]
-      hilite_obj(scs_m.objs(path($)))
+      //hilite_obj(scs_m.objs(path($)))
+      hilite_obj(path($))
     end
   end
   message(mess)
   xdel(opened_windows)
   scs_m=null()
   xset('window',Main_Scicos_window)
-  unhilite_obj(scs_m.objs(path(1)))
+  //unhilite_obj(scs_m.objs(path(1)))
+  unhilite_obj(path(1))
 endfunction
