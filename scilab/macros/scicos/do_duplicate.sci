@@ -119,6 +119,8 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
     
     //** the user has click or press the mouse right button (ESC)   
     if or(rep(3)==[2 5]) then
+       delete(gh_blk) ; //** delete the elements from the graphics datastructure 
+                        //** in order to mantain the coherency 
        drawnow(); show_pixmap();
       return ;  //**   the program came back with no action 
     end
