@@ -5,20 +5,24 @@ function scs_m=delete_unconnected(scs_m);
 // may be used before compilation
 //**
 
-n = lstsize(scs_m.objs); 
+ if %scicos_debug_gr then
+   disp("delete_unconnected...")
+ end
 
-if n==0 then return, end ; //** exit point 
-DEL=[];
-DELL=[]
-finish=%f
+ n = lstsize(scs_m.objs);
 
-while ~finish
+ if n==0 then return, end ; //** exit point
+ DEL=[];
+ DELL=[]
+ finish=%f
+
+ while ~finish
   finish = %t
   for k=1:n  //loop on scs_m objects
     x = getfield(1,scs_m.objs(k))
     if x(1)=='Block' then
       if scs_m.objs(k).gui<>'SUM_f'&scs_m.objs(k).gui<>'SOM_f' then
-	
+
 	if find(scs_m.objs(k).gui==['IFTHEL_f','ESELECT_f']) then
 	  kk=[find(scs_m.objs(k).graphics.pein==0),find(scs_m.objs(k).graphics.pin==0)]
 	  if kk<> [] 	// a synchro block is not active, remove it
@@ -27,7 +31,7 @@ while ~finish
 	    DELL=[DELL DELL1]
 	    finish=%f
 	  end
-	
+
 	else
 	  kk=[find(scs_m.objs(k).graphics.pin==0)]
 	  if kk<>[] then // at least one  input port is not connected delete the block
@@ -46,74 +50,69 @@ while ~finish
 	      DELL=[DELL DELL1]
 	      finish=%f
 	    end
-	  
+
 	  end
 	end
       end
     end
-  end 
-end
-
-//suppress rigth-most deleted elements
-while getfield(1,scs_m.objs($))=='Deleted' then
-  scs_m.objs($)=null();
-  if lstsize(scs_m.objs)==0 then break,end
-end
-
-// Notify by hiliting and message edition
-
-if DEL<>[] then 
-
-  gh_wins = gcf();
-
-  if path<>[] then
-    mxwin = maxi(winsid()) ;
-
-    for k=1:size(path,'*')
-      hilite_obj(path(k))
-      scs_m_s = scs_m_s.objs(path(k)).model.rpar;
-      //scs_show must be modified for new editor
-      scs_show(scs_m_s, mxwin+k)
-      //DEL=[]; //only here to disable scicos crash.
-              //Must be removed later
-              //when scs_show is alright for new graphic
-    end
-
   end
+ end
 
-  //for k=DEL
-  //  if find(k==DELL)==[] then
-  k=DEL
-  ind_k=find(k<>DELL)
-  if ind_k<>[] then
-    k=k(ind_k)
-    hilite_obj(k) //** New Graphics
-  //end
-  //  end
-  //end
+ //suppress rigth-most deleted elements
+ while getfield(1,scs_m.objs($))=='Deleted' then
+   scs_m.objs($)=null();
+   if lstsize(scs_m.objs)==0 then break,end
+ end
 
-    message(['Hilited block(s) or link(s) are ignored because of'
-             'undefined input(s)'])
-  //for k = DEL
-  //  if find(k==DELL)==[] then
-    unhilite_obj(k) //** New Graphics
-  //  end
-  end
+ // Notify by hiliting and message edition
+ if DEL<>[] then
+   //** save the current figure handle
+   gh_wins = gcf();
 
-  for k=size(path,'*'):-1:1
-    //xdel(mxwin+k) //TOBEDONE
-                    //Must be removed later
-                    //when scs_show is alright for new graphic
-    clf(mxwin+k)
-  end
+   if path<>[] then //** super block case
+     //** get the maximun number of figure id
+     mxwin = maxi(winsid());
+     for k=1:size(path,'*')
+       //** hilite entity path(k)
+       hilite_obj(path(k))
+       //** recurcively store contents of super block in
+       //** scs_m_s structure
+       scs_m_s = scs_m_s.objs(path(k)).model.rpar;
+       //** open figure of super block(s)
+       scs_show(scs_m_s, mxwin+k)
+     end
+   end
 
-  scs_m_s = null()
+   //** hilite/unhilite
+   //** entity in the current figure
+   k=DEL
+   //** find any indices of k which are not in DELL
+   ind_k=find(k<>DELL)
+   if ind_k<>[] then
+     k=k(ind_k)
+     //** hilite entities k
+     hilite_obj(k)
+     //** display an error message
+     message(['Hilited block(s) or link(s) are ignored because of'
+              'undefined input(s)'])
+     //** unhilite entities k
+     unhilite_obj(k)
+   end
 
-  scf(gh_wins);
+   for k=size(path,'*'):-1:1 //** close figure of super_block(s)
+     //** select the mxwin+k window and get the handle
+     gh_del = scf(mxwin+k);
+     //** delete the window
+     delete(gh_del)
+   end
 
-  if path<>[] then
-    unhilite_obj(path(1))
-  end
-end
+   //** restore the active window
+   scf(gh_wins);
+
+   //** unhilite super block entity in active window
+   if path<>[] then
+     unhilite_obj(path(1))
+   end
+ end
 
 endfunction

@@ -3001,11 +3001,20 @@ function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin)
 // path_in  : Path of the "to block" in scs_m
 //!
 
+  if %scicos_debug_gr then
+    disp("c_pass2 : under_connection...")
+  end
+
+  //** save the current figure handle
+  gh_wins = gcf();
+
   if path_in==-1 then
-    hilite_obj(scs_m.objs(path_out));
+    //hilite_obj(scs_m.objs(path_out));
+    hilite_obj(path_out);
     message(['One of this block''s outputs has negative size';
 	     'Please check.'])
-    hilite_obj(scs_m.objs(path_out));
+    //hilite_obj(scs_m.objs(path_out));
+    unhilite_obj(path_out);
     ninnout=0
     return
   end
@@ -3021,43 +3030,73 @@ function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin)
     mxwin=maxi(winsid())
     path=path+1 // Consider locally compiled superblock as a superblock
     for k=1:size(path,'*')
-      hilite_obj(all_scs_m.objs(numk(k)))
+      //hilite_obj(all_scs_m.objs(numk(k)))
+      hilite_obj(numk(k))
       scs_m=all_scs_m.objs(numk(k)).model.rpar;
       scs_show(scs_m,mxwin+k)
     end
-    hilite_obj(scs_m.objs(path_out))
-    if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+    //hilite_obj(scs_m.objs(path_out))
+    hilite_obj(path_out)
+    //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+    if or(path_in<>path_out) then hilite_obj(path_in),end
     ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
 		    'what is the size of this link'],'1'))
-    for k=size(path,'*'):-1:1,xdel(mxwin+k),end
-    scs_m=null()
-    unhilite_obj(all_scs_m.objs(numk(1)))
+    for k=size(path,'*'):-1:1,
+      //** select the mxwin+k window and get the handle
+      gh_del = scf(mxwin+k);
+      //** delete the window
+      delete(gh_del)
+    end
+    //scs_m=null()
+    //unhilite_obj(all_scs_m.objs(numk(1)))
+
+    //** restore the active window
+    scf(gh_wins);
+
+    unhilite_obj(numk(1))
   else
     if path==[] then
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
-      
+      //hilite_obj(scs_m.objs(path_out))
+      hilite_obj(path_out)
+      //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      if or(path_in<>path_out) then hilite_obj(path_in),end
+
       ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
 		    'what is the size of this link'],'1'))
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
-    else  
+      //hilite_obj(scs_m.objs(path_out))
+      unhilite_obj(path_out)
+      //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      if or(path_in<>path_out) then unhilite_obj(path_in),end
+    else
       mxwin=maxi(winsid())
       for k=1:size(path,'*')
-	hilite_obj(scs_m.objs(path(k)))
+	//hilite_obj(scs_m.objs(path(k)))
+        hilite_obj(path(k))
 	scs_m=scs_m.objs(path(k)).model.rpar;
 	scs_show(scs_m,mxwin+k)
       end
-      hilite_obj(scs_m.objs(path_out))
-      if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      //hilite_obj(scs_m.objs(path_out))
+      hilite_obj(path_out)
+      //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
+      if or(path_in<>path_out) then hilite_obj(path_in),end
       ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
 		    'what is the size of this link'],'1'))
-      for k=size(path,'*'):-1:1,xdel(mxwin+k),end
-      scs_m=null()
-      unhilite_obj(scs_m.objs(path(1)))
+      //for k=size(path,'*'):-1:1,xdel(mxwin+k),end //TOBEDONE
+      for k=size(path,'*'):-1:1,
+        //** select the mxwin+k window and get the handle
+        gh_del = scf(mxwin+k);
+        //** delete the window
+        delete(gh_del)
+      end
+      //scs_m=null()
+      //** restore the active window
+      scf(gh_wins);
+
+      //unhilite_obj(scs_m.objs(path(1)))
+      unhilite_obj(path(1))
     end
   end
 endfunction
