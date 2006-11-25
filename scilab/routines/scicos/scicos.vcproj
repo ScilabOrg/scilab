@@ -721,9 +721,6 @@ cd .. &gt;nul
 				RelativePath=".\cosh_blk.c">
 			</File>
 			<File
-				RelativePath=".\cpass2.c">
-			</File>
-			<File
 				RelativePath=".\cscope.c">
 			</File>
 			<File
@@ -767,9 +764,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\import.c">
-			</File>
-			<File
-				RelativePath=".\intconnection.c">
 			</File>
 			<File
 				RelativePath=".\intcscicos.c">
@@ -933,9 +927,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\blocks.h">
-			</File>
-			<File
-				RelativePath=".\cc_pass2.h">
 			</File>
 			<File
 				RelativePath=".\import.h">

@@ -51,9 +51,9 @@ OBJSF=intcos.o coselm.o sciblk.o  \
 	list2vars.o dtosci.o itosci.o scitoi.o scitod.o vvtosci.o \
 	scitovv.o  $(BLOCKS_CODE)
 
-OBJSC=scicos.o import.o sciblk2.o sciblk2i.o  realtime.o \
-	intrealtime.o matscicos.o intcscicos.o blocks.o cpass2.o scicosclip.o \
-	sciblk4.o str2sci.o intconnection.o scicos_malloc.o \
+OBJSC=scicos.o intcscicos.o import.o realtime.o \
+	intrealtime.o matscicos.o blocks.o scicosclip.o \
+	sciblk2.o sciblk2i.o sciblk4.o str2sci.o scicos_malloc.o \
 	scicos_free.o tree.o $(BLOCKSC)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
@@ -100,7 +100,6 @@ blocks.o: blocks.c ../machine.h ../calelm/calelm.h scicos.h \
 bounce_ball.o: bounce_ball.c scicos_block.h ../machine.h
 bouncexy.o: bouncexy.c scicos_block.h ../machine.h
 cmscope.o: cmscope.c scicos_block.h ../machine.h
-cpass2.o: cpass2.c ../machine.h cc_pass2.h
 cscope.o: cscope.c scicos_block.h ../machine.h
 deadband.o: deadband.c scicos_block.h
 deriv.o: deriv.c scicos_block.h
@@ -109,9 +108,6 @@ gainblk.o: gainblk.c scicos_block.h
 evaluate_expr.o:  scicos_block.h
 hystheresis.o: hystheresis.c scicos_block.h
 import.o: import.c ../machine.h import.h
-intconnection.o: intconnection.c ../stack-c.h ../graphics/Math.h \
-  ../machine.h ../graphics/Graphics.h ../stack-def.h ../interf/stack1.h \
-  ../interf/stack2.h ../interf/stack3.h
 intcscicos.o: intcscicos.c ../stack-c.h ../graphics/Math.h ../machine.h \
   ../graphics/Graphics.h ../stack-def.h ../interf/stack1.h \
   ../interf/stack2.h ../interf/stack3.h intcscicos.h scicos_block.h

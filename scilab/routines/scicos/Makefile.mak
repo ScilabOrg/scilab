@@ -54,9 +54,9 @@ OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	list2vars.obj scitoi.obj scitod.obj vvtosci.obj \
 	scitovv.obj  $(BLOCKS_CODE)
 
-OBJSC=scicos.obj import.obj sciblk2.obj sciblk2i.obj  realtime.obj \
-	intrealtime.obj matscicos.obj intcscicos.obj blocks.obj cpass2.obj scicosclip.obj \
-	sciblk4.obj intconnection.obj scicos_malloc.obj \
+OBJSC=scicos.obj intcscicos.obj import.obj realtime.obj \
+	intrealtime.obj matscicos.obj blocks.obj scicosclip.obj \
+	sciblk2.obj sciblk2i.obj sciblk4.obj scicos_malloc.obj \
 	scicos_free.obj tree.obj $(BLOCKSC)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
@@ -101,7 +101,6 @@ blocks.obj: blocks.c ../machine.h ../calelm/calelm.h scicos.h \
 bounce_ball.obj: bounce_ball.c scicos_block.h ../machine.h
 bouncexy.obj: bouncexy.c scicos_block.h ../machine.h
 cmscope.obj: cmscope.c scicos_block.h ../machine.h
-cpass2.obj: cpass2.c ../machine.h cc_pass2.h
 cscope.obj: cscope.c scicos_block.h ../machine.h
 deadband.obj: deadband.c scicos_block.h
 deriv.obj: deriv.c scicos_block.h
@@ -110,9 +109,6 @@ gainblk.obj: gainblk.c scicos_block.h
 evaluate_expr.obj:  scicos_block.h
 hystheresis.obj: hystheresis.c scicos_block.h
 import.obj: import.c ../machine.h import.h
-intconnection.obj: intconnection.c ../stack-c.h ../graphics/Math.h \
-  ../machine.h ../graphics/Graphics.h ../stack-def.h ../interf/stack1.h \
-  ../interf/stack2.h ../interf/stack3.h
 intcscicos.obj: intcscicos.c ../stack-c.h ../graphics/Math.h ../machine.h \
   ../graphics/Graphics.h ../stack-def.h ../interf/stack1.h \
   ../interf/stack2.h ../interf/stack3.h intcscicos.h scicos_block.h
