@@ -49,8 +49,8 @@ while K<>[] do
     message('This object can''t be deleted')
   end
 end
-if gr==%t then 
-  if pixmap then xset('wshow'),end,
-end
+//if gr==%t then 
+//  if pixmap then xset('wshow'),end,
+//end
 for k=DEL,scs_m.objs(k)=mlist('Deleted'),end
 endfunction

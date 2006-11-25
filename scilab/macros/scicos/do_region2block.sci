@@ -67,7 +67,9 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
   end ;//** of for()
   
   needreplay = replayifnecessary() ;
-  
+
+  drawlater();
+
   [scs_m,DEL] = do_delete2(scs_m,del,%t)
 
   // add super block
@@ -202,7 +204,7 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
     scs_m.objs(k1)=o1
     nnk=nnk+1
   end
-  
+  drawnow();show_pixmap();
   [scs_m_save,nc_save,enable_undo,edited,needcompile,..
    needreplay] = resume(scs_m_save,nc_save,%t,%t,4,needreplay)
   
