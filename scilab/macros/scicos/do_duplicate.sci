@@ -12,7 +12,7 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
   xc = %pt(1); yc = %pt(2); //** acquire the last mouse position 
   
   kc = find(win==windows(:,2))
-  
+
   if kc==[] then 
     //** -----> It is NOT a palette window
       message('This window is not an active palette')
@@ -60,25 +60,28 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
     %xc = xy(1);  %yc = xy(2) ; //** default start position
     
     // %xc = %pt(1); %yc = %pt(2); //** default start position 
-    
+    drawlater() ;
     gh_blk = drawobj(o); //** draw the block (in the buffer) - using the corresponding Interface Function
                          //** Scilab Language - of the specific block (blk) and get back the graphic handler
-	                 //** to handle the block as a single entity 
-
+                         //** to handle the block as a single entity
+    drawnow();
+    show_pixmap();
 //**--------------------------------------------------------------------------
 //** ---> main loop that move the empty box until you click        
     gh_cw = gcf(); gh_cw.pixmap='on';
     rep(3)=-1 ; //** mouse move only : no pressing button events 
-    while rep(3)==-1 then //move loop
-        
-	// get new position
+    while 1 then //move loop
+
+        if or(rep(3)==[0,2,3,5,-5]) then break,end ; //** exit point
+
+ 	// get new position
         rep = xgetmouse(0,[%t,%t])
-  
+
         //** Protection from window closing
         if rep(3)==-100 then //active window has been closed
           [%win,Cmenu] = resume(curwin,'Quit')
         end
-  
+
         xm = rep(1) ; ym = rep(2) ;
      
         dx = xm - %xc ; dy = ym - %yc ;
@@ -134,7 +137,7 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
     
     m_obj_pos = size(scs_m.objs) ; //** the return parameter is a matrix
     
-    obj_pos = m_obj_pos(1) + 1   ;
+    obj_pos = m_obj_pos(1) + 1 ;
     
     scs_m.objs($+1) = o ; //** add the object to the data structure
     
