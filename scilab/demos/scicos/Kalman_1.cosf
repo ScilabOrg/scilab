@@ -3,8 +3,8 @@ scs_m=scicos_diagram()
 scs_m.props=tlist(..
 ["params","wpar","title","tol","tf","context","void1","options","void2","void3",..
 "doc"],[600.456,434.56,-1.1167513,117.91139,540,405],..
-["Kalman_1","/home/alan/scilab_BUILD_4_scicos/demos/scicos/"],..
-[0.0001;0.000001;1.000E-10;100001;0;0;0],15,..
+["Kalman_1","/home/alan/scilab_BUILD4_scicos/demos/scicos/"],..
+[0.0001;0.000001;1.000E-10;100001;0.7;0;0],15,..
 ["A=[-.3,3,1;0,0,2;0,0,0];";
 "B=[1;2;3];C=[1,1,2;0,2,3];";
 "D=0;x0=[-2;1;2]";
@@ -183,7 +183,7 @@ scs_m_1.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","in2","intyp","in2","intyp","out","out2",..
                 "outtyp","out2","outtyp","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
-                "nmode","equations"],list("gainblk",4),1,[],1,[],1,3,[],1,[],1,..
+                "nmode","equations"],list("gainblk",4),1,-1,1,[],1,3,-1,1,[],1,..
                 [],[],[],[],[1;2;3],[],"c",[],[%t,%f],"",0,0,list()),"GAINBLK",..
                 list())
 scs_m_1.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
@@ -212,9 +212,9 @@ scs_m_1.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","in2","intyp","in2","intyp","out","out2",..
                 "outtyp","out2","outtyp","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
-                "nmode","equations"],list("summation",4),[-1;-1;-1],[],1,[],1,-1,..
-                [],1,[],1,[],[],[],[],[],[1;1;1],"c",[],[%t,%f],"",0,0,list()),..
-                "SUMMATION",list())
+                "nmode","equations"],list("summation",4),[-1;-1;-1],[-2;-2;-2],..
+                [1;1;1],[],1,-1,-2,1,[],1,[],[],[],[],[],[1;1;1],"c",[],[%t,%f],..
+                "",0,0,list()),"SUMMATION",list())
 scs_m_1.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
                 tlist(..
                 ["graphics","orig","sz","flip","theta","theta","exprs","pin",..
@@ -246,7 +246,7 @@ scs_m_1.objs(7)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","in2","intyp","in2","intyp","out","out2",..
                 "outtyp","out2","outtyp","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
-                "nmode","equations"],list("gainblk",4),3,[],1,[],1,3,[],1,[],1,..
+                "nmode","equations"],list("gainblk",4),3,-1,1,[],1,3,-1,1,[],1,..
                 [],[],[],[],[-0.3;0;0;3;0;0;1;2;0],[],"c",[],[%t,%f],"",0,0,..
                 list()),"GAINBLK",list())
 scs_m_1.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
@@ -259,7 +259,7 @@ scs_m_1.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","in2","intyp","in2","intyp","out","out2",..
                 "outtyp","out2","outtyp","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
-                "nmode","equations"],list("gainblk",4),3,[],1,[],1,2,[],1,[],1,..
+                "nmode","equations"],list("gainblk",4),3,-1,1,[],1,2,-1,1,[],1,..
                 [],[],[],[],[1;0;1;2;2;3],[],"c",[],[%t,%f],"",0,0,list()),..
                 "GAINBLK",list())
 scs_m_1.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
@@ -287,9 +287,9 @@ scs_m_1.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","in2","intyp","in2","intyp","out","out2",..
                 "outtyp","out2","outtyp","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
-                "nmode","equations"],list("summation",4),[-1;-1],[],1,[],1,-1,[],..
-                1,[],1,[],[],[],[],[],[-1;1],"c",[],[%t,%f],"",0,0,list()),..
-                "SUMMATION",list())
+                "nmode","equations"],list("summation",4),[-1;-1],[-2;-2],[1;1],..
+                [],1,-1,-2,1,[],1,[],[],[],[],[],[-1;1],"c",[],[%t,%f],"",0,0,..
+                list()),"SUMMATION",list())
 scs_m_1.objs(10)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                  [49.508579;81.272931],[380.32964;380.32964],"drawlink",[0,0],..
                  [1,1],[1,1,0],[4,1,1])
@@ -483,7 +483,7 @@ scs_m_1.objs(23)=mlist(["Block","graphics","model","gui","doc"],..
                  "5.5";
                  "15";
                  "10";
-                 "17:24"],[],[],25,[],..
+                 "2:9"],[],[],25,[],..
                  list(..
                  ["thick=xget(''thickness'');xset(''thickness'',2);";
                  "xrect(orig(1)+sz(1)/10,orig(2)+(1-1/10)*sz(2),sz(1)*8/10,sz(2)*8/10);";
@@ -507,8 +507,8 @@ scs_m_1.objs(23)=mlist(["Block","graphics","model","gui","doc"],..
                  0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;
                  0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0],..
                  [0;-3;5.5;15],..
-                 [101;1;10;1;3;5;7;9;11;13;15;-1;-1;600;400;8;17;18;19;20;21;22;
-                 23;24],"c",[],[%t,%f],"",0,0,list()),"FSCOPE_f",list())
+                 [101;1;10;1;3;5;7;9;11;13;15;-1;-1;600;400;8;2;3;4;5;6;7;8;9],..
+                 "c",[],[%t,%f],"",0,0,list()),"FSCOPE_f",list())
 scs_m_2=scicos_diagram()
 scs_m_2.props=tlist(..
 ["params","wpar","title","tol","tf","context","void1","options","void2","void3",..
@@ -595,7 +595,7 @@ scs_m_1.objs(26)=mlist(["Block","graphics","model","gui","doc"],..
                  mlist(..
                  ["graphics","orig","sz","flip","theta","exprs","pin","pout",..
                  "pein","peout","gr_i","id","in_implicit","out_implicit"],..
-                 [305.1433,98.269373],[40,40],%t,0,"A",45,36,[],[],list("",8),"",..
+                 [305.1433,98.269373],[40,40],%t,0,"A",89,36,[],[],list("",8),"",..
                  "E","E"),..
                  mlist(..
                  ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
@@ -722,9 +722,8 @@ scs_m_1.objs(44)=mlist(["Block","graphics","model","gui","doc"],..
                  1,[-1;-1;-1],[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
                  list()),"SPLIT_f",list())
 scs_m_1.objs(45)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
-                 [249.07781;249.07781;249.07781;296.57188],..
-                 [41.116532;41.116532;118.26937;118.26937],"drawlink",[0,0],..
-                 [1,1],[44,1,0],[26,1,1])
+                 [249.07781;249.07781;249.07781],[41.116532;41.116532;68.238398],..
+                 "drawlink",[0,0],[1,1],[44,1,0],[88,1,1])
 scs_m_1.objs(46)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                  [249.07781;309.71446],[41.116532;41.116532],"drawlink",[0,0],..
                  [1,1],[44,2,0],[43,1,1])
@@ -1056,12 +1055,42 @@ scs_m_1.objs(85)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
 scs_m_1.objs(86)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                  [195.29421;243.82785],[-59.921557;-59.921558],"drawlink",[0,0],..
                  [1,1],[82,1,0],[15,2,1])
+scs_m_1.objs(87)=mlist(["Block","graphics","model","gui","doc"],..
+                 tlist(..
+                 ["graphics","orig","sz","flip","theta","exprs","pin","pout",..
+                 "pein","peout","gr_i","id","in_implicit","out_implicit"],..
+                 [503.86564,31.752392],[20,20],%t,0,"2",90,[],[],[],[],"",[],[]),..
+                 tlist(..
+                 ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+                 "evtout","state","dstate","rpar","ipar","blocktype","firing",..
+                 "dep_ut","label","nzcross","nmode","equations"],"output",-1,[],..
+                 1,[],[],1,[],[],[],[],[],2,"c",[],[%f,%f]," ",0,0,list()),..
+                 "OUT_f",list())
+scs_m_1.objs(88)=mlist(["Block","graphics","model","gui","doc"],..
+                 mlist(..
+                 ["graphics","orig","sz","flip","theta","exprs","pin","pout",..
+                 "pein","peout","gr_i","id","in_implicit","out_implicit"],..
+                 [249.07781;68.238398],[0.3333333,0.3333333],%t,0,[],45,[89;90],..
+                 [],[],list([],8),"","E",["E";"E";"E"]),..
+                 mlist(..
+                 ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+                 "evtout","state","dstate","rpar","ipar","blocktype","firing",..
+                 "dep_ut","label","nzcross","nmode","equations"],"lsplit",-1,[],..
+                 1,[-1;-1;-1],[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+                 list()),"SPLIT_f",list())
+scs_m_1.objs(89)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+                 [249.07781;249.07781;296.57188],[68.238398;118.26937;118.26937],..
+                 "drawlink",[0,0],[1,1],[88,1,0],[26,1,1])
+scs_m_1.objs(90)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+                 [249.07781;460.71088;460.71088;503.86564],..
+                 [68.238398;68.238398;41.752392;41.752392],"drawlink",[0,0],..
+                 [1,1],[88,2,0],[87,1,1])
 scs_m.objs(2)=mlist(..
               ["Block","graphics","model","gui","doc"],..
               tlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein","peout","gr_i",..
               "id","in_implicit","out_implicit"],[313.70558,317.51055],[40,40],%t,0,[],[26;16],..
-              28,[],[],..
+              [28;36],[],[],..
               list(..
               ["thick=xget(''thickness'');xset(''thickness'',2);";
               "xx=orig(1)+      [2 4 4]*(sz(1)/7);";
@@ -1070,18 +1099,18 @@ scs_m.objs(2)=mlist(..
               "xx=orig(1)+      [1 2 3 4 5 6 3.5 3.5 3.5 4 5 5.5 5.5 5.5]*sz(1)/7;";
               "yy=orig(2)+sz(2)-[3 3 3 3 3 3 3   7   7   7 7 7   7   3  ]*sz(2)/10;";
               "xsegs(xx,yy,0);";
-              "xset(''thickness'',thick)"],6),"",["E";"E"],"E"),mlist(..
+              "xset(''thickness'',thick)"],6),"",["E";"E"],["E";"E"]),mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin","evtout","state",..
               "dstate","rpar","ipar","blocktype","firing","dep_ut","label","nzcross","nmode",..
-              "equations"],"super",[-1;-1],[],1,-1,[],1,[],[],[]," ",scs_m_1,[],..
-              "h",[],[%f,%f],"",0,0,list()),"SUPER_f",[])
+              "equations"],"super",[-1;-1],[],1,[-1;-1],[],1,[],[],[]," ",..
+scs_m_1,[],"h",[],[%f,%f],"",0,0,list()),"SUPER_f",[])
 scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               tlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],..
               [479.18782,253.77637],[40,40],%t,0,..
               ["1 3 5 7 9 11 13 15";"1";"[]";"[600;400]";"-3";"3";"15";"10";"0"],..
-              30,[],33,[],..
+              30,[],32,[],..
               list(..
               ["thick=xget(''thickness'');xset(''thickness'',2);";
               "xrect(orig(1)+sz(1)/10,orig(2)+(1-1/10)*sz(2),sz(1)*8/10,sz(2)*8/10);";
@@ -1204,7 +1233,7 @@ scs_m.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(7)=tlist(["Text","graphics","model","void","gui"],..
               mlist(..
               ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout",..
-              "gr_i","id"],[158.37563,360],[41.624365,15.949367],%t,..
+              "gr_i","id"],[168.05232,351.07143],[41.624365,15.949367],%t,..
               ["System";"2";"2"],[],[],[],[],[],""),..
               mlist(..
               ["model","sim","in","out","evtin","evtout","state","dstate","rpar",..
@@ -1240,7 +1269,7 @@ scs_m.objs(10)=tlist(["Text","graphics","model","void","gui"],..
 scs_m.objs(11)=tlist(["Text","graphics","model","void","gui"],..
                mlist(..
                ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout",..
-               "gr_i","id"],[375.63452,340.63291],[25.380711,13.670886],%t,..
+               "gr_i","id"],[369.67963,350.31528],[25.380711,13.670886],%t,..
                ["est. x";"2";"1"],[],[],[],[],[],""),..
                mlist(..
                ["model","sim","in","out","evtin","evtout","state","dstate","rpar",..
@@ -1249,7 +1278,7 @@ scs_m.objs(11)=tlist(["Text","graphics","model","void","gui"],..
 scs_m.objs(12)=tlist(["Text","graphics","model","void","gui"],..
                mlist(..
                ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout",..
-               "gr_i","id"],[436.95652,255.79982],[23.350254,13.670886],%t,..
+               "gr_i","id"],[433.97908,259.52381],[23.350254,13.670886],%t,..
                ["error";"2";"1"],[],[],[],[],[],""),..
                mlist(..
                ["model","sim","in","out","evtin","evtout","state","dstate","rpar",..
@@ -1260,7 +1289,7 @@ scs_m.objs(13)=mlist(["Block","graphics","model","gui","doc"],..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
                "peout","gr_i","id","in_implicit","out_implicit"],..
                [25.279188,201.07595],[60,40],%t,0,..
-               ["1";"zeros([0;C(:,1)])";"[.1*ones(C(:,1));0.1]";"0"],[],23,32,[],..
+               ["1";"zeros([0;C(:,1)])";"[.1*ones(C(:,1));0.1]";"0"],[],23,38,[],..
                list(..
                ["txt=[''random'';''generator''];";
                "xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'')"],32),"",[],..
@@ -1374,7 +1403,7 @@ scs_m.objs(27)=mlist(["Block","graphics","model","gui","doc"],..
                list()),"BIGSOM_f",list())
 scs_m.objs(28)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                [362.27701;380.65402;380.65402;386.15821],..
-               [337.51055;337.51055;278.77637;278.77637]," ",[0,0],[1,1],[2,1,0],..
+               [344.17722;344.17722;278.77637;278.77637]," ",[0,0],[1,1],[2,1,0],..
                [27,1,1])
 scs_m.objs(29)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                [213.03844;239.89774;239.89774;386.15821],..
@@ -1388,7 +1417,7 @@ scs_m.objs(31)=mlist(["Block","graphics","model","gui","doc"],..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
                "peout","gr_i","id","in_implicit","out_implicit"],..
                [499.18782,334.36709],[0.3333333,0.3333333],%t,0,[],[],[],5,..
-               [32;33],list([],8),"",[],[]),..
+               [34;32],list([],8),"",[],[]),..
                tlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -1396,10 +1425,63 @@ scs_m.objs(31)=mlist(["Block","graphics","model","gui","doc"],..
                [],[],1,1,[1;1],[],[],[],[],"d",[%f,%f,%f],[%f,%f],"",0,0,list()),..
                "CLKSPLIT_f",list())
 scs_m.objs(32)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
-               [499.18782;481.11675;439.49239;439.49239;8.0203046;8.0203046;
-               55.279188;55.279188],..
-               [334.36709;334.36709;334.36709;410.6962;410.6962;284.24051;
-               284.24051;246.79024]," ",[0,0],[5,-1],[31,1,0],[13,1,1])
-scs_m.objs(33)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                [499.18782;499.18782],[334.36709;299.49066],"drawlink",[0,0],..
                [5,-1],[31,2,0],[3,1,1])
+scs_m.objs(33)=tlist(["Text","graphics","model","void","gui"],..
+               mlist(..
+               ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout",..
+               "gr_i","id"],[291.51759,304.39873],[72.203007,8.1845238],%t,..
+               ["Kalman Filter";"5";"2"],[],[],[],[],[],""),..
+               mlist(..
+               ["model","sim","in","out","evtin","evtout","state","dstate","rpar",..
+               "ipar","blocktype","firing","dep_ut","label"],"text",[],[],[],[],..
+               [],[],"Kalman Filter",[5;2],"c",[],[%f,%f],"")," ","TEXT_f")
+scs_m.objs(34)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+               [499.18782;481.11675;465.69805],[334.36709;334.36709;334.36709],..
+               " ",[0,0],[5,-1],[31,1,0],[37,1,1])
+scs_m.objs(35)=mlist(["Block","graphics","model","gui","doc"],..
+               mlist(..
+               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
+               "peout","gr_i","id","in_implicit","out_implicit"],..
+               [425.50256,165.21078],[80;40],%t,0,..
+               ["[3,3]";"1";"1";"1";"5";"1";"0"],36,[],39,[],..
+               list(..
+               ["fnt=xget(''font'')";
+               "xset(''font'',ipar(1),ipar(2))";
+               "str='' ''+part(''0'',ones(1,ipar(5)-ipar(6)-2))+''.''+part(''0'',ones(1,ipar(6)))";
+               "str(1:model.in*model.in2)=str";
+               "str=matrix(str,model.in,model.in2)";
+               "rr=xstringl(orig(1),orig(2),str)";
+               "xstring(orig(1)+max(0,(sz(1)-rr(3))/2),orig(2)+max(0,(sz(2)-rr(4))/2),str)";
+               "xset(''font'',fnt(1),fnt(2))"],8),"","E",[]),..
+               mlist(..
+               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
+               "dep_ut","label","nzcross","nmode","equations"],"affich2",3,3,1,..
+               [],[],1,1,[],[],[-1;0;0;1;1;0;0;0;0;0;0;0;0;0],[],..
+               [1;1;1;1000;5;1;3],"c",[],[%t,%f],"",0,0,list()),"AFFICH_m",..
+               list())
+scs_m.objs(36)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+               [362.27701;371.16421;371.16421;416.93113],..
+               [330.84388;330.84388;185.21078;185.21078],"drawlink",[0,0],[1,1],..
+               [2,2,0],[35,1,1])
+scs_m.objs(37)=mlist(["Block","graphics","model","gui","doc"],..
+               mlist(..
+               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
+               "peout","gr_i","id","in_implicit","out_implicit"],..
+               [465.69805,334.36709],[0.3333333,0.3333333],%t,0,[],[],[],34,..
+               [38;39],list([],8),"",[],[]),..
+               mlist(..
+               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
+               "dep_ut","label","nzcross","nmode","equations"],"split",[],[],1,..
+               [],[],1,1,[1;1],[],[],[],[],"d",[%f,%f,%f],[%f,%f],"",0,0,list()),..
+               "CLKSPLIT_f",list())
+scs_m.objs(38)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+               [465.69805;452.10406;439.49239;439.49239;8.0203046;8.0203046;
+               55.279188;55.279188],..
+               [334.36709;334.36709;334.36709;410.6962;410.6962;284.24051;
+               284.24051;246.79024]," ",[0,0],[5,-1],[37,1,0],[13,1,1])
+scs_m.objs(39)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
+               [465.69805;465.50256],[334.36709;210.92507],"drawlink",[0,0],..
+               [5,-1],[37,2,0],[35,1,1])

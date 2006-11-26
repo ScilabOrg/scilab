@@ -96,7 +96,7 @@ case 'set' then
 
 
 case 'define' then
-  font = 0     ; //** 1 --> greek font 
+  font = 1     ; //** 1 --> greek font 
   fontsize = 1 ; //** 1
   colr = 1 ;
   nt = 9   ;

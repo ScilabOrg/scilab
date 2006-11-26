@@ -1,6 +1,6 @@
 function routines=create_palette(Path)
   load SCI/macros/scicos/lib;
-  scicos_ver='scicos2.7.3'
+  scicos_ver='scicos4'
   rhs=argn(2)
   if rhs==1 then
     Path=pathconvert(Path,%t,%t)
@@ -27,7 +27,7 @@ function routines=create_palette(Path)
     for txt=scicos_pal(:,1)'
       disp('Constructing '+txt)
       if txt=='Sources' then
-	lisf=['CONST.sci';'GENSQR_f.sci';'RAMP.sci';  
+	lisf=['CONST_m.sci';'GENSQR_f.sci';'RAMP.sci';  
 	      'RAND_f.sci';'RFILE_f.sci';
 	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
@@ -35,7 +35,7 @@ function routines=create_palette(Path)
 	      'TIME_f.sci'; 'Modulo_Count.sci']
 	
       elseif txt=='Sinks' then
-	lisf=['AFFICH_f.sci';   'CMSCOPE.sci';       
+	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';       
 	      'SCOPXY_f.sci';   'WRITEC_f.sci';
 	      'ANIMXY_f.sci';   'CSCOPE.sci';        
 	      'OUTIMPL_f.sci'; 
@@ -81,7 +81,7 @@ function routines=create_palette(Path)
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR.sci';
 	      'CLINDUMMY_f.sci';'DLSS.sci';'REGISTER.sci';'TIME_DELAY.sci';
 	      'CLR.sci';'GAINBLK.sci';'SAMPHOLD.sci';'VARIABLE_DELAY.sci';
-	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL.sci';'SUM_f.sci';'DERIV.sci']
+	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
 	
       elseif txt=='OldBlocks' then
 	lisf=['ABSBLK_f.sci'; 'MSCOPE_f.sci';'SCOPE_f.sci';    
@@ -103,6 +103,8 @@ function routines=create_palette(Path)
 	
       elseif txt=='ThermoHydraulics' then
 	lisf=['Bache.sci';'VanneReglante.sci';'PerteDP.sci';'PuitsP.sci';'SourceP.sci';]
+      elseif txt=='Matrix' then
+	lisf=['MATMUL.sci';'MATTRAN.sci']
       else
 	error('Palette '+txt+' does not exists')
       end

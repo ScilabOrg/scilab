@@ -15,7 +15,7 @@ BLOCKSF=evtdly.obj cstblk.obj \
 	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
 	sqrblk.obj delay.obj selblk.obj forblk.obj writef.obj invblk.obj hltblk.obj\
 	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich.obj\
+	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich2.obj affich.obj\
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
 	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj mscope.obj \
 	intrp2.obj   intrpl.obj fsv.obj memo.obj fscope.obj scoxy.obj diffblk.obj constraint.obj \
@@ -29,7 +29,7 @@ BLOCKS_CODE=evtdly.obj cstblk.obj \
 	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
 	sqrblk.obj delay.obj selblk.obj forblk.obj  writef.obj invblk.obj hltblk.obj\
 	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich.obj\
+	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich2.obj affich.obj\
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
 	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj mscope.obj \
 	intrp2.obj   intrpl.obj fsv.obj memo.obj fscope.obj scoxy.obj \

@@ -12,7 +12,7 @@ BLOCKSF=evtdly.o cstblk.o \
 	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
 	sqrblk.o delay.o selblk.o forblk.o writef.o invblk.o hltblk.o\
 	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich.o\
+	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich2.o affich.o\
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
 	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o mscope.o \
 	intrp2.o   intrpl.o fsv.o memo.o fscope.o scoxy.o diffblk.o constraint.o \
@@ -26,7 +26,7 @@ BLOCKS_CODE=evtdly.o cstblk.o \
 	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
 	sqrblk.o delay.o selblk.o forblk.o  writef.o invblk.o hltblk.o\
 	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich.o\
+	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich2.o affich.o\
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
 	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o mscope.o \
 	intrp2.o   intrpl.o fsv.o memo.o fscope.o scoxy.o \
@@ -76,6 +76,7 @@ distclean::
 #--------------dependencies 
 # fortran code
 affich.o: affich.f ../stack.h
+affich.o: affich2.f ../stack.h
 coselm.o: coselm.f ../stack.h
 dtosci.o: dtosci.f  ../stack.h
 intcos.o: intcos.f  ../stack.h

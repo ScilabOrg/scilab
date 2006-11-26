@@ -30,7 +30,7 @@ case 'set' then
 	sgn=[]
 	nout=1;nout2=1
       else
-	in=-ones(sgn,1);in2=-2*in
+	in=-ones(sgn,1);in2=2*in
 	sgn=ones(sgn,1)
 	nout=-1;nout2=-2
       end
@@ -39,7 +39,7 @@ case 'set' then
 	message('Signs can only be +1 or -1')
 	ok=%f
       else
-	in=-ones(size(sgn,1),1);in2=-2*in
+	in=-ones(size(sgn,1),1);in2=2*in
 	nout=-1;nout2=-2
       end
     end

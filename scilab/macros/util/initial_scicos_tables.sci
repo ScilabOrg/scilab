@@ -11,10 +11,11 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
                              //** is fixed 
 
   //Scicos palettes =================================================================
-  //** 
-  pal_names = ['Sources';'Sinks'    ;'Linear';    'Non_linear';'Events';'Threshold';
-	       'Others' ;'Branching';'Electrical';'ThermoHydraulics'; ...
-	       'OldBlocks'; 'DemoBlocks'];
+  //**
+  pal_names = ['Sources'    ;'Sinks'           ;'Linear'          ;'Non_linear';
+               'Matrix'     ;'Events'          ;'Threshold'       ;'Others'    ;
+               'Branching'  ;'Electrical'      ;'ThermoHydraulics';'OldBlocks' ;
+               'DemoBlocks';];
   scicos_pal= [pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
   //Scicos palettes loading ===========================================
   scicos_pal_libs = ['Branching','Events','Misc','Sinks','Threshold','Linear', ...
