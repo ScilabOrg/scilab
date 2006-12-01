@@ -59,7 +59,7 @@ c         if (ur.eq.z(6)) return
      $        dv,dv,dv,dv)
 
          call recterase2(z(2))
-         do 3 i=1,nu*nu2
+         do 3 i=1,nu
           ur=10.0d0**ipar(6)
           ur=sciround(u(i)*ur)/ur
           z(5+i)=ur
