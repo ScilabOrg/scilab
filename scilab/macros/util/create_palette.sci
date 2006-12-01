@@ -1,6 +1,6 @@
 function routines=create_palette(Path)
   load SCI/macros/scicos/lib;
-  scicos_ver='scicos4'
+  scicos_ver='scicos4.0.1'
   rhs=argn(2)
   if rhs==1 then
     Path=pathconvert(Path,%t,%t)
@@ -75,7 +75,7 @@ function routines=create_palette(Path)
 	      'TEXT_f.sci';'CBLOCK.sci';'RATELIMITER.sci'; 
 	      'BACKLASH.sci';'DEADBAND.sci';'EXPRESSION.sci';	      
 	      'CONSTRAINT_f.sci';'HYSTHERESIS.sci';'DEBUG_SCICOS.sci'
-	      'LOGICAL_OP.sci';'RELATIONALOP.sci';'generic_block2.sci']
+	      'LOGICAL_OP.sci';'RELATIONALOP.sci';'generic_block3.sci']
 	
       elseif txt=='Linear' then
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR.sci';

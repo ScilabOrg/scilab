@@ -5,8 +5,6 @@ c All my routines have been moved in intcosf.f
 c  and/or rewritten in C in intcscicos.c.
 c   Don't forget to see log files in order
 c    to know more about me.
-c Ps : Bye-bye and big kiss from Scilab/Scicos
-c      team!
 c
 c Alan, 14/11/2006 : coselm no more used in
 c                    BUILD4_scicos branch.

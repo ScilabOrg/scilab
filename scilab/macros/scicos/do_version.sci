@@ -3,7 +3,7 @@ function scs_m=do_version(scs_m,version)
 //translate scicos data structure to new version
 if version<>'scicos2.2'&version<>'scicos2.3'&version<>'scicos2.3.1'&..
    version<>'scicos2.4'&version<>'scicos2.5.1'&version<>'scicos2.7'&..
-   version<>'scicos2.7.1'&version<>'scicos2.7.3' then
+   version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4' then
 error('No version update defined to '+version+' version')
 end
 
@@ -29,13 +29,55 @@ end
 if version=='scicos2.7.1' then scs_m=do_version272(scs_m),version='scicos2.7.2';end
 if version=='scicos2.7.2' then scs_m=do_version273(scs_m),version='scicos2.7.3';end
 if version=='scicos2.7.3' then
- ncl=lines()
- lines(0)
- printf("Update to scicos 4. Please wait... ")
- scs_m=do_version4(scs_m),version='scicos4';
- printf("Done !\n")
- lines(ncl(2))
-end
+  ncl=lines() //to be removed latter
+  lines(0)  //to be removed latter
+  printf("Update in2,intype,out2 & outtyp of blocks... ")  //to be removed latter
+  scs_m=do_version4(scs_m),version='scicos4';
+  printf("Done !\n")  //to be removed latter
+  lines(ncl(2))  //to be removed latter
+end;
+if version=='scicos4' then
+  ncl=lines()  //to be removed latter
+  lines(0) //to be removed latter
+  printf("Update scopes... ") //to be removed latter
+  scs_m=do_version401(scs_m),version='scicos4.0.1';
+  printf("Done !\n") //to be removed latter
+  lines(ncl(2))  //to be removed latter
+end;
+
+endfunction
+
+//Update old scopes
+function scs_m_new=do_version401(scs_m)
+
+  scs_m_new=scs_m;
+  n=size(scs_m.objs);
+
+  //TODO: SCOPE_f -> CSCOPE
+  //      MSCOPE_f -> CMSCOPE
+
+  for j=1:n //loop on objects
+    o=scs_m.objs(j);
+    if typeof(o)=='Block' then
+      omod=o.model;
+      //SUPER BLOCK
+      if omod.sim=='super'|omod.sim=='csuper' then
+        rpar=do_version401(omod.rpar)
+        scs_m_new.objs(j).model.rpar=rpar
+      //name of gui and sim list change
+      elseif o.gui=='ANIMXY_f' then
+        //scs_m_new.objs(j).gui='ANIMXY'
+        //scs_m_new.objs(j).model.sim=list()
+      elseif o.gui=='EVENTSCOPE_f' then
+      elseif o.gui=='FSCOPE_f' then
+      elseif o.gui=='SCOPXY_f' then
+      //exprs change
+      elseif o.gui=='CMSCOPE' then
+        //scs_m_new.objs(j).graphics.exprs=new_exprs
+      end
+
+    end
+  end
 endfunction
 
 //Add model.in2,model.intype,model.out2 & model.outtype
