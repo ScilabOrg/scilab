@@ -527,7 +527,7 @@ Xscilab.color*scigForm.scigmForm.Panner.foreground:gray
 ! For grayscale displays, use "Xscilab*gray".
 !---------------------------------------------------------------
 Xscilab.color.borderWidth:0
-Xscilab.color.internalWidth:0
+scilab.color.internalWidth:0
 Xscilab.color*background:white
 Xscilab.color*foreground:black
 Xscilab.color.background:gray
@@ -558,7 +558,6 @@ Xscilab.color.*.scigForm.scigraphicinfo.background:white
 Xscilab.color.mdialogShell.hpaned.paned.dViewport.form.kForm.kLabel.background:gray
 Xscilab.color.choiceShell.hpaned.paned.viewport.form.*.background:gray
 Xscilab.color.mtdialogShell.hpaned.paned.dViewport.form.*.label.background:gray
-
 
 Xscilab.gray.borderWidth:0
 Xscilab.gray.internalWidth:0
