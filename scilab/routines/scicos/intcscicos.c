@@ -665,14 +665,29 @@ int intscicosimc(fname,fname_len)
     il_state_evtspt = (int *) (listentry(il_state,6));
     m1e6 = il_state_evtspt[1];
     n1e6 = il_state_evtspt[2];
-    if ((l_state_evtspt=(int *) MALLOC((m1e6*n1e6)*sizeof(int))) ==NULL )
+    if ((m1e6*n1e6)==0)
     {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     return 0;
+     if ((l_state_evtspt=(int *) MALLOC(sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      return 0;
+     }
+     else
+     {
+      l_state_evtspt[0]= 0;
+     }
     }
     else
     {
-     for(i=0;i<(m1e6*n1e6);i++) l_state_evtspt[i]= (int) ((double *)(il_state_evtspt+4))[i];
+     if ((l_state_evtspt=(int *) MALLOC((m1e6*n1e6)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m1e6*n1e6);i++) l_state_evtspt[i]= (int) ((double *)(il_state_evtspt+4))[i];
+     }
     }
 
     /*7 : state.pointi */
