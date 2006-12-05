@@ -19,7 +19,9 @@ function [scs_m]=prt_align(%pt,scs_m)
     if k2<>[] then o2=scs_m.objs(k2);break,end
   end
   if get_connected(scs_m,k2)<>[] then
+    hilite_obj(k2)  //** new
     message('Connected block can''t be aligned')
+    unhilite_obj(k2)  //** new
     return
   end
   //
@@ -40,7 +42,7 @@ function [scs_m]=prt_align(%pt,scs_m)
     graphics1=o1.graphics;orig1=graphics1.orig
     if abs(xc1-xc2)<abs(yc1-yc2) then //align vertically
       orig2(1)=orig1(1)
-    else
+    else //align horizontally
       orig2(2)=orig1(2)
     end
   else
@@ -59,11 +61,32 @@ function [scs_m]=prt_align(%pt,scs_m)
       orig2(2)=orig2(2)-yy2+yy1
     end
   end
-  graphics2.orig=orig2
-  drawobj(o2) // rubbout block
+  //quick update for new graphics
+  //-Alan-
+  //<<<<<<<<<<<<<<<<<
+  gh_win = gcf(); //** get the handler of the curent window
+  if gh_win.figure_id<>win then //** test coherence of current id figure
+   //** TOBEDONE
+   //** error or redraw
+  else
+   gh_curwin=gh_win
+  end
+  o_size = size (gh_curwin.children.children ) ; //** the size:number of all the object
+  gh_k = o_size(1) - k2 + 1 ; //** semi empirical equation :)
+  gh_blk = gh_curwin.children.children(gh_k); //** new
 
-  o2.graphics=graphics2
-  drawobj(o2)
+  drawlater() ; //** new
+  diff_x=orig2(1)-graphics2.orig(1);
+  diff_y=orig2(2)-graphics2.orig(2);
+  move(gh_blk,[diff_x,diff_y]);  //** ..because "move()" works only in differential
+
+  drawnow(); show_pixmap(); //** new
+  //>>>>>>>>>>>>>>>>>>>
+  graphics2.orig=orig2 //** old
+  //drawobj(o2) // rubbout block //** old
+
+  o2.graphics=graphics2 //** old
+  //drawobj(o2) //** old
   scs_m_save=scs_m
   scs_m.objs(k2)=o2
   [scs_m_save,enable_undo,edited]=resume(scs_m_save,%t,%t)

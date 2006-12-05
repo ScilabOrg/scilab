@@ -28,7 +28,7 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
   if k==[] then return , end ;//** if NO object found -> exit 
 
   scs_m_save = scs_m ; //** make a backup of the data structure  
-  
+
   //**-------------------------------------------------------------------
   if typeof(scs_m.objs(k))=='Block' | typeof(scs_m.objs(k))=='Text' then
     //**-------------------- Block --------------------------------------
@@ -281,7 +281,7 @@ function scs_m = stupid_moveblock(scs_m, k, xc, yc)
       end //... for loop
     else //*restore original position of block and links in figure
       drawlater();
-      move (gh_blk , xy-[xc-dx,yc-dy]);  //** ..because "move()" works only in differential
+      move (gh_blk , xy(:)'-[xc-dx,yc-dy]);  //** ..because "move()" works only in differential
       xmt(2,:) = xm(2,:); //** original datas of links
       ymt(2,:) = ym(2,:);
       j = 0 ; //** init
