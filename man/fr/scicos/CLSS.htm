@@ -190,41 +190,54 @@ Interfacing function</A>
 Computational function (type 4)</A>
 </font></H3>
 <BR>
-<PRE>      subroutine csslti(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
-     &amp;     rpar,nrpar,ipar,nipar,u,nu,y,ny)
-c     Copyright INRIA
-c     Scicos block simulator
-c     continuous state space linear system simulator
-c     rpar(1:nx*nx)=A
-c     rpar(nx*nx+1:nx*nx+nx*nu)=B
-c     rpar(nx*nx+nx*nu+1:nx*nx+nx*nu+nx*ny)=C
-c     rpar(nx*nx+nx*nu+nx*ny+1:nx*nx+nx*nu+nx*ny+ny*nu)=D
-c
-      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
-      integer nipar,nu,ny
+<PRE> 
+#include "scicos_block.h"
+#include "../machine.h"
 
-c
-      la=1
-      lb=nx*nx+la
-      lc=lb+nx*nu
+extern int C2F(dmmul)();
+extern int C2F(dmmul1)();
 
-      if(flag.eq.1.or.flag.eq.6) then
-c     y=c*x+d*u     
-         ld=lc+nx*ny
-         call dmmul(rpar(lc),ny,x,nx,y,ny,ny,nx,1)
-         call dmmul1(rpar(ld),ny,u,nu,y,ny,ny,nu,1)
-c         if(t.gt.64.0) write(6,'(e15.8,10(e10.3,x))') t,x(1),x(2),
-c     $        u(1),y(1) 
-      elseif(flag.eq.0) then
-c     xd=a*x+b*u
-         call dmmul(rpar(la),nx,x,nx,xd,nx,nx,nx,1)
-         call dmmul1(rpar(lb),nx,u,nu,xd,nx,nx,nu,1)
-c         if(t.gt.64.0) write(6,'(e15.8,10(e10.3,x))') t,x(1),x(2),
-c     $        xd(1),xd(2),u(1)
-      endif
-      return
-      end
+void csslti4(scicos_block *block,int flag)
+{
+  /*  Copyright INRIA
+
+      Scicos block simulator
+      continuous state space linear system simulator
+      rpar(1:nx*nx)=A
+      rpar(nx*nx+1:nx*nx+nx*nu)=B
+      rpar(nx*nx+nx*nu+1:nx*nx+nx*nu+nx*ny)=C
+      rpar(nx*nx+nx*nu+nx*ny+1:nx*nx+nx*nu+nx*ny+ny*nu)=D */
+  
+  int un=1,lb,lc,ld;
+  int nx=block->nx;
+  double* x=block->x;
+  double* xd=block->xd;
+  double* rpar=block->rpar;
+  double* y=block->outptr[0];
+  double* u=block->inptr[0];
+  int* outsz=block->outsz;
+  int* insz=block->insz;
+  
+  lb=nx*nx;
+  lc=lb+nx*insz[0];
+  
+  if (flag ==1 || flag ==6){
+    /* y=c*x+d*u     */
+    ld=lc+nx*outsz[0];
+    if (nx==0) {
+      C2F(dmmul)(&rpar[ld],outsz,u,insz,y,outsz,outsz,insz,&un);
+    }else{
+      C2F(dmmul)(&rpar[lc],outsz,x,&nx,y,outsz,outsz,&nx,&un);
+      C2F(dmmul1)(&rpar[ld],outsz,u,insz,y,outsz,outsz,insz,&un);
+    }
+  }
+
+  else if (flag ==0){
+    /* xd=a*x+b*u */
+    C2F(dmmul)(&rpar[0],&nx,x,&nx,xd,&nx,&nx,&nx,&un);
+    C2F(dmmul1)(&rpar[lb],&nx,u,insz,xd,&nx,&nx,insz,&un);
+  }
+}
 </PRE>
 <HR>
 
