@@ -1,347 +1,229 @@
-#include "scicos_block.h"
-#include <math.h>
-#include "../machine.h"
+#include "scoMemoryScope.h"
+#include "scoWindowScope.h"
+#include "scoMisc.h"
+#include "scoGetProperty.h"
+#include "scoSetProperty.h"
 
-#if WIN32
-#define NULL    0
-#endif
-
-static int c__1 = 1;
-static int c__0 = 0;
-static int c_n1 = -1;
-static int c__3 = 3;
-static double c_b103 = 0.;
-
-/*extern int getVersionFlag(void);*/ //** external  (1 old ; 0 new) 
-/*extern void setVersionFlag(int newFlag);*/
-
-void cmscope(scicos_block *block,int flag)
+/** \fn void ngmscope(scicos_block * block, int flag)
+    \brief the computational function
+    \param block A pointer to a scicos_block
+    \param flag An integer which indicates the state of the block (init, update, ending)
+*/
+void cmscope(scicos_block * block, int flag)
 {
-  double t;
-  double *z__;
-  double *rpar;
-  int *ipar, nipar,nu;
-  
-  //** Patch to OLD graphics
-  extern int versionflag ; //** external global variable  (1 old ; 0 new) 
-  int default_graphics ;
+  ScopeMemory * pScopeMemory;
+  //REVOIR LES CONDITIONS STATIC SUR CERTAINES VARIABLES
+  /* Declarations */
+  int i,j; //As usual
+  int * ipar; //Integer Parameters
+  int * colors; //Colors
+  int win; //Windows ID : To give a name to the window
+  int buffer_size; //Buffer Size
+  int win_pos[2]; //Position of the Window
+  int win_dim[2]; //Dimension of the Window
+  int nu;
+  int inherited_events;
+  int nipar;
+  int dimension = 2;
+  double t; //get_scicos_time()
+  double * rpar; //Reals parameters
+  double dt; //Time++
+  double * period; //Refresh Period of the scope is a vector here
+  double * ymin,* ymax; //Ymin and Ymax are vectors here
+  double * xmin, *xmax;
+  int nbr_period;
+  int * number_of_curves_by_subwin;
+  int number_of_subwin;
+  int NbrPtsShort;
+  double * u1;
+  int nbr_total_curves;
+  scoGraphicalObject pShortDraw;
+
+  /* Initializations and Allocations*/
+  //Allocations are done here because there are dependent of some values presents below
  
+  /* State Machine Control */
+  switch(flag)
+    {
+    case Initialization:
+      {
+	rpar = GetRealParameters(block);
+	ipar = GetIntegerParameters(block);
+	nipar = GetNumberOfIntegerParameters(block);
+	win = ipar[0];
+	number_of_subwin = ipar[1];
+	buffer_size = ipar[2];
+	win_pos[0] = ipar[3];
+	win_pos[1] = ipar[4];
+	win_dim[0] = ipar[5];
+	win_dim[1] = ipar[6];
+	nbr_total_curves = 0;
+	//Don't forget malloc for 'type *'
+	number_of_curves_by_subwin = (int*)scicos_malloc(number_of_subwin*sizeof(int));
+	for (i = 7; i < 7+number_of_subwin ; i++)
+	  {
+	    number_of_curves_by_subwin[i-7] = ipar[i];
+	    nbr_total_curves = nbr_total_curves + ipar[i];
+	  }
+	colors = (int*)scicos_malloc(nbr_total_curves*sizeof(int));
+	for(i = 0; i < nbr_total_curves ; i++)
+	  {
+	    colors[i] = ipar[i+7+number_of_subwin];
+	  }
+	inherited_events = ipar[7+number_of_subwin+number_of_subwin];
 
+	dt = rpar[0];
 
-  static int cur = 0;
-  static int verb = 0;
+	nbr_period = 0;
+	period = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	for (i = 0 ; i < number_of_subwin ; i++)
+	  {
+	    period[i] = rpar[i+1];
+	    nbr_period++; 
+	  }
+
+	ymin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	ymax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	for (i = 0 ; i < number_of_subwin ; i++)
+	  {
+	    ymin[i] = rpar[2*i+nbr_period+1];
+	    ymax[i] = rpar[2*i+nbr_period+2];
+	  }
+	xmin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	xmax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	for (i = 0 ; i < number_of_subwin ; i++)
+	  {
+	    xmin[i] = 0;
+	    xmax[i] = period[i];
+	  }
+	/*Allocating memory*/
+	scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
+	/*Creating the Scope*/
+	scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
+	scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+	/*Must be placed before adding polyline or other elements*/
+	for(i = 0 ; i < number_of_subwin ; i++)
+	  {
+	    scoSetLongDrawSize(pScopeMemory, i, 5000);
+	    scoSetShortDrawSize(pScopeMemory,i,buffer_size);
+	    scoSetPeriod(pScopeMemory,i,period[i]);
+	  }
+	/*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
+/* 	scoAddPolylineLineStyle(pScopeMemory,colors); */
+	scoAddCoupleOfPolylines(pScopeMemory,colors);
+      	scicos_free(number_of_curves_by_subwin);
+	scicos_free(colors);
+	scicos_free(period);
+	scicos_free(ymin);
+	scicos_free(ymax);
+	scicos_free(xmin);
+	scicos_free(xmax);
+	break; //Break of the switch condition don t forget it
+      } //End of Initialization
   
-  int i__1, i__2, i__3,nwid,kk,i,j,sum;
-  
-  int kfun;  
-  
-  static double rect[4];
-  static int kwid;
-  extern int C2F(getlabel)();
-  extern int C2F(dset)();
-  static int i__, k, n, v;
-  static double frect[4], tsave;
-  static int n1, n2;
-  extern int C2F(plot2d)(), C2F(setscale2d)();
-  static int na;
-  extern int C2F(dr)();
-  static double dt, dv;
-  static int it, nxname;
-  extern int C2F(sciwin)(), C2F(dr1)(), C2F(scicosclip)();
-  static char buf[40];
-  static int wid, iwd;
-  static double per;
-  static int nax[4], ilt, iwp;
+    case StateUpdate:
+      {
+	/* Charging Elements */
+	t = get_scicos_time();
+	/*Retreiving Scope in the block->work*/
+	scoRetrieveScopeMemory(block,&pScopeMemory);
+	/* If window has been destroyed we recreate it */
+	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	  {
+	    rpar = GetRealParameters(block);
+	    ipar = GetIntegerParameters(block);
+	    nipar = GetNumberOfIntegerParameters(block);
+	    nu = block->insz[0];
+	    win = ipar[0];
+	    number_of_subwin = ipar[1];
+	    buffer_size = ipar[2];
+	    win_pos[0] = ipar[3];
+	    win_pos[1] = ipar[4];
+	    win_dim[0] = ipar[5];
+	    win_dim[1] = ipar[6];
 
-  /*     Scicos block simulator */
-  /*     ipar(1) = win_num */
-  /*     ipar(2) = number of subwindows (input ports) */
-  /*     ipar(3) = buffer size */
-  /*     ipar(4:5) : window position */
-  /*     ipar(6:7) : window dimension */
-  /*     ipar(8:7+ipar(2)) = input port sizes */
-  /*     ipar(8+ipar(2):7+ipar(2)+nu) = line type for ith curve */
-  /*     rpar(1)=dt */
-  /*     rpar(2)=periode */
-  /*     rpar(3)=ymin_1 */
-  /*     rpar(4)=ymax_1 */
-  /*     ... */
-  /*     rpar(2*k+1)=ymin_k */
-  /*     rpar(2*k+2)=ymax_k */
+	    //Don't forget scicos_malloc for 'type *'
+	    number_of_curves_by_subwin = (int*)scicos_malloc(number_of_subwin*sizeof(int));
+	    for (i = 7; i < 7+number_of_subwin ; i++)
+	      {
+		number_of_curves_by_subwin[i-7] = ipar[i];
+	      }
+	    colors = (int*)scicos_malloc(number_of_subwin*sizeof(int));
+	    for(i = 7+number_of_subwin ; i < 7+number_of_subwin+number_of_subwin ; i++)
+	      {
+		colors[i-(7+number_of_subwin)] = ipar[i];
+	      }
+	    inherited_events = ipar[7+number_of_subwin+number_of_subwin];
 
-  nu=block->insz[0];
-  rpar=block->rpar;
-  ipar=block->ipar;
-  nipar=block->nipar;
-  t=get_scicos_time();
+	    dt = rpar[0];
 
-  --ipar;
-  --rpar;
+	    nbr_period = 0;
+	    period = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	    for (i = 0 ; i < number_of_subwin ; i++)
+	      {
+		period[i] = rpar[i+1];
+		nbr_period++; 
+	      }
 
-  wid = ipar[1];
-  if(wid==-1){
-    wid=20000+get_block_number();
-  }
-  nwid = ipar[2];
-  n = ipar[3];
-  per = rpar[2];
-  dt = rpar[1];
+	    ymin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	    ymax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	    for (i = 0 ; i < number_of_subwin ; i++)
+	      {
+		ymin[i] = rpar[2*i+nbr_period+1];
+		ymax[i] = rpar[2*i+nbr_period+2];
+	      }
+	    xmin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	    xmax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+	    for (i = 0 ; i < number_of_subwin ; i++)
+	      {
+		xmin[i] = 0;
+		xmax[i] = period[i];
+	      }
 
-  if (flag == 2) {
-    z__=*block->work; 
-    --z__;
-    k = (int) z__[1];
-    if (k > 0) {
-      n1 = (int) (z__[k + 1] / per);
-      if (z__[k + 1] < 0.) {
-	--n1;
-      }
-    } else {
-      n1 = 0;
-    }
+	    scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
+	    scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+	    /*Readding Polylines*/
+	    scoAddCoupleOfPolylines(pScopeMemory,colors);
+	    scicos_free(number_of_curves_by_subwin);
+	    scicos_free(colors);
+	    scicos_free(ymin);
+	    scicos_free(period);
+	    scicos_free(ymax);
+	    scicos_free(xmin);
+	    scicos_free(xmax);
+	  }
 
-    tsave = t;
-    if (dt > 0.) {
-      t = z__[k + 1] + dt;
-    }
 
-    n2 = (int) (t / per);
-    if (t < 0.) {
-      --n2;
-    }
+	scoRefreshDataBoundsX(pScopeMemory,t);
 
-    /*     add new point to the buffer */
-    ++k;
-    z__[k + 1] = t;
-    kk=0;
-    for (i=0;i<block->nin;++i){
-      for (j = 0; j <block->insz[i] ; ++j) {
-	z__[n + 1 + kk * n + k] =block->inptr[i][j] ;
-	++kk;
-      }
-    }
-    z__[1] = (double) k;
-    if (n1 == n2 && k < n) {
-      t = tsave;
-      return ;
-    }
+	//Here we are calculating the points in the polylines
+	for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
+	  {
+	    u1 = GetRealInPortPtrs(block,i);
+	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,0);
+	    NbrPtsShort = pPOLYLINE_FEATURE(pShortDraw)->n1;
+	    for (j = 0; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
+	      {
+		pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
+		pPOLYLINE_FEATURE(pShortDraw)->pvx[NbrPtsShort] = t;
+		pPOLYLINE_FEATURE(pShortDraw)->pvy[NbrPtsShort] = u1[j];
+		pPOLYLINE_FEATURE(pShortDraw)->n1++;
+	      }
+	  }
 
-    /*     plot 1:K points of the buffer */
-    C2F(dr1)("xget\000", "window\000", &verb, &cur, &na, &v, &v, &v, &dv, &dv,
-	     &dv, &dv);
-    if (cur != wid) {
-      C2F(dr1)("xset\000", "window\000", &wid, &v, &v, &v, &v, &v, &dv, &dv,
-	       &dv, &dv);
-    }
-    C2F(dr1)("xset\000", "use color\000", &c__1, &c__0, &c__0, &c__0, &c__0, &
-	     v, &dv, &dv, &dv, &dv);
-    C2F(dr1)("xset\000", "dashes\000", &c__0, &c__0, &c__0, &c__0, &c__0, &v, 
-	     &dv, &dv, &dv, &dv);
-    C2F(dr1)("xsetdr\000", "Rec\000", &v, &v, &v, &v, &v, &v, &dv, &dv, &dv, &
-	     dv);
-    ilt = ipar[2] + 8;
-    it = 0;
-    /*     loop on input ports */
-    if (k > 0) {
-      i__1 = nwid;
-      for (kwid = 1; kwid <= i__1; ++kwid) {
-	rect[0] = per * n1;
-	rect[1] = rpar[(kwid << 1) + 1];
-	rect[2] = per * (n1 + 1);
-	rect[3] = rpar[(kwid << 1) + 2];
-	frect[0] = 0.;
-	frect[1] = (kwid - 1) * (1. / nwid);
-	frect[2] = 1.;
-	frect[3] = 1. / nwid;
-	C2F(setscale2d)(frect, rect, "nn\000");
-	C2F(scicosclip)(&c__1);
-	/*     loop on input port elements */
-	i__2 = ipar[kwid + 7];
-	for (i__ = 1; i__ <= i__2; ++i__) {
-	  C2F(dr1)("xpolys\000", "v\000", &v, &v, &ipar[ilt + it], &
-		   c__1, &k, &v, &z__[2], &z__[n + 2 + it * n], &dv, 
-		   &dv);
-	  ++it;
-	}
-	C2F(scicosclip)(&c__0);
+	scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
+
+	break; 
+	//Break of the switch don t forget it !
+      }//End of stateupdate
+      
+      //This case is activated when the simulation is done or when we close scicos
+    case Ending:
+      {
+	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoDelCoupleOfPolylines(pScopeMemory);
+	scoFreeScopeMemory(block, &pScopeMemory);
+	break;
       }
     }
-    /*     shift buffer left */
-    z__[2] = z__[k + 1];
-    sum=0;
-    for (i=0;i<block->nin;++i){
-      sum=sum+block->insz[i];
-    }    i__1 = sum;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-      z__[n + 1 + (i__ - 1) * n + 1] = z__[n + 1 + (i__ - 1) * n + k];
-    }
-    z__[1] = 1.;
-    if (n1 != n2) {
-      /*     clear window */
-      nax[0] = 2;
-      nax[1] = 10;
-      nax[2] = 5;
-      nax[3] = 4;
-      C2F(dr1)("xclear\000", "v\000", &v, &v, &v, &v, &v, &v, &dv, &dv, &dv,
-	       &dv);
-      C2F(dr1)("xset\000", "use color\000", &c__1, &c__0, &c__0, &c__0, &
-	       c__0, &v, &dv, &dv, &dv, &dv);
-      C2F(dr)("xstart\000", "v\000", &wid, &v, &v, &v, &v, &v, &dv, &dv, &
-	      dv, &dv);
-      C2F(dr1)("xset\000", "dashes\000", &c__0, &c__0, &c__0, &c__0, &c__0, 
-	       &v, &dv, &dv, &dv, &dv);
-      i__1 = nwid;
-      for (kwid = 1; kwid <= i__1; ++kwid) {
-	rect[0] = per * (n1 + 1);
-	rect[1] = rpar[(kwid << 1) + 1];
-	rect[2] = per * (n1 + 2);
-	rect[3] = rpar[(kwid << 1) + 2];
-	frect[0] = 0.;
-	frect[1] = (kwid - 1) * (1. / nwid);
-	frect[2] = 1.;
-	frect[3] = 1. / nwid;
-	C2F(setscale2d)(frect, rect, "nn\000");
-	C2F(plot2d)(rect, &rect[1], &c__1, &c__1, &c_n1, "011", "xlines", rect, 
-		    nax);
-      }
-    }
-    t = tsave;
-
-  } else if (flag == 4) {
-    sum=0;
-    for (i=0;i<block->nin;++i){
-      sum=sum+block->insz[i];
-    }
-    if ((*block->work=
-	 scicos_malloc(sizeof(double)*(1+ipar[3]*(1+sum))))== NULL ) {
-      set_block_error(-16);
-      return;
-    }
-    z__=*block->work; 
-    --z__;
-    z__[1]=-1.0;
-    nax[0] = 2;
-    nax[1] = 10;
-    nax[2] = 5;
-    nax[3] = 4;
-    n1 = (int) (t / per);
-    if (t <= 0.) {
-      --n1;
-    }
-    
-    //** --------------------- 
-    /*default_graphics = getVersionFlag() ;*/
-    /*setVersionFlag(1) ;*/ //** force the old graphics
-    default_graphics = versionflag ;
-    versionflag = 1 ; //** force the old graphics
-    
-    C2F(sciwin)();
-    C2F(dr1)("xget\000", "window\000", &verb, &cur, &na, &v, &v, &v, &dv, &dv,
-	     &dv, &dv);
-    if (cur != wid) {
-      C2F(dr1)("xset\000", "window\000", &wid, &v, &v, &v, &v, &v, &dv, &dv,
-	       &dv, &dv);
-    }
-    iwp = 4;
-    if (ipar[iwp] >= 0) {
-      C2F(dr1)("xset\000", "wpos\000", &ipar[iwp], &ipar[iwp + 1], &v, &v, &
-	       v, &v, &dv, &dv, &dv, &dv);
-    }
-    iwd = 6;
-    if (ipar[iwd] >= 0) {
-      C2F(dr1)("xset\000", "wdim\000", &ipar[iwd], &ipar[iwd + 1], &v, &v, &
-	       v, &v, &dv, &dv, &dv, &dv);
-    }
-    C2F(dr1)("xsetdr\000", "Rec\000", &v, &v, &v, &v, &v, &v, &dv, &dv, &dv, &
-	     dv);
-    C2F(dr1)("xset\000", "use color\000", &c__1, &c__0, &c__0, &c__0, &c__0, &
-	     v, &dv, &dv, &dv, &dv);
-    C2F(dr1)("xset\000", "alufunction\000", &c__3, &c__0, &c__0, &c__0, &c__0,
-	     &v, &dv, &dv, &dv, &dv);
-    C2F(dr1)("xclear\000", "v\000", &v, &v, &v, &v, &v, &v, &dv, &dv, &dv, &
-	     dv);
-    C2F(dr)("xstart\000", "v\000", &wid, &v, &v, &v, &v, &v, &dv, &dv, &dv, &
-	    dv);
-    C2F(dr1)("xset\000", "dashes\000", &c__0, &c__0, &c__0, &c__0, &c__0, &v, 
-	     &dv, &dv, &dv, &dv);
-    nxname = 40;
-    kfun=get_block_number();
-    C2F(getlabel)(&kfun, buf, &nxname);
-    if (nxname > 39) {
-      nxname = 39;
-    }
-    i__1 = nxname;
-    *(buf+i__1)=*"\000";
-    if ((nxname == 1 && *(unsigned char *)buf == ' ') || nxname == 0) {
-    } else {
-      C2F(dr)("xname\000", buf, &v, &v, &v, &v, &v, &v, &dv, &dv, &dv, &dv);
-    }
-    i__1 = nwid;
-    for (kwid = 1; kwid <= i__1; ++kwid) {
-      rect[0] = per * (n1 + 1);
-      rect[1] = rpar[(kwid << 1) + 1];
-      rect[2] = per * (n1 + 2);
-      rect[3] = rpar[(kwid << 1) + 2];
-      frect[0] = 0.;
-      frect[1] = (kwid - 1) * (1. / nwid);
-      frect[2] = 1.;
-      frect[3] = 1. / nwid;
-      C2F(setscale2d)(frect, rect, "nn\000");
-      C2F(plot2d)(rect, &rect[1], &c__1, &c__1, &c_n1, "011", buf, rect, nax);
-    }
-    
-    z__[1] = 0.;
-    z__[2] = t;
-    i__1 = sum * n;
-    C2F(dset)(&i__1, &c_b103, &z__[3], &c__1);
-    
-    //** --- restore the graphics mode 
-    /*setVersionFlag(default_graphics);*/
-    versionflag = default_graphics ;
-    
-  } else if (flag == 5) {
-    z__=*block->work; 
-    --z__;
-    k = (int) z__[1];
-    if (k <= 1) {
-      scicos_free(*block->work);
-      return ;
-    }
-    C2F(dr1)("xget\000", "window\000", &verb, &cur, &na, &v, &v, &v, &dv, &dv,
-	     &dv, &dv);
-    if (cur != wid) {
-      C2F(dr1)("xset\000", "window\000", &wid, &v, &v, &v, &v, &v, &dv, &dv,
-	       &dv, &dv);
-    }
-    C2F(dr1)("xset\000", "use color\000", &c__1, &c__0, &c__0, &c__0, &c__0, &
-	     v, &dv, &dv, &dv, &dv);
-    
-    ilt = ipar[2] + 8;
-    it = 0;
-    n1 = (int) (z__[2] / per);
-    /*     loop on input ports */
-    i__1 = nwid;
-    for (kwid = 1; kwid <= i__1; ++kwid) {
-      rect[0] = per * (n1 + 0);
-      rect[1] = rpar[(kwid << 1) + 1];
-      rect[2] = per * (n1 + 1);
-      rect[3] = rpar[(kwid << 1) + 2];
-      frect[0] = 0.;
-      frect[1] = (kwid - 1) * (1. / nwid);
-      frect[2] = 1.;
-      frect[3] = 1. / nwid;
-      F2C(setscale2d)(frect, rect, "nn\000");
-      F2C(scicosclip)(&c__1);
-      /*     loop on input port elements */
-      i__2 = ipar[kwid + 7];
-      for (i__ = 1; i__ <= i__2; ++i__) {
-	i__3 = k - 1;
-	C2F(dr1)("xpolys\000", "v\000", &v, &v, &ipar[ilt + it], &c__1, &
-		 i__3, &v, &z__[2], &z__[n + 2 + it * n], &dv, &dv);
-	++it;
-      }
-      C2F(scicosclip)(&c__0);
-    }
-  scicos_free(*block->work);
-  }
-} 
+}

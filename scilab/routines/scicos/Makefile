@@ -44,7 +44,7 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
         sinh_blk.o cosh_blk.o tanh_blk.o asinh_blk.o acosh_blk.o atanh_blk.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
 	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
-	matmul_m.o mattran_m.o
+	matmul_m.o mattran_m.o cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \
@@ -54,7 +54,7 @@ OBJSF=intcos.o coselm.o sciblk.o  \
 OBJSC=scicos.o intcscicos.o import.o realtime.o \
 	intrealtime.o matscicos.o blocks.o scicosclip.o \
 	sciblk2.o sciblk2i.o sciblk4.o str2sci.o scicos_malloc.o \
-	scicos_free.o tree.o $(BLOCKSC)
+	scicos_free.o tree.o scoGetProperty.o scoSetProperty.o scoMisc.o scoMemoryScope.o scoWindowScope.o $(BLOCKSC)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
