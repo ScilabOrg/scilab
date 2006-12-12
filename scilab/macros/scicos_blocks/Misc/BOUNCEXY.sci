@@ -14,7 +14,8 @@ case 'getorigin' then
 case 'set' then
   x=arg1;
   graphics=arg1.graphics;exprs=graphics.exprs
-  model=arg1.model;dstate=model.dstate
+  model=arg1.model;
+  dstate=model.dstate
   while %t do
     [ok,clrs,siz,win,imode,xmin,xmax,ymin,ymax,exprs]=getvalue(..
 	'Set Scope parameters',..
@@ -61,7 +62,8 @@ case 'set' then
 	z(6*(i-1)+5)=0.000
 	z(6*(i-1)+6)=64.0*360.000;
       end
-      model.dstate=z;model.rpar=rpar;model.ipar=ipar
+      model.dstate=z;
+      model.rpar=rpar;model.ipar=ipar
       graphics.exprs=exprs;
       x.graphics=graphics;x.model=model
       break
@@ -75,6 +77,7 @@ case 'define' then
   model=scicos_model()
   model.sim=list('bouncexy',4)
   model.in=[-1;-1]
+  model.in2=[1;1]
   model.evtin=1
   z=[]
   for i=1:size(clrs,'*')

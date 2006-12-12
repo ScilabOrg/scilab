@@ -36,12 +36,13 @@ function routines=create_palette(Path)
 	
       elseif txt=='Sinks' then
 	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';       
-	      'SCOPXY_f.sci';   'WRITEC_f.sci';
-	      'ANIMXY_f.sci';   'CSCOPE.sci';        
+	      'CSCOPXY.sci';   'WRITEC_f.sci';
+	      'CANIMXY.sci';   'CSCOPE.sci';        
 	      'OUTIMPL_f.sci'; 
-	      'CLKOUTV_f.sci';  'EVENTSCOPE_f.sci';  
+	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';  
 	      'OUT_f.sci';      'WFILE_f.sci';
-	      'FSCOPE_f.sci';   'WRITEAU_f.sci']
+	      'CFSCOPE.sci';   'WRITEAU_f.sci';
+	      'CSCOPXY3D.sci';   'CANIMXY3D']
 	
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';

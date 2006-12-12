@@ -49,13 +49,10 @@ endfunction
 
 //Update old scopes
 function scs_m_new=do_version401(scs_m)
-
   scs_m_new=scs_m;
   n=size(scs_m.objs);
-
   //TODO: SCOPE_f -> CSCOPE
-  //      MSCOPE_f -> CMSCOPE
-
+  //MSCOPE_f -> CMSCOPE
   for j=1:n //loop on objects
     o=scs_m.objs(j);
     if typeof(o)=='Block' then
@@ -65,17 +62,65 @@ function scs_m_new=do_version401(scs_m)
         rpar=do_version401(omod.rpar)
         scs_m_new.objs(j).model.rpar=rpar
       //name of gui and sim list change
+      elseif o.gui=='SCOPE_f' then
+	//pause;
+        scs_m_new.objs(j).gui='CSCOPE'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('cscope', 4)
+      elseif o.gui=='MSCOPE_f' then
+        scs_m_new.objs(j).gui='CMSCOPE'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('cmscope', 4)
+        A=evstr(scs_m_new.objs(j).graphics.exprs(1));
+        A=A(:);
+        A=A';
+ 	nb_A=size(A,2);
+	B=stripblanks(scs_m.objs(j).graphics.exprs(8));
+	B(1:nb_A)=B;
+        B = strcat(B', ' ');
+        scs_m_new.objs(j).graphics.exprs(8) = B;
+	rpar=scs_m_new.objs(j).model.rpar(:);
+	N=scs_m_new.objs(j).model.ipar(2);
+	period = [];
+	for i=1:N
+	   period(i)=rpar(2);
+	end
+	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]	
       elseif o.gui=='ANIMXY_f' then
-        //scs_m_new.objs(j).gui='ANIMXY'
-        //scs_m_new.objs(j).model.sim=list()
+        scs_m_new.objs(j).gui='CANIMXY'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('canimxy', 4)
       elseif o.gui=='EVENTSCOPE_f' then
+        scs_m_new.objs(j).gui='CEVENTSCOPE'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('cevscpe', 4)
       elseif o.gui=='FSCOPE_f' then
+        scs_m_new.objs(j).gui='CFSCOPE'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('cfscope', 4)
       elseif o.gui=='SCOPXY_f' then
-      //exprs change
+        scs_m_new.objs(j).gui='CSCOPXY'
+	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.sim=list('cscopxy', 4)
       elseif o.gui=='CMSCOPE' then
-        //scs_m_new.objs(j).graphics.exprs=new_exprs
+	scs_m_new.objs(j).model.dstate=[]
+        A=evstr(scs_m_new.objs(j).graphics.exprs(1));
+        A=A(:);
+        A=A';
+ 	nb_A=size(A,2);
+	B=stripblanks(scs_m.objs(j).graphics.exprs(8));
+	B(1:nb_A)=B;
+        B = strcat(B', ' ');
+        scs_m_new.objs(j).graphics.exprs(8)=B;
+	rpar=scs_m_new.objs(j).model.rpar(:);
+	N=scs_m_new.objs(j).model.ipar(2);
+	period = [];
+	for i=1:N
+	   period(i)=rpar(2);
+	end
+	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
+	//pause;
       end
-
     end
   end
 endfunction
