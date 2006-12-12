@@ -1,0 +1,53 @@
+#include "scoBase.h"
+#include "scoMisc.h"
+#include "scoGetProperty.h"
+#include "scoSetProperty.h"
+#include "stdio.h"
+
+void scoScopeError(ScopeMemory * pScopeMemory, int code_error)
+{
+  scoGraphicalObject pScopeWindow;
+  scoInteger win_id;
+
+  switch(code_error)
+    {
+    case 0:
+      sciprint("SCOPE ERROR : sciDrawObj cannot be performed, pShortDraw is NULL for unknown reason !\n Maybe you have destroyed the windows or any parent of curves\n");
+      fprintf(stderr,"SCOPE ERROR : sciDrawObj cannot be performed, pShortDraw is NULL for unknown reason !\n Maybe you have destroyed the windows or any parent of curves\n");
+      break;
+    case 1:
+      sciprint("SCOPE ERROR : Error during malloc - Check Memory\n");
+      fprintf(stderr,"SCOPE ERROR : Error during malloc - Check Memory\n");
+      break;
+    default:
+      sciprint("SCOPE ERROR : Unknown code error ! Please report it to developpers :)\n");
+      fprintf(stderr,"SCOPE ERROR : Unknown code error ! Please report it to developpers :)\n");
+      break;
+    }
+
+  pScopeWindow = scoGetPointerScopeWindow(pScopeMemory);
+  win_id = scoGetWindowID(pScopeMemory);
+  if (pScopeWindow != NULL )
+    {
+      C2F(deletewin)(&win_id); //Old graphics ?
+    }
+
+  set_block_error(-16);
+}
+
+
+void C2F (oldgraphics) (int *flag)
+{
+  //** Patch to OLD graphics
+  extern int versionflag ; //** external global variable  (1 old ; 0 new) 
+  
+  //** flag = 1 ; old graphics back compatibility
+  //** flag = 0 ; default graphics mode 
+      
+  /*setVersionFlag(*flag) ;*/ //** force the old graphics
+  versionflag = *flag ; //** force the old graphics
+  
+  // debug only :)
+  // printf("\n versionflag = %d \n  ", versionflag);
+
+}
