@@ -47,9 +47,9 @@ void cmscope(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	rpar = GetRealParameters(block);
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
+	rpar = GetRparPtrs(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
 	win = ipar[0];
 	number_of_subwin = ipar[1];
 	buffer_size = ipar[2];
@@ -130,9 +130,9 @@ void cmscope(scicos_block * block, int flag)
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    rpar = GetRealParameters(block);
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
+	    rpar = GetRparPtrs(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
 	    nu = block->insz[0];
 	    win = ipar[0];
 	    number_of_subwin = ipar[1];
@@ -199,7 +199,7 @@ void cmscope(scicos_block * block, int flag)
 	//Here we are calculating the points in the polylines
 	for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
 	  {
-	    u1 = GetRealInPortPtrs(block,i);
+	    u1 = GetRealInPortPtrs(block,i+1);
 	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,0);
 	    NbrPtsShort = pPOLYLINE_FEATURE(pShortDraw)->n1;
 	    for (j = 0; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)

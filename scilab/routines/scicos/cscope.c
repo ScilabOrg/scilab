@@ -34,9 +34,9 @@ void cscope(scicos_block * block,int flag)
     case Initialization:
       {
 	/*Retrieving Parameters*/
-	rpar = GetRealParameters(block);
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
+	rpar = GetRparPtrs(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
 	buffer_size = ipar[2];
 	win = ipar[0];
 	if (win == -1)
@@ -87,9 +87,9 @@ void cscope(scicos_block * block,int flag)
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    rpar = GetRealParameters(block);
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
+	    rpar = GetRparPtrs(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
 	    buffer_size = ipar[2];
 	    win = ipar[0];
 	    if (win == -1)
@@ -122,7 +122,7 @@ void cscope(scicos_block * block,int flag)
 	scoRefreshDataBoundsX(pScopeMemory,t);
 
 	//Cannot be factorized depends of the scope
-	u1 = GetRealInPortPtrs(block,0);
+	u1 = GetRealInPortPtrs(block,1);
 	for (i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
 	    pShortDraw  = scoGetPointerShortDraw(pScopeMemory,0,i);

@@ -36,9 +36,9 @@ void bouncexy(scicos_block * block,int flag)
     case Initialization:
       {
 	/*Retrieving Parameters*/
-	rpar = GetRealParameters(block);
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
+	rpar = GetRparPtrs(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
 	win = ipar[0];
 	if (win == -1)
 	  {
@@ -105,9 +105,9 @@ void bouncexy(scicos_block * block,int flag)
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
 	    /*Retrieving Parameters*/
-	    rpar = GetRealParameters(block);
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
+	    rpar = GetRparPtrs(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
 	    win = ipar[0];
 	    if (win == -1)
 	      {
@@ -167,8 +167,8 @@ void bouncexy(scicos_block * block,int flag)
 	  {
 	    size_balls[i] = block->z[6*i+2];
 	  }
-	u1 = GetRealInPortPtrs(block,0);
-	u2 = GetRealInPortPtrs(block,1);
+	u1 = GetRealInPortPtrs(block,1);
+	u2 = GetRealInPortPtrs(block,2);
 	for (i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
 	    pShortDraw  = scoGetPointerShortDraw(pScopeMemory,0,i);

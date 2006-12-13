@@ -42,9 +42,9 @@ void cscopxy3d(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
-	rpar = GetRealParameters(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
+	rpar = GetRparPtrs(block);
 	win = ipar[0];
 	color_flag = ipar[1];
 	buffer_size = ipar[2];
@@ -92,9 +92,9 @@ void cscopxy3d(scicos_block * block, int flag)
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
-	    rpar = GetRealParameters(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
+	    rpar = GetRparPtrs(block);
 	    win = ipar[0];
 	    color_flag = ipar[1];
 	    buffer_size = ipar[2];
@@ -121,9 +121,9 @@ void cscopxy3d(scicos_block * block, int flag)
 	    pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->alpha = alpha;
 	    pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->theta = theta;
 	  }
-	u1 = GetRealInPortPtrs(block,0);
-	u2 = GetRealInPortPtrs(block,1);
-	u3 = GetRealInPortPtrs(block,2);
+	u1 = GetRealInPortPtrs(block,1);
+	u2 = GetRealInPortPtrs(block,2);
+	u3 = GetRealInPortPtrs(block,3);
 
 	Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
 	Trait = scoGetPointerLongDraw(pScopeMemory,0,0);

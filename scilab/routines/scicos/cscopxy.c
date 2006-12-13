@@ -42,9 +42,9 @@ void cscopxy(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
-	rpar = GetRealParameters(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
+	rpar = GetRparPtrs(block);
 	win = ipar[0];
 	color_flag = ipar[1];
 	buffer_size = ipar[2];
@@ -83,9 +83,9 @@ void cscopxy(scicos_block * block, int flag)
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
-	    rpar = GetRealParameters(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
+	    rpar = GetRparPtrs(block);
 	    win = ipar[0];
 	    color_flag = ipar[1];
 	    buffer_size = ipar[2];
@@ -108,8 +108,8 @@ void cscopxy(scicos_block * block, int flag)
 	    scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
 	    scoAddPolylineForLongDraw(pScopeMemory,0,0,color[0]);
 	  }
-	u1 = GetRealInPortPtrs(block,0);
-	u2 = GetRealInPortPtrs(block,1);
+	u1 = GetRealInPortPtrs(block,1);
+	u2 = GetRealInPortPtrs(block,2);
 
 	Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
 	Trait = scoGetPointerLongDraw(pScopeMemory,0,0);

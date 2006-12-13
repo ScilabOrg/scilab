@@ -36,9 +36,9 @@ void cfscope(scicos_block * block,int flag)
     case Initialization:
       {
 	/*Retrieving Parameters*/
-	rpar = GetRealParameters(block);
-	ipar = GetIntegerParameters(block);
-	nipar = GetNumberOfIntegerParameters(block);
+	rpar = GetRparPtrs(block);
+	ipar = GetIparPtrs(block);
+	nipar = GetNipar(block);
 	win = ipar[0];
 	color_flag = ipar[1];
 	buffer_size = ipar[2];
@@ -89,9 +89,9 @@ void cfscope(scicos_block * block,int flag)
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
 	    /*Retrieving Elements*/
-	    rpar = GetRealParameters(block);
-	    ipar = GetIntegerParameters(block);
-	    nipar = GetNumberOfIntegerParameters(block);
+	    rpar = GetRparPtrs(block);
+	    ipar = GetIparPtrs(block);
+	    nipar = GetNipar(block);
 	    win = ipar[0];
 	    color_flag = ipar[1];
 	    buffer_size = ipar[2];
@@ -128,7 +128,7 @@ void cfscope(scicos_block * block,int flag)
 	//Cannot be factorized depends of the scope
 	nbr_of_curves = scoGetNumberOfCurvesBySubwin(pScopeMemory,0);
 
-	ipar = GetIntegerParameters(block);
+	ipar = GetIparPtrs(block);
 	sortie = (double*)malloc(nbr_of_curves*sizeof(double));
 	index_of_view =(int*)malloc(nbr_of_curves*sizeof(int));
 	for(i = 16 ; i < 16+nbr_of_curves ; i++)

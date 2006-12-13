@@ -11,19 +11,25 @@ void gainblk(scicos_block *block,int flag)
 
   double *u; double *y;
   int nu,mu,ny,my;
+  double *rpar;
+  int nrpar;
 
-  nu=GetInPortRows(block,0);
-  ny=GetOutPortRows(block,0);
-  my=GetOutPortCols(block,0);
+  nu=GetInPortRows(block,1);
+  ny=GetOutPortRows(block,1);
+  my=GetOutPortCols(block,1);
 
-  u=GetRealInPortPtrs(block,0);
-  y=GetRealOutPortPtrs(block,0);
+  u=GetRealInPortPtrs(block,1);
+  y=GetRealOutPortPtrs(block,1);
 
-  if (block->nrpar==1){
+  nrpar=GetNrpar(block);
+
+  rpar=GetRparPtrs(block);
+
+  if (nrpar==1){
     for (i=0;i<nu*my;++i){
-     y[i]=block->rpar[0]*u[i];
-    }    
-  }else{   
-    C2F(dmmul)(block->rpar,&ny,u,&nu,y,&ny,&ny,&nu,&my);
+     y[i]=rpar[0]*u[i];
+    }
+  }else{
+    C2F(dmmul)(rpar,&ny,u,&nu,y,&ny,&ny,&nu,&my);
   }
 }

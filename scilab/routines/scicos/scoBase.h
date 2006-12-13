@@ -40,23 +40,6 @@
 */
 #define Ending         5
 
-/**
-   \brief Give the Integers Parameters of the current block
-*/
-#define GetIntegerParameters(blk) (blk->ipar)
-
-/**
-   \brief Give the Real Parameters of the current block 
-*/
-#define GetRealParameters(blk) (blk->rpar)
-
-/**
-   \brief Give the Number of Integers Parameters of the current block 
-*/
-#define GetNumberOfIntegerParameters(blk) (blk->nipar)
-
-
-
 /*--------------------------------TYPEDEF---------------------*/
 
 /**

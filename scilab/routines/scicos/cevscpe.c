@@ -36,11 +36,11 @@ void cevscpe(scicos_block * block, int flag)
       {
 	/* Initialization */
 
-	ipar =  GetIntegerParameters(block);
+	ipar =  GetIparPtrs(block);
 	win = ipar[0];
 	color_flag = ipar[1];
 	period = block->rpar[0];
-	nipar = GetNumberOfIntegerParameters(block);
+	nipar = GetNipar(block);
 	nbr_colors = nipar-6;
 	colors=(int*)malloc(nbr_colors*sizeof(int));
 	for( i = 2 ; i < nbr_colors+2 ; i++)
@@ -77,11 +77,11 @@ void cevscpe(scicos_block * block, int flag)
 	scoRetrieveScopeMemory(block,&pScopeMemory);
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    ipar =  GetIntegerParameters(block);
+	    ipar =  GetIparPtrs(block);
 	    win = ipar[0];
 	    color_flag = ipar[1];
 	    period = block->rpar[0];
-	    nipar = GetNumberOfIntegerParameters(block);
+	    nipar = GetNipar(block);
 	    nbr_colors = nipar-6;
 	    colors=(int*)malloc(nbr_colors*sizeof(int));
 	    for( i = 2 ; i < nbr_colors+2 ; i++)
