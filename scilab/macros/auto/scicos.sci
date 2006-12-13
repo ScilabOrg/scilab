@@ -139,7 +139,10 @@ if ~super_block then
   if ~exists('%scicos_debug_gr') then
     %scicos_debug_gr = %f;
   end
-
+  //** Scicos internal function (scicos/routines/permuteobj) override in order to assure full
+  //** compatibility with NGI (J.B. Silvy)
+  swap_handles=permutobj; //TO be removed in scilab 5
+  
   //intialize lhb menu
   %scicos_lhb_list = list()
   %scicos_lhb_list(1) = list('Open/Set',..
@@ -662,8 +665,6 @@ function selecthilite(Select, flag)  // update the image
     gh_obj.children(1).mark_mode = flag  ;
 
   end //** end the for(..) loop
-
-  //** drawnow(); show_pixmap();
 
   scf(gh_winback)
 
