@@ -10,7 +10,7 @@ function scs_m=changeports(scs_m,path,o_n)
   [sz,orient,ip,op,cip,cop] = (o.graphics.sz,o.graphics.flip,o.graphics.pin,o.graphics.pout,..
 			       o.graphics.pein,o.graphics.peout);
   [nin,nout,ncin,ncout] = (o_n.model.in, o_n.model.out, o_n.model.evtin, o_n.model.evtout);
-  
+
   //standard inputs
   nip  = size(ip,'*')
   nipn = size(nin_n,'*')
@@ -18,7 +18,9 @@ function scs_m=changeports(scs_m,path,o_n)
   if nip>nipn then
     //number of input ports decreased
     if or(ip(nipn+1:$)>0) then
+      hilite_obj(k) //** new
       message('Connected ports cannot be suppressed')
+      unhilite_obj(k) //** new
       return
     end
     kc  = find(ip>0) ;
@@ -28,7 +30,7 @@ function scs_m=changeports(scs_m,path,o_n)
     if ip<>[] then kc=find(ip>0),else kc=[];end
     ipn = [ip; zeros(nipn-nip,1)]
   end
-  
+
   if  nip<>nipn then
     connected = [connected ip(kc)'];
     dy=[dy,(-sz(2)/(nipn+1)+sz(2)/(nip+1))*kc]; //new-old
@@ -42,7 +44,9 @@ function scs_m=changeports(scs_m,path,o_n)
   if nop>nopn then
     //number of output ports decreased
     if or(op(nopn+1:$)>0) then
+      hilite_obj(k) //** new
       message('Connected ports cannot be suppressed')
+      unhilite_obj(k) //** new
       return
     end
     kc=find(op>0)
@@ -52,7 +56,7 @@ function scs_m=changeports(scs_m,path,o_n)
     if op<>[] then kc=find(op>0),else kc=[];end
     opn=[op;zeros(nopn-nop,1)]
   end
-  
+
   if nop<>nopn then
     connected=[connected op(kc)']
     dy=[dy,(-sz(2)/(nopn+1)+sz(2)/(nop+1))*kc]; //new-old
@@ -66,7 +70,9 @@ function scs_m=changeports(scs_m,path,o_n)
   if ncip>ncipn then
     //number of input ports decreased
     if or(cip(ncipn+1:$)>0) then
+      hilite_obj(k) //** new
       message('Connected ports cannot be suppressed')
+      unhilite_obj(k) //** new
       return
     end
     kc=find(cip>0)
@@ -76,7 +82,7 @@ function scs_m=changeports(scs_m,path,o_n)
     if cip<>[] then kc=find(cip>0),else kc=[];end
     cipn=[cip;zeros(ncipn-ncip,1)]
   end
-  
+
   if ncip<>ncipn then
     connected=[connected cip(kc)']
     dx=[dx,(sz(1)/(ncipn+1)-sz(1)/(ncip+1))*kc]
@@ -90,7 +96,9 @@ function scs_m=changeports(scs_m,path,o_n)
   if ncop>ncopn then
     //number of output ports decreased
     if or(cop(ncopn+1:$)>0) then
+      hilite_obj(k) //** new
       message('Connected ports cannot be suppressed')
+      unhilite_obj(k) //** new
       return
     end
     kc=find(cop>0)
@@ -100,13 +108,20 @@ function scs_m=changeports(scs_m,path,o_n)
     if cop<>[] then kc=find(cop>0),else kc=[];end
     copn=[cop;zeros(ncopn-ncop,1)]
   end
-  
+
   if ncop<>ncopn then
     connected=[connected,cop(kc)']
     dx=[dx, (sz(1)/(ncopn+1)-sz(1)/(ncop+1))*kc]
     dy=[dy,0*kc]
   end
   // update  block
+
+  drawlater() ;
+  gh_curwin = gh_current_window;
+  o_size = size(gh_curwin.children.children);
+  gr_k = o_size(1) - k + 1; //** semi empirical equation :)
+  gh_link_i=[];
+
   o_n.graphics.pin = ipn;
   o_n.graphics.pout=opn;
   o_n.graphics.pein=cipn;
@@ -122,8 +137,13 @@ function scs_m=changeports(scs_m,path,o_n)
     xx=[];yy=[];ii=[];clr=[];mx=[];my=[]
 
     for i1=1:size(connected,'*')
+
       i=connected(i1)
       oi=scs_m.objs(i)
+
+      gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
+      gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** new
+
       //[xl,yl,ct,from,to]=oi([2,3,7:9])
       [xl,yl,ct,from,to]=(oi.xx,oi.yy,oi.ct,oi.from,oi.to)
       clr=[clr ct(1)]
@@ -213,19 +233,18 @@ function scs_m=changeports(scs_m,path,o_n)
 	xx=[xx x1];yy=[yy y1] 
       end
     end
-    
+
     [mxx,nxx]=size(xx)
-    
+
     if connected<>[] then // move connected links  
-      
       // erase moving part of links
       //** xpolys(xx,yy,clr) ; //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-      
+
       // draw moving part of links
       xx=xx+mx
       yy=yy+my
       //** xpolys(xx,yy,clr); //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-      
+
       //udate moved links in scicos structure
       for i=1:prod(size(ii))
 	oi=scs_m.objs(abs(ii(i)))
@@ -261,16 +280,17 @@ function scs_m=changeports(scs_m,path,o_n)
 	//store
 	oi.xx=xl;oi.yy=yl;
 	scs_m.objs(abs(ii(i)))=oi;
+        gh_link_i(i).children.data = [oi.xx , oi.yy]
       end
     end
 
   end
   // redraw block
-  //** drawobj(o) //clear old block //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-  //** drawobj(o_n)// draw new block//** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-
+  //quick update for new graphics
+  update_gr(gr_k,o_n);
+  drawnow();show_pixmap();
   //** if pixmap then xset('wshow'),end
-  
+
   // update block in scicos structure
   scs_m.objs(k) = o_n ;
 
