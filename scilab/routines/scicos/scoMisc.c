@@ -51,3 +51,23 @@ void C2F (oldgraphics) (int *flag)
   // printf("\n versionflag = %d \n  ", versionflag);
 
 }
+
+/* permut pobj_1/pobj_2 ptrs coming from
+ * pparent_1/pparent_2 hdl(s)
+ */
+int permutobj(sciPointObj *pobj_1, sciPointObj *pparent_1,
+              sciPointObj *pobj_2, sciPointObj *pparent_2)
+{
+ sciSons *OneSon, *OneSon2;
+
+ OneSon=(sciGetRelationship (pparent_1)->psons);
+ while (OneSon->pointobj!=pobj_1)
+   OneSon=(sciSons *)OneSon->pnext;
+ OneSon2=(sciGetRelationship (pparent_2)->psons);
+ while (OneSon2->pointobj!=pobj_2)
+   OneSon2=(sciSons *)OneSon2->pnext;
+ OneSon->pointobj=pobj_2;
+ OneSon2->pointobj=pobj_1;
+
+ return 0;
+}

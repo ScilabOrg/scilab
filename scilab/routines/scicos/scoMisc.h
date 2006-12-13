@@ -22,4 +22,8 @@ extern int C2F(deletewin)();
  */
 void C2F (oldgraphics) (int *flag);
 
+/**
+ */
+int permutobj(sciPointObj *pobj_1, sciPointObj *pparent_1,
+              sciPointObj *pobj_2, sciPointObj *pparent_2);
 #endif

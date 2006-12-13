@@ -19,6 +19,7 @@
  * int intgetscicosvarsc(fname,fname_len)
  * int intcurblkc(fname,fname_len)
  * int intbuildouttb(fname,fname_len)
+ * int intpermutobj_c(fname,fname_len)
  */
 
 /*     Copyright INRIA */
@@ -32,6 +33,13 @@
 #include "../os_specific/sci_mem_alloc.h"  /* malloc */
 #include "../stack-c.h"
 
+/* for intpermutobj_c 
+ * should be removed when scicos
+ * go back to TRUNK -scilab 5-
+ */
+#include "../interf/intcommongraphics.h"
+#include "scoMisc.h"
+		     
 #if WIN32
 extern int ctree2(int* vect,int nb,int* deput,int* depuptr,int* outoin,int* outoinptr, int* ord,int* nord,int* ok);
 extern int ctree3(int*vec,int nb,int* depu,int* depuptr,int* typl,int* bexe,int* boptr,int* blnk,int* blptr,int* ord,int* nord,int* ok);
@@ -441,7 +449,7 @@ int intscicosimc(fname,fname_len)
  extern int C2F(funnum) __PARAMS((char *fname));
 
  /************************************
-  * variables and constants définition
+  * variables and constants dï¿½inition
   ************************************/
  static int id[nsiz];
 
@@ -1860,7 +1868,7 @@ int CopyVarFromlistentry(int lw, int *header, int i)
 int var2sci(void *x,int n,int m,int typ_var)
 {
   /************************************
-   * variables and constants définition
+   * variables and constants dï¿½inition
    ************************************/
   /*counter and address variable declaration*/
   int nm,il,l,j,err;
@@ -2380,7 +2388,7 @@ int intgetscicosvarsc(fname,fname_len)
                  unsigned long fname_len;
 {
   /************************************
-   * variables and constants définition
+   * variables and constants dï¿½inition
    ************************************/
   /* auxilary variables for dimension and address */
   int m1,n1;     /* dimension of input character string               */
@@ -2720,7 +2728,7 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if (ptr_scsblk[k].x!=&x[xptr[k]-1])
        {
-         /*fprintf(stderr,"k=%d,X,xd Non initialisé\n",k);*/
+         /*fprintf(stderr,"k=%d,X,xd Non initialisï¿½n",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
@@ -2729,7 +2737,7 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if ((ptr_scsblk[k].g!=&g[zcptr[k]-1]) && (ptr_scsblk[k].g!=&x[xptr[k]-1]))
        {
-        /*fprintf(stderr,"k=%d,g Non initialisé\n",k);*/
+        /*fprintf(stderr,"k=%d,g Non initialisï¿½n",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
@@ -3314,5 +3322,67 @@ int intbuildouttb(fname,fname_len)
 
  FREE(lnksz);
  FREE(lnktyp);
+ return 0;
+}
+
+/* intpermutobj_c
+ *
+ * -->permutobj(hdl1,hdl2);
+ *
+ * exchange graphicals objects
+ * of two children handles
+ *
+ * hdl1,hdl2 : valid children handles
+ *             in valid parent handle(s)
+ *
+ * no outputs
+ *
+ * alan-02/12/06, initial rev.
+ */
+int intpermutobj_c(char *fname,
+                   unsigned long fname_len)
+{
+ /*local variables declaration*/
+ unsigned long hdl_1, hdl_2;
+ sciPointObj *pobj_1, *pparent_1;
+ sciPointObj *pobj_2,* pparent_2;
+ static int m1, n1, l1;
+ static int m2, n2, l2;
+
+ /*check number of rhs parameters*/
+ CheckRhs(2,2);
+
+ /*get/check rhs 1*/
+ GetRhsVar(1,"h",&m1,&n1,&l1);
+ if (m1!=1||n1!=1) {
+  Scierror(999,"%s : Bad size "
+               "for Rhs(1).\n",fname);
+  return 0; }
+ hdl_1=(unsigned long)*hstk(l1);
+ pobj_1=sciGetPointerFromHandle(hdl_1);
+ if (pobj_1==NULL) {
+  Scierror(999,"%s :the handle is not "
+               "or no more valid.\n",fname);
+  return 0; }
+ pparent_1=sciGetParentSubwin(pobj_1);
+
+ /*get/check rhs 2*/
+ GetRhsVar(2,"h",&m2,&n2,&l2);
+ if (m2!=1||n2!=1) {
+  Scierror(999,"%s : Bad size "
+               "for Rhs(2).\n",fname);
+  return 0; }
+ hdl_2=(unsigned long)*hstk(l2);
+ pobj_2=sciGetPointerFromHandle(hdl_2);
+ if (pobj_2==NULL) {
+  Scierror(999,"%s :the handle is not "
+               "or no more valid.\n",fname);
+  return 0; }
+ pparent_2=sciGetParentSubwin(pobj_2);
+
+ /*call permutobj*/
+ permutobj(pobj_1,pparent_1,pobj_2,pparent_2);
+
+ /* end */
  return 0;
 }

@@ -31,7 +31,6 @@ extern integer C2F(scierr)();
 extern int Max1(int* vect);
 extern int *listentry(int *header, int i);
 extern int Message(char* code);
-extern int cpass2();
 
 /* Definition of some global variables and structure */
 

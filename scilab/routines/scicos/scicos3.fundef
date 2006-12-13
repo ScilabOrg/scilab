@@ -13,4 +13,5 @@
 {"getscicosvars",		IN_intcscicos,	12,	3},
 {"curblockc",			IN_intcscicos,	13,	3},
 {"buildouttb",			IN_intcscicos,	14,	3},
+{"permutobj",			IN_intcscicos,	15,	3},
 
