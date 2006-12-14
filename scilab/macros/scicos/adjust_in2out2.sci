@@ -13,14 +13,12 @@ function [ok,bllst]=adjust_in2out2(bllst)
   sz_in2=size(bllst(i).in2,'*');
   sz_intyp=size(bllst(i).intyp,'*');
   //adjust dimension of in2
-  if sz_in<>sz_in2 then
-    //typical case : get dimension 1 for in2
-    if sz_in2==0 then bllst(i).in2=ones(sz_in,1), end
+  if sz_in2<sz_in then
+      bllst(i).in2=[bllst(i).in2;ones(sz_in-sz_in2,1)]
   end
   //adjust dimension of intyp
   if sz_intyp<sz_in then
-    //typical case : get type double for intyp
-    if sz_intyp==1 then bllst(i).intyp=ones(sz_in,1), end
+    bllst(i).intyp=[bllst(i).intyp;ones(sz_in-sz_intyp,1)]
   end
 
   //output port
@@ -28,14 +26,12 @@ function [ok,bllst]=adjust_in2out2(bllst)
   sz_out2=size(bllst(i).out2,'*');
   sz_outtyp=size(bllst(i).outtyp,'*');
   //adjust dimension of out2
-  if sz_out<>sz_out2 then
-    //typical case : get dimension 1 for in2
-    if sz_out2==0 then bllst(i).out2=ones(sz_out,1), end
+  if sz_out2<sz_out then
+       bllst(i).out2=[bllst(i).out2;ones(sz_out-sz_out2,1)]
   end
   //adjust dimension of outtyp
   if sz_outtyp<sz_out then
-    //typical case : get type double for outtyp
-    if sz_outtyp==1 then bllst(i).outtyp=ones(sz_out,1), end
+    bllst(i).outtyp=[bllst(i).outtyp;ones(sz_out-sz_outtyp,1)]
   end
  end
 endfunction
