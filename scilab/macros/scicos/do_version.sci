@@ -63,10 +63,20 @@ function scs_m_new=do_version401(scs_m)
         scs_m_new.objs(j).model.rpar=rpar
       //name of gui and sim list change
       elseif o.gui=='SCOPE_f' then
-	//pause;
         scs_m_new.objs(j).gui='CSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cscope', 4)
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
+      elseif o.gui=='BOUNCEXY' then
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='MSCOPE_f' then
         scs_m_new.objs(j).gui='CMSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
@@ -85,23 +95,48 @@ function scs_m_new=do_version401(scs_m)
 	for i=1:N
 	   period(i)=rpar(2);
 	end
-	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]	
+	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='ANIMXY_f' then
         scs_m_new.objs(j).gui='CANIMXY'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('canimxy', 4)
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='EVENTSCOPE_f' then
         scs_m_new.objs(j).gui='CEVENTSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cevscpe', 4)
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='FSCOPE_f' then
         scs_m_new.objs(j).gui='CFSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cfscope', 4)
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='SCOPXY_f' then
         scs_m_new.objs(j).gui='CSCOPXY'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cscopxy', 4)
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       elseif o.gui=='CMSCOPE' then
 	scs_m_new.objs(j).model.dstate=[]
         A=evstr(scs_m_new.objs(j).graphics.exprs(1));
@@ -119,7 +154,11 @@ function scs_m_new=do_version401(scs_m)
 	   period(i)=rpar(2);
 	end
 	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
-	//pause;
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+	scs_m_new.objs(j).model.in2 = in2;
+	scs_m_new.objs(j).model.intyp = in2;
       end
     end
   end

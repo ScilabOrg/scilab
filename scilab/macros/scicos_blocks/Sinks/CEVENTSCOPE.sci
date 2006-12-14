@@ -55,7 +55,7 @@ case 'set' then
       ok=%f
     end
     if ok then
-      [model,graphics,ok]=check_io(model,graphics,[],[],ones(nclock,1),[])
+      [model,graphics,ok]=set_io(model,graphics,list(),list(),ones(nclock,1),[])
     else
       message(['Some specified values are inconsistent:';
 	         ' ';mess])

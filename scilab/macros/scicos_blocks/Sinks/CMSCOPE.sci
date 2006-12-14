@@ -29,7 +29,7 @@ case 'set' then
 	'Ymax vector';
 	'Refresh period';
 	'Buffer size';
-   'Accept herited events 0/1'
+   	'Accept herited events 0/1'
 	'Name of Scope (label&Id)'],..
 	 list('vec',-1,'vec',-1,'vec',1,'vec',-1,'vec',-1,..
 	 'vec','size(%1,''*'')','vec','size(%1,''*'')','vec','size(%1,''*'')',..
@@ -87,7 +87,10 @@ case 'set' then
 	         ' ';mess])
     end
     if ok then
-      [model,graphics,ok]=check_io(model,graphics,in,[],ones(1-heritance,1),[])
+	in = in(:);
+	a = size(in,1);
+	in2 = ones(a,1);
+      	[model,graphics,ok]=set_io(model,graphics,list([in in2],ones(a,1)),list(),ones(1-heritance,1),[]);
     end
     if ok then
       if wpos==[] then wpos=[-1;-1];end
@@ -109,6 +112,7 @@ case 'set' then
 	graphics.id=nom;
 	graphics.exprs=exprs;
 	x.graphics=graphics;x.model=model
+	//pause;
 	break
       end
     end
@@ -127,7 +131,8 @@ case 'define' then
   model=scicos_model()
   model.sim=list('cmscope',4)
   model.in=in
-  model.in2 = [1;1]
+  model.in2=[1;1]
+  model.intyp=[1;1]
   model.evtin=1
   model.rpar=[0;period(:);yy(:)]
   model.ipar=[win;size(in,'*');N;wpos(:);wdim(:);in(:);clrs(1:sum(in))]

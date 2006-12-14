@@ -67,7 +67,7 @@ case 'set' then
 	         ' ';mess])
 	   end
     if ok then
-      [model,graphics,ok]=check_io(model,graphics,-1,[],ones(1-heritance,1),[])
+      [model,graphics,ok]=set_io(model,graphics,list([-1 1],1),list(),ones(1-heritance,1),[])
     end
     
     if ok then

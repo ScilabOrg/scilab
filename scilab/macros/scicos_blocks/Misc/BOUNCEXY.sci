@@ -78,6 +78,7 @@ case 'define' then
   model.sim=list('bouncexy',4)
   model.in=[-1;-1]
   model.in2=[1;1]
+  model.intyp = [1;1]
   model.evtin=1
   z=[]
   for i=1:size(clrs,'*')

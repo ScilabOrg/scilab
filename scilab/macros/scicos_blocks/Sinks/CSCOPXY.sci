@@ -83,6 +83,8 @@ case 'define' then
   model=scicos_model()
   model.sim=list('cscopxy',4)
   model.in=[1;1]
+  model.in2=[1;1]
+  model.intyp=[1;1]
   model.evtin=1
   model.rpar=[xmin;xmax;ymin;ymax]
   model.ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:)]

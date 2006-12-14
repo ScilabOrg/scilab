@@ -95,6 +95,7 @@ case 'define' then
   model.sim=list('cscopxy3d',4)
   model.in=[1;1;1]
   model.in2=[1;1;1]
+  model.intyp=[1;1;1]
   model.evtin=1
   model.rpar=[xmin;xmax;ymin;ymax;zmin;zmax;alpha;theta]
   model.ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:)]
