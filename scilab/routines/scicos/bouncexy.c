@@ -5,7 +5,8 @@
 #include "scoSetProperty.h"
 
 
-/** \brief the computational function
+/** \fn void bouncexy(scicos_block * block,int flag)
+    \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
 */
@@ -17,7 +18,7 @@ void bouncexy(scicos_block * block,int flag)
   scoGraphicalObject pShortDraw;
   scoGraphicalObject pLongDraw;
   scoGraphicalObject pTemp;
-
+  double * z;
   double *rpar;
   int *ipar, nipar;  
   double t;
@@ -46,13 +47,14 @@ void bouncexy(scicos_block * block,int flag)
 	  }
 	dimension = 2;
 	imode = ipar[1];
-	number_of_curves_by_subwin = block->insz[0];
+	number_of_curves_by_subwin = GetInPortRows(block,1);
 	double radius_max;
 	radius_max = 0;
 	size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+	z = GetDstate(block);
 	for(i = 0 ; i < number_of_curves_by_subwin ; i++)
 	  {
-	    size_balls[i] = block->z[6*i+2];
+	    size_balls[i] = z[6*i+2];
 	    if(radius_max < size_balls[i])
 	      {
 		radius_max = size_balls[i];
@@ -115,13 +117,14 @@ void bouncexy(scicos_block * block,int flag)
 	      }
 	    dimension = 2;
 	    imode = ipar[1];
-	    number_of_curves_by_subwin = block->insz[0];
+	    number_of_curves_by_subwin = GetInPortRows(block,1);
 	    double radius_max;
 	    radius_max = 0;
 	    size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+	    z = GetDstate(block);
 	    for(i = 0 ; i < number_of_curves_by_subwin ; i++)
 	      {
-		size_balls[i] = block->z[6*i+2];
+		size_balls[i] = z[6*i+2];
 		if(radius_max < size_balls[i])
 		  {
 		    radius_max = size_balls[i];
@@ -163,9 +166,10 @@ void bouncexy(scicos_block * block,int flag)
 
 	//Cannot be factorized depends of the scope
 	size_balls = (int*)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory,0)*sizeof(int));
+	z = GetDstate(block);
 	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
-	    size_balls[i] = block->z[6*i+2];
+	    size_balls[i] = z[6*i+2];
 	  }
 	u1 = GetRealInPortPtrs(block,1);
 	u2 = GetRealInPortPtrs(block,2);

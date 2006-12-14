@@ -4,7 +4,7 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn void ngmscope(scicos_block * block, int flag)
+/** \fn void canimxy3d(scicos_block * block, int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
@@ -141,77 +141,6 @@ void canimxy3d(scicos_block * block, int flag)
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
-	    ipar = GetIparPtrs(block);
-	    nipar = GetNipar(block);
-	    rpar = GetRparPtrs(block);
-	    win = ipar[0];
-	    color_flag = ipar[1];
-	    buffer_size = ipar[2];
-	    color[0] = ipar[3];
-	    color[1] = ipar[3];
-	    line_size = ipar[4];
-	    animed = ipar[5];
-	    win_pos[0] = ipar[6];
-	    win_pos[1] = ipar[7];
-	    win_dim[0] = ipar[8];
-	    win_dim[1] = ipar[9];
-	    xmin = rpar[0];
-	    xmax = rpar[1];
-	    ymin = rpar[2];
-	    ymax = rpar[3]; 
-	    zmin = rpar[4];
-	    zmax = rpar[5];
-            alpha=rpar[6];
-            theta=rpar[7];
-	    number_of_subwin = 1;
-
-	    if (buffer_size == 1)
-	      {
-		scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-		scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
-		pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 1;
-		pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1;
-		Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-
-		pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
-	      }
-	    else
-	      {
-		scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-		if(color[0] < 0)
-		  {
-		    scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
-		    scoAddPolylineForShortDraw(pScopeMemory,0,1,color[0]);
-		    scoAddPolylineForLongDraw(pScopeMemory,0,0,color[0]);
-
-		    Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-		    Gomme = scoGetPointerShortDraw(pScopeMemory,0,1);
-		    Trait = scoGetPointerLongDraw(pScopeMemory,0,0);
-	    
-		    pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
-		    pPOLYLINE_FEATURE(Gomme)->n1 = 1;
-		    pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
-		  }
-		else
-		  {
-		    scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
-		    scoAddPolylineForShortDraw(pScopeMemory,0,1,color[0]);
-		    scoAddPolylineForLongDraw(pScopeMemory,0,0,color[0]);
-
-		    Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-		    Gomme = scoGetPointerShortDraw(pScopeMemory,0,1);
-		    Trait = scoGetPointerLongDraw(pScopeMemory,0,0);
-	    
-		    pPOLYLINE_FEATURE(Pinceau)->n1 = 2;
-		    pPOLYLINE_FEATURE(Gomme)->n1 = 2;
-		    pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
-		  }
-		sciSetXorMode(scoGetPointerScopeWindow(pScopeMemory), 6);
-	      }
-
-              pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->alpha = alpha;
-              pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->theta = theta;
-              scoAddTitlesScope(pScopeMemory,"x","y","z");
 	  }
 
 	/*Retrieve Elements*/

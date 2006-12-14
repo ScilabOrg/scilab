@@ -4,7 +4,8 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \brief the computational function
+/** \fn void cscope(scicos_block * block,int flag)
+    \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
 */
@@ -49,7 +50,7 @@ void cscope(scicos_block * block,int flag)
 	win_dim[0] = ipar[(nipar-1) - 1];
 	win_dim[1] = ipar[nipar-1];
 	dimension = 2;
-	number_of_curves_by_subwin[0] = block->insz[0];
+	number_of_curves_by_subwin[0] = GetInPortRows(block,1);
 
 	number_of_subwin = 1;
 	ymin = rpar[1];

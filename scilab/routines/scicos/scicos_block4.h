@@ -309,4 +309,9 @@ extern int s_cmp();
 */
 #define GetDstate(blk) (blk->z)
 
+/**
+   \brief Get Nevprt of the block
+*/
+#define GetNev(blk) (blk->nevprt)
+
 #endif /* __SCICOS_BLOCK_H__ */

@@ -4,7 +4,7 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn void ngevscope2(scicos_block * block, int flag)
+/** \fn void cevscpe(scicos_block * block, int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
@@ -16,7 +16,8 @@ void cevscpe(scicos_block * block, int flag)
   scoGraphicalObject pShortDraw;
   int nipar; //Number of elements in ipar vector
   int i; //As usual
-  int * ipar; //Integer Parameter
+  int * ipar;
+  double * rpar; //Integer Parameter
   int nbr_colors; //Number of colors and lines IS ALSO number of channels
   int win; //To give a name to the window
   int color_flag; //0/1 color flag -- NOT USED
@@ -39,7 +40,8 @@ void cevscpe(scicos_block * block, int flag)
 	ipar =  GetIparPtrs(block);
 	win = ipar[0];
 	color_flag = ipar[1];
-	period = block->rpar[0];
+	rpar = GetRparPtrs(block);
+	period = rpar[0];
 	nipar = GetNipar(block);
 	nbr_colors = nipar-6;
 	colors=(int*)malloc(nbr_colors*sizeof(int));
@@ -80,7 +82,8 @@ void cevscpe(scicos_block * block, int flag)
 	    ipar =  GetIparPtrs(block);
 	    win = ipar[0];
 	    color_flag = ipar[1];
-	    period = block->rpar[0];
+	    rpar = GetRparPtrs(block);
+	    period = rpar[0];
 	    nipar = GetNipar(block);
 	    nbr_colors = nipar-6;
 	    colors=(int*)malloc(nbr_colors*sizeof(int));
@@ -107,7 +110,7 @@ void cevscpe(scicos_block * block, int flag)
 
 	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
-	    if((block->nevprt&(1<<i))==(1<<i))
+	    if((GetNev(block)&(1<<i))==(1<<i))
 	      {
 		tab[nbseg]=i;
 		nbseg++;

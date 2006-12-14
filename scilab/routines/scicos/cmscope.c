@@ -4,7 +4,7 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn void ngmscope(scicos_block * block, int flag)
+/** \fn void cmscope(scicos_block * block, int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
@@ -133,7 +133,7 @@ void cmscope(scicos_block * block, int flag)
 	    rpar = GetRparPtrs(block);
 	    ipar = GetIparPtrs(block);
 	    nipar = GetNipar(block);
-	    nu = block->insz[0];
+	    nu = GetInPortRows(block,1);
 	    win = ipar[0];
 	    number_of_subwin = ipar[1];
 	    buffer_size = ipar[2];
