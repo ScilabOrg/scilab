@@ -399,6 +399,7 @@ DestroyLegend (sciPointObj * pthis)
   sciLegend * ppLegend = pLEGEND_FEATURE (pthis) ;
   FREE(ppLegend->pptabofpointobj);
   FREE (ppLegend->text.ptextstring);
+  FREE( ppLegend->pstyle ) ;
   FREE (ppLegend->user_data);
   ppLegend->size_of_user_data = 0;
 
