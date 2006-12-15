@@ -10,7 +10,7 @@ void gainblk(scicos_block *block,int flag)
   int i;
 
   double *u; double *y;
-  int nu,mu,ny,my;
+  int nu,ny,my;
   double *rpar;
   int nrpar;
 

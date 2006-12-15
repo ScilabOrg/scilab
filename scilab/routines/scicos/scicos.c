@@ -1408,11 +1408,14 @@ int C2F(scicos)(
     *ierr =10000;
     return;
   }
-  if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    return;
+  jroot=NULL;
+  if (ng!=0) {
+    if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
+      *ierr =10000;
+      FREE(rhot);
+      FREE(ihot);
+      return;
+    }
   }
   if((scicos_xproperty=MALLOC(sizeof(int)*(*neq)))== NULL ){
     *ierr =10000;
@@ -1422,23 +1425,29 @@ int C2F(scicos)(
     return;
   }
   C2F(iset)(neq, &c__1, scicos_xproperty, &c__1);
-  if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    FREE(jroot);
-    FREE(scicos_xproperty);
-    return;
+  zcros=NULL;
+  if (ng!=0) {
+    if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
+      *ierr =10000;
+      FREE(rhot);
+      FREE(ihot);
+      FREE(jroot);
+      FREE(scicos_xproperty);
+      return;
+    }
   }
 
-  if((Mode_save=MALLOC(sizeof(integer)*nmod))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    FREE(jroot);
-    FREE(scicos_xproperty);
-    FREE(zcros);
-    return;
+  Mode_save=NULL;
+  if (nmod!=0) {
+    if((Mode_save=MALLOC(sizeof(integer)*nmod))== NULL ){
+      *ierr =10000;
+      FREE(rhot);
+      FREE(ihot);
+      FREE(jroot);
+      FREE(scicos_xproperty);
+      FREE(zcros);
+      return;
+    }
   }
 
   uround = 1.0;
