@@ -9,6 +9,11 @@
 
 typedef void (*voidg)();
 
+#if WIN32
+#define NULL    0
+#endif
+
+
 /* scicos_block structure definition */
 typedef struct {
   int nevprt;

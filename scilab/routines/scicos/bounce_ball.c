@@ -19,7 +19,7 @@ bounce_ball(scicos_block *block,int flag)
   
   static double a, b, c;
   static int i, j, k, n;
-  static double v, s1, s2, s3, s4, xsi,*y1,*y2;
+  static double s1, s2, s3, s4, xsi,*y1,*y2;
   
   /*     Scicos block simulator */
   /*     bouncing ball */

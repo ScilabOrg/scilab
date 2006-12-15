@@ -1121,19 +1121,21 @@ int C2F(scicos)(
       } else {
 	/*     integrate */
 	rhotmp = *tf + ttol;
-	kpo = *pointi;
-      L20:
-	if (critev[kpo] == 1) {
-	  rhotmp = tevts[kpo];
-	  goto L30;
-	}
-	kpo = evtspt[kpo];
-	if (kpo != 0) {
-	  goto L20;
-	}
-      L30:
-	if (rhotmp < rhot[1]) {
-	  hot = 0;
+	if (*pointi!=0){
+	  kpo = *pointi;
+	L20:
+	  if (critev[kpo] == 1) {
+	    rhotmp = tevts[kpo];
+	    goto L30;
+	  }
+	  kpo = evtspt[kpo];
+	  if (kpo != 0) {
+	    goto L20;
+	  }
+	L30:
+	  if (rhotmp < rhot[1]) {
+	    hot = 0;
+	  }
 	}
 	rhot[1] = rhotmp;
 	t = min(*told + deltat,min(t,*tf + ttol));
@@ -1539,19 +1541,21 @@ int C2F(scicos)(
 	  }
 	}
 	rhotmp = *tf + ttol;
-	kpo = *pointi;
-      L20:
-	if (critev[kpo] == 1) {
-	  rhotmp = tevts[kpo];
-	  goto L30;
-	}
-	kpo = evtspt[kpo];
-	if (kpo != 0) {
-	  goto L20;
-	}
-      L30:
-	if (rhotmp < rhot[1]) {
-	  hot = 0;/* Do cold-restat the solver:if the new TSTOP isn't beyong the previous one*/ 
+	if (*pointi!=0){
+	  kpo = *pointi;
+	L20:
+	  if (critev[kpo] == 1) {
+	    rhotmp = tevts[kpo];
+	    goto L30;
+	  }
+	  kpo = evtspt[kpo];
+	  if (kpo != 0) {
+	    goto L20;
+	  }
+	L30:
+	  if (rhotmp < rhot[1]) {
+	    hot = 0;/* Do cold-restat the solver:if the new TSTOP isn't beyong the previous one*/ 
+	  }
 	}
 	rhot[1] = rhotmp;
 	t = min(*told + deltat,min(t,*tf + ttol));

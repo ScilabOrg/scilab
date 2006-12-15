@@ -32,6 +32,7 @@ void bouncexy(scicos_block * block,int flag)
   int * colors;
   int imode;
   int * size_balls;
+  double radius_max;
   switch(flag) 
     {
     case Initialization:
@@ -48,7 +49,6 @@ void bouncexy(scicos_block * block,int flag)
 	dimension = 2;
 	imode = ipar[1];
 	number_of_curves_by_subwin = GetInPortRows(block,1);
-	double radius_max;
 	radius_max = 0;
 	size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
 	z = GetDstate(block);
@@ -118,7 +118,6 @@ void bouncexy(scicos_block * block,int flag)
 	    dimension = 2;
 	    imode = ipar[1];
 	    number_of_curves_by_subwin = GetInPortRows(block,1);
-	    double radius_max;
 	    radius_max = 0;
 	    size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
 	    z = GetDstate(block);
