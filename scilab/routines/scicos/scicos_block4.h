@@ -55,7 +55,7 @@ double get_scicos_time();
 int get_block_number();
 void set_block_error(int);
 void set_pointer_xproperty(int* pointer);
-void * scicos_malloc(size_t );
+void * scicos_malloc(size_t);
 void scicos_free(void *p);
 double Get_Jacobian_parameter(void);
 double Get_Scicos_SQUR(void);
@@ -66,9 +66,22 @@ void Set_Jacobian_flag(int flag);
 	#define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
 
-
 extern int s_copy();
 extern int s_cmp();
+
+/* Define integer type and integer pointers */
+#define int8  char
+#define int16 short
+#define int32 long
+#define uint8  unsigned char
+#define uint16 unsigned short
+#define uint32 unsigned long
+#define int8Ptrs  char *
+#define int16Ptrs short *
+#define int32Ptrs long *
+#define uint8Ptrs  unsigned char *
+#define uint16Ptrs unsigned short *
+#define uint32Ptrs unsigned long *
 
  /* scicos_block macros definition :
   *
@@ -111,21 +124,8 @@ extern int s_cmp();
   * 35 - GetNdstate(blk)
   * 36 - GetDsatePtrs(blk)
   *
+  * 37 - GetNev(blk)
   */
-
-/* Define integer type and integer pointers */
-#define int8  char
-#define int16 short
-#define int32 long
-#define uint8  unsigned char
-#define uint16 unsigned short
-#define uint32 unsigned long
-#define int8Ptrs  char *
-#define int16Ptrs short *
-#define int32Ptrs long *
-#define uint8Ptrs  unsigned char *
-#define uint16Ptrs unsigned short *
-#define uint32Ptrs unsigned long *
 
 /**
    \brief Get Number of Regular Input Port

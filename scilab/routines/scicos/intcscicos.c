@@ -22,7 +22,6 @@
  * int intpermutobj_c(fname,fname_len)
  */
 
-/*     Copyright INRIA */
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -32,21 +31,6 @@
 #include "intcscicos.h"
 #include "../os_specific/sci_mem_alloc.h"  /* malloc */
 #include "../stack-c.h"
-
-/* for intpermutobj_c 
- * should be removed when scicos
- * go back to TRUNK -scilab 5-
- */
-#include "../interf/intcommongraphics.h"
-#include "scoMisc.h"
-		     
-#if WIN32
-extern int ctree2(int* vect,int nb,int* deput,int* depuptr,int* outoin,int* outoinptr, int* ord,int* nord,int* ok);
-extern int ctree3(int*vec,int nb,int* depu,int* depuptr,int* typl,int* bexe,int* boptr,int* blnk,int* blptr,int* ord,int* nord,int* ok);
-extern int ctree4(int* vec,int nb,int *nd,int nnd,int* typ_r,int* outoin,int* outoinptr,int* r1,int* r2, int* nr);
-extern int C2F(scicos)();
-extern int C2F(namstr)();
-#endif
 
 /* fonction pour recuperer le nombre du champs a partir de son nom */
 int MlistGetFieldNumber(int *ptr, const char *string)
@@ -135,7 +119,7 @@ int intdiffobjs(fname,fname_len)
   header2 = GetData(2);
   CreateVar(3,"d",(un=1,&un),(un=1,&un),&l3);
   LhsVar(1) = 3;
-  size1=2*(*Lstk(Top-Rhs+2)-*Lstk(Top-Rhs+1)); 
+  size1=2*(*Lstk(Top-Rhs+2)-*Lstk(Top-Rhs+1));
   size2=2*(*Lstk(Top-Rhs+3)-*Lstk(Top-Rhs+2));
 
   if (size1 != size2) {
@@ -203,7 +187,7 @@ int inttree3(fname,fname_len)
   GetRhsVar(6,"i",&nbop,&mbop,&ipbop);
   GetRhsVar(7,"i",&nbln,&mbln,&ipbln);
   GetRhsVar(8,"i",&nblr,&mblr,&ipblr);
-  
+
   n=nvec*mvec;
   CreateVar(9,"i",&n,&un,&ipord);
   CreateVar(10,"i",&un,&un,&ipok);
@@ -223,7 +207,7 @@ int inttree4 _PARAMS((char *fname,unsigned long fname_len))
 {
   int un=1,ipvec,nvec,mvec,noin,moin,ipoin,noinr,moinr,ipoinr;
   int nnd,mnd,ipnd,ntyp,mtyp,iptyp,ipr1,ipr2,n,nr,nn;
-  
+
   CheckRhs(5,5);
   CheckLhs(2,2);
 
@@ -239,7 +223,7 @@ int inttree4 _PARAMS((char *fname,unsigned long fname_len))
 
   ctree4(istk(ipvec),n,istk(ipnd),mnd,istk(iptyp),istk(ipoin),
 	 istk(ipoinr),istk(ipr1),istk(ipr2),&nr);
-  
+
   LhsVar(1)=6;
   LhsVar(2)=7;
   /*      nbcols(6)=nr */
@@ -327,7 +311,7 @@ void  duplicata(n,v,w,ww,nw)
 void  comp_size(v,nw,n)
      double *v;
      int *nw,n;
-{  
+{
   int i;
   *nw=0;
   for (i=0;i<n;i++) {
@@ -405,8 +389,13 @@ void  comp_size(v,nw,n)
  * (to disable scilab crash with scifunc.f)
  *
  * 13/11/06, Alan    : Get back to double parameters for sim and state
- *                     (for better compatibility with BUILD4)
+ *                     (for better compatibility with scilab-4.x families-)
  *                     Remove il_sim_save global variable
+ *
+ * 15/12/06, Alan    : Warnings compilation removed.
+ *                     This can crash scilab/scicos.
+ *                     Please report.
+ *
  */
 
 #define freeintparam \
@@ -456,12 +445,12 @@ int intscicosimc(fname,fname_len)
  /*declaration of static structure*/
  static struct {integer idb;} C2F(dbcos);   /*declaration of dbcos*/
 
- typedef struct inter_s_ 
+ typedef struct inter_s_
  {
    int iwhere,nbrows,nbcols,itflag,ntypes,lad,ladc,lhsvar;
  } intersci_state ;
 
- typedef struct inter_l 
+ typedef struct inter_l
  {
   intersci_state *state ;
   int nbvars;
@@ -484,7 +473,7 @@ int intscicosimc(fname,fname_len)
  static double *l_state_z;
  static int m1e4,n1e4;           /*state.iz*/
  static int *il_state_iz;
- static double *l_state_iz;
+ static void **l_state_iz;
  static int m1e5,n1e5;           /*state.tevts*/
  static int *il_state_tevts;
  static double *l_state_tevts;
@@ -659,7 +648,7 @@ int intscicosimc(fname,fname_len)
 
     /*4 : state.iz     */
     il_state_iz = (int *) (listentry(il_state,4));
-    l_state_iz  = (double *) (il_state_iz+4);
+    l_state_iz  = (void **) (il_state_iz+4);
     m1e4 = il_state_iz[1];
     n1e4 = il_state_iz[2];
 
@@ -673,18 +662,7 @@ int intscicosimc(fname,fname_len)
     il_state_evtspt = (int *) (listentry(il_state,6));
     m1e6 = il_state_evtspt[1];
     n1e6 = il_state_evtspt[2];
-    if ((m1e6*n1e6)==0)
-    {
-     if ((l_state_evtspt=(int *) MALLOC(sizeof(int))) ==NULL )
-     {
-      Scierror(999,"%s : Memory allocation error.\n",fname);
-      return 0;
-     }
-     else
-     {
-      l_state_evtspt[0]= 0;
-     }
-    }
+    if ((m1e6*n1e6)==0) l_state_evtspt=NULL;
     else
     {
      if ((l_state_evtspt=(int *) MALLOC((m1e6*n1e6)*sizeof(int))) ==NULL )
@@ -916,17 +894,21 @@ int intscicosimc(fname,fname_len)
     il_sim_ipar = (int *) (listentry(il_sim,12));
     m4e12 = il_sim_ipar[1];
     n4e12 = il_sim_ipar[2];
-    if ((l_sim_ipar=(int *) MALLOC((m4e12*n4e12)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e12*n4e12==0) l_sim_ipar=NULL;
     else
     {
-     for(i=0;i<(m4e12*n4e12);i++) l_sim_ipar[i]= (int) ((double *)(il_sim_ipar+4))[i];
+     if ((l_sim_ipar=(int *) MALLOC((m4e12*n4e12)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e12*n4e12);i++) l_sim_ipar[i]= (int) ((double *)(il_sim_ipar+4))[i];
+     }
     }
 
     /*13 : sim.ipptr  */
@@ -987,117 +969,141 @@ int intscicosimc(fname,fname_len)
     il_sim_execlk = (int *) (listentry(il_sim,16));
     m4e16 = il_sim_execlk[1];
     n4e16 = il_sim_execlk[2];
-    if ((l_sim_execlk=(int *) MALLOC((m4e16*n4e16)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e16*n4e16==0) l_sim_execlk=NULL;
     else
     {
-     for(i=0;i<(m4e16*n4e16);i++) l_sim_execlk[i]= (int) ((double *)(il_sim_execlk+4))[i];
+     if ((l_sim_execlk=(int *) MALLOC((m4e16*n4e16)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e16*n4e16);i++) l_sim_execlk[i]= (int) ((double *)(il_sim_execlk+4))[i];
+     }
     }
 
     /*17 : sim.ordclk */
     il_sim_ordclk = (int *) (listentry(il_sim,17));
     m4e17 = il_sim_ordclk[1];
-    n4e17 = il_sim_ordclk[2];
-    if ((l_sim_ordclk=(int *) MALLOC((m4e17*n4e17)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    n4e17 = il_sim_ordclk[2];    
+    if (m4e17*n4e17==0) l_sim_ordclk=NULL;
     else
     {
-     for(i=0;i<(m4e17*n4e17);i++) l_sim_ordclk[i]= (int) ((double *)(il_sim_ordclk+4))[i];
+     if ((l_sim_ordclk=(int *) MALLOC((m4e17*n4e17)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e17*n4e17);i++) l_sim_ordclk[i]= (int) ((double *)(il_sim_ordclk+4))[i];
+     }
     }
 
     /*18 : sim.cord   */
     il_sim_cord = (int *) (listentry(il_sim,18));
     m4e18 = il_sim_cord[1];
     n4e18 = il_sim_cord[2];
-    if ((l_sim_cord=(int *) MALLOC((m4e18*n4e18)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e18*n4e18==0) l_sim_cord=NULL;
     else
     {
-     for(i=0;i<(m4e18*n4e18);i++) l_sim_cord[i]= (int) ((double *)(il_sim_cord+4))[i];
+     if ((l_sim_cord=(int *) MALLOC((m4e18*n4e18)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e18*n4e18);i++) l_sim_cord[i]= (int) ((double *)(il_sim_cord+4))[i];
+     }
     }
 
     /*19 : sim.oord   */
     il_sim_oord = (int *) (listentry(il_sim,19));
     m4e19 = il_sim_oord[1];
     n4e19 = il_sim_oord[2];
-    if ((l_sim_oord=(int *) MALLOC((m4e19*n4e19)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e19*n4e19==0) l_sim_oord=NULL;
     else
     {
-     for(i=0;i<(m4e19*n4e19);i++) l_sim_oord[i]= (int) ((double *)(il_sim_oord+4))[i];
+     if ((l_sim_oord=(int *) MALLOC((m4e19*n4e19)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_cord);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e19*n4e19);i++) l_sim_oord[i]= (int) ((double *)(il_sim_oord+4))[i];
+     }
     }
 
     /*20 : sim.zord   */
     il_sim_zord = (int *) (listentry(il_sim,20));
     m4e20 = il_sim_zord[1];
     n4e20 = il_sim_zord[2];
-    if ((l_sim_zord=(int *) MALLOC((m4e20*n4e20)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e20*n4e20==0) l_sim_zord=NULL;
     else
     {
-     for(i=0;i<(m4e20*n4e20);i++) l_sim_zord[i]= (int) ((double *)(il_sim_zord+4))[i];
+     if ((l_sim_zord=(int *) MALLOC((m4e20*n4e20)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_oord); FREE(l_sim_cord);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e20*n4e20);i++) l_sim_zord[i]= (int) ((double *)(il_sim_zord+4))[i];
+     }
     }
 
     /*21 : sim.critev */
     il_sim_critev = (int *) (listentry(il_sim,21));
     m4e21 = il_sim_critev[1];
     n4e21 = il_sim_critev[2];
-    if ((l_sim_critev=(int *) MALLOC((m4e21*n4e21)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e21*n4e21==0) l_sim_critev=NULL;
     else
     {
-     for(i=0;i<(m4e21*n4e21);i++) l_sim_critev[i]= (int) ((double *)(il_sim_critev+4))[i];
+     if ((l_sim_critev=(int *) MALLOC((m4e21*n4e21)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e21*n4e21);i++) l_sim_critev[i]= (int) ((double *)(il_sim_critev+4))[i];
+     }
     }
 
     /*22 : sim.nb     */
@@ -1193,22 +1199,26 @@ int intscicosimc(fname,fname_len)
     il_sim_subscr = (int *) (listentry(il_sim,26));
     m4e26 = il_sim_subscr[1];
     n4e26 = il_sim_subscr[2];
-    if ((l_sim_subscr=(int *) MALLOC((m4e26*n4e26)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_ndcblk);
-     FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
-     FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e26*n4e26==0) l_sim_subscr=NULL;
     else
     {
-     for(i=0;i<(m4e26*n4e26);i++) l_sim_subscr[i]= (int) ((double *)(il_sim_subscr+4))[i];
+     if ((l_sim_subscr=(int *) MALLOC((m4e26*n4e26)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_ndcblk);
+      FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
+      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e26*n4e26);i++) l_sim_subscr[i]= (int) ((double *)(il_sim_subscr+4))[i];
+     }
     }
 
     /*27 : sim.funtyp */
@@ -1237,22 +1247,26 @@ int intscicosimc(fname,fname_len)
     il_sim_iord = (int *) (listentry(il_sim,28));
     m4e28 = il_sim_iord[1];
     n4e28 = il_sim_iord[2];
-    if ((l_sim_iord=(int *) MALLOC((m4e28*n4e28)*sizeof(int))) ==NULL )
-    {
-     Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_funtyp); FREE(l_sim_subscr); FREE(l_sim_ndcblk);
-     FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
-     FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
-     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
-     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
-     return 0;
-    }
+    if (m4e28*n4e28==0) l_sim_iord=NULL;
     else
     {
-     for(i=0;i<(m4e28*n4e28);i++) l_sim_iord[i]= (int) ((double *)(il_sim_iord+4))[i];
+     if ((l_sim_iord=(int *) MALLOC((m4e28*n4e28)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_funtyp); FREE(l_sim_subscr); FREE(l_sim_ndcblk);
+      FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
+      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
+      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m4e28*n4e28);i++) l_sim_iord[i]= (int) ((double *)(il_sim_iord+4))[i];
+     }
     }
 
     /*29 : sim.labels */
@@ -1641,7 +1655,8 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
             l_state_iz,l_sim_zptr, \
             l_sim_modptr, \
             l_sim_lab,il_sim_labptr,l_tcur,l_tf,l_state_tevts, \
-            l_state_evtspt,&m1e5,l_pointi,outtbptr,outtbsz,outtbtyp,outtb_elem,&nelem,&nlnk, \
+            l_state_evtspt,&m1e5,l_pointi,outtbptr,outtbsz,outtbtyp, \
+            outtb_elem,&nelem,&nlnk, \
             lfunpt,l_sim_funtyp,l_sim_inpptr, \
             l_sim_outptr,l_sim_inplnk,l_sim_outlnk,  \
             l_sim_rpar,l_sim_rpptr, \
@@ -2090,9 +2105,9 @@ int var2sci(void *x,int n,int m,int typ_var)
  *
  * 26/06/06, Alan : Add flag_imp in input arguments.
  *                  This is done to disable scilab crash with getscicosvars("blocks")
- *                  because when calling at the beginning of the simulation, x, xd and 
+ *                  because when calling at the beginning of the simulation, x, xd and
  *                  g are not yet informed for all blocks with nx!=0 and ng!=0.
- *                  (They are not yed called with callf in scicos.c)
+ *                  (They are not yet called with callf in scicos.c)
  *
  */
 
@@ -3325,6 +3340,15 @@ int intbuildouttb(fname,fname_len)
  return 0;
 }
 
+/* permutobj : concurrent version
+ * of swap_handles for scicos editor.
+ *
+ * Copyright INRIA
+ * A. Layec/S. Mannori - 13/12/06
+ */
+#include "../interf/intcommongraphics.h"
+#include "scoMisc.h"
+
 /* intpermutobj_c
  *
  * -->permutobj(hdl1,hdl2);
@@ -3337,8 +3361,9 @@ int intbuildouttb(fname,fname_len)
  *
  * no outputs
  *
- * alan-02/12/06, initial rev.
+ * Alan-02/12/06, initial rev.
  */
+
 int intpermutobj_c(char *fname,
                    unsigned long fname_len)
 {

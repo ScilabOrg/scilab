@@ -19,9 +19,9 @@
 #include "../os_specific/sci_mem_alloc.h"  /* malloc */
 
 
-#ifdef FORDLL 
+#ifdef FORDLL
 #define IMPORT  __declspec (dllimport)
-#else 
+#else
 #define IMPORT extern
 #endif
 
@@ -202,11 +202,11 @@ void call_debug_scicos(double *, double *, double *, double *,double *,integer
 
 static integer debug_block;
 
-/* Subroutine */ 
+/* Subroutine */
 int C2F(scicos)(
      double *x_in, integer *xptr_in, double *z__,
      void **work,integer *zptr,integer *modptr_in,
-     
+
      integer *iz,integer *izptr,
      double *t0_in,double *tf_in,double *tevts_in,
      integer *evtspt_in,integer *nevts,integer *pointi_in,
@@ -458,15 +458,19 @@ int C2F(scicos)(
      *  - insz[nin..2*nin-1] : second dimension of input ports
      *  - insz[2*nin..3*nin-1] : type of data of input ports
      */
-    if ((Blocks[kf].insz=MALLOC(Blocks[kf].nin*3*sizeof(int)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
-    }
-    if ((Blocks[kf].inptr=MALLOC(Blocks[kf].nin*sizeof(double*)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
+    Blocks[kf].insz=NULL;
+    Blocks[kf].inptr=NULL;
+    if (Blocks[kf].nin!=0) {
+      if ((Blocks[kf].insz=MALLOC(Blocks[kf].nin*3*sizeof(int)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
+      if ((Blocks[kf].inptr=MALLOC(Blocks[kf].nin*sizeof(double*)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
     }
     for(in=0;in<Blocks[kf].nin;in++) {
       lprt=inplnk[inpptr[kf+1]+in];
@@ -481,15 +485,19 @@ int C2F(scicos)(
      *  - outsz[nout..2*nout-1] : second dimension of output ports
      *  - outsz[2*nout..3*nout-1] : type of data of output ports
      */
-    if ((Blocks[kf].outsz=MALLOC(Blocks[kf].nout*3*sizeof(int)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
-    }
-    if ((Blocks[kf].outptr=MALLOC(Blocks[kf].nout*sizeof(double*)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
+    Blocks[kf].outsz=NULL;
+    Blocks[kf].outptr=NULL;
+    if (Blocks[kf].nout!=0) {
+      if ((Blocks[kf].outsz=MALLOC(Blocks[kf].nout*3*sizeof(int)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
+      if ((Blocks[kf].outptr=MALLOC(Blocks[kf].nout*sizeof(double*)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
     }
     for(out=0;out<Blocks[kf].nout;out++) {
       lprt=outlnk[outptr[kf+1]+out];
@@ -498,22 +506,26 @@ int C2F(scicos)(
       Blocks[kf].outsz[Blocks[kf].nout+out]=outtbsz[2*(lprt-1)+1];
       Blocks[kf].outsz[2*Blocks[kf].nout+out]=outtbtyp[lprt-1];
     }
-
+    Blocks[kf].evout=NULL;
     Blocks[kf].nevout=clkptr[kf+2] - clkptr[kf+1];
-    if ((Blocks[kf].evout=CALLOC(Blocks[kf].nevout,sizeof(double)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
+    if (Blocks[kf].nevout!=0) {
+      if ((Blocks[kf].evout=CALLOC(Blocks[kf].nevout,sizeof(double)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
     }
 
     Blocks[kf].z=&(z__[zptr[kf+1]-1]);
     Blocks[kf].rpar=&(rpar[rpptr[kf+1]-1]);
     Blocks[kf].ipar=&(ipar[ipptr[kf+1]-1]);
-
-    if ((Blocks[kf].res=MALLOC(Blocks[kf].nx*sizeof(double)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
+    Blocks[kf].res=NULL;
+    if (Blocks[kf].nx!=0) {
+      if ((Blocks[kf].res=MALLOC(Blocks[kf].nx*sizeof(double)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
     }
 
     i1=izptr[kf+2]-izptr[kf+1];
@@ -523,11 +535,14 @@ int C2F(scicos)(
       return 0;
     }
     Blocks[kf].label[i1]='\0';
-    C2F(cvstr)(&i1,&(iz[izptr[kf+1]-1]),Blocks[kf].label,&job,i1);    
-    if ((Blocks[kf].jroot=CALLOC(Blocks[kf].ng,sizeof(int)))== NULL ){
-      FREE_blocks();
-      *ierr =5;
-      return 0;
+    C2F(cvstr)(&i1,&(iz[izptr[kf+1]-1]),Blocks[kf].label,&job,i1);
+    Blocks[kf].jroot=NULL;
+    if (Blocks[kf].ng!=0) {
+     if ((Blocks[kf].jroot=CALLOC(Blocks[kf].ng,sizeof(int)))== NULL ){
+        FREE_blocks();
+        *ierr =5;
+        return 0;
+      }
     }
 
     Blocks[kf].work=(void **)(((double *)work)+kf);
@@ -537,11 +552,14 @@ int C2F(scicos)(
     }
   }
 
-
-  if((iwa=MALLOC(sizeof(int)*(*nevts)))== NULL ){
-    FREE_blocks();
-    *ierr =5;
-    return 0;
+  iwa=NULL;
+  if ((*nevts)!=0)
+  {
+   if((iwa=MALLOC(sizeof(int)*(*nevts)))== NULL ){
+     FREE_blocks();
+     *ierr =5;
+     return 0;
+   }
   }
 
   /* save ptr of scicos in import structure */
@@ -975,8 +993,6 @@ int C2F(scicos)(
      double *told;
 
 {
-  /* Initialized data */
-  static integer otimer = 0;
   /* System generated locals */
   integer i3;
 
@@ -989,7 +1005,7 @@ int C2F(scicos)(
   static double t;
   static integer itask;
   static integer jj, jt;
-  static integer istate, ntimer;
+  static integer istate;
 
   static double rhotmp;
   static integer inxsci;
@@ -1016,11 +1032,14 @@ int C2F(scicos)(
     FREE(rhot);
     return;
   }
-  if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    return;
+  jroot=NULL;
+  if (ng!=0) {
+    if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
+      *ierr =10000;
+      FREE(rhot);
+      FREE(ihot);
+      return;
+    }
   }
 
   /* initialize array */
@@ -1029,12 +1048,15 @@ int C2F(scicos)(
     jroot[jj] = 0 ;
   }
 
-  if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    FREE(jroot);
-    return;
+  zcros=NULL;
+  if (ng!=0) {
+    if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
+      *ierr =10000;
+      FREE(rhot);
+      FREE(ihot);
+      FREE(jroot);
+      return;
+    }
   }
 
   /* Function Body */
