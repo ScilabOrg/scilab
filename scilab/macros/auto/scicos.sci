@@ -181,6 +181,7 @@ if ~super_block then
  end
  
  exec(loadpallibs,-1) // to load the palettes libraries
+ exec(SCI+'/macros/util/ged.sci'); //to load function of ged in scicos
  
 end //** end of the main if() not superblock 
 //** ------------------------------------ End the NOT-Superbloc initialization and check ----------------------------------------
