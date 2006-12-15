@@ -1,6 +1,9 @@
 #ifndef INTCSCICOS_SCI
 #define INTCSCICOS_SCI
 
+#include "../machine.h"
+#include "scicos_block4.h"
+
 /* function declaration */
 int MlistGetFieldNumber __PARAMS((int *ptr, const char *string));
 int C2F(intcscicos)  _PARAMS((void));

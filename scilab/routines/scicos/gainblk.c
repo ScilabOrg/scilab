@@ -1,5 +1,6 @@
-#include "scicos_block4.h"
+
 #include "../machine.h"
+#include "scicos_block4.h"
 
 extern int C2F(dmmul)();
 extern int C2F(dmmul1)();

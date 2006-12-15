@@ -1,6 +1,7 @@
-#include "scicos_block.h"
+
 #include <math.h>
 #include "../machine.h"
+#include "scicos_block.h"
 
 void 
 bounce_ball(scicos_block *block,int flag)

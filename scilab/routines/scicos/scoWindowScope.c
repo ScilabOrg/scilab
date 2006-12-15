@@ -633,7 +633,9 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   int kfun;
   char buf[40];
   int i__1;
-  char ** title;
+  char ** title=NULL;
+  char * x_title=NULL;
+  char * y_title;
 
   title = (char**)scicos_malloc(scoGetNumberOfSubwin(pScopeMemory)*sizeof(char*));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
@@ -642,9 +644,9 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
       sprintf(title[i],"Graphic %d",i+1);
     }
 
-  char * x_title;
+  
   x_title = x;
-  char * y_title;
+  
   y_title = y;
 
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)

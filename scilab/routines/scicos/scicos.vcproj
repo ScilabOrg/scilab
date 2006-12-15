@@ -712,6 +712,18 @@ cd .. &gt;nul
 				RelativePath=".\bouncexy.c">
 			</File>
 			<File
+				RelativePath=".\canimxy.c">
+			</File>
+			<File
+				RelativePath=".\canimxy3d.c">
+			</File>
+			<File
+				RelativePath=".\cevscpe.c">
+			</File>
+			<File
+				RelativePath=".\cfscope.c">
+			</File>
+			<File
 				RelativePath=".\cmscope.c">
 			</File>
 			<File
@@ -722,6 +734,12 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\cscope.c">
+			</File>
+			<File
+				RelativePath=".\cscopxy.c">
+			</File>
+			<File
+				RelativePath=".\cscopxy3d.c">
 			</File>
 			<File
 				RelativePath=".\csslti4.c">
@@ -737,6 +755,12 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\deriv.c">
+			</File>
+			<File
+				RelativePath=".\dmmul.c">
+			</File>
+			<File
+				RelativePath=".\dmmul1.c">
 			</File>
 			<File
 				RelativePath=".\dollar4.c">
@@ -781,7 +805,13 @@ cd .. &gt;nul
 				RelativePath=".\logicalop.c">
 			</File>
 			<File
+				RelativePath=".\matmul_m.c">
+			</File>
+			<File
 				RelativePath=".\matscicos.c">
+			</File>
+			<File
+				RelativePath=".\mattran_m.c">
 			</File>
 			<File
 				RelativePath=".\minmax.c">
@@ -856,6 +886,21 @@ cd .. &gt;nul
 				RelativePath=".\scicosclip.c">
 			</File>
 			<File
+				RelativePath=".\scoGetProperty.c">
+			</File>
+			<File
+				RelativePath=".\scoMemoryScope.c">
+			</File>
+			<File
+				RelativePath=".\scoMisc.c">
+			</File>
+			<File
+				RelativePath=".\scoSetProperty.c">
+			</File>
+			<File
+				RelativePath=".\scoWindowScope.c">
+			</File>
+			<File
 				RelativePath=".\selector.c">
 			</File>
 			<File
@@ -916,6 +961,9 @@ cd .. &gt;nul
 				RelativePath=".\writec.c">
 			</File>
 			<File
+				RelativePath=".\writef4.c">
+			</File>
+			<File
 				RelativePath=".\zcross2.c">
 			</File>
 		</Filter>
@@ -942,6 +990,27 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\scicos_block.h">
+			</File>
+			<File
+				RelativePath=".\scicos_block4.h">
+			</File>
+			<File
+				RelativePath=".\scoBase.h">
+			</File>
+			<File
+				RelativePath=".\scoGetProperty.h">
+			</File>
+			<File
+				RelativePath=".\scoMemoryScope.h">
+			</File>
+			<File
+				RelativePath=".\scoMisc.h">
+			</File>
+			<File
+				RelativePath=".\scoSetProperty.h">
+			</File>
+			<File
+				RelativePath=".\scoWindowScope.h">
 			</File>
 		</Filter>
 	</Files>

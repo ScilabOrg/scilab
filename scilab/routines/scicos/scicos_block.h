@@ -4,7 +4,9 @@
 #ifdef __STDC__
 #include <stdlib.h>
 #else 
-#include <malloc.h>
+	#ifndef WIN32
+		#include <malloc.h>
+	#endif
 #endif 
 
 typedef void (*voidg)();
@@ -60,8 +62,10 @@ void Set_Jacobian_flag(int flag);
 #undef max
 #endif
 
+#ifndef WIN32
 #define max(a,b) ((a) >= (b) ? (a) : (b))
 #define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
 
 extern int s_copy();
 extern int s_cmp();

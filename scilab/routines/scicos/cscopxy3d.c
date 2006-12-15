@@ -24,7 +24,6 @@ void cscopxy3d(scicos_block * block, int flag)
   int win_pos[2]; //Position of the Window
   int win_dim[2]; //Dimension of the Window
   int nipar;
-  int NbrPtsLong;
   int NbrPtsShort;
   double * rpar; //Reals parameters
   double *u1,*u2, *u3;

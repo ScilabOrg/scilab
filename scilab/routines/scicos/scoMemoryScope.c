@@ -1,4 +1,5 @@
 #include "scoBase.h"
+#include "scoMisc.h"
 #include "scoMemoryScope.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"

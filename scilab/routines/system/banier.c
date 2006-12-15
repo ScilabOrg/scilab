@@ -26,6 +26,13 @@ void banner(void)
     sciprint("        -------------------------------------------\r\n");
 	#endif
 
+	#if ( defined(NOT_OFFICIAL_VERSION) )
+		sciprint("\r\n\r\n");
+        sciprint("Warning: the operational team of the Scilab Consortium\r\n");
+        sciprint("   does not directly provide nor officially support this\r\n");
+        sciprint("   version of Scilab. \r\n\r\n");
+	#endif
+
 	#if ( defined(WITH_GTK) )
               sciprint("\r\n\r\n");
               sciprint("Warning: the operational team of the Scilab Consortium\r\n");

@@ -54,7 +54,7 @@ void bouncexy(scicos_block * block,int flag)
 	z = GetDstate(block);
 	for(i = 0 ; i < number_of_curves_by_subwin ; i++)
 	  {
-	    size_balls[i] = z[6*i+2];
+	    size_balls[i] = (int)z[6*i+2];
 	    if(radius_max < size_balls[i])
 	      {
 		radius_max = size_balls[i];
@@ -123,7 +123,7 @@ void bouncexy(scicos_block * block,int flag)
 	    z = GetDstate(block);
 	    for(i = 0 ; i < number_of_curves_by_subwin ; i++)
 	      {
-		size_balls[i] = z[6*i+2];
+		size_balls[i] = (int)z[6*i+2];
 		if(radius_max < size_balls[i])
 		  {
 		    radius_max = size_balls[i];
@@ -168,7 +168,7 @@ void bouncexy(scicos_block * block,int flag)
 	z = GetDstate(block);
 	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
-	    size_balls[i] = z[6*i+2];
+	    size_balls[i] = (int)z[6*i+2];
 	  }
 	u1 = GetRealInPortPtrs(block,1);
 	u2 = GetRealInPortPtrs(block,2);

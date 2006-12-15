@@ -9,6 +9,9 @@
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
 */
+
+extern int C2F(getouttb)();
+
 void cfscope(scicos_block * block,int flag)
 {
   ScopeMemory * pScopeMemory;

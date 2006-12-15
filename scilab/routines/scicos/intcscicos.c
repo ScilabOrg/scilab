@@ -1,3 +1,14 @@
+
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+#include "intcscicos.h"
+#include "scoMisc.h"
+#undef Top
+#include "../stack-c.h"
+#define Top C2F(vstk).top
+#include "../interf/intcommongraphics.h"
+
 /*
  * int MlistGetFieldNumber(int *ptr, const char *string)
  * int inttimescicos(fname,fname_len)
@@ -21,16 +32,6 @@
  * int intbuildouttb(fname,fname_len)
  * int intpermutobj_c(fname,fname_len)
  */
-
-#include <string.h>
-#include <stdio.h>
-#include <math.h>
-
-#include "../machine.h"
-#include "scicos_block4.h"
-#include "intcscicos.h"
-#include "../os_specific/sci_mem_alloc.h"  /* malloc */
-#include "../stack-c.h"
 
 /* fonction pour recuperer le nombre du champs a partir de son nom */
 int MlistGetFieldNumber(int *ptr, const char *string)
@@ -438,7 +439,7 @@ int intscicosimc(fname,fname_len)
  extern int C2F(funnum) __PARAMS((char *fname));
 
  /************************************
-  * variables and constants d�inition
+  * variables and constants d?inition
   ************************************/
  static int id[nsiz];
 
@@ -1883,7 +1884,7 @@ int CopyVarFromlistentry(int lw, int *header, int i)
 int var2sci(void *x,int n,int m,int typ_var)
 {
   /************************************
-   * variables and constants d�inition
+   * variables and constants d?inition
    ************************************/
   /*counter and address variable declaration*/
   int nm,il,l,j,err;
@@ -2403,7 +2404,7 @@ int intgetscicosvarsc(fname,fname_len)
                  unsigned long fname_len;
 {
   /************************************
-   * variables and constants d�inition
+   * variables and constants d?inition
    ************************************/
   /* auxilary variables for dimension and address */
   int m1,n1;     /* dimension of input character string               */
@@ -2743,7 +2744,7 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if (ptr_scsblk[k].x!=&x[xptr[k]-1])
        {
-         /*fprintf(stderr,"k=%d,X,xd Non initialis�n",k);*/
+         /*fprintf(stderr,"k=%d,X,xd Non initialis?n",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
@@ -2752,7 +2753,7 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if ((ptr_scsblk[k].g!=&g[zcptr[k]-1]) && (ptr_scsblk[k].g!=&x[xptr[k]-1]))
        {
-        /*fprintf(stderr,"k=%d,g Non initialis�n",k);*/
+        /*fprintf(stderr,"k=%d,g Non initialis?n",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
@@ -3346,8 +3347,7 @@ int intbuildouttb(fname,fname_len)
  * Copyright INRIA
  * A. Layec/S. Mannori - 13/12/06
  */
-#include "../interf/intcommongraphics.h"
-#include "scoMisc.h"
+
 
 /* intpermutobj_c
  *

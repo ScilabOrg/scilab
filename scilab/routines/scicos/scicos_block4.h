@@ -2,17 +2,19 @@
 #define __SCICOS_BLOCK_H__
 
 #ifdef __STDC__
-#include <stdlib.h>
+	#include <stdlib.h>
 #else
-#include <malloc.h>
+	#ifndef WIN32
+		#include <malloc.h>
+	#endif
 #endif
+
+#ifndef NULL
+	#define NULL 0
+#endif
+
 
 typedef void (*voidg)();
-
-#if WIN32
-#define NULL    0
-#endif
-
 
 /* scicos_block structure definition */
 typedef struct {
