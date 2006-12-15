@@ -181,8 +181,11 @@ if ~super_block then
  end
  
  exec(loadpallibs,-1) // to load the palettes libraries
- exec(SCI+'/macros/util/ged.sci'); //to load function of ged in scicos
- 
+
+ prot=funcprot();funcprot(0);
+ exec(SCI+'/macros/util/ged.sci',-1); //to load functions of ged in scicos
+ funcprot(prot)
+
 end //** end of the main if() not superblock 
 //** ------------------------------------ End the NOT-Superbloc initialization and check ----------------------------------------
 
@@ -198,7 +201,7 @@ needreplay = %f
 %path='./'
 %exp_dir = PWD
 
-global %tableau  
+global %tableau
 
 if ~super_block then // init of some global variables
   %zoom    = 1.4      ; //** original value by Ramine  
@@ -207,7 +210,7 @@ if ~super_block then // init of some global variables
   super_path=[] // path to the currently opened superblock
 
   scicos_paltmp = scicos_pal ;
-  
+
   if execstr('load(''.scicos_pal'')','errcatch')==0 then
     scicos_pal = [scicos_paltmp;scicos_pal]
     [%junk,%palce] = gunique(scicos_pal(:,2))
