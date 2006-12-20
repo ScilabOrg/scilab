@@ -27,16 +27,14 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 
   nb=prod(size(rpptr))-1
 
-
   for k=newparameters
     if prod(size(k))==1 then //parameter of a simple block
       kc=cor(k) //index of modified block in compiled structure
       o=scs_m.objs(k)
     else
-      kc=get_tree_elt(cor,k); 
+      kc=get_tree_elt(cor,k);
       o=scs_m(get_subobj_path(k))
     end
-    
     if is_modelica_block(o) then
       parameters=o.model.equations.parameters
       rpark=[];for p=parameters(2),rpark=[rpark;p(:)];end
@@ -120,10 +118,9 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 	//Change simulation routine
 	if type(sim('funs')(kc))<>13 then   //scifunc
 	  sim('funs')(kc)=fun(1);
-	  if prod(size(fun))> 1 then 
-// 	    sim('funtyp')(kc)=int32(fun(2));
+	  if prod(size(fun))> 1 then
 	    sim('funtyp')(kc)=fun(2);
-	  else 
+	  else
 	    sim('funtyp')(kc)==0;
 	  end
 	end
