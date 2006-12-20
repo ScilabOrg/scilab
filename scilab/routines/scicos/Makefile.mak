@@ -10,29 +10,29 @@ LIBRARY = $(SCIDIR)/libs/scicos.lib
 
 BLOCKSF=evtdly.obj cstblk.obj \
 	lusat.obj pload.obj qzcel.obj qzflr.obj\
-	qzrnd.obj qztrn.obj scope.obj lsplit.obj csslti.obj\
+	qzrnd.obj qztrn.obj lsplit.obj csslti.obj\
 	dsslti.obj trash.obj zcross.obj \
 	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
 	sqrblk.obj delay.obj selblk.obj forblk.obj writef.obj invblk.obj hltblk.obj\
 	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich2.obj affich.obj\
+	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj\
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
-	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj mscope.obj \
-	intrp2.obj   intrpl.obj fsv.obj memo.obj fscope.obj scoxy.obj diffblk.obj constraint.obj \
+	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj \
+	intrp2.obj intrpl.obj fsv.obj memo.obj diffblk.obj constraint.obj \
 	absblk.obj andlog.obj bidon.obj gain.obj cdummy.obj dband.obj cosblk.obj ifthel.obj eselect.obj
 
 
 BLOCKS_CODE=evtdly.obj cstblk.obj \
 	lusat.obj pload.obj qzcel.obj qzflr.obj\
-	qzrnd.obj qztrn.obj scope.obj lsplit.obj csslti.obj\
+	qzrnd.obj qztrn.obj  lsplit.obj csslti.obj\
 	dsslti.obj trash.obj zcross.obj \
 	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
 	sqrblk.obj delay.obj selblk.obj forblk.obj  writef.obj invblk.obj hltblk.obj\
 	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj scopxy.obj evscpe.obj integr.obj readf.obj affich2.obj affich.obj\
+	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj\
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
-	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj mscope.obj \
-	intrp2.obj   intrpl.obj fsv.obj memo.obj fscope.obj scoxy.obj \
+	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj \
+	intrp2.obj intrpl.obj fsv.obj memo.obj \
 	diffblk.obj constraint.obj ifthel.obj eselect.obj
 
 
@@ -47,6 +47,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
         sinh_blk.obj cosh_blk.obj tanh_blk.obj asinh_blk.obj acosh_blk.obj atanh_blk.obj \
 	evtvardly.obj edgetrig.obj tcslti4.obj tcsltj4.obj dsslti4.obj \
 	csslti4.obj cstblk4.obj samphold4.obj dollar4.obj invblk4.obj delay4.obj \
+	cevscpe.obj cfscope.obj cscopxy.obj canimxy.obj canimxy3d.obj cscopxy3d.obj \
 	matmul_m.obj mattran_m.obj
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
@@ -57,7 +58,9 @@ OBJSF=intcos.obj coselm.obj sciblk.obj  \
 OBJSC=scicos.obj intcscicos.obj import.obj realtime.obj \
 	intrealtime.obj matscicos.obj blocks.obj scicosclip.obj \
 	sciblk2.obj sciblk2i.obj sciblk4.obj scicos_malloc.obj \
-	scicos_free.obj tree.obj $(BLOCKSC)
+	scicos_free.obj tree.obj \
+	scoGetProperty.obj scoSetProperty.obj scoMisc.obj \
+	scoMemoryScope.obj scoWindowScope.obj $(BLOCKSC)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
@@ -69,14 +72,14 @@ FFLAGS = $(FC_OPTIONS)
 
 include ../Make.lib.mak
 
-#---------------Blocks 
+#---------------Blocks
 
 include Make.Blocks.mak
 
 distclean::
 	$(RM) Fblocknames Cblocknames blocks.h
 
-#--------------dependencies 
+#--------------dependencies
 # fortran code
 affich.obj: affich.f ../stack.h
 coselm.obj: coselm.f ../stack.h

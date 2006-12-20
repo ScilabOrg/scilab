@@ -7,29 +7,29 @@ LIBRARY = $(SCIDIR)/libs/scicos.a
 
 BLOCKSF=evtdly.o cstblk.o \
 	lusat.o pload.o qzcel.o qzflr.o\
-	qzrnd.o qztrn.o scope.o lsplit.o csslti.o\
+	qzrnd.o qztrn.o lsplit.o csslti.o\
 	dsslti.o trash.o zcross.o \
 	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
 	sqrblk.o delay.o selblk.o forblk.o writef.o invblk.o hltblk.o\
 	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich2.o affich.o\
+	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o\
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
-	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o mscope.o \
-	intrp2.o   intrpl.o fsv.o memo.o fscope.o scoxy.o diffblk.o constraint.o \
+	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o \
+	intrp2.o intrpl.o fsv.o memo.o diffblk.o constraint.o \
 	absblk.o andlog.o bidon.o gain.o cdummy.o dband.o cosblk.o ifthel.o eselect.o
 
 
 BLOCKS_CODE=evtdly.o cstblk.o \
 	lusat.o pload.o qzcel.o qzflr.o\
-	qzrnd.o qztrn.o scope.o lsplit.o csslti.o\
+	qzrnd.o qztrn.o lsplit.o csslti.o\
 	dsslti.o trash.o zcross.o \
 	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
 	sqrblk.o delay.o selblk.o forblk.o  writef.o invblk.o hltblk.o\
 	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o scopxy.o evscpe.o integr.o readf.o affich2.o affich.o\
+	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o\
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
-	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o mscope.o \
-	intrp2.o   intrpl.o fsv.o memo.o fscope.o scoxy.o \
+	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o \
+	intrp2.o intrpl.o fsv.o memo.o \
 	diffblk.o constraint.o ifthel.o eselect.o
 
 
@@ -44,7 +44,8 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
         sinh_blk.o cosh_blk.o tanh_blk.o asinh_blk.o acosh_blk.o atanh_blk.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
 	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
-	matmul_m.o mattran_m.o cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o
+	cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o \
+	matmul_m.o mattran_m.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \
@@ -54,7 +55,9 @@ OBJSF=intcos.o coselm.o sciblk.o  \
 OBJSC=scicos.o intcscicos.o import.o realtime.o \
 	intrealtime.o matscicos.o blocks.o scicosclip.o \
 	sciblk2.o sciblk2i.o sciblk4.o str2sci.o scicos_malloc.o \
-	scicos_free.o tree.o scoGetProperty.o scoSetProperty.o scoMisc.o scoMemoryScope.o scoWindowScope.o $(BLOCKSC)
+	scicos_free.o tree.o \
+	scoGetProperty.o scoSetProperty.o scoMisc.o \
+	scoMemoryScope.o scoWindowScope.o $(BLOCKSC)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
@@ -66,14 +69,14 @@ FFLAGS = $(FC_OPTIONS)
 
 include ../Make.lib
 
-#---------------Blocks 
+#---------------Blocks
 
 include Make.Blocks
 
 distclean::
 	$(RM) Fblocknames Cblocknames blocks.h
 
-#--------------dependencies 
+#--------------dependencies
 # fortran code
 affich.o: affich.f ../stack.h
 affich.o: affich2.f ../stack.h
