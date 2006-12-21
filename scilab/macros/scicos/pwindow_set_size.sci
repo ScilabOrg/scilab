@@ -1,6 +1,6 @@
 function pwindow_set_size(gh_window)
 //** Modified by Simone Mannori
-//** Phisical window set size 
+//** Physical window set size 
 //** 10 Jul 2006 
 //  
   rhs = argn(2) ; //** get the number of right side arguments  
@@ -47,7 +47,7 @@ function pwindow_set_size(gh_window)
   gh_curwin.figure_size = [ max(400,%wdd) max(300,%hdd) ] ; //** 
 
   //** N.B. : The "figure_size" controls ONLY the dimension of the phisical window:
-  //**        the "real"dimension of the grphics window (relative to the zoom and factor is the)
+  //**        the "real"dimension of the graphics window (relative to the zoom and factor is the)
   //**        "axes_size" parameters !
   
 endfunction

@@ -53,7 +53,7 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
     return ;
   end
 
-  
+  drawnow();
   [ox, oy, w, h, ok] = get_rectangle(xc,yc) ; //** <-- key function !
 
   if ~ok then

@@ -46,7 +46,6 @@ function [palettes,windows] = do_palettes(palettes,windows)
     curwin = windows(winpal,2) ; 
   
   end
-    
   //
   //** xset('window',curwin),
   gh_current_window = [];
@@ -147,7 +146,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
   end
         
   drawobjs( palettes(kpal)); //** draw all the object of the palettes 
-      
+  drawnow()
   xinfo('Palette: may be used to copy  blocks or regions')  
   
   set ("current_figure" , lastwin ); //** new graphic 

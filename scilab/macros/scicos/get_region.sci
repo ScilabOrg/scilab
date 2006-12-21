@@ -42,8 +42,9 @@ else
   return
 end
 
+drawnow()
 [ox,oy,w,h,ok] = get_rectangle(xc,yc) ; //** use the brand new function with the 
-                                        //** "rubberbox" macro 
+                                        //** "rubberbox" macro
 
 if ~ok then 
   //** xset('window',wins)

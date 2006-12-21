@@ -8,8 +8,8 @@ function scs_show(scs_m, win)
     disp("scs_show active...")
   end
 
-  //** xset('window',win); xbasc()
   gh_curwin = scf(win) ;
+  gh_curwin.pixmap="on"
 
   if ~set_cmap(scs_m.props.options('Cmap')) then // add colors if required
     scs_m.props.options('3D')(1)=%f //disable 3D block shape

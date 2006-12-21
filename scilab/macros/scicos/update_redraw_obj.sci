@@ -4,7 +4,6 @@ function scs_m=update_redraw_obj(scs_m,path,o)
 
 if length(path)==2 then
   if typeof(o)=='Link'|typeof(o)=='Text' then
-    //** drawobj(scs_m(path)) ; //** XOR mode (old graphics) 
     scs_m(path)=o
     //quick update for new graphics
     drawlater() ;
@@ -12,7 +11,8 @@ if length(path)==2 then
     o_size = size(gh_curwin.children.children);
     gr_k = o_size(1) - path(2) + 1; //** semi empirical equation :)
     update_gr(gr_k,o) //** new
-    drawnow();show_pixmap() ;
+    draw(gh_curwin.children);
+    show_pixmap() ;
   else
     //new graphics functions is now included in changeports
     scs_m = changeports(scs_m,path,o)
@@ -22,5 +22,5 @@ else // change a block in a sub-level
   scs_m(path) = o ;
 
 end
-  
+
 endfunction

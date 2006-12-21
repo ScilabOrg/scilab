@@ -7,7 +7,9 @@ if SelectRegion<>list() then
   [ox,oy,w,h,win]=SelectRegion(:)
   if win==curwin then ok=%t,else ok=%f,end
 else
+  drawnow()
   [ox,oy,w,h,ok]=get_rectangle(xc,yc)
+
 end
 if ~ok then  enablemenus();return;end
 [del,keep]=get_blocks_in_rect(scs_m,ox,oy,w,h)

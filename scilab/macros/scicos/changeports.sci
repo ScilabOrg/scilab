@@ -288,7 +288,8 @@ function scs_m=changeports(scs_m,path,o_n)
   // redraw block
   //quick update for new graphics
   update_gr(gr_k,o_n);
-  drawnow();show_pixmap();
+  draw(gh_curwin.children);
+  show_pixmap();
   //** if pixmap then xset('wshow'),end
 
   // update block in scicos structure

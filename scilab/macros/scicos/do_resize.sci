@@ -28,7 +28,7 @@ function [%pt,scs_m] = do_resize(%pt,scs_m)
   if K<>[] then
 
     if typeof(scs_m.objs(K))=='Block' then
-    //** ----- Block ------------------------------------------    
+    //** ----- Block ------------------------------------------
       o = scs_m.objs(K) ;
       graphics = o.graphics    ;
       sz       = graphics.sz   ;
@@ -69,16 +69,15 @@ function [%pt,scs_m] = do_resize(%pt,scs_m)
          graphics.orig = orig  ;
          o.graphics    = graphics ;
          scs_m.objs(K) = o  ;
-         //** quick update for new graphics
-         //<<<<<<<<<<<<<<<<<
+
          drawlater() ;
          gh_curwin = gh_current_window;
          o_size = size(gh_curwin.children.children);
          gr_k = o_size(1) - K + 1; //** semi empirical equation :)
 
          update_gr(gr_k,o);
-         drawnow();show_pixmap() ;
-         //>>>>>>>>>>>>>>>>>>>
+         draw(gh_curwin.children);
+         show_pixmap() ;
 
       end //** of ok
 
@@ -104,7 +103,8 @@ function [%pt,scs_m] = do_resize(%pt,scs_m)
         gh_curwin.children.children(gr_k).children(1).thickness = ...
                              maxi( scs_m.objs(K).thick(1) , 1) * ...
                              maxi(scs_m.objs(K).thick(2), 1) ;
-        drawnow();show_pixmap() ;
+        draw(gh_curwin.children);
+        show_pixmap() ;
         //>>>>>>>>>>>>>>>>>>>
       end
 

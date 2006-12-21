@@ -37,7 +37,6 @@ function [scs_m]=prt_align(%pt,scs_m)
   xx2=[xout xin]
   yy2=[yout,yin]
   if xx2==[]|yy2==[] then //one block has no port
-    
     graphics2=o2.graphics;orig2=graphics2.orig
     graphics1=o1.graphics;orig1=graphics1.orig
     if abs(xc1-xc2)<abs(yc1-yc2) then //align vertically
@@ -63,7 +62,6 @@ function [scs_m]=prt_align(%pt,scs_m)
   end
   //quick update for new graphics
   //-Alan-
-  //<<<<<<<<<<<<<<<<<
   gh_win = gcf(); //** get the handler of the curent window
   if gh_win.figure_id<>win then //** test coherence of current id figure
    //** TOBEDONE
@@ -79,9 +77,8 @@ function [scs_m]=prt_align(%pt,scs_m)
   diff_x=orig2(1)-graphics2.orig(1);
   diff_y=orig2(2)-graphics2.orig(2);
   move(gh_blk,[diff_x,diff_y]);  //** ..because "move()" works only in differential
-
-  drawnow(); show_pixmap(); //** new
-  //>>>>>>>>>>>>>>>>>>>
+  draw(gh_blk.parent);
+  show_pixmap(); //** new
   graphics2.orig=orig2 //** old
   //drawobj(o2) // rubbout block //** old
 
