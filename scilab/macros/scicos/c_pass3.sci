@@ -13,6 +13,12 @@ for k=1:size(corinv)
       bllst(k)=scs_m(path);
     end
   else
+
+    //-Alan/Masoud 19/12/06-
+    //We force here update of parameters for THE modelica block
+    [%state0,state,sim]=modipar(corinv(k),%state0,cpr.state,sim,scs_m,cpr.cor);
+    cpr.state=state;
+
     m=scicos_model();
 
     //here it is assumed that modelica blocs have only scalar inputs/outputs
@@ -62,7 +68,7 @@ for i=1:length(bllst)
     xc0=[xc0;X0(1:$/2)]
     xptr(i+1)=xptr(i)+size(ll.state,'*')/2
   end
-  
+
   if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
      if ll.dstate==[] then xd0k=[]; else xd0k=var2vec(ll.dstate);end
   else
@@ -70,14 +76,14 @@ for i=1:length(bllst)
   end
   xd0=[xd0;xd0k];
   zptr=[zptr;zptr($)+size(xd0k,'*')]
-  
+
   if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
     if ll.rpar==[] then rpark=[]; else rpark=var2vec(ll.rpar);end
   else
     rpark=ll.rpar(:)
   end
   rpar=[rpar;rpark]
-  
+
   rpptr=[rpptr;rpptr($)+size(rpark,'*')]
   //
   if type(ll.ipar)==1 then
@@ -87,7 +93,7 @@ for i=1:length(bllst)
     ipptr=[ipptr;ipptr($)]
   end
   //
-  if ll.evtout<>[] then  
+  if ll.evtout<>[] then
     ll11=ll.firing
     if type(ll11)==4 then
       //this is for backward compatibility
