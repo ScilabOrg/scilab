@@ -383,7 +383,7 @@ clf(); //** clear current graphic window and delete all his children
 
 //** this handle acquisition works for both MainScicosWindow and SuperBlock window
 gh_current_window = gcf() ; //** get the current graphics window
-
+gh_current_window.pixmap = "on";
 if ~set_cmap(options('Cmap')) then // add colors if required
   options('3D')(1) = %f //disable 3D block shape
 end
@@ -463,12 +463,12 @@ end
 
 //** -------------------- end of the very obscure code ---------------------------------------------
 
-drawobjs(scs_m) ; //** draw the full diagram 
+drawobjs(scs_m) ; //** draw the full diagram
 
 //** --------------------------------------------------------------------------------------------------------
-//** Begin of the command interpreter loop 
+//** Begin of the command interpreter loop
 
-// state machine variables 
+// state machine variables
 
 %pt = [];
 
@@ -492,7 +492,7 @@ Clipboard = [];
 
 //** hilite_image = list() ; // create an empty list for the hilite images
 
-//** ----------------------------- real command interpreter / state machine loop ---------------------------- 
+//** ----------------------------- real command interpreter / state machine loop ----------------------------
 
 while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
@@ -532,6 +532,17 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
       [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <------
 
+      if %scicos_debug_gr then
+        strtt=["Just after cosclick()";
+               "btn_n = "+string(btn_n);
+               "pt_n = "+sci2exp(%pt_n);
+               "win_n = "+string(win_n);
+               "Cmenu_n = "+string(Cmenu_n);
+               "Cmenu = "+string(Cmenu);
+               "pt = "+sci2exp(%pt)];
+        disp(strtt);
+      end
+
       if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType == 1 & %pt==[] then
         if %pt_n<>[] then %pt = %pt_n;     end
       else
@@ -569,7 +580,7 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
           disp (size(gh_spy)); disp (size(scs_m.objs) );
         end
 	
-        //** need carefull modification 
+        //** need carefull modification
 
 	//supprimer les doublons dans Select et select_back
 	
@@ -598,7 +609,7 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
 end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
 
-do_exit() ; //** this function is esecuted in case od 'Quit' command
+do_exit() ; //** this function is executed in case of 'Quit' command
 
 endfunction
 
