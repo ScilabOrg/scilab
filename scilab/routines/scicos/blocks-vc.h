@@ -10,7 +10,7 @@ extern void F2C(qzcel) __PARAMS((ARGS_scicos));
 extern void F2C(qzflr) __PARAMS((ARGS_scicos));
 extern void F2C(qzrnd) __PARAMS((ARGS_scicos));
 extern void F2C(qztrn) __PARAMS((ARGS_scicos));
-extern void F2C(scope) __PARAMS((ARGS_scicos));
+/*extern void F2C(scope) __PARAMS((ARGS_scicos));*/
 extern void F2C(lsplit) __PARAMS((ARGS_scicos));
 extern void F2C(csslti) __PARAMS((ARGS_scicos));
 extern void F2C(dsslti) __PARAMS((ARGS_scicos));
@@ -37,7 +37,7 @@ extern void F2C(mfclck) __PARAMS((ARGS_scicos));
 extern void F2C(sawtth) __PARAMS((ARGS_scicos));
 extern void F2C(tcslti) __PARAMS((ARGS_scicos));
 extern void F2C(tcsltj) __PARAMS((ARGS_scicos));
-extern void F2C(scopxy) __PARAMS((ARGS_scicos));
+/*extern void F2C(scopxy) __PARAMS((ARGS_scicos));*/
 extern void F2C(evscpe) __PARAMS((ARGS_scicos));
 extern void F2C(integr) __PARAMS((ARGS_scicos));
 extern void F2C(readf) __PARAMS((ARGS_scicos));
@@ -55,13 +55,13 @@ extern void F2C(mux) __PARAMS((ARGS_scicos));
 extern void F2C(demux) __PARAMS((ARGS_scicos));
 extern void F2C(samphold) __PARAMS((ARGS_scicos));
 extern void F2C(dollar) __PARAMS((ARGS_scicos));
-extern void F2C(mscope) __PARAMS((ARGS_scicos));
+/*extern void F2C(mscope) __PARAMS((ARGS_scicos));*/
 extern void F2C(intrp2) __PARAMS((ARGS_scicos));
 extern void F2C(intrpl) __PARAMS((ARGS_scicos));
 extern void F2C(fsv) __PARAMS((ARGS_scicos));
 extern void F2C(memo) __PARAMS((ARGS_scicos));
-extern void F2C(fscope) __PARAMS((ARGS_scicos));
-extern void F2C(scoxy) __PARAMS((ARGS_scicos));
+/*extern void F2C(fscope) __PARAMS((ARGS_scicos));*/
+/*extern void F2C(scoxy) __PARAMS((ARGS_scicos));*/
 extern void F2C(diffblk) __PARAMS((ARGS_scicos));
 extern void F2C(constraint) __PARAMS((ARGS_scicos));
 extern void F2C(absblk) __PARAMS((ARGS_scicos));
@@ -181,13 +181,13 @@ OpTab tabsim[] ={
 {"edgetrig",(ScicosF) edgetrig},
 {"eselect",(ScicosF) F2C(eselect)},
 {"evaluate_expr",(ScicosF) evaluate_expr},
-{"evscpe",(ScicosF) F2C(evscpe)},
+/*{"evscpe",(ScicosF) F2C(evscpe)},*/
 {"evtdly",(ScicosF) F2C(evtdly)},
 {"evtvardly",(ScicosF) evtvardly},
 {"expblk",(ScicosF) F2C(expblk)},
 {"extractor",(ScicosF) extractor},
 {"forblk",(ScicosF) F2C(forblk)},
-{"fscope",(ScicosF) F2C(fscope)},
+/*{"fscope",(ScicosF) F2C(fscope)},*/
 {"fsv",(ScicosF) F2C(fsv)},
 {"gain",(ScicosF) F2C(gain)},
 {"gainblk",(ScicosF) gainblk},
@@ -216,7 +216,7 @@ OpTab tabsim[] ={
 {"minblk",(ScicosF) F2C(minblk)},
 {"minmax",(ScicosF) minmax},
 {"modulo_count",(ScicosF) modulo_count},
-{"mscope",(ScicosF) F2C(mscope)},
+/*{"mscope",(ScicosF) F2C(mscope)},*/
 {"mswitch",(ScicosF) mswitch},
 {"multiplex",(ScicosF) multiplex},
 {"mux",(ScicosF) F2C(mux)},
@@ -242,9 +242,9 @@ OpTab tabsim[] ={
 {"satur",(ScicosF) satur},
 {"sawtth",(ScicosF) F2C(sawtth)},
 {"scalar2vector",(ScicosF) scalar2vector},
-{"scope",(ScicosF) F2C(scope)},
-{"scopxy",(ScicosF) F2C(scopxy)},
-{"scoxy",(ScicosF) F2C(scoxy)},
+/*{"scope",(ScicosF) F2C(scope)},*/
+/*{"scopxy",(ScicosF) F2C(scopxy)},*/
+/*{"scoxy",(ScicosF) F2C(scoxy)},*/
 {"selblk",(ScicosF) F2C(selblk)},
 {"selector",(ScicosF) selector},
 {"signum",(ScicosF) signum},
