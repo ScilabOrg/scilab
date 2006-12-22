@@ -24,5 +24,5 @@ function scs_show(scs_m, win)
   scs_m.props.title(1) = 'Scilab Graphics of '+scs_m.props.title(1)
 
   drawobjs(scs_m, gh_curwin)
-
+  drawnow();
 endfunction

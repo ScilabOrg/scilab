@@ -68,7 +68,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 
   View     = ['View',..
               'Zoom in',..
-	      'Zoom out'];
+	      'Zoom out',..
+              'Fit diagram to figure'];
 	            	      
   Simulate = ['Simulate',..
               'Setup',..
@@ -117,7 +118,10 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		 'i','Get Info';
 		 'r','Replot';
 		 'l','Link';
-		 'q','Quit']
+		 'q','Quit';
+		 '-','Zoom out';
+		 '+','Zoom in';
+		 '=','Fit diagram to figure']
   
   //Scicos Modelica librabry path definitions==============================
 
@@ -129,7 +133,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   %scicos_help = tlist(..
 		     ['sch','Display mode','Window','Background color','Default link colors',..
 		      'ID fonts','Aspect','Add color','Focus','Shift','Zoom in','Zoom out',..
-		      'Help','Calc','Palettes','Context','Cut','Copy','Paste',..
+		      'Fit diagram to figure','Help','Calc','Palettes','Context','Cut','Copy','Paste',..
 		      'Smart Move','Move','Duplicate',..
 		      'Duplicate Region','Replace','Align','Link','Delete','Delete Region',..
 		      'Add new block','Flip','Undo','Setup','Compile','Eval','Debug Level','Run',..
@@ -161,6 +165,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		      ' to appear in the middle of the graphics window. '],..
 		     [' When you select this menu item the diagram is zoomed in ';'by a factor of 10%.'],..
 		     [' When you select this menu item the diagram is zoomed out ';'by a factor of 10%.'],..
+		     [' When you select this menu item the diagram is fit in the figure'],..
 		     [' To get help on an object or menu buttons,';
 		      ' select first Help menu item and then on ';
 		      ' the selected object or menu item.'],..

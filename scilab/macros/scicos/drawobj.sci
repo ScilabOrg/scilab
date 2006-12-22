@@ -129,35 +129,46 @@ function gh_blk = drawobj(o, gh_window)
         gh_e.foreground = o.ct(1)  ; //** link color
 	gh_e.mark_style = 11       ;  
         gh_e.mark_mode = "off"     ; //** put "mark_mode" off, ready for 'Select' operation
-	
-    p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
+
+    p_size = size ( gh_curwin.children.children ) ; //** size after the draw
     //** aggregate the graphics entities
     d_size = p_size(1) - o_size(1) ;
-    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
-     
-  //** ---------- Deleted ----- CAUTION: also "Deleted" object MUST be draw ! ----    
-  elseif typeof(o)=='Deleted' then //** Dummy "deleted" draw     
-    
-    //** draw a dummy object 
-    
-    xpoly ([0;1],[0;1]) ; //** just a dummy object 
-    gh_blk = glue( gh_curwin.children.children(1) ) ; //** create the Compound macro object 
-    
+    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ;
+
+  //** ---------- Deleted ----- CAUTION: also "Deleted" object MUST be draw ! ----
+  elseif typeof(o)=='Deleted' then //** Dummy "deleted" draw
+
+    //** draw a dummy object
+
+    xpoly ([0;1],[0;1]) ; //** just a dummy object
+    gh_blk = glue( gh_curwin.children.children(1) ) ; //** create the Compound macro object
+
     //** gh_blk.visible = "off"  ; //** set to invisible :)
-    set (gh_blk,"visible","off"); //** set to invisible -> faster version 
-    
-     
-  //** ---------- Text -------------------------------  
-  elseif typeof(o)=='Text' then //** Text draw 
-    
+    set (gh_blk,"visible","off"); //** set to invisible -> faster version
+
+
+  //** ---------- Text -------------------------------
+  elseif typeof(o)=='Text' then //** Text draw
+
     //**  ------ Put the new graphics here -----------
     //**
     o_size = size ( gh_curwin.children.children ) ; //** initial size
-       execstr(o.gui+'(''plot'',o)') ;
-    p_size = size ( gh_curwin.children.children ) ; //** size after the draw 
+    execstr(o.gui+'(''plot'',o)') ;
+    rect=stringbox(gh_curwin.children.children(1))                     ;
+    xrect(rect(1,2),rect(2,2),rect(1,3)-rect(1,2),rect(2,2)-rect(2,4)) ;
+    gh_e = gce()                  ; //** get the "select box" handle
+    gh_e.mark_background = -1     ; //**
+    gh_e.mark_style = 11          ;
+    gh_e.mark_size_unit = "point" ;
+    gh_e.mark_size = 5            ;
+    gh_e.mark_mode = "off"        ; //** used
+    gh_e.line_mode = "off"        ;
+
+    p_size = size ( gh_curwin.children.children ) ; //** size after the draw
     //** aggregate the graphics entities
     d_size =  p_size(1) - o_size(1) ;
-    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ; 
-  end //** of the main if  
-  
+
+    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ;
+  end //** of the main if
+
 endfunction

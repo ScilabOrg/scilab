@@ -462,10 +462,7 @@ else
 end
 
 //** -------------------- end of the very obscure code ---------------------------------------------
-
-drawobjs(scs_m) ; //** draw the full diagram
-
-//** --------------------------------------------------------------------------------------------------------
+//** -----------------------------------------------------------------------------------------------
 //** Begin of the command interpreter loop
 
 // state machine variables
@@ -489,6 +486,8 @@ Select_back = [] ;
 %ppt = [];
 
 Clipboard = [];
+
+drawobjs(scs_m) ; //** draw the full diagram
 
 //** hilite_image = list() ; // create an empty list for the hilite images
 
@@ -527,7 +526,7 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
   xinfo(mess);
 
-  if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then 
+  if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then
   //** I'm not ready to exec a command: I need more information
 
       [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <------
@@ -667,10 +666,12 @@ function selecthilite(Select, flag)  // update the image
     k = Select (i,1)
     gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
 
-    //** get the handle of the graphics entity to modify
-    gh_obj = gh_curwin.children.children(gh_k);
-    //** update mark_mode property
-    gh_obj.children(1).mark_mode = flag  ;
+   if gh_k>0 then //** Alan - to disable some crash when we have delete obj
+      //** get the handle of the graphics entity to modify
+      gh_obj = gh_curwin.children.children(gh_k);
+      //** update mark_mode property
+      gh_obj.children(1).mark_mode = flag  ;
+   end
 
   end //** end the for(..) loop
 

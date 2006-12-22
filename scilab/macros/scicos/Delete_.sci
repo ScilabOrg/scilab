@@ -2,7 +2,7 @@
 //** --------------------
 function Delete_()
   
-  [%pt,scs_m,needcompile] = do_delete(%pt,scs_m,needcompile)
+  [%pt,scs_m,needcompile,Select] = do_delete(%pt,scs_m,needcompile,Select)
   
   Cmenu = []; %pt = []
   
