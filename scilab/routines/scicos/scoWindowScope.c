@@ -11,6 +11,10 @@ void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int 
   int i;
   scoGraphicalObject pTemp;
   scoGraphicalObject pTemp2;
+  if (win_id == -1)
+    {
+      win_id = 20000 + get_block_number() ; 
+    }
   scoSetWindowID(pScopeMemory,win_id);
   DeleteObjs(win_id);
   sciSetUsedWindow(scoGetWindowID(pScopeMemory));

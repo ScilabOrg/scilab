@@ -40,10 +40,6 @@ void cscope(scicos_block * block,int flag)
 	nipar = GetNipar(block);
 	buffer_size = ipar[2];
 	win = ipar[0];
-	if (win == -1)
-	  {
-	    win = 20000 + get_block_number() ; 
-	  }
 	period  = rpar[3];
 	win_pos[0] = ipar[(nipar-1) - 3];
 	win_pos[1] = ipar[(nipar-1) - 2];
