@@ -1,13 +1,21 @@
-function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
+function bad_connection(path_out,prt_out,nout,outtyp,path_in,prt_in,nin,intyp,typ)
 // alert for badly connected blocks
 // path_out : Path of the "from block" in scs_m
 // path_in  : Path of the "to block" in scs_m
+// Alan, 28/12/06 : added rhs parameter : outtyp/intyp and typ flag.
+// typ : a flag. If not present or equal to zero then
+//               display a message concerning size.
+//               Else if equal to 1 then display a message
+//               concerning type.
 //!
 // Copyright INRIA
 
   if %scicos_debug_gr then
     disp("bad_connection...")
   end
+
+  rhs = argn(2) ;
+  if (rhs == 8) then typ=0, end
 
   if type(path_out)==15 then //set of modelica blocks
     // look for modelica bloc associated with prt_out
@@ -48,8 +56,13 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
   if path_in==-1 then
     //** hilite_obj(scs_m.objs(path_out)); //**
     hilite_obj(path_out); //** new
-    message(['Hilited block has connected ports ';
-	     'with  incompatible sizes'])
+    if typ==0 then
+      message(['Hilited block has connected ports ';
+               'with  incompatible sizes'])
+    else
+      message(['Hilited block has connected ports ';
+               'with  incompatible types'])
+    end
     unhilite_obj(path_out); //** new
     return;
   end
@@ -70,10 +83,18 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
           hilite_obj(path_in)
       end
 
-      message(['Hilited block(s) have connected ports ';
-	       'with  incompatible sizes';
-	       ' output port '+string(prt_out)+' size is :'+sci2exp(nout);
-	       ' input port '+string(prt_in)+' size is  :'+sci2exp(nin)]);
+      if typ==0 then
+        message(['Hilited block(s) have connected ports ';
+                 'with  incompatible sizes';
+                 ' output port '+string(prt_out)+' size is :'+sci2exp(nout);
+                 ' input port '+string(prt_in)+' size is  :'+sci2exp(nin)]);
+      else
+        message(['Hilited block(s) have connected ports ';
+                 'with  incompatible type';
+                 ' output port '+string(prt_out)+' type is :'+sci2exp(outtyp);
+                 ' input port '+string(prt_in)+' type is  :'+sci2exp(intyp)]);
+
+      end
       unhilite_obj(path_out);
       if or(path_in<>path_out) then unhilite_obj(path_in),end
       //** hilite_obj(scs_m.objs(path_out))
@@ -94,10 +115,17 @@ function bad_connection(path_out,prt_out,nout,path_in,prt_in,nin)
         hilite_obj(path_in)
       end
 //*****************************************
-      message(['Hilited block(s) have connected ports ';
-	       'with  incompatible sizes';
-	       string(prt_out)+' output port size is :'+sci2exp(nout);
-	       string(prt_in)+' input port size is  :'+sci2exp(nin)]); 
+      if typ==0 then
+        message(['Hilited block(s) have connected ports ';
+                 'with  incompatible sizes';
+                 string(prt_out)+' output port size is :'+sci2exp(nout);
+                 string(prt_in)+' input port size is  :'+sci2exp(nin)]);
+      else
+        message(['Hilited block(s) have connected ports ';
+                 'with  incompatible type';
+                 ' output port '+string(prt_out)+' type is :'+sci2exp(outtyp);
+                 ' input port '+string(prt_in)+' type is  :'+sci2exp(intyp)]);
+      end
       for k=size(path,'*'):-1:1
         //** select the mxwin+k window and get the handle
         gh_del = scf(mxwin+k);

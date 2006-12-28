@@ -36,7 +36,7 @@ function [alreadyran,%cpr] = do_terminate(scs_m,%cpr)
 	path = corinv(kfun)
 	//** xset('window',curwin)
 	scf(curwin); 
-	bad_connection(path, ['End problem with hilited block';lasterror()],0,0,-1,0)
+	bad_connection(path, ['End problem with hilited block';lasterror()],0,1,0,-1,0,1)
       else
 	message(['End problem:';lasterror()])
       end    

@@ -77,7 +77,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
 	  path=corinv(kfun)
 	  xset('window',curwin)
 	  bad_connection(path,..
-			 ['End problem with hilited block';lasterror()],0,0,-1,0)
+			 ['End problem with hilited block';lasterror()],0,1,0,-1,0,1)
 	else
 	  message(['End problem:';lasterror()])
 	end
@@ -118,7 +118,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
 	xset('window',curwin)
 	path=corinv(kfun)
 	bad_connection(path,..
-		       ['Initialisation problem with hilited block:';lasterror()],0,0,-1,0)
+		       ['Initialisation problem with hilited block:';lasterror()],0,1,0,-1,0,1)
       else
 	message(['Initialisation problem:';lasterror()])
       end
@@ -158,7 +158,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
       path=corinv(kfun)
       xset('window',curwin)
       bad_connection(path,..
-		     ['Simulation problem with hilited block:';lasterror()],0,0,-1,0)
+		     ['Simulation problem with hilited block:';lasterror()],0,1,0,-1,0,1)
     else
       message(['Simulation problem:';lasterror()])
     end

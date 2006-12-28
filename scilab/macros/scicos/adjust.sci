@@ -21,6 +21,8 @@
 //18/05/06, Alan  : improvement in order to take into
 //account two dimensional ports size.
 //
+//28/12/06, Alan : type for source port and target port must
+//                 be the same.
 //
 // Copyright INRIA
 //
@@ -50,8 +52,20 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                //target port and the source port of the observed link
                nout(1,1)=bllst(blkout).out(portout)
                nout(1,2)=bllst(blkout).out2(portout)
+               outtyp=bllst(blkout).outtyp(portout)
                nin(1,1)=bllst(blkin).in(portin)
                nin(1,2)=bllst(blkin).in2(portin)
+               intyp=bllst(blkin).intyp(portin)
+
+               //check intyp outtyp
+               if intyp<>outtyp then
+                 bad_connection(corinv(blkout),portout,..
+                                nout,outtyp,..
+                                corinv(blkin),portin,..
+                                nin,intyp,1)
+                 ok=%f;
+                 return
+               end
 
                //loop on the two dimensions of source/target port
                for ndim=1:2
@@ -64,8 +78,8 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                      //then call bad_connection, set flag ok to false and exit
                      if nin(1,ndim)<>nout(1,ndim) then
                         bad_connection(corinv(blkout),portout,..
-                                       nout,..
-                                       corinv(blkin),portin,nin)
+                                       nout,outtyp,..
+                                       corinv(blkin),portin,nin,intyp)
                         ok=%f;return
                      end
 
@@ -156,7 +170,7 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                               end
                            //else call bad_connection, set flag ok to false and exit
                            else
-                              bad_connection(corinv(blkout),0,0,-1,0,0)
+                              bad_connection(corinv(blkout),0,0,1,-1,0,0,1)
                               ok=%f;return
                            end
 
@@ -206,7 +220,7 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
 
                           //else call bad_connection, set flag ok to false and exit
                            else
-                              bad_connection(corinv(blkout),0,0,-1,0,0)
+                              bad_connection(corinv(blkout),0,0,1,-1,0,0,1)
                               ok=%f;return
                            end
 
@@ -247,7 +261,7 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                               end
                            //else call bad_connection, set flag ok to false and exit
                            else
-                              bad_connection(corinv(blkin),0,0,-1,0,0)
+                              bad_connection(corinv(blkin),0,0,1,-1,0,0,1)
                               ok=%f;return
                            end
                         else
@@ -296,7 +310,7 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
 
                            //else call bad_connection, set flag ok to false and exit
                            else
-                              bad_connection(corinv(blkin),0,0,-1,0,0)
+                              bad_connection(corinv(blkin),0,0,1,-1,0,0,1)
                               ok=%f;return
                            end
 

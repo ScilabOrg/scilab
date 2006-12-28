@@ -171,7 +171,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   typ_z0=typ_z;
 
   if ~ok then
-    message('Problem in port size');
+    message('Problem in port size or type');
     cpr=list()
     return,
   end
@@ -2562,6 +2562,8 @@ endfunction
 //18/05/06, Alan  : improvement in order to take into
 //account two dimensional port size.
 //
+//28/12/06, Alan : type for source port and target port must
+//                 be the same.
 //
 function [ok,bllst]=adjust_inout(bllst,connectmat)
 
@@ -2584,8 +2586,20 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
            //target port and the source port of the observed link
            nout(1,1)=bllst(connectmat(jj,1)).out(connectmat(jj,2))
            nout(1,2)=bllst(connectmat(jj,1)).out2(connectmat(jj,2))
+           outtyp = bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
            nin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
            nin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
+           intyp = bllst(connectmat(jj,3)).intyp(connectmat(jj,4))
+
+           //check intyp outtyp
+           if intyp<>outtyp then
+             bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
+                            nout,outtyp,..
+                            corinv(connectmat(jj,3)),connectmat(jj,4),..
+                            nin,intyp,1)
+             ok=%f;
+             return
+           end
 
            //loop on the two dimensions of source/target port 
            for ndim=1:2
@@ -2598,9 +2612,9 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                  //then call bad_connection, set flag ok to false and exit
                  if nin(1,ndim)<>nout(1,ndim) then
                     bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
-                                   nout,..
+                                   nout,outtyp,..
                                    corinv(connectmat(jj,3)),connectmat(jj,4),..
-                                   nin)
+                                   nin,intyp)
                     ok=%f;return
                  end
 
@@ -2734,7 +2748,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                           end
                        //else call bad_connection, set flag ok to false and exit
                        else
-                          bad_connection(corinv(connectmat(jj,1)),0,0,-1,0,0)
+                          bad_connection(corinv(connectmat(jj,1)),0,0,1,-1,0,0,1)
                           ok=%f;return
                        end
 
@@ -2783,7 +2797,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                           end
                        //else call bad_connection, set flag ok to false and exit
                        else
-                          bad_connection(corinv(connectmat(jj,1)),0,0,-1,0,0)
+                          bad_connection(corinv(connectmat(jj,1)),0,0,1,-1,0,0,1)
                           ok=%f;return
                        end
 
@@ -2824,7 +2838,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                           end
                        //else call bad_connection, set flag ok to false and exit
                        else
-                          bad_connection(corinv(connectmat(jj,3)),0,0,-1,0,0)
+                          bad_connection(corinv(connectmat(jj,3)),0,0,1,-1,0,0,1)
                           ok=%f;return
                        end
 
@@ -2873,7 +2887,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                           end
                        //else call bad_connection, set flag ok to false and exit
                        else
-                          bad_connection(corinv(connectmat(jj,3)),0,0,-1,0,0)
+                          bad_connection(corinv(connectmat(jj,3)),0,0,1,-1,0,0,1)
                           ok=%f;return
                        end
 
