@@ -35,23 +35,6 @@ void scoScopeError(ScopeMemory * pScopeMemory, int code_error)
   set_block_error(-16);
 }
 
-
-void C2F (oldgraphics) (int *flag)
-{
-  //** Patch to OLD graphics
-  extern int versionflag ; //** external global variable  (1 old ; 0 new) 
-  
-  //** flag = 1 ; old graphics back compatibility
-  //** flag = 0 ; default graphics mode 
-      
-  /*setVersionFlag(*flag) ;*/ //** force the old graphics
-  versionflag = *flag ; //** force the old graphics
-  
-  // debug only :)
-  // printf("\n versionflag = %d \n  ", versionflag);
-
-}
-
 /* permut pobj_1/pobj_2 ptrs coming from
  * pparent_1/pparent_2 hdl(s)
  */

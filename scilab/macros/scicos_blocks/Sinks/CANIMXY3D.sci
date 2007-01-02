@@ -19,9 +19,10 @@ case 'set' then
   //if size(exprs,'*')==8 then exprs=[exprs(1:3);'[]';'[]';exprs(4:8)],end
 
   while %t do
-    [ok,clrs,siz,win,wpos,wdim,xmin,xmax,ymin,ymax,zmin,zmax,alpha,theta,N,exprs]=getvalue(..
+    [ok,nbr_curves,clrs,siz,win,wpos,wdim,xmin,xmax,ymin,ymax,zmin,zmax,alpha,theta,N,exprs]=getvalue(..
 	'Set Scope parameters',..
-	['color (<0) or mark (>0)';
+	['Number of curves';
+	'color (<0) or mark (>0)';
 	'line or mark size';
 	'Output window number';
 	'Output window position';
@@ -35,7 +36,7 @@ case 'set' then
 	'Alpha';
 	'Theta';
 	'Buffer size'],..
-	 list('vec',1,'vec',1,'vec',1,'vec',-1,'vec',-1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1),exprs)
+	 list('vec',1,'vec',1,'vec',1,'vec',1,'vec',-1,'vec',-1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end //user cancel modification
 
     mess=[]
@@ -49,6 +50,10 @@ case 'set' then
     end
     if win<0 then
       mess=[mess;'Window number cannot be negative';' ']
+      ok=%f
+    end
+    if nbr_curves<=0 then
+      mess=[mess;'Number of curves cannot be negative or null';' ']
       ok=%f
     end
     if N<1&clrs<0 then
@@ -74,10 +79,13 @@ case 'set' then
     if ~ok then
       message(mess)
     else
+      in = nbr_curves*ones(3,1);
+      in2 = ones(3,1);
+      [model,graphics,ok]=set_io(model,graphics,list([in in2],ones(3,1)),list(),ones(1,1),[]);
       if wpos==[] then wpos=[-1;-1];end
       if wdim==[] then wdim=[-1;-1];end
       rpar=[xmin;xmax;ymin;ymax;zmin;zmax;alpha;theta]
-      ipar=[win;1;N;clrs;siz;0;wpos(:);wdim(:)]
+      ipar=[win;1;N;clrs;siz;0;wpos(:);wdim(:);nbr_curves]
       //if prod(size(dstate))<>2*N+1 then dstate=zeros(2*N+1,1),end
       //model.dstate=dstate;
       model.rpar=rpar;
@@ -95,6 +103,7 @@ case 'define' then
   alpha=50;
   theta=280;
   xmin=-15;xmax=15;ymin=-15;ymax=+15;zmin=-15;zmax=15;
+  nbr_curves = 1;
 
   model=scicos_model()
   model.sim=list('canimxy3d',4)
@@ -103,12 +112,13 @@ case 'define' then
   model.in2=[1;1;1]
   model.intyp=[1;1;1]
   model.rpar=[xmin;xmax;ymin;ymax;zmin;zmax;alpha;theta]
-  model.ipar=[win;1;N;clrs;siz;0;wpos(:);wdim(:)]
+  model.ipar=[win;1;N;clrs;siz;0;wpos(:);wdim(:);nbr_curves]
   model.blocktype='d'
   model.firing=[]
   model.dep_ut=[%f %f]
  
-  exprs=[string(clrs);
+  exprs=[string(nbr_curves);
+      string(clrs);
       string(siz);
       string(win);
       '[]';

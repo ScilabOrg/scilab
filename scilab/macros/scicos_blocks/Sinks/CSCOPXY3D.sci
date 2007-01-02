@@ -17,14 +17,15 @@ case 'set' then
   //dstate=model.dstate;
   //pause;
   while %t do
-    [ok,clrs,siz,win,wpos,wdim,xmin,xmax,ymin,ymax,zmin,zmax,alpha,theta,N,exprs]=getvalue(..
+    [ok,nbr_curves,clrs,siz,win,wpos,wdim,xmin,xmax,ymin,ymax,zmin,zmax,alpha,theta,N,exprs]=getvalue(..
 	'Set Scope parameters',..
-	['color (>0) or mark (<0)';
+	['Number of curves';
+	'color (>0) or mark (<0)';
 	'line or mark size';
 	'Output window number';
 	'Output window position';
 	'Output window sizes';
-   'Xmin';
+   	'Xmin';
 	'Xmax';
 	'Ymin';
 	'Ymax';
@@ -33,7 +34,7 @@ case 'set' then
 	'Alpha';
 	'Theta';
 	'Buffer size'],..
-	list('vec',1,'vec',1,'vec',1,'vec',-1,'vec',-1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1),..
+	list('vec',1,'vec',1,'vec',1,'vec',1,'vec',-1,'vec',-1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1),..
 	exprs)
     if ~ok then break,end //user cancel modification
     mess=[];
@@ -43,6 +44,10 @@ case 'set' then
     end
     if size(wdim,'*')<>0 &size(wdim,'*')<>2 then
       mess=[mess;'Window dim must be [] or a 2 vector';' ']
+      ok=%f
+    end
+    if nbr_curves<=0 then
+      mess=[mess;'Number of curves cannot be negative or null';' ']
       ok=%f
     end
     if win<0 then
@@ -70,10 +75,13 @@ case 'set' then
       ok=%f
     end
     if ok then
+      in = nbr_curves*ones(3,1);
+      in2 = ones(3,1);
+      [model,graphics,ok]=set_io(model,graphics,list([in in2],ones(3,1)),list(),ones(1,1),[]);
       if wpos==[] then wpos=[-1;-1];end
       if wdim==[] then wdim=[-1;-1];end
       rpar=[xmin;xmax;ymin;ymax;zmin;zmax;alpha;theta]
-      ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:)]
+      ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:);nbr_curves]
       //if prod(size(dstate))<>2*N+1 then dstate=-eye(2*N+1,1),end
       //model.dstate=dstate;
       model.rpar=rpar;model.ipar=ipar
@@ -90,6 +98,7 @@ case 'define' then
   alpha=50;
   theta=280;
   xmin=-15;xmax=15;ymin=-15;ymax=+15;zmin=-15;zmax=+15;
+  nbr_curves = 1;
 
   model=scicos_model()
   model.sim=list('cscopxy3d',4)
@@ -98,11 +107,12 @@ case 'define' then
   model.intyp=[1;1;1]
   model.evtin=1
   model.rpar=[xmin;xmax;ymin;ymax;zmin;zmax;alpha;theta]
-  model.ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:)]
+  model.ipar=[win;1;N;clrs;siz;1;wpos(:);wdim(:);nbr_curves]
   model.blocktype='d'
   model.dep_ut=[%f %f]
   
-  exprs=[sci2exp(clrs);
+  exprs=[string(nbr_curves);
+	sci2exp(clrs);
 	sci2exp(siz);
 	string(win);
 	sci2exp([]);

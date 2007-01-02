@@ -5,6 +5,96 @@
 #include "scoSetProperty.h"
 
 
+/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
+*/
+void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+{
+  scoGraphicalObject pAxes;
+  scoGraphicalObject pShortDraw;
+  scoGraphicalObject pLongDraw;
+  scoGraphicalObject pTemp;
+  double * z;
+  double *rpar;
+  int *ipar, nipar;  
+  double t;
+  int i,j;
+  int dimension;
+  double * u1, *u2;
+  double ymin, ymax, xmin, xmax;
+  int win;
+  int number_of_subwin;
+  int number_of_curves_by_subwin;
+  int * colors;
+  int imode;
+  int * size_balls;
+  double radius_max;
+
+  /*Retrieving Parameters*/
+  rpar = GetRparPtrs(block);
+  ipar = GetIparPtrs(block);
+  nipar = GetNipar(block);
+  win = ipar[0];
+  if (win == -1)
+    {
+      win = 20000 + get_block_number() ; 
+    }
+  dimension = 2;
+  imode = ipar[1];
+  number_of_curves_by_subwin = GetInPortRows(block,1);
+  radius_max = 0;
+  size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+  z = GetDstate(block);
+  for(i = 0 ; i < number_of_curves_by_subwin ; i++)
+    {
+      size_balls[i] = (int)z[6*i+2];
+      if(radius_max < size_balls[i])
+	{
+	  radius_max = size_balls[i];
+	}
+    }
+  number_of_subwin = 1;
+  xmin = rpar[0];
+  xmax = rpar[1];
+  ymin = rpar[2];
+  ymax = rpar[3];
+  colors = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+  for(i = 0 ; i < number_of_curves_by_subwin ; i++)
+    {
+      colors[i] = ipar[i+2];
+    }
+  if(firstdraw == 1)
+    {
+  /*Allocating memory*/
+  scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+    }
+  /*Creating the Scope*/
+  scoInitOfWindow(pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  pTemp = scoGetPointerScopeWindow(pScopeMemory);
+  pAxes = scoGetPointerAxes(pScopeMemory,0);
+  pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
+  (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[0] = FALSE;
+  (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[1] = FALSE;
+  sciSetIsBoxed(pAxes, FALSE);
+  pFIGURE_FEATURE(pTemp)->pixmap = 1;
+  pFIGURE_FEATURE(pTemp)->wshow = 1;
+  //	pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1;
+  /*Must be placed before adding polyline or other elements*/
+  /* 	scoSetTraceLength(pScopeMemory, 0, 50); */
+  /*scoSetBufferSize(pScopeMemory,0,buffer_size);*/
+  /* scoSetPeriod(pScopeMemory,0,period); */
+  /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
+  for(j = 0 ; j < number_of_curves_by_subwin ; j++)
+    {
+      scoAddSphereForShortDraw(pScopeMemory, 0, j, size_balls[j], colors[j]);
+    }
+  scoAddRectangleForLongDraw(pScopeMemory,0,0,xmin,(ymax-abs(ymin)),abs(xmax-xmin),abs(ymax-ymin));
+  sciDrawObj(scoGetPointerLongDraw(pScopeMemory,0,0));
+  scicos_free(colors);
+  scicos_free(size_balls);
+
+}
+
 /** \fn void bouncexy(scicos_block * block,int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
@@ -13,7 +103,6 @@
 void bouncexy(scicos_block * block,int flag)
 {
   ScopeMemory * pScopeMemory;
-
   scoGraphicalObject pAxes;
   scoGraphicalObject pShortDraw;
   scoGraphicalObject pLongDraw;
@@ -37,65 +126,7 @@ void bouncexy(scicos_block * block,int flag)
     {
     case Initialization:
       {
-	/*Retrieving Parameters*/
-	rpar = GetRparPtrs(block);
-	ipar = GetIparPtrs(block);
-	nipar = GetNipar(block);
-	win = ipar[0];
-	if (win == -1)
-	  {
-	    win = 20000 + get_block_number() ; 
-	  }
-	dimension = 2;
-	imode = ipar[1];
-	number_of_curves_by_subwin = GetInPortRows(block,1);
-	radius_max = 0;
-	size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
-	z = GetDstate(block);
-	for(i = 0 ; i < number_of_curves_by_subwin ; i++)
-	  {
-	    size_balls[i] = (int)z[6*i+2];
-	    if(radius_max < size_balls[i])
-	      {
-		radius_max = size_balls[i];
-	      }
-	  }
-	number_of_subwin = 1;
-	xmin = rpar[0];
-	xmax = rpar[1];
-	ymin = rpar[2];
-	ymax = rpar[3];
-	colors = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
-	for(i = 0 ; i < number_of_curves_by_subwin ; i++)
-	  {
-	    colors[i] = ipar[i+2];
-	  }
-	/*Allocating memory*/
-	scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-	/*Creating the Scope*/
-	scoInitOfWindow(pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	pTemp = scoGetPointerScopeWindow(pScopeMemory);
-	pAxes = scoGetPointerAxes(pScopeMemory,0);
-	pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
-	(pSUBWIN_FEATURE(pAxes)->axes).axes_visible[0] = FALSE;
-	(pSUBWIN_FEATURE(pAxes)->axes).axes_visible[1] = FALSE;
-	sciSetIsBoxed(pAxes, FALSE);
-	pFIGURE_FEATURE(pTemp)->pixmap = 1;
-	pFIGURE_FEATURE(pTemp)->wshow = 1;
-	//	pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1;
-	/*Must be placed before adding polyline or other elements*/
-	/* 	scoSetTraceLength(pScopeMemory, 0, 50); */
-	/*scoSetBufferSize(pScopeMemory,0,buffer_size);*/
-	/* scoSetPeriod(pScopeMemory,0,period); */
-	/*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-	for(j = 0 ; j < number_of_curves_by_subwin ; j++)
-	  {
-	    scoAddSphereForShortDraw(pScopeMemory, 0, j, size_balls[j], colors[j]);
-	  }
-	scoAddRectangleForLongDraw(pScopeMemory,0,0,xmin,(ymax-abs(ymin)),abs(xmax-xmin),abs(ymax-ymin));
-	sciDrawObj(scoGetPointerLongDraw(pScopeMemory,0,0));
-	scicos_free(colors);
-	scicos_free(size_balls);
+	bouncexy_draw(block,pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -106,59 +137,7 @@ void bouncexy(scicos_block * block,int flag)
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    /*Retrieving Parameters*/
-	    rpar = GetRparPtrs(block);
-	    ipar = GetIparPtrs(block);
-	    nipar = GetNipar(block);
-	    win = ipar[0];
-	    if (win == -1)
-	      {
-		win = 20000 + get_block_number() ; 
-	      }
-	    dimension = 2;
-	    imode = ipar[1];
-	    number_of_curves_by_subwin = GetInPortRows(block,1);
-	    radius_max = 0;
-	    size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
-	    z = GetDstate(block);
-	    for(i = 0 ; i < number_of_curves_by_subwin ; i++)
-	      {
-		size_balls[i] = (int)z[6*i+2];
-		if(radius_max < size_balls[i])
-		  {
-		    radius_max = size_balls[i];
-		  }
-	      }
-	    number_of_subwin = 1;
-	    xmin = rpar[0];
-	    xmax = rpar[1];
-	    ymin = rpar[2];
-	    ymax = rpar[3];
-	    colors = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
-	    for(i = 0 ; i < number_of_curves_by_subwin ; i++)
-	      {
-		colors[i] = ipar[i+2];
-	      }
-	    /*Allocating memory*/
-	    /*Creating the Scope*/
-	    scoInitOfWindow(pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	    pTemp = scoGetPointerScopeWindow(pScopeMemory);
-	    pAxes = scoGetPointerAxes(pScopeMemory,0);
-	    pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
-	    (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[0] = FALSE;
-	    (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[1] = FALSE;
-	    sciSetIsBoxed(pAxes, FALSE);
-	    pFIGURE_FEATURE(pTemp)->pixmap = 1;
-	    pFIGURE_FEATURE(pTemp)->wshow = 1;
-
-	    for(j = 0 ; j < number_of_curves_by_subwin ; j++)
-	      {
-		scoAddSphereForShortDraw(pScopeMemory, 0, j, size_balls[j], colors[j]);
-	      }
-	    scoAddRectangleForLongDraw(pScopeMemory,0,0,xmin,(ymax-abs(ymin)),abs(xmax-xmin),abs(ymax-ymin));
-	    sciDrawObj(scoGetPointerLongDraw(pScopeMemory,0,0));
-	    scicos_free(colors);
-	    scicos_free(size_balls);
+	    bouncexy_draw(block,pScopeMemory,0);
 	  }
 	/*Maybe we are in the end of axes so we have to draw new ones */
 	//scoRefreshDataBoundsX(pScopeMemory,t);

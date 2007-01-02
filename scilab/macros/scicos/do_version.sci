@@ -44,15 +44,12 @@ if version=='scicos4' then
   printf("Done !\n") //to be removed latter
   lines(ncl(2))  //to be removed latter
 end;
-
 endfunction
 
 //Update old scopes
 function scs_m_new=do_version401(scs_m)
   scs_m_new=scs_m;
   n=size(scs_m.objs);
-  //TODO: SCOPE_f -> CSCOPE
-  //MSCOPE_f -> CMSCOPE
   for j=1:n //loop on objects
     o=scs_m.objs(j);
     if typeof(o)=='Block' then
@@ -110,6 +107,8 @@ function scs_m_new=do_version401(scs_m)
 	in2 = ones(a,1);
 	scs_m_new.objs(j).model.in2 = in2;
 	scs_m_new.objs(j).model.intyp = in2;
+	scs_m_new.objs(j).graphics.exprs = [string(1);scs_m_new.objs(j).graphics.exprs(:)]
+	scs_m_new.objs(j).model.ipar = [scs_m_new.objs(j).model.ipar(:);1]
       elseif o.gui=='EVENTSCOPE_f' then
         scs_m_new.objs(j).gui='CEVENTSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
@@ -137,6 +136,8 @@ function scs_m_new=do_version401(scs_m)
 	in2 = ones(a,1);
 	scs_m_new.objs(j).model.in2 = in2;
 	scs_m_new.objs(j).model.intyp = in2;
+	scs_m_new.objs(j).graphics.exprs = [string(1);scs_m_new.objs(j).graphics.exprs(:)]
+	scs_m_new.objs(j).model.ipar = [scs_m_new.objs(j).model.ipar(:);1]
       elseif o.gui=='CMSCOPE' then
 	scs_m_new.objs(j).model.dstate=[]
         A=evstr(scs_m_new.objs(j).graphics.exprs(1));

@@ -4,17 +4,12 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn void cscopxy(scicos_block * block, int flag)
-    \brief the computational function
-    \param block A pointer to a scicos_block
-    \param flag An integer which indicates the state of the block (init, update, ending)
+/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
 */
-void cscopxy(scicos_block * block, int flag)
+void cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
 {
-  //REVOIR LES CONDITIONS  SUR CERTAINES VARIABLES
-  /* Declarations*/
-  int * ipar; //Integer Parameters
-  int c__1 = 1;
+ int * ipar; //Integer Parameters
   int color_flag; //Flag on Color
   int color[2];
   int line_size;
@@ -24,55 +19,72 @@ void cscopxy(scicos_block * block, int flag)
   int win_pos[2]; //Position of the Window
   int win_dim[2]; //Dimension of the Window
   int nipar;
-  int NbrPtsShort;
   double * rpar; //Reals parameters
-  double *u1,*u2;
   double xmin, xmax, ymin, ymax; //Ymin and Ymax are vectors here
-  ScopeMemory * pScopeMemory;
-  scoGraphicalObject Pinceau; //Pointer to each polyline of each axes
-  scoGraphicalObject Trait; //Pointer to each trache of each axes
   int number_of_subwin;
   int number_of_curves_by_subwin;
   int dimension = 2;
-  /* Initializations and Allocations*/
-  //Allocations are done here because there are dependent of some values presents below
+  int i;
+
+  ipar = GetIparPtrs(block);
+  nipar = GetNipar(block);
+  rpar = GetRparPtrs(block);
+  win = ipar[0];
+  color_flag = ipar[1];
+  buffer_size = ipar[2];
+  color[0] = ipar[3];
+  color[1] = ipar[3];
+  line_size = ipar[4];
+  animed = ipar[5];
+  win_pos[0] = ipar[6];
+  win_pos[1] = ipar[7];
+  win_dim[0] = ipar[8];
+  win_dim[1] = ipar[9];
+  xmin = rpar[0];
+  xmax = rpar[1];
+  ymin = rpar[2];
+  ymax = rpar[3];
+
+  number_of_subwin = 1;
+  number_of_curves_by_subwin = ipar[10]; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
+  if(firstdraw == 1)
+    {
+      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoSetShortDrawSize(pScopeMemory,0,buffer_size);
+      scoSetLongDrawSize(pScopeMemory,0,5000);
+    }
+
+  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(pScopeMemory,"x","y",NULL);
+  for( i = 0 ; i < number_of_curves_by_subwin ; i++)
+    {
+      scoAddPolylineForShortDraw(pScopeMemory,0,i,color[0]);
+      scoAddPolylineForLongDraw(pScopeMemory,0,i,color[0]);
+    }
+}
+
+/** \fn void cscopxy(scicos_block * block, int flag)
+    \brief the computational function
+    \param block A pointer to a scicos_block
+    \param flag An integer which indicates the state of the block (init, update, ending)
+*/
+void cscopxy(scicos_block * block, int flag)
+{
+  /* Declarations*/
+  ScopeMemory * pScopeMemory;
+  double *u1,*u2;
+  scoGraphicalObject Pinceau; 
+  int NbrPtsShort;
+  int i;
+
   /* State Machine Control */
   switch(flag)
     {
     case Initialization:
       {
-	ipar = GetIparPtrs(block);
-	nipar = GetNipar(block);
-	rpar = GetRparPtrs(block);
-	win = ipar[0];
-	color_flag = ipar[1];
-	buffer_size = ipar[2];
-	color[0] = ipar[3];
-	color[1] = ipar[3];
-	line_size = ipar[4];
-	animed = ipar[5];
-	win_pos[0] = ipar[6];
-	win_pos[1] = ipar[7];
-	win_dim[0] = ipar[8];
-	win_dim[1] = ipar[9];
-	xmin = rpar[0];
-	xmax = rpar[1];
-	ymin = rpar[2];
-	ymax = rpar[3]; 
-	number_of_subwin = 1;
-	number_of_curves_by_subwin = 2; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
 
-	scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-	scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	scoAddTitlesScope(pScopeMemory,"x","y",NULL);
-	scoSetShortDrawSize(pScopeMemory,0,buffer_size);
-	scoSetLongDrawSize(pScopeMemory,0,5000);
-	scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
-	scoAddPolylineForLongDraw(pScopeMemory,0,0,color[0]);
 
-	Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-	Trait = scoGetPointerLongDraw(pScopeMemory,0,0);
-	   
+	cscopxy_draw(block,pScopeMemory,1);
 	break; //Break of the switch condition don t forget it
       } //End of Initialization
 
@@ -82,42 +94,20 @@ void cscopxy(scicos_block * block, int flag)
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
-	    ipar = GetIparPtrs(block);
-	    nipar = GetNipar(block);
-	    rpar = GetRparPtrs(block);
-	    win = ipar[0];
-	    color_flag = ipar[1];
-	    buffer_size = ipar[2];
-	    color[0] = ipar[3];
-	    color[1] = ipar[3];
-	    line_size = ipar[4];
-	    animed = ipar[5];
-	    win_pos[0] = ipar[6];
-	    win_pos[1] = ipar[7];
-	    win_dim[0] = ipar[8];
-	    win_dim[1] = ipar[9];
-	    xmin = rpar[0];
-	    xmax = rpar[1];
-	    ymin = rpar[0];
-	    ymax = rpar[1]; 
-	    number_of_subwin = 1;
-	    number_of_curves_by_subwin = 2; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
-	    scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	    scoAddTitlesScope(pScopeMemory,"x","y",NULL);
-	    scoAddPolylineForShortDraw(pScopeMemory,0,0,color[0]);
-	    scoAddPolylineForLongDraw(pScopeMemory,0,0,color[0]);
+	    cscopxy_draw(block,pScopeMemory,0);
 	  }
+
 	u1 = GetRealInPortPtrs(block,1);
 	u2 = GetRealInPortPtrs(block,2);
-
-	Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-	Trait = scoGetPointerLongDraw(pScopeMemory,0,0);
-	/* Calculating and Drawing */
-
-	NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
-	pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort] = u1[0];
-	pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort] = u2[0];
-	pPOLYLINE_FEATURE(Pinceau)->n1++;
+	
+	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0); i++)
+	  {
+	    Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+	    NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
+	    pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort] = u1[i];
+	    pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort] = u2[i];
+	    pPOLYLINE_FEATURE(Pinceau)->n1++;
+	  }
 
 	scoDrawScopeXYStyle(pScopeMemory);
 

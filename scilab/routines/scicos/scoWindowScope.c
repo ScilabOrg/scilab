@@ -706,35 +706,218 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
   scoGraphicalObject Trait;
   int NbrPtsShort, NbrPtsLong;
   int c__1 = 1;
+  int i,j;
 
-  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,0);
-  Trait = scoGetPointerLongDraw(pScopeMemory,0,0);
-
-  NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
-  if(NbrPtsShort >= scoGetShortDrawSize(pScopeMemory,0))
+  for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ;i++)
     {
+      Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+      Trait = scoGetPointerLongDraw(pScopeMemory,0,i);
+
+      NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
+      if(NbrPtsShort >= scoGetShortDrawSize(pScopeMemory,0))
+	{
+	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	  sciDrawObj(Pinceau);
+	  NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
+	  if(NbrPtsLong + NbrPtsShort >= scoGetLongDrawSize(pScopeMemory,0))
+	    {
+	      for(j = 0 ; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; j++)
+		{
+		  scoReallocLongDraw(scoGetPointerLongDraw(pScopeMemory,0,j), NbrPtsLong, NbrPtsShort, 5000);
+		}
+	      scoSetLongDrawSize(pScopeMemory, 0, NbrPtsLong + NbrPtsShort + 5000);
+	    }
+	  NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
+	  C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvx,&c__1,pPOLYLINE_FEATURE(Trait)->pvx+NbrPtsLong,&c__1);
+	  C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvy,&c__1,pPOLYLINE_FEATURE(Trait)->pvy+NbrPtsLong,&c__1);
+	  if(pPOLYLINE_FEATURE(Pinceau)->pvz != NULL)
+	    {
+	      C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvz,&c__1,pPOLYLINE_FEATURE(Trait)->pvz+NbrPtsLong,&c__1);
+	    }      
+	  pPOLYLINE_FEATURE(Trait)->n1 = NbrPtsLong + NbrPtsShort;
+	  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort-1];
+	  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort-1];
+	  if(pPOLYLINE_FEATURE(Pinceau)->pvz != NULL)
+	    {
+	      pPOLYLINE_FEATURE(Pinceau)->pvz[0] = pPOLYLINE_FEATURE(Pinceau)->pvz[NbrPtsShort-1];
+	    }
+	  pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+	}
+    }
+}
+
+void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u2, double * u3)
+{
+  int i,j;
+  scoGraphicalObject Gomme;
+  scoGraphicalObject Pinceau;
+  scoGraphicalObject Trait;
+  int nbr_curves;
+
+
+  /*If only one element to draw*/
+  if(scoGetLongDrawSize(pScopeMemory,0) == 0)
+    {
+      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+	{
+	  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+	  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = u1[i];
+	  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
+	  if(u3 != NULL)
+	    {
+	      pPOLYLINE_FEATURE(Pinceau)->pvz[0] = u3[i];
+	    }
+	}
+
       sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-      sciDrawObj(Pinceau);
-      NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
-      if(NbrPtsLong + NbrPtsShort >= scoGetLongDrawSize(pScopeMemory,0))
+      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+    }
+  else
+    {
+      nbr_curves = scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2;
+      /*if it is a mark style scope*/
+      if(scoGetShortDrawSize(pScopeMemory,0) == 1)
 	{
-	  scoReallocLongDraw(Trait, NbrPtsLong, NbrPtsShort, 5000);
-	  scoSetLongDrawSize(pScopeMemory, 0, NbrPtsLong + NbrPtsShort + 5000);
+	  if(u3 != NULL)
+	    {
+	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
+		{
+		  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(pScopeMemory,0,i);
+		
+		  pPOLYLINE_FEATURE(Gomme)->pvx[0] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[0] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvz[0] = pPOLYLINE_FEATURE(Trait)->pvz[scoGetLongDrawSize(pScopeMemory,0)-1];
+
+		  for (j = scoGetLongDrawSize(pScopeMemory,0)-1 ; j > 0 ; j--)
+		    {
+		      pPOLYLINE_FEATURE(Trait)->pvx[j] = pPOLYLINE_FEATURE(Trait)->pvx[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvy[j] = pPOLYLINE_FEATURE(Trait)->pvy[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvz[j] = pPOLYLINE_FEATURE(Trait)->pvz[j-1];
+		    }
+
+		  pPOLYLINE_FEATURE(Trait)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Trait)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+		  pPOLYLINE_FEATURE(Trait)->pvz[0] = pPOLYLINE_FEATURE(Pinceau)->pvz[0];
+		
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = u1[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvz[0] = u3[i];		
+
+		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
+		}
+	    }
+	  else
+	    {
+	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
+		{
+		  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(pScopeMemory,0,i);
+		
+		  pPOLYLINE_FEATURE(Gomme)->pvx[0] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[0] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-1];
+
+		  for (j = scoGetLongDrawSize(pScopeMemory,0)-1 ; j > 0 ; j--)
+		    {
+		      pPOLYLINE_FEATURE(Trait)->pvx[j] = pPOLYLINE_FEATURE(Trait)->pvx[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvy[j] = pPOLYLINE_FEATURE(Trait)->pvy[j-1];
+		    }
+
+		  pPOLYLINE_FEATURE(Trait)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Trait)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+		
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = u1[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
+
+		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
+		}
+	    }
 	}
-      NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
-      C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvx,&c__1,pPOLYLINE_FEATURE(Trait)->pvx+NbrPtsLong,&c__1);
-      C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvy,&c__1,pPOLYLINE_FEATURE(Trait)->pvy+NbrPtsLong,&c__1);
-      if(pPOLYLINE_FEATURE(Pinceau)->pvz != NULL)
+      /*if it is a line style scope*/
+      else
 	{
-	  C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(Pinceau)->pvz,&c__1,pPOLYLINE_FEATURE(Trait)->pvz+NbrPtsLong,&c__1);
-	}      
-      pPOLYLINE_FEATURE(Trait)->n1 = NbrPtsLong + NbrPtsShort;
-      pPOLYLINE_FEATURE(Pinceau)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort-1];
-      pPOLYLINE_FEATURE(Pinceau)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort-1];
-      if(pPOLYLINE_FEATURE(Pinceau)->pvz != NULL)
-	{
-	  pPOLYLINE_FEATURE(Pinceau)->pvz[0] = pPOLYLINE_FEATURE(Pinceau)->pvz[NbrPtsShort-1];
+	  if(u3 != NULL)
+	    {
+	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
+		{
+		  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(pScopeMemory,0,i);
+
+		  pPOLYLINE_FEATURE(Gomme)->pvx[0] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[0] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvz[0] = pPOLYLINE_FEATURE(Trait)->pvz[scoGetLongDrawSize(pScopeMemory,0)-1];
+
+		  pPOLYLINE_FEATURE(Gomme)->pvx[1] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-2];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[1] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-2];
+		  pPOLYLINE_FEATURE(Gomme)->pvz[1] = pPOLYLINE_FEATURE(Trait)->pvz[scoGetLongDrawSize(pScopeMemory,0)-2];
+
+		  for (j = scoGetLongDrawSize(pScopeMemory,0)-1 ; j > 0 ; j--)
+		    {
+		      pPOLYLINE_FEATURE(Trait)->pvx[j] = pPOLYLINE_FEATURE(Trait)->pvx[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvy[j] = pPOLYLINE_FEATURE(Trait)->pvy[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvz[j] = pPOLYLINE_FEATURE(Trait)->pvz[j-1];
+		    }
+
+		  pPOLYLINE_FEATURE(Trait)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Trait)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+		  pPOLYLINE_FEATURE(Trait)->pvz[0] = pPOLYLINE_FEATURE(Pinceau)->pvz[0];
+		
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[1] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[1] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+		  pPOLYLINE_FEATURE(Pinceau)->pvz[1] = pPOLYLINE_FEATURE(Pinceau)->pvz[0];
+
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = u1[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvz[0] = u3[i];
+
+		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
+		}
+	    }
+	  else
+	    {
+	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
+		{
+		  Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(pScopeMemory,0,i);
+
+		  pPOLYLINE_FEATURE(Gomme)->pvx[0] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-1];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[0] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-1];
+
+		  pPOLYLINE_FEATURE(Gomme)->pvx[1] = pPOLYLINE_FEATURE(Trait)->pvx[scoGetLongDrawSize(pScopeMemory,0)-2];
+		  pPOLYLINE_FEATURE(Gomme)->pvy[1] = pPOLYLINE_FEATURE(Trait)->pvy[scoGetLongDrawSize(pScopeMemory,0)-2];
+
+		  for (j = scoGetLongDrawSize(pScopeMemory,0)-1 ; j > 0 ; j--)
+		    {
+		      pPOLYLINE_FEATURE(Trait)->pvx[j] = pPOLYLINE_FEATURE(Trait)->pvx[j-1];
+		      pPOLYLINE_FEATURE(Trait)->pvy[j] = pPOLYLINE_FEATURE(Trait)->pvy[j-1];
+		    }
+
+		  pPOLYLINE_FEATURE(Trait)->pvx[0] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Trait)->pvy[0] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+		
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[1] = pPOLYLINE_FEATURE(Pinceau)->pvx[0];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[1] = pPOLYLINE_FEATURE(Pinceau)->pvy[0];
+
+		  pPOLYLINE_FEATURE(Pinceau)->pvx[0] = u1[i];
+		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
+
+		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
+		}
+	    }
 	}
-      pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+	 
     }
 }

@@ -4,6 +4,76 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
+/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
+*/
+void cfscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+{
+
+  double *rpar;
+  int *ipar, nipar;   
+
+  double period;
+  int i,j;
+  int dimension;
+  double ymin, ymax, xmin, xmax;
+  int buffer_size , NbrPtsShort;
+  int win_pos[2];
+  int win_dim[2];
+  int win;
+  int number_of_subwin;
+  int number_of_curves_by_subwin;
+  double dt;
+  int nbr_of_curves;
+  int color_flag;
+  int * colors;
+
+  rpar = GetRparPtrs(block);
+  ipar = GetIparPtrs(block);
+  nipar = GetNipar(block);
+  win = ipar[0];
+  color_flag = ipar[1];
+  buffer_size = ipar[2];
+  dt = rpar[0];
+  period = rpar[3];
+  ymin  = rpar[1];
+  ymax = rpar[2];
+  xmin = 0;
+  xmax = period;
+  dimension = 2;
+  win_pos[0] = ipar[11];
+  win_pos[1] = ipar[12];
+  win_dim[0] = ipar[13];
+  win_dim[1] = ipar[14];
+  number_of_curves_by_subwin = ipar[15]; //Here is not really what we will see i.e. if you give [2:9] there is 8 curves but in the kalman filter demo you will only see 6 curves (and 8 in the figure handle description) because only 6 are really existing.
+  nbr_of_curves = number_of_curves_by_subwin;
+  number_of_subwin = 1;
+
+  colors=(int*)malloc(8*sizeof(int));
+  for( i = 3 ; i < 10 ; i++)
+    {
+      colors[i-3] = ipar[i];
+    }
+
+  /*Allocating memory*/
+  if(firstdraw == 1)
+    {
+      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      /*Must be placed before adding polyline or other elements*/
+      scoSetLongDrawSize(pScopeMemory, 0, 5000);
+      scoSetShortDrawSize(pScopeMemory,0,buffer_size);
+      scoSetPeriod(pScopeMemory,0,period);
+    }
+
+  /*Creating the Scope*/
+  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+
+  /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
+  scoAddCoupleOfPolylines(pScopeMemory,colors);
+  free(colors);
+}
+
 /** \fn void cfscope(scicos_block * block,int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
@@ -16,70 +86,20 @@ void cfscope(scicos_block * block,int flag)
 {
   ScopeMemory * pScopeMemory;
   scoGraphicalObject pShortDraw;
-  double *rpar;
-  int *ipar, nipar;   
-  double t;
-  double period;
-  int i,j;
-  int dimension;
-  double ymin, ymax, xmin, xmax;
-  int buffer_size , NbrPtsShort;
-  int win_pos[2];
-  int win_dim[2];
-  int win;
-  int number_of_subwin;
-  int number_of_curves_by_subwin;
   double * sortie;
   int  *  index_of_view;
+  double t;
   int nbr_of_curves;
-  int color_flag;
-  double dt;
-  int * colors;
+  int *ipar;
+  int i,j;
+  int NbrPtsShort;
+
   switch(flag)
     {
     case Initialization:
       {
 	/*Retrieving Parameters*/
-	rpar = GetRparPtrs(block);
-	ipar = GetIparPtrs(block);
-	nipar = GetNipar(block);
-	win = ipar[0];
-	color_flag = ipar[1];
-	buffer_size = ipar[2];
-	dt = rpar[0];
-	period = rpar[3];
-	ymin  = rpar[1];
-	ymax = rpar[2];
-	xmin = 0;
-	xmax = period;
-	dimension = 2;
-	win_pos[0] = ipar[11];
-	win_pos[1] = ipar[12];
-	win_dim[0] = ipar[13];
-	win_dim[1] = ipar[14];
-	number_of_curves_by_subwin = ipar[15]; //Here is not really what we will see i.e. if you give [2:9] there is 8 curves but in the kalman filter demo you will only see 6 curves (and 8 in the figure handle description) because only 6 are really existing.
-	nbr_of_curves = number_of_curves_by_subwin;
-	number_of_subwin = 1;
-
-	colors=(int*)malloc(8*sizeof(int));
-	for( i = 3 ; i < 10 ; i++)
-	  {
-	    colors[i-3] = ipar[i];
-	  }
-
-	/*Allocating memory*/
-	scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-	/*Creating the Scope*/
-	scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	scoAddTitlesScope(pScopeMemory,"t","y",NULL);
-	/*Must be placed before adding polyline or other elements*/
-	scoSetLongDrawSize(pScopeMemory, 0, 5000);
-	scoSetShortDrawSize(pScopeMemory,0,buffer_size);
-	scoSetPeriod(pScopeMemory,0,period);
-	/*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-	scoAddCoupleOfPolylines(pScopeMemory,colors);
-	free(colors);
-
+	cfscope_draw(block,pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -92,39 +112,7 @@ void cfscope(scicos_block * block,int flag)
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    /*Retrieving Elements*/
-	    rpar = GetRparPtrs(block);
-	    ipar = GetIparPtrs(block);
-	    nipar = GetNipar(block);
-	    win = ipar[0];
-	    color_flag = ipar[1];
-	    buffer_size = ipar[2];
-	    dt = rpar[0];
-	    period = rpar[3];
-	    ymin  = rpar[1];
-	    ymax = rpar[2];
-	    xmin = 0;
-	    xmax = period;
-	    dimension = 2;
-	    win_pos[0] = ipar[11];
-	    win_pos[1] = ipar[12];
-	    win_dim[0] = ipar[13];
-	    win_dim[1] = ipar[14];
-	    number_of_curves_by_subwin = 2;
-	    nbr_of_curves = number_of_curves_by_subwin;
-	    number_of_subwin = 1;
-	    colors=(int*)malloc(8*sizeof(int));
-	    for( i = 3 ; i < 10 ; i++)
-	      {
-		colors[i-3] = ipar[i];
-	      }
-
-	    /*Recreating the Window*/
-	    scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	    scoAddTitlesScope(pScopeMemory,"t","y",NULL);
-	    /*Readding Polylines*/
-	    scoAddCoupleOfPolylines(pScopeMemory,colors);
-	    free(colors);
+	    cfscope_draw(block,pScopeMemory,0);
 	  }
 	/*Maybe we are in the end of axes so we have to draw new ones */
 	scoRefreshDataBoundsX(pScopeMemory,t);

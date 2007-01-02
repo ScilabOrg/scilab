@@ -55,7 +55,7 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[160,0],[40,40],..
-              %t,0,["4";"1";"1";"[]";"[600;400]";"-15";"15";"-15";"15";"2"],..
+              %t,0,["1";"4";"1";"1";"[]";"[600;400]";"-15";"15";"-15";"15";"2"],..
               [0;0],[],0,[],..
               list(..
               ["thick=xget(''thickness'');xset(''thickness'',2);";
@@ -69,7 +69,7 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
               "dep_ut","label","nzcross","nmode","equations"],list("cscopxy",4),..
               [1;1],[1;1],[1;1],[],[],1,1,[],[],[],[-15;15;-15;15],..
-              [1;1;2;4;1;1;-1;-1;600;400],"d",[],[%f,%f],"",0,0,list()),..
+              [1;1;2;4;1;1;-1;-1;600;400;1],"d",[],[%f,%f],"",0,0,list()),..
               "CSCOPXY",list())
 scs_m.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
@@ -89,8 +89,8 @@ scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[320,0],[40,40],..
-              %t,0,["-4";"1";"1";"[]";"[]";"-15";"15";"-15";"15";"2"],[0;0],[],0,..
-              [],..
+              %t,0,["1";"-4";"1";"1";"[]";"[]";"-15";"15";"-15";"15";"2"],[0;0],..
+              [],0,[],..
               list(..
               ["thick=xget(''thickness'');xset(''thickness'',2);";
               "t=(0:0.3:2*%pi)'';";
@@ -103,8 +103,8 @@ scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
               "dep_ut","label","nzcross","nmode","equations"],list("canimxy",4),..
               [1;1],[1;1],[1;1],[],[],1,1,[],[],[],[-15;15;-15;15],..
-              [1;1;2;-4;1;0;-1;-1;-1;-1],"d",[],[%f,%f],"",0,0,list()),"CANIMXY",..
-              list())
+              [1;1;2;-4;1;0;-1;-1;-1;-1;1],"d",[],[%f,%f],"",0,0,list()),..
+              "CANIMXY",list())
 scs_m.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
@@ -272,7 +272,8 @@ scs_m.objs(14)=mlist(["Block","graphics","model","gui","doc"],..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
                "peout","gr_i","id","in_implicit","out_implicit"],[0,140],[40,40],..
                %t,0,..
-               ["4";
+               ["1";
+               "4";
                "1";
                "1";
                "[]";
@@ -298,14 +299,15 @@ scs_m.objs(14)=mlist(["Block","graphics","model","gui","doc"],..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
                "dep_ut","label","nzcross","nmode","equations"],..
                list("cscopxy3d",4),[1;1;1],[1;1;1],[1;1;1],[],[],1,1,[],[],[],..
-               [-15;15;-15;15;-15;15;50;280],[1;1;2;4;1;1;-1;-1;600;400],"d",[],..
-               [%f,%f],"",0,0,list()),"CSCOPXY3D",list())
+               [-15;15;-15;15;-15;15;50;280],[1;1;2;4;1;1;-1;-1;600;400;1],"d",..
+               [],[%f,%f],"",0,0,list()),"CSCOPXY3D",list())
 scs_m.objs(15)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
                "peout","gr_i","id","in_implicit","out_implicit"],[70,140],..
                [40,40],%t,0,..
-               ["-4";
+               ["1";
+               "-4";
                "1";
                "1";
                "[]";
@@ -331,5 +333,5 @@ scs_m.objs(15)=mlist(["Block","graphics","model","gui","doc"],..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
                "dep_ut","label","nzcross","nmode","equations"],..
                list("canimxy3d",4),[1;1;1],[1;1;1],[1;1;1],[],[],1,1,[],[],[],..
-               [-15;15;-15;15;-15;15;50;280],[1;1;1;-4;1;0;-1;-1;-1;-1],"d",[],..
+               [-15;15;-15;15;-15;15;50;280],[1;1;1;-4;1;0;-1;-1;-1;-1;1],"d",[],..
                [%f,%f],"",0,0,list()),"CANIMXY3D",list())

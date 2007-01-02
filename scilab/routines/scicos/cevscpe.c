@@ -4,16 +4,14 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn void cevscpe(scicos_block * block, int flag)
-    \brief the computational function
-    \param block A pointer to a scicos_block
-    \param flag An integer which indicates the state of the block (init, update, ending)
+
+/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
 */
-void cevscpe(scicos_block * block, int flag)
+void cevscpe_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
 {
   /* Declarations */
-  ScopeMemory * pScopeMemory;
-  scoGraphicalObject pShortDraw;
+
   int nipar; //Number of elements in ipar vector
   int i; //As usual
   int * ipar;
@@ -23,52 +21,73 @@ void cevscpe(scicos_block * block, int flag)
   int color_flag; //0/1 color flag -- NOT USED
   int  * colors; //Begin at ipar[2] and has a measure of 8 max
   double t; //get_scicos_time()
-  int tab[20];
+
   int dimension = 2;
   double period; //Refresh Period of the scope is a vector here
-  int nbseg = 0;
+
   int number_of_subwin;
   int number_of_curves_by_subwin;
   double xmin, xmax, ymin, ymax;
   int win_pos[2], win_dim[2];
+
+  /* Initialization */
+  ipar =  GetIparPtrs(block);
+  win = ipar[0];
+  color_flag = ipar[1];
+  rpar = GetRparPtrs(block);
+  period = rpar[0];
+  nipar = GetNipar(block);
+  nbr_colors = nipar-6;
+  colors=(int*)malloc(nbr_colors*sizeof(int));
+  for( i = 2 ; i < nbr_colors+2 ; i++)
+    {
+      colors[i-2] = ipar[i];
+    }
+
+  number_of_subwin = 1;
+  number_of_curves_by_subwin = nbr_colors;
+  xmin = 0;
+  xmax= period;
+  ymin = 0;
+  ymax = 1;
+
+  win_pos[0] = 100;
+  win_pos[1] = 100;
+  win_dim[0] = 640;
+  win_dim[1] = 400;
+
+  if(firstdraw == 1)
+    {
+      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoSetLongDrawSize(pScopeMemory,0,5000);
+      scoSetShortDrawSize(pScopeMemory,0,1);
+      scoSetPeriod(pScopeMemory,0,period);
+    }
+
+  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+  scoAddCoupleOfSegments(pScopeMemory,colors);
+}
+
+/** \fn void cevscpe(scicos_block * block, int flag)
+    \brief the computational function
+    \param block A pointer to a scicos_block
+    \param flag An integer which indicates the state of the block (init, update, ending)
+*/
+void cevscpe(scicos_block * block, int flag)
+{
+  ScopeMemory * pScopeMemory;
+  int nbseg = 0;
+  int tab[20];
+  scoGraphicalObject pShortDraw;
+  int i;
+  double t;
+
   switch(flag)
     {
     case Initialization:
       {
-	/* Initialization */
-
-	ipar =  GetIparPtrs(block);
-	win = ipar[0];
-	color_flag = ipar[1];
-	rpar = GetRparPtrs(block);
-	period = rpar[0];
-	nipar = GetNipar(block);
-	nbr_colors = nipar-6;
-	colors=(int*)malloc(nbr_colors*sizeof(int));
-	for( i = 2 ; i < nbr_colors+2 ; i++)
-	  {
-	    colors[i-2] = ipar[i];
-	  }
-
-	number_of_subwin = 1;
-	number_of_curves_by_subwin = nbr_colors;
-	xmin = 0;
-	xmax= period;
-	ymin = 0;
-	ymax = 1;
-
-	win_pos[0] = 100;
-	win_pos[1] = 100;
-	win_dim[0] = 640;
-	win_dim[1] = 400;
-
-	scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-	scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	scoAddTitlesScope(pScopeMemory,"t","y",NULL);
-	scoSetLongDrawSize(pScopeMemory,0,5000);
-	scoSetShortDrawSize(pScopeMemory,0,1);
-	scoSetPeriod(pScopeMemory,0,period);
-	scoAddCoupleOfSegments(pScopeMemory,colors);
+	cevscpe_draw(block,pScopeMemory,1);
 	break;
       }
 
@@ -79,29 +98,7 @@ void cevscpe(scicos_block * block, int flag)
 	scoRetrieveScopeMemory(block,&pScopeMemory);
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    ipar =  GetIparPtrs(block);
-	    win = ipar[0];
-	    color_flag = ipar[1];
-	    rpar = GetRparPtrs(block);
-	    period = rpar[0];
-	    nipar = GetNipar(block);
-	    nbr_colors = nipar-6;
-	    colors=(int*)malloc(nbr_colors*sizeof(int));
-	    for( i = 2 ; i < nbr_colors+2 ; i++)
-	      {
-		colors[i-2] = ipar[i];
-	      }
-	    xmin = 0;
-	    xmax= period;
-	    ymin = 0;
-	    ymax = 1;
-	    win_pos[0] = 100;
-	    win_pos[1] = 100;
-	    win_dim[0] = 640;
-	    win_dim[1] = 400;
-	    scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-	    scoAddTitlesScope(pScopeMemory,"t","y",NULL);
-	    scoAddCoupleOfSegments(pScopeMemory,colors);
+	    cevscpe_draw(block,pScopeMemory,0);
 	  }
 
 	scoRefreshDataBoundsX(pScopeMemory,t);

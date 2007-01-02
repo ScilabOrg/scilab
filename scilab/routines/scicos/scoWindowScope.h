@@ -114,4 +114,8 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory);
  */
 void scoAddTitlesScope(ScopeMemory * pScopeMemory,char * x, char * y, char * z);
 
+/**
+ */
+void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u2, double * u3);
+
 #endif
