@@ -87,17 +87,6 @@ while K<>[] do
          scs_m.objs(to(1))=mark_prt(scs_m.objs(to(1)),to(2),'in',ct(2),0)
       end
 
-      // erase and delete link "k"
-      if gr==%t then
-          //** drawobj(o)
-          if %scicos_debug_gr then
-            disp("d-> Link ")
-          end
-	  gr_k = o_size(1) - k + 1 ;
-	  gh_object_invisible = gh_curwin.children.children(gr_k);
-	  gh_object_invisible.visible = "off";
-      end
-
       fromblock=scs_m.objs(from(1));
       toblock=scs_m.objs(to(1));
 
@@ -112,19 +101,7 @@ while K<>[] do
 	  //output link and suppress the split block
 	  if find(connected(2)==DEL)<>[] then // delete split
 	    K = [from(1) K]
-	  else 
-	    // clear  split block
-	    if gr==%t then
-	         //** drawobj( scs_m.objs( from(1) ) )
-                 if %scicos_debug_gr then
-                   disp("d->split block_from ") ; //** debug
-                 end
-	         object_k = from(1)
-		 gr_k = o_size(1) - object_k + 1 ;
-	         gh_object_invisible = gh_curwin.children.children(gr_k);
-	         gh_object_invisible.visible = "off";
-	    end // clear  split block
-
+	  else
 	    ksplit=from(1)
 	    DEL=[DEL  ksplit]       //suppress split block
 	    o1=scs_m.objs(connected(1));from1=o1.to;
@@ -165,7 +142,11 @@ while K<>[] do
 	    DEL = [DEL connected(1)] // supress one link
 	    DELL=[DELL  connected(1)]
 	    scs_m.objs(connected(2))=o1 //change link
-
+	    if gr==%t then
+	      gr_k = o_size(1) - connected(2) + 1 ;
+	      gh_object = gh_curwin.children.children(gr_k);
+	      gh_object.children.data = [o1.xx , o1.yy];
+            end
 	    scs_m.objs(to2(1))=mark_prt(scs_m.objs(to2(1)),to2(2),outin(to2(3)+1),ct2(2),..
 					connected(2))
 	    scs_m.objs(o1.from(1))=mark_prt(scs_m.objs(o1.from(1)),o1.from(2),..
@@ -190,16 +171,6 @@ while K<>[] do
 	  if find(connected(2)==DEL)<>[] then // delete split
 	    K=[to(1) K]
 	  else
-	    if gr==%t then
-	         //** drawobj(scs_m.objs(to(1)))
-                 if %scicos_debug_gr then
-	            disp("d->split block_to ") ; //** debug
-                 end
-	         object_k = to(1)
-		 gr_k = o_size(1) - object_k + 1 ;
-	         gh_object_invisible = gh_curwin.children.children(gr_k);
-	         gh_object_invisible.visible = "off";
-	    end // clear  split block
 
 	    DEL=[DEL  to(1)]       //suppress split block
 
@@ -223,6 +194,11 @@ while K<>[] do
 	    DEL=[DEL connected(1)] // supress one link
 	    DELL=[DELL  connected(1)]
 	    scs_m.objs(connected(2))=o1 //change link
+	    if gr==%t then
+	      gr_k = o_size(1) - connected(2) + 1 ;
+	      gh_object = gh_curwin.children.children(gr_k);
+	      gh_object.children.data = [o1.xx , o1.yy];
+            end
 
 	    scs_m.objs(to1(1))=mark_prt(scs_m.objs(to1(1)),..
 					to1(2),outin(to1(3)+1),o1.ct(2),connected(2))
@@ -243,28 +219,11 @@ while K<>[] do
       //ask for connected links deletion
       K=[K connected]
 
-      // erase and delete block
-      if gr==%t then
-           // drawobj(scs_m.objs(k))
-           if %scicos_debug_gr then
-	     disp("d->Block")
-           end
-	   gr_k = o_size(1) - k + 1 ;
-	   gh_object_invisible = gh_curwin.children.children(gr_k);
-	   gh_object_invisible.visible = "off";
-      end
 
 //**--------------------------------------- Text ----------------------------------------
     elseif typ=='Text' then
+	//** do nothing :)
 
-      if gr==%t then
-           if %scicos_debug_gr then
-             disp("d->Text")
-           end
-	   gr_k = o_size(1) - k + 1 ;
-	   gh_object_invisible = gh_curwin.children.children(gr_k);
-	   gh_object_invisible.visible = "off";
-      end
 //** ---------------------------- already "Deleted" object :) ----------------------------
     elseif typ=='Deleted' then
 	//** do nothing :)
@@ -279,12 +238,18 @@ while K<>[] do
 end //** ... end of while ()
 //**---------------------------------- end of main while() loop ---------------------------
 
-  //** this could be unusefull ...
-  if gr==%t then
-     draw(gh_curwin.children);
-     show_pixmap() ;
+  for k = DEL
+    scs_m.objs(k) = mlist('Deleted')
+    if gr==%t then
+      gr_k = o_size(1) - k + 1 ;
+      gh_object_invisible = gh_curwin.children.children(gr_k);
+      gh_object_invisible.visible = "off";
+    end
   end
 
-  for k = DEL, scs_m.objs(k) = mlist('Deleted') , end
-
+  //** this could be unusefull ...
+  if gr==%t then
+    draw(gh_curwin.children);
+    show_pixmap() ;
+  end
 endfunction
