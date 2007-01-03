@@ -1,8 +1,8 @@
 function [reg, rect, prt] = get_region2(xc, yc, win)
-//** INRIA 
+//** INRIA
 //
 //Creates in reg the superblock formed with the objects selected 
-//  
+//
 //prt is a matrix, each row contains information on the links passing
 //throught the superblock rectangle.
 //    [io,old_internal_block_#, superblock_port_#, link_type, link_color,..
@@ -18,53 +18,51 @@ function [reg, rect, prt] = get_region2(xc, yc, win)
 // Copyright INRIA
 //
 //** 29 Jun 2006 
+//** xx/01/07 : Alan - review (introduce rubberbox here)
 //
-//  
   ok = %t
- 
   wins = curwin
-  
   // xset('window',win)
   scf(win);
-  
   reg = list(); rect = []
-  
   kc = find (win==windows(:,2) )
-  
   if kc==[] then
     message('This window is not an active palette') ;
     return ; //** ---> Exit point 
-    
   elseif windows(kc,1)<0 then // click inside a palette window 
     kpal  = -windows(kc,1)  ;
     scs_m = palettes(kpal)  ;
-    
   elseif win==curwin then     //click inside the current window 
     scs_m = scs_m
-    
   elseif pal_mode&win==lastwin then 
     scs_m = scs_m_s
-    
   elseif slevel>1 then
     execstr('scs_m=scs_m_'+string(windows(kc,1))) ;
-    
   else
     message('This window is not an active palette')
     return ;
   end
 
   drawnow();
-  [ox, oy, w, h, ok] = get_rectangle(xc,yc) ; //** <-- key function !
-
-  if ~ok then
-     prt = [];
-     rect = [];
-     return   ; //** ---> Exit point 
+//   [ox, oy, w, h, ok] = get_rectangle(xc,yc) ; //** <-- key function !
+  [rect,button] = rubberbox([xc; yc; 0; 0]) ;
+  if or(button == [2 5 12 -100]) then // right button exit OR active window has been closed
+    prt = [];
+    rect = [];
+    return ; //** ---> Exit point
   end
+  ox=rect(1),oy=rect(2),w=rect(3),h=rect(4);
+  clear rect
+
+//   if ~ok then
+//      prt = [];
+//      rect = [];
+//      return   ; //** ---> Exit point
+//   end
 
   [keep,del] = get_blocks_in_rect(scs_m,ox,oy,w,h); //** see file "get_blocks_in_rect.sci" 
   // keep:objects in the region ,del :object outside the region
-  
+
   for bkeep=keep
 
     if typeof(scs_m.objs(bkeep))=='Block' then
