@@ -594,28 +594,28 @@ void scoDelCoupleOfSegments(ScopeMemory * pScopeMemory)
 }
 
 
-scoGraphicalObject scoCreateSphere(scoGraphicalObject pAxes, int radius, int color)
+scoGraphicalObject scoCreateSphere(scoGraphicalObject pAxes, double radius, int color)
 {
   scoGraphicalObject pSphere;
   pSphere=ConstructArc(pAxes, 0, 0, radius, radius, 0, 23040, &color, &color, TRUE, FALSE);
   return pSphere;
 }
 
-void scoAddSphereForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int radius, int color)
+void scoAddSphereForShortDraw(ScopeMemory * pScopeMemory, int i, int j, double radius, int color)
 {
   scoGraphicalObject pShortDraw;
   pShortDraw = scoCreateSphere(scoGetPointerAxes(pScopeMemory,i),radius,color);
   scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
 }
 
-void scoAddSphereForLongDraw(ScopeMemory * pScopeMemory, int i, int j, int radius, int color)
+void scoAddSphereForLongDraw(ScopeMemory * pScopeMemory, int i, int j, double radius, int color)
 {
   scoGraphicalObject pLongDraw;
   pLongDraw = scoCreateSphere(scoGetPointerAxes(pScopeMemory,i),radius,color);
   scoSetHandleFromPointerLongDraw(pScopeMemory,i,j,pLongDraw);
 }
 
-void scoAddCoupleOfSpheres(ScopeMemory * pScopeMemory, int * radius, int * colors)
+void scoAddCoupleOfSpheres(ScopeMemory * pScopeMemory, double * radius, int * colors)
 {
   int i,j;
   sciSetUsedWindow(scoGetWindowID(pScopeMemory));

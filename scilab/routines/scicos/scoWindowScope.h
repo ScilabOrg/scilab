@@ -69,22 +69,22 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory,double t);
 /**
    \brief Create a sphere by using the constructArc method of sgl and return a pointer on it
 */
-scoGraphicalObject scoCreateSphere(scoGraphicalObject pAxes, int radius, int color);
+scoGraphicalObject scoCreateSphere(scoGraphicalObject pAxes, double radius, int color);
 
 /**
    \brief Add a sphere to the axis as a shortdraw
 */
-void scoAddSphereForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int radius, int color);
+void scoAddSphereForShortDraw(ScopeMemory * pScopeMemory, int i, int j, double radius, int color);
 
 /**
    \brief Add a sphere to the axis as a longdraw
 */
-void scoAddSphereForLongDraw(ScopeMemory * pScopeMemory, int i, int j, int radius, int color);
+void scoAddSphereForLongDraw(ScopeMemory * pScopeMemory, int i, int j, double radius, int color);
 
 /**
    \brief Add a couple of spheres to the axis
 */
-void scoAddCoupleOfSpheres(ScopeMemory * pScopeMemory, int * radius, int * colors);
+void scoAddCoupleOfSpheres(ScopeMemory * pScopeMemory, double * radius, int * colors);
 
 /**
    \brief Create a Rectangle by using constructRectangle and return a pointer on it

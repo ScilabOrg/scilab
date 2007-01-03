@@ -22,7 +22,7 @@ void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdr
   int number_of_curves_by_subwin;
   int * colors;
   int imode;
-  int * size_balls;
+  double * size_balls;
   double radius_max;
 
   /*Retrieving Parameters*/
@@ -38,11 +38,11 @@ void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdr
   imode = ipar[1];
   number_of_curves_by_subwin = GetInPortRows(block,1);
   radius_max = 0;
-  size_balls = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+  size_balls = (double*)scicos_malloc(number_of_curves_by_subwin*sizeof(double));
   z = GetDstate(block);
   for(i = 0 ; i < number_of_curves_by_subwin ; i++)
     {
-      size_balls[i] = (int)z[6*i+2];
+      size_balls[i] = z[6*i+2];
       if(radius_max < size_balls[i])
 	{
 	  radius_max = size_balls[i];
@@ -103,7 +103,7 @@ void bouncexy(scicos_block * block,int flag)
   double t;
   int i;
   double * u1, *u2;
-  int * size_balls;
+  double * size_balls;
   switch(flag) 
     {
     case Initialization:
@@ -123,11 +123,11 @@ void bouncexy(scicos_block * block,int flag)
 	  }
 
 	//Cannot be factorized depends of the scope
-	size_balls = (int*)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory,0)*sizeof(int));
+	size_balls = (double*)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory,0)*sizeof(double));
 	z = GetDstate(block);
 	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
 	  {
-	    size_balls[i] = (int)z[6*i+2];
+	    size_balls[i] = z[6*i+2];
 	  }
 	u1 = GetRealInPortPtrs(block,1);
 	u2 = GetRealInPortPtrs(block,2);
