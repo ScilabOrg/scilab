@@ -176,7 +176,20 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
       if(scoGetPointerScopeWindow(pScopeMemory) !=  NULL)
 	{
 	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	    {
+	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	    }
+	  else
+	    {
+	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 1;
+	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1;
+	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 0;
+	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 0;
+	    }
 	}
       else
 	{
@@ -299,7 +312,15 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
 		  sciSetSelectedSubWin(scoGetPointerAxes(pScopeMemory,i));
 		  pPOLYLINE_FEATURE(pShortDraw)->visible = TRUE;
-		  sciDrawObj(pShortDraw);
+		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+		    {
+		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		      sciDrawObj(pShortDraw);
+		    }
+		  else
+		    {
+		      sciDrawObj(pShortDraw);
+		    }
 		  pPOLYLINE_FEATURE(pShortDraw)->visible = FALSE;
 		}
 	      else
@@ -717,7 +738,15 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
       if(NbrPtsShort >= scoGetShortDrawSize(pScopeMemory,0))
 	{
 	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	  sciDrawObj(Pinceau);
+	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	    {
+	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	      sciDrawObj(Pinceau);
+	    }
+	  else
+	    {
+	      sciDrawObj(Pinceau);
+	    }
 	  NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
 	  if(NbrPtsLong + NbrPtsShort >= scoGetLongDrawSize(pScopeMemory,0))
 	    {
@@ -770,8 +799,15 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 	}
 
       sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+      if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	{
+	  C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	}
+      else
+	{
+	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	}
     }
   else
     {
@@ -807,8 +843,17 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  pPOLYLINE_FEATURE(Pinceau)->pvz[0] = u3[i];		
 
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-		  sciDrawObj(Pinceau);
-		  sciDrawObj(Gomme);
+		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+		    {
+		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
+		  else
+		    {
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
 		}
 	    }
 	  else
@@ -835,8 +880,17 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
 
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-		  sciDrawObj(Pinceau);
-		  sciDrawObj(Gomme);
+		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+		    {
+		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
+		  else
+		    {
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
 		}
 	    }
 	}
@@ -879,8 +933,17 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  pPOLYLINE_FEATURE(Pinceau)->pvz[0] = u3[i];
 
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-		  sciDrawObj(Pinceau);
-		  sciDrawObj(Gomme);
+		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+		    {
+		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
+		  else
+		    {
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
 		}
 	    }
 	  else
@@ -913,8 +976,17 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  pPOLYLINE_FEATURE(Pinceau)->pvy[0] = u2[i];
 
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-		  sciDrawObj(Pinceau);
-		  sciDrawObj(Gomme);
+		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+		    {
+		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
+		  else
+		    {
+		      sciDrawObj(Pinceau);
+		      sciDrawObj(Gomme);
+		    }
 		}
 	    }
 	}
