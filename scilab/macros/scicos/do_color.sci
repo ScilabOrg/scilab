@@ -41,7 +41,8 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
   
   for K = KK
     o = scs_m.objs(K)
-    gh_obj_K = o_size(1) - K + 1 ; //** semi empirical equation :)
+    //gh_obj_K = o_size(1) - K + 1 ; //** semi empirical equation :)
+    gh_obj_K = get_gri(K,o_size(1));
     gh_compound = gh_curwin.children.children(gh_obj_K); //** get the compound handle 
     
     //** ------------------ Link --------------------------

@@ -73,7 +73,8 @@ function [%pt,scs_m] = do_resize(%pt,scs_m)
          drawlater() ;
          gh_curwin = gh_current_window;
          o_size = size(gh_curwin.children.children);
-         gr_k = o_size(1) - K + 1; //** semi empirical equation :)
+//          gr_k = o_size(1) - K + 1; //** semi empirical equation :)
+         gr_k=get_gri(K,o_size(1));
 
          update_gr(gr_k,o);
          draw(gh_curwin.children);
@@ -98,7 +99,8 @@ function [%pt,scs_m] = do_resize(%pt,scs_m)
         drawlater() ;
         gh_curwin = gh_current_window;
         o_size = size(gh_curwin.children.children);
-        gr_k = o_size(1) - K + 1; //** semi empirical equation :)
+        //gr_k = o_size(1) - K + 1; //** semi empirical equation :)
+        gr_k=get_gri(K,o_size(1))
         //This is done in accord to drawobj
         gh_curwin.children.children(gr_k).children(1).thickness = ...
                              maxi( scs_m.objs(K).thick(1) , 1) * ...

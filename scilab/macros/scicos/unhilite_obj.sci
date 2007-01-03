@@ -44,7 +44,8 @@ function unhilite_obj(k,win)
  k=k(:);
  for i=1:size(k,1) //** loop on number of objects
    //** semi empirical equation :)
-   gh_k = o_size(1) - k(i) + 1;
+   //gh_k = o_size(1) - k(i) + 1;
+   gh_k=get_gri(k(i),o_size(1))
    //**
    gh_blk = gh_curwin.children.children(gh_k);
    //** set color = -1 as default for foregroung mark property

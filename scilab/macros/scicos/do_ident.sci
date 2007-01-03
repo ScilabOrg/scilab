@@ -26,8 +26,8 @@ function scs_m = do_ident(scs_m)
 
   gh_curwin = gh_current_window ; //** acquire the current window handler
   o_size = size(gh_curwin.children.children) ; //** o_size(1) is the number of compound object
-  gr_k = o_size(1) - k + 1 ; //** semi empirical equation :)
-
+  //gr_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gr_k=get_gri(k,o_size(1));
   //** select the possible cases
   if type_objet == 'Block' then
     //** -------- BLOCK --------------
@@ -42,7 +42,8 @@ function scs_m = do_ident(scs_m)
 
     if ok then
       objet.graphics.id = stripblanks(identification); //** update the identification structure
-      gr_k = o_size(1) - numero_objet + 1 ; //** semi empirical equation :)
+      //gr_k = o_size(1) - numero_objet + 1 ; //** semi empirical equation :)
+      gr_k=get_gri(numero_objet,o_size(1));
       drawlater();
       update_gr(gr_k,objet)
       draw(gh_curwin.children);
@@ -68,7 +69,8 @@ function scs_m = do_ident(scs_m)
       drawlater();
       for numero = c_links ;
         scs_m.objs(numero).id = identification
-        gr_k = o_size(1) - numero + 1 ; //** semi empirical equation :)
+        //gr_k = o_size(1) - numero + 1 ; //** semi empirical equation :)
+        gr_k=get_gri(numero,o_size(1))
         update_gr(gr_k,scs_m.objs(numero))
       end
       draw(gh_curwin.children);

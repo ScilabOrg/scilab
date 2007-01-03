@@ -74,7 +74,8 @@ function scs_m = stupid_moveblock(scs_m, k, xc, yc)
 
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure
-  gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gh_k=get_gri(k,o_size(1))
   gh_blk = gh_curwin.children.children(gh_k);
   gh_blk_save = gh_blk; //to store handle of graphic obj
 
@@ -114,7 +115,8 @@ function scs_m = stupid_moveblock(scs_m, k, xc, yc)
 
     oi = scs_m.objs(i) ;
 
-    gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
+    //gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
+    gh_i=get_gri(i,o_size(1))
 
     gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //**
 
@@ -397,7 +399,8 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure 
-  gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gh_k=get_gri(k,o_size(1))
   //** disp (gh_k);
   gh_blk = gh_curwin.children.children(gh_k);
   

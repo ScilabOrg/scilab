@@ -134,7 +134,8 @@ function scs_m = moveblock(scs_m,k,xc,yc)
 
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure
-  gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gh_k=get_gri(k,o_size(1))
   gh_blk = gh_curwin.children.children(gh_k);
 
 //**-----------------------------------------------------------------------------------
@@ -292,7 +293,8 @@ function scs_m = moveblock(scs_m,k,xc,yc)
 
     // clear block
     //** drawobj(o)
-    gr_k = o_size(1) - k + 1 ; //** from scs_m to gh_
+    //gr_k = o_size(1) - k + 1 ; //** from scs_m to gh_
+    gr_k=get_gri(k,o_size(1))
     gh_block_invisible = gh_curwin.children.children(gr_k);
     gh_block_invisible.visible = "off"; //** put the block invisible
     gh_objs_invisible = [gh_objs_invisible gh_block_invisible] ; //** add at the list
@@ -578,7 +580,8 @@ function scs_m = movelink(scs_m, k, xc, yc, wh)
   o_size = size (gh_curwin.children.children ) ; //** the size: number of all the object
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure
-  gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gh_k=get_gri(k,o_size(1))
   gh_blk = gh_curwin.children.children(gh_k);
 
   drawlater(); //** postpone the drawing

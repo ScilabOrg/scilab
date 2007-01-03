@@ -119,7 +119,8 @@ function scs_m=changeports(scs_m,path,o_n)
   drawlater() ;
   gh_curwin = gh_current_window;
   o_size = size(gh_curwin.children.children);
-  gr_k = o_size(1) - k + 1; //** semi empirical equation :)
+//   gr_k = o_size(1) - k + 1; //** semi empirical equation :)
+  gr_k = get_gri(k,o_size(1))
   gh_link_i=[];
 
   o_n.graphics.pin = ipn;
@@ -141,7 +142,8 @@ function scs_m=changeports(scs_m,path,o_n)
       i=connected(i1)
       oi=scs_m.objs(i)
 
-      gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
+//       gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
+      gh_i = get_gri(i,o_size(1));
       gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** new
 
       //[xl,yl,ct,from,to]=oi([2,3,7:9])

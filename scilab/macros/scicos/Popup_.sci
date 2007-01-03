@@ -31,7 +31,8 @@ function Popup_()
     k = getobj(palette,%pt)  ;
 
     if k<>[] then 
-      gh_k = o_size(1) - k + 1 ;
+      //gh_k = o_size(1) - k + 1 ;
+      gh_k=get_gri(k,o_size(1))
       gh_blk = gh_curwin.children.children(gh_k);
 
       //** twinkle(gh_blk,2);
@@ -52,7 +53,8 @@ function Popup_()
     k = getobj(scs_m,%pt)
     if k<>[] then
       state_var = 1; //** Magic number by Ramine
-      gh_k = o_size(1) - k + 1 ;
+      //gh_k = o_size(1) - k + 1 ;
+      gh_k=get_gri(k,o_size(1))
       gh_blk = gh_curwin.children.children(gh_k);
       //** twinkle(gh_blk,2);
       Select = [k,%win]
@@ -67,7 +69,8 @@ function Popup_()
     gh_curwin = scf(%win) ;
     o_size = size(gh_curwin.children.children)
     if k<>[] then
-      gh_k = o_size(1) - k + 1 ;
+      //gh_k = o_size(1) - k + 1 ;
+      gh_k=get_gri(k,o_size(1))
       gh_blk = gh_curwin.children.children(gh_k);
       //** twinkle(gh_blk,2);
       Select=[k,%win];

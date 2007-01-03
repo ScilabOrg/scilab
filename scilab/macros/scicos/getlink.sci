@@ -680,7 +680,8 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
     //---------------------------
       scs_m.objs(ks)   = link1 ; //** adjust the data of the first half of the old "splitted" link
 
-      gh_ks = o_size(1) + 1 - ks + 1 ; //** I need to compensate for the last entry
+      //gh_ks = o_size(1) + 1 - ks + 1 ; //** I need to compensate for the last entry
+      gh_ks = get_gri(ks,o_size(1)) + 1
 
       gh_curwin.children.children(gh_ks).children.data = [ link1.xx , link1.yy]  ; //** update the graphics datastructure
       link1_color = gh_curwin.children.children(gh_ks).children.foreground       ; //** save the color

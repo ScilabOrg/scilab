@@ -9,7 +9,8 @@ if length(path)==2 then
     drawlater() ;
     gh_curwin = gh_current_window;
     o_size = size(gh_curwin.children.children);
-    gr_k = o_size(1) - path(2) + 1; //** semi empirical equation :)
+    //gr_k = o_size(1) - path(2) + 1; //** semi empirical equation :)
+    gr_k=get_gri(path(2),o_size(1))
     update_gr(gr_k,o) //** new
     draw(gh_curwin.children);
     show_pixmap() ;

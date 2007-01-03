@@ -60,7 +60,8 @@ function [scs_m] = do_block(%pt,scs_m)
 
       //** Alan/Simone 13/12/06 : Use of update_gr
       o_size = size(gh_curwin.children.children) ;
-      gr_k = o_size(1) - K + 1 ; //** semi empirical equation :)
+      //gr_k = o_size(1) - K + 1 ; //** semi empirical equation :)
+      gr_k=get_gri(K,o_size(1))
       drawlater() ;
       update_gr(gr_k,o)
       draw(gh_curwin.children);

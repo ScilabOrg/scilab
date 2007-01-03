@@ -141,6 +141,15 @@ if ~super_block then
   if ~exists('%scicos_debug_gr') then
     %scicos_debug_gr = %f;
   end
+
+  //** initialize a "scicos_with_grid" variable for drawing a grid
+  if ~exists('%scicos_with_grid') then
+    %scicos_with_grid = %f;
+    //** %scs_wgrid(1:2) : space of grid
+    //** %scs_wgrid(3) : color
+    %scs_wgrid = [10;10;12];
+  end
+
   //** Scicos internal function (scicos/routines/permuteobj) override in order to assure full
   //** compatibility with NGI (J.B. Silvy)
   swap_handles=permutobj; //TO be removed in scilab 5
@@ -664,7 +673,8 @@ function selecthilite(Select, flag)  // update the image
     //** "k" is the object index in the data structure "scs_m"
     //** compute the equivalent "gh_k" for the graphics datastructure
     k = Select (i,1)
-    gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+    //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+    gh_k = get_gri(k,o_size(1)); //** Alan -
 
    if gh_k>0 then //** Alan - to disable some crash when we have delete obj
       //** get the handle of the graphics entity to modify

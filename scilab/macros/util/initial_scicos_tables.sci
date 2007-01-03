@@ -69,7 +69,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   View     = ['View',..
               'Zoom in',..
 	      'Zoom out',..
-              'Fit diagram to figure'];
+              'Fit diagram to figure',..
+              'Grid'];
 	            	      
   Simulate = ['Simulate',..
               'Setup',..
@@ -79,6 +80,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      'Run'];
 	      	      
   Format   = ['Format',..
+              'Set grid',..
    	      'Add color',..
 	      'Default link colors',..
 	      'Color',..
@@ -88,7 +90,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      'Identification',..
 	      'ID fonts',..
 	      'Icon',..
-	      'Icon Editor' ]; 
+	      'Icon Editor']; 
 	      
   Tools    = ['Tools',..
               'Get Info',..
@@ -121,7 +123,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		 'q','Quit';
 		 '-','Zoom out';
 		 '+','Zoom in';
-		 '=','Fit diagram to figure']
+		 '=','Fit diagram to figure';
+		 'g','Grid']
   
   //Scicos Modelica librabry path definitions==============================
 
@@ -133,7 +136,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   %scicos_help = tlist(..
 		     ['sch','Display mode','Window','Background color','Default link colors',..
 		      'ID fonts','Aspect','Add color','Focus','Shift','Zoom in','Zoom out',..
-		      'Fit diagram to figure','Help','Calc','Palettes','Context','Cut','Copy','Paste',..
+		      'Fit diagram to figure','View','Help','Calc','Palettes','Context',...
+                      'Cut','Copy','Paste','Set grid',..
 		      'Smart Move','Move','Duplicate',..
 		      'Duplicate Region','Replace','Align','Link','Delete','Delete Region',..
 		      'Add new block','Flip','Undo','Setup','Compile','Eval','Debug Level','Run',..
@@ -166,6 +170,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		     [' When you select this menu item the diagram is zoomed in ';'by a factor of 10%.'],..
 		     [' When you select this menu item the diagram is zoomed out ';'by a factor of 10%.'],..
 		     [' When you select this menu item the diagram is fit in the figure'],..
+		     ['View/unview grid'],..
 		     [' To get help on an object or menu buttons,';
 		      ' select first Help menu item and then on ';
 		      ' the selected object or menu item.'],..
@@ -196,7 +201,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		      ' and keep a copy in the clipboard if the object is a block.'],..
 		     [' Copy is used to place a copy of the selected object';
 		      ' in the clipboard if the object is a block.'],..
-		     [' Paste places the object in the Clipboard in the diagram.'],..  
+		     [' Paste places the object in the Clipboard in the diagram.'],..
+		     [' Set the grid'],..
 		     [' To move a block in  the active editor Scicos window';
 		      ' or in edited palette keeping horizontal and vertical';
 		      ' links, select first the ""Smart Move"" menu item, ';

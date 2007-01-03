@@ -25,7 +25,8 @@ function [%pt,scs_m]=do_tild(%pt,scs_m)
   geom = o.graphics ; geom.flip = ~geom.flip ; o.graphics = geom;
 
   //**---------------------------------------------------------
-  gr_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  //gr_k = o_size(1) - k + 1 ; //** semi empirical equation :)
+  gr_k=get_gri(k,o_size(1))
   drawlater();
   update_gr(gr_k,o)
   draw(gh_curwin.children);

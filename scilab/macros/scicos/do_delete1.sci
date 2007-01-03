@@ -143,7 +143,8 @@ while K<>[] do
 	    DELL=[DELL  connected(1)]
 	    scs_m.objs(connected(2))=o1 //change link
 	    if gr==%t then
-	      gr_k = o_size(1) - connected(2) + 1 ;
+	      //gr_k = o_size(1) - connected(2) + 1 ;
+              gr_k=get_gri(connected(2),o_size(1))
 	      gh_object = gh_curwin.children.children(gr_k);
 	      gh_object.children.data = [o1.xx , o1.yy];
             end
@@ -195,7 +196,8 @@ while K<>[] do
 	    DELL=[DELL  connected(1)]
 	    scs_m.objs(connected(2))=o1 //change link
 	    if gr==%t then
-	      gr_k = o_size(1) - connected(2) + 1 ;
+//	      gr_k = o_size(1) - connected(2) + 1 ;
+              gr_k=get_gri(connected(2),o_size(1))
 	      gh_object = gh_curwin.children.children(gr_k);
 	      gh_object.children.data = [o1.xx , o1.yy];
             end
@@ -241,7 +243,8 @@ end //** ... end of while ()
   for k = DEL
     scs_m.objs(k) = mlist('Deleted')
     if gr==%t then
-      gr_k = o_size(1) - k + 1 ;
+      //gr_k = o_size(1) - k + 1 ;
+      gr_k=get_gri(k,o_size(1))
       gh_object_invisible = gh_curwin.children.children(gr_k);
       gh_object_invisible.visible = "off";
     end

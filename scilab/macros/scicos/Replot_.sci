@@ -1,7 +1,6 @@
 function Replot_()
 //   INRIA 
 //** 24 may 2006, Comments by Simone Mannori
-//** 20/12/06 Alan : Update
     Cmenu=[] ;
     %pt=[];
     disablemenus() ; //** disable dynamical menu (just to be safe)

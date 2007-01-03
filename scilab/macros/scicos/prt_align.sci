@@ -70,7 +70,8 @@ function [scs_m]=prt_align(%pt,scs_m)
    gh_curwin=gh_win
   end
   o_size = size (gh_curwin.children.children ) ; //** the size:number of all the object
-  gh_k = o_size(1) - k2 + 1 ; //** semi empirical equation :)
+  //gh_k = o_size(1) - k2 + 1 ; //** semi empirical equation :)
+  gh_k=get_gri(k2,o_size(1))
   gh_blk = gh_curwin.children.children(gh_k); //** new
 
   drawlater() ; //** new

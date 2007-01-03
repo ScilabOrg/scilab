@@ -1,5 +1,5 @@
 function Zoomout_()
-// INRIA
+//** INRIA
 //** 24 Aug 2006: Simone Mannori
     Cmenu = [];
     xinfo('Zoom out');
@@ -8,6 +8,10 @@ function Zoomout_()
     drawlater();
     disablemenus();
     window_set_size(gh_window);
+    drawgrid();
+    swap_handles(gh_window.children.children($),...
+                 gh_window.children.children(1));
+    delete(gh_window.children.children(1));
     drawnow();
     show_pixmap();
     enablemenus();

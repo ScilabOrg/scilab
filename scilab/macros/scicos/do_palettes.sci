@@ -46,6 +46,10 @@ function [palettes,windows] = do_palettes(palettes,windows)
     curwin = windows(winpal,2) ; 
   
   end
+
+  //** Alan : no grid for palette
+  %scicos_with_grid(1)=0
+
   //
   //** xset('window',curwin),
   gh_current_window = [];

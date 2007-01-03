@@ -1,4 +1,5 @@
 function Fitdiagramtofigure_()
+//** INRIA
 //** Alan-21/12/06 : Fit diagram to figure (Based on new graphics)
    Cmenu=[];
    xinfo('Fit diagram to figure');
@@ -27,6 +28,11 @@ function Fitdiagramtofigure_()
 
    disablemenus();
    window_set_size(gh_window);
+   drawgrid();
+
+   swap_handles(gh_window.children.children($),...
+                gh_window.children.children(1));
+   delete(gh_window.children.children(1));
    drawnow();
    show_pixmap();
    enablemenus();
