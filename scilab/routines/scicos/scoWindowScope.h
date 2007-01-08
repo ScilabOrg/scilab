@@ -96,6 +96,10 @@ scoGraphicalObject scoCreateRectangle(scoGraphicalObject pAxes, double x, double
 */
 void scoAddRectangleForLongDraw(ScopeMemory * pScopeMemory, int i, int j, double x, double y, double width, double height);
 
+scoGraphicalObject scoCreateGrayplot(scoGraphicalObject pAxes, int size_x, int size_y);
+
+void scoAddGrayplotForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int size_x, int size_y);
+
 /* ----------------------DRAWING FONCTIONS --------------------------------*/
 
 /**

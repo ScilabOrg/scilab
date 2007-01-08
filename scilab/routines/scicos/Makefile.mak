@@ -48,7 +48,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	evtvardly.obj edgetrig.obj tcslti4.obj tcsltj4.obj dsslti4.obj \
 	csslti4.obj cstblk4.obj samphold4.obj dollar4.obj invblk4.obj delay4.obj \
 	cevscpe.obj cfscope.obj cscopxy.obj canimxy.obj canimxy3d.obj cscopxy3d.obj \
-	matmul_m.obj mattran_m.obj
+	matmul_m.obj mattran_m.obj cmatview.obj
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \

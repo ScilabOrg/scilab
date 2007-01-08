@@ -131,7 +131,6 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 		    pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
 		    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
 		    pPOLYLINE_FEATURE(pShortDraw)->visible = FALSE;
-		    //pPOLYLINE_FEATURE(pLongDraw)->visible = TRUE;
 
 		    pPOLYLINE_FEATURE(pLongDraw)->n1 = 0;
 		    C2F(dcopy)(&NbrPts,pPOLYLINE_FEATURE(pShortDraw)->pvx,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvx,&c__1);
@@ -151,7 +150,6 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 		    pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
 		    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
 		    pSEGS_FEATURE(pShortDraw)->visible = FALSE;
-		    //		    pSEGS_FEATURE(pLongDraw)->visible = FALSE;
 
 		    pSEGS_FEATURE(pLongDraw)->Nbr1 = 0;
 		    pSEGS_FEATURE(pLongDraw)->Nbr2 = 0;
@@ -176,26 +174,27 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
       if(scoGetPointerScopeWindow(pScopeMemory) !=  NULL)
 	{
 	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+
 	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 	    {
 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-	      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 	    }
-	  else
-	    {
-	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 1;
-	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1;
-	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-	      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
-	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 0;
-	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 0;
-	    }
+/* 	  else */
+/* 	    { */
+/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 1; */
+/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1; */
+/* 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L); */
+/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 0; */
+/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 0; */
+/* 	    } */
+	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 	}
       else
 	{
 	  scoScopeError(pScopeMemory,0);
 	}
     }
+
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
       for (j = 0 ; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
@@ -205,13 +204,9 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 	    {
 	    case SCI_POLYLINE:
 	      {
-		for (j = 0 ; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
-		  {
-		    pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
-		    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
-		    pPOLYLINE_FEATURE(pShortDraw)->visible = TRUE;
-		    //		    pPOLYLINE_FEATURE(pLongDraw)->visible = TRUE;
-		  }
+		pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
+		pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
+		pPOLYLINE_FEATURE(pShortDraw)->visible = TRUE;
 		break;
 	      }
 	    case SCI_SEGS:
@@ -219,8 +214,6 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 		pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
 		pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
 		pSEGS_FEATURE(pShortDraw)->visible = TRUE;
-		//		    pSEGS_FEATURE(pLongDraw)->visible = TRUE;
-
 		break;
 	      }
 	    default:
@@ -315,12 +308,9 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-		      sciDrawObj(pShortDraw);
 		    }
-		  else
-		    {
-		      sciDrawObj(pShortDraw);
-		    }
+		  //C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+		  sciDrawObj(pShortDraw);
 		  pPOLYLINE_FEATURE(pShortDraw)->visible = FALSE;
 		}
 	      else
@@ -673,7 +663,7 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   x_title = x;
   
   y_title = y;
-
+  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
       sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_title,title[i],500);
@@ -719,6 +709,8 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
       sciSetName(scoGetPointerScopeWindow(pScopeMemory), buf ,nxname);
     }
   /*End of code for naming window */
+  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 }
 
 void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
@@ -741,12 +733,8 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
 	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 	    {
 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-	      sciDrawObj(Pinceau);
 	    }
-	  else
-	    {
-	      sciDrawObj(Pinceau);
-	    }
+	  sciDrawObj(Pinceau);
 	  NbrPtsLong = pPOLYLINE_FEATURE(Trait)->n1;
 	  if(NbrPtsLong + NbrPtsShort >= scoGetLongDrawSize(pScopeMemory,0))
 	    {
@@ -802,12 +790,8 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
       if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 	{
 	  C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 	}
-      else
-	{
-	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
-	}
+      sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
     }
   else
     {
@@ -846,14 +830,9 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
 		    }
-		  else
-		    {
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
-		    }
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
 		}
 	    }
 	  else
@@ -883,14 +862,9 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
 		    }
-		  else
-		    {
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
-		    }
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
 		}
 	    }
 	}
@@ -936,14 +910,9 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
 		    }
-		  else
-		    {
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
-		    }
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
 		}
 	    }
 	  else
@@ -979,17 +948,43 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
 		    }
-		  else
-		    {
-		      sciDrawObj(Pinceau);
-		      sciDrawObj(Gomme);
-		    }
+		  sciDrawObj(Pinceau);
+		  sciDrawObj(Gomme);
 		}
 	    }
 	}
 	 
     }
+}
+
+scoGraphicalObject scoCreateGrayplot(scoGraphicalObject pAxes, int size_x, int size_y)
+{
+  scoGraphicalObject pGrayplot;
+  double * pvecx, * pvecy, * pvecz;
+  int i;
+/*   size_x++; */
+/*   size_y++; */
+
+  pvecx = (double*)scicos_malloc(size_x*sizeof(double));
+  for(i = 0; i < size_x ; i++)
+    pvecx[i] = i;
+
+  pvecy = (double*)scicos_malloc(size_y*sizeof(double));
+  for(i = 0; i < size_y ; i++)
+    pvecy[i] = i;
+
+  pvecz = (double*)scicos_malloc(size_x*size_y*sizeof(double));
+  for(i = 0; i < size_x*size_y ; i++)
+    pvecz[i] = 0;
+  
+  pGrayplot = ConstructGrayplot(pAxes, pvecx, pvecy, pvecz, size_x, size_y, 0);
+  return pGrayplot;
+}
+
+void scoAddGrayplotForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int size_x, int size_y)
+{
+  scoGraphicalObject pShortDraw;
+  pShortDraw = scoCreateGrayplot(scoGetPointerAxes(pScopeMemory,i),size_x,size_y);
+  scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
 }

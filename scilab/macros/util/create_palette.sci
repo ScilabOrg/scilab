@@ -42,7 +42,8 @@ function routines=create_palette(Path)
 	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';  
 	      'OUT_f.sci';      'WFILE_f.sci';
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
-	      'CSCOPXY3D.sci';   'CANIMXY3D']
+	      'CSCOPXY3D.sci';   'CANIMXY3D';
+	      'CMATVIEW.sci']
 	
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';
