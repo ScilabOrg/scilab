@@ -535,7 +535,6 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
       else
         if Cmenu_n<>[] then Cmenu = Cmenu_n; end
         if %pt_n <> [] then %pt = %pt_n;     end
-	disp("Cmenu="); disp(Cmenu); disp("%pt=") ; disp(%pt) ; 
       end
 
       %win = win_n
