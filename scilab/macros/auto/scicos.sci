@@ -42,7 +42,7 @@ clear noguimode
 
 //check if superblock editing mode
 [%ljunk, %mac] = where() ; //** where I am ?
-                  //** looking for the position inside the tree
+                           //** looking for the position inside the tree
 slevel = prod ( size ( find ( %mac=='scicos') ) ) ; //** "slevel" is the superblock level
 super_block = slevel > 1 ; //** ... means that the actual SCICOS is a superblock diagram
 
@@ -94,9 +94,9 @@ if ~super_block then
     end
 
   end //** ... of the initialization variable
-  //**---------------------------------------------------------------------------------------------------------------------------------
+  //**-----------------------------------------------------------------------------------------------------------------------
 
-  //** 'CmenuTypeOneVector' store the list of the commands/function to be colled  that require both 'Cmenu' AND '%pt'
+  //** 'CmenuTypeOneVector' store the list of the commands/function to be called that require both 'Cmenu' AND '%pt'
   // menus of type 1 (require %pt)
    CmenuTypeOneVector =..
      ['Region to Super Block', 'Click, drag region and click (left to fix, right to cancel)'        ;
@@ -234,9 +234,6 @@ if ~super_block then // init of some global variables
 
 end
 //
-
-//** --- Temp assignements to move to the new graphics
-global gh_Main_Scicos_window; //**
 
 if rhs>=1 then //** scicos_new(...) is called with some arguments
 
@@ -428,21 +425,18 @@ end
 //set context (variable definition...)
 if type(scs_m.props.context) == 10 then
 
-  // %now_win = xget('window')
-  gh_percent_now_win = gcf();
+  gh_percent_now_win = gcf(); //** save current figure handle
 
   [%scicos_context,ierr] = script2var(scs_m.props.context,%scicos_context)
   //for backward compatibility for scifunc
   if ierr==0 then
     %mm = getfield(1,%scicos_context)
-
     for %mi=%mm(3:$)
        ierr = execstr(%mi+'=%scicos_context(%mi)','errcatch')
        if ierr<>0 then
          break
        end
     end
-
   end
   //end of for backward compatibility for scifunc
 
@@ -451,26 +445,23 @@ if type(scs_m.props.context) == 10 then
   else
     deff('%fonct()',scs_m.props.context)
     %outfun = macrovar(%fonct);
-
     //perform eval only if context contains functions which may give
     //different results from one execution to next
     if or(%outfun(4)=='rand')|or(%outfun(4)=='exec')|or(%outfun(4)=='load') then
       disablemenus() ;
-      [scs_m,%cpr,needcompile,ok] = do_eval(scs_m,%cpr);
+       [scs_m, %cpr, needcompile, ok] = do_eval(scs_m, %cpr);
       enablemenus() ;
     end
-
   end
 
-  //** xset('window',%now_win)
-  scf(gh_percent_now_win);
+  scf(gh_percent_now_win); //** restore current figure handle
 else
 
   scs_m.props.context=' '
 
 end
-
 //** -------------------- end of the very obscure code ---------------------------------------------
+//**
 //** -----------------------------------------------------------------------------------------------
 //** Begin of the command interpreter loop
 
@@ -483,123 +474,90 @@ Cmenu = [];
 %win = curwin;
 
 //state machine variables windowish behavior
+
 //** 'Select' 'Select_back' are matrix; each line is [object_id win_id]; 'object_is" is the same INDEX of 'scs_m'
 //** and 'win_id" is the Scilab window id. Multiple selection is permitted.
-
-//** This kind of approach is too risky
-//** global Select ; //** risky businnes here ;)
-
-Select = []      ;
+Select = []      ; //** 
 Select_back = [] ;
 
-%ppt = [];
+%ppt = []; //** used to store last click position for "Paste" operation 
 
-Clipboard = [];
+Clipboard = []; //** used in Copy Cut and Paste function 
 
 drawobjs(scs_m) ; //** draw the full diagram
 
-//** hilite_image = list() ; // create an empty list for the hilite images
 
-//** ----------------------------- real command interpreter / state machine loop ----------------------------
+//** ------------------------ Command Interpreter / State Machine / Main Loop ----------------------------
 
 while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
 //** ---------------------------------------------------------------// Used for "dynamic" stack allocation 
-  [%stack] = stacksize()                                            //
-  if %stack(2)/%stack(1)> 0.3 then                                  //
+  [%stack] = stacksize()                                            // Automatically increase Scilab stack  
+  if %stack(2)/%stack(1)> 0.3 then                                  // size for big diagram
     stacksize(2*%stack(1))                                          //
     disp('stacksize increased to '+string(2*%stack(1)))             //
   end                                                               //
 //** ---------------------------------------------------------------
 
-  //** unselect object in the current window
-
+  //** This code fragment filter out a previus selection on a window NOT present in the
+  //** actual Scilab active window list "winsid" (e.g. the window has been closed).   
   if Select<>[] then
     if ~or(Select(1,2) == winsid()) then Select=[],end
   end
 
-  [CmenuType, mess] = CmType(Cmenu);
+  [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
 
+  xinfo(mess); //** show the message associated to the command 
+  
   //** clear the %pt information for backward compatibility
-
   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
   if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end
 
-  //** if 'Cmenu' is NOT empty and 'CmenuType' is "i don't' need '%pt' then clear '%pt'
+  //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
   if ( Cmenu<> [] & CmenuType==0) then %pt=[]; end
 
-  // no argument needed
+  //** if 'Cmenu' is NOT empty and 'CmenuType' is "1" and there is at least one object selected 
   if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
-       [%pt,%win] = get_selection(Select) //in case object selected
+       [%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
   end
 
-  xinfo(mess);
-
+  //** if no command is issued "Cmenu==[]" or
+  //**    CmenuType==1 and no %pt information and no object selected 
   if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then
-  //** I'm not ready to exec a command: I need more information
-
+      //** I'm not ready to exec a command: I need more information using cosclik()
       [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <------
 
-      if %scicos_debug_gr then
-        strtt=["Just after cosclick()";
-               "btn_n = "+string(btn_n);
-               "pt_n = "+sci2exp(%pt_n);
-               "win_n = "+string(win_n);
-               "Cmenu_n = "+string(Cmenu_n);
-               "Cmenu = "+string(Cmenu);
-               "pt = "+sci2exp(%pt)];
-        disp(strtt);
-      end
-
-      if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType == 1 & %pt==[] then
-        if %pt_n<>[] then %pt = %pt_n;     end
+      //** in the case of 'SelectLink'| Cmenu_n=='MoveLink' if previous Cmenu<>[] & CmenuType==1 operation
+      //** is not completed just recover and use %pt = %pt_n and forget Cmenu_n
+      //** otherwise update both Cmenu and %pt
+      if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
+	if %pt_n<>[] then %pt = %pt_n; end
       else
         if Cmenu_n<>[] then Cmenu = Cmenu_n; end
         if %pt_n <> [] then %pt = %pt_n;     end
+	disp("Cmenu="); disp(Cmenu); disp("%pt=") ; disp(%pt) ; 
       end
 
       %win = win_n
 
   else
   //** I'm ready to exec a command 
-      %koko = find( Cmenu==%cor_item_exec(:,1) );
-
-      //**------------------------------------------------------
+      %koko = find( Cmenu==%cor_item_exec(:,1) ); //** find the command in the list "%cor_item_exec"
+      //** if the command is found 
       if size(%koko,'*') == 1 then
 
-        //** need carefull modification
+        Select_back = Select; //** save the selected object list 
 
-        Select_back = Select;
-
-        //** ---------- For debugging purpose only ------------------
-        if %scicos_debug_gr then
-          exestring = "Executing ...... " + %cor_item_exec(%koko,2); //
-
-	  disp(exestring)       ;                                    //
-        end
-        //** --------------------------------------------------------
-        //** Don't ever think to touch this line of code ;)
-        execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
-                                                          //exec the desired action
-	//** after the execution I will show the graphics datastructure
-	gh_test = gcf(1000);
-	gh_spy = gh_test.children.children ;
-        if %scicos_debug_gr then
-          disp (size(gh_spy)); disp (size(scs_m.objs) );
-        end
-	
-        //** need carefull modification
-
-	//supprimer les doublons dans Select et select_back
-	
-        if %scicos_debug_gr then
-          disp("Selection_Monitor:Select"); disp(Select);
-          disp("Selection_Monitor:Select_back"); disp(Select_back);
-        end
-
+        //** Command execution 
+	//** Don't ever think to touch this line of code ;)
+	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
+                                                          //** exec the desired action
+	//** unselect ALL the previous selected object and select again the actually selected object
+	//** because some command (operation) could select/unselect some object (the mods are registered
+	//** in the "Select" variable)
 	if or(Select<>Select_back) then
-	  // Select_back: objects to
-	  // unselect, Select :object to select
+	  // Select_back: objects to unselect
+	  // Select     : object to select
 	  drawlater();
 	    selecthilite(Select_back, 'off') ; // unHilite previous objects
 	    selecthilite(Select, 'on') ;       // Hilithe the actual sected object
@@ -607,13 +565,11 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 	end
 	
       else
-
+      //** if the command is not valid clear the state variable 
          Cmenu=[]; %pt=[]
-
-      end //** a command to exec
-      //**-------------------------------------------------------
-
-    end
+      end //** a valid/invalid command to exec
+      
+   end //** not ready / ready to exec a command 
 
 end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
 
@@ -625,23 +581,23 @@ endfunction
 //*******************************************************************************************************************
 
 function [itype, mess] = CmType(Cmenu)
-
-  k = find (Cmenu == CmenuTypeOneVector(:,1));
-
-  if k==[] then
-    itype=0;
-    mess='';
-    return ;
+  //** look inside "CmenuTypeOneVector" if the command is type 1 (need both Cmenu and %pt)
+  k = find (Cmenu == CmenuTypeOneVector(:,1)); 
+  if k==[] then //** if is not type 1 (empty k)
+    itype = 0 ; //** set type to zero
+    mess=''   ; //** set message to nothing 
+    return    ; //** --> EXIT point : return back 
   end
 
-  if size(k,'*')>1 then 
+  if size(k,'*')>1 then //** if found more than one command 
     message('Warning '+string( size(k,'*'))+' menus have identical name '+Cmenu);
-    k=k(1);
+    k=k(1); //** ? 
   end
 
-  itype = 1
+  itype = 1 ; 
 
-  mess = CmenuTypeOneVector(k,2)
+  mess = CmenuTypeOneVector(k,2) ; 
+  
 endfunction
 
 //** ----------------------------------------------------------------------------------------------------------------
