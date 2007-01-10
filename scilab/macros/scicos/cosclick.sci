@@ -10,14 +10,13 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
 
   [lhs,rhs] = argn(0) ;
   
-  Cmenu_orig = Cmenu ; //** save the old state 
-  
   Cmenu=[]; %pt=[]; btn = 0 ; //** Clear variables
   
+  //** I don't understand this control 
   if ~or( winsid()==curwin ) then //** if the current window (curwin is a semiglobal variable) is NOT  
        //** win=xget('window') ;       //** a Scicos window, then exit with "Quit"
        gh_win = gcf(); //** get the handler of the curent window 
-       disp("...cosclic.sci...|:");pause; //** debug only 
+        disp("...cosclic.sci...|:");pause; //** debug only 
        Cmenu='Quit'       ;
        return             ; 
   end   
@@ -26,13 +25,9 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     [btn, xc, yc, win, str] = xclick(flag) //** not used
   else
     [btn, xc ,yc ,win ,str ] = xclick()    //** <- This is used in the main scicos_new() loop:
-  end                                 //**    CLEAR ANY PREVIOUS EVENT in the queue
+  end                                      //**    CLEAR ANY PREVIOUS EVENT in the queue
 
   %pt = [xc,yc] ; //** acquire the position  
-  
-  if %scicos_debug_gr then
-    disp(btn); //** debug
-  end
   
   //** -----------------------------------------------------------
   if or( btn==[2 5] ) then    //   button 3 ("right" mouse button) "pressed" OR "clicked"
@@ -43,7 +38,7 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
   elseif btn==-100 then  // The window has been closed 
     
     if win==curwin then  //** in the current window ? 
-      Cmenu='Quit' ;
+      Cmenu='Quit' ;     
     else                 //** not the current window 
       Cmenu=[]     ;
       %pt=[]       ;
@@ -54,9 +49,6 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     //**-------------------------------------------------------------    
   elseif btn == -2 then  // click in a dynamic menu
     win = curwin ;
-    if %scicos_debug_gr then
-      disp("Dyn.Menu Callback string...");disp(str) ; //** debug only
-    end
     //** the format of the 'str' callback string is :
     //** "execstr(<Name_of_menu>_<win_id>(<menu_index>)) .... eg ... execstr(Diagram_1000(1))
     //** <Name_of_menu> : is the label at the top of menu selection (static allways present on the window) eg Diagram
@@ -65,35 +57,33 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     if strindex(str,'_'+string(curwin)+'(')<>[] then // str contains the information of the 
                                                      // click in a Scicos dynamic menu
       %pt=[] ; //** empty variable: no information about mouse position inside a dynamic menu  
-      //** disp("Cmenu(0)=...");disp(Cmenu) ; //** debug only
       //** Cmenu is empty ( [] )
       //**      execstr( <Diagram_1000(1)>  )
       execstr('Cmenu='+part(str,9:length(str)-1));   //**
-      //**  disp("Cmenu(1)=...");disp(Cmenu) ; //** debug only 
       //**  Cmenu = menus('Diagram')(1)      ; //** needs explanation  
       execstr('Cmenu='+Cmenu) ;
-      //**  disp("Cmenu(2)=...");disp(Cmenu) ; //** debug only
-      //**  At the end 'Cmenu' contains the string show in the dinamic selection menu (eg Replot   
+      //**  At the end 'Cmenu' contains the string show in the dinamic selection menu (e.g. "Replot")   
       return ; //** ---> EXIT POINT  
     else // click in an other dynamic menu
       execstr(str,'errcatch')
       return ; //** ---> EXIT POINT     
     end
     
-    //**-------------------------------------------------------------    
+  //**-------------------------------------------------------------    
+  //** left double click inside palette or navigator window
   elseif (btn==10) & (win<>curwin) then //** left button double click in a palette or navigator windows
     jj = find(windows(:,2)==win)
     //** if jj is empty means that you are in a Palette or in a Navigator  
     if jj <> [] then
-      
+    
       if or(windows(jj,1)==100000) then
         Cmenu = 'Open/Set'  //mode open-set (cliquer dans navigator) --> Navigator Window
        else
-	Cmenu = 'Duplicate'  //** Double Click In a Palette windows ---> jump to do_duplicate ! 
+	Cmenu = 'Duplicate'  //** Double Click In a Palette windows ---> jump to Duplicate  
       end
     
     else
-      Cmenu=[];%pt=[];
+      Cmenu=[];%pt=[]; //** otherwise, clear state variable
     end
     
     //**-------------------------------------------------------------    
