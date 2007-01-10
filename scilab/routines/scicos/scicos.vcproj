@@ -724,6 +724,9 @@ cd .. &gt;nul
 				RelativePath=".\cfscope.c">
 			</File>
 			<File
+				RelativePath=".\cmatview.c">
+			</File>
+			<File
 				RelativePath=".\cmscope.c">
 			</File>
 			<File

@@ -20,7 +20,6 @@ extern int C2F(deletewin)();
 
 /**
  */
-void C2F (oldgraphics) (int *flag);
 
 /**
  */
