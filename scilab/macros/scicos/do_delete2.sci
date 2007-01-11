@@ -1,18 +1,34 @@
-function [scs_m,DEL]=do_delete2(scs_m,K,gr)
+function [scs_m,DEL] = do_delete2(scs_m,K,gr)
 //perform deletion of scs_m object whose index are given in the vector 
 //K and all connected links. splits which are not given in K are not deleted
 //!
 // Copyright INRIA
+
+//** N.B. [reg,DEL] = do_delete2(scs_m,del,%f) from 'get_region2'
+//** first pass  : gr = FALSE
+//** second pass : gr = TRUE 
+//** gr = TRUE generate some unuseful drawobj() ... the situation is restored by
+//** the final "Replot" operation 
+
+
 DEL=[] //table of deleted objects
-K0=K
+
+K0 = K ; //** save the K 
+
 while K<>[] do
-  k=K(1);K(1)=[]
-  o=scs_m.objs(k);
-  if find(DEL==k)==[] then typ=typeof(o);else typ='Deleted',end
+  k=K(1); K(1)=[]
+  o = scs_m.objs(k);
+  //** filter 'deleted' object already present in scs_m
+  if find(DEL==k)==[] then 
+    typ = typeof(o)
+  else
+    typ = 'Deleted'
+  end
    
-  DEL=[DEL k]
+  DEL = [DEL k]
 
   if typ=='Link' then
+    //**--------------------------------- LINK ------------------------------------
     [ct,from,to]=(o.ct,o.from,o.to)
     tokill=[%t,%t]
     if ct(2)<>2 then
@@ -35,6 +51,8 @@ while K<>[] do
     
     // erase and delete link
     if gr==%t then drawobj(o),end
+  
+  //**-------------------------------- BLOCK ----------------------------------------  
   elseif typ=='Block' then
     // get connected links
     connected=get_connected(scs_m,k)
@@ -42,15 +60,24 @@ while K<>[] do
     K=[K connected]
     // erase and delete block
     if gr==%t then drawobj(scs_m.objs(k)),end
+  
+  //**-------------------------------- TEXT ------------------------------------------  
   elseif typ=='Text' then
     if gr==%t then drawobj(o),end
+  //**-------------------------------- DELETED ---------------------------------------
   elseif typ=='Deleted' then
+  //**-------------------------------- U.F.O. ----------------------------------------
   else
     message('This object can''t be deleted')
   end
 end
+
 //if gr==%t then 
 //  if pixmap then xset('wshow'),end,
 //end
-for k=DEL,scs_m.objs(k)=mlist('Deleted'),end
+
+for k=DEL
+   scs_m.objs(k) = mlist('Deleted')
+end
+
 endfunction

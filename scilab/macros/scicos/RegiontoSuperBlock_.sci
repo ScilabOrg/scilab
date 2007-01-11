@@ -1,26 +1,36 @@
 function RegiontoSuperBlock_()
 //** 29 June 2006
 //** Very complex and critical functions inside : handle with care ;)     
+
+//** BEWARE: both functions ('do_region2block' and 'do_select2block' contains some 
+//** completely un useful drawobj() operations inside the 'do_delete2' sub function
+//** For the moment the drawobj() are not executed because this function ia called
+//** with the options %f that disable the graphics update.
+//** In all the cases the the situation is restored by the final "Replot" operation.
+//
   
-  disablemenus() ;
+disablemenus() ;
 
   %win = curwin // only in main window
  
   if Select==[] then 
       //** if nothing is selected -> call a region selection function 
       [%pt, scs_m] = do_region2block(%pt,scs_m); //** see file: "do_region2block.sci"
-                                       
+      //** this type of operations is OK (old Scicos code here :)                                  
   else
     
     if Select(1,2)<>curwin then
          //** if the selected object are not in the current window ... exit  
 	 return ; //** --> Exit point 
     end
+    
     //** if the selected object are in the current window use the function below in this file 
-    [%pt,scs_m] = do_select2block(%pt,scs_m);  //** ---> see below in this file :)    
+    [%pt, scs_m] = do_select2block(%pt, scs_m);  //** ---> see below in this file :)
+    //** with the last bugfix the 'Text' object are correctly handled, but this routine is
+    //** much slower that the "old" standard mode.     
   end
   
-  enablemenus()
+enablemenus() ; 
   
   Cmenu='Replot'; %pt=[];
 
@@ -30,17 +40,21 @@ endfunction
 
 //**---------------------------------------------------------------------
 function [%pt,scs_m] = do_select2block(%pt,scs_m)
+//** this function is called if some object are already selected before
+//** 'Region to SuperBlock' call 
 
-  scs_m_save = scs_m,nc_save = needcompile ; 
-  
+  scs_m_save = scs_m
+  nc_save    = needcompile ; 
+
   keep = [] ; del = [] ;
   
-  sel = Select(:,1)'; nsel = setdiff(1:size(scs_m.objs),sel)
+  sel  = Select(:,1)'; //** vector of object selected 
+  nsel = setdiff(1:size(scs_m.objs),sel) ; //** list of object not selected
   
   //**-----------------------------------------------------------------
+  //** Scan all the selected objects:   
   for bl=sel
-    
-    if typeof(scs_m.objs(bl))=='Block' then
+    if typeof(scs_m.objs(bl))=='Block' | typeof(scs_m.objs(bl))=='Text' then
       
       if or(scs_m.objs(bl).gui==['IN_f' 
 		    'OUT_f'
@@ -56,22 +70,22 @@ function [%pt,scs_m] = do_select2block(%pt,scs_m)
       
       keep=[keep bl]
     
-    end //** end block filter 
-  
-  end
+    end //** end 'Block' filter 
+  end //** scan 
   //**------------------------------------------------------------------
   
-  
+  //** scan all the object NOT selected 
   for bl=nsel
-    if typeof(scs_m.objs(bl))=='Block' then
+    //** KKK: if typeof(scs_m.objs(bl))=='Block' then
+    if typeof(o)=='Block'| typeof(o)=='Text' then //** OK
       del=[del bl]
     end
   end
   
   
-  prt=splitted_links(scs_m,keep,del)
-  [reg,DEL]=do_delete2(scs_m,del,%f)
-  rect=dig_bound(reg)
+  prt = splitted_links(scs_m,keep,del) ; //** OK 
+  [reg,DEL]=do_delete2(scs_m,del,%f)   ; //** OK 
+  rect = dig_bound(reg) ; 
   nin=0
   nout=0
   ncin=0
@@ -210,9 +224,10 @@ function [%pt,scs_m] = do_select2block(%pt,scs_m)
   sup.model.blocktype = 'h'
   sup.model.dep_ut    = [%f %f]
   // open the superblock in editor
-  [ok,sup]=adjust_s_ports(sup)
+  [ok,sup] = adjust_s_ports(sup)
 
-  [scs_m,DEL]=do_delete2(scs_m,keep,%t)
+  [scs_m,DEL] = do_delete2(scs_m,keep,%f) //** Quick speed improvement using %f (was %t)
+  
   drawobj(sup)
   
   scs_m.objs($+1)=sup
@@ -331,6 +346,8 @@ function [%pt,scs_m] = do_select2block(%pt,scs_m)
     scs_m.objs(k1)=o1
     nnk=nnk+1
   end
+  
   [scs_m_save,nc_save,enable_undo,edited,needcompile,..
    needreplay]=resume(scs_m_save,nc_save,%t,%t,4,needreplay)
+
 endfunction

@@ -2,22 +2,25 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
 // Copyright INRIA
 //** 29 June 2006
 //** Very complex and critical functions inside : handle with care ;) 
+//**
+//** 11 Jan 2007 : 'Block' / 'Text' bug validation: this function is OK.
+//**  
   
   win = %win;
   xc = %pt(1); yc = %pt(2);
-  
   %pt=[] ;
-  scs_m_save = scs_m,nc_save = needcompile;
+  
+  scs_m_save = scs_m
+  nc_save    = needcompile;
   
   //** block select function 
-  // disp (".... get_region2()... ");
-  [scs_mb,rect,prt] = get_region2(xc,yc,win) ; //** see file "get_region2.sci"
+  [scs_mb, rect, prt] = get_region2(xc,yc,win) ; //** see file "get_region2.sci"
 
-  if rect==[] then
+  if rect==[] then //** if no rectangle 
     return
   end
   
-  if lstsize(scs_mb.objs)==0 then
+  if lstsize(scs_mb.objs)==0 then //** if no object selected 
     return
   end
   
@@ -41,13 +44,13 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
   sup.model.dep_ut    = [%f %f]
   
   // open the superblock in editor
-  [ok,sup] = adjust_s_ports(sup)
+  [ok,sup] = adjust_s_ports(sup) //** looks OK because works on specific 'Block'
   // detruire la region
   del=[]
   
   for k=1:lstsize(scs_m.objs)
     o = scs_m.objs(k)
-    if typeof(o)=='Block'| typeof(o)=='Text' then
+    if typeof(o)=='Block'| typeof(o)=='Text' then //** OK
       // check if block is outside rectangle
       orig = o.graphics.orig
       sz = o.graphics.sz
@@ -69,7 +72,7 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
   needreplay = replayifnecessary() ;
 
   drawlater();
-  [scs_m,DEL] = do_delete2(scs_m,del,%t)
+  [scs_m,DEL] = do_delete2(scs_m,del,%t) ; //** VERY dangerous here !
 
   // add super block
   drawobj(sup)
@@ -203,6 +206,8 @@ function [%pt,scs_m] = do_region2block(%pt,scs_m)
     scs_m.objs(k1)=o1
     nnk=nnk+1
   end
+  
   [scs_m_save,nc_save,enable_undo,edited,needcompile,..
    needreplay] = resume(scs_m_save,nc_save,%t,%t,4,needreplay)
+
 endfunction
