@@ -127,8 +127,13 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		 'g','Grid']
   
   //Scicos Modelica librabry path definitions==============================
-
   modelica_libs='SCI/macros/scicos_blocks/'+['Electrical','Hydraulics'];
+
+  //add TMPDIR/Modelica for generic modelica blocks
+  status=mkdir(TMPDIR,'Modelica');
+  if isdir(TMPDIR+'/Modelica') then 
+    modelica_libs=[modelica_libs,TMPDIR+'/Modelica'];
+  end
 
   //Scicos Menus Help definitions===========================================
 
