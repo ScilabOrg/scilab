@@ -20,7 +20,7 @@ case 'set' then
     [ok,clrs,win,wpos,wdim,ymin,ymax,per,N,wu,exprs]=getvalue(..
 	'Set Scope parameters',..
 	['Color (>0) or mark (<0) vector (8 entries)';
-	'Output window number';
+	'Output window number (-1 for automatic)';
 	'Output window position';
 	'Output window sizes';
 	'Ymin';
@@ -41,8 +41,8 @@ case 'set' then
       mess=[mess;'Window dim must be [] or a 2 vector';' ']
       ok=%f
     end
-    if win<0 then
-      mess=[mess;'Window number can''t be negative';' ']
+    if win<-1 then
+      mess=[mess;'Window number cannot be inferior than -1';' ']
       ok=%f
     end
     if per<=0 then
@@ -83,7 +83,7 @@ case 'set' then
     end
   end
 case 'define' then
-  win=101;
+  win=-1;
   wdim=[600;400]
   wpos=[-1;-1]
   clrs=[1;3;5;7;9;11;13;15];

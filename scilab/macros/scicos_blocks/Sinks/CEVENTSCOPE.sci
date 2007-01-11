@@ -19,7 +19,7 @@ case 'set' then
 	'Set Scope parameters',..
 	['Number of event inputs';
 	'colors c (>0) or mark (<0)';
-	'Output window number';
+	'Output window number (-1 for automatic)';
 	'Output window position';
 	'Output window sizes';	
 	'Refresh period'],..
@@ -46,8 +46,8 @@ case 'set' then
       mess=[mess;'Inputs color c size must be equal to Number of inputs';' ']
       ok=%f
     end
-    if win<0 then
-      mess=[mess;'Window number can''t be negative';' ']
+    if win<-1 then
+      mess=[mess;'Window number cannot be inferior than -1';' ']
       ok=%f
     end
     if per<=0 then
@@ -73,7 +73,7 @@ case 'set' then
   end
 case 'define' then
   nclock=1
-  win=1; clrs=[1;3;5;7;9;11;13;15];
+  win=-1; clrs=[1;3;5;7;9;11;13;15];
   wdim=[600;400]
   wpos=[-1;-1]
   per=30;

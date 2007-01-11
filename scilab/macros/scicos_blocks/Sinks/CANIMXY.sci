@@ -23,7 +23,7 @@ case 'set' then
 	['Number of Curves';
 	'color (<0) or mark (>0)';
 	'line or mark size';
-	'Output window number';
+	'Output window number (-1 for automatic)';
 	'Output window position';
 	'Output window sizes';
 	'Xmin';
@@ -44,8 +44,8 @@ case 'set' then
       mess=[mess;'Window dim must be [] or a 2 vector';' ']
       ok=%f
     end
-    if win<0 then
-      mess=[mess;'Window number cannot be negative';' ']
+    if win<-1 then
+      mess=[mess;'Window number cannot be inferior than -1';' ']
       ok=%f
     end
     if nbr_curves<=0 then
@@ -87,7 +87,7 @@ case 'set' then
     end
   end
 case 'define' then
-  win=1; clrs=-4;
+  win=-1; clrs=-4;
   N=2; siz=1;
   wpos=[-1;-1];wdim=[-1;-1];
   xmin=-15;xmax=15;ymin=-15;ymax=+15

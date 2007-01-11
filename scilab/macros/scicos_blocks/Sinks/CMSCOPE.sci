@@ -22,7 +22,7 @@ case 'set' then
 	'Set Scope parameters',..
 	['Input ports sizes';
 	'Drawing colors (>0) or mark (<0)';
-	'Output window number';
+	'Output window number (-1 for automatic)';
 	'Output window position';
 	'Output window sizes';
 	'Ymin vector';
@@ -118,7 +118,7 @@ case 'set' then
     end
   end
 case 'define' then
-  win=1;
+  win=-1;
   in=[1;1]
   wdim=[-1;-1]
   wpos=[-1;-1]

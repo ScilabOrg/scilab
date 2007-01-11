@@ -16,18 +16,16 @@ case 'set' then
   exprs=graphics.exprs
   model=arg1.model;
   while %t do
-    [ok,win,nom,colormap,cmin,cmax,exprs]=getvalue(..
+    [ok,colormap,cmin,cmax,exprs]=getvalue(..
 	'Set Scope parameters',..
-	['Output window number';
-	'Name of Scope (label&Id)';
-	'ColorMap';
+	['ColorMap';
 	'Minimum level range';
 	'Maximum level range'],..
-	 list('vec',-1,'str',1,'vec',-1,'vec',1,'vec',1),exprs)
+	 list('vec',-1,'vec',1,'vec',1),exprs)
     if ~ok then break,end //user cancel modification
     mess=[]
-    if win<-1 then
-      mess=[mess;'Window number can''t be  < -1';' ']
+    if cmax<=cmin then
+      mess=[mess;'Error with minimum and maximum value';' ']
       ok=%f
     end
     if ~ok then
@@ -38,12 +36,10 @@ case 'set' then
         sol=inv([cmin 1;cmax 1])*[1;size_c/3];
         alpha_c = sol(1);
         beta_c = sol(2);
-	ipar=[win;cmin;cmax;size_c];
+	ipar=[cmin;cmax;size_c];
   	rpar=[alpha_c;beta_c;colormap(:)];
 	model.ipar=ipar;
 	model.rpar=rpar;
-	model.label=nom;
-	graphics.id=nom;
 	graphics.exprs=exprs;
 	x.graphics=graphics;
         x.model=model
@@ -51,7 +47,6 @@ case 'set' then
     end
   end
 case 'define' then
-  win=-1;
   cmin = 0;
   cmax = 100;
   colormap = jetcolormap(25);
@@ -66,14 +61,12 @@ case 'define' then
   model.in2=-2
   model.intyp=1
   model.evtin=1
-  model.ipar=[win;cmin;cmax;size_c]
+  model.ipar=[cmin;cmax;size_c]
   model.rpar=[alpha_c;beta_c;colormap(:)]
   model.blocktype='c'
   model.dep_ut=[%t %f]
   
-  exprs=[string(win);
-	 emptystr();
-	 string('jetcolormap(25)');
+  exprs=[string('jetcolormap(25)');
 	 string(cmin);
 	 string(cmax)];
    gr_i='xstringb(orig(1),orig(2),''Mat. View'',sz(1),sz(2),''fill'')'

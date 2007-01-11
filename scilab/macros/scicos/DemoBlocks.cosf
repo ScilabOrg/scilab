@@ -27,7 +27,7 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[90,0],[40,40],..
-              %t,0,["[1;2]";"[1;1]";"1";"1";"-5";"5";"0";"15"],[0;0],[],0,[],..
+              %t,0,["[1;2]";"[1;1]";"-1";"1";"-5";"5";"0";"15"],[0;0],[],0,[],..
               list(..
               ["thick=xget(''thickness'');xset(''thickness'',2);";
               "t=(0:0.3:2*%pi)'';";
@@ -40,5 +40,5 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
               "dep_ut","label","nzcross","nmode","equations"],list("bouncexy",4),..
               [-1;-1],[1;1],[1;1],[],[],1,1,[],[],..
-              [0;0;2;2;0;23040;0;0;2;2;0;23040],[-5;5;0;15],[1;1;1;2],"d",[],..
+              [0;0;2;2;0;23040;0;0;2;2;0;23040],[-5;5;0;15],[-1;1;1;2],"d",[],..
               [%f,%f],"",0,0,list()),"BOUNCEXY",list())

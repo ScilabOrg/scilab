@@ -21,7 +21,7 @@ case 'set' then
 	'Set Scope parameters',..
 	['colors';
 	 'radii';
-	 'window number';
+	 'window number (-1 for automatic)';
 	 'animation mode (0,1)';
 	'Xmin';
 	'Xmax';
@@ -36,8 +36,8 @@ case 'set' then
       mess=[mess;'colors and radii must have equal size (number of balls)';' ']
       ok=%f
     end
-    if win<0 then
-      mess=[mess;'Window number cannot be negative';' ']
+    if win<-1 then
+      mess=[mess;'Window number cannot be inferior than -1';' ']
       ok=%f
     end
     if ymin>=ymax then
@@ -70,7 +70,7 @@ case 'set' then
     end
   end
 case 'define' then
-  win=1; imode=1;clrs=[1;2];
+  win=-1; imode=1;clrs=[1;2];
   siz=[1;1]
   xmin=-5;xmax=5;ymin=0;ymax=15
 
