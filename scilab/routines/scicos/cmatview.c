@@ -5,45 +5,35 @@
 #include "scoSetProperty.h"
 
 #include <math.h>
+#include <stdlib.h>
 
-/** \fn cmatview_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void cmatview_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
-  int i,j; //As usual
+  int i; //As usual
   int * ipar; //Integer Parameters
-  int * colors; //Colors
-  int win; //Windows ID : To give a name to the window
-  int buffer_size; //Buffer Size
   int win_pos[2]; //Position of the Window
   int win_dim[2]; //Dimension of the Window
-  int nu;
-  int inherited_events;
-  int nipar;
   int dimension = 2;
   double * rpar; //Reals parameters
-  double dt; //Time++
-  double * period; //Refresh Period of the scope is a vector here
   double  ymin, ymax; //Ymin and Ymax are vectors here
   double  xmin, xmax;
-  int nbr_period;
   int number_of_curves_by_subwin;
   int number_of_subwin;
-  int nbr_total_curves;
   double * mat;
   int size_mat;
+
   rpar = GetRparPtrs(block);
   ipar = GetIparPtrs(block);
-  nipar = GetNipar(block);
-  win = ipar[0];
   number_of_subwin = 1;
   win_pos[0] = -1;
   win_pos[1] = -1;
   win_dim[0] = -1;
   win_dim[1] = -1;
 
-  size_mat = ipar[3];
+  size_mat = ipar[2];
   mat = (double*)scicos_malloc(size_mat*sizeof(double));
   for(i = 0 ; i < size_mat ; i++)
     {
@@ -60,15 +50,16 @@ void cmatview_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdr
 
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
 
   /*Creating the Scope*/
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  sciSetColormap(scoGetPointerScopeWindow(pScopeMemory), mat , size_mat/3, 3);
-  scoAddTitlesScope(pScopeMemory,"x","y",NULL);
-  scoAddGrayplotForShortDraw(pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+  scoInitOfWindow(*pScopeMemory, dimension, -1, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
+  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
+  scoAddGrayplotForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
   scicos_free(mat);
+
 }
 
 /** \fn void cmatview(scicos_block * block, int flag)
@@ -82,7 +73,6 @@ void cmatview(scicos_block * block, int flag)
   ScopeMemory * pScopeMemory;
   scoGraphicalObject pShortDraw;
   double * u1;
-  double t;
   double alpha,beta;
   int i,j;
   double * rpar;
@@ -95,7 +85,7 @@ void cmatview(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	cmatview_draw(block,pScopeMemory,1);
+	cmatview_draw(block,&pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -105,15 +95,13 @@ void cmatview(scicos_block * block, int flag)
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    cmatview_draw(block,pScopeMemory,0);
+	    cmatview_draw(block,&pScopeMemory,0);
 	  }
 
 	pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
-        
 	rpar = GetRparPtrs(block);
 	alpha = rpar[0];
 	beta = rpar[1];
-	
 	u1 = GetInPortPtrs(block,1);
 	dim_i = GetInPortRows(block,1);
 	dim_j = GetInPortCols(block,1);

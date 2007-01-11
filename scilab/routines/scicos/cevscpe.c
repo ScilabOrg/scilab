@@ -5,10 +5,10 @@
 #include "scoSetProperty.h"
 
 
-/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void cevscpe_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
   /* Declarations */
 
@@ -20,11 +20,8 @@ void cevscpe_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdra
   int win; //To give a name to the window
   int color_flag; //0/1 color flag -- NOT USED
   int  * colors; //Begin at ipar[2] and has a measure of 8 max
-  double t; //get_scicos_time()
-
   int dimension = 2;
   double period; //Refresh Period of the scope is a vector here
-
   int number_of_subwin;
   int number_of_curves_by_subwin;
   double xmin, xmax, ymin, ymax;
@@ -58,15 +55,15 @@ void cevscpe_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdra
 
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-      scoSetLongDrawSize(pScopeMemory,0,5000);
-      scoSetShortDrawSize(pScopeMemory,0,1);
-      scoSetPeriod(pScopeMemory,0,period);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoSetLongDrawSize(*pScopeMemory,0,5000);
+      scoSetShortDrawSize(*pScopeMemory,0,1);
+      scoSetPeriod(*pScopeMemory,0,period);
     }
 
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
-  scoAddCoupleOfSegments(pScopeMemory,colors);
+  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
+  scoAddCoupleOfSegments(*pScopeMemory,colors);
 }
 
 /** \fn void cevscpe(scicos_block * block, int flag)
@@ -87,7 +84,7 @@ void cevscpe(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	cevscpe_draw(block,pScopeMemory,1);
+	cevscpe_draw(block,&pScopeMemory,1);
 	break;
       }
 
@@ -98,7 +95,7 @@ void cevscpe(scicos_block * block, int flag)
 	scoRetrieveScopeMemory(block,&pScopeMemory);
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    cevscpe_draw(block,pScopeMemory,0);
+	    cevscpe_draw(block,&pScopeMemory,0);
 	  }
 
 	scoRefreshDataBoundsX(pScopeMemory,t);

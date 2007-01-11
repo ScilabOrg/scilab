@@ -4,19 +4,18 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void cmscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
-  int i,j; //As usual
+  int i; //As usual
   int * ipar; //Integer Parameters
   int * colors; //Colors
   int win; //Windows ID : To give a name to the window
   int buffer_size; //Buffer Size
   int win_pos[2]; //Position of the Window
   int win_dim[2]; //Dimension of the Window
-  int nu;
   int inherited_events;
   int nipar;
   int dimension = 2;
@@ -84,21 +83,21 @@ void cmscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdra
   if(firstdraw == 1)
     {
 
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
       for(i = 0 ; i < number_of_subwin ; i++)
 	{
-	  scoSetLongDrawSize(pScopeMemory, i, 5000);
-	  scoSetShortDrawSize(pScopeMemory,i,buffer_size);
-	  scoSetPeriod(pScopeMemory,i,period[i]);
+	  scoSetLongDrawSize(*pScopeMemory, i, 5000);
+	  scoSetShortDrawSize(*pScopeMemory,i,buffer_size);
+	  scoSetPeriod(*pScopeMemory,i,period[i]);
 	}    
     }
   /*Creating the Scope*/
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
-  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
+  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
 
   /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-  /* 	scoAddPolylineLineStyle(pScopeMemory,colors); */
-  scoAddCoupleOfPolylines(pScopeMemory,colors);
+  /* 	scoAddPolylineLineStyle(*pScopeMemory,colors); */
+  scoAddCoupleOfPolylines(*pScopeMemory,colors);
   scicos_free(number_of_curves_by_subwin);
   scicos_free(colors);
   scicos_free(period);
@@ -132,7 +131,7 @@ void cmscope(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	cmscope_draw(block,pScopeMemory,1);
+	cmscope_draw(block,&pScopeMemory,1);
 	break; //Break of the switch condition don t forget it
       } //End of Initialization
   
@@ -145,7 +144,7 @@ void cmscope(scicos_block * block, int flag)
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    cmscope_draw(block,pScopeMemory,0);
+	    cmscope_draw(block,&pScopeMemory,0);
 	  }
 
 	scoRefreshDataBoundsX(pScopeMemory,t);

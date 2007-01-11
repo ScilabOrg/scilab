@@ -376,7 +376,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
     }
 }
 
-scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size,int color)
+scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size, int color)
 {
   scoGraphicalObject pPolyline;
   double * vx, * vy, *vz;
@@ -963,8 +963,6 @@ scoGraphicalObject scoCreateGrayplot(scoGraphicalObject pAxes, int size_x, int s
   scoGraphicalObject pGrayplot;
   double * pvecx, * pvecy, * pvecz;
   int i;
-/*   size_x++; */
-/*   size_y++; */
 
   pvecx = (double*)scicos_malloc(size_x*sizeof(double));
   for(i = 0; i < size_x ; i++)

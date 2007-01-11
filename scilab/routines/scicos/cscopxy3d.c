@@ -4,7 +4,10 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-void cscopxy3d_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
+*/
+void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
   int * ipar; //Integer Parameters
   int color_flag; //Flag on Color
@@ -51,21 +54,21 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstd
 
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-      scoSetShortDrawSize(pScopeMemory,0,buffer_size);
-      scoSetLongDrawSize(pScopeMemory,0,5000);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
+      scoSetLongDrawSize(*pScopeMemory,0,5000);
     }
 
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
+  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
 	
-  scoAddTitlesScope(pScopeMemory,"x","y","z");
-  pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->alpha = alpha;
-  pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,0))->theta = theta;
+  scoAddTitlesScope(*pScopeMemory,"x","y","z");
+  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
+  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;
 	
-  for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+  for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory,0) ; i++)
     {
-      scoAddPolylineForShortDraw(pScopeMemory,0,i,color[0]);
-      scoAddPolylineForLongDraw(pScopeMemory,0,i,color[0]);
+      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
+      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[0]);
     }
 }
 /** \fn void cscopxy3d(scicos_block * block, int flag)
@@ -88,7 +91,7 @@ void cscopxy3d(scicos_block * block, int flag)
     {
     case Initialization:
       {
-	cscopxy3d_draw(block,pScopeMemory, 1);
+	cscopxy3d_draw(block,&pScopeMemory, 1);
 	break; //Break of the switch condition don t forget it
       } //End of Initialization
 
@@ -98,7 +101,7 @@ void cscopxy3d(scicos_block * block, int flag)
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
-	    cscopxy3d_draw(block,pScopeMemory,0);
+	    cscopxy3d_draw(block,&pScopeMemory,0);
 	  }
 
 	u1 = GetRealInPortPtrs(block,1);

@@ -4,20 +4,20 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void cfscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
 
   double *rpar;
   int *ipar, nipar;   
 
   double period;
-  int i,j;
+  int i;
   int dimension;
   double ymin, ymax, xmin, xmax;
-  int buffer_size , NbrPtsShort;
+  int buffer_size;
   int win_pos[2];
   int win_dim[2];
   int win;
@@ -58,30 +58,28 @@ void cfscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdra
   /*Allocating memory*/
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
       /*Must be placed before adding polyline or other elements*/
-      scoSetLongDrawSize(pScopeMemory, 0, 5000);
-      scoSetShortDrawSize(pScopeMemory,0,buffer_size);
-      scoSetPeriod(pScopeMemory,0,period);
+      scoSetLongDrawSize(*pScopeMemory, 0, 5000);
+      scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
+      scoSetPeriod(*pScopeMemory,0,period);
     }
 
   /*Creating the Scope*/
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
 
   /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-  scoAddCoupleOfPolylines(pScopeMemory,colors);
+  scoAddCoupleOfPolylines(*pScopeMemory,colors);
   free(colors);
 }
 
+extern int C2F(getouttb)();
 /** \fn void cfscope(scicos_block * block,int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An integer which indicates the state of the block (init, update, ending)
 */
-
-extern int C2F(getouttb)();
-
 void cfscope(scicos_block * block,int flag)
 {
   ScopeMemory * pScopeMemory;
@@ -99,7 +97,7 @@ void cfscope(scicos_block * block,int flag)
     case Initialization:
       {
 	/*Retrieving Parameters*/
-	cfscope_draw(block,pScopeMemory,1);
+	cfscope_draw(block,&pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -112,7 +110,7 @@ void cfscope(scicos_block * block,int flag)
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    cfscope_draw(block,pScopeMemory,0);
+	    cfscope_draw(block,&pScopeMemory,0);
 	  }
 	/*Maybe we are in the end of axes so we have to draw new ones */
 	scoRefreshDataBoundsX(pScopeMemory,t);

@@ -4,10 +4,10 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
   scoGraphicalObject pAxes;
   scoGraphicalObject pTemp;
@@ -61,12 +61,12 @@ void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdr
   if(firstdraw == 1)
     {
   /*Allocating memory*/
-  scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+  scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
   /*Creating the Scope*/
-  scoInitOfWindow(pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  pTemp = scoGetPointerScopeWindow(pScopeMemory);
-  pAxes = scoGetPointerAxes(pScopeMemory,0);
+  scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  pTemp = scoGetPointerScopeWindow(*pScopeMemory);
+  pAxes = scoGetPointerAxes(*pScopeMemory,0);
 
   pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
 
@@ -80,10 +80,10 @@ void bouncexy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdr
 
   for(j = 0 ; j < number_of_curves_by_subwin ; j++)
     {
-      scoAddSphereForShortDraw(pScopeMemory, 0, j, size_balls[j], colors[j]);
+      scoAddSphereForShortDraw(*pScopeMemory, 0, j, size_balls[j], colors[j]);
     }
-  scoAddRectangleForLongDraw(pScopeMemory,0,0,xmin,(ymax-abs(ymin)),abs(xmax-xmin),abs(ymax-ymin));
-  sciDrawObj(scoGetPointerLongDraw(pScopeMemory,0,0));
+  scoAddRectangleForLongDraw(*pScopeMemory,0,0,xmin,(ymax-fabs(ymin)),fabs(xmax-xmin),fabs(ymax-ymin));
+  sciDrawObj(scoGetPointerLongDraw(*pScopeMemory,0,0));
   scicos_free(colors);
   scicos_free(size_balls);
 
@@ -108,7 +108,7 @@ void bouncexy(scicos_block * block,int flag)
     {
     case Initialization:
       {
-	bouncexy_draw(block,pScopeMemory,1);
+	bouncexy_draw(block,&pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -119,7 +119,7 @@ void bouncexy(scicos_block * block,int flag)
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    bouncexy_draw(block,pScopeMemory,0);
+	    bouncexy_draw(block,&pScopeMemory,0);
 	  }
 
 	//Cannot be factorized depends of the scope

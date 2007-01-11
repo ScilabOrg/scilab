@@ -4,22 +4,18 @@
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
 
-/** \fn cscopxy_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+/** \fn cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
-void cscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw)
+void cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
   int i;
   double *rpar;
   int *ipar, nipar;
-  int current_period_counter;   
-
   double period;
-
   int dimension;
-
   double ymin, ymax, xmin, xmax;
-  int buffer_size , NbrPtsShort;
+  int buffer_size;
   int win_pos[2];
   int win_dim[2];
   int win;
@@ -56,19 +52,19 @@ void cscope_draw(scicos_block * block, ScopeMemory * pScopeMemory, int firstdraw
   /*Allocating memory*/
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,&pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
+      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
       /*Must be placed before adding polyline or other elements*/
-      scoSetLongDrawSize(pScopeMemory, 0, 50);
-      scoSetShortDrawSize(pScopeMemory,0,buffer_size);
-      scoSetPeriod(pScopeMemory,0,period);
+      scoSetLongDrawSize(*pScopeMemory, 0, 50);
+      scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
+      scoSetPeriod(*pScopeMemory,0,period);
     }
   /*Creating the Scope*/
-  scoInitOfWindow(pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(pScopeMemory,"t","y",NULL);
+  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
 
   /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-  scoAddCoupleOfPolylines(pScopeMemory,colors);
-  /* scoAddPolylineLineStyle(pScopeMemory,colors); */
+  scoAddCoupleOfPolylines(*pScopeMemory,colors);
+  /* scoAddPolylineLineStyle(*pScopeMemory,colors); */
   scicos_free(colors);
 }
 
@@ -89,7 +85,7 @@ void cscope(scicos_block * block,int flag)
     {
     case Initialization:
       {
-	cscope_draw(block,pScopeMemory,1);
+	cscope_draw(block,&pScopeMemory,1);
 	break;
       }
     case StateUpdate:
@@ -100,7 +96,7 @@ void cscope(scicos_block * block,int flag)
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
-	    cscope_draw(block,pScopeMemory,0);
+	    cscope_draw(block,&pScopeMemory,0);
 	  }
 	/*Maybe we are in the end of axes so we have to draw new ones */
 	scoRefreshDataBoundsX(pScopeMemory,t);
