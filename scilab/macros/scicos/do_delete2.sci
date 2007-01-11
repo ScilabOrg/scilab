@@ -3,12 +3,14 @@ function [scs_m,DEL] = do_delete2(scs_m,K,gr)
 //K and all connected links. splits which are not given in K are not deleted
 //!
 // Copyright INRIA
-
-//** N.B. [reg,DEL] = do_delete2(scs_m,del,%f) from 'get_region2'
-//** first pass  : gr = FALSE
-//** second pass : gr = TRUE 
-//** gr = TRUE generate some unuseful drawobj() ... the situation is restored by
-//** the final "Replot" operation 
+//
+//** 11 Jan 2007 : 'Block' / 'Text' bug validation
+//** BEWARE: functions 'do_region2block' and 'do_select2block' call this function 
+//** that contains some completely un useful drawobj() operations inside 
+//** For the moment the drawobj() are not executed because this function ia called
+//** with the options %f that disable the graphics update.
+//** In all the cases the the situation is restored by the final "Replot" operation.
+//
 
 
 DEL=[] //table of deleted objects
