@@ -135,6 +135,10 @@ if typeof(o)=='Block' then
 				      or(eq.outputs<>eqn.outputs) then  
 	  needcompile=4
 	end
+	if or(o.graphics.exprs<>o_n.graphics.exprs) then  // if equation in generic Modelica Mblock change
+	  needcompile=4
+	  modified=%t;
+	end
       end
       o=o_n
     end

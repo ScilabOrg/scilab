@@ -39,6 +39,11 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
     if is_modelica_block(o) then
       km=km+1;blklstm(km)=o.model;
       ind(kb)=-km;
+      [modelx,okx]=build_block(o); // compile modelica block type 30004
+      if ~okx then 
+	cmat=[],ccmat=[],cor=[],corinv=[]
+	return
+      end
     else
       [model,ok]=build_block(o);
       if ~ok then 
