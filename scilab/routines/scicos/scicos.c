@@ -193,6 +193,7 @@ integer n_pointer_xproperty;
 static integer *block_error;
   /* Jacobian*/
 static integer Jacobian_Flag;
+static integer AJacobian_block;
 static double  CJJ;
 static double SQuround;
   /* Jacobian*/
@@ -703,6 +704,8 @@ int C2F(scicos)(
 
   /* Jacobian*/
   Jacobian_Flag=0;
+  AJacobian_block=0;
+
   /* Jacobian*/
 
   /* Function Body */
@@ -720,6 +723,7 @@ int C2F(scicos)(
         *ierr = 5 - flag__;
         kfune = C2F(curblk).kfun;
       }
+      if ((Jacobian_Flag==1)&&(AJacobian_block==0)) AJacobian_block=C2F(curblk).kfun;
     }
   }
   if (*ierr != 0) {
@@ -1388,9 +1392,9 @@ int C2F(scicos)(
   Jactaille=0;   
   if(Jacobian_Flag==1){
     Jn=*neq;
-    Jnx=Blocks[nblk-1].nx;
-    Jno=Blocks[nblk-1].nout;
-    Jni=Blocks[nblk-1].nin;
+    Jnx=Blocks[AJacobian_block-1].nx;
+    Jno=Blocks[AJacobian_block-1].nout;
+    Jni=Blocks[AJacobian_block-1].nin;
     Jactaille= 2+3*Jn+(Jn+Jni)*(Jn+Jno)+Jnx*(Jni+2*Jn+Jno)+(Jn-Jnx)*(2*(Jn-Jnx)+Jno+Jni)+2*Jni*Jno;}
   /*----------------------------Jacobian----------------------------------*/
   maxord = 5;
@@ -3412,7 +3416,7 @@ void Jdoit(residual, xt, xtd, told, job)
     if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
       flag__ = 1;
 
-      if ((*job==2)&&(oord[jj]==nblk)) {/* applying desired output */
+      if ((*job==2)&&(oord[jj]==AJacobian_block)) {/* applying desired output */
       }else
 	callf(told, xtd, xt, residual,x,&flag__);      
       if (flag__ < 0) {
@@ -3459,7 +3463,7 @@ void Jdoit(residual, xt, xtd, told, job)
 	*Blocks[C2F(curblk).kfun-1].work !=NULL) {
       /* work tests if a hidden state exists, used for delay block */
       flag__ = 0;
-      if (((*job==1)&&(oord[ii]==nblk))||(*job!=1)){
+      if (((*job==1)&&(oord[ii]==AJacobian_block))||(*job!=1)){
 	if (*job==1)  flag__ = 10;
 	nclock = oord[ii + noord];
 	callf(told, xtd, xt, residual,xt,&flag__);
@@ -3480,7 +3484,7 @@ void Jdoit(residual, xt, xtd, told, job)
 	/* work tests if a hidden state exists */
 
 	flag__ = 0;
-	if (((*job==1)&&(oord[ii]==nblk))||(*job!=1)){
+	if (((*job==1)&&(oord[ii]==AJacobian_block))||(*job!=1)){
 	  if (*job==1)  flag__ = 10;
 	  nclock = abs(ordclk[ii + nordclk]);
 	  callf(told, xtd, xt, residual,xt,&flag__);
@@ -3506,16 +3510,16 @@ int C2F(Jacobian)(t,xc, xcdot,residual,cj,rpar1,ipar1)
   double del,delinv,xsave,xdsave,ysave;
   double a,b;
   int job;
-  double **y = (double **)Blocks[nblk-1].outptr; /*for compatibility */
-  double **u = (double **)Blocks[nblk-1].inptr; /*please change pointer of y and u to void ***/
+  double **y = (double **)Blocks[AJacobian_block-1].outptr; /*for compatibility */
+  double **u = (double **)Blocks[AJacobian_block-1].inptr; /*warning pointer of y and u have changed to void ***/
   /*  taill1= 2+3*n+(n+ni)*(n+no)+nx(2*nx+ni+2*m+no)+m*(2*m+no+ni)+2*ni*no*/
   *ierr= 0;
   CJJ=*cj;
   n=*neq; 
   nb=nblk;
-  nx=Blocks[nblk-1].nx;m=n-nx;
-  no=Blocks[nblk-1].nout;
-  ni=Blocks[nblk-1].nin;
+  nx=Blocks[AJacobian_block-1].nx;m=n-nx;
+  no=Blocks[AJacobian_block-1].nout;
+  ni=Blocks[AJacobian_block-1].nin;
   H=residual+ n * n;
   SQUR=H+1;
   Ewt=SQUR+1;
