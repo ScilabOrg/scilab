@@ -1,22 +1,28 @@
-function window_set_size(gh_window)
+function window_set_size(gh_window, viewport)
 //** 24 May 2006
 //** Modified by Simone Mannori 09 Jan 2006
 //*  10 Jul 2006
 //** Set the size of the internal "virtual window workspace" of the physical graphic window
 //** Alan,21/12/06 : axes take all the virtual window workspace
 
-  rhs = argn(2) ; //** get the number of right side arguments
+  // rhs = argn(2) ; //** get the number of right side arguments
 
-  if rhs==0 then //** without arguments (default) assume ...
+  // if rhs==0 then //** without arguments (default) assume ...
      //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
-     gh_curwin = gh_current_window ; //** get the handle of the current graphics window
+     // gh_curwin = gh_current_window ; //** get the handle of the current graphics window
 
-  else //** the arguments is explicit 
+  // else //** the arguments is explicit 
      //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
-     gh_curwin = gh_window ; //** get the handle of the current graphics window
+     //gh_curwin = gh_window ; //** get the handle of the current graphics window
 
-  end
+  // end
 
+  if exists("gh_window","local")==0 then 
+      gh_curwin = gh_current_window; //** using the semiglobal variable
+  else
+      gh_curwin = gh_window ; //** using the passing argument
+  end 
+  
   r = gh_curwin.figure_size ; //** acquire the current figure phisical size
                               //** figure_size: This property controls the size in pixel
                               //**  of the screen's graphics window.
@@ -76,17 +82,27 @@ function window_set_size(gh_window)
                                 //** xleft,yup : upper left corner
                                 //** width height : ratio
 
-  %XSHIFT = max( (width - r(1) ) / 2, 0) ;
-  %YSHIFT = max( (height- r(2) ) / 2, 0) ;
+  if exists("viewport", "local")==0 then 
+    //** If no variable is passed 
+    %XSHIFT = max( (width - r(1) ) / 2, 0) ;
+    %YSHIFT = max( (height- r(2) ) / 2, 0) ;
+    //** This correction is really needed BUT uses old graphics primitives :(
+    if ~MSDOS then %YSHIFT = %YSHIFT+30 ; end //** correction for the UNIX system
+    
+    //** Beware ! : I'm forced to use old graphics instructions because there are not
+    //**            direct equivalent inside the new graphics (24 may 2006)
+    //**         
+    viewport = [%XSHIFT, %YSHIFT]; 
+    set_viewport(viewport) ; //**
 
-  //** This correction is really needed BUT uses old graphics primitives :(
-  if ~MSDOS then %YSHIFT = %YSHIFT+30 ; end //** correction for the UNIX system
-
-  //** Beware ! : I'm forced to use a couple of old graphics instructions because there are not
-  //**            direct equivalent inside the new graphics (24 may 2006)
-
-  xset('viewport', %XSHIFT, %YSHIFT) ; //** xset("viewport",x,y): Set the position of the panner.
-
+  else
+    //** If the variable is passed  
+    %XSHIFT = viewport(1) ;
+    %YSHIFT = viewport(2) ;
+    //** The function is NOT called beause the arguments are not modified ;)
+  
+  end 
+  
   xselect(); //** put the current window in foreground
 
 endfunction

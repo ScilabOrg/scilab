@@ -12,8 +12,11 @@ function Undo_()
 
          //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
          gh_curwin = gh_current_window ; //** get the handle of the current graphics window
-         clf( gh_curwin ) ;  //** clear the current graphic window  
-         window_set_size() ; //** OK
+	 scf(gh_curwin);
+	 //** Get the current postion of the visible part of graphics in the panner. 
+	 viewport  = xget("viewport"); //** [x,y] = xget("viewport")
+         clf(gh_curwin) ;  //** clear the current graphic window  
+         window_set_size(gh_curwin, viewport) ; //** OK
          set_background()  ; //** OK
          drawlater() ;
            //    disp("Start Timer ...."); timer(); 
