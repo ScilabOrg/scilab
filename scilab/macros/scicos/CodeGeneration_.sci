@@ -1,4 +1,10 @@
 function  CodeGeneration_()
+
+x_message (["This function is not yet supported"; "in the New Graphics Scicos "; "... have a good day :)"]);
+Cmenu=[];
+return
+
+//**----------- Old Working code ----------------------------------
 Cmenu='Open/Set'
 xinfo('Click on a Superblock (without activation output)'+..
 	' to obtain a coded block ! ')
@@ -3095,7 +3101,7 @@ endfunction
 function Code=make_standalone()
 //generates code of the standalone simulation procedure
 //Copyright INRIA
-//Les fonction zdoit, cdoit, doit sont pas utilisée pour le moment
+//Les fonction zdoit, cdoit, doit sont pas utilisï¿½ pour le moment
 x=cpr.state.x;
 nX=size(x,'*');
 txt1=mgetl(SCI+'/routines/machine.h');

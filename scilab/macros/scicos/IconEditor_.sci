@@ -1,5 +1,12 @@
 function IconEditor_()
 //** INRIA
+
+x_message (["This function is not yet supported"; "in the New Graphics Scicos Editor"; "... have a good day :)"]);
+Cmenu=[];
+return
+    
+    
+//**------------ Old working code --------------------------------------------    
     scs_m_save = scs_m    ;
     nc_save = needcompile ;
     enable_undo = %t      ;
