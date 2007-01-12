@@ -1,15 +1,18 @@
 function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 //edition of a link from an output block to an input  block
 // Copyright INRIA
+
+//** BEWARE: "d9" state is not yet tested after Replot removal
+
   outin=['out','in']
   //----------- get link origin --------------------------------------
   //------------------------------------------------------------------
-  win=%win;
-  xc1=%pt(1);yc1=%pt(2);
-  [kfrom,wh]=getblocklink(scs_m,[xc1;yc1])
+  win = %win;
+  xc1 = %pt(1); yc1 = %pt(2);
+  [kfrom,wh] = getblocklink(scs_m,[xc1;yc1])
 
   if kfrom<>[] then 
-    o1=scs_m.objs(kfrom),
+    o1 = scs_m.objs(kfrom)
   else
     return
   end
@@ -81,9 +84,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
     [xout,yout,typout]=getoutputports(o1)
     if xout==[] then
       disablemenus()
-      hilite_obj(kfrom)
-      message('This block has no output port'),
-      unhilite_obj(kfrom)
+        hilite_obj(kfrom)
+        message('This block has no output port')
+        unhilite_obj(kfrom)
       enablemenus()
       return
     end
@@ -97,9 +100,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       port_number=k
       if op(port_number)<>0 then
         disablemenus()
-        hilite_obj(kfrom)
-        message('Selected port is already connected.')
-        unhilite_obj(kfrom)
+          hilite_obj(kfrom)
+          message('Selected port is already connected.')
+          unhilite_obj(kfrom)
         enablemenus()
         return
       end
@@ -108,9 +111,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       port_number=k
       if op(port_number)<>0 then
         disablemenus()
-        hilite_obj(kfrom)
-        message('Selected port is already connected.'),
-        unhilite_obj(kfrom)
+          hilite_obj(kfrom)
+          message('Selected port is already connected.')
+          unhilite_obj(kfrom)
         enablemenus()
         return
       end
@@ -121,9 +124,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       port_number=k,//out port
       if impi(port_number)<>0 then
         disablemenus()
-        hilite_obj(kfrom)
-        message('Selected port is already connected.'),
-        unhilite_obj(kfrom)
+          hilite_obj(kfrom)
+          message('Selected port is already connected.')
+          unhilite_obj(kfrom)
         enablemenus()
         return
       end
@@ -132,9 +135,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       port_number=k-prod(size(find(typout==1)))
       if cop(port_number)<>0 then
         disablemenus()
-        hilite_obj(kfrom)
-        message('Selected port is already connected.'),
-        unhilite_obj(kfrom)
+          hilite_obj(kfrom)
+          message('Selected port is already connected.')
+          unhilite_obj(kfrom)
         enablemenus()
         return
       end
@@ -183,7 +186,9 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       //** otherwise ... get a new point
       rep = xgetmouse(0,[%t,%t])
 
-      if xget('window')<>curwin|rep(3)==-100 then
+      //** if xget('window')<>curwin | rep(3)==-100 then
+      gh_figure = gcf();
+      if gh_figure.figure_id<>curwin | rep(3)==-100 then
         //active window has been closed
         [%win,Cmenu]=resume(curwin,'Quit')
       end
@@ -203,7 +208,7 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
             disp("d1"); //** Debug
           end
           return; //** -----> Exit from the function
-      end
+      end //**  
 
       //plot new position of last link segment
       xe = rep(1); ye = rep(2) ;
@@ -212,7 +217,7 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       draw(gh_curwin.children);
       show_pixmap(); //** display the buffer
 
-    end //---------------- end of last segment while loop ------------------------------
+    end 
     //** ----------------- end of last segment while loop ------------------------------
 
     if %scicos_debug_gr then
@@ -287,18 +292,18 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
         port_number = k ;
         if ip(port_number)<>0 then
            disablemenus()
-           hilite_obj(kto)
-           message('Selected port is already connected.'),
-           p_size = size(gh_curwin.children.children)
-           d_size = p_size(1)-o_size(1);
-           if d_size > 0 then
-             gh_compound_delete = glue(gh_curwin.children.children(1:d_size) );
-             delete (gh_compound_delete); //** delete the object
-           end
-           if %scicos_debug_gr then
-             disp("d4");//** Debug
-           end
-           unhilite_obj(kto)
+             hilite_obj(kto)
+             message('Selected port is already connected.'),
+             p_size = size(gh_curwin.children.children)
+             d_size = p_size(1)-o_size(1);
+             if d_size > 0 then
+               gh_compound_delete = glue(gh_curwin.children.children(1:d_size) );
+               delete (gh_compound_delete); //** delete the object
+             end
+             if %scicos_debug_gr then
+               disp("d4");//** Debug
+             end
+             unhilite_obj(kto)
            enablemenus()
            return
         end
@@ -331,12 +336,12 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
 
         if need_warning then
           disablemenus()
-          hilite_obj(kto)
-          message(['Warning :';
-                   'Selected ports don''t have the same size';
-                   'The port at the origin of the link has size '+sci2exp(szout);
-                   'the port at the end has size '+sci2exp(szin)+'.'])
-          unhilite_obj(kto)
+            hilite_obj(kto)
+            message(['Warning :';
+                     'Selected ports don''t have the same size';
+                     'The port at the origin of the link has size '+sci2exp(szout);
+                     'the port at the end has size '+sci2exp(szin)+'.'])
+            unhilite_obj(kto)
           enablemenus()
         end
 
@@ -348,14 +353,14 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
                   'int8';'uint32';'uint16';'uint8']
 
           disablemenus()
-          hilite_obj(kto)
-          message(['Warning :';
-                   'Selected ports don''t have the same data type';
-                   'The port at the origin of the link has datatype '+...
-                    tt_typ(szouttyp)+' ('+sci2exp(szouttyp)+')';
-                   'the port at the end has datatype '+...
-                    tt_typ(szintyp)+' ('+sci2exp(szintyp)+')'+'.'])
-          unhilite_obj(kto)
+            hilite_obj(kto)
+            message(['Warning :';
+                     'Selected ports don''t have the same data type';
+                     'The port at the origin of the link has datatype '+...
+                      tt_typ(szouttyp)+' ('+sci2exp(szouttyp)+')';
+                     'the port at the end has datatype '+...
+                      tt_typ(szintyp)+' ('+sci2exp(szintyp)+')'+'.'])
+            unhilite_obj(kto)
           enablemenus()
         end
 
@@ -457,7 +462,7 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
         disp("|->>")
       end
 
-        //** ------------- VERY DANGEROUS CODE HERE ---------------------------------------------
+        //** ------------- VERY DANGEROUS CODE HERE ------------------------------------------
         //** There is the serious possibility of residual "xor-mode" code 
 
       drawlater ;
@@ -501,8 +506,10 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
     end
 
   end //loop on link segments
-
-  if xget('window')<>curwin|rep(3)==-100 then //active window has been closed
+  
+  gh_figure = gcf();
+  if gh_figure.figure_id<>curwin | rep(3)==-100 then
+      //active window has been closed
       [%win,Cmenu]=resume(curwin,'Quit')
   end
 
@@ -524,7 +531,8 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       if %scicos_debug_gr then
         disp("d9");//** Debug
       end
-      Replot_(); //** force a replot
+      //** ... to be removed  
+      //** Replot_(); //** force a replot (obsolete)
       return //** exit point
   end
 
