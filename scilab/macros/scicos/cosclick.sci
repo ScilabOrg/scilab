@@ -3,7 +3,7 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
 //** Comments by Simone Mannori 
 //** btn : button / event id (numeric code)
 //** %pt : mouse position[x,y] of the event
-//** win : Scilab/Scicos windows whre the event occour
+//** win : Scilab/Scicos windows where the event occour
 //** 
 //** 12 July 2006 : Revision
 //**
@@ -12,30 +12,32 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
   
   Cmenu=[]; %pt=[]; btn = 0 ; //** Clear variables
   
-  //** I don't understand this control 
-  if ~or( winsid()==curwin ) then //** if the current window (curwin is a semiglobal variable) is NOT  
-       //** win=xget('window') ;       //** a Scicos window, then exit with "Quit"
-       gh_win = gcf(); //** get the handler of the curent window 
-        disp("...cosclic.sci...|:");pause; //** debug only 
-       Cmenu='Quit'       ;
-       return             ; 
+  //** ----------> ASK if this control is really indispensable <------------------//
+  //** if the current Scicos windows is NOT present in the list of Scilab window  //
+  if ~or( winsid()==curwin ) then //**                                            //
+    gh_win = gcf();                     //** get the handler of the curent window //
+    disp("...cosclic.sci...|:"); pause; //** debug only                           //
+    Cmenu='Quit'; return ; //** EXIT Point                                        //
   end   
   
+  
+  //** ---------> This check will disappear ? -------------------------------- // 
   if rhs==1 then
-    [btn, xc, yc, win, str] = xclick(flag) //** not used
+    [btn, xc, yc, win, str] = xclick(flag) //** not used now (was used in the past) 
   else
     [btn, xc ,yc ,win ,str ] = xclick()    //** <- This is used in the main scicos_new() loop:
   end                                      //**    CLEAR ANY PREVIOUS EVENT in the queue
 
   %pt = [xc,yc] ; //** acquire the position  
   
-  //** -----------------------------------------------------------
-  if or( btn==[2 5] ) then    //   button 3 ("right" mouse button) "pressed" OR "clicked"
-    Cmenu='Popup';            //     means that it is a aux functions request
-    return       ;     	      //** --> EXIT 
-    
-    //**------------------------------------------------------------
-  elseif btn==-100 then  // The window has been closed 
+  //**--------------------------------------------------------------------------
+  //** cosclic() filter and command association 
+  
+  //** -------------------------------------------------------------------------------
+  
+  if btn==-100 then
+  //**------------------------------------------------------------
+  //** The window has been closed 
     
     if win==curwin then  //** in the current window ? 
       Cmenu='Quit' ;     
@@ -45,17 +47,49 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     end
     
     return  //** --> EXIT  
+
+  //**-----------------------------------------------------------
+  elseif (btn==3) then //** Left Mouse Button : Single click : no window check         
+    Cmenu='SelectLink'
     
-    //**-------------------------------------------------------------    
-  elseif btn == -2 then  // click in a dynamic menu
+  //** -----------------------------------------------------------
+  elseif (btn==0) then //** Left Mouse Button : Press button : no window check 
+    Cmenu='MoveLink'
+  
+  //**-------------------------------------------------------------    
+  elseif (btn==10) & (win==curwin) then //** Left Mouse Button : Double click in the current Scicos window
+    Cmenu='Open/Set'  //** Possible cases : 1 - Void (empty)
+                      //**                  2 - Block
+                      //**                  3 - Link
+                      //**                  4 - Super Block
+		      //**                  5 - Text   
+  //** ----------------------------------------------------------- 
+  elseif (btn==10) & (win<>curwin) then //** Left Mouse Button : Double click 
+    jj = find(windows(:,2)==win)        //** not in current Scicos windows (eg palette or navigator)
+    //** if jj is NOT empty means that you are in a Palette or in a Navigator  
+    if jj <> [] then
+      if or(windows(jj,1)==100000) then
+        Cmenu = 'Open/Set'  //double click in the navigator: mode open-set --> Navigator Window
+       else
+	Cmenu = 'Duplicate' //** Double Click In a Palette windows ---> jump to Duplicate  
+      end
+    else
+      Cmenu=[]; %pt=[]; //** otherwise, clear state variable
+    end
+  
+  //** ----------------------------------------------------------- 
+  elseif or( btn==[2 5 12] ) then  // any "right" mouse button events (click, press, d.click)
+    Cmenu='Popup';                 // means a popup request 
+    return       ; //** --> EXIT to 'Popup' execution 
+  //**-------------------------------------------------------------    
+  elseif btn == -2 then  // Dynamic Menu (top of window) mouse selection
     win = curwin ;
     //** the format of the 'str' callback string is :
-    //** "execstr(<Name_of_menu>_<win_id>(<menu_index>)) .... eg ... execstr(Diagram_1000(1))
-    //** <Name_of_menu> : is the label at the top of menu selection (static allways present on the window) eg Diagram
-    //** <win_id> :  is the window id number (eg 1000 for the main SCICOS window)
-    //** <menu_index> : is the numeric index of the menu selected (in case of multiple menu).
-    if strindex(str,'_'+string(curwin)+'(')<>[] then // str contains the information of the 
-                                                     // click in a Scicos dynamic menu
+    //** "execstr(<Name_of_menu>_<win_id>(<menu_index>)),  e.g. "execstr(Diagram_1000(1))"
+    //** <Name_of_menu> : is the label at the top of menu selection (static label present on the window) e.g. "File"
+    //** <win_id>       : is the window id Scilab number (eg 1000 for the main SCICOS window)
+    //** <menu_index>   : is the numeric index of the menu selected (in case of multiple menu).
+    if strindex(str,'_'+string(curwin)+'(')<>[] then // str contains the information of the Scicos dynamic menu selection
       %pt=[] ; //** empty variable: no information about mouse position inside a dynamic menu  
       //** Cmenu is empty ( [] )
       //**      execstr( <Diagram_1000(1)>  )
@@ -65,77 +99,47 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
       //**  At the end 'Cmenu' contains the string show in the dinamic selection menu (e.g. "Replot")   
       return ; //** ---> EXIT POINT  
     else // click in an other dynamic menu
-      execstr(str,'errcatch')
+      execstr(str,'errcatch'); //** error handling 
       return ; //** ---> EXIT POINT     
     end
     
   //**-------------------------------------------------------------    
-  //** left double click inside palette or navigator window
-  elseif (btn==10) & (win<>curwin) then //** left button double click in a palette or navigator windows
-    jj = find(windows(:,2)==win)
-    //** if jj is empty means that you are in a Palette or in a Navigator  
-    if jj <> [] then
-    
-      if or(windows(jj,1)==100000) then
-        Cmenu = 'Open/Set'  //mode open-set (cliquer dans navigator) --> Navigator Window
-       else
-	Cmenu = 'Duplicate'  //** Double Click In a Palette windows ---> jump to Duplicate  
-      end
-    
-    else
-      Cmenu=[];%pt=[]; //** otherwise, clear state variable
-    end
-    
-    //**-------------------------------------------------------------    
-  elseif (btn==10) & (win==curwin) then //** Left Mouse button double click in the current windows
-    Cmenu='Open/Set'                    //** 1 - empty
-                                        //** 2 - block
-                                        //** 3 - link
-                                        //** 4 - super block        
-					                  
-     //**-----------------------------------------------------------
-  elseif (btn==3) then     //** Left Mouse Button : Single click : no window check         
-    Cmenu='SelectLink'
-    
-    //** -----------------------------------------------------------
-  elseif  (btn==0) then  //** Left Mouse Button : Press button : no window check 
-    Cmenu='MoveLink'
-    
-    //** -----------------------------------------------------------
-  
-    //** Keys combo, mouse/key combo and sigle key shortcut
+   
+    //** Keys combos, mouse/key combos and sigle key shortcut
   elseif btn > 31 then //** [CTRL] + [.] combination  
 
-    if (btn==1120) | (btn==65288) then //** [CRTL]+[x] ... the other code ?
+    //** ------ Key combos ------------------------------------ 
+    if (btn==1120) | (btn==65288) then //** [CRTL]+[x] --> Cut
       Cmenu='Cut'; %pt=[];
     
-    elseif (btn==1099) then            //** [CTRL]+[c]
+    elseif (btn==1099) then            //** [CTRL]+[c] --> Copy
       Cmenu='Copy';%pt=[];
     
-    elseif (btn==1118) then            //** [CTRL]+[v]
+    elseif (btn==1118) then            //** [CTRL]+[v] --> Paste 
       Cmenu='Paste';%pt=[];
     
-    elseif (btn==255) then             //** code ?            
+    elseif (btn==255) then             //** Backspace  --> Delete (erase) object          
       Cmenu='Delete';%pt=[];
     
-    elseif (btn==1003) | (btn==2003) then  //** [CTRL] + [Left btn click] OR [Shift] + [Left btn click]
+    //** ----- Mouse + Keyb. combos ---------------------------  
+    elseif (btn==1003) | (btn==2003) then  //** [CTRL]+[Left btn click] OR [Shift]+[Left btn click]
       Cmenu="CtrlSelect";                  //** Multiple, additive object selection 
     
-    elseif (btn==1122) then            //**  [CTRL]+[z]
+    elseif (btn==1122) then            //**  [CTRL]+[z] --> Undo 
       Cmenu="Undo"
     
     else
+    //** ---- Shortcut ----------------------------------------
       Cmenu = %tableau( min (100,btn-31) ); //** (global) %tableau is the standard single key shorcut conversion
                                             //**          table; input (key_code-31) ; output: a string
                                             //** it uses "%scicos_short" preloaded variable 
-					    
-      if Cmenu==emptystr() then  //** if the strings is empty mean that there is no single key shorcut associated            
-         Cmenu=[]; %pt=[];       //**             
+      if Cmenu==emptystr() then  //** if the strings is empty means 
+         Cmenu=[]; %pt=[];       //** that no single key shorcut is associated            
       end
-       
-    end
+             
+    end //** end of keyboard combinations 
   
-  end
+  end //** end of cosclik() filter 
 
 //
 //  
