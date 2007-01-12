@@ -9,10 +9,10 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
 //** 21 Aou 2006 : move W , W/O link equalization  
 //** 23 Nov 2006 : introduce some mechanism to limit the "off window" object move
 
-// Acquire the current window and put to "on" the pixmap mode
+// Acquire the current window
   gh_curwin = gh_current_window ;
 // get block to move
-  rela = 0.1   ; //** ? "relative object position tollerance"
+  rela = 0.1   ; //** "relative object position tollerance"
   win  = %win ;  //** window id
 
   xc = %pt(1) ; //** recover mouse position at the last event
@@ -37,12 +37,13 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
 
   elseif typeof(scs_m.objs(k))=='Link' then
     //**------------------- Link ------------------------------
-    //** scs_m , k (scs_m object index), xc yc (mouse coodinate of the last valid event)
-    scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)  ;
+    //** scs_m , k (scs_m object index), xc yc (mouse coordinate of the last valid event)
+    scs_m = stupid_movecorner(scs_m, k, xc, yc, wh) ; //** see below in this file
 
   end
   //**------------------------------------------------------------------
 
+  //** un useful check here ! 
   if Cmenu=='Quit' then
     //active window has been closed
     [%win,Cmenu] = resume(%win,Cmenu)
@@ -399,8 +400,8 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   
   //** "k" is the object index in the data structure "scs_m"
   //** compute the equivalent "gh_k" for the graphics datastructure 
-  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
-  gh_k=get_gri(k,o_size(1))
+  //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :) //** Updated by Alan 
+  gh_k = get_gri(k,o_size(1))
   //** disp (gh_k);
   gh_blk = gh_curwin.children.children(gh_k);
   
@@ -411,8 +412,8 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   [xx, yy, ct] = (o.xx,o.yy,o.ct) ;
   //** ct(1) is the color ; never used because it is not modified :)
   
-  o_link = size (xx)     ;
-  link_size =  o_link(1) ; //** number of element of link (polyline) 
+  o_link = size (xx)    ;
+  link_size = o_link(1) ; //** number of element of link (polyline) 
 
   //** wh point to the subsegment (sublink interested by the move) 
   moving_seg = [-wh-1:-wh+1] ;
@@ -452,8 +453,8 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   //** store initial gh_blk.children.data
   //**  -Alan- YAUNTOUTPETITBUGICI
   //** gh_blk.children.data peut ne pas etre en accord avec scs_m
-  //** à cause de la fonction stupid_getobj qui dans le cas
-  //** des liens peut créer un nouveau point
+  //** a' cause de la fonction stupid_getobj qui dans le cas
+  //** des liens peut creer un nouveau point
   ini_data = gh_blk.children.data;
 
   //**-----------------------------------------------------------------
@@ -498,7 +499,7 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
     disp("...subsegment -> Link move --> rep(3):..."); disp(rep(3)) ;
   end
 
-  if and(rep(3)<>[2 5]) then
+  if and(rep(3)<>[2 5]) then //** if the link manipulation is OK 
     if abs(x1(1)-x1(2))<rela*abs(y1(1)-y1(2)) then
       x1(2)=x1(1)
     elseif abs(x1(2)-x1(3))<rela*abs(y1(2)-y1(3)) then
@@ -521,13 +522,25 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
       xx(moving_seg)=x1
       yy(moving_seg)=y1
     end
-    o.xx=xx;o.yy=yy
-    scs_m.objs(k)=o
-  else //** restore original position of link in figure
+    
+    //** update the graphics object with the last link geometrical correction 
     drawlater();
-    gh_blk.children.data = ini_data;
-    draw(gh_blk.parent);
+     gh_blk.children.data = [xx , yy];
+     draw(gh_blk.parent);
     show_pixmap();
+    
+    o.xx = xx; o.yy = yy ;
+    scs_m.objs(k)=o ; //** update the scs_m data structure
+
+  else //** restore original position of link in figure
+    
+    drawlater();
+     gh_blk.children.data = ini_data;
+     draw(gh_blk.parent);
+    show_pixmap();
+    
+    //** DO NOT update the scs_m datastructure ! ;)
+  
   end
 
 endfunction
