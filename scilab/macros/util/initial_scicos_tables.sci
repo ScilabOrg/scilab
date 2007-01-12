@@ -54,9 +54,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      'Copy',..
 	      'Paste',..
 	      'Duplicate',..
-	      'Duplicate Region',..
 	      'Delete',..
-	      'Delete Region',..
 	      'Move',..
 	      'Smart Move',..
 	      'Replace',..
