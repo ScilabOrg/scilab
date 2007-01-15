@@ -45,7 +45,7 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
 	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
 	cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o \
-	matmul_m.o mattran_m.o cmatview.o
+	matmul_m.o mattran_m.o cmatview.o cmat3d.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \

@@ -60,10 +60,10 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
     }
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-	
-  scoAddTitlesScope(*pScopeMemory,"x","y","z");
   pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;
+  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;	
+  scoAddTitlesScope(*pScopeMemory,"x","y","z");
+
 	
   for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory,0) ; i++)
     {

@@ -131,8 +131,11 @@ void scoFreeScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory)
 {
   int i;
   scicos_free((*pScopeMemory)->new_draw);
+  scicos_free((*pScopeMemory)->number_of_curves_by_subwin);
   scicos_free((*pScopeMemory)->period_counter);
+  scicos_free((*pScopeMemory)->period);
   scicos_free((*pScopeMemory)->longdraw_size);
+  scicos_free((*pScopeMemory)->shortdraw_size);
   for(i = 0; i < (*pScopeMemory)->number_of_subwin ; i++)
     {
       scicos_free((*pScopeMemory)->hShortDraw[i]);

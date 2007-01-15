@@ -43,7 +43,7 @@ function routines=create_palette(Path)
 	      'OUT_f.sci';      'WFILE_f.sci';
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
 	      'CSCOPXY3D.sci';   'CANIMXY3D';
-	      'CMATVIEW.sci']
+	      'CMATVIEW.sci';	'CMAT3D.sci']
 	
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';
@@ -86,7 +86,7 @@ function routines=create_palette(Path)
 	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
 	
       elseif txt=='OldBlocks' then
-	lisf=['ABSBLK_f.sci'; 'MSCOPE_f.sci';'SCOPE_f.sci';    
+	lisf=['ABSBLK_f.sci';    
 	      'MAX_f.sci'; 'MIN_f.sci';'SAT_f.sci'; 'MEMORY_f.sci';
 	      'CLKSOM_f.sci';'TRASH_f.sci';'GENERAL_f.sci';'DIFF_f.sci';
 	      'BIGSOM_f.sci';'INTEGRAL_f.sci';'GAINBLK_f.sci';

@@ -142,6 +142,7 @@ extern void cscopxy3d __PARAMS((ARGS_scicos));
 extern void matmul_m __PARAMS((ARGS_scicos));
 extern void mattran_m __PARAMS((ARGS_scicos));
 extern void cmatview __PARAMS((ARGS_scicos));
+extern void cmat3d __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -164,6 +165,7 @@ OpTab tabsim[] ={
 {"cdummy",(ScicosF) F2C(cdummy)},
 {"cevscpe",(ScicosF) cevscpe},
 {"cfscope",(ScicosF) cfscope},
+{"cmat3d",(ScicosF) cmat3d},
 {"cmatview",(ScicosF) cmatview},
 {"cmscope",(ScicosF) cmscope},
 {"constraint",(ScicosF) F2C(constraint)},
@@ -286,6 +288,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 140 ;
+int ntabsim= 141 ;
 #endif 
 /***********************************/

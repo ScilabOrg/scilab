@@ -380,17 +380,24 @@ scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyli
 {
   scoGraphicalObject pPolyline;
   double * vx, * vy, *vz;
+
   vx = (double*)scicos_malloc(polyline_size*sizeof(double));
   vy = (double*)scicos_malloc(polyline_size*sizeof(double));
+
   if (pSUBWIN_FEATURE(pAxes)->axes.axes_visible[2] == TRUE) //3D
     {
       vz = (double*)scicos_malloc(polyline_size*sizeof(double));
       pPolyline=ConstructPolyline(pAxes,vx,vy,vz,0,polyline_size,1,1, NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,TRUE,FALSE);
+      scicos_free(vz);
     }
   else //2D
     {
       pPolyline=ConstructPolyline(pAxes,vx,vy,NULL,0,polyline_size,1,1, NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,TRUE,FALSE);
     }
+
+  scicos_free(vx);
+  scicos_free(vy);
+
   pPOLYLINE_FEATURE(pPolyline)->n1 = 0;
   if (color >= 0)
     {
@@ -409,6 +416,9 @@ scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyli
       sciSetMarkStyle(pPolyline, -color);
     }
   sciSetIsClipping(pPolyline, 0);
+
+
+
   return pPolyline;
 }
 
@@ -572,6 +582,7 @@ void scoAddCoupleOfSegments(ScopeMemory * pScopeMemory, int * color)
 	  sciSetIsClipping(pShortDraw, 0);
 	  scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
 	}
+
       scicos_free(vx2);
       scicos_free(vy2);
     }
@@ -655,7 +666,7 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   title = (char**)scicos_malloc(scoGetNumberOfSubwin(pScopeMemory)*sizeof(char*));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
-      title[i] = (char*)malloc(500*sizeof(char));
+      title[i] = (char*)scicos_malloc(500*sizeof(char));
       sprintf(title[i],"Graphic %d",i+1);
     }
 
@@ -687,7 +698,10 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
 	  sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_z_label,z_title,500);
 	}
     }
-
+  for(i = 0; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
+    {
+      scicos_free(title[i]);
+    }
   scicos_free(title);
 
   /* Code for naming the window, for the moment I don't know if I put this in the standard constructor or not*/
@@ -977,6 +991,11 @@ scoGraphicalObject scoCreateGrayplot(scoGraphicalObject pAxes, int size_x, int s
     pvecz[i] = 0;
   
   pGrayplot = ConstructGrayplot(pAxes, pvecx, pvecy, pvecz, size_x, size_y, 0);
+
+  scicos_free(pvecx);
+  scicos_free(pvecy);
+  scicos_free(pvecz);
+
   return pGrayplot;
 }
 
@@ -984,5 +1003,69 @@ void scoAddGrayplotForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int si
 {
   scoGraphicalObject pShortDraw;
   pShortDraw = scoCreateGrayplot(scoGetPointerAxes(pScopeMemory,i),size_x,size_y);
+  scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
+}
+
+scoGraphicalObject scoCreatePlot3d(scoGraphicalObject pAxes, int size_x, int size_y)
+{
+  scoGraphicalObject pPlot3d;
+  double * pvecx, * pvecy, *pvecz;
+  int i;
+  int flag[3];
+  double ebox[6];
+  int isfac;
+  int m1,n1,m2,n2,m3,n3,m3n,n3n;
+  int colorflag ;
+
+  pvecx = (double*)scicos_malloc(size_x*sizeof(double));
+  for(i = 0; i < size_x ; i++)
+    pvecx[i] = i;
+
+  pvecy = (double*)scicos_malloc(size_y*sizeof(double));
+  for(i = 0; i < size_y ; i++)
+    pvecy[i] = i;
+
+  pvecz = (double*)scicos_malloc(size_x*size_y*sizeof(double));
+  for(i = 0; i < size_x*size_y ; i++)
+    pvecz[i] = 0;
+
+
+  flag[0] = 2;
+  flag[1] = 8;
+  flag[2] = 4;
+
+  ebox[0] = 0;
+  ebox[1] = 1;
+  ebox[2] = 0;
+  ebox[3] = 1;
+  ebox[4] = 0;
+  ebox[5] = 1;
+
+  isfac = 0;
+
+  colorflag = 1;
+
+  m1 = 1;
+  n1 = size_x;
+  m2 = 1;
+  n2 = size_y;
+  m3 =  size_x;
+  n3 = size_y;
+  m3n = 0;
+  n3n = 0;
+  
+  pPlot3d = ConstructSurface (pAxes, SCI_PLOT3D, pvecx, pvecy, pvecz, NULL, 0, size_x, size_y, flag, ebox, colorflag, &isfac, &m1, &n1, &m2, &n2, &m3, &n3, &m3n, &n3n);
+
+  scicos_free(pvecx);
+  scicos_free(pvecy);
+  scicos_free(pvecz);
+
+  return pPlot3d;
+}
+
+void scoAddPlot3dForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int size_x, int size_y)
+{
+  scoGraphicalObject pShortDraw;
+  pShortDraw = scoCreatePlot3d(scoGetPointerAxes(pScopeMemory,i),size_x,size_y);
   scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
 }

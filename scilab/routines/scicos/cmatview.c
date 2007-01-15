@@ -103,18 +103,22 @@ void cmatview(scicos_block * block, int flag)
 	alpha = rpar[0];
 	beta = rpar[1];
 	u1 = GetInPortPtrs(block,1);
+
 	dim_i = GetInPortRows(block,1);
 	dim_j = GetInPortCols(block,1);
 
-	for(i = 1 ; i <= dim_i ; i++)
+	for(i = 0 ; i < dim_i ; i++)
 	  {
-	    
-	    for(j = 1; j <= dim_j ; j++)
+	    for(j = 0; j < dim_j ; j++)
 	      {
-		pGRAYPLOT_FEATURE(pShortDraw)->pvecz[(i-1)*dim_j+(j-1)] = floor(alpha*u1[(i-1)*dim_j+(j-1)]+beta);
+		pGRAYPLOT_FEATURE(pShortDraw)->pvecz[i*dim_j+j] = floor(alpha*u1[j+i*dim_j]+beta);
 	      }
 	  }
 	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	  {
+	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	  }
 	sciDrawObj(scoGetPointerShortDraw(pScopeMemory,0,0));
 
 	break;

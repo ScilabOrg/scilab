@@ -100,6 +100,10 @@ scoGraphicalObject scoCreateGrayplot(scoGraphicalObject pAxes, int size_x, int s
 
 void scoAddGrayplotForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int size_x, int size_y);
 
+
+scoGraphicalObject scoCreatePlot3d(scoGraphicalObject pAxes, int size_x, int size_y);
+
+void scoAddPlot3dForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int size_x, int size_y);
 /* ----------------------DRAWING FONCTIONS --------------------------------*/
 
 /**
