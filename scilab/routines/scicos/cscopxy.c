@@ -25,6 +25,8 @@ void cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   int number_of_curves_by_subwin;
   int dimension = 2;
   int i;
+  scoGraphicalObject ShortDraw;
+  scoGraphicalObject LongDraw;
 
   ipar = GetIparPtrs(block);
   nipar = GetNipar(block);
@@ -55,14 +57,18 @@ void cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
     }
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
   for( i = 0 ; i < number_of_curves_by_subwin ; i++)
     {
       scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
       scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[0]);
-      //sciSetLineWidth(, size);
-      //sciSetMarkSize(pPolyline, size);
+      ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
+      LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
+      sciSetLineWidth(ShortDraw, line_size);
+      sciSetMarkSize(ShortDraw, line_size);
+      sciSetLineWidth(LongDraw, line_size);
+      sciSetMarkSize(LongDraw, line_size);
     }
+  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
 }
 
 /** \fn void cscopxy(scicos_block * block, int flag)
@@ -84,8 +90,6 @@ void cscopxy(scicos_block * block, int flag)
     {
     case Initialization:
       {
-
-
 	cscopxy_draw(block,&pScopeMemory,1);
 	break; //Break of the switch condition don t forget it
       } //End of Initialization

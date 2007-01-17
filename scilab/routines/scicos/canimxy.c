@@ -75,6 +75,8 @@ void canimxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 	  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
 	  Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
 	  pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+	  sciSetMarkSize(Pinceau, line_size);
+
 	}
     }
   /*else if 2 or more elements*/
@@ -112,6 +114,10 @@ void canimxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 	      pPOLYLINE_FEATURE(Gomme)->n1 = 1;
 	      sciSetMarkForeground(Gomme, gomme_color); //here the rubber becomes colored like the background of the axes
 	      pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
+
+	      sciSetMarkSize(Pinceau, line_size);
+	      sciSetMarkSize(Gomme, line_size);
+	      sciSetMarkSize(Trait, line_size);
 	    }
 	}
       /*if line style*/
@@ -135,6 +141,10 @@ void canimxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 	      pPOLYLINE_FEATURE(Pinceau)->n1 = 2;
 	      pPOLYLINE_FEATURE(Gomme)->n1 = 2;
 	      pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
+
+	      sciSetLineWidth(Pinceau, line_size);
+	      sciSetLineWidth(Gomme, line_size);
+	      sciSetLineWidth(Trait, line_size);
 	    }
 	}
     }
