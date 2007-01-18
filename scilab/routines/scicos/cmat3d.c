@@ -171,7 +171,7 @@ void cmat3d(scicos_block * block, int flag)
 	  {
 	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 	  }
-	sciDrawObj(scoGetPointerAxes(pScopeMemory,0));
+	sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 
 	break; //dont forget the break
       }

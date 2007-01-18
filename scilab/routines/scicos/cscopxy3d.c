@@ -10,9 +10,9 @@
 void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
   int * ipar; //Integer Parameters
-  int color_flag; //Flag on Color
-  int color[2];
-  int line_size;
+  int color_number; //Flag on Color
+  int * color   ;
+  int * line_size;
   int animed;
   int win; //Windows ID : To give a name to the window
   int buffer_size; //Buffer Size
@@ -25,21 +25,28 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
   int number_of_curves_by_subwin;
   int dimension = 3;
   int i;
+  scoGraphicalObject ShortDraw;
+  scoGraphicalObject LongDraw;
 
   ipar = GetIparPtrs(block);
   nipar = GetNipar(block);
   rpar = GetRparPtrs(block);
   win = ipar[0];
-  color_flag = ipar[1];
+  color_number = ipar[1];
   buffer_size = ipar[2];
-  color[0] = ipar[3];
-  color[1] = ipar[3];
-  line_size = ipar[4];
-  animed = ipar[5];
-  win_pos[0] = ipar[6];
-  win_pos[1] = ipar[7];
-  win_dim[0] = ipar[8];
-  win_dim[1] = ipar[9];
+  color = (int*)scicos_malloc(color_number*sizeof(int));
+  line_size = (int*)scicos_malloc(color_number*sizeof(int));
+  for(i = 0 ; i < color_number ; i++)
+    {
+      color[i] = ipar[i+3];
+      line_size[i] = ipar[i+3+color_number];
+    }
+  int size = 2*color_number;
+  animed = ipar[size+3];
+  win_pos[0] = ipar[size+4];
+  win_pos[1] = ipar[size+5];
+  win_dim[0] = ipar[size+6];
+  win_dim[1] = ipar[size+7];
   xmin = rpar[0];
   xmax = rpar[1];
   ymin = rpar[2];
@@ -50,7 +57,7 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
   theta = rpar[7];
 
   number_of_subwin = 1;
-  number_of_curves_by_subwin = ipar[10]; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
+  number_of_curves_by_subwin = ipar[size+8]; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
 
   if(firstdraw == 1)
     {
@@ -67,9 +74,20 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
 	
   for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory,0) ; i++)
     {
-      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
-      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[0]);
+      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
+      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
+      
+      ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
+      LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
+
+      sciSetLineWidth(ShortDraw, line_size[i]);
+      sciSetMarkSize(ShortDraw, line_size[i]);
+      sciSetLineWidth(LongDraw, line_size[i]);
+      sciSetMarkSize(LongDraw, line_size[i]);
     }
+
+  scicos_free(color);
+  scicos_free(line_size);
 }
 /** \fn void cscopxy3d(scicos_block * block, int flag)
     \brief the computational function

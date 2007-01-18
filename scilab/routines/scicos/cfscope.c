@@ -49,7 +49,7 @@ void cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   nbr_of_curves = number_of_curves_by_subwin;
   number_of_subwin = 1;
 
-  colors=(int*)malloc(8*sizeof(int));
+  colors=(int*)scicos_malloc(8*sizeof(int));
   for( i = 3 ; i < 10 ; i++)
     {
       colors[i-3] = ipar[i];
@@ -71,7 +71,7 @@ void cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 
   /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
   scoAddCoupleOfPolylines(*pScopeMemory,colors);
-  free(colors);
+  scicos_free(colors);
 }
 
 extern int C2F(getouttb)();
@@ -119,8 +119,8 @@ void cfscope(scicos_block * block,int flag)
 	nbr_of_curves = scoGetNumberOfCurvesBySubwin(pScopeMemory,0);
 
 	ipar = GetIparPtrs(block);
-	sortie = (double*)malloc(nbr_of_curves*sizeof(double));
-	index_of_view =(int*)malloc(nbr_of_curves*sizeof(int));
+	sortie = (double*)scicos_malloc(nbr_of_curves*sizeof(double));
+	index_of_view =(int*)scicos_malloc(nbr_of_curves*sizeof(int));
 	for(i = 16 ; i < 16+nbr_of_curves ; i++)
 	  {
 	    index_of_view[i-16] = ipar[i];
@@ -142,8 +142,8 @@ void cfscope(scicos_block * block,int flag)
 	/*Main drawing function*/
 	scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
 
-	free(sortie);
-	free(index_of_view);
+	scicos_free(sortie);
+	scicos_free(index_of_view);
 
 	break;
       }

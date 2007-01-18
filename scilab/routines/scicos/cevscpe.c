@@ -35,7 +35,7 @@ void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   period = rpar[0];
   nipar = GetNipar(block);
   nbr_colors = nipar-6;
-  colors=(int*)malloc(nbr_colors*sizeof(int));
+  colors=(int*)scicos_malloc(nbr_colors*sizeof(int));
   for( i = 2 ; i < nbr_colors+2 ; i++)
     {
       colors[i-2] = ipar[i];
@@ -64,6 +64,7 @@ void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
   scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
   scoAddCoupleOfSegments(*pScopeMemory,colors);
+  scicos_free(colors);
 }
 
 /** \fn void cevscpe(scicos_block * block, int flag)
