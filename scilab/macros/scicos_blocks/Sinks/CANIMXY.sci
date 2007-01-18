@@ -52,11 +52,11 @@ case 'set' then
       mess=[mess;'Number of curves cannot be negative or null';' ']
       ok=%f
     end
-    if N<1&clrs<0 then
+    if N<1 then
       mess=[mess;'Buffer size must be at least 1';' ']
       ok=%f
     end
-    if N<2&clrs>0 then
+    if N==1 & clrs>0 then
       mess=[mess;'Buffer size must be at least 2';' ']
       ok=%f
     end

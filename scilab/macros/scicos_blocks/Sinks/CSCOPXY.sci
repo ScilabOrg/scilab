@@ -32,6 +32,7 @@ case 'set' then
 	 list('vec',1,'vec',1,'vec',1,'vec',1,'vec',-1,'vec',-1,'vec',1,'vec',1,..
 	 'vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end //user cancel modification
+    
     mess=[];
     if size(wpos,'*')<>0 &size(wpos,'*')<>2 then
       mess=[mess;'Window position must be [] or a 2 vector';' ']
@@ -49,11 +50,11 @@ case 'set' then
       mess=[mess;'Window number cannot be inferior than -1';' ']
       ok=%f
     end
-    if N<1&clrs>0 then
+    if N<1 then
       mess=[mess;'Buffer size must be at least 1';' ']
       ok=%f
     end
-    if N<2&clrs<0 then
+    if N==1 & clrs>0 then
       mess=[mess;'Buffer size must be at least 2';' ']
       ok=%f
     end
@@ -65,7 +66,9 @@ case 'set' then
       mess=[mess;'Xmax must be greater than Xmin';' ']
       ok=%f
     end
-    if ok then
+    if ~ok then
+      message(mess)
+    else
       in = nbr_curves*ones(2,1);
       in2 = ones(2,1);
       [model,graphics,ok]=set_io(model,graphics,list([in in2],ones(2,1)),list(),ones(1,1),[]);
