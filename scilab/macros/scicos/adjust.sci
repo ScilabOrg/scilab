@@ -24,6 +24,7 @@
 //28/12/06, Alan : type for source port and target port must
 //                 be the same.
 //
+//04/01/07, Fady :Can test the case of negatives equals target's dimensions.
 // Copyright INRIA
 //
 function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
@@ -48,27 +49,42 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                blkin=outoin(kk,1)  //
                portin=outoin(kk,2) //
 
-               //nin/nout are the size (two dimensions) of the
+               //nnin/nnout are the size (two dimensions) of the
                //target port and the source port of the observed link
-               nout(1,1)=bllst(blkout).out(portout)
-               nout(1,2)=bllst(blkout).out2(portout)
-               outtyp=bllst(blkout).outtyp(portout)
-               nin(1,1)=bllst(blkin).in(portin)
-               nin(1,2)=bllst(blkin).in2(portin)
+               //before adjust
+               nnout(1,1)=bllst(blkout).out(portout)
+               nnout(1,2)=bllst(blkout).out2(portout)
+               nnin(1,1)=bllst(blkin).in(portin)
+               nnin(1,2)=bllst(blkin).in2(portin)
+               //intyp/outtyp are the size (two dimensions) of the
+               //target port and the source port of the observed link
                intyp=bllst(blkin).intyp(portin)
+               outtyp=bllst(blkout).outtyp(portout)
 
                //check intyp outtyp
                if intyp<>outtyp then
-                 bad_connection(corinv(blkout),portout,..
-                                nout,outtyp,..
-                                corinv(blkin),portin,..
-                                nin,intyp,1)
-                 ok=%f;
-                 return
+                 if (intyp==1 & outtyp==2) then
+                   bllst(blkout).intyp(portout)=2;
+                 elseif (intyp==2 & outtyp==1) then
+                   bllst(blkout).outtyp(portout)=2;
+                 else
+                   bad_connection(corinv(blkout),portout,..
+                                  nnout,outtyp,..
+                                  corinv(blkin),portin,..
+                                  nnin,intyp,1)
+                   ok=%f;
+                   return
+                 end
                end
 
                //loop on the two dimensions of source/target port
                for ndim=1:2
+                  //nin/nout are the size (two dimensions) of the
+                  //target port and the source port of the observed link
+                  nout(1,1)=bllst(blkout).out(portout)
+                  nout(1,2)=bllst(blkout).out2(portout)
+                  nin(1,1)=bllst(blkin).in(portin)
+                  nin(1,2)=bllst(blkin).in2(portin)
 
                   //first case : dimension of source and
                   //             target ports are explicitly informed
@@ -78,8 +94,8 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                      //then call bad_connection, set flag ok to false and exit
                      if nin(1,ndim)<>nout(1,ndim) then
                         bad_connection(corinv(blkout),portout,..
-                                       nout,outtyp,..
-                                       corinv(blkin),portin,nin,intyp)
+                                       nnout,outtyp,..
+                                       corinv(blkin),portin,nnin,intyp)
                         ok=%f;return
                      end
 

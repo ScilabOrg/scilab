@@ -2295,7 +2295,6 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
   funs=list();
   funtyp=zeros(typ_z)
   labels=[]
-  
   [ok,bllst]=adjust_inout(bllst,connectmat)
 
   // placed here to make sure nzcross and nmode correctly updated
@@ -2308,7 +2307,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
   end
   for i=1:nbl
     ll=bllst(i)
-    
+
     if type(ll.sim)==15 then
       funs(i)=ll.sim(1)
       funtyp(i,1)=ll.sim(2)
@@ -2340,7 +2339,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
       xc0=[xc0;X0(1:$/2)]
       xptr(i+1)=xptr(i)+size(ll.state,'*')/2
     end
-    
+
     if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
       if ll.dstate==[] then xd0k=[]; else xd0k=var2vec(ll.dstate);end
     else
@@ -2354,7 +2353,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
 	      " e determined')
       ok=%f
     end
-    
+
     //  
     if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
       if ll.rpar==[] then rpark=[]; else rpark=var2vec(ll.rpar);end
@@ -2522,7 +2521,7 @@ function [ord,ok]=tree2(vec,outoin,outoinptr,dep_ut)
 	  //if (indport ~=[] &vec(ii)>-1) then
 	  if (dep_ut(ii) &vec(ii)>-1) then
 	    fini=%f;
-	    vec(ii)=j;   
+	    vec(ii)=j;
 	  end
 	end
      end
@@ -2560,11 +2559,21 @@ endfunction
 //                 bllst : modified list of blocks
 //
 //18/05/06, Alan  : improvement in order to take into
-//account two dimensional port size.
+//                  account two dimensional port size.
 //
 //28/12/06, Alan : type for source port and target port must
 //                 be the same.
 //
+//29/12/06, Fady : type for source and target can be different
+//                 in one condition that they are double and complex.
+//                 the result on the link will be complex.
+//
+//04/01/07, Fady : Can test the case of negatives equals target's dimensions.
+//
+//19/01/07, Alan : - Return correct informations for user in editor
+//                   with preceding test of Fady in the first pass
+//                 - Second pass reviewed : under_connection returns two dimensions now
+
 function [ok,bllst]=adjust_inout(bllst,connectmat)
 
   //Adjust in2/out2, inttyp/outtyp
@@ -2582,27 +2591,44 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
         ok=%t
         for jj=1:nlnk //loop on number of link
 
-           //nin/nout are the size (two dimensions) of the
+           //intyp/outtyp are the size (two dimensions) of the
            //target port and the source port of the observed link
-           nout(1,1)=bllst(connectmat(jj,1)).out(connectmat(jj,2))
-           nout(1,2)=bllst(connectmat(jj,1)).out2(connectmat(jj,2))
            outtyp = bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
-           nin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
-           nin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
            intyp = bllst(connectmat(jj,3)).intyp(connectmat(jj,4))
+           //nnin/nnout are the size (two dimensions) of the
+           //target port and the source port of the observed link
+           //before adjust
+           nnout(1,1)=bllst(connectmat(jj,1)).out(connectmat(jj,2))
+           nnout(1,2)=bllst(connectmat(jj,1)).out2(connectmat(jj,2))
+           nnin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
+           nnin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
-           //check intyp outtyp
+           //check intyp/outtyp
            if intyp<>outtyp then
-             bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
-                            nout,outtyp,..
-                            corinv(connectmat(jj,3)),connectmat(jj,4),..
-                            nin,intyp,1)
-             ok=%f;
-             return
+             if (intyp==1 & outtyp==2) then
+               bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
+             elseif (intyp==2 & outtyp==1) then
+               bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+             else
+               bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
+                              nnout,outtyp,..
+                              corinv(connectmat(jj,3)),connectmat(jj,4),..
+                              nnin,intyp,1)
+               ok=%f;
+               return
+             end
            end
 
            //loop on the two dimensions of source/target port 
            for ndim=1:2
+              //check test source/target sizes
+              //in case of negatif equal target dimensions
+              //nin/nout are the size (two dimensions) of the
+              //target port and the source port of the observed link
+              nout(1,1)=bllst(connectmat(jj,1)).out(connectmat(jj,2))
+              nout(1,2)=bllst(connectmat(jj,1)).out2(connectmat(jj,2))
+              nin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
+              nin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
               //first case : dimension of source and
               //             target ports are explicitly informed
@@ -2612,9 +2638,9 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
                  //then call bad_connection, set flag ok to false and exit
                  if nin(1,ndim)<>nout(1,ndim) then
                     bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
-                                   nout,outtyp,..
+                                   nnout,outtyp,..
                                    corinv(connectmat(jj,3)),connectmat(jj,4),..
-                                   nin,intyp)
+                                   nnin,intyp)
                     ok=%f;return
                  end
 
@@ -2912,6 +2938,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
               'I try to find the problem']);
 
      //%%%%% pass 2 %%%%%//
+     //Alan 19/01/07 : Warning  : Behavior have changed, To Be more Tested
      findflag=%f //set findflag to false
 
      for jj=1:nlnk //loop on number of block
@@ -2922,78 +2949,105 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
         nin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
         nin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
-        //loop on the two dimensions of source/target port 
-        for ndim=1:2
-           //only case : target and source ports are both
-           //            negatives or null
-           if nout(1,ndim)<=0&nin(1,ndim)<=0 then
-              findflag=%t;
-              //
-              ninnout=under_connection(corinv(connectmat(jj,1)),connectmat(jj,2),nout(1,ndim),..
+        //loop on the two dimensions of source/target port
+        //only case : target and source ports are both
+        //            negatives or null
+        if nout(1,1)<=0&nin(1,1)<=0 | nout(1,2)<=0&nin(1,2)<=0 then
+            findflag=%t;
+            //
+            ninnout=under_connection(corinv(connectmat(jj,1)),connectmat(jj,2),nout(1,ndim),..
                                        corinv(connectmat(jj,3)),connectmat(jj,4),nin(1,ndim))
-              //
-              if ninnout==[] then ok=%f;return;end
-              if ninnout<=0  then ok=%f;return;end
-              //
-              ww=find(bllst(connectmat(jj,1)).out==nout(1,ndim))
-              bllst(connectmat(jj,1)).out(ww)=ninnout
-              ww=find(bllst(connectmat(jj,1)).out2==nout(1,ndim))
-              bllst(connectmat(jj,1)).out2(ww)=ninnout
-              //
-              if bllst(connectmat(jj,1)).nzcross==nout(1,ndim) then
-                 bllst(connectmat(jj,1)).nzcross=ninnout
-              end
-              //
-              if bllst(connectmat(jj,1)).nmode==nout(1,ndim) then
-                 bllst(connectmat(jj,1)).nmode=ninnout
-              end
-              //
-              ww=find(bllst(connectmat(jj,1)).in(1,ndim)==nout)
-              bllst(connectmat(jj,1)).in(ww)=ninnout
-              ww=find(bllst(connectmat(jj,1)).in2(1,ndim)==nout)
-              bllst(connectmat(jj,1)).in2(ww)=ninnout
-              //
-              if ndim==1 then
-                 ww=find(bllst(connectmat(jj,1)).in==0)
-                 if (ww<>[]&mini(bllst(connectmat(jj,1)).out(:))>0) then 
-                    bllst(connectmat(jj,1)).in(ww)=sum(bllst(connectmat(jj,1)).out)
-                 end
-              elseif ndim==2 then
-                 ww=find(bllst(connectmat(jj,1)).in2==0)
-                 if (ww<>[]&mini(bllst(connectmat(jj,1)).out2(:))>0) then 
-                    bllst(connectmat(jj,1)).in2(ww)=sum(bllst(connectmat(jj,1)).out2)
-                 end
-              end
-              //
-              ww=find(bllst(connectmat(jj,3)).in==nin(1,ndim))
-              bllst(connectmat(jj,3)).in(ww)=ninnout
-              ww=find(bllst(connectmat(jj,3)).in2(1,ndim)==nin(1,ndim))
-              bllst(connectmat(jj,3)).in2(ww)=ninnout
-              //
-              if bllst(connectmat(jj,3)).nzcross==nin(1,ndim) then
-                 bllst(connectmat(jj,3)).nzcross=ninnout
-              end
-              if bllst(connectmat(jj,3)).nmode==nin(1,ndim) then
-                 bllst(connectmat(jj,3)).nmode=ninnout
-              end
-              //
-              ww=find(bllst(connectmat(jj,3)).out==nin(1,ndim))
-              bllst(connectmat(jj,3)).out(ww)=ninnout
-              ww=find(bllst(connectmat(jj,3)).out2==nin(1,ndim))
-              bllst(connectmat(jj,3)).out2(ww)=ninnout
-              //
-              if ndim==1 then
-                ww=find(bllst(connectmat(jj,3)).out==0)
-                if (ww<>[]&mini(bllst(connectmat(jj,3)).in(:))>0) then
-                   bllst(connectmat(jj,3)).out(ww)=sum(bllst(connectmat(jj,3)).in(:))
-                end
-              elseif ndim==2 then
-                ww=find(bllst(connectmat(jj,3)).out2==0)
-                if (ww<>[]&mini(bllst(connectmat(jj,3)).in2(:))>0) then
-                   bllst(connectmat(jj,3)).out2(ww)=sum(bllst(connectmat(jj,3)).in2(:))
-                end
-              end
-           end
+            //
+            if size(ninnout,2) <> 2 then ok=%f;return;end
+            if ninnout==[] then ok=%f;return;end
+            if ninnout(1,1)<=0 | ninnout(1,2)<=0 then ok=%f;return;end
+            //
+            ww=find(bllst(connectmat(jj,1)).out==nout(1,1))
+            bllst(connectmat(jj,1)).out(ww)=ninnout(1,1)
+            ww=find(bllst(connectmat(jj,1)).out2==nout(1,1))
+            bllst(connectmat(jj,1)).out2(ww)=ninnout(1,1)
+
+            ww=find(bllst(connectmat(jj,1)).out==nout(1,2))
+            bllst(connectmat(jj,1)).out(ww)=ninnout(1,2)
+            ww=find(bllst(connectmat(jj,1)).out2==nout(1,2))
+            bllst(connectmat(jj,1)).out2(ww)=ninnout(1,2)
+            //
+
+            if bllst(connectmat(jj,1)).nzcross==nout(1,1) then
+               bllst(connectmat(jj,1)).nzcross=ninnout(1,1)
+            end
+            if bllst(connectmat(jj,1)).nzcross==nout(1,2) then
+               bllst(connectmat(jj,1)).nzcross=ninnout(1,2)
+            end
+            //
+            if bllst(connectmat(jj,1)).nmode==nout(1,1) then
+               bllst(connectmat(jj,1)).nmode=ninnout(1,1)
+            end
+            if bllst(connectmat(jj,1)).nmode==nout(1,2) then
+               bllst(connectmat(jj,1)).nmode=ninnout(1,2)
+            end
+            //
+            ww=find(bllst(connectmat(jj,1)).in==nout(1,1))
+            bllst(connectmat(jj,1)).in(ww)=ninnout(1,1)
+            ww=find(bllst(connectmat(jj,1)).in2==nout(1,1))
+            bllst(connectmat(jj,1)).in2(ww)=ninnout(1,1)
+
+            ww=find(bllst(connectmat(jj,1)).in==nout(1,2))
+            bllst(connectmat(jj,1)).in(ww)=ninnout(1,2)
+            ww=find(bllst(connectmat(jj,1)).in2==nout(1,2))
+            bllst(connectmat(jj,1)).in2(ww)=ninnout(1,2)
+            //
+            ww=find(bllst(connectmat(jj,1)).in==0)
+            if (ww<>[]&mini(bllst(connectmat(jj,1)).out(:))>0) then 
+               bllst(connectmat(jj,1)).in(ww)=sum(bllst(connectmat(jj,1)).out)
+            end
+
+            ww=find(bllst(connectmat(jj,1)).in2==0)
+            if (ww<>[]&mini(bllst(connectmat(jj,1)).out2(:))>0) then 
+                 bllst(connectmat(jj,1)).in2(ww)=sum(bllst(connectmat(jj,1)).out2)
+            end
+            //
+            ww=find(bllst(connectmat(jj,3)).in==nin(1,1))
+            bllst(connectmat(jj,3)).in(ww)=ninnout(1,1)
+            ww=find(bllst(connectmat(jj,3)).in2==nin(1,1))
+            bllst(connectmat(jj,3)).in2(ww)=ninnout(1,1)
+
+            ww=find(bllst(connectmat(jj,3)).in==nin(1,2))
+            bllst(connectmat(jj,3)).in(ww)=ninnout(1,2)
+            ww=find(bllst(connectmat(jj,3)).in2==nin(1,2))
+            bllst(connectmat(jj,3)).in2(ww)=ninnout(1,2)
+            //
+            if bllst(connectmat(jj,3)).nzcross==nin(1,1) then
+               bllst(connectmat(jj,3)).nzcross=ninnout(1,1)
+            end
+            if bllst(connectmat(jj,3)).nzcross==nin(1,2) then
+               bllst(connectmat(jj,3)).nzcross=ninnout(1,2)
+            end
+            if bllst(connectmat(jj,3)).nmode==nin(1,1) then
+               bllst(connectmat(jj,3)).nmode=ninnout(1,1)
+            end
+            if bllst(connectmat(jj,3)).nmode==nin(1,2) then
+               bllst(connectmat(jj,3)).nmode=ninnout(1,2)
+            end
+            //
+            ww=find(bllst(connectmat(jj,3)).out==nin(1,1))
+            bllst(connectmat(jj,3)).out(ww)=ninnout(1,1)
+            ww=find(bllst(connectmat(jj,3)).out2==nin(1,1))
+            bllst(connectmat(jj,3)).out2(ww)=ninnout(1,1)
+
+            ww=find(bllst(connectmat(jj,3)).out==nin(1,2))
+            bllst(connectmat(jj,3)).out(ww)=ninnout(1,2)
+            ww=find(bllst(connectmat(jj,3)).out2==nin(1,2))
+            bllst(connectmat(jj,3)).out2(ww)=ninnout(1,2)
+            //
+            ww=find(bllst(connectmat(jj,3)).out==0)
+            if (ww<>[]&mini(bllst(connectmat(jj,3)).in(:))>0) then
+               bllst(connectmat(jj,3)).out(ww)=sum(bllst(connectmat(jj,3)).in(:))
+            end
+            ww=find(bllst(connectmat(jj,3)).out2==0)
+            if (ww<>[]&mini(bllst(connectmat(jj,3)).in2(:))>0) then
+               bllst(connectmat(jj,3)).out2(ww)=sum(bllst(connectmat(jj,3)).in2(:))
+            end
         end
      end
 
@@ -3005,10 +3059,9 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
         ok=%f;return;
      end
   end
-
 endfunction
 
-
+//19/01/07, Alan : under_connection show bad link and returns two dimensions now
 function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin)
 // alert for badly connected blocks
 // path_out : Path of the "from block" in scs_m
@@ -3055,7 +3108,7 @@ function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin)
     if or(path_in<>path_out) then hilite_obj(path_in),end
     ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
-		    'what is the size of this link'],'1'))
+		    'what is the size of this link'],'[1,1]'))
     for k=size(path,'*'):-1:1,
       //** select the mxwin+k window and get the handle
       gh_del = scf(mxwin+k);
@@ -3071,33 +3124,41 @@ function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin)
     unhilite_obj(numk(1))
   else
     if path==[] then
-      //hilite_obj(scs_m.objs(path_out))
-      hilite_obj(path_out)
-      //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
-      if or(path_in<>path_out) then hilite_obj(path_in),end
-
+      kk=path_out
+      if or(path_in<>path_out) then kk=[kk;path_in], end
+      if prt_in<>[] & prt_out<>[] then
+        if prt_in >0 & prt_out >0 then
+          if scs_m.objs(path_out).graphics.pout(prt_out) == ...
+              scs_m.objs(path_in).graphics.pin(prt_in) then 
+                kk=[kk;scs_m.objs(path_out).graphics.pout(prt_out)]
+          end
+        end
+      end
+      hilite_obj(kk)
       ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
-		    'what is the size of this link'],'1'))
-      //hilite_obj(scs_m.objs(path_out))
-      unhilite_obj(path_out)
-      //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
-      if or(path_in<>path_out) then unhilite_obj(path_in),end
+		    'what is the size of this link'],'[1,1]'))
+      unhilite_obj(kk)
     else
       mxwin=maxi(winsid())
+      kk=[];
       for k=1:size(path,'*')
 	//hilite_obj(scs_m.objs(path(k)))
-        hilite_obj(path(k))
+        //hilite_obj(path(k))
+        kk=[kk;path(k)]
 	scs_m=scs_m.objs(path(k)).model.rpar;
 	scs_show(scs_m,mxwin+k)
       end
       //hilite_obj(scs_m.objs(path_out))
-      hilite_obj(path_out)
+      //hilite_obj(path_out)
+      kk=[kk;path_out]
       //if or(path_in<>path_out) then hilite_obj(scs_m.objs(path_in)),end
-      if or(path_in<>path_out) then hilite_obj(path_in),end
+      //if or(path_in<>path_out) then hilite_obj(path_in),end
+      if or(path_in<>path_out) then kk=[kk;path_in], end
+      hilite_obj(kk)
       ninnout=evstr(dialog(['Hilited block(s) have connected ports ';
 		    'with  sizes that cannot be determined by the context';
-		    'what is the size of this link'],'1'))
+		    'what is the size of this link'],'[1,1]'))
       //for k=size(path,'*'):-1:1,xdel(mxwin+k),end //TOBEDONE
       for k=size(path,'*'):-1:1,
         //** select the mxwin+k window and get the handle
