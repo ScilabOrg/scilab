@@ -44,9 +44,11 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
      // French
   	delmenu(curwin,'&Editer')
   	delmenu(curwin,'&Outils')
+	delmenu(curwin,'&Inserer')
      // English
   	delmenu(curwin,'&Edit')
   	delmenu(curwin,'&Tools')
+	delmenu(curwin,'&Insert')
   end
 
   rect = dig_bound(scs_m);
