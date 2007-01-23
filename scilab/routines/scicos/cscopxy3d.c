@@ -25,6 +25,7 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
   int number_of_curves_by_subwin;
   int dimension = 3;
   int i;
+  int size=0;
   scoGraphicalObject ShortDraw;
   scoGraphicalObject LongDraw;
 
@@ -41,7 +42,7 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
       color[i] = ipar[i+3];
       line_size[i] = ipar[i+3+color_number];
     }
-  int size = 2*color_number;
+  size = 2*color_number;
   animed = ipar[size+3];
   win_pos[0] = ipar[size+4];
   win_pos[1] = ipar[size+5];

@@ -91,9 +91,9 @@ void cmat3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
     }
   else
     {
+	  double h_x,h_y;
       scoAddPlot3dForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
       pShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,0);
-      double h_x,h_y;
       h_x = fabs((xmax-xmin)/(GetInPortSize(block,1,1)-1));
       h_y = fabs((ymax-ymin)/(GetInPortSize(block,1,2)-1));
       
