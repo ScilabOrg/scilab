@@ -113,10 +113,11 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
   
   set_background(gh_curwin); 
   
-  drawobjs(palettes(kpal))
+  drawobjs(palettes(kpal),gh_curwin)
   
   xinfo('Palette: may be used to copy  blocks or regions'); 
   
+  drawnow();
   //**xset('window',lastwin)
   scf(lastwin) ;
   
