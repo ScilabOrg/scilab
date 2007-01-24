@@ -18,7 +18,7 @@ extern int C2F(cmatsptr)  __PARAMS((char *name__, integer *m, integer *n, intege
 
 extern int C2F(creadbmat)(char *namex, integer *m, integer *n, int *scimat, unsigned long name_len);
 extern int C2F(cwritebmat)(char *namex, integer *m, integer *n, int *mat, unsigned long name_len);
-
+extern int C2F(cmatbptr)(char *namex, integer *m,integer *n,integer *lp, unsigned long name_len);
 extern int getlengthchain(char *namex);
 
 extern int C2F(str2name)  __PARAMS((char *name__, integer *id, unsigned long name_len));

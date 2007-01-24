@@ -175,6 +175,10 @@ int SendScilabJobs(char **jobs,int numberjobs)
 					if (jobs[jobsloop])
 					{
 						char *currentline=NULL;
+						int AddSemiColon;
+
+						if (jobsloop == 0) AddSemiColon=0;
+						else  AddSemiColon=1;
 
 				DOTDOTLOOP:
 						currentline=LOCALJOBS[jobsloop];
@@ -188,12 +192,21 @@ int SendScilabJobs(char **jobs,int numberjobs)
 							RemoveCharsFromEOL(currentline,' ');
 							strcat(bufCommands,currentline);
 							jobsloop++;
+							AddSemiColon=0;
 							goto DOTDOTLOOP;
 						}
 						else
 						{
-							strcat(bufCommands,";");
-							strcat(currentline,";");
+							if (!AddSemiColon)
+							{
+								AddSemiColon=1;
+								strcat(currentline,";");
+							}
+							else
+							{
+								strcat(bufCommands,";");
+							}
+							
 							strcat(bufCommands,currentline);
 						}
 					}
