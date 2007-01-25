@@ -103,12 +103,10 @@ if ~super_block then
       'Smart Move',            'Click object to move, drag and click (left to fix, right to cancel)';
       'Move',                  'Click object to move, drag and click (left to fix, right to cancel)';
       'Duplicate',             'Click on the object to duplicate, drag, click (left to copy, right to cancel)';
-      'Duplicate Region',      'Duplicate Region: Click, drag region, click (left to fix, right to cancel)';
       'Replace',               'Click on new object , click on object to be replaced';
       'Align',                 'Click on an a port , click on a port of object to be moved';
       'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
       'Delete',                'Delete: Click on the object to delete';
-      'Delete Region',         'Delete Region: Click, drag region and click (left to delete, right to cancel)';
       'Flip',                  'Click on block to be flipped'      ;
       'Open/Set',              'Click to open block or make a link';
       'MoveLink',              ''                                  ;
@@ -420,7 +418,7 @@ end
 
 //** ----------------------------------------------------------------------------------------------
 
-//** ---------------- This piece of code is not very clear ????????????????????????????????????????
+//** ---------- This piece of code is relative to the "Contex" handling and evaluation ------------
 
 //set context (variable definition...)
 if type(scs_m.props.context) == 10 then
@@ -460,32 +458,30 @@ else
   scs_m.props.context=' '
 
 end
-//** -------------------- end of the very obscure code ---------------------------------------------
+//** ---------- End of "Contex" handling and evaluation (was: "the very obscure code") -------------
 //**
 //** -----------------------------------------------------------------------------------------------
 //** Begin of the command interpreter loop
 
 // state machine variables
 
-%pt = [];
+//** Initial conditions 
+Cmenu = []     ; //** valid command = empty
+%pt   = []     ; //** valid last mouse position = empty
+%win  = curwin ; //** curwin is dinamically modified if a superblock window is open 
 
-Cmenu = [];
-
-%win = curwin;
-
-//state machine variables windowish behavior
-
-//** 'Select' 'Select_back' are matrix; each line is [object_id win_id]; 'object_is" is the same INDEX of 'scs_m'
-//** and 'win_id" is the Scilab window id. Multiple selection is permitted.
-Select = []      ; //** 
-Select_back = [] ;
-
-%ppt = []; //** used to store last click position for "Paste" operation 
-
+//** 'Select' and 'Select_back' are matrix;
+//**  Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
+//**                                  and "win_id"    is the Scilab window id.
+//**  Multiple selection is permitted: each object is a line of the matrix. 
+Select = []      ; //** empty
+Select_back = [] ; //** empty
+%ppt = []; //** used to store last valid click position for "Paste" operation 
 Clipboard = []; //** used in Copy Cut and Paste function 
+//** --- End of initialization ----------------------------------------------------------- 
 
-drawobjs(scs_m) ; //** draw the full diagram
 
+drawobjs(scs_m) ; //** draw the full diagram 
 
 //** ------------------------ Command Interpreter / State Machine / Main Loop ----------------------------
 
@@ -499,16 +495,19 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
   end                                                               //
 //** ---------------------------------------------------------------
 
-  //** This code fragment filter out a previus selection on a window NOT present in the
+  //** This code fragment filter out all previusly selected object on a window NOT present in the
   //** actual Scilab active window list "winsid" (e.g. the window has been closed).   
   if Select<>[] then
-    if ~or(Select(1,2) == winsid()) then Select=[],end
+    if ~or(Select(1,2) == winsid()) then //** a single object selection outside the valid list
+         Select = [] ; //** imply a full Reset 
+    end
   end
 
+  //** Command classification and message retrivial 
   [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
-
   xinfo(mess); //** show the message associated to the command 
   
+  //** ----------------- State variable filtering -----------------------------------------
   //** clear the %pt information for backward compatibility
   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
   if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end
@@ -520,16 +519,19 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
   if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
        [%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
   end
-
+  //** ------------------------------------------------------------------------------------
+  
+  //** ---- Main decisional branch --------------------------------------------------------
   //** if no command is issued "Cmenu==[]" or
   //**    CmenuType==1 and no %pt information and no object selected 
   if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then
+      
       //** I'm not ready to exec a command: I need more information using cosclik()
       [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; //** <-- The input function <------
 
-      //** in the case of 'SelectLink'| Cmenu_n=='MoveLink' if previous Cmenu<>[] & CmenuType==1 operation
-      //** is not completed just recover and use %pt = %pt_n and forget Cmenu_n
-      //** otherwise update both Cmenu and %pt
+      //** in the case of 'SelectLink'|Cmenu_n=='MoveLink', if previous command is CmenuType ONE operation
+      //** is not completed, just recover and use %pt = %pt_n in order to complete the prev. command,
+      //** otherwise update both Cmenu and %pt because the user has choose to abort the old command.
       if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
 	if %pt_n<>[] then %pt = %pt_n; end
       else
@@ -548,6 +550,9 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
         Select_back = Select; //** save the selected object list 
 
         //** Command execution 
+	// exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
+	// disp(exeString)  ;
+	
 	//** Don't ever think to touch this line of code ;)
 	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
                                                           //** exec the desired action
@@ -558,8 +563,8 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 	  // Select_back: objects to unselect
 	  // Select     : object to select
 	  drawlater();
-	    selecthilite(Select_back, 'off') ; // unHilite previous objects
-	    selecthilite(Select, 'on') ;       // Hilithe the actual sected object
+	    selecthilite(Select_back, "off") ; // unHilite previous objects
+	    selecthilite(Select, "on") ;       // Hilite the actual sected object
  	  drawnow(); show_pixmap() ; //** refresh, on screen
 	end
 	
@@ -568,8 +573,9 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
          Cmenu=[]; %pt=[]
       end //** a valid/invalid command to exec
       
-   end //** not ready / ready to exec a command 
-
+   end //** not_ready / ready ... to exec a command 
+   //**---------------------------------------------------------------------------------------------------
+   
 end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
 
 do_exit() ; //** this function is executed in case of 'Quit' command
