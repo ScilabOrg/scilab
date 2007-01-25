@@ -1,3 +1,11 @@
+/**
+   \file scoSetProperty.h
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Header file of the scoSetProperty.c file
+*/
+
 #ifndef __SCO_SET_PROPERTY_H__
 #define __SCO_SET_PROPERTY_H__
 

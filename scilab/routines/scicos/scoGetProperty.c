@@ -1,3 +1,11 @@
+/**
+   \file scoGetProperty.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Source code of all accessors for ScopeMemory structure
+*/
+
 #include "scoGetProperty.h"
 
 scoLongInteger scoGetHandleScopeWindow(ScopeMemory * pScopeMemory)

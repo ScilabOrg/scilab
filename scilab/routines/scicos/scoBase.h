@@ -1,11 +1,20 @@
+/**
+   \file scoBase.h
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Base file of the SCO Library
+*/
+
+
 #ifndef __SCO_BASE_H__
 #define __SCO_BASE_H__
 
 /*----------------------------------INCLUDES-----------------------*/
 
-#include "scicos_block4.h"
 #include "../machine.h"
 
+/*Graphic Library*/
 #include "../graphics/SetProperty.h"
 #include "../graphics/GetProperty.h"
 #include "../graphics/InitObjects.h"
@@ -20,25 +29,6 @@
 #else
 #include "../os_specific/sci_mem_alloc.h"
 #endif
-
-
-
-/*---------------------------------DEFINES----------------------*/
-
-/**
-   \brief Initialization is flag 4
-*/
-#define Initialization 4
-
-/**
-   \brief StateUpdate is flag 2
-*/
-#define StateUpdate    2
-
-/**
-   \brief Ending is flag 5
-*/
-#define Ending         5
 
 /*--------------------------------TYPEDEF---------------------*/
 
@@ -129,5 +119,9 @@ typedef struct
   scoLineOfDouble   period;
 
 } ScopeMemory;
+
+/*External function of malloc/free - Don't forget to use these and not malloc or MALLOC*/
+extern void * scicos_malloc(size_t);
+extern void scicos_free(void *p);
 
 #endif

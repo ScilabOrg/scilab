@@ -1,3 +1,11 @@
+/**
+   \file scoMisc.h
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Header File of the scoMisc.c file 
+*/
+
 #ifndef __SCO_MISC_H__
 #define __SCO_MISC_H__
 

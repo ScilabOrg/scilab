@@ -1,3 +1,11 @@
+/**
+   \file scoMemoryScope.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Source Code of all functions interacting with the memory of the computer for the ScopeMemory structure
+*/
+
 #include "scoBase.h"
 #include "scoMisc.h"
 #include "scoMemoryScope.h"
@@ -5,15 +13,16 @@
 #include "scoSetProperty.h"
 #include "stdio.h"
 
-void scoInitScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory, int number_of_subwin, int * number_of_curves_by_subwin)
+/** This function use scicos_malloc on the whole structure and set up 0 for whole properties*/
+void scoInitScopeMemory(void ** block_work, ScopeMemory ** pScopeMemory, int number_of_subwin, int * number_of_curves_by_subwin)
 {
   int i,j;
-  *block->work = (ScopeMemory*)scicos_malloc(sizeof(ScopeMemory));
-  if(*block->work == NULL)
+  *block_work = (ScopeMemory*)scicos_malloc(sizeof(ScopeMemory));
+  if(*block_work == NULL)
     {
       scoScopeError(*pScopeMemory,1);
     }
-  *pScopeMemory = (ScopeMemory*) *block->work;
+  *pScopeMemory = (ScopeMemory*) *block_work;
 
   scoSetHandleScopeWindow((*pScopeMemory),0);
 
@@ -127,7 +136,7 @@ void scoInitScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory, int n
 }
 
 
-void scoFreeScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory)
+void scoFreeScopeMemory(void ** block_work, ScopeMemory ** pScopeMemory)
 {
   int i;
   scicos_free((*pScopeMemory)->new_draw);
@@ -144,16 +153,16 @@ void scoFreeScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory)
   scicos_free((*pScopeMemory)->hShortDraw);
   scicos_free((*pScopeMemory)->hLongDraw);
   scicos_free((*pScopeMemory)->hAxes);
-  scicos_free(*(block->work));
+  scicos_free(*block_work);
 
 }
 
-void scoRetrieveScopeMemory(scicos_block * block, ScopeMemory ** pScopeMemory)
+void scoRetrieveScopeMemory(void ** block_work, ScopeMemory ** pScopeMemory)
 {
-  *pScopeMemory = (ScopeMemory*)*block->work;
+  *pScopeMemory = (ScopeMemory*)*block_work;
 }
 
-
+/** If I have a longdraw of size 200, the next buffer size is 20 and to be sure I add 5000 more points so I ve got a 7020 pts longdraw at the end. Watch out the function use REALLOC there is no scicos_realloc() existing in scicos*/
 void scoReallocLongDraw(scoGraphicalObject pLongDraw, int NbrPtsLong, int shortdraw_size, int plus)
 {
   switch(sciGetEntityType(pLongDraw))
@@ -161,6 +170,7 @@ void scoReallocLongDraw(scoGraphicalObject pLongDraw, int NbrPtsLong, int shortd
     case SCI_POLYLINE:
       pPOLYLINE_FEATURE(pLongDraw)->pvx = REALLOC((pPOLYLINE_FEATURE(pLongDraw)->pvx),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
       pPOLYLINE_FEATURE(pLongDraw)->pvy = REALLOC((pPOLYLINE_FEATURE(pLongDraw)->pvy),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
+      //If we are in 2D mode in the window at init then pvz is not initialized
       if(pPOLYLINE_FEATURE(pLongDraw)->pvz != NULL)
 	{
 	  pPOLYLINE_FEATURE(pLongDraw)->pvz = REALLOC((pPOLYLINE_FEATURE(pLongDraw)->pvz),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
@@ -169,6 +179,7 @@ void scoReallocLongDraw(scoGraphicalObject pLongDraw, int NbrPtsLong, int shortd
     case SCI_SEGS:
       pSEGS_FEATURE(pLongDraw)->vx = REALLOC((pSEGS_FEATURE(pLongDraw)->vx),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
       pSEGS_FEATURE(pLongDraw)->vy = REALLOC((pSEGS_FEATURE(pLongDraw)->vy),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
+      //If we are in 2D mode in the window at init then vz is not initialized
       if(pSEGS_FEATURE(pLongDraw)->vz != NULL)
 	{
 	  pSEGS_FEATURE(pLongDraw)->vz = REALLOC((pSEGS_FEATURE(pLongDraw)->vz),(NbrPtsLong+shortdraw_size+plus)*sizeof(double));
@@ -176,7 +187,6 @@ void scoReallocLongDraw(scoGraphicalObject pLongDraw, int NbrPtsLong, int shortd
       break;
     default:
       sciprint("SCOPE ERROR : Error in scoReallocLongDraw()");
-      fprintf(stderr,"SCOPE ERROR : Error in scoReallocLongDraw()");
       break;
     }
 }

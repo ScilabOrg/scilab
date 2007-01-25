@@ -1,3 +1,11 @@
+/**
+   \file scoSetProperty.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Source code of all Mutators for ScopeMemory structure
+*/
+
 #include "scoSetProperty.h"
 
 void scoSetHandleShortDraw(ScopeMemory * pScopeMemory, int i,int j, long value)

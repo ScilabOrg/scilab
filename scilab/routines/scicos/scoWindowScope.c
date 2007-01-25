@@ -1,22 +1,35 @@
+/**
+   \file scoWindowScope.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Source Code of all functions wich interact with the window like creation of graphical object or refreshing the window
+*/
+
 #include "scoBase.h"
 #include "scoWindowScope.h"
 #include "scoMemoryScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
-#include "stdio.h"
+#include <stdio.h>
 
 void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int * win_pos, int * win_dim, double * xmin, double * xmax, double * ymin, double * ymax, double * zmin, double * zmax)
 {
   int i;
+  extern int get_block_number();
+
   scoGraphicalObject pTemp;
   scoGraphicalObject pTemp2;
+  //if win-id is -1 we give an auto number based on the block_number on the diagram
   if (win_id == -1)
     {
       win_id = 20000 + get_block_number() ; 
     }
   scoSetWindowID(pScopeMemory,win_id);
+  //if we restart the simulation this command delete all previous children of the window
   DeleteObjs(win_id);
+  //Dont forget this kind of command
   sciSetUsedWindow(scoGetWindowID(pScopeMemory));
   pTemp = sciGetCurrentFigure();
   scoSetHandleScopeWindow(pScopeMemory,sciGetHandle(pTemp));
@@ -37,8 +50,10 @@ void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int 
       pTemp2 = scoGetPointerAxes(pScopeMemory,i);
       sciSetFontDeciWidth(pTemp2, 0);
       sciSetIsBoxed(pTemp2,TRUE);
+      //Here we don't want "smart" limits
       pSUBWIN_FEATURE(pTemp2)->tight_limits = TRUE;
       //Here PTemp2 is the pointer on the current Subwint
+      //WRect is for position of Axes in the window
       pSUBWIN_FEATURE(pTemp2)->WRect[0] = 0;
       pSUBWIN_FEATURE(pTemp2)->WRect[1] = (double)i/scoGetNumberOfSubwin(pScopeMemory);
       pSUBWIN_FEATURE(pTemp2)->WRect[2] = 1;
@@ -48,6 +63,7 @@ void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int 
 	case 3:
 	  pSUBWIN_FEATURE(pTemp2)->is3d = TRUE;
 	  pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[2] = TRUE;
+	  //SRECT is here to give number of x,y, or z legends
 	  pSUBWIN_FEATURE(pTemp2)->SRect[4] = zmin[i];
 	  pSUBWIN_FEATURE(pTemp2)->SRect[5] = zmax[i];
 	case 2:
@@ -60,8 +76,7 @@ void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int 
 	  pSUBWIN_FEATURE(pTemp2)->SRect[1] = xmax[i];
 	  break;
 	default:
-	  sciprint("SCOPE ERROR : Error in dimension number");
-	  fprintf(stderr,"SCOPE ERROR : Error in dimension number");
+	  sciprint("SCOPE ERROR : Error in dimension number\n");
 	  break;
 	}
 
@@ -107,7 +122,7 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 	  current_period_counter = (int)(t/period);
 	  pSUBWIN_FEATURE(pAxes)->SRect[0] = period*(current_period_counter);
 	  pSUBWIN_FEATURE(pAxes)->SRect[1] = period*(current_period_counter+1);
-	  /*Don't forget to save the new value*/
+	  /*Don't forget to save the new value - because we have activated the refresh we are going one step over*/
 	  scoSetPeriodCounter(pScopeMemory,i,current_period_counter);
 	  
 	  /*Instruction to reinitialize the ShortDraw and to copy the last points of the ShortDraw in the LongDraw to be sure to have continuity*/
@@ -130,12 +145,16 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 		  {
 		    pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
 		    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
+		    //We don't have to draw it because for instance there will be only one point and if it is a line it is not good
 		    pPOLYLINE_FEATURE(pShortDraw)->visible = FALSE;
 
 		    pPOLYLINE_FEATURE(pLongDraw)->n1 = 0;
+		    //We copy previous values to ensure the continuity
 		    C2F(dcopy)(&NbrPts,pPOLYLINE_FEATURE(pShortDraw)->pvx,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvx,&c__1);
 		    C2F(dcopy)(&NbrPts,pPOLYLINE_FEATURE(pShortDraw)->pvy,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvy,&c__1);
 		    pPOLYLINE_FEATURE(pLongDraw)->n1 = NbrPts;
+		    
+		    //The next starting point
 		    pPOLYLINE_FEATURE(pShortDraw)->pvx[0] = pPOLYLINE_FEATURE(pLongDraw)->pvx[NbrPts-1];
 		    pPOLYLINE_FEATURE(pShortDraw)->pvy[0] = pPOLYLINE_FEATURE(pLongDraw)->pvy[NbrPts-1];
 		    pPOLYLINE_FEATURE(pShortDraw)->n1 = 1;
@@ -161,32 +180,24 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 		break;
 	      }
 	    default:
-	      sciprint("SCOPE ERROR : Cannot use scoRefreshDataBoundsX() with this type of object");
-	      fprintf(stderr,"SCOPE ERROR : Cannot use scoRefreshDataBoundsX() with this type of object");
+	      sciprint("SCOPE ERROR : Cannot use scoRefreshDataBoundsX() with this type of object\n");
 	      break;
 	    }
-
+	  //Dont forget to reinit it
 	  scoSetNewDraw(pScopeMemory,i,0);
 	}
     }
+  //if we have modified some thing it is that we need to redraw the window
   if(bool == 1)
     {
       if(scoGetPointerScopeWindow(pScopeMemory) !=  NULL)
 	{
 	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-
+	  //pixmap mode
 	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 	    {
 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 	    }
-/* 	  else */
-/* 	    { */
-/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 1; */
-/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 1; */
-/* 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L); */
-/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap = 0; */
-/* 	      pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->wshow = 0; */
-/* 	    } */
 	  sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
 	}
       else
@@ -195,6 +206,8 @@ void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)
 	}
     }
 
+  //Now that we have redraw the window we can reactivate the shortdraw because there will be more than one point in the futur
+  //THIS PART CAN BE RECODED - NOT EFFICIENT
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
       for (j = 0 ; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
@@ -233,6 +246,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
   int current_period_counter;
   scoGraphicalObject pLongDraw;
   scoGraphicalObject pShortDraw;
+
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
       pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,0);
@@ -245,8 +259,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 	  NbrPtsShort = pSEGS_FEATURE(pShortDraw)->Nbr1;
 	  break;
 	default:
-	  sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
-	  fprintf(stderr,"SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
+	  sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()\n");
 	  break;
 	}
       /*If this scope needs a redraw*/
@@ -263,8 +276,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 	      NbrPtsLong = pSEGS_FEATURE(pLongDraw)->Nbr1;
 	      break;
 	    default:
-	      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
-	      fprintf(stderr,"SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
+	      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()\n");
 	      break;
 	    }
 	  if ((NbrPtsLong + scoGetShortDrawSize(pScopeMemory,i)) >= scoGetLongDrawSize(pScopeMemory,i))
@@ -274,6 +286,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		  pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
 		  scoReallocLongDraw(pLongDraw, NbrPtsLong, scoGetShortDrawSize(pScopeMemory,i),1000);
 		}
+	      //Dont forget this one - If in the futur LongDrawSize is a table we can put it in the scoReallocLongDraw() function
 	      scoSetLongDrawSize(pScopeMemory,i,NbrPtsLong + scoGetShortDrawSize(pScopeMemory,i)+1000);
 	    }
 	  pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,0);
@@ -291,8 +304,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 	      NbrPtsLong = pSEGS_FEATURE(pLongDraw)->Nbr1;
 	      break;
 	    default:
-	      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
-	      fprintf(stderr,"SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
+	      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()\n");
 	      break;
 	    }
 
@@ -304,13 +316,15 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		{
 		  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
 		  sciSetSelectedSubWin(scoGetPointerAxes(pScopeMemory,i));
+		  //Not sure that this trick is useful - leak of code ?
 		  pPOLYLINE_FEATURE(pShortDraw)->visible = TRUE;
+		  //pixmap
 		  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 		    {
 		      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 		    }
-		  //C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 		  sciDrawObj(pShortDraw);
+		  //Here too but - if you delete the line on top dont forget to delete this line
 		  pPOLYLINE_FEATURE(pShortDraw)->visible = FALSE;
 		}
 	      else
@@ -324,6 +338,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 	      switch(sciGetEntityType(pShortDraw))
 		{
 		case SCI_POLYLINE:
+		  //We have draw but now we have to copy values in the memory of the shortdraw
 		  C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(pShortDraw)->pvx+inc,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvx+NbrPtsLong,&c__1);
 		  C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(pShortDraw)->pvy+inc,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvy+NbrPtsLong,&c__1);
 		  pPOLYLINE_FEATURE(pLongDraw)->n1 = NbrPtsLong+NbrPtsShort;
@@ -335,8 +350,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		  pSEGS_FEATURE(pLongDraw)->Nbr2 = NbrPtsLong+NbrPtsShort;
 		  break;
 		default:
-		  sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
-		  fprintf(stderr,"SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
+		  sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()\n");
 		  break;
 		}
 	      /*End of Block for Memory*/
@@ -344,6 +358,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 
 	  /*Block for Detecting redrawing of x-axis values and others activities*/
 	  current_period_counter = (int)(t/scoGetPeriod(pScopeMemory,i));
+	  //Maybe for the axes we are at the end of it - it is here that we detect and notify it
 	  if (current_period_counter != scoGetPeriodCounter(pScopeMemory,i))
 	    {
 	      scoSetNewDraw(pScopeMemory,i,-1);
@@ -366,8 +381,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 		      /*Do Nothing*/
 		      break;
 		    default:
-		      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
-		      fprintf(stderr,"SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()");
+		      sciprint("SCOPE ERROR : Error in scoDrawScopeAmplitudeTimeStyle()\n");
 		      break;
 		    }
 		}
@@ -399,7 +413,7 @@ scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyli
   scicos_free(vy);
 
   pPOLYLINE_FEATURE(pPolyline)->n1 = 0;
-  if (color >= 0)
+  if (color > 0)
     {
       sciSetForeground(pPolyline, color);
       sciSetIsLine(pPolyline, 1);
@@ -407,7 +421,7 @@ scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyli
       sciSetMarkStyle(pPolyline, 0);
       sciSetIsMark(pPolyline, 0);
     }
-  else if (color < 0)
+  else if (color <= 0)
     {
       sciSetMarkForeground(pPolyline, -1);
       sciSetIsLine(pPolyline, 0);
@@ -478,6 +492,7 @@ void scoDelCoupleOfPolylines(ScopeMemory * pScopeMemory)
 	  NbrPtsLong = pPOLYLINE_FEATURE(pLongDraw)->n1;
 	  if(NbrPtsLong + scoGetShortDrawSize(pScopeMemory,i) > scoGetLongDrawSize(pScopeMemory,i))
 	    {
+	      //We realloc because maybe if we add the shortdraw the size would be bigger than the longdraw size
 	      for(j = 0 ; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
 		{
 		  pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
@@ -495,12 +510,13 @@ void scoDelCoupleOfPolylines(ScopeMemory * pScopeMemory)
 	    {
 	      pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
 	      pLongDraw = scoGetPointerLongDraw(pScopeMemory,i,j);
-
+	      //Here we copy values in memory
 	      C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(pShortDraw)->pvx,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvx+NbrPtsLong,&c__1);
 	      C2F(dcopy)(&NbrPtsShort,pPOLYLINE_FEATURE(pShortDraw)->pvy,&c__1,pPOLYLINE_FEATURE(pLongDraw)->pvy+NbrPtsLong,&c__1);
 
 	      pPOLYLINE_FEATURE(pLongDraw)->n1 = NbrPtsLong + NbrPtsShort;
 	      pPOLYLINE_FEATURE(pShortDraw)->n1 = 0;
+	      //Destruction of the polyline - no presence in the menu editor anymore
 	      DestroyPolyline(pShortDraw);
 	    }
 	}
@@ -524,7 +540,7 @@ void scoAddCoupleOfSegments(ScopeMemory * pScopeMemory, int * color)
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
       longdraw_size = scoGetLongDrawSize(pScopeMemory,i);
- 
+      //ConstructSegs dont support for the moment the NULL parameter
       vx1[0] = 0.0;
       vx1[1] = 0.0;
       vy1[0] = 0.0;
@@ -535,6 +551,7 @@ void scoAddCoupleOfSegments(ScopeMemory * pScopeMemory, int * color)
 
       for(j = 0 ; j < longdraw_size ; j++)
 	{
+	  //same than before
 	  vx2[j] = 0.0;
 	  vy2[j] = 0.0;
 	}
@@ -590,8 +607,7 @@ void scoAddCoupleOfSegments(ScopeMemory * pScopeMemory, int * color)
 
 void scoDelCoupleOfSegments(ScopeMemory * pScopeMemory)
 {
-
-
+  //Not coded yet :p
 }
 
 
@@ -654,6 +670,7 @@ void scoAddRectangleForLongDraw(ScopeMemory * pScopeMemory, int i, int j, double
 
 void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
 {
+  extern int get_block_number();
   int i;
   int nxname;
   int kfun;
@@ -666,14 +683,14 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   title = (char**)scicos_malloc(scoGetNumberOfSubwin(pScopeMemory)*sizeof(char*));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
-      title[i] = (char*)scicos_malloc(500*sizeof(char));
+      title[i] = (char*)scicos_malloc(500*sizeof(char)); //Why 500 ? BECAUSE :)
       sprintf(title[i],"Graphic %d",i+1);
     }
 
   
   x_title = x;
-  
   y_title = y;
+
   sciSetUsedWindow(scoGetWindowID(pScopeMemory));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
@@ -704,7 +721,7 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
     }
   scicos_free(title);
 
-  /* Code for naming the window, for the moment I don't know if I put this in the standard constructor or not*/
+  /* Code for naming the window*/
   nxname = 40;
   kfun = get_block_number();
   C2F(getlabel)(&kfun, buf, &nxname);
@@ -729,12 +746,12 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
 
 void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
 {
-  scoGraphicalObject Pinceau;
-  scoGraphicalObject Trait;
+  scoGraphicalObject Pinceau; //Pencil
+  scoGraphicalObject Trait; //Line
   int NbrPtsShort, NbrPtsLong;
   int c__1 = 1;
   int i,j;
-
+  //Coded only for one subwin can be easily extended to many with a factorj , j < scoGetNumberOfSubwin()
   for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ;i++)
     {
       Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
@@ -744,6 +761,7 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
       if(NbrPtsShort >= scoGetShortDrawSize(pScopeMemory,0))
 	{
 	  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	  //pixmap
 	  if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
 	    {
 	      C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
@@ -780,9 +798,9 @@ void scoDrawScopeXYStyle(ScopeMemory * pScopeMemory)
 void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u2, double * u3)
 {
   int i,j;
-  scoGraphicalObject Gomme;
-  scoGraphicalObject Pinceau;
-  scoGraphicalObject Trait;
+  scoGraphicalObject Gomme; //Rubber
+  scoGraphicalObject Pinceau; //Pencil
+  scoGraphicalObject Trait; //Line
   int nbr_curves;
 
 
@@ -807,12 +825,14 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 	}
       sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
     }
+  //if a lot of elements to draw (more than 2 :p)
   else
     {
       nbr_curves = scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2;
       /*if it is a mark style scope*/
       if(scoGetShortDrawSize(pScopeMemory,0) == 1)
 	{
+	  //3D scope Mode
 	  if(u3 != NULL)
 	    {
 	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
@@ -849,6 +869,7 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  sciDrawObj(Gomme);
 		}
 	    }
+	  //2D Scope Mode
 	  else
 	    {
 	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
@@ -885,6 +906,7 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
       /*if it is a line style scope*/
       else
 	{
+	  //3D Scope Mode
 	  if(u3 != NULL)
 	    {
 	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
@@ -929,6 +951,7 @@ void scoDrawScopeAnimXYStyle(ScopeMemory * pScopeMemory, double * u1, double * u
 		  sciDrawObj(Gomme);
 		}
 	    }
+	  //2D Scope Mode
 	  else
 	    {
 	      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0)/2 ; i++)
@@ -1029,7 +1052,7 @@ scoGraphicalObject scoCreatePlot3d(scoGraphicalObject pAxes, int size_x, int siz
   for(i = 0; i < size_x*size_y ; i++)
     pvecz[i] = 0;
 
-
+  //I have found all these values thanks to gdb and debugging a demo of scilab with a grayplot. I don't know exactly what they are and I don't care :p
   flag[0] = 2;
   flag[1] = 8;
   flag[2] = 4;

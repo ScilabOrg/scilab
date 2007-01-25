@@ -1,3 +1,11 @@
+/**
+   \file scoGetProperty.h
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief Header File of the scoGetProperty.c file 
+*/
+
 #ifndef __SCO_GET_PROPERTY_H__
 #define __SCO_GET_PROPERTY_H__
 
