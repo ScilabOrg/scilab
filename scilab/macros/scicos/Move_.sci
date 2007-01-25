@@ -5,10 +5,25 @@ function Move_()
 //**
 //**
 
-  Cmenu=[]; // Cmenu Quit can come out
+  Cmenu = []; //** NB : preserve %pt information 
   
-  [scs_m] = do_stupidmove(%pt,scs_m) ; //** Stupid is whos stupid does :)
+  SelectSize = size (Select) ; //** [row, col]
+  SelectSize = SelectSize(1) ; //**  row 
+  if  SelectSize <= 1 then     
+  //** if ONE or NO object are selected 
+     [scs_m] = do_stupidmove(%pt, scs_m) ; //** Stupid is whos stupid does :)
+                                           //** Select is not used here ....
+  else //** multiple object are selected
   
-  %pt=[];
+      [scs_m] = do_stupidMultimove(%pt, Select, scs_m) ; //** move multiple objects
+                //** %pt    : last valid user LEFT BUTTON PRESS
+		//** Select : matrix of selected object
+		//**  Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
+		//**                                  and "win_id"    is the Scilab window id.
+		//**  Multiple selection is permitted: each object is a line of the matrix.
+		//** scs_m  : diagram datastucture                                                   
+  end 					
+								
+  %pt = [];
 
 endfunction

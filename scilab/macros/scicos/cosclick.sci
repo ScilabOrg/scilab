@@ -125,7 +125,7 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     elseif (btn==1003) | (btn==2003) then  //** [CTRL]+[Left btn click] OR [Shift]+[Left btn click]
       Cmenu="CtrlSelect";                  //** Multiple, additive object selection 
     
-    elseif (btn==1122) then            //**  [CTRL]+[z] --> Undo 
+    elseif (btn==1122) then                //**  [CTRL]+[z] --> Undo 
       Cmenu="Undo"
     
     else

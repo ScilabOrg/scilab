@@ -19,8 +19,8 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
   yc = %pt(2) ;
 
   //** look for a valid object 
-  [k, wh, scs_m] = stupid_getobj(scs_m,[xc;yc]) ; //** see below in this file :)
-
+  [k, wh, scs_m] = stupid_getobj(scs_m,[xc;yc]) ; 
+  
   //** "k" is the object index in the data structure "scs_m"
   if k==[] then
     return
@@ -43,7 +43,7 @@ function [scs_m] = do_stupidmove(%pt, scs_m)
   end
   //**------------------------------------------------------------------
 
-  //** un useful check here ! 
+  //** check if the windows was find closed by the previous function calls 
   if Cmenu=='Quit' then
     //active window has been closed
     [%win,Cmenu] = resume(%win,Cmenu)
@@ -544,124 +544,3 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   end
 
 endfunction
-
-//**
-//** ----------------------------------------------------------------------------------------------
-//**
-
-//**-----------------------------------------------------------------------------------------------
-
-function [k,wh,scs_m] = stupid_getobj(scs_m,pt)
-  n = lstsize(scs_m.objs)
-  wh = [];
-  x = pt(1); y = pt(2) ; //** mouse coordinate 
-  data = [] ;
-  k = [];
-
-  //** -------------------- Loop for every object --------------------------------------
-  for i=1:n //loop on objects
-
-    o = scs_m.objs(i);
-
-    //**-------- If it is a Block ---------------------------------------
-    if typeof(o)=='Block' then
-      graphics = o.graphics
-      [orig,sz] = (graphics.orig,graphics.sz)
-      data = [(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
-      if data(1)<0&data(2)<0 then k=i, break, end ;
-
-    //**--------- If it is a Link ----------------------------------------
-    elseif typeof(o)=='Link' then
-      eps = 3 ;
-      xx = o.xx; yy = o.yy;
-      [d, ptp, ind] = stupid_dist2polyline(xx, yy, pt, 0.85)
-
-      if d<eps then 
-	
-	if ind==-1 then 
-	  k = o.from(1); //** click near an input
-	  break ;
-	elseif ind==-size(xx,1) then 
-	  k = o.to(1) ; //** click near an output
-	  break ;
-	elseif ind>0 then 
-	  // draw_link_seg(o,[ind,ind+1]) //** debug only
-	  o.xx = [xx(1:ind);ptp(1);xx(ind+1:$)];
-	  o.yy = [yy(1:ind);ptp(2);yy(ind+1:$)];
-	  scs_m.objs(i) = o ; //** CESTICIQUONCREEUNPOINTDANSSCS_M
-                              //** ETQUONOUBLIEDELEFAIREDANSLEGRAPHIQUE !!
-	  k  = i ;
-	  wh = -ind - 1 ; //** click in the middle (case 1) of a link
-	  break ;
-	else
-	  k = i
-	  wh = ind      ; //** click in the middle (case 2) of a link
-	  // draw_link_seg(o,[-ind-1:-ind+1]); //** debug only
-	  break ;
-	end
-      end
-
-    //**---------- If it is a Text --------------------------------------
-    elseif typeof(o)=='Text' then
-      graphics=o.graphics
-      [orig,sz]=(graphics.orig,graphics.sz)
-      data=[(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
-      if data(1)<0&data(2)<0 then k=i,break,end
-    end
-  end
-endfunction
-
-//**---------------------------------------------------------------------------------------
-function [d,pt,ind] = stupid_dist2polyline(xp,yp,pt,pereps)
-// computes minimum distance from a point to a polyline
-// d    minimum distance to polyline
-// pt   coordinate of the polyline closest point
-// ind  
-//      if negative polyline closest point is a polyline corner:
-//         pt=[xp(-ind) yp(-ind)]
-//      if positive pt lies on segment [ind ind+1]
-//
-  x = pt(1) ;
-  y = pt(2) ;
-  xp = xp(:); yp=yp(:)
-  cr = 4*sign((xp(1:$-1)-x).*(xp(1:$-1)-xp(2:$))+..
-	      (yp(1:$-1)-y).*(yp(1:$-1)-yp(2:$)))+..
-         sign((xp(2:$)-x).*(xp(2:$)-xp(1:$-1))+..
-              (yp(2:$)-y).*(yp(2:$)-yp(1:$-1)))
-
-  ki = find(cr==5) // index of segments for which projection fall inside
-  np = size(xp,'*')
-  if ki<>[] then
-    //projection on segments
-    x = [xp(ki) xp(ki+1)];
-    y = [yp(ki) yp(ki+1)];
-    dx = x(:,2)-x(:,1);
-    dy = y(:,2)-y(:,1);
-    d_d = dx.^2 + dy.^2 ;
-    d_x = ( dy.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dx.*(dx*pt(1)+dy*pt(2)))./d_d
-    d_y = (-dx.*(-x(:,2).*y(:,1)+x(:,1).*y(:,2))+dy.*(dx*pt(1)+dy*pt(2)))./d_d
-    xp  = [xp;d_x]
-    yp  = [yp;d_y]
-  end
-
-  zzz = [ones(np,1) ; zeros(size(ki,'*'),1)] * eps
-  zz  = [ones(np,1)*pereps ; ones(size(ki,'*'),1)]
-  [d,k] = min(sqrt((xp-pt(1)).^2+(yp-pt(2)).^2).*zz - zzz) 
-  pt(1) = xp(k)
-  pt(2) = yp(k)
-  if k>np then ind=ki(k-np), else ind=-k, end
-endfunction
-
-//**-----------------------------------------------------------------------------------------
-
-//function draw_link_seg(o,seg)
-//  if o.thick(2)>=0 then
-//    disp("Warning: draw_link_seg"); 
-//    // d = xget('dashes');thick=xget('thickness')
-//    // t = maxi(o.thick(1),1)*maxi(o.thick(2),1)
-//    // xset('thickness',t);xset('dashes',o.ct(1))
-//    // xpoly(o.xx(seg),o.yy(seg),'lines')
-//    // xset('dashes',d);xset('thickness',thick)
-//  end
-// endfunction
-

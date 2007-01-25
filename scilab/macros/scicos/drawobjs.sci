@@ -22,21 +22,22 @@ function drawobjs(scs_m, gh_window)
        end
    end
 
-   //** Update Selection
-   if (Select<>[]) & ...
-           (find(Select(:,2)==gh_curwin.figure_id))<>[] then
+   //** Update selected object 
+   //** if the Select is NOT empty and some object are selected in the current window
+   if (Select<>[]) & (find(Select(:,2)==gh_curwin.figure_id))<>[] then
      o_size = size (gh_curwin.children.children);
      for i=find(Select(:,2)==gh_curwin.figure_id)
        //gh_k = o_size(1) - Select(i,1) + 1 ; //** semi empirical equation :)
-       gh_k=get_gri(Select(i,1),o_size(1))
-       gh_curwin.children.children(gh_k).children(1).mark_mode="on"
-       draw(gh_curwin.children.children(gh_k).children(1));
+       gh_k = get_gri(Select(i,1),o_size(1))
+       gh_curwin.children.children(gh_k).children(1).mark_mode="on" ; //** set the mark
+       draw(gh_curwin.children.children(gh_k).children(1))          ; //** draw the object        
      end
    end
 
-   gh_a=gca();
-   drawtitle(scs_m.props)
-   show_info(scs_m.props.doc)
-   draw(gh_a);
-   show_pixmap() ;
+   gh_a = gca()               ; //** need some explanations 
+   drawtitle(scs_m.props)     ;
+   show_info(scs_m.props.doc) ;
+   draw(gh_a)                 ;
+   show_pixmap()              ;
+
 endfunction

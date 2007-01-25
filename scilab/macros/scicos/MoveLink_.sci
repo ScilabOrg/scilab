@@ -38,13 +38,21 @@ function MoveLink_()
     %kk = getobj(scs_m,%pt)
     //** if an object id found 
     if %kk<>[] then
-       //** inside "check_edge"  - as default - the Cmenu variable is pre-loaded 
-       //** (look in the calling arguments) with 'Move' action command. 
-       //** If check_edge(...) does NOT find a input port, Cmenu remain 'Move' then issue a Move_.sci 
-       //** ... else
-       //** Cmenu='Link' then issue a Link_.sci
-       Cmenu = check_edge(scs_m.objs(%kk),'Move',%pt)
-       Select=[%kk,%win]; //** select the pressed object 
+
+       //** if one or more object are selected CALL direct Move 
+       if Select<>[] then  
+         Cmenu="Move" ; //** execute Move ; NB: the %pt information is preserved  
+       else
+         //** executed ONLY if NO object are selected 
+         Cmenu = check_edge(scs_m.objs(%kk),'Move',%pt)
+         //** inside "check_edge"  - as default - the Cmenu variable is pre-loaded 
+         //** (look in the calling arguments) with 'Move' action command. 
+         //** If check_edge(...) does NOT find a input port, Cmenu remain 'Move' then issue a Move_.sci 
+         //** ... else
+         //** Cmenu='Link' then issue a Link_.sci
+         Select = [%kk, %win]; //** select the pressed object
+       end
+        
      else //** if the press is in the void of the current window 
        Cmenu = "SelectRegion" ; //** "SelectRegion" will be called later 
        %ppt=[]; Select=[] ;  //** NB: the %pt information is preserved for SelectRegion operation 
