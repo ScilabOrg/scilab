@@ -13,6 +13,41 @@
 	#define NULL 0
 #endif
 
+/**
+   \brief DerivativeState is flag 0
+*/
+#define DerivativeState 0
+
+/**
+   \brief OutputUpdate is flag 1
+*/
+#define OutputUpdate 1
+
+/**
+   \brief StateUpdate is flag 2
+*/
+#define StateUpdate 2
+
+/**
+   \brief OutputEventTiming is flag 3
+*/
+#define OutputEventTiming 3
+
+/**
+   \brief Initialization is flag 4
+*/
+#define Initialization 4
+
+/**
+   \brief Ending is flag 5
+*/
+#define Ending 5
+
+/**
+   \brief ReInitialization is flag 6
+*/
+#define ReInitialization 6
+
 
 typedef void (*voidg)();
 
