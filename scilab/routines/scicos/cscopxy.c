@@ -1,8 +1,18 @@
+/**
+   \file cscopxy.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CSCOPXY is a scope in 2D which draw its input as a XY scope, there is no animation, everything is keep in memory instead of CANIMXY
+   \see CSCOPXY.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -51,7 +61,7 @@ void cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   number_of_curves_by_subwin = ipar[10]; //it is a trick to recognize the type of scope, not sure it is a good way because normally a curve is the combination of a short and a longdraw
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
       scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
       scoSetLongDrawSize(*pScopeMemory,0,5000);
     }
@@ -96,7 +106,7 @@ void cscopxy(scicos_block * block, int flag)
 
     case StateUpdate:
       {
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
@@ -123,8 +133,8 @@ void cscopxy(scicos_block * block, int flag)
       //This case is activated when the simulation is done or when we close scicos
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break; //Break of the switch
       }
       //free the memory which is allocated at each turn by some variables

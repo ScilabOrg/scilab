@@ -1,9 +1,18 @@
+/**
+   \file cevscpe.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CEVSCPE is a scope that indicates when the clocks is activated
+   \see CEVENTSCOPE.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
-
+#include "scicos_block4.h"
 
 /** \fn cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -43,8 +52,7 @@ void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 
   number_of_subwin = 1;
   number_of_curves_by_subwin = nbr_colors;
-  xmin = 0;
-  xmax= period;
+
   ymin = 0;
   ymax = 1;
 
@@ -55,11 +63,14 @@ void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
       scoSetLongDrawSize(*pScopeMemory,0,5000);
       scoSetShortDrawSize(*pScopeMemory,0,1);
       scoSetPeriod(*pScopeMemory,0,period);
     }
+
+  xmin = period*scoGetPeriodCounter(*pScopeMemory,0);
+  xmax = period*(scoGetPeriodCounter(*pScopeMemory,0)+1);
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
   scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
@@ -93,7 +104,7 @@ void cevscpe(scicos_block * block, int flag)
       {
 	t = get_scicos_time();
 	/* Charging elements */
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
 	    cevscpe_draw(block,&pScopeMemory,0);
@@ -129,9 +140,9 @@ void cevscpe(scicos_block * block, int flag)
 
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
 	scoDelCoupleOfSegments(pScopeMemory);
-	scoFreeScopeMemory(block,&pScopeMemory);
+	scoFreeScopeMemory(block->work,&pScopeMemory);
 	break;
       }
     }

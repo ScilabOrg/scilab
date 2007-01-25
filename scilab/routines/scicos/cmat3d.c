@@ -1,8 +1,18 @@
+/**
+   \file cmat3d.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CMAT3D is a scope which connect a matrix to a plot3d. Values of the matrix are the values at the nodes.
+   \see CMAT3D.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn cmat3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -68,7 +78,7 @@ void cmat3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
   /*Allocating memory for scope only if the window has to be created and not redraw*/
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
 
   /*Creating the Scope with axes*/
@@ -141,7 +151,7 @@ void cmat3d(scicos_block * block, int flag)
     case StateUpdate:
       {
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
@@ -179,10 +189,10 @@ void cmat3d(scicos_block * block, int flag)
     case Ending:
       {
         /*Retrieve Memory*/
-	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
         /*Here we can add specific instructions to be sure that we have stick short and longdraw if we need it. Cscope for example stick the last short to the long to have one curve to move*/
         /*Free Memory*/
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;
       }
     }

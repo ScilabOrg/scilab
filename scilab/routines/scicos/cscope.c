@@ -1,8 +1,18 @@
+/**
+   \file cscope.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CSCOPE is a typical scope which links its input to the simulation time but there is only one input instead of CMSCOPE
+   \see CSCOPE.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -40,8 +50,7 @@ void cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
   number_of_subwin = 1;
   ymin = rpar[1];
   ymax = rpar[2];
-  xmin = 0;
-  xmax = period;
+
 
   colors = (int*)scicos_malloc(number_of_curves_by_subwin[0]*sizeof(int));
   for(i = 0 ; i < number_of_curves_by_subwin[0] ; i++)
@@ -52,12 +61,16 @@ void cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
   /*Allocating memory*/
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
       /*Must be placed before adding polyline or other elements*/
       scoSetLongDrawSize(*pScopeMemory, 0, 50);
       scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
       scoSetPeriod(*pScopeMemory,0,period);
     }
+
+  xmin = period*scoGetPeriodCounter(*pScopeMemory,0);
+  xmax = period*(scoGetPeriodCounter(*pScopeMemory,0)+1);
+
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
   scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
@@ -92,7 +105,7 @@ void cscope(scicos_block * block,int flag)
       {
 	t = get_scicos_time();
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -119,9 +132,9 @@ void cscope(scicos_block * block,int flag)
       }
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
 	scoDelCoupleOfPolylines(pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;  
       }
     }

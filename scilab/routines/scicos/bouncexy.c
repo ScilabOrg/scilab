@@ -1,8 +1,18 @@
+/**
+   \file bouncexy.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief BOUNCEXY has to be used with bounce_ball block
+   \see BOUNCEXY.sci in macros/scicos_blocks/Misc/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -60,8 +70,8 @@ void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstd
     }
   if(firstdraw == 1)
     {
-  /*Allocating memory*/
-  scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      /*Allocating memory*/
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
@@ -115,7 +125,7 @@ void bouncexy(scicos_block * block,int flag)
       {
 	t = get_scicos_time();
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -157,8 +167,8 @@ void bouncexy(scicos_block * block,int flag)
       }
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;  
       }
     }

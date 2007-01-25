@@ -1,8 +1,18 @@
+/**
+   \file cmscope.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CMSCOPE is a typical scope which links its input to the simulation time
+   \see CMSCOPE.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -64,7 +74,6 @@ void cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
       period[i] = rpar[i+1];
       nbr_period++; 
     }
-
   ymin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
   ymax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
   for (i = 0 ; i < number_of_subwin ; i++)
@@ -72,18 +81,12 @@ void cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
       ymin[i] = rpar[2*i+nbr_period+1];
       ymax[i] = rpar[2*i+nbr_period+2];
     }
-  xmin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
-  xmax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
-  for (i = 0 ; i < number_of_subwin ; i++)
-    {
-      xmin[i] = 0;
-      xmax[i] = period[i];
-    }
+
   /*Allocating memory*/
   if(firstdraw == 1)
     {
 
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, number_of_curves_by_subwin);
       for(i = 0 ; i < number_of_subwin ; i++)
 	{
 	  scoSetLongDrawSize(*pScopeMemory, i, 5000);
@@ -91,6 +94,16 @@ void cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 	  scoSetPeriod(*pScopeMemory,i,period[i]);
 	}    
     }
+
+  /* Xmin and Xmax are calculated here because we need a variable which is only existing in the pScopeMemory. pScopeMemory is allocated just few lines before. Indeed in this TimeAmplitudeScope Xmin and Xmax have to change often. To be sure to redraw in the correct scale we have to calculate xmin and xmax thanks to the period_counter. If the window haven't to be redraw (recreate)  it wouldn't be necessary*/
+  xmin = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+  xmax = (double*)scicos_malloc(number_of_subwin*sizeof(double));
+  for (i = 0 ; i < number_of_subwin ; i++)
+    {
+      xmin[i] = period[i]*(scoGetPeriodCounter(*pScopeMemory,i));
+      xmax[i] = period[i]*(scoGetPeriodCounter(*pScopeMemory,i)+1);
+    }
+
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
   scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
@@ -140,7 +153,7 @@ void cmscope(scicos_block * block, int flag)
 	/* Charging Elements */
 	t = get_scicos_time();
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -173,9 +186,9 @@ void cmscope(scicos_block * block, int flag)
       //This case is activated when the simulation is done or when we close scicos
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
 	scoDelCoupleOfPolylines(pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;
       }
     }

@@ -1,8 +1,18 @@
+/**
+   \file cfscope.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CFSCOPE This scope has no input port because it displays the values on the designated link
+   \see CFSCOPE.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
+#include "scicos_block4.h"
 
 /** \fn cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
@@ -38,8 +48,7 @@ void cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   period = rpar[3];
   ymin  = rpar[1];
   ymax = rpar[2];
-  xmin = 0;
-  xmax = period;
+
   dimension = 2;
   win_pos[0] = ipar[11];
   win_pos[1] = ipar[12];
@@ -58,12 +67,15 @@ void cfscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   /*Allocating memory*/
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
       /*Must be placed before adding polyline or other elements*/
       scoSetLongDrawSize(*pScopeMemory, 0, 5000);
       scoSetShortDrawSize(*pScopeMemory,0,buffer_size);
       scoSetPeriod(*pScopeMemory,0,period);
     }
+
+  xmin = period*scoGetPeriodCounter(*pScopeMemory,0);
+  xmax = period*(scoGetPeriodCounter(*pScopeMemory,0)+1);
 
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
@@ -105,7 +117,7 @@ void cfscope(scicos_block * block,int flag)
 	
 	t = get_scicos_time();
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
@@ -149,9 +161,9 @@ void cfscope(scicos_block * block,int flag)
       }
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
 	scoDelCoupleOfPolylines(pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;  
       }
     }

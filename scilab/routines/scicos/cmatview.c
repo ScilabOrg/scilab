@@ -1,9 +1,18 @@
+/**
+   \file cmatview.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CMATVIEW is a scope that connects a matrix to a grayplot. The values of the matrix are the values at the nodes
+  \see CMATVIEW.sci in macros/scicos_blocks/Sinks/
+*/
+
 #include "scoMemoryScope.h"
 #include "scoWindowScope.h"
 #include "scoMisc.h"
 #include "scoGetProperty.h"
 #include "scoSetProperty.h"
-
+#include "scicos_block4.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -50,7 +59,7 @@ void cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstd
 
   if(firstdraw == 1)
     {
-      scoInitScopeMemory(block,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
 
   /*Creating the Scope*/
@@ -91,7 +100,7 @@ void cmatview(scicos_block * block, int flag)
     case StateUpdate:
       {
 	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block,&pScopeMemory);
+	scoRetrieveScopeMemory(block->work,&pScopeMemory);
 	/* If window has been destroyed we recreate it */
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -125,8 +134,8 @@ void cmatview(scicos_block * block, int flag)
       }//End of stateupdate
     case Ending:
       {
-	scoRetrieveScopeMemory(block, &pScopeMemory);
-	scoFreeScopeMemory(block, &pScopeMemory);
+	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;
       }
     }
