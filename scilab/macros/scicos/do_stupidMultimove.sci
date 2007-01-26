@@ -79,17 +79,24 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   //**  
   gh_link_i   = [];
   gh_link_mod = [];
-    
-  SelectObject_id = Select(:,1)      ;
-  SelectObject_id = SelectObject_id' ; 
-  n_size = size(SelectObject_id)     ;
-  n = n_size(2)                      ;
-  
+   
+  //**----------------------------------------------------------------------------------  
+  diagram_links=[] ;
+  diagram_size = size(scs_m.objs);
+  if diagram_size<>0
+     for k=1:diagram_size
+          if typeof(scs_m.objs(k))=='Link' then    
+	     diagram_links = [diagram_links k];
+          end 
+     end 
+  end      
   //**----------------------------------------------------------------------------------
   //** Classification of selected object
   sel_block = []; //** blocks selected by the user 
   sel_link  = []; //** links     "     "   "    "
   sel_text  = []; //** text      "     "        "
+  
+  SelectObject_id = Select(:,1)'  ;
   for k = SelectObject_id                               // scan all the selected object 
      if typeof(scs_m.objs(k))=='Block' then             // look for selected block 
        sel_block = [sel_block k] ; //**
@@ -122,11 +129,12 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   //**----------------------------------------------------------------------------------
   connected = []; //** ALL the Links that from/to the supercompound
   ext_block = []; //** ALL the selected blocks that have a links from/to the supercompound       
+  
   for k = sel_block //** Scan ALL the selected block and look for external link
         
      sig_in = scs_m.objs(k).graphics.pin' ; //** signal input 
      for l = sig_in //** scan all the input 
-	  if ~(or(l==int_link )) then //** the link is not internal 
+	  if (~(or(l==int_link ))) & (or(l==diagram_links)) then //** the link is not internal 
             connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -134,7 +142,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       
      sig_out = scs_m.objs(k).graphics.pout' ; //** signal output 
      for l = sig_out //** scan all the output 
-	  if ~(or(l==int_link )) then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
             connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -142,7 +150,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       
      ev_in = scs_m.objs(k).graphics.pein' ;
      for l = ev_in //** scan all the output 
-	  if ~(or(l==int_link )) then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
             connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -150,7 +158,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	
      ev_out = scs_m.objs(k).graphics.peout' ; 
      for l = ev_out //** scan all the output 
-	  if ~(or(l==int_link )) then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
 	    connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -164,30 +172,27 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   //** gh_link_i is a vector of the associated graphic handles
   
   xm = []; //** init 
-  ym = []; 
-  for l=1:length(connected) //** scan all the connected links
-     
-     i  = connected(l)  ;
-     oi = scs_m.objs(i) ;
-     gh_i = get_gri(i,o_size(1)); //** calc the handle of all the connected link(s)
-
-     gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** vector of handles
-     
-     [xl, yl, ct, from, to] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to)
-     
+  ym = [];
+  if connected<>[] then //** check if external link are present
+      for l=1:length(connected) //** scan all the connected links
+        i  = connected(l)  ;
+        oi = scs_m.objs(i) ;
+        gh_i = get_gri(i,o_size(1)); //** calc the handle of all the connected link(s)
+        gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** vector of handles
+        [xl, yl, ct, from, to] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to)
           //**------------------------------------------ 
           if from(1)==ext_block(l) then 
               xm = [xm, [xl(2);xl(1)] ];
               ym = [ym, [yl(2);yl(1)] ];
           end
 
-          if   to(1)==ext_block(l) then
+          if to(1)==ext_block(l) then
               xm = [xm, xl($-1:$) ];
               ym = [ym, yl($-1:$) ];
           end
           //**------------------------------------------
-       
-  end //** end of the for() loop
+       end //** end of the for() loop
+  end //** end of if 
   //** ----------------------------------------------------------------------
 
 //**----------------------------------------------------------------------------------
@@ -262,42 +267,42 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	  move (gh_ToBeMoved, [delta_x , delta_y]);  //** ..because "move()" works only in differential
       end 
  
-      //** Move the links 
-      xmt(2,:) = xm(2,:) - xco + xc ; //** update datas of links
-      ymt(2,:) = ym(2,:) - yco + yc ;
-      j = 0 ; //** init
-      //**---------------------------------------
-      
-      //** Move all the connected links 
-      for l=1:length(connected) // ... for all the connected links 
-         i  = connected(l)  ; // from the progressive index "l" to the scs_m index "i"
-         oi = scs_m.objs(i) ; // get the "i"th link
-         [xl,from,to] = (oi.xx,oi.from,oi.to); // extract the proprieties from the link
-      	 
-	 //** CAUTION: one more object added: the SuperCompound !
-	 gh_link_mod = gh_link_i(l); //** get the link graphics data structure
+      //**---------------------------------------------------------------------------------------------
+      if connected<>[] then 
+          //** Move the links 
+          xmt(2,:) = xm(2,:) - xco + xc ; //** update datas of links
+          ymt(2,:) = ym(2,:) - yco + yc ;
+          j = 0 ; //** init
+          //** Move all the connected links 
+          for l=1:length(connected) // ... for all the connected links 
+             i  = connected(l)  ; // from the progressive index "l" to the scs_m index "i"
+             oi = scs_m.objs(i) ; // get the "i"th link
+             [xl,from,to] = (oi.xx,oi.from,oi.to); // extract the proprieties from the link
+	     gh_link_mod = gh_link_i(l); //** get the link graphics data structure
 
-         if from(1)==ext_block(l) then
-               tmp_data = gh_link_mod.children.data ; // extract the vectors that define the link
- 	                                              // the first two points
-               j = j + 1 ; // update the [x,y]mt pointer
-	       t_xmt = xmt([2,1],j) ;
-	       t_ymt = ymt([2,1],j) ; // exstract the element
-	       //** update the graphics datastructure
-	       gh_link_mod.children.data = [ [t_xmt(1) , t_ymt(1)] ; tmp_data(2:$ , 1:$) ]  ;
-          end
+             if from(1)==ext_block(l) then
+                 tmp_data = gh_link_mod.children.data ; // extract the vectors that define the link
+ 	                                                // the first two points
+                 j = j + 1 ; // update the [x,y]mt pointer
+	         t_xmt = xmt([2,1],j) ;
+	         t_ymt = ymt([2,1],j) ; // exstract the element
+	         //** update the graphics datastructure
+	         gh_link_mod.children.data = [ [t_xmt(1) , t_ymt(1)] ; tmp_data(2:$ , 1:$) ]  ;
+             end
                
-          //** see the above comments :)
-          if to(1)==ext_block(l) then
- 	       tmp_data = gh_link_mod.children.data ;
-	       // the last two points
-	       j = j + 1 ;
-               gh_link_mod.children.data = [ tmp_data(1:$-2 , 1:$) ; [xmt(:,j) , ymt(:,j)] ]  ;
-	  end
+             //** see the above comments :)
+             if to(1)==ext_block(l) then
+ 	         tmp_data = gh_link_mod.children.data ;
+	         // the last two points
+	         j = j + 1 ;
+                 gh_link_mod.children.data = [ tmp_data(1:$-2 , 1:$) ; [xmt(:,j) , ymt(:,j)] ]  ;
+	     end
 	     	     
-      end //** scan the connected links 
-
-    draw(gh_curwin.children); //** draw ALL the compound object 
+           end //** scan the connected links 
+       end//** end of the connected links	   
+      //**---------------------------------------------------------------------------------------------
+    
+    draw(gh_curwin.children); //** draw ALL the moving objects 
     show_pixmap();
 
     end //** ... of while Interactive move LOOP --------------------------------------------------------------
@@ -351,25 +356,27 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       
       //**---------------------------------------------------
       //** Flexible Link elements 
-      j = 0 ; 
-      for l=1:length(connected)
-        i  = connected(l)  ;
-        oi = scs_m.objs(i) ;
-        [xl,from,to] = (oi.xx,oi.from,oi.to);
+      if connected<>[] then 
+          j = 0 ; 
+          for l=1:length(connected)
+             i  = connected(l)  ;
+             oi = scs_m.objs(i) ;
+             [xl,from,to] = (oi.xx,oi.from,oi.to);
 
-        if from(1)==ext_block(l) then
-          j = j + 1 ;
-          oi.xx(1:2) = xmt([2,1],j) ;
-          oi.yy(1:2) = ymt([2,1],j) ;
-        end
+             if from(1)==ext_block(l) then
+               j = j + 1 ;
+               oi.xx(1:2) = xmt([2,1],j) ;
+               oi.yy(1:2) = ymt([2,1],j) ;
+             end
 
-        if to(1)==ext_block(l) then
-          j = j + 1 ;
-          oi.xx($-1:$) = xmt(:,j) ;
-          oi.yy($-1:$) = ymt(:,j) ;
-        end
-        scs_m.objs(i) = oi ;
-      end //... for loop
+             if to(1)==ext_block(l) then
+               j = j + 1 ;
+               oi.xx($-1:$) = xmt(:,j) ;
+               oi.yy($-1:$) = ymt(:,j) ;
+             end
+              scs_m.objs(i) = oi ; //** update the datastructure 
+           end //... for loop
+      end //** of if 
       //**---------------------------------------------------
       
     
@@ -386,28 +393,30 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
         end
       
 	//**-------------------------------------------------------
-        xmt(2,:) = xm(2,:);  //** original datas of links
-        ymt(2,:) = ym(2,:);
-        j = 0 ; //** init
-        for l=1:length(connected)
-           i  = connected(l)  ;
-           oi = scs_m.objs(i) ;
-           [xl,from,to] = (oi.xx,oi.from,oi.to);
-           gh_link_mod = gh_link_i(l) ; // get the link graphics data structure
+        if connected<>[] then 
+	    xmt(2,:) = xm(2,:);  //** original datas of links
+            ymt(2,:) = ym(2,:);
+            j = 0 ; //** init
+            for l=1:length(connected)
+               i  = connected(l)  ;
+               oi = scs_m.objs(i) ;
+               [xl,from,to] = (oi.xx,oi.from,oi.to);
+               gh_link_mod = gh_link_i(l) ; // get the link graphics data structure
 
-           if from(1)==ext_block(l) then
-               tmp_data = gh_link_mod.children.data ;
-               j = j + 1 ;
-               t_xmt = xmt([2,1],j) ;  t_ymt = ymt([2,1],j) ;
-               gh_link_mod.children.data = [ [t_xmt(1) , t_ymt(1)] ; tmp_data(2:$ , 1:$) ];
-           end
+               if from(1)==ext_block(l) then
+                 tmp_data = gh_link_mod.children.data ;
+                 j = j + 1 ;
+                 t_xmt = xmt([2,1],j) ;  t_ymt = ymt([2,1],j) ;
+                 gh_link_mod.children.data = [ [t_xmt(1) , t_ymt(1)] ; tmp_data(2:$ , 1:$) ];
+               end
 
-           if to(1)==ext_block(l) then
-               tmp_data = gh_link_mod.children.data ;
-               j = j +  1 ;
-               gh_link_mod.children.data = [ tmp_data(1:$-2 , 1:$) ; [xmt(:,j) , ymt(:,j)] ];
-           end
-         end //... for loop
+               if to(1)==ext_block(l) then
+                 tmp_data = gh_link_mod.children.data ;
+                 j = j +  1 ;
+                 gh_link_mod.children.data = [ tmp_data(1:$-2 , 1:$) ; [xmt(:,j) , ymt(:,j)] ];
+               end
+             end //... for loop
+          end //** of if 
          //**------------------------------------------------------
 	 
       draw(gh_curwin.children);
