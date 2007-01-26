@@ -550,8 +550,8 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
         Select_back = Select; //** save the selected object list 
 
         //** Command execution 
-	// exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
-	// disp(exeString)  ;
+	//exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
+	//disp(exeString)  ;
 	
 	//** Don't ever think to touch this line of code ;)
 	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
@@ -562,10 +562,10 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 	if or(Select<>Select_back) then
 	  // Select_back: objects to unselect
 	  // Select     : object to select
-	  drawlater();
+	  // drawlater();
 	    selecthilite(Select_back, "off") ; // unHilite previous objects
 	    selecthilite(Select, "on") ;       // Hilite the actual sected object
- 	  drawnow(); show_pixmap() ; //** refresh, on screen
+ 	  // drawnow(); show_pixmap() ; //** refresh, on screen
 	end
 	
       else
@@ -617,9 +617,12 @@ endfunction
 //** ----------------------------------------------------------------------------------------------------------------
 
 function selecthilite(Select, flag)  // update the image
-
+  
+  gh_curwin = gh_current_window ; //** default value
+  
   gh_winback = gcf() //** get the window
 
+  drawlater();
   for i=1:size(Select,1)
 
     [junk, win, o] = get_selection(Select(i,:))
@@ -637,15 +640,18 @@ function selecthilite(Select, flag)  // update the image
     //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
     gh_k = get_gri(k,o_size(1)); //** Alan -
 
-   if gh_k>0 then //** Alan - to disable some crash when we have delete obj
-      //** get the handle of the graphics entity to modify
-      gh_obj = gh_curwin.children.children(gh_k);
-      //** update mark_mode property
-      gh_obj.children(1).mark_mode = flag  ;
-   end
+    if gh_k>0 then //** Alan - to disable some crash when we have delete obj
+        //** get the handle of the graphics entity to modify
+        gh_obj = gh_curwin.children.children(gh_k);
+        //** update mark_mode property
+        gh_obj.children(1).mark_mode = flag  ;
+    end
 
-  end //** end the for(..) loop
-
+  end  
+  
+  draw(gh_curwin.children)
+  show_pixmap()
+  
   scf(gh_winback)
 
 endfunction
