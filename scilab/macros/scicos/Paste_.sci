@@ -1,16 +1,14 @@
 function Paste_()
 //** INRIA 
 //** 
-  //** if I am in the current window and the cursor informationa are valid 
-  if %win == curwin & %ppt<>[] then
-    
+  //** if I am in the current window and the mouse position are OK 
+  if (%win==curwin) & (%ppt<>[]) then
+    scf(curwin); gh_curwin = gcf(curwin);
     drawlater(); 
-    //** if is a "Block" or a "Text"
-    if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
     
-      //** xset("window",curwin)
-      scf(curwin);
-       
+    //** if it is a "Block" or a "Text"
+    if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
+      
       scs_m_save = scs_m,nc_save = needcompile ;
       
       blk = Clipboard
@@ -19,23 +17,24 @@ function Paste_()
         drawobj(blk); //** draw the single object 
       edited = %t
       enable_undo = %t
-      Select = [size(scs_m.objs),%win];
+      Select = [size(scs_m.objs),%win]; //** it's a really dirty trick ;)
+                                        //** because the pasted object is the last ;)
     
-    //** if is a full diagram
+    //** if it is a full Diagram
     elseif  typeof(Clipboard)=='diagram' then
       reg = Clipboard;
       Clipboard = list()  // region is not persistent
       
-      //**xset("window",curwin)
-       scf(curwin);
-       
+   
       if size(reg.objs)>=1 then
+	Select = []; //** clear the data structure
 	scs_m_save = scs_m,nc_save = needcompile
 	n = lstsize(scs_m.objs)
 	xc = %ppt(1),yc=%ppt(2)
 	rect = dig_bound(reg)
 	
-	//** scann all the obj of the diagram to paste 
+	//**----------------------------------------------------
+	//** scan all the obj of the diagram to paste 
 	for k=1:size(reg.objs)
 	  o = reg.objs(k)
 	  
@@ -62,18 +61,25 @@ function Paste_()
 	    o.graphics.orig(2)=o.graphics.orig(2)-rect(2)+yc
 	  end
 	  
-	  scs_m.objs($+1)=o
+	  scs_m.objs($+1) = o ;
+	  Select = [Select ; size(scs_m.objs) , %win]; //** it's a really dirty trick ;)
+                        //** because the pasted object is the last ;)
 	  
-	  drawobj(o)
+	  drawobj(o); //** draw the now object 
 	
 	end
-	needcompile=4,
-	enable_undo=%t
-	edited=%t
-      end
-    end
-  end
+	//**------------------------------------------------------
+	needcompile = 4 ;
+	enable_undo = %t;
+	edited = %t     ;
+      end //** more than one object is pasted 
+    
+    end //** object type 
+  
+  end //** valid paste 
+  
   Cmenu=[]; %pt = []; %ppt = [] ;
-  drawnow(); show_pixmap(); 
+  
+  draw(gh_curwin.children); show_pixmap(); //** update the screen 
 
 endfunction
