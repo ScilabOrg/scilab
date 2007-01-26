@@ -5094,8 +5094,6 @@ int sci_delete(char *fname,unsigned long fname_len)
 
   }
 
-  if(cur != num)
-    C2F (dr) ("xset", "window",&cur,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
   LhsVar(1)=0;
   return 0;
 }
