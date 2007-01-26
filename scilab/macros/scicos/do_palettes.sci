@@ -111,6 +111,8 @@ function [palettes,windows] = do_palettes(palettes,windows)
   
   gh_palette.auto_resize = "on" ; //** 
   
+  gh_palette.pixmap = "on"      ;
+  gh_palette.immediate_drawing = "off" ;
   
 //  xset('wpdim',w,h1);//** xset("wpdim",width,height): Sets the width and the height of the current
 //                     //** physical graphic window (which can be different from the actual size in 
