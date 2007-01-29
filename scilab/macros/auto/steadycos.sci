@@ -69,7 +69,7 @@ if ~ok then
 end 
 sim=%cpr.sim;state=%cpr.state;
 //
-lnkptr=sim.lnkptr;inplnk=sim.inplnk;inpptr=sim.inpptr;
+inplnk=sim.inplnk;inpptr=sim.inpptr;
 outlnk=sim.outlnk;outptr=sim.outptr;ipptr=sim.ipptr;
 
 ki=[];ko=[];nyptr=1;
@@ -89,15 +89,15 @@ end
 
 pointo=[];
 for k=ko' 
-  pointo=[pointo;[lnkptr(inplnk(inpptr(k))):lnkptr(inplnk(inpptr(k))+1)-1]']
+  pointo=[pointo;inplnk(inpptr(k))]
 end
 pointi=[];
-
-for k=ki' 
-  pointi=[pointi;[lnkptr(outlnk(outptr(k))):lnkptr(outlnk(outptr(k))+1)-1]']
+for k=ki'
+  pointi=[pointi;outlnk(outptr(k))]
 end
-
-nx=size(state.x,'*');nu=size(pointi,'*');ny=size(pointo,'*');
+nx=size(state.x,'*');
+nu=0; for k=pointi', nu=nu+size(state.outtb(k),'*'), end
+ny=0; for k=pointo', ny=ny+size(state.outtb(k),'*'), end
 
 if X==[] then X=zeros(nx,1);end
 if Y==[] then Y=zeros(ny,1);end
@@ -111,11 +111,18 @@ sindu=size(U(Indu),'*');sindx=size(X(Indx),'*');
 U(Indu)=uxopt(1:sindu);
 X(Indx)=uxopt(sindu+1:sindx+sindu);
 state.x=X;
-state.outtb(pointi)=U;
+Uind=1
+for k=pointi'
+ state.outtb(k)=matrix(U(Uind:Uind+size(state.outtb(k),'*')-1),size(state.outtb(k)));
+ Uind=size(state.outtb(k),'*')+1;
+end
 [state,t]=scicosim(state,t,t,sim,'linear',[.1,.1,.1,.1]);
 XP=state.x;
-Y=state.outtb(pointo);
-
+Yind=1
+for k=pointo'
+ Y(Yind:Yind+size(state.outtb(k),'*')-1)=state.outtb(k)(:);
+ Yind=size(state.outtb(k),'*')+1
+end
 endfunction
 
 function [f,g,ind]=cost(ux,ind)
@@ -125,10 +132,20 @@ U;
 X(Indx)=ux(sindu+1:sindx+sindu);
 U(Indu)=ux(1:sindu);
 state.x=X;
-state.outtb(pointi)=U;
+Uind=1
+for k=pointi'
+ state.outtb(k)=matrix(U(Uind:Uind+size(state.outtb(k),'*')-1),size(state.outtb(k)));
+ Uind=size(state.outtb(k),'*')+1;
+end
+// state.outtb(pointi)=U;
 [state,t]=scicosim(state,t,t,sim,'linear',[.1,.1,.1,.1]);
 zer=ones(X);zer(Indxp)=0;xp=zer.*state.x;
-y=state.outtb(pointo);
+Yind=1
+for k=pointo'
+ y(Yind:Yind+size(state.outtb(k),'*')-1)=state.outtb(k)(:);
+ Yind=size(state.outtb(k),'*')+1
+end
+// y=state.outtb(pointo);
 zer=ones(y);zer(Indy)=0;err=zer.*(Y-y);
 f=.5*(norm(xp,2)+norm(err,2));
 
