@@ -48,10 +48,15 @@ void setSubWinAngles( sciPointObj *psubwin, double theta, double alpha )
 {
   /**dj20003***/
   sciSubWindow * ppSubWin = pSUBWIN_FEATURE (psubwin) ;
+  
+  ppSubWin->alpha = alpha ;
+  ppSubWin->theta = theta ;
+
   if ((alpha == 0.0) && (theta == 270.0))
   {
-    ppSubWin->is3d = FALSE; 
-    return;
+    ppSubWin->is3d = FALSE ;
+    ppSubWin->project[2]= 0; /* no z to display */
+    return ;
   }
   
   ppSubWin->alpha = alpha ;

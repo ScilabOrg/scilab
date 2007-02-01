@@ -7782,6 +7782,7 @@ sciDrawObj (sciPointObj * pobj)
 	  C2F (dr) ("xset","thickness",x+2,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 	  C2F (dr) ("xset","mark",&markidsizenew[0],&markidsizenew[1],PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 	 
+          sciUpdateScaleAngles( ppsubwin->theta, ppsubwin->alpha ) ; /* for merge objects */
 	  sci_update_frame_bounds_2d(pobj);
 	 
 	  
@@ -7792,22 +7793,25 @@ sciDrawObj (sciPointObj * pobj)
 	  sciClip(pobj); /* to update the clip_box if needed */
 	  sciUnClip(pobj);
 	  
-	  /* 	 if (sciGetVisibility(pobj)) */
 	  DrawAxesBackground();
 
 	  /* grid is behind other objetcs */
-      drawAxesGrid( pobj ) ;
+          drawAxesGrid( pobj ) ;
 	   
           /* there is a bug here */
           /* We should make a check for merge objects here */
           /* But merge object has been only created only for 3d */
           /* so sometimes it works, sometime not */
           psonstmp = sciGetLastSons (pobj);
-	  while (psonstmp != (sciSons *) NULL)
+	  while ( psonstmp != NULL )
           {
-            sciDrawObj(psonstmp->pointobj) ; 
-	    psonstmp = psonstmp->pprev;
-	  }	  
+            if ( !(ppsubwin->facetmerge && sciGetEntityType(psonstmp->pointobj) == SCI_SEGS) )
+            {
+              sciDrawObj( psonstmp->pointobj ) ;
+            }
+            
+            psonstmp = psonstmp->pprev;
+          }
 
 	  x[0] = sciGetForeground (pobj);
 	  x[2] = sciGetLineWidth (pobj);
@@ -12141,6 +12145,31 @@ int computeRealArrowSize( sciPointObj * pSegs, int nbSegs, int xCoord[], int yCo
   }
 
   return 0 ;
+
+}
+/*------------------------------------------------------------------------------------------*/
+/* update the Csacle value from new viewing angles */
+void sciUpdateScaleAngles( double theta, double alpha )
+{
+  double cost = 0.5 ;
+  double sint = 0.5 ;
+  double cosa = 0.5 ;
+  double sina = 0.5 ;
+
+  cost = cos( DEG2RAD(theta) ) ;
+  cosa = cos( DEG2RAD(alpha) ) ;
+  sint = sin( DEG2RAD(theta) ) ;
+  sina = sin( DEG2RAD(alpha) ) ;
+  
+  Cscale.m[0][0]= -sint        ;
+  Cscale.m[0][1]=  cost        ;
+  Cscale.m[0][2]=  0           ;
+  Cscale.m[1][0]= -cost * cosa ;
+  Cscale.m[1][1]= -sint * cosa ;
+  Cscale.m[1][2]=  sina        ;
+  Cscale.m[2][0]=  cost * sina ;
+  Cscale.m[2][1]=  sint * sina ;
+  Cscale.m[2][2]=  cosa        ;
 
 }
 /*------------------------------------------------------------------------------------------*/
