@@ -25,6 +25,7 @@
 #include "BuildObjects.h"
 #include "DestroyObjects.h"
 #include "ObjectStructure.h"
+#include "Graphics.h"
 
 #if WIN32
 #include "../os_specific/win_mem_alloc.h" /* MALLOC */
@@ -6221,7 +6222,17 @@ int Merge3dDimension(sciPointObj *pparent)
       }
       break;
     case  SCI_SEGS: 
-      N=pSEGS_FEATURE (psonstmp->pointobj)->Nbr1/2;
+      {
+        sciSegs * ppSegs = pSEGS_FEATURE(psonstmp->pointobj) ;
+        if ( ppSegs->ptype == 0 )
+        { 
+          N = ppSegs->Nbr1 / 2 ;
+        }
+        else
+        {
+          N = ppSegs->Nbr1 * ppSegs->Nbr2 ;
+        }
+      }
       break;
     case  SCI_RECTANGLE: 
       N = 4;
@@ -6236,7 +6247,6 @@ int Merge3dDimension(sciPointObj *pparent)
     psonstmp = psonstmp->pnext;
   }
 
-/*   pSUBWIN_FEATURE(pparent)->nb_vertices_in_merge = q; */
 
   return q;
 }
@@ -6309,7 +6319,17 @@ void Merge3dBuildTable(sciPointObj *pparent, int *index_in_entity, long *from_en
       }
       break;
     case  SCI_SEGS: 
-      N=pSEGS_FEATURE (psonstmp->pointobj)->Nbr1/2;
+      {
+        sciSegs * ppSegs = pSEGS_FEATURE(psonstmp->pointobj) ;
+        if ( ppSegs->ptype == 0 )
+        { 
+          N = ppSegs->Nbr1 / 2 ;
+        }
+        else
+        {
+          N = ppSegs->Nbr1 * ppSegs->Nbr2 ;
+        }
+      }
       break;
     case  SCI_RECTANGLE: 
       N = 4;
@@ -6682,42 +6702,84 @@ void DrawMerge3d(sciPointObj *psubwin, sciPointObj *pmerge, int * DPI)
       }
     }
       break;
-    case  SCI_SEGS: 
-      p = 2;
+    case SCI_SEGS: 
+      {
+        sciSegs * ppSegs = pSEGS_FEATURE(pobj) ;
+        p = 2;
       /***************/
+        if ( ppSegs->ptype == 0 )
+        {
+          xtmp[0] = ppSegs->vx[2*index];
+          xtmp[1] = ppSegs->vx[2*index+1];
 
-      xtmp[0] =  pSEGS_FEATURE (pobj)->vx[2*index];
-      xtmp[1] =  pSEGS_FEATURE (pobj)->vx[2*index+1];
+          ytmp[0] = ppSegs->vy[2*index];
+          ytmp[1] = ppSegs->vy[2*index+1];
 
-      ytmp[0] =  pSEGS_FEATURE (pobj)->vy[2*index];
-      ytmp[1] =  pSEGS_FEATURE (pobj)->vy[2*index+1];
-      
-      
-      if(pSEGS_FEATURE (pobj)->vz != NULL){
-	ztmp[0] = pSEGS_FEATURE (pobj)->vz[2*index];
-	ztmp[1] = pSEGS_FEATURE (pobj)->vz[2*index+1];
+          if( ppSegs->vz != NULL )
+          {
+            ztmp[0] = ppSegs->vz[2*index];
+            ztmp[1] = ppSegs->vz[2*index+1];
+          }
+
+        }
+        else
+        {
+          /* vx is size n1, vy n2 and vfx and vfy n1 x n2 */
+          int column = index / ppSegs->Nbr1 ;
+          int row    = index - column * ppSegs->Nbr1 ; 
+          double maxGap = 0.707 * computeGridMinGap( ppSegs->vx, ppSegs->vy, ppSegs->Nbr1, ppSegs->Nbr2 ) ;
+
+          xtmp[0] = ppSegs->vx[row] ;
+          ytmp[0] = ppSegs->vy[column] ;
+
+          if (ppSegs->typeofchamp == 0 )
+          {
+            double maxNorm = getLongestVector( ppSegs->vfx, ppSegs->vfy, ppSegs->Nbr1, ppSegs->Nbr2, 1.0, 1.0 ) ;
+            xtmp[1] = ppSegs->vx[row]    + maxGap * ppSegs->vfx[index] / maxNorm ;
+            ytmp[1] = ppSegs->vy[column] + maxGap * ppSegs->vfy[index] / maxNorm ;
+          }
+          else
+          {
+            /* colored */
+            double norm = sqrt( ppSegs->vfx[index] * ppSegs->vfx[index] + ppSegs->vfy[index] * ppSegs->vfy[index] ) ;
+            xtmp[1] = ppSegs->vx[row]    + maxGap * ppSegs->vfx[index] / norm ;
+            ytmp[1] = ppSegs->vy[column] + maxGap * ppSegs->vfy[index] / norm ; ;
+          }
+
+
+          if( ppSegs->vz != NULL )
+          {
+            ztmp[0] = ppSegs->vz[row] ;
+            ztmp[1] = ppSegs->vz[row] + ppSegs->vfz[index] ;
+          }
+
+        }
+
+        if( ppSegs->vz != NULL )
+        {
+          ReverseDataFor3D(psubwin,xtmp,ytmp,ztmp,2);
+        }
+        else
+        {
+          ReverseDataFor3D(psubwin,xtmp,ytmp, NULL,2);
+        }
+        /**************/
+
+        X[0]=xtmp[0];
+        X[1]=xtmp[1];
+        Y[0]=ytmp[0];
+        Y[1]=ytmp[1];
+        if ( ppSegs->vz != (double *) NULL) {
+          Z[0]=ztmp[0];
+          Z[1]=ztmp[1];
+          z=Z;
+        }
+        else
+        {
+          z=(double *)NULL;
+        }
+        x=X;y=Y;
       }
-      
-      if(pSEGS_FEATURE (pobj)->vz != NULL)
-	ReverseDataFor3D(psubwin,xtmp,ytmp,ztmp,2);
-      else
-	ReverseDataFor3D(psubwin,xtmp,ytmp,(double *) NULL,2);
- 	
-      /**************/
-
-      X[0]=xtmp[0];
-      X[1]=xtmp[1];
-      Y[0]=ytmp[0];
-      Y[1]=ytmp[1];
-      if (pSEGS_FEATURE (pobj)->vz != (double *) NULL) {
-	Z[0]=ztmp[0];
-	Z[1]=ztmp[1];
-	z=Z;
-      }
-      else
-	z=(double *)NULL;
-      x=X;y=Y;
-      
       break;
     case  SCI_RECTANGLE: 
     {
@@ -7001,50 +7063,88 @@ void DrawMerge3d(sciPointObj *psubwin, sciPointObj *pmerge, int * DPI)
     }
     break;
     case  SCI_SEGS: 
+    {
+      sciSegs * ppSegs = pSEGS_FEATURE(pobj) ;
       p = 2;
       /***************/
-	
-      if (pSEGS_FEATURE (pobj)->ptype == 0) /* ptype == 0 F.Leray : This is NOT A champ */
+
+      if (ppSegs->ptype == 0) /* ptype == 0 F.Leray : This is NOT A champ */
       {  
-        if (pSEGS_FEATURE (pobj)->iflag == 1) {
-          pstyle=sciGetGoodIndex(pobj, pSEGS_FEATURE (pobj)->pstyle[index]);
+        if (ppSegs->iflag == 1) {
+          pstyle=sciGetGoodIndex(pobj, ppSegs->pstyle[index]);
         }
         else{
-          pstyle=sciGetGoodIndex(pobj, pSEGS_FEATURE (pobj)->pstyle[0]);
+          pstyle=sciGetGoodIndex(pobj, ppSegs->pstyle[0]);
         }
       }
       else
       {
-        pstyle=sciGetGoodIndex(pobj, pSEGS_FEATURE (pobj)->pstyle[0]);
+        pstyle = 0 ;
       }
-	
-      iflag = pSEGS_FEATURE (pobj)->iflag;
-	
-      xtmp[0] =  pSEGS_FEATURE (pobj)->vx[2*index];
-      xtmp[1] =  pSEGS_FEATURE (pobj)->vx[2*index+1];
-	
-      ytmp[0] =  pSEGS_FEATURE (pobj)->vy[2*index];
-      ytmp[1] =  pSEGS_FEATURE (pobj)->vy[2*index+1];
-	
-	
-      if(pSEGS_FEATURE (pobj)->vz != NULL){
-        ztmp[0] = pSEGS_FEATURE (pobj)->vz[2*index];
-	ztmp[1] = pSEGS_FEATURE (pobj)->vz[2*index+1];
+
+      iflag = ppSegs->iflag;
+
+      /***************/
+      if ( ppSegs->ptype == 0 )
+      {
+        xtmp[0] = ppSegs->vx[2*index];
+        xtmp[1] = ppSegs->vx[2*index+1];
+
+        ytmp[0] = ppSegs->vy[2*index];
+        ytmp[1] = ppSegs->vy[2*index+1];
+
+        if( ppSegs->vz != NULL )
+        {
+          ztmp[0] = ppSegs->vz[2*index];
+          ztmp[1] = ppSegs->vz[2*index+1];
+        }
+
       }
-	
-      
-      if(pSEGS_FEATURE (pobj)->vz != NULL)
+      else
+      {
+        /* vx is size n1, vy n2 and vfx and vfy n1 x n2 */
+        int column = index / ppSegs->Nbr1 ;
+        int row    = index - column * ppSegs->Nbr1 ;
+        double maxGap = 0.707 * computeGridMinGap( ppSegs->vx, ppSegs->vy, ppSegs->Nbr1, ppSegs->Nbr2 ) ;
+
+        xtmp[0] = ppSegs->vx[row] ;
+        ytmp[0] = ppSegs->vy[column] ;
+
+        if (ppSegs->typeofchamp == 0 )
+        {
+          double maxNorm = getLongestVector( ppSegs->vfx, ppSegs->vfy, ppSegs->Nbr1, ppSegs->Nbr2, 1.0, 1.0 ) ;
+          xtmp[1] = ppSegs->vx[row]    + maxGap * ppSegs->vfx[index] / maxNorm ;
+          ytmp[1] = ppSegs->vy[column] + maxGap * ppSegs->vfy[index] / maxNorm ;
+        }
+        else
+        {
+          /* colored */
+          double norm = sqrt( ppSegs->vfx[index] * ppSegs->vfx[index] + ppSegs->vfy[index] * ppSegs->vfy[index] ) ;
+          xtmp[1] = ppSegs->vx[row]    + maxGap * ppSegs->vfx[index] / norm ;
+          ytmp[1] = ppSegs->vy[column] + maxGap * ppSegs->vfy[index] / norm ; ;
+        }
+
+
+        if( ppSegs->vz != NULL )
+        {
+          ztmp[0] = ppSegs->vz[row] ;
+          ztmp[1] = ppSegs->vz[row] + ppSegs->vfz[index] ;
+        }
+      }
+
+
+      if(ppSegs->vz != NULL)
         ReverseDataFor3D(psubwin,xtmp,ytmp,ztmp,2);
       else
         ReverseDataFor3D(psubwin,xtmp,ytmp,(double *) NULL,2);
-	
+
       /**************/
 
       X[0]=xtmp[0];
       X[1]=xtmp[1];
       Y[0]=ytmp[0];
       Y[1]=ytmp[1];
-      if (pSEGS_FEATURE (pobj)->vz != (double *) NULL) {
+      if (ppSegs->vz != (double *) NULL) {
         Z[0]=ztmp[0];
         Z[1]=ztmp[1];
         z=Z;
@@ -7052,8 +7152,8 @@ void DrawMerge3d(sciPointObj *psubwin, sciPointObj *pmerge, int * DPI)
       else
         z=(double *)NULL;
       x=X;y=Y;
-	
-      break;
+    }
+    break;
     case  SCI_RECTANGLE: 
     {
       double rectx[4],recty[4],rectz[4];
@@ -7231,8 +7331,12 @@ void DrawMerge3d(sciPointObj *psubwin, sciPointObj *pmerge, int * DPI)
           }
         }
       } /* end SCI_SURFACE*/
-      else if(sciGetEntityType (pobj)==SCI_SEGS) { /* PSEGS here ! */
-        if (sciGetIsMark(pobj) == TRUE){
+      else if(sciGetEntityType (pobj)==SCI_SEGS)
+      {
+        /* PSEGS here ! */
+        sciSegs * ppSegs = pSEGS_FEATURE(pobj) ;
+        if ( sciGetIsMark(pobj) )
+        {
           integer v;
           double dv=0;
           int x[4], markidsizenew[2];
@@ -7259,7 +7363,26 @@ void DrawMerge3d(sciPointObj *psubwin, sciPointObj *pmerge, int * DPI)
                     PD0, PD0, PD0, 5L, 10L);
           C2F (dr) ("xset", "thickness",  context+1, PI0, PI0, PI0, PI0, PI0, PD0, PD0, PD0, PD0, 5L, 9L);
           C2F (dr) ("xset", "line style", context+2, PI0, PI0, PI0, PI0, PI0, PD0, PD0, PD0, PD0, 0L, 0L); 
-          C2F(dr)("xsegs","v",polyx,polyy,&p,&pstyle,&iflag,PI0,PD0,PD0,PD0,PD0,0L,0L);
+          if ( ppSegs->ptype == 0 )
+          {
+            C2F(dr)("xsegs","v",polyx,polyy,&p,&pstyle,&iflag,PI0,PD0,PD0,PD0,PD0,0L,0L);
+          }
+          else
+          {
+            // Champ
+            int arrowSize = computeRealArrowSize( pobj, p, polyx, polyy ) ;
+            if( ppSegs->typeofchamp == 0 )
+            {
+              int sflag = 0 ;
+              C2F(dr)("xarrow","v",polyx,polyy,&p,&arrowSize,&pstyle,&sflag,PD0,PD0,PD0,PD0,0L,0L);
+            }
+            else
+            {
+              int sflag = 1 ; /* colored */
+              int arrowColor = computeArrowColor( ppSegs->vfx, ppSegs->vfy, ppSegs->Nbr1, ppSegs->Nbr2, index ) ;
+              C2F(dr)("xarrow","v",polyx,polyy,&p,&arrowSize,&arrowColor,&sflag,PD0,PD0,PD0,PD0,0L,0L);
+            }
+          } 
         }
       }
       else if(sciGetEntityType (pobj)==SCI_RECTANGLE) { /* RECTANGLE case here ! */
