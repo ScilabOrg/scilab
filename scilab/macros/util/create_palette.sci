@@ -74,10 +74,11 @@ function routines=create_palette(Path)
       elseif txt=='Others' then
 	lisf=['c_block.sci';'fortran_block.sci';
 	      'SUPER_f.sci';'scifunc_block.sci';
-	      'TEXT_f.sci';'CBLOCK.sci';'RATELIMITER.sci'; 
-	      'BACKLASH.sci';'DEADBAND.sci';'EXPRESSION.sci';	      
-	      'CONSTRAINT_f.sci';'HYSTHERESIS.sci';'DEBUG_SCICOS.sci'
-	      'LOGICAL_OP.sci';'RELATIONALOP.sci';'generic_block3.sci']
+	      'TEXT_f.sci';'CBLOCK.sci';'RATELIMITER.sci';
+	      'BACKLASH.sci';'DEADBAND.sci';'EXPRESSION.sci';
+	      'CONSTRAINT_f.sci';'HYSTHERESIS.sci';'DEBUG_SCICOS.sci';
+	      'LOGICAL_OP.sci';'RELATIONALOP.sci';'generic_block3.sci';
+	      'MBLOCK.sci']
 	
       elseif txt=='Linear' then
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR.sci';
@@ -105,8 +106,13 @@ function routines=create_palette(Path)
 	
       elseif txt=='ThermoHydraulics' then
 	lisf=['Bache.sci';'VanneReglante.sci';'PerteDP.sci';'PuitsP.sci';'SourceP.sci';]
+
       elseif txt=='Matrix' then
-	lisf=['MATMUL.sci';'MATTRAN.sci']
+	lisf=['MATMUL.sci';'MATTRAN.sci';'MATSING.sci';'MATRESH.sci';'MATDIAG.sci';
+              'MATEIG.sci';'MATMAGPHI.sci';'EXTRACT.sci';'MATEXPM.sci';'MATDET.sci';
+              'MATPINV.sci';'EXTTRI.sci';'RICC.sci';'ROOTCOEF.sci';'MATCATH.sci';
+              'MATLU.sci';'MATDIV.sci';'MATZCONJ.sci';'MATZREIM.sci';'SUBMAT.sci';
+              'MATBKSL.sci';'MATINV.sci';'MATCATV.sci']
       else
 	error('Palette '+txt+' does not exists')
       end
