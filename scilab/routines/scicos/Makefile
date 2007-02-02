@@ -45,7 +45,14 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
 	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
 	cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o \
-	matmul_m.o mattran_m.o cmatview.o cmat3d.o
+	matmul_m.o mattran_m.o cmatview.o cmat3d.o \
+	extdiag.o exttril.o mat_bksl.o mat_diag.o mat_lu.o mat_svd.o \
+	matz_absc.o matz_conj.o matz_expm.o matz_reim.o matz_svd.o root_coef.o \
+	extdiagz.o exttrilz.o mat_cath.o mat_div.o mat_pinv.o mat_vps.o matz_bksl.o \
+	matz_det.o matz_inv.o matz_reimc.o matz_vps.o rootz_coef.o extract.o exttriu.o \
+	mat_catv.o mat_expm.o mat_reshape.o mat_vpv.o matz_cath.o matz_diag.o matz_lu.o \
+	matz_reshape.o matz_vpv.o submat.o extractz.o exttriuz.o mat_det.o mat_inv.o \
+	mat_sing.o matz_abs.o matz_catv.o matz_div.o matz_pinv.o matz_sing.o ricc_m.o submatz.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \

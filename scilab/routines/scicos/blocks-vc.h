@@ -143,6 +143,54 @@ extern void matmul_m __PARAMS((ARGS_scicos));
 extern void mattran_m __PARAMS((ARGS_scicos));
 extern void cmatview __PARAMS((ARGS_scicos));
 extern void cmat3d __PARAMS((ARGS_scicos));
+extern void extdiag __PARAMS((ARGS_scicos));
+extern void exttril __PARAMS((ARGS_scicos));
+extern void mat_bksl __PARAMS((ARGS_scicos));
+extern void mat_diag __PARAMS((ARGS_scicos));
+extern void mat_lu __PARAMS((ARGS_scicos));
+extern void mat_svd __PARAMS((ARGS_scicos));
+extern void matz_absc __PARAMS((ARGS_scicos));
+extern void matz_conj __PARAMS((ARGS_scicos));
+extern void matz_expm __PARAMS((ARGS_scicos));
+extern void matz_reim __PARAMS((ARGS_scicos));
+extern void matz_svd __PARAMS((ARGS_scicos));
+extern void root_coef __PARAMS((ARGS_scicos));
+extern void extdiagz __PARAMS((ARGS_scicos));
+extern void exttrilz __PARAMS((ARGS_scicos));
+extern void mat_cath __PARAMS((ARGS_scicos));
+extern void mat_div __PARAMS((ARGS_scicos));
+extern void mat_pinv __PARAMS((ARGS_scicos));
+extern void mat_vps __PARAMS((ARGS_scicos));
+extern void matz_bksl __PARAMS((ARGS_scicos));
+extern void matz_det __PARAMS((ARGS_scicos));
+extern void matz_inv __PARAMS((ARGS_scicos));
+extern void matz_reimc __PARAMS((ARGS_scicos));
+extern void matz_vps __PARAMS((ARGS_scicos));
+extern void rootz_coef __PARAMS((ARGS_scicos));
+extern void extract __PARAMS((ARGS_scicos));
+extern void exttriu __PARAMS((ARGS_scicos));
+extern void mat_catv __PARAMS((ARGS_scicos));
+extern void mat_expm __PARAMS((ARGS_scicos));
+extern void mat_reshape __PARAMS((ARGS_scicos));
+extern void mat_vpv __PARAMS((ARGS_scicos));
+extern void matz_cath __PARAMS((ARGS_scicos));
+extern void matz_diag __PARAMS((ARGS_scicos));
+extern void matz_lu __PARAMS((ARGS_scicos));
+extern void matz_reshape __PARAMS((ARGS_scicos));
+extern void matz_vpv __PARAMS((ARGS_scicos));
+extern void submat __PARAMS((ARGS_scicos));
+extern void extractz __PARAMS((ARGS_scicos));
+extern void exttriuz __PARAMS((ARGS_scicos));
+extern void mat_det __PARAMS((ARGS_scicos));
+extern void mat_inv __PARAMS((ARGS_scicos));
+extern void mat_sing __PARAMS((ARGS_scicos));
+extern void matz_abs __PARAMS((ARGS_scicos));
+extern void matz_catv __PARAMS((ARGS_scicos));
+extern void matz_div __PARAMS((ARGS_scicos));
+extern void matz_pinv __PARAMS((ARGS_scicos));
+extern void matz_sing __PARAMS((ARGS_scicos));
+extern void ricc_m __PARAMS((ARGS_scicos));
+extern void submatz __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -198,7 +246,15 @@ OpTab tabsim[] ={
 {"evtdly",(ScicosF) F2C(evtdly)},
 {"evtvardly",(ScicosF) evtvardly},
 {"expblk",(ScicosF) F2C(expblk)},
+{"extdiag",(ScicosF) extdiag},
+{"extdiagz",(ScicosF) extdiagz},
 {"extractor",(ScicosF) extractor},
+{"extract",(ScicosF) extract},
+{"extractz",(ScicosF) extractz},
+{"exttril",(ScicosF) exttril},
+{"exttrilz",(ScicosF) exttrilz},
+{"exttriu",(ScicosF) exttriu},
+{"exttriuz",(ScicosF) exttriuz},
 {"forblk",(ScicosF) F2C(forblk)},
 {"fsv",(ScicosF) F2C(fsv)},
 {"gainblk",(ScicosF) gainblk},
@@ -222,8 +278,43 @@ OpTab tabsim[] ={
 {"lookup",(ScicosF) F2C(lookup)},
 {"lsplit",(ScicosF) F2C(lsplit)},
 {"lusat",(ScicosF) F2C(lusat)},
+{"mat_bksl",(ScicosF) mat_bksl},
+{"mat_cath",(ScicosF) mat_cath},
+{"mat_catv",(ScicosF) mat_catv},
+{"mat_det",(ScicosF) mat_det},
+{"mat_diag",(ScicosF) mat_diag},
+{"mat_div",(ScicosF) mat_div},
+{"mat_expm",(ScicosF) mat_expm},
+{"mat_inv",(ScicosF) mat_inv},
+{"mat_lu",(ScicosF) mat_lu},
 {"matmul_m",(ScicosF) matmul_m},
+{"mat_pinv",(ScicosF) mat_pinv},
+{"mat_reshape",(ScicosF) mat_reshape},
+{"mat_sing",(ScicosF) mat_sing},
+{"mat_svd",(ScicosF) mat_svd},
 {"mattran_m",(ScicosF) mattran_m},
+{"mat_vps",(ScicosF) mat_vps},
+{"mat_vpv",(ScicosF) mat_vpv},
+{"matz_absc",(ScicosF) matz_absc},
+{"matz_abs",(ScicosF) matz_abs},
+{"matz_bksl",(ScicosF) matz_bksl},
+{"matz_cath",(ScicosF) matz_cath},
+{"matz_catv",(ScicosF) matz_catv},
+{"matz_conj",(ScicosF) matz_conj},
+{"matz_det",(ScicosF) matz_det},
+{"matz_diag",(ScicosF) matz_diag},
+{"matz_div",(ScicosF) matz_div},
+{"matz_expm",(ScicosF) matz_expm},
+{"matz_inv",(ScicosF) matz_inv},
+{"matz_lu",(ScicosF) matz_lu},
+{"matz_pinv",(ScicosF) matz_pinv},
+{"matz_reimc",(ScicosF) matz_reimc},
+{"matz_reim",(ScicosF) matz_reim},
+{"matz_reshape",(ScicosF) matz_reshape},
+{"matz_sing",(ScicosF) matz_sing},
+{"matz_svd",(ScicosF) matz_svd},
+{"matz_vps",(ScicosF) matz_vps},
+{"matz_vpv",(ScicosF) matz_vpv},
 {"maxblk",(ScicosF) F2C(maxblk)},
 {"memo",(ScicosF) F2C(memo)},
 {"mfclck",(ScicosF) F2C(mfclck)},
@@ -249,7 +340,10 @@ OpTab tabsim[] ={
 {"readf",(ScicosF) F2C(readf)},
 {"relationalop",(ScicosF) relationalop},
 {"relay",(ScicosF) relay},
+{"ricc_m",(ScicosF) ricc_m},
 {"rndblk",(ScicosF) F2C(rndblk)},
+{"root_coef",(ScicosF) root_coef},
+{"rootz_coef",(ScicosF) rootz_coef},
 {"samphold4",(ScicosF) samphold4},
 {"samphold",(ScicosF) F2C(samphold)},
 {"satur",(ScicosF) satur},
@@ -264,6 +358,8 @@ OpTab tabsim[] ={
 {"slider",(ScicosF) slider},
 {"sqrblk",(ScicosF) F2C(sqrblk)},
 {"step_func",(ScicosF) step_func},
+{"submat",(ScicosF) submat},
+{"submatz",(ScicosF) submatz},
 {"sum2",(ScicosF) F2C(sum2)},
 {"sum3",(ScicosF) F2C(sum3)},
 {"summation",(ScicosF) summation},
@@ -288,6 +384,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 141 ;
+int ntabsim= 189 ;
 #endif 
 /***********************************/

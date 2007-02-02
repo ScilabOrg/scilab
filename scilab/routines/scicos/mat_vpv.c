@@ -1,0 +1,134 @@
+# include "scicos_block4.h"
+# include "../machine.h"
+#include <stdio.h>
+extern int C2F(dlapcy)();
+extern int C2F(dgeev)();
+extern int C2F(zlaset)();
+extern int C2F(issymmetric)();
+extern int C2F(dsyev)();
+typedef struct
+{         double *LA;
+	  double *L0;
+          double *LVR;
+          double *LW;
+          double *LWR;
+          double *LWI;
+          double *dwork;
+          double *dwork1;
+	  double *y2;
+	  double *y3;
+	  double *y4;
+} mat_vps_struct ;
+void mat_vpv(scicos_block *block,int flag)
+{
+ double *u;
+ double *y1;
+ double *y2;
+ double *y3;
+ double *y4;
+ int nu;
+ int info;
+ int i,j,lwork,lwork1,ii,ij,ij1,ji;
+ int symmetric;
+ mat_vps_struct *ptr;
+ 
+ nu =GetInPortRows(block,1);
+ u=GetRealInPortPtrs(block,1);
+ y1=GetRealOutPortPtrs(block,1);
+ y2=GetImagOutPortPtrs(block,1);
+ y3=GetRealOutPortPtrs(block,2);
+ y4=GetImagOutPortPtrs(block,2);
+ lwork1=4*nu;
+ lwork=3*nu-1;
+             /*init : initialization*/
+if (flag==4)
+   {*(block->work)=(mat_vps_struct*) malloc(sizeof(mat_vps_struct));
+    ptr=*(block->work);
+    ptr->LA=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->L0=(double*) malloc(sizeof(double));
+    ptr->y2=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->y3=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->y4=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->LVR=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->LW=(double*) malloc(sizeof(double)*(nu*nu));
+    ptr->LWR=(double*) malloc(sizeof(double)*(nu*1));
+    ptr->LWI=(double*) malloc(sizeof(double)*(nu*1));
+    ptr->dwork=(double*) malloc(sizeof(double)*lwork);
+    ptr->dwork1=(double*) malloc(sizeof(double)*lwork1);
+   }
+
+       /* Terminaison */
+else if (flag==5)
+   {ptr=*(block->work);
+    free(ptr->LA);
+    free(ptr->L0);
+    free(ptr->LVR);
+    free(ptr->LW);
+    free(ptr->LWI);
+    free(ptr->LWR);
+    free(ptr->dwork);
+    free(ptr->dwork1);
+    free(ptr);
+    return;
+   }
+
+else
+   {
+    ptr=*(block->work);
+    C2F(dlacpy)("F",&nu,&nu,u,&nu,ptr->LA,&nu);
+    symmetric=1;
+    for (j=0;j<nu;j++)
+	{for (i=j;i<nu;i++)
+		{ij=i+j*nu;
+		 ji=j+i*nu;
+		if (i!=j)
+			{if (*(ptr->LA+ij)==*(ptr->LA+ji)) symmetric*= 1;
+			 else { symmetric*=0;break;}}}}
+    if (symmetric==1)
+	{C2F(dsyev)("V","U",&nu,ptr->LA,&nu,ptr->LW,ptr->dwork,&lwork,&info);
+	 if (info!=0)
+	    	{if (flag!=6)
+		{set_block_error(-7);
+		return;
+		}}
+	for (i=0;i<nu;i++)
+	{ii=i+i*nu;
+	 *(y1+ii)=*(ptr->LW+i);
+	}
+	C2F(dlacpy)("F",&nu,&nu,ptr->LA,&nu,y3,&nu);
+	}
+     else
+ 	{C2F(dgeev)("N","V",&nu,ptr->LA,&nu,ptr->LWR,ptr->LWI,ptr->dwork1,&nu,ptr->LVR,&nu,ptr->dwork1,&lwork1,&info);
+        if (info!=0)
+	    	{if (flag!=6)
+		{set_block_error(-7);
+		return;
+		}}
+
+	*(ptr->L0)=0;
+	C2F(dlaset)("F",&nu,&nu,ptr->L0,ptr->L0,y1,&nu);
+	C2F(dlaset)("F",&nu,&nu,ptr->L0,ptr->L0,y2,&nu);
+	for (i=0;i<nu;i++)
+		{ii=i+i*nu;
+		*(y1+ii)=*(ptr->LWR+i);
+		*(y2+ii)=*(ptr->LWI+i);
+		}
+	for (j=0;j<nu;j++)
+		{if (*(ptr->LWI+j)==0)
+			for (i=0;i<nu;i++)
+				{ij=i+(j)*nu;
+				 *(y3+ij)=*(ptr->LVR +ij);
+				 *(y4+ij)=0;}
+		else{
+			for (i=0;i<nu;i++)
+					{ij=i+(j)*nu;
+					 ij1=i+(j+1)*nu;
+					 *(y3+ij)=*(ptr->LVR +ij);
+					 *(y4+ij)=*(ptr->LVR +ij1);
+					 *(y3+ij1)=*(ptr->LVR +ij);
+					 *(y4+ij1)=-(*(ptr->LVR +ij1));}
+			j++;}
+		}
+ 	}
+   }
+}

@@ -48,7 +48,14 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	evtvardly.obj edgetrig.obj tcslti4.obj tcsltj4.obj dsslti4.obj \
 	csslti4.obj cstblk4.obj samphold4.obj dollar4.obj invblk4.obj delay4.obj \
 	cevscpe.obj cfscope.obj cscopxy.obj canimxy.obj canimxy3d.obj cscopxy3d.obj \
-	matmul_m.obj mattran_m.obj cmatview.obj cmat3d.obj
+	matmul_m.obj mattran_m.obj cmatview.obj cmat3d.obj \
+	extdiag.obj exttril.obj mat_bksl.obj mat_diag.obj mat_lu.obj mat_svd.obj \
+	matz_absc.obj matz_conj.obj matz_expm.obj matz_reim.obj matz_svd.obj root_coef.obj \
+	extdiagz.obj exttrilz.obj mat_cath.obj mat_div.obj mat_pinv.obj mat_vps.obj matz_bksl.obj \
+	matz_det.obj matz_inv.obj matz_reimc.obj matz_vps.obj rootz_coef.obj extract.obj exttriu.obj \
+	mat_catv.obj mat_expm.obj mat_reshape.obj mat_vpv.obj matz_cath.obj matz_diag.obj matz_lu.obj \
+	matz_reshape.obj matz_vpv.obj submat.obj extractz.obj exttriuz.obj mat_det.obj mat_inv.obj \
+	mat_sing.obj matz_abs.obj matz_catv.obj matz_div.obj matz_pinv.obj matz_sing.obj ricc_m.obj submatz.obj
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \
