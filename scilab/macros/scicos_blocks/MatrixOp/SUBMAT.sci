@@ -31,7 +31,7 @@ case 'set' then
     else message("Datatype is not supported");ok=%f;
     end
     if (a<=0) | (b<=0) | (c<=0) | (d<=0) then message("invalid index");ok=%f;end
-    model.rpar=[a;b;c;d];
+    model.ipar=[a;b;c;d];
     in=[model.in model.in2];
     out=[(b-a)+1 (d-c)+1];
     funtyp=4;
@@ -61,8 +61,8 @@ case 'define' then
   model.evtout=[]
   model.state=[]
   model.dstate=[]
-  model.rpar=[1;1;1;1]
-  model.ipar=[]
+  model.rpar=[]
+  model.ipar=[1;1;1;1]
   model.blocktype='c' 
   model.firing=[]
   model.dep_ut=[%t %f]
