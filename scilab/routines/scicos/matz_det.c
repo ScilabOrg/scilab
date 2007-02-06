@@ -2,8 +2,7 @@
 # include "../machine.h"
 #include <stdio.h>
 //#include <essl.h>
-typedef struct FCOMPLEX {float r,i;} fcomplex;
-#define cset(x,a,b) (x.r=a,x.i=b)
+typedef struct FCOMPLEX {double r,i;} fcomplex;
 extern int C2F(zgetrf)();
 typedef struct
 {         int *ipiv;
@@ -15,13 +14,11 @@ void matz_det(scicos_block *block,int flag)
  double *yr;
  double *ui;
  double *yi;
- double *v;
  int nu;
- int *ipiv;
  int info;
- int i,j;
+ int i;
  fcomplex D,l;
- float A;
+ double A;
  mat_det_struct *mdet;
  
  nu =GetInPortRows(block,1);
@@ -32,19 +29,19 @@ void matz_det(scicos_block *block,int flag)
              /*init : initialization*/
 if (flag==4)
 
-      { *(block->work)=(mat_det_struct*) malloc(sizeof(mat_det_struct));
+      { *(block->work)=(mat_det_struct*) scicos_malloc(sizeof(mat_det_struct));
     mdet=*(block->work);
-    mdet->ipiv=(int*) malloc(sizeof(int)*nu);
-    mdet->wrk=(double*) malloc(sizeof(double)*(2*nu*nu));
+    mdet->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
+    mdet->wrk=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
 
       }
 
        /* Terminaison */
 else if (flag==5)
    {mdet=*(block->work);
-    free(mdet->ipiv);
-    free(mdet->wrk);
-    free(mdet);
+    scicos_free(mdet->ipiv);
+    scicos_free(mdet->wrk);
+    scicos_free(mdet);
 
     return;
    }
@@ -52,9 +49,9 @@ else if (flag==5)
 else
    {
     mdet=*(block->work);
-    for (i=0,j=0;i<(nu*nu),j<(2*nu*nu);i++,j+=2)   
-	{mdet->wrk[j]=ur[i];
-	mdet->wrk[j+1]=ui[i];}
+    for (i=0;i<(nu*nu);i++)
+	{mdet->wrk[2*i]=ur[i];
+	mdet->wrk[2*i+1]=ui[i];}
      C2F(zgetrf)(&nu,&nu,mdet->wrk,&nu,mdet->ipiv,&info);
     if (info !=0)
        {if (flag!=6)

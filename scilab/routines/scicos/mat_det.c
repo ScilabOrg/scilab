@@ -10,9 +10,7 @@ void mat_det(scicos_block *block,int flag)
 {
  double *u;
  double *y;
-double *v;
  int nu;
- int *ipiv;
  int info;
  int i;
  double D,l;
@@ -27,17 +25,17 @@ if (flag==4)
 
       { *(block->work)=(mat_det_struct*) malloc(sizeof(mat_det_struct));
     mdet=*(block->work);
-    mdet->ipiv=(int*) malloc(sizeof(int)*nu);
-    mdet->wrk=(double*) malloc(sizeof(double)*(nu*nu));
+    mdet->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
+    mdet->wrk=(double*) scicos_malloc(sizeof(double)*(nu*nu));
 
       }
 
        /* Terminaison */
 else if (flag==5)
    {mdet=*(block->work);
-    free(mdet->ipiv);
-    free(mdet->wrk);
-    free(mdet);
+    scicos_free(mdet->ipiv);
+    scicos_free(mdet->wrk);
+    scicos_free(mdet);
 
     return;
    }

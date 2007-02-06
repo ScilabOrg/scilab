@@ -1,9 +1,7 @@
 # include "scicos_block4.h"
 # include "../machine.h"
 #include <stdio.h>
-//#include <essl.h>
-//#define cset (x,a,b) (Re(x)=a,Im(x)=b)
-extern int C2F(dlapcy)();
+extern int C2F(dlacpy)();
 extern int C2F(dgeev)();
 extern int C2F(zlaset)();
 extern int C2F(issymmetric)();
@@ -33,22 +31,22 @@ void mat_vps(scicos_block *block,int flag)
  lwork=3*nu-1;
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_vps_struct*) malloc(sizeof(mat_vps_struct));
+   {*(block->work)=(mat_vps_struct*) scicos_malloc(sizeof(mat_vps_struct));
     ptr=*(block->work);
-    ptr->LA=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->LVR=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*lwork);
-    ptr->dwork1=(double*) malloc(sizeof(double)*lwork1);
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->LVR=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork);
+    ptr->dwork1=(double*) scicos_malloc(sizeof(double)*lwork1);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->LA);
-    free(ptr->LVR);
-    free(ptr->dwork);
-    free(ptr->dwork1);
-    free(ptr);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LVR);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr->dwork1);
+    scicos_free(ptr);
     return;
    }
 
@@ -65,7 +63,7 @@ else
 			{if (*(ptr->LA+ij)==*(ptr->LA+ji)) symmetric*= 1;
 			 else { symmetric*=0;break;}}}}
     if (symmetric==1)
-	{C2F(dsyev)("N","U",&nu,ptr->LA,&nu,y1,ptr->dwork,&lwork,&info);for (i=0;i<nu;i++) sciprint("y(%i)=%f\n",i,*(y1+i));
+	{C2F(dsyev)("N","U",&nu,ptr->LA,&nu,y1,ptr->dwork,&lwork,&info);
 	 if (info!=0)
 	    	{if (flag!=6)
 		{set_block_error(-7);

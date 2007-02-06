@@ -7,7 +7,7 @@ void matz_cath(scicos_block *block,int flag)
  double *ur,*ui;
  double *yr,*yi;
  int mu,nu;
- int i,j,ij,k,l,bk;
+ int i,j,ij,k,bk;
  
  mu =GetInPortRows(block,1);
  yr=GetRealOutPortPtrs(block,1);

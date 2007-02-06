@@ -5,7 +5,7 @@ void exttriu(scicos_block *block,int flag)
 {
   double *u;
   double *y;
-  int nu,mu,i,j,ij,k;
+  int nu,mu,i,j,ij;
 
   mu=GetInPortRows(block,1);
   nu=GetInPortCols(block,1);

@@ -8,7 +8,7 @@ void matz_reshape(scicos_block *block,int flag)
   double *yr;
   double *yi;
 
-  int nu,mu,i,xu,vu;
+  int i,xu,vu;
 
   xu=GetOutPortRows(block,1);
   vu=GetOutPortCols(block,1);

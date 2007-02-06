@@ -1,9 +1,9 @@
 # include "scicos_block4.h"
 # include "../machine.h"
 #include <stdio.h>
-extern int C2F(dlapcy)();
+extern int C2F(dlacpy)();
 extern int C2F(dgeev)();
-extern int C2F(zlaset)();
+extern int C2F(dlaset)();
 extern int C2F(issymmetric)();
 extern int C2F(dsyev)();
 typedef struct
@@ -15,9 +15,6 @@ typedef struct
           double *LWI;
           double *dwork;
           double *dwork1;
-	  double *y2;
-	  double *y3;
-	  double *y4;
 } mat_vps_struct ;
 void mat_vpv(scicos_block *block,int flag)
 {
@@ -42,33 +39,30 @@ void mat_vpv(scicos_block *block,int flag)
  lwork=3*nu-1;
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_vps_struct*) malloc(sizeof(mat_vps_struct));
+   {*(block->work)=(mat_vps_struct*) scicos_malloc(sizeof(mat_vps_struct));
     ptr=*(block->work);
-    ptr->LA=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->L0=(double*) malloc(sizeof(double));
-    ptr->y2=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->y3=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->y4=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->LVR=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->LW=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->LWR=(double*) malloc(sizeof(double)*(nu*1));
-    ptr->LWI=(double*) malloc(sizeof(double)*(nu*1));
-    ptr->dwork=(double*) malloc(sizeof(double)*lwork);
-    ptr->dwork1=(double*) malloc(sizeof(double)*lwork1);
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->L0=(double*) scicos_malloc(sizeof(double));
+    ptr->LVR=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->LW=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->LWR=(double*) scicos_malloc(sizeof(double)*(nu*1));
+    ptr->LWI=(double*) scicos_malloc(sizeof(double)*(nu*1));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork);
+    ptr->dwork1=(double*) scicos_malloc(sizeof(double)*lwork1);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->LA);
-    free(ptr->L0);
-    free(ptr->LVR);
-    free(ptr->LW);
-    free(ptr->LWI);
-    free(ptr->LWR);
-    free(ptr->dwork);
-    free(ptr->dwork1);
-    free(ptr);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->L0);
+    scicos_free(ptr->LVR);
+    scicos_free(ptr->LW);
+    scicos_free(ptr->LWI);
+    scicos_free(ptr->LWR);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr->dwork1);
+    scicos_free(ptr);
     return;
    }
 

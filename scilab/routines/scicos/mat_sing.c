@@ -14,8 +14,7 @@ extern int C2F(dlacpy)();
 #endif
 
 typedef struct
-{         double *l0;
-	  double *LA;
+{	  double *LA;
           double *LU;
           double *LVT;
           double *dwork;
@@ -26,7 +25,7 @@ void mat_sing(scicos_block *block,int flag)
  double *y;
  int nu,mu;
  int info;
- int i,j,ij,ji,ii,lwork;
+ int lwork;
  mat_sing_struct *ptr;
  mu=GetInPortRows(block,1);
  nu=GetInPortCols(block,1);
@@ -35,24 +34,22 @@ void mat_sing(scicos_block *block,int flag)
  lwork=max(3*min(mu,nu)+max(mu,nu),5*min(mu,nu)-4); 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_sing_struct*) malloc(sizeof(mat_sing_struct));
+   {*(block->work)=(mat_sing_struct*) scicos_malloc(sizeof(mat_sing_struct));
     ptr=*(block->work);
-    ptr->l0=(double*) malloc(sizeof(double));
-    ptr->LA=(double*) malloc(sizeof(double)*(mu*nu));
-    ptr->LU=(double*) malloc(sizeof(double)*(mu*mu));
-    ptr->LVT=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*lwork);
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(mu*nu));
+    ptr->LU=(double*) scicos_malloc(sizeof(double)*(mu*mu));
+    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->l0);
-    free(ptr->LA);
-    free(ptr->LU);
-    free(ptr->LVT);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LU);
+    scicos_free(ptr->LVT);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 
@@ -65,6 +62,5 @@ else
        {if (flag!=6)
    	{set_block_error(-7);
          return;}}
-    *(ptr->l0)=0;
    }
 }

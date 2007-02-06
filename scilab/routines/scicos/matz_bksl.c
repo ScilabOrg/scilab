@@ -2,6 +2,7 @@
 # include "../machine.h"
 #include <stdio.h>
 #include <math.h>
+extern int C2F(zlacpy)();
 extern int C2F(zgetrf)();
 extern double C2F(dlamch)();
 extern double C2F(zlange)();
@@ -39,7 +40,7 @@ void matz_bksl(scicos_block *block,int flag)
  int info;
  int i,j,l,lw,lu,rw,ij,k;
  mat_bksl_struct *ptr;
- double rcond, ANORM, EPS,po;
+ double rcond, ANORM, EPS;
  vu =GetOutPortRows(block,1);
  wu =GetOutPortCols(block,1);
  mu =GetInPortRows(block,1);
@@ -58,32 +59,32 @@ void matz_bksl(scicos_block *block,int flag)
  rw=2*nu1;
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_bksl_struct*) malloc(sizeof(mat_bksl_struct));
+   {*(block->work)=(mat_bksl_struct*) scicos_malloc(sizeof(mat_bksl_struct));
     ptr=*(block->work);
-    ptr->ipiv=(int*) malloc(sizeof(int)*nu1);
-    ptr->rank=(int*) malloc(sizeof(int));
-    ptr->jpvt=(int*) malloc(sizeof(int)*nu1);
-    ptr->iwork=(double*) malloc(sizeof(double)*2*nu1);
-    ptr->dwork=(double*) malloc(sizeof(double)*2*lw);
-    ptr->IN1F=(double*) malloc(sizeof(double)*(2*mu*nu1));
-    ptr->IN1=(double*) malloc(sizeof(double)*(2*mu*nu1));
-    ptr->IN2X=(double*) malloc(sizeof(double)*(2*l*nu2));
-    ptr->IN2=(double*) malloc(sizeof(double)*(2*mu*nu2));
+    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu1);
+    ptr->rank=(int*) scicos_malloc(sizeof(int));
+    ptr->jpvt=(int*) scicos_malloc(sizeof(int)*nu1);
+    ptr->iwork=(double*) scicos_malloc(sizeof(double)*2*nu1);
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lw);
+    ptr->IN1F=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1));
+    ptr->IN1=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1));
+    ptr->IN2X=(double*) scicos_malloc(sizeof(double)*(2*l*nu2));
+    ptr->IN2=(double*) scicos_malloc(sizeof(double)*(2*mu*nu2));
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->ipiv);
-    free(ptr->rank);
-    free(ptr->jpvt);
-    free(ptr->iwork);
-    free(ptr->IN1F);
-    free(ptr->IN1);
-    free(ptr->IN2X);
-    free(ptr->IN2);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->ipiv);
+    scicos_free(ptr->rank);
+    scicos_free(ptr->jpvt);
+    scicos_free(ptr->iwork);
+    scicos_free(ptr->IN1F);
+    scicos_free(ptr->IN1);
+    scicos_free(ptr->IN2X);
+    scicos_free(ptr->IN2);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 

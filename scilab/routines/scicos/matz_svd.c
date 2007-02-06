@@ -1,7 +1,7 @@
 # include "scicos_block4.h"
 # include "../machine.h"
 #include <stdio.h>
-extern int C2F(dgesvd)();
+extern int C2F(zgesvd)();
 extern int C2F(dlaset)();
 
 #ifndef min
@@ -25,7 +25,7 @@ void matz_svd(scicos_block *block,int flag)
 {
  double *ur,*ui;
  double *y1r,*y2r,*y3r;
- double *y1i,*y2i,*y3i;
+ double *y1i,*y3i;
  int nu,mu;
  int info;
  int i,j,ij,ji,ii,lwork,rw;
@@ -44,36 +44,36 @@ void matz_svd(scicos_block *block,int flag)
  rw=5*min(mu,nu);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_sdv_struct*) malloc(sizeof(mat_sdv_struct));
+   {*(block->work)=(mat_sdv_struct*) scicos_malloc(sizeof(mat_sdv_struct));
     ptr=*(block->work);
-    ptr->l0=(double*) malloc(sizeof(double));
-    ptr->LA=(double*) malloc(sizeof(double)*(2*mu*nu));
-    ptr->LU=(double*) malloc(sizeof(double)*(2*mu*mu));
-    ptr->LSV=(double*) malloc(sizeof(double)*(min(mu,nu)));
-    ptr->LVT=(double*) malloc(sizeof(double)*(2*nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*2*lwork);
-    ptr->rwork=(double*) malloc(sizeof(double)*2*rw);
+    ptr->l0=(double*) scicos_malloc(sizeof(double));
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*mu*nu));
+    ptr->LU=(double*) scicos_malloc(sizeof(double)*(2*mu*mu));
+    ptr->LSV=(double*) scicos_malloc(sizeof(double)*(min(mu,nu)));
+    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork);
+    ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->l0);
-    free(ptr->LA);
-    free(ptr->LU);
-    free(ptr->LSV);
-    free(ptr->LVT);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->l0);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LU);
+    scicos_free(ptr->LSV);
+    scicos_free(ptr->LVT);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 
 else
    {
     ptr=*(block->work);
-    for (i=0,j=0;i<(mu*nu),j<(2*mu*nu);i++,j+=2)   
-	{ptr->LA[j]=ur[i];
-	 ptr->LA[j+1]=ui[i];}
+    for (i=0;i<(mu*nu);i++)
+	{ptr->LA[2*i]=ur[i];
+	 ptr->LA[2*i+1]=ui[i];}
     C2F(zgesvd)("A","A",&mu,&nu,ptr->LA,&mu,ptr->LSV,ptr->LU,&mu,ptr->LVT,&nu,ptr->dwork,&lwork,ptr->rwork,&info);
      if (info !=0)
        {if (flag!=6)

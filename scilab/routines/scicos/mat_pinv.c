@@ -42,42 +42,43 @@ void mat_pinv(scicos_block *block,int flag)
  lwork=max(3*min(mu,nu)+max(mu,nu),5*min(mu,nu)-4); 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_pinv_struct*) malloc(sizeof(mat_pinv_struct));
+   {*(block->work)=(mat_pinv_struct*) scicos_malloc(sizeof(mat_pinv_struct));
     ptr=*(block->work);
-    ptr->l0=(double*) malloc(sizeof(double));
-    ptr->LA=(double*) malloc(sizeof(double)*(mu*nu));
-    ptr->LC=(double*) malloc(sizeof(double)*(nu*mu));
-    ptr->LS=(double*) malloc(sizeof(double)*(nu*mu));
-    ptr->LSV=(double*) malloc(sizeof(double)*(min(mu,nu)));
-    ptr->LSW=(double*) malloc(sizeof(double)*(min(mu,nu)));
-    ptr->LU=(double*) malloc(sizeof(double)*(mu*mu));
-    ptr->LUT=(double*) malloc(sizeof(double)*(mu*mu));
-    ptr->LV=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->LVT=(double*) malloc(sizeof(double)*(nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*lwork);
+    ptr->l0=(double*) scicos_malloc(sizeof(double));
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(mu*nu));
+    ptr->LC=(double*) scicos_malloc(sizeof(double)*(nu*mu));
+    ptr->LS=(double*) scicos_malloc(sizeof(double)*(nu*mu));
+    ptr->LSV=(double*) scicos_malloc(sizeof(double)*(min(mu,nu)));
+    ptr->LSW=(double*) scicos_malloc(sizeof(double)*(min(mu,nu)));
+    ptr->LU=(double*) scicos_malloc(sizeof(double)*(mu*mu));
+    ptr->LUT=(double*) scicos_malloc(sizeof(double)*(mu*mu));
+    ptr->LV=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->LC);
-    free(ptr->l0);
-    free(ptr->LA);
-    free(ptr->LSW);
-    free(ptr->LS);
-    free(ptr->LSV);
-    free(ptr->LU);
-    free(ptr->LUT);
-    free(ptr->LV);
-    free(ptr->LVT);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->LC);
+    scicos_free(ptr->l0);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LSW);
+    scicos_free(ptr->LS);
+    scicos_free(ptr->LSV);
+    scicos_free(ptr->LU);
+    scicos_free(ptr->LUT);
+    scicos_free(ptr->LV);
+    scicos_free(ptr->LVT);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 
 else
    {
     ptr=*(block->work);
+    for(i=0;i<mu*nu;i++) y[i]=0;
     C2F(dlacpy)("F",&mu,&nu,u,&mu,ptr->LA,&mu);
     C2F(dgesvd)("A","A",&mu,&nu,ptr->LA,&mu,ptr->LSV,ptr->LU,&mu,ptr->LVT,&nu,ptr->dwork,&lwork,&info);
      if (info !=0)
@@ -86,7 +87,9 @@ else
         return;}}
     for (i=0;i<min(mu,nu);i++)  
 	 {if (*(ptr->LSV+i)!=0)
-	      {*(ptr->LSW+i)=1/(*(ptr->LSV+i));}}
+	      {*(ptr->LSW+i)=1/(*(ptr->LSV+i));}
+	 else 
+	      {*(ptr->LSW+i)=0;}}
     *(ptr->l0)=0;
      C2F(dlaset)("F",&nu,&mu,ptr->l0,ptr->l0,ptr->LS,&nu);
     for (i=0;i<min(mu,nu);i++)

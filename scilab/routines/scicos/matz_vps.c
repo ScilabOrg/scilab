@@ -32,37 +32,37 @@ void matz_vps(scicos_block *block,int flag)
  rw=3*nu-2;
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_vps_struct*) malloc(sizeof(mat_vps_struct));
+   {*(block->work)=(mat_vps_struct*) scicos_malloc(sizeof(mat_vps_struct));
     ptr=*(block->work);
-    ptr->LA=(double*) malloc(sizeof(double)*(2*nu*nu));
-    ptr->LX=(double*) malloc(sizeof(double)*(2*nu));
-    ptr->LVR=(double*) malloc(sizeof(double)*(2*nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*2*lwork);
-    ptr->rwork=(double*) malloc(sizeof(double)*2*rw);
-    ptr->dwork1=(double*) malloc(sizeof(double)*2*lwork1);
-    ptr->rwork1=(double*) malloc(sizeof(double)*2*lwork1); 
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
+    ptr->LX=(double*) scicos_malloc(sizeof(double)*(2*nu));
+    ptr->LVR=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork);
+    ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw);
+    ptr->dwork1=(double*) scicos_malloc(sizeof(double)*2*lwork1);
+    ptr->rwork1=(double*) scicos_malloc(sizeof(double)*2*lwork1); 
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->LA);
-    free(ptr->LX);
-    free(ptr->LVR);
-    free(ptr->rwork);
-    free(ptr->rwork1);
-    free(ptr->dwork);
-    free(ptr->dwork1);
-    free(ptr);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LX);
+    scicos_free(ptr->LVR);
+    scicos_free(ptr->rwork);
+    scicos_free(ptr->rwork1);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr->dwork1);
+    scicos_free(ptr);
     return;
    }
 
 else
    {
     ptr=*(block->work);
-    for (i=0,j=0;i<(nu*nu),j<(2*nu*nu);i++,j+=2)   
-	{ptr->LA[j]=ur[i];
-	 ptr->LA[j+1]=ui[i];}
+    for (i=0;i<(nu*nu);i++)
+	{ptr->LA[2*i]=ur[i];
+	 ptr->LA[2*i+1]=ui[i];}
    hermitien=1;
     for (j=0;j<nu;j++)
 	{for (i=j;i<nu;i++)
@@ -84,14 +84,6 @@ else
         if (info!=0)
 	    	{if (flag!=6)
 		{set_block_error(-7);
-		free(ptr->LA);
-		free(ptr->LX);
-		free(ptr->LVR);
-		free(ptr->dwork);
-		free(ptr->rwork);
-		free(ptr->rwork1);
-		free(ptr->dwork1);
-		free(ptr);
 		return;
 		}}
 	for (i=0;i<nu;i++)

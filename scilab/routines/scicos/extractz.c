@@ -7,13 +7,13 @@ void extractz(scicos_block *block,int flag)
   double *ui;
   double *yr;
   double *yi;
-  double *r;
+  int *r;
   int nu,mu,nr,i,j,ij,k,nc,nl;
 
   mu=GetInPortRows(block,1);
   nu=GetInPortCols(block,1);
-  nr=GetNrpar(block);
-  r=GetRparPtrs(block);
+  nr=GetNipar(block);
+  r=GetIparPtrs(block);
   ur=GetRealInPortPtrs(block,1);
   ui=GetImagInPortPtrs(block,1);
   yr=GetRealOutPortPtrs(block,1);

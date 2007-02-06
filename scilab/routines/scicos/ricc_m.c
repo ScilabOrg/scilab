@@ -54,30 +54,30 @@ void ricc_m(scicos_block *block,int flag)
 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(ricc_struct*) malloc(sizeof(ricc_struct));
+   {*(block->work)=(ricc_struct*) scicos_malloc(sizeof(ricc_struct));
     ptr=*(block->work);
-    ptr->bwork=(int*) malloc(sizeof(int)*2*nu);
-    ptr->iwork=(int*) malloc(sizeof(int)*max(2*nu,nu*nu));
-    ptr->dwork=(double*) malloc(sizeof(double)*lw);
-    ptr->LWR=(double*) malloc(sizeof(double)*nu);
-    ptr->LWI=(double*) malloc(sizeof(double)*nu);
-    ptr->Rcond=(double*) malloc(sizeof(double));
-    ptr->Ferr=(double*) malloc(sizeof(double));
-    ptr->LX=(double*) malloc(sizeof(double)*nu*nu);
+    ptr->bwork=(int*) scicos_malloc(sizeof(int)*2*nu);
+    ptr->iwork=(int*) scicos_malloc(sizeof(int)*max(2*nu,nu*nu));
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lw);
+    ptr->LWR=(double*) scicos_malloc(sizeof(double)*nu);
+    ptr->LWI=(double*) scicos_malloc(sizeof(double)*nu);
+    ptr->Rcond=(double*) scicos_malloc(sizeof(double));
+    ptr->Ferr=(double*) scicos_malloc(sizeof(double));
+    ptr->LX=(double*) scicos_malloc(sizeof(double)*nu*nu);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->bwork);
-    free(ptr->Ferr);
-    free(ptr->Rcond);
-    free(ptr->iwork);
-    free(ptr->LWR);
-    free(ptr->LWI);
-    free(ptr->LX);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->bwork);
+    scicos_free(ptr->Ferr);
+    scicos_free(ptr->Rcond);
+    scicos_free(ptr->iwork);
+    scicos_free(ptr->LWR);
+    scicos_free(ptr->LWI);
+    scicos_free(ptr->LX);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 
