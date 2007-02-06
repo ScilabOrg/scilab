@@ -31,7 +31,8 @@ case 'set' then
     else message("Datatype is not supported");ok=%f;
     end
     ma=size(a,1);
-    mb=size(b,1)
+    mb=size(b,1);
+    if (ma==0 | mb==0) then message ("empty field");ok=%f;end
     for i=1:ma,if (a(i)<=0) then message("invalid index");ok=%f;end;end
     for j=1:mb, if(b(j)<=0) then message("invalid index");ok=%f;end;end
     model.ipar=[a;b;ma;mb];
@@ -57,8 +58,8 @@ case 'define' then
   model.in=-1
   model.in2=-2
   model.intyp=1
-  model.out=-1
-  model.out2=-2
+  model.out=1
+  model.out2=1
   model.outtyp=1
   model.evtin=[]
   model.evtout=[]

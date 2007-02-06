@@ -113,7 +113,7 @@ scs_m.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
               "dep_ut","label","nzcross","nmode","equations"],list("extract",4),..
-              -1,-2,1,-1,-2,1,[],[],[],[],[],[1;1;1;1],"c",[],[%t,%f],"",0,0,..
+              -1,-2,1,1,1,1,[],[],[],[],[],[1;1;1;1],"c",[],[%t,%f],"",0,0,..
               list()),"EXTRACT",list())
 scs_m.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
