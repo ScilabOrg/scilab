@@ -4,6 +4,15 @@ extern int C2F(riccsl)();
 extern int C2F(riccms)();
 extern int C2F(ricdsl)();
 extern int C2F(ricdmf)();
+
+#ifndef min
+#define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 typedef struct
 {         int *bwork;
           int *iwork;

@@ -1,6 +1,14 @@
 #include "scicos_block4.h"
 #include "../machine.h"
 
+#ifndef min
+#define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 void extdiag(scicos_block *block,int flag)
 {
   double *u1;

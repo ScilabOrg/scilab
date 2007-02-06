@@ -3,6 +3,15 @@
 #include <stdio.h>
 extern int C2F(zgetrf)();
 extern int C2F(dlaswp)();
+
+#ifndef min
+#define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 typedef struct
 {         int *ipiv;
           double *dwork;

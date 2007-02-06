@@ -9,6 +9,15 @@ extern int C2F(dlacpy)();
 extern int C2F(dgecon)();
 extern int C2F(dgetrs)();
 extern int C2F(dgelsy1)();
+
+#ifndef min
+#define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 typedef struct
 {         int *ipiv;
           int *rank;

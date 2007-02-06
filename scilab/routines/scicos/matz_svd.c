@@ -3,6 +3,15 @@
 #include <stdio.h>
 extern int C2F(dgesvd)();
 extern int C2F(dlaset)();
+
+#ifndef min
+#define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 typedef struct
 {         double *l0;
 	  double *LA;
