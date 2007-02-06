@@ -39,8 +39,7 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[140,0],[40,40],..
               %t,0,["1";"1"],0,0,[],[],..
-              list(..
-              "xstringb(orig(1),orig(2),''MATSING'',sz(1),sz(2),''fill'');",8),..
+              list("xstringb(orig(1),orig(2),'' SVD '',sz(1),sz(2),''fill'');",8),..
               "","E","E"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
@@ -51,7 +50,7 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[210,0],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[210,0],[60,40],..
               %t,0,["1";"[]";"[]"],0,0,[],[],..
               list(..
               "xstringb(orig(1),orig(2),''RESHAPE'',sz(1),sz(2),''fill'');",8),..
@@ -65,15 +64,10 @@ scs_m.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[280,0],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[300,0],[40,40],..
               %t,0,"1",0,0,[],[],..
-              list(..
-              ["thick=xget(''thickness'');xset(''thickness'',2);";
-              "t=(0.3:0.3:1.5)'';";
-              "xx=orig(1)+((t)/2)*sz(1);";
-              "yy=orig(2)+((-t+2)/2)*sz(2);";
-              "xpoly(xx,yy,''lines'');";
-              "xset(''thickness'',thick)"],8),"","E","E"),..
+              list("xstringb(orig(1),orig(2),''DIAG'',sz(1),sz(2),''fill'');",8),..
+              "","E","E"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -83,10 +77,10 @@ scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[350,0],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[370,0],[40,40],..
               %t,0,["1","1"],0,0,[],[],..
-              list("xstringb(orig(1),orig(2),''MATEIG'',sz(1),sz(2),''fill'');",..
-              8),"","E","E"),..
+              list("xstringb(orig(1),orig(2),'' EIG '',sz(1),sz(2),''fill'');",8),..
+              "","E","E"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -96,7 +90,7 @@ scs_m.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(7)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[0,70],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[0,70],[60,40],..
               %t,0,"1",0,[0;0],[],[],..
               list(..
               "xstringb(orig(1),orig(2),''Mag&phi'',sz(1),sz(2),''fill'');",8),..
@@ -110,7 +104,7 @@ scs_m.objs(7)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[70,70],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[90,70],[60,40],..
               %t,0,["1";"[]";"[]"],0,0,[],[],..
               list(..
               "xstringb(orig(1),orig(2),''Extract'',sz(1),sz(2),''fill'');",8),..
@@ -119,15 +113,15 @@ scs_m.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
               "dep_ut","label","nzcross","nmode","equations"],list("extract",4),..
-              -1,-2,1,-1,-2,1,[],[],[],[],[1;1;1;1],[],"c",[],[%t,%f],"",0,0,..
+              -1,-2,1,-1,-2,1,[],[],[],[],[],[1;1;1;1],"c",[],[%t,%f],"",0,0,..
               list()),"EXTRACT",list())
 scs_m.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-              "peout","gr_i","id","in_implicit","out_implicit"],[140,70],[40,40],..
+              "peout","gr_i","id","in_implicit","out_implicit"],[180,70],[40,40],..
               %t,0,"1",0,0,[],[],..
-              list("xstringb(orig(1),orig(2),''EXPM'',sz(1),sz(2),''fill'');",8),..
-              "","E","E"),..
+              list("xstringb(orig(1),orig(2),'' EXPM '',sz(1),sz(2),''fill'');",..
+              8),"","E","E"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -137,10 +131,10 @@ scs_m.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(10)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[210,70],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[250,70],..
                [40,40],%t,0,"1",0,0,[],[],..
-               list("xstringb(orig(1),orig(2),''MDET'',sz(1),sz(2),''fill'');",8),..
-               "","E","E"),..
+               list("xstringb(orig(1),orig(2),'' DET '',sz(1),sz(2),''fill'');",..
+               8),"","E","E"),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -150,10 +144,9 @@ scs_m.objs(10)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(11)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[280,70],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[320,70],..
                [40,40],%t,0,"1",0,0,[],[],..
-               list(..
-               "xstringb(orig(1),orig(2),''MATPINV'',sz(1),sz(2),''fill'');",8),..
+               list("xstringb(orig(1),orig(2),''PINV'',sz(1),sz(2),''fill'');",8),..
                "","E","E"),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
@@ -164,8 +157,8 @@ scs_m.objs(11)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(12)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[350,70],..
-               [40,40],%t,0,["1","1"],0,0,[],[],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[390,70],..
+               [60,40],%t,0,["1","1"],0,0,[],[],..
                list(..
                ["txt=[''Tri/Diag'';''Extraction''];";
                "xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');"],8),"","E",..
@@ -223,7 +216,7 @@ scs_m.objs(16)=mlist(["Block","graphics","model","gui","doc"],..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
                "peout","gr_i","id","in_implicit","out_implicit"],[230,140],..
                [40,40],%t,0,"1",0,[0;0],[],[],..
-               list("xstringb(orig(1),orig(2),''MLU'',sz(1),sz(2),''fill'');",8),..
+               list("xstringb(orig(1),orig(2),'' LU '',sz(1),sz(2),''fill'');",8),..
                "","E",["E";"E"]),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
@@ -260,7 +253,7 @@ scs_m.objs(18)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(19)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[0,230],[40,40],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[0,230],[60,40],..
                %t,0,"1",0,[0;0],[],[],..
                list("xstringb(orig(1),orig(2),''Re&Im'',sz(1),sz(2),''fill'');",..
                8),"","E",["E";"E"]),..
@@ -273,7 +266,7 @@ scs_m.objs(19)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(20)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[70,230],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[90,230],..
                [40,40],%t,0,["1";"1";"1";"1";"1"],0,0,[],[],..
                list(..
                "xstringb(orig(1),orig(2),''SUBMAT'',sz(1),sz(2),''fill'');",8),..
@@ -282,12 +275,12 @@ scs_m.objs(20)=mlist(["Block","graphics","model","gui","doc"],..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
                "dep_ut","label","nzcross","nmode","equations"],list("submat",4),..
-               -1,-2,1,-1,-2,1,[],[],[],[],[1;1;1;1],[],"c",[],[%t,%f],"",0,0,..
+               -1,-2,1,-1,-2,1,[],[],[],[],[],[1;1;1;1],"c",[],[%t,%f],"",0,0,..
                list()),"SUBMAT",list())
 scs_m.objs(21)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[140,230],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[160,230],..
                [40,40],%t,0,"1",[0;0],0,[],[],..
                list("xstringb(orig(1),orig(2),''A\B'',sz(1),sz(2),''fill'');",8),..
                "",["E";"E"],"E"),..
@@ -300,11 +293,10 @@ scs_m.objs(21)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(22)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[210,230],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[230,230],..
                [40,40],%t,0,"1",0,0,[],[],..
-               list(..
-               "xstringb(orig(1),orig(2),''MATINV'',sz(1),sz(2),''fill'');",8),..
-               "","E","E"),..
+               list("xstringb(orig(1),orig(2),'' INV '',sz(1),sz(2),''fill'');",..
+               8),"","E","E"),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
                "evtout","state","dstate","rpar","ipar","blocktype","firing",..
@@ -314,7 +306,7 @@ scs_m.objs(22)=mlist(["Block","graphics","model","gui","doc"],..
 scs_m.objs(23)=mlist(["Block","graphics","model","gui","doc"],..
                mlist(..
                ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
-               "peout","gr_i","id","in_implicit","out_implicit"],[280,230],..
+               "peout","gr_i","id","in_implicit","out_implicit"],[300,230],..
                [40,60],%t,0,["1";"[2;2]"],[0;0],0,[],[],..
                list(..
                ["text=[''Vert'';'' Cat''];";
