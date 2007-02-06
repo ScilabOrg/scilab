@@ -7,7 +7,7 @@ void mat_cath(scicos_block *block,int flag)
  double *u;
  double *y;
  int mu,nu;
- int i,j,ij,k,l,bk;
+ int i,j,ij,k,bk;
  
  mu =GetInPortRows(block,1);
  y=GetRealOutPortPtrs(block,1);

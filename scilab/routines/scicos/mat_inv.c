@@ -22,18 +22,18 @@ void mat_inv(scicos_block *block,int flag)
 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_inv_struct*) malloc(sizeof(mat_inv_struct));
+   {*(block->work)=(mat_inv_struct*) scicos_malloc(sizeof(mat_inv_struct));
     ptr=*(block->work);
-    ptr->ipiv=(int*) malloc(sizeof(int)*nu);
-    ptr->dwork=(double*) malloc(sizeof(double)*nu);
+    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*nu);
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->ipiv);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->ipiv);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 

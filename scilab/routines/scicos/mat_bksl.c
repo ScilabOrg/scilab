@@ -37,9 +37,9 @@ void mat_bksl(scicos_block *block,int flag)
  int nu1;
  int nu2;
  int info;
- int i,j,l,lw,lu;
+ int i,l,lw,lu;
  mat_bksl_struct *ptr;
- double rcond, ANORM, EPS,po;
+ double rcond, ANORM, EPS;
 
  mu =GetInPortRows(block,1);
  nu1 =GetInPortCols(block,1);
@@ -52,31 +52,31 @@ void mat_bksl(scicos_block *block,int flag)
  lw=max(lu,2*min(mu,nu1)+nu2);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_bksl_struct*) malloc(sizeof(mat_bksl_struct));
+   {*(block->work)=(mat_bksl_struct*) scicos_malloc(sizeof(mat_bksl_struct));
     ptr=*(block->work);
-    ptr->ipiv=(int*) malloc(sizeof(int)*nu1);
-    ptr->rank=(int*) malloc(sizeof(int));
-    ptr->jpvt=(int*) malloc(sizeof(int)*nu1);
-    ptr->iwork=(int*) malloc(sizeof(int)*nu1);
-    ptr->dwork=(double*) malloc(sizeof(double)*lw);
-    ptr->LAF=(double*) malloc(sizeof(double)*(mu*nu1));
-    ptr->LA=(double*) malloc(sizeof(double)*(mu*nu1));
-    ptr->LXB=(double*) malloc(sizeof(double)*(l*nu2));
+    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu1);
+    ptr->rank=(int*) scicos_malloc(sizeof(int));
+    ptr->jpvt=(int*) scicos_malloc(sizeof(int)*nu1);
+    ptr->iwork=(int*) scicos_malloc(sizeof(int)*nu1);
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lw);
+    ptr->LAF=(double*) scicos_malloc(sizeof(double)*(mu*nu1));
+    ptr->LA=(double*) scicos_malloc(sizeof(double)*(mu*nu1));
+    ptr->LXB=(double*) scicos_malloc(sizeof(double)*(l*nu2));
     
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->ipiv);
-    free(ptr->rank);
-    free(ptr->jpvt);
-    free(ptr->iwork);
-    free(ptr->LAF);
-    free(ptr->LA);
-    free(ptr->LXB);
-    free(ptr->dwork);
-    free(ptr);
+    scicos_free(ptr->ipiv);
+    scicos_free(ptr->rank);
+    scicos_free(ptr->jpvt);
+    scicos_free(ptr->iwork);
+    scicos_free(ptr->LAF);
+    scicos_free(ptr->LA);
+    scicos_free(ptr->LXB);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr);
     return;
    }
 

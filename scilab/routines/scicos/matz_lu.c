@@ -43,31 +43,31 @@ void matz_lu(scicos_block *block,int flag)
  l=min(mu,nu);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_lu_struct*) malloc(sizeof(mat_lu_struct));
+   {*(block->work)=(mat_lu_struct*) scicos_malloc(sizeof(mat_lu_struct));
     ptr=*(block->work);
-    ptr->ipiv=(int*) malloc(sizeof(int)*nu);
-    ptr->dwork=(double*) malloc(sizeof(double)*(2*mu*nu));
-    ptr->IL=(double*) malloc(sizeof(double)*(mu*l));
-    ptr->IU=(double*) malloc(sizeof(double)*(l*nu));
+    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*(2*mu*nu));
+    ptr->IL=(double*) scicos_malloc(sizeof(double)*(mu*l));
+    ptr->IU=(double*) scicos_malloc(sizeof(double)*(l*nu));
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->ipiv);
-    free(ptr->dwork);
-    free(ptr->IL);
-    free(ptr->IU);
-    free(ptr);
+    scicos_free(ptr->ipiv);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr->IL);
+    scicos_free(ptr->IU);
+    scicos_free(ptr);
     return;
    }
 
 else
    {
     ptr=*(block->work);
-    for (i=0,j=0;i<(mu*nu),j<(2*mu*nu);i++,j+=2)   
-	{ptr->dwork[j]=ur[i];
-	ptr->dwork[j+1]=ui[i];}
+    for (i=0;i<(mu*nu);i++)
+	{ptr->dwork[2*i]=ur[i];
+	ptr->dwork[2*i+1]=ui[i];}
     C2F(zgetrf)(&mu,&nu,ptr->dwork,&mu,ptr->ipiv,&info);
     if (info !=0)
        {if (flag!=6)

@@ -37,22 +37,22 @@ void mat_lu(scicos_block *block,int flag)
  l=min(mu,nu);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_lu_struct*) malloc(sizeof(mat_lu_struct));
+   {*(block->work)=(mat_lu_struct*) scicos_malloc(sizeof(mat_lu_struct));
     ptr=*(block->work);
-    ptr->ipiv=(int*) malloc(sizeof(int)*nu);
-    ptr->dwork=(double*) malloc(sizeof(double)*(mu*nu));
-    ptr->IL=(double*) malloc(sizeof(double)*(mu*l));
-    ptr->IU=(double*) malloc(sizeof(double)*(l*nu));
+    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
+    ptr->dwork=(double*) scicos_malloc(sizeof(double)*(mu*nu));
+    ptr->IL=(double*) scicos_malloc(sizeof(double)*(mu*l));
+    ptr->IU=(double*) scicos_malloc(sizeof(double)*(l*nu));
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    free(ptr->ipiv);
-    free(ptr->dwork);
-    free(ptr->IL);
-    free(ptr->IU);
-    free(ptr);
+    scicos_free(ptr->ipiv);
+    scicos_free(ptr->dwork);
+    scicos_free(ptr->IL);
+    scicos_free(ptr->IU);
+    scicos_free(ptr);
     return;
    }
 
