@@ -65,13 +65,7 @@ case 'define' then
   model.firing=[]
   model.dep_ut=[%t %f]
   label=[sci2exp(1)];
- // gr_i=['xstringb(orig(1),orig(2),''[\]'',sz(1),sz(2),''fill'');']
-gr_i=['thick=xget(''thickness'');xset(''thickness'',2);';
-    't=(0.3:0.3:1.5)'';';
-    'xx=orig(1)+((t)/2)*sz(1);';
-    'yy=orig(2)+((-t+2)/2)*sz(2);';
-    'xpoly(xx,yy,''lines'');';
-    'xset(''thickness'',thick)']
+  gr_i=['xstringb(orig(1),orig(2),''DIAG'',sz(1),sz(2),''fill'');']
   x=standard_define([2 2],model,label,gr_i)
 end
 endfunction

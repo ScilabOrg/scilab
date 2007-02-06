@@ -84,7 +84,7 @@ case 'define' then
   model.firing=[]
   model.dep_ut=[%t %f]
   label=[sci2exp(1);sci2exp(1)];
-  gr_i=['xstringb(orig(1),orig(2),''MATSING'',sz(1),sz(2),''fill'');']
+  gr_i=['xstringb(orig(1),orig(2),'' SVD '',sz(1),sz(2),''fill'');']
   x=standard_define([2 2],model,label,gr_i)
 end
 endfunction

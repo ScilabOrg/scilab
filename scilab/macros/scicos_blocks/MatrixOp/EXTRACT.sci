@@ -34,7 +34,7 @@ case 'set' then
     mb=size(b,1)
     for i=1:ma,if (a(i)<=0) then message("invalid index");ok=%f;end;end
     for j=1:mb, if(b(j)<=0) then message("invalid index");ok=%f;end;end
-    model.rpar=[a;b;ma;mb];
+    model.ipar=[a;b;ma;mb];
     in=[model.in model.in2];
     out=[ma mb];
     funtyp=4;
@@ -64,14 +64,14 @@ case 'define' then
   model.evtout=[]
   model.state=[]
   model.dstate=[]
-  model.rpar=[1;1;1;1]
-  model.ipar=[]
+  model.rpar=[]
+  model.ipar=[1;1;1;1]
   model.blocktype='c' 
   model.firing=[]
   model.dep_ut=[%t %f]
   label=[sci2exp(1);sci2exp([]);sci2exp([])];
   gr_i=['xstringb(orig(1),orig(2),''Extract'',sz(1),sz(2),''fill'');']
-  x=standard_define([2 2],model,label,gr_i)
+  x=standard_define([3 2],model,label,gr_i)
 end
 endfunction
 
