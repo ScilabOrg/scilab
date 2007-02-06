@@ -1,4 +1,4 @@
-scicos_ver = "scicos4"
+scicos_ver = "scicos4.0.1"
 scs_m=scicos_diagram()
 scs_m.props=tlist(..
 ["params","wpar","title","tol","tf","context","void1","options","void2","void3",..
@@ -185,7 +185,7 @@ scs_m_1.objs(1)=mlist(["Block","graphics","model","gui","doc"],..
                 ["model","sim","in","out","evtin","evtout","state","dstate",..
                 "rpar","ipar","blocktype","firing","dep_ut","label","nzcross",..
                 "nmode","equations"],list("step_func",4),[],1,1,1,[],[],[0;1],[],..
-                "c",1,[%f,%f],"",0,0,list()),"STEP",list())
+                "c",1,[%f,%t],"",0,0,list()),"STEP",list())
 scs_m_1.objs(2)=mlist(["Link","xx","yy","id","thick","ct","from","to"],..
                 [102.2306;102.2306;63.708992;63.708992;102.2306;102.2306],..
                 [646.96701;622.2884;622.2884;711.98452;711.98452;698.39559],..

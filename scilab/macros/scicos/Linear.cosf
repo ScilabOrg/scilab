@@ -1,4 +1,4 @@
-scicos_ver = "scicos4"
+scicos_ver = "scicos4.0.1"
 scs_m=scicos_diagram()
 scs_m.props=tlist(..
 ["params","wpar","title","tol","tf","context","void1","options","void2","void3",..
