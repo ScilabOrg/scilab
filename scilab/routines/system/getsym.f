@@ -108,7 +108,7 @@
          end do
 *        encoding of the name
          call namstr(syn,namecd,chcnt,0)
-         if (lpt(4)-lpt(3).gt.chcnt) call msgs(33,nreal)
+         if (lpt(4)-lpt(3).gt.chcnt) call msgs(33,0)
       else
 *        -> special character (eol, operator, part of an operator, .... 
 *           but in case of a dot following by a digit it is a number)
