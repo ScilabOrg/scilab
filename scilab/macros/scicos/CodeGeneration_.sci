@@ -3116,12 +3116,12 @@ niwa=size(z,'*')+size(outtb,'*');
 //Generates simulation routine for standalone simulation
   work=zeros(nblk,1)
   iwa=zeros(clkptr($),1),Z=[z;outtb;iwa;work]';
-  Code=[ '/*Main program */'
+  Code=[ '  static void usage();'
+	 '/*Main program */'
 	 'int main(int argc, char *argv[])'
 	 '{'
 	 '  double tf=30,dt=0.1,h=0.001;';
 	 '  int solver=3;'
-	 '  static void usage();'
   	 '  char * progname = argv[0];'
 	 '  int c;' 
 	 '  strcpy(input,'"'");'
