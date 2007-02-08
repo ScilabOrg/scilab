@@ -1,7 +1,11 @@
 function Copy_()
   if size(Select,1)>1 then
     [pt1,win1,scs_m_sel]=get_selection2(Select,%pt,%win)
-    Clipboard=scs_m_sel
+    if size(scs_m_sel.objs)==1 then
+       Clipboard=scs_m_sel.objs(1)   
+    else
+    	Clipboard=scs_m_sel
+    end
     Cmenu=[];
   elseif size(Select,1)==1
     [pt1,win1,o]=get_selection(Select,%pt,%win)
@@ -31,7 +35,7 @@ function [%pt,%win,reg]=get_selection2(Select,%pt,%win)
   
   del=setdiff(1:size(scs_m.objs),Select(:,1))
   [reg,DEL,DELL]=do_delete1(scs_m,del,%f)
-  reg=do_purge(reg)
+  reg=do_purge(reg) 
   
   o=reg.objs(1)
   

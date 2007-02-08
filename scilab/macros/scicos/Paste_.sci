@@ -13,14 +13,14 @@ function Paste_()
       
       blk = Clipboard
       blk.graphics.orig = %ppt
-      scs_m.objs($+1) = blk
-        drawobj(blk); //** draw the single object 
+      scs_m.objs($+1) = blk //** add the object at the top 
+      drawobj(blk); //** draw the single object 
       edited = %t
       enable_undo = %t
       Select = [size(scs_m.objs),%win]; //** it's a really dirty trick ;)
                                         //** because the pasted object is the last ;)
     
-    //** if it is a full Diagram
+    //** if it is a Diagram (Block, Text and Link)
     elseif  typeof(Clipboard)=='diagram' then
       reg = Clipboard;
       Clipboard = list()  // region is not persistent
@@ -76,10 +76,11 @@ function Paste_()
     
     end //** object type 
   
+  show_pixmap(); //** update the screen 
   end //** valid paste 
   
   Cmenu=[]; %pt = []; %ppt = [] ;
   
-  draw(gh_curwin.children); show_pixmap(); //** update the screen 
+//  draw(gh_curwin.children); show_pixmap(); //** update the screen 
 
 endfunction

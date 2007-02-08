@@ -250,9 +250,12 @@ end //** ... end of while ()
     end
   end
 
-  //** this could be unusefull ...
+  //** this could be useless ...
   if gr==%t then
     draw(gh_curwin.children);
     show_pixmap() ;
   end
+  
 endfunction
+
+
