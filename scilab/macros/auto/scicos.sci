@@ -550,24 +550,21 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
         Select_back = Select; //** save the selected object list 
 
         //** Command execution 
-	//exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
-	//disp(exeString)  ;
-	
+	exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
+	disp(exeString)  ;
 	//** Don't ever think to touch this line of code ;)
 	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
-                                                          //** exec the desired action
+                                                          //** exec the desired action				  
 	//** unselect ALL the previous selected object and select again the actually selected object
 	//** because some command (operation) could select/unselect some object (the mods are registered
 	//** in the "Select" variable)
-	if or(Select<>Select_back) then
+	if ~isequal(Select,Select_back) then
 	  // Select_back: objects to unselect
 	  // Select     : object to select
-	  // drawlater();
 	    selecthilite(Select_back, "off") ; // unHilite previous objects
-	    selecthilite(Select, "on") ;       // Hilite the actual sected object
- 	  // drawnow(); show_pixmap() ; //** refresh, on screen
+	    selecthilite(Select, "on") ;       // Hilite the actual selected object
 	end
-	
+		
       else
       //** if the command is not valid clear the state variable 
          Cmenu=[]; %pt=[]
