@@ -1775,8 +1775,24 @@ zcptr=cpr.sim.zcptr;
 		        list('str',1,'str',1,'str',1),label1);
     if okk==%f then ok=%f;return; end
     rpat=stripblanks(rpat);
-    rdnom=strsubst(rdnom,'-','_');
-    rpat=strsubst(rpat,'-','_');
+    
+    //** Put a warning here in order to inform the user
+    //** that the name of the superblock will change
+    //** because the "-" char could generate GCC problems 
+    //** (the C functions contains the name of the superblok).  
+    
+    if grep(rdnom,"-")<>[] then
+    message(['For full C compiler compatibility ';
+             'Superblock name cannot contains ""-"" characters'; 
+	     '""-"" chars will be automatically substituted by ""_"" '])
+    end 
+    
+    rdnom = strsubst(rdnom,'-','_') ;
+    
+    //** 
+    //** rpat=strsubst(rpat,'-','_');
+    //**
+    
     dirinfo=fileinfo(rpat)
     if dirinfo==[] then
       [pathrp,fnamerp,extensionrp]=fileparts(rpat)
