@@ -11,9 +11,9 @@ function [%pt,scs_m,needcompile,Select] = do_delete(%pt,scs_m,needcompile,Select
   xc = %pt(1); yc = %pt(2)  ;
   K = getobj(scs_m,[xc;yc]) ;
 
-  //** check if yoy click over an empty object 
+  //** check the click over an empty object 
   if K==[] then
-         return ;
+         return ; //** EXIT 
   end
 
   needreplay = replayifnecessary() ;
@@ -27,7 +27,7 @@ function [%pt,scs_m,needcompile,Select] = do_delete(%pt,scs_m,needcompile,Select
   //**            it not create problems because is impossible to manipoulate
   //*             deleted object (that results as negative gh_ datastructure 
   //**            index
-  //** 28 Aug 2006: I fixed thi potential problems using the standard mechanism
+  //** 28 Aug 2006: I fixed the potential problems using the standard mechanism
   //**              to update the graphics datastructure: now the coherency is
   //**              re-estabilished (La-Li-Lu-Le-Lo).
 

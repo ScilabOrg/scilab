@@ -24,6 +24,12 @@ function OpenSet_()
 
   //**---------------------------------------------------------------------------
   if %kk<>[] then //** if the double click is not in the void -------------------
+    //**
+    Select_back = Select; 
+    selecthilite(Select_back, "off") ; // unHilite previous objects
+    Select=[%kk %win];                 //** select the double clicked block 
+    selecthilite(Select, "on") ;       // Hilite the actual selected object
+    //**
     super_path = [super_path,%kk]
     [o, modified, newparametersb, needcompileb, editedb] = clickin( scs_m(%Path) );
 

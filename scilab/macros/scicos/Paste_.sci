@@ -65,7 +65,7 @@ function Paste_()
 	  Select = [Select ; size(scs_m.objs) , %win]; //** it's a really dirty trick ;)
                         //** because the pasted object is the last ;)
 	  
-	  drawobj(o); //** draw the now object 
+	  drawobj(o);   //** draw the object 
 	
 	end
 	//**------------------------------------------------------
@@ -81,6 +81,4 @@ function Paste_()
   
   Cmenu=[]; %pt = []; %ppt = [] ;
   
-//  draw(gh_curwin.children); show_pixmap(); //** update the screen 
-
 endfunction

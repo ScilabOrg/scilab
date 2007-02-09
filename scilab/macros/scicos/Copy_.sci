@@ -1,24 +1,32 @@
 function Copy_()
+//** INRIA
+//**  
+  
   if size(Select,1)>1 then
-    [pt1,win1,scs_m_sel]=get_selection2(Select,%pt,%win)
+    //** ... more than a single object 
+    [pt1,win1,scs_m_sel] = get_selection2(Select,%pt,%win)
     if size(scs_m_sel.objs)==1 then
-       Clipboard=scs_m_sel.objs(1)   
+       Clipboard = scs_m_sel.objs(1)   
     else
-    	Clipboard=scs_m_sel
+    	Clipboard = scs_m_sel
     end
     Cmenu=[];
   elseif size(Select,1)==1
-    [pt1,win1,o]=get_selection(Select,%pt,%win)
-    Clipboard=o
-    Cmenu=[];
+    //** single object 
+    [pt1,win1,o] = get_selection(Select,%pt,%win)
+    Clipboard = o ;
+    Cmenu = [];
   else
+    //** no object 
     message(['No block is selected'; 
 	     'click on a block or select a region first.'])
     Cmenu=[]; %pt=[]; %ppt=[]
   end
 endfunction
 
-function [%pt,%win,reg]=get_selection2(Select,%pt,%win)
+//**-----------------------------------------------------------------------
+
+function [%pt,%win,reg] = get_selection2(Select,%pt,%win)
  win=Select(1,2)  // all items in the second column are identical
   kc=find(win==windows(:,2))
   if kc==[] then
@@ -30,8 +38,6 @@ function [%pt,%win,reg]=get_selection2(Select,%pt,%win)
   elseif slevel>1 then
     execstr('scs_m=scs_m_'+string(windows(kc,1)))
   end
-  
- 
   
   del=setdiff(1:size(scs_m.objs),Select(:,1))
   [reg,DEL,DELL]=do_delete1(scs_m,del,%f)

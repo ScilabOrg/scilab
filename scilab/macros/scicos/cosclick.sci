@@ -57,7 +57,7 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     Cmenu='MoveLink'
   
   //**-------------------------------------------------------------    
-  elseif (btn==10) & (win==curwin) then //** Left Mouse Button : Double click in the current Scicos window
+  elseif (btn==10) & (win==curwin) then //** "Left Mouse Double Click" in the current Scicos window
     Cmenu='Open/Set'  //** Possible cases : 1 - Void (empty)
                       //**                  2 - Block
                       //**                  3 - Link

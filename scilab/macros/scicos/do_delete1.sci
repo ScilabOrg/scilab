@@ -24,8 +24,8 @@ function [scs_m,DEL,DELL]=do_delete1(scs_m,K,gr)
 //**  from the grphics object "gh_curwin.children.children(gr_k)" [Compund] list and the
 //**  scs_o.objs(k) data structure with the equation
 //**
-//**         gr_k = o_size(1) - k + 1 ;
-//**
+//**         gr_k = get_gri(k, o_size(1))
+//** 
 //**  where
 //**
 //**       o_size = size(gh_curwin.children.children); // o_size(1) => lenght  o_size(2) => 1
@@ -240,17 +240,17 @@ while K<>[] do
 end //** ... end of while ()
 //**---------------------------------- end of main while() loop ---------------------------
 
+//** Scan all the deleted elements and update the graphics datastrucure 
   for k = DEL
     scs_m.objs(k) = mlist('Deleted')
     if gr==%t then
-      //gr_k = o_size(1) - k + 1 ;
-      gr_k=get_gri(k,o_size(1))
+      gr_k = get_gri(k,o_size(1)) ;
       gh_object_invisible = gh_curwin.children.children(gr_k);
       gh_object_invisible.visible = "off";
     end
   end
 
-  //** this could be useless ...
+//** Show the results if the "gr" flag is TRUE 
   if gr==%t then
     draw(gh_curwin.children);
     show_pixmap() ;
