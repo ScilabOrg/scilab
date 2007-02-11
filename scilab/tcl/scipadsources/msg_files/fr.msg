@@ -213,7 +213,8 @@
                     Traduction en Allemand par Dirk Reusch 2005.\n\
                     Traduction en Polonais par Bartosz Kosiorek 2005.\n\
                     Traduction en Espagnol par Juan Nicolás Quesada 2006.\n\
-                    Traduction en Chinois, Yung-Jang Lee 2007."
+                    Traduction en Chinois, Yung-Jang Lee 2007.\n\
+                    Traduction en Danois par Kim B. Hansen 2007."
 
 
 # infomessages.tcl
@@ -336,6 +337,7 @@
     ::msgcat::mcset fr "&Backup files depth" "&Profondeur de sauvegarde"
     ::msgcat::mcset fr "&Locale" "&Langue"
         # locale names (common)
+        ::msgcat::mcset fr "da locale (da)" "Dansk (da)"
         ::msgcat::mcset fr "de locale (de)" "Deutsch (de)"
         ::msgcat::mcset fr "fr locale (fr)" "Français (fr)"
         ::msgcat::mcset fr "eng locale (eng)" "English (eng)"

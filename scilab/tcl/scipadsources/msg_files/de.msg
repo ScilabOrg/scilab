@@ -263,7 +263,7 @@
                     Gunnar Lindholm 2005.\n Norwegische Übersetzung von\
                     Torbjørn Pettersen 2005.\n Deutsche Übersetzung von Dirk\
                     Reusch 2005, 2006.\n Polnische Übersetzung von Bartosz\
-                    Kosiorek 2005. Chinesische Übersetzung von Yung-Jang Lee 2007."
+                    Kosiorek 2005."
 
 
 # infomessages.tcl
@@ -392,6 +392,7 @@
 ::msgcat::mcset de "&Backup files depth" "A&nzahl der Sicherungskopien"
 ::msgcat::mcset de "&Locale" "S&prachumgebung"
 # locale names (common)
+::msgcat::mcset de "da locale (da)" "Dansk (da)"
 ::msgcat::mcset de "de locale (de)" "Deutsch (de)"
 ::msgcat::mcset de "fr locale (fr)" "Français (fr)"
 ::msgcat::mcset de "eng locale (eng)" "English (eng)"
