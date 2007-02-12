@@ -6,7 +6,7 @@ function Zoomout_()
     Cmenu = [];
     xinfo('Zoom out');
     
-    gh_curwin = gh_current_window; 
+    gh_window = gh_current_window; 
     
     zoomfactor = 1.2 
     %zoom = %zoom / zoomfactor ;

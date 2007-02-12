@@ -6,7 +6,7 @@ function Zoomin_()
     Cmenu = [];
     xinfo('Zoom in');
     
-    gh_curwin = gh_current_window; 
+    gh_window = gh_current_window; 
     
     zoomfactor = 1.2     
     %zoom = %zoom * zoomfactor;
