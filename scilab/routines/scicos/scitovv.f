@@ -10,10 +10,9 @@ c
       external dcopy, error
       include "../stack.h"
 c 
-      integer  iadr,sadr
+      integer  iadr
 c
       iadr(l) = l + l - 1
-      sadr(l) = (l/2) + 1
 c
 c     scilab variable to transfer
       l=lstk(top)
