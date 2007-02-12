@@ -31,9 +31,10 @@ scs_m.objs(1)=mlist(["Block","graphics","model","gui","doc"],..
               []),"","I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Capacitor",1,[],1,..
-              1,[],1,[],[],[],[],[0.01;0],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Capacitor",1,[],1,1,[],1,[],[],[],[],list(),[0.01;0],..
+              [],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "Capacitor","p","n",list(["C","v"],list(0.01,0),[0,1]),..
               list([],list()))),"Capacitor",list())
@@ -51,9 +52,10 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               "I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Ground",1,[],1,[],..
-              [],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Ground",1,[],1,[],[],1,[],[],[],[],list(),[],[],..
+              list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "Ground","p",[],[],list([],list()))),"Ground",list())
 scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
@@ -71,9 +73,10 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               []),"",["I","E"],"I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"VVsourceAC",[1;1],..
-              [],1,1,[],1,[],[],[],[],50,[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"VVsourceAC",[1;1],[],1,1,[],1,[],[],[],[],list(),50,..
+              [],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "VVsourceAC",["p","VA"],"n",list("f",list(50)),list([],list()))),..
               "VVsourceAC",list())
@@ -92,9 +95,10 @@ scs_m.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
               "xpoly(orig(1)+xx*sz(1),orig(2)+yy*sz(2));"],[]),"","I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"ConstantVoltage",..
-              1,[],1,1,[],1,[],[],[],[],0.01,[],"c",[],[%f,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"ConstantVoltage",1,[],1,1,[],1,[],[],[],[],list(),..
+              0.01,[],list(),"c",[],[%f,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "ConstantVoltage","p","n",list("V",list(0.01)),list([],list()))),..
               "ConstantVoltage",list())
@@ -117,9 +121,10 @@ scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
               []),"","I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Inductor",1,[],1,..
-              1,[],1,[],[],[],[],0.00001,[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Inductor",1,[],1,1,[],1,[],[],[],[],list(),0.00001,..
+              [],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "Inductor","p","n",list("L",list(0.00001)),list([],list()))),..
               "Inductor",list())
@@ -144,9 +149,10 @@ scs_m.objs(6)=mlist(["Block","graphics","model","gui","doc"],..
               "xfpoly(xx,yy);"],[]),"","I","E"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"PotentialSensor",..
-              1,[],1,1,[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"PotentialSensor",1,[],1,1,[],1,[],[],[],[],list(),[],..
+              [],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "PotentialSensor","p","v",[],list([],list()))),"PotentialSensor",..
               list())
@@ -161,9 +167,10 @@ scs_m.objs(7)=mlist(["Block","graphics","model","gui","doc"],..
               "xpoly(orig(1)+xx*sz(1),orig(2)+yy*sz(2)); "],[]),"",["I","E"],"I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"VariableResistor",..
-              [1;1],[],1,1,[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"VariableResistor",[1;1],[],1,1,[],1,[],[],[],[],..
+              list(),[],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "VariableResistor",["p","R"],"n",[],list([],list()))),..
               "VariableResistor",list())
@@ -191,9 +198,10 @@ scs_m.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
               ["I";"E"]),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"CurrentSensor",1,..
-              [],1,[1;1],[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"CurrentSensor",1,[],1,[1;1],[],1,[],[],[],[],list(),..
+              [],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "CurrentSensor","p",["n";"i"],[],list([],list()))),"CurrentSensor",..
               list())
@@ -211,9 +219,10 @@ scs_m.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
               []),"","I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"resistor",1,[],1,..
-              1,[],1,[],[],[],[],0.01,[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"resistor",1,[],1,1,[],1,[],[],[],[],list(),0.01,[],..
+              list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "Resistor","p","n",list("R",list(0.01)),list([],list()))),..
               "Resistor",list())
@@ -241,9 +250,10 @@ scs_m.objs(10)=mlist(["Block","graphics","model","gui","doc"],..
                ["I";"E"]),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-               "dep_ut","label","nzcross","nmode","equations"],"VoltageSensor",1,..
-               [],1,[1;1],[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],"VoltageSensor",1,[],1,[1;1],[],1,[],[],[],[],list(),..
+               [],[],list(),"c",[],[%t,%f],"",0,0,..
                tlist(["modelica","model","inputs","outputs","parameters"],..
                "VoltageSensor","p",["n";"v"],[],list([],list()))),..
                "VoltageSensor",list())
@@ -264,10 +274,10 @@ scs_m.objs(11)=mlist(["Block","graphics","model","gui","doc"],..
                "xpoly(xx,yy);"],[]),"","I","I"),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-               "dep_ut","label","nzcross","nmode","equations"],"Diode",1,[],1,1,..
-               [],1,[],[],[],[],[0.000001;0.04;15;1.000E+08],[],"c",[],[%t,%f],..
-               "",0,0,..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],"Diode",1,[],1,1,[],1,[],[],[],[],list(),..
+               [0.000001;0.04;15;1.000E+08],[],list(),"c",[],[%t,%f],"",0,0,..
                tlist(["modelica","model","inputs","outputs","parameters"],..
                "Diode","p","n",..
                list(["Ids","Vt","Maxexp","R"],list(0.000001,0.04,15,1.000E+08)),..
@@ -287,9 +297,10 @@ scs_m.objs(12)=mlist(["Block","graphics","model","gui","doc"],..
                []),"","I","I"),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-               "dep_ut","label","nzcross","nmode","equations"],"VsourceAC",1,[],..
-               1,1,[],1,[],[],[],[],[220;50],[],"c",[],[%t,%f],"",0,0,..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],"VsourceAC",1,[],1,1,[],1,[],[],[],[],list(),..
+               [220;50],[],list(),"c",[],[%t,%f],"",0,0,..
                tlist(["modelica","model","inputs","outputs","parameters"],..
                "VsourceAC","p","n",list(["VA";"f"],list(220,50)),list([],list()))),..
                "VsourceAC",list())
@@ -327,9 +338,10 @@ scs_m.objs(13)=mlist(["Block","graphics","model","gui","doc"],..
                "xfpoly(xx,yy)"],8),"","I",["I";"I"]),..
                mlist(..
                ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-               "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-               "dep_ut","label","nzcross","nmode","equations"],"NPN",1,[],1,..
-               [1;1],[],1,[],[],[],[],[],[],"c",[],[%t,%f],"",0,0,..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],"NPN",1,[],1,[1;1],[],1,[],[],[],[],list(),[],[],..
+               list(),"c",[],[%t,%f],"",0,0,..
                tlist(["modelica","model","inputs","outputs","parameters"],"NPN",..
                "B",["C";"E"],..
                list(..

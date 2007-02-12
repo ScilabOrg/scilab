@@ -18,11 +18,11 @@ scs_m.objs(1)=mlist(["Block","graphics","model","gui","doc"],..
               ["E";"E"]),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],..
-              list("bounce_ball",4),[],[],1,[2;2],[],1,[],[],[2;0;3;0;2.5;0;5;0],..
-              [],[1;1;1;1;0;5;0;5;9.81;0],[1;2],"c",[],[%f,%t],"",9,0,list()),..
-              "BOUNCE",list())
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],list("bounce_ball",4),[],[],1,[2;2],[],1,[],[],..
+              [2;0;3;0;2.5;0;5;0],[],list(),[1;1;1;1;0;5;0;5;9.81;0],[1;2],..
+              list(),"c",[],[%f,%t],"",9,0,list()),"BOUNCE",list())
 scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
@@ -37,8 +37,8 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               "xset(''thickness'',thick);"],8),"",["E";"E"],[]),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],list("bouncexy",4),..
-              [-1;-1],[1;1],[1;1],[],[],1,1,[],[],..
-              [0;0;2;2;0;23040;0;0;2;2;0;23040],[-5;5;0;15],[-1;1;1;2],"d",[],..
-              [%f,%f],"",0,0,list()),"BOUNCEXY",list())
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],list("bouncexy",4),[-1;-1],[1;1],[1;1],[],[],1,1,[],..
+              [],[0;0;2;2;0;23040;0;0;2;2;0;23040],list(),[-5;5;0;15],[-1;1;1;2],..
+              list(),"d",[],[%f,%f],"",0,0,list()),"BOUNCEXY",list())

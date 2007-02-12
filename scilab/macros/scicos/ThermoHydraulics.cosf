@@ -18,10 +18,10 @@ scs_m.objs(1)=mlist(["Block","graphics","model","gui","doc"],..
               []),"",["I";"I"],["I";"I";"E"]),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Bache",[1;1],[],1,..
-              [1;1;1],[],1,[],[],[],[],[101300;1;40;0;40;0;30;290;0],[],"c",[],..
-              [%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Bache",[1;1],[],1,[1;1;1],[],1,[],[],[],[],list(),..
+              [101300;1;40;0;40;0;30;290;0],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],"Bache",..
               ["Ce1","Ce2"],["Cs1","Cs2","yNiveau"],..
               list(["Patm";"A";"ze1";"ze2";"zs1";"zs2";"z0";"T0";"p_rho"],..
@@ -38,9 +38,10 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               []),"",["I";"E"],"I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"VanneReglante",..
-              [1;1],[],1,1,[],1,[],[],[],[],[8005.42;0],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"VanneReglante",[1;1],[],1,1,[],1,[],[],[],[],list(),..
+              [8005.42;0],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "VanneReglante",["C1","Ouv"],"C2",..
               list(["Cvmax";"p_rho"],[8005.42;0]),list([],list()))),..
@@ -54,9 +55,10 @@ scs_m.objs(3)=mlist(["Block","graphics","model","gui","doc"],..
               []),"","I","I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"PerteDP",1,[],1,1,..
-              [],1,[],[],[],[],[10;0.2;0.03;0;0;0],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"PerteDP",1,[],1,1,[],1,[],[],[],[],list(),..
+              [10;0.2;0.03;0;0;0],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "PerteDP","C1","C2",..
               list(["L";"D";"lambda";"z1";"z2";"p_rho"],[10;0.2;0.03;0;0;0]),..
@@ -73,9 +75,10 @@ scs_m.objs(4)=mlist(["Block","graphics","model","gui","doc"],..
               "","I",[]),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Puits",1,[],1,[],..
-              [],1,[],[],[],[],[100000;290;100000;1],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Puits",1,[],1,[],[],1,[],[],[],[],list(),..
+              [100000;290;100000;1],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],"Puits",..
               "C",[],..
               list(["P0";"T0";"H0";"option_temperature"],[100000;290;100000;1]),..
@@ -92,9 +95,10 @@ scs_m.objs(5)=mlist(["Block","graphics","model","gui","doc"],..
               "",[],"I"),..
               mlist(..
               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
-              "evtout","state","dstate","rpar","ipar","blocktype","firing",..
-              "dep_ut","label","nzcross","nmode","equations"],"Source",[],[],1,1,..
-              [],1,[],[],[],[],[300000;290;100000;1],[],"c",[],[%t,%f],"",0,0,..
+              "evtout","state","dstate","odstate","rpar","ipar","opar",..
+              "blocktype","firing","dep_ut","label","nzcross","nmode",..
+              "equations"],"Source",[],[],1,1,[],1,[],[],[],[],list(),..
+              [300000;290;100000;1],[],list(),"c",[],[%t,%f],"",0,0,..
               tlist(["modelica","model","inputs","outputs","parameters"],..
               "Source",[],"C",..
               list(["P0";"T0";"H0";"option_temperature"],[300000;290;100000;1]),..

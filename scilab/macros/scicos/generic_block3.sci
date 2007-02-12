@@ -16,27 +16,30 @@ case 'set' then
   model=arg1.model;graphics=arg1.graphics;label=graphics.exprs
   if size(label,'*')==14 then label(9)=[],end //compatiblity
   while %t do
-    [ok,junction_name,funtyp,in,it,out,ot,ci,co,xx,z,rpar,ipar,nmode,nzcr,auto0,depu,dept,lab]=..
+    [ok,junction_name,funtyp,in,it,out,ot,ci,co,xx,z,oz,...
+     rpar,ipar,opar,nmode,nzcr,auto0,depu,dept,lab]=..
         getvalue('Set GENERIC block parameters',..
-        ['simulation function';
-        'function type (0,1,2,..)';
-        'input ports sizes';
-        'input ports type';
-        'output port sizes';
-        'output ports type';
-        'input event ports sizes';
-        'output events ports sizes';
-        'initial continuous state';
-        'initial discrete state';
-        'Real parameters vector';
-        'Integer parameters vector';
-        'number of modes';
-        'number of zero_crossings';
-        'initial firing vector (<0 for no firing)';
-        'direct feedthrough (y or n)';
-        'time dependence (y or n)'],..
+        ['Simulation function';
+         'Function type (0,1,2,..)';
+         'Input ports sizes';
+         'Input ports type';
+         'Output port sizes';
+         'Output ports type';
+         'Input event ports sizes';
+         'Output events ports sizes';
+         'Initial continuous state';
+         'Initial discrete state';
+         'Initial object state';
+         'Real parameters vector';
+         'Integer parameters vector';
+         'Object parameters list';
+         'Number of modes';
+         'Number of zero crossings';
+         'Initial firing vector (<0 for no firing)';
+         'Direct feedthrough (y or n)';
+         'Time dependence (y or n)'],..
          list('str',1,'vec',1,'mat',[-1 2],'vec',-1,'mat',[-1 2],'vec',-1,'vec',-1,'vec',-1,..
-         'vec',-1,'vec',-1,'vec',-1,'vec',-1,'vec',1,'vec',1,'vec','sum(%8)',..
+         'vec',-1,'vec',-1,'lis',-1,'vec',-1,'vec',-1,'lis',-1,'vec',1,'vec',1,'vec','sum(%8)',..
          'str',1,'str',1),label)
     if ~ok then break,end
     label=lab
@@ -49,6 +52,8 @@ case 'set' then
     if [ci;co]<>[] then
       if maxi([ci;co])>1 then message('vector event links not supported');ok=%f;end
     end
+    if type(opar)<>15 then message('object parameter must be a list');ok=%f;end
+    if type(oz)<>15 then message('discrete object state must be a list');ok=%f;end
     depu=stripblanks(depu);if part(depu,1)=='y' then depu=%t; else depu=%f;end
     dept=stripblanks(dept);if part(dept,1)=='y' then dept=%t; else dept=%f;end
     dep_ut=[depu dept];
@@ -60,9 +65,10 @@ case 'set' then
       model.sim=list(junction_name,funtyp);
       model.state=xx
       model.dstate=z
+      model.odstate=oz
       model.rpar=rpar
       model.ipar=ipar
-      //      needcompile=4     AVERIFIER CANEMARCHEQUAVECFORTRAN
+      model.opar=opar
       model.firing=auto0
       model.nzcross=nzcr
       model.nmode=nmode
@@ -78,7 +84,7 @@ case 'set' then
 case 'define' then
   model=scicos_model()
   junction_name='sinblk';
-  funtyp=1;
+  funtyp=4;
   model.sim=list(junction_name,funtyp)
 
   model.in=1
@@ -87,24 +93,22 @@ case 'define' then
   model.out=1
   model.out2=1
   model.outtyp=1
-  model.evtin=[]
-  model.evtout=[]
-  model.state=[]
-  model.dstate=[]
-  model.rpar=[]
-  model.ipar=[]
-  model.blocktype='c' 
-  model.firing=[]
   model.dep_ut=[%t %f]
   label=[junction_name;sci2exp(funtyp);
          sci2exp([model.in model.in2]);
          sci2exp(model.intyp);
          sci2exp([model.out model.out2])
          sci2exp(model.outtyp);
-         sci2exp(model.evtin);sci2exp(model.evtout);
-         sci2exp(model.state);sci2exp(model.dstate);
-         sci2exp(model.rpar);sci2exp(model.ipar);
-         sci2exp(model.nmode);sci2exp(model.nzcross);
+         sci2exp(model.evtin);
+         sci2exp(model.evtout);
+         sci2exp(model.state);
+         sci2exp(model.dstate);
+         sci2exp(model.odstate);
+         sci2exp(model.rpar);
+         sci2exp(model.ipar);
+         sci2exp(model.opar);
+         sci2exp(model.nmode);
+         sci2exp(model.nzcross);
          sci2exp(model.firing);'y';'n'];
   gr_i=['xstringb(orig(1),orig(2),''GENERIC'',sz(1),sz(2),''fill'');']
   x=standard_define([2 2],model,label,gr_i)
