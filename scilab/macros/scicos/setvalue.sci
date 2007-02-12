@@ -1,7 +1,16 @@
-function [%ok,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=setvalue(%desc,%lables,%typ,%ini)
+function [%ok,%1,%2,%3,%4,%5,...
+          %6,%7,%8,%9,%10,...
+          %11,%12,%13,%14,%15,...
+          %16,%17,%18,%19,%20]=setvalue(%desc,%lables,%typ,%ini)
 if %scicos_prob==%t then 
 	%ok=%f
-        [%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+        [%1,%2,%3,%4,%5,...
+         %6,%7,%8,%9,%10,...
+         %11,%12,%13,%14,%15,...
+         %16,%17,%18,%19,%20]=(0,0,0,0,...
+                               0,0,0,0,0,0,...
+                               0,0,0,0,0,...
+                               0,0,0,0,0)
 return;end
 //  setvalues -  data acquisition, getvalue equivalent without dialog
 //%Syntax
@@ -53,19 +62,10 @@ if %lhs<>%nn+2&%lhs<>%nn+1 then error(41),end
 if size(%typ)<>2*%nn then
   error('typ : list(''type'',[sizes],...)')
 end
-%1=[];%2=[];%3=[];%4=[];%5=[];%6=[];%7=[];%8=[];%9=[];%10=[];%11=[]; ...
-   %12=[];%13=[];%14=[]
-
-// if exists('%scicos_context') then
-//   %mm=getfield(1,%scicos_context)
-//   for %mi=%mm(3:$)
-//     if execstr(%mi+'=%scicos_context(%mi)','errcatch')<>0 then
-//       disp(lasterror())
-//       %ok=%f
-//       return
-//     end
-//   end
-// end 
+%1=[];%2=[];%3=[];%4=[];%5=[];
+%6=[];%7=[];%8=[];%9=[];%10=[];
+%11=[];%12=[];%13=[];%14=[],%15=[];
+%16=[];%17=[];%18=[];%19=[],%20=[];
 
 if %rhs==3 then  %ini=emptystr(%nn,1),end
 %ok=%t
@@ -159,6 +159,7 @@ while %t do
       if %nnnnn<>1 then %noooo=%kk,break,end,
       if %sz(1)>=0 then if %nnnnn<>%sz(1) then %noooo=%kk,break,end,end
     case 'str'
+      clear %vv
       %vv=%str(%kk)
       if type(%vv)<>10 then %noooo=-%kk,break,end
       %sz=%typ(2*%kk);if type(%sz)==10 then %sz=evstr(%sz),end
@@ -193,6 +194,7 @@ while %t do
       error('Incorrect type :'+%typ(2*%kk-1))
     end
     execstr('%'+string(%kk)+'=%vv')
+    clear %vv
   end
   if %noooo>0 then 
     message(['answer given for  '+%lables(%noooo);

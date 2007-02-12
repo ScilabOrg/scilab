@@ -1,4 +1,7 @@
-function [%ok,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=tk_getvalue(%desc,%labels,%typ,%ini)
+function [%ok,%1,%2,%3,%4,%5,...
+          %6,%7,%8,%9,%10,...
+          %11,%12,%13,%14,%15,...
+          %16,%17,%18,%19,%20]=tk_getvalue(%desc,%labels,%typ,%ini)
 //  getvalues - %window dialog for data acquisition 
 //%Synta%
 //  [%ok,%1,..,%11]=getvalue(desc,labels,typ,ini)
@@ -43,26 +46,16 @@ function [%ok,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=tk
 //!
 // Copyright INRIA
 [%lhs,%rhs]=argn(0)
-  
+
 %nn=prod(size(%labels))
 if %lhs<>%nn+2&%lhs<>%nn+1 then error(41),end
 if size(%typ)<>2*%nn then
   error('%typ : list(''type'',[sizes],...)')
 end
-%1=[];%2=[];%3=[];%4=[];%5=[];%6=[];%7=[];%8=[];%9=[];%10=[];%11=[];
-%12=[];%13=[];%14=[];
-%15=[];%16=[];%17=[];%18=[];
-
-// if exists('%scicos_context') then
-//   %mm=getfield(1,%scicos_context)
-//   for %mi=%mm(3:$)
-//     if execstr(%mi+'=%scicos_context(%mi)','errcatch')<>0 then
-//       disp(lasterror())    
-//       %ok=%f
-//       return
-//     end
-//   end
-// end 
+%1=[];%2=[];%3=[];%4=[];%5=[];
+%6=[];%7=[];%8=[];%9=[];%10=[];
+%11=[];%12=[];%13=[];%14=[];%15=[];
+%16=[];%17=[];%18=[];%19=[];%20=[];
 
 if %rhs==3 then  %ini=emptystr(%nn,1),end
 %ok=%t
@@ -149,6 +142,7 @@ while %t do
       %sde=%str(%kk)
       %spe=find(ascii(%str(%kk))==10)
       %spe($+1)=length(%sde)+1
+      clear %vv
       %vv=[];%kk1=1
       for %kkk=1:size(%spe,'*')
 	%vv(%kkk,1)=part(%sde,%kk1:%spe(%kkk)-1)
@@ -182,6 +176,7 @@ while %t do
       error('type non gere :'+%typ(2*%kk-1))
     end
     execstr('%'+string(%kk)+'=%vv')
+    clear %vv
   end
   if %nok>0 then 
     x_message(['answer given for '+%labels(%nok);

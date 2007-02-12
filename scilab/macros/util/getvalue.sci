@@ -1,4 +1,7 @@
-function [%ok,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=getvalue(%desc,%labels,%typ,%ini)
+function [%ok,%1,%2,%3,%4,%5,...
+          %6,%7,%8,%9,%10,...
+          %11,%12,%13,%14,%15,...
+          %16,%17,%18,%19,%20]=getvalue(%desc,%labels,%typ,%ini)
 //  getvalues - %window dialog for data acquisition 
 //%Synta%
 //  [%ok,%1,..,%11]=getvalue(desc,labels,typ,ini)
@@ -44,6 +47,7 @@ function [%ok,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10,%11,%12,%13,%14,%15,%16,%17,%18]=ge
 // 17/01/07 -Alan- : this version of getvalue is different of scilab 4.1
 //         %scicos_context behavior reviewed in accordance to context_evstr
 //         pass int in field of type vec/mat/row/col
+//05/02/07 : update to %20 rhs parameters
 // Copyright INRIA
 [%lhs,%rhs]=argn(0)
 
@@ -52,9 +56,10 @@ if %lhs<>%nn+2&%lhs<>%nn+1 then error(41),end
 if size(%typ)<>2*%nn then
   error('%typ : list(''type'',[sizes],...)')
 end
-%1=[];%2=[];%3=[];%4=[];%5=[];%6=[];%7=[];%8=[];%9=[];%10=[];%11=[];
-%12=[];%13=[];%14=[];
-%15=[];%16=[];%17=[];%18=[];
+%1=[];%2=[];%3=[];%4=[];%5=[];
+%6=[];%7=[];%8=[];%9=[];%10=[];
+%11=[];%12=[];%13=[];%14=[];%15=[];
+%16=[];%17=[];%18=[];%19=[];%20=[];
 
 if %rhs==3 then  %ini=emptystr(%nn,1),end
 %ok=%t
