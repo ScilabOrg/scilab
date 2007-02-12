@@ -24,13 +24,16 @@ c
       endif
 c
 c     functions/fin
-c    var2vec  vec2var curblock getblocklabel scicos_debug
-c       1          2       3         4            5
+c    var2vec  vec2var  getblocklabel scicos_debug  debug_count
+c       1        2          3            4            5
 c
-c   debug_count sctree  sci_tree2  sci_tree3   sci_tree4
-c       6          7       8          9           10
+c    sctree  sci_tree2  sci_tree3   sci_tree4   realtimeinit
+c       6        7          8           9            10
 c
-      goto (1,2,3,4,5,6,7,8,9,10) fin
+c    realtime
+c      11
+c
+      goto (1,2,3,4,5,6,7,8,9,10,11) fin
 c
 c     var2vec
  1    continue
@@ -77,34 +80,29 @@ c     vec2var
       lstk(top+1)=lstk(top)+n
       goto 999
 c
-c     curblock
- 3    continue
-      call intcurblk
-      goto 999
-c
 c     getblocklabel
- 4    continue
+ 3    continue
       call intgetlabel
       goto 999
 c
 c     scicos_debug(i)
- 5    continue
+ 4    continue
       fname='scicos_debug' 
       call scicosdebug(fname)
       goto 998
 c
 c     scicos_debug_count
- 6    continue
+ 5    continue
       fname='scicos_debug_count'
       call scicosdebugcount(fname)
       goto 998
 c
 c     ctree
- 7    call intctree
+ 6    call intctree
       return
 c
 c     [ord,ok]=tree2(vec,outoin,outoinptr,dep_ut)
- 8    continue
+ 7    continue
       fname='sci_tree2'
 c
       if(.not.checklhs(fname,2,2)) return
@@ -113,7 +111,7 @@ c
       goto 998
 c
 c     [ord,ok]=tree3(vec,dep_ut,typ_l,bexe,boptr,blnk,blptr)
- 9    continue
+ 8    continue
       fname='sci_tree3'
 c
       if(.not.checklhs(fname,2,2)) return
@@ -122,40 +120,30 @@ c
       goto 998
 c
 c     [r1,r2,ok]=tree4(vec,outoin,outoinptr,dep_ut,typ_r)
- 10   continue
+ 9    continue
       fname='sci_tree4'
 c
       if(.not.checklhs(fname,2,2)) return
       if(.not.checkrhs(fname,5,5)) return
       call intree4(fname)
       goto 998
+c
+c     [...]=realtimeinit(...)
+ 10   continue
+      fname='realtimeinit'
+c
+      call intsrealtimeinit(fname)
+      goto 998
+c
+c     [...]=realtime(...)
+ 11   continue
+      fname='realtime'
+c
+      call intsrealtime(fname)
+      goto 998
 
  998  if(.not.putlhsvar())return
  999  return
-      end
-
-
-c     ********************
-      subroutine intcurblk
-c
-c
-      include '../stack.h'
-      integer kfun
-      common /curblk/ kfun
-      integer iadr, sadr
-      iadr(l)=l+l-1
-      sadr(l)=(l/2)+1
-
-      top=top+1
-      il=iadr(lstk(top))
-      istk(il)=1
-      istk(il+1)=1
-      istk(il+2)=1
-      istk(il+3)=0
-      l=sadr(il+4)
-      stk(l)=kfun
-      lstk(top+1)=l+1
-      return
       end
 
 

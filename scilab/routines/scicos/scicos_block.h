@@ -18,6 +18,10 @@ typedef struct {
   int scsptr;
   int nz;
   double *z;
+  int noz;
+  int *ozsz;
+  int *oztyp;
+  void **ozptr;
   int nx;
   double *x;
   double *xd;
@@ -34,6 +38,10 @@ typedef struct {
   double *rpar;
   int nipar;
   int *ipar;
+  int nopar;
+  int *oparsz;
+  int *opartyp;
+  void **oparptr;
   int ng;
   double *g;
   int ztyp;

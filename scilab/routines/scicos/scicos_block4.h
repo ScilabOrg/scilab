@@ -13,6 +13,7 @@
 	#define NULL 0
 #endif
 
+/* define scicos flag number */
 /**
    \brief DerivativeState is flag 0
 */
@@ -48,7 +49,7 @@
 */
 #define ReInitialization 6
 
-
+/* define voidg type */
 typedef void (*voidg)();
 
 /* scicos_block structure definition */
@@ -59,6 +60,10 @@ typedef struct {
   int scsptr;
   int nz;
   double *z;
+  int noz;
+  int *ozsz;
+  int *oztyp;
+  void **ozptr;
   int nx;
   double *x;
   double *xd;
@@ -75,6 +80,10 @@ typedef struct {
   double *rpar;
   int nipar;
   int *ipar;
+  int nopar;
+  int *oparsz;
+  int *opartyp;
+  void **oparptr;
   int ng;
   double *g;
   int ztyp;
@@ -98,6 +107,7 @@ double Get_Jacobian_parameter(void);
 double Get_Scicos_SQUR(void);
 void Set_Jacobian_flag(int flag);
 
+/* define min max for win32 */
 #ifndef WIN32
 	#define max(a,b) ((a) >= (b) ? (a) : (b))
 	#define min(a,b) ((a) <= (b) ? (a) : (b))
@@ -106,19 +116,31 @@ void Set_Jacobian_flag(int flag);
 extern int s_copy();
 extern int s_cmp();
 
-/* Define integer type and integer pointers */
-#define int8  char
-#define int16 short
-#define int32 long
-#define uint8  unsigned char
-#define uint16 unsigned short
-#define uint32 unsigned long
-#define int8Ptrs  char *
-#define int16Ptrs short *
-#define int32Ptrs long *
-#define uint8Ptrs  unsigned char *
-#define uint16Ptrs unsigned short *
-#define uint32Ptrs unsigned long *
+/* Define scicos simulator data type number (_N) */
+#define SCSREAL_N 10
+#define SCSCOMPLEX_N 11
+#define SCSINT_N 80
+#define SCSINT8_N 81
+#define SCSINT16_N 82
+#define SCSINT32_N 84
+#define SCSUINT_N 800
+#define SCSUINT8_N 811
+#define SCSUINT16_N 812
+#define SCSUINT32_N 814
+#define SCSUNKNOW_N -1
+
+/* Define scicos simulator data type C operators (_COP) */
+#define SCSREAL_COP double
+#define SCSCOMPLEX_COP double
+#define SCSINT_COP int
+#define SCSINT8_COP char
+#define SCSINT16_COP short
+#define SCSINT32_COP long
+#define SCSUINT_COP unsigned int
+#define SCSUINT8_COP unsigned char
+#define SCSUINT16_COP unsigned short
+#define SCSUINT32_COP unsigned long
+#define SCSUNKNOW_COP double
 
  /* scicos_block macros definition :
   *
@@ -207,7 +229,8 @@ extern int s_cmp();
 /**
    \brief Get Type of Input Port
 */
-#define GetInType(blk,x) ((((x)>0)&((x)<=(blk->nin))) ? (blk->insz[2*(blk->nin)+(x-1)]) : 0)
+#define GetInType(blk,x) ((((x)>0)&((x)<=(blk->nin))) ? \
+              (blk->insz[2*(blk->nin)+(x-1)]) : 0)
 
 /**
    \brief Get number of Rows (first dimension) of Regular Output Port number x
@@ -232,89 +255,92 @@ extern int s_cmp();
 /**
    \brief Get Type of Output Port
 */
-#define GetOutType(blk,x) ((((x)>0)&((x)<=(blk->nout))) ? (blk->outsz[2*(blk->nout)+(x-1)]) : 0)
+#define GetOutType(blk,x) ((((x)>0)&((x)<=(blk->nout))) ? \
+              (blk->outsz[2*(blk->nout)+(x-1)]) : 0)
 
 /**
    \brief Get Pointer of Real Part of Regular Input Port
 */
-#define GetRealInPortPtrs(blk,x) (double *) GetInPortPtrs(blk,x)
+#define GetRealInPortPtrs(blk,x) (SCSREAL_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of Imaginary Part of Regular Input Port
 */
 #define GetImagInPortPtrs(blk,x) (((x)>0)&((x)<=(blk->nin)) ? \
-              (double *) ((double *)blk->inptr[x-1]+((blk->insz[(x-1)])*(blk->insz[blk->nin+(x-1)]))) : NULL)
+              (SCSREAL_COP *) ((SCSREAL_COP *)blk->inptr[x-1]+ \
+               ((blk->insz[(x-1)])*(blk->insz[blk->nin+(x-1)]))) : NULL)
 
 /**
    \brief Get Pointer of Real Part of Regular Output Port
 */
-#define GetRealOutPortPtrs(blk,x) (double *) GetOutPortPtrs(blk,x)
+#define GetRealOutPortPtrs(blk,x) (SCSREAL_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of Imaginary Part of Regular Output Port
 */
 #define GetImagOutPortPtrs(blk,x) (((x)>0)&((x)<=(blk->nout)) ? \
-              (double *) ((double *)blk->outptr[x-1]+((blk->outsz[(x-1)])*(blk->outsz[blk->nout+(x-1)]))) : NULL)
+              (SCSREAL_COP *) ((SCSREAL_COP *)blk->outptr[x-1]+ \
+               ((blk->outsz[(x-1)])*(blk->outsz[blk->nout+(x-1)]))) : NULL)
 
 /**
    \brief Get Pointer of int8 typed Regular Input Port
 */
-#define Getint8InPortPtrs(blk,x) (int8Ptrs) GetInPortPtrs(blk,x)
+#define Getint8InPortPtrs(blk,x) (SCSINT8_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of int16 typed Regular Input Port
 */
-#define Getint16InPortPtrs(blk,x) (int16Ptrs) GetInPortPtrs(blk,x)
+#define Getint16InPortPtrs(blk,x) (SCSINT16_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of int32 typed Regular Input Port
 */
-#define Getint32InPortPtrs(blk,x) (int32Ptrs) GetInPortPtrs(blk,x)
+#define Getint32InPortPtrs(blk,x) (SCSINT32_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint8 typed Regular Input Port
 */
-#define Getuint8InPortPtrs(blk,x) (uint8Ptrs) GetInPortPtrs(blk,x)
+#define Getuint8InPortPtrs(blk,x) (SCSUINT8_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint16 typed Regular Input Port
 */
-#define Getuint16InPortPtrs(blk,x) (uint16Ptrs) GetInPortPtrs(blk,x)
+#define Getuint16InPortPtrs(blk,x) (SCSUINT16_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint32 typed Regular Input Port
 */
-#define Getuint32InPortPtrs(blk,x) (uint32Ptrs) GetInPortPtrs(blk,x)
+#define Getuint32InPortPtrs(blk,x) (SCSUINT32_COP *) GetInPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of int8 typed Regular Output Port
 */
-#define Getint8OutPortPtrs(blk,x) (int8Ptrs) GetOutPortPtrs(blk,x)
+#define Getint8OutPortPtrs(blk,x) (SCSINT8_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of int16 typed Regular Output Port
 */
-#define Getint16OutPortPtrs(blk,x) (int16Ptrs) GetOutPortPtrs(blk,x)
+#define Getint16OutPortPtrs(blk,x) (SCSINT16_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of int32 typed Regular Output Port
 */
-#define Getint32OutPortPtrs(blk,x) (int32Ptrs) GetOutPortPtrs(blk,x)
+#define Getint32OutPortPtrs(blk,x) (SCSINT32_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint8 typed Regular Output Port
 */
-#define Getuint8OutPortPtrs(blk,x) (uint8Ptrs) GetOutPortPtrs(blk,x)
+#define Getuint8OutPortPtrs(blk,x) (SCSUINT8_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint16 typed Regular Output Port
 */
-#define Getuint16OutPortPtrs(blk,x) (uint16Ptrs) GetOutPortPtrs(blk,x)
+#define Getuint16OutPortPtrs(blk,x) (SCSUINT16_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Pointer of uint32 typed Regular Output Port
 */
-#define Getuint32OutPortPtrs(blk,x) (uint32Ptrs) GetOutPortPtrs(blk,x)
+#define Getuint32OutPortPtrs(blk,x) (SCSINT32_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Number of Integer Parameters

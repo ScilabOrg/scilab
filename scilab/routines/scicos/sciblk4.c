@@ -10,10 +10,12 @@
 extern integer C2F(scierr)();
 extern void C2F(scifunc)();
 extern int *listentry(int *header, int i);
+extern void C2F(itosci)();
+extern int getscicosvarsfromimport(char *what,void *v,int *nv,int *mv);
 
 /* Define var2sci,sci2var,createblklist function */
 extern int var2sci(void *x,int n,int m,int typ_var); /*it's now in intcscicos.c*/
-extern int createblklist(scicos_block *Blocks, int *ierr, int flag_imp); /*it's now in intcscicos.c*/
+extern int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int kfun); /*it's now in intcscicos.c*/
 int sci2var(void *x,void *y,int typ_var);
 
 /* sciblk4. Run scilab block type 5.
@@ -26,36 +28,44 @@ int sci2var(void *x,void *y,int typ_var);
  *                            evout        nrpar  rpar  nipar  ipar    ng
  *                            g            ztyp   jroot label  work    nmode
  *                            mode !
- *    - 2  : Blocks.nevprt :
- *    - 3  : Blocks.funpt  :
- *    - 4  : Blocks.type   :
- *    - 5  : Blocks.scsptr :
- *    - 6  : Blocks.nz     :
- *    - 7  : Blocks.z      :
- *    - 8  : Blocks.nx     :
- *    - 9  : Blocks.x      :
- *    - 10 : Blocks.xd     :
- *    - 11 : Blocks.res    :
- *    - 12 : Blocks.nin    :
- *    - 13 : Blocks.insz   :
- *    - 14 : Blocks.inptr  :
- *    - 15 : Blocks.nout   :
- *    - 16 : Blocks.outsz  :
- *    - 17 : Blocks.outptr :
- *    - 18 : Blocks.nevout :
- *    - 19 : Blocks.evout  :
- *    - 20 : Blocks.nrpar  :
- *    - 21 : Blocks.rpar   :
- *    - 22 : Blocks.nipar  :
- *    - 23 : Blocks.ipar   :
- *    - 24 : Blocks.ng     :
- *    - 25 : Blocks.g      :
- *    - 26 : Blocks.ztyp   :
- *    - 27 : Blocks.jroot  :
- *    - 28 : Blocks.label  :
- *    - 29 : Blocks.work   :
- *    - 30 : Blocks.nmode  :
- *    - 31 : Blocks.mode   :
+ *    - 2  : Blocks.nevprt  :
+ *    - 3  : Blocks.funpt   :
+ *    - 4  : Blocks.type    :
+ *    - 5  : Blocks.scsptr  :
+ *    - 6  : Blocks.nz      :
+ *    - 7  : Blocks.z       :
+ *    - 8  : Blocks.noz     :
+ *    - 9  : Blocks.ozsz    :
+ *    - 10 : Blocks.oztyp   :
+ *    - 11 : Blocks.oz      :
+ *    - 12 : Blocks.nx      :
+ *    - 13 : Blocks.x       :
+ *    - 14 : Blocks.xd      :
+ *    - 15 : Blocks.res     :
+ *    - 16 : Blocks.nin     :
+ *    - 17 : Blocks.insz    :
+ *    - 18 : Blocks.inptr   :
+ *    - 19 : Blocks.nout    :
+ *    - 20 : Blocks.outsz   :
+ *    - 21 : Blocks.outptr  :
+ *    - 22 : Blocks.nevout  :
+ *    - 23 : Blocks.evout   :
+ *    - 24 : Blocks.nrpar   :
+ *    - 25 : Blocks.rpar    :
+ *    - 26 : Blocks.nipar   :
+ *    - 27 : Blocks.ipar    :
+ *    - 28 : Blocks.nopar   :
+ *    - 29 : Blocks.oparsz  :
+ *    - 30 : Blocks.opartyp :
+ *    - 31 : Blocks.opar    :
+ *    - 32 : Blocks.ng      :
+ *    - 33 : Blocks.g       :
+ *    - 34 : Blocks.ztyp    :
+ *    - 35 : Blocks.jroot   :
+ *    - 36 : Blocks.label   :
+ *    - 37 : Blocks.work    :
+ *    - 38 : Blocks.nmode   :
+ *    - 39 : Blocks.mode    :
  *
  * flag : integer
  *         0 : update continuous state
@@ -65,15 +75,18 @@ int sci2var(void *x,void *y,int typ_var);
  *         4 : state initialisation
  *         5 : finish
  *         6 : output state initialisation
- *         7 :
- *         9 :
+ *         7 : define property of continuous time states
+ *         9 : zero crossing surface computation
+ *        10 : Jacobian computation
  *
  * Output parameters :
  * Blocks : Scilab Tlist (updated blocks Scilab list)
  *
  * 08/06/06, Alan   : Rewritten from original code of sciblk4.c
- * of scicos 2.7.
- *
+ *                    of scicos 2.7.
+ * 09/02/07, Alan   : Add oz as a discrete state
+ *                    Update taking to account implicit/explicit call of simulator
+ *                    for some output elements
  */
 
 /* prototype */
@@ -82,17 +95,22 @@ void sciblk4(Blocks,flag)
      integer flag;
 {
   /*counter and address variable declaration*/
-  int i,j,topsave;
+  int i,j,k,topsave;
   int ierr = 0;
+  int kfun;
 
   int *header,ne1;
   double *le111;
 
-  int *il_xd, *il_res, *il_out, *il_outptr, *il_z, *il_x;
+  int *il_xd, *il_res, *il_out, *il_outptr;
+  int *il_z, *il_oz, *il_ozptr, *il_x;
   int *il_mode, *il_evout, *il_g;
 
   /* variable for output typed port */
   int nout;
+
+  int nv,mv;
+  int *ptr, *funtyp;
 
   /* set number of left and right hand side parameters */
   int mlhs=1,mrhs=2;
@@ -100,14 +118,23 @@ void sciblk4(Blocks,flag)
   /* Save Top counter */
   topsave=Top;
 
+  /* Retrieve block number */
+  kfun = get_block_number();
+
+  /* Retrieve funtyp by import structure */
+  strcpy(C2F(cha1).buf,"funtyp");
+  ierr=getscicosvarsfromimport(C2F(cha1).buf,&ptr,&nv,&mv);
+  if (ierr==0) goto err;
+  funtyp = (int *) ptr;
+
   /****************************
    * create scilab tlist Blocks
    ****************************/
-  if((createblklist(&Blocks[0], &ierr,(i=-1)))==0) goto err;
+  if((createblklist(&Blocks[0], &ierr,(i=-1),kfun))==0) goto err;
 
   /* * flag * */
-  ierr=var2sci(&flag,1,1,80);
-  if (ierr!=0) goto err;
+  C2F(itosci)(&flag,(i=1,&i),(j=1,&j));
+  if (C2F(scierr)()!=0) goto err;
 
   /**********************
    * Call scilab function
@@ -124,29 +151,39 @@ void sciblk4(Blocks,flag)
   /* switch to appropriate flag */
   switch (flag)
   {
-   case 0 : /* update continuous state */
+
+  /**************************
+   * update continuous state
+   **************************/
+   case 0 :
    {
     if (Blocks[0].nx != 0)
     {
-     /* 10 - xd */
-     il_xd = (int *) listentry(header,10);
-     ierr=sci2var(il_xd,Blocks[0].xd,10); /* double */
+     /* 14 - xd */
+     il_xd = (int *) listentry(header,14);
+     ierr=sci2var(il_xd,Blocks[0].xd,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
 
-     /* 11 - res */
-     il_res = (int *) listentry(header,11);
-     ierr=sci2var(il_res,Blocks[0].res,10); /* double */
-     if (ierr!=0) goto err;
+     if ((funtyp[kfun-1]==10004) || (funtyp[kfun-1]==10005))
+     {
+      /* 15 - res */
+      il_res = (int *) listentry(header,15);
+      ierr=sci2var(il_res,Blocks[0].res,SCSREAL_N); /* double */
+      if (ierr!=0) goto err;
+     }
     }
    }
    break;
 
-   case 1 : /* update output state */
+  /**********************
+   * update output state
+   **********************/
+   case 1 :
    {
-    /* 17 - outptr */
+    /* 21 - outptr */
     if (Blocks[0].nout!=0) 
     {
-     il_out = (int*) listentry(header,17);
+     il_out = (int*) listentry(header,21);
      nout = il_out[1];
 
      for (j=0;j<nout;j++)
@@ -159,7 +196,10 @@ void sciblk4(Blocks,flag)
    }
    break;
 
-   case 2 : /* update state */
+  /***********************
+   * update discrete state
+   ***********************/
+   case 2 :
    {
     /* 7 - z */
     if (Blocks[0].nz != 0)
@@ -173,41 +213,74 @@ void sciblk4(Blocks,flag)
      }
      else
      {
-      ierr=sci2var(il_z,Blocks[0].z,10); /* double */
+      ierr=sci2var(il_z,Blocks[0].z,SCSREAL_N); /* double */
       if (ierr!=0) goto err;
+     }
+    }
+
+    /* 11 - oz */
+    if (Blocks[0].noz != 0)
+    {
+     il_oz = (int *) listentry(header,11);
+     /* C blocks : extract */
+     if ((funtyp[kfun-1]==4) || (funtyp[kfun-1]==10004))
+     {
+      for(j=0;j<Blocks[0].noz;j++)
+      {
+       il_ozptr = (int *) listentry(il_oz,j+1);
+       if (Blocks[0].oztyp[j]==SCSUNKNOW_N)
+       {
+        ne1=Blocks[0].ozsz[j];
+        C2F(unsfdcopy)(&ne1,(double *)il_ozptr,\
+                       (i=1,&i),(double *)Blocks[0].ozptr[j],(k=1,&k));
+       }
+       else
+       {
+        ierr=sci2var(il_ozptr,Blocks[0].ozptr[j],Blocks[0].oztyp[j]);
+        if (ierr!=0) goto err;
+       }
+      }
+     }
+     /* sci blocks : don't extract */
+     else if((funtyp[kfun-1]==5) || (funtyp[kfun-1]==10005))
+     {
+      ne1=Blocks[0].ozsz[0];
+      C2F(unsfdcopy)(&ne1,(double *)il_oz,\
+                     (i=1,&i),(double *)Blocks[0].ozptr[0],(j=1,&j));
      }
     }
 
     if (Blocks[0].nx != 0)
     {
-     /* 9 - x */
-     il_x = (int *) listentry(header,9);
-     ierr=sci2var(il_x,Blocks[0].x,10); /* double */
+     /* 12 - x */
+     il_x = (int *) listentry(header,12);
+     ierr=sci2var(il_x,Blocks[0].x,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
 
-     /* 10 - xd */
-     il_xd = (int *) listentry(header,10);
-     ierr=sci2var(il_xd,Blocks[0].xd,10); /* double */
+     /* 14 - xd */
+     il_xd = (int *) listentry(header,14);
+     ierr=sci2var(il_xd,Blocks[0].xd,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
     }
+   }
+   break;
 
-    /* 31 - mode */
-    il_mode = (int *) listentry(header,31);
-    ierr=sci2var(il_mode,Blocks[0].mode,80); /* int */
+  /***************************
+   * update event output state
+   ***************************/
+   case 3 :
+   {
+    /* 23 - evout */
+    il_evout = (int *) listentry(header,23);
+    ierr=sci2var(il_evout,Blocks[0].evout,SCSREAL_N); /* double */
     if (ierr!=0) goto err;
    }
    break;
 
-   case 3 : /* update event output state */
-   {
-    /* 19 - evout */
-    il_evout = (int *) listentry(header,19);
-    ierr=sci2var(il_evout,Blocks[0].evout,10); /* double */
-    if (ierr!=0) goto err;
-   }
-   break;
-
-   case 4 : /* state initialisation */
+  /**********************
+   * state initialisation
+   **********************/
+   case 4 :
    {
     /* 7 - z */
     if (Blocks[0].nz != 0)
@@ -221,27 +294,62 @@ void sciblk4(Blocks,flag)
      }
      else
      {
-      ierr=sci2var(il_z,Blocks[0].z,10); /* double */
+      ierr=sci2var(il_z,Blocks[0].z,SCSREAL_N); /* double */
       if (ierr!=0) goto err;
+     }
+    }
+
+    /* 11 - oz */
+    if (Blocks[0].noz != 0)
+    {
+     il_oz = (int *) listentry(header,11);
+     /* C blocks : extract */
+     if ((funtyp[kfun-1]==4) || (funtyp[kfun-1]==10004))
+     {
+      for(j=0;j<Blocks[0].noz;j++)
+      {
+       il_ozptr = (int *) listentry(il_oz,j+1);
+       if (Blocks[0].oztyp[j]==SCSUNKNOW_N)
+       {
+        ne1=Blocks[0].ozsz[j];
+        C2F(unsfdcopy)(&ne1,(double *)il_ozptr,\
+                       (i=1,&i),(double *)Blocks[0].ozptr[j],(k=1,&k));
+       }
+       else
+       {
+        ierr=sci2var(il_ozptr,Blocks[0].ozptr[j],Blocks[0].oztyp[j]);
+        if (ierr!=0) goto err;
+       }
+      }
+     }
+     /* sci blocks : don't extract */
+     else if((funtyp[kfun-1]==5) || (funtyp[kfun-1]==10005))
+     {
+      ne1=Blocks[0].ozsz[0];
+      C2F(unsfdcopy)(&ne1,(double *)il_oz,\
+                     (i=1,&i),(double *)Blocks[0].ozptr[0],(j=1,&j));
      }
     }
 
     if (Blocks[0].nx != 0)
     {
-     /* 9 - x */
-     il_x = (int *) listentry(header,9);
-     ierr=sci2var(il_x,Blocks[0].x,10); /* double */
+     /* 13 - x */
+     il_x = (int *) listentry(header,13);
+     ierr=sci2var(il_x,Blocks[0].x,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
 
-     /* 10 - xd */
-     il_xd = (int *) listentry(header,10);
-     ierr=sci2var(il_xd,Blocks[0].xd,10); /* double */
+     /* 14 - xd */
+     il_xd = (int *) listentry(header,14);
+     ierr=sci2var(il_xd,Blocks[0].xd,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
     }
    }
    break;
 
-   case 5 : /* finish */
+  /*********
+   * finish
+   *********/
+   case 5 :
    {
     /* 7 - z */
     if (Blocks[0].nz != 0)
@@ -255,27 +363,49 @@ void sciblk4(Blocks,flag)
      }
      else
      {
-      ierr=sci2var(il_z,Blocks[0].z,10); /* double */
+      ierr=sci2var(il_z,Blocks[0].z,SCSREAL_N); /* double */
       if (ierr!=0) goto err;
      }
     }
 
-    if (Blocks[0].nx != 0)
+    /* 11 - oz */
+    if (Blocks[0].noz != 0)
     {
-     /* 9 - x */
-     il_x = (int *) listentry(header,9);
-     ierr=sci2var(il_x,Blocks[0].x,10); /* double */
-     if (ierr!=0) goto err;
-
-     /* 10 - xd */
-     il_xd = (int *) listentry(header,10); /* double */
-     ierr=sci2var(il_xd,Blocks[0].xd,10);
-     if (ierr!=0) goto err;
+     il_oz = (int *) listentry(header,11);
+     /* C blocks : extract */
+     if ((funtyp[kfun-1]==4) || (funtyp[kfun-1]==10004))
+     {
+      for(j=0;j<Blocks[0].noz;j++)
+      {
+       il_ozptr = (int *) listentry(il_oz,j+1);
+       if (Blocks[0].oztyp[j]==SCSUNKNOW_N)
+       {
+        ne1=Blocks[0].ozsz[j];
+        C2F(unsfdcopy)(&ne1,(double *)il_ozptr,\
+                       (i=1,&i),(double *)Blocks[0].ozptr[j],(k=1,&k));
+       }
+       else
+       {
+        ierr=sci2var(il_ozptr,Blocks[0].ozptr[j],Blocks[0].oztyp[j]);
+        if (ierr!=0) goto err;
+       }
+      }
+     }
+     /* sci blocks : don't extract */
+     else if((funtyp[kfun-1]==5) || (funtyp[kfun-1]==10005))
+     {
+      ne1=Blocks[0].ozsz[0];
+      C2F(unsfdcopy)(&ne1,(double *)il_oz,\
+                     (i=1,&i),(double *)Blocks[0].ozptr[0],(j=1,&j));
+     }
     }
    }
    break;
 
-   case 6 : /* output state initialisation */
+  /*****************************
+   * output state initialisation
+   *****************************/
+   case 6 :
    {
     /* 7 - z */
     if (Blocks[0].nz != 0)
@@ -289,28 +419,60 @@ void sciblk4(Blocks,flag)
      }
      else
      {
-      ierr=sci2var(il_z,Blocks[0].z,10); /* double */
+      ierr=sci2var(il_z,Blocks[0].z,SCSREAL_N); /* double */
       if (ierr!=0) goto err;
+     }
+    }
+
+    /* 11 - oz */
+    if (Blocks[0].noz != 0)
+    {
+     il_oz = (int *) listentry(header,11);
+     /* C blocks : extract */
+     if ((funtyp[kfun-1]==4) || (funtyp[kfun-1]==10004))
+     {
+      for(j=0;j<Blocks[0].noz;j++)
+      {
+       il_ozptr = (int *) listentry(il_oz,j+1);
+       if (Blocks[0].oztyp[j]==SCSUNKNOW_N)
+       {
+        ne1=Blocks[0].ozsz[j];
+        C2F(unsfdcopy)(&ne1,(double *)il_ozptr,\
+                       (i=1,&i),(double *)Blocks[0].ozptr[j],(k=1,&k));
+       }
+       else
+       {
+        ierr=sci2var(il_ozptr,Blocks[0].ozptr[j],Blocks[0].oztyp[j]);
+        if (ierr!=0) goto err;
+       }
+      }
+     }
+     /* sci blocks : don't extract */
+     else if((funtyp[kfun-1]==5) || (funtyp[kfun-1]==10005))
+     {
+      ne1=Blocks[0].ozsz[0];
+      C2F(unsfdcopy)(&ne1,(double *)il_oz,\
+                     (i=1,&i),(double *)Blocks[0].ozptr[0],(j=1,&j));
      }
     }
 
     if (Blocks[0].nx != 0)
     {
-     /* 9 - x */
-     il_x = (int *) listentry(header,9);
-     ierr=sci2var(il_x,Blocks[0].x,10); /* double */
+     /* 13 - x */
+     il_x = (int *) listentry(header,13);
+     ierr=sci2var(il_x,Blocks[0].x,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
 
-     /* 10 - xd */
-     il_xd = (int *) listentry(header,10);
-     ierr=sci2var(il_xd,Blocks[0].xd,10); /* double */
+     /* 14 - xd */
+     il_xd = (int *) listentry(header,14);
+     ierr=sci2var(il_xd,Blocks[0].xd,SCSREAL_N); /* double */
      if (ierr!=0) goto err;
     }
 
-    /* 17 - outptr */
+    /* 21 - outptr */
     if (Blocks[0].nout!=0) 
     {
-     il_out = (int *) listentry(header,17);
+     il_out = (int *) listentry(header,21);
      nout = il_out[1];
      for (j=0;j<nout;j++)
      {
@@ -322,34 +484,50 @@ void sciblk4(Blocks,flag)
    }
    break;
 
-   case 7 : /* */
+  /*******************************************
+   * define property of continuous time states
+   * (algebraic or differential states)
+   *******************************************/
+   case 7 :
    {
-    /* 10 - xd */
-    if (Blocks[0].nx != 0)
-    {
-     il_xd = (int *) listentry(header,10);
-     ierr=sci2var(il_xd,Blocks[0].xd,10); /* double */
-     if (ierr!=0) goto err;
-    }
-
-    /* 31 - mode */
-    il_mode = (int *) listentry(header,31);
-    ierr=sci2var(il_mode,Blocks[0].mode,80); /* int */
-    if (ierr!=0) goto err;
+     /* nothing to do
+      * (only used for implicit block with set_pointer_xproperty) 
+      */
    }
    break;
 
-   case 9 : /* */
+  /****************************
+   * zero crossing computation
+   ****************************/
+   case 9 :
    {
-    /* 25 - g */
-    il_g = (int *) listentry(header,25);
-    ierr=sci2var(il_g,Blocks[0].g,10); /* double */
+    /* 33 - g */
+    il_g = (int *) listentry(header,33);
+    ierr=sci2var(il_g,Blocks[0].g,SCSREAL_N); /* double */
     if (ierr!=0) goto err;
 
-    /* 31 - mode */
-    il_mode = (int *) listentry(header,31);
-    ierr=sci2var(il_mode,Blocks[0].mode,80); /* int */
-    if (ierr!=0) goto err;
+     if (get_phase_simulation()==1)
+     {
+      /* 39 - mode */
+      il_mode = (int *) listentry(header,39);
+      ierr=sci2var(il_mode,Blocks[0].mode,SCSREAL_N); /* int */
+      if (ierr!=0) goto err;
+     }
+   }
+   break;
+
+  /**********************
+   * Jacobian computation
+   **********************/
+   case 10 :
+   {
+    if ((funtyp[kfun-1]==10004) || (funtyp[kfun-1]==10005))
+    {
+     /* 15 - res */
+     il_res = (int *) listentry(header,15);
+     ierr=sci2var(il_res,Blocks[0].res,SCSREAL_N); /* double */
+     if (ierr!=0) goto err;
+    }
    }
    break;
   }
@@ -411,16 +589,17 @@ void sciblk4(Blocks,flag)
  * *x      : void ptr of scilab object.
  * *y      : void ptr of scicos blocks array.
  * typ_var : integer, type of scicos data :
- *           10  : double real
- *           11  : double complex
- *           80  : int
- *           81  : int8
- *           82  : int16
- *           84  : int32
- *           800 : uint
- *           811 : uint8
- *           812 : uint16
- *           814 : uint32
+ *           SCSREAL_N    : double real
+ *           SCSCOMPLEX_N : double complex
+ *           SCSINT_N     : int
+ *           SCSINT8_N    : int8
+ *           SCSINT16_N   : int16
+ *           SCSINT32_N   : int32
+ *           SCSUINT _N   : uint
+ *           SCSUINT8_N   : uint8
+ *           SCSUINT16_N  : uint16
+ *           SCSUINT32_N  : uint32
+ *           SCSUNKNOW_N  :
  *
  * Output parameters : int (>1000), error flag 
  *                     (0 if no error)
@@ -445,15 +624,15 @@ int sci2var(void *x,void *y, int typ_var)
  int *header;
 
   /*define all type of accepted ptr */
-  double *ptr_d, *y_d;
-  char *ptr_c, *y_c;
-  unsigned char *ptr_uc, *y_uc;
-  short *ptr_s, *y_s;
-  unsigned short *ptr_us, *y_us;
-  int *ptr_i, *y_i;
-  unsigned int *ptr_ui,*y_ui;
-  long *ptr_l,*y_l;
-  unsigned long *ptr_ul,*y_ul;
+  SCSREAL_COP *ptr_d, *y_d;
+  SCSINT8_COP *ptr_c, *y_c;
+  SCSUINT8_COP *ptr_uc, *y_uc;
+  SCSINT16_COP *ptr_s, *y_s;
+  SCSUINT16_COP *ptr_us, *y_us;
+  SCSINT_COP *ptr_i, *y_i;
+  SCSUINT_COP *ptr_ui,*y_ui;
+  SCSINT32_COP *ptr_l,*y_l;
+  SCSUINT32_COP *ptr_ul,*y_ul;
 
  /*****************************************
   * get header,n,m and typ of scilab object
@@ -492,12 +671,12 @@ int sci2var(void *x,void *y, int typ_var)
             err = 1002;
             return err;
            }
-           if ((sub_typ==0)&(typ_var!=10))
+           if ((sub_typ==0)&(typ_var!=SCSREAL_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==1)&(typ_var!=11))
+           if ((sub_typ==1)&(typ_var!=SCSCOMPLEX_N))
            {
             err = 1004;
             return err;
@@ -507,14 +686,14 @@ int sci2var(void *x,void *y, int typ_var)
            switch (sub_typ)
            {
             case 0 : nm=n*m;
-                     ptr_d = (double *) (header+4);
-                     y_d = (double *) y;
+                     ptr_d = (SCSREAL_COP *) (header+4);
+                     y_d = (SCSREAL_COP *) y;
                      C2F(unsfdcopy)(&nm,ptr_d,(i=-1,&i),y_d,(j=-1,&j));
                      break;
 
             case 1 : nm=2*n*m;
-                     ptr_d = (double *) (header+4);
-                     y_d = (double *) y;
+                     ptr_d = (SCSCOMPLEX_COP *) (header+4);
+                     y_d = (SCSCOMPLEX_COP *) y;
                      C2F(unsfdcopy)(&nm,ptr_d,(i=-1,&i),y_d,(j=-1,&j));
                      break;
            }
@@ -529,32 +708,32 @@ int sci2var(void *x,void *y, int typ_var)
             err = 1003;
             return err;
            }
-           if ((sub_typ==1)&(typ_var!=81))
+           if ((sub_typ==1)&(typ_var!=SCSINT8_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==2)&(typ_var!=82))
+           if ((sub_typ==2)&(typ_var!=SCSINT16_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==4)&(typ_var!=80)&(typ_var!=84))
+           if ((sub_typ==4)&(typ_var!=SCSINT_N)&(typ_var!=SCSINT32_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==11)&(typ_var!=811))
+           if ((sub_typ==11)&(typ_var!=SCSUINT8_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==12)&(typ_var!=812))
+           if ((sub_typ==12)&(typ_var!=SCSUINT16_N))
            {
             err = 1004;
             return err;
            }
-           if ((sub_typ==14)&(typ_var!=800)&(typ_var!=814))
+           if ((sub_typ==14)&(typ_var!=SCSUINT_N)&(typ_var!=SCSUINT32_N))
            {
             err = 1004;
             return err;
@@ -563,45 +742,45 @@ int sci2var(void *x,void *y, int typ_var)
            /*copy integer matrix*/
            switch (typ_var)
            {
-            case 80  : ptr_i = (int *) (header+4);
-                       y_i = (int *) y;
-                       for(i=0;i<n*m;i++) y_i[i] = ptr_i[i];
-                       break;
+            case SCSINT_N    : ptr_i = (SCSINT_COP *) (header+4);
+                               y_i = (SCSINT_COP *) y;
+                               for(i=0;i<n*m;i++) y_i[i] = ptr_i[i];
+                               break;
 
-            case 81  : ptr_c = (char *) (header+4);
-                       y_c = (char *) y;
-                       for(i=0;i<n*m;i++) y_c[i] = ptr_c[i];
-                       break;
+            case SCSINT8_N   : ptr_c = (SCSINT8_COP *) (header+4);
+                               y_c = (SCSINT8_COP *) y;
+                               for(i=0;i<n*m;i++) y_c[i] = ptr_c[i];
+                               break;
 
-            case 82  : ptr_s = (short *) (header+4);
-                       y_s = (short *) y;
-                       for(i=0;i<n*m;i++) y_s[i] = ptr_s[i];
-                       break;
+            case SCSINT16_N  : ptr_s = (SCSINT16_COP *) (header+4);
+                               y_s = (SCSINT16_COP *) y;
+                               for(i=0;i<n*m;i++) y_s[i] = ptr_s[i];
+                               break;
 
-            case 84  : ptr_l = (long *) (header+4);
-                       y_l = (long *) y;
-                       for(i=0;i<n*m;i++) y_l[i] = ptr_l[i];
-                       break;
+            case SCSINT32_N  : ptr_l = (SCSINT32_COP *) (header+4);
+                               y_l = (SCSINT32_COP *) y;
+                               for(i=0;i<n*m;i++) y_l[i] = ptr_l[i];
+                               break;
 
-            case 800 : ptr_ui = (unsigned int *) (header+4);
-                       y_ui = (unsigned int *) y;
-                       for(i=0;i<n*m;i++) y_ui[i] = ptr_ui[i];
-                       break;
+            case SCSUINT_N   : ptr_ui = (SCSUINT_COP *) (header+4);
+                               y_ui = (SCSUINT_COP *) y;
+                               for(i=0;i<n*m;i++) y_ui[i] = ptr_ui[i];
+                               break;
 
-            case 811 : ptr_uc = (unsigned char *) (header+4);
-                       y_uc = (unsigned char *) y;
-                       for(i=0;i<n*m;i++) y_uc[i] = ptr_uc[i];
-                       break;
+            case SCSUINT8_N  : ptr_uc = (SCSUINT8_COP *) (header+4);
+                               y_uc = (SCSUINT8_COP *) y;
+                               for(i=0;i<n*m;i++) y_uc[i] = ptr_uc[i];
+                               break;
 
-            case 812 : ptr_us = (unsigned short *) (header+4);
-                       y_us = (unsigned short *) y;
-                       for(i=0;i<n*m;i++) y_us[i] = ptr_us[i];
-                       break;
+            case SCSUINT16_N : ptr_us = (SCSUINT16_COP *) (header+4);
+                               y_us = (SCSUINT16_COP *) y;
+                               for(i=0;i<n*m;i++) y_us[i] = ptr_us[i];
+                               break;
 
-            case 814 : ptr_ul = (unsigned long *) (header+4);
-                       y_ul = (unsigned long *) y;
-                       for(i=0;i<n*m;i++) y_ul[i] = ptr_ul[i];
-                       break;
+            case SCSUINT32_N : ptr_ul = (SCSUINT32_COP *) (header+4);
+                               y_ul = (SCSUINT32_COP *) y;
+                               for(i=0;i<n*m;i++) y_ul[i] = ptr_ul[i];
+                               break;
            }
           }
           break;

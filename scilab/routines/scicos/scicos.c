@@ -2,7 +2,12 @@
  * adding A-Jacobian
  * istate =-1 case;
  *
- * xx/03/06, Alan : Enable matrix typed input/output regular ports
+ * xx/03/06, Alan
+ * enable matrix typed
+ * input/output regular ports
+ *
+ * xx/02/07, Alan
+ * added object paramaters/states
  *
  */
 
@@ -173,13 +178,15 @@ static double *t0,*tf,scicos_time;
 static void **outtbptr;     /*pointer array of object of outtb*/
 static integer *outtbsz;    /*size of object of outtb*/
 static integer *outtbtyp;   /*type of object of outtb*/
-double *outtbdptr;          /*to store double of outtb*/
-char *outtbcptr;            /*to store int8 of outtb*/
-short *outtbsptr;           /*to store int16 of outtb*/
-long *outtblptr;            /*to store int32 of outtb*/
-unsigned char *outtbucptr;  /*to store unsigned int8 of outtb */
-unsigned short *outtbusptr; /*to store unsigned int16 of outtb */
-unsigned long *outtbulptr;  /*to store unsigned int32 of outtb */
+
+SCSREAL_COP *outtbdptr;     /*to store double of outtb*/
+SCSINT8_COP *outtbcptr;     /*to store int8 of outtb*/
+SCSINT16_COP *outtbsptr;    /*to store int16 of outtb*/
+SCSINT32_COP *outtblptr;    /*to store int32 of outtb*/
+SCSUINT8_COP *outtbucptr;   /*to store unsigned int8 of outtb */
+SCSUINT16_COP *outtbusptr;  /*to store unsigned int16 of outtb */
+SCSUINT32_COP *outtbulptr;  /*to store unsigned int32 of outtb */
+
 static outtb_el *outtb_elem;
 static int nelem;
 static scicos_block *Blocks;
@@ -204,25 +211,25 @@ void call_debug_scicos(double *, double *, double *, double *,double *,integer
 static integer debug_block;
 
 /* Subroutine */
-int C2F(scicos)(
-     double *x_in, integer *xptr_in, double *z__,
-     void **work,integer *zptr,integer *modptr_in,
-
-     integer *iz,integer *izptr,
-     double *t0_in,double *tf_in,double *tevts_in,
-     integer *evtspt_in,integer *nevts,integer *pointi_in,
-     void **outtbptr_in,     integer *outtbsz_in,integer *outtbtyp_in,
-     outtb_el *outtb_elem_in,integer *nelem1,integer *nlnk1,
-     integer *funptr,integer *funtyp_in,integer *inpptr_in,integer *outptr_in,
-     integer *inplnk_in,integer *outlnk_in,
-     double *rpar,
-     integer *rpptr,integer *ipar,integer *ipptr,integer *clkptr_in,integer *ordptr_in,integer *nordptr1,
-     integer *ordclk_in,integer *cord_in,integer *ncord1,integer *iord_in,integer *niord1,integer *oord_in,
-     integer *noord1,integer *zord_in,integer *nzord1,integer *critev_in,integer *nblk1,integer *ztyp,integer *zcptr_in,
-     integer *subscr,integer *nsubs,
-     double *simpar,
-     integer *flag__,integer *ierr_out)
-
+int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
+                void **work,integer *zptr,integer *modptr_in,
+                void **oz,integer *ozsz,integer *oztyp,integer *ozptr,
+                integer *iz,integer *izptr,double *t0_in,
+                double *tf_in,double *tevts_in,integer *evtspt_in,
+                integer *nevts,integer *pointi_in,void **outtbptr_in,
+                integer *outtbsz_in,integer *outtbtyp_in,
+                outtb_el *outtb_elem_in,integer *nelem1,integer *nlnk1,
+                integer *funptr,integer *funtyp_in,integer *inpptr_in,
+                integer *outptr_in, integer *inplnk_in,integer *outlnk_in,
+                double *rpar,integer *rpptr,integer *ipar,integer *ipptr,
+                void **opar,integer *oparsz,integer *opartyp,integer *opptr,
+                integer *clkptr_in,integer *ordptr_in,integer *nordptr1,
+                integer *ordclk_in,integer *cord_in,integer *ncord1,
+                integer *iord_in,integer *niord1,integer *oord_in,
+                integer *noord1,integer *zord_in,integer *nzord1,
+                integer *critev_in,integer *nblk1,integer *ztyp,
+                integer *zcptr_in,integer *subscr,integer *nsubs,
+                double *simpar,integer *flag__,integer *ierr_out)
 {
   integer i1,kf,lprt,in,out,job=1;
 
@@ -232,7 +239,7 @@ int C2F(scicos)(
   extern /* Subroutine */ int C2F(getscsmax)();
   static integer ni, no;
   extern /* Subroutine */ int C2F(clearscicosimport)();
-  static integer nx, nz;
+  static integer nx, nz, noz, nopar;
   double *W;
 
   /*     Copyright INRIA */
@@ -249,6 +256,7 @@ int C2F(scicos)(
   modptr=modptr_in-1;
   --zptr;
   --izptr;
+  --ozptr;
   evtspt=evtspt_in-1;
   tevts=tevts_in-1;
   outtbptr=outtbptr_in;
@@ -262,6 +270,7 @@ int C2F(scicos)(
   outlnk=outlnk_in-1;
   --rpptr;
   --ipptr;
+  --opptr;
   clkptr=clkptr_in-1;
   ordptr=ordptr_in-1;
   ordclk=ordclk_in-1;
@@ -301,8 +310,12 @@ int C2F(scicos)(
   ng = zcptr[nblk + 1] - 1;
   nmod = modptr[nblk + 1] - 1;
 
-  /*     number of  discrete real states */
+  /*     number of discrete real states */
   nz = zptr[nblk + 1] - 1;
+  /*     number of discrete object states */
+  noz = ozptr[nblk + 1] - 1;
+  /*     number of object parameters */
+  nopar = opptr[nblk + 1] - 1;
   /*     number of continuous states */
   nx = xptr[nblk +1] - 1;
   neq=&nx;
@@ -339,13 +352,13 @@ int C2F(scicos)(
       if (ni > 1) {
         for (j = 1; j <= ni; ++j) {
           k = inplnk[inpptr[i] - 1 + j];
-          mxtb = mxtb + (outtbsz[2*(k-1)]*outtbsz[2*(k-1)+1]);
+          mxtb = mxtb + (outtbsz[k-1]*outtbsz[(k-1)+nlnk]);
         }
       }
       if (no > 1) {
         for (j = 1; j <= no; ++j) {
           k = outlnk[outptr[i] - 1 + j];
-          mxtb = mxtb + (outtbsz[2*(k-1)]*outtbsz[2*(k-1)+1]);
+          mxtb = mxtb + (outtbsz[k-1]*outtbsz[(k-1)+nlnk]);
         }
       }
       if (mxtb > TB_SIZE) {
@@ -357,29 +370,29 @@ int C2F(scicos)(
     }
   }
 
-  if((Blocks=MALLOC(sizeof(scicos_block)*nblk))== NULL ){
-    *ierr =5;
-    return 0;
-  }
   if(nmod>0){
     if((mod=MALLOC(sizeof(int)*nmod))== NULL ){
       *ierr =5;
-      FREE(Blocks);
       return 0;
     }
   }
   if(ng>0){ /* g becomes global */
     if((g=MALLOC(sizeof(double)*ng))== NULL ){
       *ierr =5;
-      if(nmod>0){
-        FREE(mod);
-      }
-      FREE(Blocks);
+      if(nmod>0) FREE(mod);
       return 0;
     }
   }
+
   debug_block=-1; /* no debug block for start */
   C2F(cosdebugcounter).counter=0;
+
+  if((Blocks=MALLOC(sizeof(scicos_block)*nblk))== NULL ){
+    *ierr =5;
+    if(nmod>0) FREE(mod);
+    if(ng>0) FREE(g);
+    return 0;
+  }
 
   for (kf = 0; kf < nblk; ++kf) {
     C2F(curblk).kfun = kf+1;
@@ -449,8 +462,10 @@ int C2F(scicos)(
     Blocks[kf].nx=xptr[kf+2]-xptr[kf+1];
     Blocks[kf].ng=zcptr[kf+2]-zcptr[kf+1];
     Blocks[kf].nz=zptr[kf+2]-zptr[kf+1];
+    Blocks[kf].noz=ozptr[kf+2]-ozptr[kf+1];
     Blocks[kf].nrpar=rpptr[kf+2]-rpptr[kf+1];
     Blocks[kf].nipar=ipptr[kf+2]-ipptr[kf+1];
+    Blocks[kf].nopar=opptr[kf+2]-opptr[kf+1];
     Blocks[kf].nin=inpptr[kf+2]-inpptr[kf+1]; /* number of input ports */
     Blocks[kf].nout=outptr[kf+2]-outptr[kf+1];/* number of output ports */
 
@@ -476,8 +491,8 @@ int C2F(scicos)(
     for(in=0;in<Blocks[kf].nin;in++) {
       lprt=inplnk[inpptr[kf+1]+in];
       Blocks[kf].inptr[in]=outtbptr[lprt-1];
-      Blocks[kf].insz[in]=outtbsz[2*(lprt-1)];
-      Blocks[kf].insz[Blocks[kf].nin+in]=outtbsz[2*(lprt-1)+1];
+      Blocks[kf].insz[in]=outtbsz[lprt-1];
+      Blocks[kf].insz[Blocks[kf].nin+in]=outtbsz[(lprt-1)+nlnk];
       Blocks[kf].insz[2*Blocks[kf].nin+in]=outtbtyp[lprt-1];
     }
 
@@ -503,8 +518,8 @@ int C2F(scicos)(
     for(out=0;out<Blocks[kf].nout;out++) {
       lprt=outlnk[outptr[kf+1]+out];
       Blocks[kf].outptr[out]=outtbptr[lprt-1];
-      Blocks[kf].outsz[out]=outtbsz[2*(lprt-1)];
-      Blocks[kf].outsz[Blocks[kf].nout+out]=outtbsz[2*(lprt-1)+1];
+      Blocks[kf].outsz[out]=outtbsz[lprt-1];
+      Blocks[kf].outsz[Blocks[kf].nout+out]=outtbsz[(lprt-1)+nlnk];
       Blocks[kf].outsz[2*Blocks[kf].nout+out]=outtbtyp[lprt-1];
     }
     Blocks[kf].evout=NULL;
@@ -518,8 +533,48 @@ int C2F(scicos)(
     }
 
     Blocks[kf].z=&(z__[zptr[kf+1]-1]);
+
+    Blocks[kf].ozsz=NULL;
+    if (Blocks[kf].noz==0) {
+     Blocks[kf].ozptr=NULL;
+     Blocks[kf].oztyp=NULL;
+    }
+    else {
+     Blocks[kf].ozptr=&(oz[ozptr[kf+1]-1]);
+     if ((Blocks[kf].ozsz=MALLOC(Blocks[kf].noz*2*sizeof(int)))== NULL ) {
+       FREE_blocks();
+       *ierr =5;
+       return 0;
+     }
+     for (i=0;i<Blocks[kf].noz;i++) {
+      Blocks[kf].ozsz[i]=ozsz[(ozptr[kf+1]-1)+i];
+      Blocks[kf].ozsz[i+Blocks[kf].noz]=ozsz[(ozptr[kf+1]-1+noz)+i];
+     }
+     Blocks[kf].oztyp=&(oztyp[ozptr[kf+1]-1]);
+    }
+
     Blocks[kf].rpar=&(rpar[rpptr[kf+1]-1]);
     Blocks[kf].ipar=&(ipar[ipptr[kf+1]-1]);
+
+    Blocks[kf].oparsz=NULL;
+    if (Blocks[kf].nopar==0) {
+     Blocks[kf].oparptr=NULL;
+     Blocks[kf].opartyp=NULL;
+    }
+    else {
+     Blocks[kf].oparptr=&(opar[opptr[kf+1]-1]);
+     if ((Blocks[kf].oparsz=MALLOC(Blocks[kf].nopar*2*sizeof(int)))== NULL ) {
+       FREE_blocks();
+       *ierr =5;
+       return 0;
+     }
+     for (i=0;i<Blocks[kf].nopar;i++) {
+      Blocks[kf].oparsz[i]=oparsz[(opptr[kf+1]-1)+i];
+      Blocks[kf].oparsz[i+Blocks[kf].nopar]=oparsz[(opptr[kf+1]-1+nopar)+i];
+     }
+     Blocks[kf].opartyp=&(opartyp[opptr[kf+1]-1]);
+    }
+
     Blocks[kf].res=NULL;
     if (Blocks[kf].nx!=0) {
       if ((Blocks[kf].res=MALLOC(Blocks[kf].nx*sizeof(double)))== NULL ){
@@ -564,15 +619,21 @@ int C2F(scicos)(
   }
 
   /* save ptr of scicos in import structure */
-  C2F(makescicosimport)(x, &nx, &xptr[1], &zcptr[1], z__, &nz, &zptr[1],g , &ng, mod, &nmod, &modptr[1],
-                        iz, &izptr[1], &inpptr[1], &inplnk[1], &outptr[1], &outlnk[1], outtbptr,
-                        outtbsz, outtbtyp, outtb_elem,&nelem,&nlnk, rpar, &rpptr[1], ipar, &ipptr[1],
-                        &nblk,
-                        subscr, nsubs, &tevts[1], &evtspt[1], nevts, pointi, &iord[1], &niord,
-                        &oord[1], &noord, &zord[1], &nzord, funptr, &funtyp[1],
-                        &ztyp[1], &cord[1], &ncord,
-                        &ordclk[1], &clkptr[1], &ordptr[1], &nordptr,
-                        &critev[1], iwa, Blocks,t0 ,tf , &Atol, &rtol, &ttol, &deltat, &hmax);
+  C2F(makescicosimport)(x,&nx,&xptr[1],&zcptr[1],z__,&nz,&zptr[1],
+                        &noz,oz,ozsz,oztyp,&ozptr[1],
+                        g,&ng,mod,&nmod,&modptr[1],iz,&izptr[1],
+                        &inpptr[1],&inplnk[1],&outptr[1],&outlnk[1],
+                        outtbptr,outtbsz,outtbtyp,
+                        outtb_elem,&nelem,
+                        &nlnk,rpar,&rpptr[1],ipar,&ipptr[1],
+                        opar,oparsz,opartyp,&opptr[1],
+                        &nblk,subscr,nsubs,
+                        &tevts[1],&evtspt[1],nevts,pointi,
+                        &iord[1],&niord,&oord[1],&noord,&zord[1],&nzord,
+                        funptr,&funtyp[1],&ztyp[1],
+                        &cord[1],&ncord,&ordclk[1],&clkptr[1],&ordptr[1],&nordptr,
+                        &critev[1],iwa,Blocks,
+                        t0,tf,&Atol,&rtol,&ttol,&deltat,&hmax);
 
   if (*flag__ == 1) { /*start*/
     /*     initialisation des blocks */
@@ -643,13 +704,13 @@ int C2F(scicos)(
   static integer kfune;
   static integer jj;
 
-  double *outtbd=NULL; /*to save double of outtb*/
-  char *outtbc=NULL;   /*to save int8 of outtb*/
-  short *outtbs=NULL;  /*to save int16 of outtb*/
-  long *outtbl=NULL;   /*to save int32 of outtb*/
-  unsigned char *outtbuc=NULL;  /*to save unsigned int8 of outtb*/
-  unsigned short *outtbus=NULL; /*to save unsigned int16 of outtb*/
-  unsigned long *outtbul=NULL;  /*to save unsigned int32 of outtb*/
+  SCSREAL_COP *outtbd=NULL;    /*to save double of outtb*/
+  SCSINT8_COP *outtbc=NULL;    /*to save int8 of outtb*/
+  SCSINT16_COP *outtbs=NULL;   /*to save int16 of outtb*/
+  SCSINT32_COP *outtbl=NULL;   /*to save int32 of outtb*/
+  SCSUINT8_COP *outtbuc=NULL;  /*to save unsigned int8 of outtb*/
+  SCSUINT16_COP *outtbus=NULL; /*to save unsigned int16 of outtb*/
+  SCSUINT32_COP *outtbul=NULL; /*to save unsigned int32 of outtb*/
   int szouttbd=0;  /*size of arrays*/
   int szouttbc=0,  szouttbs=0,  szouttbl=0;
   int szouttbuc=0, szouttbus=0, szouttbul=0;
@@ -665,37 +726,37 @@ int C2F(scicos)(
   {
    switch (outtbtyp[ii])
    {
-    case 10  : szouttbd+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*double real matrix*/
-               outtbd=(double *) REALLOC (outtbd,szouttbd*sizeof(double));
-               break;
+    case SCSREAL_N    : szouttbd+=outtbsz[ii]*outtbsz[ii+nlnk]; /*double real matrix*/
+                        outtbd=(SCSREAL_COP *) REALLOC (outtbd,szouttbd*sizeof(SCSREAL_COP));
+                        break;
 
-    case 11  : szouttbd+=2*outtbsz[2*ii]*outtbsz[2*ii+1]; /*double complex matrix*/
-               outtbd=(double *) REALLOC (outtbd,szouttbd*sizeof(double));
-               break;
+    case SCSCOMPLEX_N : szouttbd+=2*outtbsz[ii]*outtbsz[ii+nlnk]; /*double complex matrix*/
+                        outtbd=(SCSCOMPLEX_COP *) REALLOC (outtbd,szouttbd*sizeof(SCSCOMPLEX_COP));
+                        break;
 
-    case 81  : szouttbc+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*int8*/
-               outtbc=(char *) REALLOC (outtbc,szouttbc*sizeof(char));
-               break;
+    case SCSINT8_N    : szouttbc+=outtbsz[ii]*outtbsz[ii+nlnk]; /*int8*/
+                        outtbc=(SCSINT8_COP *) REALLOC (outtbc,szouttbc*sizeof(SCSINT8_COP));
+                        break;
 
-    case 82  : szouttbs+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*int16*/
-               outtbs=(short *) REALLOC (outtbs,szouttbs*sizeof(short));
-               break;
+    case SCSINT16_N   : szouttbs+=outtbsz[ii]*outtbsz[ii+nlnk]; /*int16*/
+                        outtbs=(SCSINT16_COP *) REALLOC (outtbs,szouttbs*sizeof(SCSINT16_COP));
+                        break;
 
-    case 84  : szouttbl+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*int32*/
-               outtbl=(long *) REALLOC (outtbl,szouttbl*sizeof(long));
-               break;
+    case SCSINT32_N   : szouttbl+=outtbsz[ii]*outtbsz[ii+nlnk]; /*int32*/
+                        outtbl=(SCSINT32_COP *) REALLOC (outtbl,szouttbl*sizeof(SCSINT32_COP));
+                        break;
 
-    case 811 : szouttbuc+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*uint8*/
-               outtbuc=(unsigned char *) REALLOC (outtbuc,szouttbuc*sizeof(unsigned char));
-               break;
+    case SCSUINT8_N   : szouttbuc+=outtbsz[ii]*outtbsz[ii+nlnk]; /*uint8*/
+                        outtbuc=(SCSUINT8_COP *) REALLOC (outtbuc,szouttbuc*sizeof(SCSUINT8_COP));
+                        break;
 
-    case 812 : szouttbus+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*uint16*/
-               outtbus=(unsigned short *) REALLOC (outtbus,szouttbus*sizeof(unsigned short));
-               break;
+    case SCSUINT16_N  : szouttbus+=outtbsz[ii]*outtbsz[ii+nlnk]; /*uint16*/
+                        outtbus=(SCSUINT16_COP *) REALLOC (outtbus,szouttbus*sizeof(SCSUINT16_COP));
+                        break;
 
-    case 814 : szouttbul+=outtbsz[2*ii]*outtbsz[2*ii+1]; /*uint32*/
-               outtbul=(unsigned long *) REALLOC (outtbul,szouttbul*sizeof(unsigned long));
-               break;
+    case SCSUINT32_N  : szouttbul+=outtbsz[ii]*outtbsz[ii+nlnk]; /*uint32*/
+                        outtbul=(SCSUINT32_COP *) REALLOC (outtbul,szouttbul*sizeof(SCSUINT32_COP));
+                        break;
 
     default  : /* Add a message here */
                break;
@@ -784,77 +845,77 @@ int C2F(scicos)(
     {
       switch (outtbtyp[jj]) /*for each type of ports*/
       {
-       case 10  : outtbdptr=(double *)outtbptr[jj]; /*double real matrix*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for(kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbdptr[kk]!=(double)outtbd[curouttbd+kk]) goto L30;
-                  }
-                  curouttbd+=sszz;
-                  break;
+       case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[jj]; /*double real matrix*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for(kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbdptr[kk]!=(SCSREAL_COP)outtbd[curouttbd+kk]) goto L30;
+                           }
+                           curouttbd+=sszz;
+                           break;
 
-       case 11  : outtbdptr=(double *)outtbptr[jj]; /*double complex matrix*/
-                  sszz=2*outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for(kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbdptr[kk]!=(double)outtbd[curouttbd+kk]) goto L30;
-                  }
-                  curouttbd+=sszz;
-                  break;
+       case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[jj]; /*double complex matrix*/
+                           sszz=2*outtbsz[jj]*outtbsz[jj+nlnk];
+                           for(kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbdptr[kk]!=(SCSCOMPLEX_COP)outtbd[curouttbd+kk]) goto L30;
+                           }
+                           curouttbd+=sszz;
+                           break;
 
-       case 81  : outtbcptr=(char *)outtbptr[jj]; /*int8*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for(kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbcptr[kk]!=(char)outtbc[curouttbc+kk]) goto L30;
-                  }
-                  curouttbc+=sszz;
-                  break;
+       case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[jj]; /*int8*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for(kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbcptr[kk]!=(SCSINT8_COP)outtbc[curouttbc+kk]) goto L30;
+                           }
+                           curouttbc+=sszz;
+                           break;
 
-       case 82  : outtbsptr=(short *)outtbptr[jj]; /*int16*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for (kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbsptr[kk]!=(short)outtbs[curouttbs+kk]) goto L30;
-                  }
-                  curouttbs+=sszz;
-                  break;
+       case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[jj]; /*int16*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for (kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbsptr[kk]!=(SCSINT16_COP)outtbs[curouttbs+kk]) goto L30;
+                           }
+                           curouttbs+=sszz;
+                           break;
 
-       case 84  : outtblptr=(long *)outtbptr[jj]; /*int32*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for (kk=0;kk<sszz;kk++)
-                  {
-                   if(outtblptr[kk]!=(long)outtbl[curouttbl+kk]) goto L30;
-                  }
-                  curouttbl+=sszz;
-                  break;
+       case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[jj]; /*int32*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for (kk=0;kk<sszz;kk++)
+                           {
+                            if(outtblptr[kk]!=(SCSINT32_COP)outtbl[curouttbl+kk]) goto L30;
+                           }
+                           curouttbl+=sszz;
+                           break;
 
-       case 811 : outtbucptr=(unsigned char *)outtbptr[jj]; /*uint8*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for (kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbucptr[kk]!=(unsigned char)outtbuc[curouttbuc+kk]) goto L30;
-                  }
-                  curouttbuc+=sszz;
-                  break;
+       case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[jj]; /*uint8*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for (kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbucptr[kk]!=(SCSUINT8_COP)outtbuc[curouttbuc+kk]) goto L30;
+                           }
+                           curouttbuc+=sszz;
+                           break;
 
-       case 812 : outtbusptr=(unsigned short *)outtbptr[jj]; /*uint16*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for (kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbusptr[kk]!=(unsigned short)outtbus[curouttbus+kk]) goto L30;
-                  }
-                  curouttbus+=sszz;
-                  break;
+       case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[jj]; /*uint16*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for (kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbusptr[kk]!=(SCSUINT16_COP)outtbus[curouttbus+kk]) goto L30;
+                           }
+                           curouttbus+=sszz;
+                           break;
 
-       case 814 : outtbulptr=(unsigned long *)outtbptr[jj]; /*uint32*/
-                  sszz=outtbsz[2*jj]*outtbsz[2*jj+1];
-                  for (kk=0;kk<sszz;kk++)
-                  {
-                   if(outtbulptr[kk]!=(unsigned long)outtbul[curouttbul+kk]) goto L30;
-                  }
-                  curouttbul+=sszz;
-                  break;
+       case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[jj]; /*uint32*/
+                           sszz=outtbsz[jj]*outtbsz[jj+nlnk];
+                           for (kk=0;kk<sszz;kk++)
+                           {
+                            if(outtbulptr[kk]!=(SCSUINT32_COP)outtbul[curouttbul+kk]) goto L30;
+                           }
+                           curouttbul+=sszz;
+                           break;
 
        default  : /* Add a message here */
                   break;
@@ -872,53 +933,53 @@ int C2F(scicos)(
        {
         switch (outtbtyp[ii])  /*switch to type of outtb object*/
         {
-         case 10  : outtbdptr=(double *)outtbptr[ii];  /*double real matrix*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    C2F(dcopy)(&sszz, outtbdptr, &c__1, &outtbd[curouttbd], &c__1);
-                    curouttbd+=sszz;
-                    break;
+         case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[ii];  /*double real matrix*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             C2F(dcopy)(&sszz, outtbdptr, &c__1, &outtbd[curouttbd], &c__1);
+                             curouttbd+=sszz;
+                             break;
 
-         case 11  : outtbdptr=(double *)outtbptr[ii];  /*double complex matrix*/
-                    sszz=2*outtbsz[2*ii]*outtbsz[2*ii+1];
-                    C2F(dcopy)(&sszz, outtbdptr, &c__1, &outtbd[curouttbd], &c__1);
-                    curouttbd+=sszz;
-                    break;
+         case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[ii];  /*double complex matrix*/
+                             sszz=2*outtbsz[ii]*outtbsz[ii+nlnk];
+                             C2F(dcopy)(&sszz, outtbdptr, &c__1, &outtbd[curouttbd], &c__1);
+                             curouttbd+=sszz;
+                             break;
 
-         case 81  : outtbcptr=(char *)outtbptr[ii];    /*int8*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbc[curouttbc+kk]=(char)outtbcptr[kk];
-                    curouttbc+=sszz;
-                    break;
+         case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[ii];    /*int8*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbc[curouttbc+kk]=(SCSINT8_COP)outtbcptr[kk];
+                             curouttbc+=sszz;
+                             break;
 
-         case 82  : outtbsptr=(short *)outtbptr[ii];   /*int16*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbs[curouttbs+kk]=(short)outtbsptr[kk];
-                    curouttbs+=sszz;
-                    break;
+         case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[ii];   /*int16*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbs[curouttbs+kk]=(SCSINT16_COP)outtbsptr[kk];
+                             curouttbs+=sszz;
+                             break;
 
-         case 84  : outtblptr=(long *)outtbptr[ii];    /*int32*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbl[curouttbl+kk]=(long)outtblptr[kk];
-                    curouttbl+=sszz;
-                    break;
+         case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[ii];    /*int32*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbl[curouttbl+kk]=(SCSINT32_COP)outtblptr[kk];
+                             curouttbl+=sszz;
+                             break;
 
-         case 811 : outtbucptr=(unsigned char *)outtbptr[ii];  /*uint8*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbuc[curouttbuc+kk]=(unsigned char)outtbucptr[kk];
-                    curouttbuc+=sszz;
-                    break;
+         case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[ii];  /*uint8*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbuc[curouttbuc+kk]=(SCSUINT8_COP)outtbucptr[kk];
+                             curouttbuc+=sszz;
+                             break;
 
-         case 812 : outtbusptr=(unsigned short *)outtbptr[ii]; /*uint16*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbus[curouttbus+kk]=(unsigned short)outtbusptr[kk];
-                    curouttbus+=sszz;
-                    break;
+         case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[ii]; /*uint16*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbus[curouttbus+kk]=(SCSUINT16_COP)outtbusptr[kk];
+                             curouttbus+=sszz;
+                             break;
 
-         case 814 : outtbulptr=(unsigned long *)outtbptr[ii];  /*uint32*/
-                    sszz=outtbsz[2*ii]*outtbsz[2*ii+1];
-                    for (kk=0;kk<sszz;kk++) outtbul[curouttbul+kk]=(unsigned long)outtbulptr[kk];
-                    curouttbul+=sszz;
-                    break;
+         case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[ii];  /*uint32*/
+                             sszz=outtbsz[ii]*outtbsz[ii+nlnk];
+                             for (kk=0;kk<sszz;kk++) outtbul[curouttbul+kk]=(SCSUINT32_COP)outtbulptr[kk];
+                             curouttbul+=sszz;
+                             break;
 
          default  : /* Add a message here */
                     break;
@@ -2078,7 +2139,7 @@ int C2F(scicos)(
       }
 
       if(nclock> 0) {
-	if (Blocks[C2F(curblk).kfun-1].nx+Blocks[C2F(curblk).kfun-1].nz > 0||
+	if (Blocks[C2F(curblk).kfun-1].nx+Blocks[C2F(curblk).kfun-1].nz+Blocks[C2F(curblk).kfun-1].noz > 0||
 	    *Blocks[C2F(curblk).kfun-1].work !=NULL) {
 	  /*  if a hidden state exists, must also call (for new scope eg)  */
 	  /*  to avoid calling non-real activations */
@@ -2783,7 +2844,7 @@ callf(t,xtd,xt,residual,g,flag)
       ki=0;
       for (in=0;in<Blocks[kf-1].nin;in++) {
 	lprt=inplnk[inpptr[kf]+in];
-        szi=outtbsz[2*(lprt-1)]*outtbsz[2*(lprt-1)+1];
+        szi=outtbsz[lprt-1]*outtbsz[(lprt-1)+nlnk];
         outtbdptr=(double *)outtbptr[lprt-1];
 	for (ii=0;ii<szi;ii++) intabl[ki++]=outtbdptr[ii];
 	ni=ni+szi;
@@ -2793,14 +2854,15 @@ callf(t,xtd,xt,residual,g,flag)
     else {
       if (Blocks[kf-1].nin==0) {
 	ni=0;
-        outtbdptr=(double *)outtbptr[0];
-        args[0]=&(outtbdptr[0]);
+        /*outtbdptr=(double *)outtbptr[0];
+        args[0]=&(outtbdptr[0]);*/
+        args[0]=NULL;
       }
       else {
 	lprt=inplnk[inpptr[kf]];
         outtbdptr=(double *)outtbptr[lprt-1];
         args[0]=&(outtbdptr[0]);
-        ni=outtbsz[2*(lprt-1)]*outtbsz[2*(lprt-1)+1];
+        ni=outtbsz[lprt-1]*outtbsz[(lprt-1)+nlnk];
       }
     }
     in=Blocks[kf-1].nin;
@@ -2811,7 +2873,7 @@ callf(t,xtd,xt,residual,g,flag)
       ko=0;
       for (out=0;out<Blocks[kf-1].nout;out++) {
 	lprt=outlnk[outptr[kf]+out];
-        szi=outtbsz[2*(lprt-1)]*outtbsz[2*(lprt-1)+1];
+        szi=outtbsz[lprt-1]*outtbsz[(lprt-1)+nlnk];
         outtbdptr=(double *)outtbptr[lprt-1];
 	for (ii=0;ii<szi;ii++) outabl[ko++]=outtbdptr[ii];
 	no=no+szi;
@@ -2820,15 +2882,16 @@ callf(t,xtd,xt,residual,g,flag)
     }
     else {
       if (Blocks[kf-1].nout==0) {
-	no=0;
+	/*no=0;
         outtbdptr=(double *)outtbptr[0];
-        args[1]=&(outtbdptr[0]);
+        args[1]=&(outtbdptr[0]);*/
+        args[1]=NULL;
       }
       else {
 	lprt=outlnk[outptr[kf]];
         outtbdptr=(double *)outtbptr[lprt-1];
         args[1]=&(outtbdptr[0]);
-        no=outtbsz[2*(lprt-1)]*outtbsz[2*(lprt-1)+1];
+        no=outtbsz[lprt-1]*outtbsz[(lprt-1)+nlnk];
       }
     }
 
@@ -2853,7 +2916,7 @@ callf(t,xtd,xt,residual,g,flag)
       ko=0;
       for (out=0;out<Blocks[kf-1].nout;out++) {
 	lprt=outlnk[outptr[kf]+out];
-        szi=outtbsz[2*(lprt-1)]*outtbsz[2*(lprt-1)+1];
+        szi=outtbsz[lprt-1]*outtbsz[(lprt-1)+nlnk];
         outtbdptr=(double *)outtbptr[lprt-1];
 	for (ii=0;ii<szi;ii++) outtbdptr[ii]=outabl[ko++];
       }
@@ -3262,6 +3325,16 @@ void FREE_blocks()
     }
     if (Blocks[kf].outptr!=NULL){
       FREE(Blocks[kf].outptr);
+    }else {
+      break;
+    }
+    if (Blocks[kf].oparsz!=NULL){
+      FREE(Blocks[kf].oparsz);
+    }else {
+      break;
+    }
+    if (Blocks[kf].ozsz!=NULL){
+      FREE(Blocks[kf].ozsz);
     }else {
       break;
     }

@@ -26,7 +26,7 @@
  * int intscicosimc(fname,fname_len)
  * int CopyVarFromlistentry(int lw, int *header, int i)
  * int var2sci(void *x,int n,int m,int typ_var)
- * int createblklist(scicos_block *Blocks, int *ierr)
+ * int createblklist(scicos_block *Blocks, int *ierr,int flag_imp,int kfun)
  * int intgetscicosvarsc(fname,fname_len)
  * int intcurblkc(fname,fname_len)
  * int intbuildouttb(fname,fname_len)
@@ -234,7 +234,6 @@ int inttree4 _PARAMS((char *fname,unsigned long fname_len))
   return 0;
 }
 
-
 int intxproperty(fname,fname_len)
      /* renvoi le type d'equation get_pointer_xproperty() 
       *	(-1: algebriques, +1 differentielles) */
@@ -293,7 +292,6 @@ int intsetblockerror(fname,fname_len)
   return 0;
 }
 
-
 void  duplicata(n,v,w,ww,nw)
      double *v,*w,*ww;
      int *n,*nw;
@@ -325,81 +323,88 @@ void  comp_size(v,nw,n)
  * [state,t] = scicosim(state,tcur,tf,sim,str,tol)
  *
  * rhs 1 state : Tlist
- *        - 1  : state(1)     : !xcs  x  z  iz  tevts  evtspt  pointi  outtb  !
+ *        - 1  : state(1)     : !xcs  x  z  oz iz  tevts  evtspt  pointi  outtb  !
  *        - 2  : state.x      : column vector of real
  *        - 3  : state.z      : column vector of real
- *        - 4  : state.iz     : column vector of real (empty object with flag "finish")
- *        - 5  : state.tevts  : column vector of real
- *        - 6  : state.evtspt : column vector of real
- *        - 7  : state.pointi : real scalar
- *        - 8  : state.outtb  : list of scilab object
+ *        - 4  : state.oz     : list of scilab object
+ *        - 5  : state.iz     : column vector of real (empty object with flag "finish")
+ *        - 6  : state.tevts  : column vector of real
+ *        - 7  : state.evtspt : column vector of real
+ *        - 8  : state.pointi : real scalar
+ *        - 9  : state.outtb  : list of scilab object
  * rhs 2 tcur  : real scalar
  * rhs 3 tf    : real scalar
  * rhs 4 sim   : Tlist
- *        - 1  : sim(1) : !scs     funs    xptr    zptr    zcptr   inpptr
- *                         outptr  inplnk  outlnk  rpar    rpptr   ipar
- *                         ipptr   clkptr  ordptr  execlk  ordclk  cord
- *                         oord    zord    critev  nb      ztyp    nblk
- *                         ndcblk  subscr  funtyp  iord    labels  modptr  !
+ *        - 1  : sim(1) : !scs    funs    xptr    zptr    ozptr   zcptr   inpptr
+ *                         outptr inplnk  outlnk  rpar    rpptr   ipar    ipptr
+ *                         opar   opptr   clkptr  ordptr  execlk  ordclk  cord
+ *                         oord   zord    critev  nb      ztyp    nblk    ndcblk
+ *                         subscr funtyp  iord    labels  modptr  !
  *        - 2  : sim.funs   : list of strings and/or scilab function
  *        - 3  : sim.xptr   : column vector of real
  *        - 4  : sim.zptr   : column vector of real
- *        - 5  : sim.zcptr  : column vector of real
- *        - 6  : sim.inpptr : column vector of real
- *        - 7  : sim.outptr : column vector of real
- *        - 8  : sim.inplnk : column vector of real
- *        - 9  : sim.outlnk : column vector of real
- *        - 10 : sim.rpar   : column vector of real
- *        - 11 : sim.rpptr  : column vector of real
- *        - 12 : sim.ipar   : column vector of real
- *        - 13 : sim.ipptr  : column vector of real
- *        - 14 : sim.clkptr : column vector of real
- *        - 15 : sim.ordptr : column vector of real
- *        - 16 : sim.execlk : matrix of real
- *        - 17 : sim.ordclk : matrix of real
- *        - 18 : sim.cord   : matrix of real
- *        - 19 : sim.oord   : matrix of real
- *        - 20 : sim.zord   : column vector ? of real
- *        - 21 : sim.critev : column vector of real
- *        - 22 : sim.nb     : real scalar
- *        - 23 : sim.ztyp   : column vector of real
- *        - 24 : sim.nblk   : real scalar
- *        - 25 : sim.ndcblk : real scalar
- *        - 26 : sim.subscr : column vector of real
- *        - 27 : sim.funtyp : column vector of real
- *        - 28 : sim.iord   : column vector of real
- *        - 29 : sim.labels : column vector of strings
- *        - 30 : sim.modptr : column vector of real
+ *        - 5  : sim.ozptr  : column vector of real
+ *        - 6  : sim.zcptr  : column vector of real
+ *        - 7  : sim.inpptr : column vector of real
+ *        - 8  : sim.outptr : column vector of real
+ *        - 9  : sim.inplnk : column vector of real
+ *        - 10 : sim.outlnk : column vector of real
+ *        - 11 : sim.rpar   : column vector of real
+ *        - 12 : sim.rpptr  : column vector of real
+ *        - 13 : sim.ipar   : column vector of real
+ *        - 14 : sim.ipptr  : column vector of real
+ *        - 15 : sim.opar   : list of scilab object
+ *        - 16 : sim.opptr  : column vector of real
+ *        - 17 : sim.clkptr : column vector of real
+ *        - 18 : sim.ordptr : column vector of real
+ *        - 19 : sim.execlk : matrix of real
+ *        - 20 : sim.ordclk : matrix of real
+ *        - 21 : sim.cord   : matrix of real
+ *        - 22 : sim.oord   : matrix of real
+ *        - 23 : sim.zord   : column vector ? of real
+ *        - 24 : sim.critev : column vector of real
+ *        - 25 : sim.nb     : real scalar
+ *        - 26 : sim.ztyp   : column vector of real
+ *        - 27 : sim.nblk   : real scalar
+ *        - 28 : sim.ndcblk : real scalar
+ *        - 29 : sim.subscr : column vector of real
+ *        - 30 : sim.funtyp : column vector of real
+ *        - 31 : sim.iord   : column vector of real
+ *        - 32 : sim.labels : column vector of strings
+ *        - 33 : sim.modptr : column vector of real
  *
  * rhs 5 str   : string flag : 'start','run','finish','linear'
  * rhs 6 tol   : real vector of size (7,1) minimum (4,1)
  *               [atol rtol ttol [deltat realtimescale solver hmax]]'
  *
  * 16/03/06, A.Layec : Rewritten from original fortran
- * source code intsscicos in intcos.f.
+ *                     source code intsscicos in intcos.f.
  *
  * 29/03/06, Alan    : Improvement in accordance to c_pass2
- * (int32 parameters)
+ *                     (int32 parameters).
  *
  * 31/05/06, Alan    : Add global variable int *il_state_save
- * and int *il_sim_save in intcscicos.h to store stack address
- * of list %cpr.state and %cpr.sim (to use with
- * get/setscicosvars)
+ *                     and int *il_sim_save in intcscicos.h to store
+ *                     stack address of list %cpr.state and %cpr.sim
+ *                     (to use with get/setscicosvars).
  *
  * 14/06/06, Alan    : Save common intersci before calling scicos
- * (to disable scilab crash with scifunc.f)
+ *                     (to disable scilab crash with scifunc.f).
  *
  * 13/11/06, Alan    : Get back to double parameters for sim and state
- *                     (for better compatibility with scilab-4.x families-)
- *                     Remove il_sim_save global variable
+ *                     (for better compatibility with scilab-4.x families).
+ *                     Remove il_sim_save global variable.
  *
  * 15/12/06, Alan    : Warnings compilation removed.
  *                     This can crash scilab/scicos.
  *                     Please report.
  *
+ * xx/02/07, Alan    : Add opar/odstate : scilab lists of arbitrary object
+ *                     parameters/states.
+ *
  */
 
-#define freeintparam \
+#define freeparam \
      FREE(l_sim_iord);\
      FREE(l_sim_funtyp);\
      FREE(l_sim_subscr);\
@@ -415,15 +420,19 @@ void  comp_size(v,nw,n)
      FREE(l_sim_execlk);\
      FREE(l_sim_ordptr);\
      FREE(l_sim_clkptr);\
-     FREE(l_sim_ipar);\
      FREE(l_sim_rpptr);\
+     FREE(l_sim_ipar);\
+     FREE(l_sim_ipptr);\
+     FREE(l_sim_opptr);\
      FREE(l_sim_outlnk);\
      FREE(l_sim_inplnk);\
      FREE(l_sim_outptr);\
      FREE(l_sim_inpptr);\
      FREE(l_sim_zcptr);\
+     FREE(l_sim_ozptr);\
      FREE(l_sim_zptr);\
      FREE(l_sim_xptr);\
+     FREE(l_sim_modptr);\
      FREE(l_state_evtspt);\
      FREE(l_pointi)
 
@@ -472,16 +481,21 @@ int intscicosimc(fname,fname_len)
  static int m1e3,n1e3;           /*state.z*/
  static int *il_state_z;
  static double *l_state_z;
- static int m1e4,n1e4;           /*state.iz*/
+ static int *il_state_oz;        /*state.oz*/
+ static int noz;
+ static void **oz;
+ static int *ozsz;
+ static int *oztyp;
+ static int m1e5,n1e5;           /*state.iz*/
  static int *il_state_iz;
  static void **l_state_iz;
- static int m1e5,n1e5;           /*state.tevts*/
+ static int m1e6,n1e6;           /*state.tevts*/
  static int *il_state_tevts;
  static double *l_state_tevts;
- static int m1e6,n1e6;           /*state.evtspt*/
+ static int m1e7,n1e7;           /*state.evtspt*/
  static int *il_state_evtspt;
  static int *l_state_evtspt;
- static int m1e7,n1e7;           /*state.pointi*/
+ static int m1e8,n1e8;           /*state.pointi*/
  static int *il_pointi;
  static int *l_pointi;
  static int *il_state_outtb;     /*state.outtb*/
@@ -503,89 +517,102 @@ int intscicosimc(fname,fname_len)
  static int l4e2,il4e2;          /*sim.funs*/
  static int *il_sim_fun;
  static int nblk;
- static int m4e3,n4e3;           /*sim.xptr*/
+ static int m_xptr,n_xptr;       /*sim.xptr*/
  static int *il_sim_xptr;
  static int *l_sim_xptr;
- static int m4e4,n4e4;           /*sim.zptr*/
+ static int m_zptr,n_zptr;       /*sim.zptr*/
  static int *il_sim_zptr;
  static int *l_sim_zptr;
- static int m4e5,n4e5;           /*sim.zcptr*/
+ static int m_ozptr,n_ozptr;     /*sim.ozptr*/
+ static int *il_sim_ozptr;
+ static int *l_sim_ozptr;
+
+ static int m_zcptr,n_zcptr;     /*sim.zcptr*/
  static int *il_sim_zcptr;
  static int *l_sim_zcptr;
- static int m4e6,n4e6;           /*sim.inpptr*/
+ static int m_inpptr,n_inpptr;   /*sim.inpptr*/
  static int *il_sim_inpptr;
  static int *l_sim_inpptr;
- static int m4e7,n4e7;           /*sim.outptr*/
+ static int m_outptr,n_outptr;   /*sim.outptr*/
  static int *il_sim_outptr;
  static int *l_sim_outptr;
- static int m4e8,n4e8;           /*sim.inplnk*/
+ static int m_inplnk,n_inplnk;   /*sim.inplnk*/
  static int *il_sim_inplnk;
  static int *l_sim_inplnk;
- static int m4e9,n4e9;           /*sim.outlnk*/
+ static int m_outlnk,n_outlnk;   /*sim.outlnk*/
  static int *il_sim_outlnk;
  static int *l_sim_outlnk;
- static int m4e10,n4e10;         /*sim.rpar*/
+ static int m_rpar,n_rpar;       /*sim.rpar*/
  static int *il_sim_rpar;
  static double *l_sim_rpar;
- static int m4e11,n4e11;         /*sim.rpptr*/
+ static int m_rpptr,n_rpptr;     /*sim.rpptr*/
  static int *il_sim_rpptr;
  static int *l_sim_rpptr;
- static int m4e12,n4e12;         /*sim.ipar*/
+ static int m_ipar,n_ipar;       /*sim.ipar*/
  static int *il_sim_ipar;
  static int *l_sim_ipar;
- static int m4e13,n4e13;         /*sim.ipptr*/
+ static int m_ipptr,n_ipptr;     /*sim.ipptr*/
  static int *il_sim_ipptr;
  static int *l_sim_ipptr;
- static int m4e14,n4e14;         /*sim.clkptr*/
+ static int *il_sim_opar;        /*sim.opar*/
+ static int nopar;
+ static void **opar;
+ static int *oparsz;
+ static int *opartyp;
+ static int m_opptr,n_opptr;     /*sim.opptr*/
+ static int *il_sim_opptr;
+ static int *l_sim_opptr;
+
+ static int m_clkptr,n_clkptr;   /*sim.clkptr*/
  static int *il_sim_clkptr;
  static int *l_sim_clkptr;
- static int m4e15,n4e15;         /*sim.ordptr*/
+ static int m_ordptr,n_ordptr;   /*sim.ordptr*/
  static int *il_sim_ordptr;
  static int *l_sim_ordptr;
- static int m4e16,n4e16;         /*sim.execlk*/
+ static int m_execlk,n_execlk;   /*sim.execlk*/
  static int *il_sim_execlk;
  static int *l_sim_execlk;
- static int m4e17,n4e17;         /*sim.ordclk*/
+ static int m_ordclk,n_ordclk;   /*sim.ordclk*/
  static int *il_sim_ordclk;
  static int *l_sim_ordclk;
- static int m4e18,n4e18;         /*sim.cord*/
+ static int m_cord,n_cord;       /*sim.cord*/
  static int *il_sim_cord;
  static int *l_sim_cord;
- static int m4e19,n4e19;         /*sim.oord*/
+ static int m_oord,n_oord;       /*sim.oord*/
  static int *il_sim_oord;
  static int *l_sim_oord;
- static int m4e20,n4e20;         /*sim.zord*/
+ static int m_zord,n_zord;       /*sim.zord*/
  static int *il_sim_zord;
  static int *l_sim_zord;
- static int m4e21,n4e21;         /*sim.critev*/
+ static int m_critev,n_critev;   /*sim.critev*/
  static int *il_sim_critev;
  static int *l_sim_critev;
- static int m4e22,n4e22;         /*sim.nb*/
+ static int m_nb,n_nb;           /*sim.nb*/
  static int *il_sim_nb;
  static int *l_sim_nb;
- static int m4e23,n4e23;         /*sim.ztyp*/
+ static int m_ztyp,n_ztyp;       /*sim.ztyp*/
  static int *il_sim_ztyp;
  static int *l_sim_ztyp;
- static int m4e24,n4e24;         /*sim.nblk*/
+ static int m_nblk,n_nblk;       /*sim.nblk*/
  static int *il_sim_nblk;
  static int *l_sim_nblk;
- static int m4e25,n4e25;         /*sim.ndcblk*/
+ static int m_ndcblk,n_ndcblk;   /*sim.ndcblk*/
  static int *il_sim_ndcblk;
  static int *l_sim_ndcblk;
- static int m4e26,n4e26;         /*sim.subscr*/
+ static int m_subscr,n_subscr;   /*sim.subscr*/
  static int *il_sim_subscr;
  static int *l_sim_subscr;
- static int m4e27,n4e27;         /*sim.funtyp*/
+ static int m_funtyp,n_funtyp;   /*sim.funtyp*/
  static int *il_sim_funtyp;
  static int *l_sim_funtyp;
- static int m4e28,n4e28;         /*sim.iord*/
+ static int m_iord,n_iord;       /*sim.iord*/
  static int *il_sim_iord;
  static int *l_sim_iord;
- static int m4e29,n4e29;         /*sim.labels*/
+ static int m_lab,n_lab;         /*sim.labels*/
  static int *il_sim_lab;
  static int *il_sim_labptr;
  static int *l_sim_lab;
- static int m4e30,n4e30;         /*sim.modptr*/
+ static int m_modptr,n_modptr;   /*sim.modptr*/
  static int *il_sim_modptr;
  static int *l_sim_modptr;
 
@@ -647,41 +674,51 @@ int intscicosimc(fname,fname_len)
     m1e3 = il_state_z[1];
     n1e3 = il_state_z[2];
 
-    /*4 : state.iz     */
-    il_state_iz = (int *) (listentry(il_state,4));
+    /*4 : state.oz     */
+    il_state_oz = (int *) (listentry(il_state,4));
+    if(il_state_oz[0]!=15) /*check if il_state_oz is a list*/
+    {
+     Scierror(56,"%s : oz element of state must be a list.\n",fname);
+     C2F(iop).err=4;
+     return 0;
+    }
+    noz = il_state_oz[1];
+
+    /*5 : state.iz     */
+    il_state_iz = (int *) (listentry(il_state,5));
     l_state_iz  = (void **) (il_state_iz+4);
-    m1e4 = il_state_iz[1];
-    n1e4 = il_state_iz[2];
+    m1e5 = il_state_iz[1];
+    n1e5 = il_state_iz[2];
 
-    /*5 : state.tevts  */
-    il_state_tevts = (int *) (listentry(il_state,5));
+    /*6 : state.tevts  */
+    il_state_tevts = (int *) (listentry(il_state,6));
     l_state_tevts  = (double *) (il_state_tevts+4);
-    m1e5 = il_state_tevts[1];
-    n1e5 = il_state_tevts[2];
+    m1e6 = il_state_tevts[1];
+    n1e6 = il_state_tevts[2];
 
-    /*6 : state.evtspt */
-    il_state_evtspt = (int *) (listentry(il_state,6));
-    m1e6 = il_state_evtspt[1];
-    n1e6 = il_state_evtspt[2];
-    if ((m1e6*n1e6)==0) l_state_evtspt=NULL;
+    /*7 : state.evtspt */
+    il_state_evtspt = (int *) (listentry(il_state,7));
+    m1e7 = il_state_evtspt[1];
+    n1e7 = il_state_evtspt[2];
+    if ((m1e7*n1e7)==0) l_state_evtspt=NULL;
     else
     {
-     if ((l_state_evtspt=(int *) MALLOC((m1e6*n1e6)*sizeof(int))) ==NULL )
+     if ((l_state_evtspt=(int *) MALLOC((m1e7*n1e7)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       return 0;
      }
      else
      {
-      for(i=0;i<(m1e6*n1e6);i++) l_state_evtspt[i]= (int) ((double *)(il_state_evtspt+4))[i];
+      for(i=0;i<(m1e7*n1e7);i++) l_state_evtspt[i]= (int) ((double *)(il_state_evtspt+4))[i];
      }
     }
 
-    /*7 : state.pointi */
-    il_pointi = (int *) (listentry(il_state,7));
-    m1e7 = il_pointi[1];
-    n1e7 = il_pointi[2];
-    if ((l_pointi=(int *) MALLOC((m1e7*n1e7)*sizeof(int))) ==NULL )
+    /*8 : state.pointi */
+    il_pointi = (int *) (listentry(il_state,8));
+    m1e8 = il_pointi[1];
+    n1e8 = il_pointi[2];
+    if ((l_pointi=(int *) MALLOC((m1e8*n1e8)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_state_evtspt);
@@ -689,14 +726,15 @@ int intscicosimc(fname,fname_len)
     }
     else
     {
-     for(i=0;i<(m1e7*n1e7);i++) l_pointi[i]= (int) ((double *)(il_pointi+4))[i];
+     for(i=0;i<(m1e8*n1e8);i++) l_pointi[i]= (int) ((double *)(il_pointi+4))[i];
     }
 
-    /*8 : state.outtb  */
-    il_state_outtb = (int *) (listentry(il_state,8));
+    /*9 : state.outtb  */
+    il_state_outtb = (int *) (listentry(il_state,9));
     if(il_state_outtb[0]!=15) /*check if il_state_outtb is a list*/
     {
      Scierror(56,"%s : outtb element of state must be a list.\n",fname);
+     FREE(l_state_evtspt); FREE(l_pointi);
      C2F(iop).err=4;
      return 0;
     }
@@ -709,6 +747,7 @@ int intscicosimc(fname,fname_len)
  if(il_tcur[0]!=1) /*Check if tcur is a real or complex matrix*/
  {
   Scierror(53,"%s : Second argument must be a scalar.\n",fname);
+  FREE(l_state_evtspt); FREE(l_pointi);
   C2F(iop).err=2;
   return 0;
  }
@@ -725,6 +764,7 @@ int intscicosimc(fname,fname_len)
  if(il_tf[0]!=1) /*Check if tf is a real or complex matrix*/
  {
   Scierror(53,"%s : Third argument must be a scalar.\n",fname);
+  FREE(l_state_evtspt); FREE(l_pointi);
   C2F(iop).err=3;
   return 0;
  }
@@ -734,14 +774,17 @@ int intscicosimc(fname,fname_len)
  CheckScalar(3,m3,n3);
  CheckDims(3,m3,n3,1,1);
 
-   /*************
+    /*************
     * sim (rhs 4)
     *************/
     il_sim = (int *) GetData(4);
 
+    il_sim_save = il_sim;
+
     if(il_sim[0]!=16)  /*Check if sim is a tlist*/
     {
      Scierror(56,"%s : Fourth argument must be a Tlist.\n",fname);
+     FREE(l_state_evtspt); FREE(l_pointi);
      C2F(iop).err=4;
      return 0;
     }
@@ -753,6 +796,7 @@ int intscicosimc(fname,fname_len)
     if(il_sim_fun[0]!=15) /*check if sim.funs is a list*/
     {
      Scierror(56,"%s : Second element of sim must be a list.\n",fname);
+     FREE(l_state_evtspt); FREE(l_pointi);
      C2F(iop).err=4;
      return 0;
     }
@@ -760,12 +804,12 @@ int intscicosimc(fname,fname_len)
 
     /*3  : sim.xptr   */
     il_sim_xptr = (int *) (listentry(il_sim,3));
-    m4e3 = il_sim_xptr[1];
-    n4e3 = il_sim_xptr[2];
-    if (m4e3*n4e3==0) l_sim_xptr=NULL;
+    m_xptr = il_sim_xptr[1];
+    n_xptr = il_sim_xptr[2];
+    if (m_xptr*n_xptr==0) l_sim_xptr=NULL;
     else
     {
-     if ((l_sim_xptr=(int *) MALLOC((m4e3*n4e3)*sizeof(int))) ==NULL )
+     if ((l_sim_xptr=(int *) MALLOC((m_xptr*n_xptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_state_evtspt); FREE(l_pointi);
@@ -773,402 +817,507 @@ int intscicosimc(fname,fname_len)
      }
      else
      {
-      for(i=0;i<(m4e3*n4e3);i++) l_sim_xptr[i]= (int) ((double *)(il_sim_xptr+4))[i];
+      for(i=0;i<(m_xptr*n_xptr);i++) l_sim_xptr[i]= (int) ((double *)(il_sim_xptr+4))[i];
      }
     }
 
     /*4  : sim.zptr   */
     il_sim_zptr = (int *) (listentry(il_sim,4));
-    m4e4 = il_sim_zptr[1];
-    n4e4 = il_sim_zptr[2];
-    if (m4e4*n4e4==0) l_sim_zptr=NULL;
+    m_zptr = il_sim_zptr[1];
+    n_zptr = il_sim_zptr[2];
+    if (m_zptr*n_zptr==0) l_sim_zptr=NULL;
     else
     {
-     if ((l_sim_zptr=(int *) MALLOC((m4e4*n4e4)*sizeof(int))) ==NULL )
+     if ((l_sim_zptr=(int *) MALLOC((m_zptr*n_zptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e4*n4e4);i++) l_sim_zptr[i]= (int) ((double *)(il_sim_zptr+4))[i];
+      for(i=0;i<(m_zptr*n_zptr);i++) l_sim_zptr[i]= (int) ((double *)(il_sim_zptr+4))[i];
      }
     }
 
-    /*5  : sim.zcptr  */
-    il_sim_zcptr = (int *) (listentry(il_sim,5));
-    m4e5 = il_sim_zcptr[1];
-    n4e5 = il_sim_zcptr[2];
-    if (m4e5*n4e5==0) l_sim_zcptr=NULL;
+    /*5  : sim.ozptr   */
+    il_sim_ozptr = (int *) (listentry(il_sim,5));
+    m_ozptr = il_sim_ozptr[1];
+    n_ozptr = il_sim_ozptr[2];
+    if (m_ozptr*n_ozptr==0) l_sim_ozptr=NULL;
     else
     {
-     if ((l_sim_zcptr=(int *) MALLOC((m4e5*n4e5)*sizeof(int))) ==NULL )
+     if ((l_sim_ozptr=(int *) MALLOC((m_ozptr*n_ozptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e5*n4e5);i++) l_sim_zcptr[i]= (int) ((double *)(il_sim_zcptr+4))[i];
+      for(i=0;i<(m_ozptr*n_ozptr);i++) l_sim_ozptr[i]= (int) ((double *)(il_sim_ozptr+4))[i];
      }
     }
 
-    /*6  : sim.inpptr */
-    il_sim_inpptr = (int *) (listentry(il_sim,6));
-    m4e6 = il_sim_inpptr[1];
-    n4e6 = il_sim_inpptr[2];
-    if (m4e6*n4e6==0) l_sim_inpptr=NULL;
+    /*6  : sim.zcptr  */
+    il_sim_zcptr = (int *) (listentry(il_sim,6));
+    m_zcptr = il_sim_zcptr[1];
+    n_zcptr = il_sim_zcptr[2];
+    if (m_zcptr*n_zcptr==0) l_sim_zcptr=NULL;
     else
     {
-     if ((l_sim_inpptr=(int *) MALLOC((m4e6*n4e6)*sizeof(int))) ==NULL )
+     if ((l_sim_zcptr=(int *) MALLOC((m_zcptr*n_zcptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr); FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e6*n4e6);i++) l_sim_inpptr[i]= (int) ((double *)(il_sim_inpptr+4))[i];
+      for(i=0;i<(m_zcptr*n_zcptr);i++) l_sim_zcptr[i]= (int) ((double *)(il_sim_zcptr+4))[i];
      }
     }
 
-    /*7  : sim.outptr */
-    il_sim_outptr = (int *) (listentry(il_sim,7));
-    m4e7 = il_sim_outptr[1];
-    n4e7 = il_sim_outptr[2];
-    if (m4e7*n4e7==0) l_sim_outptr=NULL;
+    /*7  : sim.inpptr */
+    il_sim_inpptr = (int *) (listentry(il_sim,7));
+    m_inpptr = il_sim_inpptr[1];
+    n_inpptr = il_sim_inpptr[2];
+    if (m_inpptr*n_inpptr==0) l_sim_inpptr=NULL;
     else
     {
-     if ((l_sim_outptr=(int *) MALLOC((m4e7*n4e7)*sizeof(int))) ==NULL )
+     if ((l_sim_inpptr=(int *) MALLOC((m_inpptr*n_inpptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zcptr); FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e7*n4e7);i++) l_sim_outptr[i]= (int) ((double *)(il_sim_outptr+4))[i];
+      for(i=0;i<(m_inpptr*n_inpptr);i++) l_sim_inpptr[i]= (int) ((double *)(il_sim_inpptr+4))[i];
      }
     }
 
-    /*8  : sim.inplnk */
-    il_sim_inplnk = (int *) (listentry(il_sim,8));
-    m4e8 = il_sim_inplnk[1];
-    n4e8 = il_sim_inplnk[2];
-    if (m4e8*n4e8==0) l_sim_inplnk=NULL;
+    /*8  : sim.outptr */
+    il_sim_outptr = (int *) (listentry(il_sim,8));
+    m_outptr = il_sim_outptr[1];
+    n_outptr = il_sim_outptr[2];
+    if (m_outptr*n_outptr==0) l_sim_outptr=NULL;
     else
     {
-     if ((l_sim_inplnk=(int *) MALLOC((m4e8*n4e8)*sizeof(int))) ==NULL )
+     if ((l_sim_outptr=(int *) MALLOC((m_outptr*n_outptr)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_inpptr);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zcptr); FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m_outptr*n_outptr);i++) l_sim_outptr[i]= (int) ((double *)(il_sim_outptr+4))[i];
+     }
+    }
+
+    /*9  : sim.inplnk */
+    il_sim_inplnk = (int *) (listentry(il_sim,9));
+    m_inplnk = il_sim_inplnk[1];
+    n_inplnk = il_sim_inplnk[2];
+    if (m_inplnk*n_inplnk==0) l_sim_inplnk=NULL;
+    else
+    {
+     if ((l_sim_inplnk=(int *) MALLOC((m_inplnk*n_inplnk)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e8*n4e8);i++) l_sim_inplnk[i]= (int) ((double *)(il_sim_inplnk+4))[i];
+      for(i=0;i<(m_inplnk*n_inplnk);i++) l_sim_inplnk[i]= (int) ((double *)(il_sim_inplnk+4))[i];
      }
     }
 
-    /*9  : sim.outlnk */
-    il_sim_outlnk = (int *) (listentry(il_sim,9));
-    m4e9 = il_sim_outlnk[1];
-    n4e9 = il_sim_outlnk[2];
-    if (m4e9*n4e9==0) l_sim_outlnk=NULL;
+    /*10  : sim.outlnk */
+    il_sim_outlnk = (int *) (listentry(il_sim,10));
+    m_outlnk = il_sim_outlnk[1];
+    n_outlnk = il_sim_outlnk[2];
+    if (m_outlnk*n_outlnk==0) l_sim_outlnk=NULL;
     else
     {
-     if ((l_sim_outlnk=(int *) MALLOC((m4e9*n4e9)*sizeof(int))) ==NULL )
+     if ((l_sim_outlnk=(int *) MALLOC((m_outlnk*n_outlnk)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e9*n4e9);i++) l_sim_outlnk[i]= (int) ((double *)(il_sim_outlnk+4))[i];
+      for(i=0;i<(m_outlnk*n_outlnk);i++) l_sim_outlnk[i]= (int) ((double *)(il_sim_outlnk+4))[i];
      }
     }
 
-    /*10 : sim.rpar   */
-    il_sim_rpar = (int *) (listentry(il_sim,10));
-    m4e10 = il_sim_rpar[1];
-    n4e10 = il_sim_rpar[2];
-    if (m4e10*n4e10==0) l_sim_rpar=NULL;
+    /*11 : sim.rpar   */
+    il_sim_rpar = (int *) (listentry(il_sim,11));
+    m_rpar = il_sim_rpar[1];
+    n_rpar = il_sim_rpar[2];
+    if (m_rpar*n_rpar==0) l_sim_rpar=NULL;
     else
     {
      l_sim_rpar = (double *) (il_sim_rpar+4);
     }
 
-    /*11 : sim.rpptr  */
-    il_sim_rpptr = (int *) (listentry(il_sim,11));
-    m4e11 = il_sim_rpptr[1];
-    n4e11 = il_sim_rpptr[2];
-    if (m4e11*n4e11==0) l_sim_rpptr=NULL;
+    /*12 : sim.rpptr  */
+    il_sim_rpptr = (int *) (listentry(il_sim,12));
+    m_rpptr = il_sim_rpptr[1];
+    n_rpptr = il_sim_rpptr[2];
+    if (m_rpptr*n_rpptr==0) l_sim_rpptr=NULL;
     else
     {
-     if ((l_sim_rpptr=(int *) MALLOC((m4e11*n4e11)*sizeof(int))) ==NULL )
+     if ((l_sim_rpptr=(int *) MALLOC((m_rpptr*n_rpptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e11*n4e11);i++) l_sim_rpptr[i]= (int) ((double *)(il_sim_rpptr+4))[i];
+      for(i=0;i<(m_rpptr*n_rpptr);i++) l_sim_rpptr[i]= (int) ((double *)(il_sim_rpptr+4))[i];
      }
     }
 
-    /*12 : sim.ipar   */
-    il_sim_ipar = (int *) (listentry(il_sim,12));
-    m4e12 = il_sim_ipar[1];
-    n4e12 = il_sim_ipar[2];
-    if (m4e12*n4e12==0) l_sim_ipar=NULL;
+    /*13 : sim.ipar   */
+    il_sim_ipar = (int *) (listentry(il_sim,13));
+    m_ipar = il_sim_ipar[1];
+    n_ipar = il_sim_ipar[2];
+    if (m_ipar*n_ipar==0) l_sim_ipar=NULL;
     else
     {
-     if ((l_sim_ipar=(int *) MALLOC((m4e12*n4e12)*sizeof(int))) ==NULL )
+     if ((l_sim_ipar=(int *) MALLOC((m_ipar*n_ipar)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e12*n4e12);i++) l_sim_ipar[i]= (int) ((double *)(il_sim_ipar+4))[i];
+      for(i=0;i<(m_ipar*n_ipar);i++) l_sim_ipar[i]= (int) ((double *)(il_sim_ipar+4))[i];
      }
     }
 
-    /*13 : sim.ipptr  */
-    il_sim_ipptr = (int *) (listentry(il_sim,13));
-    m4e13 = il_sim_ipptr[1];
-    n4e13 = il_sim_ipptr[2];
-    if (m4e13*n4e13==0) l_sim_ipptr=NULL;
+    /*14 : sim.ipptr  */
+    il_sim_ipptr = (int *) (listentry(il_sim,14));
+    m_ipptr = il_sim_ipptr[1];
+    n_ipptr = il_sim_ipptr[2];
+    if (m_ipptr*n_ipptr==0) l_sim_ipptr=NULL;
     else
     {
-     if ((l_sim_ipptr=(int *) MALLOC((m4e13*n4e13)*sizeof(int))) ==NULL )
+     if ((l_sim_ipptr=(int *) MALLOC((m_ipptr*n_ipptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e13*n4e13);i++) l_sim_ipptr[i]= (int) ((double *)(il_sim_ipptr+4))[i];
+      for(i=0;i<(m_ipptr*n_ipptr);i++) l_sim_ipptr[i]= (int) ((double *)(il_sim_ipptr+4))[i];
      }
     }
 
-    /*14 : sim.clkptr */
-    il_sim_clkptr = (int *) (listentry(il_sim,14));
-    m4e14 = il_sim_clkptr[1];
-    n4e14 = il_sim_clkptr[2];
-    if (m4e14*n4e14==0) l_sim_clkptr=NULL;
+    /*15 : sim.opar   */
+    il_sim_opar = (int *) (listentry(il_sim,15));
+    if(il_sim_opar[0]!=15)  /*Check if sim.opar is a list*/
+    {
+     Scierror(56,"%s : sim.opar must be a list.\n",fname);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
+     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
+     C2F(iop).err=4;
+     return 0;
+    }
+    nopar = il_sim_opar[1];
+
+    /*16 : sim.opptr  */
+    il_sim_opptr = (int *) (listentry(il_sim,16));
+    m_opptr = il_sim_opptr[1];
+    n_opptr = il_sim_opptr[2];
+    if (m_opptr*n_opptr==0) l_sim_opptr=NULL;
     else
     {
-     if ((l_sim_clkptr=(int *) MALLOC((m4e14*n4e14)*sizeof(int))) ==NULL )
+     if ((l_sim_opptr=(int *) MALLOC((m_opptr*n_opptr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e14*n4e14);i++) l_sim_clkptr[i]= (int) ((double *)(il_sim_clkptr+4))[i];
+      for(i=0;i<(m_opptr*n_opptr);i++) l_sim_opptr[i]= (int) ((double *)(il_sim_opptr+4))[i];
      }
     }
-    /*15 : sim.ordptr */
-    il_sim_ordptr = (int *) (listentry(il_sim,15));
-    m4e15 = il_sim_ordptr[1];
-    n4e15 = il_sim_ordptr[2];
-    if ((l_sim_ordptr=(int *) MALLOC((m4e15*n4e15)*sizeof(int))) ==NULL )
+
+    /*17 : sim.clkptr */
+    il_sim_clkptr = (int *) (listentry(il_sim,17));
+    m_clkptr = il_sim_clkptr[1];
+    n_clkptr = il_sim_clkptr[2];
+    if (m_clkptr*n_clkptr==0) l_sim_clkptr=NULL;
+    else
+    {
+     if ((l_sim_clkptr=(int *) MALLOC((m_clkptr*n_clkptr)*sizeof(int))) ==NULL )
+     {
+      Scierror(999,"%s : Memory allocation error.\n",fname);
+      FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
+      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
+      return 0;
+     }
+     else
+     {
+      for(i=0;i<(m_clkptr*n_clkptr);i++) l_sim_clkptr[i]= (int) ((double *)(il_sim_clkptr+4))[i];
+     }
+    }
+
+    /*18 : sim.ordptr */
+    il_sim_ordptr = (int *) (listentry(il_sim,18));
+    m_ordptr = il_sim_ordptr[1];
+    n_ordptr = il_sim_ordptr[2];
+    if ((l_sim_ordptr=(int *) MALLOC((m_ordptr*n_ordptr)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e15*n4e15);i++) l_sim_ordptr[i]= (int) ((double *)(il_sim_ordptr+4))[i];
+     for(i=0;i<(m_ordptr*n_ordptr);i++) l_sim_ordptr[i]= (int) ((double *)(il_sim_ordptr+4))[i];
     }
 
-    /*16 : sim.execlk */
-    il_sim_execlk = (int *) (listentry(il_sim,16));
-    m4e16 = il_sim_execlk[1];
-    n4e16 = il_sim_execlk[2];
-    if (m4e16*n4e16==0) l_sim_execlk=NULL;
+    /*19 : sim.execlk */
+    il_sim_execlk = (int *) (listentry(il_sim,19));
+    m_execlk = il_sim_execlk[1];
+    n_execlk = il_sim_execlk[2];
+    if (m_execlk*n_execlk==0) l_sim_execlk=NULL;
     else
     {
-     if ((l_sim_execlk=(int *) MALLOC((m4e16*n4e16)*sizeof(int))) ==NULL )
+     if ((l_sim_execlk=(int *) MALLOC((m_execlk*n_execlk)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e16*n4e16);i++) l_sim_execlk[i]= (int) ((double *)(il_sim_execlk+4))[i];
+      for(i=0;i<(m_execlk*n_execlk);i++) l_sim_execlk[i]= (int) ((double *)(il_sim_execlk+4))[i];
      }
     }
 
-    /*17 : sim.ordclk */
-    il_sim_ordclk = (int *) (listentry(il_sim,17));
-    m4e17 = il_sim_ordclk[1];
-    n4e17 = il_sim_ordclk[2];
-    if (m4e17*n4e17==0) l_sim_ordclk=NULL;
+    /*20 : sim.ordclk */
+    il_sim_ordclk = (int *) (listentry(il_sim,20));
+    m_ordclk = il_sim_ordclk[1];
+    n_ordclk = il_sim_ordclk[2];
+    if (m_ordclk*n_ordclk==0) l_sim_ordclk=NULL;
     else
     {
-     if ((l_sim_ordclk=(int *) MALLOC((m4e17*n4e17)*sizeof(int))) ==NULL )
+     if ((l_sim_ordclk=(int *) MALLOC((m_ordclk*n_ordclk)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e17*n4e17);i++) l_sim_ordclk[i]= (int) ((double *)(il_sim_ordclk+4))[i];
+      for(i=0;i<(m_ordclk*n_ordclk);i++) l_sim_ordclk[i]= (int) ((double *)(il_sim_ordclk+4))[i];
      }
     }
 
-    /*18 : sim.cord   */
-    il_sim_cord = (int *) (listentry(il_sim,18));
-    m4e18 = il_sim_cord[1];
-    n4e18 = il_sim_cord[2];
-    if (m4e18*n4e18==0) l_sim_cord=NULL;
+    /*21 : sim.cord   */
+    il_sim_cord = (int *) (listentry(il_sim,21));
+    m_cord = il_sim_cord[1];
+    n_cord = il_sim_cord[2];
+    if (m_cord*n_cord==0) l_sim_cord=NULL;
     else
     {
-     if ((l_sim_cord=(int *) MALLOC((m4e18*n4e18)*sizeof(int))) ==NULL )
+     if ((l_sim_cord=(int *) MALLOC((m_cord*n_cord)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e18*n4e18);i++) l_sim_cord[i]= (int) ((double *)(il_sim_cord+4))[i];
+      for(i=0;i<(m_cord*n_cord);i++) l_sim_cord[i]= (int) ((double *)(il_sim_cord+4))[i];
      }
     }
 
-    /*19 : sim.oord   */
-    il_sim_oord = (int *) (listentry(il_sim,19));
-    m4e19 = il_sim_oord[1];
-    n4e19 = il_sim_oord[2];
-    if (m4e19*n4e19==0) l_sim_oord=NULL;
+    /*22 : sim.oord   */
+    il_sim_oord = (int *) (listentry(il_sim,22));
+    m_oord = il_sim_oord[1];
+    n_oord = il_sim_oord[2];
+    if (m_oord*n_oord==0) l_sim_oord=NULL;
     else
     {
-     if ((l_sim_oord=(int *) MALLOC((m4e19*n4e19)*sizeof(int))) ==NULL )
+     if ((l_sim_oord=(int *) MALLOC((m_oord*n_oord)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_cord);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e19*n4e19);i++) l_sim_oord[i]= (int) ((double *)(il_sim_oord+4))[i];
+      for(i=0;i<(m_oord*n_oord);i++) l_sim_oord[i]= (int) ((double *)(il_sim_oord+4))[i];
      }
     }
 
-    /*20 : sim.zord   */
-    il_sim_zord = (int *) (listentry(il_sim,20));
-    m4e20 = il_sim_zord[1];
-    n4e20 = il_sim_zord[2];
-    if (m4e20*n4e20==0) l_sim_zord=NULL;
+    /*23 : sim.zord   */
+    il_sim_zord = (int *) (listentry(il_sim,23));
+    m_zord = il_sim_zord[1];
+    n_zord = il_sim_zord[2];
+    if (m_zord*n_zord==0) l_sim_zord=NULL;
     else
     {
-     if ((l_sim_zord=(int *) MALLOC((m4e20*n4e20)*sizeof(int))) ==NULL )
+     if ((l_sim_zord=(int *) MALLOC((m_zord*n_zord)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_oord); FREE(l_sim_cord);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e20*n4e20);i++) l_sim_zord[i]= (int) ((double *)(il_sim_zord+4))[i];
+      for(i=0;i<(m_zord*n_zord);i++) l_sim_zord[i]= (int) ((double *)(il_sim_zord+4))[i];
      }
     }
 
-    /*21 : sim.critev */
-    il_sim_critev = (int *) (listentry(il_sim,21));
-    m4e21 = il_sim_critev[1];
-    n4e21 = il_sim_critev[2];
-    if (m4e21*n4e21==0) l_sim_critev=NULL;
+    /*24 : sim.critev */
+    il_sim_critev = (int *) (listentry(il_sim,24));
+    m_critev = il_sim_critev[1];
+    n_critev = il_sim_critev[2];
+    if (m_critev*n_critev==0) l_sim_critev=NULL;
     else
     {
-     if ((l_sim_critev=(int *) MALLOC((m4e21*n4e21)*sizeof(int))) ==NULL )
+     if ((l_sim_critev=(int *) MALLOC((m_critev*n_critev)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e21*n4e21);i++) l_sim_critev[i]= (int) ((double *)(il_sim_critev+4))[i];
+      for(i=0;i<(m_critev*n_critev);i++) l_sim_critev[i]= (int) ((double *)(il_sim_critev+4))[i];
      }
     }
 
-    /*22 : sim.nb     */
-    il_sim_nb = (int *) (listentry(il_sim,22));
-    m4e22 = il_sim_nb[1];
-    n4e22 = il_sim_nb[2];
-    if ((l_sim_nb=(int *) MALLOC((m4e22*n4e22)*sizeof(int))) ==NULL )
+    /*25 : sim.nb     */
+    il_sim_nb = (int *) (listentry(il_sim,25));
+    m_nb = il_sim_nb[1];
+    n_nb = il_sim_nb[2];
+    if ((l_sim_nb=(int *) MALLOC((m_nb*n_nb)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_sim_critev);
      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e22*n4e22);i++) l_sim_nb[i]= (int) ((double *)(il_sim_nb+4))[i];
+     for(i=0;i<(m_nb*n_nb);i++) l_sim_nb[i]= (int) ((double *)(il_sim_nb+4))[i];
     }
     if (l_sim_nb[0]!=nblk) /*value of nb must be equal to nblk*/
     {
@@ -1176,163 +1325,191 @@ int intscicosimc(fname,fname_len)
      return 0;
     }
 
-    /*23 : sim.ztyp   */
-    il_sim_ztyp = (int *) (listentry(il_sim,23));
-    m4e23 = il_sim_ztyp[1];
-    n4e23 = il_sim_ztyp[2];
-    if ((l_sim_ztyp=(int *) MALLOC((m4e23*n4e23)*sizeof(int))) ==NULL )
+    /*26 : sim.ztyp   */
+    il_sim_ztyp = (int *) (listentry(il_sim,26));
+    m_ztyp = il_sim_ztyp[1];
+    n_ztyp = il_sim_ztyp[2];
+    if ((l_sim_ztyp=(int *) MALLOC((m_ztyp*n_ztyp)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_sim_nb); FREE(l_sim_critev);
      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e23*n4e23);i++) l_sim_ztyp[i]= (int) ((double *)(il_sim_ztyp+4))[i];
+     for(i=0;i<(m_ztyp*n_ztyp);i++) l_sim_ztyp[i]= (int) ((double *)(il_sim_ztyp+4))[i];
     }
 
-    /*24 : sim.nblk   */
-    il_sim_nblk = (int *) (listentry(il_sim,24));
-    m4e24 = il_sim_nblk[1];
-    n4e24 = il_sim_nblk[2];
-    if ((l_sim_nblk=(int *) MALLOC((m4e24*n4e24)*sizeof(int))) ==NULL )
+    /*27 : sim.nblk   */
+    il_sim_nblk = (int *) (listentry(il_sim,27));
+    m_nblk = il_sim_nblk[1];
+    n_nblk = il_sim_nblk[2];
+    if ((l_sim_nblk=(int *) MALLOC((m_nblk*n_nblk)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e24*n4e24);i++) l_sim_nblk[i]= (int) ((double *)(il_sim_ztyp+4))[i];
+     for(i=0;i<(m_nblk*n_nblk);i++) l_sim_nblk[i]= (int) ((double *)(il_sim_ztyp+4))[i];
     }
 
-    /*25 : sim.ndcblk */
-    il_sim_ndcblk = (int *) (listentry(il_sim,25));
-    m4e25 = il_sim_ndcblk[1];
-    n4e25 = il_sim_ndcblk[2];
-    if ((l_sim_ndcblk=(int *) MALLOC((m4e25*n4e25)*sizeof(int))) ==NULL )
+    /*28 : sim.ndcblk */
+    il_sim_ndcblk = (int *) (listentry(il_sim,28));
+    m_ndcblk = il_sim_ndcblk[1];
+    n_ndcblk = il_sim_ndcblk[2];
+    if ((l_sim_ndcblk=(int *) MALLOC((m_ndcblk*n_ndcblk)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e25*n4e25);i++) l_sim_ndcblk[i]= (int) ((double *)(il_sim_ndcblk+4))[i];
+     for(i=0;i<(m_ndcblk*n_ndcblk);i++) l_sim_ndcblk[i]= (int) ((double *)(il_sim_ndcblk+4))[i];
     }
 
-    /*26 : sim.subscr */
-    il_sim_subscr = (int *) (listentry(il_sim,26));
-    m4e26 = il_sim_subscr[1];
-    n4e26 = il_sim_subscr[2];
-    if (m4e26*n4e26==0) l_sim_subscr=NULL;
+    /*29 : sim.subscr */
+    il_sim_subscr = (int *) (listentry(il_sim,29));
+    m_subscr = il_sim_subscr[1];
+    n_subscr = il_sim_subscr[2];
+    if (m_subscr*n_subscr==0) l_sim_subscr=NULL;
     else
     {
-     if ((l_sim_subscr=(int *) MALLOC((m4e26*n4e26)*sizeof(int))) ==NULL )
+     if ((l_sim_subscr=(int *) MALLOC((m_subscr*n_subscr)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_ndcblk);
       FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
       FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e26*n4e26);i++) l_sim_subscr[i]= (int) ((double *)(il_sim_subscr+4))[i];
+      for(i=0;i<(m_subscr*n_subscr);i++) l_sim_subscr[i]= (int) ((double *)(il_sim_subscr+4))[i];
      }
     }
 
-    /*27 : sim.funtyp */
-    il_sim_funtyp = (int *) (listentry(il_sim,27));
-    m4e27 = il_sim_funtyp[1];
-    n4e27 = il_sim_funtyp[2];
-    if ((l_sim_funtyp=(int *) MALLOC((m4e27*n4e27)*sizeof(int))) ==NULL )
+    /*30 : sim.funtyp */
+    il_sim_funtyp = (int *) (listentry(il_sim,30));
+    m_funtyp = il_sim_funtyp[1];
+    n_funtyp = il_sim_funtyp[2];
+    if ((l_sim_funtyp=(int *) MALLOC((m_funtyp*n_funtyp)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
      FREE(l_sim_subscr); FREE(l_sim_ndcblk);
      FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
      FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-     FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
      FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
      FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-     FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e27*n4e27);i++) l_sim_funtyp[i]= (int) ((double *)(il_sim_funtyp+4))[i];
+     for(i=0;i<(m_funtyp*n_funtyp);i++) l_sim_funtyp[i]= (int) ((double *)(il_sim_funtyp+4))[i];
     }
 
-    /*28 : sim.iord   */
-    il_sim_iord = (int *) (listentry(il_sim,28));
-    m4e28 = il_sim_iord[1];
-    n4e28 = il_sim_iord[2];
-    if (m4e28*n4e28==0) l_sim_iord=NULL;
+    /*31 : sim.iord   */
+    il_sim_iord = (int *) (listentry(il_sim,31));
+    m_iord = il_sim_iord[1];
+    n_iord = il_sim_iord[2];
+    if (m_iord*n_iord==0) l_sim_iord=NULL;
     else
     {
-     if ((l_sim_iord=(int *) MALLOC((m4e28*n4e28)*sizeof(int))) ==NULL )
+     if ((l_sim_iord=(int *) MALLOC((m_iord*n_iord)*sizeof(int))) ==NULL )
      {
       Scierror(999,"%s : Memory allocation error.\n",fname);
       FREE(l_sim_funtyp); FREE(l_sim_subscr); FREE(l_sim_ndcblk);
       FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
       FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
-      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr);
-      FREE(l_sim_clkptr); FREE(l_sim_clkptr); FREE(l_sim_ipar);
+      FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+      FREE(l_sim_opptr);
+      FREE(l_sim_ipptr); FREE(l_sim_ipar);
       FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
       FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
-      FREE(l_sim_zptr); FREE(l_sim_xptr); FREE(l_state_evtspt); FREE(l_pointi);
+      FREE(l_sim_ozptr);
+      FREE(l_sim_zptr); FREE(l_sim_xptr);
+      FREE(l_state_evtspt); FREE(l_pointi);
       return 0;
      }
      else
      {
-      for(i=0;i<(m4e28*n4e28);i++) l_sim_iord[i]= (int) ((double *)(il_sim_iord+4))[i];
+      for(i=0;i<(m_iord*n_iord);i++) l_sim_iord[i]= (int) ((double *)(il_sim_iord+4))[i];
      }
     }
 
-    /*29 : sim.labels */
-    il_sim_lab = (int *) (listentry(il_sim,29));
-    m4e29 = il_sim_lab[1];
-    n4e29 = il_sim_lab[2];
+    /*32 : sim.labels */
+    il_sim_lab = (int *) (listentry(il_sim,32));
+    m_lab = il_sim_lab[1];
+    n_lab = il_sim_lab[2];
     il_sim_labptr = &il_sim_lab[4];  /*get address-1 of first pointer in labels*/
-    l_sim_lab = (int *) (il_sim_lab+m4e29+5); /*get address of first string in labels*/
+    l_sim_lab = (int *) (il_sim_lab+m_lab+5); /*get address of first string in labels*/
 
-    /*30 : sim.modptr */
-    il_sim_modptr = (int *) (listentry(il_sim,30));
-    m4e30 = il_sim_modptr[1];
-    n4e30 = il_sim_modptr[2];
-    if ((l_sim_modptr=(int *) MALLOC((m4e30*n4e30)*sizeof(int))) ==NULL )
+    /*33 : sim.modptr */
+    il_sim_modptr = (int *) (listentry(il_sim,33));
+    m_modptr = il_sim_modptr[1];
+    n_modptr = il_sim_modptr[2];
+    if ((l_sim_modptr=(int *) MALLOC((m_modptr*n_modptr)*sizeof(int))) ==NULL )
     {
      Scierror(999,"%s : Memory allocation error.\n",fname);
-     freeintparam;
+     FREE(l_sim_iord); FREE(l_sim_funtyp); FREE(l_sim_subscr); FREE(l_sim_ndcblk);
+     FREE(l_sim_nblk); FREE(l_sim_ztyp); FREE(l_sim_nb); FREE(l_sim_critev);
+     FREE(l_sim_zord); FREE(l_sim_oord); FREE(l_sim_cord);
+     FREE(l_sim_ordclk); FREE(l_sim_execlk); FREE(l_sim_ordptr); FREE(l_sim_clkptr);
+     FREE(l_sim_opptr);
+     FREE(l_sim_ipptr); FREE(l_sim_ipar);
+     FREE(l_sim_rpptr); FREE(l_sim_outlnk); FREE(l_sim_inplnk);
+     FREE(l_sim_outptr); FREE(l_sim_inpptr); FREE(l_sim_zcptr);
+     FREE(l_sim_ozptr);
+     FREE(l_sim_zptr); FREE(l_sim_xptr);
+     FREE(l_state_evtspt); FREE(l_pointi);
      return 0;
     }
     else
     {
-     for(i=0;i<(m4e30*n4e30);i++) l_sim_modptr[i]= (int) ((double *)(il_sim_modptr+4))[i];
+     for(i=0;i<(m_modptr*n_modptr);i++) l_sim_modptr[i]= (int) ((double *)(il_sim_modptr+4))[i];
     }
 
  /*************
@@ -1355,7 +1532,7 @@ int intscicosimc(fname,fname_len)
  else
  {
   Scierror(44,"%s : Fifth argument is incorrect.\n",fname);
-  freeintparam;
+  freeparam;
   C2F(iop).err=5;
   return 0;
  }
@@ -1371,14 +1548,14 @@ int intscicosimc(fname,fname_len)
  if (m6<4) /*Check if tol has a minimun of four elements*/
  {
   Scierror(89,"%s : Sixth argument must have at least four elements.\n",fname);
-  freeintparam;
+  freeparam;
   C2F(iop).err=6;
   return 0;
  }
  else if(m6>7) /*Check if tol has a maximum of seven elements*/
  {
   Scierror(89,"%s : Sixth argument must have a maximum of seven elements.\n",fname);
-  freeintparam;
+  freeparam;
   C2F(iop).err=6;
   return 0;
  }
@@ -1396,25 +1573,27 @@ int intscicosimc(fname,fname_len)
   * cross variable size checking
   ******************************/
  err_check = 0;
- if (m1e5!=m1e6)       err_check=1;        /*tevts vs evtspt*/
- else if (m4e3!=m4e4)  err_check=2;        /*xptr vs zptr*/
- else if (m4e3!=m4e5)  err_check=3;        /*xptr vs zcptr*/
- else if (m4e3!=m4e6)  err_check=4;        /*xptr vs npptr*/
- else if (m4e3!=m4e7)  err_check=5;        /*xptr vs outptr*/
- else if (m4e3!=m4e11) err_check=6;        /*xptr vs rpptr*/
- else if (m4e3!=m4e13) err_check=7;        /*xptr vs ipptr*/
- else if (m4e3!=m4e14) err_check=8;        /*xptr vs clkptr*/
- else if ((n4e17!=2)&(m4e17!=0)) err_check=9;  /*sim.ordclk*/
- else if ((n4e18!=2)&(m4e18!=0)) err_check=10; /*sim.cord*/
- else if ((n4e19!=2)&(m4e19!=0)) err_check=11; /*sim.oord*/
- else if ((n4e20!=2)&(m4e20!=0)) err_check=12; /*sim.zord*/
- else if ((n4e28!=2)&(m4e28!=0)) err_check=13; /*sim.iord*/
+ if (m1e6!=m1e7) err_check=1;             /*tevts vs evtspt*/
+ else if (m_xptr!=m_zptr) err_check=2;    /*xptr vs zptr*/
+ else if (m_xptr!=m_ozptr) err_check=3;   /*xptr vs ozptr*/
+ else if (m_xptr!=m_zcptr) err_check=4;   /*xptr vs zcptr*/
+ else if (m_xptr!=m_inpptr) err_check=5;  /*xptr vs inpptr*/
+ else if (m_xptr!=m_outptr) err_check=6;  /*xptr vs outptr*/
+ else if (m_xptr!=m_rpptr) err_check=7;   /*xptr vs rpptr*/
+ else if (m_xptr!=m_ipptr) err_check=8;   /*xptr vs ipptr*/
+ else if (m_xptr!=m_opptr) err_check=8;   /*xptr vs opptr*/
+ else if (m_xptr!=m_clkptr) err_check=10; /*xptr vs clkptr*/
+ else if ((n_ordclk!=2)&(m_ordclk!=0)) err_check=11; /*sim.ordclk*/
+ else if ((n_cord!=2)&(m_cord!=0)) err_check=12;     /*sim.cord*/
+ else if ((n_oord!=2)&(m_oord!=0)) err_check=13;     /*sim.oord*/
+ else if ((n_zord!=2)&(m_zord!=0)) err_check=14;     /*sim.zord*/
+ else if ((n_iord!=2)&(m_iord!=0)) err_check=15;     /*sim.iord*/
  if (err_check!=0)
  {
   /* please write an error table here  */
   Scierror(42,"%s : error in cross variable size checking : %d\n",\
            fname,err_check);
-  freeintparam;
+  freeparam;
   return 0;
  }
 
@@ -1430,7 +1609,7 @@ int intscicosimc(fname,fname_len)
  if ((lfunpt=(int *) MALLOC(nblk*sizeof(int))) ==NULL )
  {
   Scierror(999,"%s : Memory allocation error.\n",fname);
-  freeintparam;
+  freeparam;
   return 0;
  }
 
@@ -1461,9 +1640,9 @@ int intscicosimc(fname,fname_len)
       else
       {
        C2F(curblk).kfun=i+1;
-       freeintparam;
        Scierror(888,"%s : unknown block : %s\n",fname,C2F(cha1).buf);
        FREE(lfunpt);
+       freeparam;
        return 0;
       }
     }
@@ -1471,151 +1650,419 @@ int intscicosimc(fname,fname_len)
    else
    {
     C2F(iop).err=4;
-    freeintparam;
     Scierror(44,"%s : error\n",fname);
     FREE(lfunpt);
+    freeparam;
     return 0;
    }
    lf=lf+*istk(il4e2+3+i)-*istk(il4e2+i+2);
  }
 
+ /**********************
+  * set oz, ozsz, oztyp
+  **********************/
+  if (noz==0)
+  {
+   oz=NULL;
+   ozsz=NULL;
+   oztyp=NULL;
+  }
+  else
+  {
+   /*Allocation of oz*/
+   if ((oz=(void **) MALLOC((noz)*sizeof(void *))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+   /*Allocation of ozsz*/
+   if ((ozsz=(int *) MALLOC(2*(noz)*sizeof(int))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(oz);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+   /*Allocation of oztyp*/
+   if ((oztyp=(int *) MALLOC((noz)*sizeof(int))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(oz); FREE(ozsz);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+
+   /*set vectors of oz*/
+   for(j=0;j<noz;j++)
+   {
+    subheader=(int *)(listentry(il_state_oz,j+1));
+
+    switch (subheader[0]) /*store type and address*/
+    {
+     /*matrix of double*/
+     case 1  : switch (subheader[3])
+               {
+                case 0  : oztyp[j]=SCSREAL_N;  /*double real matrix*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSREAL_COP *)(subheader+4);
+                          break;
+
+                case 1  : oztyp[j]=SCSCOMPLEX_N;  /*double complex matrix*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSCOMPLEX_COP *)(subheader+4);
+                          break;
+
+                default : oztyp[j]=SCSUNKNOW_N;
+                          ozsz[j]=il_state_oz[3+j]-il_state_oz[2+j];
+                          ozsz[j+noz]=1;
+                          oz[j]=(SCSUNKNOW_COP *)subheader;
+                          break;
+               }
+               break;
+
+     /*matrix of integers*/
+     case 8  : switch (subheader[3])
+               {
+                case 1  : oztyp[j]=SCSINT8_N;  /*int8*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSINT8_COP *)(subheader+4);
+                          break;
+
+                case 2  : oztyp[j]=SCSINT16_N;  /*int16*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSINT16_COP *)(subheader+4);
+                          break;
+
+                case 4  : oztyp[j]=SCSINT32_N;  /*int32*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSINT32_COP *)(subheader+4);
+                          break;
+
+                case 11 : oztyp[j]=SCSUINT8_N; /*uint8*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSUINT8_COP *)(subheader+4);
+                          break;
+
+                case 12 : oztyp[j]=SCSUINT16_N; /*uint16*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSUINT16_COP *)(subheader+4);
+                          break;
+
+                case 14 : oztyp[j]=SCSUINT32_N; /*uint32*/
+                          ozsz[j]=subheader[1];
+                          ozsz[j+noz]=subheader[2];
+                          oz[j]=(SCSUINT32_COP *)(subheader+4);
+                          break;
+
+                default : oztyp[j]=SCSUNKNOW_N;
+                          ozsz[j]=il_state_oz[3+j]-il_state_oz[2+j];
+                          ozsz[j+noz]=1;
+                          oz[j]=(SCSUNKNOW_COP *)subheader;
+                          break;
+               }
+               break;
+
+     default : oztyp[j]=SCSUNKNOW_N;
+               ozsz[j]=il_state_oz[3+j]-il_state_oz[2+j];
+               ozsz[j+noz]=1;
+               oz[j]=(SCSUNKNOW_COP *)subheader;
+               break;
+    }
+   }
+  }
+
+ /****************************
+  * set opar, oparsz, opartyp
+  ****************************/
+  if (nopar==0)
+  {
+   opar=NULL;
+   oparsz=NULL;
+   opartyp=NULL;
+  }
+  else
+  {
+   /*Allocation of opar*/
+   if ((opar=(void **) MALLOC((nopar)*sizeof(void *))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(oz); FREE(ozsz); FREE(oztyp);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+   /*Allocation of oparsz*/
+   if ((oparsz=(int *) MALLOC(2*(nopar)*sizeof(int))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(opar);
+    FREE(oz); FREE(ozsz); FREE(oztyp);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+   /*Allocation of opartyp*/
+   if ((opartyp=(int *) MALLOC((nopar)*sizeof(int))) ==NULL )
+   {
+    Scierror(999,"%s : Memory allocation error.\n",fname);
+    FREE(opar); FREE(oparsz);
+    FREE(oz); FREE(ozsz); FREE(oztyp);
+    FREE(lfunpt);
+    freeparam;
+    return 0;
+   }
+
+   /*set vectors of opar*/
+   for(j=0;j<nopar;j++)
+   {
+    subheader=(int *)(listentry(il_sim_opar,j+1));
+
+    switch (subheader[0]) /*store type and address*/
+    {
+     /*matrix of double*/
+     case 1  : switch (subheader[3])
+               {
+                case 0  : opartyp[j]=SCSREAL_N;  /*double real matrix*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSREAL_COP *)(subheader+4);
+                          break;
+
+                case 1  : opartyp[j]=SCSCOMPLEX_N;  /*double complex matrix*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSCOMPLEX_COP *)(subheader+4);
+                          break;
+
+                default : opartyp[j]=SCSUNKNOW_N;
+                          oparsz[j]=il_sim_opar[3+j]-il_sim_opar[2+j];
+                          oparsz[j+nopar]=1;
+                          opar[j]=(SCSUNKNOW_COP *)subheader;
+                          break;
+               }
+               break;
+
+     /*matrix of integers*/
+     case 8  : switch (subheader[3])
+               {
+                case 1  : opartyp[j]=SCSINT8_N;  /*int8*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSINT8_COP *)(subheader+4);
+                          break;
+
+                case 2  : opartyp[j]=SCSINT16_N;  /*int16*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSINT16_COP *)(subheader+4);
+                          break;
+
+                case 4  : opartyp[j]=SCSINT32_N;  /*int32*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSINT32_COP *)(subheader+4);
+                          break;
+
+                case 11 : opartyp[j]=SCSUINT8_N; /*uint8*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSUINT8_COP *)(subheader+4);
+                          break;
+
+                case 12 : opartyp[j]=SCSUINT16_N; /*uint16*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSUINT16_COP *)(subheader+4);
+                          break;
+
+                case 14 : opartyp[j]=SCSUINT32_N; /*uint32*/
+                          oparsz[j]=subheader[1];
+                          oparsz[j+nopar]=subheader[2];
+                          opar[j]=(SCSUINT32_COP *)(subheader+4);
+                          break;
+
+                default : opartyp[j]=SCSUNKNOW_N;
+                          oparsz[j]=il_sim_opar[3+j]-il_sim_opar[2+j];
+                          oparsz[j+nopar]=1;
+                          opar[j]=(SCSUNKNOW_COP *)subheader;
+                          break;
+               }
+               break;
+
+     default : opartyp[j]=SCSUNKNOW_N;
+               oparsz[j]=il_sim_opar[3+j]-il_sim_opar[2+j];
+               oparsz[j+nopar]=1;
+               opar[j]=(SCSUNKNOW_COP *)subheader;
+               break;
+    }
+   }
+  }
+
  /*******************************
   * set outtbptr,outtbsz,outtbtyp
   *******************************/
- /*Allocation of outtbptr*/
- if ((outtbptr=(void **) MALLOC(nlnk*sizeof(void *)))==NULL )
+ if (nlnk==0)
  {
-  Scierror(999,"%s : Memory allocation error.\n",fname);
-  freeintparam;
-  FREE(lfunpt);
-  return 0;
+  outtbptr=NULL;
+  outtbsz=NULL;
+  outtbtyp=NULL;
+  outtb_elem=NULL;
+  nelem=0;
  }
- /*Allocation of outtbsz*/
- if ((outtbsz=(int *) MALLOC(nlnk*2*sizeof(int)))==NULL )
+ else
  {
-  Scierror(999,"%s : Memory allocation error.\n",fname);
-  freeintparam;
-  FREE(outtbptr);
-  FREE(lfunpt);
-  return 0;
- }
- /*Allocation of outtbtyp*/
- if ((outtbtyp=(int *) MALLOC(nlnk*sizeof(int)))==NULL )
- {
-  Scierror(999,"%s : Memory allocation error.\n",fname);
-  freeintparam;
-  FREE(outtbsz);
-  FREE(outtbptr);
-  FREE(lfunpt);
-  return 0;
- }
-
- /*initalize nelem*/
- nelem=0;
-
- /*set vectors of outtb*/
- for (j=0;j<nlnk;j++) /*for each link*/
- {
-  subheader=(int *)(listentry(il_state_outtb,j+1)); /*get header of outtbl(j+1)*/
-  outtbsz[j*2]=subheader[1]; /*store dimensions*/
-  outtbsz[(j*2)+1]=subheader[2];
-
-  switch (subheader[0]) /*store type and address*/
+  /*Allocation of outtbptr*/
+  if ((outtbptr=(void **) MALLOC(nlnk*sizeof(void *)))==NULL )
   {
-   /*matrix of double*/
-   case 1  : switch (subheader[3])
-             {
-              case 0  : outtbtyp[j]=10;  /*double real matrix*/
-                        outtbptr[j]=(double *)(subheader+4);
-                        break;
-
-              case 1  : outtbtyp[j]=11;  /*double complex matrix*/
-                        outtbptr[j]=(double *)(subheader+4);
-                        break;
-
-              default : Scierror(888,\
-                                "%s : error. Type %d of double scalar matrix not yet supported.\n",\
-                                fname,subheader[3]);
-                        freeintparam;
-                        FREE(outtbptr);
-                        FREE(outtbtyp);
-                        FREE(outtbsz);
-                        FREE(lfunpt);
-                        if (outtb_elem!=NULL) FREE(outtb_elem);
-                        break;
-             }
-             break;
-
-   /*matrix of integers*/
-   case 8  : switch (subheader[3])
-             {
-              case 1  : outtbtyp[j]=81;  /*int8*/
-                        outtbptr[j]=(char *)(subheader+4);
-                        break;
-
-              case 2  : outtbtyp[j]=82;  /*int16*/
-                        outtbptr[j]=(short *)(subheader+4);
-                        break;
-
-              case 4  : outtbtyp[j]=84;  /*int32*/
-                        outtbptr[j]=(long *)(subheader+4);
-                        break;
-
-              case 11 : outtbtyp[j]=811; /*uint8*/
-                        outtbptr[j]=(unsigned char *)(subheader+4);
-                        break;
-
-              case 12 : outtbtyp[j]=812; /*uint16*/
-                        outtbptr[j]=(unsigned short *)(subheader+4);
-                        break;
-
-              case 14 : outtbtyp[j]=814; /*uint32*/
-                        outtbptr[j]=(unsigned long *)(subheader+4);
-                        break;
-
-              default : Scierror(888,\
-                                "%s : error. Type %d of integer scalar matrix not yet supported.\n",\
-                                fname,subheader[3]);
-                        freeintparam;
-                        FREE(outtbptr);
-                        FREE(outtbtyp);
-                        FREE(outtbsz);
-                        FREE(lfunpt);
-                        if (outtb_elem!=NULL) FREE(outtb_elem);
-                        break;
-             }
-             break;
-
-
-   default : Scierror(888,"%s : error. Type %d not yet supported.\n",fname,subheader[0]);
-             freeintparam;
-             FREE(outtbptr);
-             FREE(outtbtyp);
-             FREE(outtbsz);
-             FREE(lfunpt);
-             if (outtb_elem!=NULL) FREE(outtb_elem);
-             return 0;
-             break;
-  }
-
-  /* store lnk and pos in outtb_elem */
-  k=nelem;
-  nelem+=outtbsz[j*2]*outtbsz[(j*2)+1];
-  if ((outtb_elem=(outtb_el *) REALLOC(outtb_elem,nelem*sizeof(outtb_el)))==NULL)
-  {
-   Scierror(999,"%s : No more free memory.\n",fname);
-   freeintparam;
-   FREE(outtbptr);
-   FREE(outtbtyp);
-   FREE(outtbsz);
+   Scierror(999,"%s : Memory allocation error.\n",fname);
+   FREE(opar); FREE(oparsz); FREE(opartyp);
+   FREE(oz); FREE(ozsz); FREE(oztyp);
    FREE(lfunpt);
-   if (outtb_elem!=NULL) FREE(outtb_elem);
+   freeparam;
    return 0;
   }
-  for (i=0;i<outtbsz[j*2]*outtbsz[(j*2)+1];i++)
+  /*Allocation of outtbsz*/
+  if ((outtbsz=(int *) MALLOC(nlnk*2*sizeof(int)))==NULL )
   {
-   outtb_elem[k+i].lnk=j;
-   outtb_elem[k+i].pos=i;
+   Scierror(999,"%s : Memory allocation error.\n",fname);
+   FREE(outtbptr);
+   FREE(opar); FREE(oparsz); FREE(opartyp);
+   FREE(oz); FREE(ozsz); FREE(oztyp);
+   FREE(lfunpt);
+   freeparam;
+   return 0;
+  }
+  /*Allocation of outtbtyp*/
+  if ((outtbtyp=(int *) MALLOC(nlnk*sizeof(int)))==NULL )
+  {
+   Scierror(999,"%s : Memory allocation error.\n",fname);
+   FREE(outtbsz); FREE(outtbptr);
+   FREE(opar); FREE(oparsz); FREE(opartyp);
+   FREE(oz); FREE(ozsz); FREE(oztyp);
+   FREE(lfunpt);
+   freeparam;
+   return 0;
+  }
+
+  /*initalize nelem*/
+  nelem=0;
+
+  /*set vectors of outtb*/
+  for (j=0;j<nlnk;j++) /*for each link*/
+  {
+   subheader=(int *)(listentry(il_state_outtb,j+1)); /*get header of outtbl(j+1)*/
+   outtbsz[j]=subheader[1]; /*store dimensions*/
+   outtbsz[j+nlnk]=subheader[2];
+
+   switch (subheader[0]) /*store type and address*/
+   {
+    /*matrix of double*/
+    case 1  : switch (subheader[3])
+              {
+               case 0  : outtbtyp[j]=SCSREAL_N;  /*double real matrix*/
+                         outtbptr[j]=(SCSREAL_COP *)(subheader+4);
+                         break;
+
+               case 1  : outtbtyp[j]=SCSCOMPLEX_N;  /*double complex matrix*/
+                         outtbptr[j]=(SCSCOMPLEX_COP *)(subheader+4);
+                         break;
+
+               default : Scierror(888,\
+                                 "%s : error. Type %d of double scalar matrix not yet supported "
+                                 "for outtb.\n",\
+                                 fname,subheader[3]);
+                         FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+                         FREE(opar); FREE(oparsz); FREE(opartyp);
+                         FREE(oz); FREE(ozsz); FREE(oztyp);
+                         FREE(lfunpt);
+                         freeparam;
+                         FREE(outtb_elem);
+                         break;
+              }
+              break;
+
+    /*matrix of integers*/
+    case 8  : switch (subheader[3])
+              {
+               case 1  : outtbtyp[j]=SCSINT8_N;  /*int8*/
+                         outtbptr[j]=(SCSINT8_COP *)(subheader+4);
+                         break;
+
+               case 2  : outtbtyp[j]=SCSINT16_N;  /*int16*/
+                         outtbptr[j]=(SCSINT16_COP *)(subheader+4);
+                         break;
+
+               case 4  : outtbtyp[j]=SCSINT32_N;  /*int32*/
+                         outtbptr[j]=(SCSINT32_COP *)(subheader+4);
+                         break;
+
+               case 11 : outtbtyp[j]=SCSUINT8_N; /*uint8*/
+                         outtbptr[j]=(SCSUINT8_COP *)(subheader+4);
+                         break;
+
+               case 12 : outtbtyp[j]=SCSUINT16_N; /*uint16*/
+                         outtbptr[j]=(SCSUINT16_COP *)(subheader+4);
+                         break;
+
+               case 14 : outtbtyp[j]=SCSUINT32_N; /*uint32*/
+                         outtbptr[j]=(SCSUINT32_COP *)(subheader+4);
+                         break;
+
+               default : Scierror(888,\
+                                 "%s : error. Type %d of integer scalar matrix not yet supported "
+                                 "for outtb.\n",\
+                                 fname,subheader[3]);
+                         FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+                         FREE(opar); FREE(oparsz); FREE(opartyp);
+                         FREE(oz); FREE(ozsz); FREE(oztyp);
+                         FREE(lfunpt);
+                         freeparam;
+                         FREE(outtb_elem);
+                         break;
+              }
+              break;
+
+    default : Scierror(888,"%s : error. Type %d not yet supported for outtb.\n",fname,subheader[0]);
+              FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+              FREE(opar); FREE(oparsz); FREE(opartyp);
+              FREE(oz); FREE(ozsz); FREE(oztyp);
+              FREE(lfunpt);
+              freeparam;
+              FREE(outtb_elem);
+              return 0;
+              break;
+   }
+
+   /* store lnk and pos in outtb_elem */
+   k=nelem;
+   nelem+=outtbsz[j]*outtbsz[j+nlnk];
+   if ((outtb_elem=(outtb_el *) REALLOC(outtb_elem,nelem*sizeof(outtb_el)))==NULL)
+   {
+    Scierror(999,"%s : No more free memory.\n",fname);
+    FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+    FREE(opar); FREE(oparsz); FREE(opartyp);
+    FREE(oz); FREE(ozsz); FREE(oztyp);
+    FREE(lfunpt);
+    freeparam;
+    FREE(outtb_elem);
+    return 0;
+   }
+   for (i=0;i<outtbsz[j]*outtbsz[j+nlnk];i++)
+   {
+    outtb_elem[k+i].lnk=j;
+    outtb_elem[k+i].pos=i;
+   }
   }
  }
 
@@ -1628,25 +2075,25 @@ int intscicosimc(fname,fname_len)
   if (new == NULL)
   {
    Scierror(999,"%s : Memory allocation error.\n",fname);
-   freeintparam;
-   FREE(outtbptr);
-   FREE(outtbtyp);
-   FREE(outtbsz);
+   FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+   FREE(opar); FREE(oparsz); FREE(opartyp);
+   FREE(oz); FREE(ozsz); FREE(oztyp);
    FREE(lfunpt);
    FREE(outtb_elem);
+   freeparam;
    return 0;
   }
   loc = MALLOC(sizeof(intersci_list));
   if (loc == NULL)
   {
    Scierror(999,"%s : Memory allocation error.\n",fname);
-   freeintparam;
-   FREE(outtbptr);
-   FREE(outtbtyp);
-   FREE(outtbsz);
+   FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+   FREE(opar); FREE(oparsz); FREE(opartyp);
+   FREE(oz); FREE(ozsz); FREE(oztyp);
    FREE(lfunpt);
    FREE(outtb_elem);
    FREE(new);
+   freeparam;
    return 0;
   }
   loc->state = new; 
@@ -1665,52 +2112,46 @@ int intscicosimc(fname,fname_len)
  if (C2F(iop).ddt!=0) C2F(dbcos).idb=1;   /*debug mode if ddt=0*/
 
  /* Calling sequence :
-  *   int C2F(scicos)
-  *   (x_in, xptr_in, z__, work,zptr,modptr_in, iz, izptr, t0_in, tf_in, tevts_in, 
-  *    evtspt_in, nevts, pointi_in, outtbptr_in, outtbsz_in, outtbtyp_in, nlnk1,
-  *    funptr, funtyp_in, inpptr_in, outptr_in,
-  *    inplnk_in, outlnk_in, rpar, rpptr, ipar, ipptr, clkptr_in,
-  *    ordptr_in, nordptr1, ordclk_in, cord_in, ncord1, iord_in, niord1, oord_in, noord1,
-  *    zord_in, nzord1, critev_in, nblk1, ztyp, zcptr_in, subscr, nsubs, simpar,
-  *    flag__, ierr_out)
-  *
-  *   double *x_in,*z__;
-  *   void **work;
-  *   integer *modptr_in;
-  *   integer *xptr_in;
-  *   integer *zptr, *iz, *izptr;
-  *   double *t0_in, *tf_in, *tevts_in;
-  *   integer *evtspt_in, *nevts, *pointi_in;
-  *   void **outtbptr_in;
-  *   integer *outtbsz_in;
-  *   integer *outtbtyp_in;
-  *   integer *nlnk1, *funptr, *funtyp_in, *inpptr_in, *outptr_in;
-  *   integer *inplnk_in, *outlnk_in;
-  *   double *rpar;
-  *   integer *rpptr, *ipar, *ipptr, *clkptr_in, *ordptr_in, *nordptr1;
-  *   integer *ordclk_in, *cord_in, *ncord1, *iord_in, *niord1, *oord_in;
-  *   integer *noord1, *zord_in, *nzord1, *critev_in, *nblk1, *ztyp, *zcptr_in;
-  *   integer *subscr, *nsubs;
-  *   double *simpar;
-  *   integer *flag__, *ierr_out;
+  * int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
+  *                 void **work,integer *zptr,integer *modptr_in,
+  *                 void **oz,integer *ozsz,integer *oztyp,integer *ozptr,
+  *                 integer *iz,integer *izptr,double *t0_in,
+  *                 double *tf_in,double *tevts_in,integer *evtspt_in,
+  *                 integer *nevts,integer *pointi_in,void **outtbptr_in,
+  *                 integer *outtbsz_in,integer *outtbtyp_in,
+  *                 outtb_el *outtb_elem_in,integer *nelem1,integer *nlnk1,
+  *                 integer *funptr,integer *funtyp_in,integer *inpptr_in,
+  *                 integer *outptr_in, integer *inplnk_in,integer *outlnk_in,
+  *                 double *rpar,integer *rpptr,integer *ipar,integer *ipptr,
+  *                 void **opar,integer *oparsz,integer *opartyp,integer *opptr,
+  *                 integer *clkptr_in,integer *ordptr_in,integer *nordptr1,
+  *                 integer *ordclk_in,integer *cord_in,integer *ncord1,
+  *                 integer *iord_in,integer *niord1,integer *oord_in,
+  *                 integer *noord1,integer *zord_in,integer *nzord1,
+  *                 integer *critev_in,integer *nblk1,integer *ztyp,
+  *                 integer *zcptr_in,integer *subscr,integer *nsubs,
+  *                 double *simpar,integer *flag__,integer *ierr_out)
   */
 
-C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
-            l_state_iz,l_sim_zptr, \
-            l_sim_modptr, \
-            l_sim_lab,il_sim_labptr,l_tcur,l_tf,l_state_tevts, \
-            l_state_evtspt,&m1e5,l_pointi,outtbptr,outtbsz,outtbtyp, \
-            outtb_elem,&nelem,&nlnk, \
-            lfunpt,l_sim_funtyp,l_sim_inpptr, \
-            l_sim_outptr,l_sim_inplnk,l_sim_outlnk,  \
-            l_sim_rpar,l_sim_rpptr, \
-            l_sim_ipar,l_sim_ipptr,l_sim_clkptr, \
-            l_sim_ordptr,&m4e15, \
-            l_sim_ordclk,l_sim_cord,&m4e18, \
-            l_sim_iord,&m4e28, \
-            l_sim_oord,&m4e19,l_sim_zord, &m4e20, \
-            l_sim_critev,&nblk,l_sim_ztyp,l_sim_zcptr, \
-            l_sim_subscr,&m4e26,simpar,&flag,&ierr);
+C2F(scicos)(l_state_x,l_sim_xptr,l_state_z,
+            l_state_iz,l_sim_zptr,l_sim_modptr,
+            oz,ozsz,oztyp,l_sim_ozptr,
+            l_sim_lab,il_sim_labptr,l_tcur,
+            l_tf,l_state_tevts,l_state_evtspt,
+            &m1e5,l_pointi,outtbptr,
+            outtbsz,outtbtyp,
+            outtb_elem,&nelem,&nlnk,
+            lfunpt,l_sim_funtyp,l_sim_inpptr,
+            l_sim_outptr,l_sim_inplnk,l_sim_outlnk,
+            l_sim_rpar,l_sim_rpptr,l_sim_ipar,l_sim_ipptr,
+            opar,oparsz,opartyp,l_sim_opptr,
+            l_sim_clkptr,l_sim_ordptr,&m_ordptr,
+            l_sim_ordclk,l_sim_cord,&m_cord,
+            l_sim_iord,&m_iord,l_sim_oord,
+            &m_oord,l_sim_zord, &m_zord,
+            l_sim_critev,&nblk,l_sim_ztyp,
+            l_sim_zcptr,l_sim_subscr,&m_subscr,
+            simpar,&flag,&ierr);
 
  C2F(dbcos).idb=0;  /*return in normal mode*/
 
@@ -1732,9 +2173,9 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
  /**********************
   * Free allocated array
   **********************/
- FREE(outtbptr);
- FREE(outtbtyp);
- FREE(outtbsz);
+ FREE(outtbptr); FREE(outtbtyp); FREE(outtbsz);
+ FREE(opar); FREE(oparsz); FREE(opartyp);
+ FREE(oz); FREE(ozsz); FREE(oztyp);
  FREE(lfunpt);
  FREE(outtb_elem);
 
@@ -1807,14 +2248,14 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
    Scierror(888,"%s\n",C2F(cha1).buf);
    C2F(curblk).kfun=0;
    C2F(com).fun=0; /*set common fun=0 (this disable bug in debug mode)*/
-   freeintparam;
+   freeparam;
    return 0;
   }
  }
 
  if (C2F(iop).err>0) 
  {
-  freeintparam;
+  freeparam;
   return 0;
  }
 
@@ -1825,14 +2266,14 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
   * return Lsh variable
   *********************/
  /*copy int parameters of state in double parameters*/
- for(i=0;i<(m1e6*n1e6);i++) ((double *)(il_state_evtspt+4))[i] = (double) l_state_evtspt[i];
- for(i=0;i<(m1e7*n1e7);i++) ((double *)(il_pointi+4))[i] = (double) l_pointi[i];
+ for(i=0;i<(m1e7*n1e7);i++) ((double *)(il_state_evtspt+4))[i] = (double) l_state_evtspt[i];
+ for(i=0;i<(m1e8*n1e8);i++) ((double *)(il_pointi+4))[i] = (double) l_pointi[i];
  /*set lsh var*/
  if (Lhs>=1) LhsVar(1) = 1; /*return state in LhsVar(1)*/
  if (Lhs==2) LhsVar(2) = 2; /*return tcur in LhsVar(2)*/
 
  /* end */
- freeintparam;
+ freeparam;
  return 0;
  }
 
@@ -1870,7 +2311,7 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z, \
 
 int CopyVarFromlistentry(int lw, int *header, int i)
 {
-   /* Local variablle definition*/
+   /* Local variable definition*/
    int ret,un=1;
    double *l;
    int n;
@@ -1902,17 +2343,17 @@ int CopyVarFromlistentry(int lw, int *header, int i)
  * n        : integer, number of rows.
  * m        : integer, number of columns.
  * typ_var  : integer, type of scicos data :
- *            10  : double real
- *            11  : double complex
- *            80  : int
- *            81  : int8
- *            82  : int16
- *            84  : int32
- *            800 : uint
- *            811 : uint8
- *            812 : uint16
- *            814 : uint32
- *
+ *            SCSREAL    : double real
+ *            SCSCOMPLEX : double complex
+ *            SCSINT     : int
+ *            SCSINT8    : int8
+ *            SCSINT16   : int16
+ *            SCSINT32   : int32
+ *            SCSUINT    : uint
+ *            SCSUINT8   : uint8
+ *            SCSUINT16  : uint16
+ *            SCSUINT32  : uint32
+ *            SCSUNKNOW  : Unknow type
  *
  * Output parameters : int (<1000), error flag
  *                     (0 if no error)
@@ -1921,6 +2362,9 @@ int CopyVarFromlistentry(int lw, int *header, int i)
  *
  * 23/06/06, Alan    : moved in intcscicos.c to do
  *                     the connection with getscicosvars("blocks")
+ *
+ * 09/02/07, Alan    : add unknown type of objects
+ *
  */
 
 /* prototype */
@@ -1930,18 +2374,18 @@ int var2sci(void *x,int n,int m,int typ_var)
    * variables and constants d?inition
    ************************************/
   /*counter and address variable declaration*/
-  int nm,il,l,j,err;
+  int nm,il,l,lw,j,i,err;
 
   /*define all type of accepted ptr */
-  double *x_d,*ptr_d;
-  char *x_c,*ptr_c;
-  unsigned char *x_uc,*ptr_uc;
-  short *x_s,*ptr_s;
-  unsigned short *x_us,*ptr_us;
-  int *x_i,*ptr_i;
-  unsigned int *x_ui,*ptr_ui;
-  long *x_l,*ptr_l;
-  unsigned long *x_ul,*ptr_ul;
+  SCSREAL_COP *x_d,*ptr_d;
+  SCSINT8_COP *x_c,*ptr_c;
+  SCSUINT8_COP *x_uc,*ptr_uc;
+  SCSINT16_COP *x_s,*ptr_s;
+  SCSUINT16_COP *x_us,*ptr_us;
+  SCSINT_COP *x_i,*ptr_i;
+  SCSUINT_COP *x_ui,*ptr_ui;
+  SCSINT32_COP *x_l,*ptr_l;
+  SCSUINT32_COP *x_ul,*ptr_ul;
 
   /* Check if the stack is not full */
   if (Top >= Bot)
@@ -1957,16 +2401,17 @@ int var2sci(void *x,int n,int m,int typ_var)
   }
 
   /* set number of double needed to store data */
-  if (typ_var==10) nm=n*m; /*double real matrix*/
-  else if (typ_var==11)  nm=n*m*2; /*double real matrix*/
-  else if (typ_var==80)  nm=(int)(ceil((n*m)/2)+1); /*int*/
-  else if (typ_var==81)  nm=(int)(ceil((n*m)/8)+1); /*int8*/
-  else if (typ_var==82)  nm=(int)(ceil((n*m)/4)+1); /*int16*/
-  else if (typ_var==84)  nm=(int)(ceil((n*m)/2)+1); /*int32*/
-  else if (typ_var==800) nm=(int)(ceil((n*m)/2)+1); /*uint*/
-  else if (typ_var==811) nm=(int)(ceil((n*m)/8)+1); /*uint8*/
-  else if (typ_var==812) nm=(int)(ceil((n*m)/4)+1); /*uint16*/
-  else if (typ_var==814) nm=(int)(ceil((n*m)/2)+1); /*uint32*/
+  if (typ_var==SCSREAL_N)         nm=n*m;   /*double real matrix*/
+  else if (typ_var==SCSCOMPLEX_N) nm=n*m*2; /*double real matrix*/
+  else if (typ_var==SCSINT_N)     nm=(int)(ceil((n*m)/2)+1); /*int*/
+  else if (typ_var==SCSINT8_N)    nm=(int)(ceil((n*m)/8)+1); /*int8*/
+  else if (typ_var==SCSINT16_N)   nm=(int)(ceil((n*m)/4)+1); /*int16*/
+  else if (typ_var==SCSINT32_N)   nm=(int)(ceil((n*m)/2)+1); /*int32*/
+  else if (typ_var==SCSUINT_N)    nm=(int)(ceil((n*m)/2)+1); /*uint*/
+  else if (typ_var==SCSUINT8_N)   nm=(int)(ceil((n*m)/8)+1); /*uint8*/
+  else if (typ_var==SCSUINT16_N)  nm=(int)(ceil((n*m)/4)+1); /*uint16*/
+  else if (typ_var==SCSUINT32_N)  nm=(int)(ceil((n*m)/2)+1); /*uint32*/
+  else if (typ_var==SCSUNKNOW_N)  nm=n*m; /*arbitrary scilab object*/
   else nm=n*m; /*double real matrix*/
 
   /*check if there is free space for new data*/
@@ -1982,142 +2427,147 @@ int var2sci(void *x,int n,int m,int typ_var)
    *************************/
   switch (typ_var) /*for each type of data*/
   {
-       case 10  : /* set header */
-                  *istk(il) = 1; /*double real matrix*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 0;
-                  x_d = (double *) x;
-                  ptr_d = (double *) stk(l);
-                  for (j=0;j<m*n;j++) ptr_d[j] = x_d[j];
-                  break;
+   case SCSREAL_N    : /* set header */
+                     *istk(il) = 1; /*double real matrix*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 0;
+                     x_d = (SCSREAL_COP *) x;
+                     ptr_d = (SCSREAL_COP *) stk(l);
+                     for (j=0;j<m*n;j++) ptr_d[j] = x_d[j];
+                     break;
 
-       case 11  : /* set header */
-                  *istk(il) = 1; /*double complex matrix*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 1;
-                  x_d = (double *) x;
-                  ptr_d = (double *) stk(l);
-                  for (j=0;j<2*m*n;j++) ptr_d[j] = x_d[j];
-                  break;
+   case SCSCOMPLEX_N : /* set header */
+                     *istk(il) = 1; /*double complex matrix*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 1;
+                     x_d = (SCSCOMPLEX_COP *) x;
+                     ptr_d = (SCSCOMPLEX_COP *) stk(l);
+                     for (j=0;j<2*m*n;j++) ptr_d[j] = x_d[j];
+                     break;
 
-       case 80  : /* set header */
-                  *istk(il) = 8; /*int*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 4;
-                  x_i = (int *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_i = (int *) istk(il+4);
-                   ptr_i[j] = x_i[j];
-                  }
-                  break;
+   case SCSINT_N     : /* set header */
+                     *istk(il) = 8; /*int*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 4;
+                     x_i = (SCSINT_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_i = (SCSINT_COP *) istk(il+4);
+                      ptr_i[j] = x_i[j];
+                     }
+                     break;
 
-       case 81  : /* set header */
-                  *istk(il) = 8; /*int8*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 1;
-                  x_c = (char *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_c = (char *) istk(il+4);
-                   ptr_c[j] = x_c[j];
-                  }
-                  break;
+   case SCSINT8_N    : /* set header */
+                     *istk(il) = 8; /*int8*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 1;
+                     x_c = (SCSINT8_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_c = (SCSINT8_COP *) istk(il+4);
+                      ptr_c[j] = x_c[j];
+                     }
+                     break;
 
-       case 82  : /* set header */
-                  *istk(il) = 8; /*int16*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 2;
-                  x_s = (short *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_s = (short *) istk(il+4);
-                   ptr_s[j] = x_s[j];
-                  }
-                  break;
+   case SCSINT16_N   : /* set header */
+                     *istk(il) = 8; /*int16*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 2;
+                     x_s = (SCSINT16_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_s = (SCSINT16_COP *) istk(il+4);
+                      ptr_s[j] = x_s[j];
+                     }
+                     break;
 
-       case 84  : /* set header */
-                  *istk(il) = 8; /*int32*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 4;
-                  x_l = (long *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_l = (long *) istk(il+4);
-                   ptr_l[j] = x_l[j];
-                  }
-                  break;
+   case SCSINT32_N   : /* set header */
+                     *istk(il) = 8; /*int32*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 4;
+                     x_l = (SCSINT32_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_l = (SCSINT32_COP *) istk(il+4);
+                      ptr_l[j] = x_l[j];
+                     }
+                     break;
 
-       case 800 : /* set header */
-                  *istk(il) = 8; /*uint*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 14;
-                  x_ui = (unsigned int *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_ui = (unsigned int *) istk(il+4);
-                   ptr_ui[j] = x_ui[j];
-                  }
-                  break;
+   case SCSUINT_N   : /* set header */
+                     *istk(il) = 8; /*uint*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 14;
+                     x_ui = (SCSUINT_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_ui = (SCSUINT_COP *) istk(il+4);
+                      ptr_ui[j] = x_ui[j];
+                     }
+                     break;
 
-       case 811 : /* set header */
-                  *istk(il) = 8; /*uint8*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 11;
-                  x_uc = (unsigned char *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_uc = (unsigned char *) istk(il+4);
-                   ptr_uc[j] = x_uc[j];
-                  }
-                  break;
+   case SCSUINT8_N   : /* set header */
+                     *istk(il) = 8; /*uint8*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 11;
+                     x_uc = (SCSUINT8_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_uc = (SCSUINT8_COP *) istk(il+4);
+                      ptr_uc[j] = x_uc[j];
+                     }
+                     break;
 
-       case 812 : /* set header */
-                  *istk(il) = 8; /*uint16*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 12;
-                  x_us = (unsigned short *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_us = (unsigned short *) istk(il+4);
-                   ptr_us[j] = x_us[j];
-                  }
-                  break;
+   case SCSUINT16_N  : /* set header */
+                     *istk(il) = 8; /*uint16*/
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 12;
+                     x_us = (SCSUINT16_COP *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_us = (SCSUINT16_COP *) istk(il+4);
+                      ptr_us[j] = x_us[j];
+                     }
+                     break;
 
-       case 814 : /* set header */
-                  *istk(il) = 8; /*uint32*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 14;
-                  x_ul = (unsigned long *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_ul = (unsigned long *) istk(il+4);
-                   ptr_ul[j] = x_ul[j];
-                  }
-                  break;
+   case SCSUINT32_N  : /* set header */
+                      *istk(il) = 8; /*uint32*/
+                      *istk(il+1) = n;
+                      *istk(il+2) = m;
+                      *istk(il+3) = 14;
+                      x_ul = (SCSUINT32_COP *) x;
+                      for (j=0;j<m*n;j++)
+                      {
+                       ptr_ul = (SCSUINT32_COP *) istk(il+4);
+                       ptr_ul[j] = x_ul[j];
+                      }
+                      break;
 
-       default  : /* set header */
-                  *istk(il) = 1; /*double real matrix*/
-                  *istk(il+1) = n;
-                  *istk(il+2) = m;
-                  *istk(il+3) = 0;
-                  x_d = (double *) x;
-                  for (j=0;j<m*n;j++)
-                  {
-                   ptr_d = (double *) stk(il+4);
-                   ptr_d[j] = x_d[j];
-                  }
-                  break;
+   case SCSUNKNOW_N  : lw=Top;
+                       x_d = (double *) x;
+                       C2F(unsfdcopy)(&nm,x_d,(j=1,&j),stk(*Lstk(Top)),(i=1,&i));
+                       break;
+
+   default         : /* set header */
+                     *istk(il) = 1; /* double by default */
+                     *istk(il+1) = n;
+                     *istk(il+2) = m;
+                     *istk(il+3) = 0;
+                     x_d = (double *) x;
+                     for (j=0;j<m*n;j++)
+                     {
+                      ptr_d = (double *) stk(il+4);
+                      ptr_d[j] = x_d[j];
+                     }
+                     break;
   }
 
   /* set value in lstk */
@@ -2133,13 +2583,14 @@ int var2sci(void *x,int n,int m,int typ_var)
  *                 at the top+1 postion of the stack
  *
  * needs/depends : var2sci, C2F(mklist), C2F(mtklist),
- *                 vvtosci, string.h, C2F(scierr), str2sci
+ *                 vvtosci, itosci, string.h, C2F(scierr), str2sci
  *
  * input argument : Blocks :scicos_block  ptr on a scicos_block structure
  *                  ierr : int ptr, an error flag
  *                  flag_imp : if flag_imp>=0 then use
  *                             import structure for x, xd and g.
  *                             In this case flag_imp is the block number.
+ *                  kfun : the current indexe of the block in the compiled structure
  *
  * output argument : return 0 if failed, 1 else.
  *
@@ -2153,15 +2604,18 @@ int var2sci(void *x,int n,int m,int typ_var)
  *                  g are not yet informed for all blocks with nx!=0 and ng!=0.
  *                  (They are not yet called with callf in scicos.c)
  *
+ * 09/02/07, Alan : Add kfun flag and oz/opar
+ *
  */
 
 /*prototype*/
-int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
+int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int kfun)
 {
   /*local variable declaration*/
-  int k;
+  int j,k;
   int nu,mu,ny,my;
   int u_typ,y_typ;
+  int oz_typ,opar_typ;
 
   /*variable used when imp_flag>=0*/
   int nv,mv;          /* length of data                                        */
@@ -2171,22 +2625,30 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
   double *ptr_double; /* ptr to store ptr on double                            */
   int *xptr, *zcptr;  /* to retrieve xptr by import and zcptr of scicos_blocks */
   double *x,*xd,*g;   /* ptr for x, xd and g for scicos_blocks              */
+  int *funtyp;        /* ptr for funtyp */
 
   /* set length of block list -please update me-                           */
-  static int nblklst=31;
+  static int nblklst=39;
   /* set string of first element of scilab Blocks tlist -please update me- */
-  static char *str_blklst[]={ "scicos_block", "nevprt" , "funpt" , "type"  ,
-                              "scsptr"      , "nz"     , "z"     , "nx"    ,
-                              "x"           , "xd"     , "res"   , "nin"   ,
-                              "insz"        , "inptr"  , "nout"  , "outsz" ,
-                              "outptr"      , "nevout" , "evout" , "nrpar" ,
-                              "rpar"        , "nipar"  , "ipar"  , "ng"    ,
-                              "g"           , "ztyp"   , "jroot" , "label" ,
-                              "work"        , "nmode"  , "mode"};
+  static char *str_blklst[]={ "scicos_block", "nevprt"  , "funpt" , "type"  ,
+                              "scsptr"      , "nz"      , "z"     , "noz"   ,
+                              "ozsz"        , "oztyp"   , "oz"    , "nx"    ,
+                              "x"           , "xd"      , "res"   , "nin"   ,
+                              "insz"        , "inptr"   , "nout"  , "outsz" ,
+                              "outptr"      , "nevout"  , "evout" , "nrpar" ,
+                              "rpar"        , "nipar"   , "ipar"  , "nopar" ,
+                              "oparsz"      , "opartyp" , "opar"  , "ng"    ,
+                              "g"           , "ztyp"    , "jroot" , "label" ,
+                              "work"        , "nmode"   , "mode"};
 
   /* char ptr for str2sci - see below - */
   char **str1;
 
+  /*retrieve funtyp by import structure*/
+  strcpy(C2F(cha1).buf,"funtyp");
+  *ierr=getscicosvarsfromimport(C2F(cha1).buf,&ptr,&nv,&mv);
+  if (*ierr==0) return 0;
+  funtyp = (int *) ptr;
 
   /* set nblk, x, xd ptr coming from import strucuture,
    * if flag_imp >=0
@@ -2238,67 +2700,94 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
    * create scilab tlist Blocks
    ****************************/
   /* 1 - scicos_block */
-  str2sci(str_blklst,1,31);
+  str2sci(str_blklst,1,nblklst);
 
   /* 2 - nevprt */
-  *ierr=var2sci(&Blocks[0].nevprt,1,1,80);
-  if (*ierr!=0) return 0;
+  C2F(itosci)(&Blocks[0].nevprt,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   /* 3 - funpt */
-  *ierr=var2sci(&Blocks[0].funpt,0,1,80); /* !!!! */
-  if (*ierr!=0) return 0;
+  C2F(itosci)(&Blocks[0].funpt,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   /* 4 - type */
-  *ierr=var2sci(&Blocks[0].type,1,1,80); /* !!!! */
-  if (*ierr!=0) return 0;
+  C2F(itosci)(&Blocks[0].type,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   /* 5 - scsptr */
-  *ierr=var2sci(&Blocks[0].scsptr,0,1,80); /* !!!! */
-  if (*ierr!=0) return 0;
+  C2F(itosci)(&Blocks[0].scsptr,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   /* 6 - nz */
-  *ierr=var2sci(&Blocks[0].nz,1,1,80);
-  if (*ierr!=0) return 0;
+  C2F(itosci)(&Blocks[0].nz,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   /* 7 - z */
   if(Blocks[0].scsptr>0)
   {
    C2F(vvtosci)(Blocks[0].z,&Blocks[0].nz);
-   if (C2F(scierr)()!=0) return 0; 
+   if (C2F(scierr)()!=0) return 0;
   }
   else
   {
-   *ierr=var2sci(Blocks[0].z,Blocks[0].nz,1,10);
+   *ierr=var2sci(Blocks[0].z,Blocks[0].nz,1,SCSREAL_N);
    if (*ierr!=0) return 0; 
   }
 
-  /* 8 - nx */
-  *ierr=var2sci(&Blocks[0].nx,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 8 - noz */
+  C2F(itosci)(&Blocks[0].noz,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 9 - x */
-  if (flag_imp>=0) *ierr=var2sci(&x[xptr[flag_imp]-1],Blocks[0].nx,1,10);
-  else *ierr=var2sci(Blocks[0].x,Blocks[0].nx,1,10);
+  /* 9 - ozsz */
+  C2F(itosci)(Blocks[0].ozsz,(j=Blocks[0].noz,&j),(k=2,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 10 - oztyp */
+  C2F(itosci)(Blocks[0].oztyp,(j=Blocks[0].noz,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 11 - oz */
+  for (k=0;k<Blocks[0].noz;k++)
+  {
+   nu=Blocks[0].ozsz[k]; /* retrieve number of rows */
+   mu=Blocks[0].ozsz[Blocks[0].noz+k]; /* retrieve number of cols */
+   oz_typ=Blocks[0].oztyp[k]; /* retrieve type */
+   *ierr=var2sci(Blocks[0].ozptr[k],nu,mu,oz_typ);
+   if (*ierr!=0) return 0;
+  }
+  /* if C blocks or null size then concatenate in a single list */
+  if ((funtyp[kfun-1]==4) || (Blocks[0].noz==0))
+  {
+   C2F(mklist)(&Blocks[0].noz); /*create oz list*/
+  }
+
+  /* 12 - nx */
+  C2F(itosci)(&Blocks[0].nx,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 13 - x */
+  if (flag_imp>=0) *ierr=var2sci(&x[xptr[flag_imp]-1],Blocks[0].nx,1,SCSREAL_N);
+  else *ierr=var2sci(Blocks[0].x,Blocks[0].nx,1,SCSREAL_N);
   if (*ierr!=0) return 0; 
 
-  /* 10 - xd */
-  if (flag_imp>=0) *ierr=var2sci(&xd[xptr[flag_imp]-1],Blocks[0].nx,1,10);
-  else *ierr=var2sci(Blocks[0].xd,Blocks[0].nx,1,10);
+  /* 14 - xd */
+  if (flag_imp>=0) *ierr=var2sci(&xd[xptr[flag_imp]-1],Blocks[0].nx,1,SCSREAL_N);
+  else *ierr=var2sci(Blocks[0].xd,Blocks[0].nx,1,SCSREAL_N);
   if (*ierr!=0) return 0; 
 
-  /* 11 - res */
-  *ierr=var2sci(Blocks[0].res,Blocks[0].nx,1,10);
+  /* 15 - res */
+  *ierr=var2sci(Blocks[0].res,Blocks[0].nx,1,SCSREAL_N);
   if (*ierr!=0) return 0;
 
-  /* 12 - nin */
-  *ierr=var2sci(&Blocks[0].nin,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 16 - nin */
+  C2F(itosci)(&Blocks[0].nin,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 13 - insz */
-  *ierr=var2sci(Blocks[0].insz,3*Blocks[0].nin,1,80);
-  if (*ierr!=0) return 0;
+  /* 17 - insz */
+  C2F(itosci)(Blocks[0].insz,(j=3*Blocks[0].nin,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 14 - inptr */
+  /* 18 - inptr */
   for (k=0;k<Blocks[0].nin;k++) 
   {
    nu=Blocks[0].insz[k]; /* retrieve number of rows */
@@ -2309,15 +2798,15 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
   }
   C2F(mklist)(&Blocks[0].nin); /*create inptr list*/
 
-  /* 15 - nout */
-  *ierr=var2sci(&Blocks[0].nout,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 19 - nout */
+  C2F(itosci)(&Blocks[0].nout,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 16 - outsz */
-  *ierr=var2sci(Blocks[0].outsz,3*Blocks[0].nout,1,80);
-  if (*ierr!=0) return 0;
+  /* 20 - outsz */
+  C2F(itosci)(Blocks[0].outsz,(j=3*Blocks[0].nout,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 17 - outptr */
+  /* 21 - outptr */
   for (k=0;k<Blocks[0].nout;k++) 
   {
    ny=Blocks[0].outsz[k]; /* retrieve number of rows */
@@ -2328,19 +2817,19 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
   }
   C2F(mklist)(&Blocks[0].nout); /*create outptr list*/
 
-  /* 18 - nevout */
-  *ierr=var2sci(&Blocks[0].nevout,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 22 - nevout */
+  C2F(itosci)(&Blocks[0].nevout,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 19 - evout */
-  *ierr=var2sci(Blocks[0].evout,Blocks[0].nevout,1,10);
-  if (*ierr!=0) return 0; 
+  /* 23 - evout */
+  *ierr=var2sci(Blocks[0].evout,Blocks[0].nevout,1,SCSREAL_N);
+   if (*ierr!=0) return 0;
 
-  /* 20 - nrpar */
-  *ierr=var2sci(&Blocks[0].nrpar,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 24 - nrpar */
+  C2F(itosci)(&Blocks[0].nrpar,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 21 - rpar */
+  /* 25 - rpar */
   if(Blocks[0].scsptr>0)
   {
    C2F(vvtosci)(Blocks[0].rpar,&Blocks[0].nrpar);
@@ -2348,36 +2837,63 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
   }
   else
   {
-   *ierr=var2sci(Blocks[0].rpar,Blocks[0].nrpar,1,10);
-   if (*ierr!=0) return 0; 
+   *ierr=var2sci(Blocks[0].rpar,Blocks[0].nrpar,1,SCSREAL_N);
+   if (*ierr!=0) return 0;
   }
 
-  /* 22 - nipar */
-  *ierr=var2sci(&Blocks[0].nipar,1,1,80);
+  /* 26 - nipar */
+  C2F(itosci)(&Blocks[0].nipar,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 27 - ipar */
+  C2F(itosci)(Blocks[0].ipar,(j=Blocks[0].nipar,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 28 - nopar */
+  C2F(itosci)(&Blocks[0].nopar,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 29 - oparsz */
+  C2F(itosci)(Blocks[0].oparsz,(j=Blocks[0].nopar,&j),(k=2,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 30 - opartyp */
+  C2F(itosci)(Blocks[0].opartyp,(j=Blocks[0].nopar,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 31 - opar */
+  for (k=0;k<Blocks[0].nopar;k++)
+  {
+   nu=Blocks[0].oparsz[k]; /* retrieve number of rows */
+   mu=Blocks[0].oparsz[Blocks[0].nopar+k]; /* retrieve number of cols */
+   opar_typ=Blocks[0].opartyp[k]; /* retrieve type */
+   *ierr=var2sci(Blocks[0].oparptr[k],nu,mu,opar_typ);
+   if (*ierr!=0) return 0;
+  }
+  /* if C blocks or null size then concatenate in a single list */
+  if ((funtyp[kfun-1]==4) || (Blocks[0].nopar==0))
+  {
+   C2F(mklist)(&Blocks[0].nopar); /*create opar list*/
+  }
+
+  /* 32 - ng */
+  C2F(itosci)(&Blocks[0].ng,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
+
+  /* 33 - g */
+  if (flag_imp>=0) *ierr=var2sci(&g[zcptr[flag_imp]-1],Blocks[0].ng,1,SCSREAL_N);
+  else *ierr=var2sci(Blocks[0].g,Blocks[0].ng,1,SCSREAL_N);
   if (*ierr!=0) return 0;
 
-  /* 23 - ipar */
-  *ierr=var2sci(Blocks[0].ipar,Blocks[0].nipar,1,80);
-  if (*ierr!=0) return 0;
+  /* 34 - ztyp */
+  C2F(itosci)(&Blocks[0].ztyp,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 24 - ng */
-  *ierr=var2sci(&Blocks[0].ng,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 35 - jroot */
+  C2F(itosci)(Blocks[0].jroot,(j=Blocks[0].ng,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 25 - g */
-  if (flag_imp>=0) *ierr=var2sci(&g[zcptr[flag_imp]-1],Blocks[0].ng,1,10);
-  else *ierr=var2sci(Blocks[0].g,Blocks[0].ng,1,10);
-  if (*ierr!=0) return 0;
-
-  /* 26 - ztyp */
-  *ierr=var2sci(&Blocks[0].ztyp,1,1,80);
-  if (*ierr!=0) return 0;
-
-  /* 27 - jroot */
-  *ierr=var2sci(Blocks[0].jroot,Blocks[0].ng,1,80);
-  if (*ierr!=0) return 0;
-
-  /* 28 - label */
+  /* 36 - label */
   if ((str1=MALLOC(sizeof(char*))) ==NULL )  return 0;
   if ((str1[0]=MALLOC(sizeof(char)*(strlen(Blocks[0].label)+1))) ==NULL )  return 0;
   (str1[0])[strlen(Blocks[0].label)]='\0';
@@ -2387,17 +2903,17 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
   FREE(str1);
   if (C2F(scierr)()!=0) return 0; 
 
-  /* 29 - work*/
+  /* 37 - work*/
   C2F(vvtosci)(*Blocks[0].work,(k=0,&k));
   if (C2F(scierr)()!=0) return 0; 
 
-  /* 30 - nmode*/
-  *ierr=var2sci(&Blocks[0].nmode,1,1,80);
-  if (*ierr!=0) return 0;
+  /* 38 - nmode*/
+  C2F(itosci)(&Blocks[0].nmode,(j=1,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
-  /* 31 - mode */
-  *ierr=var2sci(Blocks[0].mode,Blocks[0].nmode,1,80);
-  if (*ierr!=0) return 0;
+  /* 39 - mode */
+  C2F(itosci)(Blocks[0].mode,(j=Blocks[0].nmode,&j),(k=1,&k));
+  if (C2F(scierr)()!=0) return 0;
 
   C2F(mktlist)(&nblklst); /*create Blocks list*/
   if (C2F(scierr)()!=0) return 0;
@@ -2440,6 +2956,9 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp)
  * 13/11/06, Alan : Remove il_sim_save global variable (all in sim
  *                  come from import struct now)
  *                  evtspt & pointi of state come from import struct
+ *
+ * 09/02/07, Alan : Update with oz/opar and restore il_sim_save only for opar
+ *
  */
 
 int intgetscicosvarsc(fname,fname_len)
@@ -2479,20 +2998,22 @@ int intgetscicosvarsc(fname,fname_len)
   int i,j,k;      /* local counter variable                */
 
   /* number of entries -please update me-                        */
-  static int nentries=60;
+  static int nentries=69;
   /* define accepted entries of getscicosvars -please update me- */
-  static char *entry[]={ "x"        , "nx"      , "xptr"     , "zcptr"  , "z"      ,
-                         "nz"       , "zptr"    , "rpar"     , "rpptr"  , "ipar"   ,
-                         "ipptr"    , "outtb"   , "inpptr"   , "outptr" , "inplnk" ,
-                         "outlnk"   , "subs"    , "tevts"    , "evtspt" , "pointi" ,
-                         "iord"     , "oord"    , "zord"     , "funtyp" , "ztyp"   ,
-                         "cord"     , "ordclk"  , "clkptr"   , "ordptr" , "critev" ,
-                         "mod"      , "nmod"    , "iz"       , "nblk"   , "izptr"  ,
-                         "outtbptr" , "outtbsz" , "outtbtyp" , "nlnk"   , "nsubs"  ,
-                         "nevts"    , "niord"   , "noord"    , "nzord"  , "funptr" ,
-                         "ncord"    , "nordptr" , "iwa"      , "blocks" , "ng"     ,
-                         "g"        , "t0"      , "tf"       , "Atol"   , "rtol"   ,
-                         "ttol"     , "deltat"  , "hmax"     , "nelem"  , "outtb_elem"};
+  static char *entry[]={"x"       , "nx"       , "xptr"   , "zcptr"      , "z"        ,
+                        "nz"      , "zptr"     , "noz"    , "oz"         , "ozsz"     ,
+                        "oztyp"   , "ozptr"    , "rpar"   , "rpptr"      , "ipar"     ,
+                        "ipptr"   , "opar"     , "oparsz" , "opartyp"    , "opptr"    ,
+                        "outtb"   , "inpptr"   , "outptr" , "inplnk"     , "outlnk"   ,
+                        "subs"    , "tevts"    , "evtspt" , "pointi"     , "iord"     ,
+                        "oord"    , "zord"     , "funtyp" , "ztyp"       , "cord"     ,
+                        "ordclk"  , "clkptr"   , "ordptr" , "critev"     , "mod"      ,
+                        "nmod"    , "iz"       , "nblk"   , "izptr"      , "outtbptr" ,
+                        "outtbsz" , "outtbtyp" , "nlnk"   , "nsubs"      , "nevts"    ,
+                        "niord"   , "noord"    , "nzord"  , "funptr"     , "ncord"    ,
+                        "nordptr" , "iwa"      , "blocks" , "ng"         , "g"        ,
+                        "t0"      , "tf"       , "Atol"   , "rtol"       , "ttol"     ,
+                        "deltat"  , "hmax"     , "nelem"  , "outtb_elem"};
 
   char **dyn_char; /* for allocation of first entry in tlist */
 
@@ -2622,10 +3143,18 @@ int intgetscicosvarsc(fname,fname_len)
     ierr=CopyVarFromlistentry(j+2,il_state_save,2);
    else if (strcmp(C2F(cha1).buf,"z") == 0)      /* retrieve discrete state */
     ierr=CopyVarFromlistentry(j+2,il_state_save,3);
+   else if (strcmp(C2F(cha1).buf,"oz") == 0)     /* retrieve object discrete state */
+    ierr=CopyVarFromlistentry(j+2,il_state_save,4);
    else if (strcmp(C2F(cha1).buf,"outtb") == 0)  /* retrieve outtb */
-    ierr=CopyVarFromlistentry(j+2,il_state_save,8);
+    ierr=CopyVarFromlistentry(j+2,il_state_save,9);
    else if (strcmp(C2F(cha1).buf,"tevts") == 0)  /* retrieve tevts */
-    ierr=CopyVarFromlistentry(j+2,il_state_save,5);
+    ierr=CopyVarFromlistentry(j+2,il_state_save,6);
+
+   /***************************************************************
+    * entries that can be retrieve by il_sim_save global variable
+    ***************************************************************/
+   if (strcmp(C2F(cha1).buf,"opar") == 0)           /* retrieve object parameters */
+    ierr=CopyVarFromlistentry(j+2,il_sim_save,15);
 
    /*************************************************
     * integer variables coming from import structure
@@ -2651,6 +3180,10 @@ int intgetscicosvarsc(fname,fname_len)
             (strcmp(C2F(cha1).buf,"ng") == 0)       || /* retrieve ng */
             (strcmp(C2F(cha1).buf,"nx") == 0)       || /* retrieve nx */
             (strcmp(C2F(cha1).buf,"nz") == 0)       || /* retrieve nz */
+            (strcmp(C2F(cha1).buf,"noz") == 0)      || /* retrieve noz */
+            (strcmp(C2F(cha1).buf,"ozptr") == 0)    || /* retrieve ozptr */
+            (strcmp(C2F(cha1).buf,"ozsz") == 0)     || /* retrieve ozsz */
+            (strcmp(C2F(cha1).buf,"oztyp") == 0)    || /* retrieve oztyp */
             (strcmp(C2F(cha1).buf,"nelem") == 0)    || /* retrieve nelem */
             (strcmp(C2F(cha1).buf,"xptr") == 0)     || /* retrieve xptr */
             (strcmp(C2F(cha1).buf,"zcptr") == 0)    || /* retrieve zcptr */
@@ -2658,6 +3191,9 @@ int intgetscicosvarsc(fname,fname_len)
             (strcmp(C2F(cha1).buf,"rpptr") == 0)    || /* retrieve rpptr */
             (strcmp(C2F(cha1).buf,"ipar") == 0)     || /* retrieve ipar */
             (strcmp(C2F(cha1).buf,"ipptr") == 0)    || /* retrieve ipptr */
+            (strcmp(C2F(cha1).buf,"opptr") == 0)    || /* retrieve opptr */
+            (strcmp(C2F(cha1).buf,"oparsz") == 0)   || /* retrieve oparsz */
+            (strcmp(C2F(cha1).buf,"opartyp") == 0)  || /* retrieve opartyp */
             (strcmp(C2F(cha1).buf,"inpptr") == 0)   || /* retrieve inpptr */
             (strcmp(C2F(cha1).buf,"outptr") == 0)   || /* retrieve outptr */
             (strcmp(C2F(cha1).buf,"inplnk") == 0)   || /* retrieve inplnk */
@@ -2685,7 +3221,7 @@ int intgetscicosvarsc(fname,fname_len)
     if (ierr==TRUE_)
     {
      l_tmp = I_INT32; /* define type of integer */
-     CreateVar(j+2,"I",&nv,&mv,&l_tmp); /* Create int32 variable at the top+j+1 addr. of the stack */
+     CreateVar(j+2,"I",&nv,&mv,&l_tmp); /* Create int32 variable at the top+j+1 pos in the stack */
      il_tmp = (int *) istk(l_tmp);      /* Store value of address of istk(l_tmp) in il_tmp */
      ptr_int = (int *) ptr;             /* cast void* ptr to int* ptr */
      for (i=0;i<nv*mv;i++) il_tmp[i] = ptr_int[i]; /* copy returned array in istk */
@@ -2787,7 +3323,7 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if (ptr_scsblk[k].x!=&x[xptr[k]-1])
        {
-         /*fprintf(stderr,"k=%d,X,xd Non initialis?n",k);*/
+         /*fprintf(stderr,"k=%d,X,xd Non initialise",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
@@ -2796,13 +3332,13 @@ int intgetscicosvarsc(fname,fname_len)
       {
        if ((ptr_scsblk[k].g!=&g[zcptr[k]-1]) && (ptr_scsblk[k].g!=&x[xptr[k]-1]))
        {
-        /*fprintf(stderr,"k=%d,g Non initialis?n",k);*/
+        /*fprintf(stderr,"k=%d,g Non initialise",k);*/
         /* set flag_imp=k for createblklst <0 */
         i=k;
        }
       }
       /* call createblklist */
-      ierr=createblklist(&ptr_scsblk[k], &errc,i);
+      ierr=createblklist(&ptr_scsblk[k], &errc,i,k+1);
 
       /* if an error occurs in createblklist */
       if (ierr==FALSE_)
@@ -2825,7 +3361,7 @@ int intgetscicosvarsc(fname,fname_len)
   /*******************************************
    * outtb_elem coming from import structure
    *******************************************/
-   else if ((strcmp(C2F(cha1).buf,"outtb_elem") == 0)) /* retrieve outtb_eleme */
+   else if ((strcmp(C2F(cha1).buf,"outtb_elem") == 0)) /* retrieve outtb_elem */
    {
     /* retrieve dims and prt of asked array with getscicosvarsfromimport */
     ierr=getscicosvarsfromimport(C2F(cha1).buf,&ptr,&nv,&mv);
@@ -2843,16 +3379,6 @@ int intgetscicosvarsc(fname,fname_len)
       il_tmp[nv+i] = ptr_elem[i].pos + 1;
      }
     }
-   }
-
-   /* if input argument doesn't match with any accepted string
-    * then display an error message.
-    */
-   else
-   {
-    Scierror(999,"%s : Undefined field.\n",fname);
-    FREE(dyn_char);
-    return 0;
    }
 
    /* if return a FALSE_ value in
@@ -2891,10 +3417,12 @@ int intgetscicosvarsc(fname,fname_len)
  * [nblk]=curblock()
  *
  * rhs : empty
- * lhs : nblk : the current block (int32 scilab object)
+ * lhs : nblk : the current block (double)
  *
  * 20/06/06, Alan : Rewritten from original fortran
  * source code intcurblk in coselm.f.
+ *
+ * 12/02/07 : update lhs to double output
  *
  */
 int intcurblkc(fname,fname_len)
@@ -2917,14 +3445,12 @@ int intcurblkc(fname,fname_len)
   CheckLhs(minlhs,maxlhs);
 
   /************************
-   * Create int32 variable
+   * Create double variable
    ************************/
-  /* define type of integer */
-  l1 = I_INT32;
   /* Create int32 variable at the top addr. of the stack */
-  CreateVar(1,"I",(j=1,&j),(k=1,&k),&l1);
+  CreateVar(1,"d",(j=1,&j),(k=1,&k),&l1);
   /* Store value of C2F(curblk).kfun at the l1 address in istk */
-  *istk(l1) = C2F(curblk).kfun;
+  *stk(l1) = (double)C2F(curblk).kfun;
 
   /* return the value stored at Top address to lhs variable */
   LhsVar(1) = 1;
@@ -2973,7 +3499,8 @@ int intbuildouttb(fname,fname_len)
  int n_lnksz,n_lnktyp;
  int *lnksz=NULL,*lnktyp=NULL;
 
- double *ptr_d,*ptr_dc;
+ double *ptr_d;
+ double *ptr_dc;
  int *ptr_i;
  short *ptr_s;
  char *ptr_c;
