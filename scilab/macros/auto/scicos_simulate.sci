@@ -78,7 +78,7 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
   exec(loadpallibs,-1)
 
   //** set current version of scicos
-  scicos_ver = 'scicos4.0.1'
+  scicos_ver = 'scicos4.0.2'
 
   //** redefine some gui functions
   prot=funcprot();funcprot(0);

@@ -3,7 +3,8 @@ function scs_m=do_version(scs_m,version)
 //translate scicos data structure to new version
 if version<>'scicos2.2'&version<>'scicos2.3'&version<>'scicos2.3.1'&..
    version<>'scicos2.4'&version<>'scicos2.5.1'&version<>'scicos2.7'&..
-   version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4' then
+   version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4'&..
+   version<>'scicos4.0.1' then
 error('No version update defined to '+version+' version')
 end
 
@@ -44,6 +45,59 @@ if version=='scicos4' then
   printf("Done !\n") //to be removed latter
   lines(ncl(2))  //to be removed latter
 end;
+if version=='scicos4.0.1' then
+  ncl=lines()  //to be removed latter
+  lines(0) //to be removed latter
+  printf("Update opar,odstate... ") //to be removed latter
+  scs_m=do_version402(scs_m),version='scicos4.0.2';
+  printf("Done !\n") //to be removed latter
+  lines(ncl(2))  //to be removed latter
+end;
+endfunction
+
+//Add model.opar for all blocks
+function scs_m_new=do_version402(scs_m)
+  scs_m_new=scs_m;
+  n=size(scs_m.objs);
+  mod=scicos_model();
+  for j=1:n //loop on objects
+    o=scs_m.objs(j);
+    if typeof(o)=='Block' then
+      //update model with in2/out2,intyp,outtyp
+      omod=o.model;
+      T=getfield(1,o.model);
+      Ttmp=[];tt=[];
+      for i=1:size(T,2)
+        Ttmp=[Ttmp,T(1,i)];
+        if i>1 then
+         if i<>size(T,2) then
+           tt=[tt+"omod."+T(1,i)+","];
+         else
+           tt=[tt+"omod."+T(1,i)];
+         end
+         if T(1,i)=='ipar' then
+           Ttmp=[Ttmp,'opar'];
+           tt=[tt+"mod.opar,"];
+         end;
+         if T(1,i)=='dstate' then
+           Ttmp=[Ttmp,'odstate'];
+           tt=[tt+"mod.odstate,"];
+         end;
+        end
+      end
+      Ttmp=sci2exp(Ttmp,0);
+      ierr=execstr("omod=tlist("+Ttmp+","+tt+")",'errcatch')
+      if ierr<>0 then
+         error("Problem in convertion of model of block.")
+      end
+      if omod.sim=='super'|omod.sim=='csuper' then
+         rpar=do_version402(omod.rpar)
+         omod.rpar=rpar
+      end
+      o.model=omod;
+      scs_m_new.objs(j)=o;
+     end
+  end
 endfunction
 
 //Update old scopes

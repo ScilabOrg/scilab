@@ -88,19 +88,19 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 	message(['Algebrique loop detected';'on activation links']);
 	cpr=list();return
       end
-    end 
-    
+    end
+
     [ordclk,ordptr,cord,ordoclk,typ_l,clkconnect,connectmat,bllst,dep_t,dep_u,..
      dep_uptr,corinv,clkptr,cliptr,critev,ok]=paksazi(typ_l,clkconnect,..
      connectmat,bllst,dep_t,dep_u,dep_uptr,corinv,clkptr,cliptr,critev)
-    
+
     if ~ok then 
       cpr=list()
       return
     end
-    
+
     clkconnect=cleanup(clkconnect)
-    
+
   else
     blocs_traites=[]
     //on ordonnance les blocs
@@ -130,7 +130,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
       primary=gsort(primary,'lr','i')
       vecordo=vec(primary(:,1))
       ordoclk0=ordo_vecport(primary,vecordo)
-      cord=ordoclk0; 
+      cord=ordoclk0;
 //      ordoclkcont=ordoclk0
     end
 
@@ -151,23 +151,24 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 	  [ordptr,ordclk,blocs_traites]=set_ordclk(ordclk,ordoclk0,..
 						   ordoclk(k),j,ordptr,blocs_traites)
           ordoclk=set_primary_clkport(ordoclk,ordoclk0,k)
-	end      
+	end
       end
-      k=k+1      
+      k=k+1
     end
   end
-  
+
   if show_pause then 
     disp('fin de paksazi')
     pause
   end
-  
+
   if show_trace then disp('c_pass31:'+string(timer())),end
-  
+
   //extract various info from bllst
-  [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_mod,rpptr,..
-   ipptr,xc0,xcd0,xd0,rpar,ipar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,bexe,boptr,..
-   blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l);
+  [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
+   ozptr,typ_mod,rpptr,ipptr,opptr,xc0,xcd0,xd0,oxd0,rpar,..
+   ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,..
+   bexe,boptr,blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l);
   typ_z0=typ_z;
 
   if ~ok then
@@ -194,12 +195,12 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   [ordclk,iord,oord,zord,typ_z,ok]=scheduler(inpptr,outptr,clkptr,execlk_cons,..
    outoin,outoinptr,evoutoin,evoutoinptr,typ_z,typ_x,typ_l,bexe,boptr,blnk,blptr,..
    ordclk,ordptr,cord,dep_t,dep_u,dep_uptr);
-  
+
   if ~ok then 
     cpr=list()
     return,
   end
-  
+
   if show_trace then disp('c_pass51:'+string(timer())),end
   //form scicos arguments
 
@@ -211,7 +212,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
     zcptr(i+1)=zcptr(i)+typ_z(i)
     modptr(i+1)=modptr(i)+sign(typ_z(i))*typ_mod(i);
   end
-  
+
   ztyp=sign(typ_z0)  //completement inutile pour simulation
                      // utiliser pour la generation de code
 	
@@ -225,15 +226,15 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 
   subscr=[]
   ncblk=0;nxblk=0;ndblk=0;ndcblk=0;
-  sim=scicos_sim(funs=funs,xptr=xptr,zptr=zptr,zcptr=zcptr,..
-                 inpptr=inpptr,outptr=outptr,inplnk=inplnk,..
-                 outlnk=outlnk,rpar=rpar,rpptr=rpptr,..
-                 ipar=ipar,ipptr=ipptr,clkptr=clkptr,ordptr=ordptr,..
-                 execlk=ordclk,ordclk=ordclk,..
-                 cord=cord,oord=oord,zord=zord,critev=critev(:),..
-                 nb=nb,ztyp=ztyp,nblk=nblk,ndcblk=ndcblk,..
-                 subscr=subscr,funtyp=funtyp,iord=iord,..
-                 labels=labels,modptr=modptr);
+  sim=scicos_sim(funs=funs,xptr=xptr,zptr=zptr,ozptr=ozptr,..
+                 zcptr=zcptr,inpptr=inpptr,outptr=outptr,..
+                 inplnk=inplnk,outlnk=outlnk,rpar=rpar,rpptr=rpptr,..
+                 ipar=ipar,ipptr=ipptr,opar=opar,opptr=opptr,..
+                 clkptr=clkptr,ordptr=ordptr,execlk=ordclk,..
+                 ordclk=ordclk,cord=cord,oord=oord,zord=zord,..
+                 critev=critev(:),nb=nb,ztyp=ztyp,nblk=nblk,..
+                 ndcblk=ndcblk,subscr=subscr,funtyp=funtyp,..
+                 iord=iord,labels=labels,modptr=modptr);
 
   //initialize agenda
   [tevts,evtspt,pointi]=init_agenda(initexe,clkptr)
@@ -245,7 +246,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   outtb=buildouttb(lnksz,lnktyp);
 
   iz0=zeros(nb,1);
-	     
+
   if max(funtyp)>10000 &%scicos_solver==0 then
     message(['Diagram contains implicit blocks,'
 	     'compiling for implicit Solver'])
@@ -255,13 +256,14 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   state=scicos_state()
   state.x=xc0
   state.z=xd0
+  state.oz=oxd0
   state.iz=iz0
   state.tevts=tevts
   state.evtspt=evtspt
   state.pointi=pointi
   state.outtb=outtb
   //  state.mod=mod
-		     
+
   cpr=scicos_cpr(state=state,sim=sim,cor=cor,corinv=corinv);
 
   if show_trace then disp('c_pass71:'+string(timer())),end
@@ -2276,17 +2278,21 @@ function a=mysum(b)
   if b<>[] then a=sum(b), else a=[], end
 endfunction
 
-function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_mod,rpptr,..
-          ipptr,xc0,xcd0,xd0,rpar,ipar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,..
-	  bexe,boptr,blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l)
+function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
+          ozptr,typ_mod,rpptr,ipptr,opptr,xc0,xcd0,xd0,oxd0,rpar,..
+          ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,..
+          bexe,boptr,blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l)
   ok=%t
   nbl=length(bllst)
   clkptr=zeros(nbl+1,1);clkptr(1)=1
   cliptr=clkptr;inpptr=cliptr;outptr=inpptr;
-  xptr=1;zptr=1;
-  rpptr=clkptr;ipptr=clkptr;
+  xptr=1;zptr=1;ozptr=1;
+  rpptr=clkptr;ipptr=clkptr;opptr=clkptr;
   //
-  xc0=[];xcd0=[];xd0=[];rpar=[];ipar=[];
+  xc0=[];xcd0=[];xd0=[];
+  oxd0=list()
+  rpar=[];ipar=[];
+  opar=list();
 
   fff=ones(nbl,1)==1
   typ_z=zeros(nbl,1);typ_x=fff;typ_m=fff;typ_mod=zeros(nbl,1);
@@ -2298,11 +2304,12 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
   [ok,bllst]=adjust_inout(bllst,connectmat)
 
   // placed here to make sure nzcross and nmode correctly updated
-  if ~ok then 
+  if ~ok then
     lnksz=[],lnktyp=[],inplnk=[],outlnk=[],clkptr=[],cliptr=[],inpptr=[],outptr=[],..
-    xptr=[],zptr=[],rpptr=[],ipptr=[],xc0=[],xcd0=[],xd0=[],rpar=[],ipar=[],..
-    typ_z=[],typ_x=[],typ_m=[],funs=[],funtyp=[],initexe=[],labels=[],..
-    bexe=[],boptr=[],blnk=[],blptr=[],
+    xptr=[],zptr=[],ozptr=[],rpptr=[],ipptr=[],opptr=[],xc0=[],..
+    xcd0=[],xd0=[],oxd0=list(),rpar=[],ipar=[],opar=list(),..
+    typ_z=[],typ_x=[],typ_m=[],funs=[],funtyp=[],initexe=[],..
+    labels=[],bexe=[],boptr=[],blnk=[],blptr=[]
     return;
   end
   for i=1:nbl
@@ -2340,6 +2347,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
       xptr(i+1)=xptr(i)+size(ll.state,'*')/2
     end
 
+    //dstate
     if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
       if ll.dstate==[] then xd0k=[]; else xd0k=var2vec(ll.dstate);end
     else
@@ -2347,6 +2355,33 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
     end
     xd0=[xd0;xd0k]
     zptr(i+1)=zptr(i)+size(xd0k,'*')
+
+    //odstate
+    if type(ll.odstate)==15 then
+      if ((funtyp(i,1)==5) | (funtyp(i,1)==10005)) then //sciblocks : don't extract
+        if lstsize(ll.odstate)>0 then
+          oxd0($+1)=ll.odstate
+          ozptr(i+1)=ozptr(i)+1;
+        else
+          ozptr(i+1)=ozptr(i);
+        end
+      elseif ((funtyp(i,1)==4) | (funtyp(i,1)==10004))  //C blocks : extract
+        ozsz=lstsize(ll.odstate);
+        if ozsz>0 then
+          for j=1:ozsz, oxd0($+1)=ll.odstate(j), end;
+          ozptr(i+1)=ozptr(i)+ozsz;
+        else
+          ozptr(i+1)=ozptr(i);
+        end
+      else
+        ozptr(i+1)=ozptr(i);
+      end
+    else
+      //add an error message here please !
+      ozptr(i+1)=ozptr(i);
+    end
+
+    //mod
     typ_mod(i)=ll.nmode;
     if typ_mod(i)<0 then
       message('Number of modes in block '+string(i)+'cannot b"+...
@@ -2354,7 +2389,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
       ok=%f
     end
 
-    //  
+    //real paramaters
     if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
       if ll.rpar==[] then rpark=[]; else rpark=var2vec(ll.rpar);end
     else
@@ -2362,13 +2397,40 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,typ_m
     end
     rpar=[rpar;rpark]
     rpptr(i+1)=rpptr(i)+size(rpark,'*')
+
+    //integer parameters
     if type(ll.ipar)==1 then
       ipar=[ipar;ll.ipar(:)]
       ipptr(i+1)=ipptr(i)+size(ll.ipar,'*')
     else
       ipptr(i+1)=ipptr(i)
     end
-    //
+
+    //object parameters
+    if type(ll.opar)==15 then
+     if ((funtyp(i,1)==5) | (funtyp(i,1)==10005)) then //sciblocks : don't extract
+        if lstsize(ll.opar)>0 then
+         opar($+1)=ll.opar
+         opptr(i+1)=opptr(i)+1;
+        else
+         opptr(i+1)=opptr(i);
+        end
+     elseif ((funtyp(i,1)==4) | (funtyp(i,1)==10004)) then //C blocks : extract
+       oparsz=lstsize(ll.opar);
+       if oparsz>0 then
+         for j=1:oparsz, opar($+1)=ll.opar(j), end;
+         opptr(i+1)=opptr(i)+oparsz;
+       else
+         opptr(i+1)=opptr(i);
+       end
+     else
+       opptr(i+1)=opptr(i);
+     end
+    else
+      //add an error message here please !
+      opptr(i+1)=opptr(i);
+    end
+
     //    typ_z(i)=ll.blocktype=='z'
     typ_z(i)=ll.nzcross
     if typ_z(i)<0 then

@@ -50,14 +50,16 @@ if ~ok then return; end
 
 [lnksz,lnktyp]=lnkptrcomp(bllst,inpptr,outptr,inplnk,outlnk)
 //
-xptr=1;zptr=1;rpptr=1;ipptr=1;xc0=[];xcd0=[];xd0=[];
-rpar=[];ipar=[];initexe=[];funtyp=[];labels=[];
+xptr=1;zptr=1;ozptr=1;rpptr=1;ipptr=1;opptr=1;
+xc0=[];xcd0=[];xd0=[];oxd0=list();
+rpar=[];ipar=[];opar=list();initexe=[];funtyp=[];labels=[];
 //
 for i=1:length(bllst)
   ll=bllst(i)
   labels=[labels;ll.label];
   if type(ll.sim)==15 then funtyp(i,1)=ll.sim(2); else funtyp(i,1)=0;end
-  //
+
+  //state
   X0=ll.state(:)
   if funtyp(i,1)<10000 then
     xcd0=[xcd0;0*X0]
@@ -69,6 +71,7 @@ for i=1:length(bllst)
     xptr(i+1)=xptr(i)+size(ll.state,'*')/2
   end
 
+  //discrete state
   if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
      if ll.dstate==[] then xd0k=[]; else xd0k=var2vec(ll.dstate);end
   else
@@ -77,21 +80,73 @@ for i=1:length(bllst)
   xd0=[xd0;xd0k];
   zptr=[zptr;zptr($)+size(xd0k,'*')]
 
+  //object discrete state
+  if type(ll.odstate)==15 then
+    if ((funtyp(i,1)==5) | (funtyp(i,1)==10005)) then //sciblocks : don't extract
+      if lstsize(ll.odstate)>0 then
+        oxd0($+1)=ll.odstate
+        ozptr=[ozptr;ozptr($)+1];
+      else
+        ozptr=[ozptr;ozptr($)];
+      end
+    elseif ((funtyp(i,1)==4) | (funtyp(i,1)==10004))  //C blocks : extract
+      ozsz=lstsize(ll.odstate);
+      if ozsz>0 then
+        for j=1:ozsz, oxd0($+1)=ll.odstate(j), end;
+        ozptr=[ozptr;ozptr($)+ozsz];
+      else
+        ozptr=[ozptr;ozptr($)];
+      end
+    else
+      ozptr=[ozptr;ozptr($)];
+    end
+  else
+    //add an error message here please !
+    ozptr=[ozptr;ozptr($)];
+  end
+
+  //rpar
   if (funtyp(i,1)==3 | funtyp(i,1)==5 | funtyp(i,1)==10005) then //sciblocks
     if ll.rpar==[] then rpark=[]; else rpark=var2vec(ll.rpar);end
   else
     rpark=ll.rpar(:)
   end
   rpar=[rpar;rpark]
-
   rpptr=[rpptr;rpptr($)+size(rpark,'*')]
-  //
+
+  //ipar
   if type(ll.ipar)==1 then
     ipar=[ipar;ll.ipar(:)]
     ipptr=[ipptr;ipptr($)+size(ll.ipar,'*')]
   else
     ipptr=[ipptr;ipptr($)]
   end
+
+  //opar
+  if type(ll.opar)==15 then
+    if ((funtyp(i,1)==5) | (funtyp(i,1)==10005)) then //sciblocks : don't extract
+      if lstsize(ll.opar)>0 then
+        opar($+1)=ll.opar
+        opptr=[opptr;opptr($)+1];
+       else
+         opptr=[opptr;opptr($)];
+       end
+    elseif ((funtyp(i,1)==4) | (funtyp(i,1)==10004)) then //C blocks : extract
+      oparsz=lstsize(ll.opar);
+      if oparsz>0 then
+        for j=1:oparsz, opar($+1)=ll.opar(j), end;
+        opptr=[opptr;opptr($)+oparsz];
+      else
+        opptr=[opptr;opptr($)];
+      end
+    else
+      opptr=[opptr;opptr($)];
+    end
+  else
+    //add an error message here please !
+    opptr=[opptr;opptr($)];
+  end
+
   //
   if ll.evtout<>[] then
     ll11=ll.firing
@@ -111,6 +166,7 @@ end
 
 sim.xptr=xptr
 sim.zptr=zptr
+sim.ozptr=ozptr
 
 sim.inpptr=inpptr
 sim.outptr=outptr
@@ -120,6 +176,8 @@ sim.rpar=rpar
 sim.rpptr=rpptr
 sim.ipar=ipar
 sim.ipptr=ipptr
+sim.opar=opar
+sim.opptr=opptr
 sim.clkptr=clkptr
 sim.labels=labels
 cpr.sim=sim;
@@ -140,6 +198,7 @@ iz0=zeros(nb,1);
 state=cpr.state
 state.x=xc0;
 state.z=xd0;
+state.oz=oxd0;
 state.iz=iz0;
 state.tevts=tevts;
 state.evtspt=evtspt;

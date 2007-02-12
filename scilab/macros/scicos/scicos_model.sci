@@ -13,6 +13,8 @@ function model=scicos_model(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v
   if exists('evtout','local')==0 then evtout=[],end
   if exists('state','local')==0 then state=[],end
   if exists('dstate','local')==0 then dstate=[],end
+  if exists('odstate','local')==0 then odstate=list(),end
+  if exists('opar','local')==0 then opar=list(),end
   if exists('rpar','local')==0 then rpar=[],end
   if exists('ipar','local')==0 then ipar=[],end
   if exists('blocktype','local')==0 then blocktype='c',end
@@ -24,9 +26,9 @@ function model=scicos_model(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v
   if exists('equations','local')==0 then equations=list(),end
 
   model=mlist(['model','sim','in','in2','intyp','out','out2','outtyp',...
-               'evtin','evtout','state','dstate','rpar','ipar',...
+               'evtin','evtout','state','dstate','odstate','rpar','ipar','opar'...
                'blocktype','firing','dep_ut','label','nzcross',..
                'nmode','equations'],..
-               sim,in,in2,intyp,out,out2,outtyp,evtin,evtout,state,dstate,..
-               rpar,ipar,blocktype,firing,dep_ut,label,nzcross,nmode,equations)
+               sim,in,in2,intyp,out,out2,outtyp,evtin,evtout,state,dstate,odstate,..
+               rpar,ipar,opar,blocktype,firing,dep_ut,label,nzcross,nmode,equations)
 endfunction

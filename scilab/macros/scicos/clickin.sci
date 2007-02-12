@@ -79,9 +79,12 @@ if typeof(o)=='Block' then
   
   //**--------------------- Standard block -------------------------------  
   else
-  
+
     execstr('o_n='+o.gui+'(''set'',o)') ;
-    edited = or(o<>o_n) ;
+    //Alan - 09/02/07 : replace <> operator by ~isequal
+    //because <> operator crash for sublist with int elements
+    //edited = or(o<>o_n) ;
+    edited = ~isequal(o,o_n) ;
     if edited then
       model = o.model
       model_n = o_n.model
@@ -89,10 +92,13 @@ if typeof(o)=='Block' then
 	modified=or(model.sim<>model_n.sim)|..
 		 ~isequal(model.state,model_n.state)|..
 		 ~isequal(model.dstate,model_n.dstate)|..
+		 ~isequal(model.odstate,model_n.odstate)|..
 		 ~isequal(model.rpar,model_n.rpar)|..
 		 ~isequal(model.ipar,model_n.ipar)|..
+		 ~isequal(model.opar,model_n.opar)|..
 		 ~isequal(model.label,model_n.label)
 	if or(model.in<>model_n.in)|or(model.out<>model_n.out)|...
+	   or(model.in2<>model_n.in2)|or(model.out2<>model_n.out2)|...
            or(model.outtyp<>model_n.outtyp)|or(model.intyp<>model_n.intyp) then
 	  // input or output port sizes or type changed
 	  needcompile=1

@@ -199,7 +199,7 @@ end //** end of the main if() not superblock
 
 //** ------------------------------------ End the NOT-Superbloc initialization and check ----------------------------------------
 
-scicos_ver = 'scicos4.0.1' // set current version of scicos
+scicos_ver = 'scicos4.0.2' // set current version of scicos
 
 Main_Scicos_window = 1000 ; //** set default value of the main scicos window
 
