@@ -25,7 +25,7 @@ function [wa,ha] = do_export(scs_m, fname, titleflag)
   //** this handle is modified iin cause of graphics output 
   gh_winc =   gh_current_window ; //** get the handle of the current active window
   
-  //** winc = gh_winc.figure_id
+  winc = gh_winc.figure_id
   gh_axes = gh_winc.children ; //** axes handle
   
   
