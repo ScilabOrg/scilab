@@ -153,9 +153,40 @@ function gh_blk = drawobj(o, gh_window)
     //**  ------ Put the new graphics here -----------
     //**
     o_size = size ( gh_curwin.children.children ) ; //** initial size
+    exe_string = o.gui+'(''plot'',o)' ;
+    // disp("Before plot"); pause
     execstr(o.gui+'(''plot'',o)') ;
-    rect=stringbox(gh_curwin.children.children(1))                     ;
-    xrect(rect(1,2),rect(2,2),rect(1,3)-rect(1,2),rect(2,2)-rect(2,4)) ;
+    // disp("After plot"); pause
+    
+    //** "stringbox" in ver 4.1 it is not compatible with multiple string
+    //** plot because is not able to handle "Compound" graphics object 
+    //** This code patch the limited functionality of stringbox() with 
+    //** a double loop that scan all the elements of the Compound in order to
+    //** compute the rectangle that include all the strings  
+    //** rect = stringbox(gh_curwin.children.children(1))                     ;
+    //** xrect(rect(1,2),rect(2,2),rect(1,3)-rect(1,2),rect(2,2)-rect(2,4)) ;
+     
+    if gh_curwin.children.children(1).type == 'Compound' then 
+    
+       matrix_dim = size(gh_curwin.children.children(1).children)
+       imax = matrix_dim(1); jmax = matrix_dim(2);
+       xvec = [] ; yvec = [] ; 
+       for i=1:imax
+          for j=1:jmax
+	    rect = stringbox( gh_curwin.children.children(1).children(i,j) ) 
+            xvec = [xvec rect(1,2) rect(1,3)]
+	    yvec = [yvec rect(2,2) rect(2,4)]
+	  end
+       end
+       xmin = min(xvec) ; xmax = max(xvec) ;
+       ymin = min(yvec) ; ymax = max(yvec) ;
+       xrect( xmin, ymax, xmax-xmin, ymax-ymin ) ;   
+    
+    else //** single string 
+       rect = stringbox(gh_curwin.children.children(1)) 
+       xrect(rect(1,2),rect(2,2),rect(1,3)-rect(1,2),rect(2,2)-rect(2,4)) ;
+    end
+    
     gh_e = gce()                  ; //** get the "select box" handle
     gh_e.mark_background = -1     ; //**
     gh_e.mark_style = 11          ;
