@@ -92,17 +92,19 @@ function window_set_size(gh_window, viewport)
     //** Beware ! : I'm forced to use old graphics instructions because there are not
     //**            direct equivalent inside the new graphics (24 may 2006)
     //**         
-    viewport = [%XSHIFT, %YSHIFT]; 
-    set_viewport(viewport) ; //**
-
+   
   else
     //** If the variable is passed  
     %XSHIFT = viewport(1) ;
     %YSHIFT = viewport(2) ;
+    
     //** The function is NOT called beause the arguments are not modified ;)
   
   end 
   
+   viewport = [%XSHIFT, %YSHIFT]; 
+    set_viewport(viewport) ; //**
+
   xselect(); //** put the current window in foreground
 
 endfunction
