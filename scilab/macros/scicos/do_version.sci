@@ -104,6 +104,11 @@ endfunction
 function scs_m_new=do_version401(scs_m)
   scs_m_new=scs_m;
   n=size(scs_m.objs);
+  %scicos_context=struct()
+  [%scicos_context,ierr]=script2var(scs_m.props.context,%scicos_context)
+  if ierr<>0 then
+   error("Problem in update of Scope : can''t read context");
+  end
   for j=1:n //loop on objects
     o=scs_m.objs(j);
     if typeof(o)=='Block' then
@@ -132,7 +137,11 @@ function scs_m_new=do_version401(scs_m)
         scs_m_new.objs(j).gui='CMSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cmscope', 4)
-        A=evstr(scs_m_new.objs(j).graphics.exprs(1));
+        [AA,ierr]=context_evstr(scs_m_new.objs(j).graphics.exprs(1),%scicos_context);
+        if ierr<>0 then
+         error("Problem in update of MSCOPE_f : can''t read context");
+        end
+        A=AA(1)
         A=A(:);
         A=A';
  	nb_A=size(A,2);
@@ -194,7 +203,11 @@ function scs_m_new=do_version401(scs_m)
 	scs_m_new.objs(j).model.ipar = [scs_m_new.objs(j).model.ipar(:);1]
       elseif o.gui=='CMSCOPE' then
 	scs_m_new.objs(j).model.dstate=[]
-        A=evstr(scs_m_new.objs(j).graphics.exprs(1));
+        [AA,ierr]=context_evstr(scs_m_new.objs(j).graphics.exprs(1),%scicos_context);
+        if ierr<>0 then
+         error("Problem in update of CMSCOPE_f : can''t evaluate variable");
+        end
+        A=AA(1)
         A=A(:);
         A=A';
  	nb_A=size(A,2);
