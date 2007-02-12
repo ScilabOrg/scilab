@@ -30,10 +30,10 @@ c
 c    sctree  sci_tree2  sci_tree3   sci_tree4   realtimeinit
 c       6        7          8           9            10
 c
-c    realtime
-c      11
+c    realtime curblock
+c      11        12
 c
-      goto (1,2,3,4,5,6,7,8,9,10,11) fin
+      goto (1,2,3,4,5,6,7,8,9,10,11,12) fin
 c
 c     var2vec
  1    continue
@@ -141,11 +141,37 @@ c     [...]=realtime(...)
 c
       call intsrealtime(fname)
       goto 998
-
+c
+c     curblock
+ 12   continue
+      call intcurblk
+      goto 999
  998  if(.not.putlhsvar())return
  999  return
       end
 
+c     ********************
+      subroutine intcurblk
+c
+c
+      include '../stack.h'
+      integer kfun
+      common /curblk/ kfun
+      integer iadr, sadr
+      iadr(l)=l+l-1
+      sadr(l)=(l/2)+1
+
+      top=top+1
+      il=iadr(lstk(top))
+      istk(il)=1
+      istk(il+1)=1
+      istk(il+2)=1
+      istk(il+3)=0
+      l=sadr(il+4)
+      stk(l)=kfun
+      lstk(top+1)=l+1
+      return
+      end
 
 c     **********************
       subroutine intgetlabel

@@ -10,3 +10,4 @@
 {"sci_tree4",		IN_intcos,	9,	2},
 {"realtimeinit",	IN_intcos,	10,	2},
 {"realtime",		IN_intcos,	11,	2},
+{"curblock",		IN_intcos,	12,	2},

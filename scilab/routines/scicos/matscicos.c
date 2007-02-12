@@ -40,7 +40,7 @@ static intcscicosTable Tab[]={
   {inttree4,"ctree4"},
   {intscicosimc,"scicosim"},
   {intgetscicosvarsc,"getscicosvars"},
-  {intcurblkc,"curblock"},
+  {intcurblkc,"curblockc"},
   {intbuildouttb,"buildouttb"},
   {intpermutobj_c,"permutobj"},
 };

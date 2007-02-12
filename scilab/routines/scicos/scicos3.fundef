@@ -11,7 +11,7 @@
 {"ctree4",			IN_intcscicos,	10,	2},
 {"scicosim",			IN_intcscicos,	11,	3},
 {"getscicosvars",		IN_intcscicos,	12,	3},
-{"curblock",			IN_intcscicos,	13,	3},
+{"curblockc",			IN_intcscicos,	13,	3},
 {"buildouttb",			IN_intcscicos,	14,	3},
 {"permutobj",			IN_intcscicos,	15,	3},
 
