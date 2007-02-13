@@ -1,4 +1,4 @@
-scicos_ver = "scicos4.0.1"
+scicos_ver = "scicos4.0.2"
 scs_m=scicos_diagram()
 scs_m.props=tlist(..
 ["params","wpar","title","tol","tf","context","void1","options","void2","void3",..
@@ -116,7 +116,7 @@ scs_m.objs(8)=mlist(["Block","graphics","model","gui","doc"],..
               "evtout","state","dstate","odstate","rpar","ipar","opar",..
               "blocktype","firing","dep_ut","label","nzcross","nmode",..
               "equations"],list("extract",4),-1,-2,1,1,1,1,[],[],[],[],list(),[],..
-              [1;1;1;1],list(),"c",[],[%t,%f],"",0,0,list()),"EXTRACT",list())
+              [1,1,1,1],list(),"c",[],[%t,%f],"",0,0,list()),"EXTRACT",list())
 scs_m.objs(9)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
