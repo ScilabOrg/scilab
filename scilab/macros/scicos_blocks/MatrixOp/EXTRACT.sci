@@ -18,7 +18,9 @@ case 'set' then
   if size(label,'*')==14 then label(9)=[],end //compatiblity
   while %t do
     [ok,typ,a,b,exprs]=getvalue('Set EXTRACT Block',..
-	    ['Datatype (1=real double  2=Complex)';'Lines to extract';'Columns to extract'],list('vec',1,'mat',[-1 1],'mat',[-1 1]),label)
+	    ['Datatype (1=real double  2=Complex)';'Lines to extract';'Columns to extract'],list('vec',1,'mat',[1 -1],'mat',[1 -1]),label)
+    a=a(:);
+    b=b(:);
     if ~ok then break,end
     if (typ==1) then
 	junction_name='extract';
@@ -66,7 +68,7 @@ case 'define' then
   model.state=[]
   model.dstate=[]
   model.rpar=[]
-  model.ipar=[1;1;1;1]
+  model.ipar=[1 1 1 1]
   model.blocktype='c' 
   model.firing=[]
   model.dep_ut=[%t %f]
