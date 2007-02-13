@@ -31,10 +31,10 @@ return;end
 //                   'pol' : stands for polynomials
 //                   'r'   : stands for rational
 //            dimi : defines the size of the ith required value
-//                   it must be 
-//                    - an integer or a 2-vector of integers (-1 stands for 
+//                   it must be
+//                    - an integer or a 2-vector of integers (-1 stands for
 //                      arbitrary dimension)
-//                    - an evaluatable character string 
+//                    - an evaluatable character string
 //  ini     : n column vector of strings, ini(i) gives the suggested
 //            response for the ith required value
 //  %ok      : boolean ,%t if %ok button pressed, %f if cancel button pressed
@@ -54,6 +54,11 @@ return;end
 //%See also
 // x_mdialog, dialog
 //!
+// 17/01/07 -Alan- - %scicos_context behavior reviewed in accordance to context_evstr macro
+//                 - pass int in field of type vec/mat/row/col (F. Nassif's Work)
+//
+// 05/02/07 -Alan- : update to %20 rhs parameters
+//
 // Copyright INRIA
 [%lhs,%rhs]=argn(0)
 

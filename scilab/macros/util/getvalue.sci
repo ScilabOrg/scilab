@@ -21,10 +21,10 @@ function [%ok,%1,%2,%3,%4,%5,...
 //                   'pol' : stands for polynomials
 //                   'r'   : stands for rational
 //            dimi : defines the size of the ith required value
-//                   it must be 
-//                    - an integer or a 2-vector of integers (-1 stands for 
+//                   it must be
+//                    - an integer or a 2-vector of integers (-1 stands for
 //                      arbitrary dimension)
-//                    - an evaluatable character string 
+//                    - an evaluatable character string
 //  ini     : n column vector of strings, ini(i) gives the suggested
 //            response for the ith required value
 //  %ok      : boolean ,%t if %ok button pressed, %f if cancel button pressed
@@ -44,10 +44,14 @@ function [%ok,%1,%2,%3,%4,%5,...
 //%See also
 // x_mdialog, x_dialog
 //!
-// 17/01/07 -Alan- : this version of getvalue is different of scilab 4.1
-//         %scicos_context behavior reviewed in accordance to context_evstr
-//         pass int in field of type vec/mat/row/col
-//05/02/07 : update to %20 rhs parameters
+// 17/01/07 -Alan- This version of getvalue is different of scilab 4.1 :
+//         - %scicos_context behavior reviewed in accordance to context_evstr macro
+//         - (u)int(8/16/32) allowed in field of type vec/mat/row/col (F. Nassif's Work)
+//
+// 05/02/07 -Alan- : update to %20 rhs parameters
+//
+// 12/02/07 -Alan- : fix (variable evaluation of %scicos_context)
+//
 // Copyright INRIA
 [%lhs,%rhs]=argn(0)
 
@@ -75,6 +79,18 @@ while %t do
       %str(%kk)=ascii(%cod)
     end
   end
+
+  if exists('%scicos_context')
+    %mm=getfield(1,%scicos_context)
+    for %mi=%mm(3:$)
+     if execstr(%mi+'=%scicos_context(%mi)','errcatch')<>0 then
+       disp(lasterror())
+       %ok=%f
+       return
+     end
+    end
+  end
+
   %nok=0
   for %kk=1:%nn
     select part(%typ(2*%kk-1),1:3)
