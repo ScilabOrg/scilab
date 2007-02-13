@@ -1,6 +1,6 @@
 function routines=create_palette(Path)
   load SCI/macros/scicos/lib;
-  scicos_ver='scicos4.0.1'
+  scicos_ver='scicos4.0.2'
   rhs=argn(2)
   if rhs==1 then
     Path=pathconvert(Path,%t,%t)
