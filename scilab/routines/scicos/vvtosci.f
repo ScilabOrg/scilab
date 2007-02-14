@@ -4,14 +4,14 @@ c     x is supposed to be a fortran image of var2vec result
 c
 c     Copyright INRIA
       double precision x(*)
-c
-      iadr(l) = l + l - 1
-c
       integer  l
-      integer  il
 c
       external dcopy, error
       include "../stack.h"
+c
+      integer iadr
+c
+      iadr(l) = l + l - 1
 c
       if (top .ge. bot) then
         call error(18)
