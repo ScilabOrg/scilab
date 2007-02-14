@@ -184,6 +184,32 @@ extern int s_cmp();
   * 36 - GetDsatePtrs(blk)
   *
   * 37 - GetNev(blk)
+
+  * 38 - GetNopar(blk)
+  * 39 - GetOparType(blk,x)
+  * 40 - GetOparSize(blk,x,y)
+  * 41 - GetOparPtrs(blk,x)
+  * 42 - GetRealOparPtrs(blk,x)
+  * 43 - GetImagOparPtrs(blk,x)
+  * 44 - Getint8OparPtrs(blk,x)
+  * 45 - Getint16OparPtrs(blk,x)
+  * 46 - Getint32OparPtrs(blk,x)
+  * 47 - Getuint8OparPtrs(blk,x)
+  * 48 - Getuint16OparPtrs(blk,x)
+  * 49 - Getuint32OparPtrs(blk,x)
+  * 50 - GetNoz(blk)
+  * 51 - GetOzType(blk,x)
+  * 52 - GetOzSize(blk,x,y)
+  * 53 - GetOzPtrs(blk,x)
+  * 54 - GetRealOzPtrs(blk,x)
+  * 55 - GetImagOzPtrs(blk,x)
+  * 56 - Getint8OzPtrs(blk,x)
+  * 57 - Getint16OzPtrs(blk,x)
+  * 58 - Getint32OzPtrs(blk,x)
+  * 59 - Getuint8OzPtrs(blk,x)
+  * 60 - Getuint16OzPtrs(blk,x)
+  * 61 - Getuint32OzPtrs(blk,x)
+
   */
 
 /**
@@ -381,5 +407,141 @@ extern int s_cmp();
    \brief Get Nevprt of the block
 */
 #define GetNev(blk) (blk->nevprt)
+
+/**
+   \brief Get Number of Object Parameters
+*/
+#define GetNopar(blk) (blk->nopar)
+
+/**
+   \brief Get Type of Object Parameters
+*/
+#define GetOparType(blk,x) (((x>0)&(x<=blk->nopar)) ? (blk->opartyp[x-1]) : 0)
+
+/**
+   \brief Get Size of Object Parameters
+
+*/
+/*  usage :
+ *   GetOparSize(blk,x,1) : get first dimension of opar
+ *   GetOparSize(blk,x,2) : get second dimension of opar
+ */
+#define GetOparSize(blk,x,y) (((x>0)&(x<=blk->nopar)) ? \
+                              ((((y)>0)&((y)<=2)) ? (blk->oparsz[(y-1)*blk->nopar+(x-1)]) : 0) : 0)
+
+/**
+   \brief Get Pointer of Object Parameters
+*/
+#define GetOparPtrs(blk,x) (((x>0)&(x<=blk->nopar)) ? (blk->oparptr[x-1]) : 0)
+
+/**
+   \brief Get Pointer of Real Object Parameters
+*/
+#define GetRealOparPtrs(blk,x) (SCSREAL_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of Imaginary Part of Object Parameters
+*/
+#define GetImagOparPtrs(blk,x) (((x)>0)&((x)<=(blk->nopar)) ? \
+                               (SCSREAL_COP *) ((SCSREAL_COP *)blk->oparptr[x-1]+ \
+                               ((blk->oparsz[x-1])*(blk->oparsz[blk->nopar+(x-1)]))) : NULL)
+
+/**
+   \brief Get Pointer of int8 typed Object Parameters
+*/
+#define Getint8OparPtrs(blk,x) (SCSINT8_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of int16 typed Object Parameters
+*/
+#define Getint16OparPtrs(blk,x) (SCSINT16_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of int32 typed Object Parameters
+*/
+#define Getint32OparPtrs(blk,x) (SCSINT32_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint8 typed Object Parameters
+*/
+#define Getuint8OparPtrs(blk,x) (SCSUINT8_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint16 typed Object Parameters
+*/
+#define Getuint16OparPtrs(blk,x) (SCSUINT16_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint32 typed Object Parameters
+*/
+#define Getuint32OparPtrs(blk,x) (SCSUINT32_COP *) GetOparPtrs(blk,x)
+
+/**
+   \brief Get Number of Object State
+*/
+#define GetNoz(blk) (blk->noz)
+
+/**
+   \brief Get Type of Object State
+*/
+#define GetOzType(blk,x) (((x>0)&(x<=blk->noz)) ? (blk->oztyp[x-1]) : 0)
+
+/**
+   \brief Get Size of Object State
+
+*/
+/*  usage :
+ *   GetOzSize(blk,x,1) : get first dimension of oz
+ *   GetOzSize(blk,x,2) : get second dimension of oz
+ */
+#define GetOzSize(blk,x,y) (((x>0)&(x<=blk->noz)) ? \
+                              ((((y)>0)&((y)<=2)) ? (blk->ozsz[(y-1)*blk->noz+(x-1)]) : 0) : 0)
+
+/**
+   \brief Get Pointer of Object State
+*/
+#define GetOzPtrs(blk,x) (((x>0)&(x<=blk->noz)) ? (blk->ozptr[x-1]) : 0)
+
+/**
+   \brief Get Pointer of Real Object State
+*/
+#define GetRealOzPtrs(blk,x) (SCSREAL_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of Imaginary Part of Object State
+*/
+#define GetImagOzPtrs(blk,x) (((x)>0)&((x)<=(blk->noz)) ? \
+                               (SCSREAL_COP *) ((SCSREAL_COP *)blk->ozptr[x-1]+ \
+                               ((blk->ozsz[x-1])*(blk->ozsz[blk->noz+(x-1)]))) : NULL)
+
+/**
+   \brief Get Pointer of int8 typed Object State
+*/
+#define Getint8OzPtrs(blk,x) (SCSINT8_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of int16 typed Object State
+*/
+#define Getint16OzPtrs(blk,x) (SCSINT16_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of int32 typed Object State
+*/
+#define Getint32OzPtrs(blk,x) (SCSINT32_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint8 typed Object State
+*/
+#define Getuint8OzPtrs(blk,x) (SCSUINT8_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint16 typed Object State
+*/
+#define Getuint16OzPtrs(blk,x) (SCSUINT16_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get Pointer of uint32 typed Object State
+*/
+#define Getuint32OzPtrs(blk,x) (SCSUINT32_COP *) GetOzPtrs(blk,x)
 
 #endif /* __SCICOS_BLOCK_H__ */
