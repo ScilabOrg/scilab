@@ -103,17 +103,19 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 	dst0(zptr(kc):zptr(kc+1)-1)=dstatek(:)
 
         //Change objects discrete state
-        if type(odstatek)<>15 | ...
-           ((fun(2)<>4) & (fun(2)<>5) & (fun(2)<>10004)  & (fun(2)<>10005)) then
+        if ((type(odstatek)<>15) | ...
+           (type(fun)<>15)) then //old sci blocks or odstatek not a list
           nek=-(ozptr(kc+1)-ozptr(kc))
-        elseif ((fun(2)==5) | (fun(2)==10005)) then // sciblocks
+        elseif ((fun(2)==5) | (fun(2)==10005)) then // sciblocks type 5 | 10005
           if lstsize(odstatek)>0 then
             nek=1-(ozptr(kc+1)-ozptr(kc)) //nombre d'états supplémentaires
           else
             nek=-(ozptr(kc+1)-ozptr(kc))
           end
-        elseif ((fun(2)==4) | (fun(2)==10004)) then // C blocks
+        elseif ((fun(2)==4) | (fun(2)==10004)) then // C blocks type 4 | 10004
           nek=lstsize(odstatek)-(ozptr(kc+1)-ozptr(kc))
+        else // other C and sci blocks
+          nek=-(ozptr(kc+1)-ozptr(kc))
         end
         sel=ozptr(kc+1):ozptr($)-1
         if nek<>0&sel<>[] then
@@ -126,13 +128,13 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
           end
         end
         ozptr(kc+1:$)=ozptr(kc+1:$)+nek;
-        if type(odstatek)==15 then
+        if ((type(odstatek)==15) & (type(fun)==15)) then
           if ((fun(2)==5) | (fun(2)==10005)) then // sciblocks
             if lstsize(odstatek)>0 then
               odst(ozptr(kc))=odstatek;
               odst0(ozptr(kc))=odstatek;
             end
-          elseif ((fun(2)==4) | (fun(2)==10004)) then
+          elseif ((fun(2)==4) | (fun(2)==10004)) then  // C blocks
             for j=1:lstsize(odstatek)
               odst(ozptr(kc)+j-1)=odstatek(j);
               odst0(ozptr(kc)+j-1)=odstatek(j);
@@ -161,8 +163,8 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 	end
 
         //Change objects parameters
-        if type(opark)<>15 | ...
-           ((fun(2)<>4) & (fun(2)<>5) & (fun(2)<>10004)  & (fun(2)<>10005)) then
+        if ((type(opark)<>15) | ...
+           (type(fun)<>15)) then //old sci blocks or odstatek not a list
           nek=-(opptr(kc+1)-opptr(kc))
         elseif ((fun(2)==5) | (fun(2)==10005)) then // sciblocks
           if lstsize(opark)>0 then
@@ -172,6 +174,8 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
           end
         elseif ((fun(2)==4) | (fun(2)==10004)) then //C blocks
           nek=lstsize(opark)-(opptr(kc+1)-opptr(kc))
+        else // other C and sci blocks
+          nek=-(ozptr(kc+1)-ozptr(kc))
         end
         sel=opptr(kc+1):opptr($)-1
         if nek<>0&sel<>[] then
@@ -180,7 +184,7 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
           for j=sel, opar(j+nek)=opar(j), end
         end
         opptr(kc+1:$)=opptr(kc+1:$)+nek;
-        if type(opark)==15 then
+        if ((type(opark)==15) & (type(fun)==15)) then
           if ((fun(2)==5) | (fun(2)==10005)) then // sciblocks
            if lstsize(opark)>0 then
              opar(opptr(kc))=opark;
