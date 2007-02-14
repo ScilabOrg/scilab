@@ -17,7 +17,7 @@ function Zoomin_()
       viewport = xget("viewport"); //** [x,y] = xget("viewport")
       
       //** geometrical correction: zoom in the center  
-      viewport = viewport * zoomfactor - 0.5 * gh_curwin.figure_size*(1-zoomfactor)  ;
+      viewport = viewport * zoomfactor - 0.5 * gh_window.figure_size*(1-zoomfactor)  ;
       window_set_size(gh_window, viewport);
       drawgrid(); //** draw the new grid and put in the bottom of stack
       swap_handles(gh_window.children.children($), gh_window.children.children(1));
