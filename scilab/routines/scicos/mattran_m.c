@@ -1,7 +1,7 @@
 #include "../machine.h"
 #include "scicos_block4.h"
 
-extern C2F(mtran)();
+extern int C2F(mtran)();
 
 void mattran_m(scicos_block *block,int flag)
 {
