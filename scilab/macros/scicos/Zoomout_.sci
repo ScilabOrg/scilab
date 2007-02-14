@@ -16,7 +16,7 @@ function Zoomout_()
       //** Get the current postion of the visible part of graphics in the panner. 
       viewport  = xget("viewport"); //** [x,y] = xget("viewport")
       //** geometrical correction: zoom in the center  
-      viewport = viewport / zoomfactor - 0.5 * gh_curwin.figure_size*(1-1/zoomfactor)  ;
+      viewport = viewport / zoomfactor - 0.5 * gh_window.figure_size*(1-1/zoomfactor)  ;
     
       window_set_size(gh_window, viewport);
       drawgrid(); //** draw the new grid and put in the bottom of stack
