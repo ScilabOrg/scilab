@@ -10,7 +10,7 @@ scs_m.objs(1)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[0,0],[40,40],%t,..
-              0,[],[0;0],0,[],[],..
+              0,"1",[0;0],0,[],[],..
               list(..
               "xstringb(orig(1),orig(2),[''MATMUL''],sz(1),sz(2),''fill'');",8),..
               "",["E";"E"],"E"),..
@@ -25,7 +25,7 @@ scs_m.objs(2)=mlist(["Block","graphics","model","gui","doc"],..
               mlist(..
               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
               "peout","gr_i","id","in_implicit","out_implicit"],[70,0],[40,40],..
-              %t,0,[],0,0,[],[],..
+              %t,0,"1",0,0,[],[],..
               list(..
               "xstringb(orig(1),orig(2),[''MATTRAN''],sz(1),sz(2),''fill'');",8),..
               "","E","E"),..
@@ -329,3 +329,31 @@ scs_m.objs(23)=mlist(["Block","graphics","model","gui","doc"],..
                "equations"],list("mat_catv",4),[-1;-1],[-2;-3],[1,1],1,1,1,[],[],..
                [],[],list(),[],[],list(),"c",[],[%t,%f],"",0,0,list()),"MATCATV",..
                list())
+scs_m.objs(24)=mlist(["Block","graphics","model","gui","doc"],..
+               mlist(..
+               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
+               "peout","gr_i","id","in_implicit","out_implicit"],[370,230],..
+               [40,40],%t,0,["1","0"],0,0,[],[],..
+               list(..
+               "xstringb(orig(1),orig(2),''MATSUM'',sz(1),sz(2),''fill'');",8),..
+               "","E","E"),..
+               mlist(..
+               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],list("mat_sum",4),-1,-2,1,1,1,1,[],[],[],[],list(),..
+               [],[],list(),"c",[],[%t,%f],"",0,0,list()),"MATSUM",list())
+scs_m.objs(25)=mlist(["Block","graphics","model","gui","doc"],..
+               mlist(..
+               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
+               "peout","gr_i","id","in_implicit","out_implicit"],[0,320],[40,40],..
+               %t,0,["1","0"],0,0,[],[],..
+               list(..
+               "xstringb(orig(1),orig(2),''CUMSUM'',sz(1),sz(2),''fill'');",8),..
+               "","E","E"),..
+               mlist(..
+               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],list("cumsum_m",4),-1,-2,1,-1,-2,1,[],[],[],[],..
+               list(),[],[],list(),"c",[],[%t,%f],"",0,0,list()),"CUMSUM",list())
