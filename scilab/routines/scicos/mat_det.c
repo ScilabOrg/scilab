@@ -23,7 +23,7 @@ void mat_det(scicos_block *block,int flag)
              /*init : initialization*/
 if (flag==4)
 
-      { *(block->work)=(mat_det_struct*) malloc(sizeof(mat_det_struct));
+      { *(block->work)=(mat_det_struct*) scicos_malloc(sizeof(mat_det_struct));
     mdet=*(block->work);
     mdet->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
     mdet->wrk=(double*) scicos_malloc(sizeof(double)*(nu*nu));
