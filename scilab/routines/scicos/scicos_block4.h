@@ -181,7 +181,7 @@ extern int s_cmp();
   *
   * 34 - GetWorkPtrs(blk)
   * 35 - GetNdstate(blk)
-  * 36 - GetDsatePtrs(blk)
+  * 36 - GetDstate(blk)
   *
   * 37 - GetNev(blk)
 
@@ -209,6 +209,10 @@ extern int s_cmp();
   * 59 - Getuint8OzPtrs(blk,x)
   * 60 - Getuint16OzPtrs(blk,x)
   * 61 - Getuint32OzPtrs(blk,x)
+  * 62 - GetSizeOfOz(blk,x)
+  * 63 - GetSizeOfOpar(blk,x)
+  * 64 - GetSizeOfOut(blk,x)
+  * 65 - GetSizeOfIn(blk,x)
 
   */
 
@@ -543,5 +547,41 @@ extern int s_cmp();
    \brief Get Pointer of uint32 typed Object State
 */
 #define Getuint32OzPtrs(blk,x) (SCSUINT32_COP *) GetOzPtrs(blk,x)
+
+/**
+   \brief Get The sizeof of the Object State
+*/
+#define GetSizeOfOz(blk,x)    ((GetOzType(blk,x)==SCSREAL_N) ? (sizeof(SCSREAL_COP)) : \
+                               (GetOzType(blk,x)==SCSCOMPLEX_N) ? (2*sizeof(SCSCOMPLEX_COP)) : \
+			       ((GetOzType(blk,x)==SCSINT8_N)|(GetOzType(blk,x)==SCSUINT8_N)) ? (sizeof(SCSINT8_COP)) : \
+                               ((GetOzType(blk,x)==SCSINT16_N)|(GetOzType(blk,x)==SCSUINT16_N)) ? (sizeof(SCSINT16_COP)) : \
+                               ((GetOzType(blk,x)==SCSINT32_N)|(GetOzType(blk,x)==SCSUINT32_N)) ? (sizeof(SCSINT32_COP)) : 0)
+
+/**
+   \brief Get The sizeof of the Object Parameters
+*/
+#define GetSizeOfOpar(blk,x)  ((GetOparType(blk,x)==SCSREAL_N) ? (sizeof(SCSREAL_COP)) : \
+                               (GetOparType(blk,x)==SCSCOMPLEX_N) ? (2*sizeof(SCSCOMPLEX_COP)) : \
+			       ((GetOparType(blk,x)==SCSINT8_N)|(GetOparType(blk,x)==SCSUINT8_N)) ? (sizeof(SCSINT8_COP)) : \
+                               ((GetOparType(blk,x)==SCSINT16_N)|(GetOparType(blk,x)==SCSUINT16_N)) ? (sizeof(SCSINT16_COP)) : \
+                               ((GetOparType(blk,x)==SCSINT32_N)|(GetOparType(blk,x)==SCSUINT32_N)) ? (sizeof(SCSINT32_COP)) : 0)
+
+/**
+   \brief Get The sizeof of the Output 
+*/
+#define GetSizeOfOut(blk,x)  ((GetOutType(blk,x)==SCSREAL_N) ? (sizeof(SCSREAL_COP)) : \
+                              (GetOutType(blk,x)==SCSCOMPLEX_N) ? (2*sizeof(SCSCOMPLEX_COP)) : \
+			      ((GetOutType(blk,x)==SCSINT8_N)|(GetOutType(blk,x)==SCSUINT8_N)) ? (sizeof(SCSINT8_COP)) : \
+                              ((GetOutType(blk,x)==SCSINT16_N)|(GetOutType(blk,x)==SCSUINT16_N)) ? (sizeof(SCSINT16_COP)) : \
+                              ((GetOutType(blk,x)==SCSINT32_N)|(GetOutType(blk,x)==SCSUINT32_N)) ? (sizeof(SCSINT32_COP)) : 0)
+/**
+   \brief Get The sizeof of the Input 
+*/
+#define GetSizeOfIn(blk,x)  ((GetInType(blk,x)==SCSREAL_N) ? (sizeof(SCSREAL_COP)) : \
+                             (GetInType(blk,x)==SCSCOMPLEX_N) ? (2*sizeof(SCSCOMPLEX_COP)) : \
+                             ((GetInType(blk,x)==SCSINT8_N)|(GetInType(blk,x)==SCSUINT8_N)) ? (sizeof(SCSINT8_COP)) : \
+                             ((GetInType(blk,x)==SCSINT16_N)|(GetInType(blk,x)==SCSUINT16_N)) ? (sizeof(SCSINT16_COP)) : \
+                             ((GetInType(blk,x)==SCSINT32_N)|(GetInType(blk,x)==SCSUINT32_N)) ? (sizeof(SCSINT32_COP)) : 0)
+
 
 #endif /* __SCICOS_BLOCK_H__ */
