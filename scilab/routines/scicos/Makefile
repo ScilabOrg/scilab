@@ -53,7 +53,7 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	mat_catv.o mat_expm.o mat_reshape.o mat_vpv.o matz_cath.o matz_diag.o matz_lu.o \
 	matz_reshape.o matz_vpv.o submat.o extractz.o exttriuz.o mat_det.o mat_inv.o \
 	mat_sing.o matz_abs.o matz_catv.o matz_div.o matz_pinv.o matz_sing.o ricc_m.o \
-        submatz.o summation_z.o switch2_m.o switch2_zm.o dollar4_m.o cstblk4_m.o integralz_func.o\
+        submatz.o switch2_m.o switch2_zm.o dollar4_m.o cstblk4_m.o integralz_func.o\
         matzmul_m.o matztran_m.o mat_sum.o mat_sumc.o mat_suml.o cumsum_c.o cumsum_m.o cumsum_r.o\
         matz_sum.o matz_sumc.o matz_suml.o cumsumz_c.o cumsumz_m.o cumsumz_r.o selector_m.o selector_zm.o
 

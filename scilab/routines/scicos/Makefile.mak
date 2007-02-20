@@ -56,7 +56,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	mat_catv.obj mat_expm.obj mat_reshape.obj mat_vpv.obj matz_cath.obj matz_diag.obj matz_lu.obj \
 	matz_reshape.obj matz_vpv.obj submat.obj extractz.obj exttriuz.obj mat_det.obj mat_inv.obj \
 	mat_sing.obj matz_abs.obj matz_catv.obj matz_div.obj matz_pinv.obj matz_sing.obj ricc_m.obj \
-        submatz.obj summation_z.obj switch2_m.obj switch2_zm.obj dollar4_m.obj cstblk4_m.obj integralz_func.obj\
+        submatz.obj switch2_m.obj switch2_zm.obj dollar4_m.obj cstblk4_m.obj integralz_func.obj\
         matzmul_m.obj matztran_m.obj mat_sum.obj mat_sumc.obj mat_suml.obj cumsum_c.obj cumsum_m.obj cumsum_r.obj\
         matz_sum.obj matz_sumc.obj matz_suml.obj cumsumz_c.obj cumsumz_m.obj cumsumz_r.obj selector_m.obj selector_zm.obj
 
