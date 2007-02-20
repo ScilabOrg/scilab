@@ -191,6 +191,27 @@ extern void matz_pinv __PARAMS((ARGS_scicos));
 extern void matz_sing __PARAMS((ARGS_scicos));
 extern void ricc_m __PARAMS((ARGS_scicos));
 extern void submatz __PARAMS((ARGS_scicos));
+extern void switch2_m __PARAMS((ARGS_scicos));
+extern void switch2_zm __PARAMS((ARGS_scicos));
+extern void dollar4_m __PARAMS((ARGS_scicos));
+extern void cstblk4_m __PARAMS((ARGS_scicos));
+extern void integralz_func __PARAMS((ARGS_scicos));
+extern void matzmul_m __PARAMS((ARGS_scicos));
+extern void matztran_m __PARAMS((ARGS_scicos));
+extern void mat_sum __PARAMS((ARGS_scicos));
+extern void mat_sumc __PARAMS((ARGS_scicos));
+extern void mat_suml __PARAMS((ARGS_scicos));
+extern void cumsum_c __PARAMS((ARGS_scicos));
+extern void cumsum_m __PARAMS((ARGS_scicos));
+extern void cumsum_r __PARAMS((ARGS_scicos));
+extern void matz_sum __PARAMS((ARGS_scicos));
+extern void matz_sumc __PARAMS((ARGS_scicos));
+extern void matz_suml __PARAMS((ARGS_scicos));
+extern void cumsumz_c __PARAMS((ARGS_scicos));
+extern void cumsumz_m __PARAMS((ARGS_scicos));
+extern void cumsumz_r __PARAMS((ARGS_scicos));
+extern void selector_m __PARAMS((ARGS_scicos));
+extern void selector_zm __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -225,8 +246,15 @@ OpTab tabsim[] ={
 {"cscopxy",(ScicosF) cscopxy},
 {"csslti4",(ScicosF) csslti4},
 {"csslti",(ScicosF) F2C(csslti)},
+{"cstblk4_m",(ScicosF) cstblk4_m},
 {"cstblk4",(ScicosF) cstblk4},
 {"cstblk",(ScicosF) F2C(cstblk)},
+{"cumsum_c",(ScicosF) cumsum_c},
+{"cumsum_m",(ScicosF) cumsum_m},
+{"cumsum_r",(ScicosF) cumsum_r},
+{"cumsumz_c",(ScicosF) cumsumz_c},
+{"cumsumz_m",(ScicosF) cumsumz_m},
+{"cumsumz_r",(ScicosF) cumsumz_r},
 {"dband",(ScicosF) F2C(dband)},
 {"deadband",(ScicosF) deadband},
 {"delay4",(ScicosF) delay4},
@@ -236,6 +264,7 @@ OpTab tabsim[] ={
 {"deriv",(ScicosF) deriv},
 {"diffblk",(ScicosF) F2C(diffblk)},
 {"dlradp",(ScicosF) F2C(dlradp)},
+{"dollar4_m",(ScicosF) dollar4_m},
 {"dollar4",(ScicosF) dollar4},
 {"dollar",(ScicosF) F2C(dollar)},
 {"dsslti4",(ScicosF) dsslti4},
@@ -265,6 +294,7 @@ OpTab tabsim[] ={
 {"hystheresis",(ScicosF) hystheresis},
 {"ifthel",(ScicosF) F2C(ifthel)},
 {"integral_func",(ScicosF) integral_func},
+{"integralz_func",(ScicosF) integralz_func},
 {"integr",(ScicosF) F2C(integr)},
 {"intplt",(ScicosF) F2C(intplt)},
 {"intpol",(ScicosF) F2C(intpol)},
@@ -291,6 +321,9 @@ OpTab tabsim[] ={
 {"mat_pinv",(ScicosF) mat_pinv},
 {"mat_reshape",(ScicosF) mat_reshape},
 {"mat_sing",(ScicosF) mat_sing},
+{"mat_sumc",(ScicosF) mat_sumc},
+{"mat_suml",(ScicosF) mat_suml},
+{"mat_sum",(ScicosF) mat_sum},
 {"mat_svd",(ScicosF) mat_svd},
 {"mattran_m",(ScicosF) mattran_m},
 {"mat_vps",(ScicosF) mat_vps},
@@ -307,12 +340,17 @@ OpTab tabsim[] ={
 {"matz_expm",(ScicosF) matz_expm},
 {"matz_inv",(ScicosF) matz_inv},
 {"matz_lu",(ScicosF) matz_lu},
+{"matzmul_m",(ScicosF) matzmul_m},
 {"matz_pinv",(ScicosF) matz_pinv},
 {"matz_reimc",(ScicosF) matz_reimc},
 {"matz_reim",(ScicosF) matz_reim},
 {"matz_reshape",(ScicosF) matz_reshape},
 {"matz_sing",(ScicosF) matz_sing},
+{"matz_sumc",(ScicosF) matz_sumc},
+{"matz_suml",(ScicosF) matz_suml},
+{"matz_sum",(ScicosF) matz_sum},
 {"matz_svd",(ScicosF) matz_svd},
+{"matztran_m",(ScicosF) matztran_m},
 {"matz_vps",(ScicosF) matz_vps},
 {"matz_vpv",(ScicosF) matz_vpv},
 {"maxblk",(ScicosF) F2C(maxblk)},
@@ -350,7 +388,9 @@ OpTab tabsim[] ={
 {"sawtth",(ScicosF) F2C(sawtth)},
 {"scalar2vector",(ScicosF) scalar2vector},
 {"selblk",(ScicosF) F2C(selblk)},
+{"selector_m",(ScicosF) selector_m},
 {"selector",(ScicosF) selector},
+{"selector_zm",(ScicosF) selector_zm},
 {"signum",(ScicosF) signum},
 {"sinblk",(ScicosF) F2C(sinblk)},
 {"sin_blk",(ScicosF) sin_blk},
@@ -364,7 +404,9 @@ OpTab tabsim[] ={
 {"sum3",(ScicosF) F2C(sum3)},
 {"summation",(ScicosF) summation},
 {"sum",(ScicosF) sum},
+{"switch2_m",(ScicosF) switch2_m},
 {"switch2",(ScicosF) switch2},
+{"switch2_zm",(ScicosF) switch2_zm},
 {"switchn",(ScicosF) switchn},
 {"tanblk",(ScicosF) F2C(tanblk)},
 {"tan_blk",(ScicosF) tan_blk},
@@ -384,6 +426,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 189 ;
+int ntabsim= 210 ;
 #endif 
 /***********************************/
