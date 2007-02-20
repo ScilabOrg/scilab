@@ -48,8 +48,8 @@ function routines=create_palette(Path)
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';
 	      'MUX.sci'; 'NRMSOM_f.sci';  'EXTRACTOR.sci';      
-	      'SELECT_f.sci'; 'ISELECT_f.sci';     
-	      'RELAY_f.sci';'SWITCH2.sci';'IFTHEL_f.sci';
+	      'SELECT_m.sci'; 'ISELECT_m.sci';     
+	      'RELAY_f.sci';'SWITCH2_m.sci';'IFTHEL_f.sci';
 	      'ESELECT_f.sci';   'M_SWITCH.sci';  
 	      'SCALAR2VECTOR.sci';  'SWITCH_f.sci';'EDGE_TRIGGER.sci';
 	      'Extract_Activation.sci']
@@ -112,7 +112,7 @@ function routines=create_palette(Path)
               'MATEIG.sci';'MATMAGPHI.sci';'EXTRACT.sci';'MATEXPM.sci';'MATDET.sci';
               'MATPINV.sci';'EXTTRI.sci';'RICC.sci';'ROOTCOEF.sci';'MATCATH.sci';
               'MATLU.sci';'MATDIV.sci';'MATZCONJ.sci';'MATZREIM.sci';'SUBMAT.sci';
-              'MATBKSL.sci';'MATINV.sci';'MATCATV.sci']
+              'MATBKSL.sci';'MATINV.sci';'MATCATV.sci';'MATSUM.sci';'CUMSUM.sci']
       else
 	error('Palette '+txt+' does not exists')
       end
