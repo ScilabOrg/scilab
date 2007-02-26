@@ -1,8 +1,8 @@
-//adjust_in2out2
-//Alan
-//adjust in2,intyp,out2, outtyp in accordance to
-//in out (for compatibility)
 function [ok,bllst]=adjust_in2out2(bllst)
+ //adjust_in2out2
+ //Alan
+ //adjust in2,intyp,out2, outtyp in accordance to
+ //in out (for compatibility)
  ok=%t
  nblk=size(bllst);
  //Check dimension of vectors in/in2,out/out2 
