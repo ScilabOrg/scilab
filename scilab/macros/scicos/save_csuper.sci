@@ -82,10 +82,13 @@ function path=save_csuper(scs_m,fpath)
 	 '             modified=or(model.sim<>model_n.sim)|..'
 	 '	     ~isequal(model.state,model_n.state)|..'
 	 '	     ~isequal(model.dstate,model_n.dstate)|..'
+	 '	     ~isequal(model.odstate,model_n.odstate)|..'
 	 '	     ~isequal(model.rpar,model_n.rpar)|..'
 	 '	     ~isequal(model.ipar,model_n.ipar)|..'
+	 '	     ~isequal(model.opar,model_n.opar)|..'
 	 '	     ~isequal(model.label,model_n.label)'
-	 '      if or(model.in<>model_n.in)|or(model.out<>model_n.out) then  '
+	 '      if or(model.in<>model_n.in)|or(model.out<>model_n.out)|.. '
+	 '         or(model.in2<>model_n.in2)|or(model.out2<>model_n.out2)then  '
 	 '	  needcompile=1'
 	 '	end'
 	 '	if or(model.firing<>model_n.firing)  then '
@@ -148,7 +151,8 @@ function path=save_csuper(scs_m,fpath)
   t1=[strsubst(t1,sci2exp('%scs_m_1'),'scs_m_1')
       '  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'
       '  x=standard_define([2 2],model,[],gr_i)';
-      'end']
+      'end'
+      'endfunction']
   write(u,t1,'(a)')
   file('close',u)
 endfunction
