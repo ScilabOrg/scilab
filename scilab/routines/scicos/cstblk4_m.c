@@ -10,9 +10,9 @@ void cstblk4_m(scicos_block *block,int flag)
   output a vector of constants out(i)=opar(i)
   opar(1:nopar) : given constants */
   int nopar,mo,no,so;
-  nopar = GetNopar(block);
   void *y;
   void *opar;
+  nopar = GetNopar(block);
   y=GetOutPortPtrs(block,1);
   opar=GetOparPtrs(block,1);
   mo=GetOparSize(block,1,1);
