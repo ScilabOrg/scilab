@@ -529,7 +529,8 @@
     </DESCRIPTION_INDENT>
   </DESCRIPTION>
 
-  <EXAMPLE><![CDATA[   lines(0) // disables vertical paging 
+  <EXAMPLE><![CDATA[  
+   lines(0) // disables vertical paging 
    set("figure_style","new") //create a figure
    a=get("current_axes")//get the handle of the newly created axes
    a.axes_visible="on"; // makes the axes visible
@@ -573,6 +574,7 @@
    a.rotation_angles=[0 260];
    delete(a.children(2)); 
    delete(); // delete current object
+   
    a.labels_font_size=1;
    a.auto_clear= "on";
    x=0:0.1:2.5*%pi;plot2d(10*cos(x),sin(x));
