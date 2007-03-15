@@ -2,19 +2,20 @@ function [scs_m] = do_stupidMultimove(%pt, Select, scs_m)
 // Copyright INRIA
 //** 15 Jan 2007
 //** 23 Jan 2007
-//** 25 Jan 2007 
+//** 25 Jan 2007
+//** 19 Mar 2007 : open link bugfix  
 //** ---------------------------------   M U L T I     M O V E   -----------------------------------------
 
 // Acquire the current window
 // NB : the MultiMove works ONLY in the current window    
   gh_curwin = gh_current_window ;
 
-  xc = %pt(1) ; //** recover mouse position at the last event
+  xc = %pt(1) ; //** recover mouse position of the last event
   yc = %pt(2) ;
 
  //** Select : matrix of selected object
- //**  Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
- //**                                  and "win_id"    is the Scilab window id.
+ //** Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
+ //**                                 and "win_id"    is the Scilab window id.
  //**  Multiple selection is permitted: each object is a line of the matrix.
   
   scs_m_save = scs_m ; //** make a backup of the data structure
@@ -24,7 +25,7 @@ function [scs_m] = do_stupidMultimove(%pt, Select, scs_m)
   //**------------------------------------------------------------------
   
   //** scs_m , Select, xc yc (mouse coordinate of the last valid event)
-  scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)  ;
+  scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)  ; //** see below in the code
 
   //**------------------------------------------------------------------
 
@@ -45,17 +46,18 @@ endfunction
 function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   // Move Selected Blocks/Texts and Links and modify connected (external) links if any
   
-  //** scs_m, Select, 
+  //** scs_m  : the local level diagram 
+  //** Select : matrix [object_id win_id] of selected object  
   //** xc ,yc : mouse coodinate of the last valid LEFT BUTTON PRESS
+  //**
   //** Select : matrix of selected object
   //**          Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
   //**                                          and "win_id"    is the Scilab window id.
-  //**          Multiple selection is permitted: each object is a line of the matrix.
-  //** scs_m  : diagram datastucture       
+  //**          Multiple selection is permitted: each object is a line of the matrix.     
   //**----------------------------------------------------------------------------------
   //**
   //** the code below is modified according the new graphics API
-  gh_curwin = gh_current_window ;
+  gh_curwin = gh_current_window ; //** acqiore the current window handle
 
   //** at this point I need to build the [scs_m] <-> [gh_window] datastructure
   //** I need an equivalent index for the graphics
@@ -65,7 +67,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   o_size = size (gh_curwin.children.children ) ; //** o_size(1) number of "Compound" objects 
 
   //**-----------------------------------------------------------------------------------------------
-  //** Acquire axes physical limits (visible limits are smaller) to avoid off windows move
+  //** Acquire axes physical limits (visible limits are smaller) to avoid "off window" move
   figure_axes_size = gh_curwin.axes_size ; //** size in pixel
   x_f = figure_axes_size(1) ;
   y_f = figure_axes_size(2) ;
@@ -74,21 +76,23 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 
   x_min = x1_f(1) ; x_max = x1_f(2) ; //** hor. limits
   y_min = y1_f(2) ; y_max = y1_f(1) ; //** ver. limits (inverted because the upper left corner effect)
-  //**-----------------------------------------------------------------------------------
+  //**-------------------------------------------------------------------------------------------------
 
-  //**  
+  //** Initialization  
   gh_link_i   = [];
   gh_link_mod = [];
    
   //**----------------------------------------------------------------------------------  
-  diagram_links=[] ;
+  diagram_links = [] ; //** ALL the LINKs of the diagram 
   diagram_size = size(scs_m.objs);
   if diagram_size<>0
-     for k=1:diagram_size
-          if typeof(scs_m.objs(k))=='Link' then    
+     
+     for k=1:diagram_size //** scan ALL the diagram and look for 'Link'
+          if typeof(scs_m.objs(k))=="Link" then    
 	     diagram_links = [diagram_links k];
           end 
      end 
+  
   end      
   //**----------------------------------------------------------------------------------
   //** Classification of selected object
@@ -96,32 +100,35 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   sel_link  = []; //** links     "     "   "    "
   sel_text  = []; //** text      "     "        "
   
-  SelectObject_id = Select(:,1)'  ;
-  for k = SelectObject_id                               // scan all the selected object 
-     if typeof(scs_m.objs(k))=='Block' then             // look for selected block 
+  SelectObject_id = Select(:,1)'  ; //** select all the object in the current window 
+  
+  for k = SelectObject_id                    //** scan all the selected object
+   
+     if typeof(scs_m.objs(k))=='Block' then  //** look for selected BLOCK
        sel_block = [sel_block k] ; //**
      end
      
-     if typeof(scs_m.objs(k))=='Link' then             // look for selected block 
+     if typeof(scs_m.objs(k))=='Link' then   //** look for selected LINK
        sel_link = [sel_link k]; //**
      end
      
-     if typeof(scs_m.objs(k))=='Text' then             // look for selected block 
+     if typeof(scs_m.objs(k))=='Text' then   //** look for selected TEXT 
        sel_text = [sel_text k]; //**
      end
+  
   end //** end of scan      
   
   //**----------------------------------------------------------------------------------
   
   //**----------------------------------------------------------------------------------        
-  int_link = []; //** selected link INTERNAL at the selected region 
+  int_link = []; //** link(s) involved in the move operation  
 
-  for l = sel_link                        //** scan the selected link and look for external link 
+  for l = diagram_links                   //** scan all links and look for external link 
      from_block = scs_m.objs(l).from(1) ; //** link proprieties 
        to_block = scs_m.objs(l).to(1)   ;
-     //** from and to are internal at the selected blocks 
+     //** "from" and "to" are relatives to selected blocks 
       if (or(from_block==sel_block)) & (or(to_block==sel_block)) then 
-           int_link = [int_link l];
+           int_link = [int_link l]; //** pile up   
       end
   end //** end of the link scan 
   //**-----------------------------------------------------------------------------------
@@ -258,7 +265,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 
       //** Integrate the movements
       move_x = move_x +  delta_x ;
-      move_y = move_y +  delta_y 
+      move_y = move_y +  delta_y ;
       
       //** Move the SuperCompound
       for k = SuperCompound_id 
