@@ -184,8 +184,14 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       if or(rep(3)==[0,2,3,5,-5,-100]) then break,end
 
       //** otherwise ... get a new point
-      rep = xgetmouse(0,[%t,%t])
+      
+      //** This mode is prone to some errors
+      //** mouse event queque is not cleared
+      //** rep = xgetmouse(0,[%t,%t])
 
+      //** mouse event queque is cleared (15 Mar 2007 bugfix)
+      rep = xgetmouse([%t,%t]) ; //** looks better :)
+      
       //** if xget('window')<>curwin | rep(3)==-100 then
       gh_figure = gcf();
       if gh_figure.figure_id<>curwin | rep(3)==-100 then
