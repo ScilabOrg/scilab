@@ -97,6 +97,14 @@ if typeof(o)=='Block' then
 		 ~isequal(model.ipar,model_n.ipar)|..
 		 ~isequal(model.opar,model_n.opar)|..
 		 ~isequal(model.label,model_n.label)
+	if ~modified then
+	  for i=1:lstsize(model.opar)
+	    if typeof(model.opar(i))<>typeof(model_n.opar(i)) then
+	      modified=%t
+	      break
+	    end
+	  end
+	end
 	if or(model.in<>model_n.in)|or(model.out<>model_n.out)|...
 	   or(model.in2<>model_n.in2)|or(model.out2<>model_n.out2)|...
            or(model.outtyp<>model_n.outtyp)|or(model.intyp<>model_n.intyp) then

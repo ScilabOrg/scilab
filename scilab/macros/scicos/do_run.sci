@@ -28,10 +28,29 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
   else
     choix=[]
   end
-  
-  
+
+  issequal=%t;
   if ~isequal(%state0_n,%state0) then //initial state has been changed
-    %state0=%state0_n
+    issequal=%f
+  else
+    //test typeof outtb element
+    for i=1:lstsize(%state0_n.outtb)
+      if typeof(%state0_n.outtb(i))<>typeof(%state0.outtb(i))
+        issequal=%f
+        break
+      end
+    end
+    //test typeof oz element
+    for i=1:lstsize(%state0_n.oz)
+      if typeof(%state0_n.oz(i))<>typeof(%state0.oz(i))
+        issequal=%f
+        break
+      end
+    end
+  end
+
+  if ~issequal then
+     %state0=%state0_n
     [alreadyran,%cpr]=do_terminate()
     choix=[]
   end
