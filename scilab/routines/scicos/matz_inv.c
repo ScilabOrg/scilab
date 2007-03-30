@@ -1,6 +1,11 @@
 # include "scicos_block4.h"
 # include "../machine.h"
 #include <stdio.h>
+
+#if WIN32
+#define NULL    0
+#endif
+
 extern int C2F(zgetrf)();
 extern int C2F(zgetri)();
 typedef struct
@@ -27,22 +32,36 @@ void matz_inv(scicos_block *block,int flag)
              /*init : initialization*/
 if (flag==4)
 
-      { *(block->work)=(mat_inv_struct*) scicos_malloc(sizeof(mat_inv_struct));
+      {if((*(block->work)=(mat_inv_struct*) scicos_malloc(sizeof(mat_inv_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
-    ptr->wrk=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
-    ptr->LX=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
+    if((ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->wrk=(double*) scicos_malloc(sizeof(double)*(2*nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LX=(double*) scicos_malloc(sizeof(double)*(2*nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LX);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
       }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->ipiv);
-    scicos_free(ptr->LX);
-    scicos_free(ptr->wrk);
-    scicos_free(ptr);
-
-    return;
+    if((ptr->LX)!=NULL){
+    	scicos_free(ptr->ipiv);
+    	scicos_free(ptr->LX);
+    	scicos_free(ptr->wrk);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

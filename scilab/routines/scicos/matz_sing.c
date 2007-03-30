@@ -3,6 +3,10 @@
 #include <stdio.h>
 extern int C2F(zgesvd)();
 
+#if WIN32
+#define NULL    0
+#endif
+
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
@@ -39,27 +43,63 @@ void matz_sing(scicos_block *block,int flag)
  rw=5*min(mu,nu);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_sing_struct*) scicos_malloc(sizeof(mat_sing_struct));
+   {if((*(block->work)=(mat_sing_struct*) scicos_malloc(sizeof(mat_sing_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*mu*nu));
-    ptr->LU=(double*) scicos_malloc(sizeof(double)*(2*mu*mu));
-    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
-    ptr->LX=(double*) scicos_malloc(sizeof(double)*(2*mu));
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork);
-    ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw);
+    if((ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*mu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LU=(double*) scicos_malloc(sizeof(double)*(2*mu*mu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LVT=(double*) scicos_malloc(sizeof(double)*(2*nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LX=(double*) scicos_malloc(sizeof(double)*(2*mu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LX);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->LX);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->LA);
-    scicos_free(ptr->LU);
-    scicos_free(ptr->LX);
-    scicos_free(ptr->LVT);
-    scicos_free(ptr->rwork);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if((ptr->rwork)!=NULL){
+    	scicos_free(ptr->LA);
+    	scicos_free(ptr->LU);
+    	scicos_free(ptr->LX);
+    	scicos_free(ptr->LVT);
+    	scicos_free(ptr->rwork);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

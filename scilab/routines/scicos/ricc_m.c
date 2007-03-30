@@ -5,6 +5,10 @@ extern int C2F(riccms)();
 extern int C2F(ricdsl)();
 extern int C2F(ricdmf)();
 
+#if WIN32
+#define NULL    0
+#endif
+
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
@@ -54,31 +58,86 @@ void ricc_m(scicos_block *block,int flag)
 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(ricc_struct*) scicos_malloc(sizeof(ricc_struct));
+   {if((*(block->work)=(ricc_struct*) scicos_malloc(sizeof(ricc_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->bwork=(int*) scicos_malloc(sizeof(int)*2*nu);
-    ptr->iwork=(int*) scicos_malloc(sizeof(int)*max(2*nu,nu*nu));
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lw);
-    ptr->LWR=(double*) scicos_malloc(sizeof(double)*nu);
-    ptr->LWI=(double*) scicos_malloc(sizeof(double)*nu);
-    ptr->Rcond=(double*) scicos_malloc(sizeof(double));
-    ptr->Ferr=(double*) scicos_malloc(sizeof(double));
-    ptr->LX=(double*) scicos_malloc(sizeof(double)*nu*nu);
+    if((ptr->bwork=(int*) scicos_malloc(sizeof(int)*2*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->iwork=(int*) scicos_malloc(sizeof(int)*max(2*nu,nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*lw))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LWR=(double*) scicos_malloc(sizeof(double)*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LWI=(double*) scicos_malloc(sizeof(double)*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LWR);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->Rcond=(double*) scicos_malloc(sizeof(double)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LWI);
+	 scicos_free(ptr->LWR);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->Ferr=(double*) scicos_malloc(sizeof(double)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->Rcond);
+	 scicos_free(ptr->LWI);
+	 scicos_free(ptr->LWR);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LX=(double*) scicos_malloc(sizeof(double)*nu*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->Ferr);
+	 scicos_free(ptr->Rcond);
+	 scicos_free(ptr->LWI);
+	 scicos_free(ptr->LWR);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->bwork);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->bwork);
-    scicos_free(ptr->Ferr);
-    scicos_free(ptr->Rcond);
-    scicos_free(ptr->iwork);
-    scicos_free(ptr->LWR);
-    scicos_free(ptr->LWI);
-    scicos_free(ptr->LX);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if((ptr->LX)!=NULL){
+    	scicos_free(ptr->bwork);
+    	scicos_free(ptr->Ferr);
+    	scicos_free(ptr->Rcond);
+    	scicos_free(ptr->iwork);
+    	scicos_free(ptr->LWR);
+    	scicos_free(ptr->LWI);
+    	scicos_free(ptr->LX);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

@@ -5,6 +5,10 @@ extern int C2F(dgesvd)();
 extern int C2F(dlaset)();
 extern int C2F(dlacpy)();
 
+#if WIN32
+#define NULL    0
+#endif
+
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
@@ -34,23 +38,44 @@ void mat_sing(scicos_block *block,int flag)
  lwork=max(3*min(mu,nu)+max(mu,nu),5*min(mu,nu)-4); 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_sing_struct*) scicos_malloc(sizeof(mat_sing_struct));
+   {if((*(block->work)=(mat_sing_struct*) scicos_malloc(sizeof(mat_sing_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->LA=(double*) scicos_malloc(sizeof(double)*(mu*nu));
-    ptr->LU=(double*) scicos_malloc(sizeof(double)*(mu*mu));
-    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(nu*nu));
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork);
+    if((ptr->LA=(double*) scicos_malloc(sizeof(double)*(mu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LU=(double*) scicos_malloc(sizeof(double)*(mu*mu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LVT=(double*) scicos_malloc(sizeof(double)*(nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*lwork))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->LA);
-    scicos_free(ptr->LU);
-    scicos_free(ptr->LVT);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if(ptr->dwork!=0) {
+    	scicos_free(ptr->LA);
+    	scicos_free(ptr->LU);
+    	scicos_free(ptr->LVT);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

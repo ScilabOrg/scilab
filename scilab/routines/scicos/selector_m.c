@@ -1,12 +1,13 @@
 #include "scicos_block4.h"
 #include "../machine.h"
+#include <memory.h>
 
 void selector_m(scicos_block *block,int flag)
-{
-  double *u;
-  double *y;
+ {
+  void *u;
+  void *y;
   double *z;
-  int nu,mu,ic,i,nev,nin;
+  int nu,mu,ic,nev,nin,so;
 
   z=GetDstate(block);
   nin=GetNin(block);
@@ -16,18 +17,18 @@ void selector_m(scicos_block *block,int flag)
       nev=GetNev(block);
       while (nev>=1) 
            {
-	    ic=ic+1;
-	    nev=nev/2;
-	   }
+     	    ic=ic+1;
+     	    nev=nev/2;
+    	   }
      }
   if (nin>1)
      {
       mu=GetInPortRows(block,ic);
       nu=GetInPortCols(block,ic);
-      u=GetRealInPortPtrs(block,ic);
-      y=GetRealOutPortPtrs(block,1);
-      for(i=0;i<mu*nu;i++)
-	 {*(y+i)=*(u+i);}
+      u=GetInPortPtrs(block,ic);
+      so=GetSizeOfOut(block,1);
+      y=GetOutPortPtrs(block,1);
+      memcpy(y,u,mu*nu*so);
       }
    else
       {
@@ -35,7 +36,7 @@ void selector_m(scicos_block *block,int flag)
        nu=GetInPortCols(block,1);
        u=GetRealInPortPtrs(block,1);
        y=GetRealOutPortPtrs(block,ic);
-       for(i=0;i<mu*nu;i++)
-	 {*(y+i)=*(u+i);}
+       so=GetSizeOfIn(block,1);
+       memcpy(y,u,mu*nu*so);
        }
 }

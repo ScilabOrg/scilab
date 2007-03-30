@@ -10,6 +10,10 @@ extern int C2F(zgecon)();
 extern int C2F(zgetrs)();
 extern int C2F(zgelsy1)();
 
+#if WIN32
+#define NULL    0
+#endif
+
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
@@ -59,33 +63,99 @@ void matz_bksl(scicos_block *block,int flag)
  rw=2*nu1;
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_bksl_struct*) scicos_malloc(sizeof(mat_bksl_struct));
+   {if((*(block->work)=(mat_bksl_struct*) scicos_malloc(sizeof(mat_bksl_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu1);
-    ptr->rank=(int*) scicos_malloc(sizeof(int));
-    ptr->jpvt=(int*) scicos_malloc(sizeof(int)*nu1);
-    ptr->iwork=(double*) scicos_malloc(sizeof(double)*2*nu1);
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lw);
-    ptr->IN1F=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1));
-    ptr->IN1=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1));
-    ptr->IN2X=(double*) scicos_malloc(sizeof(double)*(2*l*nu2));
-    ptr->IN2=(double*) scicos_malloc(sizeof(double)*(2*mu*nu2));
+    if((ptr->ipiv=(int*) scicos_malloc(sizeof(int)*nu1))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->rank=(int*) scicos_malloc(sizeof(int)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->jpvt=(int*) scicos_malloc(sizeof(int)*nu1))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->iwork=(double*) scicos_malloc(sizeof(double)*2*nu1))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lw))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->IN1F=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->IN1=(double*) scicos_malloc(sizeof(double)*(2*mu*nu1)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->IN1F);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->IN2X=(double*) scicos_malloc(sizeof(double)*(2*l*nu2)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->IN1);
+	 scicos_free(ptr->IN1F);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->IN2=(double*) scicos_malloc(sizeof(double)*(2*mu*nu2)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->IN2);
+	 scicos_free(ptr->IN1);
+	 scicos_free(ptr->IN1F);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr->jpvt);
+	 scicos_free(ptr->rank);
+	 scicos_free(ptr->ipiv);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->ipiv);
-    scicos_free(ptr->rank);
-    scicos_free(ptr->jpvt);
-    scicos_free(ptr->iwork);
-    scicos_free(ptr->IN1F);
-    scicos_free(ptr->IN1);
-    scicos_free(ptr->IN2X);
-    scicos_free(ptr->IN2);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if((ptr->IN2)!=NULL){
+    	scicos_free(ptr->ipiv);
+    	scicos_free(ptr->rank);
+    	scicos_free(ptr->jpvt);
+    	scicos_free(ptr->iwork);
+    	scicos_free(ptr->IN1F);
+    	scicos_free(ptr->IN1);
+    	scicos_free(ptr->IN2X);
+    	scicos_free(ptr->IN2);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

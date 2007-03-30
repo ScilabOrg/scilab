@@ -1,6 +1,11 @@
 # include "scicos_block4.h"
 # include "../machine.h"
 #include <stdio.h>
+
+#if WIN32
+#define NULL    0
+#endif
+
 extern int C2F(dgetrf)();
 typedef struct
 {         int *ipiv;
@@ -23,21 +28,29 @@ void mat_det(scicos_block *block,int flag)
              /*init : initialization*/
 if (flag==4)
 
-      { *(block->work)=(mat_det_struct*) scicos_malloc(sizeof(mat_det_struct));
+   {if((*(block->work)=(mat_det_struct*) scicos_malloc(sizeof(mat_det_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     mdet=*(block->work);
-    mdet->ipiv=(int*) scicos_malloc(sizeof(int)*nu);
-    mdet->wrk=(double*) scicos_malloc(sizeof(double)*(nu*nu));
-
-      }
+    if((mdet->ipiv=(int*) scicos_malloc(sizeof(int)*nu))==NULL)
+	{set_block_error(-16);
+	 scicos_free(mdet);
+	 return;}
+    if((mdet->wrk=(double*) scicos_malloc(sizeof(double)*(nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(mdet->ipiv);
+	 scicos_free(mdet);
+	 return;}
+    }
 
        /* Terminaison */
 else if (flag==5)
    {mdet=*(block->work);
-    scicos_free(mdet->ipiv);
-    scicos_free(mdet->wrk);
-    scicos_free(mdet);
-
-    return;
+    if(mdet->wrk!=NULL) {
+	scicos_free(mdet->ipiv);
+    	scicos_free(mdet->wrk);
+    	scicos_free(mdet);
+    	return;}
    }
 
 else

@@ -370,7 +370,7 @@ extern int s_cmp();
 /**
    \brief Get Pointer of uint32 typed Regular Output Port
 */
-#define Getuint32OutPortPtrs(blk,x) (SCSINT32_COP *) GetOutPortPtrs(blk,x)
+#define Getuint32OutPortPtrs(blk,x) (SCSUINT32_COP *) GetOutPortPtrs(blk,x)
 
 /**
    \brief Get Number of Integer Parameters

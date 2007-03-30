@@ -4,6 +4,10 @@
 extern int C2F(zgesvd)();
 extern int C2F(dlaset)();
 
+#if WIN32
+#define NULL    0
+#endif
+
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
@@ -44,28 +48,73 @@ void matz_svd(scicos_block *block,int flag)
  rw=5*min(mu,nu);
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_sdv_struct*) scicos_malloc(sizeof(mat_sdv_struct));
+   {if((*(block->work)=(mat_sdv_struct*) scicos_malloc(sizeof(mat_sdv_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->l0=(double*) scicos_malloc(sizeof(double));
-    ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*mu*nu));
-    ptr->LU=(double*) scicos_malloc(sizeof(double)*(2*mu*mu));
-    ptr->LSV=(double*) scicos_malloc(sizeof(double)*(min(mu,nu)));
-    ptr->LVT=(double*) scicos_malloc(sizeof(double)*(2*nu*nu));
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork);
-    ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw);
+    if((ptr->l0=(double*) scicos_malloc(sizeof(double)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LA=(double*) scicos_malloc(sizeof(double)*(2*mu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LU=(double*) scicos_malloc(sizeof(double)*(2*mu*mu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LSV=(double*) scicos_malloc(sizeof(double)*(min(mu,nu))))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->LVT=(double*) scicos_malloc(sizeof(double)*(2*nu*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LSV);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*2*lwork))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LSV);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->rwork=(double*) scicos_malloc(sizeof(double)*2*rw))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->dwork);
+	 scicos_free(ptr->LVT);
+	 scicos_free(ptr->LSV);
+	 scicos_free(ptr->LU);
+	 scicos_free(ptr->LA);
+	 scicos_free(ptr->l0);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->l0);
-    scicos_free(ptr->LA);
-    scicos_free(ptr->LU);
-    scicos_free(ptr->LSV);
-    scicos_free(ptr->LVT);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if((ptr->rwork)!=NULL){
+    	scicos_free(ptr->l0);
+    	scicos_free(ptr->LA);
+    	scicos_free(ptr->LU);
+    	scicos_free(ptr->LSV);
+    	scicos_free(ptr->LVT);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

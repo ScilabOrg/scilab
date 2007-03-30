@@ -2,6 +2,12 @@
 # include "../machine.h"
 #include <stdio.h>
 #include <math.h>
+
+#if WIN32
+#define NULL    0
+#endif
+
+
 extern int C2F(dexpm1)();
 typedef struct
 {	  int *iwork;
@@ -21,19 +27,29 @@ void mat_expm(scicos_block *block,int flag)
 
              /*init : initialization*/
 if (flag==4)
-   {*(block->work)=(mat_exp_struct*) scicos_malloc(sizeof(mat_exp_struct));
+   {if((*(block->work)=(mat_exp_struct*) scicos_malloc(sizeof(mat_exp_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
     ptr=*(block->work);
-    ptr->iwork=(int*) scicos_malloc(sizeof(int)*(2*nu));
-    ptr->dwork=(double*) scicos_malloc(sizeof(double)*(nu*(2*nu+2*nu+5)));
+    if((ptr->iwork=(int*) scicos_malloc(sizeof(int)*(2*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr->dwork=(double*) scicos_malloc(sizeof(double)*(nu*(2*nu+2*nu+5))))== NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr->iwork);
+	 scicos_free(ptr);
+	 return;}
    }
 
        /* Terminaison */
 else if (flag==5)
    {ptr=*(block->work);
-    scicos_free(ptr->iwork);
-    scicos_free(ptr->dwork);
-    scicos_free(ptr);
-    return;
+    if (ptr->dwork!=NULL){
+    	scicos_free(ptr->iwork);
+    	scicos_free(ptr->dwork);
+    	scicos_free(ptr);
+    	return;}
    }
 
 else

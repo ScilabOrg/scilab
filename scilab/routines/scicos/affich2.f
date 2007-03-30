@@ -23,7 +23,6 @@ c     z(6:6+nu*nu2)=value
       double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
       integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
       integer nipar,nu,ny
-
       integer wid,nu2
 
       integer cur,v
@@ -34,13 +33,19 @@ c     z(6:6+nu*nu2)=value
 
 c     
 c     
+c     do 111 i=1,2*nu
+c       do 111 i=1,nu
+c      write(6,'(''u='',F5.3)') u(i)
+c 111  continue
       nu2=int(nu/ipar(7))
       if(flag.eq.2) then
 c     state evolution
-c         write(6,'(''nu1='',i3,'' nu2='',i3)') ipar(7), nu2
+c       write(6,'(''nu1='',i3,'' nu2='',i3)') ipar(7), nu2
          ok=1
+c         do 1 i=1,2*nu
          do 1 i=1,nu
           ur=10.0d0**ipar(6)
+c          ur=10.0d0**3
           ur=sciround(u(i)*ur)/ur
           if (ur.ne.z(5+i)) then
             goto 2
@@ -59,10 +64,13 @@ c         if (ur.eq.z(6)) return
      $        dv,dv,dv,dv)
 
          call recterase2(z(2))
+c         do 3 i=1,2*nu
          do 3 i=1,nu
-          ur=10.0d0**ipar(6)
+	  ur=10.0d0**ipar(6)
+c          ur=10.0d0**3
           ur=sciround(u(i)*ur)/ur
-          z(5+i)=ur
+         z(5+i)=ur
+c       write(6,'(''z='',F5.3)') z(5+i)
  3       continue
 c         z(6)=ur
          call affdraw2(ipar(1),ipar(5),z(6),z(2),ipar(7),nu2)
@@ -70,6 +78,7 @@ c         z(6)=ur
       elseif(flag.eq.4) then
 c     init
 c     .  initial value         
+c        do 4 i=1,2*nu
         do 4 i=1,nu
           z(5+i)=0.0d0
  4      continue
@@ -83,7 +92,7 @@ c     .  get geometry of the block
      $        dv,dv,dv,dv)
 
          call recterase(z(2))
-         call affdraw(ipar(1),ipar(5),z(6),z(2),ipar(7),nu2)
+         call affdraw2(ipar(1),ipar(5),z(6),z(2),ipar(7),nu2)
          call  dr1('xsetdr'//char(0),drv,v,v,v,v,v,v,dv,dv,dv,dv)
 
       endif
@@ -122,13 +131,18 @@ c     .  get geometry of the block
       integer fontd(2),form(2)
       double precision val(*),x,y,angle,rect(4),r(4),dx,dy
       character*40 fmt,value
-      character*40 value2
+      character*80 value2
       integer nu,nu2
+      double precision C,D
+c      COMPLEX*16 C
       integer font(5),nf,pix
       integer v,verb
       double precision dv
       data angle/0.0d0/,verb/0/
-
+c      write(*,*) 'nu=',nu,'nu2=',nu2
+c      do 1132 i=1,2*nu*nu2
+c      write(*,*) 'val',i,'=',val(i)
+c1132  continue
       write(fmt,'(''(f'',i3,''.'',i3,'')'')') form(1),form(2)
       call dr1('xget'//char(0),'font'//char(0),verb,font,nf,v,v,
      $     v,dv,dv,dv,dv)
@@ -139,14 +153,22 @@ c     .  get geometry of the block
         value2=' '
         ln2=0
         do 15 i=1,nu2
-          write(value,fmt) val((i-1)*nu+j)
+c          C=CMPLX (val((i-1)*nu+j),val((i-1)*nu+j+nu*nu2))
+          C=val((i-1)*nu+j)
+c          D=val((i-1)*nu+j+nu*nu2)
+c              write(*,*)'c=',C,'d=',D
+c              WRITE(value,112) C,D
+c 112          format(' ',f7.3,'+',f7.3,'i')
+          write(value,fmt) C
           ln=lnblnk(value)
+c	  write(*,*) 'value=',value,'ln=',ln
 c        value(ln+1:ln+1)=char(0)
           value(ln+1:ln+1)=' '
 c        do 14 j=1,ln+1
           value2(ln2+1:ln2+ln+2)=value(1:ln+1)
 c 14     continue
           ln2=lnblnk(value2)
+c	   write(*,*) 'value2=',value2,'ln2=',ln2
  15     continue
         ln2=lnblnk(value2)
         value2(ln2+1:ln2+1)=char(0)

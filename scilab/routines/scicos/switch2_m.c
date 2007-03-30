@@ -1,19 +1,21 @@
 #include "scicos_block4.h"
 #include <math.h>
+#include <memory.h>
 
 void  switch2_m(scicos_block *block,int flag)
 {
-  int i,j,phase,ipar,mu,nu;
+  int i,phase,ipar,mu,nu,so;
   int *iparptrs;
   double *rpar;
-  double *u2,*y,*u;
+  double *u2;
+  void *y,*u;
   iparptrs=GetIparPtrs(block);
   ipar=*iparptrs;
   rpar=GetRparPtrs(block);
   mu=GetInPortRows(block,1);
   nu=GetInPortCols(block,1);
   u2=GetRealInPortPtrs(block,2);
-  y=GetRealOutPortPtrs(block,1);
+  y=GetOutPortPtrs(block,1);
   if (flag == 1) {
     phase=get_phase_simulation();
     if (phase==1||block->ng==0){
@@ -32,10 +34,9 @@ void  switch2_m(scicos_block *block,int flag)
 	i=3;
       }
     }
-    for (j=0;j<mu*nu;j++) {
-       u=GetRealInPortPtrs(block,i);
-      *(y+j)=*(u+j);
-    }
+       u=GetInPortPtrs(block,i);
+       so=GetSizeOfOut(block,1);
+       memcpy(y,u,mu*nu*so);
   }else if(flag == 9){
     phase=get_phase_simulation();
     block->g[0]=*u2-*rpar;
