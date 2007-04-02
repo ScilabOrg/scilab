@@ -1,13 +1,31 @@
-function Cmenu=tk_mpopupX(ll)
-  Cmenu=[]
-  if length(ll)==0 then return;end
-  [txt,MM]=create_popup(ll)
-  ierr=execstr('TCL_EvalStr(txt)','continue')
-  done=0
-  while ~done,end
+function Cmenu = tk_mpopupX(ll)
+//** INRIA
+//**
+//** 30 April 2007: right mouse button operation 
+   
+  Cmenu = [] ;
+  
+  if length(ll)==0 then
+     return
+  end
+  
+  [txt,MM] = create_popup(ll) ; //** see below in this file 
+  ierr = execstr('TCL_EvalStr(txt)','continue'); 
+  
+  //** This active wait is slowed down using sleep() to avoid 100% CPU utilization 
+  milliseconds = 50 ; //** 5 rescheduling for Linux, 2 for WindoZ
+  done = 0 ; 
+  while ~done
+   sleep(milliseconds); //** ;) 
+  end
 endfunction
-
+//***--------------------------------------------------------------------------------------------------
+//**
+//
+//**
 function [txt,MM]=create_popup(ll)
+//** INRIA
+//**  
   MM=[];
   global j
   j=0
