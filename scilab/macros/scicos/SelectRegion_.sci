@@ -12,7 +12,7 @@ function SelectRegion_()
 
   drawnow()
   //[ox,oy,w,h,ok] = get_rectangle(%xc,%yc)
-  [rect,button] = rubberbox([%pt(1); %pt(2); 0; 0]) ;
+  [rect,button] = rubberbox([%pt(1); %pt(2); 0; 0], %t) ;
   if or(button == [2 5 12 -100]) then // right button exit OR active window has been closed
     enablemenus()
     return ; //** ---> Exit point

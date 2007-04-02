@@ -18,7 +18,7 @@ rub_height = 0 ;
 
 //** [x_left, y_top, width, height]
 
-[final_rect, button] = rubberbox([xc; yc; rub_width; rub_height]) ;
+[final_rect, button] = rubberbox([xc; yc; rub_width; rub_height], %t) ;
 
 if button == [2 5 12 -100] then // right button exit OR active window has been closed
     ok = %f ;
