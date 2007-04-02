@@ -150,46 +150,64 @@ if ~super_block then
 
   //** Scicos internal function (scicos/routines/permuteobj) override in order to assure full
   //** compatibility with NGI (J.B. Silvy)
-  swap_handles=permutobj; //TO be removed in scilab 5
+  swap_handles = permutobj; //TO be removed in Scilab 5
 
-  //intialize lhb menu
-  %scicos_lhb_list = list()
+  //** Right Mouse Button Menus:
+  //**        "%scicos_lhb_list" data structure initialization 
+  //**                 
+  //** Create an empty list() data structure 
+  %scicos_lhb_list = list();
+  
   %scicos_lhb_list(1) = list('Open/Set',..
-			  'Cut',..
-			  'Copy',..
-			  'Smart Move'  ,..
-			  'Move'  ,..
-			  'Duplicate',..
-			  'Delete',..
-			  'Link',..
-			  'Align',..
-			  'Replace',..
-			  'Flip',..
-			  list('Properties',..
-			       'Resize',..
-			       'Icon',..
-			       'Icon Editor',..
-			       'Color',..
-			       'Label',..
-			       'Get Info',..
-			       'Identification',..
-			       'Documentation'),..
-			  'Code Generation',..
-			  'Help');
+			     'Cut',..
+			     'Copy',..
+			     'Smart Move',..
+			     'Move',..
+			     'Duplicate',..
+			     'Delete',..
+			     'Link',..
+			     'Align',..
+			     'Replace',..
+			     'Flip',..
+			     list( 'Properties',..
+			           'Resize',..
+			           'Icon',..
+			           'Icon Editor',..
+			           'Color',..
+			           'Label',..
+			           'Get Info',..
+			           'Identification',..
+			           'Block Documentation'),..
+			     'Code Generation',..
+			     'Help');
 			  
-   %scicos_lhb_list(2)=list('Undo','Paste','Palettes','Context','Add new block',..
-			  'Duplicate Region','Delete Region','Region to Super Block',..
-			  'Replot','Save','Save As',..
-			  'Load','Export','Quit','Background color','Aspect',..
-			  'Zoom in',  'Zoom out','Help');
+  %scicos_lhb_list(2) = list('Undo',..
+                             'Paste',..
+			     'Palettes',..
+			     'Context',..
+			     'Add new block',..
+			     'Region to Super Block',..
+			     'Replot',..
+			     'Save',..
+			     'Save As',..
+			     'Load',..
+			     'Export',..
+			     'Quit',..
+			     'Background color',..
+			     'Aspect'  ,..
+			     'Zoom in' ,..
+			     'Zoom out',..
+			     'Help');
 
-   %scicos_lhb_list(3)=list('Copy','Duplicate','Duplicate Region','Help');
+  %scicos_lhb_list(3) = list('Copy',..
+                             'Duplicate',..
+			     'Help');
 
  if exists('scicoslib')==0 then 
    load('SCI/macros/scicos/lib') ; //** load all the libraries relative to the palettes
  end
 
- exec(loadpallibs,-1) // to load the palettes libraries
+ exec(loadpallibs, 1) //** load the palettes libraries, -1 => no echo on the Scilab console 
 
  prot=funcprot();funcprot(0);
  exec(SCI+'/macros/util/ged.sci',-1); //to load functions of ged in scicos
@@ -348,31 +366,47 @@ if ~super_block then
   end
   //%scicos_gui_mode=0
 
+  
   if %scicos_gui_mode==1 then
-    prot=funcprot();
+  //** scicos is active in graphical mode   
+    prot = funcprot();
     funcprot(0);
-    getfile  = tk_getfile;
-    savefile = tk_savefile;
+    
+    getfile  = tk_getfile;  //** Tk function definition 
+    
+    savefile = tk_savefile; //** Tk    "        "
+    
     getcolor = tk_getcolor;
-    if MSDOS then
-      getvalue = tk_getvalue;
-      mpopup   = tk_mpopup;
-      choose   = tk_choose;
+    
+    //** --------- Popup OS dependent definition -----------------
+    if MSDOS then  
+    //** ... for Windows machines 
+      getvalue = tk_getvalue ;
+      mpopup   = tk_mpopup   ; //** the pop up Windowz
+      choose   = tk_choose   ;
     else
-      mpopup = tk_mpopupX;
-      deff('x=choose(varargin)',...
-             'x=x_choose(varargin(1:$))');
+    //** ... for Unix machines   
+      mpopup = tk_mpopupX    ; //** for the Penguin 
+      deff('x=choose(varargin)', 'x=x_choose(varargin(1:$))');
     end
+    
     funcprot(prot);
+    //** -------- ... end of popup --------------------------------
+    
   else
+  //** Scicos works in "text mode"  
     deff('x=getfile(varargin)','x=xgetfile(varargin(1:$))');
     savefile = getfile;
     deff('Cmenu=mpopup(x)','Cmenu=[]')
     deff('x=choose(varargin)','x=x_choose(varargin(1:$))');
-  end //** of %scicos_gui_mode==1
+  end //** of %scicos_gui_mode 
+
 //
+
 else //** super block case
 
+  //** NO Pupup function definition in the super block ------------
+  
   noldwin = size(windows,1)           ;
   windows = [windows ; slevel curwin] ;
   palettes = palettes                 ;
