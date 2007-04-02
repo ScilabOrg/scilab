@@ -1388,7 +1388,9 @@ function [bouclalg,vec,primary]=ordo2(blk,port,clkconnect,connectmat,..
 	primary1=primary(i,1)
         if typ_l(primary1) then   //RN
 	  w=get_allchildren2port(primary1)
-          vec(w(:,1))=max(max(vec(w(:,1))),vec(primary1))
+	  if w<>[] then
+	    vec(w(:,1))=max(max(vec(w(:,1))),vec(primary1))
+	  end
 	else
 	  w=[]
         end
