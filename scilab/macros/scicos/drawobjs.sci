@@ -10,16 +10,22 @@ function drawobjs(scs_m, gh_window)
        //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
        gh_curwin = gcf(); //** get the handle of the current graphics window
        drawgrid();
+       
        for i=1 : lstsize(scs_m.objs) //** draw object by object
-            gh_blk = drawobj(scs_m.objs(i));
+            scs_m_index = i ; //** creation of a semiglobal variable for object indexing
+	    gh_blk = drawobj(scs_m.objs(i));
        end
+    
     else //** the argument is explicit
        //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
        gh_curwin = gh_window ; //** get the handle of the current graphics window
        drawgrid(gh_curwin);
+       
        for i=1 : lstsize(scs_m.objs) //** draw object by object
+          scs_m_index = i ; //** creation of a semiglobal variable for object indexing
           gh_blk = drawobj(scs_m.objs(i), gh_curwin);
        end
+   
    end
 
    //** Update selected object 

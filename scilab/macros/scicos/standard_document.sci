@@ -1,6 +1,8 @@
 function texte = standard_document(objet, k)
-//
-// standard_document - documentation d'un bloc Scicos
+//**
+// Copyright INRIA
+//**   
+// standard_document - Scicos block documentation 
 //
 // Copyright INRIA
 
@@ -8,10 +10,10 @@ function texte = standard_document(objet, k)
   //
   select type_objet
 
-   case 'Text' then
-    texte='This is a TEXT block'
+   case "Text" then
+    texte = 'This is a TEXT block'
     
-    case 'Block' then
+    case "Block" then
     //- Initialisations 
     modele = objet.model
     graphique = objet.graphics

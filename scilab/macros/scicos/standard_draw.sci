@@ -99,14 +99,73 @@ function standard_draw (o, frame, draw_ports, up)
 
 //** --------------------------------------------------------------------------------------------------------------
 
+//** ---- scs_m , %cpr Indexes Show including information on internal superblocks ---------------------------------
+
+//** quick and dirty patch to show the scs_s and %cpr indexes 
+  
+if %scicos_with_grid(1)==%t then  
+  
+  scs_m_i=[]; cpr_i=[] ; sflag=[] ;
+  
+  win_id = gh_curwin.figure_id
+  
+  kc = find(win_id==windows(:,2))
+  
+  pal = windows(kc,1);
+   
+  if pal > 0 then 
+  
+     //disp('la'); pause
+     //printf("kc=%f,pal=%f,win_id=%f\n",kc,pal,win_id);
+     if ~exists('scs_m_index') then scs_m_index=-1, end
+     [scs_m_i, cpr_i, sflag] = get2index(o, scs_m_index);
+   
+     txt_index = [];
+     if scs_m_i<>[] & cpr_i<>[] then
+        if sflag<>[] then
+          txt_index = string(scs_m_i)+"s, "+cpr_i+"c";
+        else
+          txt_index = string(scs_m_i)+"s, "+string(cpr_i)+"c";
+       end
+     end
+
+     gh_axes = gca(); //** get the Axes proprieties 
+    
+     // draw indexes 
+     if txt_index<>[] then
+  
+      //** Save font state  
+      axes_font_style = gh_axes.font_style ;
+      axes_font_size  = gh_axes.font_size  ;
+      //** axes_font_color = gh_axes.font_color ; //** optional
+  
+        gh_axes.font_style = options.ID(1)(1) ; 
+        gh_axes.font_size  = options.ID(1)(2) ;
+        //** font color not yet used 
+         rectangle = xstringl(orig(1), orig(2), txt_index) ;
+         w = max(rectangle(3), sz(1)) ;
+         h = rectangle(4) * 0.5 ;
+         xstringb(orig(1) + sz(1) / 2 - w / 2, orig(2) + sz(2) + h , txt_index , w, h) ;
+  
+     //** Restore font state 
+     gh_axes.font_style = axes_font_style ;
+     gh_axes.font_size  = axes_font_size  ;
+     //** gh_axes.font_color = axes_font_color ; //** optional
+ 
+    end  
+  
+  end   
+
+end //** of on/off control    
+         
 //** -------------------------------- Identification --------------------------------------------------------------
 
   ident = o.graphics.id
-
+  
   gh_axes = gca(); //** get the Axes proprieties 
   
   // draw Identification
-  if ident <> []& ident <> ''  then
+  if ident<>[] & ident<>'' then
   
       //** Save font state  
       axes_font_style = gh_axes.font_style ;
