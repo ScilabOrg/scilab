@@ -149,7 +149,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       
      sig_out = scs_m.objs(k).graphics.pout' ; //** signal output 
      for l = sig_out //** scan all the output 
-	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links)) then // ext link
             connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -157,7 +157,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       
      ev_in = scs_m.objs(k).graphics.pein' ;
      for l = ev_in //** scan all the output 
-	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links)) then // ext link
             connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
@@ -165,7 +165,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	
      ev_out = scs_m.objs(k).graphics.peout' ; 
      for l = ev_out //** scan all the output 
-	  if (~(or(l==int_link ))) & (or(l==diagram_links))then // ext link
+	  if (~(or(l==int_link ))) & (or(l==diagram_links)) then // ext link
 	    connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
 	  end  
