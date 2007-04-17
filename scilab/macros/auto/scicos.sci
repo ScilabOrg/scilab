@@ -383,7 +383,7 @@ if ~super_block then
     //** ... for Windows machines 
       getvalue = tk_getvalue ;
       mpopup   = tk_mpopup   ; //** the pop up Windowz
-      choose   = tk_choose   ;
+      choose   = tk_scicos_choose   ;
     else
     //** ... for Unix machines   
       mpopup = tk_mpopupX    ; //** for the Penguin 
