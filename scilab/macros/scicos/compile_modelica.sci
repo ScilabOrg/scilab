@@ -59,9 +59,19 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
     // build shared library with the C code
     files=name+'.o';Make=path+'Make'+name;loader=path+name+'.sce'
     //  build the list of external functions libraries
+
+    // remove repreated directories from mlibs    
+    rep=[];
+    for k=1:size(mlibs,'*')
+      for j=k+1:size(mlibs,'*')
+	if stripblanks(mlibs(k))==stripblanks(mlibs(j)) then rep=[rep,j]; end
+      end
+    end
+    mlibs(rep)=[];  
+    //--------------------------------    
     libs=[];
     if MSDOS then ext='\*.ilib',else ext='/*.a',end
-    // removing .a or .ilib sufixs
+    // removing .a or .ilib sufixs 
     for k=1:size(mlibs,'*')
       aa=listfiles(mlibs(k)+ext);
       for j=1:size(aa,'*')
@@ -70,15 +80,29 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
 	libs=[libs;libsname];
       end
     end
+     
+    // add modelica_libs to the list of directories to be searched for *.h
+    //if MSDOS then ext='\*.h',else ext='/*.h',end
+    EIncludes=''
+    for k=1:size(mlibs,'*')
+	EIncludes=EIncludes+'  -I""'+ mlibs(k)+'""';
+    end
     
-    ierr=execstr('libn=ilib_for_link(name,files,libs,''c'',Make,loader)','errcatch')
+	E2='';
+    for i=1:length(EIncludes) 
+     if (part(EIncludes,i)=='\') then
+	   E2=E2+'\';
+	 end
+	 E2=E2+part(EIncludes,i);
+    end
+    ierr=execstr('libn=ilib_for_link(name,files,libs,''c'',Make,loader,'''','''',E2)','errcatch')
     if ierr<>0 then 
       ok=%f;x_message(['sorry compilation problem';lasterror()]);
       return;
     end
 
     // executing loader file
-     if execstr('exec(loader);        ','errcatch')<>0 then      
+     if execstr('exec(loader); ','errcatch')<>0 then      
       ok=%f;
       x_message(['Problem while linking generated code';lasterror()]);
     return;
