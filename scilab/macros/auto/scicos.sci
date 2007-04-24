@@ -582,9 +582,11 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
 
         Select_back = Select; //** save the selected object list 
 
-        //** Command execution 
-	exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
-	disp(exeString)  ;
+        //** Command execution
+        if %scicos_debug_gr then
+          exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
+          disp(exeString)  ;
+        end
 	//** Don't ever think to touch this line of code ;)
 	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
                                                           //** exec the desired action				  
