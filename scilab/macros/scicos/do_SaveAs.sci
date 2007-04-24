@@ -49,16 +49,15 @@ function [scs_m,edited]=do_SaveAs()
   
   // save
   if ext=='cos' then
-    save(u,scicos_ver,scs_m,%cpr)
+    save(u,scs_m,%cpr)
   else
     //  disablemenus()
-    if execstr('write(u,sci2exp(scicos_ver,''scicos_ver''),''(a)'')',..
-	       'errcatch')<>0 then
+    ierr=cos2cosf(u,do_purge(scs_m));
+    if ierr<>0 then
       message('Directory write access denied')
       file('close',u)
       return
     end
-    cos2cosf(u,do_purge(scs_m))
     //  enablemenus()
   end
   file('close',u)
@@ -66,7 +65,7 @@ function [scs_m,edited]=do_SaveAs()
   drawtitle(scs_m.props)  // draw the new title
 
   edited=%f
-  if pal_mode then 
+  if pal_mode then
     scicos_pal=update_scicos_pal(path,scs_m.props.title(1),fname),
     scicos_pal=resume(scicos_pal)
   end

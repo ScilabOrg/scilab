@@ -42,21 +42,19 @@ function path=save_csuper(scs_m,fpath)
 
   ppath=getparpath(scs_m,[])
 
-
   // form text of the macro
-  txt=[
-      'function [x,y,typ]='+nam+'(job,arg1,arg2)';
-      'x=[];y=[],typ=[]';
-      'select job';
-      'case ''plot'' then';
-      '  standard_draw(arg1)';
-      'case ''getinputs'' then';
-      '  [x,y,typ]=standard_inputs(arg1)';
-      'case ''getoutputs'' then';
-      '  [x,y,typ]=standard_outputs(arg1)';
-      'case ''getorigin'' then';
-      '  [x,y]=standard_origin(arg1)';
-      'case ''set'' then']
+  txt=['function [x,y,typ]='+nam+'(job,arg1,arg2)';
+       'x=[];y=[],typ=[]';
+       'select job';
+       'case ''plot'' then';
+       '  standard_draw(arg1)';
+       'case ''getinputs'' then';
+       '  [x,y,typ]=standard_inputs(arg1)';
+       'case ''getoutputs'' then';
+       '  [x,y,typ]=standard_outputs(arg1)';
+       'case ''getorigin'' then';
+       '  [x,y]=standard_origin(arg1)';
+       'case ''set'' then']
   if size(ppath)>0 then
     t1=sci2exp(ppath,'ppath')
     txt=[txt;
@@ -134,10 +132,11 @@ function path=save_csuper(scs_m,fpath)
 	 '  x=arg1'
 	 '  typ=newpar']
   end
+
   //t1=sci2exp(model,'model');
   txt=[txt;
        'case ''define'' then']
- 
+
   path=stripblanks(fpath)+'/'+nam+'.sci'
   [u,err]=file('open',path,'unknown')
   if err<>0 then
@@ -147,7 +146,36 @@ function path=save_csuper(scs_m,fpath)
   write(u,txt,'(a)')
   cos2cosf(u,model.rpar,0)
   model.rpar='%scs_m_1'
-  t1=sci2exp(model,'model');
+
+  //t1=sci2exp(model,'model');
+  //scicos_model
+  tt1=[];
+  fields=getfield(1,model);
+  for i=1:lstsize(model)-1
+    field_nam=fields(i+1);
+    tt=sci2exp(getfield(i+1,model));
+    tt(1)=field_nam+'='+tt(1);
+    if i<>lstsize(model)-1 then
+      tt($)=tt($)+',';
+    end
+    tt1=[tt1;tt];
+  end
+  //my_strcat
+  for i=1:size(tt1,1)
+   if length(tt1(i))<>0 then
+     if part(tt1(i),length(tt1(i)))==',' then
+       tt1(i)=tt1(i)+'..';
+     end
+   end
+  end
+  //final work
+  t1=['model=scicos_model(..';
+      '         '+tt1(1)];
+  for i=2:size(tt1,1)
+     t1=[t1;'         '+tt1(i)];
+  end
+  t1($)=t1($)+')';
+
   t1=[strsubst(t1,sci2exp('%scs_m_1'),'scs_m_1')
       '  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'
       '  x=standard_define([2 2],model,[],gr_i)';

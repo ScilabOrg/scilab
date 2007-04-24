@@ -29,7 +29,8 @@ for k=1:lstsize(scs_m.objs)
     end
   end
 end
-model=scicos_model()
+
+  model=scicos_model()
   model.sim='super'
   model.in=in
   model.out=out
@@ -38,57 +39,85 @@ model=scicos_model()
   model.rpar=scs_m
   model.blocktype='h'
   model.dep_ut=[%f %f]
-  
 
-ppath=getparpath(scs_m,[])
+  ppath=getparpath(scs_m,[])
 
+  // form text of the macro
+  txt=['function [x,y,typ]='+nam+'(job,arg1,arg2)';
+       'x=[];y=[],typ=[]';
+       'select job';
+       'case ''plot'' then';
+       '  standard_draw(arg1)';
+       'case ''getinputs'' then';
+       '  [x,y,typ]=standard_inputs(arg1)';
+       'case ''getoutputs'' then';
+       '  [x,y,typ]=standard_outputs(arg1)';
+       'case ''getorigin'' then';
+       '  [x,y]=standard_origin(arg1)';
+       'case ''set'' then'
+       '  y=needcompile'
+       '  while %t do'
+       '    [x,newparameters,needcompile]=scicos(arg1.model.rpar)'
+       '    arg1.model.rpar=x'
+       '    [ok,arg1]=adjust_s_ports(arg1)'
+       '    if ok then'
+       '      x=arg1'
+       '      y=needcompile'
+       '      typ=newparameters'
+       '      %exit=resume(%f)'
+       '    else'
+       '      %r=2'
+       '      %r=message([''SUPER BLOCK needs to be edited;'';''Edit or exit by removing all edition''],[''Edit'';''Exit''])'
+       '      if %r==2 then typ=list(),%exit=resume(%t),end'
+       '    end'
+       '  end']
 
-// form text of the macro
-txt=[
-'function [x,y,typ]='+nam+'(job,arg1,arg2)';
-'x=[];y=[],typ=[]';
-'select job';
-'case ''plot'' then';
-'  standard_draw(arg1)';
-'case ''getinputs'' then';
-'  [x,y,typ]=standard_inputs(arg1)';
-'case ''getoutputs'' then';
-'  [x,y,typ]=standard_outputs(arg1)';
-'case ''getorigin'' then';
-'  [x,y]=standard_origin(arg1)';
-'case ''set'' then'
-'  y=needcompile'
-'  while %t do'
-'    [x,newparameters,needcompile]=scicos(arg1.model.rpar)'
-'    arg1.model.rpar=x'
-'    [ok,arg1]=adjust_s_ports(arg1)'
-'    if ok then'
-'      x=arg1'
-'      y=needcompile'
-'      typ=newparameters'
-'      %exit=resume(%f)'
-'    else'
-'      %r=2'
-'      %r=message([''SUPER BLOCK needs to be edited;'';''Edit or exit by removing all edition''],[''Edit'';''Exit''])'
-'      if %r==2 then typ=list(),%exit=resume(%t),end'
-'    end'
-'  end']
+  txt=[txt;
+       'case ''define'' then']
 
-t1=sci2exp(model,'model');
-txt=[
-    txt;
-'case ''define'' then'
-   bl(ones(size(t1,1),1))+t1;
-'  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'
-'  x=standard_define([2 2],model,[],gr_i)';
-'end'
-'endfunction']
-path=stripblanks(fpath)+'/'+nam+'.sci'
-[u,err]=file('open',path,'unknown')
-if err<>0 then
-  message(path+': Directory or file write access denied')
-  return
-end
-write(u,txt,'(a)')
-file('close',u)
+  path=stripblanks(fpath)+'/'+nam+'.sci'
+  [u,err]=file('open',path,'unknown')
+  if err<>0 then
+    message(path+': Directory or file write access denied')
+    return
+  end
+  write(u,txt,'(a)')
+  cos2cosf(u,model.rpar,0)
+  model.rpar='%scs_m_1'
+
+  //scicos_model
+  tt1=[];
+  fields=getfield(1,model);
+  for i=1:lstsize(model)-1
+    field_nam=fields(i+1);
+    tt=sci2exp(getfield(i+1,model));
+    tt(1)=field_nam+'='+tt(1);
+    if i<>lstsize(model)-1 then
+      tt($)=tt($)+',';
+    end
+    tt1=[tt1;tt];
+  end
+  //my_strcat
+  for i=1:size(tt1,1)
+   if length(tt1(i))<>0 then
+     if part(tt1(i),length(tt1(i)))==',' then
+       tt1(i)=tt1(i)+'..';
+     end
+   end
+  end
+  //final work
+  t1=['model=scicos_model(..';
+      '         '+tt1(1)];
+  for i=2:size(tt1,1)
+     t1=[t1;'         '+tt1(i)];
+  end
+  t1($)=t1($)+')';
+
+  t1=[strsubst(t1,sci2exp('%scs_m_1'),'scs_m_1')
+      '  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'
+      '  x=standard_define([2 2],model,[],gr_i)';
+      'end'
+      'endfunction']
+  write(u,t1,'(a)')
+  file('close',u)
 endfunction

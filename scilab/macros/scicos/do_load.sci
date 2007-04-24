@@ -1,16 +1,16 @@
 function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
-// Copyright INRIA
+  // Copyright INRIA
   [lhs,rhs]=argn(0)
   edited=%f
   if rhs<2 then typ='diagram',end
 
-  if alreadyran&typ=='diagram' then 
-    do_terminate(),//end current simulation
-  end  
+  if alreadyran&typ=='diagram' then
+    do_terminate() //end current simulation
+  end
 
-  scicos_debug(0)  //set debug level to 0 for new diagram loaded
-  
-  current_version=scicos_ver
+  scicos_debug(0) //set debug level to 0 for new diagram loaded
+
+  current_version=get_scicos_version()
   scicos_ver='scicos2.2' //default version, for latter version scicos_ver is stored in files
 
   if rhs<=0 then fname=getfile('*.cos*'),end
@@ -19,68 +19,57 @@ function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
     %cpr=list()
     scs_m=[]
     [path,name,ext]=splitfilepath(fname)
-    
-    select ext
-     case 'cosf'
+    //first pass
+    if ext=='cos'|ext=='COS'|ext=='cosf'|ext=='COSF' then
       [x,ierr]=fileinfo(fname)
       if ierr==0 then
-	ww=stacksize()
-	if ww(1)<2*x(1) then 
-	  disp('stacksize increased to '+string(2*x(1)))
-	  stacksize(2*x(1)),
-	end
-	ierr=execstr('exec(fname,-1)','errcatch')
-	ok=%t
-      end
-     case 'cos' then
-      [x,ierr]=fileinfo(fname)
-      if ierr==0 then
-	ww=stacksize()
-	if ww(1)<2*x(1) then 
-	  disp('stacksize increased to '+string(2*x(1)))
-	  stacksize(2*x(1)),
-	end
-	ierr=execstr('load(fname)','errcatch')
-	ok=%t
-      end
-     case 'COSF'
-      [x,ierr]=fileinfo(fname)
-      if ierr==0 then
-	ww=stacksize()
-	if ww(1)<2*x(1) then 
-	  disp('stacksize increased to '+string(2*x(1)))
-	  stacksize(2*x(1)),
-	end
-	ierr=execstr('exec(fname,-1)','errcatch')
-	ok=%t
-      end
-     case 'COS' then
-      [x,ierr]=fileinfo(fname)
-      if ierr==0 then
-	ww=stacksize()
-	if ww(1)<2*x(1) then 
-	  disp('stacksize increased to '+string(2*x(1)))
-	  stacksize(2*x(1)),
-	end
-	ierr=execstr('load(fname)','errcatch')
-	ok=%t
+        ww=stacksize()
+        if ww(1)<2*x(1) then
+          disp('stacksize increased to '+string(2*x(1)))
+          stacksize(2*x(1))
+        end
+      else
+        message(name+' cannot be loaded.')
+        ok=%f;
+        scs_m=scicos_diagram(version=current_version);
+        return
       end
     else
       message(['Only *.cos (binary) and *.cosf (formatted) files';
-	       'allowed'])
+               'allowed'])
       ok=%f
-      scs_m=scicos_diagram()
+      scs_m=scicos_diagram(version=current_version)
       return
     end
+
+    //second pass
+    if ext=='cos'|ext=='COS' then
+      ierr=execstr('load(fname)','errcatch')
+      ok=%t
+    elseif ext=='cosf'|ext=='COSF' then
+      ierr=execstr('exec(fname,-1)','errcatch')
+      ok=%t
+    end
     if ierr<>0 then
-      message(name+' cannot be loaded.') 
-      ok=%f;scs_m=scicos_diagram();return
+      message('An error has occur during execution of '+name+'.')
+      ok=%f
+      scs_m=scicos_diagram(version=current_version)
+      return
+    end
+
+    //check version
+    if type(scs_m)==17 then
+      if find(getfield(1,scs_m)=='version')<>[] then
+        if scs_m.version<>'' then
+          scicos_ver=scs_m.version
+        end
+      end
     end
     if scicos_ver=='scicos2.2' then
       if scs_m==[] then scs_m=x,end //for compatibility
     end
-    if scicos_ver<>current_version then 
-      scs_m=do_version(scs_m,scicos_ver),
+    if scicos_ver<>current_version then
+      scs_m=do_version(scs_m,scicos_ver)
       %cpr=list()
       edited=%t
     end
@@ -94,7 +83,7 @@ function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
 
   if typ=='diagram' then
     if %cpr<>list() then
-      
+
       for jj=1:size(%cpr.sim.funtyp,'*')
 	if type(%cpr.corinv(jj))==15 then
 	  //force recompilation if diagram contains Modelica Blocks
@@ -106,10 +95,10 @@ function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
 	ft=modulo(%cpr.sim.funtyp(jj),10000)
 	if ft>999 then
 	  funam=%cpr.sim.funs(jj)
-	  //regenerate systematically dynamically linked blocks forsafety 
+	  //regenerate systematically dynamically linked blocks forsafety
 	  //[a,b]=c_link(funam); while a;  ulink(b);[a,b]=c_link(funam);end
-	  //should be better than 
-	  //"if  ~c_link(funam) then" 
+	  //should be better than
+	  //"if  ~c_link(funam) then"
 	  //but ulink remove .so files and Makefile doesnt depends on .so file...
 	  if ~c_link(funam) then
 
@@ -128,7 +117,7 @@ function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
 	      [ok]=scicos_block_link(funam,tt,'c')
 	    else
 	      [ok]=scicos_block_link(funam,tt,'f')
-	    end 
+	    end
 	  end
 	end
       end

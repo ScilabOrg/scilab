@@ -30,7 +30,7 @@ function ok=do_save(scs_m)
     return
   end
   //save
-  if execstr('save(u,scicos_ver,scs_m,%cpr)','errcatch')<>0 then
+  if execstr('save(u,scs_m,%cpr)','errcatch')<>0 then
     message(['Save error:';lasterror()])
     ok=%f
     mclose(u)

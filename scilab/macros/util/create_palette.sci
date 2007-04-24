@@ -1,6 +1,6 @@
 function routines=create_palette(Path)
   load SCI/macros/scicos/lib;
-  scicos_ver='scicos4.0.2'
+  scicos_ver=get_scicos_version();
   rhs=argn(2)
   if rhs==1 then
     Path=pathconvert(Path,%t,%t)
@@ -154,13 +154,13 @@ function [routines]=build_palette(lisf,path,fname)
     return
   end
   scs_m.props.title=[fname,path]
-  if execstr('write(u,sci2exp(scicos_ver,''scicos_ver''),''(a)'')',..
-	     'errcatch')<>0 then
+  ierr=cos2cosf(u,do_purge(scs_m))
+  if ierr<>0 then
     message('Directory write access denied')
     file('close',u)
     return
   end
-  cos2cosf(u,do_purge(scs_m))
+
   file('close',u)
   mprintf('Wrote '+path+fname+'.cosf \n')
 endfunction

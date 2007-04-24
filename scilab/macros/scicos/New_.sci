@@ -15,7 +15,7 @@ function New_()
       end  
       
       alreadyran = %f ; 
-      scs_m = scicos_diagram() ; //** create a empty diagram 
+      scs_m = scicos_diagram(version=get_scicos_version()) ; //** create a empty diagram 
       %wpar = scs_m.props ; 
       //** window_set_size()   ; //** resize the phisical window  
       Cmenu  = 'Replot'   ; //** force a Replot of the New (empty) diagram

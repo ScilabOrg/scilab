@@ -4,8 +4,8 @@ function scs_m=do_version(scs_m,version)
 if version<>'scicos2.2'&version<>'scicos2.3'&version<>'scicos2.3.1'&..
    version<>'scicos2.4'&version<>'scicos2.5.1'&version<>'scicos2.7'&..
    version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4'&..
-   version<>'scicos4.0.1' then
-error('No version update defined to '+version+' version')
+   version<>'scicos4.0.1'&version<>'scicos4.0.2' then
+   error('No version update defined to '+version+' version')
 end
 
 if version=='scicos2.2' then scs_m=do_version22(scs_m);version='scicos2.3';end
@@ -36,7 +36,7 @@ if version=='scicos2.7.3' then
   scs_m=do_version4(scs_m),version='scicos4';
   printf("Done !\n")  //to be removed latter
   lines(ncl(2))  //to be removed latter
-end;
+end
 if version=='scicos4' then
   ncl=lines()  //to be removed latter
   lines(0) //to be removed latter
@@ -44,7 +44,7 @@ if version=='scicos4' then
   scs_m=do_version401(scs_m),version='scicos4.0.1';
   printf("Done !\n") //to be removed latter
   lines(ncl(2))  //to be removed latter
-end;
+end
 if version=='scicos4.0.1' then
   ncl=lines()  //to be removed latter
   lines(0) //to be removed latter
@@ -52,7 +52,36 @@ if version=='scicos4.0.1' then
   scs_m=do_version402(scs_m),version='scicos4.0.2';
   printf("Done !\n") //to be removed latter
   lines(ncl(2))  //to be removed latter
-end;
+end
+if version=='scicos4.0.2' then
+  ncl=lines()  //to be removed latter
+  lines(0) //to be removed latter
+  printf("Update scs_m with version... ") //to be removed latter
+  scs_m=do_version42(scs_m)
+  version=scs_m.version;
+  printf("Done !\n") //to be removed latter
+  lines(ncl(2))  //to be removed latter
+end
+endfunction
+
+//Add scs_m.version
+function scs_m_new=do_version42(scs_m)
+  scs_m_new=scicos_diagram(props=scs_m.props,...
+                           objs=scs_m.objs,...
+                           version='scicos4.2');
+  n=size(scs_m.objs);
+  for j=1:n //loop on objects
+    o=scs_m.objs(j);
+    if typeof(o)=='Block' then
+      omod=o.model;
+      if omod.sim=='super'|omod.sim=='csuper' then
+         rpar=do_version42(omod.rpar)
+         omod.rpar=rpar
+      end
+      o.model=omod;
+      scs_m_new.objs(j)=o;
+    end
+  end
 endfunction
 
 //Add model.opar for all blocks

@@ -77,9 +77,6 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
   load SCI/macros/scicos/lib
   exec(loadpallibs,-1)
 
-  //** set current version of scicos
-  scicos_ver = 'scicos4.0.2'
-
   //** redefine some gui functions
   prot=funcprot();funcprot(0);
   deff('disablemenus()',' ')

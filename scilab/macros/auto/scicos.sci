@@ -21,6 +21,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 // scs_m    : scilab list, scicos main data structure
 //      scs_m.props contains system name and other infos
 //      scs_m.objs(i) contains description of ith block diagram element
+//      scs_m.version contains the number version of the diagram
 // menus : vector of character strings,optional parameter giving usable menus
 // !
 //--------------------------------------------------------------------------------------------
@@ -217,8 +218,6 @@ end //** end of the main if() not superblock
 
 //** ------------------------------------ End the NOT-Superbloc initialization and check ----------------------------------------
 
-scicos_ver = 'scicos4.0.2' // set current version of scicos
-
 Main_Scicos_window = 1000 ; //** set default value of the main scicos window
 
 //Initialisation
@@ -281,7 +280,7 @@ else //** scicos_new() is called without arguments (AND - implicitly - is NOT a 
 
   gh_Main_Scicos_window = scf(Main_Scicos_window); //** new way to open a brand new graphics windows  
 
-  scs_m = scicos_diagram() ;
+  scs_m = scicos_diagram(version=get_scicos_version()) ;
 
   %cpr = list(); needcompile = 4; alreadyran = %f; %state0 = list() ;
 
