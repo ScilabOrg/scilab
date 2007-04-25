@@ -10,6 +10,11 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   %scicos_display_mode = 0 ; //** obsolete: with the new graphics the display mode
                              //** is fixed 
 
+  %scicos_with_grid = %f; //** define grid
+  //** %scs_wgrid(1:2) : space of grid
+  //** %scs_wgrid(3) : color
+  %scs_wgrid = [10;10;12]; //**define aspect of grid
+
   //Scicos palettes =================================================================
   //**
   pal_names = ['Sources'    ;'Sinks'           ;'Linear'          ;'Non_linear';

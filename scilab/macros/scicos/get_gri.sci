@@ -14,8 +14,10 @@ function gr_k=get_gri(k,l)
   //          not compiled element in the current
   //          graphical structure
   //
-  //** before : gr_k = l - k + 1,
-  //** but now there is always a grid
-  //** in the last children
-  gr_k = l - k ;
+  if exists('%scicos_with_grid') then
+      gr_k = l - k ; //create a grid in the last children
+                     //if %scicos_with_grid exists
+  else
+    gr_k = l - k + 1;
+  end
 endfunction

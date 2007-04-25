@@ -144,6 +144,8 @@ if ~super_block then
   //** initialize a "scicos_with_grid" variable for drawing a grid
   if ~exists('%scicos_with_grid') then
     %scicos_with_grid = %f;
+  end
+  if ~exists('%scs_wgrid') then
     //** %scs_wgrid(1:2) : space of grid
     //** %scs_wgrid(3) : color
     %scs_wgrid = [10;10;12];

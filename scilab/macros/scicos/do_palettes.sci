@@ -48,7 +48,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
   end
 
   //** Alan : no grid for palette
-  %scicos_with_grid(1)=0
+  %scicos_with_grid=%f
 
   //
   //** xset('window',curwin),

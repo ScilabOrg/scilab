@@ -1,5 +1,5 @@
 function Replot_()
-//   INRIA 
+//   INRIA
 //** 24 may 2006, Comments by Simone Mannori
     Cmenu=[] ;
     %pt=[];
@@ -10,7 +10,7 @@ function Replot_()
     %wdm = scs_m.props.wpar
     window_set_size(gh_curwin) ; //** OK
     set_background(gh_curwin)  ; //** OK
-      drawobjs(scs_m)   ;  //** Redraw all
-      drawnow(); show_pixmap();
+    drawobjs(scs_m)   ;  //** Redraw all
+    drawnow(); show_pixmap();
     enablemenus() ;
 endfunction

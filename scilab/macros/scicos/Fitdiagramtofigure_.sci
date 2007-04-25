@@ -28,11 +28,12 @@ function Fitdiagramtofigure_()
 
    disablemenus();
    window_set_size(gh_window);
-   drawgrid();
-
-   swap_handles(gh_window.children.children($),...
-                gh_window.children.children(1));
-   delete(gh_window.children.children(1));
+   if exists('%scicos_with_grid') then
+     drawgrid();
+     swap_handles(gh_window.children.children($),...
+                  gh_window.children.children(1));
+     delete(gh_window.children.children(1));
+   end
    drawnow();
    show_pixmap();
    enablemenus();

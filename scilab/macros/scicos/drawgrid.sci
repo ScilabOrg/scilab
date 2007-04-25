@@ -8,6 +8,9 @@ function drawgrid(gh_window)
        gh_curwin = gh_window ; //** get the handle of the current graphics window
    end
 
+   if ~exists('%scs_wgrid') then
+     %scs_wgrid = [10;10;12];
+   end
    b1=%scs_wgrid(1) //**x
    b2=%scs_wgrid(2); //**y
    colorr = %scs_wgrid(3) //**color
