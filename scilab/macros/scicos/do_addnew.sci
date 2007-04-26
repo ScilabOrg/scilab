@@ -6,7 +6,7 @@
 
 //** "scs_m" is the diagram datastructure
 
-//** "fct" is a flag control variable used by the callng function Addnewblock
+//** "fct" is a flag control variable used by the calling function Addnewblock
 //**       it is used to signal modification of the datastructure
 
 function [scs_m, fct] = do_addnew(scs_m)
@@ -20,15 +20,15 @@ function [scs_m, fct] = do_addnew(scs_m)
 
   name = stripblanks(name);
 
-  if name==emptystr() then message('No block name specified');return,end ; //** --> Exit point 
+  if name==emptystr() then message('No block name specified');return,end ; //** --> Exit point
 
   to_get=%f
 
-  if exists(name)==0 then 
+  if exists(name)==0 then
     to_get=%t
   else
     execstr('tp=type('+name+')')
-    to_get=tp<>11&tp<>13 
+    to_get=tp<>11&tp<>13
   end
 
   if to_get then // try to get it
@@ -101,6 +101,82 @@ function [scs_m, fct] = do_addnew(scs_m)
     end
 
   end
+
+  //**------ Al@n's update ---------/////////////
+  if blk.model.sim(1)=='super'|...
+      blk.model.sim(1)=='csuper' then
+
+    scs_m_super = blk.model.rpar;
+
+    //check version
+    current_version = get_scicos_version()
+    if type(scs_m_super)==17 then
+      if find(getfield(1,scs_m_super)=='version')<>[] then
+        if scs_m_super.version<>'' then
+          scicos_ver=scs_m_super.version
+        else
+          if find(getfield(1,blk.model)=='equations')<>[] then
+            scicos_ver = "scicos2.7.3" //for compatibility
+          else
+            scicos_ver = "scicos2.7" //for compatibility
+          end
+          message(["Warning : you want to import an old compiled super block.";
+                   "I will try to translate this block by generating ";
+                   "a new interfacing function in TMPDIR"])
+        end
+      else
+        if find(getfield(1,blk.model)=='equations')<>[] then
+          scicos_ver = "scicos2.7.3" //for compatibility
+        else
+          scicos_ver = "scicos2.7" //for compatibility
+        end
+        message(["Warning : you want to import an old compiled super block.";
+                 "I will try to translate this block by generating ";
+                 "a new interfacing function in TMPDIR"])
+      end
+    else
+      message("Can''t import block in scicos, sorry" )
+      fct=[]
+      return
+    end
+
+    //do version
+    if scicos_ver<>current_version then
+      scs_m_super=do_version(scs_m_super,scicos_ver)
+      blk.model.rpar = scs_m_super;
+
+      //generate a new interfacing function in TMPDIR
+      if blk.model.sim(1)=='super' then
+        save_super(scs_m_super,TMPDIR)
+      elseif blk.model.sim(1)=='csuper' then
+        save_csuper(scs_m_super,TMPDIR)
+      end
+      message(name+".sci generated in "+TMPDIR+"." )
+
+      //load new interfacing function
+      [u,err]=file('open',TMPDIR+'/'+name+'.sci','old','formatted')
+      if err<>0 then
+       message(TMPDIR+'/'+name+'.sci'+' file, Not found')
+       return
+      end
+      if execstr('getf(u)','errcatch')<>0 then
+       file('close',u)
+       message([name+' erroneous function:';lasterror()])
+       return
+      end
+      file('close',u)
+      fct=TMPDIR+'/'+name+'.sci'
+
+      //define the block
+      ierror = execstr('blk='+name+'(''define'')','errcatch')
+      if ierror <>0 & ierror <>4 then
+        message(['Error in GUI function';lasterror()] )
+        fct=[]
+        return
+      end
+    end
+  end
+  //**------------------------------------/////////////
 
 //**--------------------------------------------------------------------------------------
 //** The requested block is valid, then it is accepted
@@ -211,6 +287,7 @@ function objsi =up_to_date(o)
   objsi=scicos_block(graphics=graphics,model=model,gui=o(5),..
 		     doc=mdl(14))
   if objsi.gui=='ESELECT_f' then objsi.model.sim(2)=-2,end
+
 endfunction
 
 //** --------------------------------------------------------------------------------------------
