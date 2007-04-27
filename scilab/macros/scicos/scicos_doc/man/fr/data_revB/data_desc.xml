@@ -1,0 +1,1979 @@
+<DATA flag="desc">
+
+<FILE name='ABS_VALUE' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='AFFICH_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ANDBLK' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ANDLOG_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='BACKLASH' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Bache' type='LATEX'>
+Ce composant représente une bache thermo-hydraulique qui consiste en
+deux ports d'entrée et deux ports de sortie.  Conventionnellement, la
+direction positive pour la rentrée est quand le fluide {\bf entre}
+dans le port d'entree (ports noirs) et la direction positive pour les
+ports de sortie est quand le fluide {\bf sort} des port de sortie
+(ports blancs).  La surface de la bache, la température initiale et
+l'altitude initiale du fluide peuvent être definies par l'utilisateur.
+Si un port reste non-utilisé, il doit être bouché par le bloc {\bf
+Bouchon}.
+</FILE>
+
+<FILE name='Branching_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CBLOCK' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLINDUMMY_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKINV_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKOUTV_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSOMV_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLOCK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLR_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLSS_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CMSCOPE' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CONSTRAINT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPE' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CURV_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Capacitor' type='LATEX'>
+Un condensateur est un composant électrique ou électronique dont
+l'intérêt de base est d'avoir une capacité électrique. Son
+comportement électrique idéal est:
+      \[  I = C{dV\over dt}\]
+où:
+\begin{itemize}
+\item $I$ est le courant qui traverse le composant.
+\item $V$ est la tension aux bornes du composant.
+\item $C$ est la capacité électrique du condensateur.
+\item $\textstyle{{dV\over dt}}$ est la variation de tension avec le temps.
+\end{itemize}
+
+Le condensateur peut être utilisé pour distinguer les signaux
+haute-fréquences et basse-fréquence. Cette faculté est très utile
+dans la conception des filtres.
+</FILE>
+
+<FILE name='ConstantVoltage' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce composant est un modèle pour n'importe quel dispositif ou système
+qui produit une force électromotrice constante entre ses terminaux. La
+tension aux bornes de cette source est C. C est définie par
+l'utilisateur. Le port noir indique la tension positive. La résistance
+ohmique de ce composant est zéro.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CurrentSensor' type='LATEX'>
+
+Ce bloc est inséré en série dans un circuit électrique pour mesurer le
+courant qui passe à travers. Si le courant positif {\bf entre} par le
+port noir, il est consideré positif. La résistance ohmique de ce
+composant est zéro.
+
+</FILE>
+
+<FILE name='DEADBAND' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DEBUG_SCICOS' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DEMUX' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DERIV' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DLR_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DLSS_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Diode' type='LATEX'>
+
+Ce composant consiste en une diode simple mise en parallèle avec une résistance
+ohmique $R$. Le courant qui passe dans la diode est défini en
+fonction de la tension aux bornes de le diode, {\it c.-à-d.},
+
+\[I = I_{ds} (\exp^{v/V_t} - 1) + \frac {v} {R} \]
+
+où $I_{ds}$ et $V_t$ sont le courant de saturation et la tension
+équivalente de la température, respectivement. Si la valeur de $v/V_t$
+atteint une certaine limite ($Maxexp$), la courbe caractéristique de
+la diode devient linéaire pour éviter un dépassement numérique.
+</FILE>
+
+<FILE name='EDGE_TRIGGER' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ESELECT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EVTGEN_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EVTVARDLY' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXPBLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXPRESSION' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACTOR' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXTTRI' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Electrical_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+La boîte à outils électrique contient les composants basiques
+électriques tels que la source de tension, la diode, le condensateur,
+etc.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Events_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Extract_Activation' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GAINBLK' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GENSIN_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GENSQR_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Ground' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Cet élément est un composant électrique simple fournissant une tension
+de référence dans des circuits électriques. Le potentiel au noeud de
+Terre est zéro. Chaque circuit électrique doit contenir au moins un
+élément Terre.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='HALT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='HYSTHERESIS' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='IFTHEL_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INIMPL_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INTRP2BLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INTRPLBLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='IN_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ISELECT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Inductor' type='LATEX'>
+
+Une bobine est un composant électrique qui peut stocker l'énergie
+dans des circuits électriques.  Le rapport entre la tension $v$ aux
+borne d'une bobine d'inductance $L$ et le courant $I$ passant à
+travers le composant est donné par :
+
+\[v = L \frac{dI}{dt}\]
+
+ Des inductances peuvent également être utilisées pour distinguer les
+ signaux haute fréquence des signaux de basse fréquence et ceci
+ rend les inductances utiles dans la conception des filtres. Une
+ inductance présente une forte impédance pour les signaux haute
+ fréquence et est passante pour les signaux DC.
+</FILE>
+
+<FILE name='LOGBLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='LOGICAL_OP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='LOOKUP_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Linear_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATBKSL' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATH' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATV' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATDET' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIAG' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIV' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATEIG' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATEXPM' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATINV' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATLU' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATMAGPHI' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATMUL' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATPINV' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATRESH' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MATSING' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MAXMIN' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='MUX' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='M_SWITCH' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Matrix_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Modulo_Count' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='NEGTOPOS_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='NRMSOM_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Non_linear_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='OUTIMPL_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='OUT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Others_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PDE' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='POSTONEG_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='POWBLK_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PRODUCT' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PROD_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PerteDP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+
+Un bloc de PertDP représente un tuyau hydraulique avec des pertes de
+charge. Ce composant représente une perte de charge hydraulique où la
+perte de pression est directement proportionnelle au débit, état
+laminaire.  Ce bloc a une direction; c.-à-d. la direction positive est
+quand le fluide entre par le port d'entrée (le noir). Ceci signifie
+que ce bloc suppose que le débit est positif si le fluide découle du
+port noir vers le port blanc.  Les paramètres importants de ce composant
+sont la longueur, le diamètre du tuyau, les altitudes des ports
+d'entrée et de sortie, et quelques autres coefficients
+thermo-hydrauliques.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PotentialSensor' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce bloc est employé pour mesurer la tension d'un noeud par rapport à
+celle de terre (zero) dans un circuit électrique. La tension est
+donnée à la partie explicite du modèle par un port explicite.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='PuitsP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+
+Ce composant représente un puit thermo-hydraulique de
+pression constante. Ce bloc est défini avec sa pression et sa
+température. La direction positive est quand le fluide coule dans le
+bloc.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='QUANT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RAMP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RAND_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RATELIMITER' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='READAU_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='READC_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='REGISTER_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RELATIONALOP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RELAY_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='RFILE_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Resistor' type='LATEX'>
+
+Une résistance est un composant électrique à deux ports qui résiste à
+un courant électrique en produisant une chute de tension ($V$) : la loi
+d'Ohm.
+
+ \[ R = \frac {V}{I}\] 
+
+  La résistance électrique ($R$) est égale à la chute de tension entre
+les ports de la résistance divisée par le courant qui passe au travers
+($I$).
+
+</FILE>
+
+<FILE name='SAMPLEHOLD_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SATURATION' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SAWTOOTH_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SCALAR2VECTOR' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SELECT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SIGNUM' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='STEP_FUNCTION' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SUMMATION' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SUM_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SUPER_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH2' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Sinks_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SourceP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce composant représente une source thermohydraulique de pression
+constante. Ce bloc est défini avec sa pression et sa température.  La
+direction positive conventionnelle est quand le fluide sort du bloc.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Sources_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='TCLSS_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='TEXT_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='TIME_DELAY' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='TIME_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ThermoHydraulics_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+La boîte à outils de thermohydraulique contient certains composants
+thermohydrauliques tels que la source de pression, le tuyau, les vannes
+réglantes, etc.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Threshold_pal' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='TrigFun' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='VVsourceAC' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce bloc est un modèle pour une source de tension CA contrôlable. Ce
+composant fournit une tension sinusoidale entre ses
+ports. L'amplitude de la tension de sortie est définie par une entrée
+explicite et la fréquence est définie par l'utilisateur. La résistance
+ohmique de ce bloc est zéro.
+
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='VanneReglante' type='LATEX'>
+
+Le bloc de VanneReglante représente une Vanne Reglante ou une vanne à
+orifice variable. Le débit du fluide passe par la vanne et est
+proportionnel à l'ouverture de vanne, {\it c.-à-d.},
+
+\[
+  \Delta P \times h\times\left| h \right| = k\times Q\times \left|Q\right|
+\]
+
+là où $h$ est l'ouverture de vanne, $\delta P$ est la différence de
+pression, et $Q$ est le débit. Ce modèle est seulement employé pour
+les régimes laminaires d'écoulement. $k$ est une constante qui dépend
+de la géométrie de la vanne et de la masse volumique de fluide.
+</FILE>
+
+<FILE name='VariableResistor' type='LATEX'>
+Ce composant représente une résistance ohmique variable. La résistance
+est commandée par le port d'entrée explicite.  \[ R_x = \frac {V}{I}
+\]
+
+</FILE>
+
+<FILE name='VoltageSensor' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce composant est employé pour mesurer la différence de tension entre
+deux noeuds dans un circuit électrique. Le signal de sortie est la
+différence entre la tension du port noir et celle du port blanc.
+La conductance ohmique de ce bloc est zéro.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='VsourceAC' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ce composant est une source de tension CA avec une tension de sortie
+sinusoidale. L'amplitude et la fréquence de la tension de sortie
+sont définies par l'utilisateur. La résistance ohmique de ce bloc est
+zéro.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='WFILE_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='WRITEAU_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='WRITEC_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='fortran_block' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='lincos' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction.
+Des autres paragraphes peuvent être ajoutés
+</P>
+</DESCRIPTION_ITEM>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scicos' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction.
+Des autres paragraphes peuvent être ajoutés
+</P>
+</DESCRIPTION_ITEM>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction.
+Des autres paragraphes peuvent être ajoutés
+</P>
+</DESCRIPTION_ITEM>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='steadycos' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction.
+Des autres paragraphes peuvent être ajoutés
+</P>
+</DESCRIPTION_ITEM>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='var2vec' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+
+</DATA>

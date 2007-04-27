@@ -1,0 +1,4282 @@
+<DATA flag="param">
+
+<FILE name='ABS_VALUE' type='LATEX'>
+\begin{itemize}
+\item {use zero\_crossing :} Choix Oui/Non (1/0) pour activer la détection de passage à zéro.
+\end{itemize}
+</FILE>
+
+<FILE name='AFFICH_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Font number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Entier, la taille de la fonte sélectionnée (voir xset)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Font size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Entier, la taille de la police utilisée. (voir xset)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Color</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Entier, la couleur sélectionnée pour le texte. (voir xset)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Total number of digits</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un entier plus grand que 3. C'es le nombre de chiffres utilisés pour représenter le nombre affiché. (incluant le signe, la partie enière et les chiffres après la virgule)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of rational part digits</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un entier plus grand ou égal à 0. C'es le nombre de chiffres affichés après la virgule.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Block inherits (1) or not (0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Option pour choisir l'activation par héritage d'évènement via le port d'entrée régulier ou explicitement par le port d'entrée évènementiel.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ANDBLK' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ANDLOG_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='BACKLASH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial output</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La valeur initale en sortie du bloc.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>gap</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La largeur de la zone morte.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>use zero-crossing (0:no, 1:yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour permettre l'utilisation de la traversée de zéro pour détecter les fronts montant et descendant.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Bache' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Pression dans le ciel de la bache : Patm (Pa)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Pression dans le ciel de la bache
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Section de la bache : A (m2)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Surface de la bache
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude du piquage d entrée 1: ze1 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Altitude du piquage d'entrée (ze1)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude du piquage d entrée 2: ze2 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Altitude du piquage d'entrée (ze2)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude du piquage de sortie 1: zs1 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Altitude du piquage de sortie (zs1)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude du piquage de sortie 2: zs2 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1.Altitude du piquage de sortie (zs2)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude initiale du fluide : z0 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Altitude initiale du fluide
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Température initiale du fluide : T0 (K)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Température initiale du fluide
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Si &gt;0, masse volumique imposée du fluide : p_rho (kg/m3)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. masse volumique imposée du fluide
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CBLOCK' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>simulation function</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. Nom de la fonction qui doit être générée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>is block implicit? (y,n)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. Si 'yes' est utilisée, alors le solver implicite (dasrt) est utilisé, sinon c'est le solveur explicite (lsodar) qui est utilisé.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Nombre de ports réguliers en entrée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Nombre de ports réguliers de sortie.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input event ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Nombre de ports d'activation en entrée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output events ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Nombre de ports d'activation de sortie.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial continuous state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Conditions initiales du vecteur d'état continu.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of zero crossing surfaces</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour utiliser les détections de traversée de zéro.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial discrete state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Conditions initiales du vecteur d'état discret.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Real parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Vecteur des paramètres réels.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Integer parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Vecteur des paramètres entiers.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial firing vector (&lt;0 for no firing)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;sum(%6)&quot;. Un vecteur dont la taille correspond au nombre de ports d'activation de sortie. Donne la premère dae d'activation de ceux ci.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>direct feedthrough (y or n)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. L'entrée du bloc au temps courant détermine la sortie du bloc au temps courant. Cela force l'entrée à être en sortie, comme si le système était en régime établi.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>time dependence (y or n)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. Crée un signal qui est spécifié par la dépendance au temps. (pas continu)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLINDUMMY_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKINV_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. un entier qui définit le numéro de port.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKOUTV_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. un entier donnant le numéro de port.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKSOMV_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLOCK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Period</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La période est le temps qui sépare deux événements consécutifs.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Init time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La date de l'événement inital.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLR_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Numerator (s)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'pol' de taille 1. Polynôme définit dans l'espace de LaPlace.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Denominator (s)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'pol' de taille 1. Polynôme définit dans l'espace de LaPlace.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLSS_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>A matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. Une matrice carré. La matrice [A]
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>B matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. la matrice [B]. Vide ([]) si le système n'a pas d'entrée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>C matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;].la matrice [C]. Vide ([]) si le système n'a pas de sortie.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>D matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. la matrice [D].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%1,2)&quot;. Un scalaire ou un vecteur donnant l'état inital du système.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CMSCOPE' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Drawing colors (&gt;0) or mark (&lt;0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window position</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymin vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%1,''*'')&quot;. La description du paramètre 6.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymax vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%1,''*'')&quot;. La description du paramètre 7.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Refresh period</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 9.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Accept herited events 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 10.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Name of Scope (label&amp;Id)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 11.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CONSTRAINT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Set number of constraints</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Nombre de relation algébrique à définir.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CONST_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Constant</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Un vecteur de réel. La taille du vecteur donne la taille du port régulier de sortie. La valeur de la constante(i) est la valeur de la composante i du port de sortie.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CSCOPE' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Color (&gt;0) or mark (&lt;0) vector (8 entries)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 8. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window number (-1 for automatic)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window position</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output window sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymin</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymax</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 6.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Refresh period</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 7.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Accept herited events 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 9.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Name of Scope (label&amp;Id)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 10.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Sum along (0=the first non singleton dimension  1=Rows  2=Columns)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CURV_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Capacitor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>C (F)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Capacitance
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial Voltage</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Voltage Initial
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ConstantVoltage' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>V (volt)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Tension de source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CurrentSensor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DEADBAND' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>End of dead band</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La limite supérieure de la zone morte.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Start of dead band</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La limite inférieure de la zone morte.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero crossing (0:no, 1:yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour permettre la détection de passage à zéro. Permet de savoir si les limites sont dépassées.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DEBUG_SCICOS' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DEMUX' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of output ports or vector of sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. un entier positif supérieur ou égale à 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DERIV' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLR_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Numerator (z)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'pol' de taille 1. Un polynôme dans l'espace de la transformée en z.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Denominator (z)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'pol' de taille 1. Un polynôme dans l'espace de la transformée en z.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLSS_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>A matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. Une matrice carré. La matrice [A].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>B matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. La matrice [B].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>C matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;]. La matrice [C].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>D matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. La matrice [D].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%1,2)&quot;. Un vecteur donnant l'état initial du système.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DOLLAR_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial condition</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Un réel qui détermine l'état initial à la sortie du bloc retard à la première période d'échantillonnage.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Sélectionner 'yes' pour activer ce bloc par héritage d'évènements.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Diode' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Saturation cuurent (A)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Courant de saturation
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Voltage equivalent to temperature (Volt)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Tension équivalente de la température
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Max exponent for linear continuation</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Exposant maximum
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>R (ohm)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La resistance parallele
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EDGE_TRIGGER' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>rising (1), falling (-1), both (0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ESELECT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of output event ports</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur entière. Nombre de ports de sortie évènementiel.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Inherit (1: no, 0: yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Si 'no' est sélectionné, alors le bloc est activé par son entrée évènementiel. Si 'yes' est sélectionnée, alors le bloc est activé par les évènements du signal reçu sur son port d'entrée régulier.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero-crossing (0: no, 1: yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour activer la détection de passage à zéro.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EVTDLY_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Delay</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant le retard temporel entre les évènements d'entrée et de sortie.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Date of initial output event</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la première date de l'évènement de sortie. Si aucune date initiale est nécéssaire alors ce champ doit être renseigné par une valeur négative.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EVTGEN_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Event Time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire donnant la date de l'événement à produire.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EVTVARDLY' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial event firing time (&lt;0 if absent)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire donnant la date de l'événement initial. Un évènement est généré sur l'unique port de sortie évènementiel de ce bloc si la valeur de champ est supérieur ou égal à zéro, sinon aucun évènement inital n'est généré.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXPBLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>a (&gt;0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle positive donnant le nombre élévé à la puissance u.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXPRESSION' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur entière donnant le nombre de port d'entrée régulier. Ces entrées peuvent-être scalaires ou vectorielles.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>scilab expression</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. Chaine de caractères définissant la relation mathématique à appliquer aux entrées. C'est une expression scilab.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>use zero-crossing (0: no, 1 yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour permettre la détection de passages à zéro.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Lines to extract</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'mat' de taille [1,-1].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Columns to extract</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 3.
+</SP>
+<SP>
+Propriétés : Type 'mat' de taille [1,-1].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXTRACTOR' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>indices to extract</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Un vecteur d'indices entier. Donne les éléments à extraire du vecteur du port régulier d'entrée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXTTRI' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>extraction type (1=lower  2=upper  3=diagonal)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Extract_Activation' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GAINBLK' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Gain</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. Une matrice de réels.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GENSIN_f' type='LATEX'>
+\begin{itemize}
+  \item {Magnitude:} un scalaire à valeur réelle. L'amplitude $M$ de la sinusoide.
+  \item {Frequency:} un scalaire à valeur réelle. La pulsation $\omega$ (rad/s) de la sinusoide.
+  \item {phase:} un scalaire à valeur réelle. La phase à l'origine (en radian) de la sinusoide.
+\end{itemize}
+</FILE>
+
+<FILE name='GENSQR_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Amplitude</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant l'amplide M de la forme d'onde rectangulaire.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Ground' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='HALT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>State on halt</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant l'état du bloc lors de l'arret. Cela permet de distinguer différents bloc 'STOP' entre eux (lors de la correction des 'bugs').
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='HYSTHERESIS' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>switch on at</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la valeur du point de commutation ouvert. La donnée en entrée est convertie en utilisant une approximation de type 'arrondie au plus proche'.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>switch off at</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la valeur du point de commutation fermé. La donnée en entrée est convertie en utilisant une approximation de type 'arrondie au plus proche'.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output when on</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la valeur en sortie du bloc lorsque le cycle est à l'état ouvert.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output when off</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la valeur en sortie du bloc lorsque le cycle est à l'état fermé.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>use zero crossing: yes (1), no (0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. A sélectionner pour permettre la détection de zéro.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='IFTHEL_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Inherit (1: no, 0: yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Si 'no' est sélectionné, alors le bloc est activé par son port évènementiel d'entrée, sinon il est actvé par les évènements hérités via son port régulier d'entrée.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero-crossing (0: no, 1: yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1.  A sélectionner pour permettre la détection de zéro.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INIMPL_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTEGRAL' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial Condition</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>With re-intialization (1:yes, 0:no)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>With saturation (1:yes, 0:no)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Upper limit</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Lower limit</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTRP2BLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>X coord.</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Y coord.</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Z values</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTRPLBLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>X coord.</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Y coord.</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INVBLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='IN_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ISELECT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of outputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial connected output</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Inductor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>L (T)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Inductance
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='LOGBLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Basis (&gt;1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='LOGICAL_OP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Operator: AND (0), OR (1), NAND (2), NOR (3), XOR (4), NOT (5)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='LOOKUP_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATBKSL' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATCATH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of columns of each matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'mat' de taille [-1,1].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATCATV' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of line of each matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'mat' de taille [-1,1].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATDET' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATDIAG' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATDIV' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATEIG' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>decomposition type (1=eig values  2=eig values+eig vectors</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATEXPM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATINV' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATLU' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATMAGPHI' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>decomposition type (1=Complex2MAG&amp;PHI 2=MAG&amp;PHI2Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATMUL' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATPINV' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATRESH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output size desired</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 3.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MATSING' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>decomposition type (1=singular values  2=sing values+matrix U &amp; V)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MAXMIN' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Min (1) or Max (2) </PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of input vectors (1 or 2)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero-crossing (1: yes, 0;no)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='MUX' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of input ports or vector of sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='M_SWITCH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero base indexing (0), otherwise 1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>rounding rule: int (0), round (1), ceil (2), floor (3)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Modulo_Count' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial state (&gt;=0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Modulo what number (&gt;0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='NEGTOPOS_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='NRMSOM_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='OUTIMPL_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='OUT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Port number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PDE' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>New block's name :</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='POSTONEG_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='POWBLK_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>to the power of</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PRODUCT' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of inputs or sign vector (multiplication: + 1, division: -1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PROD_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PerteDP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Longueur du tube : L (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Longeur du tube
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Diamètre interne du tube : D (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Diamètre interne du tube
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Coefficient de perte de charge-frottement(S.U) : lambda</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Coefficient de perte de charge-frottement(S.U)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude entrée tuyauterie : z1 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Altitude entrée tuyauterie (z1)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Altitude sortie tuyauterie : z2 (m)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1.  Altitude entrée tuyauterie (z2)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Si &gt;0, masse volumique imposée fu fluide : p_rho (kg/m3)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. masse volumique imposée fu fluide
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PotentialSensor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PuitsP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Pression de la source : P0 (Pa)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Pression de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Temperature de la source : T0 (K)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Temperature de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Enthalpie spécifique de la source : H0 (J/kg)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Enthalpie spécifique de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>1:température fixée - 2:enthalpie fixée : option_temperature</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Option de temperature. 1:température fixée, 2:enthalpie fixée
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='QUANT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Step</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Quantization Type (1-4)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RAMP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Slope</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Start time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial output</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RAND_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>flag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>A</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>B</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%2,''*'')&quot;. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>seed</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RATELIMITER' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>max slope</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>min slope</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='READAU_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input file name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='READC_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Time record selection</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Outputs record selection</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input file name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input Format</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Record size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size (in records)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 6.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial record index</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 7.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='REGISTER_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Register initial condition</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RELATIONALOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Operator: == (0), ~= (1), &lt; (2), &lt;= (3), &gt;= (4), &gt; (5)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Use zero crossing (no: 0), (yes: 1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RELAY_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial connected input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RFILE_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Time record selection</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Outputs record selection</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input file name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input Format</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Resistor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>R (ohm)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. Resistance
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SAMPLEHOLD_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SATURATION' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Upper limit</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Lower limit</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>zero crossing (0:no, 1:yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SAWTOOTH_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SCALAR2VECTOR' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>size of output (-1: if don't know)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SELECT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial connected input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SIGNUM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>use zero_crossing (1: yes) (0:no)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='STEP_FUNCTION' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Step time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial value</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Final value</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SUMMATION' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SUM_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SUPER_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SWITCH2' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>pass first input if: u2&gt;=a (0), u2&gt;a (1), u2~=a (2)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>threshold a</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>use zero crossing: yes (1), no (0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SWITCH_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>connected input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SourceP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Pression de la source : P0 (Pa)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1.Pression de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Temperature de la source : T0 (K)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Temperature de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Enthalpie spécifique de la source : H0 (J/kg)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Enthalpie spécifique de la source
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>1:température fixée - 2:enthalpie fixée : option_temperature</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. option_temperature. 1:température fixée, 2:enthalpie fixée :
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='TCLSS_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>A matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>B matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>C matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;]. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>D matrix</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' de taille [-1,-1]. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Initial state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;size(%1,2)&quot;. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='TEXT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Text</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Font number</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Font size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='TIME_DELAY' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Delay</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='TIME_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='TrigFun' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Function</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Max delay</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VVsourceAC' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Frequency (Hz)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Frequency (Hz)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VanneReglante' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Cvmax</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Cvmax (l'ouverture maxi)
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>p_rho</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Masse volumique du fluide
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VariableResistor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VoltageSensor' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='VsourceAC' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Amplitude (Volt)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Amplitude de la tension sinosoidale
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Frequency (Hz)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. Frequency de la tension sinosoidale
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='WFILE_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output file name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output Format</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='WRITEAU_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='WRITEC_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output file name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Output Format</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Buffer size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Input size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output port sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>System parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>function name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='fortran_block' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output port sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>System parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>function name</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Phase (0 to division factor -1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Division factor</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>simulation function</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>function type (0,1,2,..)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output port sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input event ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output events ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 6.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial continuous state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 7.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial discrete state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Real parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 9.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Integer parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 10.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of modes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 11.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of zero_corssings</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 12.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial firing vector (&lt;0 for no firing)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;sum(%6)&quot;. La description du paramètre 13.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>direct feedthrough (y or n)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 14.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>time dependence (y or n)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'str' de taille 1. La description du paramètre 15.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='lincos' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>scs_m</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>x0</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>u0</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>param</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>sys</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scicos' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>scs_m</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>menus</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>scs_m</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>newparameters</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>needcompile</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>edited</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>scs_m</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Info</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>%scicos_context</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>flag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Info</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output port sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input event ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output events ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 4.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial continuous state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 5.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial discrete state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 6.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>System parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille -1. La description du paramètre 7.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial firing vector (&lt;0 for no firing)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille &quot;sum(%4)&quot;. La description du paramètre 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>is block always active (0:no, 1:yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' de taille 1. La description du paramètre 9.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='steadycos' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>scs_m</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>X</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>U</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Y</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Indx</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Indu</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Indy</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Indxp</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>param</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>X</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>U</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Y</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>XP</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='var2vec' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Nom du paramètre</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: ajoutez ici la description du paramètre
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+
+</DATA>

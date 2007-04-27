@@ -1,0 +1,636 @@
+<DATA flag="sdesc">
+
+<FILE name='ABS_VALUE' type='XML'>
+<SHORT_DESCRIPTION name="ABS_VALUE">Absolute value </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='AFFICH_f' type='XML'>
+<SHORT_DESCRIPTION name="AFFICH_f">Display </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ANDBLK' type='XML'>
+<SHORT_DESCRIPTION name="ANDBLK">Activation and </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ANDLOG_f' type='XML'>
+<SHORT_DESCRIPTION name="ANDLOG_f">Logical and </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BACKLASH' type='XML'>
+<SHORT_DESCRIPTION name="BACKLASH">Backlash </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Bache' type='XML'>
+<SHORT_DESCRIPTION name="Bache"> Thermohydraulic tank (reservoir)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Branching_pal' type='XML'>
+<SHORT_DESCRIPTION name="Branching">Branching palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CBLOCK' type='XML'>
+<SHORT_DESCRIPTION name="CBLOCK">New C </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLINDUMMY_f' type='XML'>
+<SHORT_DESCRIPTION name="CLINDUMMY_f">Dummy </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKINV_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKINV_f">Input activation port </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKOUTV_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKOUTV_f">Output activation port</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSOMV_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKSOMV_f">Activation union </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLOCK_f' type='XML'>
+<SHORT_DESCRIPTION name="CLOCK_f">Activation clock </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLR_f' type='XML'>
+<SHORT_DESCRIPTION name="CLR_f">Continuous transfer function</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLSS_f' type='XML'>
+<SHORT_DESCRIPTION name="CLSS_f">Continuous state-space system </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMSCOPE' type='XML'>
+<SHORT_DESCRIPTION name="CMSCOPE">Multi display scope </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONSTRAINT_f' type='XML'>
+<SHORT_DESCRIPTION name="CONSTRAINT_f">Constraint </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_f' type='XML'>
+<SHORT_DESCRIPTION name="CONST_f">Constant </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPE' type='XML'>
+<SHORT_DESCRIPTION name="CSCOPE">Scope </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<SHORT_DESCRIPTION name="CUMSUM">CUMSUM: Cumulative Sum</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CURV_f' type='XML'>
+<SHORT_DESCRIPTION name="CURV_f">Curve </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Capacitor' type='XML'>
+<SHORT_DESCRIPTION name="Capacitor">Electrical capacitor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ConstantVoltage' type='XML'>
+<SHORT_DESCRIPTION name="ConstantVoltage">Electrical DC voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CurrentSensor' type='XML'>
+<SHORT_DESCRIPTION name="CurrentSensor">Electrical current sensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEADBAND' type='XML'>
+<SHORT_DESCRIPTION name="DEADBAND">Deadband </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEBUG_SCICOS' type='XML'>
+<SHORT_DESCRIPTION name="DEBUG_SCICOS">Debug block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEMUX' type='XML'>
+<SHORT_DESCRIPTION name="DEMUX">Demultiplexer </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DERIV' type='XML'>
+<SHORT_DESCRIPTION name="DERIV">Derivative </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLR_f' type='XML'>
+<SHORT_DESCRIPTION name="DLR_f">Discrete transfer function </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLSS_f' type='XML'>
+<SHORT_DESCRIPTION name="DLSS_f">Discrete state-space system </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR_f' type='XML'>
+<SHORT_DESCRIPTION name="DOLLAR_f">Register </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Diode' type='XML'>
+<SHORT_DESCRIPTION name="Diode">Electrical diode</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EDGE_TRIGGER' type='XML'>
+<SHORT_DESCRIPTION name="EDGE_TRIGGER">EDGE_TRIGGER block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ESELECT_f' type='XML'>
+<SHORT_DESCRIPTION name="ESELECT_f">Event-Select </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_f' type='XML'>
+<SHORT_DESCRIPTION name="EVTDLY_f">Event select </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTGEN_f' type='XML'>
+<SHORT_DESCRIPTION name="EVTGEN_f">Event generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTVARDLY' type='XML'>
+<SHORT_DESCRIPTION name="EVTVARDLY">Event variable delay </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXPBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="EXPBLK_f">Exp </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXPRESSION' type='XML'>
+<SHORT_DESCRIPTION name="EXPRESSION">Mathematical expression </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<SHORT_DESCRIPTION name="EXTRACT">EXTRACT: Matrix Extractor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACTOR' type='XML'>
+<SHORT_DESCRIPTION name="EXTRACTOR">Extractor </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTTRI' type='XML'>
+<SHORT_DESCRIPTION name="EXTTRI">EXTTRI: Triangular or Diagonal extraction</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Electrical_pal' type='XML'>
+<SHORT_DESCRIPTION name="Electrical">Electrical toolbox</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Events_pal' type='XML'>
+<SHORT_DESCRIPTION name="Events">Events palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Extract_Activation' type='XML'>
+<SHORT_DESCRIPTION name="Extract_Activation">Extract_Activation block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GAINBLK' type='XML'>
+<SHORT_DESCRIPTION name="GAINBLK">Gain  </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GENSIN_f' type='XML'>
+<SHORT_DESCRIPTION name="GENSIN_f">Sin generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GENSQR_f' type='XML'>
+<SHORT_DESCRIPTION name="GENSQR_f">Square wave generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Ground' type='XML'>
+<SHORT_DESCRIPTION name="Ground">Ground (zero potential reference)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='HALT_f' type='XML'>
+<SHORT_DESCRIPTION name="HALT_f">Halt </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='HYSTHERESIS' type='XML'>
+<SHORT_DESCRIPTION name="HYSTHERESIS">Hystheresis </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='IFTHEL_f' type='XML'>
+<SHORT_DESCRIPTION name="IFTHEL_f">If-Then-Else </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INIMPL_f' type='XML'>
+<SHORT_DESCRIPTION name="INIMPL_f">Input implicit port </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL' type='XML'>
+<SHORT_DESCRIPTION name="INTEGRAL">Integration </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTRP2BLK_f' type='XML'>
+<SHORT_DESCRIPTION name="INTRP2BLK_f">2D interpolation </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTRPLBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="INTRPLBLK_f">Interpolation </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="INVBLK_f">Inverse </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='IN_f' type='XML'>
+<SHORT_DESCRIPTION name="IN_f">Input Port </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ISELECT_f' type='XML'>
+<SHORT_DESCRIPTION name="ISELECT_f">Iselect </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Inductor' type='XML'>
+<SHORT_DESCRIPTION name="Inductor">Electrical inductor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOGBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="LOGBLK_f">Log </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOGICAL_OP' type='XML'>
+<SHORT_DESCRIPTION name="LOGICAL_OP">Logical operation </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOOKUP_f' type='XML'>
+<SHORT_DESCRIPTION name="LOOKUP_f">Lookup table </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Linear_pal' type='XML'>
+<SHORT_DESCRIPTION name="Linear">Linear palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATBKSL' type='XML'>
+<SHORT_DESCRIPTION name="MATBKSL">MATBKSL:left matrix division</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATH' type='XML'>
+<SHORT_DESCRIPTION name="MATCATH">MATCATH: Horizental Concatenation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATV' type='XML'>
+<SHORT_DESCRIPTION name="MATCATV">MATCATV Vertical Concatenation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDET' type='XML'>
+<SHORT_DESCRIPTION name="MATDET">MATDET Matrix Determinant</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIAG' type='XML'>
+<SHORT_DESCRIPTION name="MATDIAG">MATDIAG Create Diagonal Matrix</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIV' type='XML'>
+<SHORT_DESCRIPTION name="MATDIV">MATDIV title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEIG' type='XML'>
+<SHORT_DESCRIPTION name="MATEIG">MATEIG Matrix Eigenvalues</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEXPM' type='XML'>
+<SHORT_DESCRIPTION name="MATEXPM">MATEXPM Matrix Exponential</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATINV' type='XML'>
+<SHORT_DESCRIPTION name="MATINV">MATINV Matrix Inverse</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATLU' type='XML'>
+<SHORT_DESCRIPTION name="MATLU">MATLU LU Factorization</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMAGPHI' type='XML'>
+<SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI Complex to Mgnitude and Angle Conversion</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMUL' type='XML'>
+<SHORT_DESCRIPTION name="MATMUL">MATMUL Matrix Multiplication</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATPINV' type='XML'>
+<SHORT_DESCRIPTION name="MATPINV">MATPINV Matrix PsedoInverse</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATRESH' type='XML'>
+<SHORT_DESCRIPTION name="MATRESH">MATRESH Matrix Reshape</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATSING' type='XML'>
+<SHORT_DESCRIPTION name="MATSING">MATSING SVD decomposition</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MAXMIN' type='XML'>
+<SHORT_DESCRIPTION name="MAXMIN">Max and Min </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MUX' type='XML'>
+<SHORT_DESCRIPTION name="MUX">Multiplexer </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_SWITCH' type='XML'>
+<SHORT_DESCRIPTION name="M_SWITCH">Multi-port switch </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Matrix_pal' type='XML'>
+<SHORT_DESCRIPTION name="Matrix">Matrix title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Modulo_Count' type='XML'>
+<SHORT_DESCRIPTION name="Modulo_Count">Modulo counter </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='NEGTOPOS_f' type='XML'>
+<SHORT_DESCRIPTION name="NEGTOPOS_f">Threshold negative to positive </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='NRMSOM_f' type='XML'>
+<SHORT_DESCRIPTION name="NRMSOM_f">Merge data </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Non_linear_pal' type='XML'>
+<SHORT_DESCRIPTION name="Non_linear">Non-Linear palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='OUTIMPL_f' type='XML'>
+<SHORT_DESCRIPTION name="OUTIMPL_f">Output implicit port</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='OUT_f' type='XML'>
+<SHORT_DESCRIPTION name="OUT_f">Output Port </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Others_pal' type='XML'>
+<SHORT_DESCRIPTION name="Others">Others palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PDE' type='XML'>
+<SHORT_DESCRIPTION name="PDE">PDE block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='POSTONEG_f' type='XML'>
+<SHORT_DESCRIPTION name="POSTONEG_f">Threshold positive to negative </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='POWBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="POWBLK_f">Pow </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PRODUCT' type='XML'>
+<SHORT_DESCRIPTION name="PRODUCT">Product </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PROD_f' type='XML'>
+<SHORT_DESCRIPTION name="PROD_f">Multiplication </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PerteDP' type='XML'>
+<SHORT_DESCRIPTION name="PerteDP">Thermohydraulic pipe</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PotentialSensor' type='XML'>
+<SHORT_DESCRIPTION name="PotentialSensor">Potential sensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PuitsP' type='XML'>
+<SHORT_DESCRIPTION name="PuitsP">Thermohydraulic drain (well)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='QUANT_f' type='XML'>
+<SHORT_DESCRIPTION name="QUANT_f">Quantization </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RAMP' type='XML'>
+<SHORT_DESCRIPTION name="RAMP">Ramp </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RAND_f' type='XML'>
+<SHORT_DESCRIPTION name="RAND_f">Random generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RATELIMITER' type='XML'>
+<SHORT_DESCRIPTION name="RATELIMITER">Rate limiter </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='READAU_f' type='XML'>
+<SHORT_DESCRIPTION name="READAU_f">Read AU sound file </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='READC_f' type='XML'>
+<SHORT_DESCRIPTION name="READC_f">Read binary data </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='REGISTER_f' type='XML'>
+<SHORT_DESCRIPTION name="REGISTER_f">Shift register </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RELATIONALOP' type='XML'>
+<SHORT_DESCRIPTION name="RELATIONALOP">Relational operation </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RELAY_f' type='XML'>
+<SHORT_DESCRIPTION name="RELAY_f">Relay </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RFILE_f' type='XML'>
+<SHORT_DESCRIPTION name="RFILE_f">Read from file </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Resistor' type='XML'>
+<SHORT_DESCRIPTION name="Resistor">Electrical resistor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAMPLEHOLD_f' type='XML'>
+<SHORT_DESCRIPTION name="SAMPLEHOLD_f">Sample and hold </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SATURATION' type='XML'>
+<SHORT_DESCRIPTION name="SATURATION">Saturation </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAWTOOTH_f' type='XML'>
+<SHORT_DESCRIPTION name="SAWTOOTH_f">Sawtooth generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SCALAR2VECTOR' type='XML'>
+<SHORT_DESCRIPTION name="SCALAR2VECTOR">Scalar to vector </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SELECT_f' type='XML'>
+<SHORT_DESCRIPTION name="SELECT_f">Select </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SIGNUM' type='XML'>
+<SHORT_DESCRIPTION name="SIGNUM">Signum </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='STEP_FUNCTION' type='XML'>
+<SHORT_DESCRIPTION name="STEP_FUNCTION">Step function generator </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUMMATION' type='XML'>
+<SHORT_DESCRIPTION name="SUMMATION">Sum </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUM_f' type='XML'>
+<SHORT_DESCRIPTION name="SUM_f">Addition </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUPER_f' type='XML'>
+<SHORT_DESCRIPTION name="SUPER_f">Super block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH2' type='XML'>
+<SHORT_DESCRIPTION name="SWITCH2">Switch2 </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH_f' type='XML'>
+<SHORT_DESCRIPTION name="SWITCH_f">Switch </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sinks_pal' type='XML'>
+<SHORT_DESCRIPTION name="Sinks">Sinks palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SourceP' type='XML'>
+<SHORT_DESCRIPTION name="SourceP">Thermohydraulic constant pressure source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sources_pal' type='XML'>
+<SHORT_DESCRIPTION name="Sources">Sources palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TCLSS_f' type='XML'>
+<SHORT_DESCRIPTION name="TCLSS_f">Continuous linear system with jump</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TEXT_f' type='XML'>
+<SHORT_DESCRIPTION name="TEXT_f">Text </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TIME_DELAY' type='XML'>
+<SHORT_DESCRIPTION name="TIME_DELAY">Time delay </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TIME_f' type='XML'>
+<SHORT_DESCRIPTION name="TIME_f">Time </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ThermoHydraulics_pal' type='XML'>
+<SHORT_DESCRIPTION name="ThermoHydraulics">ThermoHydraulics toolbox</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Threshold_pal' type='XML'>
+<SHORT_DESCRIPTION name="Threshold">Threshold palette </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TrigFun' type='XML'>
+<SHORT_DESCRIPTION name="TrigFun">Trigonometric function </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='XML'>
+<SHORT_DESCRIPTION name="VARIABLE_DELAY">Variable delay </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VVsourceAC' type='XML'>
+<SHORT_DESCRIPTION name="VVsourceAC">Variable AC voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VanneReglante' type='XML'>
+<SHORT_DESCRIPTION name="VanneReglante">Thermohydraulic control valve</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VariableResistor' type='XML'>
+<SHORT_DESCRIPTION name="VariableResistor">Electrical variable resistor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VoltageSensor' type='XML'>
+<SHORT_DESCRIPTION name="VoltageSensor">Electrical voltage sensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VsourceAC' type='XML'>
+<SHORT_DESCRIPTION name="VsourceAC">Electrical AC voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='WFILE_f' type='XML'>
+<SHORT_DESCRIPTION name="WFILE_f">Write to file </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='WRITEAU_f' type='XML'>
+<SHORT_DESCRIPTION name="WRITEAU_f">Write AU sound file </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='WRITEC_f' type='XML'>
+<SHORT_DESCRIPTION name="WRITEC_f">Write binary data </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<SHORT_DESCRIPTION name="ZCROSS_f">Threshold detection at zero </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<SHORT_DESCRIPTION name="buildouttb">buildouttb title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<SHORT_DESCRIPTION name="c_block">C language </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<SHORT_DESCRIPTION name="curblock">curblock title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='fortran_block' type='XML'>
+<SHORT_DESCRIPTION name="fortran_block">Fortran </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<SHORT_DESCRIPTION name="freq_div">Frequency division </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<SHORT_DESCRIPTION name="generic_block2">Generic </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<SHORT_DESCRIPTION name="getscicosvars">Supervisor utility function</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='lincos' type='XML'>
+<SHORT_DESCRIPTION name="lincos"> Constructs by linearization a linear state-space model from a general dynamical system described by a scicos diagram </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos' type='XML'>
+<SHORT_DESCRIPTION name="scicos">  Block diagram editor and GUI for the hybrid simulator</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<SHORT_DESCRIPTION name="scicos_debug">scicos_debug title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<SHORT_DESCRIPTION name="scicos_simulate"> Function for running scicos simulation in batch mode.</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<SHORT_DESCRIPTION name="scicos_time">scicos_time title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<SHORT_DESCRIPTION name="scicosim">  Scicos (batch) simulation function </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<SHORT_DESCRIPTION name="scifunc_block">Scilab function block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='steadycos' type='XML'>
+<SHORT_DESCRIPTION name="steadycos">  Finds an equilibrium state of a general  dynamical system described by a scicos diagram</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='var2vec' type='XML'>
+<SHORT_DESCRIPTION name="var2vec">var2vec title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+<SHORT_DESCRIPTION name="vec2var">vec2var title</SHORT_DESCRIPTION>
+</FILE>
+
+
+</DATA>
