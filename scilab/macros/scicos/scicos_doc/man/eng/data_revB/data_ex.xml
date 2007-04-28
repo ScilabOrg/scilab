@@ -24,6 +24,12 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='ANIMXY_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='BACKLASH' type='XML'>
 <EXAMPLE>
 
@@ -105,16 +111,6 @@
 <FILE name='CSCOPE' type='XML'>
 <EXAMPLE>
 
-</EXAMPLE>
-</FILE>
-
-<FILE name='CUMSUM' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 2 3;4 5 6;7 8 9]
-If the sum is along the row the result will be
-B=[12;15;18]
-</P>
 </EXAMPLE>
 </FILE>
 
@@ -202,6 +198,12 @@ B=[12;15;18]
 </EXAMPLE>
 </FILE>
 
+<FILE name='EVENTSCOPE_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='EVTDLY_f' type='XML'>
 <EXAMPLE>
 
@@ -231,32 +233,17 @@ B=[12;15;18]
 </EXAMPLE>
 </FILE>
 
-<FILE name='EXTRACT' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 2 3;4 5 6;7 8 9]
-If the "Lines to extract" is 1 and 2 and the "Column to extract" is 1 and 3 then the output is
-B=[1 3;4 6]
-</P>
-</EXAMPLE>
-</FILE>
-
 <FILE name='EXTRACTOR' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
 </FILE>
 
-<FILE name='EXTTRI' type='XML'>
+<FILE name='Extract_Activation' type='XML'>
 <EXAMPLE>
-<P>
-A=[1 2 3;4 5 6;7 8 9;10 11 12]
-If the extraction type is 2 then the output is
-B=[1 0 0;4 5 0;7 8 9;10 11 12]
-</P>
 </EXAMPLE>
 </FILE>
 
-<FILE name='Extract_Activation' type='XML'>
+<FILE name='FSCOPE_f' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
 </FILE>
@@ -349,109 +336,6 @@ B=[1 0 0;4 5 0;7 8 9;10 11 12]
 <FILE name='LOOKUP_f' type='XML'>
 <EXAMPLE>
 
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATBKSL' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 7 3;23 32 29]
-B=[21 18;13 10]
-then the result of the A*x=B equation is (A\B):
-x=[-4.504 -3.922;3.643 3.132;0.000 0.000]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATCATH' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 2 3;4 5 6]
-B=[7 8;9 10]
-The result of the horizental concatenation is:
-C=[1 2 3 7 8;4 5 6 9 10]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATCATV' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 2;3 4;5 6]
-B=[7 8;9 10]
-The result of the horizental concatenation is:
-C=[1 2;3 4;5 6;7 8;9 10]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATDET' type='XML'>
-<EXAMPLE>
-<P>
-U=[1 0 63;2 -2 5;9 9 4]
-y=2215
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATDIAG' type='XML'>
-<EXAMPLE>
-<P>
-if the input of the block is U=ones(5,1) then the output is:
-y=[1 0 0 0 0;0 1 0 0 0;0 0 1 0 0;0 0 0 1 0;0 0 0 0 1]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATDIV' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 7 3;23 32 29]
-B=[21 18 34;13 10 19;11 54 36]
-then the result of the x*B=A equation is (A/B):
-x=[-0.475 0.712 0.156;-4.350 8.381 0.491]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATEIG' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 12 32;21 35 46;70 8 19]
-When the "Decomposition type" is set to one the output is y=[-35.649;14.279;76.369]
-When the "Decomposition type" is set to two the outputs are:
-y1=[-35.649 0.000 0.000;0.000 14.279 0.000;0.000 0.000 76.369]
-y2=[0.557 0.080 0.349;0.330 -0.922 0.770;-0.762 0.379 0.533]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATEXPM' type='XML'>
-<EXAMPLE>
-<P>
-u=[1 2 3;2 3 1;4 2 1]
-y=[182.612 196.518 141.735;172.973 190.770 133.577;204.677 220.063 159.067]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATMUL' type='XML'>
-<EXAMPLE>
-<P>
-A=[1 2 3;4 5 6]
-B=[9 8 7 6;5 4 3 2;9 7 5 3]
-y=[46 37 28 19;115 94 73 52]
-</P>
-</EXAMPLE>
-</FILE>
-
-<FILE name='MATRESH' type='XML'>
-<EXAMPLE>
-<P>
-u=[1 2 3 4;5 6 7 8]
-When the output desired is [1;6] the output is:
-y=[1 2 3 4 5 6]
-</P>
 </EXAMPLE>
 </FILE>
 
@@ -610,6 +494,12 @@ y=[1 2 3 4 5 6]
 
 <FILE name='SCALAR2VECTOR' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SCOPXY_f' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -861,5 +751,714 @@ y=[1 2 3 4 5 6]
 </EXAMPLE>
 </FILE>
 
+
+<FILE name='CUMSUM' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2 3;4 5 6;7 8 9]
+If the sum is along the row the result will be
+B=[12;15;18]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2 3;4 5 6;7 8 9]
+If the "Lines to extract" is 1 and 2 and the "Column to extract" is 1 and 3 then the output is
+B=[1 3;4 6]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXTTRI' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2 3;4 5 6;7 8 9;10 11 12]
+If the extraction type is 2 then the output is
+B=[1 0 0;4 5 0;7 8 9;10 11 12]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATBKSL' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 7 3;23 32 29]
+B=[21 18;13 10]
+then the result of the A*x=B equation is (A\B):
+x=[-4.504 -3.922;3.643 3.132;0.000 0.000]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATCATH' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2 3;4 5 6]
+B=[7 8;9 10]
+The result of the horizental concatenation is:
+C=[1 2 3 7 8;4 5 6 9 10]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATCATV' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2;3 4;5 6]
+B=[7 8;9 10]
+The result of the horizental concatenation is:
+C=[1 2;3 4;5 6;7 8;9 10]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATDET' type='XML'>
+<EXAMPLE>
+<P>
+U=[1 0 63;2 -2 5;9 9 4]
+y=2215
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATDIAG' type='XML'>
+<EXAMPLE>
+<P>
+if the input of the block is U=ones(5,1) then the output is:
+y=[1 0 0 0 0;0 1 0 0 0;0 0 1 0 0;0 0 0 1 0;0 0 0 0 1]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATDIV' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 7 3;23 32 29]
+B=[21 18 34;13 10 19;11 54 36]
+then the result of the x*B=A equation is (A/B):
+x=[-0.475 0.712 0.156;-4.350 8.381 0.491]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATEIG' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 12 32;21 35 46;70 8 19]
+When the "Decomposition type" is set to one the output is y=[-35.649;14.279;76.369]
+When the "Decomposition type" is set to two the outputs are:
+y1=[-35.649 0.000 0.000;0.000 14.279 0.000;0.000 0.000 76.369]
+y2=[0.557 0.080 0.349;0.330 -0.922 0.770;-0.762 0.379 0.533]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATEXPM' type='XML'>
+<EXAMPLE>
+<P>
+u=[1 2 3;2 3 1;4 2 1]
+y=[182.612 196.518 141.735;172.973 190.770 133.577;204.677 220.063 159.067]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATINV' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATLU' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATMAGPHI' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATMUL' type='XML'>
+<EXAMPLE>
+<P>
+A=[1 2 3;4 5 6]
+B=[9 8 7 6;5 4 3 2;9 7 5 3]
+y=[46 37 28 19;115 94 73 52]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATPINV' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATRESH' type='XML'>
+<EXAMPLE>
+<P>
+u=[1 2 3 4;5 6 7 8]
+When the output desired is [1;6] the output is:
+y=[1 2 3 4 5 6]
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATSING' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='ABSBLK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='AFFICH_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='BIGSOM_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CANIMXY' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CANIMXY3D' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CEVENTSCOPE' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CFSCOPE' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKIN_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKOUT_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKSOM_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKSPLIT_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLR' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLSS' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CMAT3D' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CMATVIEW' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CONST' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CONST_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='COSBLK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CSCOPXY' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CSCOPXY3D' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DELAYV_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DELAY_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DEMUX_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DIFF_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLR' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLRADAPT_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLSS' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='FSV_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GAINBLK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GAIN_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GENERAL_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTEGRAL_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTEGRAL_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INVBLK' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='ISELECT_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATSUM' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATTRAN' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATZCONJ' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MATZREIM' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MAX_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MCLOCK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MEMORY_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MFCLCK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MIN_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MOTOR' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='MUX_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='NPN' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='PNP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='REGISTER' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='RFILE' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='RICC' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SAMPHOLD' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SAT_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SELECT_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SINBLK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SLIDER_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='STEP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SUBMAT' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SWITCH2_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SineVoltage' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='TANBLK_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='TCLSS' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='TRASH_f' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='WFILE' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='generic_block' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DOLLAR' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DOLLAR_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
 
 </DATA>

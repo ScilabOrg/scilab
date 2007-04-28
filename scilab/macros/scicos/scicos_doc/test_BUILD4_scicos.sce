@@ -1,27 +1,134 @@
+//test_BUILD4_scicos.sce
+//This is the scilab script for the parametrization
+//of scitexgendoc and for definition of
+//scicos files to be documented
+
+// alan,27/04/2007 : change html target directories path with the "trunk" look
+//                   scicos_doc/help
+//                   scicos_doc/help/images
+//                   scicos_doc/help/en_US
+//                   scicos_doc/help/fr_FR
+//
+// alan,28/04/2007 : add module flag "scicos" in %gendoc list
+//                   add palpath flag in %gendoc list
+
+
+//**--------------definition of some functions----------------**//
+//gen_outline_pal
+function txt=gen_outline_pal(listf)
+  txt=[];
+  txt='<PAL varpath=""palpath"" name="""+listf(find(listf(:,3)=='pal'),2)+""">";
+  for i=2:size(listf,1)
+     txt=[txt;
+          "   <BLK varpath="""" name="""+basename(listf(i,2))+"""></BLK>"]
+  end
+  txt=[txt;
+       "</PAL>"];
+endfunction
+
+//gen_scs_outline
+function turlututu=generate_scs_outline()
+ turlututu = ["<WHATIS>";
+              "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
+              "  <DATE>19 Septembre 2006</DATE>"; //A long time ago in the Scicos's galaxy ...
+                                                  //-composed of many stars (haaa I'd like to say many blocks)-
+              "";
+              "  <CHAPTER eng=""Editor"" fr=""Editeur""></CHAPTER>";
+              "";
+              "  <CHAPTER eng=""Blocks list"" fr=""Liste des blocs"">"];
+
+ turlututu = [turlututu;
+              ""
+              "  "+gen_outline_pal(listf_of_sources);
+              ""
+              "  "+gen_outline_pal(listf_of_linear);
+              ""
+              "  "+gen_outline_pal(listf_of_nonlinear);
+              ""
+              "  "+gen_outline_pal(listf_of_branching);
+              ""
+              "  "+gen_outline_pal(listf_of_threshold);
+              ""
+              "  "+gen_outline_pal(listf_of_oldblocks);
+              ""
+              "  "+gen_outline_pal(listf_of_sinks);
+              ""
+              "  "+gen_outline_pal(listf_of_events);
+              ""
+              "  "+gen_outline_pal(listf_of_elec);
+              ""
+              "  "+gen_outline_pal(listf_of_thermo);
+              ""
+              "  "+ gen_outline_pal(listf_of_matop);
+              ""]
+
+  turlututu = [turlututu;
+               "  </CHAPTER>"
+               ""
+               "  <CHAPTER eng=""Batch functions"" fr=""Fonctions en ligne de commande"">"
+               "    <SCI varpath=""autopath"" name=""scicos.sci""></SCI>"
+               "    <SCI varpath=""autopath"" name=""scicosim.sci""></SCI>"
+               "    <SCI varpath=""autopath"" name=""scicos_simulate.sci""></SCI>"
+               "    <SCI varpath=""autopath"" name=""lincos.sci""></SCI>"
+               "    <SCI varpath=""autopath"" name=""steadycos.sci""></SCI>"
+               "  </CHAPTER>"
+               ""
+               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnÈe"">  </CHAPTER>"
+               ""
+               "  <CHAPTER eng=""Scilab built-in functions"" fr=""Fonctions utilitaires Scilab"">"
+               "    <SCI varpath=""autopath"" name=""var2vec""></SCI>"
+               "    <SCI varpath=""autopath"" name=""vec2var""></SCI>"
+               "    <SCI varpath=""autopath"" name=""curblock""></SCI>"
+               "    <SCI varpath=""autopath"" name=""scicos_debug""></SCI>"
+               "    <SCI varpath=""autopath"" name=""scicos_time""></SCI>"
+               "    <SCI varpath=""autopath"" name=""getscicosvars""></SCI>"
+               "    <SCI varpath=""autopath"" name=""buildouttb""></SCI>"
+               "  </CHAPTER>"
+               ""
+               "</WHATIS>"];
+endfunction
+//**----------------------------------------------------------**//
+
+//**-------------------path definition-----------------------**//
+//define directory of scicos_doc
 doc_path=get_absolute_file_path('test_BUILD4_scicos.sce');
 
-opath2=SCI+"/macros/scicos_blocks/"+...
-       ["scicos"     //1
-        "Branching"  //2
-        "Electrical" //3
-        "Events"     //4
-        "Hydraulics" //5
-        "Linear"     //6
-        "Misc"       //7
-        "NonLinear"  //8
-        "PDE"        //9
-        "Sinks"      //10
-        "Sources"    //11
-        "Threshold"  //12
-        "MatrixOp"   //13
+//define path of interfacing function of scicos block
+opath2=SCI+"/macros/"+...
+       ["scicos"                   //1
+        "scicos_blocks/Branching"  //2
+        "scicos_blocks/Electrical" //3
+        "scicos_blocks/Events"     //4
+        "scicos_blocks/Hydraulics" //5
+        "scicos_blocks/Linear"     //6
+        "scicos_blocks/Misc"       //7
+        "scicos_blocks/NonLinear"  //8
+        "scicos_blocks/PDE"        //9
+        "scicos_blocks/Sinks"      //10
+        "scicos_blocks/Sources"    //11
+        "scicos_blocks/Threshold"  //12
+        "scicos_blocks/MatrixOp"   //13
        ]+"/";
 
+//define path of cosf file of scicos palettes
 palpath=SCI+'/macros/scicos/';
+
+//define auto path
 autopath=SCI+'/macros/auto/';
 
+//define util path
+utilpath=SCI+'/macros/util/';
+//**----------------------------------------------------------**//
+
+
+//**----------scitexgendoc global parameters------------------**//
+//define %gendoc list (for scitexgendoc)
 %gendoc=gendoc_def(lang=['fr' 'eng'],..
                    man_path=doc_path+'man/',..
                    rout_path=SCI+'/routines/scicos/',..
+                   mod_flag='Scicos',..
+                   pal_path=palpath,..
+                   block_flag='scs',..
                    web_path='',..
                    pdf_path='',..
                    clean_html=%t,..
@@ -31,113 +138,52 @@ autopath=SCI+'/macros/auto/';
                    with_gimp=%f,..
                    verbose=%t,..
                    with_log=%t,..
-                   html_subtitle_color='green',..
+                   html_subtitle_color='blue',..
                    name_log='BUILD_4_scicos_doc.log');
 
+//set behavior of documentation target directories
+//(0: scilab 4.1x 1:scilab 5)
 %gendoc=set_gendoc_def(%gendoc,1);
 
+//set source directories of data files
 %gendoc.mpath.data=%gendoc.mpath.man+...
                    ['fr/data_revB/';
                     'eng/data_revB/'];
-%gendoc.mpath.html=%gendoc.mpath.man+...
-                   ['fr/scicos/';
-                    'eng/scicos/'];
-%gendoc.mpath.html_img='';
 
-//
+//set target directories of html files
+%gendoc.mpath.html=doc_path+'/help/'+...
+                   ['fr_FR/';
+                    'en_US/'];
+%gendoc.mpath.html_img='../images/';
+
+//create target directories
 create_gendoc_dirs(%gendoc);
+//**----------------------------------------------------------**//
 
-my_listf=["","var2vec","sci";
-          "","vec2var","sci";
-          "","curblock","sci";
-          "","scicos_debug","sci";
-          "","scicos_time","sci";
-          "","getscicosvars","sci";
-          "","buildouttb","sci";
-          palpath,"Branching.cosf","pal";
-          palpath,"Electrical.cosf","pal"; //Masoud
-          palpath,"Events.cosf","pal";
-          palpath,"Linear.cosf","pal";
-          palpath,"Non_linear.cosf","pal";
-          palpath,"Others.cosf","pal";
-          palpath,"Sinks.cosf","pal";
-          palpath,"Sources.cosf","pal";
-          palpath,"ThermoHydraulics.cosf","pal";  //Masoud
-          palpath,"Threshold.cosf","pal";
-          palpath,"Matrix.cosf","pal";
-          "","CONST_f.sci","block";
-          "","GENSQR_f.sci","block";
-          "","RAMP.sci","block";
-          "","RAND_f.sci","block";
-          "","RFILE_f.sci","block";
-          "","CLKINV_f.sci","block";
-          "","CURV_f.sci","block";
-          "","INIMPL_f.sci","block";
-          "","READAU_f.sci","block";
-          "","SAWTOOTH_f.sci","block";
-          "","STEP_FUNCTION.sci","block";
-          "","CLOCK_f.sci","block";
-          "","GENSIN_f.sci","block";
-          "","IN_f.sci","block";
-          "","READC_f.sci","block";
-          "","TIME_f.sci","block";
-          "","Modulo_Count.sci","block";
-          "","AFFICH_f.sci","block";
-          "","CMSCOPE.sci","block";
-          //"","SCOPXY_f.sci","block"; //VIEUX BLOC
-          "","WRITEC_f.sci","block";
-          //"","ANIMXY_f.sci","block"; //VIEUX BLOC
-          "","CSCOPE.sci","block";
-          "","OUTIMPL_f.sci","block";
-          "","CLKOUTV_f.sci","block";
-          //"","EVENTSCOPE_f.sci","block"; //VIEUX BLOC
-          "","OUT_f.sci","block";
-          "","WFILE_f.sci","block";
-          //"","FSCOPE_f.sci","block"; //VIEUX BLOC
-          "","WRITEAU_f.sci","block";
-          "","DEMUX.sci","block";
-          "","MUX.sci","block";
-          "","NRMSOM_f.sci","block";
-          "","EXTRACTOR.sci","block";
-          "","SELECT_f.sci","block";
-          "","ISELECT_f.sci","block";
-          "","RELAY_f.sci","block";
-          "","SWITCH2.sci","block";
-          "","IFTHEL_f.sci","block";
-          "","ESELECT_f.sci","block";
-          "","M_SWITCH.sci","block";
-          "","SCALAR2VECTOR.sci","block";
-          "","SWITCH_f.sci","block";
-          "","ABS_VALUE.sci","block";
-          "","TrigFun.sci","block";
-          "","EXPBLK_f.sci","block";
-          "","INTRP2BLK_f.sci","block";
-          "","INTRPLBLK_f.sci","block";
-          "","INVBLK_f.sci","block";
-          "","LOGBLK_f.sci","block";
-          "","LOOKUP_f.sci","block";
-          "","MAXMIN.sci","block";
-          "","POWBLK_f.sci","block";
-          "","PROD_f.sci","block";
-          "","PRODUCT.sci","block";
-          "","QUANT_f.sci","block";
-          "","EXPRESSION.sci","block";
-          "","SATURATION.sci","block";
-          "","SIGNUM.sci","block";
-          "","ANDBLK.sci","block";
-          "","HALT_f.sci","block";
-          "","freq_div.sci","block";
-          "","ANDLOG_f.sci","block";
-          "","EVTDLY_f.sci","block";
-          // "","IFTHEL_f.sci","block"; //CEST ENDOUBLE
-          // "","ESELECT_f.sci","block"; //CEST ENDOUBLE
-          "","CLKSOMV_f.sci","block";
-          // "","CLOCK_f.sci","block";   //CEST ENDOUBLE
-          "","EVTGEN_f.sci","block";
-          "","EVTVARDLY.sci","block";
-          "","NEGTOPOS_f.sci","block";
-          "","POSTONEG_f.sci","block";
-          "","ZCROSS_f.sci","block";
+//define a variable for protected local xml/tex files
+if ~exists('%already_import') then
+  %already_import = %f;
+end
+
+
+//**-------------------Files declaration----------------------**//
+//define list of files to be documented
+// my_list(1,) : the path of the file
+// my_list(2,) : the name of the file with extension
+// my_list(3,) : the type of the object
+//               current scitexgendoc version only support
+//                 'mblock' : scicos modelica block
+//                 'block'  : scicos block
+//                 'diagr'  : scicos diagram
+//                 'pal'    : scicos palette
+//                 'scilib' : library of scilab macro
+//                 'sci'    : scilab macro
+//                 'sim'    : scilab script of scicos diagram simulation
+//                 'sce'    : scilab script
+//                 'rout'   : low level routine
+
+//TO BE DONE
+my_listf=[palpath,"Others.cosf","pal";
           "","c_block.sci","block";
           "","fortran_block.sci","block";
           "","SUPER_f.sci","block";
@@ -153,88 +199,262 @@ my_listf=["","var2vec","sci";
           "","LOGICAL_OP.sci","block";
           "","RELATIONALOP.sci","block";
           "","generic_block2.sci","block";
-          "","DLR_f.sci","block";
-          "","TCLSS_f.sci","block";
-          "","DOLLAR_f.sci","block";
-          "","CLINDUMMY_f.sci","block";
-          "","DLSS_f.sci","block";
-          "","REGISTER_f.sci","block";
-          "","TIME_DELAY.sci","block";
-          "","CLR_f.sci","block";
-          "","GAINBLK.sci","block";
-          "","SAMPLEHOLD_f.sci","block";
-          "","VARIABLE_DELAY.sci","block";
-          "","CLSS_f.sci","block";
-          "","SUMMATION.sci","block";
-          "","INTEGRAL.sci","block";
-          "","SUM_f.sci","block";
-          "","DERIV.sci","block";
-
           "","DEBUG_SCICOS.sci","block";
           "","PDE.sci","block";
           "","EDGE_TRIGGER.sci","block";
-          "","Extract_Activation.sci","block";
+          "","Extract_Activation.sci","block"];
 
-          autopath,"scicos.sci","sci";
+//util macros
+listf_of_utilsci=[];
 
-          //Masoud
-          opath2(3),"Capacitor.sci","mblock";
-          opath2(3),"Ground.sci","mblock";
-          opath2(3),"VVsourceAC.sci","mblock";
-          opath2(3),"ConstantVoltage.sci","mblock";
-          opath2(3),"Inductor.sci","mblock";
-          opath2(3),"PotentialSensor.sci","mblock";
-          opath2(3),"VariableResistor.sci","mblock";
-          opath2(3),"CurrentSensor.sci","mblock";
-          opath2(3),"Resistor.sci","mblock";
-          opath2(3),"VoltageSensor.sci","mblock";
-          opath2(3),"Diode.sci","mblock";
-          opath2(3),"VsourceAC.sci","mblock";
-          opath2(5),"Bache.sci","mblock";
-          opath2(5),"PerteDP.sci","mblock";
-          opath2(5),"VanneReglante.sci","mblock";
-          opath2(5),"PuitsP.sci","mblock";
-          opath2(5),"SourceP.sci","mblock";
+//auto macros
+listf_of_autosci=[autopath,"scicos.sci","sci";
+                  autopath,"scicos_simulate.sci","sci";
+                  autopath,"lincos.sci","sci";
+                  autopath,"steadycos.sci","sci"];
 
-          //Fady
-          opath2(13),"CUMSUM.sci","block";
-          opath2(13),"EXTRACT.sci","block";
-          opath2(13),"EXTTRI.sci","block";
-          opath2(13),"MATBKSL.sci","block";
-          opath2(13),"MATCATH.sci","block";
-          opath2(13),"MATCATV.sci","block";
-          opath2(13),"MATDET.sci","block";
-          opath2(13),"MATDIAG.sci","block";
-          opath2(13),"MATDIV.sci","block";
-          opath2(13),"MATEIG.sci","block";
-          opath2(13),"MATEXPM.sci","block";
-          opath2(13),"MATINV.sci","block";
-          opath2(13),"MATLU.sci","block";
-          opath2(13),"MATMAGPHI.sci","block";
-          opath2(13),"MATMUL.sci","block";
-          opath2(13),"MATPINV.sci","block";
-          opath2(13),"MATRESH.sci","block";
-          opath2(13),"MATSING.sci","block";
+//Interfaced function
+listf_of_interf=["","scicosim.sci","sci";
+                 "","getscicosvars","sci";
+                 "","buildouttb","sci";
+                 "","var2vec","sci";
+                 "","vec2var","sci";
+                 "","curblock","sci";
+                 "","scicos_debug","sci";
+                 "","scicos_time","sci"];
 
-          //Alan
-          autopath,"scicosim.sci","sci";
-          autopath,"scicos_simulate.sci","sci";
-          autopath,"lincos.sci","sci";
-          autopath,"steadycos.sci","sci";
-];
+//**--palettes--*/
+//Sources palette
+listf_of_sources=[palpath,"Sources.cosf","pal"];
+listf = basename(listfiles(opath2(11)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_sources=[listf_of_sources;
+                    opath2(11),listf(i),"block"];
+end
+clear i;clear listf;
 
+//linear palette
+listf_of_linear=[palpath,"Linear.cosf","pal"];
+listf = basename(listfiles(opath2(6)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBÙGICI
+    listf_of_linear=[listf_of_linear;
+                     opath2(6),listf(i),"block"];
+  end
+end
+clear i;clear listf;
+
+//nonlinear palette
+listf_of_nonlinear=[palpath,"Non_linear.cosf","pal"];
+listf = basename(listfiles(opath2(8)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_nonlinear=[listf_of_nonlinear;
+                      opath2(8),listf(i),"block"];
+end
+clear i;clear listf;
+
+//branching palette
+listf_of_branching=[palpath,"Branching.cosf","pal"];
+listf = basename(listfiles(opath2(2)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_branching=[listf_of_branching;
+                      opath2(2),listf(i),"block"];
+end
+clear i;clear listf;
+
+//Threshold palette
+listf_of_threshold=[palpath,"Threshold.cosf","pal"];
+listf = basename(listfiles(opath2(12)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_threshold=[listf_of_threshold;
+                      opath2(12),listf(i),"block"];
+end
+clear i;clear listf;
+
+//Oldblocks palette
+//Please update!
+listf_of_oldblocks=[palpath,"OldBlocks.cosf","pal"];
+listf = ['MEMORY_f.sci';'DIFF_f.sci';'generic_block.sci'];
+for i = 1:size(listf,1)
+  listf_of_oldblocks=[listf_of_oldblocks;
+                      opath2(1),listf(i),"block"];
+end
+clear i;clear listf;
+
+//Sinks palette
+listf_of_sinks=[palpath,"Sinks.cosf","pal"];
+listf = basename(listfiles(opath2(10)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_sinks=[listf_of_sinks;
+                  opath2(10),listf(i),"block"];
+end
+clear i;clear listf;
+
+//Events palette
+listf_of_events=[palpath,"Events.cosf","pal"];
+listf = basename(listfiles(opath2(4)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_events=[listf_of_events;
+                   opath2(4),listf(i),"block"];
+end
+clear i;clear listf;
+
+//Modelica blocks palettes
+listf_of_elec=[palpath,"Electrical.cosf","pal"];
+listf = basename(listfiles(opath2(3)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  listf_of_elec=[listf_of_elec;
+                 opath2(3),listf(i),"mblock"];
+end
+clear i;clear listf;
+listf_of_thermo=[palpath,"ThermoHydraulics.cosf","pal"];
+listf = ['Bache.sci';'PerteDP.sci';'PuitsP.sci';'SourceP.sci';'VanneReglante.sci'];
+for i = 1:size(listf,1)
+  listf_of_thermo=[listf_of_thermo;
+                   opath2(5),listf(i),"mblock"];
+end
+clear i;clear listf;
+
+//MatrixOp palette
+listf_of_matop=[palpath,"Matrix.cosf","pal"];
+listf = basename(listfiles(opath2(13)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  if listf(i)<>'ROOTCOEF.sci' then //!!!!!!! YAUNBÙGICI
+    listf_of_matop=[listf_of_matop;
+                   opath2(13),listf(i),"block"];
+  end
+end
+clear i;clear listf;
+//**------------*/
+
+//**----------------------------------------------------------**//
+
+
+//**------------------outline.xml generation------------------**//
+outline_txt=generate_scs_outline();
+mputl(outline_txt,%gendoc.mpath.data(1)+'/outline.xml');
+//**----------------------------------------------------------**//
+
+
+//load scicos libraries and palettes of blocks
 load SCI/macros/scicos/lib;
 exec(loadpallibs,-1);
 
-//Example of selection :
-//my_listf=my_listf(122:138,:);
+//Examples of selection :
+// 1 - my_list=my_listf(122:138,:); //documentation of files from 122 to 138
+// 2 - my_list=my_listf(find(my_listf(:,2)=='scicos.sci'),:) //doc of the file scicos.sci
+// 3 - my_list=listf_of_events; //doc of the event palette
 
-//generate_xml_file(my_listf,%gendoc);
+//generate doc for all scicos files define above
+my_list = [my_listf;
+           listf_of_utilsci;
+           listf_of_autosci;
+           listf_of_interf;
+           listf_of_sources;
+           listf_of_linear;
+           listf_of_nonlinear;
+           listf_of_branching;
+           listf_of_threshold;
+           listf_of_oldblocks;
+           listf_of_sinks;
+           listf_of_events;
+           listf_of_elec;
+           listf_of_thermo;
+           listf_of_matop];
 
-//import_data_to_file('all',%gendoc);
+//STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 
-//generate_aux_tex_file(my_listf,'html',%gendoc)
+//create skeleton of xml files
+generate_xml_file(my_list,%gendoc);
 
-//generate_html_file(my_listf,%gendoc);
+//import all data in xml/tex files
+//from data files
+if %already_import then
+  irr=message(["                       WARNING";
+               "";
+               "You have already import data in xml/tex files by";
+               "running this script.";
+               "By importing data now, you can earase locally";
+               "the modifications that probably you have just made !";
+               ""
+               "        Do you really know what you are doing ?"],["yes","no"]);
+  if irr==1 then, import_data_to_file('all',%gendoc), end;
+  clear irr;
+else
+  import_data_to_file('all',%gendoc);
+  %already_import = %t;
+end
 
-//gen_whatis(%gendoc.mpath.data(1)+'/outline.xml',%gendoc);
+//STEP_2 : Inform xml/tex files with your informations.
+//         You can begin the work of documentation with :
+//          choice 1 : in generated xml files
+//                     directories are
+//                        scicos_doc/eng/xml
+//                        scicos_doc/fr/xml
+//
+//          choice 2 : directly in LaTeX (for expert)
+//                     directories are
+//                        scicos_doc/eng/tex
+//                        scicos_doc/fr/tex
+//
+//   PS : choice 1 & 2 can be mixed !
+
+//STEP_3 : Generate auxiliaries tex files compilable with LaTeX.
+//         This is done from xml/tex files provided by STEP 1 and 2.
+//
+//   PS : - All work of generation of this tex files is done
+//          in the current directory.
+//           For each documented object a directory is created.
+//
+//        - If your xml/tex files of STEP_2 are well formed
+//          you can run latex at the root of each generated directories
+//          without any errors.
+//
+//-->generate_aux_tex_file(my_list,'html',%gendoc);
+
+//STEP_4 : Convert auxiliaries tex file in html.
+//
+//-->generate_html_file(my_list,%gendoc);
+
+//STEP_5 : Look your generated html files in target html directories.
+//         GOTO STEP_2 if you are not happy, else continue.
+//
+//  PS : NEVER re-run import_data_to_file at this step because
+//       you will earase your modifications that you have just
+//       made in xml/tex files of STEP_2.
+
+//STEP_6 : generate whatis.htm (for all languages)
+//
+//-->gen_whatis(%gendoc.mpath.data(1)+'/outline.xml',%gendoc);
+
+//STEP_7 : Update data files with your modifications.
+//
+//         Before doing that, save locally all your xml/tex files that you have
+//         modified/created (don't save generated TeX files of STEP_3,
+//         only files of STEP_2).
+//
+//         Then two choices can be done :
+//
+//         a - Ask to Alan to explain to you how commit your modification
+//             in data files OR send him by email your tex/xml files that
+//             you have locally saved (in a single tar.gz file please).
+//
+//         b - Demerden sie sich !
+//             i    - Use :
+//                   --> export_file_to_data('all',%gendoc);
+//                   This cmd will update all the data files from you local xml/tex files
+//                   modified/updated in STEP_2.
+//                   (warning should properly work only with subversion of scitexgendoc >= 97)
+//             ii   - erase all you generated files
+//                   $ rm -fr scicos_doc/eng/xml
+//                   $ rm -fr scicos_doc/eng/tex
+//                   $ rm -fr scicos_doc/fr/xml
+//                   $ rm -fr scicos_doc/fr/tex
+//                   $ rm -fr scicos_doc/help
+//             iii  - re-generate all html doc of scicos (STEP_1:STEP_5)
+//             iiii - look if you dont't have forget any data in html doc freshly regenerated.
+//                    If something is wrong please check what's your errors by comparing data files
+//                    of STEP_7-b-i with current data files of the svn rep of B4_scicos.
+
+//STEP_8 : Commit data files of scicos_doc/eng/data - scicos_doc/fr/data
+//         in the svn rep of B4_scicos
