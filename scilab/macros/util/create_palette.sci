@@ -35,11 +35,11 @@ function routines=create_palette(Path)
 	      'TIME_f.sci'; 'Modulo_Count.sci']
 	
       elseif txt=='Sinks' then
-	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';       
+	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';
 	      'CSCOPXY.sci';   'WRITEC_f.sci';
-	      'CANIMXY.sci';   'CSCOPE.sci';        
+	      'CANIMXY.sci';   'CSCOPE.sci';
 	      'OUTIMPL_f.sci'; 
-	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';  
+	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';
 	      'OUT_f.sci';      'WFILE_f.sci';
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
 	      'CSCOPXY3D.sci';   'CANIMXY3D';
@@ -47,20 +47,20 @@ function routines=create_palette(Path)
 	
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';
-	      'MUX.sci'; 'NRMSOM_f.sci';  'EXTRACTOR.sci';      
-	      'SELECT_m.sci'; 'ISELECT_m.sci';     
+	      'MUX.sci'; 'NRMSOM_f.sci';  'EXTRACTOR.sci';
+	      'SELECT_m.sci';'ISELECT_m.sci';
 	      'RELAY_f.sci';'SWITCH2_m.sci';'IFTHEL_f.sci';
-	      'ESELECT_f.sci';   'M_SWITCH.sci';  
-	      'SCALAR2VECTOR.sci';  'SWITCH_f.sci';'EDGE_TRIGGER.sci';
+	      'ESELECT_f.sci';'M_SWITCH.sci';
+	      'SCALAR2VECTOR.sci';'SWITCH_f.sci';'EDGE_TRIGGER.sci';
 	      'Extract_Activation.sci']
 	
       elseif txt=='Non_linear' then
-	lisf=['ABS_VALUE.sci'; 'TrigFun.sci'; 
-	      'EXPBLK_f.sci';  'INTRP2BLK_f.sci'; 
-	      'INTRPLBLK_f.sci'; 'INVBLK.sci'; 
-	      'LOGBLK_f.sci'; 'LOOKUP_f.sci'; 'MAXMIN.sci'; 
+	lisf=['ABS_VALUE.sci'; 'TrigFun.sci';
+	      'EXPBLK_f.sci';  'INTRP2BLK_f.sci';
+	      'INTRPLBLK_f.sci'; 'INVBLK.sci';
+	      'LOGBLK_f.sci'; 'LOOKUP_f.sci'; 'MAXMIN.sci';
 	      'POWBLK_f.sci'; 'PROD_f.sci';
-	      'PRODUCT.sci';  'QUANT_f.sci';'EXPRESSION.sci';	 
+	      'PRODUCT.sci';  'QUANT_f.sci';'EXPRESSION.sci';
 	      'SATURATION.sci'; 'SIGNUM.sci' ]
 	
       elseif txt=='Events' then
@@ -69,7 +69,7 @@ function routines=create_palette(Path)
 	      'CLKSOMV_f.sci';'CLOCK_f.sci';'EVTGEN_f.sci';'EVTVARDLY.sci']
 	      
       elseif txt=='Threshold' then
-	lisf=[  'NEGTOPOS_f.sci';  'POSTONEG_f.sci';  'ZCROSS_f.sci']    
+	lisf=[  'NEGTOPOS_f.sci';  'POSTONEG_f.sci';  'ZCROSS_f.sci']
 	
       elseif txt=='Others' then
 	lisf=['c_block.sci';'fortran_block.sci';
@@ -81,7 +81,7 @@ function routines=create_palette(Path)
 	      'MBLOCK.sci']
 	
       elseif txt=='Linear' then
-	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR.sci';
+	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR_m.sci';
 	      'CLINDUMMY_f.sci';'DLSS.sci';'REGISTER.sci';'TIME_DELAY.sci';
 	      'CLR.sci';'GAINBLK.sci';'SAMPHOLD.sci';'VARIABLE_DELAY.sci';
 	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
