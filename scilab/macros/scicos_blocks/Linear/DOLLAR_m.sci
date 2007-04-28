@@ -74,7 +74,6 @@ case 'set' then
     if ok then
       graphics.exprs=exprs;
       x.graphics=graphics;x.model=model
-pause
       break
     end
   end
@@ -87,7 +86,9 @@ case 'define' then
   model=scicos_model()
   model.sim=list('dollar4',4)
   model.in=in
+  model.in2=in
   model.out=in
+  model.out2=in
   model.evtin=1-inh
   model.dstate=z
   model.blocktype='d'
