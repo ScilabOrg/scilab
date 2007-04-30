@@ -1542,7 +1542,7 @@ int C2F(syncexec)(str, ns, ierr, seq, str_len)
 
   Pt = max(Pt,0);Pts=Pt;
   Top = max(Top,0);Tops=Top;
-  C2F(basbrk).interruptible = *seq != 0;
+  C2F(basbrk).interruptible = *seq == 0;
   C2F(bexec)(str, ns, ierr, (*ns));
   if (*ierr != 0) {
     goto L9998;
@@ -1678,13 +1678,10 @@ int C2F(syncexec)(str, ns, ierr, seq, str_len)
   *ierr = 0;
   C2F(recu).icall = 0;
   C2F(com).fin = 3;
-  C2F(basbrk).interruptible = TRUE_;
   return 0;
  L9998:
   *ierr = 1;
   Pt=Pts;Top=Tops;
-  C2F(basbrk).interruptible = TRUE_;
-
   return 0;
  L9999:
   /* Err == 9999999 arises if abort has been used to terminate the callback execution */
@@ -1692,7 +1689,6 @@ int C2F(syncexec)(str, ns, ierr, seq, str_len)
   --Top;
   --C2F(recu).niv;
   Pt=Pts;Top=Tops;
-  C2F(basbrk).interruptible = TRUE_;
   return 0;
 } /* syncexec */
 
