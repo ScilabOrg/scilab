@@ -62,7 +62,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      'Delete',..
 	      'Move',..
 	      'Smart Move',..
-	      'Replace',..
 	      'Align',..
 	      'Flip',..
 	      'Add new block',..
