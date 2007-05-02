@@ -26,7 +26,7 @@ case 'set' then
     model.sim=list('dollar4_m',4)
     model.odstate=list(a);
     model.dstate=[];
-    if type ((a)==1) then
+    if (type(a)==1) then
 	if isreal(a) then
 	    it=1;
 	    ot=1;
@@ -34,38 +34,29 @@ case 'set' then
                 model.sim=list('dollar4',4);
 		model.dstate=a(:);
 		model.odstate=list();
-	    else 
-		model.ipar=8;
 	    end
 	else
 	     it=2;
 	     ot=2;
-	     model.ipar=16;
 	end
     elseif (typeof(a)=="int32") then 
 	     it=3;
 	     ot=3;
-	     model.ipar=4;
     elseif (typeof(a)=="int16") then
 	     it=4;
 	     ot=4;
-	     model.ipar=2;
     elseif (typeof(a)=="int8") then
 	     it=5;
 	     ot=5;
-	     model.ipar=1;
     elseif (typeof(a)=="uint32") then
 	     it=6;
 	     ot=6;
-	     model.ipar=4;
     elseif (typeof(a)=="uint16") then
 	     it=7;
 	     ot=7;
-	     model.ipar=2;
     elseif (typeof(a)=="uint8") then
 	     it=8;
 	     ot=8;
-	     model.ipar=1;
     else message ("type is not recognized"); ok=%f;
     end
     if ok then
@@ -86,9 +77,7 @@ case 'define' then
   model=scicos_model()
   model.sim=list('dollar4',4)
   model.in=in
-  model.in2=in
   model.out=in
-  model.out2=in
   model.evtin=1-inh
   model.dstate=z
   model.blocktype='d'
