@@ -116,7 +116,7 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
       Cmenu='Copy';%pt=[];
     
     elseif (btn==1118) then            //** [CTRL]+[v] --> Paste 
-      Cmenu='Paste';%pt=[];
+      Cmenu='Paste'; %pt = [xc,yc] ;   //** acquire the position for the "Paste"
     
     elseif (btn==255) then             //** Backspace  --> Delete (erase) object          
       Cmenu='Delete';%pt=[];

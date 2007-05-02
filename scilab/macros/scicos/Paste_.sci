@@ -28,7 +28,7 @@ if and(size(Select)==[1,2]) then //** only one object selected
   if (typeof(Clipboard)=='Block' & typeof(Sel_obj)=='Block')
    //** ready for "Replace" operation 
    disp("Paste -> Replace operation ") 
-   [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
+   [scs_m, needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
   else
    disp("Paste -> Source / Destination incompatible"); 
    Cmenu=[]; %pt = []; %ppt = [] ; return 
@@ -39,9 +39,12 @@ else
     disp("Paste -> Paste in the void operation ") 
     
     if %ppt==[] then
-      disp("Clink in the empty destination position before paste operation")
+      disp("Click in the empty destination position before paste operation")
       Cmenu=[]; %pt = []; %ppt = [] ; return 
     end  
+    
+    disp(%pt); disp(%ppt) ;
+    
     
     if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
       

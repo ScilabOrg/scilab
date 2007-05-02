@@ -155,6 +155,8 @@ function [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
   drawlater();
   //pause 
     drawobj(o); // draw the object: now the object is on the top of graphic handle list
+    gh_obj = gh_curwin.children.children(1); //** get the handle of the graphics entity to modify
+    gh_obj.children(1).mark_mode = "on"  ; //** update mark_mode property
     o_size = size(gh_curwin.children.children); //** dimension of graphics datastructure 
     gr_k_n = get_gri(k_n, o_size(1)) ; //** conversion from diagram to graphic
     swap_handles(gh_curwin.children.children(gr_k_n), gh_curwin.children.children(1));
