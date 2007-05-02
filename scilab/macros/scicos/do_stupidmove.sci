@@ -54,7 +54,7 @@ function scs_m=stupid_moveblock(scs_m,k,xc,yc)
     [xl,yl,ct,from,to]=(oi.xx,oi.yy,oi.ct,oi.from,oi.to)
     
     nl=prod(size(xl))
-    if dr=='Rec' then driver('X11'),end
+
     if from(1)==k then
       xm=[xm,[xl(2);xl(1)]];ym=[ym,[yl(2);yl(1)]];
       draw_link_seg(oi,1:2) //erase link
@@ -66,7 +66,7 @@ function scs_m=stupid_moveblock(scs_m,k,xc,yc)
       clr=[clr ct(1)]
     end
   end
-
+  if dr=='Rec' then driver('X11'),end
 
   xmt=xm;ymt=ym;
   // move a block and connected links
