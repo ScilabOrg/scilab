@@ -1,15 +1,51 @@
 function Paste_()
 //** INRIA 
-//** 
-  //** if I am in the current window and the mouse position are OK 
-  if (%win==curwin) & (%ppt<>[]) then
-    scf(curwin); gh_curwin = gcf(curwin);
-    drawlater(); 
+//** 02 May 2007: Update the paste operation with "Replace" (paste over) operation 
+
+
+//** Verify window and last mouse "click" position 
+  if %win<>curwin  then
+     disp("Paste operation is not possible in this window ")
+     return
+  end        
     
+//** if I am in the current window and the mouse position are OK     
+    
+  gh_curwin = scf(curwin); //** put the focus in the current window and recover the handle
+  drawlater(); //** put in "drawlater" mode 
+  
+//** Select : matrix of selected object
+//** Each line is:  [object_id win_id] : "object_id" is the same INDEX used in "scs_m.obj"
+//**                                 and "win_id"    is the Scilab window id.
+//** Multiple selection is permitted: each object is a line of the matrix.  
+
+//** Check for "Replace" or "Paste in the void" datastrucure 
+  
+if and(size(Select)==[1,2]) then //** only one object selected 
+  
+  Sel_obj = scs_m.objs(Select(1,1)) ; 
+  
+  if (typeof(Clipboard)=='Block' & typeof(Sel_obj)=='Block')
+   //** ready for "Replace" operation 
+   disp("Paste -> Replace operation ") 
+   [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
+  else
+   disp("Paste -> Source / Destination incompatible"); 
+   Cmenu=[]; %pt = []; %ppt = [] ; return 
+  end
+  
+else   
     //** if it is a "Block" or a "Text"
+    disp("Paste -> Paste in the void operation ") 
+    
+    if %ppt==[] then
+      disp("Clink in the empty destination position before paste operation")
+      Cmenu=[]; %pt = []; %ppt = [] ; return 
+    end  
+    
     if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
       
-      scs_m_save = scs_m,nc_save = needcompile ;
+      scs_m_save = scs_m; nc_save = needcompile ;
       
       blk = Clipboard
       blk.graphics.orig = %ppt
@@ -77,7 +113,9 @@ function Paste_()
     end //** object type 
   
   show_pixmap(); //** update the screen 
-  end //** valid paste 
+  
+  
+ end //** valid Paste as "replace" or "in the void"
   
   Cmenu=[]; %pt = []; %ppt = [] ;
   

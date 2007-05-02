@@ -1,73 +1,57 @@
-function [scs_m,needcompile]=do_replace(scs_m,needcompile,%pt)
+function [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
 // Copyright INRIA
 // get replacement block
-  xc=%pt(1);yc=%pt(2);
-  win=%win
-  kc=find(win==windows(:,2))
-  if kc==[] then
-    message('This window is not an active palette')
-    k=[];return
-  elseif windows(kc,1)<0 then //click dans une palette
-    kpal=-windows(kc,1)
-    palette=palettes(kpal)
-    k=getblock(palette,[xc;yc])
-    if k<>[] then o=palette.objs(k),end
-  elseif win==curwin then //click dans la fenetre courante
-    k=getblock(scs_m,[xc;yc])
-    if k<>[] then
-      o=scs_m.objs(k);graphics=o.graphics
-      graphics.pin=0*graphics.pin
-      graphics.pout=0*graphics.pout
-      graphics.pein=0*graphics.pein
-      graphics.peout=0*graphics.peout
-      o.graphics=graphics
-    end
-  else
-    message('This window is not an active palette')
-    k=[]
-  end
-  if k==[] then return,end
-  // get block to replace
-  xset('window',curwin);
-  while %t do
-    [btn,%pt,win,Cmenu]=cosclick()
-    if Cmenu<>[]&Cmenu<>'SelectLink' then
-      [Cmenu,%pt]=resume(Cmenu,%pt)
-    end
-    xc=%pt(1);yc=%pt(2);
-    k_n=getobj(scs_m,[xc;yc])
-    if k_n<>[] then
-      o_n=scs_m.objs(k_n)
-      if typeof(o_n)=='Block' then  break,end
-    end
-  end
-  o.graphics.flip=o_n.graphics.flip // set same flip position
-  [ip,op,cip,cop]=(o.graphics.pin,o.graphics.pout,o.graphics.pein,..
-		   o.graphics.peout)
-  [in,out,clkin,clkout]=(o.model.in,o.model.out,o.model.evtin,o.model.evtout)
   
-  nin=size(in,'*')
-  nout=size(out,'*')
-  nclkin=size(clkin,'*')
-  nclkout=size(clkout,'*')
+//** 02 May 2007 : change to new graphics    
+  
+  
+  xc = %pt(1); yc = %pt(2);
+  win = %win
+  
+  gh_curwin = scf(curwin) //** set the the current window and recover the handle
+  
+  //** SOURCE OBJECT Preparation 
+  o = Clipboard ; //** "Clipboard arrives with the correct graphic object 
+  //** if the object came from an existing diagram, I need to clear
+  //** some graphics proprieties 
+  graphics = o.graphics    //** change some graphics proprieties 
+  graphics.pin   = 0*graphics.pin
+  graphics.pout  = 0*graphics.pout
+  graphics.pein  = 0*graphics.pein
+  graphics.peout = 0*graphics.peout
+  o.graphics = graphics
+
+  //** DESTINATION OBJECT Preparation 
+  k_n = Select(1,1)     ; //** the "Select" obj is the target 
+  o_n = scs_m.objs(k_n) ;
+    
+  o.graphics.flip = o_n.graphics.flip // set same flip position
+  [ip,op,cip,cop] = (o.graphics.pin, o.graphics.pout, o.graphics.pein, o.graphics.peout)
+  [in,out,clkin,clkout] = (o.model.in,o.model.out,o.model.evtin,o.model.evtout)
+  
+  nin  = size(in,'*')
+  nout = size(out,'*')
+  nclkin  = size(clkin,'*')
+  nclkout = size(clkout,'*')
   
   [ip_n,op_n,cip_n,cop_n]=(o_n.graphics.pin,o_n.graphics.pout,..
 			   o_n.graphics.pein,o_n.graphics.peout)
   [in_n,out_n,clkin_n,clkout_n]=(o_n.model.in,o_n.model.out,..
 				 o_n.model.evtin,o_n.model.evtout)
-  nin_n=size(in_n,'*')
-  nout_n=size(out_n,'*')
-  nclkin_n=size(clkin_n,'*')
-  nclkout_n=size(clkout_n,'*')
+  nin_n  = size(in_n,'*')
+  nout_n = size(out_n,'*')
+  nclkin_n  = size(clkin_n,'*')
+  nclkout_n = size(clkout_n,'*')
   
   
-  [ox,oy]=getorigin(o)
-  [ox_n,oy_n]=getorigin(o_n)
+  [ox,oy]     = getorigin(o)
+  [ox_n,oy_n] = getorigin(o_n)
   
   
-  [xx,yy,t]=getinputs(o);xx=xx-ox;yy=yy-oy
-  [x_n,y_n,t_n]=getinputs(o_n);x_n=x_n-ox_n;y_n=y_n-oy_n
-  //Check inputs
+  [xx,yy,t] = getinputs(o);xx=xx-ox;yy=yy-oy
+  [x_n,y_n,t_n] = getinputs(o_n); x_n = x_n-ox_n; y_n = y_n-oy_n
+  
+  // Check inputs
   wasconnected=%f
   if ip_n<>[] then if find(ip_n>0)<>[] then wasconnected=%t,end,end
   if wasconnected then
@@ -87,7 +71,8 @@ function [scs_m,needcompile]=do_replace(scs_m,needcompile,%pt)
       ip=ip_n
     end
   end
-  //Check clock inputs
+  
+  // Check clock inputs
   wasconnected=%f
   if cip_n<>[] then if find(cip_n>0)<>[] then wasconnected=%t, end, end,
   if wasconnected then
@@ -111,7 +96,8 @@ function [scs_m,needcompile]=do_replace(scs_m,needcompile,%pt)
   
   [xx,yy,t]=getoutputs(o);xx=xx-ox;yy=yy-oy
   [x_n,y_n,t_n]=getoutputs(o_n);x_n=x_n-ox_n;y_n=y_n-oy_n
-  //Check outputs
+  
+  // Check outputs
   wasconnected=%f
   if op_n<>[] then if find(op_n>0)<>[] then wasconnected=%t, end, end,
   if wasconnected then
@@ -131,7 +117,8 @@ function [scs_m,needcompile]=do_replace(scs_m,needcompile,%pt)
       op=op_n
     end
   end
-  //Check clock outputs
+  
+  // Check clock outputs
   wasconnected=%f
   if cop_n<>[] then if find(cop_n>0)<>[] then wasconnected=%t, end, end,
   if wasconnected then
@@ -157,11 +144,27 @@ function [scs_m,needcompile]=do_replace(scs_m,needcompile,%pt)
   o.graphics.pout=op
   o.graphics.pein=cip
   o.graphics.peout=cop
-  drawobj(o_n)
-  drawobj(o)
-  scs_m.objs(k_n)=o
-  if pixmap then xset('wshow'),end
-  scs_m_save=scs_m,nc_save=needcompile
-  needcompile=4
-  [scs_m_save,nc_save,enable_undo,edited]=resume(scs_m_save,nc_save,%t,%t)
+  
+  //** OBSOLETE -> REMOVED 
+  //** drawobj(o_n) // draw the new object 
+ 
+  scs_m_save  = scs_m ; //** for "Undo" operation 
+  scs_m.objs(k_n) = o ; //** update the object in diagram data structure  
+ 
+  //** Graphics update    
+  drawlater();
+  //pause 
+    drawobj(o); // draw the object: now the object is on the top of graphic handle list
+    o_size = size(gh_curwin.children.children); //** dimension of graphics datastructure 
+    gr_k_n = get_gri(k_n, o_size(1)) ; //** conversion from diagram to graphic
+    swap_handles(gh_curwin.children.children(gr_k_n), gh_curwin.children.children(1));
+    delete(gh_curwin.children.children(1)); //** delete the temp object 
+  drawnow();
+  show_pixmap();
+  
+  //** upper level variable update  
+  nc_save     = needcompile //** need explanation 
+  needcompile = 4
+  [scs_m_save, nc_save, enable_undo, edited] = resume(scs_m_save, nc_save, %t, %t)
+
 endfunction
