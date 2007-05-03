@@ -240,13 +240,14 @@ if ~super_block then // init of some global variables
 
   scicos_paltmp = scicos_pal ;
 
+  //** try to load the local ".scicos_pal" files that contains the user defined 
+  //** palette relatives to the local directory
   if execstr('load(''.scicos_pal'')','errcatch')==0 then
-    scicos_pal = [scicos_paltmp;scicos_pal]
-    [%junk,%palce] = gunique(scicos_pal(:,2))
-    %palce = -sort(-%palce);
-    scicos_pal = scicos_pal(%palce,:);
-  end
-
+  //** if the load has been positive 
+    scicos_pal = gunique(scicos_pal,scicos_paltmp); //** remove the duplicate item(s) 
+  end                                               //** in the palette 
+  
+  //** load - if present - the used defined local shortcut  
   execstr('load(''.scicos_short'')','errcatch')  // keyboard shortcuts
 
 end
@@ -641,11 +642,11 @@ endfunction
 
 //** ----------------------------------------------------------------------------------------------------------------
 
-function [x,k] = gunique(x)
-    [x,k]=gsort(x);
-    keq=find(x(2:$)==x(1:$-1))
-    x(keq)=[]
-    k(keq)=[]
+function uni = gunique(m1,m2)
+// Used to eliminate duplicate palette item(s) 
+  uni = [m1;m2] ; //** merge the two matrix 
+  [j,ind] = unique(uni(:,1) + uni(:,2)) ; //** remove the duplicate palette name 
+  uni = uni(-gsort(-ind),:);  //** reorder the merged palette without duplicate 
 endfunction
 
 //** ----------------------------------------------------------------------------------------------------------------
