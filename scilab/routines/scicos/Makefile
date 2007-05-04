@@ -53,9 +53,24 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	mat_catv.o mat_expm.o mat_reshape.o mat_vpv.o matz_cath.o matz_diag.o matz_lu.o \
 	matz_reshape.o matz_vpv.o submat.o extractz.o exttriuz.o mat_det.o mat_inv.o \
 	mat_sing.o matz_abs.o matz_catv.o matz_div.o matz_pinv.o matz_sing.o ricc_m.o \
-        submatz.o switch2_m.o switch2_zm.o dollar4_m.o cstblk4_m.o integralz_func.o\
+        submatz.o switch2_m.o dollar4_m.o cstblk4_m.o integralz_func.o\
         matzmul_m.o matztran_m.o mat_sum.o mat_sumc.o mat_suml.o cumsum_c.o cumsum_m.o cumsum_r.o\
-        matz_sum.o matz_sumc.o matz_suml.o cumsumz_c.o cumsumz_m.o cumsumz_r.o selector_m.o selector_zm.o
+        matz_sum.o matz_sumc.o matz_suml.o cumsumz_c.o cumsumz_m.o cumsumz_r.o selector_m.o\
+        summation_z.o shift_i8.o shift_i16.o shift_i32.o convert.o logicalop_i32.o logicalop_ui32.o\
+        logicalop_i16.o logicalop_ui16.o logicalop_i8.o logicalop_ui8.o logicalop_m.o samphold4_m.o\
+	matmul_i32s.o matmul_i32n.o matmul_i32e.o matmul_i16s.o matmul_i16n.o matmul_i16e.o matmul_i8s.o matmul_i8n.o matmul_i8e.o\
+	matmul_ui32s.o matmul_ui32n.o matmul_ui32e.o matmul_ui16s.o matmul_ui16n.o matmul_ui16e.o\
+	matmul_ui8s.o matmul_ui8n.o matmul_ui8e.o\
+	summation_i32s.o summation_i32n.o summation_i32e.o summation_i16s.o summation_i16n.o summation_i16e.o\
+	summation_i8s.o summation_i8n.o summation_i8e.o summation_ui32s.o summation_ui32n.o summation_ui32e.o\
+	summation_ui16s.o summation_ui16n.o summation_ui16e.o summation_ui8s.o summation_ui8n.o summation_ui8e.o\
+	gainblk_i32s.o gainblk_i32n.o gainblk_i32e.o gainblk_i16s.o gainblk_i16n.o gainblk_i16e.o\
+	gainblk_i8s.o gainblk_i8n.o gainblk_i8e.o gainblk_ui32s.o gainblk_ui32n.o gainblk_ui32e.o\
+	gainblk_ui16s.o gainblk_ui16n.o gainblk_ui16e.o gainblk_ui8s.o gainblk_ui8n.o gainblk_ui8e.o\
+	delay4_i32.o delay4_i16.o delay4_i8.o delay4_ui32.o delay4_ui16.o delay4_ui8.o\
+	bit_set.o bit_clear.o extract_bit_i32.o extract_bit_i16.o extract_bit_i8.o extract_bit_ui32.o extract_bit_ui16.o\
+	extract_bit_ui8.o mat_sqrt.o matz_sqrt.o relational_op_i32.o relational_op_ui32.o relational_op_i16.o\
+	relational_op_ui16.o relational_op_i8.o relational_op_ui8.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \

@@ -192,7 +192,6 @@ extern void matz_sing __PARAMS((ARGS_scicos));
 extern void ricc_m __PARAMS((ARGS_scicos));
 extern void submatz __PARAMS((ARGS_scicos));
 extern void switch2_m __PARAMS((ARGS_scicos));
-extern void switch2_zm __PARAMS((ARGS_scicos));
 extern void dollar4_m __PARAMS((ARGS_scicos));
 extern void cstblk4_m __PARAMS((ARGS_scicos));
 extern void integralz_func __PARAMS((ARGS_scicos));
@@ -211,7 +210,95 @@ extern void cumsumz_c __PARAMS((ARGS_scicos));
 extern void cumsumz_m __PARAMS((ARGS_scicos));
 extern void cumsumz_r __PARAMS((ARGS_scicos));
 extern void selector_m __PARAMS((ARGS_scicos));
-extern void selector_zm __PARAMS((ARGS_scicos));
+extern void summation_z __PARAMS((ARGS_scicos));
+extern void shift_i8 __PARAMS((ARGS_scicos));
+extern void shift_i16 __PARAMS((ARGS_scicos));
+extern void shift_i32 __PARAMS((ARGS_scicos));
+extern void convert __PARAMS((ARGS_scicos));
+extern void logicalop_i32 __PARAMS((ARGS_scicos));
+extern void logicalop_ui32 __PARAMS((ARGS_scicos));
+extern void logicalop_i16 __PARAMS((ARGS_scicos));
+extern void logicalop_ui16 __PARAMS((ARGS_scicos));
+extern void logicalop_i8 __PARAMS((ARGS_scicos));
+extern void logicalop_ui8 __PARAMS((ARGS_scicos));
+extern void logicalop_m __PARAMS((ARGS_scicos));
+extern void samphold4_m __PARAMS((ARGS_scicos));
+extern void matmul_i32s __PARAMS((ARGS_scicos));
+extern void matmul_i32n __PARAMS((ARGS_scicos));
+extern void matmul_i32e __PARAMS((ARGS_scicos));
+extern void matmul_i16s __PARAMS((ARGS_scicos));
+extern void matmul_i16n __PARAMS((ARGS_scicos));
+extern void matmul_i16e __PARAMS((ARGS_scicos));
+extern void matmul_i8s __PARAMS((ARGS_scicos));
+extern void matmul_i8n __PARAMS((ARGS_scicos));
+extern void matmul_i8e __PARAMS((ARGS_scicos));
+extern void matmul_ui32s __PARAMS((ARGS_scicos));
+extern void matmul_ui32n __PARAMS((ARGS_scicos));
+extern void matmul_ui32e __PARAMS((ARGS_scicos));
+extern void matmul_ui16s __PARAMS((ARGS_scicos));
+extern void matmul_ui16n __PARAMS((ARGS_scicos));
+extern void matmul_ui16e __PARAMS((ARGS_scicos));
+extern void matmul_ui8s __PARAMS((ARGS_scicos));
+extern void matmul_ui8n __PARAMS((ARGS_scicos));
+extern void matmul_ui8e __PARAMS((ARGS_scicos));
+extern void summation_i32s __PARAMS((ARGS_scicos));
+extern void summation_i32n __PARAMS((ARGS_scicos));
+extern void summation_i32e __PARAMS((ARGS_scicos));
+extern void summation_i16s __PARAMS((ARGS_scicos));
+extern void summation_i16n __PARAMS((ARGS_scicos));
+extern void summation_i16e __PARAMS((ARGS_scicos));
+extern void summation_i8s __PARAMS((ARGS_scicos));
+extern void summation_i8n __PARAMS((ARGS_scicos));
+extern void summation_i8e __PARAMS((ARGS_scicos));
+extern void summation_ui32s __PARAMS((ARGS_scicos));
+extern void summation_ui32n __PARAMS((ARGS_scicos));
+extern void summation_ui32e __PARAMS((ARGS_scicos));
+extern void summation_ui16s __PARAMS((ARGS_scicos));
+extern void summation_ui16n __PARAMS((ARGS_scicos));
+extern void summation_ui16e __PARAMS((ARGS_scicos));
+extern void summation_ui8s __PARAMS((ARGS_scicos));
+extern void summation_ui8n __PARAMS((ARGS_scicos));
+extern void summation_ui8e __PARAMS((ARGS_scicos));
+extern void gainblk_i32s __PARAMS((ARGS_scicos));
+extern void gainblk_i32n __PARAMS((ARGS_scicos));
+extern void gainblk_i32e __PARAMS((ARGS_scicos));
+extern void gainblk_i16s __PARAMS((ARGS_scicos));
+extern void gainblk_i16n __PARAMS((ARGS_scicos));
+extern void gainblk_i16e __PARAMS((ARGS_scicos));
+extern void gainblk_i8s __PARAMS((ARGS_scicos));
+extern void gainblk_i8n __PARAMS((ARGS_scicos));
+extern void gainblk_i8e __PARAMS((ARGS_scicos));
+extern void gainblk_ui32s __PARAMS((ARGS_scicos));
+extern void gainblk_ui32n __PARAMS((ARGS_scicos));
+extern void gainblk_ui32e __PARAMS((ARGS_scicos));
+extern void gainblk_ui16s __PARAMS((ARGS_scicos));
+extern void gainblk_ui16n __PARAMS((ARGS_scicos));
+extern void gainblk_ui16e __PARAMS((ARGS_scicos));
+extern void gainblk_ui8s __PARAMS((ARGS_scicos));
+extern void gainblk_ui8n __PARAMS((ARGS_scicos));
+extern void gainblk_ui8e __PARAMS((ARGS_scicos));
+extern void delay4_i32 __PARAMS((ARGS_scicos));
+extern void delay4_i16 __PARAMS((ARGS_scicos));
+extern void delay4_i8 __PARAMS((ARGS_scicos));
+extern void delay4_ui32 __PARAMS((ARGS_scicos));
+extern void delay4_ui16 __PARAMS((ARGS_scicos));
+extern void delay4_ui8 __PARAMS((ARGS_scicos));
+extern void bit_set __PARAMS((ARGS_scicos));
+extern void bit_clear __PARAMS((ARGS_scicos));
+extern void extract_bit_i32 __PARAMS((ARGS_scicos));
+extern void extract_bit_i16 __PARAMS((ARGS_scicos));
+extern void extract_bit_i8 __PARAMS((ARGS_scicos));
+extern void extract_bit_ui32 __PARAMS((ARGS_scicos));
+extern void extract_bit_ui16 __PARAMS((ARGS_scicos));
+extern void extract_bit_ui8 __PARAMS((ARGS_scicos));
+extern void mat_sqrt __PARAMS((ARGS_scicos));
+extern void matz_sqrt __PARAMS((ARGS_scicos));
+extern void relational_op_i32 __PARAMS((ARGS_scicos));
+extern void relational_op_ui32 __PARAMS((ARGS_scicos));
+extern void relational_op_i16 __PARAMS((ARGS_scicos));
+extern void relational_op_ui16 __PARAMS((ARGS_scicos));
+extern void relational_op_i8 __PARAMS((ARGS_scicos));
+extern void relational_op_ui8 __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -227,6 +314,8 @@ OpTab tabsim[] ={
 {"atanh_blk",(ScicosF) atanh_blk},
 {"backlash",(ScicosF) backlash},
 {"bidon",(ScicosF) F2C(bidon)},
+{"bit_clear",(ScicosF) bit_clear},
+{"bit_set",(ScicosF) bit_set},
 {"bounce_ball",(ScicosF) bounce_ball},
 {"bouncexy",(ScicosF) bouncexy},
 {"canimxy3d",(ScicosF) canimxy3d},
@@ -238,6 +327,7 @@ OpTab tabsim[] ={
 {"cmatview",(ScicosF) cmatview},
 {"cmscope",(ScicosF) cmscope},
 {"constraint",(ScicosF) F2C(constraint)},
+{"convert",(ScicosF) convert},
 {"cos_blk",(ScicosF) cos_blk},
 {"cosblk",(ScicosF) F2C(cosblk)},
 {"cosh_blk",(ScicosF) cosh_blk},
@@ -257,7 +347,13 @@ OpTab tabsim[] ={
 {"cumsumz_r",(ScicosF) cumsumz_r},
 {"dband",(ScicosF) F2C(dband)},
 {"deadband",(ScicosF) deadband},
+{"delay4_i16",(ScicosF) delay4_i16},
+{"delay4_i32",(ScicosF) delay4_i32},
+{"delay4_i8",(ScicosF) delay4_i8},
 {"delay4",(ScicosF) delay4},
+{"delay4_ui16",(ScicosF) delay4_ui16},
+{"delay4_ui32",(ScicosF) delay4_ui32},
+{"delay4_ui8",(ScicosF) delay4_ui8},
 {"delay",(ScicosF) F2C(delay)},
 {"delayv",(ScicosF) F2C(delayv)},
 {"demux",(ScicosF) F2C(demux)},
@@ -277,6 +373,12 @@ OpTab tabsim[] ={
 {"expblk",(ScicosF) F2C(expblk)},
 {"extdiag",(ScicosF) extdiag},
 {"extdiagz",(ScicosF) extdiagz},
+{"extract_bit_i16",(ScicosF) extract_bit_i16},
+{"extract_bit_i32",(ScicosF) extract_bit_i32},
+{"extract_bit_i8",(ScicosF) extract_bit_i8},
+{"extract_bit_ui16",(ScicosF) extract_bit_ui16},
+{"extract_bit_ui32",(ScicosF) extract_bit_ui32},
+{"extract_bit_ui8",(ScicosF) extract_bit_ui8},
 {"extractor",(ScicosF) extractor},
 {"extract",(ScicosF) extract},
 {"extractz",(ScicosF) extractz},
@@ -286,7 +388,25 @@ OpTab tabsim[] ={
 {"exttriuz",(ScicosF) exttriuz},
 {"forblk",(ScicosF) F2C(forblk)},
 {"fsv",(ScicosF) F2C(fsv)},
+{"gainblk_i16e",(ScicosF) gainblk_i16e},
+{"gainblk_i16n",(ScicosF) gainblk_i16n},
+{"gainblk_i16s",(ScicosF) gainblk_i16s},
+{"gainblk_i32e",(ScicosF) gainblk_i32e},
+{"gainblk_i32n",(ScicosF) gainblk_i32n},
+{"gainblk_i32s",(ScicosF) gainblk_i32s},
+{"gainblk_i8e",(ScicosF) gainblk_i8e},
+{"gainblk_i8n",(ScicosF) gainblk_i8n},
+{"gainblk_i8s",(ScicosF) gainblk_i8s},
 {"gainblk",(ScicosF) gainblk},
+{"gainblk_ui16e",(ScicosF) gainblk_ui16e},
+{"gainblk_ui16n",(ScicosF) gainblk_ui16n},
+{"gainblk_ui16s",(ScicosF) gainblk_ui16s},
+{"gainblk_ui32e",(ScicosF) gainblk_ui32e},
+{"gainblk_ui32n",(ScicosF) gainblk_ui32n},
+{"gainblk_ui32s",(ScicosF) gainblk_ui32s},
+{"gainblk_ui8e",(ScicosF) gainblk_ui8e},
+{"gainblk_ui8n",(ScicosF) gainblk_ui8n},
+{"gainblk_ui8s",(ScicosF) gainblk_ui8s},
 {"gain",(ScicosF) F2C(gain)},
 {"gensin",(ScicosF) F2C(gensin)},
 {"gensqr",(ScicosF) F2C(gensqr)},
@@ -304,7 +424,14 @@ OpTab tabsim[] ={
 {"invblk",(ScicosF) F2C(invblk)},
 {"iocopy",(ScicosF) F2C(iocopy)},
 {"logblk",(ScicosF) F2C(logblk)},
+{"logicalop_i16",(ScicosF) logicalop_i16},
+{"logicalop_i32",(ScicosF) logicalop_i32},
+{"logicalop_i8",(ScicosF) logicalop_i8},
+{"logicalop_m",(ScicosF) logicalop_m},
 {"logicalop",(ScicosF) logicalop},
+{"logicalop_ui16",(ScicosF) logicalop_ui16},
+{"logicalop_ui32",(ScicosF) logicalop_ui32},
+{"logicalop_ui8",(ScicosF) logicalop_ui8},
 {"lookup",(ScicosF) F2C(lookup)},
 {"lsplit",(ScicosF) F2C(lsplit)},
 {"lusat",(ScicosF) F2C(lusat)},
@@ -317,10 +444,29 @@ OpTab tabsim[] ={
 {"mat_expm",(ScicosF) mat_expm},
 {"mat_inv",(ScicosF) mat_inv},
 {"mat_lu",(ScicosF) mat_lu},
+{"matmul_i16e",(ScicosF) matmul_i16e},
+{"matmul_i16n",(ScicosF) matmul_i16n},
+{"matmul_i16s",(ScicosF) matmul_i16s},
+{"matmul_i32e",(ScicosF) matmul_i32e},
+{"matmul_i32n",(ScicosF) matmul_i32n},
+{"matmul_i32s",(ScicosF) matmul_i32s},
+{"matmul_i8e",(ScicosF) matmul_i8e},
+{"matmul_i8n",(ScicosF) matmul_i8n},
+{"matmul_i8s",(ScicosF) matmul_i8s},
 {"matmul_m",(ScicosF) matmul_m},
+{"matmul_ui16e",(ScicosF) matmul_ui16e},
+{"matmul_ui16n",(ScicosF) matmul_ui16n},
+{"matmul_ui16s",(ScicosF) matmul_ui16s},
+{"matmul_ui32e",(ScicosF) matmul_ui32e},
+{"matmul_ui32n",(ScicosF) matmul_ui32n},
+{"matmul_ui32s",(ScicosF) matmul_ui32s},
+{"matmul_ui8e",(ScicosF) matmul_ui8e},
+{"matmul_ui8n",(ScicosF) matmul_ui8n},
+{"matmul_ui8s",(ScicosF) matmul_ui8s},
 {"mat_pinv",(ScicosF) mat_pinv},
 {"mat_reshape",(ScicosF) mat_reshape},
 {"mat_sing",(ScicosF) mat_sing},
+{"mat_sqrt",(ScicosF) mat_sqrt},
 {"mat_sumc",(ScicosF) mat_sumc},
 {"mat_suml",(ScicosF) mat_suml},
 {"mat_sum",(ScicosF) mat_sum},
@@ -346,6 +492,7 @@ OpTab tabsim[] ={
 {"matz_reim",(ScicosF) matz_reim},
 {"matz_reshape",(ScicosF) matz_reshape},
 {"matz_sing",(ScicosF) matz_sing},
+{"matz_sqrt",(ScicosF) matz_sqrt},
 {"matz_sumc",(ScicosF) matz_sumc},
 {"matz_suml",(ScicosF) matz_suml},
 {"matz_sum",(ScicosF) matz_sum},
@@ -376,12 +523,19 @@ OpTab tabsim[] ={
 {"readau",(ScicosF) readau},
 {"readc",(ScicosF) readc},
 {"readf",(ScicosF) F2C(readf)},
+{"relational_op_i16",(ScicosF) relational_op_i16},
+{"relational_op_i32",(ScicosF) relational_op_i32},
+{"relational_op_i8",(ScicosF) relational_op_i8},
 {"relationalop",(ScicosF) relationalop},
+{"relational_op_ui16",(ScicosF) relational_op_ui16},
+{"relational_op_ui32",(ScicosF) relational_op_ui32},
+{"relational_op_ui8",(ScicosF) relational_op_ui8},
 {"relay",(ScicosF) relay},
 {"ricc_m",(ScicosF) ricc_m},
 {"rndblk",(ScicosF) F2C(rndblk)},
 {"root_coef",(ScicosF) root_coef},
 {"rootz_coef",(ScicosF) rootz_coef},
+{"samphold4_m",(ScicosF) samphold4_m},
 {"samphold4",(ScicosF) samphold4},
 {"samphold",(ScicosF) F2C(samphold)},
 {"satur",(ScicosF) satur},
@@ -390,7 +544,9 @@ OpTab tabsim[] ={
 {"selblk",(ScicosF) F2C(selblk)},
 {"selector_m",(ScicosF) selector_m},
 {"selector",(ScicosF) selector},
-{"selector_zm",(ScicosF) selector_zm},
+{"shift_i16",(ScicosF) shift_i16},
+{"shift_i32",(ScicosF) shift_i32},
+{"shift_i8",(ScicosF) shift_i8},
 {"signum",(ScicosF) signum},
 {"sinblk",(ScicosF) F2C(sinblk)},
 {"sin_blk",(ScicosF) sin_blk},
@@ -402,11 +558,29 @@ OpTab tabsim[] ={
 {"submatz",(ScicosF) submatz},
 {"sum2",(ScicosF) F2C(sum2)},
 {"sum3",(ScicosF) F2C(sum3)},
+{"summation_i16e",(ScicosF) summation_i16e},
+{"summation_i16n",(ScicosF) summation_i16n},
+{"summation_i16s",(ScicosF) summation_i16s},
+{"summation_i32e",(ScicosF) summation_i32e},
+{"summation_i32n",(ScicosF) summation_i32n},
+{"summation_i32s",(ScicosF) summation_i32s},
+{"summation_i8e",(ScicosF) summation_i8e},
+{"summation_i8n",(ScicosF) summation_i8n},
+{"summation_i8s",(ScicosF) summation_i8s},
 {"summation",(ScicosF) summation},
+{"summation_ui16e",(ScicosF) summation_ui16e},
+{"summation_ui16n",(ScicosF) summation_ui16n},
+{"summation_ui16s",(ScicosF) summation_ui16s},
+{"summation_ui32e",(ScicosF) summation_ui32e},
+{"summation_ui32n",(ScicosF) summation_ui32n},
+{"summation_ui32s",(ScicosF) summation_ui32s},
+{"summation_ui8e",(ScicosF) summation_ui8e},
+{"summation_ui8n",(ScicosF) summation_ui8n},
+{"summation_ui8s",(ScicosF) summation_ui8s},
+{"summation_z",(ScicosF) summation_z},
 {"sum",(ScicosF) sum},
 {"switch2_m",(ScicosF) switch2_m},
 {"switch2",(ScicosF) switch2},
-{"switch2_zm",(ScicosF) switch2_zm},
 {"switchn",(ScicosF) switchn},
 {"tanblk",(ScicosF) F2C(tanblk)},
 {"tan_blk",(ScicosF) tan_blk},
@@ -426,6 +600,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 210 ;
+int ntabsim= 297 ;
 #endif 
 /***********************************/
