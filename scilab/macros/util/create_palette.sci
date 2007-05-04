@@ -112,7 +112,12 @@ function routines=create_palette(Path)
               'MATEIG.sci';'MATMAGPHI.sci';'EXTRACT.sci';'MATEXPM.sci';'MATDET.sci';
               'MATPINV.sci';'EXTTRI.sci';'RICC.sci';'ROOTCOEF.sci';'MATCATH.sci';
               'MATLU.sci';'MATDIV.sci';'MATZCONJ.sci';'MATZREIM.sci';'SUBMAT.sci';
-              'MATBKSL.sci';'MATINV.sci';'MATCATV.sci';'MATSUM.sci';'CUMSUM.sci']
+              'MATBKSL.sci';'MATINV.sci';'MATCATV.sci';'MATSUM.sci';'CUMSUM.sci';'SQRT.sci']
+
+      elseif txt=='Integer' then
+	lisf=['BITCLEAR.sci';'BITSET.sci';'CONVERT.sci';'EXTRACTBITS.sci';'INTLOGICAL_OP.sci';
+	      'INTMUL.sci';'INTREGISTER.sci';'RELATIONAL_OP.sci';'SUMMATIONI';'INTGAINBLK.sci';
+	      'SHIFT.sci']
       else
 	error('Palette '+txt+' does not exists')
       end

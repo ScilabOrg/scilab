@@ -11,7 +11,8 @@ CurrentDirectoryScicosBlocks=pwd();
 		    "Threshold",
 		    "Hydraulics",
 		    "Electrical",
-		    "PDE"];
+		    "PDE",
+		    "IntegerOp"];
  
 Dim=size(SubDirectoriesScicosBlocks);
 for i=1:Dim(1) do 
