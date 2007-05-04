@@ -16,27 +16,20 @@ case 'set' then
   model=arg1.model;
   while %t do
     [ok,typ,nin,z0,exprs]=getvalue('Set parameters',..
-	['Datatype(1= real double  2=Complex)';'number of inputs';'initial connected input'],..
+	['Datatype(1= real double  2=Complex 3=int32 ..)';'number of inputs';'initial connected input'],..
 	list('vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end
     if z0>nin|z0<=0 then
       message('initial connected input is not a valid input port number')
+    elseif ((typ<1)|(typ>8)) message("Datatype is not supported");ok=%f;
     else
-      if typ==1 then
-      junction_name='selector_m'
-      it=ones(1,nin)
-      ot=1
-      elseif typ==2 then
-      junction_name='selector_zm'
-      it=2*ones(1,nin)
-      ot=2
-      else message("Datatype is not supported");ok=%f;end
+      it=typ*ones(1,nin)
+      ot=typ
       if ok then
       in=[-ones(nin,1) -2*ones(nin,1)]
       out=[-1 -2]
       [model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),ones(nin,1),[])
       if ok then
-        model.sim=list(junction_name,4)
 	graphics.exprs=exprs;
 	model.dstate=z0,
 	x.graphics=graphics;x.model=model

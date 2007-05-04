@@ -14,8 +14,8 @@ function [x,y,typ]=SWITCH2_m(job,arg1,arg2)
     graphics=arg1.graphics;exprs=graphics.exprs
     model=arg1.model;
     while %t do
-      [ok,typ,rule,thra,nzz,exprs]=getvalue('Set parameters',..
-		['Datatype (1=real double  2=complex)';'pass first input if: u2>=a (0), u2>a (1), u2~=a (2)';..
+      [ok,ot,rule,thra,nzz,exprs]=getvalue('Set parameters',..
+		['Datatype (1=real double  2=complex 3=int32 ...)';'pass first input if: u2>=a (0), u2>a (1), u2~=a (2)';..
 		    'threshold a';'use zero crossing: yes (1), no (0)'],..
 		    list('vec',1,'vec',1,'vec',1,'vec',1),exprs)
       if ~ok then break,end
@@ -32,20 +32,16 @@ function [x,y,typ]=SWITCH2_m(job,arg1,arg2)
 	model.nmode=0
 	model.nzcross=0
       end
-      if typ==1 then
-        it=[1 1 1]
-        junction_name='switch2_m"
-      elseif typ==2 then
-        it=[2 1 2]
-        junction_name='switch2_zm"
-      else message ("Datatype is not supported");ok=%f;end
+      if ((ot<1)|(ot>8)) message("Datatype is not supported");ok=%f;end
       if ok then
+	it(1)=ot;
+	it(2)=1;
+	it(3)=ot;
         in=[model.in model.in2]
         out=[model.out model.out2]
         [model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),[],[])
       end
       if ok then
-        model.sim=list(junction_name,4);
         x.graphics=graphics;x.model=model
         break
       end
