@@ -448,9 +448,7 @@ scs_m.objs(11)=scicos_block(..
                         pout=0,..
                         pein=[],..
                         peout=[],..
-                        gr_i=list(..
-                        ["txt=[''     Shift'';''Arithmetics''];";
-                        "xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'')"],8),..
+                        gr_i=list("xstringb(orig(1),orig(2),[OPER;''   Shift  ''],sz(1),sz(2),''fill'')",8),..
                         id="",..
                         in_implicit="E",..
                         out_implicit="E"),..

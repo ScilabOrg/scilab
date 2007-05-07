@@ -4,6 +4,8 @@ x=[];y=[];typ=[];
 select job
 case 'plot' then
   sgn=arg1.model.ipar
+  VOP=["Arithmetic", "Circular"]
+  OPER=VOP(evstr( arg1.graphics.exprs(3))+1)
   standard_draw(arg1)
 case 'getinputs' then
   [x,y,typ]=standard_inputs(arg1)
@@ -17,10 +19,10 @@ case 'set' then
   model=arg1.model
   exprs=graphics.exprs
   while %t do
-    [ok,Datatype,nb,np,exprs]=getvalue('Set Shift Arithmetics block parameters',..
+    [ok,Datatype,nb,np,exprs]=getvalue('Set Shift block parameters',..
 			    ['Datatype (3=int32  4=int16 5=int8 ...)';..
                              'Number of bits to shift left (use negatif number to shift right)';..
-                             'Shifttype(0=normal 1=Cycle)'],..
+                             'Shifttype(0=Arithmetic 1=Circular)'],..
                              list('vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end
     if (np~=0 & np~=1) then message ("shifttyp is not supported");ok=%f;end
@@ -70,8 +72,7 @@ case 'define' then
 
   
   exprs=[sci2exp(3);sci2exp(0);sci2exp(0)]
-gr_i=['txt=[''     Shift'';''Arithmetics''];';
-    'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'')']
+gr_i=['xstringb(orig(1),orig(2),[OPER;''   Shift  ''],sz(1),sz(2),''fill'')']
   x=standard_define([3 2],model, exprs,gr_i)
 end
 endfunction
