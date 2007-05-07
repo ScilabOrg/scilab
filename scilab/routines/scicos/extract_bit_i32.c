@@ -6,9 +6,10 @@ void extract_bit_i32(scicos_block *block,int flag)
  if (flag==1){
    int i,maxim,k,numb;
    long *y,*u,ref,n;
+   int *ipar;
    y=Getint32OutPortPtrs(block,1);
    u=Getint32InPortPtrs(block,1);
-   int *ipar;
+
    ipar=GetIparPtrs(block);
    k=*ipar;
    maxim=32;

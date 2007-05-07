@@ -6,9 +6,10 @@ void extract_bit_ui8(scicos_block *block,int flag)
  if (flag==1){
    int i,maxim,k,numb;
    unsigned char *y,*u,ref,n;
+   int *ipar;
    y=Getuint8OutPortPtrs(block,1);
    u=Getuint8InPortPtrs(block,1);
-   int *ipar;
+
    ipar=GetIparPtrs(block);
    k=*ipar;
    maxim=8;

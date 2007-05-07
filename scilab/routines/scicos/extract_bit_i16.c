@@ -6,9 +6,9 @@ void extract_bit_i16(scicos_block *block,int flag)
  if (flag==1){
    int i,maxim,k,numb;
    short *y,*u,ref,n;
+   int *ipar;
    y=Getint16OutPortPtrs(block,1);
    u=Getint16InPortPtrs(block,1);
-   int *ipar;
    ipar=GetIparPtrs(block);
    k=*ipar;
    maxim=16;

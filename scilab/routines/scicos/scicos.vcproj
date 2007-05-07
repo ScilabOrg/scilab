@@ -703,6 +703,12 @@ cd .. &gt;nul
 				RelativePath=".\backlash.c">
 			</File>
 			<File
+				RelativePath=".\bit_clear.c">
+			</File>
+			<File
+				RelativePath=".\bit_set.c">
+			</File>
+			<File
 				RelativePath=".\blocks.c">
 			</File>
 			<File
@@ -733,6 +739,9 @@ cd .. &gt;nul
 				RelativePath=".\cmscope.c">
 			</File>
 			<File
+				RelativePath=".\convert.c">
+			</File>
+			<File
 				RelativePath=".\cos_blk.c">
 			</File>
 			<File
@@ -754,10 +763,49 @@ cd .. &gt;nul
 				RelativePath=".\cstblk4.c">
 			</File>
 			<File
+				RelativePath=".\cstblk4_m.c">
+			</File>
+			<File
+				RelativePath=".\cumsum_c.c">
+			</File>
+			<File
+				RelativePath=".\cumsum_m.c">
+			</File>
+			<File
+				RelativePath=".\cumsum_r.c">
+			</File>
+			<File
+				RelativePath=".\cumsumz_c.c">
+			</File>
+			<File
+				RelativePath=".\cumsumz_m.c">
+			</File>
+			<File
+				RelativePath=".\cumsumz_r.c">
+			</File>
+			<File
 				RelativePath=".\deadband.c">
 			</File>
 			<File
 				RelativePath=".\delay4.c">
+			</File>
+			<File
+				RelativePath=".\delay4_i16.c">
+			</File>
+			<File
+				RelativePath=".\delay4_i32.c">
+			</File>
+			<File
+				RelativePath=".\delay4_i8.c">
+			</File>
+			<File
+				RelativePath=".\delay4_ui16.c">
+			</File>
+			<File
+				RelativePath=".\delay4_ui32.c">
+			</File>
+			<File
+				RelativePath=".\delay4_ui8.c">
 			</File>
 			<File
 				RelativePath=".\deriv.c">
@@ -772,6 +820,9 @@ cd .. &gt;nul
 				RelativePath=".\dollar4.c">
 			</File>
 			<File
+				RelativePath=".\dollar4_m.c">
+			</File>
+			<File
 				RelativePath=".\dsslti4.c">
 			</File>
 			<File
@@ -784,195 +835,6 @@ cd .. &gt;nul
 				RelativePath=".\evtvardly.c">
 			</File>
 			<File
-				RelativePath=".\extractor.c">
-			</File>
-			<File
-				RelativePath=".\gainblk.c">
-			</File>
-			<File
-				RelativePath=".\hystheresis.c">
-			</File>
-			<File
-				RelativePath=".\import.c">
-			</File>
-			<File
-				RelativePath=".\intcscicos.c">
-			</File>
-			<File
-				RelativePath=".\integral_func.c">
-			</File>
-			<File
-				RelativePath=".\intrealtime.c">
-			</File>
-			<File
-				RelativePath=".\invblk4.c">
-			</File>
-			<File
-				RelativePath=".\logicalop.c">
-			</File>
-			<File
-				RelativePath=".\matmul_m.c">
-			</File>
-			<File
-				RelativePath=".\matscicos.c">
-			</File>
-			<File
-				RelativePath=".\mattran_m.c">
-			</File>
-			<File
-				RelativePath=".\minmax.c">
-			</File>
-			<File
-				RelativePath=".\modulo_count.c">
-			</File>
-			<File
-				RelativePath=".\mswitch.c">
-			</File>
-			<File
-				RelativePath=".\multiplex.c">
-			</File>
-			<File
-				RelativePath=".\plusblk.c">
-			</File>
-			<File
-				RelativePath=".\prod.c">
-			</File>
-			<File
-				RelativePath=".\product.c">
-			</File>
-			<File
-				RelativePath=".\ramp.c">
-			</File>
-			<File
-				RelativePath=".\ratelimiter.c">
-			</File>
-			<File
-				RelativePath=".\readau.c">
-			</File>
-			<File
-				RelativePath=".\readc.c">
-			</File>
-			<File
-				RelativePath=".\realtime.c">
-			</File>
-			<File
-				RelativePath=".\relationalop.c">
-			</File>
-			<File
-				RelativePath=".\relay.c">
-			</File>
-			<File
-				RelativePath=".\samphold4.c">
-			</File>
-			<File
-				RelativePath=".\satur.c">
-			</File>
-			<File
-				RelativePath=".\scalar2vector.c">
-			</File>
-			<File
-				RelativePath=".\sciblk2.c">
-			</File>
-			<File
-				RelativePath=".\sciblk2i.c">
-			</File>
-			<File
-				RelativePath=".\sciblk4.c">
-			</File>
-			<File
-				RelativePath=".\scicos.c">
-			</File>
-			<File
-				RelativePath=".\scicos_free.c">
-			</File>
-			<File
-				RelativePath=".\scicos_malloc.c">
-			</File>
-			<File
-				RelativePath=".\scicosclip.c">
-			</File>
-			<File
-				RelativePath=".\scoGetProperty.c">
-			</File>
-			<File
-				RelativePath=".\scoMemoryScope.c">
-			</File>
-			<File
-				RelativePath=".\scoMisc.c">
-			</File>
-			<File
-				RelativePath=".\scoSetProperty.c">
-			</File>
-			<File
-				RelativePath=".\scoWindowScope.c">
-			</File>
-			<File
-				RelativePath=".\selector.c">
-			</File>
-			<File
-				RelativePath=".\signum.c">
-			</File>
-			<File
-				RelativePath=".\sin_blk.c">
-			</File>
-			<File
-				RelativePath=".\sinh_blk.c">
-			</File>
-			<File
-				RelativePath=".\slider.c">
-			</File>
-			<File
-				RelativePath=".\step_func.c">
-			</File>
-			<File
-				RelativePath=".\str2sci.c">
-			</File>
-			<File
-				RelativePath=".\sum.c">
-			</File>
-			<File
-				RelativePath=".\summation.c">
-			</File>
-			<File
-				RelativePath=".\switch2.c">
-			</File>
-			<File
-				RelativePath=".\switchn.c">
-			</File>
-			<File
-				RelativePath=".\tan_blk.c">
-			</File>
-			<File
-				RelativePath=".\tanh_blk.c">
-			</File>
-			<File
-				RelativePath=".\tcslti4.c">
-			</File>
-			<File
-				RelativePath=".\tcsltj4.c">
-			</File>
-			<File
-				RelativePath=".\time_delay.c">
-			</File>
-			<File
-				RelativePath=".\tree.c">
-			</File>
-			<File
-				RelativePath=".\variable_delay.c">
-			</File>
-			<File
-				RelativePath=".\writeau.c">
-			</File>
-			<File
-				RelativePath=".\writec.c">
-			</File>
-			<File
-				RelativePath=".\writef4.c">
-			</File>
-			<File
-				RelativePath=".\zcross2.c">
-			</File>
-			<File
 				RelativePath=".\extdiag.c">
 			</File>
 			<File
@@ -980,6 +842,27 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\extract.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_i16.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_i32.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_i8.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_ui16.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_ui32.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_ui8.c">
+			</File>
+			<File
+				RelativePath=".\extractor.c">
 			</File>
 			<File
 				RelativePath=".\extractz.c">
@@ -995,6 +878,108 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\exttriuz.c">
+			</File>
+			<File
+				RelativePath=".\gainblk.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i16e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i16n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i16s.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i32e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i32n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i32s.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i8e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i8n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_i8s.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui16e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui16n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui16s.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui32e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui32n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui32s.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui8e.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui8n.c">
+			</File>
+			<File
+				RelativePath=".\gainblk_ui8s.c">
+			</File>
+			<File
+				RelativePath=".\hystheresis.c">
+			</File>
+			<File
+				RelativePath=".\import.c">
+			</File>
+			<File
+				RelativePath=".\intcscicos.c">
+			</File>
+			<File
+				RelativePath=".\integral_func.c">
+			</File>
+			<File
+				RelativePath=".\integralz_func.c">
+			</File>
+			<File
+				RelativePath=".\intrealtime.c">
+			</File>
+			<File
+				RelativePath=".\invblk4.c">
+			</File>
+			<File
+				RelativePath=".\logicalop.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_i16.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_i32.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_i8.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_m.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_ui16.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_ui32.c">
+			</File>
+			<File
+				RelativePath=".\logicalop_ui8.c">
 			</File>
 			<File
 				RelativePath=".\mat_bksl.c">
@@ -1033,6 +1018,18 @@ cd .. &gt;nul
 				RelativePath=".\mat_sing.c">
 			</File>
 			<File
+				RelativePath=".\mat_sqrt.c">
+			</File>
+			<File
+				RelativePath=".\mat_sum.c">
+			</File>
+			<File
+				RelativePath=".\mat_sumc.c">
+			</File>
+			<File
+				RelativePath=".\mat_suml.c">
+			</File>
+			<File
 				RelativePath=".\mat_svd.c">
 			</File>
 			<File
@@ -1040,6 +1037,69 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\mat_vpv.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i16e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i16n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i16s.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i32e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i32n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i32s.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i8e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i8n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_i8s.c">
+			</File>
+			<File
+				RelativePath=".\matmul_m.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui16e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui16n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui16s.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui32e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui32n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui32s.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui8e.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui8n.c">
+			</File>
+			<File
+				RelativePath=".\matmul_ui8s.c">
+			</File>
+			<File
+				RelativePath=".\matscicos.c">
+			</File>
+			<File
+				RelativePath=".\mattran_m.c">
 			</File>
 			<File
 				RelativePath=".\matz_abs.c">
@@ -1093,6 +1153,18 @@ cd .. &gt;nul
 				RelativePath=".\matz_sing.c">
 			</File>
 			<File
+				RelativePath=".\matz_sqrt.c">
+			</File>
+			<File
+				RelativePath=".\matz_sum.c">
+			</File>
+			<File
+				RelativePath=".\matz_sumc.c">
+			</File>
+			<File
+				RelativePath=".\matz_suml.c">
+			</File>
+			<File
 				RelativePath=".\matz_svd.c">
 			</File>
 			<File
@@ -1100,6 +1172,72 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\matz_vpv.c">
+			</File>
+			<File
+				RelativePath=".\matzmul_m.c">
+			</File>
+			<File
+				RelativePath=".\matztran_m.c">
+			</File>
+			<File
+				RelativePath=".\minmax.c">
+			</File>
+			<File
+				RelativePath=".\modulo_count.c">
+			</File>
+			<File
+				RelativePath=".\mswitch.c">
+			</File>
+			<File
+				RelativePath=".\multiplex.c">
+			</File>
+			<File
+				RelativePath=".\plusblk.c">
+			</File>
+			<File
+				RelativePath=".\prod.c">
+			</File>
+			<File
+				RelativePath=".\product.c">
+			</File>
+			<File
+				RelativePath=".\ramp.c">
+			</File>
+			<File
+				RelativePath=".\ratelimiter.c">
+			</File>
+			<File
+				RelativePath=".\readau.c">
+			</File>
+			<File
+				RelativePath=".\readc.c">
+			</File>
+			<File
+				RelativePath=".\realtime.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_i16.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_i32.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_i8.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_ui16.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_ui32.c">
+			</File>
+			<File
+				RelativePath=".\relational_op_ui8.c">
+			</File>
+			<File
+				RelativePath=".\relationalop.c">
+			</File>
+			<File
+				RelativePath=".\relay.c">
 			</File>
 			<File
 				RelativePath=".\ricc_m.c">
@@ -1111,61 +1249,55 @@ cd .. &gt;nul
 				RelativePath=".\rootz_coef.c">
 			</File>
 			<File
-				RelativePath=".\submat.c">
+				RelativePath=".\samphold4.c">
 			</File>
 			<File
-				RelativePath=".\submatz.c">
+				RelativePath=".\samphold4_m.c">
 			</File>
 			<File
-				RelativePath=".\mat_sum.c">
+				RelativePath=".\satur.c">
 			</File>
 			<File
-				RelativePath=".\mat_suml.c">
+				RelativePath=".\scalar2vector.c">
 			</File>
 			<File
-				RelativePath=".\mat_sumc.c">
+				RelativePath=".\sciblk2.c">
 			</File>
 			<File
-				RelativePath=".\matz_sum.c">
+				RelativePath=".\sciblk2i.c">
 			</File>
 			<File
-				RelativePath=".\matz_suml.c">
+				RelativePath=".\sciblk4.c">
 			</File>
 			<File
-				RelativePath=".\matz_sumc.c">
+				RelativePath=".\scicos.c">
 			</File>
 			<File
-				RelativePath=".\cumsum_m.c">
+				RelativePath=".\scicos_free.c">
 			</File>
 			<File
-				RelativePath=".\cumsum_c.c">
+				RelativePath=".\scicos_malloc.c">
 			</File>
 			<File
-				RelativePath=".\cumsum_r.c">
+				RelativePath=".\scicosclip.c">
 			</File>
 			<File
-				RelativePath=".\cumsumz_m.c">
+				RelativePath=".\scoGetProperty.c">
 			</File>
 			<File
-				RelativePath=".\cumsumz_c.c">
+				RelativePath=".\scoMemoryScope.c">
 			</File>
 			<File
-				RelativePath=".\cumsumz_r.c">
+				RelativePath=".\scoMisc.c">
 			</File>
 			<File
-				RelativePath=".\matzmul_m.c">
+				RelativePath=".\scoSetProperty.c">
 			</File>
 			<File
-				RelativePath=".\matztran_m.c">
+				RelativePath=".\scoWindowScope.c">
 			</File>
 			<File
-				RelativePath=".\cstblk4_m.c">
-			</File>
-			<File
-				RelativePath=".\dollar4_m.c">
-			</File>
-			<File
-				RelativePath=".\integralz_func.c">
+				RelativePath=".\selector.c">
 			</File>
 			<File
 				RelativePath=".\selector_m.c">
@@ -1174,10 +1306,145 @@ cd .. &gt;nul
 				RelativePath=".\selector_zm.c">
 			</File>
 			<File
+				RelativePath=".\shift_i16.c">
+			</File>
+			<File
+				RelativePath=".\shift_i32.c">
+			</File>
+			<File
+				RelativePath=".\shift_i8.c">
+			</File>
+			<File
+				RelativePath=".\signum.c">
+			</File>
+			<File
+				RelativePath=".\sin_blk.c">
+			</File>
+			<File
+				RelativePath=".\sinh_blk.c">
+			</File>
+			<File
+				RelativePath=".\slider.c">
+			</File>
+			<File
+				RelativePath=".\step_func.c">
+			</File>
+			<File
+				RelativePath=".\str2sci.c">
+			</File>
+			<File
+				RelativePath=".\submat.c">
+			</File>
+			<File
+				RelativePath=".\submatz.c">
+			</File>
+			<File
+				RelativePath=".\sum.c">
+			</File>
+			<File
+				RelativePath=".\summation.c">
+			</File>
+			<File
+				RelativePath=".\summation_i16e.c">
+			</File>
+			<File
+				RelativePath=".\summation_i16n.c">
+			</File>
+			<File
+				RelativePath=".\summation_i16s.c">
+			</File>
+			<File
+				RelativePath=".\summation_i32e.c">
+			</File>
+			<File
+				RelativePath=".\summation_i32n.c">
+			</File>
+			<File
+				RelativePath=".\summation_i32s.c">
+			</File>
+			<File
+				RelativePath=".\summation_i8e.c">
+			</File>
+			<File
+				RelativePath=".\summation_i8n.c">
+			</File>
+			<File
+				RelativePath=".\summation_i8s.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui16e.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui16n.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui16s.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui32e.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui32n.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui32s.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui8e.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui8n.c">
+			</File>
+			<File
+				RelativePath=".\summation_ui8s.c">
+			</File>
+			<File
+				RelativePath=".\summation_z.c">
+			</File>
+			<File
+				RelativePath=".\switch2.c">
+			</File>
+			<File
 				RelativePath=".\switch2_m.c">
 			</File>
 			<File
 				RelativePath=".\switch2_zm.c">
+			</File>
+			<File
+				RelativePath=".\switchn.c">
+			</File>
+			<File
+				RelativePath=".\tan_blk.c">
+			</File>
+			<File
+				RelativePath=".\tanh_blk.c">
+			</File>
+			<File
+				RelativePath=".\tcslti4.c">
+			</File>
+			<File
+				RelativePath=".\tcsltj4.c">
+			</File>
+			<File
+				RelativePath=".\time_delay.c">
+			</File>
+			<File
+				RelativePath=".\tree.c">
+			</File>
+			<File
+				RelativePath=".\variable_delay.c">
+			</File>
+			<File
+				RelativePath=".\writeau.c">
+			</File>
+			<File
+				RelativePath=".\writec.c">
+			</File>
+			<File
+				RelativePath=".\writef4.c">
+			</File>
+			<File
+				RelativePath=".\zcross2.c">
 			</File>
 		</Filter>
 		<Filter
