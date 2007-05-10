@@ -6,7 +6,7 @@ c     Copyright INRIA
       double precision x(*)
       integer  l
 c
-      external dcopy, error
+      external scidcopy, error
       include "../stack.h"
 c
       integer iadr
@@ -37,7 +37,7 @@ c
           call error(17)
           return
         endif
-        call dcopy(nx,x,1,stk(l),1)
+        call scidcopy(nx,x,1,stk(l),1)
         lstk(top+1) = l + nx
        endif
       endif
