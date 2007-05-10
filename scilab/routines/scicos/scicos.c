@@ -997,6 +997,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   static integer i,jj;
   static integer ierr1;
   static integer i2;
+  static integer cond;
   /*     Copyright INRIA */
 
 
@@ -1025,18 +1026,103 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     }
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
-	
+
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-          if (outtbdptr[0] <= 0.) {
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+          if (outtbdptr[0] <= 0.) {*/
+	  switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbcptr <= 0);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbsptr <= 0);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtblptr <= 0);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbucptr <= 0);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbusptr <= 0);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbulptr <= 0);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
+          if (cond) {
 	    i=2;
 	  } else {
 	    i=1;
 	  }
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           i=max(min((integer) outtbdptr[0],
-		    Blocks[C2F(curblk).kfun - 1].nevout),1);
+		    Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+	  switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbcptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbsptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtblptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbucptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbusptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbulptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
 	}
 	i2 =i+ clkptr[C2F(curblk).kfun] - 1;
 	putevs(told, &i2, &ierr1);
@@ -1962,6 +2048,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   static integer ierr1;
   integer ii, kever;
+  integer cond;
 
   /* Function Body */
   kever = *pointi;
@@ -1989,17 +2076,108 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     /*     .     Initialize tvec */
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
+
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           if (outtbdptr[0] <= 0.) {
 	    i= 2;
 	  } else {
 	    i= 1;
-	  }
+	  }*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbcptr <= 0);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbsptr <= 0);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtblptr <= 0);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbucptr <= 0);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbusptr <= 0);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbulptr <= 0);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
+          if (cond) {
+            i=2;
+          } else {
+            i=1;
+          }
+
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           i=max(min((integer) outtbdptr[0],
-		    Blocks[C2F(curblk).kfun - 1].nevout),1);
+		    Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbcptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbsptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtblptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbucptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbusptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbulptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
 	}
 	i2 = i + clkptr[C2F(curblk).kfun] - 1;
 	putevs(told, &i2, &ierr1);
@@ -2027,6 +2205,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   static integer flag__;
   static integer ierr1;
   static integer i,jj;
+  static integer cond;
 
   /* Function Body */
   for (jj = 1; jj <= ncord; ++jj) {
@@ -2045,17 +2224,106 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           if (outtbdptr[0] <= 0.) {
 	    i = 2;
 	  } else {
 	    i = 1;
-	  }
+	  }*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbcptr <= 0);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbsptr <= 0);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtblptr <= 0);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbucptr <= 0);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbusptr <= 0);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbulptr <= 0);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
+          if (cond) {
+            i=2;
+          } else {
+            i=1;
+          }
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  i= max(min((integer) outtbdptr[0],
-		    Blocks[C2F(curblk).kfun - 1].nevout),1);
+		    Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbcptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbsptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtblptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbucptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbusptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbulptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
 	}
 	i2 = i + clkptr[C2F(curblk).kfun] - 1;
 	putevs(told, &i2, &ierr1);
@@ -2178,6 +2446,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   static integer ierr1, i;
   integer kever, ii;
+  integer cond;
 
   /* Function Body */
   kever = *pointi;
@@ -2207,17 +2476,107 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     /*     .     Initialize tvec */
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
+
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  if (outtbdptr[0] <= 0.) {
 	    i = 2;
 	  } else {
 	    i = 1;
-	  }
+	  }*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbdptr <= 0.);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbcptr <= 0);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbsptr <= 0);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtblptr <= 0);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbucptr <= 0);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbusptr <= 0);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               cond = (*outtbulptr <= 0);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
+          if (cond) {
+            i=2;
+          } else {
+            i=1;
+          }
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  i= max(min((integer) outtbdptr[0],
-		    Blocks[C2F(curblk).kfun - 1].nevout),1);
+		    Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbdptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbcptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbsptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtblptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbucptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbusptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               i=max(min((integer) *outtbulptr,
+                                         Blocks[C2F(curblk).kfun - 1].nevout),1);
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
 	}
 	i2 = i + clkptr[C2F(curblk).kfun] - 1;
 	putevs(told, &i2, &ierr1);
@@ -2244,6 +2603,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   static integer flag__, keve, kiwa;
   static integer ierr1, i;
   static integer ii, jj;
+  static integer cond;
 
   /* Function Body */
   kiwa = 0;
@@ -2267,17 +2627,107 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  i2 = Blocks[C2F(curblk).kfun - 1].mode[0] + 
 	    clkptr[C2F(curblk).kfun] - 1;
 	} else{
+          /*IF-THEN-ELSE blk*/
 	  if (funtyp[C2F(curblk).kfun] == -1) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	    if (outtbdptr[0] <= 0.) {
 	      i=2;
 	    } else {
 	      i=1;
-	    }
+	    }*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbcptr <= 0);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbsptr <= 0);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtblptr <= 0);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbucptr <= 0);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbusptr <= 0);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbulptr <= 0);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
+            if (cond) {
+              i=2;
+            } else {
+              i=1;
+            }
+          /*EVENT-SELECT blk*/
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             i=max(min((integer) outtbdptr[0],
-		      Blocks[C2F(curblk).kfun - 1].nevout),1);
+		      Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbcptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbsptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtblptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbucptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbusptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbulptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	  }
 	  i2 =i+ clkptr[C2F(curblk).kfun] - 1;
 	}
@@ -2342,6 +2792,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   static integer ierr1, i;
   static integer ii, jj;
+  static integer cond;
 
   /* Function Body */
   kiwa = 0;
@@ -2359,17 +2810,108 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     }
 
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0 && funtyp[C2F(curblk).kfun] < 0) {
+      /*IF-THEN-ELSE blk*/
       if (funtyp[C2F(curblk).kfun] == -1) {
-        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	if (outtbdptr[0] <= 0.) {
 	  i=2;
 	} else {
 	  i=1;
-	}
+	}*/
+
+        switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+        {
+         case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbdptr <= 0.);
+                             break;
+
+         case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbdptr <= 0.);
+                             break;
+
+         case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbcptr <= 0);
+                             break;
+
+         case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbsptr <= 0);
+                             break;
+
+         case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtblptr <= 0);
+                             break;
+
+         case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbucptr <= 0);
+                             break;
+
+         case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbusptr <= 0);
+                             break;
+
+         case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             cond = (*outtbulptr <= 0);
+                             break;
+
+         default  : /* Add a message here */
+                    break;
+        }
+        if (cond) {
+          i=2;
+        } else {
+          i=1;
+        }
+
+      /*EVENT-SELECT blk*/
       } else if (funtyp[C2F(curblk).kfun] == -2) {
-        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	i= max(min((integer) outtbdptr[0],
-		  Blocks[C2F(curblk).kfun - 1].nevout),1);
+		  Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+        switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+        {
+         case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbdptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbdptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbcptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbsptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtblptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbucptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbusptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                             i=max(min((integer) *outtbulptr,
+                                       Blocks[C2F(curblk).kfun - 1].nevout),1);
+                             break;
+
+         default  : /* Add a message here */
+                    break;
+        }
       }
       if(Blocks[C2F(curblk).kfun - 1].nmode>0){
 	Blocks[C2F(curblk).kfun - 1].mode[0]=i;
@@ -2437,7 +2979,8 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   static integer flag__, nord;
 
   static integer ierr1, i;
-  integer ii, kever; 
+  integer ii, kever;
+  integer cond;
 
   /* Function Body */
   kever = *pointi;
@@ -2469,23 +3012,112 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
       if (funtyp[C2F(curblk).kfun] < 0) {
 
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
 	  if (phase==1 || Blocks[C2F(curblk).kfun - 1].nmode==0){
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             if (outtbdptr[0] <= 0.) {
 	      i=2;
 	    } else {
 	      i=1;
+	    } */
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbcptr <= 0);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbsptr <= 0);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtblptr <= 0);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbucptr <= 0);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbusptr <= 0);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbulptr <= 0);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+              }
+              if (cond) {
+                i=2;
+              } else {
+                i=1;
+              }
+	    }else{
+	      i=Blocks[C2F(curblk).kfun - 1].mode[0];
 	    }
-	  }else{
-	    i=Blocks[C2F(curblk).kfun - 1].mode[0];
-	  }
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  if (phase==1 || Blocks[C2F(curblk).kfun - 1].nmode==0){
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	    i= max(min((integer) 
                        outtbdptr[0],
-		       Blocks[C2F(curblk).kfun - 1].nevout),1);
+		       Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbcptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbsptr,
+                                            Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtblptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbucptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbusptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbulptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	  }else{
 	    i=Blocks[C2F(curblk).kfun - 1].mode[0];
 
@@ -2516,6 +3148,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   static integer flag__, keve, kiwa;
   static integer ierr1, i,j;
   static integer ii, jj;
+  static integer cond;
 
   /* Function Body */
   C2F(dset)(&ng, &c_b14,g , &c__1);
@@ -2537,25 +3170,114 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
 	  if (phase==1|| Blocks[C2F(curblk).kfun - 1].nmode==0){
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             if (outtbdptr[0] <= 0.) {
 	      i=2;
 	    } else {
 	      i=1;
-	    }
+	    }*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbcptr <= 0);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbsptr <= 0);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtblptr <= 0);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbucptr <= 0);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbusptr <= 0);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbulptr <= 0);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
+            if (cond) {
+              i=2;
+            } else {
+              i=1;
+            }
+
 	  }else{
 	    i=Blocks[C2F(curblk).kfun - 1].mode[0];
 	  }
+        /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  if (phase==1|| Blocks[C2F(curblk).kfun - 1].nmode==0){
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	    i=max(min((integer) 
                       outtbdptr[0],
-		      Blocks[C2F(curblk).kfun - 1].nevout),1);
-	  }else{
+		      Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbcptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbsptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtblptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbucptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbusptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbulptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
+          }else{
 	    i=Blocks[C2F(curblk).kfun - 1].mode[0];
 	  }
 	}
@@ -2584,25 +3306,202 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  return;
 	}
       }else{
+        /*IF-THEN-ELSE blk*/
 	if (funtyp[C2F(curblk).kfun] == -1) {
-          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-          g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];
-	  if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+/*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+          g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];*/
+          switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+          {
+           case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbcptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbsptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtblptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbucptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbusptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                               g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbulptr;
+                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                 }
+                                 else {
+                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                 }
+                               }
+                               break;
+
+           default  : /* Add a message here */
+                      break;
+          }
+/*	  if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
 	    if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
 	      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
 	    }
 	    else {
 	      Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
 	    }
-	  }
+	  }*/
+          /*EVENT-SELECT blk*/
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-	    g[zcptr[C2F(curblk).kfun]-1+jj]=outtbdptr[0]-(double)(jj+2);
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+	    g[zcptr[C2F(curblk).kfun]-1+jj]=outtbdptr[0]-(double)(jj+2);*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=*outtbdptr-(double)(jj+2);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=*outtbdptr-(double)(jj+2);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbcptr-(double)(jj+2);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbsptr-(double)(jj+2);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtblptr-(double)(jj+2);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbucptr-(double)(jj+2);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbusptr-(double)(jj+2);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbulptr-(double)(jj+2);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	  }
 	  if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-            j=max(min((integer) outtbdptr[0],Blocks[C2F(curblk).kfun - 1].nevout),1);
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+            j=max(min((integer) outtbdptr[0],Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbdptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbdptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbcptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbsptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtblptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbucptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbusptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 j=max(min((integer) *outtbulptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	    Blocks[C2F(curblk).kfun - 1].mode[0]= j;
 	  }
 	}
@@ -2624,9 +3523,111 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    return;
 	  }
 	}else{
+          /*IF-THEN-ELSE blk*/
 	  if (funtyp[C2F(curblk).kfun] == -1) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-            g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+            g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbcptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbsptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtblptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbucptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbusptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbulptr;
+                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
+                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
+                                   }
+                                   else {
+                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
+                                   }
+                                 }
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	    if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
 	      if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
 		Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
@@ -2634,14 +3635,92 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 		Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
 	      }
 	    }
+          /*EVENT-SELECT blk*/
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
-	    for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
+/*	    for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
               outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
               g[zcptr[C2F(curblk).kfun]-1+jj]=outtbdptr[0]-(double)(jj+2);
 	    }
 	    if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
               outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
-              j=max(min((integer) outtbdptr[0],Blocks[C2F(curblk).kfun - 1].nevout),1);
+              j=max(min((integer) outtbdptr[0],Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+            for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
+             switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+             {
+              case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=*outtbdptr-(double)(jj+2);
+                                  break;
+
+              case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=*outtbdptr-(double)(jj+2);
+                                  break;
+
+              case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbcptr-(double)(jj+2);
+                                  break;
+
+              case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbsptr-(double)(jj+2);
+                                  break;
+
+              case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtblptr-(double)(jj+2);
+                                  break;
+
+              case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbucptr-(double)(jj+2);
+                                  break;
+
+              case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbusptr-(double)(jj+2);
+                                  break;
+
+              case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  g[zcptr[C2F(curblk).kfun]-1+jj]=(double) *outtbulptr-(double)(jj+2);
+                                  break;
+
+              default  : /* Add a message here */
+                         break;
+             }
+            }
+            if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0) {
+             switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+             {
+              case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbdptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbdptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbcptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbsptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtblptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbucptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbusptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                  j=max(min((integer) *outtbulptr,Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                  break;
+
+              default  : /* Add a message here */
+                         break;
+             }
 	      Blocks[C2F(curblk).kfun - 1].mode[0]= j;
 	    }
 	  }
@@ -3481,6 +4560,8 @@ void Jdoit(residual, xt, xtd, told, job)
   static integer flag__, keve, kiwa;
   static integer ierr1, i;
   static integer ii, jj;
+  static integer cond;
+
   /* Function Body */
   kiwa = 0;
   for (jj = 1; jj <= noord; ++jj) {
@@ -3504,17 +4585,107 @@ void Jdoit(residual, xt, xtd, told, job)
 	  i2 = Blocks[C2F(curblk).kfun - 1].mode[0] + 
 	    clkptr[C2F(curblk).kfun] - 1;
 	} else{
+          /*IF-THEN-ELSE blk*/
 	  if (funtyp[C2F(curblk).kfun] == -1) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbdptr <= 0.);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbcptr <= 0);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbsptr <= 0);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtblptr <= 0);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbucptr <= 0);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbusptr <= 0);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 cond = (*outtbulptr <= 0);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+           }
+           if (cond) {
+             i=2;
+           } else {
+             i=1;
+           }
+
+/*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             if (outtbdptr[0] <= 0.) {
 	      i=2;
 	    } else {
 	      i=1;
-	    }
+	    }*/
+          /*EVENT-SELECT blk*/
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
-            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+            /*outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             i=max(min((integer) outtbdptr[0],
-		      Blocks[C2F(curblk).kfun - 1].nevout),1);
+		      Blocks[C2F(curblk).kfun - 1].nevout),1);*/
+            switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
+            {
+             case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbdptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbcptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbsptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtblptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbucptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbusptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
+                                 i=max(min((integer) *outtbulptr,
+                                           Blocks[C2F(curblk).kfun - 1].nevout),1);
+                                 break;
+
+             default  : /* Add a message here */
+                        break;
+            }
 	  }
 	  i2 =i+ clkptr[C2F(curblk).kfun] - 1;
 	}
