@@ -1611,4 +1611,140 @@ Ajoutez ici la bibliographie si besoin
 </BIBLIO>
 </FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='GAINBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INTGAINBLK' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INTLOGICAL_OP' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INTREGISTER' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Integer_pal' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='RELATIONAL_OP' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SUMMATIONI' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

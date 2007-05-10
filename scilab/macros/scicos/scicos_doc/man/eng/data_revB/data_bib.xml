@@ -1700,4 +1700,52 @@ Add here the function bibliography if any
 </BIBLIO>
 </FILE>
 
+<FILE name='GAINBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Integer_pal' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

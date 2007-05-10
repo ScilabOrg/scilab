@@ -6078,4 +6078,520 @@ Properties : Type 'vec' of size -1.
 </PARAM>
 </FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1.It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>index of bit (0 is leat significant)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32.
+when the type is int16 or uint16 the number must be positif and less than 16
+when the type is int8 or uint8 the number must be positif and less than 8
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>index of bit (0 is leat significant)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32.
+when the type is int16 or uint16 the number must be positif and less than 16
+when the type is int8 or uint8 the number must be positif and less than 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>input type (1= double 3=int32  4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the input data type, it can be a double or an integer.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output type (1= double 3=int32  4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the output data type, it can be a double or an integer.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal multiplication of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Bits to extract(1=Upper Half 2=Lower Half 3=Range starting with most significant bit 4=Range ending with least significant bit 5=Range of bits)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the mode used to extract bits from the input data.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of bits or index of bit (case range of bits:[start,end],0 is leat significant bit)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size -1. When the "Bits to extract" field is set to 3 or 4, this parameter is used to determine the number of bits to extract and it must be a number. When the "Bits to extract" field is set to 5 ,this parameter is used to determine range of bits to extract and it must have the [start,end] form vector. When the "Bits to extract" field is set to 1 or 2, this parameter is ignored.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Treat bit field as an integer(0=no 1=yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the scaling mode to use on the output bits selection.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GAINBLK_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Gain</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' of size [-1,-1]. The parameter description 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTGAINBLK' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Gain</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'mat' of size [-1,-1]. This parameter defined the square matrix A. The types of the matrix must be an integer. e.g int32(ones(3,3)).
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Do on Overflow (0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal multiplication of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTLOGICAL_OP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the number of inputs.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Operator: AND (0), OR (1), NAND (2), NOR (3), XOR (4), NOT (5)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the logical operator to use.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Bitwise Rule (0=No 1=Yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the rule of computation to use.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (3=int32  4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal multiplication of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INTREGISTER' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Register initial condition</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size -1. It contains the initial state of the register.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=complex</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>flag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>A</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 3.
+</SP>
+<SP>
+Properties : Type 'mat' of size [-1,-2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>B</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 4.
+</SP>
+<SP>
+Properties : Type 'mat' of size &quot;[-1 -2]&quot;.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>SEED</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 5.
+</SP>
+<SP>
+Properties : Type 'mat' of size [1,2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RELATIONAL_OP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype( 3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Operator: == (0), ~= (1), &lt; (2), &lt;= (3), &gt; (4), &gt;= (5)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the operator to use.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Zero crossing (0=no 1=yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It gives the user the possibility to use the zero crossing rule.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1= real double  2=Complex 3=int32 ..)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. The parameter description 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. The parameter description 2.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial connected input</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. The parameter description 3.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double 2=Complex 3=int32 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. The parameter description 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (3=int32  4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of bits to shift left (use negatif number to shift right)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the number of bits the input signal is shifted. A positif value indicates a shift left, negatif values indicates shift right.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Shifttype(0=Arithmetic 1=Circular)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicate the rule used to shift the bits. It can be arithmetic or circular. When the Shifttype is normal, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. The parameter description 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SUMMATIONI' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=complex 3=int32 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. It indicates the type of the input/output data. It support all datatype, number must be between 1 and 8.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size -1. It indicates the number of inputs and the operation see the description for more detail.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal summation of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears. If the Data type is double or complex this parameter is not used.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

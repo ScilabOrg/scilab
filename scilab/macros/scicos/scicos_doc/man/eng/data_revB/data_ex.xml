@@ -1461,4 +1461,130 @@ Example
 </EXAMPLE>
 </FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GAINBLK_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTGAINBLK' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTLOGICAL_OP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTREGISTER' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='RELATIONAL_OP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SUMMATIONI' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
 </DATA>

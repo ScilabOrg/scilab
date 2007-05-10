@@ -1635,4 +1635,173 @@ Add here the used function name and  references
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>bit_clear</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>bit_set</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>convert</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>extract_bit_i32</LINK>,
+<LINK>extract_bit_i16</LINK>,
+<LINK>extract_bit_i8</LINK>,
+<LINK>extract_bit_ui32</LINK>,
+<LINK>extract_bit_ui16</LINK>,
+<LINK>extract_bit_ui8</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GAINBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTGAINBLK' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>gainblk_i32n</LINK>,<LINK>gainblk_i16n</LINK>,<LINK>gainblk_i8n</LINK>,<LINK>gainblk_ui32n</LINK>,
+<LINK>gainblk_ui16n</LINK>,<LINK>gainblk_ui8n</LINK>,
+<LINK>gainblk_i32s</LINK>,<LINK>gainblk_i16s</LINK>,<LINK>gainblk_i8s</LINK>,<LINK>gainblk_ui32s</LINK>,
+<LINK>gainblk_ui16s</LINK>,<LINK>gainblk_ui8s</LINK>,
+<LINK>gainblk_i32e</LINK>,<LINK>gainblk_i16e</LINK>,<LINK>gainblk_i8e</LINK>,<LINK>gainblk_ui32e</LINK>,
+<LINK>gainblk_ui16e</LINK>,<LINK>gainblk_ui8e</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTLOGICAL_OP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>logicalop_i32</LINK>,
+<LINK>logicalop_i16</LINK>,
+<LINK>logicalop_i8</LINK>,
+<LINK>logicalop_ui32</LINK>,
+<LINK>logicalop_ui16</LINK>,
+<LINK>logicalop_ui8</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>matmul_i32n</LINK>,<LINK>matmul_i16n</LINK>,<LINK>matmul_i8n</LINK>,<LINK>matmul_ui32n</LINK>,
+<LINK>matmul_ui16n</LINK>,<LINK>matmul_ui8n</LINK>,
+<LINK>matmul_i32s</LINK>,<LINK>matmul_i16s</LINK>,<LINK>matmul_i8s</LINK>,<LINK>matmul_ui32s</LINK>,
+<LINK>matmul_ui16s</LINK>,<LINK>matmul_ui8s</LINK>,
+<LINK>matmul_i32e</LINK>,<LINK>matmul_i16e</LINK>,<LINK>matmul_i8e</LINK>,<LINK>matmul_ui32e</LINK>,
+<LINK>matmul_ui16e</LINK>,<LINK>matmul_ui8e</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTREGISTER' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>delay4_i32</LINK>,
+<LINK>delay4_i16</LINK>,
+<LINK>delay4_i8</LINK>,
+<LINK>delay4_ui32</LINK>,
+<LINK>delay4_ui16</LINK>,
+<LINK>delay4_ui8</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELATIONAL_OP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>relational_op_i32</LINK>,
+<LINK>relational_op_i16</LINK>,
+<LINK>relational_op_i8</LINK>,
+<LINK>relational_op_ui32</LINK>,
+<LINK>relational_op_ui16</LINK>,
+<LINK>relational_op_ui8</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>shift_i32</LINK>,
+<LINK>shift_i16</LINK>,
+<LINK>shift_i8</LINK>,
+<LINK>shift_ui32</LINK>,
+<LINK>shift_ui16</LINK>,
+<LINK>shift_ui8</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SUMMATIONI' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>summation</LINK>,<LINK>summation_z</LINK>
+<LINK>summation_i32n</LINK>,<LINK>summation_i16n</LINK>,<LINK>summation_i8n</LINK>,<LINK>summation_ui32n</LINK>,
+<LINK>summation_ui16n</LINK>,<LINK>summation_ui8n</LINK>,
+<LINK>summation_i32s</LINK>,<LINK>summation_i16s</LINK>,<LINK>summation_i8s</LINK>,<LINK>summation_ui32s</LINK>,
+<LINK>summation_ui16s</LINK>,<LINK>summation_ui8s</LINK>,
+<LINK>summation_i32e</LINK>,<LINK>summation_i16e</LINK>,<LINK>summation_i8e</LINK>,<LINK>summation_ui32e</LINK>,
+<LINK>summation_ui16e</LINK>,<LINK>summation_ui8e</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

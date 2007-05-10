@@ -1655,4 +1655,132 @@ Ajoutez ici les noms et références des fonctions utilisées
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GAINBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTGAINBLK' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTLOGICAL_OP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTREGISTER' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELATIONAL_OP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELAY_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SUMMATIONI' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

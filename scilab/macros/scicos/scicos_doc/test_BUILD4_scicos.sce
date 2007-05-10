@@ -12,6 +12,8 @@
 // alan,28/04/2007 : add module flag "scicos" in %gendoc list
 //                   add palpath flag in %gendoc list
 
+// fady,04/05/2007 : add the integer palette.
+
 
 //**--------------definition of some functions----------------**//
 //gen_outline_pal
@@ -60,6 +62,8 @@ function turlututu=generate_scs_outline()
               "  "+gen_outline_pal(listf_of_thermo);
               ""
               "  "+ gen_outline_pal(listf_of_matop);
+              ""
+              "  "+ gen_outline_pal(listf_of_intop);
               ""]
 
   turlututu = [turlututu;
@@ -73,7 +77,7 @@ function turlututu=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""steadycos.sci""></SCI>"
                "  </CHAPTER>"
                ""
-               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnée"">  </CHAPTER>"
+               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnï¿½e"">  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Scilab built-in functions"" fr=""Fonctions utilitaires Scilab"">"
                "    <SCI varpath=""autopath"" name=""var2vec""></SCI>"
@@ -108,6 +112,7 @@ opath2=SCI+"/macros/"+...
         "scicos_blocks/Sources"    //11
         "scicos_blocks/Threshold"  //12
         "scicos_blocks/MatrixOp"   //13
+        "scicos_blocks/IntegerOp"   //14
        ]+"/";
 
 //define path of cosf file of scicos palettes
@@ -237,7 +242,7 @@ clear i;clear listf;
 listf_of_linear=[palpath,"Linear.cosf","pal"];
 listf = basename(listfiles(opath2(6)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBôGICI
+  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBï¿½GICI
     listf_of_linear=[listf_of_linear;
                      opath2(6),listf(i),"block"];
   end
@@ -319,12 +324,22 @@ clear i;clear listf;
 listf_of_matop=[palpath,"Matrix.cosf","pal"];
 listf = basename(listfiles(opath2(13)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'ROOTCOEF.sci' then //!!!!!!! YAUNBôGICI
+  if listf(i)<>'ROOTCOEF.sci' then //!!!!!!! YAUNBï¿½GICI
     listf_of_matop=[listf_of_matop;
                    opath2(13),listf(i),"block"];
   end
 end
 clear i;clear listf;
+
+//IntegerOp palette
+listf_of_intop=[palpath,"Integer.cosf","pal"];
+listf = basename(listfiles(opath2(14)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+    listf_of_intop=[listf_of_intop;
+                   opath2(14),listf(i),"block"];
+end
+clear i;clear listf;
+
 //**------------*/
 
 //**----------------------------------------------------------**//
@@ -360,7 +375,8 @@ my_list = [my_listf;
            listf_of_events;
            listf_of_elec;
            listf_of_thermo;
-           listf_of_matop];
+           listf_of_matop;
+           listf_of_intop];
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 
