@@ -1488,6 +1488,8 @@ endfunction
 //19/01/07, Alan : - Return correct informations for user in editor
 //                   with preceding test of Fady in the first pass
 //                 - Second pass reviewed : under_connection returns two dimensions now
+//
+//10/05/07, Alan : - if-then-else event-select case (intyp = -1)
 
 function [ok,bllst]=adjust_inout(bllst,connectmat)
 
@@ -1506,7 +1508,7 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
         ok=%t
         for jj=1:nlnk //loop on number of link
 
-           //intyp/outtyp are the size (two dimensions) of the
+           //intyp/outtyp are the type of the
            //target port and the source port of the observed link
            outtyp = bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
            intyp = bllst(connectmat(jj,3)).intyp(connectmat(jj,4))
@@ -1519,18 +1521,20 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
            nnin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
            //check intyp/outtyp
-           if intyp<>outtyp then
-             if (intyp==1 & outtyp==2) then
-               bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
-             elseif (intyp==2 & outtyp==1) then
-               bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
-             else
-               bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
-                              nnout,outtyp,..
-                              corinv(connectmat(jj,3)),connectmat(jj,4),..
-                              nnin,intyp,1)
-               ok=%f;
-               return
+           if intyp<>-1 then //if-then-else, event-select blocks case
+             if intyp<>outtyp then
+               if (intyp==1 & outtyp==2) then
+                 bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
+               elseif (intyp==2 & outtyp==1) then
+                 bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+               else
+                 bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
+                                nnout,outtyp,..
+                                corinv(connectmat(jj,3)),connectmat(jj,4),..
+                                nnin,intyp,1)
+                 ok=%f;
+                 return
+               end
              end
            end
 

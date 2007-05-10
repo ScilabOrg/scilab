@@ -160,7 +160,8 @@ function texte = standard_document(objet, k)
       if ierr<> 0 then
         tt='?' //not specified
       else
-        if ttyp==1 then tt='double'
+        if ttyp==-1 then tt='-1'
+        elseif ttyp==1 tt='double'
         elseif ttyp==2 tt='complex'
         elseif ttyp==3 tt='int32'
         elseif ttyp==4 tt='int16'

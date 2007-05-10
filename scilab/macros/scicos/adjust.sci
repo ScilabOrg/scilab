@@ -25,6 +25,9 @@
 //                 be the same.
 //
 //04/01/07, Fady :Can test the case of negatives equals target's dimensions.
+//
+//10/05/07, Alan : - if-then-else event-select case (intyp = -1)
+
 // Copyright INRIA
 //
 function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
@@ -56,24 +59,26 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                nnout(1,2)=bllst(blkout).out2(portout)
                nnin(1,1)=bllst(blkin).in(portin)
                nnin(1,2)=bllst(blkin).in2(portin)
-               //intyp/outtyp are the size (two dimensions) of the
+               //intyp/outtyp are the type of the
                //target port and the source port of the observed link
                intyp=bllst(blkin).intyp(portin)
                outtyp=bllst(blkout).outtyp(portout)
 
                //check intyp outtyp
-               if intyp<>outtyp then
-                 if (intyp==1 & outtyp==2) then
-                   bllst(blkout).intyp(portout)=2;
-                 elseif (intyp==2 & outtyp==1) then
-                   bllst(blkout).outtyp(portout)=2;
-                 else
-                   bad_connection(corinv(blkout),portout,..
-                                  nnout,outtyp,..
-                                  corinv(blkin),portin,..
-                                  nnin,intyp,1)
-                   ok=%f;
-                   return
+               if intyp<>-1 then //if-then-else, event-select blocks case
+                 if intyp<>outtyp then
+                   if (intyp==1 & outtyp==2) then
+                     bllst(blkout).intyp(portout)=2;
+                   elseif (intyp==2 & outtyp==1) then
+                     bllst(blkout).outtyp(portout)=2;
+                   else
+                     bad_connection(corinv(blkout),portout,..
+                                    nnout,outtyp,..
+                                    corinv(blkin),portin,..
+                                    nnin,intyp,1)
+                     ok=%f;
+                     return
+                   end
                  end
                end
 

@@ -354,11 +354,12 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
         //get port data type
         //and say warning if doesn't match with szouttyp
         szintyp=getporttyp(o2,port_number,'in')
-        if szintyp<>szouttyp then
-          tt_typ=['double';'complex';'int32';'int16';
-                  'int8';'uint32';'uint16';'uint8']
+        if szintyp<>-1 then //if-then-else, event-select blocks case
+          if szintyp<>szouttyp then
+            tt_typ=['double';'complex';'int32';'int16';
+                    'int8';'uint32';'uint16';'uint8']
 
-          disablemenus()
+            disablemenus()
             hilite_obj(kto)
             message(['Warning :';
                      'Selected ports don''t have the same data type';
@@ -367,7 +368,8 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
                      'the port at the end has datatype '+...
                       tt_typ(szintyp)+' ('+sci2exp(szintyp)+')'+'.'])
             unhilite_obj(kto)
-          enablemenus()
+            enablemenus()
+          end
         end
 
       //TODO
