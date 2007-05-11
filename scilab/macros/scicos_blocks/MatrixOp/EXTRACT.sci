@@ -72,7 +72,7 @@ case 'define' then
   model.blocktype='c' 
   model.firing=[]
   model.dep_ut=[%t %f]
-  label=[sci2exp(1);sci2exp([]);sci2exp([])];
+  label=[sci2exp(1);sci2exp([1]);sci2exp([1])];
   gr_i=['xstringb(orig(1),orig(2),''Extract'',sz(1),sz(2),''fill'');']
   x=standard_define([3 2],model,label,gr_i)
 end
