@@ -302,6 +302,7 @@ extern void relational_op_ui8 __PARAMS((ARGS_scicos));
 extern void evtdly4 __PARAMS((ARGS_scicos));
 extern void matmul2_m __PARAMS((ARGS_scicos));
 extern void matzmul2_m __PARAMS((ARGS_scicos));
+extern void expblk_m __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -374,6 +375,7 @@ OpTab tabsim[] ={
 {"evtdly4",(ScicosF) evtdly4},
 {"evtdly",(ScicosF) F2C(evtdly)},
 {"evtvardly",(ScicosF) evtvardly},
+{"expblk_m",(ScicosF) expblk_m},
 {"expblk",(ScicosF) F2C(expblk)},
 {"extdiag",(ScicosF) extdiag},
 {"extdiagz",(ScicosF) extdiagz},
@@ -606,6 +608,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 300 ;
+int ntabsim= 301 ;
 #endif 
 /***********************************/
