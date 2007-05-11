@@ -1027,7 +1027,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           if (outtbdptr[0] <= 0.) {*/
@@ -1073,7 +1073,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  } else {
 	    i=1;
 	  }
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           i=max(min((integer) outtbdptr[0],
@@ -2077,7 +2077,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           if (outtbdptr[0] <= 0.) {
@@ -2128,7 +2128,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
             i=1;
           }
 
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           i=max(min((integer) outtbdptr[0],
@@ -2224,7 +2224,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           if (outtbdptr[0] <= 0.) {
@@ -2274,7 +2274,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
           } else {
             i=1;
           }
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  i= max(min((integer) outtbdptr[0],
@@ -2477,7 +2477,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  if (outtbdptr[0] <= 0.) {
@@ -2527,7 +2527,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
           } else {
             i=1;
           }
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	  i= max(min((integer) outtbdptr[0],
@@ -2627,7 +2627,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  i2 = Blocks[C2F(curblk).kfun - 1].mode[0] + 
 	    clkptr[C2F(curblk).kfun] - 1;
 	} else{
-          /*IF-THEN-ELSE blk*/
+          /* if-then-else blk */
 	  if (funtyp[C2F(curblk).kfun] == -1) {
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	    if (outtbdptr[0] <= 0.) {
@@ -2677,7 +2677,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
             } else {
               i=1;
             }
-          /*EVENT-SELECT blk*/
+          /* eselect blk */
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             i=max(min((integer) outtbdptr[0],
@@ -2810,7 +2810,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     }
 
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0 && funtyp[C2F(curblk).kfun] < 0) {
-      /*IF-THEN-ELSE blk*/
+      /* if-then-else blk */
       if (funtyp[C2F(curblk).kfun] == -1) {
 /*        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	if (outtbdptr[0] <= 0.) {
@@ -2862,7 +2862,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
           i=1;
         }
 
-      /*EVENT-SELECT blk*/
+      /* eselect blk */
       } else if (funtyp[C2F(curblk).kfun] == -2) {
 /*        outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
 	i= max(min((integer) outtbdptr[0],
@@ -3012,7 +3012,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 	  if (phase==1 || Blocks[C2F(curblk).kfun - 1].nmode==0){
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -3066,7 +3066,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    }else{
 	      i=Blocks[C2F(curblk).kfun - 1].mode[0];
 	    }
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  if (phase==1 || Blocks[C2F(curblk).kfun - 1].nmode==0){
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -3170,7 +3170,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 	  if (phase==1|| Blocks[C2F(curblk).kfun - 1].nmode==0){
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -3225,7 +3225,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  }else{
 	    i=Blocks[C2F(curblk).kfun - 1].mode[0];
 	  }
-        /*EVENT-SELECT blk*/
+        /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  if (phase==1|| Blocks[C2F(curblk).kfun - 1].nmode==0){
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -3306,7 +3306,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  return;
 	}
       }else{
-        /*IF-THEN-ELSE blk*/
+        /* if-then-else blk */
 	if (funtyp[C2F(curblk).kfun] == -1) {
 /*          outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
           g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];*/
@@ -3314,112 +3314,48 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
           {
            case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbcptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbsptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtblptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbucptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbusptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbulptr;
-                               if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                 if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                    Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                 }
-                                 else {
-                                     Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                 }
-                               }
                                break;
 
            default  : /* Add a message here */
                       break;
           }
-/*	  if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
+	  if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
 	    if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
 	      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
 	    }
 	    else {
 	      Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
 	    }
-	  }*/
-          /*EVENT-SELECT blk*/
+	  }
+          /* eselect blk */
 	} else if (funtyp[C2F(curblk).kfun] == -2) {
 	  for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -3523,7 +3459,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    return;
 	  }
 	}else{
-          /*IF-THEN-ELSE blk*/
+          /* if-then-else blk */
 	  if (funtyp[C2F(curblk).kfun] == -1) {
 /*            outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             g[zcptr[C2F(curblk).kfun]-1]=outtbdptr[0];*/
@@ -3531,98 +3467,34 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
             {
              case SCSREAL_N    : outtbdptr=(SCSREAL_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSCOMPLEX_N : outtbdptr=(SCSCOMPLEX_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=*outtbdptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0.) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSINT8_N    : outtbcptr=(SCSINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbcptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSINT16_N   : outtbsptr=(SCSINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbsptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSINT32_N   : outtblptr=(SCSINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtblptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSUINT8_N   : outtbucptr=(SCSUINT8_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbucptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSUINT16_N  : outtbusptr=(SCSUINT16_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbusptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              case SCSUINT32_N  : outtbulptr=(SCSUINT32_COP *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
                                  g[zcptr[C2F(curblk).kfun]-1]=(double) *outtbulptr;
-                                 if(phase==1&&Blocks[C2F(curblk).kfun - 1].nmode>0){
-                                   if (g[zcptr[C2F(curblk).kfun]-1] <= 0) {
-                                      Blocks[C2F(curblk).kfun - 1].mode[0] = 2;
-                                   }
-                                   else {
-                                       Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
-                                   }
-                                 }
                                  break;
 
              default  : /* Add a message here */
@@ -3635,7 +3507,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 		Blocks[C2F(curblk).kfun - 1].mode[0] = 1;
 	      }
 	    }
-          /*EVENT-SELECT blk*/
+          /* eselect blk */
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
 /*	    for (jj=0;jj<Blocks[C2F(curblk).kfun - 1].nevout-1;++jj) {
               outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
@@ -4585,7 +4457,7 @@ void Jdoit(residual, xt, xtd, told, job)
 	  i2 = Blocks[C2F(curblk).kfun - 1].mode[0] + 
 	    clkptr[C2F(curblk).kfun] - 1;
 	} else{
-          /*IF-THEN-ELSE blk*/
+          /* if-then-else blk */
 	  if (funtyp[C2F(curblk).kfun] == -1) {
             switch(outtbtyp[-1+inplnk[inpptr[C2F(curblk).kfun]]])
             {
@@ -4636,7 +4508,7 @@ void Jdoit(residual, xt, xtd, told, job)
 	    } else {
 	      i=1;
 	    }*/
-          /*EVENT-SELECT blk*/
+          /* eselect blk */
 	  } else if (funtyp[C2F(curblk).kfun] == -2) {
             /*outtbdptr=(double *)outtbptr[-1+inplnk[inpptr[C2F(curblk).kfun]]];
             i=max(min((integer) outtbdptr[0],

@@ -1486,7 +1486,7 @@ endfunction
 //                   with preceding test of Fady in the first pass
 //                 - Second pass reviewed : under_connection returns two dimensions now
 //
-//10/05/07, Alan : - if-then-else event-select case (intyp = -1)
+//10/05/07, Alan : - if-then-else event-select case
 
 function [ok,bllst]=adjust_inout(bllst,connectmat)
 
@@ -1518,12 +1518,15 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
            nnin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
            //check intyp/outtyp
-           if intyp<>-1 then //if-then-else, event-select blocks case
-             if intyp<>outtyp then
-               if (intyp==1 & outtyp==2) then
-                 bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
-               elseif (intyp==2 & outtyp==1) then
-                 bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+           if intyp<>outtyp then
+             if (intyp==1 & outtyp==2) then
+               bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
+             elseif (intyp==2 & outtyp==1) then
+               bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+             else
+               if bllst(connectmat(jj,3)).sim(2)<0 //if-then-else/eselect case
+                 bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=...
+                   bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
                else
                  bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
                                 nnout,outtyp,..

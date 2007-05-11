@@ -26,7 +26,7 @@
 //
 //04/01/07, Fady :Can test the case of negatives equals target's dimensions.
 //
-//10/05/07, Alan : - if-then-else event-select case (intyp = -1)
+//10/05/07, Alan : - if-then-else event-select case
 
 // Copyright INRIA
 //
@@ -65,12 +65,15 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                outtyp=bllst(blkout).outtyp(portout)
 
                //check intyp outtyp
-               if intyp<>-1 then //if-then-else, event-select blocks case
-                 if intyp<>outtyp then
-                   if (intyp==1 & outtyp==2) then
-                     bllst(blkout).intyp(portout)=2;
-                   elseif (intyp==2 & outtyp==1) then
-                     bllst(blkout).outtyp(portout)=2;
+               if intyp<>outtyp then
+                 if (intyp==1 & outtyp==2) then
+                   bllst(blkin).intyp(portin)=2;
+                 elseif (intyp==2 & outtyp==1) then
+                   bllst(blkout).outtyp(portout)=2;
+                 else
+                   if bllst(blkin).sim(2)<0 //if-then-else/eselect case
+                    bllst(blkin).intyp(portin)=...
+                       bllst(blkout).outtyp(portout)
                    else
                      bad_connection(corinv(blkout),portout,..
                                     nnout,outtyp,..
