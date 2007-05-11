@@ -56,7 +56,7 @@ function routines=create_palette(Path)
 	
       elseif txt=='Non_linear' then
 	lisf=['ABS_VALUE.sci'; 'TrigFun.sci';
-	      'EXPBLK_f.sci';  'INTRP2BLK_f.sci';
+	      'EXPBLK_m.sci';  'INTRP2BLK_f.sci';
 	      'INTRPLBLK_f.sci'; 'INVBLK.sci';
 	      'LOGBLK_f.sci'; 'LOOKUP_f.sci'; 'MAXMIN.sci';
 	      'POWBLK_f.sci'; 'PROD_f.sci';
@@ -73,7 +73,7 @@ function routines=create_palette(Path)
 	
       elseif txt=='Others' then
 	lisf=['c_block.sci';'fortran_block.sci';
-	      'SUPER_f.sci';'scifunc_block.sci';
+	      'SUPER_f.sci';'scifunc_block_m.sci';
 	      'TEXT_f.sci';'CBLOCK.sci';'RATELIMITER.sci';
 	      'BACKLASH.sci';'DEADBAND.sci';'EXPRESSION.sci';
 	      'CONSTRAINT_f.sci';'HYSTHERESIS.sci';'DEBUG_SCICOS.sci';
@@ -83,7 +83,7 @@ function routines=create_palette(Path)
       elseif txt=='Linear' then
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR_m.sci';
 	      'CLINDUMMY_f.sci';'DLSS.sci';'REGISTER.sci';'TIME_DELAY.sci';
-	      'CLR.sci';'GAINBLK.sci';'SAMPHOLD.sci';'VARIABLE_DELAY.sci';
+	      'CLR.sci';'GAINBLK.sci';'SAMPHOLD_m.sci';'VARIABLE_DELAY.sci';
 	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
 	
       elseif txt=='OldBlocks' then
