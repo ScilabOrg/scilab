@@ -299,6 +299,7 @@ extern void relational_op_i16 __PARAMS((ARGS_scicos));
 extern void relational_op_ui16 __PARAMS((ARGS_scicos));
 extern void relational_op_i8 __PARAMS((ARGS_scicos));
 extern void relational_op_ui8 __PARAMS((ARGS_scicos));
+extern void evtdly4 __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -368,6 +369,7 @@ OpTab tabsim[] ={
 {"edgetrig",(ScicosF) edgetrig},
 {"eselect",(ScicosF) F2C(eselect)},
 {"evaluate_expr",(ScicosF) evaluate_expr},
+{"evtdly4",(ScicosF) evtdly4},
 {"evtdly",(ScicosF) F2C(evtdly)},
 {"evtvardly",(ScicosF) evtvardly},
 {"expblk",(ScicosF) F2C(expblk)},
@@ -600,6 +602,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 297 ;
+int ntabsim= 298 ;
 #endif 
 /***********************************/

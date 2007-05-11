@@ -6,27 +6,28 @@ SCIDIR1=..\..
 LIBRARY = $(SCIDIR)/libs/scicos.a
 
 BLOCKSF=evtdly.o cstblk.o \
-	lusat.o pload.o qzcel.o qzflr.o\
-	qzrnd.o qztrn.o lsplit.o csslti.o\
+	lusat.o pload.o qzcel.o qzflr.o \
+	qzrnd.o qztrn.o lsplit.o csslti.o \
 	dsslti.o trash.o zcross.o \
-	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
-	sqrblk.o delay.o selblk.o forblk.o writef.o invblk.o hltblk.o\
-	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o\
+	expblk.o logblk.o sinblk.o tanblk.o powblk.o \
+	sqrblk.o delay.o selblk.o forblk.o writef.o invblk.o hltblk.o \
+	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o \
+	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o \
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
 	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o \
 	intrp2.o intrpl.o fsv.o memo.o diffblk.o constraint.o \
-	absblk.o andlog.o bidon.o gain.o cdummy.o dband.o cosblk.o ifthel.o eselect.o
+	absblk.o andlog.o bidon.o gain.o cdummy.o dband.o cosblk.o ifthel.o \
+	eselect.o
 
 
 BLOCKS_CODE=evtdly.o cstblk.o \
-	lusat.o pload.o qzcel.o qzflr.o\
-	qzrnd.o qztrn.o lsplit.o csslti.o\
+	lusat.o pload.o qzcel.o qzflr.o \
+	qzrnd.o qztrn.o lsplit.o csslti.o \
 	dsslti.o trash.o zcross.o \
-	expblk.o logblk.o sinblk.o tanblk.o powblk.o\
-	sqrblk.o delay.o selblk.o forblk.o  writef.o invblk.o hltblk.o\
-	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o\
-	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o\
+	expblk.o logblk.o sinblk.o tanblk.o powblk.o \
+	sqrblk.o delay.o selblk.o forblk.o  writef.o invblk.o hltblk.o \
+	gensin.o rndblk.o lookup.o timblk.o gensqr.o mfclck.o \
+	sawtth.o tcslti.o tcsltj.o integr.o readf.o affich2.o affich.o \
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
 	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o \
 	intrp2.o intrpl.o fsv.o memo.o \
@@ -53,24 +54,28 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	mat_catv.o mat_expm.o mat_reshape.o mat_vpv.o matz_cath.o matz_diag.o matz_lu.o \
 	matz_reshape.o matz_vpv.o submat.o extractz.o exttriuz.o mat_det.o mat_inv.o \
 	mat_sing.o matz_abs.o matz_catv.o matz_div.o matz_pinv.o matz_sing.o ricc_m.o \
-        submatz.o switch2_m.o dollar4_m.o cstblk4_m.o integralz_func.o\
-        matzmul_m.o matztran_m.o mat_sum.o mat_sumc.o mat_suml.o cumsum_c.o cumsum_m.o cumsum_r.o\
-        matz_sum.o matz_sumc.o matz_suml.o cumsumz_c.o cumsumz_m.o cumsumz_r.o selector_m.o\
-        summation_z.o shift_i8.o shift_i16.o shift_i32.o convert.o logicalop_i32.o logicalop_ui32.o\
-        logicalop_i16.o logicalop_ui16.o logicalop_i8.o logicalop_ui8.o logicalop_m.o samphold4_m.o\
-	matmul_i32s.o matmul_i32n.o matmul_i32e.o matmul_i16s.o matmul_i16n.o matmul_i16e.o matmul_i8s.o matmul_i8n.o matmul_i8e.o\
-	matmul_ui32s.o matmul_ui32n.o matmul_ui32e.o matmul_ui16s.o matmul_ui16n.o matmul_ui16e.o\
-	matmul_ui8s.o matmul_ui8n.o matmul_ui8e.o\
-	summation_i32s.o summation_i32n.o summation_i32e.o summation_i16s.o summation_i16n.o summation_i16e.o\
-	summation_i8s.o summation_i8n.o summation_i8e.o summation_ui32s.o summation_ui32n.o summation_ui32e.o\
-	summation_ui16s.o summation_ui16n.o summation_ui16e.o summation_ui8s.o summation_ui8n.o summation_ui8e.o\
-	gainblk_i32s.o gainblk_i32n.o gainblk_i32e.o gainblk_i16s.o gainblk_i16n.o gainblk_i16e.o\
-	gainblk_i8s.o gainblk_i8n.o gainblk_i8e.o gainblk_ui32s.o gainblk_ui32n.o gainblk_ui32e.o\
-	gainblk_ui16s.o gainblk_ui16n.o gainblk_ui16e.o gainblk_ui8s.o gainblk_ui8n.o gainblk_ui8e.o\
-	delay4_i32.o delay4_i16.o delay4_i8.o delay4_ui32.o delay4_ui16.o delay4_ui8.o\
-	bit_set.o bit_clear.o extract_bit_i32.o extract_bit_i16.o extract_bit_i8.o extract_bit_ui32.o extract_bit_ui16.o\
-	extract_bit_ui8.o mat_sqrt.o matz_sqrt.o relational_op_i32.o relational_op_ui32.o relational_op_i16.o\
-	relational_op_ui16.o relational_op_i8.o relational_op_ui8.o
+	submatz.o switch2_m.o dollar4_m.o cstblk4_m.o integralz_func.o \
+        matzmul_m.o matztran_m.o mat_sum.o mat_sumc.o mat_suml.o cumsum_c.o cumsum_m.o \
+	cumsum_r.o matz_sum.o matz_sumc.o matz_suml.o cumsumz_c.o cumsumz_m.o \
+	cumsumz_r.o selector_m.o summation_z.o shift_i8.o shift_i16.o shift_i32.o \
+	convert.o logicalop_i32.o logicalop_ui32.o logicalop_i16.o logicalop_ui16.o \
+	logicalop_i8.o logicalop_ui8.o logicalop_m.o samphold4_m.o matmul_i32s.o \
+	matmul_i32n.o matmul_i32e.o matmul_i16s.o matmul_i16n.o matmul_i16e.o \
+	matmul_i8s.o matmul_i8n.o matmul_i8e.o matmul_ui32s.o matmul_ui32n.o \
+	matmul_ui32e.o matmul_ui16s.o matmul_ui16n.o matmul_ui16e.o matmul_ui8s.o \
+	matmul_ui8n.o matmul_ui8e.o summation_i32s.o summation_i32n.o summation_i32e.o \
+	summation_i16s.o summation_i16n.o summation_i16e.o summation_i8s.o \
+	summation_i8n.o summation_i8e.o summation_ui32s.o summation_ui32n.o \
+	summation_ui32e.o summation_ui16s.o summation_ui16n.o summation_ui16e.o \
+	summation_ui8s.o summation_ui8n.o summation_ui8e.o gainblk_i32s.o \
+	gainblk_i32n.o gainblk_i32e.o gainblk_i16s.o gainblk_i16n.o gainblk_i16e.o \
+	gainblk_i8s.o gainblk_i8n.o gainblk_i8e.o gainblk_ui32s.o gainblk_ui32n.o \
+	gainblk_ui32e.o gainblk_ui16s.o gainblk_ui16n.o gainblk_ui16e.o gainblk_ui8s.o \
+	gainblk_ui8n.o gainblk_ui8e.o delay4_i32.o delay4_i16.o delay4_i8.o delay4_ui32.o \
+	delay4_ui16.o delay4_ui8.o bit_set.o bit_clear.o extract_bit_i32.o extract_bit_i16.o \
+	extract_bit_i8.o extract_bit_ui32.o extract_bit_ui16.o extract_bit_ui8.o mat_sqrt.o \
+	matz_sqrt.o relational_op_i32.o relational_op_ui32.o relational_op_i16.o \
+	relational_op_ui16.o relational_op_i8.o relational_op_ui8.o evtdly4.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \
@@ -188,24 +193,24 @@ variable_delay.o: variable_delay.c scicos_block.h ../machine.h
 writeau.o: writeau.c ../machine.h
 writec.o: writec.c ../machine.h
 zcross2.o: zcross2.c ../machine.h
-sin_block.o: sin_block.c scicos_block.h      
-cos_block.o: cos_block.c scicos_block.h      
-tan_block.o: tan_block.c scicos_block.h      
-asin_block.o: asin_block.c scicos_block.h    
-acos_block.o: acos_block.c scicos_block.h    
-atan_block.o: atan_block.c scicos_block.h    
-sinh_block.o: sinh_block.c scicos_block.h    
-cosh_block.o: cosh_block.c scicos_block.h    
-tanh_block.o: tanh_block.c scicos_block.h    
-asinh_block.o: asinh_block.c scicos_block.h  
-acosh_block.o: acosh_block.c scicos_block.h  
-atanh_block.o: atanh_block.c scicos_block.h  
-evtvardly.o: evtvardly.c  scicos_block.h  
-tcslti4.o: tcslti4.c scicos_block.h 
-tcsltj4.o: tcsltj4.c scicos_block.h 
-dsslti4.o: dsslti4.c scicos_block.h  	
+sin_block.o: sin_block.c scicos_block.h
+cos_block.o: cos_block.c scicos_block.h
+tan_block.o: tan_block.c scicos_block.h
+asin_block.o: asin_block.c scicos_block.h
+acos_block.o: acos_block.c scicos_block.h
+atan_block.o: atan_block.c scicos_block.h
+sinh_block.o: sinh_block.c scicos_block.h
+cosh_block.o: cosh_block.c scicos_block.h
+tanh_block.o: tanh_block.c scicos_block.h
+asinh_block.o: asinh_block.c scicos_block.h
+acosh_block.o: acosh_block.c scicos_block.h
+atanh_block.o: atanh_block.c scicos_block.h
+evtvardly.o: evtvardly.c  scicos_block.h
+tcslti4.o: tcslti4.c scicos_block.h
+tcsltj4.o: tcsltj4.c scicos_block.h
+dsslti4.o: dsslti4.c scicos_block.h
 csslti4.o: csslti4.c scicos_block.h
-cstblk4.o: cstblk4.c scicos_block.h 
+cstblk4.o: cstblk4.c scicos_block.h
 samphold4.o: samphold4.c scicos_block.h
 dollar4.o: dollar4.c scicos_block.h
 invblk4.o: invblk4.c scicos_block.h

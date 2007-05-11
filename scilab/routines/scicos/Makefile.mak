@@ -9,27 +9,28 @@ SCIDIR1=..\..
 LIBRARY = $(SCIDIR)/libs/scicos.lib
 
 BLOCKSF=evtdly.obj cstblk.obj \
-	lusat.obj pload.obj qzcel.obj qzflr.obj\
-	qzrnd.obj qztrn.obj lsplit.obj csslti.obj\
+	lusat.obj pload.obj qzcel.obj qzflr.obj \
+	qzrnd.obj qztrn.obj lsplit.obj csslti.obj \
 	dsslti.obj trash.obj zcross.obj \
-	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
-	sqrblk.obj delay.obj selblk.obj forblk.obj writef.obj invblk.obj hltblk.obj\
-	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj\
+	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj \
+	sqrblk.obj delay.obj selblk.obj forblk.obj writef.obj invblk.obj hltblk.obj \
+	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj \
+	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj \
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
 	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj \
 	intrp2.obj intrpl.obj fsv.obj memo.obj diffblk.obj constraint.obj \
-	absblk.obj andlog.obj bidon.obj gain.obj cdummy.obj dband.obj cosblk.obj ifthel.obj eselect.obj
+	absblk.obj andlog.obj bidon.obj gain.obj cdummy.obj dband.obj cosblk.obj ifthel.obj \
+	eselect.obj
 
 
 BLOCKS_CODE=evtdly.obj cstblk.obj \
-	lusat.obj pload.obj qzcel.obj qzflr.obj\
-	qzrnd.obj qztrn.obj  lsplit.obj csslti.obj\
+	lusat.obj pload.obj qzcel.obj qzflr.obj \
+	qzrnd.obj qztrn.obj  lsplit.obj csslti.obj \
 	dsslti.obj trash.obj zcross.obj \
-	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj\
-	sqrblk.obj delay.obj selblk.obj forblk.obj  writef.obj invblk.obj hltblk.obj\
-	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj\
-	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj\
+	expblk.obj logblk.obj sinblk.obj tanblk.obj powblk.obj \
+	sqrblk.obj delay.obj selblk.obj forblk.obj  writef.obj invblk.obj hltblk.obj \
+	gensin.obj rndblk.obj lookup.obj timblk.obj gensqr.obj mfclck.obj \
+	sawtth.obj tcslti.obj tcsltj.obj integr.obj readf.obj affich2.obj affich.obj \
 	intpol.obj intplt.obj minblk.obj maxblk.obj dlradp.obj  iocopy.obj \
 	sum2.obj sum3.obj delayv.obj mux.obj demux.obj samphold.obj dollar.obj \
 	intrp2.obj intrpl.obj fsv.obj memo.obj \
@@ -56,24 +57,28 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	mat_catv.obj mat_expm.obj mat_reshape.obj mat_vpv.obj matz_cath.obj matz_diag.obj matz_lu.obj \
 	matz_reshape.obj matz_vpv.obj submat.obj extractz.obj exttriuz.obj mat_det.obj mat_inv.obj \
 	mat_sing.obj matz_abs.obj matz_catv.obj matz_div.obj matz_pinv.obj matz_sing.obj ricc_m.obj \
-        submatz.obj switch2_m.obj dollar4_m.obj cstblk4_m.obj integralz_func.obj\
-        matzmul_m.obj matztran_m.obj mat_sum.obj mat_sumc.obj mat_suml.obj cumsum_c.obj cumsum_m.obj cumsum_r.obj\
-        matz_sum.obj matz_sumc.obj matz_suml.obj cumsumz_c.obj cumsumz_m.obj cumsumz_r.obj selector_m.obj\
-        summation_z.obj shift_i8.obj shift_i16.obj shift_i32.obj convert.obj logicalop_i32.obj logicalop_ui32.obj\
-        logicalop_i16.obj logicalop_ui16.obj logicalop_i8.obj logicalop_ui8.obj logicalop_m.obj samphold4_m.obj\
-	matmul_i32s.obj matmul_i32n.obj matmul_i32e.obj matmul_i16s.obj matmul_i16n.obj matmul_i16e.obj matmul_i8s.obj\
-	matmul_i8n.obj matmul_i8e.obj matmul_ui32s.obj matmul_ui32n.obj matmul_ui32e.obj matmul_ui16s.obj matmul_ui16n.obj\
-	matmul_ui16e.obj matmul_ui8s.obj matmul_ui8n.obj matmul_ui8e.obj\
-	summation_i32s.obj summation_i32n.obj summation_i32e.obj summation_i16s.obj summation_i16n.obj summation_i16e.obj\
-	summation_i8s.obj summation_i8n.obj summation_i8e.obj summation_ui32s.obj summation_ui32n.obj summation_ui32e.obj\
-	summation_ui16s.obj summation_ui16n.obj summation_ui16e.obj summation_ui8s.obj summation_ui8n.obj summation_ui8e.obj\
-	gainblk_i32s.obj gainblk_i32n.obj gainblk_i32e.obj gainblk_i16s.obj gainblk_i16n.obj gainblk_i16e.obj\
-	gainblk_i8s.obj gainblk_i8n.obj gainblk_i8e.obj gainblk_ui32s.obj gainblk_ui32n.obj gainblk_ui32e.obj\
-	gainblk_ui16s.obj gainblk_ui16n.obj gainblk_ui16e.obj gainblk_ui8s.obj gainblk_ui8n.obj gainblk_ui8e.obj\
-	delay4_i32.obj delay4_i16.obj delay4_i8.obj delay4_ui32.obj delay4_ui16.obj delay4_ui8.obj\
-	bit_set.obj bit_clear.obj extract_bit_i32.obj extract_bit_i16.obj extract_bit_i8.obj extract_bit_ui32.obj\
-	extract_bit_ui16.obj extract_bit_ui8.obj mat_sqrt.obj matz_sqrt.obj relational_op_i32.obj relational_op_ui32.obj\
-	relational_op_i16.obj relational_op_ui16.obj relational_op_i8.obj relational_op_ui8.obj
+	submatz.obj switch2_m.obj dollar4_m.obj cstblk4_m.obj integralz_func.obj \
+	matzmul_m.obj matztran_m.obj mat_sum.obj mat_sumc.obj mat_suml.obj cumsum_c.obj cumsum_m.obj \
+	cumsum_r.obj matz_sum.obj matz_sumc.obj matz_suml.obj cumsumz_c.obj cumsumz_m.obj \
+	cumsumz_r.obj selector_m.obj summation_z.obj shift_i8.obj shift_i16.obj shift_i32.obj \
+	convert.obj logicalop_i32.obj logicalop_ui32.obj logicalop_i16.obj logicalop_ui16.obj \
+	logicalop_i8.obj logicalop_ui8.obj logicalop_m.obj samphold4_m.obj matmul_i32s.obj \
+	matmul_i32n.obj matmul_i32e.obj matmul_i16s.obj matmul_i16n.obj matmul_i16e.obj \
+	matmul_i8s.obj matmul_i8n.obj matmul_i8e.obj matmul_ui32s.obj matmul_ui32n.obj \
+	matmul_ui32e.obj matmul_ui16s.obj matmul_ui16n.obj matmul_ui16e.obj matmul_ui8s.obj \
+	matmul_ui8n.obj matmul_ui8e.obj summation_i32s.obj summation_i32n.obj summation_i32e.obj \
+	summation_i16s.obj summation_i16n.obj summation_i16e.obj summation_i8s.obj \
+	summation_i8n.obj summation_i8e.obj summation_ui32s.obj summation_ui32n.obj \
+	summation_ui32e.obj summation_ui16s.obj summation_ui16n.obj summation_ui16e.obj \
+	summation_ui8s.obj summation_ui8n.obj summation_ui8e.obj gainblk_i32s.obj \
+	gainblk_i32n.obj gainblk_i32e.obj gainblk_i16s.obj gainblk_i16n.obj gainblk_i16e.obj \
+	gainblk_i8s.obj gainblk_i8n.obj gainblk_i8e.obj gainblk_ui32s.obj gainblk_ui32n.obj \
+	gainblk_ui32e.obj gainblk_ui16s.obj gainblk_ui16n.obj gainblk_ui16e.obj gainblk_ui8s.obj \
+	gainblk_ui8n.obj gainblk_ui8e.obj delay4_i32.obj delay4_i16.obj delay4_i8.obj delay4_ui32.obj \
+	delay4_ui16.obj delay4_ui8.obj bit_set.obj bit_clear.obj extract_bit_i32.obj extract_bit_i16.obj \
+	extract_bit_i8.obj extract_bit_ui32.obj extract_bit_ui16.obj extract_bit_ui8.obj mat_sqrt.obj \
+	matz_sqrt.obj relational_op_i32.obj relational_op_ui32.obj relational_op_i16.obj \
+	relational_op_ui16.obj relational_op_i8.obj relational_op_ui8.obj evtdly4.obj
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \
