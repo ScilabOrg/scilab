@@ -41,9 +41,6 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 
   show_comment=%f
 
-  global need_newblk
-  need_newblk=%t
-
   if bllst==list() then
     message(['No block can be activated'])
     cpr=list()
@@ -197,7 +194,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   cpr=scicos_cpr(state=state,sim=sim,cor=cor,corinv=corinv);
 
   if show_trace then disp('c_pass71:'+string(timer())),end
-  clearglobal need_newblk
+
 endfunction
 
 
