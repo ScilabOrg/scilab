@@ -75,7 +75,8 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	delay4_ui16.o delay4_ui8.o bit_set.o bit_clear.o extract_bit_i32.o extract_bit_i16.o \
 	extract_bit_i8.o extract_bit_ui32.o extract_bit_ui16.o extract_bit_ui8.o mat_sqrt.o \
 	matz_sqrt.o relational_op_i32.o relational_op_ui32.o relational_op_i16.o \
-	relational_op_ui16.o relational_op_i8.o relational_op_ui8.o evtdly4.o
+	relational_op_ui16.o relational_op_i8.o relational_op_ui8.o evtdly4.o\
+	matmul2_m.o matzmul2_m.o\
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \

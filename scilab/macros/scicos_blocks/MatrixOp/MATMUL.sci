@@ -15,23 +15,32 @@ case 'set' then
   x=arg1
   graphics=arg1.graphics;label=graphics.exprs
   model=arg1.model;
-  if size(label,'*')==14 then label(9)=[],end //compatiblity
+  if size(label,'*')==1 then label(2)=sci2exp(1),end //compatiblity
   while %t do
-    [ok,typ,exprs]=getvalue('Set MATMUL Block',..
-	    ['Datatype(1=real double  2=Complex)'],list('vec',1),label)
+    [ok,typ,rule,exprs]=getvalue('Set MATMUL Block',..
+	    ['Datatype(1=real double  2=Complex)';
+	     'Multiplication rule (1= * 2= .* )'],list('vec',1,'vec',1),label)
     if ~ok then break,end
-    if (typ==1) then
+    if (typ<>1&typ<>2) then message("type is not supported");ok=%f;end
+    if rule<>2 then rule=1;end
+    if ((typ==1)&(rule==1)) then
 	junction_name='matmul_m';
-      	ot=1;
-	it=[1 1];
-    elseif (typ==2) then
+    elseif ((typ==2)&(rule==1)) then
  	junction_name='matzmul_m';
-      	ot=2;
-	it=[2 2];
-    else message("type is not supported");ok=%f;
+    elseif((typ==1)&(rule==2)) then
+ 	junction_name='matmul2_m';
+    elseif((typ==2)&(rule==2)) then
+ 	junction_name='matzmul2_m';
     end
-    in=[model.in model.in2];
-    out=[model.out model.out2];
+    it=typ*ones(1,2);
+    ot=typ
+    if rule==1 then
+    	in=[model.in model.in2];
+    	out=[model.out model.out2];
+    else
+	in=[-1 -2;-1 -2]
+	out=[-1 -2]
+    end
     funtyp=4;
     if ok then
       label=exprs;
