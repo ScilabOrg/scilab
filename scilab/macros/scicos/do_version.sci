@@ -29,109 +29,27 @@ if version=='scicos2.7' then
 end
 if version=='scicos2.7.1' then scs_m=do_version272(scs_m),version='scicos2.7.2';end
 if version=='scicos2.7.2' then scs_m=do_version273(scs_m),version='scicos2.7.3';end
-if version=='scicos2.7.3' then
-  ncl=lines() //to be removed latter
-  lines(0)  //to be removed latter
-  printf("Update in2,intype,out2 & outtyp of blocks... ")  //to be removed latter
-  scs_m=do_version4(scs_m),version='scicos4';
-  printf("Done !\n")  //to be removed latter
-  lines(ncl(2))  //to be removed latter
-end
-if version=='scicos4' then
-  ncl=lines()  //to be removed latter
-  lines(0) //to be removed latter
-  printf("Update scopes... ") //to be removed latter
-  scs_m=do_version401(scs_m),version='scicos4.0.1';
-  printf("Done !\n") //to be removed latter
-  lines(ncl(2))  //to be removed latter
-end
-if version=='scicos4.0.1' then
-  ncl=lines()  //to be removed latter
-  lines(0) //to be removed latter
-  printf("Update opar,odstate... ") //to be removed latter
-  scs_m=do_version402(scs_m),version='scicos4.0.2';
-  printf("Done !\n") //to be removed latter
-  lines(ncl(2))  //to be removed latter
-end
-if version=='scicos4.0.2' then
-  ncl=lines()  //to be removed latter
-  lines(0) //to be removed latter
-  printf("Update scs_m with version... ") //to be removed latter
-  scs_m=do_version42(scs_m)
-  version=scs_m.version;
-  printf("Done !\n") //to be removed latter
-  lines(ncl(2))  //to be removed latter
+if version=='scicos2.7.3' | version=='scicos4' |...
+   version=='scicos4.0.1' | version=='scicos4.0.2' then
+  //********************************//
+  ncl=lines()
+  lines(0)
+  printf("Update old scicos diagram. Please wait... ")
+  tic;
+  version='scicos4.2';
+  //*** do certification ***//
+  scs_m=update_scs_m(scs_m);
+  //*** update scope ***//
+  scs_m=do_version42(scs_m);
+  printf("Done ! (%s s)\n",string(toc()))
+  lines(ncl(2))
+  //*********************************//
 end
 endfunction
 
-//Add scs_m.version
+//*** update scope ***//
 function scs_m_new=do_version42(scs_m)
-  scs_m_new=scicos_diagram(props=scs_m.props,...
-                           objs=scs_m.objs,...
-                           version='scicos4.2');
-  n=size(scs_m.objs);
-  for j=1:n //loop on objects
-    o=scs_m.objs(j);
-    if typeof(o)=='Block' then
-      omod=o.model;
-      if omod.sim=='super'|omod.sim=='csuper' then
-         rpar=do_version42(omod.rpar)
-         omod.rpar=rpar
-      end
-      o.model=omod;
-      scs_m_new.objs(j)=o;
-    end
-  end
-endfunction
-
-//Add model.opar for all blocks
-function scs_m_new=do_version402(scs_m)
-  scs_m_new=scs_m;
-  n=size(scs_m.objs);
-  mod=scicos_model();
-  for j=1:n //loop on objects
-    o=scs_m.objs(j);
-    if typeof(o)=='Block' then
-      //update model with in2/out2,intyp,outtyp
-      omod=o.model;
-      T=getfield(1,o.model);
-      Ttmp=[];tt=[];
-      for i=1:size(T,2)
-        Ttmp=[Ttmp,T(1,i)];
-        if i>1 then
-         if i<>size(T,2) then
-           tt=[tt+"omod."+T(1,i)+","];
-         else
-           tt=[tt+"omod."+T(1,i)];
-         end
-         if T(1,i)=='ipar' then
-           Ttmp=[Ttmp,'opar'];
-           tt=[tt+"mod.opar,"];
-         end;
-         if T(1,i)=='dstate' then
-           Ttmp=[Ttmp,'odstate'];
-           tt=[tt+"mod.odstate,"];
-         end;
-        end
-      end
-      Ttmp=sci2exp(Ttmp,0);
-      ierr=execstr("omod=tlist("+Ttmp+","+tt+")",'errcatch')
-      if ierr<>0 then
-         error("Problem in convertion of model of block.")
-      end
-      if omod.sim=='super'|omod.sim=='csuper' then
-         rpar=do_version402(omod.rpar)
-         omod.rpar=rpar
-      end
-      o.model=omod;
-      scs_m_new.objs(j)=o;
-     end
-  end
-endfunction
-
-//Update old scopes
-function scs_m_new=do_version401(scs_m)
-  scs_m_new=scs_m;
+  scs_m_new=scs_m
   n=size(scs_m.objs);
   %scicos_context=struct()
   [%scicos_context,ierr]=script2var(scs_m.props.context,%scicos_context)
@@ -144,7 +62,7 @@ function scs_m_new=do_version401(scs_m)
       omod=o.model;
       //SUPER BLOCK
       if omod.sim=='super'|omod.sim=='csuper' then
-        rpar=do_version401(omod.rpar)
+        rpar=do_version42(omod.rpar)
         scs_m_new.objs(j).model.rpar=rpar
       //name of gui and sim list change
       elseif o.gui=='SCOPE_f' then
@@ -261,84 +179,179 @@ function scs_m_new=do_version401(scs_m)
   end
 endfunction
 
-//Add model.in2,model.intype,model.out2 & model.outtype
-//for all blocks
-function scs_m_new=do_version4(scs_m)
-  scs_m_new=scs_m;
-  n=size(scs_m.objs);
-  mod=scicos_model();
-  gra=scicos_graphics();
-  for j=1:n //loop on objects
-    o=scs_m.objs(j);
-    if typeof(o)=='Block' then
-
-      //update model with in2/out2,intyp,outtyp
-      omod=o.model;
-      T=getfield(1,o.model);
-      Ttmp=[];tt=[];
-      for i=1:size(T,2)
-         Ttmp=[Ttmp,T(1,i)];
-         if i>1 then
-           if i<>size(T,2) then
-            tt=[tt+"omod."+T(1,i)+","];
-           else
-            tt=[tt+"omod."+T(1,i)];
-           end
-         end
-         if T(1,i)=='in' then 
-           Ttmp=[Ttmp,'in2'];
-           Ttmp=[Ttmp,'intyp'];
-           tt=[tt+"mod.in2,"];
-           tt=[tt+"mod.intyp,"];
-         end;
-         if T(1,i)=='out' then 
-           Ttmp=[Ttmp,'out2'];
-           Ttmp=[Ttmp,'outtyp'];
-           tt=[tt+"mod.out2,"];
-           tt=[tt+"mod.outtyp,"];
-         end;
-      end
-      Ttmp=sci2exp(Ttmp,0);
-      ierr=execstr("omod=tlist("+Ttmp+","+tt+")",'errcatch')
-      if ierr<>0 then
-         error("Problem in convertion of model of block.")
-      end
-      if omod.sim=='super'|omod.sim=='csuper' then
-         rpar=do_version4(omod.rpar)
-         omod.rpar=rpar
-      end
-
-      //update graphics with theta=0
-      ogra=o.graphics;
-      T=getfield(1,o.graphics);
-      Ttmp=[];tt=[];
-      for i=1:size(T,2)
-         Ttmp=[Ttmp,T(1,i)];
-         if i>1 then
-           if i<>size(T,2) then
-            tt=[tt+"ogra."+T(1,i)+","];
-           else
-            tt=[tt+"ogra."+T(1,i)];
-           end
-         end
-         if T(1,i)=='flip' then 
-           Ttmp=[Ttmp,'theta'];
-           tt=[tt+"gra.theta,"];
-         end;
-      end
-      Ttmp=sci2exp(Ttmp,0);
-      ierr=execstr("ogra=tlist("+Ttmp+","+tt+")",'errcatch')
-      if ierr<>0 then
-         error("Problem in convertion of graphics of block.")
-      end
-
-      o.model=omod;
-      o.graphics=ogra;
-      scs_m_new.objs(j)=o;
-     end
+// update_scs_m : function to do certification of
+//                main data structure of
+//                a scicos diagram (scs_m)
+//                for current version of scicos
+//
+//   certification is done through initial value of fields in :
+//      scicos_diagram()
+//         scicos_params()
+//         scicos_block()
+//            scicos_graphics()
+//            scicos_model()
+//         scicos_link()
+//
+// Initial rev 12/05/07 : Alan
+//
+function scs_m_new = update_scs_m(scs_m,version)
+  rhs = argn(2)
+  if rhs<2 then
+    version=get_scicos_version();
   end
-endfunction
 
+  scs_m_new = scicos_diagram();
+
+  F = getfield(1,scs_m);
+
+  for i=2:size(F,2)
+
+    select F(i)
+
+      //******************* props *******************//
+      case 'props' then
+
+        sprops = scs_m.props;
+        T = getfield(1,scs_m.props);
+        T_txt = [];
+        for j=2:size(T,2)
+          T_txt = T_txt + strsubst(T(1,j),'title','Title') + ...
+                  "=" + "sprops." + T(1,j);
+          if j<>size(T,2) then
+             T_txt = T_txt + ',';
+          end
+        end
+        T_txt = 'sprops=scicos_params(' + T_txt + ')';
+        ierr  = execstr(T_txt,'errcatch')
+        if ierr<>0 then
+           error("Problem in convertion of props in diagram.")
+        end
+        scs_m_new.props = sprops;
+      //*********************************************//
+
+      //******************** objs *******************//
+      case 'objs' then
+
+        for j=1:lstsize(scs_m.objs) //loop on objects
+
+          o=scs_m.objs(j);
+
+          select typeof(o)
+
+            //************** Block ***************//
+            case 'Block' then
+
+              o_new=scicos_block();
+              T = getfield(1,o);
+
+              for k=2:size(T,2)
+                select T(k)
+                  //*********** graphics **********//
+                  case 'graphics' then
+                    ogra  = o.graphics;
+                    G     = getfield(1,ogra);
+                    G_txt = [];
+                    for l=2:size(G,2)
+                      G_txt = G_txt + G(1,l) + ...
+                              "=" + "ogra." + G(1,l);
+                      if l<>size(G,2) then
+                        G_txt = G_txt + ',';
+                      end
+                    end
+                    G_txt = 'ogra=scicos_graphics(' + G_txt + ')';
+                    ierr  = execstr(G_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion of graphics in block.")
+                    end
+                    o_new.graphics = ogra;
+                  //*******************************//
+
+                  //************* model ***********//
+                  case 'model' then
+                    omod  = o.model;
+                    M     = getfield(1,o.model);
+                    M_txt = [];
+                    for l=2:size(M,2)
+                      M_txt = M_txt + M(1,l) + ...
+                              "=" + "omod." + M(1,l);
+                      if l<>size(M,2) then
+                        M_txt = M_txt + ',';
+                      end
+                    end
+                    M_txt = 'omod=scicos_model(' + M_txt + ')';
+                    ierr  = execstr(M_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion of model in block.")
+                    end
+                    //******** super block case ********//
+                    if omod.sim=='super'|omod.sim=='csuper' then
+                      rpar=update_scs_m(omod.rpar,version)
+                      omod.rpar=rpar
+                    end
+                    o_new.model = omod;
+                  //*******************************//
+
+                  //************* other ***********//
+                  else
+                    T_txt = "o."+T(k);
+                    T_txt = "o_new." + T(k) + "=" + T_txt;
+                    ierr  = execstr(T_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion in objs.")
+                    end
+                  //*******************************//
+
+                end  //end of select T(k)
+              end  //end of for k=
+              scs_m_new.objs(j) = o_new;
+            //************************************//
+
+            //************** Link ****************//
+            case 'Link' then
+
+              T     = getfield(1,o);
+              T_txt = [];
+              for k=2:size(T,2)
+                T_txt = T_txt + T(1,k) + ...
+                        "=" + "o." + T(1,k);
+                if k<>size(T,2) then
+                  T_txt = T_txt + ',';
+                end
+              end
+              T_txt = 'o_new=scicos_link(' + T_txt + ')';
+              ierr  = execstr(T_txt,'errcatch')
+              if ierr<>0 then
+                error("Problem in convertion of link in objs.")
+              end
+              scs_m_new.objs(j) = o_new;
+            //************************************//
+
+            //************* other ***********//
+            else  // ??
+                  // Alan : JESAISPASIYADAUTRESOBJS
+                  // QUEDESBLOCKSETDESLINKSDANSSCICOS
+                  // ALORSICIJEFAISRIEN
+              scs_m_new.objs(j) = o;
+            //************************************//
+
+          end //end of select typeof(o)
+
+        end //end of for j=
+       //*********************************************//
+
+      //** version **//
+      case 'version' then
+          //do nothing here
+          //this should be done later
+
+    end  //end of select  F(i)
+
+  end //end of for i=
+
+  //**update version **//
+  scs_m_new.version = version;
+
+endfunction
 
 function scs_m_new=do_version273(scs_m)
   scs_m_new=scs_m;
