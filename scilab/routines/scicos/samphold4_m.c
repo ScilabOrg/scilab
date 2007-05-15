@@ -8,7 +8,7 @@ void samphold4_m(scicos_block *block,int flag)
   Scicos block simulator
   returns sample and hold  of the input */
   
-if ((flag ==1)|(flag==6)) {
+if ((flag ==1)) {
   void *u,*y;
   int m,n,sz;
   m=GetInPortRows(block,1);
