@@ -1014,11 +1014,11 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   for (jj = 1; jj <= niord; ++jj) {
     C2F(curblk).kfun = iord[jj];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /* if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       nclock = iord[jj + niord];
       flag__ = 1;
       callf(told, xd, x, x,x,&flag__);
-	
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
@@ -2062,17 +2062,17 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   for (ii = ordptr[kever]; ii <=ordptr[kever + 1] - 1 ; ++ii) {
     C2F(curblk).kfun = ordclk[ii];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       nclock = abs(ordclk[ii + nordclk]);
       flag__ = 1;
       callf(told, xd, x, x,x,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     /*     .     Initialize tvec */
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
@@ -2211,16 +2211,16 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   for (jj = 1; jj <= ncord; ++jj) {
     C2F(curblk).kfun = cord[jj];
     nclock = cord[jj + ncord];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       flag__ = 1;
       callf(told, xd, x, x,x,&flag__);
-	    
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
@@ -2462,17 +2462,17 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   for (ii = ordptr[kever]; ii <= ordptr[kever + 1] - 1; ++ii) {
     C2F(curblk).kfun = ordclk[ii];
 
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       nclock = abs(ordclk[ii + nordclk]);
       flag__ = 1;
       callf(told, xd, x, x,x,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     /*     .     Initialize tvec */
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
@@ -2611,16 +2611,16 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   for (jj = 1; jj <= noord; ++jj) {
     C2F(curblk).kfun = oord[jj];
     nclock = oord[jj + noord];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /* if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {*/
       flag__ = 1;
       callf(told, xtd, xt, residual,x,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 	if(Blocks[C2F(curblk).kfun - 1].nmode > 0){
@@ -2799,16 +2799,16 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   for (jj = 1; jj <= noord; ++jj) {
     C2F(curblk).kfun = oord[jj];
     nclock = oord[jj + noord];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       flag__ = 1;
       callf(told, xd, x, x,x,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0 && funtyp[C2F(curblk).kfun] < 0) {
       /* if-then-else blk */
       if (funtyp[C2F(curblk).kfun] == -1) {
@@ -2996,18 +2996,18 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 
   for (ii = ordptr[kever]; ii <= ordptr[kever + 1] - 1; ++ii) {
     C2F(curblk).kfun = ordclk[ii];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       nclock = abs(ordclk[ii + nordclk]);
       flag__ = 1;
       callf(told, xtd, xt, xt,x,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
     /*     .     Initialize tvec */
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
 
       if (funtyp[C2F(curblk).kfun] < 0) {
@@ -3157,16 +3157,16 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   for (jj = 1; jj <= nzord; ++jj) {
     C2F(curblk).kfun = zord[jj];
     nclock = zord[jj + nzord];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       flag__ = 1;
       callf(told, xtd, xt, xt,xt,&flag__);
-
+      
       if (flag__ < 0) {
 	*ierr = 5 - flag__;
 	return;
       }
     }
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 
@@ -4439,9 +4439,9 @@ void Jdoit(residual, xt, xtd, told, job)
   for (jj = 1; jj <= noord; ++jj) {
     C2F(curblk).kfun = oord[jj];
     nclock = oord[jj + noord];
-    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) {
+    if (funtyp[C2F(curblk).kfun] > -1){ /*    if (outptr[C2F(curblk).kfun + 1] - outptr[C2F(curblk).kfun] > 0) { */
       flag__ = 1;
-
+      
       if ((*job==2)&&(oord[jj]==AJacobian_block)) {/* applying desired output */
       }else
 	callf(told, xtd, xt, residual,x,&flag__);      
@@ -4450,7 +4450,7 @@ void Jdoit(residual, xt, xtd, told, job)
 	return;
       }
     }
-
+    
     if (Blocks[C2F(curblk).kfun - 1].nevout > 0) {
       if (funtyp[C2F(curblk).kfun] < 0) {
 	if(Blocks[C2F(curblk).kfun - 1].nmode > 0){
