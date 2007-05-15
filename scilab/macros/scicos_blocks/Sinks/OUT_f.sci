@@ -103,6 +103,7 @@ case 'define' then
   model=scicos_model()
   model.sim='output'
   model.in=-1
+  model.intyp=-1
   model.ipar=prt
   model.blocktype='c'
   model.dep_ut=[%f %f]
