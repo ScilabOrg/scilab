@@ -79,7 +79,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	extract_bit_i8.obj extract_bit_ui32.obj extract_bit_ui16.obj extract_bit_ui8.obj mat_sqrt.obj \
 	matz_sqrt.obj relational_op_i32.obj relational_op_ui32.obj relational_op_i16.obj \
 	relational_op_ui16.obj relational_op_i8.obj relational_op_ui8.obj evtdly4.obj\
-	matmul2_m.obj matzmul2_m.obj expblk_m.obj\
+	matmul2_m.obj matzmul2_m.obj expblk_m.obj logic.obj\
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \

@@ -303,6 +303,7 @@ extern void evtdly4 __PARAMS((ARGS_scicos));
 extern void matmul2_m __PARAMS((ARGS_scicos));
 extern void matzmul2_m __PARAMS((ARGS_scicos));
 extern void expblk_m __PARAMS((ARGS_scicos));
+extern void logic __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -438,6 +439,7 @@ OpTab tabsim[] ={
 {"logicalop_ui16",(ScicosF) logicalop_ui16},
 {"logicalop_ui32",(ScicosF) logicalop_ui32},
 {"logicalop_ui8",(ScicosF) logicalop_ui8},
+{"logic",(ScicosF) logic},
 {"lookup",(ScicosF) F2C(lookup)},
 {"lsplit",(ScicosF) F2C(lsplit)},
 {"lusat",(ScicosF) F2C(lusat)},
@@ -608,6 +610,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 301 ;
+int ntabsim= 302 ;
 #endif 
 /***********************************/

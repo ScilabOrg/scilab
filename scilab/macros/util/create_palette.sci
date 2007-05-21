@@ -117,7 +117,8 @@ function routines=create_palette(Path)
       elseif txt=='Integer' then
 	lisf=['BITCLEAR.sci';'BITSET.sci';'CONVERT.sci';'EXTRACTBITS.sci';'INTLOGICAL_OP.sci';
 	      'INTMUL.sci';'INTREGISTER.sci';'RELATIONAL_OP.sci';'SUMMATIONI';'INTGAINBLK.sci';
-	      'SHIFT.sci']
+	      'SHIFT.sci';'LOGIC.sci';'DLATCH.sci';'DFLIPFLOP.sci';'JKFLIPFLOP.sci';
+	      'SRFLIPFLOP.sci']
       else
 	error('Palette '+txt+' does not exists')
       end
