@@ -57,6 +57,7 @@ case 'set' then
   end
 case 'define' then
   sgn=[0;0]
+  OPER=0;
   model=scicos_model()
   model.sim=list('shift_i32',4)
   model.in=-1
