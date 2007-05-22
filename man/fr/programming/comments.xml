@@ -12,9 +12,28 @@
   <SHORT_DESCRIPTION name="comments">commentaires</SHORT_DESCRIPTION>
 
   <DESCRIPTION>
-    <P>Les lignes de commandes commençant par <VERB> // </VERB> ne sont pas
+    <P>Une sequence de deux slash consécutifs <VERB> // </VERB> en
+    dehors de la définition d'une chaîne de caractères marque
+    le début d'un commentaire. Les deux slash ainsi que les
+    caractères suivant jusqu'à la fin de la ligne ne sont pas
     interprétées par Scilab.</P>
-
-
+<P> Dans la définition d'une fonction, les premières lignes de
+    commentaires (jusqu'à la première instruction ou la
+    première ligne vide peuvent fournir les éléménts du
+    help par défaut de la fonction.</P>
   </DESCRIPTION>
+<![CDATA[
+g=9.81// la gravité
+
+text='a//b'
+
+function y=myfunction(x)
+// myfunction calcule y=x^2+1
+// x doit être un vectuer ou une matrice
+  y=x^2+1
+endfunction
+
+help myfunction
+
+ ]]>
 </MAN>
