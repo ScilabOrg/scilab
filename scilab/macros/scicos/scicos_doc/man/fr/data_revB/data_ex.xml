@@ -1756,4 +1756,84 @@ Exemple
 </EXAMPLE>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
 </DATA>

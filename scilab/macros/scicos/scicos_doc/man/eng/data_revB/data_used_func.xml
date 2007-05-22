@@ -1382,7 +1382,12 @@ Add here the used function name and  references
 <FILE name='MATSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>mat_sum.c</LINK>,
+<LINK>mat_suml.c</LINK>,
+<LINK>mat_sumc.c</LINK>,
+<LINK>matz_sum.c</LINK>,
+<LINK>matz_suml.c</LINK>,
+<LINK>matz_sumc.c</LINK>,
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1390,7 +1395,8 @@ Add here the used function name and  references
 <FILE name='MATTRAN' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>mattran_m.c</LINK>,
+<LINK>matztran_m.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1398,7 +1404,7 @@ Add here the used function name and  references
 <FILE name='MATZCONJ' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>matz_conj.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1406,7 +1412,8 @@ Add here the used function name and  references
 <FILE name='MATZREIM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>matz_reim.c</LINK>,
+<LINK>matz_reimc.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1502,7 +1509,7 @@ Add here the used function name and  references
 <FILE name='RICC' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>ricc_m.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1785,7 +1792,8 @@ Add here the used function name and  references
 <FILE name='SQRT' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+<LINK>mat_sqrt.c</LINK>,
+<LINK>matz_sqrt.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1800,6 +1808,86 @@ Add here the used function name and  references
 <LINK>summation_ui16s</LINK>,<LINK>summation_ui8s</LINK>,
 <LINK>summation_i32e</LINK>,<LINK>summation_i16e</LINK>,<LINK>summation_i8e</LINK>,<LINK>summation_ui32e</LINK>,
 <LINK>summation_ui16e</LINK>,<LINK>summation_ui8e</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>logic.c</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
 </SP>
 </USED_FUNCTIONS>
 </FILE>

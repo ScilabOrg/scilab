@@ -1748,4 +1748,76 @@ Add here the function bibliography if any
 </BIBLIO>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

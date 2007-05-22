@@ -4546,10 +4546,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
+: Type 'vec' of size 1. It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -4558,10 +4555,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Sum along (0=all 1=lines  2=Columns)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
+: Type 'vec' of size 1. Indicates the used rule to sum. For more information see the description part.
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -4578,7 +4572,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -4606,7 +4600,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>decomposition type (1=Complex2Real&amp;Imag 2=Real&amp;Imag2Complex)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+Indicates the type to use for the decomposition. see the description part for more information.
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -5278,7 +5272,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Type (1=Cont  2=Disc)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+For continuous time signal set this parameter to 1. For discrete input time set it to 2.
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -5290,7 +5284,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Model(1=Schr  2=sign(cont) inv(disc))</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
+To use the Shur method in computation set this parameter to 1. To use matrix sign function approach in continuous case or the inverse free spectral decomposition method in discrete case set this parameter to 2.
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -6550,7 +6544,7 @@ Properties : Type 'mat' of size [1,2].
 <PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-: Type 'vec' of size 1. The parameter description 1.
+: Type 'vec' of size 1. It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -6589,6 +6583,122 @@ Properties : Type 'mat' of size [1,2].
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>a (&gt;0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Truth table</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The matrix of outputs. For more information see the description part.
+</SP>
+<SP>
+Properties : Type 'mat' of size [-1,-2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Inherit(0=no 1=yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+Specifies if the clock is inherit or not.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
 
 </PARAM_INDENT>
 </PARAM>

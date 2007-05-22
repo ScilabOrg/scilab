@@ -1783,4 +1783,84 @@ Ajoutez ici les noms et références des fonctions utilisées
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

@@ -8398,4 +8398,120 @@ Propriétés : Type 'mat' de taille [1,2].
 </PARAM>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>a (&gt;0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Truth table</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'mat' de taille [-1,-2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Inherit(0=no 1=yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

@@ -1747,4 +1747,84 @@ Ajoutez ici la bibliographie si besoin
 </BIBLIO>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

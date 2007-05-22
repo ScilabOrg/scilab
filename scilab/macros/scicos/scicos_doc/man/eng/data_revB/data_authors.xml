@@ -1532,32 +1532,32 @@ Add here the author  references
 
 <FILE name='MATSUM' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+:INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+:INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+:INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+:INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1660,8 +1660,8 @@ Add here the author  references
 
 <FILE name='RICC' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1916,8 +1916,8 @@ Add here the author  references
 
 <FILE name='SQRT' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1926,6 +1926,86 @@ Add here the author  references
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
 :INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+:INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>

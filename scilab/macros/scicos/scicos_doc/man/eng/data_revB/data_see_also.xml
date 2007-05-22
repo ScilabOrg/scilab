@@ -1539,32 +1539,27 @@
 
 <FILE name='MATSUM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>SUBMAT</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>SUMMATION</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <SEE_ALSO>
 <SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
+<LINK>MATMAGPHI</LINK>
 </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
@@ -1667,9 +1662,7 @@
 
 <FILE name='RICC' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1890,13 +1883,92 @@
 
 <FILE name='SQRT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>POWBLK_f</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUMMATIONI' type='XML'>
 <SEE_ALSO>
 <SEE_ALSO_ITEM> <LINK>SUMMATION</LINK> </SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 

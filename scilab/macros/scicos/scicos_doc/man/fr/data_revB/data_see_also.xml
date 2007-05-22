@@ -1662,4 +1662,84 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
 </DATA>

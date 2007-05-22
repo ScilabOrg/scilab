@@ -3044,4 +3044,124 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
 </DATA>

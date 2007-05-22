@@ -1215,24 +1215,34 @@ Example
 
 <FILE name='MATTRAN' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+<P>.                        Complex </P>
+<P> --                  --               --           --</P>
+<P> | 1+i   2+3i    3+2i |   Tranpose    | 1- i   4- i |</P>
+<P> | 4+i   5-8i    6-2i | ----------->  | 2-3i   5+8i |</P>
+<P> --                  --               | 3-2i   6+2i |</P>
+<P> .                                    --           --</P>
+<P>.                  Real </P>
+<P> --          --               --      --</P>
+<P> | 1   -2   3 |   Tranpose    | 1    4 |</P>
+<P> | 4   5    6 | ----------->  |- 2   5 |</P>
+<P> --          --               | 3    6 |</P>
+<P>.                            --      --</P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+<P> --                  --               --                  --</P>
+<P> | 1+i   2+3i    3+2i |  Conjugate    | 1-i   2-3i    3-2i |</P>
+<P> | 4+i   5-8i    6-2i | ----------->  | 4-i   5+8i    6+2i |</P>
+<P> --                  --               --                  --</P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <EXAMPLE>
 <P>
-Example
+
 </P>
 </EXAMPLE>
 </FILE>
@@ -1328,7 +1338,7 @@ Example
 <FILE name='RICC' type='XML'>
 <EXAMPLE>
 <P>
-Example
+
 </P>
 </EXAMPLE>
 </FILE>
@@ -1574,12 +1584,102 @@ Example
 <FILE name='SQRT' type='XML'>
 <EXAMPLE>
 <P>
-Example
+
 </P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='SUMMATIONI' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<EXAMPLE>
+<P>
+The easiest example to consider is the OR example. In this case we have two inputs and only one output.the truth table for this example is [0;1;1;1].</P>
+<P>|-----------|-----------|-----------| </P>
+<P>|  input 1  |  input 2  |  output   | </P>
+<P>|-----------|-----------|-----------| </P>
+<P>|     0     |     0     |     0     | </P>
+<P>|-----------|-----------|-----------| </P>
+<P>|     0     |     1     |     1     | </P>
+<P>|-----------|-----------|-----------| </P>
+<P>|     1     |     0     |     1     | </P>
+<P>|-----------|-----------|-----------| </P>
+<P>|     1     |     1     |     1     | </P>
+<P>|-----------|-----------|-----------| </P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<EXAMPLE>
+<P>
+Example
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
 <EXAMPLE>
 <P>
 Example

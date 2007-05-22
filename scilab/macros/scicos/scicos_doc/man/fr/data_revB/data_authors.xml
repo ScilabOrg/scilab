@@ -1930,4 +1930,84 @@ Ajoutez ici les références des auteurs
 </AUTHORS>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='INVBLK_m' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
 </DATA>
