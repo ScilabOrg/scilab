@@ -832,7 +832,13 @@ cd .. &gt;nul
 				RelativePath=".\evaluate_expr.c">
 			</File>
 			<File
+				RelativePath=".\evtdly4.c">
+			</File>
+			<File
 				RelativePath=".\evtvardly.c">
+			</File>
+			<File
+				RelativePath=".\expblk_m.c">
 			</File>
 			<File
 				RelativePath=".\extdiag.c">
@@ -958,6 +964,9 @@ cd .. &gt;nul
 				RelativePath=".\invblk4.c">
 			</File>
 			<File
+				RelativePath=".\logic.c">
+			</File>
+			<File
 				RelativePath=".\logicalop.c">
 			</File>
 			<File
@@ -1037,6 +1046,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\mat_vpv.c">
+			</File>
+			<File
+				RelativePath=".\matmul2_m.c">
 			</File>
 			<File
 				RelativePath=".\matmul_i16e.c">
@@ -1172,6 +1184,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\matz_vpv.c">
+			</File>
+			<File
+				RelativePath=".\matzmul2_m.c">
 			</File>
 			<File
 				RelativePath=".\matzmul_m.c">
