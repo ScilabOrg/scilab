@@ -230,7 +230,7 @@ function ilib_link_gen_Make_lcc(names,files,libs,Makename,libname,ldflags,cflags
   mfprintf(fd,"CC=lcc\n");
   mfprintf(fd,"LINKER=lcclnk\n");
   //mfprintf(fd,"CFLAGS=-I""$(SCIDIR)/routines"" -Dmexfunction_=mex$*_  -DmexFunction=mex_$* "+ cflags +" \n"); 
-  mfprintf(fd,"CFLAGS=-I""$(SCIDIR)/routines"" -I""$(SCIDIR)/routines/f2c"" -Dmexfunction_=mex$*_ -DmexFunction=mex_$* -DWIN32 -DSTRICT -DFORDLL -D__STDC__ "+ cflags +" \n"); 
+  mfprintf(fd,"CFLAGS=-I""$(SCIDIR)/routines"" -I""$(SCIDIR)/routines/f2c"" -Dmexfunction_=mex$*_ -DmexFunction=mex_$* -DWIN32 -DSTRICT -DFORDLL -D__STDC__ -DHAVE_EXP10 "+ cflags +" \n"); 
   mfprintf(fd,"LINKER_FLAGS=-dll -nounderscores\n");
   mfprintf(fd,"EXTRA_LDFLAGS = "+ ldflags+"\n");
   mfprintf(fd,"O=.obj\n");
