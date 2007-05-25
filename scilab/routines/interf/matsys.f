@@ -50,7 +50,7 @@ c     resu form  isdef   exists errcatch errclear iserror predef
 c     11   12     13    14      15       16       17      18
 c     newfun clearfun  funptr  macr2lst setbpt delbpt dispbpt
 c     19      20       21       22       23     24      25
-c     funcprot whereis where   timer         havewindow stacksize
+c     funcprot whereis where   timer  notify havewindow stacksize
 c     26         27    28      29       30       31       32
 c     mtlb_mode  link     ulink  c_link addinter <free>   <free>
 c     33         34        35     36    37       38        39
@@ -62,8 +62,8 @@ c     lasterror version loadhistory savehistory gethistory resethistory macr2tre
 c     53         54        55          56         57          58        59
 c     sleep getos
 c     60    61 
-c     banner fromjava Calendar getmemory fromc
-c     62     63       64        65       66
+c     banner fromjava Calendar getmemory fromc bytecode
+c     62     63       64        65       66      67
       if (ddt .eq. 4) then
          write(buf(1:4),'(i4)') fin
          call basout(io,wte,' matsys '//buf(1:4))
@@ -78,7 +78,7 @@ c
      +      450,500,510,600,610,620,630,640,650,660,
      +      670,680,681,682,683,684,690,691,692,693,
      +      694,695,697,698,699,700,701,702,703,
-     +      705,706,707,708,709,710,711),fin
+     +      705,706,707,708,709,710,711,712),fin
 c     
 c     debug
  10   call intdebug()
@@ -276,6 +276,8 @@ c     mtlb_mode
  710  call intgetmemory('getmemory')
       goto 999
  711  call intfromc('fromc')
+      goto 999   
+ 712  call intbytecode()
       goto 999   
  998  continue
 c     fake calls : only to force the 
@@ -3331,5 +3333,73 @@ c
       il=iadr(lstk(top))
       istk(il)=0
       lstk(top+1)=lstk(top)+1
+      return
+      end
+
+      subroutine intbytecode()
+c     Copyright INRIA
+      include '../stack.h'
+      logical checkrhs,checklhs,cremat,getscalar,getrmat
+      integer gettype, volk
+      logical byref
+c
+      integer iadr,sadr
+c    
+      iadr(l)=l+l-1
+      sadr(l)=(l/2)+1
+
+
+      rhs=max(0,rhs)
+      if(.not.checkrhs('bytecode',1,1)) return
+      if(.not.checklhs('bytecode',1,1)) return
+      il=iadr(lstk(top))
+      il0=il
+      if(istk(il).lt.0) then
+        ilres=il
+        il=iadr(istk(il+1))
+        k=istk(il+2)
+        if (k.eq.0) then
+           vol=istk(il+3)
+        else
+           vol=(lstk(k+1)-lstk(k))
+        endif
+        err=lstk(top)+vol+2-lstk(bot)
+        if(err.gt.0) then
+            call error(17)
+            return
+         endif
+
+      endif
+
+
+      ilres=iadr(lstk(top+1))
+
+      if(abs(istk(il)).eq.13) then
+c     .  function to bytecode
+c     .  first remove padding (looking for opcode 15 at the end
+ 10      ilres=ilres-1
+         if(istk(ilres).ne.15) goto 10
+         n=ilres-il
+         err=lstk(top+1)+4-lstk(bot)
+         if(err.gt.0) then
+            call error(17)
+            return
+         endif
+         call icopy(n,istk(il+1),-1,istk(il+4),-1)
+         lstk(top+1)=sadr(il+3+n)
+         istk(il)=8
+         istk(il+1)=1
+         istk(il+2)=n
+         istk(il+3)=4
+      elseif(istk(il).eq.8.and.istk(il+3).eq.4) then
+c     .  bytecode to function
+         n=istk(il+1)*istk(il+2)
+         call icopy(n,istk(il+4),-1,istk(il+1),-1)
+         lstk(top+1)=sadr(il+n)
+         istk(il)=13
+      else
+         err=1
+         call error(44)
+      endif
       return
       end

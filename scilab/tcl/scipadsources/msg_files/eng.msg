@@ -1,4 +1,4 @@
-# in sync at least with v5.62
+# in sync at least with v5.62+added taiwanese
 # English is the original language of Scipad
 # Scipad tcl/tk source should use english texts
 # for instance [mc "your text in english here"]
@@ -10,25 +10,29 @@
 ::msgcat::mcset eng aboutme_message \
                     "\n Originated by Joseph Acosta, joeja@mindspring.com.\n\
                     Modified by Scilab Consortium.\n\
-                    Revised by Enrico Segre 2003-2005.\n\
+                    Revised by Enrico Segre 2003-2006.\n\
                     Miscellaneous improvements, particularly debug tools,\
-                    by FranÁois Vogel 2004-2005.\n\
+                    by Fran√ßois Vogel 2004-2007.\n\
                     Swedish translation by Gunnar Lindholm 2005.\n\
-                    Norwegian translation by Torbj¯rn Pettersen 2005.\n\
+                    Norwegian translation by Torbj√∏rn Pettersen 2005.\n\
                     German translation by Dirk Reusch 2005.\n\
                     Polish translation by Bartosz Kosiorek 2005.\n\
-                    Spanish translation by Juan Nicol·s Quesada 2006"
+                    Spanish translation by Juan Nicol√°s Quesada 2006.\n\
+                    Chinese translation by Yung-Jang Lee 2007.\n\
+                    Danish translation by Kim B. Hansen 2007."
 
 # menues.tcl 
   # locale names (common)
+        ::msgcat::mcset eng "da locale (da)" "Dansk (da)"
         ::msgcat::mcset eng "de locale (de)" "Deutsch (de)"
-        ::msgcat::mcset eng "fr locale (fr)" "FranÁais (fr)"
+        ::msgcat::mcset eng "fr locale (fr)" "Fran√ßais (fr)"
         ::msgcat::mcset eng "eng locale (eng)" "English (eng)"
-        ::msgcat::mcset eng "es locale (es)" "EspaÒol (es)"
+        ::msgcat::mcset eng "es locale (es)" "Espa√±ol (es)"
         ::msgcat::mcset eng "it locale (it)" "Italiano (it)"
         ::msgcat::mcset eng "no locale (no)" "Norsk (no)"
         ::msgcat::mcset eng "pl locale (pl)" "Polski (pl)"
         ::msgcat::mcset eng "se locale (se)" "Svenska (se)"
+        ::msgcat::mcset eng "zh_tw locale (zh_tw)" "‰∏≠ÊñáÁπÅÈ´î (zh_tw)"
 
 
 # popupmenus.tcl

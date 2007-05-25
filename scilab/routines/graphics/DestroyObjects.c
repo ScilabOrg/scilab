@@ -514,13 +514,19 @@ DestroySurface (sciPointObj * pthis)
   psonstmp = sciGetSons (psubwin);
   while (psonstmp != (sciSons *) NULL)	
     {   
-      if(sciGetEntityType (psonstmp->pointobj) == SCI_SURFACE) 
+      if(sciGetEntityType (psonstmp->pointobj) == SCI_SURFACE)
+      {
 	cmpt=cmpt+1;
+      }
       psonstmp = psonstmp->pnext;
     }
-  if (cmpt < 2){
+  if (cmpt < 2)
+  {
     if ((pobj= sciGetMerge(psubwin)) != (sciPointObj *) NULL)
-      DestroyMerge(pobj); 
+    {
+      DestroyMerge(pobj);
+      
+    }
   }
   else
     Merge3d(psubwin);
@@ -886,5 +892,30 @@ void delete_sgwin_entities(int win_num,int v_flag)
 	  }
     }
 }
-
-
+/*------------------------------------------------------------------------------------*/
+/**
+ * Update the merge object of a subwindow. If there is not anymore surface in the descendants
+ * then object is cleared. Otherwise a new merge3d is created. This function should be called
+ * after a modifications of the graphic hierarchy related with surfaces.
+ * @return 0 if the call was successful, -1 otherwise.
+ */
+int updateMerge( sciPointObj * pSubwin )
+{
+  if ( sciGetNbTypedObjects( pSubwin, SCI_SURFACE ) == 0 )
+  {
+    sciPointObj * merge = sciGetMerge( pSubwin ) ;
+    if ( merge != NULL )
+    {
+      DestroyMerge( merge ) ;
+    }
+    pSUBWIN_FEATURE( pSubwin )->facetmerge = FALSE ;
+  }
+  else
+  {
+    /* the merge 3d is updated */
+    Merge3d( pSubwin ) ;
+    pSUBWIN_FEATURE( pSubwin )->facetmerge = TRUE ;
+  }
+  return 0 ;
+}
+/*-----------------------------------------------------------------------------------------*/
