@@ -138,7 +138,8 @@ int PushClickQueue(int win,int x,int y,int ibut, int motion,int release)
 	ClickBuf[lastc-1].ibutton = ibut;
 	ClickBuf[lastc-1].x = x;
 	ClickBuf[lastc-1].y = y;
-	sciprint(".");
+	/* comments Serge */
+	/* sciprint("."); */
  
       }	
       else {
