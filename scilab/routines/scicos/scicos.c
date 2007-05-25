@@ -1357,6 +1357,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	  for (jj = 0; jj < ng; ++jj) {
 	    if((g[jj]>=0.0)&&(jroot[jj]==-5)) {istate=3;jroot[jj]=1;}
 	    else if((g[jj]<0.0)&&(jroot[jj]==5)) {istate=3;jroot[jj]=-1;}
+	    else jroot[jj]=0;
 	  }
 	}
 	/*--discrete zero crossings----dzero--------------------*/
