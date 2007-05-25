@@ -1244,7 +1244,15 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     freeall;
     return;
   }
-
+  /*--discrete zero crossings----dzero--------------------*/
+  if (ng>0){ /* storing ZC signs just after a solver call*/
+    zdoit(g, x, x, told); 
+    if (*ierr != 0) {freeall;return;  }
+    for (jj = 0; jj < ng; ++jj)
+      if(g[jj]>=0) jroot[jj]=5;else jroot[jj]=-5;
+  }
+  /*--discrete zero crossings----dzero--------------------*/ 
+  
 
   /*     main loop on time */
 
@@ -1672,6 +1680,13 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   if (*ierr != 0) {
     freeallx;
     return;
+  }
+  /*--discrete zero crossings----dzero--------------------*/
+  if (ng>0){ /* storing ZC signs just after a solver call*/
+    zdoit(g, x, x, told); 
+    if (*ierr != 0) {freeall;return;  }
+    for (jj = 0; jj < ng; ++jj)
+      if(g[jj]>=0) jroot[jj]=5;else jroot[jj]=-5;
   }
   /*     main loop on time */
   while (*told < *tf) {
