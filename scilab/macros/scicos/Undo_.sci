@@ -6,9 +6,10 @@ function Undo_()
     
     if enable_undo then
        disablemenus()
-         scs_m = scs_m_save    ; //** revover the previous diagram 
+         scs_m = scs_m_save ; //** recover the previous diagram
+	 Select = [] ; //** unselect object  
          needcompile = nc_save ;
-         %wdm=scs_m.props.wpar ;
+         %wdm = scs_m.props.wpar ;
 
          //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
          gh_curwin = gh_current_window ; //** get the handle of the current graphics window
