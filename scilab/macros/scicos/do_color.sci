@@ -93,6 +93,7 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
 	  size_of_graphic_objext = size(gh_compound.children) ;
 	  first_graphic_objext = size_of_graphic_objext(1) ;
 	  gh_compound.children(first_graphic_objext).background = coln;
+	  drawobj(o);
 	end
       
       end

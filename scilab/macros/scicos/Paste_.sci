@@ -20,35 +20,45 @@ function Paste_()
 //** Multiple selection is permitted: each object is a line of the matrix.  
 
 //** Check for "Replace" or "Paste in the void" datastrucure 
-  
+   
 if and(size(Select)==[1,2]) then //** only one object selected 
   
   Sel_obj = scs_m.objs(Select(1,1)) ; 
   
   if (typeof(Clipboard)=='Block' & typeof(Sel_obj)=='Block')
    //** ready for "Replace" operation 
-   disp("Paste -> Replace operation ") 
-   [scs_m, needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
+   
+   // This case is used when trying to replace a block by itself
+   // It does a duplicate to be Simulink/Dymola compatible
+   if and(Clipboard.graphics.sz==Sel_obj.graphics.sz)& ...
+	 (Clipboard.graphics.orig==Sel_obj.graphics.orig) then
+     scs_m_save = scs_m; nc_save = needcompile ;
+     
+      blk = Clipboard
+      blk.graphics.orig = Clipboard.graphics.orig+Clipboard.graphics.sz/2;
+      scs_m.objs($+1) = blk //** add the object at the top 
+      drawobj(blk); //** draw the single object 
+      edited = %t
+      enable_undo = %t
+      Select = [size(scs_m.objs),%win]; //** it's a really dirty trick ;)
+                                        //** because the pasted object is the last ;)
+     else
+       [scs_m, needcompile] = do_replace(scs_m, needcompile, Clipboard,Select)
+   end
+   
   else
    disp("Paste -> Source / Destination incompatible"); 
    Cmenu=[]; %pt = []; %ppt = [] ; return 
   end
   
 else   
-    //** if it is a "Block" or a "Text"
-    disp("Paste -> Paste in the void operation ") 
-    
-    if %ppt==[] then
-      disp("Click in the empty destination position before paste operation")
-      Cmenu=[]; %pt = []; %ppt = [] ; return 
-    end  
-    
-    disp(%pt); disp(%ppt) ;
-    
     
     if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
       
       scs_m_save = scs_m; nc_save = needcompile ;
+      if %ppt==[] then
+	%ppt=Clipboard.graphics.orig+Clipboard.graphics.sz/2;      
+      end  
       
       blk = Clipboard
       blk.graphics.orig = %ppt
@@ -61,7 +71,27 @@ else
     
     //** if it is a Diagram (Block, Text and Link)
     elseif  typeof(Clipboard)=='diagram' then
-      reg = Clipboard;
+      reg = Clipboard;   
+      if %ppt==[] then
+	for i=1:size(Clipboard.objs)
+	  if typeof(Clipboard.objs(i))=="Block" then 
+	    if %ppt==[] then
+	      %ppt(1)=Clipboard.objs(i).graphics.orig(1);%ppt(2)=Clipboard.objs(i).graphics.orig(2);
+	    else
+	      %ppt(1)=min(%ppt(1),Clipboard.objs(i).graphics.orig(1));
+	      %ppt(2)=min(%ppt(2),Clipboard.objs(i).graphics.orig(2));
+	    end,
+	  end
+	end
+	if %ppt==[] then
+	  disp('No block is selected.');
+	  Cmenu=[]; %pt = []; %ppt = [] ; return 
+	else
+	  %ppt=%ppt+10   // decalage, a modifier
+	end
+      end
+      
+      
       Clipboard = list()  // region is not persistent
       
    
