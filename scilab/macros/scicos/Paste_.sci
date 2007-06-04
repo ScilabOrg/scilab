@@ -92,7 +92,7 @@ else
       end
       
       
-      Clipboard = list()  // region is not persistent
+      Clipboard = list()   // region is not persistent
       
    
       if size(reg.objs)>=1 then
