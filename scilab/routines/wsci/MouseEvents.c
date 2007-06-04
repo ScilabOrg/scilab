@@ -56,6 +56,47 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 	int horzsinPos=ScilabGC->horzsi.nPos;
 	int vertsinPos=ScilabGC->vertsi.nPos;
 
+	
+	if (lose_up_left)
+	{
+		lose_up_left = FALSE;
+		KillTimerLeft(hwnd);
+		KillTimerMiddle(hwnd);
+		KillTimerRight(hwnd);
+
+		wait_dclick_left=FALSE;
+
+		PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY + vertsinPos,CLCK_LEFT, 0, 0);
+		return;
+	}
+
+	if (lose_up_middle)
+	{
+		lose_up_middle = FALSE;
+		KillTimerLeft(hwnd);
+		KillTimerMiddle(hwnd);
+		KillTimerRight(hwnd);
+
+		wait_dclick_middle=FALSE;
+
+		PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY + vertsinPos,CLCK_MIDDLE, 0, 0);
+		return;
+	}
+
+
+	if (lose_up_right)
+	{
+		lose_up_right = FALSE;
+		KillTimerLeft(hwnd);
+		KillTimerMiddle(hwnd);
+		KillTimerRight(hwnd);
+
+		wait_dclick_right=FALSE;
+
+		PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY + vertsinPos,CLCK_RIGHT, 0, 0);
+		return;
+	}
+
 	if ( wait_dclick_left || wait_dclick_middle || wait_dclick_right )
 	{
 		if (wait_dclick_left)
