@@ -68,7 +68,7 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
       
       end
     
-    //** ------------------ Block -------------------------  
+    //** ------------------  Block -------------------------  
     elseif typeof(o)=='Block' then
       
       if type(o.graphics.gr_i)==10 then,
