@@ -6,7 +6,7 @@ x=pt(1);y=pt(2)
 data=[]
 k=[]
 eps=6
-for i=1:n //loop on objects
+for i=n:-1:1 //loop on objects
   o=scs_m.objs(i)
   if typeof(o)=='Block'|typeof(o)=='Text' then
     [orig,sz]=(o.graphics.orig,o.graphics.sz)

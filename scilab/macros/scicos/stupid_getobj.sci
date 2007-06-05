@@ -13,15 +13,8 @@ function [k,wh,scs_m] = stupid_getobj(scs_m,pt)
 
     o = scs_m.objs(i);
 
-    //**-------- If it is a Block ---------------------------------------
-    if typeof(o)=='Block' then
-      graphics = o.graphics
-      [orig,sz] = (graphics.orig,graphics.sz)
-      data = [(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
-      if data(1)<0&data(2)<0 then k=i, break, end ;
-
-    //**--------- If it is a Link ----------------------------------------
-    elseif typeof(o)=='Link' then
+    
+    if typeof(o)=='Link' then
       eps = 3 ;
       xx = o.xx; yy = o.yy;
       [d, ptp, ind] = stupid_dist2polyline(xx, yy, pt, 0.85)
@@ -51,12 +44,7 @@ function [k,wh,scs_m] = stupid_getobj(scs_m,pt)
 	end
       end
 
-    //**---------- If it is a Text --------------------------------------
-    elseif typeof(o)=='Text' then
-      graphics=o.graphics
-      [orig,sz]=(graphics.orig,graphics.sz)
-      data=[(orig(1)-x)*(orig(1)+sz(1)-x),(orig(2)-y)*(orig(2)+sz(2)-y)]
-      if data(1)<0&data(2)<0 then k=i,break,end
+   
     end
   end
 endfunction
