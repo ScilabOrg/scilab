@@ -11,7 +11,7 @@ function Move_()
   SelectSize = SelectSize(1) ; //**  row 
   if  SelectSize == 1 & typeof(scs_m.objs(Select(1)))=="Link" then     
   //** if ONE or NO object are selected 
-     [scs_m] = do_stupidmove(%pt, scs_m) ; //** Stupid is whos stupid does :)
+     [scs_m] = do_stupidmove(%pt, Select,scs_m) ; //** Stupid is whos stupid does :)
                                            //** Select is not used here ....
   else //** multiple object are selected
   

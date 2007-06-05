@@ -1,4 +1,4 @@
-function [scs_m] = do_stupidmove(%pt,scs_m)
+function [scs_m] = do_stupidmove(%pt,Select,scs_m)
 // Copyright INRIA
 // get a scicos object to move, and move it with connected objects
 //!
@@ -19,7 +19,7 @@ function [scs_m] = do_stupidmove(%pt,scs_m)
   yc = %pt(2) ;
 
   //** look for a valid object 
-  [k, wh, scs_m] = stupid_getobj(scs_m,[xc;yc]) ; 
+  [k, wh, scs_m] = stupid_getobj(scs_m,Select,[xc;yc]) ; 
   
   //** "k" is the object index in the data structure "scs_m"
   if k==[] then
