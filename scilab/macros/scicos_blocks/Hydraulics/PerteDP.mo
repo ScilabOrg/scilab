@@ -1,4 +1,4 @@
-class PerteDP 
+model PerteDP 
   parameter Real L "Longueur du tube";
   parameter Real D "Diametre interne du tube";
   parameter Real lambda "Coefficient de perte de charge-frottement (s.u.)";
