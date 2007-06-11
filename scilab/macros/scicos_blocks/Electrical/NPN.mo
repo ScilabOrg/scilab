@@ -1,4 +1,4 @@
-class NPN "Simple BJT according to Ebers-Moll" 
+model NPN "Simple BJT according to Ebers-Moll" 
   parameter Real Bf=50 "Forward beta";
   parameter Real Br=0.1 "Reverse beta";
   parameter Real Is=1.e-16 "Transport saturation current";
