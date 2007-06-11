@@ -29,17 +29,16 @@ function txt=gen_outline_pal(listf)
 endfunction
 
 //gen_scs_outline
-function turlututu=generate_scs_outline()
- turlututu = ["<WHATIS>";
+function tt=generate_scs_outline()
+ tt = ["<WHATIS>";
               "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
-              "  <DATE>19 Septembre 2006</DATE>"; //A long time ago in the Scicos's galaxy ...
-                                                  //-composed of many stars (haaa I'd like to say many blocks)-
+              "  <DATE>19 Septembre 2006</DATE>";
               "";
               "  <CHAPTER eng=""Editor"" fr=""Editeur""></CHAPTER>";
               "";
               "  <CHAPTER eng=""Blocks list"" fr=""Liste des blocs"">"];
 
- turlututu = [turlututu;
+ tt = [tt;
               ""
               "  "+gen_outline_pal(listf_of_sources);
               ""
@@ -66,7 +65,7 @@ function turlututu=generate_scs_outline()
               "  "+ gen_outline_pal(listf_of_intop);
               ""]
 
-  turlututu = [turlututu;
+  tt = [tt;
                "  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Batch functions"" fr=""Fonctions en ligne de commande"">"
@@ -156,10 +155,13 @@ utilpath=SCI+'/macros/util/';
                     'eng/data_revB/'];
 
 //set target directories of html files
-%gendoc.mpath.html=doc_path+'/help/'+...
-                   ['fr_FR/';
-                    'en_US/'];
-%gendoc.mpath.html_img='../images/';
+// %gendoc.mpath.html=doc_path+'/help/'+...
+//                    ['fr_FR/';
+//                     'en_US/'];
+%gendoc.mpath.html=SCI+'/man/'+...
+                   ['fr/scicos/';
+                    'eng/scicos/'];
+%gendoc.mpath.html_img='../../images/scicos/';
 
 //create target directories
 create_gendoc_dirs(%gendoc);
@@ -324,7 +326,7 @@ clear i;clear listf;
 listf_of_matop=[palpath,"Matrix.cosf","pal"];
 listf = basename(listfiles(opath2(13)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'ROOTCOEF.sci' then //!!!!!!! YAUNB�GICI
+  if listf(i)<>'INTGAINBLK.sci' then //!!!!!!! YAUNB�GICI
     listf_of_matop=[listf_of_matop;
                    opath2(13),listf(i),"block"];
   end

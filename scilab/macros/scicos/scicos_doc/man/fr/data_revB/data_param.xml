@@ -8400,25 +8400,13 @@ Propriétés : Type 'mat' de taille [1,2].
 
 <FILE name='DFLIPFLOP' type='XML'>
 <PARAM>
-<PARAM_INDENT>
 
-</PARAM_INDENT>
 </PARAM>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <PARAM>
-<PARAM_INDENT>
 
-</PARAM_INDENT>
-</PARAM>
-</FILE>
-
-<FILE name='DLATCH1' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-</PARAM_INDENT>
 </PARAM>
 </FILE>
 
@@ -8452,17 +8440,7 @@ Propriétés : Type 'vec' de taille 1.
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <PARAM>
-<PARAM_INDENT>
 
-</PARAM_INDENT>
-</PARAM>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-</PARAM_INDENT>
 </PARAM>
 </FILE>
 
@@ -8500,18 +8478,9 @@ Propriétés : Type 'vec' de taille 1.
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <PARAM>
-<PARAM_INDENT>
 
-</PARAM_INDENT>
 </PARAM>
 </FILE>
 
-<FILE name='SRFLIPFLOP1' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-</PARAM_INDENT>
-</PARAM>
-</FILE>
 
 </DATA>

@@ -1110,25 +1110,19 @@
 
 <FILE name='CUMSUM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATSUM</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATSUM</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>EXTTRI</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTTRI</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>EXTRACT</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTRACT</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1141,33 +1135,25 @@
 
 <FILE name='MATCATH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATCATV</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATCATV</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATCATV' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATCATH</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATCATH</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATDET' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATINV</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATINV</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATDIAG' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>EXTTRI</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>EXTTRI</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1180,17 +1166,13 @@
 
 <FILE name='MATEIG' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATSING</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATSING</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATEXPM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATMUL</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATMUL</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1203,9 +1185,7 @@
 
 <FILE name='MATLU' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATINV</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATINV</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1236,9 +1216,7 @@
 
 <FILE name='MATRESH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>EXTRACT</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTRACT</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1251,289 +1229,217 @@
 
 <FILE name='Matrix_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1558,105 +1464,79 @@
 
 <FILE name='MATZREIM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>MATMAGPHI</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATMAGPHI</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='OldBlocks_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1668,129 +1548,97 @@
 
 <FILE name='SAMPHOLD' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1815,7 +1663,7 @@
 
 <FILE name='GAINBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1846,13 +1694,13 @@
 
 <FILE name='Integer_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1864,13 +1712,13 @@
 
 <FILE name='RELAY_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM> <LINK>add a key here</LINK> </SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1895,57 +1743,37 @@
 
 <FILE name='DFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='DLATCH1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1958,17 +1786,9 @@
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 

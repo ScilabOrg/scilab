@@ -2601,28 +2601,74 @@ This block computes the matrix summation/substraction of the inputs matrices. Th
 </DESCRIPTION>
 </FILE>
 
-<FILE name='DFLIPFLOP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DFLIPFLOP' type='LATEX'>
+The DFLIPFLOP block outputs the input state when the enable is set and on the rising edge of the clock. The input is D the enable is en and the clock is clk. Q and !Q are the outputs of this block. This block is almostly used with digital number, the input data type is int8.\\
+
+The truth table of this block is
+\begin{tabular}{|c|c||c|c|}
+\hline
+en&
+D&
+Q&
+!Q\\
+\hline
+0&
+0&
+0&
+1\\
+\hline
+0&
+1&
+0&
+1\\
+\hline
+1&
+0&
+0&
+1\\
+\hline
+1&
+1&
+1&
+0\\
+\hline
+\end{tabular}
 </FILE>
 
-<FILE name='DLATCH' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DLATCH' type='LATEX'>
+This block outputs the input state when the input gate is high. The input is D the enable is C. Q and !Q are the outputs of this block.
+This block is almostly used with digital number, the input data type is int8.\\
+
+The truth table of this block is
+
+\begin{tabular}{|c|c||c|c|}
+\hline
+C&
+D&
+Q&
+!Q\\
+\hline
+0&
+0&
+0&
+1\\
+\hline 
+0&
+1&
+0&
+1\\
+\hline 
+1&
+0&
+0&
+1\\
+\hline 
+1&
+1&
+1&
+0\\
+\hline
+\end{tabular}
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
@@ -2661,28 +2707,39 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='JKFLIPFLOP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
+<FILE name='JKFLIPFLOP' type='LATEX'>
+The JK flip flop is the most versatile of the basic flip-flops. It has two inputs traditionaly labeled J and K. When J and K are different, the output takes the value of J at the next falling edge. When J and K are both low, no change occurs in the output state, when they are both high the output will toggle from one state to other. It can perform the functions of the set/reset flip-flop and has the advantage that there are no ambiguous states. It can also act as a T flip-flop to accomplish toggling action if J and K are tied together. This toggle application finds extensive use in binary counters.This block is almostly used with digital number, the input data type is int8.\\
 
-<FILE name='JKFLIPFLOP1' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+The truth table of this block is
+
+\begin{tabular}{|c|c||c|c|}
+\hline
+J&
+K&
+Q(t)&
+!Q(t)\\
+\hline
+0&
+0&
+Q(t-1)&
+!Q(t-1)\\
+\hline
+0&
+1&
+0&
+1\\
+\hline
+1&
+0&
+1&
+0\\
+\hline
+1&
+1&
+!Q(t-1)&
+Q(t-1)\\
+\hline
+\end{tabular}
 </FILE>
 
 <FILE name='LOGIC' type='XML'>
@@ -2703,28 +2760,39 @@ The user can specify a matrix that defines all the possible block output in the 
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SRFLIPFLOP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
+<FILE name='SRFLIPFLOP' type='LATEX'>
+This block describe the simplest and the most fundamental latch the SR flip flop. Where S and R are the input and Q and !Q are the outputs.If S (Set) is pulsed high while R is held low, then the Q output is forced high, and stays high when S returns low; similarly, if R (Reset) is pulsed high while S is held low, then the Q output is forced low, and stays low when R returns low. When both are low, Q(t) takes the same state as Q(t-1). When they are both high, both Q and !Q take the low values we are in an unstable state. Practicaly we have to avoid this case.This block is almostly used with digital number, the input data type is int8.\\
 
-<FILE name='SRFLIPFLOP1' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+The truth table of this block is
+
+\begin{tabular}{|c|c||c|c|}
+\hline
+S&
+R&
+Q(t)&
+!Q(t)\\
+\hline
+0&
+0&
+Q(t-1)&
+!Q(t-1)\\
+\hline
+0&
+1&
+0&
+1\\
+\hline
+1&
+0&
+1&
+0\\
+\hline
+1&
+1&
+0&
+0\\
+\hline --> This case is to avoid
+\end{tabular}
 </FILE>
 
 </DATA>

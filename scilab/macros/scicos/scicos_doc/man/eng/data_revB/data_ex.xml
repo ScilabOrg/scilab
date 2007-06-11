@@ -867,25 +867,19 @@ y=[182.612 196.518 141.735;172.973 190.770 133.577;204.677 220.063 159.067]
 
 <FILE name='MATINV' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MATLU' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MATMAGPHI' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -901,9 +895,7 @@ y=[46 37 28 19;115 94 73 52]
 
 <FILE name='MATPINV' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -919,297 +911,223 @@ y=[1 2 3 4 5 6]
 
 <FILE name='MATSING' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1249,329 +1167,247 @@ Example
 
 <FILE name='MAX_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='RICC' type='XML'>
 <EXAMPLE>
-<P>
 
-</P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='BITSET' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='CONVERT' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='EXTRACTBITS' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='GAINBLK_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTGAINBLK' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTLOGICAL_OP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTMUL' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INTREGISTER' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='RELAY_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1583,73 +1419,43 @@ Example
 
 <FILE name='SQRT' type='XML'>
 <EXAMPLE>
-<P>
 
-</P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='SUMMATIONI' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
-</EXAMPLE>
-</FILE>
 
-<FILE name='DLATCH1' type='XML'>
-<EXAMPLE>
-<P>
-Example
-</P>
 </EXAMPLE>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
-</EXAMPLE>
-</FILE>
 
-<FILE name='JKFLIPFLOP1' type='XML'>
-<EXAMPLE>
-<P>
-Example
-</P>
 </EXAMPLE>
 </FILE>
 
@@ -1673,17 +1479,7 @@ The easiest example to consider is the OR example. In this case we have two inpu
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
-</EXAMPLE>
-</FILE>
 
-<FILE name='SRFLIPFLOP1' type='XML'>
-<EXAMPLE>
-<P>
-Example
-</P>
 </EXAMPLE>
 </FILE>
 

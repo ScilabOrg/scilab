@@ -1006,817 +1006,595 @@
 
 <FILE name='CUMSUM' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATCATH' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATCATV' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDET' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDIAG' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDIV' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATEIG' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATEXPM' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATINV' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATLU' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATMAGPHI' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATRESH' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATSING' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Matrix_pal' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='OldBlocks_pal' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RICC' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAINBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='Integer_pal' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RELAY_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SQRT' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='DLATCH1' type='XML'>
-<BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+	
 </BIBLIO>
 </FILE>
 
