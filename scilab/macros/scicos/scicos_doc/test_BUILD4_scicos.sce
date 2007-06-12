@@ -193,23 +193,26 @@ end
 my_listf=[palpath,"Others.cosf","pal";
           "","c_block.sci","block";
           "","fortran_block.sci","block";
-          "","SUPER_f.sci","block";
-          "","scifunc_block.sci","block";
-          "","TEXT_f.sci","block";
-          "","CBLOCK.sci","block";
-          "","RATELIMITER.sci","block";
-          "","BACKLASH.sci","block";
-          "","DEADBAND.sci","block";
+          //"","SUPER_f.sci","block";
+          //"","scifunc_block.sci","block";
+          //"","TEXT_f.sci","block";
+          //"","CBLOCK.sci","block";
+          //"","RATELIMITER.sci","block";
+          //"","BACKLASH.sci","block";
+          //"","DEADBAND.sci","block";
           // "","EXPRESSION.sci","block"; //CEST ENDOUBLE
-          "","CONSTRAINT_f.sci","block";
-          "","HYSTHERESIS.sci","block";
-          "","LOGICAL_OP.sci","block";
-          "","RELATIONALOP.sci","block";
+          //"","CONSTRAINT_f.sci","block";
+          //"","HYSTHERESIS.sci","block";
+          //"","LOGICAL_OP.sci","block";
+          //"","RELATIONALOP.sci","block";
           "","generic_block2.sci","block";
-          "","DEBUG_SCICOS.sci","block";
-          "","PDE.sci","block";
-          "","EDGE_TRIGGER.sci","block";
-          "","Extract_Activation.sci","block"];
+          //"","DEBUG_SCICOS.sci","block";
+          "","PDE.sci","block"];
+          //"","EDGE_TRIGGER.sci","block";
+          //"","Extract_Activation.sci","block"
+
+//          "","MBLOCK.sci","block"; A verif
+//          "","generic_block3.sci","block";  A verif
 
 //util macros
 listf_of_utilsci=[];
@@ -281,7 +284,7 @@ clear i;clear listf;
 //Oldblocks palette
 //Please update!
 listf_of_oldblocks=[palpath,"OldBlocks.cosf","pal"];
-listf = ['MEMORY_f.sci';'DIFF_f.sci';'generic_block.sci'];
+listf = ['generic_block.sci'];
 for i = 1:size(listf,1)
   listf_of_oldblocks=[listf_of_oldblocks;
                       opath2(1),listf(i),"block"];
@@ -342,6 +345,17 @@ for i = 1:size(listf,1)
 end
 clear i;clear listf;
 
+//Misc directory
+listf_of_misc=[];
+listf = basename(listfiles(opath2(7)+"*.sci"))+".sci";
+for i = 1:size(listf,1)
+  if listf(i)<>'m_sin.sci' then //!!!!!!! YAUNB�GICI
+    listf_of_misc=[listf_of_misc;
+                   opath2(7),listf(i),"block"];
+  end
+end
+clear i;clear listf;
+
 //**------------*/
 
 //**----------------------------------------------------------**//
@@ -378,7 +392,8 @@ my_list = [my_listf;
            listf_of_elec;
            listf_of_thermo;
            listf_of_matop;
-           listf_of_intop];
+           listf_of_intop;
+           listf_of_misc];
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 
