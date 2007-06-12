@@ -33,7 +33,7 @@ case 'set' then
       nin=1
     end
     if ok then
-      if (typ~=0)then typ=1; end
+      if (typ~=0) then typ=1; end
       if Datatype==3 then 
 	model.sim=list('logicalop_i32',4)
       elseif Datatype==4 then

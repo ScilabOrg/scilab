@@ -23,7 +23,7 @@ case 'set' then
       message('Register length must be at least 2')
       ok=%f
     end
-    if ((it<3)|(it>8))then 
+    if ((it<3)|(it>8)) then
 	message ("Datatype is not an integer it must be between 3 and 8.");
 	ok=%f;
     end
