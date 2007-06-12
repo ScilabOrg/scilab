@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>NPN</TITLE>
+<META NAME="description" CONTENT="NPN">
+<META NAME="keywords" CONTENT="NPN">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NPN.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/NPN.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./NPN.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="NPN"></A>
+<BR>
+NPN title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=NPN.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="144" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/NPN_blk.gif"
+ ALT="\epsfig{file=NPN.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="NPN.htm#SECTION00010000000000000000">NPN title</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="NPN.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html6"
+  HREF="NPN.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html7"
+  HREF="NPN.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html8"
+  HREF="NPN.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html9"
+  HREF="NPN.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="NPN.htm#SECTION00026000000000000000">Modelica model</A>
+<LI><A NAME="tex2html11"
+  HREF="NPN.htm#SECTION00027000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Electrical_pal.htm">Electrical.cosf - Electrical toolbox</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="420" BORDER="0"
+ SRC="../../images/scicos/NPN_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=NPN_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>Forward beta</b>
+<BR>
+The parameter description 1.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Reverse beta</b>
+<BR>
+The parameter description 2.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Transport saturation current</b>
+<BR>
+The parameter description 3.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Early voltage (inverse), 1/Volt</b>
+<BR>
+The parameter description 4.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Ideal forward transit time</b>
+<BR>
+The parameter description 5.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Ideal reverse transit time</b>
+<BR>
+The parameter description 6.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Collector-substrat(ground) cap.</b>
+<BR>
+The parameter description 7.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-emitter zero bias depletion cap.</b>
+<BR>
+The parameter description 8.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-coll. zero bias depletion cap.</b>
+<BR>
+The parameter description 9.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-emitter diffusion voltage</b>
+<BR>
+The parameter description 10.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-emitter gradation exponent</b>
+<BR>
+The parameter description 11.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-collector diffusion voltage</b>
+<BR>
+The parameter description 12.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-collector gradation exponent</b>
+<BR>
+The parameter description 13.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-collector conductance</b>
+<BR>
+The parameter description 14.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Base-emitter conductance</b>
+<BR>
+The parameter description 15.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Voltage equivalent of temperature</b>
+<BR>
+The parameter description 16.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>if x<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/NPN_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+ EMinMax, the exp(x) function is linearized</b>
+<BR>
+The parameter description 17.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of outputs:</b> 2 / 1  1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>name of modelica function:</b> <EM>NPN</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>NPN.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Modelica model</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">model NPN "Simple BJT according to Ebers-Moll" 
+  parameter Real Bf=50 "Forward beta";
+  parameter Real Br=0.1 "Reverse beta";
+  parameter Real Is=1.e-16 "Transport saturation current";
+  parameter Real Vak=0.02 "Early voltage (inverse), 1/Volt";
+  parameter Real Tauf=0.12e-9 "Ideal forward transit time";
+  parameter Real Taur=5e-9 "Ideal reverse transit time";
+  parameter Real Ccs=1e-12 "Collector-substrat(ground) cap.";
+  parameter Real Cje=0.4e-12 "Base-emitter zero bias depletion cap.";
+  parameter Real Cjc=0.5e-12 "Base-coll. zero bias depletion cap.";
+  parameter Real Phie=0.8 "Base-emitter diffusion voltage";
+  parameter Real Me=0.4 "Base-emitter gradation exponent";
+  parameter Real Phic=0.8 "Base-collector diffusion voltage";
+  parameter Real Mc=0.333 "Base-collector gradation exponent";
+  parameter Real Gbc=1e-15 "Base-collector conductance";
+  parameter Real Gbe=1e-15 "Base-emitter conductance";
+  parameter Real Vt=0.02585 "Voltage equivalent of temperature";
+  parameter Real EMinMax=40 "if x &gt; EMax, the exp(x) function is linearized";
+  Real vbc;
+  Real vbe;
+  Real qbk;
+  Real ibc;
+  Real ibe;
+  Real cbc;
+  Real cbe;
+  Real ExMin;
+  Real ExMax;
+  Real Capcje;
+  Real Capcjc;
+  Real EMax;
+  Real EMin;
+
+  Pin C "Collector";
+  Pin B "Base";
+  Pin E "Emitter";
+equation 
+  EMax=EMinMax;
+  EMin=-2*EMinMax;
+  ExMin = Modelica.Math.exp(EMin);
+  ExMax = Modelica.Math.exp(EMax);
+  vbc = B.v - C.v;
+  vbe = B.v - E.v;
+  qbk = 1 - vbc*Vak;
+  
+  ibc = if noEvent(vbc/Vt &lt; EMin) then Is*(ExMin*(vbc/Vt - EMin + 1) - 1) + vbc*Gbc
+     else if noEvent(vbc/Vt &gt; EMax) then Is*(ExMax*(vbc/Vt - EMax + 1) - 1) + vbc*Gbc
+     else Is*(Modelica.Math.exp(vbc/Vt) - 1) + vbc*Gbc;
+
+  ibe = if noEvent(vbe/Vt &lt; EMin) then Is*(ExMin*(vbe/Vt - EMin + 1) - 1) + vbe*Gbe
+     else if noEvent(vbe/Vt &gt; EMax) then Is*(ExMax*(vbe/Vt - EMax + 1) - 1) + vbe*Gbe
+     else Is*(Modelica.Math.exp(vbe/Vt) - 1) + vbe*Gbe;
+
+  Capcjc = if noEvent(vbc/Phic &gt; 0) then Cjc*(1 + Mc*vbc/Phic) else Cjc*(1 - vbc/Phic);
+  Capcje = if noEvent(vbe/Phie &gt; 0) then Cje*(1 + Me*vbe/Phie) else Cje*(1 - vbe/Phie);
+
+  cbc = if noEvent(vbc/Vt &lt; EMin) then Taur*Is/Vt*ExMin*(vbc/Vt - EMin + 1) + Capcjc
+     else if noEvent(vbc/Vt &gt; EMax) then Taur*Is/Vt*ExMax*(vbc/Vt - EMax + 1) + Capcjc
+     else Taur*Is/Vt*Modelica.Math.exp(vbc/Vt) + Capcjc;
+
+  cbe = if noEvent(vbe/Vt &lt; EMin) then Tauf*Is/Vt*ExMin*(vbe/Vt - EMin + 1) + Capcje
+     else if noEvent(vbe/Vt &gt; EMax) then Tauf*Is/Vt*ExMax*(vbe/Vt - EMax + 1) + Capcje
+     else Tauf*Is/Vt*Modelica.Math.exp(vbe/Vt) + Capcje;
+
+  C.i = (ibe - ibc)*qbk - ibc/Br - cbc*der(vbc) + Ccs*der(C.v);
+  B.i = ibe/Bf + ibc/Br + cbc*der(vbc) + cbe*der(vbe);
+  E.i = -B.i - C.i + Ccs*der(C.v);
+end NPN;
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

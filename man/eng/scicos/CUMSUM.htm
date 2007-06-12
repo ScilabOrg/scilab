@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CUMSUM</TITLE>
+<META NAME="description" CONTENT="CUMSUM">
+<META NAME="keywords" CONTENT="CUMSUM">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CUMSUM.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/CUMSUM.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./CUMSUM.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="CUMSUM"></A>
+<BR>
+CUMSUM: Cumulative Sum
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=CUMSUM.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_blk.gif"
+ ALT="\epsfig{file=CUMSUM.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html5"
+  HREF="CUMSUM.htm#SECTION00010000000000000000">CUMSUM: Cumulative Sum</A>
+<UL>
+<LI><A NAME="tex2html6"
+  HREF="CUMSUM.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html7"
+  HREF="CUMSUM.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html8"
+  HREF="CUMSUM.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html9"
+  HREF="CUMSUM.htm#SECTION00024000000000000000">Example</A>
+<LI><A NAME="tex2html10"
+  HREF="CUMSUM.htm#SECTION00025000000000000000">Default properties</A>
+<LI><A NAME="tex2html11"
+  HREF="CUMSUM.htm#SECTION00026000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="CUMSUM.htm#SECTION00027000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html13"
+  HREF="CUMSUM.htm#SECTION00028000000000000000">Used functions</A>
+<LI><A NAME="tex2html14"
+  HREF="CUMSUM.htm#SECTION00029000000000000000">See also</A>
+<LI><A NAME="tex2html15"
+  HREF="CUMSUM.htm#SECTION000210000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Matrix_pal.htm">Matrix - Matrix title</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+The CUMSUM block sums the element of an input m*n matrix u along either the rows, the columns or the first non singleton dimension. When the <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+Sum along<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+/B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+ parameter is set to "1", the block sums across the elements of each row. The result will be displayed as a m*1 matrix.  
+<BR>
+When the <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+Sum along<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+/B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+ parameter is set to "2", the block sums across the elements of each column. The result will be display as a 1*n matrix.  
+<BR>
+When the <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+Sum along <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img2_eng.gif"
+ ALT="$ &lt;$"></SPAN>
+/B<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_img3_eng.gif"
+ ALT="$ &gt;$"></SPAN>
+parameter is set to "0", the block sums across the first non singleton dimension. The result will be displayed as one element. This block is equivalent to cumsum in scilab.  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="79" BORDER="0"
+ SRC="../../images/scicos/CUMSUM_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=CUMSUM_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>Datatype(1=real double  2=Complex)</b>
+<BR>   : Type 'vec' of size 1. It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+</LI>
+<LI><b>Sum along (0=the first non singleton dimension  1=Rows  2=Columns)</b>
+<BR>   : Type 'vec' of size 1. Indicate whether to sum across the rows, the columns or the first non singleton dimension.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Example</A>
+</font></H3>
+<PRE>
+A=[1 2 3;4 5 6;7 8 9]
+If the sum is along the row the result will be
+B=[12;15;18]
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / -1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / -1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>name of computational function:</b> <EM>cumsum_m</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>CUMSUM.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">#include "scicos_block4.h"
+#include "../machine.h"
+
+void cumsum_m(scicos_block *block,int flag)
+{
+  double *u;
+  double *y;
+  int nu,mu,j;
+  mu=GetInPortRows(block,1);
+  nu=GetInPortCols(block,1);
+
+  u=GetRealInPortPtrs(block,1);
+  y=GetRealOutPortPtrs(block,1);
+
+  y[0]=u[0];
+  for(j=1;j&lt;mu*nu;j++)
+       {y[j]=u[j]+y[j-1];
+       }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
+Used functions</A>
+</font></H3>
+For this block we have six differnts functions.
+<b>cumsum_m</b>,
+<b>cumsumz_m</b>,
+<b>cumsum_r</b>,
+<b>cumsumz_r</b>,
+<b>cumsum_c</b>,
+<b>cumsumz_c</b>
+
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+See also</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="MATSUM.htm">MATSUM - MATSUM title (Scicos Block)</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION000210000000000000000">
+Authors</A>
+</font></H3>
+<b>Fady NASSIF</b> INRIA
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

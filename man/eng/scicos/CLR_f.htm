@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CLR_f</TITLE>
+<META NAME="description" CONTENT="CLR_f">
+<META NAME="keywords" CONTENT="CLR_f">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CLR_f.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/CLR_f.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./CLR_f.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="CLR_f"></A>
+<BR>
+Continuous transfer function
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=CLR_f.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/CLR_f_blk.gif"
+ ALT="\epsfig{file=CLR_f.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html3"
+  HREF="CLR_f.htm#SECTION00010000000000000000">Continuous transfer function</A>
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="CLR_f.htm#SECTION00021000000000000000">Description</A>
+<LI><A NAME="tex2html5"
+  HREF="CLR_f.htm#SECTION00022000000000000000">Dialog box</A>
+<LI><A NAME="tex2html6"
+  HREF="CLR_f.htm#SECTION00023000000000000000">Default properties</A>
+<LI><A NAME="tex2html7"
+  HREF="CLR_f.htm#SECTION00024000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html8"
+  HREF="CLR_f.htm#SECTION00025000000000000000">Computational function (type 1)</A>
+<LI><A NAME="tex2html9"
+  HREF="CLR_f.htm#SECTION00026000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+This block realizes a SISO linear system represented by its rational
+transfer function  <B>Numerator/Denominator</B>. The rational function must
+be proper.   
+
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="142" BORDER="0"
+ SRC="../../images/scicos/CLR_f_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=CLR_f_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI>Numerator : A polynomial in s. 
+</LI>
+<LI>Denominator :A polynomial in s. 
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> yes
+</LI>
+<LI><b>direct-feedthrough:</b> no
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> yes
+</LI>
+<LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>name of computational function:</b> <EM>csslti</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>CLR_f.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Computational function (type 1)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">      subroutine csslti(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
+     &amp;     rpar,nrpar,ipar,nipar,u,nu,y,ny)
+c     Copyright INRIA
+c     Scicos block simulator
+c     continuous state space linear system simulator
+c     rpar(1:nx*nx)=A
+c     rpar(nx*nx+1:nx*nx+nx*nu)=B
+c     rpar(nx*nx+nx*nu+1:nx*nx+nx*nu+nx*ny)=C
+c     rpar(nx*nx+nx*nu+nx*ny+1:nx*nx+nx*nu+nx*ny+ny*nu)=D
+c
+      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
+      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
+      integer nipar,nu,ny
+
+c
+      la=1
+      lb=nx*nx+la
+      lc=lb+nx*nu
+
+      if(flag.eq.1.or.flag.eq.6) then
+c     y=c*x+d*u     
+         ld=lc+nx*ny
+         call dmmul(rpar(lc),ny,x,nx,y,ny,ny,nx,1)
+         call dmmul1(rpar(ld),ny,u,nu,y,ny,ny,nu,1)
+c         if(t.gt.64.0) write(6,'(e15.8,10(e10.3,x))') t,x(1),x(2),
+c     $        u(1),y(1) 
+      elseif(flag.eq.0) then
+c     xd=a*x+b*u
+         call dmmul(rpar(la),nx,x,nx,xd,nx,nx,nx,1)
+         call dmmul1(rpar(lb),nx,u,nu,xd,nx,nx,nu,1)
+c         if(t.gt.64.0) write(6,'(e15.8,10(e10.3,x))') t,x(1),x(2),
+c     $        xd(1),xd(2),u(1)
+      endif
+      return
+      end
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Authors</A>
+</font></H3>
+<b>Ramine Nikoukhah</b> INRIA
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

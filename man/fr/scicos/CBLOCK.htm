@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CBLOCK</TITLE>
+<META NAME="description" CONTENT="CBLOCK">
+<META NAME="keywords" CONTENT="CBLOCK">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CBLOCK.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Bloc Scicos
+<BR><A NAME="tex2html1"
+  HREF="./CBLOCK.htm">fr</A> - <A NAME="tex2html2"
+  HREF="../../eng/scicos/CBLOCK.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="CBLOCK"></A>
+<BR>
+New C
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=CBLOCK.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/CBLOCK_blk.gif"
+ ALT="\epsfig{file=CBLOCK.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contenu</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="CBLOCK.htm#SECTION00010000000000000000">New C</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="CBLOCK.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html6"
+  HREF="CBLOCK.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html7"
+  HREF="CBLOCK.htm#SECTION00023000000000000000">Boîte de dialogue</A>
+<LI><A NAME="tex2html8"
+  HREF="CBLOCK.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+<LI><A NAME="tex2html9"
+  HREF="CBLOCK.htm#SECTION00025000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html10"
+  HREF="CBLOCK.htm#SECTION00026000000000000000">Auteurs</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Others_pal.htm">Others - Palette Others</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Boîte de dialogue</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="403" BORDER="0"
+ SRC="../../images/scicos/CBLOCK_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=CBLOCK_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>simulation function</b>
+<BR>   : Type 'str' de taille 1. Nom de la fonction qui doit être générée.
+</LI>
+<LI><b>is block implicit? (y,n)</b>
+<BR>   : Type 'str' de taille 1. Si 'yes' est utilisée, alors le solver implicite (dasrt) est utilisé, sinon c'est le solveur explicite (lsodar) qui est utilisé.
+</LI>
+<LI><b>input ports sizes</b>
+<BR>   : Type 'vec' de taille -1. Nombre de ports réguliers en entrée.
+</LI>
+<LI><b>output ports sizes</b>
+<BR>   : Type 'vec' de taille -1. Nombre de ports réguliers de sortie.
+</LI>
+<LI><b>input event ports sizes</b>
+<BR>   : Type 'vec' de taille -1. Nombre de ports d'activation en entrée.
+</LI>
+<LI><b>output events ports sizes</b>
+<BR>   : Type 'vec' de taille -1. Nombre de ports d'activation de sortie.
+</LI>
+<LI><b>initial continuous state</b>
+<BR>   : Type 'vec' de taille -1. Conditions initiales du vecteur d'état continu.
+</LI>
+<LI><b>number of zero crossing surfaces</b>
+<BR>   : Type 'vec' de taille 1. A sélectionner pour utiliser les détections de traversée de zéro.
+</LI>
+<LI><b>initial discrete state</b>
+<BR>   : Type 'vec' de taille -1. Conditions initiales du vecteur d'état discret.
+</LI>
+<LI><b>Real parameters vector</b>
+<BR>   : Type 'vec' de taille -1. Vecteur des paramètres réels.
+</LI>
+<LI><b>Integer parameters vector</b>
+<BR>   : Type 'vec' de taille -1. Vecteur des paramètres entiers.
+</LI>
+<LI><b>initial firing vector (<SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CBLOCK_img3_fr.gif"
+ ALT="$ &lt;$"></SPAN>
+0 for no firing)</b>
+<BR>   : Type 'vec' de taille "sum(%6)". Un vecteur dont la taille correspond au nombre de ports d'activation de sortie. Donne la premère dae d'activation de ceux ci.
+</LI>
+<LI><b>direct feedthrough (y or n)</b>
+<BR>   : Type 'str' de taille 1. L'entrée du bloc au temps courant détermine la sortie du bloc au temps courant. Cela force l'entrée à être en sortie, comme si le système était en régime établi.
+</LI>
+<LI><b>time dependence (y or n)</b>
+<BR>   : Type 'str' de taille 1. Crée un signal qui est spécifié par la dépendance au temps. (pas continu)
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Propriétés par défaut</A>
+</font></H3>
+
+<UL>
+<LI><b>toujours actif:</b> non
+</LI>
+<LI><b>direct-feedthrough:</b> oui
+</LI>
+<LI><b>détection de passage à zéro:</b> non
+</LI>
+<LI><b>mode:</b> non
+</LI>
+<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+</LI>
+<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
+</LI>
+<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
+</LI>
+<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+</LI>
+<LI><b>possède un état continu:</b> non
+</LI>
+<LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>nom de la fonction de calcul:</b> 
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Fonction d'interface</A>
+</font></H3>
+<TT>CBLOCK.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Auteurs</A>
+</font></H3>
+<b>Ramine Nikoukhah</b> INRIA
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

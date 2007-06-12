@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>EDGETRIGGER</TITLE>
+<META NAME="description" CONTENT="EDGETRIGGER">
+<META NAME="keywords" CONTENT="EDGETRIGGER">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="EDGETRIGGER.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/EDGETRIGGER.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./EDGETRIGGER.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="EDGETRIGGER"></A><BR>
+EDGETRIGGER title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=EDGETRIGGER.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/EDGETRIGGER_blk.gif"
+ ALT="\epsfig{file=EDGETRIGGER.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="EDGETRIGGER.htm#SECTION00010000000000000000">EDGETRIGGER title</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="EDGETRIGGER.htm#SECTION00021000000000000000">Description</A>
+<LI><A NAME="tex2html6"
+  HREF="EDGETRIGGER.htm#SECTION00022000000000000000">Dialog box</A>
+<LI><A NAME="tex2html7"
+  HREF="EDGETRIGGER.htm#SECTION00023000000000000000">Example</A>
+<LI><A NAME="tex2html8"
+  HREF="EDGETRIGGER.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html9"
+  HREF="EDGETRIGGER.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="EDGETRIGGER.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html11"
+  HREF="EDGETRIGGER.htm#SECTION00027000000000000000">Used functions</A>
+<LI><A NAME="tex2html12"
+  HREF="EDGETRIGGER.htm#SECTION00028000000000000000">See also</A>
+<LI><A NAME="tex2html13"
+  HREF="EDGETRIGGER.htm#SECTION00029000000000000000">Authors</A>
+<LI><A NAME="tex2html14"
+  HREF="EDGETRIGGER.htm#SECTION00030000000000000000">Bibliography</A>
+</UL>
+</UL><BR>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+  Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="91" BORDER="0"
+ SRC="../../images/scicos/EDGETRIGGER_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=EDGETRIGGER_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>rising (1), falling (-1), both (0)</b>
+<BR>   The parameter description 1.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Example</A>
+</font></H3>
+<PRE>
+Example
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> yes
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>name of computational function:</b> <EM>edgetrig</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>EDGETRIGGER.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL><BR>
+<PRE  CLASS="verbatim">#include "scicos_block.h"
+#include &lt;math.h&gt;
+
+extern void sciprint();
+
+void edgetrig(scicos_block *block,int flag)
+{
+  double z= block-&gt;z[0],u=block-&gt;inptr[0][0];
+  if(flag==2||flag==6){
+    block-&gt;z[0]=u;
+  }else if(flag==1){
+    if(block-&gt;ipar[0]!=0){
+      z=z*block-&gt;ipar[0];
+      u=u*block-&gt;ipar[0];
+      if(((z&lt;=0)&amp;(u&gt;0))||((z&lt;0)&amp;(u&gt;=0))) {
+	block-&gt;outptr[0][0]=1.;
+      }else{
+	block-&gt;outptr[0][0]=0.;
+      }
+    } else{ /* rising and falling edge */
+      if(((z&lt;=0)&amp;(u&gt;0))||((z&lt;0)&amp;(u&gt;=0))||((z&gt;0)&amp;(u&lt;=0))||((z&gt;=0)&amp;(u&lt;0))){
+	block-&gt;outptr[0][0]=1.;
+      }else{
+	block-&gt;outptr[0][0]=0.;
+      }
+    }
+  }else if (flag==4) {
+    if (block-&gt;ng&gt;0){
+      set_block_error(-1);
+      sciprint("Trigger block must have discrete time input.");
+      return;
+    }
+  }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Used functions</A>
+</font></H3>
+Add here the used function name and  references
+
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
+See also</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="add a key here.htm">add a key here</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+ 
+<H3><font color="blue"><A NAME="SECTION00030000000000000000">
+Bibliography</A>
+</font></H3><DL COMPACT><DD>Add here the function bibliography if any
+</DL>
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

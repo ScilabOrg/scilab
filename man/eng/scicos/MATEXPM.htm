@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MATEXPM</TITLE>
+<META NAME="description" CONTENT="MATEXPM">
+<META NAME="keywords" CONTENT="MATEXPM">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="MATEXPM.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/MATEXPM.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./MATEXPM.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="MATEXPM"></A>
+<BR>
+MATEXPM Matrix Exponential
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=MATEXPM.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/MATEXPM_blk.gif"
+ ALT="\epsfig{file=MATEXPM.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html5"
+  HREF="MATEXPM.htm#SECTION00010000000000000000">MATEXPM Matrix Exponential</A>
+<UL>
+<LI><A NAME="tex2html6"
+  HREF="MATEXPM.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html7"
+  HREF="MATEXPM.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html8"
+  HREF="MATEXPM.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html9"
+  HREF="MATEXPM.htm#SECTION00024000000000000000">Example</A>
+<LI><A NAME="tex2html10"
+  HREF="MATEXPM.htm#SECTION00025000000000000000">Default properties</A>
+<LI><A NAME="tex2html11"
+  HREF="MATEXPM.htm#SECTION00026000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="MATEXPM.htm#SECTION00027000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html13"
+  HREF="MATEXPM.htm#SECTION00028000000000000000">Used functions</A>
+<LI><A NAME="tex2html14"
+  HREF="MATEXPM.htm#SECTION00029000000000000000">See also</A>
+<LI><A NAME="tex2html15"
+  HREF="MATEXPM.htm#SECTION000210000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Matrix_pal.htm">Matrix - Matrix title</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+The MATEXPM outputs the matrix exponential of a square matrix input by the pade's approximants. The output is a square matrix with the same size of the input.The equivalent of this block in Scilab is "expm".  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="85" BORDER="0"
+ SRC="../../images/scicos/MATEXPM_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=MATEXPM_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>Datatype(1=real double  2=Complex)</b>
+<BR>   : Type 'vec' of size 1.It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Example</A>
+</font></H3>
+<PRE>
+u=[1 2 3;2 3 1;4 2 1]
+y=[182.612 196.518 141.735;172.973 190.770 133.577;204.677 220.063 159.067]
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / -1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / -1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>name of computational function:</b> <EM>mat_expm</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>MATEXPM.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim"># include "scicos_block4.h"
+# include "../machine.h"
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+#if WIN32
+#define NULL    0
+#endif
+
+
+extern int C2F(dexpm1)();
+typedef struct
+{	  int *iwork;
+          double *dwork;
+} mat_exp_struct ;
+void mat_expm(scicos_block *block,int flag)
+{
+ double *u;
+ double *y;
+ int nu;
+ int ierr;
+ mat_exp_struct *ptr;
+
+ nu =GetInPortCols(block,1);
+ u=GetRealInPortPtrs(block,1);
+ y=GetRealOutPortPtrs(block,1);
+
+             /*init : initialization*/
+if (flag==4)
+   {if((*(block-&gt;work)=(mat_exp_struct*) scicos_malloc(sizeof(mat_exp_struct)))==NULL)
+	{set_block_error(-16);
+	 return;}
+    ptr=*(block-&gt;work);
+    if((ptr-&gt;iwork=(int*) scicos_malloc(sizeof(int)*(2*nu)))==NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr);
+	 return;}
+    if((ptr-&gt;dwork=(double*) scicos_malloc(sizeof(double)*(nu*(2*nu+2*nu+5))))== NULL)
+	{set_block_error(-16);
+	 scicos_free(ptr-&gt;iwork);
+	 scicos_free(ptr);
+	 return;}
+   }
+
+       /* Terminaison */
+else if (flag==5)
+   {ptr=*(block-&gt;work);
+    if (ptr-&gt;dwork!=NULL){
+    	scicos_free(ptr-&gt;iwork);
+    	scicos_free(ptr-&gt;dwork);
+    	scicos_free(ptr);
+    	return;}
+   }
+
+else
+   {ptr=*(block-&gt;work);
+    C2F(dexpm1)(&amp;nu,&amp;nu,u,y,&amp;nu,ptr-&gt;dwork,ptr-&gt;iwork,&amp;ierr);
+    if (ierr!=0)
+	{if (flag!=6)
+	{set_block_error(-7);
+	return;}
+	}
+   }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
+Used functions</A>
+</font></H3>
+for this block we have two differents functions:
+<b>mat_expm</b>,
+<b>matz_expm</b>
+
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+See also</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="MATMUL.htm">MATMUL - MATMUL Matrix Multiplication (Scicos Block)</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION000210000000000000000">
+Authors</A>
+</font></H3>
+<b>Fady NASSIF</b> INRIA
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

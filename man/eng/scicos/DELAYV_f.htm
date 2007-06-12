@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>DELAYV_f</TITLE>
+<META NAME="description" CONTENT="DELAYV_f">
+<META NAME="keywords" CONTENT="DELAYV_f">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="DELAYV_f.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/DELAYV_f.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./DELAYV_f.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="DELAYV_f"></A>
+<BR>
+DELAYV_f title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=DELAYV_f.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/DELAYV_f_blk.gif"
+ ALT="\epsfig{file=DELAYV_f.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="DELAYV_f.htm#SECTION00010000000000000000">DELAYV_f title</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="DELAYV_f.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html6"
+  HREF="DELAYV_f.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html7"
+  HREF="DELAYV_f.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html8"
+  HREF="DELAYV_f.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html9"
+  HREF="DELAYV_f.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="DELAYV_f.htm#SECTION00026000000000000000">Computational function (type 1)</A>
+<LI><A NAME="tex2html11"
+  HREF="DELAYV_f.htm#SECTION00027000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="OldBlocks_pal.htm">OldBlocks - OldBlocks title</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="156" BORDER="0"
+ SRC="../../images/scicos/DELAYV_f_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=DELAYV_f_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>Number of inputs</b>
+<BR>
+The parameter description 1.
+<BR>
+Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Register initial condition</b>
+<BR>
+The parameter description 2.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Max delay</b>
+<BR>
+The parameter description 3.
+<BR>
+Properties : Type 'vec' of size 1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 2 / 1  1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 2 / 1  1
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>name of computational function:</b> <EM>delayv</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>DELAYV_f.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function (type 1)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">      subroutine delayv(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
+     &amp;     rpar,nrpar,ipar,nipar,u1,nu1,u2,nu2,y,ny)
+c     Copyright INRIA
+
+c     rpar(1)=dt
+c     delayv=u(nin)
+c
+      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),y(*)
+      double precision u1(*),u2(*)
+      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
+      integer nipar,nu1,nu2,ny
+
+      double precision a,dtat,u2r
+      integer i,in,j,k 
+
+      j=int((nz-1)/nu1)    
+      if(flag.eq.3) then
+         tvec(1)=t+rpar(1)     
+         k=int(u2(1)/rpar(1))
+         if(k.gt.(j-3)) tvec(2)=t
+         if(k.lt.1) tvec(2)=t
+      endif
+c
+c     .   shift buffer
+      if(flag.eq.2) then
+         do 10 i=1,j
+            z(i)=z(i+1)
+ 10      continue            
+         do 30 in=1,nu1-1
+            do 35 ii=(in*j)+1,(in+1)*j
+               z(ii)=z(ii+1)
+ 35         continue
+ 30      continue
+         z(nz)=t
+         
+         do 20 in=1,nu1
+            z(j*in)=u1(in)
+ 20      continue
+      endif
+      
+      if(flag.eq.1.or.flag.eq.6) then
+         dtat=t-z(nz)
+         do 08 in=1,nu1    
+c     extrapolate to find values at delta.t   
+            if(u2(1).le.dtat) then 
+c     initialisation start
+               if(dtat.lt.rpar(1)/100.0d0) then
+                  a=u2(1)/(rpar(1)+dtat)
+c     delete negative delay
+                  if(a.le.(0.0d0)) a=0.0d0
+                  y(in)=(1-a)*z(j*in)+a*z((j*in)-1)
+               else
+                  a=u2(1)/dtat
+c     delete negative delay
+                  if(a.le.(0.0d0)) a=0.0d0
+                  y(in)=(1-a)*u1(in)+a*z(j*in)
+               endif  
+            else 
+               u2r=(u2(1)-dtat)
+               k=int(u2r/rpar(1))
+c     limitation of size buffer
+               if(k.gt.(j-3)) then 
+                  k=j-3
+                  a=1.0d0
+               else 
+                  a=(u2r-(k*rpar(1)))/rpar(1)
+               endif
+c     interpolate to find values at t-delay 
+               y(in)=(1-a)*z((j*in)-k)+a*z((j*in)-k-1)
+            endif
+ 08      continue
+
+      endif
+      return
+      end
+      
+      
+      
+  </PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

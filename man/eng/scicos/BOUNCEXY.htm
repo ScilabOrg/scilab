@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BOUNCEXY</TITLE>
+<META NAME="description" CONTENT="BOUNCEXY">
+<META NAME="keywords" CONTENT="BOUNCEXY">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="BOUNCEXY.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/BOUNCEXY.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./BOUNCEXY.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="BOUNCEXY"></A><BR>
+BOUNCEXY title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=BOUNCEXY.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/BOUNCEXY_blk.gif"
+ ALT="\epsfig{file=BOUNCEXY.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="BOUNCEXY.htm#SECTION00010000000000000000">BOUNCEXY title</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="BOUNCEXY.htm#SECTION00021000000000000000">Description</A>
+<LI><A NAME="tex2html6"
+  HREF="BOUNCEXY.htm#SECTION00022000000000000000">Dialog box</A>
+<LI><A NAME="tex2html7"
+  HREF="BOUNCEXY.htm#SECTION00023000000000000000">Example</A>
+<LI><A NAME="tex2html8"
+  HREF="BOUNCEXY.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html9"
+  HREF="BOUNCEXY.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="BOUNCEXY.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html11"
+  HREF="BOUNCEXY.htm#SECTION00027000000000000000">Used functions</A>
+<LI><A NAME="tex2html12"
+  HREF="BOUNCEXY.htm#SECTION00028000000000000000">See also</A>
+<LI><A NAME="tex2html13"
+  HREF="BOUNCEXY.htm#SECTION00029000000000000000">Authors</A>
+<LI><A NAME="tex2html14"
+  HREF="BOUNCEXY.htm#SECTION00030000000000000000">Bibliography</A>
+</UL>
+</UL><BR>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+  Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="260" BORDER="0"
+ SRC="../../images/scicos/BOUNCEXY_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=BOUNCEXY_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>colors</b>
+<BR>   The parameter description 1.
+<BR>   Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>radii</b>
+<BR>   The parameter description 2.
+<BR>   Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>window number (-1 for automatic)</b>
+<BR>   The parameter description 3.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>animation mode (0,1)</b>
+<BR>   The parameter description 4.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Xmin</b>
+<BR>   The parameter description 5.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Xmax</b>
+<BR>   The parameter description 6.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Ymin</b>
+<BR>   The parameter description 7.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Ymax</b>
+<BR>   The parameter description 8.
+<BR>   Properties : Type 'vec' of size 1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Example</A>
+</font></H3>
+<PRE>
+Example
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> no
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 2 / -1  -1
+</LI>
+<LI><b>number/sizes of outputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>name of computational function:</b> <EM>bouncexy</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>BOUNCEXY.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL><BR>
+<PRE  CLASS="verbatim">/**
+   \file bouncexy.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief BOUNCEXY has to be used with bounce_ball block
+   \see BOUNCEXY.sci in macros/scicos_blocks/Misc/
+*/
+
+#include "scoMemoryScope.h"
+#include "scoWindowScope.h"
+#include "scoMisc.h"
+#include "scoGetProperty.h"
+#include "scoSetProperty.h"
+#include "scicos_block4.h"
+
+/** \fn bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
+*/
+void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
+{
+  scoGraphicalObject pAxes;
+  scoGraphicalObject pTemp;
+  double * z;
+  double *rpar;
+  int *ipar, nipar;  
+  int i,j;
+  int dimension;
+  double ymin, ymax, xmin, xmax;
+  int win;
+  int number_of_subwin;
+  int number_of_curves_by_subwin;
+  int * colors;
+  int imode;
+  double * size_balls;
+  double radius_max;
+
+  /*Retrieving Parameters*/
+  rpar = GetRparPtrs(block);
+  ipar = GetIparPtrs(block);
+  nipar = GetNipar(block);
+  win = ipar[0];
+  if (win == -1)
+    {
+      win = 20000 + get_block_number() ; 
+    }
+  dimension = 2;
+  imode = ipar[1];
+  number_of_curves_by_subwin = GetInPortRows(block,1);
+  radius_max = 0;
+  size_balls = (double*)scicos_malloc(number_of_curves_by_subwin*sizeof(double));
+  z = GetDstate(block);
+  for(i = 0 ; i &lt; number_of_curves_by_subwin ; i++)
+    {
+      size_balls[i] = z[6*i+2];
+      if(radius_max &lt; size_balls[i])
+	{
+	  radius_max = size_balls[i];
+	}
+    }
+  number_of_subwin = 1;
+  xmin = rpar[0];
+  xmax = rpar[1];
+  ymin = rpar[2];
+  ymax = rpar[3];
+  colors = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
+  for(i = 0 ; i &lt; number_of_curves_by_subwin ; i++)
+    {
+      colors[i] = ipar[i+2];
+    }
+  if(firstdraw == 1)
+    {
+      /*Allocating memory*/
+      scoInitScopeMemory(block-&gt;work,pScopeMemory, number_of_subwin, &amp;number_of_curves_by_subwin);
+    }
+  /*Creating the Scope*/
+  scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &amp;xmin, &amp;xmax, &amp;ymin, &amp;ymax, NULL, NULL);
+  pTemp = scoGetPointerScopeWindow(*pScopeMemory);
+  pAxes = scoGetPointerAxes(*pScopeMemory,0);
+
+  pSUBWIN_FEATURE(pAxes)-&gt;isoview = TRUE;
+
+  (pSUBWIN_FEATURE(pAxes)-&gt;axes).axes_visible[0] = FALSE;
+  (pSUBWIN_FEATURE(pAxes)-&gt;axes).axes_visible[1] = FALSE;
+
+  sciSetIsBoxed(pAxes, FALSE);
+
+  pFIGURE_FEATURE(pTemp)-&gt;pixmap = 1;
+  pFIGURE_FEATURE(pTemp)-&gt;wshow = 1;
+
+  for(j = 0 ; j &lt; number_of_curves_by_subwin ; j++)
+    {
+      scoAddSphereForShortDraw(*pScopeMemory, 0, j, size_balls[j], colors[j]);
+    }
+  scoAddRectangleForLongDraw(*pScopeMemory,0,0,xmin,(ymax-fabs(ymin)),fabs(xmax-xmin),fabs(ymax-ymin));
+  sciDrawObj(scoGetPointerLongDraw(*pScopeMemory,0,0));
+  scicos_free(colors);
+  scicos_free(size_balls);
+
+}
+
+/** \fn void bouncexy(scicos_block * block,int flag)
+    \brief the computational function
+    \param block A pointer to a scicos_block
+    \param flag An integer which indicates the state of the block (init, update, ending)
+*/
+void bouncexy(scicos_block * block,int flag)
+{
+  ScopeMemory * pScopeMemory;
+  scoGraphicalObject pShortDraw;
+  scoGraphicalObject pLongDraw;
+  double * z;
+  double t;
+  int i;
+  double * u1, *u2;
+  double * size_balls;
+  switch(flag) 
+    {
+    case Initialization:
+      {
+	bouncexy_draw(block,&amp;pScopeMemory,1);
+	break;
+      }
+    case StateUpdate:
+      {
+	t = get_scicos_time();
+	/*Retreiving Scope in the block-&gt;work*/
+	scoRetrieveScopeMemory(block-&gt;work,&amp;pScopeMemory);
+	/*If window has been destroyed we recreate it*/
+	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	  {
+	    bouncexy_draw(block,&amp;pScopeMemory,0);
+	  }
+
+	//Cannot be factorized depends of the scope
+	size_balls = (double*)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory,0)*sizeof(double));
+	z = GetDstate(block);
+	for(i = 0 ; i &lt; scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+	  {
+	    size_balls[i] = z[6*i+2];
+	  }
+	u1 = GetRealInPortPtrs(block,1);
+	u2 = GetRealInPortPtrs(block,2);
+	for (i = 0 ; i &lt; scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+	  {
+	    pShortDraw  = scoGetPointerShortDraw(pScopeMemory,0,i);
+	    pLongDraw  = scoGetPointerLongDraw(pScopeMemory,0,i);
+	    pARC_FEATURE(pShortDraw)-&gt;x = u1[i]-size_balls[i]/2;
+	    pARC_FEATURE(pShortDraw)-&gt;y = u2[i]+size_balls[i]/2;
+
+	  }
+
+	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	
+	if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))-&gt;pixmap == 1)
+	  {
+	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	    sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	  }
+	else
+	  {
+	    sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	  }
+
+	scicos_free(size_balls);
+	break;
+      }
+    case Ending:
+      {
+	scoRetrieveScopeMemory(block-&gt;work, &amp;pScopeMemory);
+	scoFreeScopeMemory(block-&gt;work, &amp;pScopeMemory);
+	break;  
+      }
+    }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Used functions</A>
+</font></H3>
+Add here the used function name and  references
+
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
+See also</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="add a key here.htm">add a key here</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+ 
+<H3><font color="blue"><A NAME="SECTION00030000000000000000">
+Bibliography</A>
+</font></H3><DL COMPACT><DD>Add here the function bibliography if any
+</DL>
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

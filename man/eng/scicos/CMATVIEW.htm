@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CMATVIEW</TITLE>
+<META NAME="description" CONTENT="CMATVIEW">
+<META NAME="keywords" CONTENT="CMATVIEW">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="CMATVIEW.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/CMATVIEW.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./CMATVIEW.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="CMATVIEW"></A>
+<BR>
+CMATVIEW title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=CMATVIEW.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/CMATVIEW_blk.gif"
+ ALT="\epsfig{file=CMATVIEW.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="CMATVIEW.htm#SECTION00010000000000000000">CMATVIEW title</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="CMATVIEW.htm#SECTION00021000000000000000">Palette</A>
+<LI><A NAME="tex2html6"
+  HREF="CMATVIEW.htm#SECTION00022000000000000000">Description</A>
+<LI><A NAME="tex2html7"
+  HREF="CMATVIEW.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html8"
+  HREF="CMATVIEW.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html9"
+  HREF="CMATVIEW.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="CMATVIEW.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html11"
+  HREF="CMATVIEW.htm#SECTION00027000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Sinks_pal.htm">Sinks - Sinks palette</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="162" BORDER="0"
+ SRC="../../images/scicos/CMATVIEW_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=CMATVIEW_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>ColorMap</b>
+<BR>
+The parameter description 1.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+<LI><b>Minimum level range</b>
+<BR>
+The parameter description 2.
+<BR>
+Properties : Type 'vec' of size 1.
+</LI>
+<LI><b>Maximum level range</b>
+<BR>
+The parameter description 3.
+<BR>
+Properties : Type 'vec' of size 1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> yes
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / -1
+</LI>
+<LI><b>number/sizes of outputs:</b> 0 / 
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>name of computational function:</b> <EM>cmatview</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>CMATVIEW.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">/**
+   \file cmatview.c
+   \author Benoit Bayol
+   \version 1.0
+   \date September 2006 - January 2007
+   \brief CMATVIEW is a scope that connects a matrix to a grayplot. The values of the matrix are the values at the nodes
+  \see CMATVIEW.sci in macros/scicos_blocks/Sinks/
+*/
+
+#include "scoMemoryScope.h"
+#include "scoWindowScope.h"
+#include "scoMisc.h"
+#include "scoGetProperty.h"
+#include "scoSetProperty.h"
+#include "scicos_block4.h"
+#include &lt;math.h&gt;
+#include &lt;stdlib.h&gt;
+
+/** \fn cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
+    \brief Function to draw or redraw the window
+*/
+void cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
+{
+  int i; //As usual
+  int * ipar; //Integer Parameters
+  int win_pos[2]; //Position of the Window
+  int win_dim[2]; //Dimension of the Window
+  int dimension = 2;
+  double * rpar; //Reals parameters
+  double  ymin, ymax; //Ymin and Ymax are vectors here
+  double  xmin, xmax;
+  int number_of_curves_by_subwin;
+  int number_of_subwin;
+  double * mat;
+  int size_mat;
+
+  rpar = GetRparPtrs(block);
+  ipar = GetIparPtrs(block);
+  number_of_subwin = 1;
+  win_pos[0] = -1;
+  win_pos[1] = -1;
+  win_dim[0] = -1;
+  win_dim[1] = -1;
+
+  size_mat = ipar[2];
+  mat = (double*)scicos_malloc(size_mat*sizeof(double));
+  for(i = 0 ; i &lt; size_mat ; i++)
+    {
+      mat[i] = rpar[i+2];
+    }
+  xmax = GetInPortSize(block,1,1);
+  xmin = 0;
+  ymax = GetInPortSize(block,1,2);
+  ymin = 0;
+
+  number_of_curves_by_subwin = 1;
+
+  /*Allocating memory*/
+
+  if(firstdraw == 1)
+    {
+      scoInitScopeMemory(block-&gt;work,pScopeMemory, number_of_subwin, &amp;number_of_curves_by_subwin);
+    }
+
+  /*Creating the Scope*/
+  scoInitOfWindow(*pScopeMemory, dimension, -1, win_pos, win_dim, &amp;xmin, &amp;xmax, &amp;ymin, &amp;ymax, NULL, NULL);
+  sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
+  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
+  scoAddGrayplotForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+  scicos_free(mat);
+
+}
+
+/** \fn void cmatview(scicos_block * block, int flag)
+    \brief the computational function
+    \param block A pointer to a scicos_block
+    \param flag An integer which indicates the state of the block (init, update, ending)
+*/
+void cmatview(scicos_block * block, int flag)
+{
+  /* Declarations */
+  ScopeMemory * pScopeMemory;
+  scoGraphicalObject pShortDraw;
+  double * u1;
+  double alpha,beta;
+  int i,j;
+  double * rpar;
+  int dim_i, dim_j;
+  /* Initializations and Allocations*/
+  //Allocations are done here because there are dependent of some values presents below
+ 
+  /* State Machine Control */
+  switch(flag)
+    {
+    case Initialization:
+      {
+	cmatview_draw(block,&amp;pScopeMemory,1);
+	break;
+      }
+    case StateUpdate:
+      {
+	/*Retreiving Scope in the block-&gt;work*/
+	scoRetrieveScopeMemory(block-&gt;work,&amp;pScopeMemory);
+	/* If window has been destroyed we recreate it */
+	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	  {
+	    cmatview_draw(block,&amp;pScopeMemory,0);
+	  }
+
+	pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
+	rpar = GetRparPtrs(block);
+	alpha = rpar[0];
+	beta = rpar[1];
+	u1 = GetInPortPtrs(block,1);
+
+	dim_i = GetInPortRows(block,1);
+	dim_j = GetInPortCols(block,1);
+
+	for(i = 0 ; i &lt; dim_i ; i++)
+	  {
+	    for(j = 0; j &lt; dim_j ; j++)
+	      {
+		pGRAYPLOT_FEATURE(pShortDraw)-&gt;pvecz[i*dim_j+j] = floor(alpha*u1[j+i*dim_j]+beta);
+	      }
+	  }
+	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))-&gt;pixmap == 1)
+	  {
+	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	  }
+	sciDrawObj(scoGetPointerShortDraw(pScopeMemory,0,0));
+
+	break;
+      }//End of stateupdate
+    case Ending:
+      {
+	scoRetrieveScopeMemory(block-&gt;work, &amp;pScopeMemory);
+	scoFreeScopeMemory(block-&gt;work, &amp;pScopeMemory);
+	break;
+      }
+    }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

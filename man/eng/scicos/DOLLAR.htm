@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>DOLLAR</TITLE>
+<META NAME="description" CONTENT="DOLLAR">
+<META NAME="keywords" CONTENT="DOLLAR">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="DOLLAR.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Scicos Block
+<BR><A NAME="tex2html1"
+  HREF="../../fr/scicos/DOLLAR.htm">fr</A> - <A NAME="tex2html2"
+  HREF="./DOLLAR.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="DOLLAR"></A>
+<BR>
+DOLLAR title
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=DOLLAR.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/DOLLAR_blk.gif"
+ ALT="\epsfig{file=DOLLAR.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contents</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html3"
+  HREF="DOLLAR.htm#SECTION00010000000000000000">DOLLAR title</A>
+<UL>
+<LI><A NAME="tex2html4"
+  HREF="DOLLAR.htm#SECTION00021000000000000000">Description</A>
+<LI><A NAME="tex2html5"
+  HREF="DOLLAR.htm#SECTION00022000000000000000">Dialog box</A>
+<LI><A NAME="tex2html6"
+  HREF="DOLLAR.htm#SECTION00023000000000000000">Default properties</A>
+<LI><A NAME="tex2html7"
+  HREF="DOLLAR.htm#SECTION00024000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html8"
+  HREF="DOLLAR.htm#SECTION00025000000000000000">Computational function (type 4)</A>
+<LI><A NAME="tex2html9"
+  HREF="DOLLAR.htm#SECTION00026000000000000000">Authors</A>
+</UL></UL>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+Add here a paragraph of the function description  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Dialog box</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="135" BORDER="0"
+ SRC="../../images/scicos/DOLLAR_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=DOLLAR_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>initial condition</b>
+<BR>
+The parameter description 1.
+<BR>
+Properties : Type 'mat' of size [-1,-2].
+</LI>
+<LI><b>Inherit (no:0, yes:1)</b>
+<BR>
+The parameter description 2.
+<BR>
+Properties : Type 'vec' of size -1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Default properties</A>
+</font></H3>
+
+<UL>
+<LI><b>always active:</b> no
+</LI>
+<LI><b>direct-feedthrough:</b> no
+</LI>
+<LI><b>zero-crossing:</b> no
+</LI>
+<LI><b>mode:</b> no
+</LI>
+<LI><b>number/sizes of inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of outputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation inputs:</b> 1 / 1
+</LI>
+<LI><b>number/sizes of activation outputs:</b> 0 / 
+</LI>
+<LI><b>continuous-time state:</b> no
+</LI>
+<LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>name of computational function:</b> <EM>dollar4</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Interfacing function</A>
+</font></H3>
+<TT>DOLLAR.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Computational function (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL>
+<BR>
+<PRE  CLASS="verbatim">#include "scicos_block.h"
+
+void dollar4(scicos_block *block,int flag)
+{
+  /* c     Copyright INRIA
+     
+  Scicos block simulator
+  Ouputs delayed input */
+  
+  int i;
+  for(i=0;i&lt; block-&gt;insz[0];i++){
+    if (flag ==1 || flag ==6 || flag ==4)
+      block-&gt;outptr[0][i]=block-&gt;z[i];
+    else if (flag == 2)
+      block-&gt;z[i]=block-&gt;inptr[0][i];
+  }
+}
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Authors</A>
+</font></H3>
+<b>enter here the author name</b> Add here the author  references
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>

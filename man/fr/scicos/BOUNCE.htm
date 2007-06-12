@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BOUNCE</TITLE>
+<META NAME="description" CONTENT="BOUNCE">
+<META NAME="keywords" CONTENT="BOUNCE">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="BOUNCE.css">
+
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+
+<P>
+<DIV ALIGN="CENTER">
+Bloc Scicos
+<BR><A NAME="tex2html1"
+  HREF="./BOUNCE.htm">fr</A> - <A NAME="tex2html2"
+  HREF="../../eng/scicos/BOUNCE.htm">eng</A>
+
+</DIV>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="BOUNCE"></A><BR>
+BOUNCE titre
+</H2>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ $\epsfig{file=BOUNCE.eps,width=90.00pt}$
+ -->
+<IMG
+ WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/BOUNCE_blk.gif"
+ ALT="\epsfig{file=BOUNCE.eps,width=90.00pt}">
+
+</DIV>
+<BR>
+
+<H3><font color="blue"><A NAME="SECTION00020000000000000000">
+Contenu</A>
+</font></H3>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html4"
+  HREF="BOUNCE.htm#SECTION00010000000000000000">BOUNCE titre</A>
+<UL>
+<LI><A NAME="tex2html5"
+  HREF="BOUNCE.htm#SECTION00021000000000000000">Description</A>
+<LI><A NAME="tex2html6"
+  HREF="BOUNCE.htm#SECTION00022000000000000000">Boîte de dialogue</A>
+<LI><A NAME="tex2html7"
+  HREF="BOUNCE.htm#SECTION00023000000000000000">Exemple</A>
+<LI><A NAME="tex2html8"
+  HREF="BOUNCE.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+<LI><A NAME="tex2html9"
+  HREF="BOUNCE.htm#SECTION00025000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html10"
+  HREF="BOUNCE.htm#SECTION00026000000000000000">Fonction de calcul (type 4)</A>
+<LI><A NAME="tex2html11"
+  HREF="BOUNCE.htm#SECTION00027000000000000000">Fonction utilisée</A>
+<LI><A NAME="tex2html12"
+  HREF="BOUNCE.htm#SECTION00028000000000000000">Voir aussi</A>
+<LI><A NAME="tex2html13"
+  HREF="BOUNCE.htm#SECTION00029000000000000000">Auteurs</A>
+<LI><A NAME="tex2html14"
+  HREF="BOUNCE.htm#SECTION00030000000000000000">Bibliographie</A>
+</UL>
+</UL><BR>
+<!--End of Table of Contents-->
+<H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Description</A>
+</font></H3>
+
+<P>
+  Ajoutez ici un paragraphe pour la description de la fonction  
+<BR>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+Boîte de dialogue</A>
+</font></H3>
+
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="477" HEIGHT="325" BORDER="0"
+ SRC="../../images/scicos/BOUNCE_gui.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfig{file=BOUNCE_gui.eps,width=300pt}
+\end{center}\end{figure}">
+</DIV>
+
+<P>
+
+<UL>
+<LI><b>Mass</b>
+<BR>   La description du paramètre 1.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>Radius</b>
+<BR>   La description du paramètre 2.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>[xmin,xmax,ymin,ymax]</b>
+<BR>   La description du paramètre 3.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>xpos</b>
+<BR>   La description du paramètre 4.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>xdpos</b>
+<BR>   La description du paramètre 5.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>ypos</b>
+<BR>   La description du paramètre 6.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>ydpos</b>
+<BR>   La description du paramètre 7.
+<BR>   Propriétés : Type 'vec' de taille -1.
+</LI>
+<LI><b>g (gravity)</b>
+<BR>   La description du paramètre 8.
+<BR>   Propriétés : Type 'vec' de taille 1.
+</LI>
+<LI><b>C (aerodynamic coeff</b>
+<BR>   La description du paramètre 9.
+<BR>   Propriétés : Type 'vec' de taille 1.
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+Exemple</A>
+</font></H3>
+<PRE>
+Exemple
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+Propriétés par défaut</A>
+</font></H3>
+
+<UL>
+<LI><b>toujours actif:</b> oui
+</LI>
+<LI><b>direct-feedthrough:</b> non
+</LI>
+<LI><b>détection de passage à zéro:</b> oui
+</LI>
+<LI><b>mode:</b> non
+</LI>
+<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+</LI>
+<LI><b>nombre/taille des sorties sorties régulières:</b> 2 / 2  2
+</LI>
+<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
+</LI>
+<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+</LI>
+<LI><b>possède un état continu:</b> oui
+</LI>
+<LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>nom de la fonction de calcul:</b> <EM>bounce_ball</EM>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+Fonction d'interface</A>
+</font></H3>
+<TT>BOUNCE.sci</TT>
+
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Fonction de calcul (type 4)</A>
+</font></H3>
+ <SMALL CLASS="TINY">  </SMALL><BR>
+<PRE  CLASS="verbatim">
+#include &lt;math.h&gt;
+#include "../machine.h"
+#include "scicos_block.h"
+
+void 
+bounce_ball(scicos_block *block,int flag)
+{
+
+     int nevprt,nx,*ipar;
+     int *outsz;
+     double *x,*xd,*rpar;
+     double *g;
+     int ng;
+     int *jroot;
+     
+     
+  int i1;
+  double d1, d2, d3;
+  
+  static double a, b, c;
+  static int i, j, k, n;
+  static double s1, s2, s3, s4, xsi,*y1,*y2;
+  
+  /*     Scicos block simulator */
+  /*     bouncing ball */
+  /*     rpar(i): mass of ball i */
+  /*     rpar(i+n): radius of ball i */
+  /*     rpar(2n+1:2n+4); [xmin,xmax,ymin,ymax] */
+  /*     x: [x1,x1',y1,y1',x2,x2',y2,y2',...,yn'] */
+  /*     n:number of ball=ny1=ny2 */
+  /*     y1: x-coord des balles */
+  /*     y2: y-coord des balles */
+  /*     ipar: storage de taille [nx(n-1)/2=ng]*2 */
+  nevprt=block-&gt;nevprt;
+  nx=block-&gt;nx;
+  ipar=block-&gt;ipar;
+  outsz=block-&gt;outsz;
+  x=block-&gt;x;
+  xd=block-&gt;xd;
+  rpar=block-&gt;rpar;
+
+  g=block-&gt;g;
+  ng=block-&gt;ng;
+  jroot=block-&gt;jroot;
+  /* Parameter adjustments to index vectors as in Scilab (fortran)*/
+  --g;
+  --ipar;
+  --rpar;
+  --x;
+  --xd;
+  y1=block-&gt;outptr[0];
+  y2=block-&gt;outptr[1];
+  --y2;
+  --y1;
+  --jroot;
+  
+  n = outsz[0];
+  if (flag == 0) {
+    c = rpar[(n &lt;&lt; 1) + 6];
+    i1 = n;
+    for (i = 1; i &lt;= i1; ++i) {
+      xd[((i - 1) &lt;&lt; 2) + 1] = x[((i - 1) &lt;&lt; 2) + 2];
+      xd[((i - 1) &lt;&lt; 2) + 3] = x[((i - 1) &lt;&lt; 2) + 4];
+      xd[((i - 1) &lt;&lt; 2) + 2] = -c * x[((i - 1) &lt;&lt; 2) + 2];
+      xd[((i - 1) &lt;&lt; 2) + 4] = -rpar[(n &lt;&lt; 1) + 5] ;
+    }
+    
+  } else if (flag == 1) {
+    i1 = n;
+    for (i = 1; i &lt;= i1; ++i) {
+      y1[i] = x[((i - 1) &lt;&lt; 2) + 1];
+      y2[i] = x[((i - 1) &lt;&lt; 2) + 3];
+    }
+  } else if (flag == 9) {
+    i1 = ng - (n &lt;&lt; 2);
+    for (k = 1; k &lt;= i1; ++k) {
+      i = ipar[((k - 1) &lt;&lt; 1) + 1];
+      j = ipar[((k - 1) &lt;&lt; 1) + 2];
+      d1 = x[((i - 1) &lt;&lt; 2) + 1] - x[((j - 1) &lt;&lt; 2) + 1];
+      d2 = x[((i - 1) &lt;&lt; 2) + 3] - x[((j - 1) &lt;&lt; 2) + 3];
+      d3 = rpar[i + n] + rpar[j + n];
+      g[k] = d1 * d1 + d2 * d2 - d3 * d3;
+    }
+    k = ng - (n &lt;&lt; 2) + 1;
+    i1 = n;
+    for (i = 1; i &lt;= i1; ++i) {
+      g[k] = x[((i - 1) &lt;&lt; 2) + 3] - rpar[i + n] - rpar[(n &lt;&lt; 1) + 3];
+      ++k;
+      g[k] = rpar[(n &lt;&lt; 1) + 4] - x[((i - 1) &lt;&lt; 2) + 3] - rpar[i + n];
+      ++k;
+      g[k] = x[((i - 1) &lt;&lt; 2) + 1] - rpar[(n &lt;&lt; 1) + 1] - rpar[i + n];
+      ++k;
+      g[k] = rpar[(n &lt;&lt; 1) + 2] - rpar[i + n] - x[((i - 1) &lt;&lt; 2) + 1];
+      ++k;
+    }
+    
+  } else if (flag == 2 &amp;&amp; nevprt &lt; 0) {
+    i1 = ng - (n &lt;&lt; 2);
+    for (k = 1; k &lt;= i1; ++k) {
+      if (jroot[k] &lt; 0) {
+	i = ipar[((k - 1) &lt;&lt; 1) + 1];
+	j = ipar[((k - 1) &lt;&lt; 1) + 2];
+	s1 = x[((j - 1) &lt;&lt; 2) + 1] - x[((i - 1) &lt;&lt; 2) + 1];
+	s2 = -rpar[i] * s1 / rpar[j];
+	s3 = x[((j - 1) &lt;&lt; 2) + 3] - x[((i - 1) &lt;&lt; 2) + 3];
+	s4 = -rpar[i] * s3 / rpar[j];
+	a = rpar[i] * (s1 * s1 + s3 * s3) + rpar[j] * (s2 * s2 + s4 
+						       * s4);
+	b = rpar[i] * (s1 * x[((i - 1) &lt;&lt; 2) + 2] + s3 * x[((i - 1 )
+							  &lt;&lt; 2) + 4]) + rpar[j] * (s2 * x[((j - 1) &lt;&lt; 2) + 2] + 
+										   s4 * x[((j - 1) &lt;&lt; 2) + 4]);
+	xsi = -(b * 2. / a);
+	x[((i - 1) &lt;&lt; 2) + 2] += s1 * xsi;
+	x[((j - 1) &lt;&lt; 2) + 2] += s2 * xsi;
+	x[((i - 1) &lt;&lt; 2) + 4] += s3 * xsi;
+	x[((j - 1) &lt;&lt; 2) + 4] += s4 * xsi;
+      }
+    }
+    k = ng - (n &lt;&lt; 2) + 1;
+    i1 = n;
+    for (i = 1; i &lt;= i1; ++i) {
+      if (jroot[k] &lt; 0) {
+	x[((i - 1) &lt;&lt; 2) + 4] = -x[((i - 1) &lt;&lt; 2) + 4];
+      }
+      ++k;
+      if (jroot[k] &lt; 0) {
+	x[((i - 1) &lt;&lt; 2) + 4] = -x[((i - 1) &lt;&lt; 2) + 4];
+      }
+      ++k;
+      if (jroot[k] &lt; 0) {
+	x[((i - 1) &lt;&lt; 2) + 2] = -x[((i - 1) &lt;&lt; 2) + 2];
+      }
+      ++k;
+      if (jroot[k] &lt; 0) {
+	x[((i - 1) &lt;&lt; 2) + 2] = -x[((i - 1) &lt;&lt; 2) + 2];
+      }
+      ++k;
+    }
+  }
+} 
+</PRE>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Fonction utilisée</A>
+</font></H3>
+Ajoutez ici les noms et références des fonctions utilisées
+
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
+Voir aussi</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="ajouter un lien ici.htm">ajouter un lien ici</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+Auteurs</A>
+</font></H3>
+<b>entrez ici le nom des auteurs</b> Ajoutez ici les références des auteurs
+ 
+<H3><font color="blue"><A NAME="SECTION00030000000000000000">
+Bibliographie</A>
+</font></H3><DL COMPACT><DD>Ajoutez ici la bibliographie si besoin
+</DL>
+
+<BR>
+
+
+
+
+</BODY>
+</HTML>
