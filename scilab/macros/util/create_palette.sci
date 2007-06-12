@@ -22,7 +22,7 @@ function routines=create_palette(Path)
     clear %scicos_menu  %scicos_short %scicos_help %scicos_display_mode modelica_libs
     exec(loadpallibs,-1) 
     path='SCI/macros/scicos/'
-    
+
     routines=[]
     for txt=scicos_pal(:,1)'
       disp('Constructing '+txt)
@@ -31,7 +31,7 @@ function routines=create_palette(Path)
 	      'RAND_f.sci';'RFILE_f.sci';
 	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
-	      'CLOCK_f.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
+	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
 	      'TIME_f.sci'; 'Modulo_Count.sci']
 	
       elseif txt=='Sinks' then
@@ -65,9 +65,9 @@ function routines=create_palette(Path)
 	
       elseif txt=='Events' then
 	lisf=['ANDBLK.sci';'HALT_f.sci';'freq_div.sci';
-	      'ANDLOG_f.sci';'EVTDLY_f.sci';'IFTHEL_f.sci';'ESELECT_f.sci';
-	      'CLKSOMV_f.sci';'CLOCK_f.sci';'EVTGEN_f.sci';'EVTVARDLY.sci']
-	      
+	      'ANDLOG_f.sci';'EVTDLY_c.sci';'IFTHEL_f.sci';'ESELECT_f.sci';
+	      'CLKSOMV_f.sci';'CLOCK_c.sci';'EVTGEN_f.sci';'EVTVARDLY.sci']
+
       elseif txt=='Threshold' then
 	lisf=[  'NEGTOPOS_f.sci';  'POSTONEG_f.sci';  'ZCROSS_f.sci']
 	
@@ -87,7 +87,7 @@ function routines=create_palette(Path)
 	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
 	
       elseif txt=='OldBlocks' then
-	lisf=['ABSBLK_f.sci';    
+	lisf=['CLOCK_f.sci';'ABSBLK_f.sci';    
 	      'MAX_f.sci'; 'MIN_f.sci';'SAT_f.sci'; 'MEMORY_f.sci';
 	      'CLKSOM_f.sci';'TRASH_f.sci';'GENERAL_f.sci';'DIFF_f.sci';
 	      'BIGSOM_f.sci';'INTEGRAL_f.sci';'GAINBLK_f.sci';
