@@ -3,11 +3,13 @@
 <FILE name='ABS_VALUE' type='XML'>
 <SEE_ALSO>
 
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
 <SEE_ALSO>
+
 
 </SEE_ALSO>
 </FILE>
@@ -15,11 +17,13 @@
 <FILE name='ANDBLK' type='XML'>
 <SEE_ALSO>
 
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
 <SEE_ALSO>
+
 
 </SEE_ALSO>
 </FILE>
@@ -27,141 +31,220 @@
 <FILE name='ANIMXY_f' type='XML'>
 <SEE_ALSO>
 
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BACKLASH' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Bache' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Branching_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CBLOCK' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLINDUMMY_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKINV_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKOUTV_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKSOMV_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLOCK_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLR_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLSS_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONSTRAINT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CURV_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Capacitor' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ConstantVoltage' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CurrentSensor' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEADBAND' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEBUG_SCICOS' type='XML'>
 <SEE_ALSO>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEMUX' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DERIV' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLSS_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Diode' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -174,51 +257,81 @@
 
 <FILE name='ESELECT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EVTVARDLY' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXPBLK_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXPRESSION' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTRACTOR' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Electrical_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Events_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
@@ -246,21 +359,33 @@
 
 <FILE name='GENSIN_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GENSQR_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Ground' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='HALT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
@@ -410,31 +535,49 @@
 
 <FILE name='NEGTOPOS_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='NRMSOM_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Non_linear_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='OUTIMPL_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='OUT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Others_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
@@ -446,202 +589,320 @@
 
 <FILE name='POSTONEG_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='POWBLK_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PRODUCT' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PROD_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PerteDP' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PotentialSensor' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PuitsP' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='QUANT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RAMP' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='READAU_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='READC_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RELAY_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAMPLEHOLD_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SCALAR2VECTOR' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SCOPXY_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SELECT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SIGNUM' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUPER_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SWITCH2' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SWITCH_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SourceP' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Sources_pal' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TIME_DELAY' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TIME_f' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='XML'>
 <SEE_ALSO>
+
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Threshold_pal' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -649,11 +910,15 @@
 <FILE name='TrigFun' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='VARIABLE_DELAY' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -661,11 +926,15 @@
 <FILE name='VVsourceAC' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='VanneReglante' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -673,11 +942,15 @@
 <FILE name='VariableResistor' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='VoltageSensor' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -685,17 +958,23 @@
 <FILE name='VsourceAC' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='WFILE_f' type='XML'>
 <SEE_ALSO>
 
+
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='WRITEAU_f' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -740,19 +1019,18 @@
 <SEE_ALSO>
 
 
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='freq_div' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -832,913 +1110,685 @@
 
 <FILE name='CUMSUM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATSUM</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTTRI</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTRACT</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATDIV</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATMUL</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATCATH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATCATV</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATCATV' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATCATH</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATDET' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATINV</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATDIAG' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>EXTTRI</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATDIV' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATBKSL</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATMUL</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATEIG' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATSING</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATEXPM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATMUL</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATINV' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATLU</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATPINV</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATLU' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATINV</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATMAGPHI' type='XML'>
 <SEE_ALSO>
 <SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
+<LINK>MATZREIM</LINK>
 </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>INTMUL</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATDIV</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATBKSL</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATEXPM</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>SUMMATION</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATINV</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATSING</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATRESH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EXTRACT</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATSING' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATEIG</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATLU</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Matrix_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>SUBMAT</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>SUMMATION</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATMAGPHI</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='OldBlocks_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RICC' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Matrix_pal</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITSET</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BITSET' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITCLEAR</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXTRACTBITS' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITSET</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITCLEAR</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GAINBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTGAINBLK' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>GAINBLK</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM>  <LINK>INTMUL</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTLOGICAL_OP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>LOGICALOP</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTMUL' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>MATMUL</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INTREGISTER' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>REGISTER</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Integer_pal' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>RLATIONALOP</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='RELAY_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITSET</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>BITCLEAR</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SQRT' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>POWBLK_f</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SUMMATIONI' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>SUMMATION</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='DLATCH1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='LOGIC' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>SRFLIPFLOP</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DLATCH</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>DFLIPFLOP</LINK></SEE_ALSO_ITEM>
+  <SEE_ALSO_ITEM><LINK>JKFLIPFLOP</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 

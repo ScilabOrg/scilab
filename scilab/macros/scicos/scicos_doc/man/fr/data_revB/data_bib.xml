@@ -2,18 +2,18 @@
 
 <FILE name='ABS_VALUE' type='XML'>
 <BIBLIO>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
 <BIBLIO>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='ANDBLK' type='XML'>
 <BIBLIO>
-
-
 
 </BIBLIO>
 </FILE>
@@ -273,15 +273,11 @@
 <FILE name='GAINBLK' type='XML'>
 <BIBLIO>
 
-
-
 </BIBLIO>
 </FILE>
 
 <FILE name='GENSIN_f' type='XML'>
 <BIBLIO>
-
-
 
 </BIBLIO>
 </FILE>
@@ -289,15 +285,11 @@
 <FILE name='GENSQR_f' type='XML'>
 <BIBLIO>
 
-
-
 </BIBLIO>
 </FILE>
 
 <FILE name='Ground' type='XML'>
 <BIBLIO>
-
-
 
 </BIBLIO>
 </FILE>
@@ -305,15 +297,11 @@
 <FILE name='HALT_f' type='XML'>
 <BIBLIO>
 
-
-
 </BIBLIO>
 </FILE>
 
 <FILE name='HYSTHERESIS' type='XML'>
 <BIBLIO>
-
-
 
 </BIBLIO>
 </FILE>
@@ -490,11 +478,14 @@
 <BIBLIO>
 
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Others_pal' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -508,11 +499,15 @@
 <FILE name='POSTONEG_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='POWBLK_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -520,11 +515,15 @@
 <FILE name='PRODUCT' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='PROD_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -532,11 +531,15 @@
 <FILE name='PerteDP' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='PotentialSensor' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -544,11 +547,15 @@
 <FILE name='PuitsP' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='QUANT_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -556,11 +563,15 @@
 <FILE name='RAMP' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -568,11 +579,15 @@
 <FILE name='RATELIMITER' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='READAU_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -580,11 +595,15 @@
 <FILE name='READC_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -592,11 +611,15 @@
 <FILE name='RELATIONALOP' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='RELAY_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -604,11 +627,15 @@
 <FILE name='RFILE_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -616,11 +643,15 @@
 <FILE name='SAMPLEHOLD_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -628,11 +659,15 @@
 <FILE name='SAWTOOTH_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SCALAR2VECTOR' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -640,11 +675,15 @@
 <FILE name='SCOPXY_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SELECT_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -652,11 +691,15 @@
 <FILE name='SIGNUM' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -664,11 +707,15 @@
 <FILE name='SUMMATION' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -676,11 +723,15 @@
 <FILE name='SUPER_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SWITCH2' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -688,11 +739,15 @@
 <FILE name='SWITCH_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -700,11 +755,14 @@
 <FILE name='SourceP' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Sources_pal' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -712,11 +770,13 @@
 <FILE name='TCLSS_f' type='XML'>
 <BIBLIO>
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -724,11 +784,13 @@
 <FILE name='TIME_DELAY' type='XML'>
 <BIBLIO>
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='TIME_f' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -736,11 +798,13 @@
 <FILE name='ThermoHydraulics_pal' type='XML'>
 <BIBLIO>
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Threshold_pal' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -748,11 +812,13 @@
 <FILE name='TrigFun' type='XML'>
 <BIBLIO>
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='VARIABLE_DELAY' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -760,11 +826,14 @@
 <FILE name='VVsourceAC' type='XML'>
 <BIBLIO>
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='VanneReglante' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -773,11 +842,14 @@
 <BIBLIO>
 
 
+
 </BIBLIO>
 </FILE>
 
 <FILE name='VoltageSensor' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -785,11 +857,15 @@
 <FILE name='VsourceAC' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='WFILE_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -797,17 +873,23 @@
 <FILE name='WRITEAU_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='WRITEC_f' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='ZCROSS_f' type='XML'>
 <BIBLIO>
+
+
 
 </BIBLIO>
 </FILE>
@@ -821,6 +903,8 @@
 <FILE name='c_block' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
@@ -833,17 +917,22 @@
 <FILE name='fortran_block' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='freq_div' type='XML'>
 <BIBLIO>
 
+
+
 </BIBLIO>
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
 <BIBLIO>
+
 
 </BIBLIO>
 </FILE>
@@ -917,913 +1006,595 @@
 
 <FILE name='CUMSUM' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATCATH' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATCATV' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDET' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDIAG' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATDIV' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATEIG' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATEXPM' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATINV' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATLU' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATMAGPHI' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATRESH' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATSING' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Matrix_pal' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='OldBlocks_pal' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RICC' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='BITCLEAR' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='BITSET' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='EXTRACTBITS' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='GAINBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTGAINBLK' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTLOGICAL_OP' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTMUL' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTREGISTER' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='Integer_pal' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='RELATIONAL_OP' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='RELAY_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='SHIFT' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SQRT' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='SUMMATIONI' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='DLATCH1' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='LOGIC' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 

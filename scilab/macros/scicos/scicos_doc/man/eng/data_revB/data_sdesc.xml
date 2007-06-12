@@ -373,7 +373,7 @@
 </FILE>
 
 <FILE name='SAMPLEHOLD_f' type='XML'>
-<SHORT_DESCRIPTION name="SAMPLEHOLD_f">Sample and hold </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPLEHOLD_f">Sample and hold (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
@@ -958,7 +958,7 @@
 </FILE>
 
 <FILE name='Integer_pal' type='XML'>
-<SHORT_DESCRIPTION name="Integer">Integer title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Integer">Integer palette</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
@@ -974,7 +974,7 @@
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD_m">SAMPHOLD_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPHOLD_m">Sample and hold</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SHIFT' type='XML'>

@@ -10,21 +10,17 @@
 <FILE name='AFFICH_f' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='ANDBLK' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -176,11 +172,15 @@
 <FILE name='CurrentSensor' type='XML'>
 <USED_FUNCTIONS>
 
+
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DEADBAND' type='XML'>
 <USED_FUNCTIONS>
+
+
 
 </USED_FUNCTIONS>
 </FILE>
@@ -336,23 +336,17 @@
 <FILE name='GENSQR_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='Ground' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='HALT_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -449,17 +443,22 @@
 <USED_FUNCTIONS>
 
 
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='LOOKUP_f' type='XML'>
 <USED_FUNCTIONS>
 
+
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MAXMIN' type='XML'>
 <USED_FUNCTIONS>
+
+
 
 </USED_FUNCTIONS>
 </FILE>
@@ -508,7 +507,6 @@
 
 <FILE name='PDE' type='XML'>
 <USED_FUNCTIONS>
-
 </USED_FUNCTIONS>
 </FILE>
 
@@ -523,15 +521,11 @@
 <FILE name='POWBLK_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PRODUCT' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -539,15 +533,11 @@
 <FILE name='PROD_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PerteDP' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -555,15 +545,11 @@
 <FILE name='PotentialSensor' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PuitsP' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -572,14 +558,11 @@
 <USED_FUNCTIONS>
 
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RAMP' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -587,15 +570,11 @@
 <FILE name='RAND_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -603,15 +582,11 @@
 <FILE name='READAU_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='READC_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -619,15 +594,11 @@
 <FILE name='REGISTER_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -635,15 +606,11 @@
 <FILE name='RELAY_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -651,15 +618,11 @@
 <FILE name='Resistor' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAMPLEHOLD_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -667,15 +630,11 @@
 <FILE name='SATURATION' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -683,15 +642,11 @@
 <FILE name='SCALAR2VECTOR' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SCOPXY_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -699,15 +654,11 @@
 <FILE name='SELECT_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SIGNUM' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -715,15 +666,11 @@
 <FILE name='STEP_FUNCTION' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -731,15 +678,11 @@
 <FILE name='SUM_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SUPER_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -747,15 +690,11 @@
 <FILE name='SWITCH2' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SWITCH_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -763,15 +702,11 @@
 <FILE name='SourceP' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -779,13 +714,11 @@
 <FILE name='TEXT_f' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TIME_DELAY' type='XML'>
 <USED_FUNCTIONS>
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -793,13 +726,11 @@
 <FILE name='TIME_f' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TrigFun' type='XML'>
 <USED_FUNCTIONS>
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -807,13 +738,11 @@
 <FILE name='VARIABLE_DELAY' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='VVsourceAC' type='XML'>
 <USED_FUNCTIONS>
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -821,13 +750,11 @@
 <FILE name='VanneReglante' type='XML'>
 <USED_FUNCTIONS>
 
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='VariableResistor' type='XML'>
 <USED_FUNCTIONS>
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -853,6 +780,8 @@
 <FILE name='WRITEAU_f' type='XML'>
 <USED_FUNCTIONS>
 
+
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -860,11 +789,14 @@
 <USED_FUNCTIONS>
 
 
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='ZCROSS_f' type='XML'>
 <USED_FUNCTIONS>
+
+
 
 </USED_FUNCTIONS>
 </FILE>
@@ -877,6 +809,7 @@
 
 <FILE name='c_block' type='XML'>
 <USED_FUNCTIONS>
+
 
 
 </USED_FUNCTIONS>
@@ -892,17 +825,22 @@
 <USED_FUNCTIONS>
 
 
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='freq_div' type='XML'>
 <USED_FUNCTIONS>
 
+
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
 <USED_FUNCTIONS>
+
+
 
 </USED_FUNCTIONS>
 </FILE>
@@ -915,26 +853,21 @@
 
 <FILE name='lincos' type='XML'>
 <USED_FUNCTIONS>
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='scicos' type='XML'>
 <USED_FUNCTIONS>
-
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
 <USED_FUNCTIONS>
-
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
 <USED_FUNCTIONS>
-
 </USED_FUNCTIONS>
 </FILE>
 
@@ -946,7 +879,6 @@
 
 <FILE name='scicosim' type='XML'>
 <USED_FUNCTIONS>
-
 </USED_FUNCTIONS>
 </FILE>
 
@@ -978,7 +910,13 @@
 <FILE name='CUMSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have six differnts functions.
+<LINK>cumsum_m</LINK>,
+<LINK>cumsumz_m</LINK>,
+<LINK>cumsum_r</LINK>,
+<LINK>cumsumz_r</LINK>,
+<LINK>cumsum_c</LINK>,
+<LINK>cumsumz_c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -986,7 +924,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='EXTRACT' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two differents functions:
+<LINK>extract</LINK>,
+<LINK>extractz</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -994,7 +934,13 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='EXTTRI' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have six differents functions:
+<LINK> exttril </LINK>,
+<LINK> exttriu </LINK>,
+<LINK> extdiag </LINK>,
+<LINK> exttrilz </LINK>,
+<LINK> exttriuz </LINK>,
+<LINK> extdiagz </LINK>.
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1002,7 +948,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATBKSL' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two functions:
+<LINK>mat_bksl</LINK>
+<LINK>matz_bksl</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1010,7 +958,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATCATH' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two functions:
+<LINK>mat_cath</LINK>,
+<LINK>matz_cath</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1018,7 +968,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATCATV' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two functions:
+<LINK>mat_catv</LINK>,
+<LINK>matz_catv</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1026,7 +978,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATDET' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two functions:
+<LINK>mat_det</LINK>,
+<LINK>matz_det</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1034,7 +988,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATDIAG' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we use two differents functions:
+<LINK>mat_diag</LINK>,
+<LINK>matz_diag</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1042,7 +998,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATDIV' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+For this block we have two differents functions:
+<LINK>mat_div</LINK>,
+<LINK>matz_div</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1050,7 +1008,11 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATEIG' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have four differents functions:
+<LINK>mat_vps</LINK>,
+<LINK>mat_vpv</LINK>,
+<LINK>matz_vps</LINK>,
+<LINK>matz_vpv</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1058,7 +1020,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATEXPM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>mat_expm</LINK>,
+<LINK>matz_expm</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1066,7 +1030,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATINV' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>mat_inv</LINK>,
+<LINK>matz_inv</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1074,7 +1040,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATLU' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>mat_lu</LINK>,
+<LINK>matz_lu</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1082,7 +1050,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATMAGPHI' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>matz_abs</LINK>,
+<LINK>matz_absc</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1090,7 +1060,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATMUL' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>matmul_m</LINK>,
+<LINK>matzmul_m</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1098,7 +1070,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATPINV' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>mat_pinv</LINK>,
+<LINK>matz_pinv</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1106,7 +1080,9 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATRESH' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have two differents functions:
+<LINK>mat_reshape</LINK>,
+<LINK>matz_reshape</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1114,295 +1090,234 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATSING' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+for this block we have four differents functions:
+<LINK>mat_sing</LINK>,
+<LINK>mat_svd</LINK>,
+<LINK>matz_sing</LINK>,
+<LINK>matz_svd</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>mat_sum.c</LINK>,
+<LINK>mat_suml.c</LINK>,
+<LINK>mat_sumc.c</LINK>,
+<LINK>matz_sum.c</LINK>,
+<LINK>matz_suml.c</LINK>,
+<LINK>matz_sumc.c</LINK>,
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1410,7 +1325,8 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATTRAN' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>mattran_m.c</LINK>,
+<LINK>matztran_m.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1418,7 +1334,7 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATZCONJ' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>matz_conj.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1426,239 +1342,186 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='MATZREIM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>matz_reim.c</LINK>,
+<LINK>matz_reimc.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RICC' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>ricc_m.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+	
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>bit_clear</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1666,7 +1529,7 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='BITSET' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>bit_set</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1674,7 +1537,7 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='CONVERT' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>convert</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1682,23 +1545,31 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='EXTRACTBITS' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>extract_bit_i32</LINK>,
+<LINK>extract_bit_i16</LINK>,
+<LINK>extract_bit_i8</LINK>,
+<LINK>extract_bit_ui32</LINK>,
+<LINK>extract_bit_ui16</LINK>,
+<LINK>extract_bit_ui8</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='GAINBLK_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='INTGAINBLK' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>gainblk_i32n</LINK>,<LINK>gainblk_i16n</LINK>,<LINK>gainblk_i8n</LINK>,<LINK>gainblk_ui32n</LINK>,
+<LINK>gainblk_ui16n</LINK>,<LINK>gainblk_ui8n</LINK>,
+<LINK>gainblk_i32s</LINK>,<LINK>gainblk_i16s</LINK>,<LINK>gainblk_i8s</LINK>,<LINK>gainblk_ui32s</LINK>,
+<LINK>gainblk_ui16s</LINK>,<LINK>gainblk_ui8s</LINK>,
+<LINK>gainblk_i32e</LINK>,<LINK>gainblk_i16e</LINK>,<LINK>gainblk_i8e</LINK>,<LINK>gainblk_ui32e</LINK>,
+<LINK>gainblk_ui16e</LINK>,<LINK>gainblk_ui8e</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1706,7 +1577,12 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='INTLOGICAL_OP' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>logicalop_i32</LINK>,
+<LINK>logicalop_i16</LINK>,
+<LINK>logicalop_i8</LINK>,
+<LINK>logicalop_ui32</LINK>,
+<LINK>logicalop_ui16</LINK>,
+<LINK>logicalop_ui8</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1714,7 +1590,12 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='INTMUL' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>matmul_i32n</LINK>,<LINK>matmul_i16n</LINK>,<LINK>matmul_i8n</LINK>,<LINK>matmul_ui32n</LINK>,
+<LINK>matmul_ui16n</LINK>,<LINK>matmul_ui8n</LINK>,
+<LINK>matmul_i32s</LINK>,<LINK>matmul_i16s</LINK>,<LINK>matmul_i8s</LINK>,<LINK>matmul_ui32s</LINK>,
+<LINK>matmul_ui16s</LINK>,<LINK>matmul_ui8s</LINK>,
+<LINK>matmul_i32e</LINK>,<LINK>matmul_i16e</LINK>,<LINK>matmul_i8e</LINK>,<LINK>matmul_ui32e</LINK>,
+<LINK>matmul_ui16e</LINK>,<LINK>matmul_ui8e</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1722,47 +1603,56 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='INTREGISTER' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>delay4_i32</LINK>,
+<LINK>delay4_i16</LINK>,
+<LINK>delay4_i8</LINK>,
+<LINK>delay4_ui32</LINK>,
+<LINK>delay4_ui16</LINK>,
+<LINK>delay4_ui8</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>relational_op_i32</LINK>,
+<LINK>relational_op_i16</LINK>,
+<LINK>relational_op_i8</LINK>,
+<LINK>relational_op_ui32</LINK>,
+<LINK>relational_op_ui16</LINK>,
+<LINK>relational_op_ui8</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RELAY_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>shift_i32</LINK>,
+<LINK>shift_i16</LINK>,
+<LINK>shift_i8</LINK>,
+<LINK>shift_ui32</LINK>,
+<LINK>shift_ui16</LINK>,
+<LINK>shift_ui8</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1770,7 +1660,8 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='SQRT' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>mat_sqrt.c</LINK>,
+<LINK>matz_sqrt.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1778,88 +1669,58 @@ Ajoutez ici les noms et références des fonctions utilisées
 <FILE name='SUMMATIONI' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>summation</LINK>,<LINK>summation_z</LINK>
+<LINK>summation_i32n</LINK>,<LINK>summation_i16n</LINK>,<LINK>summation_i8n</LINK>,<LINK>summation_ui32n</LINK>,
+<LINK>summation_ui16n</LINK>,<LINK>summation_ui8n</LINK>,
+<LINK>summation_i32s</LINK>,<LINK>summation_i16s</LINK>,<LINK>summation_i8s</LINK>,<LINK>summation_ui32s</LINK>,
+<LINK>summation_ui16s</LINK>,<LINK>summation_ui8s</LINK>,
+<LINK>summation_i32e</LINK>,<LINK>summation_i16e</LINK>,<LINK>summation_i8e</LINK>,<LINK>summation_ui32e</LINK>,
+<LINK>summation_ui16e</LINK>,<LINK>summation_ui8e</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DLATCH' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
-</USED_FUNCTIONS>
-</FILE>
 
-<FILE name='DLATCH1' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
-</USED_FUNCTIONS>
-</FILE>
 
-<FILE name='JKFLIPFLOP1' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='LOGIC' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Ajoutez ici les noms et références des fonctions utilisées
+<LINK>logic.c</LINK>
 </SP>
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
-</USED_FUNCTIONS>
-</FILE>
 
-<FILE name='SRFLIPFLOP1' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-Ajoutez ici les noms et références des fonctions utilisées
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 

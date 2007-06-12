@@ -1213,28 +1213,63 @@ Add here a paragraph of the function description
 
 <FILE name='scicosim' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Simulator for Scicos compiled diagram. Usually scicosim is called by scicos to perform simulation of a diagram.
-But scicosim may also be called outside Scicos. Typical usage in such a case may be:
-1- Use Scicos to define a block diagram, compile it.
-2- Save the compiled diagram using Save,SaveAs Scicos menus .
-3- In Scilab, load saved file using load function. You get variables scicos_ver, scs_m, %cpr
-scs_m is the diagram Scicos main data structure.
-%cpr is the data structure containing (state,sim,cor,corinv) if the diagram had been compiled before saved, else %cpr=list().
-4- Extract state, sim out of cpr
-5- Execute [state,t]=scicosim(state,0,tf,sim,'start',tol) for initialisation.
-6- Execute [state,t]=scicosim(state,0,tf,sim,'run',tol) for
-simulation from 0 to tf. Many successives such calls may be
-performed changing initial and final time.
-7- Execute [state,t]=scicosim(state,0,tf,sim,'finish',tol) at the very end of the simulation to close
-files,... For advanced user it is possible to "manually"
-change some parameters or state values.
-</P>
-
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+  <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+      <P>
+	Simulator for Scicos compiled diagram.
+      </P>
+      <P>
+	Usually scicosim is called by scicos to perform simulation of
+	a diagram.
+      </P>
+      <P>
+	But scicosim may also be called outside Scicos. Typical usage
+	in such a case may be :
+      </P>
+    </DESCRIPTION_ITEM>
+    <DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  1- Use Scicos to define a block diagram, compile it.
+	</P>
+	<P>
+	  2- Save the compiled diagram using Save,SaveAs Scicos menus.
+	</P>
+	<P>
+	  3- In Scilab, load saved file using load function. You get
+	  variables scicos_ver, scs_m, %cpr scs_m is the diagram Scicos main data structure.
+	</P>
+	<P>
+	  %cpr is the data structure containing (state,sim,cor,corinv) 
+	  if the diagram had been compiled before saved, else %cpr=list().
+	</P>
+	<P>
+	  4- Extract state, sim out of cpr.
+	</P>
+	<P>
+	  5- Execute [state,t]=scicosim(state,0,tf,sim,'start',tol) for initialisation.
+	</P>
+	<P>
+	  6- Execute [state,t]=scicosim(state,0,tf,sim,'run',tol) for
+	  simulation from 0 to tf.
+	</P>
+	<P>
+	  Many successives such calls may be
+	  performed changing initial and final time.
+	</P>
+	<P>
+	  7- Execute [state,t]=scicosim(state,0,tf,sim,'finish',tol) at 
+	  the very end of the simulation to close files,... 
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_ITEM>
+    <DESCRIPTION_ITEM>
+      <P>
+	For advanced user it is possible to "manually"
+	change some parameters or state values.
+      </P>
+    </DESCRIPTION_ITEM>
+  </DESCRIPTION_INDENT>
 </DESCRIPTION>
 </FILE>
 
