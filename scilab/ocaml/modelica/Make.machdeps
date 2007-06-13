@@ -1,0 +1,165 @@
+#
+#   Translator from Modelica 2.x to flat Modelica
+# 
+#   Copyright (C) 2005 – 2007 Imagine S.A.
+#   For more information or commercial use please contact us at www.amesim.com
+# 
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License
+#   as published by the Free Software Foundation; either version 2
+#   of the License, or (at your option) any later version.
+# 
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# 
+#
+
+# This is a -*-Makefile-*- 
+
+#
+# For FLEXlm home directory.
+#
+
+
+
+COMCFLAGS=-c -I$(FLEXLM_ROOT)/machind  -I$(SRCS_HOME)/include -I$(OCAML_ROOT)/$(INSTDIR)/lib/ocaml
+COMFFLAGS=-c
+COPTFLAGS=
+CDEBUGFLAGS=-g
+COUTPUT=-o
+THIS_IS_REALTIME_PLATFORM=no
+
+ifeq ($(RELEASE),yes)
+COMCFLAGS=-c -I$(FLEXLM_ROOT)/machind  -I$(SRCS_HOME)/include -I$(OCAML_ROOT)/$(INSTDIR)/lib/ocaml
+COMFFLAGS=-c
+COPTFLAGS=-O2
+CDEBUGFLAGS=
+endif
+
+AFLAGS=rsv
+AR = ar $(AFLAGS) $@
+
+EXTRA_FLEX_FILES =  
+
+THIS_IS_UNIX = no
+
+OBJEXT=o
+EXE_EXT=
+
+# These libraries are the same for all Unix, except HP.
+
+FLEXLIB = $(FLEXLM_ROOT)/$(SYSTEM)/lm_new.o $(FLEXLM_ROOT)/$(SYSTEM)/liblmgr_nomt.a $(FLEXLM_ROOT)/$(SYSTEM)/libcrvs.a $(FLEXLM_ROOT)/$(SYSTEM)/libsb.a 
+
+#Same for all Unix platforms
+
+FLEXSTRIP = $(FLEXLM_ROOT)/$(SYSTEM)/lmstrip
+
+OBJEXT=o
+
+
+#
+# Then we deal with the system dependent things
+#
+
+MACHINE=$(shell uname)
+
+# These libraries are the same for all Unix, except HP.
+
+FLEXLIB = $(FLEXLM_ROOT)/$(SYSTEM)/lm_new.o $(FLEXLM_ROOT)/$(SYSTEM)/liblmgr_nomt.a $(FLEXLM_ROOT)/$(SYSTEM)/libcrvs.a $(FLEXLM_ROOT)/$(SYSTEM)/libsb.a 
+
+#Same for all Unix platforms
+
+FLEXSTRIP = $(FLEXLM_ROOT)/$(SYSTEM)/lmstrip
+
+
+ifeq ($(MACHINE),HP-UX)
+FLEXLM_ROOT = /amedev/tools/flexlm/v8.4a
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS)  +z -DHPUX -DHP -DHP700 -Ae -D_HPUX_SOURCE +DA1.0 +DS1.0
+FFLAGS  = $(COMFFLAGS)  +z +ppu
+INSTDIR = hp
+SYSTEM  = hp_ux
+FLEXLD  = /usr/ccs/bin/ld -r
+FLEXLIB = $(FLEXLM_ROOT)/$(SYSTEM)/lm_new.o $(FLEXLM_ROOT)/$(SYSTEM)/liblmgr_pic.a $(FLEXLM_ROOT)/$(SYSTEM)/libcrvs_pic.a $(FLEXLM_ROOT)/$(SYSTEM)/libsb_pic.a 
+FLEXSTRIP = $(FLEXLM_ROOT)/$(SYSTEM)/lmstrip
+ifeq ($(RELEASE),yes)
+COPTFLAGS=+O2
+endif
+endif
+
+ifeq ($(MACHINE),SunOS)
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS)  -DSOLARIS -DSYSTEMV -DSUN0S5
+FFLAGS  = $(COMFFLAGS)  
+FLEXLD  = ld -r -s -z nocompstrtab
+INSTDIR = sun
+SYSTEM  = sun_solaris
+ifeq ($(RELEASE),yes)
+COPTFLAGS=-xO2
+endif
+endif
+
+ifeq ($(MACHINE),IRIX)
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS) -DIRIX -DSGI6 -DSGI32 -DSGI -n32 -mips3
+FFLAGS  = $(COMFFLAGS)  
+LDFLAGS = -n32 -mips3
+FLEXLD  = ld -r -n32 -mips3
+INSTDIR = sgi
+SYSTEM  = sgi_irix_n32
+endif
+
+ifeq ($(MACHINE),IRIX64)
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS) -DIRIX -DSGI6 -DSGI32 -DSGI -n32 -mips3
+FFLAGS  = $(COMFFLAGS)  
+LDFLAGS = -n32 -mips3
+FLEXLD  = ld -r -n32 -mips3
+INSTDIR = sgi
+SYSTEM  = sgi_irix_n32
+ifeq ($(CC),gcc)
+CFLAGS  = $(COMCFLAGS) -DIRIX -DSGI6 -DSGI32 -DSGI -mabi=n32 -Wimplicit-function-declaration -Wcomment -Wformat -Wmultichar -Wparentheses -Wreturn-type -Wswitch -Wsign-compare -Wconversion
+LDFLAGS = -mabi=n32
+endif
+endif
+
+ifeq ($(MACHINE),AIX)
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS) -DAIX -DRS6000 -q32
+FFLAGS  = $(COMFFLAGS) -qextname
+FLEXLD  = ld -r
+INSTDIR = ibm
+SYSTEM  = ibm_aix
+endif
+
+ifeq ($(MACHINE),Linux)
+THIS_IS_UNIX = yes
+CFLAGS  = $(COMCFLAGS) -DLINUX -ffloat-store -fno-builtin -Wimplicit-function-declaration -Wcomment -Wformat -Wmultichar -Wparentheses -Wreturn-type -Wswitch -Wsign-compare -Wconversion
+FFLAGS  = $(COMFFLAGS)
+FLEXLD  = ld -r
+
+INSTDIR = lnx
+SYSTEM  = x86_linux
+PLATFORMTYPE=std
+SYSTEM  = i86_r9
+TARGETMACHINE=LNX_RH9
+endif
+
+
+ifeq ($(THIS_IS_UNIX),no)
+#apparently we are doing this on Windows - sort this out later.
+INSTDIR = win32
+OCAML_ROOT ?= M:/tools/ocaml/win32
+OCAMLLIB   ?= $(OCAML_ROOT)/lib
+export OCAMLLIB
+EXE_EXT=.exe
+else
+FLEXLM_ROOT ?= /amedev/tools/flexlm/v10.8.0.1
+OCAML_ROOT  ?= /amedev/tools/ocaml
+endif
