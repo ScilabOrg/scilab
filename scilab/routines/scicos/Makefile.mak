@@ -60,7 +60,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	submatz.obj switch2_m.obj dollar4_m.obj cstblk4_m.obj integralz_func.obj \
 	matzmul_m.obj matztran_m.obj mat_sum.obj mat_sumc.obj mat_suml.obj cumsum_c.obj cumsum_m.obj \
 	cumsum_r.obj matz_sum.obj matz_sumc.obj matz_suml.obj cumsumz_c.obj cumsumz_m.obj \
-	cumsumz_r.obj selector_m.obj summation_z.obj shift_i8.obj shift_i16.obj shift_i32.obj \
+	cumsumz_r.obj selector_m.obj summation_z.obj\
 	convert.obj logicalop_i32.obj logicalop_ui32.obj logicalop_i16.obj logicalop_ui16.obj \
 	logicalop_i8.obj logicalop_ui8.obj logicalop_m.obj samphold4_m.obj matmul_i32s.obj \
 	matmul_i32n.obj matmul_i32e.obj matmul_i16s.obj matmul_i16n.obj matmul_i16e.obj \
@@ -75,11 +75,21 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	gainblk_i8s.obj gainblk_i8n.obj gainblk_i8e.obj gainblk_ui32s.obj gainblk_ui32n.obj \
 	gainblk_ui32e.obj gainblk_ui16s.obj gainblk_ui16n.obj gainblk_ui16e.obj gainblk_ui8s.obj \
 	gainblk_ui8n.obj gainblk_ui8e.obj delay4_i32.obj delay4_i16.obj delay4_i8.obj delay4_ui32.obj \
-	delay4_ui16.obj delay4_ui8.obj bit_set.obj bit_clear.obj extract_bit_i32.obj extract_bit_i16.obj \
-	extract_bit_i8.obj extract_bit_ui32.obj extract_bit_ui16.obj extract_bit_ui8.obj mat_sqrt.obj \
+	delay4_ui16.obj delay4_ui8.obj mat_sqrt.obj \
 	matz_sqrt.obj relational_op_i32.obj relational_op_ui32.obj relational_op_i16.obj \
 	relational_op_ui16.obj relational_op_i8.obj relational_op_ui8.obj evtdly4.obj\
 	matmul2_m.obj matzmul2_m.obj expblk_m.obj logic.obj\
+	bit_clear_32.obj bit_clear_16.obj bit_clear_8.obj\
+	bit_set_32.obj bit_set_16.obj bit_set_8.obj extract_bit_32_UH0.obj extract_bit_16_UH0.obj \
+	extract_bit_8_UH0.obj extract_bit_32_UH1.obj extract_bit_16_UH1.obj extract_bit_8_UH1.obj \
+	extract_bit_32_LH.obj extract_bit_16_LH.obj extract_bit_8_LH.obj extract_bit_32_MSB0.obj extract_bit_16_MSB0.obj\
+	extract_bit_8_MSB0.obj extract_bit_32_MSB1.obj extract_bit_16_MSB1.obj extract_bit_8_MSB1.obj extract_bit_32_LSB.obj \
+	extract_bit_16_LSB.obj extract_bit_8_LSB.obj extract_bit_32_RB0.obj extract_bit_16_RB0.obj extract_bit_8_RB0.obj \
+	extract_bit_32_RB1.obj extract_bit_16_RB1.obj extract_bit_8_RB1.obj shift_8_LA.obj shift_16_LA.obj shift_32_LA.obj \
+	shift_8_LC.obj shift_16_LC.obj shift_32_LC.obj shift_8_RA.obj shift_16_RA.obj shift_32_RA.obj \
+	shift_8_RC.obj shift_16_RC.obj shift_32_RC.obj shift_u8_RA.obj shift_u16_RA.obj shift_u32_RA.obj\
+	extract_bit_u32_UH1.obj extract_bit_u16_UH1.obj extract_bit_u8_UH1.obj extract_bit_u32_MSB1.obj\
+	extract_bit_u16_MSB1.obj extract_bit_u8_MSB1.obj extract_bit_u32_RB1.obj extract_bit_u16_RB1.obj extract_bit_u8_RB1.obj\
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \

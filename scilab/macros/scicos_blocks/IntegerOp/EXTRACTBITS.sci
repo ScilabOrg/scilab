@@ -41,30 +41,114 @@ case 'set' then
 	end ;
     else bit=0;numb=[]
     end
-    if (Datatype==3) then
+    if (Datatype==3 | Datatype==6) then
 	if or(bit(:) > 31) then message ('Incorrect index '+string(max(bit))+' ; must be <32.');ok=%f;
 	end
-	 model.sim=list('extract_bit_i32',4)
-    elseif (Datatype==4) then
+	select rule
+	    case 1 then
+		select scal
+		case 0 then model.sim=list('extract_bit_32_UH0',4)
+		case 1 then 
+			select Datatype
+				case 3 then model.sim=list('extract_bit_32_UH1',4)
+				case 7 then model.sim=list('extract_bit_u32_UH1',4)
+			end
+		end
+	     case 2 then
+		 model.sim=list('extract_bit_32_LH',4)
+	     case 3 then
+		select scal
+		case 0 then model.sim=list('extract_bit_32_MSB0',4)
+		case 1 then 
+			select Datatype
+				case 3 then model.sim=list('extract_bit_32_MSB1',4)
+				case 7 then model.sim=list('extract_bit_u32_MSB1',4)
+			end
+		end
+	     case 4 then
+		model.sim=list('extract_bit_32_LSB',4)
+	     case 5 then
+		select scal
+		case 0 then model.sim=list('extract_bit_32_RB0',4)
+		case 1 then
+			 select Datatype
+				case 3 then model.sim=list('extract_bit_32_RB1',4)
+				case 7 then model.sim=list('extract_bit_u32_RB1',4)
+			end
+		end
+	end
+    elseif (Datatype==4 | Datatype==7) then
 	if or(bit(:) > 15) then message ('Incorrect index '+string(max(bit))+' ; must be <16.');ok=%f;
 	end
-	 model.sim=list('extract_bit_i16',4)
-    elseif (Datatype==5) then
+	select rule
+	    case 1 then
+		select scal
+		case 0 then model.sim=list('extract_bit_16_UH0',4)
+		case 1 then 
+			select Datatype
+				case 4 then model.sim=list('extract_bit_16_UH1',4)
+				case 7 then model.sim=list('extract_bit_u16_UH1',4)
+			end
+		end
+	     case 2 then
+		 model.sim=list('extract_bit_16_LH',4)
+	     case 3 then
+		select scal
+		case 0 then model.sim=list('extract_bit_16_MSB0',4)
+		case 1 then 
+			select Datatype
+				case 4 then model.sim=list('extract_bit_16_MSB1',4)
+				case 7 then model.sim=list('extract_bit_u16_MSB1',4)
+			end
+		end
+	     case 4 then
+		model.sim=list('extract_bit_16_LSB',4)
+	     case 5 then
+		select scal
+		case 0 then model.sim=list('extract_bit_16_RB0',4)
+		case 1 then 
+			select Datatype 
+				case 4 then model.sim=list('extract_bit_16_RB1',4)
+				case 7 then model.sim=list('extract_bit_u16_RB1',4)
+			end
+		end
+	end
+    elseif (Datatype==5 | Datatype==8) then
 	if or(bit(:) > 7) then message ('Incorrect index '+string(max(bit))+' ; must be <8.');ok=%f;
 	end
-	 model.sim=list('extract_bit_i8',4)
-    elseif(Datatype==6) then
-	if or(bit(:) > 31) then message ('Incorrect index '+string(max(bit))+' ; must be <32.');ok=%f;
+	select rule
+	    case 1 then
+		select scal
+		case 0 then model.sim=list('extract_bit_8_UH0',4)
+		case 1 then 
+			select Datatype 
+				case 5 then model.sim=list('extract_bit_8_UH1',4)
+				case 8 then model.sim=list('extract_bit_u8_UH1',4)
+			end
+		end
+	     case 2 then
+		 model.sim=list('extract_bit_8_LH',4)
+	     case 3 then
+		select scal
+		case 0 then model.sim=list('extract_bit_8_MSB0',4)
+		case 1 then 
+			select Datatype
+				case 5 then model.sim=list('extract_bit_8_MSB1',4)
+				case 8 then model.sim=list('extract_bit_u8_MSB1',4)
+			end
+		end
+	     case 4 then
+		model.sim=list('extract_bit_8_LSB',4)
+	     case 5 then
+		select scal
+		case 0 then model.sim=list('extract_bit_8_RB0',4)
+		case 1 then 
+			select Datatype
+				case 5 then model.sim=list('extract_bit_8_RB1',4)
+				case 8 then model.sim=list('extract_bit_u8_RB1',4)
+			end
+		end
 	end
-	 model.sim=list('extract_bit_ui32',4)
-    elseif (Datatype==7) then
-	if or(bit(:) > 15) then message ('Incorrect index '+string(max(bit))+' ; must be <16.');ok=%f;
-	end
-	 model.sim=list('extract_bit_ui16',4)
-    elseif (Datatype==8) then
-	if or(bit(:) > 7) then message ('Incorrect index '+string(max(bit))+' ; must be <8.');ok=%f;
-	end
-	 model.sim=list('extract_bit_ui8',4)
     else message ('Datatype '+string(Datatype)+' is not supported ; It must be 3 to 8');ok=%f;
     end
       if ok then
@@ -75,7 +159,7 @@ case 'set' then
       end
       if ok then
 	graphics.exprs=exprs;
-	model.ipar=[int(rule-1);int(scal);int(bit(:));int(numb(:))];
+	model.ipar=[int(bit(:));int(numb(:))];
 	x.graphics=graphics;x.model=model;
 	break
       end
@@ -84,14 +168,14 @@ case 'set' then
 case 'define' then
   numb=[];
   model=scicos_model()
-  model.sim=list('extract_bit',4)
+  model.sim=list('extract_bit_32_UH0',4)
   model.in=1
   model.in2=1
   model.out=1
   model.out2=1;
   model.intyp=3
   model.outtyp=3
-  model.ipar=[0,0,numb]
+  model.ipar=[0,numb]
   model.blocktype='c'
   model.dep_ut=[%t %f]
   

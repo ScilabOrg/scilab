@@ -7,15 +7,13 @@ void logic(scicos_block *block,int flag)
   char inp,num;
   int i,nin,nout,mo;
   char *opar;
-  
   nin=GetNin(block);
   nout=GetNout(block);
   opar=Getint8OparPtrs(block,1);
   mo=GetOparSize(block,1,1);
 
-  if (flag==1)
-   {num=0;
-    for (i=0;i<nin;i++)
+  num=0;
+  for (i=0;i<nin;i++)
 	{
 	 u=Getint8InPortPtrs(block,i+1);
 	 inp=*u;
@@ -24,10 +22,9 @@ void logic(scicos_block *block,int flag)
 	 inp=inp<<i;
 	 num=num+inp;
 	}
-    for (i=0;i<nout;i++)
+  for (i=0;i<nout;i++)
 	{
 	 y=Getint8OutPortPtrs(block,i+1);
 	 *y=*(opar+num+i*mo);
 	}
-   }
 }

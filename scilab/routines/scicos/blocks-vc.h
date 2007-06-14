@@ -211,9 +211,6 @@ extern void cumsumz_m __PARAMS((ARGS_scicos));
 extern void cumsumz_r __PARAMS((ARGS_scicos));
 extern void selector_m __PARAMS((ARGS_scicos));
 extern void summation_z __PARAMS((ARGS_scicos));
-extern void shift_i8 __PARAMS((ARGS_scicos));
-extern void shift_i16 __PARAMS((ARGS_scicos));
-extern void shift_i32 __PARAMS((ARGS_scicos));
 extern void convert __PARAMS((ARGS_scicos));
 extern void logicalop_i32 __PARAMS((ARGS_scicos));
 extern void logicalop_ui32 __PARAMS((ARGS_scicos));
@@ -283,14 +280,6 @@ extern void delay4_i8 __PARAMS((ARGS_scicos));
 extern void delay4_ui32 __PARAMS((ARGS_scicos));
 extern void delay4_ui16 __PARAMS((ARGS_scicos));
 extern void delay4_ui8 __PARAMS((ARGS_scicos));
-extern void bit_set __PARAMS((ARGS_scicos));
-extern void bit_clear __PARAMS((ARGS_scicos));
-extern void extract_bit_i32 __PARAMS((ARGS_scicos));
-extern void extract_bit_i16 __PARAMS((ARGS_scicos));
-extern void extract_bit_i8 __PARAMS((ARGS_scicos));
-extern void extract_bit_ui32 __PARAMS((ARGS_scicos));
-extern void extract_bit_ui16 __PARAMS((ARGS_scicos));
-extern void extract_bit_ui8 __PARAMS((ARGS_scicos));
 extern void mat_sqrt __PARAMS((ARGS_scicos));
 extern void matz_sqrt __PARAMS((ARGS_scicos));
 extern void relational_op_i32 __PARAMS((ARGS_scicos));
@@ -304,6 +293,60 @@ extern void matmul2_m __PARAMS((ARGS_scicos));
 extern void matzmul2_m __PARAMS((ARGS_scicos));
 extern void expblk_m __PARAMS((ARGS_scicos));
 extern void logic __PARAMS((ARGS_scicos));
+extern void bit_clear_32 __PARAMS((ARGS_scicos));
+extern void bit_clear_16 __PARAMS((ARGS_scicos));
+extern void bit_clear_8 __PARAMS((ARGS_scicos));
+extern void bit_set_32 __PARAMS((ARGS_scicos));
+extern void bit_set_16 __PARAMS((ARGS_scicos));
+extern void bit_set_8 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_UH0 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_UH0 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_UH0 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_LH __PARAMS((ARGS_scicos));
+extern void extract_bit_16_LH __PARAMS((ARGS_scicos));
+extern void extract_bit_8_LH __PARAMS((ARGS_scicos));
+extern void extract_bit_32_MSB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_MSB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_MSB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_LSB __PARAMS((ARGS_scicos));
+extern void extract_bit_16_LSB __PARAMS((ARGS_scicos));
+extern void extract_bit_8_LSB __PARAMS((ARGS_scicos));
+extern void extract_bit_32_RB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_RB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_RB0 __PARAMS((ARGS_scicos));
+extern void extract_bit_32_RB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_16_RB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_8_RB1 __PARAMS((ARGS_scicos));
+extern void shift_8_LA __PARAMS((ARGS_scicos));
+extern void shift_16_LA __PARAMS((ARGS_scicos));
+extern void shift_32_LA __PARAMS((ARGS_scicos));
+extern void shift_8_LC __PARAMS((ARGS_scicos));
+extern void shift_16_LC __PARAMS((ARGS_scicos));
+extern void shift_32_LC __PARAMS((ARGS_scicos));
+extern void shift_8_RA __PARAMS((ARGS_scicos));
+extern void shift_16_RA __PARAMS((ARGS_scicos));
+extern void shift_32_RA __PARAMS((ARGS_scicos));
+extern void shift_8_RC __PARAMS((ARGS_scicos));
+extern void shift_16_RC __PARAMS((ARGS_scicos));
+extern void shift_32_RC __PARAMS((ARGS_scicos));
+extern void shift_u8_RA __PARAMS((ARGS_scicos));
+extern void shift_u16_RA __PARAMS((ARGS_scicos));
+extern void shift_u32_RA __PARAMS((ARGS_scicos));
+extern void extract_bit_u32_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u16_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u8_UH1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u32_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u16_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u8_MSB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u32_RB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u16_RB1 __PARAMS((ARGS_scicos));
+extern void extract_bit_u8_RB1 __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -319,8 +362,12 @@ OpTab tabsim[] ={
 {"atanh_blk",(ScicosF) atanh_blk},
 {"backlash",(ScicosF) backlash},
 {"bidon",(ScicosF) F2C(bidon)},
-{"bit_clear",(ScicosF) bit_clear},
-{"bit_set",(ScicosF) bit_set},
+{"bit_clear_16",(ScicosF) bit_clear_16},
+{"bit_clear_32",(ScicosF) bit_clear_32},
+{"bit_clear_8",(ScicosF) bit_clear_8},
+{"bit_set_16",(ScicosF) bit_set_16},
+{"bit_set_32",(ScicosF) bit_set_32},
+{"bit_set_8",(ScicosF) bit_set_8},
 {"bounce_ball",(ScicosF) bounce_ball},
 {"bouncexy",(ScicosF) bouncexy},
 {"canimxy3d",(ScicosF) canimxy3d},
@@ -380,12 +427,39 @@ OpTab tabsim[] ={
 {"expblk",(ScicosF) F2C(expblk)},
 {"extdiag",(ScicosF) extdiag},
 {"extdiagz",(ScicosF) extdiagz},
-{"extract_bit_i16",(ScicosF) extract_bit_i16},
-{"extract_bit_i32",(ScicosF) extract_bit_i32},
-{"extract_bit_i8",(ScicosF) extract_bit_i8},
-{"extract_bit_ui16",(ScicosF) extract_bit_ui16},
-{"extract_bit_ui32",(ScicosF) extract_bit_ui32},
-{"extract_bit_ui8",(ScicosF) extract_bit_ui8},
+{"extract_bit_16_LH",(ScicosF) extract_bit_16_LH},
+{"extract_bit_16_LSB",(ScicosF) extract_bit_16_LSB},
+{"extract_bit_16_MSB0",(ScicosF) extract_bit_16_MSB0},
+{"extract_bit_16_MSB1",(ScicosF) extract_bit_16_MSB1},
+{"extract_bit_16_RB0",(ScicosF) extract_bit_16_RB0},
+{"extract_bit_16_RB1",(ScicosF) extract_bit_16_RB1},
+{"extract_bit_16_UH0",(ScicosF) extract_bit_16_UH0},
+{"extract_bit_16_UH1",(ScicosF) extract_bit_16_UH1},
+{"extract_bit_32_LH",(ScicosF) extract_bit_32_LH},
+{"extract_bit_32_LSB",(ScicosF) extract_bit_32_LSB},
+{"extract_bit_32_MSB0",(ScicosF) extract_bit_32_MSB0},
+{"extract_bit_32_MSB1",(ScicosF) extract_bit_32_MSB1},
+{"extract_bit_32_RB0",(ScicosF) extract_bit_32_RB0},
+{"extract_bit_32_RB1",(ScicosF) extract_bit_32_RB1},
+{"extract_bit_32_UH0",(ScicosF) extract_bit_32_UH0},
+{"extract_bit_32_UH1",(ScicosF) extract_bit_32_UH1},
+{"extract_bit_8_LH",(ScicosF) extract_bit_8_LH},
+{"extract_bit_8_LSB",(ScicosF) extract_bit_8_LSB},
+{"extract_bit_8_MSB0",(ScicosF) extract_bit_8_MSB0},
+{"extract_bit_8_MSB1",(ScicosF) extract_bit_8_MSB1},
+{"extract_bit_8_RB0",(ScicosF) extract_bit_8_RB0},
+{"extract_bit_8_RB1",(ScicosF) extract_bit_8_RB1},
+{"extract_bit_8_UH0",(ScicosF) extract_bit_8_UH0},
+{"extract_bit_8_UH1",(ScicosF) extract_bit_8_UH1},
+{"extract_bit_u16_MSB1",(ScicosF) extract_bit_u16_MSB1},
+{"extract_bit_u16_RB1",(ScicosF) extract_bit_u16_RB1},
+{"extract_bit_u16_UH1",(ScicosF) extract_bit_u16_UH1},
+{"extract_bit_u32_MSB1",(ScicosF) extract_bit_u32_MSB1},
+{"extract_bit_u32_RB1",(ScicosF) extract_bit_u32_RB1},
+{"extract_bit_u32_UH1",(ScicosF) extract_bit_u32_UH1},
+{"extract_bit_u8_MSB1",(ScicosF) extract_bit_u8_MSB1},
+{"extract_bit_u8_RB1",(ScicosF) extract_bit_u8_RB1},
+{"extract_bit_u8_UH1",(ScicosF) extract_bit_u8_UH1},
 {"extractor",(ScicosF) extractor},
 {"extract",(ScicosF) extract},
 {"extractz",(ScicosF) extractz},
@@ -554,9 +628,21 @@ OpTab tabsim[] ={
 {"selblk",(ScicosF) F2C(selblk)},
 {"selector_m",(ScicosF) selector_m},
 {"selector",(ScicosF) selector},
-{"shift_i16",(ScicosF) shift_i16},
-{"shift_i32",(ScicosF) shift_i32},
-{"shift_i8",(ScicosF) shift_i8},
+{"shift_16_LA",(ScicosF) shift_16_LA},
+{"shift_16_LC",(ScicosF) shift_16_LC},
+{"shift_16_RA",(ScicosF) shift_16_RA},
+{"shift_16_RC",(ScicosF) shift_16_RC},
+{"shift_32_LA",(ScicosF) shift_32_LA},
+{"shift_32_LC",(ScicosF) shift_32_LC},
+{"shift_32_RA",(ScicosF) shift_32_RA},
+{"shift_32_RC",(ScicosF) shift_32_RC},
+{"shift_8_LA",(ScicosF) shift_8_LA},
+{"shift_8_LC",(ScicosF) shift_8_LC},
+{"shift_8_RA",(ScicosF) shift_8_RA},
+{"shift_8_RC",(ScicosF) shift_8_RC},
+{"shift_u16_RA",(ScicosF) shift_u16_RA},
+{"shift_u32_RA",(ScicosF) shift_u32_RA},
+{"shift_u8_RA",(ScicosF) shift_u8_RA},
 {"signum",(ScicosF) signum},
 {"sinblk",(ScicosF) F2C(sinblk)},
 {"sin_blk",(ScicosF) sin_blk},
@@ -610,6 +696,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 302 ;
+int ntabsim= 345 ;
 #endif 
 /***********************************/

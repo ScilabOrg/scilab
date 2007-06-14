@@ -27,12 +27,15 @@ case 'set' then
     if (Datatype==3)|(Datatype==6) then
 	if bit > 31 then message ('Incorrect index '+string(bit)+' ; must be <32.');ok=%f;
 	end
+	model.sim=list('bit_set_32',4)
     elseif (Datatype==4)|(Datatype==7) then
 	if bit > 15 then message ('Incorrect index '+string(bit)+' ; must be <16.');ok=%f;
 	end
+	model.sim=list('bit_set_16',4)
     elseif (Datatype==5)|(Datatype==8) then
 	if bit > 7 then message ('Incorrect index '+string(bit)+' ; must be <8.');ok=%f;
 	end
+	model.sim=list('bit_set_8',4)
     else message ('Datatype '+string(Datatype)+' is not supported ; It must be 3 to 8');ok=%f;
     end
       if ok then
@@ -43,7 +46,7 @@ case 'set' then
       end
       if ok then
 	graphics.exprs=exprs;
-	model.ipar=[bit;int(Datatype-3)];
+	model.ipar=bit;
 	x.graphics=graphics;x.model=model;
 	break
       end
@@ -51,7 +54,7 @@ case 'set' then
 
 case 'define' then
   model=scicos_model()
-  model.sim=list('bit_set',4)
+  model.sim=list('bit_set_32',4)
   model.in=1
   model.in2=1
   model.out=1
