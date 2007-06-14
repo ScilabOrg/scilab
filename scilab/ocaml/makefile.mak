@@ -34,7 +34,7 @@ CMXACMX=linenum.cmx nums.cmxa parseTree.cmx parser.cmx \
        causalityGraph.cmx optimization.cmx scicosCodeGeneration.cmx \
        xMLCodeGeneration.cmx optimizingCompiler.cmx	
 
-all:: translator step1 step2 step3 step4 step5 step6
+all:: step1 step2 step3 step4 step5 step6
 
 translator:
 	@cd modelica;$(MAKE) depend;$(MAKE);copy translation\$(TRANSLATOR) ..\..\bin\$(TRANSLATOR)	

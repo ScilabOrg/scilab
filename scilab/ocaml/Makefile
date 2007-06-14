@@ -75,7 +75,7 @@ TRANSLATOR=../../bin/translator
 	@ocamllex $(<)
 
 
-all : depend $(TRANSLATOR)  $(EXE)
+all : depend $(EXE)
 
 $(EXE): $(MLIS:.mli=.cmi) $(MLS:.ml=.cmx)
 	@$(OCAMLOPT) -o $(EXE) $(LFLAGS) $(LIBS:.cma=.cmxa) $(MLS:.ml=.cmx)
