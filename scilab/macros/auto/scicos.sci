@@ -387,7 +387,8 @@ if ~super_block then
       mpopup   = tk_mpopup   ; //** the pop up Windowz
       choose   = tk_scicos_choose   ;
     else
-    //** ... for Unix machines   
+      //** ... for Unix machines   
+      getvalue = tk_getvalue ;
       mpopup = tk_mpopupX    ; //** for the Penguin 
       deff('x=choose(varargin)', 'x=x_choose(varargin(1:$))');
     end
