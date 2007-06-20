@@ -123,8 +123,8 @@ clean::
 	-$(RM)  linenum.ml
 	-$(RM)  *.exe
 	-$(RM)  ..\bin\$(EXEC)
-	@cd modelica;$(MAKE) clean; 
-	-$(RM)  ..\bin\$(TRANSLATOR)
+#	@cd modelica;$(MAKE) clean; 
+#	-$(RM)  ..\bin\$(TRANSLATOR)
 
 
 distclean::

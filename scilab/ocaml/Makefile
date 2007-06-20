@@ -131,8 +131,8 @@ clean:
 	@$(RM) -f parser.ml
 	@$(RM) -f lexer.ml
 	@$(RM) -f $(EXE)
-	@cd modelica;$(MAKE) clean; 
-	@$(RM) -f $(TRANSLATOR)
+#	@cd modelica;$(MAKE) clean; 
+#	@$(RM) -f $(TRANSLATOR)
 
 distclean : clean
 	@$(RM) -rf doc $(EXE) 
