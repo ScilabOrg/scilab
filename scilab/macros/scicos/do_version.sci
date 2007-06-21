@@ -149,7 +149,7 @@ function scs_m_new=do_version42(scs_m)
 	scs_m_new.objs(j).graphics.exprs = [string(1);scs_m_new.objs(j).graphics.exprs(:)]
 	scs_m_new.objs(j).model.ipar = [scs_m_new.objs(j).model.ipar(:);1]
       elseif o.gui=='CMSCOPE' then
-	scs_m_new.objs(j).model.dstate=[]
+        scs_m_new.objs(j).model.dstate=[]
         [AA,ierr]=context_evstr(scs_m_new.objs(j).graphics.exprs(1),%scicos_context);
         if ierr<>0 then
          error("Problem in update of CMSCOPE_f : can''t evaluate variable");
@@ -157,23 +157,39 @@ function scs_m_new=do_version42(scs_m)
         A=AA(1)
         A=A(:);
         A=A';
- 	nb_A=size(A,2);
-	B=stripblanks(scs_m.objs(j).graphics.exprs(8));
-	B(1:nb_A)=B;
+        nb_A=size(A,2);
+        B=stripblanks(scs_m.objs(j).graphics.exprs(8));
+        B(1:nb_A)=B;
         B = strcat(B', ' ');
         scs_m_new.objs(j).graphics.exprs(8)=B;
-	rpar=scs_m_new.objs(j).model.rpar(:);
-	N=scs_m_new.objs(j).model.ipar(2);
-	period = [];
-	for i=1:N
-	   period(i)=rpar(2);
-	end
-	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
-	in = scs_m_new.objs(j).model.in(:);
-	a = size(in,1);
-	in2 = ones(a,1);
-	scs_m_new.objs(j).model.in2 = in2;
-	scs_m_new.objs(j).model.intyp = in2;
+        rpar=scs_m_new.objs(j).model.rpar(:);
+        N=scs_m_new.objs(j).model.ipar(2);
+        period = [];
+        for i=1:N
+          period(i)=rpar(2);
+        end
+        scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
+        in = scs_m_new.objs(j).model.in(:);
+        a = size(in,1);
+        in2 = ones(a,1);
+        scs_m_new.objs(j).model.in2 = in2;
+        scs_m_new.objs(j).model.intyp = in2;
+      elseif o.gui=='IN_f' then
+        scs_m_new.objs(j).model.out    = -1;
+        scs_m_new.objs(j).model.out2   = -2;
+        scs_m_new.objs(j).model.outtyp = -1;
+      elseif o.gui=='OUT_f' then
+        scs_m_new.objs(j).model.in    = -1;
+        scs_m_new.objs(j).model.in2   = -2;
+        scs_m_new.objs(j).model.intyp = -1;
+      elseif o.gui=='INIMPL_f' then
+        scs_m_new.objs(j).model.out    = -1;
+        scs_m_new.objs(j).model.out2   = 1;
+        scs_m_new.objs(j).model.outtyp = -1;
+      elseif o.gui=='OUTIMPL_f' then
+        scs_m_new.objs(j).model.in    = -1;
+        scs_m_new.objs(j).model.in2   = 1;
+        scs_m_new.objs(j).model.intyp = -1;
       end
     end
   end
