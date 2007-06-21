@@ -38,7 +38,14 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                                 //adjust_inout with flag ok=%f
   //
   [outoin,outoinptr]=connmat(inpptr,outptr,inplnk,outlnk)
-
+  for i=1:length(bllst)
+	if size(bllst(i).in,1)<>size(bllst(i).intyp,2) then
+		bllst(i).intyp=bllst(i).intyp(1)*ones(size(bllst(i).in,1),1);
+	end
+	if size(bllst(i).out,1)<>size(bllst(i).outtyp,2) then
+		bllst(i).outtyp=bllst(i).outtyp(1)*ones(size(bllst(i).out,1),1);
+	end
+  end
   //loop on number of block
   for hh=1:length(bllst)
      ok=%t
@@ -65,25 +72,34 @@ function [ok,bllst]=adjust(bllst,inpptr,outptr,inplnk,outlnk)
                outtyp=bllst(blkout).outtyp(portout)
 
                //check intyp outtyp
-               if intyp<>outtyp then
-                 if (intyp==1 & outtyp==2) then
-                   bllst(blkin).intyp(portin)=2;
-                 elseif (intyp==2 & outtyp==1) then
-                   bllst(blkout).outtyp(portout)=2;
-                 else
-                   if bllst(blkin).sim(2)<0 //if-then-else/eselect case
-                    bllst(blkin).intyp(portin)=...
-                       bllst(blkout).outtyp(portout)
-                   else
-                     bad_connection(corinv(blkout),portout,..
-                                    nnout,outtyp,..
-                                    corinv(blkin),portin,..
-                                    nnin,intyp,1)
-                     ok=%f;
-                     return
-                   end
+	       if(intyp>0 & outtyp>0) then
+		if intyp<>outtyp then
+             	    if (intyp==1 & outtyp==2) then
+               		bllst(blkin).intyp(portin)=2;
+             	    elseif (intyp==2 & outtyp==1) then
+               		bllst(blkout).outtyp(portout)=2;
+             	    else
+                   	bad_connection(corinv(blkout),portout,..
+                           	     	nnout,outtyp,..
+                              	 	corinv(blkin),portin,..
+                               		 nnin,intyp,1)
+                 	ok=%f;
+                 	return
+                    end
                  end
-               end
+              elseif(outtyp>0&intyp<0) then
+                 ww=find(bllst(blkin).intyp==intyp)
+                 bllst(blkin).intyp(ww)=outtyp
+                 ww=find(bllst(blkin).outtyp==intyp)
+                 bllst(blkin).outtyp(ww)=outtyp
+              elseif(outtyp<0&intyp>0) then
+                 ww=find(bllst(blkout).outtyp==outtyp)
+                 bllst(blkout).outtyp(ww)=intyp
+                 ww=find(bllst(blkout).intyp==outtyp)
+                 bllst(blkout).intyp(ww)=intyp
+              else
+                 ok=%f 
+              end
 
                //loop on the two dimensions of source/target port
                for ndim=1:2

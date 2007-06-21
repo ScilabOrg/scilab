@@ -354,7 +354,7 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
         //get port data type
         //and say warning if doesn't match with szouttyp
         szintyp=getporttyp(o2,port_number,'in')
-        if (szintyp<>-1 & szouttyp<>-1) then //if-then-else, event-select blocks case and all the -1 intyp/outtyp
+        if (szintyp>0 & szouttyp>0) then //if-then-else, event-select blocks case and all the -1 intyp/outtyp
           if szintyp<>szouttyp then
             tt_typ=['double';'complex';'int32';'int16';
                     'int8';'uint32';'uint16';'uint8']

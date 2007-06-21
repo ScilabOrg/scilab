@@ -54,7 +54,6 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
   nblk=size(bllst)
 
   //take care of the heritage
-
   [bllst,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,dep_u,dep_uptr,dep_t,..
    typ_l,typ_r,typ_m,tblock,typ_cons,typ_zx,ok]=mini_extract_info(bllst,..
                                                 connectmat,clkconnect)
@@ -198,7 +197,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 endfunction
 
 
-//donne les sources d'activation du schéma
+//donne les sources d'activation du schï¿½ma
 function [vec_clk]=get_clocks(clkconnect,clkptr)
   vec_clk=[]
   if (find(clkconnect(:,1)==0) ~=[]) then
@@ -216,7 +215,7 @@ endfunction
 
 
 
-//insere le vecteur primary dans vec_clk après la ligne comptenant le bloc i
+//insere le vecteur primary dans vec_clk aprï¿½s la ligne comptenant le bloc i
 function vec_clk0=set_primary_clk(vec_clk,primary,i)
 
   if vec_clk~=[] then
@@ -240,7 +239,7 @@ function vec_clk0=set_primary_clk(vec_clk,primary,i)
 
 endfunction
 
-//insere la sous-matrice primary dans vec_clk après la ligne k
+//insere la sous-matrice primary dans vec_clk aprï¿½s la ligne k
 function vec_clk0=set_primary_clkport(vec_clk,primary,i)
 
   if vec_clk~=[] then
@@ -267,7 +266,7 @@ function vec_clk0=set_primary_clkport(vec_clk,primary,i)
   
 endfunction
 
-//insere la sous-matrice ordoclk0 dans ordclk après le block k
+//insere la sous-matrice ordoclk0 dans ordclk aprï¿½s le block k
 function [ordptr,ordclk,blocs_traites]=set_ordclk(ordclk,..
 						  ordoclk0,k,j,ordptr,blocs_traites)
   if ordoclk0~=[] then
@@ -744,7 +743,7 @@ function [clkconnect,amaj]=find_del_inutile(clkconnect,vec_plus,typ_l)
 	  if show_comment then
 	    disp('del_inutile:')
 	    disp('les liens entre les blocs '+string(par1)+' et '+string(blk)+..
-                 ' sont supprimés')
+                 ' sont supprimï¿½s')
 	    pause
 	  end
 	  [clkconnect]=del_inutile(clkconnect,par1,n_out,blk,port)
@@ -793,7 +792,7 @@ function [bouclalg,vec,typ_l,clkconnect,connectmat,bllst,dep_t,dep_u,..
   
   nblock=size(typ_l,1);
   //initialisation de vec
-  //on initialise vec à -1
+  //on initialise vec ï¿½ -1
   vec=-ones(nblock,1)
   vec(primary(:,1))=1
   
@@ -827,7 +826,7 @@ function [bouclalg,vec]=ini_ordo3(primary)
   
   nblock=size(typ_l,1);
   //initialisation de vec
-  //on initialise vec à -1
+  //on initialise vec ï¿½ -1
   vec=-ones(nblock,1)
   vec(primary(:,1))=0
   
@@ -1152,6 +1151,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
   funtyp=zeros(typ_z)
   labels=[]
   [ok,bllst]=adjust_inout(bllst,connectmat)
+  [ok,bllst]=adjust_typ(bllst,connectmat)
 
   // placed here to make sure nzcross and nmode correctly updated
   if ~ok then
@@ -1517,26 +1517,28 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
            nnin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
            nnin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
 
+	   //This Part is done in adjust_typ
+
            //check intyp/outtyp
-           if intyp<>outtyp then
-             if (intyp==1 & outtyp==2) then
-               bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
-             elseif (intyp==2 & outtyp==1) then
-               bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
-             else
-               if bllst(connectmat(jj,3)).sim(2)<0 //if-then-else/eselect case
-                 bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=...
-                   bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
-               else
-                 bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
-                                nnout,outtyp,..
-                                corinv(connectmat(jj,3)),connectmat(jj,4),..
-                                nnin,intyp,1)
-                 ok=%f;
-                 return
-               end
-             end
-           end
+//            if intyp<>outtyp then
+//              if (intyp==1 & outtyp==2) then
+//                bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
+//              elseif (intyp==2 & outtyp==1) then
+//                bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+//              else
+//                if bllst(connectmat(jj,3)).sim(2)<0 //if-then-else/eselect case
+//                  bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=...
+//                    bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
+//                else
+//                  bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
+//                                 nnout,outtyp,..
+//                                 corinv(connectmat(jj,3)),connectmat(jj,4),..
+//                                 nnin,intyp,1)
+//                  ok=%f;
+//                  return
+//                end
+//              end
+//            end
 
            //loop on the two dimensions of source/target port 
            for ndim=1:2
@@ -2429,5 +2431,100 @@ function [critev]=critical_events(connectmat,clkconnect,dep_t,typ_r,..
       end
     end
   end 
+endfunction
+
+// adjust_typ: It resolves positives and negatives port types.
+//		   Its Algorithm is based on the algorithm of adjust_inout
+// Fady NASSIF: 14/06/2007
+
+function [ok,bllst]=adjust_typ(bllst,connectmat)
+
+  for i=1:length(bllst)
+	if size(bllst(i).in,1)<>size(bllst(i).intyp,2) then
+		bllst(i).intyp=bllst(i).intyp(1)*ones(size(bllst(i).in,1),1);
+	end
+	if size(bllst(i).out,1)<>size(bllst(i).outtyp,2) then
+		bllst(i).outtyp=bllst(i).outtyp(1)*ones(size(bllst(i).out,1),1);
+	end
+  end
+  nlnk=size(connectmat,1) 
+  for hhjj=1:length(bllst)+1
+     for hh=1:length(bllst)+1 
+        ok=%t
+        for jj=1:nlnk 
+	   nnout(1,1)=bllst(connectmat(jj,1)).out(connectmat(jj,2))
+           nnout(1,2)=bllst(connectmat(jj,1)).out2(connectmat(jj,2))
+           nnin(1,1)=bllst(connectmat(jj,3)).in(connectmat(jj,4))
+           nnin(1,2)=bllst(connectmat(jj,3)).in2(connectmat(jj,4))
+ 	   outtyp = bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))
+           intyp = bllst(connectmat(jj,3)).intyp(connectmat(jj,4))
+
+              //first case : types of source and
+              //             target ports are explicitly informed
+              //             with positive types
+              if(intyp>0 & outtyp>0) then
+                 //if types of source and target port doesn't match and aren't double and complex
+                 //then call bad_connection, set flag ok to false and exit
+
+		if intyp<>outtyp then
+             	    if (intyp==1 & outtyp==2) then
+               		bllst(connectmat(jj,3)).intyp(connectmat(jj,4))=2;
+             	    elseif (intyp==2 & outtyp==1) then
+               		bllst(connectmat(jj,1)).outtyp(connectmat(jj,2))=2;
+             	    else
+                   	bad_connection(corinv(connectmat(jj,1)),connectmat(jj,2),..
+                           	     	nnout,outtyp,..
+                              	 	corinv(connectmat(jj,3)),connectmat(jj,4),..
+                               		 nnin,intyp,1)
+                 	ok=%f;
+                 	return
+                    end
+                 end
+
+              //second case : type of source port is
+              //              positive and type of
+              //              target port is negative
+              elseif(outtyp>0&intyp<0) then
+                 //find vector of input ports of target block with
+                 //type equal to intyp
+                 //and assign it to outtyp
+                 ww=find(bllst(connectmat(jj,3)).intyp==intyp)
+                 bllst(connectmat(jj,3)).intyp(ww)=outtyp
+
+                 //find vector of output ports of target block with
+                 //type equal to intyp
+                 //and assign it to outtyp
+                 ww=find(bllst(connectmat(jj,3)).outtyp==intyp)
+                 bllst(connectmat(jj,3)).outtyp(ww)=outtyp
+
+              //third case : type of source port is
+              //             negative and type of
+              //             target port is positive
+              elseif(outtyp<0&intyp>0) then
+                 //find vector of output ports of source block with
+                 //type equal to outtyp
+                 //and assign it to intyp
+                 ww=find(bllst(connectmat(jj,1)).outtyp==outtyp)
+                 bllst(connectmat(jj,1)).outtyp(ww)=intyp
+
+                 //find vector of input ports of source block with
+                 //type equal to size outtyp
+                 //and assign it to intyp
+                 ww=find(bllst(connectmat(jj,1)).intyp==outtyp)
+                 bllst(connectmat(jj,1)).intyp(ww)=intyp
+
+
+              //fourth (& last) case : type of both source 
+              //                      and target port are negatives
+              else
+                 ok=%f //set flag ok to false
+              end
+           end
+        if ok then return, end //if ok is set true then exit adjust_typ
+     end
+     //if failed then display message
+     message(['Not enough information to find port type']);
+
+  end
 endfunction
 
