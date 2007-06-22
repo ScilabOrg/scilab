@@ -2633,7 +2633,7 @@ c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
 c
-      if (lhs .ne. 1) then
+      if (lhs .gt. 1) then
          call error(41)
          return
       endif
