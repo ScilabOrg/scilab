@@ -1151,7 +1151,9 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
   funtyp=zeros(typ_z)
   labels=[]
   [ok,bllst]=adjust_inout(bllst,connectmat)
-  [ok,bllst]=adjust_typ(bllst,connectmat)
+  if ok then
+    [ok,bllst]=adjust_typ(bllst,connectmat)
+  end
 
   // placed here to make sure nzcross and nmode correctly updated
   if ~ok then
