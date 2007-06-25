@@ -1566,6 +1566,24 @@ function  [ok,XX,alreadyran]=do_compile_superblock(XX,all_scs_m,numk,alreadyran)
 
   [bllst,connectmat,clkconnect,cor,corinv,ok]=c_pass1(scs_m);
 
+  ALWAYS_ACTIVE=%f;
+  for blki=bllst
+    if blki.dep_ut($) then
+      ALWAYS_ACTIVE=%t;
+      break;
+    end
+  end
+  if ALWAYS_ACTIVE then
+    CAPTEURS=[];
+    for Ii=1:length(bllst)
+      if part(bllst(Ii).sim(1),1:7)=='capteur' then 
+      bllst(Ii).dep_ut($)=%t
+      end
+    end
+  end
+  
+  
+  
 if ok==%f then message('Sorry: problem in the pre-compilation step.'),return, end
   a=[];b=[];tt=[];howclk=[];allhowclk=[];cap=[];act=[];
 
@@ -1614,7 +1632,7 @@ if ok==%f then message('Sorry: problem in the pre-compilation step.'),return, en
 	end	
       end
     end
-  elseif szclkIN==[]  then
+  elseif szclkIN==[]&~ALWAYS_ACTIVE  then
     //superblock has no Event input, add a fictious clock
     output=ones((2^(size(cap,'*')))-1,1)
     if (output == []) then 
@@ -1659,27 +1677,28 @@ if ok==%f then message('Sorry: problem in the pre-compilation step.'),return, en
   //**************************************************
   // nouveau clkconnect avec liaisons sur les capteurs
   //**************************************************
-  n=size(cap,1)
-  for i=1:n
-    if szclkIN>1 then
-      for j=1:(2^szclkIN)-1
-	clkconnect=[clkconnect;[howclk j cap(i) 1]];
-      end	
-    elseif szclkIN==1 then
-      clkconnect=[clkconnect;[howclk 1 cap(i) 1]];
+  if ~(ALWAYS_ACTIVE&szclkIN==[]) then
+    n=size(cap,1)
+    for i=1:n
+      if szclkIN>1 then
+	for j=1:(2^szclkIN)-1
+	  clkconnect=[clkconnect;[howclk j cap(i) 1]];
+	end	
+      elseif szclkIN==1 then
+	clkconnect=[clkconnect;[howclk 1 cap(i) 1]];
+      end
     end
-  end
-  // codage de l'activation des capteurs dans le cas de l'heritage
-  
-  for i=1:2^n-1
-    vec=codebinaire(i,n);
-    for j=1:n
-      if (vec(j)==1) then
-         clkconnect=[clkconnect;[howclk i cap(j) 1]];
+    // codage de l'activation des capteurs dans le cas de l'heritage
+    
+    for i=1:2^n-1
+      vec=codebinaire(i,n);
+      for j=1:n
+	if (vec(j)==1) then
+	  clkconnect=[clkconnect;[howclk i cap(j) 1]];
+	end
       end
     end
   end
-
 Code_gene_run=[];
 %windo=xget('window')
 
