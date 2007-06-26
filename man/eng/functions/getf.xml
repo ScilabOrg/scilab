@@ -60,17 +60,16 @@
 function [y1,...,yn]=foo(x1,...,xm)
    ]]>
     </VERBATIM>
-    <P>
-    The following lines contain a sequence of scilab instructions.</P>
-    <P>
-    The &quot;syntax definition&quot; line gives the &quot;full&quot;
+    <P>The following lines contain a sequence of scilab instructions.</P>
+
+    <P>The &quot;syntax definition&quot; line gives the &quot;full&quot;
     calling syntax of this function. The <VERB>yi</VERB> are output
     variables calculated as functions of input variables
     <VERB>xi</VERB> and variables existing in Scilab when the function
     is executed. Shorter input or output argument list may be
     used.</P>
-    <P>
-    Many functions may be written in the same file. A function is
+
+    <P> Many functions may be written in the same file. A function is
     terminated by an <VERB>endfunction</VERB> keyword. For
     compatibility with previous versions a function may also be
     terminated by the following <VERB>function</VERB> keyword or the
@@ -79,8 +78,10 @@ function [y1,...,yn]=foo(x1,...,xm)
     <VERB>getf</VERB> function.</P>
 
     <P><VERB>getf</VERB> is an obsolete way for loading functions into
-    scilab from a file. It is replaced by the <VERB>exec</VERB> function. Note that  functions in a file should be  terminated by an
-    <VERB>endfunction</VERB> keyword.  The <VERB>exec</VERB> function supposes  <VERB>opt=='c'</VERB>.</P>
+    scilab from a file. It is replaced by the <VERB>exec</VERB>
+    function. Note that functions in a file should be terminated by an
+    <VERB>endfunction</VERB> keyword.  The <VERB>exec</VERB> function
+    supposes <VERB>opt=='c'</VERB>.</P>
   </DESCRIPTION>
   <EXAMPLE>
 <![CDATA[
