@@ -54,7 +54,6 @@ c     acquisition d'une ligne du fichier
       call getfiletype(lunit,ltype,info)
       if(info.ne.0) goto 90 
       icount=0
-
  11   buf=' '
       if(ltype.eq.1) then
          call basin(ierr,lunit,buf(1:lrecl),'*',0)
@@ -383,6 +382,12 @@ c
          istk(l)=eol
          l=l+1
          sym=eol
+      elseif (sym.ne.eol) then
+         call getsym
+         if (sym.ne.eol) then
+            ierr=4
+            goto 90
+         endif
       endif
       if(lunit.eq.0) goto 33
       first=0
@@ -434,6 +439,7 @@ c     buffer limit
  93   continue
 c     invalid syntax
       err=nlines
+
       call error(37)
       return
  94   err=lstk(bot)-sadr(l)
