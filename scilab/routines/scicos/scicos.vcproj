@@ -706,7 +706,25 @@ cd .. &gt;nul
 				RelativePath=".\bit_clear.c">
 			</File>
 			<File
+				RelativePath=".\bit_clear_16.c">
+			</File>
+			<File
+				RelativePath=".\bit_clear_32.c">
+			</File>
+			<File
+				RelativePath=".\bit_clear_8.c">
+			</File>
+			<File
 				RelativePath=".\bit_set.c">
+			</File>
+			<File
+				RelativePath=".\bit_set_16.c">
+			</File>
+			<File
+				RelativePath=".\bit_set_32.c">
+			</File>
+			<File
+				RelativePath=".\bit_set_8.c">
 			</File>
 			<File
 				RelativePath=".\blocks.c">
@@ -850,6 +868,78 @@ cd .. &gt;nul
 				RelativePath=".\extract.c">
 			</File>
 			<File
+				RelativePath=".\extract_bit_16_LH.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_LSB.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_MSB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_RB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_UH0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_16_UH1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_LH.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_LSB.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_MSB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_RB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_UH0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_32_UH1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_LH.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_LSB.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_MSB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_RB0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_UH0.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_8_UH1.c">
+			</File>
+			<File
 				RelativePath=".\extract_bit_i16.c">
 			</File>
 			<File
@@ -857,6 +947,33 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\extract_bit_i8.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u16_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u16_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u16_UH1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u32_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u32_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u32_UH1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u8_MSB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u8_RB1.c">
+			</File>
+			<File
+				RelativePath=".\extract_bit_u8_UH1.c">
 			</File>
 			<File
 				RelativePath=".\extract_bit_ui16.c">
@@ -1321,6 +1438,42 @@ cd .. &gt;nul
 				RelativePath=".\selector_zm.c">
 			</File>
 			<File
+				RelativePath=".\shift_16_LA.c">
+			</File>
+			<File
+				RelativePath=".\shift_16_LC.c">
+			</File>
+			<File
+				RelativePath=".\shift_16_RA.c">
+			</File>
+			<File
+				RelativePath=".\shift_16_RC.c">
+			</File>
+			<File
+				RelativePath=".\shift_32_LA.c">
+			</File>
+			<File
+				RelativePath=".\shift_32_LC.c">
+			</File>
+			<File
+				RelativePath=".\shift_32_RA.c">
+			</File>
+			<File
+				RelativePath=".\shift_32_RC.c">
+			</File>
+			<File
+				RelativePath=".\shift_8_LA.c">
+			</File>
+			<File
+				RelativePath=".\shift_8_LC.c">
+			</File>
+			<File
+				RelativePath=".\shift_8_RA.c">
+			</File>
+			<File
+				RelativePath=".\shift_8_RC.c">
+			</File>
+			<File
 				RelativePath=".\shift_i16.c">
 			</File>
 			<File
@@ -1328,6 +1481,15 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\shift_i8.c">
+			</File>
+			<File
+				RelativePath=".\shift_u16_RA.c">
+			</File>
+			<File
+				RelativePath=".\shift_u32_RA.c">
+			</File>
+			<File
+				RelativePath=".\shift_u8_RA.c">
 			</File>
 			<File
 				RelativePath=".\signum.c">
@@ -1460,168 +1622,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\zcross2.c">
-			</File>
-			<File
-				RelativePath=".\bit_clear_16.c">
-			</File>
-			<File
-				RelativePath=".\bit_clear_32.c">
-			</File>
-			<File
-				RelativePath=".\bit_clear_8.c">
-			</File>
-			<File
-				RelativePath=".\bit_set_16.c">
-			</File>
-			<File
-				RelativePath=".\bit_set_32.c">
-			</File>
-			<File
-				RelativePath=".\bit_set_8.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_LH.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_LH.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_LH.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_LSB.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_LSB.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_LSB.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_MSB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_MSB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_MSB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_RB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_RB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_RB0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_UH0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_UH0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_UH0.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_16_UH1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_32_UH1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_8_UH1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u16_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u32_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u8_MSB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u16_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u32_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u8_RB1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u16_UH1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u32_UH1.c">
-			</File>
-			<File
-				RelativePath=".\extract_bit_u8_UH1.c">
-			</File>
-			<File
-				RelativePath=".\shift_16_LA.c">
-			</File>
-			<File
-				RelativePath=".\shift_32_LA.c">
-			</File>
-			<File
-				RelativePath=".\shift_8_LA.c">
-			</File>
-			<File
-				RelativePath=".\shift_16_LC.c">
-			</File>
-			<File
-				RelativePath=".\shift_32_LC.c">
-			</File>
-			<File
-				RelativePath=".\shift_8_LC.c">
-			</File>
-			<File
-				RelativePath=".\shift_16_RA.c">
-			</File>
-			<File
-				RelativePath=".\shift_32_RA.c">
-			</File>
-			<File
-				RelativePath=".\shift_8_RA.c">
-			</File>
-			<File
-				RelativePath=".\shift_16_RC.c">
-			</File>
-			<File
-				RelativePath=".\shift_32_RC.c">
-			</File>
-			<File
-				RelativePath=".\shift_8_RC.c">
-			</File>
-			<File
-				RelativePath=".\shift_u16_RA.c">
-			</File>
-			<File
-				RelativePath=".\shift_u32_RA.c">
-			</File>
-			<File
-				RelativePath=".\shift_u8_RA.c">
 			</File>
 		</Filter>
 		<Filter
