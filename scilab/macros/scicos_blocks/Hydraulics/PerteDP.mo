@@ -40,7 +40,7 @@ equation
   deltaP = deltaPf + rho*g*(z2 - z1);
 
   ThermoCar = if (abs(Q) > eps) then Q*abs(Q) else Q*eps;
-  deltaPf = 8*khi*ThermoCar/(pi^2*D^4*rho);
+  deltaPf = 8*khi*ThermoCar/(pi^2.0*D^4.0*rho);
   
   
     /* Formule de Darcy-Weisbach (Idel'cik p. 55). On suppose qu'on est en régime quadratique. */
