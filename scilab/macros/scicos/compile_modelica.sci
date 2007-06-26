@@ -8,7 +8,7 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
   end
   
   ng=0
-	fil=pathconvert(fil,%f,%t)
+  fil=pathconvert(fil,%f,%t)
   mlibs=pathconvert(modelica_libs,%f,%t)
   
   name=basename(fil)
@@ -19,21 +19,69 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
   updateC=needcompile <>0|fileinfo(path+name+'.c')==[]
 
   if updateC then
-    if MSDOS then
-      modelicac=pathconvert(SCI+'/bin/modelicac.exe',%f,%t)
-      if strindex(modelicac,' ')<>[] then modelicac='""'+modelicac+'""',end
-      modelicac=modelicac+strcat(' -L ""'+mlibs+'""')
-//      modelicac=modelicac+strcat(' -hpath '+ 'c:\Mylibs\');
-      instr=modelicac+' '+fil+' -o '+path+name+'.c -jac'
+    if MSDOS then      
+       if fileinfo(SCI+'/bin/translator.exe')<>[] then 	 
+	 translator=pathconvert(SCI+'/bin/translator.exe',%f,%t)
+         ext='\*.mo';
+         molibs=[];
+         for k=1:size(mlibs,'*')
+              molibs=[molibs;listfiles(mlibs(k)+ext)];
+         end
+         txt=[];
+         for k=1:size(molibs,'*')
+	     [pathx,fnamex,extensionx]=fileparts(molibs(k));
+	     if (fnamex<>'MYMOPACKAGE') then 
+               txt=[txt;mgetl(molibs(k))];
+	     end
+         end
+         mputl(txt,TMPDIR+'/MYMOPACKAGE.mo');
+         translator=translator+strcat(' -lib '+ TMPDIR+'/MYMOPACKAGE.mo');
+        //translator=translator+strcat(' -lib '+molibs);
+         instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
+               "command ""'+name+' x;"" ';        
+         mputl(instr,path+'gent.bat')
+         instr=path+'gent.bat'      
+         if execstr('unix_s(instr)','errcatch')<>0 then
+                 x_message(['Modelica translator error! sorry ']);
+                 ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
+         end
+         FlatName=path+name+'_flattened.mo';
+       else
+         FlatName=fil;
+       end           
+       modelicac=pathconvert(SCI+'/bin/modelicac.exe',%f,%t)     
+       if strindex(modelicac,' ')<>[] then modelicac='""'+modelicac+'""',end
+       modelicac=modelicac+strcat(' -L ""'+mlibs+'""')
+       instr=modelicac+' '+FlatName+' -o '+path+name+'.c"+" -jac';           
+       mputl(instr,path+'genc.bat')
+       instr=path+'genc.bat'
+    else //==================Unix/Linux/Mac....
+        if fileinfo(SCI+'/bin/translator')<>[] then 
+        translator=pathconvert(SCI+'/bin/translator',%f,%t)
+	ext='/*.mo';
+	molibs=[];
+	for k=1:size(mlibs,'*')
+          molibs=[molibs;listfiles(mlibs(k)+ext)];
+	end
+
+        translator=translator+strcat(' -lib '+molibs);
+        instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
+	      "command ""'+name+' x;"" > '+TMPDIR+'/unix.err'; 
+	if execstr('unix_s(instr)','errcatch')<>0 then
+	  x_message(['Modelica translator error:'
+		     mgetl(TMPDIR+'/unix.err');
+		     'sorry ']);
+	  ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
+	end
+	FlatName=path+name+'_flattened.mo';
+      else
+	FlatName=fil;
+      end
       
-      mputl(instr,path+'genc.bat')
-      instr=path+'genc.bat'
-    else
-       modelicac=pathconvert(SCI+'/bin/modelicac',%f,%t)
-       modelicac=modelicac+strcat(' -L '+mlibs)
-//       modelicac=modelicac+strcat(' -hpath '+ '/home/'+unix_g('whoami')+'/Mylibs/');
-       instr=modelicac+' '+fil+' -o '+path+name+'.c -jac'
-       
+      modelicac=pathconvert(SCI+'/bin/modelicac',%f,%t)
+      modelicac=modelicac+strcat(' -L '+mlibs)
+      instr=modelicac+' '+FlatName+' -o '+path+name+'.c"+...
+	    " -jac '+' > '+TMPDIR+'/unix.err';    
     end
 
     if execstr('unix_s(instr)','errcatch')<>0 then
@@ -57,7 +105,7 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
     //unlink if necessary
     [a,b]=c_link(name); while a ; ulink(b);[a,b]=c_link(name);end
     // build shared library with the C code
-    files=name+'.o';Make=path+'Make'+name;loader=path+name+'.sce'
+    files=name+'.o';Make=path+'Make'+name;loader=path+name+'.sce' 
     //  build the list of external functions libraries
 
     // remove repreated directories from mlibs    
