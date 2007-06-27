@@ -19,9 +19,27 @@ deff('[ok,tt,dep_ut]=genfunc1(tt,ni,no,nci,nco,nx,nz,nrp,type_)',..
 deff('result=dialog(labels,valueini)','result=valueini')
 funcprot(%mprt)
 %nx=lstsize(scs_m.objs)
-
-
-
+deff('[ok,tt]=MODCOM(funam,tt,vinp,vout)',..
+   '[dirF,nameF,extF]=fileparts(funam);..
+    tarpath=pathconvert(TMPDIR+''/Modelica/'',%f,%t);..
+    if (extF=='''')  then,..
+        funam1=tarpath+nameF+''.mo'';..
+    elseif fileinfo(funam)==[] then,..
+        funam1=funam;..
+    end;..
+    mputl(tt,funam1);..
+    compilerpath=pathconvert(SCI+''/bin/'',%f,%t);..
+    if MSDOS then,..
+ 	compilerpath=compilerpath+''modelicac.exe'';..
+    else,.. 
+        compilerpath=compilerpath+''modelicac'';..
+    end;..
+    ..
+    if execstr(''unix_s(compilerpath+'''' -c ''''+funam1+'''' -o ''''+tarpath+nameF+''''.moc'''')'',''errcatch'')<>0 then,..
+ 	ok=%f;..
+    else,..
+        ok=%t;..
+      end;')
 for %kk=1:%nx
   o=scs_m.objs(%kk)
   if typeof(o)=='Block' then
