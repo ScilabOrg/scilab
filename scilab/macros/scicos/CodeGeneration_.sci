@@ -116,7 +116,12 @@ function Code=make_ddoit1()
      pointi=clkptr(howclk)-1;
      Code($+1)='  pointi='+string(pointi)+'+ totalnevprt;';
    else
-     if (size(cap,'*') >1) then
+     if ALWAYS_ACTIVE then //  nothing to be done
+       Code=[Code;
+	     '} /* ddoit1 */';
+	     '  '];
+       return;
+     elseif (size(cap,'*') >1) then
        pointi=clkptr(howclk)-1;
        Code($+1)='  pointi='+string(pointi)+'+ totalnevprt;';
      else
@@ -1702,7 +1707,6 @@ if ok==%f then message('Sorry: problem in the pre-compilation step.'),return, en
 Code_gene_run=[];
 %windo=xget('window')
 
-//cpr=newc_pass2(bllst,connectmat,clkconnect,cor,corinv);
 
 cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 
@@ -2921,10 +2925,18 @@ function Code=make_main1()
 	'void '
 	cformatline(rdnom+'main1(scicos_block *block_'+rdnom+',double *z, double *t)',70);
 	'{'];
-  Code($+1)=cformatline('  '+rdnom+'ddoit1(z, t, '+..
+  if ~(ALWAYS_ACTIVE&szclkIN==[]) then
+  Code=[Code;
+	     cformatline('  '+ rdnom+'ddoit1(z, t, '+..
 		    '&(z['+string(size(z,1))+']), '+..
 		    '(int *)(z+'+string(size(z,1)+size(outtb,1))+'));',70);  
-  
+	     ];
+  else
+    Code=[Code;
+	     cformatline('  '+rdnom+'cdoit(z, t, '+..
+		    '&(z['+string(size(z,1))+']));',70); 
+	  ];
+  end
   Code($+1)='} '
 endfunction
 
