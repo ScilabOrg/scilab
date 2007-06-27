@@ -17,7 +17,6 @@ deff('[x,y,ok,gc]=edit_curv(x,y,job,tit,gc)','ok=%t')
 deff('[ok,tt,dep_ut]=genfunc1(tt,ni,no,nci,nco,nx,nz,nrp,type_)',..
     'dep_ut=model.dep_ut;ok=%t')
 deff('result=dialog(labels,valueini)','result=valueini')
-funcprot(%mprt)
 %nx=lstsize(scs_m.objs)
 deff('[ok,tt]=MODCOM(funam,tt,vinp,vout)',..
    '[dirF,nameF,extF]=fileparts(funam);..
@@ -40,6 +39,7 @@ deff('[ok,tt]=MODCOM(funam,tt,vinp,vout)',..
     else,..
         ok=%t;..
       end;')
+funcprot(%mprt)
 for %kk=1:%nx
   o=scs_m.objs(%kk)
   if typeof(o)=='Block' then
