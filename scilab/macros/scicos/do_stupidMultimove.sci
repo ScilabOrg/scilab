@@ -100,8 +100,14 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   sel_link  = []; //** links     "     "   "    "
   sel_text  = []; //** text      "     "        "
   
-  SelectObject_id = Select(:,1)'  ; //** select all the object in the current window 
-  
+  SelectObject_id = Select(:,1)'  ; //** select all the object in the current window
+
+  if SelectObject_id == [] then
+    k=getblocktext(scs_m,[xc;yc])
+    if k==[] then return, end
+    SelectObject_id = k
+  end
+
   for k = SelectObject_id                    //** scan all the selected object
    
      if typeof(scs_m.objs(k))=='Block' then  //** look for selected BLOCK
@@ -168,16 +174,16 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	  if (~(or(l==int_link ))) & (or(l==diagram_links)) then // ext link
 	    connected = [connected l]; //** add to the list of link to move
 	    ext_block = [ext_block k];    
-	  end  
+	  end
      end
-  
-  end //** end of scan        
+
+  end //** end of scan
   //**-----------------------------------------------------------------------------------
-  
+
   //** look for all the connected link(s) and build "impiling" the two data structures
   //** [xm , ym] for the links data points
   //** gh_link_i is a vector of the associated graphic handles
-  
+
   xm = []; //** init 
   ym = [];
   if connected<>[] then //** check if external link are present
@@ -187,7 +193,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
         gh_i = get_gri(i,o_size(1)); //** calc the handle of all the connected link(s)
         gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** vector of handles
         [xl, yl, ct, from, to] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to)
-          //**------------------------------------------ 
+          //**------------------------------------------
           if from(1)==ext_block(l) then 
               xm = [xm, [xl(2);xl(1)] ];
               ym = [ym, [yl(2);yl(1)] ];
@@ -207,7 +213,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
   //** create a new compund that include ALL the selected object 
 
   SuperCompound_id = [sel_block int_link sel_text] ;
-    
+
   //** -----------------------------------------------------------------------
   xmt = xm ;
   ymt = ym ; //** init ...
@@ -216,31 +222,31 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 
   xco = xc;
   yco = yc;
-    
+
   move_x = 0 ;
   move_y = 0 ;
-  
+
   //**-------------------------------------------------------------------
   gh_link_mod = [] ;
   tmp_data = [] ;
   t_xmt = [] ; t_ymt  = [];
-    
+
   drawlater();
 
     //**----------------------------------------------------------------------------------------------------------
     //** ------------------------------- INTERACTIVE MOVEMENT LOOP -----------------------------------------------
-     
+
     while 1 do //** interactive move loop
 
       rep = xgetmouse(0,[%t,%t]); //** the event queue is NOT cleared
 	                             //** "getmotion" AND "getrelease" active because the mode is made with
 				     //** the left button pressed
       //** left button release, right button (press, click) 		      
-      if or(rep(3)==[-5, 2, 5]) then //** put the end exit from the loop condition here 
+      if or(rep(3)==[-5, 2, 3, 5]) then //** put the end exit from the loop condition here 
           break ; //** ---> EXIT point of the while
       end
 
-      //** Window change and window closure protection  	 
+      //** Window change and window closure protection
       gh_figure = gcf();
       if gh_figure.figure_id<>curwin | rep(3)==-100 then
 	[%win,Cmenu] = resume(curwin,'Quit') ;
@@ -266,14 +272,14 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       //** Integrate the movements
       move_x = move_x +  delta_x ;
       move_y = move_y +  delta_y ;
-      
+
       //** Move the SuperCompound
       for k = SuperCompound_id 
-          gh_k = get_gri(k,o_size(1)); //** calc the handle 
+          gh_k = get_gri(k,o_size(1)); //** calc the handle
           gh_ToBeMoved = gh_curwin.children.children(gh_k) ;
 	  move (gh_ToBeMoved, [delta_x , delta_y]);  //** ..because "move()" works only in differential
       end 
- 
+
       //**---------------------------------------------------------------------------------------------
       if connected<>[] then 
           //** Move the links 
@@ -281,7 +287,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
           ymt(2,:) = ym(2,:) - yco + yc ;
           j = 0 ; //** init
           //** Move all the connected links 
-          for l=1:length(connected) // ... for all the connected links 
+          for l=1:length(connected) // ... for all the connected links
              i  = connected(l)  ; // from the progressive index "l" to the scs_m index "i"
              oi = scs_m.objs(i) ; // get the "i"th link
              [xl,from,to] = (oi.xx,oi.from,oi.to); // extract the proprieties from the link
@@ -296,7 +302,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	         //** update the graphics datastructure
 	         gh_link_mod.children.data = [ [t_xmt(1) , t_ymt(1)] ; tmp_data(2:$ , 1:$) ]  ;
              end
-               
+
              //** see the above comments :)
              if to(1)==ext_block(l) then
  	         tmp_data = gh_link_mod.children.data ;
@@ -304,32 +310,31 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	         j = j + 1 ;
                  gh_link_mod.children.data = [ tmp_data(1:$-2 , 1:$) ; [xmt(:,j) , ymt(:,j)] ]  ;
 	     end
-	     	     
-           end //** scan the connected links 
-       end//** end of the connected links	   
+
+           end //** scan the connected links
+       end//** end of the connected links
       //**---------------------------------------------------------------------------------------------
-    
+
     draw(gh_curwin.children); //** draw ALL the moving objects 
     show_pixmap();
 
     end //** ... of while Interactive move LOOP --------------------------------------------------------------
     //**--------------------------------------------------------------------------------------------------------
 
-    
     //**-----------------------------------------------
     gh_figure = gcf();
     if gh_figure.figure_id<>curwin | rep(3)==-100 then
          [%win,Cmenu] = resume(curwin,'Quit') ;
     end
     //**-----------------------------------------------
-    
+
     //** OK If update and block and links position in scs_m
-    
-    //** if the exit condition is NOT a right button press OR click 
-    if and(rep(3)<>[2 5]) then //** update the data structure 
-      
-      //**--------------------------------------------------- 
-      //** Rigid SuperCompund Elements 
+
+    //** if the exit condition is NOT a right button press OR click
+    if and(rep(3)<>[2 5]) then //** update the data structure
+
+      //**---------------------------------------------------
+      //** Rigid SuperCompund Elements
       block=[];
       for k = sel_block
            block = scs_m.objs(k)    ;
@@ -338,8 +343,8 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	   xy_block(2) = xy_block(2) + move_y ;
 	   block.graphics.orig = xy_block ;
 	   scs_m.objs(k) = block; //update block coordinates
-      end 
-      
+      end
+
       text=[]
       for k = sel_text
            text = scs_m.objs(k)
@@ -349,7 +354,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	   text.graphics.orig = xy_text;
 	   scs_m.objs(k) = text; //update block coordinates
       end
-      
+
       link_=[]
       for l = int_link
            link_= scs_m.objs(l)
@@ -360,7 +365,7 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
 	   scs_m.objs(l) = link_ ; 
       end 
       //**---------------------------------------------------
-      
+
       //**---------------------------------------------------
       //** Flexible Link elements 
       if connected<>[] then 
@@ -383,22 +388,21 @@ function scs_m = stupid_MultiMoveObject(scs_m, Select, xc, yc)
              end
               scs_m.objs(i) = oi ; //** update the datastructure 
            end //... for loop
-      end //** of if 
+      end //** of if
       //**---------------------------------------------------
-      
-    
+
     //**=---> If the user abort the operation
     else //** restore original position of block and links in figure
-         //** in this case: [scs_m] is not modified !           
+         //** in this case: [scs_m] is not modified !
       drawlater();
-      
+
         //** Move back the SuperCompound
         for k = SuperCompound_id 
           gh_k = get_gri(k,o_size(1)); //** calc the handle 
           gh_ToBeMoved = gh_curwin.children.children(gh_k) ;
 	  move (gh_ToBeMoved, [-move_x , -move_y]);  //** ..because "move()" works only in differential
         end
-      
+
 	//**-------------------------------------------------------
         if connected<>[] then 
 	    xmt(2,:) = xm(2,:);  //** original datas of links
