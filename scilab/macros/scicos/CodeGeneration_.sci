@@ -74,14 +74,14 @@ function Code=c_make_doit1(cpr,stalone)
   funtyp=cpr.sim.funtyp; 
   Code=[make_ddoit1()
 	make_edoit1(stalone)
-	make_odoit(stalone)]
+	make_odoit(stalone)
+	make_cdoit(stalone)]
         if (find(funtyp < 0) <> []) then
           Code=[Code
 	         make_ozdoit(stalone)]
         end
 	if (~stalone) then	
 	  Code=[Code
-	        make_cdoit(stalone)
                 make_doit(stalone)
 	        make_zdoit(stalone)] 
         end 
@@ -2824,9 +2824,11 @@ x=cpr.state.x
 	''
 	cformatline('int '+rdnom+'_sim(double, double, double, int)"+...
 		    " ;',70);
+	''
 	cformatline('int '+rdnom+'ddoit1(double *, double *, double *, int *);',70);
+	''
+	cformatline('int '+rdnom+'cdoit(double *, double *, double *);',70);
 	' ';]
-	//cformatline('int '+rdnom+'cdoit(double *, double *, double *);',70);
 	//' ';
 	//cformatline('int '+rdnom+'doit(double *, double *, double *);',70);
 	//' ';]
