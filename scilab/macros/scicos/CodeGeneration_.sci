@@ -110,7 +110,12 @@ function Code=make_ddoit1()
 	 '  integer kiwa; ';
 	 ' '; 
 	 '  /* Function Body */ '; 
-	 '  kiwa = 0; '];
+	 '  kiwa = 0; '
+         '  if (totalnevprt==0) { ';
+	 '     '+rdnom+'cdoit(z, told, outtb);';
+	 '     return 0;'
+	 '  }'       
+       ];
  //////////////////////////////////////////////////
    if  szclkIN>=1 then
      pointi=clkptr(howclk)-1;
@@ -277,29 +282,28 @@ function Code=make_edoit1(stalone)
     for ii=ordptr(kever):ordptr(kever+1)-1
       //***********************************
       fun=ordclk(ii,1);
-      if outptr(fun+1)-outptr(fun)>0  then
-	nclock=ordclk(ii,2);
-	if or(fun==act) | or(fun==cap) then
-	  if stalone then
-	    Code=[Code;
-	          '    flag = 1 ;';
-	          '    nevprt='+string(nclock)+';';
-	          '    '+wfunclist(fun);
-	          '    ';
-	          '    '];
-          end     
-        else
-            Code=[Code;
-	         '    flag = 1 ;';
-	         '    nevprt='+string(nclock)+';';
-	         '    '+wfunclist(fun);
-	         '    ';
-	         '    '];
-        end 
-	
-      end
+
+      nclock=abs(ordclk(ii,2));
+      if or(fun==act) | or(fun==cap) then
+	if stalone then
+	  Code=[Code;
+		'    flag = 1 ;';
+		'    nevprt='+string(nclock)+';';
+		'    '+wfunclist(fun);
+		'    ';
+		'    '];
+	end     
+      else
+	Code=[Code;
+	      '    flag = 1 ;';
+	      '    nevprt='+string(nclock)+';';
+	      '    '+wfunclist(fun);
+	      '    ';
+	      '    '];
+      end 
+      
+
        
-      nevprt=ordclk(ii,2);
       ntvec=clkptr(fun+1)-clkptr(fun);
       if ntvec >0  & funs(fun) <> 'bidon' then
 	nxx=lnkptr(inplnk(inpptr(fun)));
@@ -2556,7 +2560,7 @@ Code=[Code;
       '  } '; 
       '  else if (flag == 1) { /* update outputs */';
       '    '+rdnom+'main1(block_'+rdnom+',z,&t);'; 
-      '  }else if (flag == 2) { /* update discrete states */']
+      '  }else if (flag == 2 && nevprt>0) { /* update discrete states */']
       if block_has_output then                    
         Code=[Code;
 	'    '+rdnom+'main2(block_'+rdnom+',z,&t);']
@@ -2926,16 +2930,16 @@ function Code=make_main1()
 	cformatline(rdnom+'main1(scicos_block *block_'+rdnom+',double *z, double *t)',70);
 	'{'];
   if ~(ALWAYS_ACTIVE&szclkIN==[]) then
-  Code=[Code;
-	     cformatline('  '+ rdnom+'ddoit1(z, t, '+..
-		    '&(z['+string(size(z,1))+']), '+..
-		    '(int *)(z+'+string(size(z,1)+size(outtb,1))+'));',70);  
-	     ];
+    Code=[Code;
+	  cformatline('  '+ rdnom+'ddoit1(z, t, '+..
+		      '&(z['+string(size(z,1))+']), '+..
+		      '(int *)(z+'+string(size(z,1)+size(outtb,1))+'));',70);  
+	 ];
   else
     Code=[Code;
-	     cformatline('  '+rdnom+'cdoit(z, t, '+..
-		    '&(z['+string(size(z,1))+']));',70); 
-	  ];
+	  cformatline('  '+rdnom+'cdoit(z, t, '+..
+		      '&(z['+string(size(z,1))+']));',70); 
+	 ];
   end
   Code($+1)='} '
 endfunction
