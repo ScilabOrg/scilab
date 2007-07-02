@@ -101,62 +101,69 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
 
   //below newest(Cfile,Ofile) is used instead of  updateC in case where
   //Cfile has been manually modified (debug,...)
-  if newest(Cfile,Ofile)==1 then 
+  if newest(Cfile,Ofile)==1 then
     //unlink if necessary
     [a,b]=c_link(name); while a ; ulink(b);[a,b]=c_link(name);end
-    // build shared library with the C code
-    files=name+'.o';Make=path+'Make'+name;loader=path+name+'.sce' 
     //  build the list of external functions libraries
 
-    // remove repreated directories from mlibs    
+    // remove repreated directories from mlibs
     rep=[];
     for k=1:size(mlibs,'*')
       for j=k+1:size(mlibs,'*')
-	if stripblanks(mlibs(k))==stripblanks(mlibs(j)) then rep=[rep,j]; end
+        if stripblanks(mlibs(k))==stripblanks(mlibs(j)) then rep=[rep,j]; end
       end
     end
-    mlibs(rep)=[];  
-    //--------------------------------    
+    mlibs(rep)=[];
+    //--------------------------------
     libs=[];
     if MSDOS then ext='\*.ilib',else ext='/*.a',end
-    // removing .a or .ilib sufixs 
+    // removing .a or .ilib sufixs
     for k=1:size(mlibs,'*')
       aa=listfiles(mlibs(k)+ext);
       for j=1:size(aa,'*')
-	[pathx,fnamex,extensionx]=fileparts(aa(j));
-	libsname= fullfile(pathx,fnamex);
-	libs=[libs;libsname];
+        [pathx,fnamex,extensionx]=fileparts(aa(j));
+        libsname= fullfile(pathx,fnamex);
+        libs=[libs;libsname];
       end
     end
-     
+
     // add modelica_libs to the list of directories to be searched for *.h
     //if MSDOS then ext='\*.h',else ext='/*.h',end
     EIncludes=''
     for k=1:size(mlibs,'*')
-	EIncludes=EIncludes+'  -I""'+ mlibs(k)+'""';
-    end
-    
-	E2='';
-    for i=1:length(EIncludes) 
-     if (part(EIncludes,i)=='\') then
-	   E2=E2+'\';
-	 end
-	 E2=E2+part(EIncludes,i);
-    end
-    ierr=execstr('libn=ilib_for_link(name,files,libs,''c'',Make,loader,'''','''',E2)','errcatch')
-    if ierr<>0 then 
-      ok=%f;x_message(['sorry compilation problem';lasterror()]);
-      return;
+      EIncludes=EIncludes+'  -I""'+ mlibs(k)+'""';
     end
 
-    // executing loader file
-     if execstr('exec(loader); ','errcatch')<>0 then      
-      ok=%f;
-      x_message(['Problem while linking generated code';lasterror()]);
-    return;
+    E2='';
+    for i=1:length(EIncludes)
+      if (part(EIncludes,i)=='\') then
+        E2=E2+'\';
+      end
+      E2=E2+part(EIncludes,i);
     end
+
+    //** build shared library with the C code
+
+    // files=name+'.o';Make=path+'Make'+name;loader=path+name+'.sce'
+    // ierr=execstr('libn=ilib_for_link(name,files,libs,''c'',Make,loader,'''','''',E2)','errcatch')
+    // if ierr<>0 then 
+    //   ok=%f;x_message(['sorry compilation problem';lasterror()]);
+    //   return;
+    // end
+
+    // executing loader file
+    // if execstr('exec(loader); ','errcatch')<>0 then
+    //   ok=%f;
+    //   x_message(['Problem while linking generated code';lasterror()]);
+    //   return;
+    // end
+
+    files = name;
+    ok = buildnewblock(name,files,'',libs,TMPDIR,'',E2);
+    if ~ok then return, end
+
   end
-endfunction 
+endfunction
 
 function [nx,nin,nout,ng,nm,nz]=analyze_c_code(txt)
 // Serge Steer 2003, Copyright INRIA
@@ -183,9 +190,5 @@ function [nx,nin,nout,ng,nm,nz]=analyze_c_code(txt)
   match=  'number of discrete variables = '
   T=txt(grep(txt(1:10),match))//look for match in the first 10 lines
   nz=evstr(strsubst(T,match,''))
-
-endfunction
-
-function txt=modify1(txt,nx)
 
 endfunction
