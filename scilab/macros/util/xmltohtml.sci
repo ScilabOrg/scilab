@@ -40,7 +40,14 @@ function xmltohtml(dirs,titles,xsl,step)
 	//------------------------------------------------------------------------------------------
 
 	scs=grep(%helps(std,1),'/scicos')
-	if size(scs,'*')==1 then std(scs)=[],end
+	if size(scs,'*')==1 then
+          std(scs)=[]
+        else
+          scs=grep(%helps(std,1),'\scicos')
+          if size(scs,'*')==1 then
+            std(scs)=[]
+          end
+        end
 	
 	man_dirs = basename(%helps(std,1));
 	man_titles= %helps(std,2);
