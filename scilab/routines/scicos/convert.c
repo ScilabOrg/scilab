@@ -2,6 +2,7 @@
 # include "../machine.h"
 # include <math.h>
 # include <memory.h>
+extern int sciprint();
 
 void convert(scicos_block *block,int flag)
 {
