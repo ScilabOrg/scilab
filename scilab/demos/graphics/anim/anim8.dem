@@ -5,16 +5,20 @@
 // ==========================================
 
 mode(0);
+getf('SCI/demos/demos_lib/demo_run.sci');
 
 // Hide the toolbar
 toolbar(0,'off');
 
 // Save the graphic context
 kp = xget('pixmap');
+curFont=xget('font');
 
 string_to_display = [
 	'xset(''pixmap'',1);';
 	'xset(''wwpc'');  // clean pixmap';
+	'xset(''font'',curFont(1),3);'
+	'xtitle(""shell"")'
 	'U = linspace(0,3*%pi,60);';
 	'v = linspace(0,2*%pi,20);';
 	'n=size(U,''*'');';
@@ -29,12 +33,13 @@ string_to_display = [
 	'  plot3d2(x,y,z,-1,62,152,''X@Y@Z'',[10,1,4],[-15 10 -5 5 -10 12])';
 	'  xset(''wshow'')';
 	'end'];
+	
+demo_run('',string_to_display);
 
-execstr(string_to_display);
 xset("pixmap",0);
-x_message(string_to_display);
 
 // Restore the graphic context
 xset('pixmap',kp);
+xset('font',curFont(1),curFont(2));
 
 mode(-1);
