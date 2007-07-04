@@ -1,4 +1,5 @@
 mode(-1)
+clc;
 path=get_absolute_file_path('pendule.dem');
 //
 getf(path+'simulation.sci')
