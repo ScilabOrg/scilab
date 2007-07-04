@@ -11,5 +11,7 @@ if w<>[] then
   [hzm,fr]=frmag(hz,256);
   xselect();xbasc();
   plot2d(fr',hzm')
-  xtitle('Discrete IIR filter '+'( '+ w(3)+' ) ',' ',' ');
+  a=gca();
+  a.title.text='Discrete IIR filter '+'( '+ w(3)+' ) '
+  a.title.font_size=3;
 end

@@ -4,6 +4,7 @@
 // Copyright INRIA
 xbasc();xselect()
 mode(1)
+clc;
 //define system macro which generates the next
 //observation given the old state
  
@@ -66,7 +67,10 @@ mode(1)
    plot2d([x(1,:)',xf(1,:)',xs(1,:)'],..
           [x(2,:)',xf(2,:)',xs(2,:)'],[1 2 3],"161",..
           'real state@estimates xf@estimates xs'),
- 
+          a=gca();
+          a.title.text='Wiegner filter'
+          a.title.font_size=3;
+  
 //mark data points (* for real data, o for estimates)
 
     plot2d([x(1,:)',xf(1,:)',xs(1,:)'],..

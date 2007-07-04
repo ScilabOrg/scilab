@@ -1,7 +1,8 @@
-
 mode(1)
+clc;
 // A bidimensional version of demo one.
 // Copyright Enpc
+xdel(0);
 a=[1,-2.851,2.717,-0.865].*.eye(2,2);
 b=[0,1,1,1].*.[1;1];
 d=[1,0.7,0.2].*.eye(2,2);

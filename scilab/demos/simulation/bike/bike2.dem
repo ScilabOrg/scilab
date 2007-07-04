@@ -12,4 +12,7 @@ getf(path+'macros/'+'show.sci');
 
 x=read(path+'data/'+'xdemo.dat',46,401,"(e10.4)");
 show(x(:,1:340),1.6,1.47,velo1);
+a=gca();
+       a.title.text='bike simulation';
+       a.title.font_size=3;
 set('figure_style',fs);

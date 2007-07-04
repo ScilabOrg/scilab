@@ -1,10 +1,10 @@
 // Copyright INRIA
 
-mode(-1)
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('nofile');
+
 getf('SCI/demos/random/random.sci');
-getf('SCI/demos/random/randomT.sci');
-oldln=lines();lines(0)
-deff('[]=demoex(num)','execstr(demolist(num,2))')
+exec('SCI/demos/random/randomT.sci');
 
 demolist=[
 	'Simulation of a binomial random variable','set figure_style new;xbasc();BinomialT();';
@@ -16,13 +16,6 @@ demolist=[
 	'Simulation of an hyper geometric random variable','set figure_style new;xbasc();HyperGeomT();';
 	'Simulation of an Erlang random variable','set figure_style new;xbasc();ErlangT();'];
 
-while %t then
-	num=tk_choose(demolist(:,1),'demo of random variable simulations');
-	if num==0 then 
-		lines(oldln(1));
-		return
-	else
-		demoex(num);
-	end,
-end
+getf('SCI/demos/demos_lib/demo_function_choice.sci');
+demo_function_choice;
 

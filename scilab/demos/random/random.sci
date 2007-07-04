@@ -1,26 +1,3 @@
-function [y]=RndInt(m,n,imin,imax) 
-	// discrete uniform random number 
-	//-------------------------------
-	// Copyright ENPC 
-	y=rand(m,n,'uniform')
-	y=int(floor(y*(imax+1-imin)+ imin ));
-endfunction 
-
-
-function [y]=RndDisc(m,n,x,p)
-	// discrete law random number
-	// sum p_i delta_{x_i}
-	//-------------------------------
-	p1=[0,p];p1=cumsum(p1);
-	y=rand(m,n,'uniform')
-	N=prod(size(x));
-	res=0*ones(m*n);
-	for i=1:N,z=0*ones(m*n,1),id=find( p1(i) <= y & y < p1(i+1) ),
-		z(id)=x(i)*ones(prod(size(id))),res=res+z;
-	end
-	y=matrix(res,m,n);
-endfunction 
-
 function [y]=Binomial(m,n,pb,nb) 
 	// Binomial law (p,N) 
 	// P{X=n} = C_N^n p^n (1-p)^(N-n)
@@ -46,6 +23,31 @@ function [y]=Binomial(m,n,pb,nb)
 	end
 	y=matrix(res(1:m*n),m,n);
 endfunction 
+
+function [y]=RndInt(m,n,imin,imax) 
+	// discrete uniform random number 
+	//-------------------------------
+	// Copyright ENPC 
+	y=rand(m,n,'uniform')
+	y=int(floor(y*(imax+1-imin)+ imin ));
+endfunction 
+
+
+function [y]=RndDisc(m,n,x,p)
+	// discrete law random number
+	// sum p_i delta_{x_i}
+	//-------------------------------
+	p1=[0,p];p1=cumsum(p1);
+	y=rand(m,n,'uniform')
+	N=prod(size(x));
+	res=0*ones(m*n);
+	for i=1:N,z=0*ones(m*n,1),id=find( p1(i) <= y & y < p1(i+1) ),
+		z(id)=x(i)*ones(prod(size(id))),res=res+z;
+	end
+	y=matrix(res,m,n);
+endfunction 
+
+
 
 function [y]=Geom(m,n,p) 
 	// P(0)= 0 P(i) = p*(1-p)^{n-1} P(inf)=0

@@ -2,7 +2,7 @@
 //DISCRETE IIR FILTERS//
 ////////////////////////
 // Copyright INRIA
- 
+clc; 
 //Low pass filter (length 5, type cheb1, cut-off .2)
    hz=iir(5,'lp','cheb1',[.2 0],[.05 .05]);
    [hzm,fr]=frmag(hz,256);

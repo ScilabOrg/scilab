@@ -1,12 +1,13 @@
 // Copyright INRIA
 
 mode(-1)
-deff("[]=demoexc(fil)","exec(""SCI/demos/simulation/dae/""+fil)")
 
 while %t do
-  n=tk_choose(["Spherical pendulum";"Sliding pendulum"],..
+  num=tk_choose(["Spherical pendulum";"Sliding pendulum"],..
       "Examples of DAE");
-  select n
+  deff("[]=demoexc(fil)","exec(""SCI/demos/simulation/dae/""+fil)")
+      
+  select num
   case 0
     return
   case 1
@@ -15,4 +16,4 @@ while %t do
     demoexc("dae2.dem");
   end
 end
-
+mode(0)

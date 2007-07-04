@@ -2,6 +2,7 @@
 //SPECTRAL ESTIMATION///
 ////////////////////////
 mode(1)
+clc;
 // Copyright INRIA
 xselect();xbasc(); 
  
@@ -32,7 +33,11 @@ xselect();xbasc();
    hsize=maxi(size(hf2));
    fr=(1:hsize)/hsize;
    plot2d(fr',log(hf2)');
-   xtitle('Data spectrum','frequency','magnitude');
+   a=gca();
+   a.title.text='data spectrum';
+   a.x_label.text="frequency";
+   a.y_label.text="magnitude";
+   a.title.font_size=3;
    halt();xbasc(); 
  
 //pspect example
@@ -40,7 +45,11 @@ xselect();xbasc();
    smsize=maxi(size(sm1));
    fr=(1:smsize)/smsize;
    plot2d(fr',log(sm1)')
-   xtitle('Spectral estimation','frequency','spectral power');
+   a=gca();
+   a.title.text='spectral estimation';
+   a.x_label.text="frequency";
+   a.y_label.text="spectral power";
+   a.title.font_size=3;
    halt();xbasc(); 
  
 //cspect example
@@ -48,6 +57,9 @@ xselect();xbasc();
    smsize=maxi(size(sm2));
    fr=(1:smsize)/smsize;
    plot2d(fr',log(sm2)');
-   xtitle(['Spectral estimation ; periodogram method'],' ' ,' ' )
+   a=gca();
+   a.title.text='spectral estimation, periodogram method';
+   a.title.font_size=3;
+   //xtitle(['Spectral estimation ; periodogram method'],'' ,' ' )
+   //xset("font size",3);
    halt();
-   xbasc(); 

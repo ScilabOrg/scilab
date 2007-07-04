@@ -1,5 +1,8 @@
 mode(-1);
 // Copyright ENPC 
+
+getf('SCI/demos/demos_lib/demo_compiler.sci');
+
 path=get_absolute_file_path("wheel.dem");
 getf(path+'show.sci');
 
@@ -11,10 +14,11 @@ flag1=tk_choose(['Reading a precomputed trajectory';
  'Simulation or Visualisation ? (click below)');
 
 select flag1,
+ case 0
+  return;
  case 2 then 
-  if ~(haveacompiler()) then
-    x_message(['Scilab doesn''t find a C compiler','This demo is disabled'])
-  else
+  demo_compiler();
+  if (ans==%t) then
 	  mode(0);
 	  wheel_build_and_load() 
 	  wheelg=wheelgf;
@@ -35,7 +39,7 @@ select flag1,
 	  x=ode(x0,tmin,times,'wheel');
 	  xselect();
 	  xbasc();
-	  show(x)
+	  show(x);
 	  ystr=[ 'phi';'theta';'psi';'Dpsi';'Dtheta';'Dpsi';'x';'y'];
         flag=2;
 	  while flag==2, [n1,n2]=size(x);
@@ -43,7 +47,7 @@ select flag1,
                 if flag==2,x0=evstr(x_mdialog(['Initial conditions'],...
                       ystr,string(x(:,n2))));
   		x=ode(x0,tmin,times,'wheel');
-  		xbasc();show(x);
+  		xbasc();show(x)
 		end;
 	 end
 	end

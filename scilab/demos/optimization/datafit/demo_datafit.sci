@@ -14,11 +14,13 @@ function demo_datafit()
   xset("wdim",600*0.9,400*0.9);
   xselect();
   plot2d(X',Y',style=-1,leg='Experimental data');
+  xtitle('non linear data fitting');
+  //xset("fontsize",3);    //ne marche pas
   realtimeinit(0.1);for k=1:20,realtime(k),end
   // solve the non linear data fitting
   [p,err]=datafit(G,Z,[3;5;10])
   // show the fitting curve
-  plot2d(X',FF(X)',[5,2],'002','Fitting function')
+  plot2d(X',FF(X)',[5,2],'002','Fitting function');
   ;;
   realtimeinit(0.1);for k=1:30,realtime(k),end
 endfunction

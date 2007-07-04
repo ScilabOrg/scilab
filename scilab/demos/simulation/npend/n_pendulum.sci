@@ -1,8 +1,10 @@
 // Copyright ENPC INRIA
 function demo_pendulum()
-  if ~(haveacompiler()) then
-    x_message(['Scilab doesn''t find a C compiler','This demo is disabled'])
-  else
+  
+    getf('SCI/demos/demos_lib/demo_compiler.sci');
+    [ans]=demo_compiler()
+  if (ans==%t) then
+    
     npend_build_and_load() ;
 
     n=np();
@@ -103,6 +105,9 @@ function draw_chain_from_coordinates(x,y,job)
     p.data = [x(ind,j),y(ind,j)]; 
     // add a trajectory point
     if job==1 then t.data=[t.data;[x($,j),y($,j)]],end
+    a=gca();
+    a.title.text=('n-pendulum');
+    a.title.font_size=3;
     drawnow()
   end
 endfunction

@@ -8,7 +8,8 @@ function []=show(xx,t,p)
 //                     .    .   .
 // xx= [theta,phi,psi,teta,phi,psi,x,y]
 // !
-// Copyright ENPC 
+// Copyright ENPC
+  curFont = xget("font");
   [lhs,rhs]=argn(0)
   if rhs <= 2 , p=%pi/3;end
   if rhs <= 2 , t=%pi/3;end
@@ -48,8 +49,9 @@ function []=show(xx,t,p)
 
   //[4] plotting frame
   t=t*180/%pi,p=p*180/%pi,
-  plot3d([xmin,xmax],[ymin,ymax],zmin*ones(2,2),t,p," ",[0,1,0],rect)
-
+  plot3d([xmin,xmax],[ymin,ymax],zmin*ones(2,2),t,p," ",[0,1,0],rect);
+  xset("font",curFont(1),3);
+  xtitle('wheel simulation');
   //[4'] I want to plot the rays with xpoly so i first use geom3d
   [xr,yr]=geom3d(xr,yr,zr);
 
@@ -72,7 +74,8 @@ function []=show(xx,t,p)
   end
   wheeld(n2-1);
   xset("alufunction",3);
-  [wheel_rti]=resume(wheel_rti);  
+  [wheel_rti]=resume(wheel_rti);
+  xset("font",curFont(1),curFont(2));
 endfunction 
 
 function []=wheeld(i)

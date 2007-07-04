@@ -2,6 +2,7 @@ path=get_absolute_file_path('lmi.dem')
 getf(path+'lmidem.sci');
 // Copyright INRIA
 mode(-1);
+xdel(0);
 x_message(['      ';
 	   'LMITOOL is a Scilab package for LMI optimization';
 	   '           ';
@@ -33,6 +34,7 @@ while %t
   case 0
     break;
   case 1
+    clc;
     mode(1)
     lmidem(path+'normopt.sci');getf(path+'normopt.sci');
     x_message(['Let''s try a simple example with 3 states';...
@@ -48,6 +50,7 @@ while %t
     end
     mode(-1)
   case 2
+    clc;
     mode(1)
     lmidem(path+'of.sci');getf(path+'of.sci');
     x_message(['Let''s try a simple example with 3 states';...
@@ -61,6 +64,7 @@ while %t
     end
     mode(-1)
   case 3
+    clc;
     mode(1)
     lmidem(path+'sylvester.sci');getf(path+'sylvester.sci');
     x_message(['Let''s try a simple example with 3 states';...

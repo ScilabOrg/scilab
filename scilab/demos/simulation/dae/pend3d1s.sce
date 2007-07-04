@@ -34,3 +34,6 @@ norm(x1s(:,$),2)
 
 xbasc()
 param3d(x1s(1,:),x1s(2,:),x1s(3,:))
+a=gca();
+a.title.text='spherical pendulum, index 1 with stabilization';
+a.title.font_size=3;

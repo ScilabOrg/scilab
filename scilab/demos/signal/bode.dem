@@ -5,6 +5,7 @@
                   //////////////////
 xbasc();xselect()
 mode(1)
+clc;
 //First plot using state space representation
 //
 //   xd=-2*%pi*x+u

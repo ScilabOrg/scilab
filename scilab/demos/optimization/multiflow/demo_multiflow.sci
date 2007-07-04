@@ -35,7 +35,6 @@ function demo_multiflow(gfile)
   G.node_label=emptystr(1,p);  
   G.node_label(sources)=string(values)
   G.node_label(sinks)=string(-values)
-
   show_graph(G)
 
   //add a title
@@ -125,5 +124,4 @@ function demo_multiflow(gfile)
  
   set('old_style',stripblanks(grs))
 endfunction
-
-
+	

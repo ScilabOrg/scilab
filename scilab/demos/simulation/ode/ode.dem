@@ -1,26 +1,18 @@
-mode(-1)
 // Copyright INRIA
-oldln=lines();
-lines(0)
-deff('[]=demoex(num)','exec(''SCI/demos/simulation/ode/''+demolist(num,2),-1)')
+
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('ode.dem');
 
 demolist=[
-'Simple ODE','ode1.dem';
-'Chemical process (Stiff)','ode2.dem';
-'Chemical process (Implicit)','ode3.dem';
-'Lorenz equation','ode4.dem'
-'ODE 1D vector field','odenew1_1.sce'
-'Van der Pol vector field','vanderpol.sce'
-'Lotka-Volterra vector field','lotka.sce']
+'Simple ODE','ode_simple.dem';
+'Chemical process (Stiff)','ode_chstiff.dem';
+'Chemical process (Implicit)','ode_chimpl.dem';
+'Lorentz equation','ode_lorentz.dem'
+'ODE 1D vector field','ode_1dvect.sce'
+'Van der Pol vector field','ode_vanderpol.sce'
+'Lotka-Volterra vector field','ode_lotka.sce']
 
-while %t then
-  num=tk_choose(demolist(:,1),'Click to choose a demo')
-  if num==0 then 
-     lines(oldln(1))
-     return
-  else
-     demoex(num)
-  end
-end
+getf('SCI/demos/demos_lib/demo_folder_choice.sci');
+demo_folder_choice(path,'no');
 
 
