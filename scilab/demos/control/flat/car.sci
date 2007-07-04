@@ -114,6 +114,9 @@ function display_car_trajectory(state)
     drawlater()
     draw_car(C, state(i,:)) 
     t1.data=[t1.data;state(i,1) state(i,2)];
+    a=gca();
+    a.title.text='flat systems : car'
+    a.title.font_size=3;
     drawnow()
   end 
   for i=(1:30)+size(state,1),realtime(i),end
