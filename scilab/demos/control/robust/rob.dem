@@ -1,19 +1,30 @@
 // Copyright INRIA
 mode(1)
-s=poly(0,'s');
+//getf('SCI/demos/demos_lib/demo_run.sci');
+path=get_absolute_file_path('rob.dem')
 
-//MAC-FARLANE PROBLEM for G=1/s^3;
+clc;
 
-[P,r]=macglov(1/s^3);clean(P)
 
-//Optimal controller K:
+
+num=mopen(path+'stages/stage1.sce','rt');  //ne marche pas.
+str=mgetl(num,-1);
+execstr(str);
+mclose(num);
+x_message(str);
 
 halt()
+
 //K Optimal controller , ro = gamaopt^-2;
+
 [K,ro]=h_inf(P,r,0,1,30);
+
 K,gamaopt=1/sqrt(ro)
 
 // Check internal stability:
+
+//text2=fun2string(exec(path+'/stages/stage2.sce'),'text')
+//x_message(text2)
 
 halt()
 
