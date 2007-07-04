@@ -97,7 +97,7 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
 	xtitle(the_title);
 	MyAxe_hdl = gca();
 	MyAxe_hdl.title.font_size = 3;
-	MyAxe_hdl.title.font_style = 8;
+	MyAxe_hdl.title.font_style = 2;
 	
 	if DomReal(2) > DomReal(1) then
 		xstring(0.1,-0.15," In yellow : the real "+StrFunc+" function")
