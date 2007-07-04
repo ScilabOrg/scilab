@@ -54,6 +54,7 @@ z=flts(uu(instants),Bigsyst);
 plot2d([instants',instants'],..
        [totrack(1,:)',z(1,:)'],[1 2],'161',..
        'Signal to track@Computed signal@');
-xtitle('tracking');
-
+a=gca();
+a.title.text='tracking';
+a.title.font_size=3;
 
