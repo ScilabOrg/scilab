@@ -1,6 +1,6 @@
 // Copyright INRIA
-
 mode(-1)
+clc;
 //display the diagram
 x=[5,10,20,40,50,70,80,90];xmin=-10;xmax=100;
 y=[22,28,30,32];ymin=12;ymax=40;
@@ -116,10 +116,16 @@ while %t do
       if n1==1 then 
 	xbasc(1);xset("window",1);xselect();
 	plot2d([t',t'],[(csim('step',t,Tpid))',ones(t')])
+  a=gca();
+  a.title.text='PID, step response'
+  a.title.font_size=3;
       end
       if n1==2 then
 	xbasc(1);xset("window",1);xselect();
 	plot2d([t',t'],[(csim('impul',t,Tpid))',0*t'])
+	a=gca();
+  a.title.text='PID, impulse response'
+  a.title.font_size=3;
       end
       mode(-1)
     elseif Plant(4)=='d' then
