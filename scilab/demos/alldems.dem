@@ -1,8 +1,6 @@
 mode(-1)
 // Copyright INRIA
 
-// TEST COMMENT
-
 oldln=lines();
 lines(0)
 global demolist
