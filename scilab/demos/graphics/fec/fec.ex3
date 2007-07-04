@@ -10,5 +10,6 @@ mode(0);
 
 xbasc();
 Sfgrayplot();
+a=gca(); a.title.font_size=3;
 
 mode(-1);
