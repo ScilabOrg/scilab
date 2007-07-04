@@ -1,4 +1,5 @@
 mode(7)
+clc
 //               SCILAB OBJECTS
 //               1. SCALARS
 // Copyright INRIA
@@ -64,9 +65,9 @@ K=ppol(A,B,[-1-%i -1+%i -1])        //Pole placement
 poly(A-B*K,'z')-poly([-1-%i -1+%i -1],'z')    //Check...
 
 s=sin(0:0.1:5*%pi);
-ss=fft(s(1:128),-1);        //FFT
-xbasc();
-plot2d3("enn",1,abs(ss)');      //simple plot
+ss=fft(s(1:128),-1);        //FFT   //simple plot
+
+xbasc(); plot2d3("enn",1,abs(ss)');xtitle('Fast Fourier Transform');current_axe=gca(); current_axe.title.font_size=3;
 
 
 //              ON LINE DEFINITION OF FUNCTION
@@ -95,14 +96,16 @@ sl=syslin('c',1/(s*s+0.2*s+1))
 instants=0:0.05:20;
 //             step response:
 y=csim('step',instants,sl);
-xbasc();plot2d(instants',y')
+xbasc();plot2d(instants',y');xtitle('Second order system analysis step response');current_axe=gca(); current_axe.title.font_size=3;
 //             Delayed step response
 deff('[in]=u(t)','if t<3 then in=0;else in=1;end');
-y1=csim(u,instants,sl);plot2d(instants',y1');
+y1=csim(u,instants,sl);plot2d(instants',y1');xtitle('Second order system analysis delayed step response');current_axe=gca(); current_axe.title.font_size=3;
 clear u;
 //             Impulse response;
-yi=csim('imp',instants,sl);xbasc();plot2d(instants',yi');
-yi1=csim('step',instants,s*sl);plot2d(instants',yi1');
+yi=csim('imp',instants,sl);
+xbasc();plot2d(instants',yi');xtitle('Second order system analysis impulse response');current_axe=gca(); current_axe.title.font_size=3;
+yi1=csim('step',instants,s*sl);
+plot2d(instants',yi1');xtitle('Second order system analysis impulse response');current_axe=gca(); current_axe.title.font_size=3;
 
 //              Discretization
 dt=0.05;
@@ -111,16 +114,14 @@ sld=dscr(tf2ss(sl),0.05);
 //               Step response
 u=ones(instants);
 yyy=flts(u,sld);
-xbasc();
-plot(instants,yyy);
+xbasc(); plot(instants,yyy);xtitle('Second order system analysis discretized step response');current_axe=gca(); current_axe.title.font_size=3;
 clear u;
 
 
 //              Impulse response
 u=0*ones(instants);u(1)=1/dt;
 yy=flts(u,sld);
-xbasc();
-plot(instants,yy);
+xbasc(); plot(instants,yy);xtitle('Second order system analysis discretized impulse response');current_axe=gca(); current_axe.title.font_size=3;
 clear u;
 //            system interconnexion
 w1=[w,w];
