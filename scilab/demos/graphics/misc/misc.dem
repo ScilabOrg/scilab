@@ -1,5 +1,6 @@
 mode(-1);
 // Copyright INRIA
+clc;
 xbasc();
 drawlater();
 mode(1);
@@ -12,6 +13,7 @@ subplot(2,2,1);
 h=hotcolormap(ncolor);
 xset('colormap',h);
 grayplot();
+
 
 // Second plot
 
@@ -45,6 +47,7 @@ xset('colormap',hh) ;
 kk1=modulo(kk1,60);kk2=kk1;
 KKK=list(ZZZ,[kk1 kk2]);
 plot3d(XXX,YYY,KKK,35,70," @ @ ",[2,1,4],[-6,6,-6,6,-6,6]);
+a=gca(); a.title.text='misc'; a.title.font_size=3;,
 drawnow();
 
 // Change the window colormap
@@ -59,6 +62,7 @@ xset('colormap',h2);
 xbasr(xget('window'));
 xpause(2d6);
 xset('colormap',hh) ;
-xbasr(xget('window'));
-xset('default');
-xsetech([0 0 1 1])
+//xbasr(xget('window'));
+//xset('default');
+//xsetech([0 0 1 1]);
+halt();   // fin à voir
