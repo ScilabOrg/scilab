@@ -34,6 +34,9 @@ colorbar(1,N+1);
 rect=[-1.2,-1.2,1.2,1.2];
 fec(noeul(:,2),noeul(:,3),trianl,(1:N+1)',"030"," ",rect);
 meshvisu(3,rect);
+a=gca();
+a.title.text="finite element display with colorbar";
+a.title.font_size=3;
 if new_style then, drawnow(), end
 
 mode(0);
