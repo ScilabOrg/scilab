@@ -111,6 +111,7 @@ legend_axes.children.children(6).thickness = 4;
 // Toolbar removed
 
 toolbar(0,'off');
+a=gca(); a.title.text='bar histogram'; a.title.font_size=3;,
 drawnow();
 
 expr = [
