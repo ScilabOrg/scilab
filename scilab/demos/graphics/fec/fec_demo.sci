@@ -1,3 +1,4 @@
+
 function []=emc2(filename)
 	
 	// Visualise un resultat de type GNU.*
