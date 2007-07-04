@@ -1,28 +1,17 @@
-mode(0);
 // Copyright Enpc
 
-xbasc();
-fs = get('figure_style');
-path=get_absolute_file_path('anim.dem');
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('anim.dem');
 
-demolist=['Rotation of a 3D Surface (plot3d1)';
-	'3D curve (param3d)';
-	'Lorentz curve (param3d) ';
-	'Rotation of a 3D contour';
-	'Evolution of a 3D surface (plot3d)';
-	'N link pendulum movement';
-	'Riemann surface';
-	'Shell'];
-deff('[]=demoexc(fil)','exec(path+fil);')
-while %t then
-	num=tk_choose(demolist(:,1),'Choose a demo');
-	if num==0 then
-		set('figure_style',fs);
-		break;
-	else
-		xdel(0);
-		xset('window',0);
-		set('figure_style','old');
-		demoexc('anim'+string(num)+'.dem');
-	end,
-end
+demolist=['Rotation of a 3D Surface (plot3d1)','anim1.dem';
+	'3D curve (param3d)','anim2.dem';
+	'Lorentz curve (param3d) ','anim3.dem';
+	'Rotation of a 3D contour','anim4.dem';
+	'Evolution of a 3D surface (plot3d)','anim5.dem';
+	'N link pendulum movement','anim6.dem';
+	'Riemann surface','anim7.dem';
+	'Shell','anim8.dem'];
+
+getf('SCI/demos/demos_lib/demo_folder_choice.sci');
+demo_folder_choice(path,'anim');
+
