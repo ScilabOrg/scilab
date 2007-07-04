@@ -1,31 +1,17 @@
-mode(-1)
-
 // Copyright INRIA
 
-path=get_absolute_file_path('graphics.dem');
-oldln=lines();
-lines(0)
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('graphics.dem');
 
-demolist=['2D and 3D plots','dessin.dem',
-		'Basic functions','xdemo.dem',
+demolist=['2D and 3D plots','plots/dessin.dem',
+		'Basic functions','basic/xdemo.dem',
 		'Animation','anim/anim.dem',
 		'Finite Elements','fec/fec.dem',
-		'Bezier curves and surfaces','surface/bezier.dem',
-		'More surfaces','surface/surfaces.dem',
+		'Bezier curves and surfaces','bezier/bezier.dem',
+		'More surfaces','more/surfaces.dem',
 		'Misc','misc/misc.dem',
 		'Complex elementary functions','cmplxfunc/cmplxfunc.dem',
-		'bar histogram','bar/bar.dem'
-]
+		'bar histogram','bar/bar.dem']
 
-deff('[]=demoex(num)','exec(path+demolist(num,2),-1)')
-
-while %t then
-	num=tk_choose(demolist(:,1),'Choose a demo');
-	if num==0 then
-		lines(oldln(1))
-		return
-	else
-		demoex(num)
-	end
-end
-
+getf('SCI/demos/demos_lib/demo_folder_choice.sci');
+demo_folder_choice(path,'no');
