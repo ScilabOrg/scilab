@@ -6,6 +6,9 @@
    P=build_pendulum([xg,y1],[lc,hc,lb,teta,r])
    xsegs([-0.4 0.4],[y1-2*r y1-2*r]);
    show_pixmap()
+   a=gca();
+   a.title.text='inverted pendulum'
+   a.title.font_size=3;
  endfunction
 
 
@@ -83,6 +86,9 @@ function P=set_pendulum(P,x,theta)
   P.user_data(1)=x
   drawnow()
   show_pixmap()
+  a=gca();
+  a.title.text='inverted pendulum'
+  a.title.font_size=3;
 endfunction
 
 
@@ -96,7 +102,7 @@ function draw1()
   a1.axes_bounds=[0 0 0.5 0.5];
   a1.data_bounds=[1,min(y(1,:));n max(y(1,:))];
   a1.axes_visible='on';
-  a1.x_label.text='t';
+  a1.x_label.text='time';
   a1.y_label.text='position';
   p1=xpoly(1,y(1,1));p1=gce();
 
@@ -104,7 +110,7 @@ function draw1()
   a2.axes_bounds=[0.5,0,0.5,0.5];
   a2.data_bounds=[1,min(y(2,:));n max(y(2,:))];
   a2.axes_visible='on';
-  a2.x_label.text='t';
+  a2.x_label.text='time';
   a2.y_label.text='theta';
   xpoly(1,y(2,1));;p2=gce();
 
@@ -154,7 +160,7 @@ function draw2()
   a2.axes_bounds=[0.5,0,0.5,0.5];
   a2.data_bounds=[t1(1),min([theta thetaE]);t1(n) max([theta thetaE])];
   a2.axes_visible='on';
-  a2.x_label.text='t';
+  a2.x_label.text='time';
   a2.y_label.text='theta';
   xpoly(t1(1),theta(1));p2=gce();
   xpoly(t1(1),thetaE(1));p3=gce();p3.line_style=2;
