@@ -1,4 +1,7 @@
 // Copyright INRIA
+
+// TEST COMMENT
+
 mode(-1)
 //display the diagram
 x=[5,10,20,40,50,70,80,90];xmin=-10;xmax=100;
