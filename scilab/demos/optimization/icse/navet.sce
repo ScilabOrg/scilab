@@ -3,11 +3,7 @@
 //  *************************************************************
 //
 // Copyright INRIA
-libn=ilib_for_link('icsenb','icsenb.o',[],'f')
-nlink=link('./'+libn,['icsenb','icsenf'],'f')
-
-//clear icse contexte
-clear nu u uc uv itu dtu y0 tob binf bsup b fy fu obs don;
+exec('icse.contexte');
 // les doubles slash introduisent des commentaires
 //
 t0=0.d0;    // instant initial
@@ -134,6 +130,6 @@ large=100;  // taille de nu au dela de laquelle on choisit un optimiseur
 //
 exec('icseinit.sce');   
 [co,u,g,itv,dtv]=icse(u,nomf,nap,imp);
-ulink(nlink)
+
 
 

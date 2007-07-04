@@ -3,8 +3,7 @@
 //
 //
 // Copyright INRIA
-//clear icse contexte
-clear nu u uc uv itu dtu y0 tob binf bsup b fy fu obs don;
+exec('icse.contexte');  // contexte
 //
 t0=0;    // instant initial
 tf=20;    // instant final
