@@ -1,6 +1,5 @@
-mode(-1)
-path=get_absolute_file_path('control.dem');
-oldln=lines();lines(0)
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('control.dem');
 
 demolist=['LQG',               'lqg/lqg.dem'
 	  'Mixed-sensitivity', 'mixed.dem'
@@ -10,16 +9,7 @@ demolist=['LQG',               'lqg/lqg.dem'
 	  'Tracking',          'tracking/track.dem'
 	  'Robust control',    'robust/rob.dem']
 
-deff('[]=demoex(num)','exec(path+demolist(num,2),-1)')
-
-while %t then
-  num=tk_choose(demolist(:,1),'Choose a demo');
-  if num==0 then 
-     lines(oldln(1))
-     return
-  else
-     demoex(num)
-  end,
-end
+getf('SCI/demos/demos_lib/demo_folder_choice.sci');
+demo_folder_choice(path,'no');
 
 
