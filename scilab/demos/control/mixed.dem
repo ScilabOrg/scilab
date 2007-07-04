@@ -1,5 +1,6 @@
 // Copyright INRIA
 mode(-1)
+clc;
 //display the diagram
 x=[5,10,20,40,50,70,80,90];xmin=-10;xmax=100;
 y=[22,28,30,32];ymin=12;ymax=40;
@@ -55,19 +56,28 @@ ww1=part(www(1),1)=='Y';
 if ww1 then
   scf(1);clf();xselect();
   gainplot(Ssens);
-  xtitle('S = Sensitivity function');
+  //xtitle('S = Sensitivity function');
+  a=gca();
+  a.title.text='S = sensitivity function';
+  a.title.font_size=3;
 end
 
 ww2=part(www(2),1)=='Y';
 if ww2 then
   scf(2);clf();xselect();
   gainplot(Rsens);
-  xtitle('R (=G*S) Sensitivity function');
+  //xtitle('R (=G*S) Sensitivity function');
+  a=gca();
+  a.title.text='R (=G*S) = sensitivity function';
+  a.title.font_size=3;
 end
 
 ww3=part(www(3),1)=='Y';
 if ww3 then
   scf(3);clf();xselect();
   gainplot(Tsens);
-  xtitle('T = Complementary Sensitivity function');
+  //xtitle('T = Complementary Sensitivity function');
+  a=gca();
+  a.title.text='T = complementary sensitivity function';
+  a.title.font_size=3;
 end
