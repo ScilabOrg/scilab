@@ -245,6 +245,9 @@ function display_truck_trajectory(state)
     draw_truck(C, state(i,:)) 
     t1.data=[t1.data;x_lin(i), y_lin(i)];
     t2.data=[t2.data;state(i,1), state(i,2)];
+    a=gca();
+    a.title.text='flat systems : two trailers truck'
+    a.title.font_size=3;
     drawnow()
   end 
   for i=(1:30)+size(state,1),realtime(i),end
