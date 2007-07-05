@@ -1,10 +1,10 @@
 // Copyright INRIA
 
 getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
-[path,oldln]=demo_wp_begin('nofile');
+[path,oldln]=demo_wp_begin('random.dem');
 
-getf('SCI/demos/random/random.sci');
-exec('SCI/demos/random/randomT.sci');
+getf(path+'random.sci');
+exec(path+'randomT.sci');
 
 demolist=[
 	'Simulation of a binomial random variable','set figure_style new;xbasc();BinomialT();';
