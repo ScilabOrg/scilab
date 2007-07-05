@@ -86,7 +86,3 @@ expr=['R = 2 ; theta = -110; alpha = 75;'
 		demo_run('',expr);
 endfunction
 
-function []=func15()
-expr=['']
-    demo_run('',expr);
-endfunction
