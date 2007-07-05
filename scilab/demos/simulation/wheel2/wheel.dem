@@ -1,10 +1,13 @@
 mode(-1);
 // Copyright ENPC 
 
-getf('SCI/demos/demos_lib/demo_compiler.sci');
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('wheel.dem');
 
-path=get_absolute_file_path("wheel.dem");
+//path=get_absolute_file_path("wheel.dem");
+
 getf(path+'show.sci');
+getf('SCI/demos/demos_lib/demo_compiler.sci');
 
 xbasc();
 fs = get('figure_style');
