@@ -5,3 +5,4 @@ if fil~='nofile' then
 end
 oldln=lines();lines(0);
 endfunction
+
