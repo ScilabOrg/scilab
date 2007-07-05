@@ -1,7 +1,10 @@
-path=get_absolute_file_path('lmi.dem')
-getf(path+'lmidem.sci');
+
 // Copyright INRIA
-mode(-1);
+
+getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+[path,oldln]=demo_wp_begin('lmi.dem');
+getf(path+'lmidem.sci');
+
 xdel(0);
 x_message(['      ';
 	   'LMITOOL is a Scilab package for LMI optimization';
