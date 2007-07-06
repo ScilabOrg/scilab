@@ -15,7 +15,12 @@ demos_name=[
     'System-Observer.cosf'
 	'bouncing balls'	
     'Synchro Block demo'
-    'Kalman filter'];
+    'Kalman filter'
+    'Discrete-Kalman Filter'
+    'Inverted Pendulum'
+    'Datatype'
+    'Digital Pulse Generator'
+    'WaterTank'];
 
 // disabled problem with .au file
 //if ~MSDOS then demos_name=[demos_name;'sound demo'];end
@@ -32,6 +37,17 @@ while %t do
   n=tk_choose(demos_name,'Choose a demo')
   if n ==0 then break,end
   select demos_name(n)
+  case 'Discrete-Kalman Filter' then
+   scicos('SCI/demos/scicos/Discrete-KalmanFilter.cosf');
+  case 'Inverted Pendulum' then
+   exec setw.sci;
+   scicos('SCI/demos/scicos/Inverted_pendulum.cosf');
+  case 'Datatype' then
+   scicos('SCI/demos/scicos/demo_Datatype.cosf');
+  case 'Digital Pulse Generator' then
+   scicos('SCI/demos/scicos/demo_flipflop.cosf');
+  case 'WaterTank' then
+   scicos('SCI/demos/scicos/demo_watertank.cosf');
   case 'Kalman filter' then  
     scicos('SCI/demos/scicos/Kalman_1.cosf');
   case 'Simple Thermostat' then  
