@@ -1595,4 +1595,188 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='BITCLEAR1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLOGICAL_OP' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='DelayRE' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='Div' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='EVTDLY_c' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='FROM' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='IMPSPLIT_f' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='Neg' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SETW' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SPLIT_f' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
 </DATA>

@@ -1018,5 +1018,96 @@
 </FILE>
 
 
+<FILE name='BITCLEAR1' type='XML'>
+<SHORT_DESCRIPTION name="BITCLEAR1">BITCLEAR1 title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<SHORT_DESCRIPTION name="BOUNCE">BOUNCE title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<SHORT_DESCRIPTION name="BOUNCEXY">BOUNCEXY title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<SHORT_DESCRIPTION name="CLOCK_c">CLOCK_c title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<SHORT_DESCRIPTION name="DLATCH1">DLATCH1 title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLOGICAL_OP' type='XML'>
+<SHORT_DESCRIPTION name="DLOGICAL_OP">DLOGICAL_OP title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DelayRE' type='XML'>
+<SHORT_DESCRIPTION name="DelayRE">DelayRE title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Div' type='XML'>
+<SHORT_DESCRIPTION name="Div">Div title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<SHORT_DESCRIPTION name="EDGETRIGGER">EDGETRIGGER title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_c' type='XML'>
+<SHORT_DESCRIPTION name="EVTDLY_c">EVTDLY_c title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROM' type='XML'>
+<SHORT_DESCRIPTION name="FROM">FROM Receives data from a corresponding GOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<SHORT_DESCRIPTION name="GOTO">GOTO Pass block input to From block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<SHORT_DESCRIPTION name="GotoTagVisibility">Define Scope of GOTO tag visibility</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='IMPSPLIT_f' type='XML'>
+<SHORT_DESCRIPTION name="IMPSPLIT_f">IMPSPLIT_f title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<SHORT_DESCRIPTION name="JKFLIPFLOP1">JKFLIPFLOP1 title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Neg' type='XML'>
+<SHORT_DESCRIPTION name="Neg">Neg title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<SHORT_DESCRIPTION name="PID">PID title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<SHORT_DESCRIPTION name="ROOTCOEF">ROOTCOEF title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SETW' type='XML'>
+<SHORT_DESCRIPTION name="SETW">SETW title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SPLIT_f' type='XML'>
+<SHORT_DESCRIPTION name="SPLIT_f">SPLIT_f title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<SHORT_DESCRIPTION name="SRFLIPFLOP1">SRFLIPFLOP1 title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<SHORT_DESCRIPTION name="func_block">func_block title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<SHORT_DESCRIPTION name="scifunc_block_m">scifunc_block_m title</SHORT_DESCRIPTION>
+</FILE>
+
 </DATA>
- 

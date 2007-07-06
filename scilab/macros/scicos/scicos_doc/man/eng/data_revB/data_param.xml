@@ -6673,4 +6673,752 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 
+<FILE name='BITCLEAR1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>index of bit (0 is leat significant)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Mass</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Radius</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>[xmin,xmax,ymin,ymax]</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 3.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>xpos</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 4.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>xdpos</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 5.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>ypos</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 6.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>ydpos</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 7.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>g (gravity)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 8.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>C (aerodynamic coeff</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 9.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>colors</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>radii</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>window number (-1 for automatic)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 3.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>animation mode (0,1)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 4.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Xmin</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 5.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Xmax</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 6.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymin</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 7.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Ymax</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 8.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Period</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Init time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DLOGICAL_OP' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>number of inputs</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Operator: AND (0), OR (1), NAND (2), NOR (3), XOR (4), NOT (5)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='DelayRE' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Div' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=Complex  3=int32 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>rising (1), falling (-1), both (0)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='EVTDLY_c' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Delay</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Date of initial output event</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='FROM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The tag of the GOTO block passing the signal to this FROM block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter identifies the Goto block whose scope is defined in this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag Visibility(1=Local 2=scoped 3= global)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter idetifies the visibility of the block. It can be local(1), scoped(2) or global(3).
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>GotoTag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The Goto block tag whose visibility is defined by the location of this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='IMPSPLIT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Neg' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype (1=real double  2=Complex  3=int32 ...)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Proportional</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Integral</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Derivation</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 3.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input row size</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SETW' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SPLIT_f' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>input ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 1.
+</SP>
+<SP>
+Properties : Type 'mat' of size [-1,2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output port sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 2.
+</SP>
+<SP>
+Properties : Type 'mat' of size [-2,2].
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>input event ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 3.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>output events ports sizes</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 4.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial continuous state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 5.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial discrete state</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 6.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>System parameters vector</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 7.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>initial firing vector (&lt;0 for no firing)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 8.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>is block always active (0:no, 1:yes)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The parameter description 9.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

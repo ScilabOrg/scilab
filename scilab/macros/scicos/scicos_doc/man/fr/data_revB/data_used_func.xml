@@ -1356,61 +1356,61 @@ for this block we have four differents functions:
 
 <FILE name='MCLOCK_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PNP' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1424,49 +1424,49 @@ for this block we have four differents functions:
 
 <FILE name='SAMPHOLD' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
 <USED_FUNCTIONS>
-	
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1721,6 +1721,190 @@ for this block we have four differents functions:
 <FILE name='SRFLIPFLOP' type='XML'>
 <USED_FUNCTIONS>
 
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BITCLEAR1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLOGICAL_OP' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DelayRE' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Div' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EVTDLY_c' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='FROM' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='IMPSPLIT_f' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Neg' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SETW' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SPLIT_f' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP1' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
