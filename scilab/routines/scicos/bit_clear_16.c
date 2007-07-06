@@ -3,12 +3,13 @@
 
 void bit_clear_16(scicos_block *block,int flag)
 {
-  int n;
-  int *ipar;
+  int m,n,i;
+  short *opar;
   short *u,*y;
-  ipar=GetIparPtrs(block);
+  m=GetInPortRows(block,1);
+  n=GetOutPortCols(block,1);
+  opar=Getint16OparPtrs(block,1);
   u=Getint16InPortPtrs(block,1);
   y=Getint16OutPortPtrs(block,1);
-  n=(pow(2,16)-1)-pow(2,*ipar);
-  *y=((*u)&(n));
+  for (i=0;i<m*n;i++) y[i]=((u[i])&(*opar));
 }

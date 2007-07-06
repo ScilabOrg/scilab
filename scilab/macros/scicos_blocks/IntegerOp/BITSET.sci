@@ -20,21 +20,31 @@ case 'set' then
 	 'index of bit (0 is leat significant)'],..
 	list('vec',1,'vec',1),exprs)
     if ~ok then break,end
-    in=[model.in model.in2];bit=int(bit);
+    in=[model.in model.in2];
     if (bit<0) then
       message('Incorrect index '+string(bit)+' ; must be >0.');ok=%f;
     end
+    if floor(bit)<>bit then message("index of bit must be integer");ok=%f;end
     if (Datatype==3)|(Datatype==6) then
 	if bit > 31 then message ('Incorrect index '+string(bit)+' ; must be <32.');ok=%f;
 	end
+	bit=uint32(bit)
+	n=2^bit;
+	n=uint32(n)
 	model.sim=list('bit_set_32',4)
     elseif (Datatype==4)|(Datatype==7) then
 	if bit > 15 then message ('Incorrect index '+string(bit)+' ; must be <16.');ok=%f;
 	end
+	bit=uint16(bit)
+	n=2^bit;
+	n=uint16(n)
 	model.sim=list('bit_set_16',4)
     elseif (Datatype==5)|(Datatype==8) then
 	if bit > 7 then message ('Incorrect index '+string(bit)+' ; must be <8.');ok=%f;
 	end
+	bit=uint8(bit)
+	n=2^bit;
+	n=uint8(n)
 	model.sim=list('bit_set_8',4)
     else message ('Datatype '+string(Datatype)+' is not supported ; It must be 3 to 8');ok=%f;
     end
@@ -46,7 +56,7 @@ case 'set' then
       end
       if ok then
 	graphics.exprs=exprs;
-	model.ipar=bit;
+	model.opar=list(n);
 	x.graphics=graphics;x.model=model;
 	break
       end
@@ -61,7 +71,7 @@ case 'define' then
   model.out2=1;
   model.intyp=3
   model.outtyp=3
-  model.ipar=0
+  model.opar=list(uint32(0))
   model.blocktype='c'
   model.dep_ut=[%t %f]
   
