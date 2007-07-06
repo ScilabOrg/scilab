@@ -7,10 +7,19 @@
 mode(-1)
 xdel(winsid())
 toolbar(0,'off');
-titlepage(["Lotka-Volterra:";...
-	"dy1/dt= 3*y1 - 2*y1*y2";..
-	"dy2/dt=-2*y2 + y1*y2"]);
-halt(); clf();
+
+x_message(["Lotka-Volterra:";
+           "dy1/dt= 3*y1 - 2*y1*y2";
+           "dy1/dt= 3*y1 - 2*y1*y2";
+           " ";
+           "A trajectory is plotted by clicking on the";
+           "  LEFT button of the mouse."
+           "  The trajectory is updated as you move the mouse.";
+           "  To fix the trajectory, click again on the LEFT button.";
+           "You can start over by clicking on the LEFT button again";
+           "  or stop everything by clicking on the RIGHT button."]);
+
+clf();
 
 
 mode(1)
