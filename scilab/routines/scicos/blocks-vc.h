@@ -347,6 +347,7 @@ extern void extract_bit_u8_MSB1 __PARAMS((ARGS_scicos));
 extern void extract_bit_u32_RB1 __PARAMS((ARGS_scicos));
 extern void extract_bit_u16_RB1 __PARAMS((ARGS_scicos));
 extern void extract_bit_u8_RB1 __PARAMS((ARGS_scicos));
+extern void rndblk_m __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -616,6 +617,7 @@ OpTab tabsim[] ={
 {"relational_op_ui8",(ScicosF) relational_op_ui8},
 {"relay",(ScicosF) relay},
 {"ricc_m",(ScicosF) ricc_m},
+{"rndblk_m",(ScicosF) rndblk_m},
 {"rndblk",(ScicosF) F2C(rndblk)},
 {"root_coef",(ScicosF) root_coef},
 {"rootz_coef",(ScicosF) rootz_coef},
@@ -696,6 +698,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 345 ;
+int ntabsim= 346 ;
 #endif 
 /***********************************/
