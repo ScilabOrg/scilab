@@ -52,7 +52,8 @@ function routines=create_palette(Path)
 	      'RELAY_f.sci';'SWITCH2_m.sci';'IFTHEL_f.sci';
 	      'ESELECT_f.sci';'M_SWITCH.sci';
 	      'SCALAR2VECTOR.sci';'SWITCH_f.sci';'EDGE_TRIGGER.sci';
-	      'Extract_Activation.sci']
+	      'Extract_Activation.sci';'GOTO.sci';'FROM.sci';
+	      'GotoTagVisibility.sci']
 	
       elseif txt=='Non_linear' then
 	lisf=['ABS_VALUE.sci'; 'TrigFun.sci';

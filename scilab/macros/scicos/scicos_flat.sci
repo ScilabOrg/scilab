@@ -1,9 +1,26 @@
-function  [cor,corinv,links_table,cur_fictitious,ok]=scicos_flat(scs_m,ksup)
+function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,ksup,sco_mat)
 //This function takes a hierarchical Scicos diagram and computes the
 //"flat" equivalent, removing "non computational" blocs like splits.
 //S. Steer, R. Nikoukhah 2003. Copyright INRIA
+
+//NB::--------------------------------------------------------------
+//Modificating this function to take care of the GOTO and FROM blocks
+//A negatif number in cor and in links_table is refer to a GOTO,FROM 
+//or GotoTagVisibility block.
+//Modification of shiftcors. It will not shift the negatives numbers.
+// A sco_mat is a string matrix composed by the :
+//	- the first column : the negatif of the value of a GOTO or FROM in the cor.
+//	- the second column: 1 if it is a GOTO; -1 if it is a FROM.
+//	- the third column : the tag value
+//	- the forth column : the tag visibility value in GOTO; 1 for the FROM block
+// The local and scoped cases are studied in this function. 
+// The global case is studied in the function global_case in c_pass1.
+// A Modification of update_cor in c_pass1. For the negatives numbers 
+// the cor will be set to 0. (In this case the blocks are considered as IN_f ...)
+// Fady NASSIF 05/07/2007
+//-------------------------------------------------------------------
+
   if argn(2)<=1 then ksup=0;end //used for recursion
-  
   if ksup==0 then   // main scheme
     MaxBlock=countblocks(scs_m);
     //last created fictitious block (clock split,clock sum,super_blocks, superbloc))
@@ -28,13 +45,35 @@ function  [cor,corinv,links_table,cur_fictitious,ok]=scicos_flat(scs_m,ksup)
   Links=[] //to memorize links position in the data structure
   
   //-------------- Analyse blocks --------------
-
+loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
   for k=1:n //loop on all objects
     o=scs_m.objs(k);
     x=getfield(1,o);
     cor(k)=0
     if x(1)=='Block' then
-      if or(o.gui==blocks_to_remove) then
+      if (o.gui=='GOTO') then
+        cur_fictitious=cur_fictitious+1;
+	cor(k)=-cur_fictitious   // A negatif number in cor is refer to a GOTO,FROM or GotoTagVisibility
+	if (o.graphics.exprs(2)=='1') then
+	 loc_mat=[loc_mat;[string(cur_fictitious),string(1),(o.graphics.exprs(1))]]
+	 vec=unique(loc_mat(:,3))
+	 if size(vec,1)<>size(loc_mat(:,3),1) then
+	     hilite_path([path,k],'There is another local GOTO in this diagram',%t)
+	     ok=%f;return
+	 end
+       	else
+	 sco_mat=[sco_mat;[string(cur_fictitious),string(1),o.graphics.exprs(1),o.graphics.exprs(2)]]
+	end
+      elseif (o.gui=='FROM') then
+	cur_fictitious=cur_fictitious+1;
+	cor(k)=-cur_fictitious
+	sco_mat=[sco_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(1)]]
+ 	from_mat=[from_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1)]]
+      elseif (o.gui=='GotoTagVisibility')
+	tag_exprs=[tag_exprs;[o.graphics.exprs(1)]]
+	cur_fictitious=cur_fictitious+1;
+	cor(k)=-cur_fictitious
+      elseif or(o.gui==blocks_to_remove) then
 	cur_fictitious=cur_fictitious+1;
 	cor(k)=cur_fictitious
       elseif o.gui=='SUM_f'|o.gui=='SOM_f' then
@@ -100,9 +139,9 @@ function  [cor,corinv,links_table,cur_fictitious,ok]=scicos_flat(scs_m,ksup)
 
 
 	//Analyze the superblock contents
-
-        [cors,corinvs,lt,cur_fictitious,ok]=scicos_flat(o.model.rpar,cur_fictitious)
+        [cors,corinvs,lt,cur_fictitious,scop_mat,ok]=scicos_flat(o.model.rpar,cur_fictitious)
 	if ~ok then return,end
+	sco_mat=[sco_mat;scop_mat]
 	nbs=size(corinvs) 
 	
 	//catenate superbloc data with current data
@@ -112,11 +151,12 @@ function  [cor,corinv,links_table,cur_fictitious,ok]=scicos_flat(scs_m,ksup)
 	
 	for kk=1:nbs, corinv(nb+kk)=[k,corinvs(kk)];end
 	cors=shiftcors(cors,nb)
+//	cur_fictitious=cur_fictitious+nb
 	cor(k)=cors
-
 	nb=nb+nbs
 	Pind=Pinds
 	path($)=[]
+
       else//standard blocks
 	nb=nb+1
 	corinv(nb)=k
@@ -160,4 +200,59 @@ function  [cor,corinv,links_table,cur_fictitious,ok]=scicos_flat(scs_m,ksup)
 		   o.to(1:2)    1   o.ct(2) ] //inputs are tagged with 1
     end
   end
+//----------------------Goto From Analyses--------------------------
+// Local case
+  if loc_mat<>[] then
+     for i=1:size(loc_mat(:,3),1)
+	index1=find((from_mat(:,2)=='-1')&(from_mat(:,3)==loc_mat(i,3)))
+	for j=index1
+	     index2=find(links_table(:,1)==-evstr(from_mat(j,1)))
+	     for k=index2
+		  links_table(k,1)=-evstr(loc_mat(i,1))
+	     end
+	     index2=find(sco_mat(:,1)==from_mat(j,1))
+	     for k=index2
+		  sco_mat(k,:)=[]
+	     end
+	end
+      end
+   end
+//scoped case
+   if tag_exprs<>[] then
+      vec=unique(tag_exprs)
+      if size(vec,1)<>size(tag_exprs,1) then
+	 message(["Error In Compilation. You cannot have multiple GotoTagVisibility";..
+		   " with the same tag value in the same scs_m"])
+	 ok=%f;
+	 return
+      end 
+      for i=1:size(tag_exprs,1)
+	   index=find((sco_mat(:,2)=='1')&(sco_mat(:,3)==tag_exprs(i))&(sco_mat(:,4)=='2'))
+	   if index<>[] then
+	   if size(index,'*')>1 then
+	      message(["Error in compilation";"Multiple GOTO are taged by the same GotoTagVisibility"])
+	      ok=%f
+	      return
+	   end
+	   index1=find((sco_mat(:,2)=='-1')&(sco_mat(:,3)==tag_exprs(i)))
+	   if index1<>[] then
+	   for j=index1
+		index2=find(links_table(:,1)==-evstr(sco_mat(j,1)))
+		if index2<>[] then
+		for k=index2
+		     if index<>[] then
+		     	links_table(k,1)=-evstr(sco_mat(index,1))
+		     end
+		end
+		end
+	   end
+	   end
+	       sco_mat(index1,:)=[]
+	       sco_mat(index,:)=[]
+	   end
+	end
+    end
+//global case
+// function global_case in c_pass1
+//------------------------------------------------------------------------
 endfunction

@@ -24,7 +24,25 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
 //!
 // Serge Steer 2003, Copyright INRIA
 //c_pass1;
-  [cor,corinvt,links_table,cur_fictitious,ok]=scicos_flat(scs_m);
+  [cor,corinvt,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m);
+  if ok then
+     [links_table,sco_mat,ok]=global_case(links_table,sco_mat)
+  end
+  if ~ok then 
+    blklst=[];cmat=[],ccmat=[],cor=[],corinv=[]
+    return;
+  end
+  index1=find(sco_mat(:,2)=='-1')
+  if index1<>[] then
+      for i=index1
+      [path]=findinlist(cor,-evstr(sco_mat(i,1)))
+      full_path=path(1)
+      hilite_path(full_path,"Error in compilation, There is a FROM without a GOTO",%t)
+      ok=%f;
+      blklst=[];cmat=[],ccmat=[],cor=[],corinv=[]
+      return;
+      end
+  end
   nb=size(corinvt);
   reg=1:nb
   //form the block lists
@@ -259,6 +277,8 @@ function cor=update_cor(cor,reg)
       p=find(cor(k)==reg)
       if p<>[] then 
 	cor(k)=p
+      elseif cor(k)<0 then  // GOTO FROM cases
+	cor(k)=0
       elseif cor(k)<>0 then
 	cor(k)=size(reg,'*')+1
       end
