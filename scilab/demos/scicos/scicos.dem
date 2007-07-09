@@ -41,6 +41,7 @@ while %t do
    scicos('SCI/demos/scicos/Discrete-KalmanFilter.cosf');
   case 'Inverted Pendulum' then
    exec setw.sci;
+   getf(SCI+'/macros/scicos_blocks/Sources/RAND_m.sci');
    scicos('SCI/demos/scicos/Inverted_pendulum.cosf');
   case 'Datatype' then
    scicos('SCI/demos/scicos/demo_Datatype.cosf');
