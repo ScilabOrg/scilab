@@ -40,7 +40,7 @@ function demo_sliding_pendulum()
     realtime(i)
     draw_sliding_pendulum(H,sol(2:4,i))
   end
-  xdel()
+  //xdel()
 endfunction
 
 

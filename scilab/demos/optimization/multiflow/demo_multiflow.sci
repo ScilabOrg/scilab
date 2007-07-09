@@ -120,7 +120,6 @@ function demo_multiflow(gfile)
   ;;
   realtimeinit(0.1);for k=1:30,realtime(k),end // wait a little
   ge_do_quit(%f)
-  xdel(win)
  
   set('old_style',stripblanks(grs))
 endfunction
