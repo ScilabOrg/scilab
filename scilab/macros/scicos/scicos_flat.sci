@@ -211,9 +211,7 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 		  links_table(k,1)=-evstr(loc_mat(i,1))
 	     end
 	     index2=find(sco_mat(:,1)==from_mat(j,1))
-	     for k=index2
-		  sco_mat(k,:)=[]
-	     end
+	     sco_mat(index2',:)=[]
 	end
       end
    end
@@ -226,6 +224,7 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	 ok=%f;
 	 return
       end 
+
       for i=1:size(tag_exprs,1)
 	   index=find((sco_mat(:,2)=='1')&(sco_mat(:,3)==tag_exprs(i))&(sco_mat(:,4)=='2'))
 	   if index<>[] then
@@ -247,11 +246,12 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 		end
 	   end
 	   end
-	       sco_mat(index1,:)=[]
-	       sco_mat(index,:)=[]
+	       sco_mat([index1';index'],:)=[]
+	       //sco_mat(index,:)=[]
 	   end
 	end
     end
+
 //global case
 // function global_case in c_pass1
 //------------------------------------------------------------------------
