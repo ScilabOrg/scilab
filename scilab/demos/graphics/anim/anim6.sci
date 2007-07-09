@@ -21,6 +21,8 @@ function chainap(yt)
   for j=1:size(J,'*')
     realtime(j)
     xset("wwpc");
+    xset("font",curFont(1),3);
+	  xtitle("N link pendulum movement");
     xpoly(rect([1 3 3 1]),rect([2,2,4,4]),'lines',1)
     chaindp([x(:,J(j)),y(:,J(j))],rr,rect);
     xset("wshow");

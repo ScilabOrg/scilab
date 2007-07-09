@@ -16,9 +16,6 @@ curFont=xget('font');
 
 string_to_display = [
 	'path=get_absolute_file_path(''anim7.dem'');';
-	'xset(''font'',curFont(1),3);'
-	'xset(""color"",""white"");';
-	'xtitle(""Riemann surface"");'
 	'getf(path+''anim7.sci'');';
 	'demo_riemann();'
 	'xset(''font'',curFont(1),curFont(2));'];

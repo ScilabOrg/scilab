@@ -65,4 +65,3 @@ xset('colormap',hh) ;
 //xbasr(xget('window'));
 //xset('default');
 //xsetech([0 0 1 1]);
-halt();   // end of demo

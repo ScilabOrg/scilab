@@ -17,13 +17,14 @@ function demo_riemann()
     realtime(k),
     if modulo(k,10)==0 then
       xset('wwpc')
+      xset('font',curFont(1),3);
+	    xtitle("Riemann surface");
       cplxmap(z,s,163+k/10,69+k/20)  //draw
       xset('wshow')
     end
 
   end
   set('figure_style',fs);
-  xdel(xget('window'))
 endfunction
 
 function fond()

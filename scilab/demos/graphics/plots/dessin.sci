@@ -264,7 +264,7 @@ function []=str_28()
 expr=['exec(''SCI/demos/graphics/sd.sav'');';
           'set figure_style old';
           'plot3d();gr_menu(sd_2,1,1);';
-          'Title=[''plot3d and gr_menu''];';
+          'Title=[''plot3d and gr_menu''];';   
           'xtitle(Title,'' '','' '');'];
           demo_run('',expr);
 endfunction
@@ -277,7 +277,10 @@ expr=['subplot(2,2,1);';
 	'subplot(2,2,3);';
 	'histplot();';
 	'subplot(2,2,4);';
-	'grayplot();'];
+	'grayplot();'
+	'a=gca();';
+  'a.title.text=""subplot"";';
+  'a.title.font_size=3;'];
 	demo_run('',expr);
 endfunction
 
