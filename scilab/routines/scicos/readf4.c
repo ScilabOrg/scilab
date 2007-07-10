@@ -164,8 +164,9 @@ int readf4(scicos_block *block,int flag)
       /*     output */
       dcopy_(ny, &z__[n * ievt + 3 + k], &n, &y[1], &c__1);
       z__[1] += 1.;
+    } else if (k+1> kmax) {
+      dcopy_(ny, &z__[n * ievt + 3 + kmax], &n, &y[1], &c__1);
     }
-    
   } else if (flag == 3) {
     n = ipar[4];
     k = (int) z__[1];
