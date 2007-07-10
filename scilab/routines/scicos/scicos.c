@@ -940,6 +940,7 @@ int C2F(scicos)
 	  for (jj = 0; jj < ng; ++jj) {
 	    if((W[jj]>=0.0)&&(jroot[jj]==-5)) {istate=3;jroot[jj]=1;}
 	    else if((W[jj]<0.0)&&(jroot[jj]==5)) {istate=3;jroot[jj]=-1;}
+	    else jroot[jj]=0;
 	  }
 	} 
 	/*--discrete zero crossings----dzero--------------------*/
