@@ -12,7 +12,7 @@ function [o,modified,newparameters,needcompile,edited]=clickin(o)
 //
 //  needcompile   : indicates if modification implies a new compilation
 //
-//  
+//   
 
 if needcompile==4 then
       %cpr=list()
@@ -145,13 +145,18 @@ if typeof(o)=='Block' then
 	//force compilation if an implicit block has been edited
 	modified=or(model_n<>model)
 	eq=model.equations;eqn=model_n.equations;
+
 	if or(eq.model<>eqn.model)|or(eq.inputs<>eqn.inputs)|..
 				      or(eq.outputs<>eqn.outputs) then  
 	  needcompile=4
 	end
-	if or(o.graphics.exprs<>o_n.graphics.exprs) then  // if equation in generic Modelica Mblock change
-	  needcompile=4
-	  modified=%t;
+	if (size(o.model.sim)>1) then
+	  if (o.model.sim(2)==30004) then // only if it is the Modelica generic block
+	    if or(o.graphics.exprs<>o_n.graphics.exprs) then  // if equation in generic Modelica Mblock change
+	      needcompile=4
+	      modified=%t;
+	    end
+	  end
 	end
       end
       o=o_n
