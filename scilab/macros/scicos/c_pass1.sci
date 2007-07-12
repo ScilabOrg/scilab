@@ -221,15 +221,32 @@ endfunction
 
 function mat=cmatfromT(Ts,nb)
 //S. Steer, R. Nikoukhah 2003. Copyright INRIA
+//this function has been modified to support 
+// CLKGOTO et CLKFROM
+// Fady NASSIF: 11/07/2007
   k=find(Ts(:,1)<0) //superblock ports links
   K=unique(Ts(k,1));
   Ts=remove_fictitious(Ts,K)
   
   if Ts==[] then mat=[],return,end
-  if size(Ts,1)<>int(size(Ts,1)/2)*2 then disp('PB'),pause,end
+//  if size(Ts,1)<>int(size(Ts,1)/2)*2 then disp('PB'),pause,end
   [s,k]=gsort(Ts(:,[4,3]),'lr','i');Ts=Ts(k,:)
-  
-  mat=[Ts(1:2:$,1:2) Ts(2:2:$,1:2)]
+  // modified to support the CLKGOTO/CLKFROM
+  //mat=[Ts(1:2:$,1:2) Ts(2:2:$,1:2)]
+//----------------------------------
+  mat=[];
+  vv=find(Ts(:,3)==-1);
+  for kk=1:size(vv,'*')-1
+      j=vv(kk+1)-vv(kk);
+      for i=vv(kk)+1:vv(kk)+j-1
+           mat=[mat;[Ts(vv(kk),1:2) Ts(i,1:2)]];
+      end
+  end
+  j=size(Ts,1)-vv($);
+  for i=vv($)+1:vv($)+j
+       mat=[mat;[Ts(vv($),1:2) Ts(i,1:2)]];
+  end
+//----------------------------------
   K=unique(Ts(Ts(:,1)>nb))
   Imat=[];
   for u=matrix(K,1,-1)

@@ -13,6 +13,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
 //	- the second column: 1 if it is a GOTO; -1 if it is a FROM.
 //	- the third column : the tag value
 //	- the forth column : the tag visibility value in GOTO; 1 for the FROM block
+//	- the fifth column : 1=regular 2=event
 // The local and scoped cases are studied in this function. 
 // The global case is studied in the function global_case in c_pass1.
 // A Modification of update_cor in c_pass1. For the negatives numbers 
@@ -34,6 +35,9 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
   //list of blocks with are not retained in the final block list
   blocks_to_remove=['CLKSPLIT_f' 'SPLIT_f' 'IMPSPLIT_f' 'CLKSOM_f' 'CLKSOMV_f' 'NRMSOM_f']
   port_blocks=['IN_f','INIMPL_f','OUT_f','OUTIMPL_f','CLKIN_f','CLKINV_f','CLKOUT_f','CLKOUTV_f']
+  block_goto=['GOTO','CLKGOTO','GOTOMO']
+  block_from=['FROM','CLKFROM','FROMMO']
+  block_tag=['GotoTagVisibility','CLKGotoTagVisibility','GotoTagVisibilityMO']
   n=lstsize(scs_m.objs) //number of "objects" in the data structure
   //-------------- initialize outputs --------------
   nb=0;
@@ -51,26 +55,54 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
     x=getfield(1,o);
     cor(k)=0
     if x(1)=='Block' then
-      if (o.gui=='GOTO') then
+      if or(o.gui==block_goto) then
+        //if the goto is local we put it in the loc_from matrix
+	//the loc_mat is composed of:
+	//1st column : the number given to the block.
+	//2nd column : 1 because it is a GOTO
+	//3rd column : the tag of the GOTO.
+	//4th column : A flag identifying the type of the block (regular or event)
+	// if the GOTO is scoped or global we put it in a sco_mat matrix
+	//the sco_mat is composed of:
+	//1st column : the number given to the block.
+	//2nd column : 1 if it is a GOTO, -1 if it is FROM
+	//3rd column : the tag of the GOTO.
+	//4th column : A flag identifying the type of the block (1=regular, 2=event 3=modelica)
         cur_fictitious=cur_fictitious+1;
-	cor(k)=-cur_fictitious   // A negatif number in cor is refer to a GOTO,FROM or GotoTagVisibility
+	cor(k)=-cur_fictitious;
 	if (o.graphics.exprs(2)=='1') then
-	 loc_mat=[loc_mat;[string(cur_fictitious),string(1),(o.graphics.exprs(1))]]
-	 vec=unique(loc_mat(:,3))
-	 if size(vec,1)<>size(loc_mat(:,3),1) then
-	     hilite_path([path,k],'There is another local GOTO in this diagram',%t)
-	     ok=%f;return
+	 loc_mat=[loc_mat;[string(cur_fictitious),string(1),(o.graphics.exprs(1)),string(find(block_goto(:)==o.gui))]]
+	 locomat=[];
+         for i=1:size(loc_mat,1)
+         locomat=[locomat;strcat([loc_mat(i,3) loc_mat(i,4)])]
+	 end
+	 vec=unique(locomat)
+	 if size(vec,1)<>size(loc_mat,1) then
+            if (ksup==0) then
+	     hilite_path([path,k],'There is another local CLKGOTO in this diagram',%t);
+            else
+             gh_wins = gcf();
+             mxwin=maxi(winsid());
+             scs_show(scs_m,mxwin+1);
+             hilite_obj(k);
+             message("There is another local GOTO in this diagram with the same tag");
+             gh_del = scf(mxwin+1);
+             unhilite_obj(k);
+	     delete(gh_del);
+             scf(gh_wins);
+            end
+	    ok=%f;return
 	 end
        	else
-	 sco_mat=[sco_mat;[string(cur_fictitious),string(1),o.graphics.exprs(1),o.graphics.exprs(2)]]
+	 sco_mat=[sco_mat;[string(cur_fictitious),string(1),o.graphics.exprs(1),o.graphics.exprs(2),string(find(block_goto(:)==o.gui))]]
 	end
-      elseif (o.gui=='FROM') then
+      elseif or(o.gui==block_from) then
 	cur_fictitious=cur_fictitious+1;
 	cor(k)=-cur_fictitious
-	sco_mat=[sco_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(1)]]
- 	from_mat=[from_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1)]]
-      elseif (o.gui=='GotoTagVisibility')
-	tag_exprs=[tag_exprs;[o.graphics.exprs(1)]]
+	sco_mat=[sco_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(1),string(find(block_from(:)==o.gui))]]
+ 	from_mat=[from_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(find(block_from(:)==o.gui))]]
+      elseif or(o.gui==block_tag)
+	tag_exprs=[tag_exprs;[o.graphics.exprs(1),string(find(block_tag(:)==o.gui))]]
 	cur_fictitious=cur_fictitious+1;
 	cor(k)=-cur_fictitious
       elseif or(o.gui==blocks_to_remove) then
@@ -203,8 +235,8 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 //----------------------Goto From Analyses--------------------------
 // Local case
   if loc_mat<>[] then
-     for i=1:size(loc_mat(:,3),1)
-	index1=find((from_mat(:,2)=='-1')&(from_mat(:,3)==loc_mat(i,3)))
+     for i=1:size(loc_mat,1)
+	index1=find((from_mat(:,2)=='-1')&(from_mat(:,3)==loc_mat(i,3))&(from_mat(:,4)==loc_mat(i,4)))
 	for j=index1
 	     index2=find(links_table(:,1)==-evstr(from_mat(j,1)))
 	     for k=index2
@@ -217,23 +249,27 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
    end
 //scoped case
    if tag_exprs<>[] then
-      vec=unique(tag_exprs)
-      if size(vec,1)<>size(tag_exprs,1) then
-	 message(["Error In Compilation. You cannot have multiple GotoTagVisibility";..
-		   " with the same tag value in the same scs_m"])
-	 ok=%f;
-	 return
+   //to be modified !!!!!
+//      vec=unique(tag_exprs)
+      for i=1:size(tag_exprs,1)
+	  index=find((tag_exprs(:,1)==tag_exprs(i,1))&(tag_exprs(:,2)==tag_exprs(i,2)))
+          if size(index,'*') > 1  then
+	      message(["Error In Compilation. You cannot have multiple GotoTagVisibility";..
+		       " with the same tag value in the same scs_m"])
+	      ok=%f;
+	      return
+          end
       end 
 
       for i=1:size(tag_exprs,1)
-	   index=find((sco_mat(:,2)=='1')&(sco_mat(:,3)==tag_exprs(i))&(sco_mat(:,4)=='2'))
+	   index=find((sco_mat(:,2)=='1')&(sco_mat(:,3)==tag_exprs(i,1))&(sco_mat(:,4)=='2')&(sco_mat(:,5)==tag_exprs(i,2)))
 	   if index<>[] then
 	   if size(index,'*')>1 then
 	      message(["Error in compilation";"Multiple GOTO are taged by the same GotoTagVisibility"])
 	      ok=%f
 	      return
 	   end
-	   index1=find((sco_mat(:,2)=='-1')&(sco_mat(:,3)==tag_exprs(i)))
+	   index1=find((sco_mat(:,2)=='-1')&(sco_mat(:,3)==tag_exprs(i,1))&(sco_mat(:,5)==tag_exprs(i,2)))
 	   if index1<>[] then
 	   for j=index1
 		index2=find(links_table(:,1)==-evstr(sco_mat(j,1)))
@@ -249,9 +285,8 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	       sco_mat([index1';index'],:)=[]
 	       //sco_mat(index,:)=[]
 	   end
-	end
-    end
-
+      end
+   end
 //global case
 // function global_case in c_pass1
 //------------------------------------------------------------------------
