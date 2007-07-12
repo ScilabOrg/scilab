@@ -1,4 +1,5 @@
 // Copyright INRIA
+clc;
 mode(1)
 rand('normal')
 // Define the plant

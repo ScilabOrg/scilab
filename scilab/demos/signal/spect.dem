@@ -60,6 +60,4 @@ xselect();xbasc();
    a=gca();
    a.title.text='spectral estimation, periodogram method';
    a.title.font_size=3;
-   //xtitle(['Spectral estimation ; periodogram method'],'' ,' ' )
-   //xset("font size",3);
    halt();

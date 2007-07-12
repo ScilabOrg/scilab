@@ -1,4 +1,5 @@
 // Copyright INRIA
+clc;
 mode(1)
 
 s=poly(0,'s');
