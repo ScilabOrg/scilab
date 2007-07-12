@@ -1782,4 +1782,52 @@ Add here the function bibliography if any
 </BIBLIO>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

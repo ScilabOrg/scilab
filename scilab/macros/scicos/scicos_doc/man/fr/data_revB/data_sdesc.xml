@@ -1109,4 +1109,28 @@
 <SHORT_DESCRIPTION name="scifunc_block_m">scifunc_block_m titre</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<SHORT_DESCRIPTION name="CLKFROM">CLKFROM titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<SHORT_DESCRIPTION name="CLKGOTO">CLKGOTO titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<SHORT_DESCRIPTION name="CLKGotoTagVisibility">CLKGotoTagVisibility titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<SHORT_DESCRIPTION name="FROMMO">FROMMO titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<SHORT_DESCRIPTION name="GOTOMO">GOTOMO titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<SHORT_DESCRIPTION name="GotoTagVisibilityMO">GotoTagVisibilityMO titre</SHORT_DESCRIPTION>
+</FILE>
+
 </DATA>

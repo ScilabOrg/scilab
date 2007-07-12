@@ -1908,4 +1908,52 @@ Ajoutez ici les noms et références des fonctions utilisées
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

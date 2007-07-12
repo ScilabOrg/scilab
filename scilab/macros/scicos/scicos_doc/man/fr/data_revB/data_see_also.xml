@@ -1984,4 +1984,52 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
 </DATA>

@@ -3103,4 +3103,76 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used to connect events ports. For more information on how it works please refer to the documentation of the FROM block by clicking on the link in the "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used to connect events ports. For more information on how it works please refer to the documentation of the GOTO block by clicking on the link in the "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used in the event case. For more information on how it works please refer to the documentation of the GotoTagVisibility block by clicking on the link in the "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used to connect modelica's blocks. For more information on how it works please refer to the documentation of the FROM block by clicking on the link in th "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used to connect modelica's blocks. For more information on how it works please refer to the documentation of the GOTO block by clicking on the link in the "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block is used in case of modelica's connection. For more information on how it works please refer to the GotoTagVisibility block by clicking on the link in the "See also" field.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
 </DATA>

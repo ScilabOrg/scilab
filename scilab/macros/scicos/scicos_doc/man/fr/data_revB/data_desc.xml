@@ -3404,4 +3404,76 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Ajoutez ici un paragraphe pour la description de la fonction
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
 </DATA>

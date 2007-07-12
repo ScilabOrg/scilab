@@ -1110,4 +1110,28 @@
 <SHORT_DESCRIPTION name="scifunc_block_m">scifunc_block_m title</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<SHORT_DESCRIPTION name="CLKFROM">Receives data from a corresponding CLKGOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<SHORT_DESCRIPTION name="CLKGOTO">Pass block input to CLKFROM block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<SHORT_DESCRIPTION name="CLKGotoTagVisibility">Define Scope of CLKGOTO tag visibility</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<SHORT_DESCRIPTION name="FROMMO">Receives data from a corresponding GOTOMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<SHORT_DESCRIPTION name="GOTOMO">Pass block input to FROMMO block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<SHORT_DESCRIPTION name="GotoTagVisibilityMO">Define Scope of GOTOMO tag visibility</SHORT_DESCRIPTION>
+</FILE>
+
 </DATA>

@@ -1667,4 +1667,52 @@ Example
 </EXAMPLE>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<EXAMPLE>
+<P>
+
+</P>
+</EXAMPLE>
+</FILE>
+
 </DATA>

@@ -2160,4 +2160,52 @@ Add here the author  references
 </AUTHORS>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
 </DATA>

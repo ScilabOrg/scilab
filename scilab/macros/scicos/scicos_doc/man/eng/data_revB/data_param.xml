@@ -7421,4 +7421,148 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The tag of the CLKGOTO block passing the signal to this CLKFROM block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter identifies the Goto block whose scope is defined in this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag Visibility (1=Local 2=Scoped 3=Global)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter idetifies the visibility of the block. It can be local(1), scoped(2) or global(3).
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>GotoTag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The Goto block tag whose visibility is defined by the location of this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The tag of the GOTOMO block passing the signal to this FROMMO block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter identifies the Goto block whose scope is defined in this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag Visibility(1=Local 2=scoped 3= global)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This parameter idetifies the visibility of the block. It can be local(1), scoped(2) or global(3).
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>GotoTag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The Goto block tag whose visibility is defined by the location of this block.
+</SP>
+<SP>
+Properties : Type 'str' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

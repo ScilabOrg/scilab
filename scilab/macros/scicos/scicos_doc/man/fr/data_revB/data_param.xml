@@ -9231,4 +9231,148 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag Visibility (1=Local 2=Scoped 3=Global)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>GotoTag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Tag Visibility(1=Local 2=scoped 3= global)</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 2.
+</SP>
+<SP>
+Propriétés : Type 'vec' de taille 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>GotoTag</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+La description du paramètre 1.
+</SP>
+<SP>
+Propriétés : Type 'str' de taille -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

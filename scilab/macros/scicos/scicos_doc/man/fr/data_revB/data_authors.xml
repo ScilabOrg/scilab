@@ -2160,4 +2160,52 @@ Ajoutez ici les références des auteurs
 </AUTHORS>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
+Ajoutez ici les références des auteurs
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
 </DATA>

@@ -1878,4 +1878,52 @@ Ajoutez ici la bibliographie si besoin
 </BIBLIO>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>
