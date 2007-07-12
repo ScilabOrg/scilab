@@ -20,7 +20,8 @@ demos_name=[
     'Inverted Pendulum'
     'Datatype'
     'Digital Pulse Generator'
-    'WaterTank'];
+    'WaterTank'
+    'Goto/From Demonstration'];
 
 // disabled problem with .au file
 //if ~MSDOS then demos_name=[demos_name;'sound demo'];end
@@ -37,6 +38,8 @@ while %t do
   n=tk_choose(demos_name,'Choose a demo')
   if n ==0 then break,end
   select demos_name(n)
+  case 'Goto/From Demonstration' then
+   scicos('SCI/demos/scicos/goto_demo.cosf');
   case 'Discrete-Kalman Filter' then
    scicos('SCI/demos/scicos/Discrete-KalmanFilter.cosf');
   case 'Inverted Pendulum' then
