@@ -17,7 +17,8 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
   
   else
     
-    KK = Select(:,1)'; %pt = [] ; 
+    KK = Select(:,1)'; //** take all the object selected 
+    %pt = [] ; 
   
   end
   //
@@ -39,10 +40,9 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
   //** gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
   //** gh_blk = gh_curwin.children.children(gh_k);
   
-  for K = KK
-    o = scs_m.objs(K)
-    //gh_obj_K = o_size(1) - K + 1 ; //** semi empirical equation :)
-    gh_obj_K = get_gri(K,o_size(1));
+  for K = KK //** for all the selected object(s)
+    o = scs_m.objs(K) ; //** the scs_m object  
+    gh_obj_K = get_gri(K,o_size(1)); //** compute the index in the graphics DS 
     gh_compound = gh_curwin.children.children(gh_obj_K); //** get the compound handle 
     
     //** ------------------ Link --------------------------
@@ -58,8 +58,6 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
 	  
 	  if ct(1)<>c then
 	    o.ct(1) = c ;
-	    //** drawobj(o) //** -->
-	    //** disp("...Link..."); pause //** debug only 
 	    gh_compound.children.foreground = c ;
 	    scs_m.objs(kc) = o ;
 	  end
@@ -87,13 +85,10 @@ function [%pt,scs_m] = do_color(%pt,scs_m)
 	
 	if coln<>coli then
 	  o.graphics.gr_i(2) = coln
-	  scs_m.objs(K) = o
-	  //** drawblock(o) //** -->
-	  //** disp("...Block..."); pause //** debug only
+	  scs_m.objs(K) = o ;
 	  size_of_graphic_objext = size(gh_compound.children) ;
-	  first_graphic_objext = size_of_graphic_objext(1) ;
-	  gh_compound.children(first_graphic_objext).background = coln;
-	  drawobj(o);
+	  first_graphic_objext = size_of_graphic_objext(1)    ;
+	  gh_compound.children(first_graphic_objext).background = coln; //** update the proriety 
 	end
       
       end
