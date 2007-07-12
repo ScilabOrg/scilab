@@ -11,6 +11,7 @@ if ch=='anim' then
       return
     else
        set('figure_style','old');
+       xdel();
        xbasc();  
        demoexc(num);
     end,
