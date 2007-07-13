@@ -20,56 +20,63 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
 
   if updateC then
     if MSDOS then      
-       if fileinfo(SCI+'/bin/translator.exe')<>[] then 	 
-	 translator=pathconvert(SCI+'/bin/translator.exe',%f,%t)
-         ext='\*.mo';
-         molibs=[];
-         for k=1:size(mlibs,'*')
-              molibs=[molibs;listfiles(mlibs(k)+ext)];
-         end
-         txt=[];
-         for k=1:size(molibs,'*')
-	     [pathx,fnamex,extensionx]=fileparts(molibs(k));
-	     if (fnamex<>'MYMOPACKAGE') then 
-               txt=[txt;mgetl(molibs(k))];
-	     end
-         end
-         mputl(txt,TMPDIR+'/MYMOPACKAGE.mo');
-         translator=translator+strcat(' -lib '+ TMPDIR+'/MYMOPACKAGE.mo');
+      if fileinfo(SCI+'/bin/translator.exe')<>[] then 	 
+	translator=pathconvert(SCI+'/bin/translator.exe',%f,%t)
+	ext='\*.mo';
+	molibs=[];
+	for k=1:size(mlibs,'*')
+	  molibs=[molibs;listfiles(mlibs(k)+ext)];
+	end
+	txt=[];
+	for k=1:size(molibs,'*')
+	  [pathx,fnamex,extensionx]=fileparts(molibs(k));
+	  if (fnamex<>'MYMOPACKAGE') then 
+	    txt=[txt;mgetl(molibs(k))];
+	  end
+	end
+	mputl(txt,TMPDIR+'/MYMOPACKAGE.mo');
+	// all Modelica files found in "modelica_libs" directories are
+        // merged into the  temporary file  "MYMOPACKAGE.mo". This is done
+        // because in Windows the length of the command line is limited.
+	
+	translator=translator+strcat(' -lib '+ TMPDIR+'/MYMOPACKAGE.mo');
         //translator=translator+strcat(' -lib '+molibs);
-         instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
-               "command ""'+name+' x;"" ';        
-         mputl(instr,path+'gent.bat')
-         instr=path+'gent.bat'      
-         if execstr('unix_s(instr)','errcatch')<>0 then
-                 x_message(['Modelica translator error! sorry ']);
-                 ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
-         end
-         FlatName=path+name+'_flattened.mo';
-       else
-         FlatName=fil;
-       end           
-       modelicac=pathconvert(SCI+'/bin/modelicac.exe',%f,%t)     
-       if strindex(modelicac,' ')<>[] then modelicac='""'+modelicac+'""',end
-       modelicac=modelicac+strcat(' -L ""'+mlibs+'""')
-       instr=modelicac+' '+FlatName+' -o '+path+name+'.c"+" -jac';           
-       mputl(instr,path+'genc.bat')
-       instr=path+'genc.bat'
+	instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
+	      "command ""'+name+' x;"" > '+TMPDIR+'/Wtranslator.err';        
+	mputl(instr,path+'gent.bat')
+	instr=path+'gent.bat'      
+	if execstr('unix_s(instr)','errcatch')<>0 then
+	  x_message(['Modelica translator error:'
+		     mgetl(TMPDIR+'/Wtranslator.err');
+		     'Please look up errors in the indicated file"+...
+		     " and correct them in your Modelica file ']);
+	  ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
+	end
+	FlatName=path+name+'_flattened.mo';
+      else
+	FlatName=fil;
+      end           
+      modelicac=pathconvert(SCI+'/bin/modelicac.exe',%f,%t)     
+      if strindex(modelicac,' ')<>[] then modelicac='""'+modelicac+'""',end
+      modelicac=modelicac+strcat(' -L ""'+mlibs+'""')
+      instr=modelicac+' '+FlatName+' -o '+path+name+'.c"+" -jac';           
+      mputl(instr,path+'genc.bat')
+      instr=path+'genc.bat'
     else //==================Unix/Linux/Mac....
-        if fileinfo(SCI+'/bin/translator')<>[] then 
-        translator=pathconvert(SCI+'/bin/translator',%f,%t)
+      if fileinfo(SCI+'/bin/translator')<>[] then 
+	translator=pathconvert(SCI+'/bin/translator',%f,%t)
 	ext='/*.mo';
 	molibs=[];
 	for k=1:size(mlibs,'*')
-          molibs=[molibs;listfiles(mlibs(k)+ext)];
+	  molibs=[molibs;listfiles(mlibs(k)+ext)];
 	end
-
-        translator=translator+strcat(' -lib '+molibs);
-        instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
-	      "command ""'+name+' x;"" > '+TMPDIR+'/unix.err'; 
+	
+	translator=translator+strcat(' -lib '+molibs);
+	instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
+	      "command ""'+name+' x;"" > '+TMPDIR+'/Ltranslator.err'; 
 	if execstr('unix_s(instr)','errcatch')<>0 then
 	  x_message(['Modelica translator error:'
-		     mgetl(TMPDIR+'/unix.err');
+		     mgetl(TMPDIR+'/Ltranslator.err');
 		     'sorry ']);
 	  ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
 	end
@@ -82,11 +89,11 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
       modelicac=modelicac+strcat(' -L '+mlibs)
       instr=modelicac+' '+FlatName+' -o '+path+name+'.c"+...
 	    " -jac '+' > '+TMPDIR+'/unix.err';    
-    end
-
+    end //===========================end of IFs
+    
     if execstr('unix_s(instr)','errcatch')<>0 then
       x_message(['Modelica compiler error:'
-		  mgetl(TMPDIR+'/unix.err');
+		 mgetl(TMPDIR+'/unix.err');
 		 'sorry ']);
       ok=%f,nx=0,nin=0,nout=0,ng=0;nz=0;return
     end
@@ -98,6 +105,15 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
   
   //get the Genetrated block properties
   [nx,nin,nout,ng,nm,nz]=analyze_c_code(mgetl(Cfile)) 
+  
+  mprintf('\n\r Modelica blocks are reduced to a block with:');
+  mprintf('\n\r Number of continuous time states: %d',nx);
+  mprintf('\n\r Number of discrete time states  : %d',nz);
+  mprintf('\n\r Number of zero-crossing surfaces: %d',ng);
+  mprintf('\n\r Number of modes  : %d',nm);
+  mprintf('\n\r Number of inputs : %d',nin);
+  mprintf('\n\r Number of outputs: %d',nout);
+  mprintf('\n\r ');
 
   //below newest(Cfile,Ofile) is used instead of  updateC in case where
   //Cfile has been manually modified (debug,...)
@@ -116,7 +132,7 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
     mlibs(rep)=[];
     //--------------------------------
     libs=[];
-    if MSDOS then ext='\*.ilib',else ext='/*.a',end
+    if MSDOS then ext='\*.ilib',else ext='/*.a',end 
     // removing .a or .ilib sufixs
     for k=1:size(mlibs,'*')
       aa=listfiles(mlibs(k)+ext);
