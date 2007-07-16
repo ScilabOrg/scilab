@@ -234,18 +234,12 @@ function mat=cmatfromT(Ts,nb)
   // modified to support the CLKGOTO/CLKFROM
   //mat=[Ts(1:2:$,1:2) Ts(2:2:$,1:2)]
 //----------------------------------
-  mat=[];
-  vv=find(Ts(:,3)==-1);
-  for kk=1:size(vv,'*')-1
-      j=vv(kk+1)-vv(kk);
-      for i=vv(kk)+1:vv(kk)+j-1
-           mat=[mat;[Ts(vv(kk),1:2) Ts(i,1:2)]];
-      end
-  end
-  j=size(Ts,1)-vv($);
-  for i=vv($)+1:vv($)+j
-       mat=[mat;[Ts(vv($),1:2) Ts(i,1:2)]];
-  end
+
+J=find(Ts(:,3)==1);
+v=find([Ts(:,3);-1]==-1)
+I=duplicate(v(1:$-1),v(2:$)-v(1:$-1)-1);
+mat=[Ts(I,1:2),Ts(J,1:2)]
+
 //----------------------------------
   K=unique(Ts(Ts(:,1)>nb))
   Imat=[];
