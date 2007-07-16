@@ -1,4 +1,4 @@
-function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
+function [btn, %pt, win, Cmenu ] = cosclick(flag)
 //** INRIA
 //** Comments by Simone Mannori 
 //** btn : button / event id (numeric code)
@@ -19,42 +19,44 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     disp("...cosclic.sci...|:"); pause; //** debug only                           //
     Cmenu='Quit'; return ; //** EXIT Point                                        //
   end   
+  //**----------------------------------------------------------------------------//
   
-  
-  //** ---------> This check will disappear ? -------------------------------- // 
+  //** ------------> This check will disappear ? -------------------------------- // 
   if rhs==1 then
     [btn, xc, yc, win, str] = xclick(flag) //** not used now (was used in the past) 
   else
     [btn, xc ,yc ,win ,str ] = xclick()    //** <- This is used in the main scicos_new() loop:
   end                                      //**    CLEAR ANY PREVIOUS EVENT in the queue
-
+  //**--------------------------------------------------------------------------- //
+  
   %pt = [xc,yc] ; //** acquire the position  
   
   //**--------------------------------------------------------------------------
   //** cosclic() filter and command association 
   
-  //** -------------------------------------------------------------------------------
+  //**--------------------------------------------------------------------------
   
-  if btn==-100 then
+  
+  if btn==-100 then //** window closing check 
   //**------------------------------------------------------------
   //** The window has been closed 
     
     if win==curwin then  //** in the current window ? 
-      Cmenu='Quit' ;     
+      Cmenu = "Quit" ;     
     else                 //** not the current window 
-      Cmenu=[]     ;
-      %pt=[]       ;
+      Cmenu = []    ;
+      %pt   = []    ;
     end
     
     return  //** --> EXIT  
 
   //**-----------------------------------------------------------
-  elseif (btn==3) then //** Left Mouse Button : Single click : no window check         
-    Cmenu='SelectLink'
+  elseif (btn==3) then //** Single click : Left Mouse Button : no window check         
+    Cmenu = "SelectLink" ; 
     
   //** -----------------------------------------------------------
-  elseif (btn==0) then //** Left Mouse Button : Press button : no window check 
-    Cmenu='MoveLink'
+  elseif (btn==0) then //** Press button : Left Mouse Button : no window check 
+    Cmenu = "MoveLink"   ; 
   
   //**-------------------------------------------------------------    
   elseif (btn==10) & (win==curwin) then //** "Left Mouse Double Click" in the current Scicos window
@@ -78,10 +80,13 @@ function [btn ,%pt ,win ,Cmenu ] = cosclick(flag)
     end
   
   //** ----------------------------------------------------------- 
-  elseif or( btn==[2 5 12] ) then  // any "right" mouse button events (click, press, d.click)
-    Cmenu='Popup';                 // means a popup request 
-    return       ; //** --> EXIT to 'Popup' execution 
-  //**-------------------------------------------------------------    
+  
+  //**--------------------- RIGHT MOUSE BUTTON -> POPUP -------------------------------------
+  elseif or( btn==[2 5 12] ) then  //** any RIGHT mouse button events (click, press, d.click)
+    Cmenu = "Popup";               //** means a popup request 
+    return         ; //** --> EXIT to 'Popup' execution 
+  //**---------------------------------------------------------------------------------------    
+  
   elseif btn == -2 then  // Dynamic Menu (top of window) mouse selection
     win = curwin ;
     //** the format of the 'str' callback string is :
