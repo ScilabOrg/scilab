@@ -3,13 +3,16 @@ function MoveLink_()
 //** 10 Jan 2007 
 //** Comments and mods by Simone Mannori 
 
-//** This function is activated by a left button press 
+//** This function is activated by PRESSING the LEFT mouse buttom 
+ 
   
+  //** -------------- NAVIGATOR -------------------------------------------- 
   //** the press is inside a navigator window
   if windows(find(%win==windows(:,2)),1)==100000 then //** Navigator window:
     Cmenu=[] ; %pt=[] ; //** clear the variable 
     return; //** and exit 
     
+  //** ------------------ NOT in the current window ------------------------
   elseif %win<>curwin then //** the press is not in the current window 
     
     kc = find(%win==windows(:,2)); 
@@ -32,25 +35,36 @@ function MoveLink_()
         Cmenu="SelectRegion"
         Select=[];
     end
-    
+  
+  //** The PRESS is in the CURRENT window -----------------------------------    
   else //** ... the press is in the current window 
+    
     //** look for an object 
     %kk = getobj(scs_m,%pt)
+    
     //** if an object id found 
     if %kk<>[] then
       ObjSel = size (Select) ; //** [row, col]
       ObjSel = ObjSel(1) ; //**  row 
       //**--------------------------------------------------------------
-      if ObjSel<=1 then
-        Cmenu = check_edge(scs_m.objs(%kk),'Move',%pt)
-        Select = [%kk, %win]; //** Execute "Move" or Link just in case
-      else //** more than one 
+      if ObjSel<=1 then //** with zero or one object already selected 
+        
+	Cmenu = check_edge(scs_m.objs(%kk),'Move',%pt);
+	//** N.B. if the click is over an output port [Cmenu = "Link"]       
+        
+	if Cmenu=="Link" then
+	  Select = []; //** Execute "Link" : deselct any previously selected object
+	else 
+	  Select = [%kk, %win]; //** Execute "Move" with the object selected 
+	end 
+		
+      else //** more than one object is selected 
         SelectedObjs = Select(:,1)'; //** isolate the object column and put in a row 
 	if or(%kk==SelectedObjs) then //** check if the user want to move the aggregate
-	  Cmenu="Move";
+	  Cmenu = "Move";
 	  //** Select information is preserved    
 	else
-	  Cmenu="Move";
+	  Cmenu  = "Move";
 	  Select = [%kk, %win]; //** user want to move only the object in the focus
 	end 
       
@@ -59,7 +73,7 @@ function MoveLink_()
       
     else //** if the press is in the void of the current window 
        Cmenu = "SelectRegion" ; //** "SelectRegion" will be called later 
-       %ppt=[]; Select=[] ;  //** NB: the %pt information is preserved for SelectRegion operation 
+       %ppt = []; Select = [] ; //** NB: the %pt information is preserved for "SelectRegion" operation 
     end
   
   end
