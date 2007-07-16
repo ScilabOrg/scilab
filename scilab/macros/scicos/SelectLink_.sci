@@ -9,6 +9,7 @@ function SelectLink_()
   Select=[]; SelectRegion=list() ; //** init internal variable
   //  At this point Select=[]
 
+  //**--------------- Navigator ----------------------------------
   //** case 10000 : the user has clicked in the Navigator window
   //**              in this case, clear the variable and exit
   if windows( find(%win==windows(:,2)), 1 )==100000 then
@@ -16,8 +17,9 @@ function SelectLink_()
     %pt=[]   ;
     return   ; //** -->EXIT point 
   end
-
-  //** in other cases :
+  //**------------------------------------------------------------ 
+  
+  //** In all the other cases :
 
   kc = find(%win==windows(:,2)) ; //** find the clicked window in the internal SCICOS 
                                   //** active windows list datastructure
@@ -45,20 +47,26 @@ function SelectLink_()
        k = getobj(scs_m,%pt) //** look for the object
        
        if k<>[] then //** if some object is found 
-         Cmenu = check_edge(scs_m.objs(k),[],%pt); //** check if the click is on a port 
+         
+	 Cmenu = check_edge(scs_m.objs(k),[],%pt); //** check if the click is on a port
+	 //** N.B. if the click is over an output port [Cmenu = "Link"]                        
          if Cmenu==[] then //** if is NOT over a port 
               Select=[k,%win]; Cmenu=[]; %pt=[]; return //** it is just an object selection 
          end
+       
        else //** click in the void 
-         Cmenu=[]; %ppt=%pt; %pt=[]; return  //** save last position "in the void" '%ppt'
+         
+	 Cmenu=[]; %ppt=%pt; %pt=[]; return  //** save last position "in the void" '%ppt'
                                              //** for the eventual 'Paste' operation 
        end
 
     //** case : the click is inside a superblock 
     elseif slevel>1 then
-       execstr('k=getobj(scs_m_'+string(windows(kc,1))+',%pt)')
+       execstr('k=getobj(scs_m_'+string(windows(kc,1))+',%pt)');
+       //** N.B. llok at the trick needed for the superblock level execution ;)
+       //** N.B. if the click is over an output port [Cmenu = "Link"
        if k<>[] then //** if the click is over a valid object the object is selected 
-         Select=[k,%win];Cmenu=[];return
+         Select=[k,%win]; Cmenu=[]; return
        else  //** if the click in in the void 
          Cmenu==[];%pt=[];return
        end
