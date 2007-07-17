@@ -1,9 +1,10 @@
 function [scs_m] = do_stupidmove(%pt,Select,scs_m)
 // Copyright INRIA
-// get a scicos object to move, and move it with connected objects
-//!
-//  This file contains all the functions relatives to the object (Block Link and Text)
-//
+//**
+//** This function is called ONLY on the case of SINGLE LINK selected
+//** The code do some partially redundant function call becase is
+//** derived from the old version.
+//** 
 //**
 //** 28 Jun 2006 : restart :(
 //** 21 Aou 2006 : move W , W/O link equalization  
@@ -18,7 +19,10 @@ function [scs_m] = do_stupidmove(%pt,Select,scs_m)
   xc = %pt(1) ; //** recover mouse position at the last event
   yc = %pt(2) ;
 
-  //** look for a valid object 
+  
+  //** look for a valid object
+  //** this function is called only because "stupid_movecorner()" needs
+  //** the "wh" parameter 
   [k, wh, scs_m] = stupid_getobj(scs_m,Select,[xc;yc]) ; 
   
   //** "k" is the object index in the data structure "scs_m"
@@ -40,7 +44,7 @@ function [scs_m] = do_stupidmove(%pt,Select,scs_m)
   //** check if the windows was find closed by the previous function calls 
   if Cmenu=='Quit' then
     //active window has been closed
-    [%win,Cmenu] = resume(%win,Cmenu)
+    [%win,Cmenu] = resume(%win, Cmenu)
   end
 
   [scs_m_save,enable_undo,edited,nc_save,needreplay] = resume(scs_m_save,%t,%t,needcompile,needreplay)
@@ -48,18 +52,9 @@ endfunction
 //**------------------------------------------------------------------------------------------------------
 //**
 //********************************************************************************************************
-//
-//  ---------------------------- Move Blocks and connected Link(s) --------------------------------------- 
-//
-// Move  block k and modify connected links if any
-// look at connected links
-//
-
-
-//**--------------------------------------------------------------------------
-
-//** ----------------------> This function works only with links <----------------------
-//** ---------- Link Supid Move ---------------------
+//**
+//** --------> This function works only with links <---------
+//** ------------------ Link Supid Move ---------------------
 function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   
   //**----------------------------------------------------------------------------------
