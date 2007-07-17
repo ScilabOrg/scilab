@@ -3,8 +3,8 @@ function Palettes_()
 //**
 //** Comments by Simone Mannori 
 //**     
-    Cmenu=[]
+    Cmenu = []
     
-    [palettes,windows] = do_palettes(palettes,windows)
+    [palettes, windows] = do_palettes(palettes, windows)
 
 endfunction
