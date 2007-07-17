@@ -138,7 +138,7 @@ if ~super_block then
 
   //** initialize a "scicos_debug_gr" variable for debugging editor
   if ~exists('%scicos_debug_gr') then
-    %scicos_debug_gr = %f;
+    %scicos_debug_gr = %t; //** debug mode 
   end
 
   //** initialize a "scicos_with_grid" variable for drawing a grid
@@ -155,12 +155,16 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
 
+  //**----------------------------- RIGHT MOUSE BUTTON MENUS (Popup) ------------------------
   //** Right Mouse Button Menus:
   //**        "%scicos_lhb_list" data structure initialization 
   //**                 
   //** Create an empty list() data structure 
   %scicos_lhb_list = list();
   
+  //** Fill the data structure with menu/command/functions definitions  
+  
+  //** state_var = 1 : right click over a valid object inside the CURRENT Scicos Window
   %scicos_lhb_list(1) = list('Open/Set',..
 			     'Cut',..
 			     'Copy',..
@@ -181,9 +185,10 @@ if ~super_block then
 			           'Get Info',..
 			           'Identification',..
 			           'Block Documentation'),..
-			     'Code Generation',..
-			     'Help');
-			  
+			           'Code Generation',..
+			           'Help');
+  
+  //** state_var = 2 : right click in the void of the CURRENT Scicos Window			  
   %scicos_lhb_list(2) = list('Undo',..
                              'Paste',..
 			     'Palettes',..
@@ -202,10 +207,13 @@ if ~super_block then
 			     'Zoom out',..
 			     'Help');
 
+  //** state_var = 3 : right click over a valid object inside a PALETTE or
+  //**                 not a current Scicos window
+  //** 
   %scicos_lhb_list(3) = list('Copy',..
-                             'Duplicate',..
 			     'Help');
-
+ //**----------------------------------------------------------------------------------------
+ 
  if exists('scicoslib')==0 then 
    load('SCI/macros/scicos/lib') ; //** load all the libraries relative to the palettes
  end
@@ -569,7 +577,7 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
       //** in the case of 'SelectLink'|Cmenu_n=='MoveLink', if previous command is CmenuType ONE operation
       //** is not completed, just recover and use %pt = %pt_n in order to complete the prev. command,
       //** otherwise update both Cmenu and %pt because the user has choose to abort the old command.
-      if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
+      if (Cmenu_n=='SelectLink' | Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
 	if %pt_n<>[] then %pt = %pt_n; end
       else
         if Cmenu_n<>[] then Cmenu = Cmenu_n; end
@@ -654,10 +662,10 @@ endfunction
 
 function selecthilite(Select, flag)  // update the image
   
-  gh_curwin = gh_current_window ; //** default value
+gh_winback = gcf() ; //** save the active window
   
-  gh_winback = gcf() //** get the window
-
+  gh_curwin = gh_current_window ; //** acquire the current Scicos window 
+  
   drawlater();
   for i=1:size(Select,1)
 
@@ -687,8 +695,8 @@ function selecthilite(Select, flag)  // update the image
   
   draw(gh_curwin.children)
   show_pixmap()
-  
-  scf(gh_winback)
+    
+scf(gh_winback); //** restore the 
 
 endfunction
 
