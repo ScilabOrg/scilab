@@ -1,4 +1,4 @@
-function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
+function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
 //edition of a link from an output block to an input  block
 // Copyright INRIA
 
@@ -18,7 +18,8 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
   end
 
   //kfrom  is the number of selected block or link
-  scs_m_save=scs_m,nc_save=needcompile
+  scs_m_save = scs_m;
+  nc_save    = needcompile
 
   //** new graphics
   gh_curwin = gh_current_window ; //** acquire the current window handler
@@ -192,15 +193,14 @@ function [scs_m,needcompile]=getlink(%pt,scs_m,needcompile)
       //** mouse event queque is cleared (15 Mar 2007 bugfix)
       rep = xgetmouse([%t,%t]) ; //** looks better :)
       
-      //** if xget('window')<>curwin | rep(3)==-100 then
       gh_figure = gcf();
       if gh_figure.figure_id<>curwin | rep(3)==-100 then
         //active window has been closed
-        [%win,Cmenu]=resume(curwin,'Quit')
+        [%win, Cmenu] = resume(curwin,'Quit')
       end
 
-      //** rigth mouse pressed I want to disengage the current Link action
-      if or(rep(3)==[2 5]) then 
+      //** rigth mouse OR [ESC] key I want to disengage the current Link action
+      if or(rep(3)==[2 5 12 65307]) then 
           p_size = size(gh_curwin.children.children)
           d_size = p_size(1)-o_size(1);
           if d_size > 0 then
