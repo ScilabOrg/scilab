@@ -114,7 +114,8 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   elseif btn > 31 then //** [CTRL] + [.] combination  
 
     //** ------ Key combos ------------------------------------ 
-    if (btn==1120) | (btn==65288) then //** [CRTL]+[x] --> Cut
+    // [CRTL]+[x] | [Delete]   | [Backspace]  --> Cut
+    if (btn==1120)|(btn==65288)|(btn==65535) then //** [CRTL]+[x] --> Cut
       Cmenu='Cut'; %pt=[];
     
     elseif (btn==1099) then            //** [CTRL]+[c] --> Copy
