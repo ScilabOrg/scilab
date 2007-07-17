@@ -71,9 +71,9 @@ function [txt,MM]=createmenu(ll,txt,path,MM)
   txt=txt+'menu '+ path+' -tearoff 0;'+txt1+txt2+txt3
 endfunction
 
-//getf tk_mpopup.sci
+// getf tk_mpopup.sci
 // ll=list('choix',list('sdf','dd',list('d',list('df','deewq'))),'voo'); 
-//  Cmenu=tk_mpopup(ll)
+// Cmenu=tk_mpopup(ll)
 
 
 
