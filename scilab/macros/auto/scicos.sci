@@ -138,7 +138,7 @@ if ~super_block then
 
   //** initialize a "scicos_debug_gr" variable for debugging editor
   if ~exists('%scicos_debug_gr') then
-    %scicos_debug_gr = %t; //** debug mode 
+    %scicos_debug_gr = %f; //** debug mode : default is "%f" 
   end
 
   //** initialize a "scicos_with_grid" variable for drawing a grid
