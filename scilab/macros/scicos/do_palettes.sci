@@ -48,7 +48,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
   end
 
   //** Alan : no grid for palette
-  %scicos_with_grid=%f
+  %scicos_with_grid = %f ;
 
   //
   //** xset('window',curwin),
@@ -79,14 +79,15 @@ function [palettes,windows] = do_palettes(palettes,windows)
         delmenu(curwin,'&Insert')
   end
   
+  //** BEWARE : OLD GRAPHICS !
   xselect(); //** rise the current graphics window 
  
   //**-------------------------------------------------------
   rect = dig_bound(palettes(kpal));
   if rect==[] then rect=[0 0 400,600],end
   %wsiz=[rect(3)-rect(1),rect(4)-rect(2)];
-  //window size is limited to 400 x 300 ajust dimensions
-  //to remain isometric.
+  // window size is limited to 400 x 300 : ajust dimensions
+  // to remain isometric.
   
   if %wsiz(1)<400 then 
     rect(1)=rect(1)-(400-%wsiz(1))/2
@@ -108,11 +109,6 @@ function [palettes,windows] = do_palettes(palettes,windows)
   
 //  xset('wresize',1); //** xset("wresize",flag). If flag=1 then the graphic is automatically resized
 //                     //** to fill the graphics window. 
-  
-  gh_palette.auto_resize = "on" ; //** 
-  
-  gh_palette.pixmap = "on"      ;
-  gh_palette.immediate_drawing = "off" ;
   
 //  xset('wpdim',w,h1);//** xset("wpdim",width,height): Sets the width and the height of the current
 //                     //** physical graphic window (which can be different from the actual size in 
@@ -151,10 +147,17 @@ function [palettes,windows] = do_palettes(palettes,windows)
        palettes(kpal).props.options('3D')(1)=%f //disable 3D block shape 
   end
         
-  drawobjs( palettes(kpal)); //** draw all the object of the palettes 
-  drawnow()
+  drawobjs( palettes(kpal) ); //** draw all the object of the palettes 
+
   xinfo('Palette: may be used to copy  blocks or regions')  
   
+  //** force the proprieties of the palette windows:
+  //** the user should be capable to change the size of the window   
+  gh_palette.auto_resize = "on"       ; //** 
+  gh_palette.pixmap      = "off"      ;
+  gh_palette.immediate_drawing = "on" ;
+  
+  //** put the focus in the previous window. 
   set ("current_figure" , lastwin ); //** new graphic 
 
 endfunction
