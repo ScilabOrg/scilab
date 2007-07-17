@@ -5,7 +5,8 @@ function Paste_()
 
 //** Verify window and last mouse "click" position 
   if %win<>curwin  then
-     disp("Paste operation is not possible in this window ")
+     disp("Paste operation is not possible in this window ");
+     Cmenu=[]; %pt = []; %ppt = [] ;
      return
   end        
     
