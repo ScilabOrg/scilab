@@ -24,9 +24,58 @@ state_pal = 0 ;
 
 gh_winback = gcf() ; //** save the active window
     
-  kc = find( %win==windows(:,2) );
+kc = find( %win==windows(:,2) );
 
-  //**---------------------------------------------------------------------
+sel_items = size(Select)   ; 
+
+obj_selected = sel_items(1) ; 
+
+if obj_selected > 1 then 
+
+  //**------------------ Multiple object selected ---------------
+  if kc==[] then
+  //** ------------- It's NOT a Scicos window -------------------
+    message("This window is not an active scicos window")
+    Cmenu = []; %pt=[]; %ppt=[]; Select=[] ;
+    scf(gh_winback); //** restore the active window   
+    return ; //** ---> Exit point 
+
+  //**--------------- Palette -----------------------------------
+  elseif windows(kc,1)<0 then //** RIGTH click inside a palette window
+
+    gh_curwin = scf(%win) ;
+       
+    state_var = 3 ; //** magic number by Ramine:
+                    //** valid object inside a palette 
+	            //** you cannot modify its proprieties !
+      
+    state_pal = 1 ; //** mark the palette alteration  
+		      
+ 
+  //**--- pupup in the CURRENT Scicos window : Main Scicos Window (not inside a superblock) ----------
+  elseif %win==curwin then //click inside the current window 
+
+    gh_curwin = scf(%win) ;
+    state_var = 1; //** Magic number by Ramine
+                   //** You can modify all the proprieties of an object 
+    
+  //**--- pupup in a SuperBlock Scicos Window that is NOT the current window ----------
+  elseif slevel>1 then
+    state_var = 3 ; //** Magic number by Ramine
+                    //** read only operation 
+  else
+  //**---- ... in any other case -------------------------------  
+    message("This window is not an active scicos window")
+    Cmenu=[]; %pt=[]; %ppt=[]; Select=[];
+    scf(gh_winback); //** restore the active window   
+    return ; //** ---> Exit point 
+  
+  end //** end of the main if() switch case structure
+  //**--------------------------------------------------------------------------
+  
+else //** single / multiple object(s) switch 
+
+  //**------------------- Zero or one single object selected by pop up ------------
   if kc==[] then
   //** ------------- It's NOT a Scicos window -------------------
     message("This window is not an active scicos window")
@@ -117,8 +166,9 @@ gh_winback = gcf() ; //** save the active window
   
   end //** end of the main if() switch case structure
   //**--------------------------------------------------------------------------
-  
-  
+
+end //** ... of single / multiple selection switch    
+    
   //** The main external function call 
   //** disp("Popup state_var="); disp(state_var); //** debug only :)
   
