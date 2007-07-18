@@ -120,13 +120,12 @@ if ~super_block then
       'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
       'Icon',                  'Click on block to edit its icon';
       'Color',                 'Click on object to paint';
-      'Help',                  'Click on object or menu to get help'
       'Identification',        'Click on an object to set or get identification';
       'Resize',                'Click block to resize';
       'Block Documentation',   'Click on a block to set or get it''s documentation'
      ]
   //
-
+  
   //**--------------------------------------------------------------------------------------
 
   //** initialize the "scicos_contex" datastructure (Scilab script inside SCICOS simulation)
