@@ -11,10 +11,15 @@ function [x,y,typ]=GAINBLK(job,arg1,arg2)
     orig=arg1.graphics.orig;
     sz=arg1.graphics.sz;
     orient=arg1.graphics.flip;
-    gain=evstr(arg1.graphics.exprs(1));
-    if size(gain,'*')==1 then gain=string(gain);
-    else gain="-K-";
+    if length(arg1.graphics.exprs(1))>3 then
+       gain="-K-"
+    else 
+       gain=arg1.graphics.exprs(1);
     end
+//     gain=evstr(arg1.graphics.exprs(1));
+//     if size(gain,'*')==1 then gain=string(gain);
+//     else gain="-K-";
+//     end
     if orient then
       xx=orig(1)+[0 1 0 0]*sz(1);
       yy=orig(2)+[0 1/2 1 0]*sz(2);
