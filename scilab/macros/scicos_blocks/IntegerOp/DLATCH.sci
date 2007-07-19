@@ -114,19 +114,19 @@ scs_m.objs(2)=scicos_block(..
                        equations=list()),..
               doc=list())
 scs_m.objs(3)=scicos_block(..
-              gui="INTLOGICAL_OP",..
+              gui="LOGICAL_OP",..
               graphics=scicos_graphics(..
                        orig=[152.88902,260.24498],..
                        sz=[60,40],..
                        flip=%t,..
                        theta=0,..
-                       exprs=["5";"2";"1";"0"],..
+                       exprs=["2";"1";"5";"0"],..
                        pin=[15;7],..
                        pout=5,..
                        pein=[],..
                        peout=[],..
                        gr_i=list(..
-                       "xstringb(orig(1),orig(2),['' INTLogical Op '';OPER],sz(1),sz(2),''fill'');",8),..
+                       "xstringb(orig(1),orig(2),[''Logical Op '';OPER],sz(1),sz(2),''fill'');",8),..
                        id="",..
                        in_implicit=["E";"E"],..
                        out_implicit="E"),..
@@ -219,19 +219,19 @@ scs_m.objs(7)=scicos_link(..
                 from=[1,1,0],..
                 to=[3,2,1])
 scs_m.objs(8)=scicos_block(..
-              gui="INTLOGICAL_OP",..
+              gui="LOGICAL_OP",..
               graphics=scicos_graphics(..
                        orig=[317.46698,309.46812],..
                        sz=[60,40],..
                        flip=%t,..
                        theta=0,..
-                       exprs=["5";"1";"5";"0"],..
+                       exprs=["1";"5";"5";"0"],..
                        pin=11,..
                        pout=17,..
                        pein=[],..
                        peout=[],..
                        gr_i=list(..
-                       "xstringb(orig(1),orig(2),['' INTLogical Op '';OPER],sz(1),sz(2),''fill'');",8),..
+                       "xstringb(orig(1),orig(2),[''Logical Op '';OPER],sz(1),sz(2),''fill'');",8),..
                        id="",..
                        in_implicit="E",..
                        out_implicit="E"),..

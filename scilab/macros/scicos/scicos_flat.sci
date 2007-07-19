@@ -13,7 +13,7 @@ function  [cor,corinv,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m,k
 //	- the second column: 1 if it is a GOTO; -1 if it is a FROM.
 //	- the third column : the tag value
 //	- the forth column : the tag visibility value in GOTO; 1 for the FROM block
-//	- the fifth column : 1=regular 2=event
+//	- the fifth column : 1=regular 2=event 3=modelica
 // The local and scoped cases are studied in this function. 
 // The global case is studied in the function global_case in c_pass1.
 // A Modification of update_cor in c_pass1. For the negatives numbers 
@@ -239,8 +239,11 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	index1=find((from_mat(:,2)=='-1')&(from_mat(:,3)==loc_mat(i,3))&(from_mat(:,4)==loc_mat(i,4)))
 	for j=index1
 	     index2=find(links_table(:,1)==-evstr(from_mat(j,1)))
-	     for k=index2
-		  links_table(k,1)=-evstr(loc_mat(i,1))
+// 	     for k=index2
+// 		  links_table(k,1)=-evstr(loc_mat(i,1))
+// 	     end
+	     if index2<>[] then
+	         links_table(index2',1)=-evstr(loc_mat(i,1))
 	     end
 	     index2=find(sco_mat(:,1)==from_mat(j,1))
 	     sco_mat(index2',:)=[]
@@ -274,11 +277,7 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	   for j=index1
 		index2=find(links_table(:,1)==-evstr(sco_mat(j,1)))
 		if index2<>[] then
-		for k=index2
-		     if index<>[] then
-		     	links_table(k,1)=-evstr(sco_mat(index,1))
-		     end
-		end
+		   links_table(index2',1)=-evstr(sco_mat(index,1))
 		end
 	   end
 	   end

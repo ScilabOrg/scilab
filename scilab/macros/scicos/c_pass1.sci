@@ -224,7 +224,7 @@ function mat=cmatfromT(Ts,nb)
 //this function has been modified to support 
 // CLKGOTO et CLKFROM
 // Fady NASSIF: 11/07/2007
-  k=find(Ts(:,1)<0) //superblock ports links
+  k=find(Ts(:,1)<0) //superblock ports links and CLKGOTO/CLKFROM
   K=unique(Ts(k,1));
   Ts=remove_fictitious(Ts,K)
   
@@ -235,10 +235,14 @@ function mat=cmatfromT(Ts,nb)
   //mat=[Ts(1:2:$,1:2) Ts(2:2:$,1:2)]
 //----------------------------------
 
-J=find(Ts(:,3)==1);
-v=find([Ts(:,3);-1]==-1)
-I=duplicate(v(1:$-1),v(2:$)-v(1:$-1)-1);
-mat=[Ts(I,1:2),Ts(J,1:2)]
+  J=find(Ts(:,3)==1); //find the destination block of the link
+  v=find([Ts(:,3);-1]==-1) // find the source block of the link
+  // many destination blocks can be connected to one source block
+  // so we have to find the number of destination blocks for each source block
+  // v(2:$)-v(1:$-1)-1
+  // then create the vector I that must be compatible with the vector J.
+  I=duplicate(v(1:$-1),v(2:$)-v(1:$-1)-1); 
+  mat=[Ts(I,1:2),Ts(J,1:2)]
 
 //----------------------------------
   K=unique(Ts(Ts(:,1)>nb))

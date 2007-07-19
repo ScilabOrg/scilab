@@ -11,19 +11,17 @@ function [links_table,sco_mat,ok]=global_case(links_table,sco_mat)
 	    return
 	 end
     end
-  end
-  for i=index
-    index1=find((sco_mat(:,2)=='-1')&(sco_mat(:,3)==sco_mat(i,3))&(sco_mat(:,5)==sco_mat(i,5)))
-    if index1<>[] then
-    for j=index1
-	 index2=find(links_table(:,1)==-evstr(sco_mat(j,1)))
-	 if index2<>[] then
-	 for k=index2
-	      links_table(k,1)=-evstr(sco_mat(i,1))
-	 end
-	 end
-    end
-     sco_mat(index1,:)=[]
-    end
+    for i=index
+         index1=find((sco_mat(:,2)=='-1')&(sco_mat(:,3)==sco_mat(i,3))&(sco_mat(:,5)==sco_mat(i,5)))
+         if index1<>[] then
+            for j=index1
+	         index2=find(links_table(:,1)==-evstr(sco_mat(j,1)))
+	         if index2<>[] then
+	             links_table(index2',1)=-evstr(sco_mat(i,1))
+	         end
+            end
+          sco_mat(index1,:)=[]
+          end
+     end
   end
 endfunction

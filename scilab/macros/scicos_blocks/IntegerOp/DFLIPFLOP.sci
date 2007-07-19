@@ -114,19 +114,19 @@ function [x,y,typ]=DFLIPFLOP(job,arg1,arg2)
 			equations=list()),..
 		doc=list())
 	scs_m.objs(3)=scicos_block(..
-		gui="INTLOGICAL_OP",..
+		gui="LOGICAL_OP",..
 		graphics=scicos_graphics(..
 			orig=[152.88902,260.24498],..
 			sz=[60,40],..
 			flip=%t,..
 			theta=0,..
-			exprs=["5";"2";"1";"0"],..
+			exprs=["2";"1";"5";"0"],..
 			pin=[11;39],..
 			pout=5,..
 			pein=[],..
 			peout=[],..
 			gr_i=list(..
-			"xstringb(orig(1),orig(2),['' INTLogical Op '';OPER],sz(1),sz(2),''fill'');",8),..
+			"xstringb(orig(1),orig(2),['' Logical Op '';OPER],sz(1),sz(2),''fill'');",8),..
 			id="",..
 			in_implicit=["E";"E"],..
 			out_implicit="E"),..
@@ -211,19 +211,19 @@ function [x,y,typ]=DFLIPFLOP(job,arg1,arg2)
 			from=[1,1,0],..
 			to=[38,1,1])
 	scs_m.objs(7)=scicos_block(..
-		gui="INTLOGICAL_OP",..
+		gui="LOGICAL_OP",..
 		graphics=scicos_graphics(..
 			orig=[373.24106,309.46812],..
 			sz=[60,40],..
 			flip=%t,..
 			theta=0,..
-			exprs=["5";"2";"5";"0"],..
+			exprs=["1";"5";"5";"0"],..
 			pin=36,..
 			pout=13,..
 			pein=[],..
 			peout=[],..
 			gr_i=list(..
-			"xstringb(orig(1),orig(2),['' INTLogical Op '';OPER],sz(1),sz(2),''fill'');",8),..
+			"xstringb(orig(1),orig(2),[''Logical Op '';OPER],sz(1),sz(2),''fill'');",8),..
 			id="",..
 			in_implicit="E",..
 			out_implicit="E"),..

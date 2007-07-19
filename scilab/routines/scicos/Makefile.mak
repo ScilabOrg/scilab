@@ -90,7 +90,7 @@ BLOCKSC=selector.obj sum.obj prod.obj switchn.obj relay.obj readc.obj writec.obj
 	shift_8_RC.obj shift_16_RC.obj shift_32_RC.obj shift_u8_RA.obj shift_u16_RA.obj shift_u32_RA.obj\
 	extract_bit_u32_UH1.obj extract_bit_u16_UH1.obj extract_bit_u8_UH1.obj extract_bit_u32_MSB1.obj\
 	extract_bit_u16_MSB1.obj extract_bit_u8_MSB1.obj extract_bit_u32_RB1.obj extract_bit_u16_RB1.obj extract_bit_u8_RB1.obj\
-	rndblk_m.obj
+	rndblk_m.obj relational_op.obj
 
 OBJSF=intcos.obj coselm.obj sciblk.obj  \
 	sctree.obj ftree2.obj ftree3.obj ftree4.obj skipvars.obj scierr.obj scifunc.obj \

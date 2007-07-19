@@ -118,8 +118,7 @@ function routines=create_palette(Path)
               'MATBKSL.sci';'MATINV.sci';'MATCATV.sci';'MATSUM.sci';'CUMSUM.sci';'SQRT.sci']
 
       elseif txt=='Integer' then
-	lisf=['BITCLEAR.sci';'BITSET.sci';'CONVERT.sci';'EXTRACTBITS.sci';'INTLOGICAL_OP.sci';
-	      'INTMUL.sci';'INTREGISTER.sci';'RELATIONAL_OP.sci';'SUMMATIONI';'INTGAINBLK.sci';
+	lisf=['BITCLEAR.sci';'BITSET.sci';'CONVERT.sci';'EXTRACTBITS.sci';'INTMUL.sci';
 	      'SHIFT.sci';'LOGIC.sci';'DLATCH.sci';'DFLIPFLOP.sci';'JKFLIPFLOP.sci';
 	      'SRFLIPFLOP.sci']
       else
