@@ -98,7 +98,12 @@ OBJSC=scicos.o intcscicos.o import.o realtime.o \
 	sciblk2.o sciblk2i.o sciblk4.o str2sci.o scicos_malloc.o \
 	scicos_free.o tree.o \
 	scoGetProperty.o scoSetProperty.o scoMisc.o \
-	scoMemoryScope.o scoWindowScope.o $(BLOCKSC)
+	scoMemoryScope.o scoWindowScope.o $(BLOCKSC)\
+	sundials/cvode.o sundials/cvode_io.o sundials/cvode_dense.o\
+	sundials/nvector_serial.o sundials/ida.o sundials/ida_dense.o\
+	sundials/ida_io.o sundials/ida_ic.o \
+	sundials/sundials_nvector.o sundials/sundials_math.o\
+	sundials/sundials_dense.o sundials/sundials_smalldense.o
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
