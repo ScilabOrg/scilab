@@ -33,7 +33,7 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
       end
       if ok then
 	     xx.graphics.exprs=exprs0
-	     model.rpar=dt
+	     model.rpar=[dt;t0]
 	     model.firing=t0
 	     xx.model=model
 	     arg1.model.rpar.objs(path)=xx// Update
@@ -56,7 +56,7 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
     evtdly.graphics.exprs=['0.1';'0.1']
     evtdly.graphics.pein=6
     evtdly.graphics.peout=3
-    evtdly.model.rpar=0.1
+    evtdly.model.rpar=[0.1;0.1]
     evtdly.model.firing=0.1
     
     output_port=CLKOUT_f('define')

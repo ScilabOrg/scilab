@@ -31,7 +31,7 @@ case 'set' then
     end
     if ok then
       graphics.exprs=exprs
-      model.rpar=dt
+      model.rpar=[dt;ff]
       model.firing=ff
       x.graphics=graphics;
       x.model=model
@@ -45,13 +45,13 @@ case 'define' then
   model.sim=list('evtdly4',4)
   model.evtin=1
   model.evtout=1
-  model.rpar=dt
+  model.rpar=[dt;ff]
   model.blocktype='d'
   model.firing=ff
   model.dep_ut=[%f %f]
 
   exprs=[string(dt);sci2exp(ff)]
-  gr_i=['dt=o.model.rpar;';
+  gr_i=['dt=o.model.rpar(1);';
         'txt=[''Delay'';string(dt)];';
         'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');']
   x=standard_define([2 2],model,exprs,gr_i)

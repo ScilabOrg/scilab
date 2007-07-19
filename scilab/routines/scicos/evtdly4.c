@@ -31,7 +31,8 @@ void evtdly4(scicos_block *block,int flag)
               i=*block->work;
               t=get_scicos_time();
               (*i)++; /*increase counter*/
-              block->evout[0]=(*i)*block->rpar[0]-t;
+              block->evout[0]=block->rpar[1]+ \
+                              (*i)*block->rpar[0]-t;
               break;
              }
 
