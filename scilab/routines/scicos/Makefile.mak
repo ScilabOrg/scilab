@@ -103,6 +103,11 @@ OBJSC=scicos.obj intcscicos.obj import.obj realtime.obj \
 	scicos_free.obj tree.obj \
 	scoGetProperty.obj scoSetProperty.obj scoMisc.obj \
 	scoMemoryScope.obj scoWindowScope.obj $(BLOCKSC)
+	sundials/cvode.obj sundials/cvode_io.obj sundials/cvode_dense.obj\
+	sundials/nvector_serial.obj sundials/ida.obj sundials/ida_dense.obj\
+	sundials/ida_io.obj sundials/ida_ic.obj \
+	sundials/sundials_nvector.obj sundials/sundials_math.obj\
+	sundials/sundials_dense.obj sundials/sundials_smalldense.obj
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
