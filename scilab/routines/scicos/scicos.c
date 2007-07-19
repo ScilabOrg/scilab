@@ -23,6 +23,23 @@
 #include "../graphics/Math.h"
 #include "../os_specific/sci_mem_alloc.h"  /* malloc */
 
+#include "sundials/cvode.h"           /* prototypes for CVODES fcts. and consts. */
+#include "sundials/cvode_dense.h"     /* prototype for CVDense */
+#include "sundials/ida.h"
+#include "sundials/ida_dense.h"
+#include "sundials/nvector_serial.h"  /* serial N_Vector types, fcts., and macros */
+#include "sundials/sundials_dense.h" /* definitions DenseMat and DENSE_ELEM */
+#include "sundials/sundials_types.h" /* definition of type realtype */
+#include "sundials/sundials_math.h"
+#include "sundials/ida_impl.h"
+
+typedef struct {
+ void *ida_mem;
+ N_Vector ewt;
+ double *rwork;
+ int *iwork;
+} *UserData;
+
 
 #ifdef FORDLL
 #define IMPORT  __declspec (dllimport)
@@ -37,8 +54,8 @@
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
 #define freeall \
-	      FREE(rhot);\
-	      FREE(ihot);\
+              if (*neq>0) CVodeFree(&cvode_mem);\
+              if (*neq>0) N_VDestroy_Serial(y);\
 	      FREE(jroot);\
 	      FREE(zcros);
 
@@ -59,11 +76,19 @@
               FREE(outtbus);\
               FREE(outtbul);
 
+
+#define ONE   RCONST(1.0)
+#define ZERO  RCONST(0.0)
+#define T0    RCONST(0.0)   
+/* #define Ith(v,i)    NV_Ith_S(v,i-1)*/        /* Ith numbers components 1..NEQ */
+/* #define IJth(A,i,j) DENSE_ELEM(A,i-1,j-1)*/  /* IJth numbers rows,cols 1..NEQ */
+
+static int check_flag(void *flagvalue, char *funcname, int opt);
 void cosini(double *);
 void idoit(double *);
 void cosend(double *);
 void cdoit(double *);
-void doit(double *);
+void doit(double *); 
 void ddoit(double *);
 void edoit(double *,integer *);
 void odoit(double *,double *,double *,double *);
@@ -73,9 +98,9 @@ void reinitdoit(double *,integer *);
 void cossimdaskr(double *);
 void cossim(double *);
 void callf(double *, double *, double *, double *,double *,integer *);
-int C2F(simblk)(integer *, double *, double *, double *);
+int simblk(realtype t,N_Vector yy,N_Vector yp, void *f_data);
 int C2F(simblkdaskr)(double *, double *, double *, double *, double *, integer *, double *, integer *);
-int C2F(grblk)(integer *, double *, double *, integer *, double *);
+int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
 int C2F(grblkdaskr)(integer *, double *, double *, double *, integer *, double *, double *, integer *);
 void addevs(double ,integer *,integer *);
 void putevs(double *,integer *,integer *);
@@ -234,7 +259,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   integer i1,kf,lprt,in,out,job=1;
 
   extern /* Subroutine */ int C2F(msgs)();
-  static integer mxtb, ierr0, kfun0, i, j, k;
+  static integer mxtb, ierr0, kfun0, i, j, k, jj;
   extern /* Subroutine */ int C2F(makescicosimport)();
   extern /* Subroutine */ int C2F(getscsmax)();
   static integer ni, no;
@@ -679,11 +704,17 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
           return 0;
       }
 
-      C2F(simblk)(&nx, t0, x, W);
+      /*---------à la place de old simblk--------*/
+      /*  C2F(simblk)(&nx, t0, x, W);  */
+      for(jj=0;jj<nx;jj++) W[jj]=0.0;
+      C2F(ierode).iero = 0;   *ierr= 0;
+      odoit(W, x,W,t0);
+      C2F(ierode).iero = *ierr;
+      /*-----------------------------------------*/
       for (i = 0; i < nx; ++i) {
           x[i] = W[i];
       }
-      FREE(W);
+      FREE(W); 
     }
   }
   FREE(iwa);
@@ -692,6 +723,31 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   C2F(clearscicosimport)();
   return 0;
 } /* scicos_ */
+
+
+static int check_flag(void *flagvalue, char *funcname, int opt)
+{
+  int *errflag;
+
+  /* Check if SUNDIALS function returned NULL pointer - no memory allocated */
+  if (opt == 0 && flagvalue == NULL) {
+    sciprint("\nSUNDIALS_ERROR: %s() failed - returned NULL pointer\n\n", funcname);
+    return(1); }
+  /* Check if flag < 0 */
+  else if (opt == 1) {
+    errflag = (int *) flagvalue;
+    if (*errflag < 0) {
+      sciprint("\nSUNDIALS_ERROR: %s() failed with flag = %d\n\n",
+	      funcname, *errflag);
+      return(1); }}
+  /* Check if function returned NULL pointer - no memory allocated */
+  else if (opt == 2 && flagvalue == NULL) {
+    sciprint("\nMEMORY_ERROR: %s() failed - returned NULL pointer\n\n",funcname);
+    return(1); }
+
+  return(0);
+}
+
 
 /* Subroutine */ void cosini(told)
 
@@ -1148,84 +1204,112 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   integer i3;
 
   /* Local variables */
-  static integer flag__, jdum;
-  static integer iopt;
-
+  static integer flag__;
   static integer ierr1;
   static integer j, k;
   static double t;
-  static integer itask;
-  static integer jj, jt;
-  static integer istate;
-
-  static double rhotmp;
+  static integer jj;
+  static double rhotmp, tstop;
   static integer inxsci;
-
   static integer kpo, kev;
-
-  double *rhot;
-  integer *ihot,niwp,nrwp;
+  int Discrete_Jump;
   integer *jroot,*zcros;
+  realtype reltol, abstol; 
+  N_Vector y;
+  void *cvode_mem;
+  int flag, flagr;
 
 
-  nrwp = (*neq) * max(16,*neq + 9) + 22 + ng * 3;
-  /* +1 below is so that rhot starts from 1; one wasted location */
-  if((rhot=MALLOC(sizeof(double)*(nrwp+1)))== NULL ){
-    *ierr =10000;
-    return;
-  }
-  niwp = *neq + 20 + ng;/* + ng is for change in lsodar2 to
-                           handle masking */
-
-  /* +1 below is so that ihot starts from 1; one wasted location */
-  if((ihot=MALLOC(sizeof(int)*(niwp+1)))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    return;
-  }
   jroot=NULL;
   if (ng!=0) {
     if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
       *ierr =10000;
-      FREE(rhot);
-      FREE(ihot);
       return;
     }
   }
 
-  /* initialize array */
   for ( jj = 0 ; jj < ng ; jj++ )
-  {
     jroot[jj] = 0 ;
-  }
 
   zcros=NULL;
   if (ng!=0) {
     if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
       *ierr =10000;
-      FREE(rhot);
-      FREE(ihot);
       FREE(jroot);
       return;
     }
   }
 
-  /* Function Body */
+  if (*neq>0){ /* Unfortunately CVODE does not work with NEQ==0 */
+    y = NULL;
+    y = N_VNewEmpty_Serial(*neq); 
+    if (check_flag((void *)y, "N_VNewEmpty_Serial", 0)) {
+      *ierr=10000;
+      FREE(jroot); FREE(zcros);
+      return;
+    };
 
+    NV_DATA_S(y)=x;
+    
+    reltol = (realtype) rtol;
+    abstol = (realtype) Atol;  /* Ith(abstol,1) = realtype) Atol;*/
+    
+    cvode_mem = NULL;
+    cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
+    /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
+
+    if (check_flag((void *)cvode_mem, "CVodeCreate", 0)) {
+      *ierr=10000;
+      N_VDestroy_Serial(y); FREE(jroot); FREE(zcros);
+      return;
+    };
+    
+    flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+    if (check_flag(&flag, "CVodeMalloc", 1)) {
+      *ierr=10000;    
+      freeall
+      return;
+    };
+    
+    flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+    if (check_flag(&flag, "CVodeRootInit", 1)) {
+      *ierr=10000;  
+      freeall
+      return;
+    };
+
+  /* Call CVDense to specify the CVDENSE dense linear solver */
+    flag = CVDense(cvode_mem, *neq);
+    if (check_flag(&flag, "CVDense", 1)) {
+      *ierr=10000;    
+      freeall
+	return;
+    };
+
+    if(hmax>0){
+      flag=CVodeSetMaxStep(cvode_mem, (realtype) hmax);
+      if (check_flag(&flag, "CVodeSetMaxStep", 1)) {
+	*ierr=10000;    
+	freeall;
+	return;
+      };
+    }
+  /* Set the Jacobian routine to Jac (user-supplied) 
+     flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
+     if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
+
+  }/* testing if neq>0 */
+
+  /* Function Body */
   C2F(coshlt).halt = 0;
   *ierr = 0;
 
   C2F(xscion)(&inxsci);
   /*     initialization */
-  C2F(iset)(&niwp, &c__0, &ihot[1], &c__1);
-  C2F(dset)(&nrwp, &c_b14, &rhot[1], &c__1);
   C2F(realtimeinit)(told, &C2F(rtfactor).scale);
 
   phase=1;
   hot = 0;
-  itask = 4;
-
-  jt = 2;
 
   jj = 0;
   for (C2F(curblk).kfun = 1; C2F(curblk).kfun <= nblk; ++C2F(curblk).kfun) {
@@ -1314,11 +1398,11 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    goto L20;
 	  }
 	L30:
-	  if (rhotmp < rhot[1]) {
+	  if (rhotmp < tstop) {
 	    hot = 0;
 	  }
 	}
-	rhot[1] = rhotmp;
+	tstop = rhotmp;
 	t = min(*told + deltat,min(t,*tf + ttol));
 	
 	if (ng>0 &&  hot == 0 && nmod>0) {
@@ -1328,67 +1412,57 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    return;
 	  }
 	}
-	
-	
-	if (hot){
-	  istate=2;
-	}else{
-	  istate = 1;
+	       
+	if (hot==0){ /* hot==0 : cold restart*/
+	  flag = CVodeSetStopTime(cvode_mem, (realtype)tstop);  /* Setting the stop time*/
+	  if (check_flag(&flag, "CVodeSetStopTime", 1)) {    
+	    *ierr=10000;    
+	    freeall;
+	    return;
+	  };
+	  
+	  flag =CVodeReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
+	  if (check_flag(&flag, "CVodeReInit", 1)) {
+	    *ierr=10000;    
+	    freeall;
+	    return;
+	  };
 	}
-        if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+
+       if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
         {
 	  sciprint("****lsodar from: %f to %f hot= %d  \r\n", *told,t,hot);
 	}
 
-	if(hmax==0){
-	  iopt = 0;
-	}else{
-	  iopt=1;
-	  C2F(iset)(&panj, &c__0, &ihot[5], &c__1);
-	  C2F(dset)(&panj, &c_b14, &rhot[5], &c__1);
-	  rhot[6]=hmax;
-	}
-
 	/*--discrete zero crossings----dzero--------------------*/
 	/*--check for Dzeros after Mode settings or ddoit()----*/
+	Discrete_Jump=0;
+
 	if (ng>0 && hot==0){
 	  zdoit(g, x, x,told);
 	  if (*ierr != 0) {freeall;return;}
 	  for (jj = 0; jj < ng; ++jj) {
-	    if((g[jj]>=0.0)&&(jroot[jj]==-5)) {istate=3;jroot[jj]=1;}
-	    else if((g[jj]<0.0)&&(jroot[jj]==5)) {istate=3;jroot[jj]=-1;}
+	    if((g[jj]>=0.0)&&(jroot[jj]==-5)) {Discrete_Jump=1;jroot[jj]=1;}
+	    else if((g[jj]<0.0)&&(jroot[jj]==5)) {Discrete_Jump=1;jroot[jj]=-1;}
 	    else jroot[jj]=0;
 	  }
 	}
 	/*--discrete zero crossings----dzero--------------------*/
 
-	if (istate!=3){/* if there was a dzero, its event should be activated*/
+	if (Discrete_Jump==0){/* if there was a dzero, its event should be activated*/
 	  phase=2;
-	  C2F(lsodar2)(C2F(simblk), neq, x, told, &t, &c__1, &rtol, 
-		       &Atol, &itask, &istate, &iopt, &rhot[1], &
-		       nrwp, &ihot[1], &niwp, &jdum, &jt, 
-		       C2F(grblk), &ng, jroot);
+	  flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+	  phase=1;
+	  if (((flag<0)&& flag != CV_TOO_MUCH_WORK)||(*ierr > 5) ) { /*     *ierr>5 => singularity in block */
+	    sciprint("\nSUNDIALS_ERROR: CVode failed with flag = %d\n\n",flag);
+	    *ierr=10000;    
+	    freeall;
+	    return;
+	  };
+	}else{
+	  flag = CV_ROOT_RETURN; /* in order to handle discrete jumps */
 	}
-	phase=1;
 
-	if (*ierr > 5) {
-	  /*     !           singularity in block */
-	  freeall;
-	  return;
-	}
-	if (istate <= 0) {
-	  /* integration problem */
-	  *ierr = 100 - istate;
-	  freeall;
-	  return;
-	} else {
-	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
-          {
-	    sciprint("****lsodar reached: %f\r\n",*told);
-	  }
-	  hot = 1;
-	}
-	
 	/*     .     update outputs of 'c' type  blocks if we are at the end*/
 	if (*told >= *tf) {
 	  if (ncord > 0) {
@@ -1397,10 +1471,32 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
 	    return;
 	  }
 	}
-	if (istate == 4) hot=0; /* new feature of lsodar, detects unmasking */
-	if (istate == 3) {
+
+	if ( flag==CV_TOO_MUCH_WORK ) {  /* -1 == CV_TOO_MUCH_WORK) */
+	  sciprint("**** SUNDIALS.Cvode: too much work at time=%g (may be it's a stiff region)\r\n",*told);	  
+	  hot = 0;
+	}else if  (flag>=0 ) {
+	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+	    sciprint("****SUNDIALS.Cvode reached: %f\r\n",*told);
+	  hot = 1;
+	}
+	
+
+
+	if (flag == CV_ZERO_DETACH_RETURN){hot=0;};  /* new feature of sundials, detects zero-detaching */
+
+	if (flag == CV_ROOT_RETURN) {
 	  /*     .        at a least one root has been found */
 	  hot = 0;
+	  if (Discrete_Jump==0){
+	    flagr = CVodeGetRootInfo(cvode_mem, jroot);
+	    if (check_flag(&flagr, "CVodeGetRootInfo", 1)) {
+	      *ierr=10000;    
+	      freeall;
+	      return;
+	    };	
+	  }
+	  /*     .        at a least one root has been found */
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
           {
 	    sciprint("root found at t=: %f\r\n",*told);
@@ -1685,7 +1781,7 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
   /*--discrete zero crossings----dzero--------------------*/
   if (ng>0){ /* storing ZC signs just after a solver call*/
     zdoit(g, x, x, told); 
-    if (*ierr != 0) {freeall;return;  }
+    if (*ierr != 0) {freeallx;return;  }
     for (jj = 0; jj < ng; ++jj)
       if(g[jj]>=0) jroot[jj]=5;else jroot[jj]=-5;
   }
@@ -4093,27 +4189,37 @@ integer C2F(funnum)(fname)
 
 
 
-int C2F(simblk)(neq1, t, xc, xcdot)
-     integer *neq1;
-     double *t, *xc, *xcdot;
-     /*
-	!purpose 
-	compute state derivative of the continuous part
-	!calling sequence 
-	neq   : integer the size of the  continuous state
-	t     : current time 
-	xc    : double precision vector whose  contains the continuous state. 
-	xcdot : double precision vector, contain the computed derivative 
-	of the state 
-     */
-{
-  C2F(dset)(neq, &c_b14,xcdot , &c__1);
+int simblk(realtype t,N_Vector yy,N_Vector yp, void *f_data)
+{ 
+  double tx, *x, *xd;
+  int i;
+ 
+  tx= (double) t;
+  x=  (double *) NV_DATA_S(yy);
+  xd= (double *) NV_DATA_S(yp);
+
+  for(i=0;i<*neq;i++)   xd[i]=0;   /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
   C2F(ierode).iero = 0;
   *ierr= 0;
-  odoit(xcdot, xc,xcdot,t);
+  odoit(xd, x, xd, &tx);
   C2F(ierode).iero = *ierr;
   return 0;
 }
+
+int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data)
+{
+  double tx, *x;
+  tx= (double) t;
+  x=  (double *) NV_DATA_S(yy);
+
+  C2F(ierode).iero = 0;
+  *ierr= 0;
+  zdoit((double*) gout, x, x, &tx);
+  C2F(ierode).iero = *ierr;
+
+ return 0;
+}
+
 
 int C2F(simblkdaskr)(t,xc,xcdot,cj,residual,ires,rpar1,ipar1)
      integer *ires,*ipar1;
@@ -4156,33 +4262,6 @@ int C2F(grblkdaskr)(neq1, t, xc, xtd,ng1, g,rpar1,ipar1)
 }
 
 
-int C2F(grblk)(neq1, t, xc, ng1, g)
-     integer *neq1;
-     double *t, *xc;
-     integer *ng1;
-     double *g;
-
-
-     /*
-       !purpose 
-       interface to grbl1 at the lsodar format 
-       !calling sequence 
-       neq   : integer  the size of the continuous state
-       t     : current time 
-       xc    : double precision vector contains the continuous state
-       g     : computed zero crossing surface (see lsodar) 
-       !
-     */
-
-     /* Local variables */
-
-{
- C2F(ierode).iero = 0;
- *ierr= 0;
- zdoit(g,xc, xc,t);
- C2F(ierode).iero = *ierr;
- return 0;
-}
 
 
 /* Subroutine */ void addevs(t, evtnb, ierr1)
@@ -4332,7 +4411,7 @@ int setmode(W,x,told,jroot,ttol)
      double *W,*x,*told,ttol;
      int *jroot;
 {
-  int k,j,jj,diff;
+  int k,j,jj,diff,ii;
   double ttmp;
 
   ttmp=*told+ttol;
@@ -4349,7 +4428,13 @@ int setmode(W,x,told,jroot,ttol)
       jroot[jj]=mod[jj];
     }
     for(j=0;j<=*neq;++j){
-      C2F(simblk)(neq, &ttmp, W, &W[*neq]);  
+      /*---------à la place de old simblk--------*/
+      /*   C2F(simblk)(neq, &ttmp, W, &W[*neq]);  */
+      for(ii=0;ii<*neq;++ii) W[*neq+ii]=0;
+      C2F(ierode).iero = 0; *ierr= 0;
+      odoit(&W[*neq], W,&W[*neq],&ttmp);
+      C2F(ierode).iero = *ierr;
+      /*--------------------------------------*/
       if (*ierr != 0) return 1;
       for(jj=0;jj<*neq;++jj){
 	W[jj]=x[jj]+ttol*W[jj+(*neq)];
