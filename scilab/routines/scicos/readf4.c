@@ -80,6 +80,11 @@ typedef char *address;
 
 typedef struct { double r, i; } doublecomplex;
 
+
+#ifndef max
+#define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
+
 /* Table of constant values */
 
 static int c__1 = 1;

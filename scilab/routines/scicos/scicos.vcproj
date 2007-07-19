@@ -802,6 +802,15 @@ cd .. &gt;nul
 				RelativePath=".\cumsumz_r.c">
 			</File>
 			<File
+				RelativePath=".\sundials\cvode.c">
+			</File>
+			<File
+				RelativePath=".\sundials\cvode_dense.c">
+			</File>
+			<File
+				RelativePath=".\sundials\cvode_io.c">
+			</File>
+			<File
 				RelativePath=".\deadband.c">
 			</File>
 			<File
@@ -1061,6 +1070,18 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\hystheresis.c">
+			</File>
+			<File
+				RelativePath=".\sundials\ida.c">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_dense.c">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_ic.c">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_io.c">
 			</File>
 			<File
 				RelativePath=".\import.c">
@@ -1324,6 +1345,9 @@ cd .. &gt;nul
 				RelativePath=".\multiplex.c">
 			</File>
 			<File
+				RelativePath=".\sundials\nvector_serial.c">
+			</File>
+			<File
 				RelativePath=".\plusblk.c">
 			</File>
 			<File
@@ -1345,7 +1369,13 @@ cd .. &gt;nul
 				RelativePath=".\readc.c">
 			</File>
 			<File
+				RelativePath=".\readf4.c">
+			</File>
+			<File
 				RelativePath=".\realtime.c">
+			</File>
+			<File
+				RelativePath=".\relational_op.c">
 			</File>
 			<File
 				RelativePath=".\relational_op_i16.c">
@@ -1373,6 +1403,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\ricc_m.c">
+			</File>
+			<File
+				RelativePath=".\rndblk_m.c">
 			</File>
 			<File
 				RelativePath=".\root_coef.c">
@@ -1579,6 +1612,18 @@ cd .. &gt;nul
 				RelativePath=".\summation_z.c">
 			</File>
 			<File
+				RelativePath=".\sundials\sundials_dense.c">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_math.c">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_nvector.c">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_smalldense.c">
+			</File>
+			<File
 				RelativePath=".\switch2.c">
 			</File>
 			<File
@@ -1634,6 +1679,30 @@ cd .. &gt;nul
 				RelativePath=".\blocks.h">
 			</File>
 			<File
+				RelativePath=".\sundials\cvode.h">
+			</File>
+			<File
+				RelativePath=".\sundials\cvode_dense.h">
+			</File>
+			<File
+				RelativePath=".\sundials\cvode_dense_impl.h">
+			</File>
+			<File
+				RelativePath=".\sundials\cvode_impl.h">
+			</File>
+			<File
+				RelativePath=".\sundials\ida.h">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_dense.h">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_dense_impl.h">
+			</File>
+			<File
+				RelativePath=".\sundials\ida_impl.h">
+			</File>
+			<File
 				RelativePath=".\import.h">
 			</File>
 			<File
@@ -1641,6 +1710,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\matscicos.h">
+			</File>
+			<File
+				RelativePath=".\sundials\nvector_serial.h">
 			</File>
 			<File
 				RelativePath=".\scicos.h">
@@ -1668,6 +1740,24 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\scoWindowScope.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_config.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_dense.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_math.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_nvector.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_smalldense.h">
+			</File>
+			<File
+				RelativePath=".\sundials\sundials_types.h">
 			</File>
 		</Filter>
 	</Files>
