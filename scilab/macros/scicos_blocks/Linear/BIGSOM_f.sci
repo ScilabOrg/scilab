@@ -22,10 +22,12 @@ case 'set' then
     if ~ok then break,end
     in=-ones(size(sgn,'*'),1)
     [model,graphics,ok]=check_io(model,graphics,in,-1,[],[])
-    model.rpar=sgn(:)
-    graphics.exprs=exprs
-    x.graphics=graphics;x.model=model
-    break
+    if ok then
+      model.rpar=sgn(:)
+      graphics.exprs=exprs
+      x.graphics=graphics;x.model=model
+      break
+    end
   end
 case 'define' then
   sgn=[1;1]
