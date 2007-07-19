@@ -83,7 +83,7 @@ function [scs_m, fct] = do_addnew(scs_m)
       ierror=execstr('blk='+name+'(''define'')','errcatch')
 
       if ierror <>0 then
-	         message("Translation did not work, sorry" )
+	         message("Translation did not work, sorry")
 	         fct=[]
 	         return
       end
@@ -93,7 +93,7 @@ function [scs_m, fct] = do_addnew(scs_m)
       ierror=execstr('blk=up_to_date(blk)','errcatch');
 
       if ierror <>0 then
-	          message("Translation did not work, sorry" )
+	          message("Translation did not work, sorry")
 	          fct=[]
 	          return
       end
@@ -142,14 +142,24 @@ function [scs_m, fct] = do_addnew(scs_m)
 
     //do version
     if scicos_ver<>current_version then
-      scs_m_super=do_version(scs_m_super,scicos_ver)
+      ierr=execstr('scs_m_super=do_version(scs_m_super,scicos_ver)','errcatch')
+      if ierr<>0 then
+        message("Can''t import block in scicos, sorry (problem in version)")
+        fct=[]
+        return
+      end
       blk.model.rpar = scs_m_super;
+
+      //check name
+      if scs_m_super.props.title(1)<>name then
+         scs_m_super.props.title(1)=name
+      end
 
       //generate a new interfacing function in TMPDIR
       if blk.model.sim(1)=='super' then
-        save_super(scs_m_super,TMPDIR)
+        save_super(scs_m_super,TMPDIR,blk.graphics.gr_i,blk.graphics.sz)
       elseif blk.model.sim(1)=='csuper' then
-        save_csuper(scs_m_super,TMPDIR)
+        save_csuper(scs_m_super,TMPDIR,blk.graphics.gr_i,blk.graphics.sz)
       end
       message(name+".sci generated in "+TMPDIR+"." )
 

@@ -1,7 +1,16 @@
-function path=save_csuper(scs_m,fpath)
+function path=save_csuper(scs_m,fpath,gr_i,sz)
 // given a super block definition x save_super creates a file which contains
 // this super block  handling  macro definition
+// 19/07/07 : Alan added two rhs : gr_i and sz for
+//                                 initial values
+//            gr_i a vector of string (matrix size nx1)
+//            sz a vector of real (matrix size 1x2)
 // Copyright INRIA
+
+  [lhs,rhs]=argn(0)
+  if rhs<4 then sz=[],end
+  if rhs<3 then gr_i='',end
+
   path=[]
   scs_m=do_purge(scs_m)
   nam=scs_m.props.title(1);
@@ -25,7 +34,7 @@ function path=save_csuper(scs_m,fpath)
 	case 'CLKINV_f' then
 	clkin=[clkin;model.evtout]
 	case 'CLKOUTV_f' then
-	clkout=[clkout;model.evtin];  
+	clkout=[clkout;model.evtin];
       end
     end
   end
@@ -177,11 +186,32 @@ function path=save_csuper(scs_m,fpath)
   end
   t1($)=t1($)+')';
 
-  t1=[strsubst(t1,sci2exp('%scs_m_1'),'scs_m_1')
-      '  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'
-      '  x=standard_define([2 2],model,[],gr_i)';
+  t1=[strsubst(t1,sci2exp('%scs_m_1'),'scs_m_1')];
+  if gr_i == '' then
+    t1=[t1
+        '  gr_i=''xstringb(orig(1),orig(2),'''''+nam+''''',sz(1),sz(2),''''fill'''')'';'];
+  else
+    gr_i_tmp = sci2exp(gr_i);
+    if size(gr_i_tmp,1)<>1 then
+      t1=[t1
+          '  gr_i='+gr_i_tmp(1)
+          '       '+gr_i_tmp(2:$)];
+    else
+      t1=[t1
+          '  gr_i='+gr_i_tmp];
+    end
+  end
+  if sz<>[] then
+      t1=[t1
+          '  x=standard_define(['+string(sz(1))+...
+                                ' '+string(sz(2))+'],model,[],gr_i)';];
+  else
+      t1=[t1
+          '  x=standard_define([2 2],model,[],gr_i)';];
+  end
+  t1=[t1
       'end'
-      'endfunction']
+      'endfunction'];
   write(u,t1,'(a)')
   file('close',u)
 endfunction
