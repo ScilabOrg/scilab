@@ -21,7 +21,7 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
     exprs=xx.graphics.exprs
     model=xx.model;
     t0_old=model.firing
-    dt_old= model.rpar
+    dt_old= model.rpar(1)
     model_n=model
     while %t do
       [ok,dt,t0,exprs0]=getvalue('Set Clock  block parameters',..
