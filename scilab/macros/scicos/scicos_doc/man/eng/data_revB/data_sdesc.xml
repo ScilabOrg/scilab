@@ -141,7 +141,7 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Event select </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Event delay</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
@@ -1031,7 +1031,7 @@
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_c">CLOCK_c title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLOCK_f">Activation clock</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
@@ -1055,7 +1055,7 @@
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_c">EVTDLY_c title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Event delay</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROM' type='XML'>

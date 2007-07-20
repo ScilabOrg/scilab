@@ -6925,36 +6925,16 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='CLOCK_c' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Period</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Init time</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+<FILE name='CLOCK_c' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
+%Period   0.1
+\item {Period:} scalar. One over the frequency of the clock. Period is
+  the time that separates two output events.    
+%Init time   0.1
+\item {Init time:} scalar. Starting date. if negative the clock never
+  starts.   
+\end{itemize}
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
@@ -7045,36 +7025,15 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='EVTDLY_c' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Delay</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Date of initial output event</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+<FILE name='EVTDLY_c' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
+%Delay   0.1
+\item {Delay:} scalar. Time delay between input and output event. 
+%Date of initial output event   0.1
+\item {Date of initial output event:}scalar. If {\bf Auto-exec>=0 } block
+  initially generates an output event at date{\bf  Auto-exec}.  
+\end{itemize}
 </FILE>
 
 <FILE name='FROM' type='XML'>

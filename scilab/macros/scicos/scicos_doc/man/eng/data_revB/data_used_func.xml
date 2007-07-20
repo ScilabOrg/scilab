@@ -1750,9 +1750,7 @@ Add here the used function name and  references
 
 <FILE name='CLOCK_c' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1798,9 +1796,7 @@ Add here the used function name and  references
 
 <FILE name='EVTDLY_c' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 

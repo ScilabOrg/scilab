@@ -2866,16 +2866,10 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLOCK_c' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLOCK_c' type='LATEX'>
+This block is a Super Block constructed by feeding back the output of
+an event delay block into its input event port. The unique output of
+this block generates a regular train of events.
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
@@ -2926,16 +2920,14 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='EVTDLY_c' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EVTDLY_c' type='LATEX'>
+One event is generated  {\bf Delay}  after an event enters the unique
+input event port. Block may also generate an initial output event.
+The event date of that block is computed by the formula :
+\begin{eqnarray}
+ t_{i}&=&t_{\rm{init}} + i * T_{\rm{delay}},
+\end{eqnarray}
+where $t_{\rm{init}}$ the date of initial output event, $T_{\rm{delay}}$ the delay and $i$ and internal integer discrete counter.
 </FILE>
 
 <FILE name='FROM' type='XML'>

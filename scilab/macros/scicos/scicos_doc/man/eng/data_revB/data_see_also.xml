@@ -1818,9 +1818,7 @@
 
 <FILE name='CLOCK_c' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EVTDLY_c</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -1866,9 +1864,7 @@
 
 <FILE name='EVTDLY_c' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>CLOCK_c</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 

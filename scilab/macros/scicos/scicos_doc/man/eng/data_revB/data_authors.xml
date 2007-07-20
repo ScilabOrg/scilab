@@ -2002,8 +2002,8 @@ Add here the author  references
 
 <FILE name='CLOCK_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=clock_doc'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -2050,8 +2050,8 @@ Add here the author  references
 
 <FILE name='EVTDLY_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=evtdly_doc'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
