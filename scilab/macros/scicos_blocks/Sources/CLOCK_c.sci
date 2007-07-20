@@ -11,11 +11,7 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
    case 'getorigin' then
     [x,y]=standard_origin(arg1)
    case 'set' then
-    if arg1.model.rpar.objs(1)==mlist('Deleted') then
-      path = 3  //compatibility with translated blocks
-    else
-      path = 2
-    end
+    path = 2
     newpar=list();
     xx=arg1.model.rpar.objs(path)// get the evtdly block
     exprs=xx.graphics.exprs
@@ -32,15 +28,16 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
 	     ok=%f
       end
       if ok then
-	     xx.graphics.exprs=exprs0
-	     model.rpar=[dt;t0]
-	     model.firing=t0
-	     xx.model=model
-	     arg1.model.rpar.objs(path)=xx// Update
-	     break
+	xx.graphics.exprs=exprs0
+	model.rpar=[dt;t0]
+	model.firing=t0
+	xx.model=model
+	arg1.model.rpar.objs(path)=xx// Update
+	break
       end
     end
-    if ~and([t0_old dt_old]==[t0 dt])|~and(exprs0==exprs) then 
+    pause
+    if ~and([t0_old dt_old]==[t0 dt]) then 
       // parameter  changed
       newpar(size(newpar)+1)=path// Notify modification
     end
