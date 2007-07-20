@@ -9,6 +9,9 @@
  * xx/02/07, Alan
  * added object paramaters/states
  *
+ * 20/07/07,  Masoud
+ * CVODE (sundials) replaced LSODAR
+ * IDA  (Sundials)  replaced DASKR
  */
 
 #include <stdlib.h>
@@ -60,12 +63,16 @@ typedef struct {
 	      FREE(zcros);
 
 #define freeallx \
-	      FREE(rhot);\
-	      FREE(ihot);\
-	      FREE(jroot);\
-	      FREE(zcros);\
-	      FREE(scicos_xproperty);\
-              FREE(Mode_save);
+              if (*neq>0 && (Jacobian_Flag>0))  FREE(data->rwork)\
+              if (*neq>0) N_VDestroy_Serial(data->ewt);\
+              if (*neq>0) FREE(data);\
+              if (*neq>0) IDAFree(&ida_mem);\
+              if (*neq>0) N_VDestroy_Serial(IDx);\
+              if (*neq>0) N_VDestroy_Serial(yp);\
+              if (*neq>0) N_VDestroy_Serial(yy);\
+              FREE(jroot);\
+              FREE(zcros);\
+              if (nmod>0) FREE(Mode_save);
 
 #define freeouttbptr \
               FREE(outtbd);\
@@ -94,14 +101,14 @@ void edoit(double *,integer *);
 void odoit(double *,double *,double *,double *);
 void ozdoit(double *,double *,double *,integer *);
 void zdoit(double *,double *,double *,double *);
-void reinitdoit(double *,integer *);
+void reinitdoit(double *, realtype *);
 void cossimdaskr(double *);
 void cossim(double *);
 void callf(double *, double *, double *, double *,double *,integer *);
 int simblk(realtype t,N_Vector yy,N_Vector yp, void *f_data);
-int C2F(simblkdaskr)(double *, double *, double *, double *, double *, integer *, double *, integer *);
+int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *rdata);
+int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void *g_data);
 int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
-int C2F(grblkdaskr)(integer *, double *, double *, double *, integer *, double *, double *, integer *);
 void addevs(double ,integer *,integer *);
 void putevs(double *,integer *,integer *);
 void FREE_blocks();
@@ -109,7 +116,7 @@ int setmode(double *,double *,double *,integer *,double);
 
 /* Jacobian*/
 void Jdoit(double *,double *,double *,double *,int *);
-int C2F(Jacobian)(double *, double *, double *, double *, double *, double *, int *);
+int Jacobians(long int Neq, realtype, N_Vector, N_Vector, N_Vector, realtype, void *, DenseMat, N_Vector, N_Vector, N_Vector);
 void Multp(double *, double *,double *, int, int, int ,int);
 void Set_Jacobian_flag(int flag);
 double Get_Jacobian_parameter(void);
@@ -184,8 +191,6 @@ static integer c__0 = 0;
 static integer c__91 = 91;
 static double c_b14 = 0.;
 static integer c__1 = 1;
-static integer panj=5;
-
 static integer *iwa;
 
 static integer *xptr,*modptr, *evtspt;
@@ -218,7 +223,7 @@ static scicos_block *Blocks;
 
 static integer phase;
 
-integer *pointer_xproperty;
+realtype *pointer_xproperty;
 
 integer n_pointer_xproperty;
 
@@ -675,9 +680,16 @@ int C2F(scicos)(double *x_in, integer *xptr_in, double *z__,
     }
   } else if (*flag__ == 2) { /*run*/
     /*     integration */
-    if (C2F(cmsolver).solver == 0) {
+
+    if (C2F(cmsolver).solver == 0) {      /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
       cossim(t0);
-    } else if (C2F(cmsolver).solver == 100) {
+    }else if (C2F(cmsolver).solver == 1) {/*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
+      cossim(t0);
+    }else if (C2F(cmsolver).solver == 2) {/*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+      cossim(t0);
+    }else if (C2F(cmsolver).solver == 3) {/*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+      cossim(t0);
+    } else if(C2F(cmsolver).solver == 100){/* IDA  : Method:       , Nonlinear solver=  */
       cossimdaskr(t0);
     } else {
       /*     add a warning message please */
@@ -1255,7 +1267,14 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
     abstol = (realtype) Atol;  /* Ith(abstol,1) = realtype) Atol;*/
     
     cvode_mem = NULL;
-    cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
+    switch (C2F(cmsolver).solver)
+      {
+      case 0:   cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);break;
+      case 1:   cvode_mem = CVodeCreate(CV_BDF, CV_FUNCTIONAL);break;
+      case 2:   cvode_mem = CVodeCreate(CV_ADAMS, CV_NEWTON);break;
+      case 3:   cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);break;
+      }
+    
     /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
     if (check_flag((void *)cvode_mem, "CVodeCreate", 0)) {
@@ -1614,81 +1633,52 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   /* Initialized data */
   static integer otimer = 0;
   /* System generated locals */
-  integer i3,*ipardummy=NULL;
-  double /*d__1,*/*rpardummy=NULL;
+  integer i3;
 
   /* Local variables */
   static integer flag__;
-  static integer info[20];
-
   static integer ierr1;
   static integer j, k;
   static double t;
   static integer jj, jt;
   static integer istate, ntimer;
-  static double rhotmp;
+  static double rhotmp,tstop;
   static integer inxsci;
   static integer kpo, kev;
 
-  double *rhot;
-  integer *ihot,niwp,nrwp;
   integer *jroot,*zcros;
   integer maxord;
-  integer *scicos_xproperty;
-
   integer *Mode_save;
   integer Mode_change;
+
+  int flag, flagr; 
+  N_Vector   yy, yp;
+  realtype reltol, abstol; 
+  int Discrete_Jump;
+  N_Vector IDx;
+  realtype *scicos_xproperty;
+  void *ida_mem;
+  UserData data;
   /*-------------------- Analytical Jacobian memory allocation ----------*/
   int  Jn, Jnx, Jno, Jni, Jactaille;
   double uround;
-  Jactaille=0;   
-  if(Jacobian_Flag==1){
-    Jn=*neq;
-    Jnx=Blocks[AJacobian_block-1].nx;
-    Jno=Blocks[AJacobian_block-1].nout;
-    Jni=Blocks[AJacobian_block-1].nin;
-    Jactaille= 2+3*Jn+(Jn+Jni)*(Jn+Jno)+Jnx*(Jni+2*Jn+Jno)+(Jn-Jnx)*(2*(Jn-Jnx)+Jno+Jni)+2*Jni*Jno;}
-  /*----------------------------Jacobian----------------------------------*/
   maxord = 5;
-  nrwp = max(maxord + 4,7) * (*neq) + 60 + (*neq)*(*neq) + ng * 3 + Jactaille;
-  niwp = (*neq) + 40 + (*neq) +ng ; /* + ng is for change in ddaskr to handle masking */ 
 
-   /* +1 below is so that rhot starts from 1; one wasted location */
-  if((rhot=MALLOC(sizeof(double)*(nrwp+1)))== NULL ){
-    *ierr =10000;
-    return;
-  }
-/* +1 below is so that ihot starts from 1; one wasted location */
-  if((ihot=MALLOC(sizeof(int)*(niwp+1)))== NULL ){
-    FREE(rhot);
-    *ierr =10000;
-    return;
-  }
+
   jroot=NULL;
   if (ng!=0) {
     if((jroot=MALLOC(sizeof(int)*ng))== NULL ){
       *ierr =10000;
-      FREE(rhot);
-      FREE(ihot);
       return;
     }
   }
-  if((scicos_xproperty=MALLOC(sizeof(int)*(*neq)))== NULL ){
-    *ierr =10000;
-    FREE(rhot);
-    FREE(ihot);
-    FREE(jroot);
-    return;
-  }
-  C2F(iset)(neq, &c__1, scicos_xproperty, &c__1);
+  for ( jj = 0 ; jj < ng ; jj++ )  jroot[jj] = 0 ;
+
   zcros=NULL;
   if (ng!=0) {
     if((zcros=MALLOC(sizeof(int)*ng))== NULL ){
       *ierr =10000;
-      FREE(rhot);
-      FREE(ihot);
       FREE(jroot);
-      FREE(scicos_xproperty);
       return;
     }
   }
@@ -1697,14 +1687,181 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   if (nmod!=0) {
     if((Mode_save=MALLOC(sizeof(integer)*nmod))== NULL ){
       *ierr =10000;
-      FREE(rhot);
-      FREE(ihot);
       FREE(jroot);
-      FREE(scicos_xproperty);
       FREE(zcros);
       return;
     }
   }
+
+  if (*neq>0){    
+    yy=NULL;
+    yy = N_VNewEmpty_Serial(*neq);
+    if(check_flag((void *)yy, "N_VNew_Serial", 0)){
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+    };
+    NV_DATA_S(yy)=x;
+
+    yp=NULL;
+    yp = N_VNewEmpty_Serial(*neq);
+    if(check_flag((void *)yp, "N_VNew_Serial", 0)){
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    }
+    NV_DATA_S(yp)=xd;
+
+    reltol = (realtype) rtol;
+    abstol = (realtype) Atol;  // Ith(abstol,1) = realtype) Atol;
+
+    IDx = NULL;
+    IDx = N_VNew_Serial(*neq); 
+    if (check_flag((void *)IDx, "N_VNew_Serial", 0)) {
+      *ierr=10000;
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    };
+
+    /* Call IDACreate and IDAMalloc to initialize IDA memory */
+    ida_mem = NULL;
+    ida_mem = IDACreate();
+    if(check_flag((void *)ida_mem, "IDACreate", 0)) {      
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    }
+
+    flag = IDAMalloc(ida_mem, simblkdaskr, T0, yy, yp, IDA_SS, reltol, &abstol);
+    if(check_flag(&flag, "IDAMalloc", 1)){
+      IDAFree(&ida_mem);
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    }
+
+
+    flag = IDARootInit(ida_mem, ng, grblkdaskr, NULL);
+    if (check_flag(&flag, "IDARootInit", 1)) {
+      *ierr=10000;  
+      IDAFree(&ida_mem);
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    };
+
+
+    flag = IDADense(ida_mem, *neq);
+    if (check_flag(&flag, "IDADense", 1)) {
+      *ierr=10000;  
+      IDAFree(&ida_mem);
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    };
+
+
+    data=NULL;
+    if ((data = (UserData) MALLOC(sizeof(*data)))==NULL){
+      *ierr=10000;
+      IDAFree(&ida_mem);
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    };
+    data->ida_mem = ida_mem;
+    data->ewt   = NULL;
+    data->iwork = NULL;
+    data->rwork = NULL;
+
+    data->ewt   = N_VNew_Serial(*neq);
+    if (check_flag((void *)data->ewt, "N_VNew_Serial", 0)) {
+      *ierr=10000;
+      FREE(data);
+      IDAFree(&ida_mem);
+      N_VDestroy_Serial(IDx);
+      N_VDestroy_Serial(yp);
+      N_VDestroy_Serial(yy);
+      FREE(jroot);
+      FREE(zcros);
+      FREE(Mode_save);
+      return;
+    };
+
+    //Jacobian_Flag=0;
+    if (Jacobian_Flag==1){/* set by the block with A-Jac in flag-4 using Set_Jacobian_flag(1); */
+      Jn=*neq;
+      Jnx=Blocks[AJacobian_block-1].nx;
+      Jno=Blocks[AJacobian_block-1].nout;
+      Jni=Blocks[AJacobian_block-1].nin;
+      Jactaille= 2*Jn+(Jn+Jni)*(Jn+Jno)+Jnx*(Jni+2*Jn+Jno)+(Jn-Jnx)*(2*(Jn-Jnx)+Jno+Jni)+2*Jni*Jno;    
+  
+      if ((data->rwork = (double *) MALLOC(Jactaille * sizeof(double)))==NULL){
+	N_VDestroy_Serial(data->ewt);
+	FREE(data);
+	IDAFree(&ida_mem);
+	N_VDestroy_Serial(IDx);
+	N_VDestroy_Serial(yp);
+	N_VDestroy_Serial(yy);
+	FREE(jroot);
+	FREE(zcros);
+	FREE(Mode_save);
+	*ierr =10000;
+	return;
+      }
+
+      flag = IDADenseSetJacFn(ida_mem, Jacobians, data);
+      if(check_flag(&flag, "IDADenseSetJacFn", 1)) {
+	*ierr=10000;  
+	freeallx
+	  return;
+      };  
+    }
+
+    flag = IDASetRdata(ida_mem, data);
+    if (check_flag(&flag, "IDASetRdata", 1)) {
+      *ierr=10000;    
+      freeallx
+	return;
+    };
+    
+ 
+    if(hmax>0){
+      flag=IDASetMaxStep(ida_mem, (realtype) hmax);
+      if (check_flag(&flag, "CVodeSetMaxStep", 1)) {
+	*ierr=10000;    
+	freeallx
+	return;
+      };
+    }
+
+  }/* testing if neq>0 */
 
   uround = 1.0;
   do{
@@ -1725,41 +1882,8 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   /*      stuck=.false. */
   C2F(xscion)(&inxsci);
   /*     initialization */
-  C2F(iset)(&niwp, &c__0, &ihot[1], &c__1);
-  C2F(dset)(&nrwp, &c_b14, &rhot[1], &c__1);
   C2F(realtimeinit)(told, &C2F(rtfactor).scale);
   /*     ATOL and RTOL are scalars */
-  info[1] = 0;
-  info[2] = 0;
-  info[3] = 1;
-  /*don't go beyond stopping point TSTOP defined by RWORK(1)*/
-
-  /*     derivatives automatically computed by numerical differences */
-  info[4] = 0;
-  /*     full jac matrx */
-  info[5] = 0;
-
-  if(hmax==0){
-    info[6] = 0;    /*  code determines maximaum step-size */
-  }else{
-    info[6] = 1;
-    rhot[2]=hmax;  /*  user defined maximaum step-size */
-  }
-
-  /*     code determines initial step size */
-  info[7] = 0;
-  /*     MAXORD=5 */
-  info[8] = 0;
-  /*     no info on solution sign available */
-  info[9] = 0;
-  /*     direc method instead of Dcrylof method */
-  info[11] = 0;
-  info[12] = 0;
-  info[13] = 0;
-  info[14] = 0; 
-  info[15] = 0;
-  info[16] = 0;
-  info[17] = 0;
 
   jj = 0;
   for (C2F(curblk).kfun = 1; C2F(curblk).kfun <= nblk; ++C2F(curblk).kfun) {
@@ -1828,7 +1952,9 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	}
       } else {
 	if (hot == 0) {
-	  reinitdoit(told,scicos_xproperty);
+	  N_VConst(ONE, IDx); /* Initialize id to 1's. */
+	  scicos_xproperty=NV_DATA_S(IDx);
+	  reinitdoit(told,scicos_xproperty);	  
 	  if(*ierr >0){
 	    freeallx;
 	    return;
@@ -1847,14 +1973,22 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	    goto L20;
 	  }
 	L30:
-	  if (rhotmp < rhot[1]) {
+	  if (rhotmp < tstop) {
 	    hot = 0;/* Do cold-restat the solver:if the new TSTOP isn't beyong the previous one*/ 
 	  }
 	}
-	rhot[1] = rhotmp;
+	tstop = rhotmp;
 	t = min(*told + deltat,min(t,*tf + ttol));
 
 	if (hot == 0){ /* CIC calculation when hot==0 */
+	  
+	  /* Setting the stop time*/
+	  flag = IDASetStopTime(ida_mem, (realtype)tstop);  
+	  if (check_flag(&flag, "IDASetStopTime", 1)) {    
+	    *ierr=10000;    
+	    freeallx;
+	    return;
+	  };
 
 	  if (ng>0&&nmod>0){
 	    phase=1;
@@ -1865,31 +1999,46 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	    }
 	  }
 
-
-	  for(j=0;j<=nmod;j++){/* counter to reevaluate the 
+	  
+	  for(j=0;j<=(nmod+*neq);j++){/* counter to reevaluate the 
 				  modes in  mode->CIC->mode->CIC-> loop 
 				  do it once in the absence of mode (nmod=0)*/
-	    /* updating the modes through Flag==9, Phase==1 */
-
-	    info[0]=0;  /* cold start */
-	    info[10]=1; /* inconsistent IC */
-	    info[13]=1; /* return after CIC calculation */
+	    /* updating the modes through Flag==9, Phase==1 */	    
+	    N_VConst(ONE, IDx); /* Initialize id to 1's. */
+	    scicos_xproperty=NV_DATA_S(IDx);
 	    reinitdoit(told,scicos_xproperty);/* filling up the scicos_xproperties */
  	    if(*ierr >0){
 	      freeallx;
 	      return; 
 	    }
-	    for (jj = 1; jj <= *neq; ++jj) {
-	      ihot[jj + 40] = scicos_xproperty[jj-1];
+
+	    flag=IDASetId(ida_mem,IDx);
+	    if (check_flag(&flag, "IDASetId", 1)) {
+	      *ierr=10000;    
+	      freeallx
+	      return;
 	    }
-	    phase=2;
-	    /* Jacobian*/
-	    info[4] =Jacobian_Flag; 
-	    /*	    info[4] =0; */ /* numerical Jacobian */
-	    C2F(ddaskr)(C2F(simblkdaskr), neq, told, x, xd, &t, info,  &rtol, 
-			 &Atol, &istate, &rhot[1],&nrwp, &ihot[1], &niwp,
-			rpardummy, ipardummy, C2F(Jacobian), rpardummy, 
-			C2F(grblkdaskr), &ng, jroot);
+
+	    // yy->PH
+	    flag =IDAReInit(ida_mem, simblkdaskr, (realtype)(*told), yy, yp, IDA_SS, reltol, &abstol);
+	    if (check_flag(&flag, "CVodeReInit", 1)) {
+	      *ierr=10000;    
+	      freeallx;
+	      return;
+	    };	
+	  
+
+	  
+	    phase=2;//IDACalcIC: PHI-> yy0: if (ok) yy0_cic-> PHI
+	    flag=IDACalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
+	    phase=1;
+
+	    flag = IDAGetConsistentIC(ida_mem, yy, yp);// PHI->YY
+
+	    if (*ierr > 5) {  /* *ierr>5 => singularity in block */
+	      freeallx;
+	      return;
+	    }
 
 	    if (*ierr > 5) {
 	      freeallx;
@@ -1898,10 +2047,10 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	    if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
             {
 	      if (istate==4) {
-		sciprint("**** daskr succesfully initialized *****/r/n" );
+		sciprint("**** SUNDIALS.IDA succesfully initialized *****/r/n" );
 	      }
 	      else{
-		sciprint("**** daskr failed to initialize ->try again *****/r/n" );
+		sciprint("**** SUNDIALS.IDA failed to initialize ->try again *****/r/n" );
 	      }
 	    }
 	    /*-------------------------------------*/
@@ -1932,14 +2081,8 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	    freeallx;
 	    return;
 	  }
-	  info[0]=0;  /* cold restart */
-	  info[10]=1; /* to reevaluate CIC when info[0]==0*/
-	  info[13]=0; /* continue after CIC calculation */
 	} /* CIC calculation when hot==0 */
 
-	info[0]=hot;
-	/*     Warning rpar and ipar are used here as dummy pointers */
-	phase=2;
 	if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
         {
 	  sciprint("****daskr from: %f to %f hot= %d  \r\n", *told,t,hot);
@@ -1947,55 +2090,63 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
 	/*--discrete zero crossings----dzero--------------------*/
 	/*--check for Dzeros after Mode settings or ddoit()----*/
+	Discrete_Jump=0;
 	if (ng>0 && hot==0){
 	  zdoit(g, xd, x,told);
 	  if (*ierr != 0) {freeallx;return;  }
 	  istate=0;
 	  for (jj = 0; jj < ng; ++jj) {
-	    if((g[jj]>=0.0)&&( jroot[jj]==-5)) {istate=5;jroot[jj]=1;}
-	    else if((g[jj]<0.0)&&( jroot[jj]==5)) {istate=5;jroot[jj]=-1;}
+	    if((g[jj]>=0.0)&&( jroot[jj]==-5)) {Discrete_Jump=1;jroot[jj]=1;}
+	    else if((g[jj]<0.0)&&( jroot[jj]==5)) {Discrete_Jump=1;jroot[jj]=-1;}
 	    else jroot[jj]=0;
 	  }
 	}
+
 	/*--discrete zero crossings----dzero--------------------*/
-	if (istate!=5){/* if there was a dzero, its event should be activated*/
-	C2F(ddaskr)(C2F(simblkdaskr), neq, told, x, xd, &t, 
-		    info, &rtol, &Atol, &istate, &rhot[1], &
-		    nrwp, &ihot[1], &niwp, rpardummy, ipardummy
-		    ,C2F(Jacobian), rpardummy, C2F(grblkdaskr), &ng, jroot);
-	}
-
-	if (istate == -1)
-	  sciprint("**** Stiffness at: %26.18f %d\r\n",*told,istate);
-
-	phase=1;
-	if (*ierr > 5) {
-	  freeallx; /* singularity in block */
-	  return;
+	if (Discrete_Jump==0){/* if there was a dzero, its event should be activated*/
+	  phase=2;
+	  flag = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL_TSTOP);
+	  phase=1;
+	  if (((flag<0)&& flag != IDA_TOO_MUCH_WORK)||(*ierr > 5) ) { /*     *ierr>5 => singularity in block */
+	    hot=0;
+	    /*fprintf(stderr, "\nSUNDIALS_ERROR: Ida failed with flag = %d\n\n",flag);*/
+	    *ierr=10000;    
+	    freeallx;
+	    return;
+	  };
+	}else{
+	  flag = IDA_ROOT_RETURN; /* in order to handle discrete jumps */
 	}
 	
-	if (istate <= -2) { /* in case istate==-1 : continue the integration*/
-	  *ierr = 100 - istate;
-	  freeallx;/* singularity in block */
-	  return;
-	} else {
+	if ( flag==IDA_TOO_MUCH_WORK ) {  /* -1 == CV_TOO_MUCH_WORK) */
+	  sciprint("**** SUNDIALS.Ida: too much work at time=%g (may be it's a stiff region)\r\n",*told);	  
+	  hot = 0;
+	}else if  (flag>=0 ) {
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
-          {
-	    sciprint("****daskr reached: %f\r\n",*told);
-	  }
-	  hot = 1;/* successful return from DDASKR => hot restart*/
+	    sciprint("****SUNDIALS.Ida reached: %f\r\n",*told);
+	  hot = 1;
 	}
-	
+
 	/*     update outputs of 'c' type  blocks if we are at the end*/
 	if (*told >= *tf) {
 	  cdoit(told);
 	  freeallx;
 	  return;
 	}
-	if (istate == 6) hot=0; /* new feature of daskr, detects unmasking */
-	if (istate == 5) {
+
+	if (flag == CV_ZERO_DETACH_RETURN){hot=0;}; /* new feature of sundials, detects unmasking */
+	if (flag == IDA_ROOT_RETURN) {
 	  /*     .        at a least one root has been found */
 	  hot = 0;
+	  if (Discrete_Jump==0){
+	    flagr = IDAGetRootInfo(ida_mem, jroot);
+	    if (check_flag(&flagr, "IDAGetRootInfo", 1)) {
+	      *ierr=10000;    
+	      freeallx;
+	      return;
+	    };
+	  }
+
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
           {
 	    sciprint("root found at t=: %f\r\n",*told);
@@ -2894,7 +3045,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
 /* Subroutine */ void reinitdoit(told,scicos_xproperty)
      double *told;
-     integer *scicos_xproperty;
+     realtype *scicos_xproperty;
 {
   /* System generated locals */
   integer i2;
@@ -4220,48 +4371,55 @@ int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data)
  return 0;
 }
 
+int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *rdata)
 
-int C2F(simblkdaskr)(t,xc,xcdot,cj,residual,ires,rpar1,ipar1)
-     integer *ires,*ipar1;
-     double *t, *xc, *xcdot, *rpar1, *residual;
-     double *cj;
-
-     /* 
-	!purpose 
-	compute residual  of the continuous part
-	!calling sequence 
-	t     : current time 
-	xc    : double precision vector whose  contains the continuous state. 
-	xcdot : double precision vector, contain the computed derivative 
-	of the state 
-     */
 {
-  CJJ=*cj;
+  double tx;
+  double *xc, *xcdot, *residual;
+  realtype alpha;
+
+  UserData data;
+  data = (UserData) rdata; 
+  realtype hh;
+  int qlast;
+  int jj;
+
+  hh=ZERO;
+  IDAGetCurrentStep(data->ida_mem, &hh);
+
+  qlast=0;
+  IDAGetCurrentOrder(data->ida_mem, &qlast);
+  alpha=ZERO;
+  for (jj=0;jj<qlast;jj++)
+    alpha=alpha -ONE/(jj+1);
+  if (hh!=0) CJJ=-alpha/hh; else {*ierr= 1;return (*ierr);}
+  xc=(double *)  NV_DATA_S(yy);
+  xcdot= (double *) NV_DATA_S(yp);
+  residual=(double *) NV_DATA_S(resval);
+  tx=(double) tres;
+
   C2F(dcopy)(neq, xcdot, &c__1, residual, &c__1);
-  *ires=0;
   *ierr= 0;
   C2F(ierode).iero = 0;
-  odoit(residual, xc, xcdot,t);
+  odoit(residual, xc, xcdot,&tx);
+
   C2F(ierode).iero = *ierr;
-  if(C2F(ierode).iero != 0) *ires=-1;
-  return 0;
+
+  return (*ierr); //ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok
 }
 
 
-int C2F(grblkdaskr)(neq1, t, xc, xtd,ng1, g,rpar1,ipar1)
-     integer *neq1;
-     double *t, *xc, *xtd;
-     integer *ng1,*ipar1;
-     double *g,*rpar1;
+int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void *g_data)
 {
+  double tx;
+  tx=(double) t;
+
   *ierr= 0;
   C2F(ierode).iero = 0;
-  zdoit(g, xtd, xc,t);
+  zdoit((double *)gout, NV_DATA_S(yp), NV_DATA_S(yy),&tx);
   C2F(ierode).iero = *ierr;
-  return 0;
+  return (*ierr);
 }
-
-
 
 
 /* Subroutine */ void addevs(t, evtnb, ierr1)
@@ -4499,7 +4657,9 @@ void set_pointer_xproperty(int* pointer)
 {
   int i;
   for (i=0;i<n_pointer_xproperty;i++){
-    pointer_xproperty[i]=pointer[i];
+    /* pointer_xproperty[i]=pointer[i]; */
+    if (pointer[i]==1)  pointer_xproperty[i]=ONE;
+    if (pointer[i]==-1) pointer_xproperty[i]=ZERO;
   }
   return;
 }
@@ -4716,31 +4876,51 @@ void Jdoit(residual, xt, xtd, told, job)
 } /* odoit_ */
 /*-----------------------------------------------------------------------*/
 
-int C2F(Jacobian)(t,xc, xcdot,residual,cj,rpar1,ipar1)
-     int *ipar1;
-     double *t, *xc, *xcdot, *rpar1, *residual;
-     double *cj;
-{ 
+int Jacobians(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
+           N_Vector resvec, realtype cj, void *jdata, DenseMat Jacque,
+           N_Vector tempv1, N_Vector tempv2, N_Vector tempv3)
+{
+  double  ttx;
+  double *xc, *xcdot, *residual;
+  /*  char chr;*/
   int i,j,n, nx,ni,no,nb,m;
-  double *RX, *Fx, *Fu, *Gx, *Gu, *Ewt,*H,*SQUR,*ERR1,*ERR2;
+  double *RX, *Fx, *Fu, *Gx, *Gu, *ERR1,*ERR2;
   double *Hx, *Hu,*Kx,*Ku,*HuGx,*FuKx,*FuKuGx,*HuGuKx;
-  double del,delinv,xsave,xdsave,ysave;
-  double a,b;
+  double ysave;
   int job;
   double **y = (double **)Blocks[AJacobian_block-1].outptr; /*for compatibility */
   double **u = (double **)Blocks[AJacobian_block-1].inptr; /*warning pointer of y and u have changed to void ***/
-  /*  taill1= 2+3*n+(n+ni)*(n+no)+nx(2*nx+ni+2*m+no)+m*(2*m+no+ni)+2*ni*no*/
+   /*  taill1= 2*n+(n+ni)*(n+no)+nx(2*nx+ni+2*m+no)+m*(2*m+no+ni)+2*ni*no*/
+  double inc, inc_inv, xi, xpi, srur;
+  realtype *Jacque_col;
+
+  UserData data;
+  realtype hh;
+  N_Vector ewt;
+  double *ewt_data;
+ 
   *ierr= 0;
-  CJJ=*cj;
-  n=*neq; 
+  xc   =(double *) N_VGetArrayPointer(yy);
+  xcdot  =(double *) N_VGetArrayPointer(yp);
+  residual=(double *) NV_DATA_S(resvec);
+  ttx=(double)tt;
+  CJJ=(double)cj;
+
+  data = (UserData) jdata;
+  ewt = data->ewt;
+  IDAGetCurrentStep(data->ida_mem, &hh);
+  IDAGetErrWeights(data->ida_mem, ewt);
+  ewt_data=NV_DATA_S(ewt);
+  srur =(double) RSqrt(UNIT_ROUNDOFF);
+
+  n=Neq; 
   nb=nblk;
-  nx=Blocks[AJacobian_block-1].nx;m=n-nx;
+  nx=Blocks[AJacobian_block-1].nx; /* quant on est là cela signifie que AJacobian_block>0 */
+  m=n-nx;
   no=Blocks[AJacobian_block-1].nout;
   ni=Blocks[AJacobian_block-1].nin;
-  H=residual+ n * n;
-  SQUR=H+1;
-  Ewt=SQUR+1;
-  ERR1=Ewt+n;
+
+  ERR1=(double *)data->rwork;
   ERR2=ERR1+n;
   RX=ERR2+n;
   Fx=RX+(n+ni)*(n+no); /* car (nx+ni)*(nx+no) peut etre > `a n*n*/
@@ -4755,89 +4935,106 @@ int C2F(Jacobian)(t,xc, xcdot,residual,cj,rpar1,ipar1)
   FuKx=HuGx+m*nx;
   FuKuGx=FuKx+nx*m;
   HuGuKx=FuKuGx+nx*nx;
-  /* HuGuKx+m*m;=.  m*m=size of HuGuKx */
+  /* HuGuKx+m*m; =>  m*m=size of HuGuKx */
   /* ------------------ Numerical Jacobian--->> Hx,Kx */
   job=0;/* read residuals;*/
-  Jdoit(ERR1, xc, xcdot,t,&job);
+  Jdoit(ERR1, xc, xcdot,&ttx,&job);
   if (*ierr < 0) return -1;
-
   for (i=0;i<m;i++)
     for (j=0;j<ni;j++)
       Kx[j+i*ni]=u[j][0];
 
   for(i=0;i<m;i++){
-    a= max(abs(H[0]*xcdot[i]),abs(1.0/Ewt[i]));
-    b= max(1.0,abs(xc[i]));
-    del=SQUR[0]*max(a,b);
-    if (H[0]*xcdot[i]<0) del*=-1;
-    del=(xc[i]+del)-xc[i];
-    xsave=xc[i];
-    xdsave=xcdot[i];
-    xc[i]+=del;
-    xcdot[i]+=CJJ*del;
+    xi = xc[i];
+    xpi = xcdot[i];
+    inc = MAX( srur * MAX( ABS(xi),ABS(hh*xpi)),ONE/ewt_data[i] );
+    if (hh*xpi < ZERO) inc = -inc;
+    inc = (xi + inc) - xi;
+    xc[i] += inc;
+    xcdot[i] += CJJ*inc;
+    /*a= max(abs(H[0]*xcdot[i]),abs(1.0/Ewt[i]));
+      b= max(1.0,abs(xc[i]));
+      del=SQUR[0]*max(a,b);    */
     job=0;/* read residuals */
-    Jdoit(ERR2, xc, xcdot,t,&job);
+    Jdoit(ERR2, xc, xcdot,&ttx,&job);
     if (*ierr < 0) return -1;
-    delinv=1.0/del;
+    inc_inv = ONE/inc;
     for(j=0;j<m;j++)
-      Hx[m*i+j]=(ERR2[j]-ERR1[j])*delinv;
+      Hx[m*i+j]=(ERR2[j]-ERR1[j])*inc_inv;
     for (j=0;j<ni;j++)
-      Kx[j+i*ni]=(u[j][0]-Kx[j+i*ni])*delinv;
-    xc[i]=xsave;
-    xcdot[i]=xdsave;
+      Kx[j+i*ni]=(u[j][0]-Kx[j+i*ni])*inc_inv;
+    xc[i]=xi;
+    xcdot[i]=xpi;
   }
   /*----- Numerical Jacobian--->> Hu,Ku */
+
   job=0;
-  Jdoit(ERR1, xc, xcdot,t,&job);
+  Jdoit(ERR1, xc, xcdot,&ttx,&job);
   for (i=0;i<no;i++)
     for (j=0;j<ni;j++)
       Ku[j+i*ni]=u[j][0];
 
   for(i=0;i<no;i++){
-    del=SQUR[0]* max(1.0,abs(y[i][0]));
-    del=(y[i][0]+del)-y[i][0];
     ysave=y[i][0];
-    y[i][0]+=del;
+    inc =srur * MAX( ABS(ysave),1);
+    inc = (ysave + inc) - ysave;
+    /*del=SQUR[0]* max(1.0,abs(y[i][0]));
+      del=(y[i][0]+del)-y[i][0];*/
+    y[i][0] += inc;
     job=2;/* applying y[i][0] to the output of imp block*/
-    Jdoit(ERR2, xc, xcdot,t,&job);
+    Jdoit(ERR2, xc, xcdot,&ttx,&job);
     if (*ierr < 0) return -1;
-    delinv=1.0/del;
+    inc_inv = ONE/inc;
     for(j=0;j<m;j++)
-      Hu[m*i+j]=(ERR2[j]-ERR1[j])*delinv;
+      Hu[m*i+j]=(ERR2[j]-ERR1[j])*inc_inv;
     for (j=0;j<ni;j++)
-      Ku[j+i*ni]=(u[j][0]-Ku[j+i*ni])*delinv;
+      Ku[j+i*ni]=(u[j][0]-Ku[j+i*ni])*inc_inv;
     y[i][0]=ysave;
   }
   /*----------------------------------------------*/
   job=1;/* read jacobian through flag=10; */
-  Jdoit(&Fx[-m], xc, xcdot,t,&job);/* Filling up the FX:Fu:Gx:Gu*/
+  Jdoit(&Fx[-m], xc, xcdot,&ttx,&job);/* Filling up the FX:Fu:Gx:Gu*/
   if (*block_error!=0) sciprint("\n\r error in Jacobian");
   /*-------------------------------------------------*/
+
   Multp(Fu,Ku,RX,nx,ni,ni,no);Multp(RX,Gx,FuKuGx,nx,no,no,nx);
-  for (i=0;i<nx;i++)
-    for (j=0;j<nx;j++){
-      residual[i+m+(j+m)*n]=Fx[i+j*nx]+FuKuGx[i+j*nx];
+
+  for (j=0;j<nx;j++){
+    Jacque_col=DENSE_COL(Jacque,j+m);
+    for (i=0;i<nx;i++){
+      Jacque_col[i+m]=Fx[i+j*nx]+FuKuGx[i+j*nx];
     }
+  }
 
   Multp(Hu,Gx,HuGx,m, no, no,nx);
-  for (i=0;i<nx;i++)
+
+  for (i=0;i<nx;i++){
+    Jacque_col=DENSE_COL(Jacque,i+m);
     for (j=0;j<m;j++){
-      residual[j+(i+m)*n]=HuGx[j+i*m];
+      Jacque_col[j]=HuGx[j+i*m];
     }
+  }
 
   Multp(Fu,Kx,FuKx,nx,ni,ni,m);
-  for (i=0;i<m;i++)
+
+  for (i=0;i<m;i++){
+    Jacque_col=DENSE_COL(Jacque,i);
     for (j=0;j<nx;j++){
-      residual[(j+m)+i*n]=FuKx[j+i*nx];
+      Jacque_col[j+m]=FuKx[j+i*nx];
     }
+  }
+
 
   Multp(Hu,Gu,RX,m,no,no,ni); Multp(RX,Kx,HuGuKx,m,ni,ni,m);
-  for (i=0;i<m;i++)
-    for (j=0;j<m;j++){
-      residual[i+(j)*n]=Hx[i+j*m]+HuGuKx[i+j*m]; 
-    }
 
-  /*  chr='R'; DISP(residual,n,n,&chr);*/
+  for (j=0;j<m;j++){
+    Jacque_col=DENSE_COL(Jacque,j);
+    for (i=0;i<m;i++){
+      Jacque_col[i]=Hx[i+j*m]+HuGuKx[i+j*m]; 
+    }
+  }
+
+  /*  chr='Z';   printf("\n\r t=%g",ttx); DISP(Z,n,n,chr);*/
   C2F(ierode).iero = *ierr;
  return 0;
 
@@ -4848,7 +5045,7 @@ void Multp(A,B,R,ra ,ca, rb,cb)
      int ra,rb,ca,cb;
 {
   int i,j,k;
-  if (ca!=rb) sciprint("\n\r Error in matrix multiplication");
+  /*if (ca!=rb) sciprint("\n\r Error in matrix multiplication");*/
   for (i = 0; i<ra; i++)
     for (j = 0; j<cb; j++){
       R[i+ra*j]=0.0;
@@ -4857,7 +5054,7 @@ void Multp(A,B,R,ra ,ca, rb,cb)
     }
   return;
 }
-
+/*----------------------------------------------------*/
 /* void DISP(A,ra ,ca,name)
      double *A;
      int ra,ca,*name;
