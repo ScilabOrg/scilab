@@ -17,14 +17,14 @@ case 'set' then
  label=graphics.exprs;
  while %t do
    [ok,Tin,Tintype,Tout,Touttype,Tparam,Tparamv,Tfunam,lab]=..
-       getvalue('Set M_block parameters',..
-       ['Input variables: []                  ';..
-        'Input variables types: []            ';..
-        'Output variables: [''y1'';''y2'']    ';..
-	'Output variables types: [''I'';''E'']';..
-    	'Parameters in Modelica:[''L'';''R2'']';..
-	'Parameter  values:  [0.01;12]        ';..
-        'Function name: Myfun  or  c:\Myfun.mo'],..
+       getvalue('Set Modelica generic block parameters',..
+       ['Input variables:       ';..
+        'Input variables types: ';..
+        'Output variables:      ';..
+	'Output variables types:';..
+    	'Parameters in Modelica:';..
+	'Parameter  values:     ';..
+        'Function name:         '],..
        list('str',-1,'str',-1,'str',-1,'str',-1,'str',-1,'str',-1,'str',-1),label(1))
    if ~ok then break,end
    ierr=execstr("in=stripblanks(evstr(Tin));..
