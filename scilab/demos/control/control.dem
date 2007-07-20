@@ -9,7 +9,7 @@ demolist=['LQG',               'lqg/lqg.dem'
 	  'Tracking',          'tracking/track.dem'
 	  'Robust control',    'robust/rob.dem']
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');
 
 

@@ -14,5 +14,5 @@ demolist=['Finite Element display with colorbar','fec.ex4';
 	  'Finite Element display with a mesh','fec.ex2';
 	  'Sfgrayplot ','fec.ex3'];
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');

@@ -7,5 +7,5 @@ demolist=['n-pendulum','npend/npend.dem';
 	  'ODE''S','ode/ode.dem';
 	  'DAE''S','dae/dae.dem']
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');

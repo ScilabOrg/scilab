@@ -8,6 +8,6 @@ demolist=['LMITOOL',                    'lmitool/lmi.dem'
           'Non linear data fitting',    'datafit/datafit.dem']
 
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');
 

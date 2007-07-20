@@ -12,6 +12,6 @@ demolist=['Rotation of a 3D Surface (plot3d1)','anim1.dem';
 	'Riemann surface','anim7.dem';
 	'Shell','anim8.dem'];
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'anim');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'anim');
 

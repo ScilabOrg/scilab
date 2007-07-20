@@ -12,7 +12,7 @@ demolist=[
 'Van der Pol vector field','ode_vanderpol.dem'
 'Lotka-Volterra vector field','ode_lotka.dem']
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');
 
 

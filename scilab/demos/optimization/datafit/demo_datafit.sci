@@ -15,7 +15,7 @@ function demo_datafit()
   xselect();
   plot2d(X',Y',style=-1,leg='Experimental data');
   xtitle('non linear data fitting');
-  //xset("fontsize",3);    //ne marche pas
+  //xset("fontsize",3);    //doesn't work
   realtimeinit(0.1);for k=1:20,realtime(k),end
   // solve the non linear data fitting
   [p,err]=datafit(G,Z,[3;5;10])

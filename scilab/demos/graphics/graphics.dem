@@ -13,5 +13,5 @@ demolist=['2D and 3D plots','plots/dessin.dem',
 		'Complex elementary functions','cmplxfunc/cmplxfunc.dem',
 		'bar histogram','bar/bar.dem']
 
-getf('SCI/demos/demos_lib/demo_folder_choice.sci');
-demo_folder_choice(path,'no');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+demo_file_choice(path,'no');

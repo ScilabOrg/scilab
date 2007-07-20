@@ -1,5 +1,6 @@
 function [path,oldln]=demo_wp_begin(fil)
 mode(-1);
+clc;
 if fil~='nofile' then
   path=get_absolute_file_path(fil);
 end
