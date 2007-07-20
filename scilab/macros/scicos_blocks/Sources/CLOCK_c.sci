@@ -36,7 +36,7 @@ function [x,y,typ]=CLOCK_c(job,arg1,arg2)
 	break
       end
     end
-    pause
+
     if ~and([t0_old dt_old]==[t0 dt]) then 
       // parameter  changed
       newpar(size(newpar)+1)=path// Notify modification
