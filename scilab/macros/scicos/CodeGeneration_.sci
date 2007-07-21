@@ -1,6 +1,6 @@
 //Input editor function of Scicos code generator
 //
-//@l@n, 20/07/07
+//@l@n, 21/07/07
 //
 function CodeGeneration_()
 
@@ -1919,8 +1919,6 @@ function Code=make_computational42()
         '']
 
   Code=[Code;
-        '/* declaration of scicos block function */'
-        'int '+rdnom+'();'
         Protos
         '']
 
@@ -2982,6 +2980,7 @@ function Code=make_sensor(standalone)
               '        break;'
               ''
               '      }'
+              '      break;'
               '    case 4 : /* sensor initialisation */'
               '      /* do whatever you want to initialize the sensor */'
               '      break;'
@@ -3169,7 +3168,7 @@ function Code=make_standalone42()
   if x<>[] then
     Code=[Code
           '/* Code prototype for standalone use  */'
-          'int C2F('+rdnom+'simblk)(double *, double *, double *);'
+          'int C2F('+rdnom+'simblk)(double , double *, double *);'
           'extern  integer C2F(dset)();'
           'int ode1();'
           'int ode2();'
@@ -4013,7 +4012,7 @@ function Code=make_standalone42()
     Code=[Code;
           'int C2F('+rdnom+'simblk)(t, x, xd)'
           ''
-          '   double *t, *x, *xd;'
+          '   double t, *x, *xd;'
           ''
           '     /*'
           '      *  !purpose'
@@ -4066,7 +4065,7 @@ function Code=make_standalone42()
           '  int i;'
           ''
           '  /**/'
-          '  (*f)(&t,x, xd);'
+          '  (*f)(t,x, xd);'
           ''
           '  for (i=0;i<neq;i++) {'
           '   x[i]=x[i]+h*xd[i];'
@@ -4088,7 +4087,7 @@ function Code=make_standalone42()
           '  memcpy(f0,xd,neq*sizeof(double));'
           ''
           '  /**/'
-          '  (*f)(&t,y, f0);'
+          '  (*f)(t,y, f0);'
           ''
           '  /**/'
           '  for (i=0;i<neq;i++) {'
@@ -4098,7 +4097,7 @@ function Code=make_standalone42()
           '  for (i=0;i<neq;i++) {'
           '    yh[i]=y[i]+h*f0[i];'
           '  }'
-          '  (*f)(&th,yh, xd);'
+          '  (*f)(th,yh, xd);'
           ''
           '  /**/'
           '  temp=0.5*h;'
@@ -4124,7 +4123,7 @@ function Code=make_standalone42()
           '  memcpy(f0,xd,neq*sizeof(double));'
           ''
           '  /**/'
-          '  (*f)(&t,y, f0);'
+          '  (*f)(t,y, f0);'
           ''
           '  /**/'
           '  for (i=0;i<neq;i++) {'
@@ -4134,7 +4133,7 @@ function Code=make_standalone42()
           '  for (i=0;i<neq;i++) {'
           '    yh[i]=y[i]+(h/2)*f0[i];'
           '  }'
-          '  (*f)(&th2,yh, f1);'
+          '  (*f)(th2,yh, f1);'
           ''
           '  /**/'
           '  temp=0.5*h;'
@@ -4144,7 +4143,7 @@ function Code=make_standalone42()
           '  for (i=0;i<neq;i++) {'
           '    yh[i]=y[i]+(h/2)*f1[i];'
           '  }'
-          '  (*f)(&th2,yh, f2);'
+          '  (*f)(th2,yh, f2);'
           ''
           '  /**/'
           '  for (i=0;i<neq;i++) {'
@@ -4154,7 +4153,7 @@ function Code=make_standalone42()
           '  for (i=0;i<neq;i++) {'
           '    yh[i]=y[i]+h*f2[i];'
           '  }'
-          '  (*f)(&th2,yh, xd);'
+          '  (*f)(th2,yh, xd);'
           ''
           '  /**/'
           '  temp=h/6;'
