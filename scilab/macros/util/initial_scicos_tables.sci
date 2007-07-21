@@ -65,6 +65,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      'Smart Move',..
 	      'Align',..
 	      'Flip',..
+	      'Rotate Left',..
+	      'Rotate Right',..
 	      'Add new block',..
 	      'Block Documentation'..
 	      'Label'];
@@ -118,6 +120,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		 'z','Smart Move';
 		 'u','Undo';
 		 'f','Flip';
+		 't','Rotate Left';
+		 'T','Rotate Right';
 		 'o','Open/Set';
 		 's','Save';
 		 'i','Get Info';
@@ -148,7 +152,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
                       'Cut','Copy','Paste','Set grid',..
 		      'Smart Move','Move','Duplicate',..
 		      'Duplicate Region','Replace','Align','Link','Delete','Delete Region',..
-		      'Add new block','Flip','Undo','Setup','Compile','Eval','Debug Level','Run',..
+		      'Add new block','Flip','Rotate Left','Rotate Right',..
+                      'Undo','Setup','Compile','Eval','Debug Level','Run',..
 		      'Replot','New','Region to Super Block','Purge','Rename','Save',..
 		      'Save As','Load','Load as Palette','Save as Palette','Save as Interf Func',..
 		      'Set Diagram Info','Navigator','Quit','Open/Set','Resize','Icon',..
@@ -307,6 +312,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		      ' ports which are numbered from left to right.';
 		      ' ';
 		      ' A connected block cannot be flipped.'],..
+		     [''],.. //rotate left
+		     [''],.. //rotate roght
 		     [' Select the Undo menu item to undo the last edit operation.';
 		      ' It is not possible to undo more!.'],..
 		     [' In the main Scicos window, clicking on the Setup menu item';

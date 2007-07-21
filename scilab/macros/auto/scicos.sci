@@ -109,6 +109,8 @@ if ~super_block then
       'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
       'Delete',                'Delete: Click on the object to delete';
       'Flip',                  'Click on block to be flipped'      ;
+      'Rotate Left',           'Click on block to be turned left'  ;
+      'Rotate Right',          'Click on block to be turned right' ;
       'Open/Set',              'Click to open block or make a link';
       'MoveLink',              ''                                  ;
       'SelectLink',            ''                                  ;
