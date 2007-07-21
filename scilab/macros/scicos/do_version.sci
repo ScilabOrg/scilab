@@ -342,10 +342,79 @@ function scs_m_new = update_scs_m(scs_m,version)
               scs_m_new.objs(j) = o_new;
             //************************************//
 
+            //************** Text ****************//
+            case 'Text' then
+              o_new = mlist(['Text','graphics','model','void','gui'],...
+                            scicos_graphics(),scicos_model(),' ','TEXT_f')
+
+              T     = getfield(1,o);
+              T_txt = [];
+              for k=2:size(T,2)
+                select T(k)
+                  //*********** graphics **********//
+                  case 'graphics' then
+                    ogra  = o.graphics;
+                    G     = getfield(1,ogra);
+                    G_txt = [];
+                    for l=2:size(G,2)
+                      G_txt = G_txt + G(1,l) + ...
+                              "=" + "ogra." + G(1,l);
+                      if l<>size(G,2) then
+                        G_txt = G_txt + ',';
+                      end
+                    end
+                    G_txt = 'ogra=scicos_graphics(' + G_txt + ')';
+                    ierr  = execstr(G_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion of graphics in text.")
+                    end
+                    o_new.graphics = ogra;
+                  //*******************************//
+
+                  //************* model ***********//
+                  case 'model' then
+                    omod  = o.model;
+                    M     = getfield(1,o.model);
+                    M_txt = [];
+                    for l=2:size(M,2)
+                      M_txt = M_txt + M(1,l) + ...
+                              "=" + "omod." + M(1,l);
+                      if l<>size(M,2) then
+                        M_txt = M_txt + ',';
+                      end
+                    end
+                    M_txt = 'omod=scicos_model(' + M_txt + ')';
+                    ierr  = execstr(M_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion of model in text.")
+                    end
+                    //******** super block case ********//
+                    if omod.sim=='super'|omod.sim=='csuper' then
+                      rpar=update_scs_m(omod.rpar,version)
+                      omod.rpar=rpar
+                    end
+                    o_new.model = omod;
+                  //*******************************//
+
+                  //************* other ***********//
+                  else
+                    T_txt = "o."+T(k);
+                    T_txt = "o_new." + T(k) + "=" + T_txt;
+                    ierr  = execstr(T_txt,'errcatch')
+                    if ierr<>0 then
+                      error("Problem in convertion in objs.")
+                    end
+                  //*******************************//
+
+                end  //end of select T(k)
+              end  //end of for k=
+              scs_m_new.objs(j) = o_new;
+            //************************************//
+
             //************* other ***********//
             else  // ??
                   // Alan : JESAISPASIYADAUTRESOBJS
-                  // QUEDESBLOCKSETDESLINKSDANSSCICOS
+                  // QUEDESBLOCKSDESLINKETDUTEXTESDANSSCICOS
                   // ALORSICIJEFAISRIEN
               scs_m_new.objs(j) = o;
             //************************************//
