@@ -263,7 +263,7 @@ cd .. &gt;nul
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../routines/f2c,../../tcl/include/X11,../../tcl/include"
+				AdditionalIncludeDirectories="../../routines/f2c;../../tcl/include/X11;../../tcl/include;sundials"
 				PreprocessorDefinitions="_LIB;__MSC__;STRICT;WITH_TK;WITH_PVM;_DEBUG;WIN32"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -324,7 +324,7 @@ cd .. &gt;nul
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="../../routines/f2c,../../tcl/include/X11,../../tcl/include"
+				AdditionalIncludeDirectories="../../routines/f2c;../../tcl/include/X11;../../tcl/include;sundials"
 				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;__MSC__;STRICT;WITH_TK;WITH_PVM"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"

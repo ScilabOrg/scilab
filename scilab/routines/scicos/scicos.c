@@ -4379,10 +4379,12 @@ int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *
   realtype alpha;
 
   UserData data;
-  data = (UserData) rdata; 
+  
   realtype hh;
   int qlast;
   int jj;
+
+  data = (UserData) rdata; 
 
   hh=ZERO;
   IDAGetCurrentStep(data->ida_mem, &hh);
