@@ -43,7 +43,7 @@ while %t do
   case 'Discrete-Kalman Filter' then
    scicos('SCI/demos/scicos/Discrete-KalmanFilter.cosf');
   case 'Inverted Pendulum' then
-   exec setw.sci;
+   exec (SCI+'/demos/scicos/setw.sci');
    getf(SCI+'/macros/scicos_blocks/Sources/RAND_m.sci');
    scicos('SCI/demos/scicos/Inverted_pendulum.cosf');
   case 'Datatype' then
