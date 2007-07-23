@@ -4,19 +4,20 @@ mode(-1);
 getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
 [path,oldln]=demo_wp_begin('wheel.dem');
 
-//path=get_absolute_file_path("wheel.dem");
-
 getf(path+'show.sci');
 getf('SCI/demos/demos_lib/demo_compiler.sci');
 
 xbasc();
 fs = get('figure_style');
-set("figure_style","old")
-flag1=tk_choose(['Reading a precomputed trajectory';
- 'Simulation with ode (needs f77 and link. may fail, see help link)'],...
- 'Simulation or Visualisation ? (click below)');
+set("figure_style","old");
 
-select flag1,
+getf('SCI/demos/demos_lib/demo_choose.sci');
+choice=['Reading a precomputed trajectory';
+        'Simulation with ode (needs f77 and link. may fail, see help link)']
+titl='Simulation or Visualisation ? (click below)';
+demo_choose(choice,titl);
+
+select num,
  case 0
   return;
  case 2 then 
