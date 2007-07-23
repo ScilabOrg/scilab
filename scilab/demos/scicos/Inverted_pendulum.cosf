@@ -2,7 +2,7 @@ scs_m=scicos_diagram(..
       version="scicos4.2",..
       props=scicos_params(..
             wpar=[600,450,0,0,600,450],..
-            Title=["Inverted_pendulum","/home/fady/scilab_BUILD_4_scicos/demos/scicos/"],..
+            Title=["Inverted_pendulum","/home/alan/scilab_BUILD_4_scicos/demos/scicos/"],..
             tol=[0.0001;0.000001;1.000E-10;100001;0;0;0],..
             tf=30,..
             context=["A=[0 1 0 0;20.601 0 0 0;0 0 0 1;-0.4905 0 0 0] ";
@@ -1312,17 +1312,18 @@ scs_m.objs(33)=scicos_link(..
                  to=[29,1,1])
 scs_m.objs(34)=mlist(["Text","graphics","model","void","gui"],..
                mlist(..
-               ["graphics","orig","sz","flip","exprs","pin","pout","pein","peout",..
-               "gr_i","id","in_implicit","out_implicit"],[-117.28086,491.00098],..
-               [119.73208,7.3483464],%t,..
+               ["graphics","orig","sz","flip","theta","exprs","pin","pout","pein",..
+               "peout","gr_i","id","in_implicit","out_implicit"],..
+               [-117.28086,491.00098],[119.73208,7.3483464],%t,0,..
                ["Inverted-Pendulum Control System";"3";"10"],[],[],[],[],[],"",..
                [],[]),..
                mlist(..
-               ["model","sim","in","out","evtin","evtout","state","dstate","rpar",..
-               "ipar","blocktype","firing","dep_ut","label","nzcross","nmode",..
-               "equations"],"text",[],[],[],[],[],[],..
-               "Inverted-Pendulum Control System",[3;10],"c",[],[%f,%f],"",0,0,..
-               list())," ","TEXT_f")
+               ["model","sim","in","in2","intyp","out","out2","outtyp","evtin",..
+               "evtout","state","dstate","odstate","rpar","ipar","opar",..
+               "blocktype","firing","dep_ut","label","nzcross","nmode",..
+               "equations"],"text",[],[],1,[],[],1,[],[],[],[],list(),..
+               "Inverted-Pendulum Control System",[3;10],list(),"c",[],[%f,%f],..
+               "",0,0,list())," ","TEXT_f")
 scs_m.objs(35)=scicos_link(..
                  xx=[51.214973;59.044202;72.258117;72.995346;72.995346;155.26342;155.26342],..
                  yy=[421.93148;421.96009;422.00837;422.01107;369.01317;369.01317;369.01317],..
