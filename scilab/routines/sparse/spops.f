@@ -133,7 +133,6 @@ c
          fin=-fin
          return
       endif
-      print *,'debut ', stk(l1),stk(l2)
       mn1=m1*n1 ! must not be used if arg1 is a sparse
       a1_is_empty = m1.eq.0 .or. n1.eq.0
       a1_is_scalar = (.not.a1_is_empty) .and. (m1.eq.1 .and. n1.eq.1)
