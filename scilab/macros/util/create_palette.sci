@@ -68,7 +68,7 @@ function routines=create_palette(Path)
 	
       elseif txt=='Events' then
 	lisf=['ANDBLK.sci';'HALT_f.sci';'freq_div.sci';
-	      'ANDLOG_f.sci';'EVTDLY_c.sci';'IFTHEL_f.sci';'ESELECT_f.sci';
+	      'ANDLOG_f.sci';'EVTDLY_f.sci';'IFTHEL_f.sci';'ESELECT_f.sci';
 	      'CLKSOMV_f.sci';'CLOCK_c.sci';'EVTGEN_f.sci';'EVTVARDLY.sci']
 
       elseif txt=='Threshold' then
