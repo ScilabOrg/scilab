@@ -7,6 +7,8 @@ function New_()
     if edited then
       %r = message(["Diagram has not been saved";
 	            "Are you sure you want to proceed ?"],['No';'Yes'])
+    else 
+      %r = 2 ;
     end             //** No -> %r = 1 ; Yes -> %r = 2  
     
     if %r==2 then
