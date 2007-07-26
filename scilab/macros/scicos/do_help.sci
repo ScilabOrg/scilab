@@ -79,8 +79,10 @@ if obj_selected==0 then
   end //** of the infinite while loop 
   //**--------------------------------------------------------------------------
 
-else //** at least an object is selected   
-    
+else //** at least an object is selected
+
+    //**
+    cwin=Select(1,2)
     //** in the current window 
     if cwin==curwin then
       // disp("cs");
