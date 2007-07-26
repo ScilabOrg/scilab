@@ -100,8 +100,8 @@ case 'set' then
       gh_winpal.font_size  = siz  ;
       
       
-      //** store the box coordinate that contains the string 
-      r = xstringl(0,0,exprs(1)); 
+      //** store the box coordinate that contains the string
+      r = xstringl(0,0,exprs(1),evstr(exprs(2)),evstr(exprs(3)));
       
       //** restore the old font 
       //** xset('font',oldfont(1),oldfont(2));

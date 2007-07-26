@@ -18,7 +18,11 @@ case 'plot' then
   if type(gr_i)==15 then 
     xfarcs([orig(1);orig(2)+sz(2);sz(1)*p;sz(2);0;360*64],gr_i(2))
     gh_temp = gce();
-    gh_temp.foreground = default_color(-1);
+    if gh_temp.type=='Compound' then
+      gh_temp.children(1).foreground = default_color(-1);
+    else
+      gh_temp.foreground = default_color(-1);
+    end
   end
   
   xarc(orig(1),orig(2)+sz(2),sz(1)*p,sz(2),0,360*64)
