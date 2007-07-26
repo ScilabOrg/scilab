@@ -1,4 +1,3 @@
-getf('SCI/demos/demos_lib/demo_run.sci');
 
 function hole3d()
 expr=['// Holes in surfaces using %inf'
@@ -9,7 +8,8 @@ expr=['// Holes in surfaces using %inf'
     'plot3d1(t,t,z);'
     'a=gca(); a.title.text=""surface with holes 1"";'
     'a.title.font_size=3;'];
-    demo_run('',expr);
+     x_message(expr);
+ 	   execstr(expr);
 endfunction
 
 function hole3d1()
@@ -25,7 +25,8 @@ expr=['// Holes in surfaces using %inf '
      'plot3d1(x1,y1,z1)'
      'a=gca(); a.title.text=""surface with holes 2"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
 
 function sphere()
@@ -37,7 +38,8 @@ expr=['u = linspace(-%pi/2,%pi/2,40);'
      'plot3d2(x,y,z);'
      'a=gca(); a.title.text=""sphere"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function shell()
@@ -49,7 +51,8 @@ expr=['u = linspace(0,2*%pi,40);'
      'plot3d2(x,y,z);'
      'a=gca(); a.title.text=""shell"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function spiral()
@@ -61,7 +64,8 @@ expr=['[r,a]=field(0:0.1:1,0:%pi/8:6*%pi);'
      'plot3d2(x,y,z);'
      'a=gca(); a.title.text=""spiral"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function rings()
@@ -77,7 +81,8 @@ expr=['rr=0.2;'
      'plot3d2(X,Y,Z,[m,2*m]);'
      'a=gca(); a.title.text=""rings"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function torus()
@@ -92,7 +97,8 @@ expr=['// some torus type bodies.'
      'plot3d2(X,Y,Z);'
      'a=gca(); a.title.text=""torus"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function torus1()     
@@ -106,7 +112,8 @@ expr=['// a deformed torus'
      'plot3d2(X,Y,Z);'
      'a=gca(); a.title.text=""torus 1"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
      
 function moebius()
@@ -120,7 +127,8 @@ expr=['// the Moebius band'
      'plot3d2(X,Y,Z);'
      'a=gca(); a.title.text=""moebius"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
 
 function tube(nn)
@@ -136,7 +144,8 @@ expr=['// some tube like bodies.'
      'plot3d2(x1,y1,z,-1,35,70);'
      'a=gca(); a.title.text=""tube"";'
      'a.title.font_size=3;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
 
 function bh(nn)
@@ -149,6 +158,7 @@ expr=['// a black hole'
      'plot3d2(f.*cosphi,f.*sinphi,dup(t''.*2-1,length(x)));'
      'a=gca(); a.title.text=""black hole"";'
      'a.title.font_size=3;'];
-      demo_run('',expr);
+       x_message(expr);
+ 	    execstr(expr);
 endfunction
 

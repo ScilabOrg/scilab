@@ -5,7 +5,6 @@
 // ==========================================
 
 mode(0);
-getf('SCI/demos/demos_lib/demo_run.sci');
 
 // Hide the toolbar
 toolbar(0,'off');
@@ -30,7 +29,8 @@ string_to_display = [
 	'yt=read(path+''yt.wrt'',20,201);  //load data';
 	'chainap(yt); //draw the animation';];
 
-demo_run('',string_to_display);
+x_message(string_to_display);
+execstr(string_to_display);
 
 xset("pixmap",0);
 

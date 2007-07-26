@@ -1,6 +1,4 @@
 
-getf('SCI/demos/demos_lib/demo_run.sci');
-
 function gammatest (N)
 expr=['// Bezier curve approximating a circle'
      '// Copyright INRIA'
@@ -19,7 +17,8 @@ expr=['// Bezier curve approximating a circle'
      '    plot2d(y(1,:)'',y(2,:)'',icol,""000"");'
      '    icol=icol+1;'
      'end;'];
-     demo_run('',expr);
+      x_message(expr);
+ 	    execstr(expr);
 endfunction
 
 
@@ -35,7 +34,8 @@ expr=['// a random polygon and a bezier curve'
     's=bezier(p,t);'
     'plot2d(p(1,:)'',p(2,:)'',1,""000"");'
     'plot2d(s(1,:)'',s(2,:)'',2,""000"");'];
-    demo_run('',expr);
+     x_message(expr);
+ 	   execstr(expr);
 endfunction
 
 
@@ -44,7 +44,8 @@ expr=['// Show a Beziercurve of dimension 3'
     '// Copyright INRIA'
     'p=[-1,-1,-1;0,-1,-1;1,0,0;1,1,0;0,1,1;-1,1,0]'';'
     'bezier3d(p);'];
-    demo_run('',expr);
+     x_message(expr);
+ 	   execstr(expr);
 endfunction
 
 
@@ -65,7 +66,8 @@ expr=['// Show a Bezier surface'
     'xtitle(''The bezier interpolated surface (n=10)'');'
     'current_axe = gca();current_axe.title.font_size = 3;'
     'drawnow();'];
-    demo_run('',expr);
+     x_message(expr);
+ 	   execstr(expr);
 endfunction
 
 function c1test
@@ -112,5 +114,6 @@ expr=['// Show how two bezier surfaces can be joined.'
     '[n2,p2]=size(xb);'
     'plot3d2([xb1;xb;xb2],[yb1;yb;yb2],[zb1;zb;zb2],-1,A,T,L,EB);'
     'drawnow();'];
-    demo_run('',expr);
+     x_message(expr);
+ 	   execstr(expr);
 endfunction

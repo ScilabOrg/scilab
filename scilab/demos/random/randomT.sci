@@ -1,6 +1,4 @@
 
-getf('SCI/demos/demos_lib/demo_run.sci');
-
 function [z]=RndIntT(n)
 	[lhs,rhs]=argn(0)
 	if rhs <= 0 ; n=10000;end 
@@ -37,7 +35,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.background = BackgroundColorId;'
 	'legend([''Simulation'';''Theory'']);'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction
 
 
@@ -64,7 +63,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.background = BackgroundColorId;'
 	'legend([''Simulation'';''Theory'']);'
 	'drawnow();'];
-	demo_run('',expr);
+  x_message(expr);
+	execstr(expr);
 endfunction 
 
 
@@ -87,7 +87,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.background = BackgroundColorId;'
 	'legend([''Simulation'';''Theory'']);'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction
 
 
@@ -111,7 +112,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.background = BackgroundColorId;'
 	'legend([''Simulation'';''Theory'']);'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction
 
 
@@ -136,7 +138,8 @@ expr=['// lambda exp(-lambda x) x>=0 '
 	'current_axe.children(2).children.background = PolylineFillColorId;'
 	'current_axe.grid = [-1 PolylineFillColorId];'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction
 
 
@@ -155,7 +158,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.children.children.background = PolylineFillColorId;'
 	'current_axe.grid = [-1 PolylineFillColorId];'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction 
 
 
@@ -174,7 +178,8 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.children.children.background = PolylineFillColorId;'
 	'current_axe.grid = [-1 PolylineFillColorId];'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction 
 
 
@@ -193,5 +198,6 @@ expr=['[lhs,rhs]=argn(0)'
 	'current_axe.children.children.background = PolylineFillColorId;'
 	'current_axe.grid = [-1 PolylineFillColorId];'
 	'drawnow();'];
-	demo_run('',expr);
+	x_message(expr);
+	execstr(expr);
 endfunction
