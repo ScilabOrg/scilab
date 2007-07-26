@@ -17,6 +17,7 @@ function gh_blk = drawobj(o, gh_window)
 //** 23 Nov 2006: Faster Save/Restore, new "flat" object selection mechanism
 //**
 //** 21/07/07: Al@n's patch for rotation of text
+//** 24/07/07: Al@n's patch for rotation of blocks
 //**
   rhs = argn(2) ; //** get the number of right side arguments
 
@@ -40,7 +41,7 @@ function gh_blk = drawobj(o, gh_window)
     o_size = size ( gh_curwin.children.children ) ; //** initial size (number of graphic object
 
 
-    //** Save graphics axes state
+   //** Save graphics axes state
       //** Save the state of the graphics window to avoid problems in case of not "well behaved"
       //** incorrect "gr_i" old graphics instructions
 
@@ -65,7 +66,7 @@ function gh_blk = drawobj(o, gh_window)
       axes_foreground = gh_axes.foreground ;
       axes_background = gh_axes.background ; //** if not used cause some problem
 
-   //**... end of figure and axes saving 
+   //**... end of figure and axes saving
 
       //** Block drawing works throught call (execstr) the block function
       //** ... see "standard_draw" function
@@ -102,18 +103,26 @@ function gh_blk = drawobj(o, gh_window)
       //** Add the 'select' box and put "mark_mode" off, ready for 'Select' operation
       sel_x = orig(1) ; sel_y = orig(2)+sz(2) ;
       sel_w = sz(1)   ; sel_h = sz(2)   ;
-       xrect(sel_x, sel_y, sel_w, sel_h);
-       gh_e = gce()              ; //** get the "select box" handle
-       gh_e.mark_background = -1 ; //**
-       gh_e.mark_style = 11      ;
-       gh_e.mark_mode = "off"    ; //** used
-       gh_e.line_mode = "off"    ;
-       // gh_e.visible = "off"      ; //** put invisible
- 
-    p_size = size ( gh_curwin.children.children ) ; //** size after the draw
+
+      xrect(sel_x, sel_y, sel_w, sel_h);
+
+      gh_e = gce()              ; //** get the "select box" handle
+      gh_e.mark_background = -1 ; //**
+      gh_e.mark_style = 11      ;
+      gh_e.mark_mode = "off"    ; //** used
+      gh_e.line_mode = "off"    ;
+      // gh_e.visible = "off"      ; //** put invisible
+
+    p_size = size(gh_curwin.children.children); //** size after the draw
     //** aggregate the graphics entities
-    d_size =  p_size(1) - o_size(1) ;
-    gh_blk = glue( gh_curwin.children.children(d_size:-1:1) ) ;
+    d_size =  p_size(1) - o_size(1);
+    gh_blk = glue(gh_curwin.children.children(d_size:-1:1));
+
+    //** 24/07/07: Al@n's patch for rotation of blocks
+    if o.graphics.theta<>0 then
+      rotate_compound(sel_x, sel_y, sel_w, sel_h,1,o.graphics.theta)
+      gh_blk = gh_curwin.children.children(1);
+    end
 
     if ierr<>0 then 
       message(['Block '+o.gui+ ' not defined'; 'You must leave scicos and define it now.']) ;
@@ -151,7 +160,6 @@ function gh_blk = drawobj(o, gh_window)
 
   //** ---------- Text -------------------------------
   elseif typeof(o)=='Text' then //** Text draw
-
     //**  ------ Put the new graphics here -----------
     //**
     o_size = size ( gh_curwin.children.children ) ; //** initial size
@@ -185,7 +193,7 @@ function gh_blk = drawobj(o, gh_window)
        xrect( xmin, ymax, xmax-xmin, ymax-ymin ) ;
 
     else //** single string
-       //** 21/07/07 : Al@n's patch for rotation of text
+       //** 21/07/07: Al@n's patch for rotation of text
        //** get the handle of txt
        gh_txt = gh_curwin.children.children(1)
        //** get bounding box of text with no rotation

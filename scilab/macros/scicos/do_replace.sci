@@ -2,7 +2,8 @@ function [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
 // Copyright INRIA
 // get replacement block
   
-//** 02 May 2007 : change to new graphics    
+//** 02 May 2007 : change to new graphics
+//** 24/07/07: Al@n's patch for rotation of blocks
   
   
   xc = %pt(1); yc = %pt(2);
@@ -26,6 +27,7 @@ function [scs_m,needcompile] = do_replace(scs_m, needcompile, Clipboard, Select)
   o_n = scs_m.objs(k_n) ;
     
   o.graphics.flip = o_n.graphics.flip // set same flip position
+  o.graphics.theta = o_n.graphics.theta // set same theta value
   [ip,op,cip,cop] = (o.graphics.pin, o.graphics.pout, o.graphics.pein, o.graphics.peout)
   [in,out,clkin,clkout] = (o.model.in,o.model.out,o.model.evtin,o.model.evtout)
   

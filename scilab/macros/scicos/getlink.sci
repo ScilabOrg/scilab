@@ -3,15 +3,18 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
 // Copyright INRIA
 
 //** BEWARE: "d9" state is not yet tested after Replot removal
+//** 24/07/07: Al@n's patch for rotation of blocks
 
   outin=['out','in']
   //----------- get link origin --------------------------------------
   //------------------------------------------------------------------
   win = %win;
-  xc1 = %pt(1); yc1 = %pt(2);
+  xc1 = %pt(1);
+  yc1 = %pt(2);
+
   [kfrom,wh] = getblocklink(scs_m,[xc1;yc1])
 
-  if kfrom<>[] then 
+  if kfrom<>[] then
     o1 = scs_m.objs(kfrom)
   else
     return
@@ -76,13 +79,15 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
   else //connection comes from a block
 
     graphics1=o1.graphics
-    orig = graphics1.orig
-    sz   = graphics1.sz
-    io   = graphics1.flip
-    op   = graphics1.pout
-    impi = graphics1.pin
-    cop  = graphics1.peout
+    orig  = graphics1.orig
+    sz    = graphics1.sz
+    theta = graphics1.theta
+    io    = graphics1.flip
+    op    = graphics1.pout
+    impi  = graphics1.pin
+    cop   = graphics1.peout
     [xout,yout,typout]=getoutputports(o1)
+
     if xout==[] then
       disablemenus()
         hilite_obj(kfrom)
@@ -91,6 +96,13 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
       enablemenus()
       return
     end
+
+    xxx=rotate([xout;yout],...
+               theta*%pi/180,...
+               [orig(1)+sz(1)/2;orig(2)+sz(2)/2]);
+    xout=xxx(1,:);
+    yout=xxx(2,:);
+
     [m,kp1]=mini((yc1-yout)^2+(xc1-xout)^2)
     k=kp1
     xo=xout(k);yo=yout(k);typo=typout(k)
@@ -236,12 +248,12 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
     //** look for a block with a valid (good) input
 
     kto = getblock(scs_m,[xe;ye]) ;
-
     if kto<>[] then //new point designs the "to block"
       o2 = scs_m.objs(kto);
       graphics2 = o2.graphics;
       orig  = graphics2.orig
       sz    = graphics2.sz
+      theta = graphics2.theta
       ip    = graphics2.pin
       impo  = graphics2.pout
       cip   = graphics2.pein
@@ -265,6 +277,12 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
          enablemenus()
          return;      //** EXIT point from the function
       end
+
+      xxx=rotate([xin;yin],...
+                 theta*%pi/180,...
+                 [orig(1)+sz(1)/2;orig(2)+sz(2)/2]);
+      xin=xxx(1,:);
+      yin=xxx(2,:);
 
       [m,kp2] = mini((ye-yin)^2+(xe-xin)^2)
 
