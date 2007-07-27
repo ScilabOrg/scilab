@@ -1,7 +1,7 @@
 
 // Copyright INRIA
 
-getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_wp_begin('lmi.dem');
 getf(path+'lmidem.sci');
 
@@ -35,7 +35,7 @@ while %t
       'Select a problem (other examples are given in demos/lmitool directory)']);
   select %demo_
   case 0
-    break;
+    return;
   case 1
     clc;
     mode(1)
@@ -51,11 +51,11 @@ while %t
       disp(gopt-h_norm(syslin('c',A,B,C,D)),...
 	  'check: gopt-h_norm(syslin(''c'',A,B,C,D)=')
     end
-    mode(-1)
+  mode(-1)
   case 2
     clc;
     mode(1)
-    lmidem(path+'of.sci');getf(path+'of.sci');
+   lmidem(path+'of.sci');getf(path+'of.sci');
     x_message(['Let''s try a simple example with 3 states';...
 	    'Enter A,B,C matrices']);
     [ok,A,B,C]=getvalue('Edit below A, B, C matrices',['A';'B';'C'],...
@@ -64,7 +64,7 @@ while %t
     if ok then
       [P,Q]=of(A,B,C);
       disp(P,Q);
-    end
+      end
     mode(-1)
   case 3
     clc;

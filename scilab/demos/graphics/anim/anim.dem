@@ -1,6 +1,6 @@
 // Copyright Enpc
 
-getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_wp_begin('anim.dem');
 
 demolist=['Rotation of a 3D Surface (plot3d1)','anim1.dem';

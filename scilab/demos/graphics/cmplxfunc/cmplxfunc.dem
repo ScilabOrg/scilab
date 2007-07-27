@@ -3,7 +3,7 @@
 
 // Adapted for new graphic by Pierre MARECHAL ( 16/12/2005 )
 
-getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_wp_begin('cmplxfunc.dem');
 
 exec(path+"cmplxfunc.sci");

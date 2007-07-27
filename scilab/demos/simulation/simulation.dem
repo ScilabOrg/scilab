@@ -1,4 +1,4 @@
-getf('SCI/demos/demos_lib/demo_withpath_begin.sci');
+getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_wp_begin('simulation.dem');
 
 demolist=['n-pendulum','npend/npend.dem';
