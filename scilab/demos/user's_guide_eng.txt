@@ -1,0 +1,24 @@
+User's guide : how to create a demonstration
+
+your demonstrations shall be written according to a precise principle : the main file does only contain
+the standard functions at your disposal in the repository 'SCI_demos/demos_lib'as well as their call.
+The scripts that are between these standard function will be called by the standard function demo_run(fil)
+and be written in an annex .sce file. Allthe rest of the demonstration will apppearin the annex files, par-
+ticularlythe functions, that will be written in .sci files.
+The interest is that the developer of the SCILAB logiciel can thus modify as he want the shape of the de-
+monstration without enter inside the script.
+On another side, you are asked not to make appear the scripts or calculation on the console but rather
+within the 'x_message' interface, obtained with demo_message.
+
+	Here is a description of the functions written especially for the demonstration and available in
+the repository SCI/demos/demos_lib : 
+   The function demo_run allows you to execute the scripts you would have written on annex files.These
+scripts will separate the other standard functions between themselves.
+   The function demo_wp_begin can be used on the beginning of the demonstration. It sets the scripts in mode
+of non display of the text, fixes the console width to its standard state while recording the previous width
+in 'oldln', and gives the path of the file given in argument in the variable 'path' if the argument is not
+'nofile'.
+   The function demo_compiler is used as test to know if the reader of your demonstration's computer owns or
+not a compiler C. It gives a boolean indicating this in the variable 'ans'.
+   the function demo_message allows to display some messages, particularly calculations or explanations about
+the demonstration.It take as argument a text in 

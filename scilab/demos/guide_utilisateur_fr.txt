@@ -1,0 +1,37 @@
+Guide d’utilisateur : comment créer une démonstration
+
+Vos démonstrations doivent être écrites selon un principe bien précis : le fichier principal ne doit conte-
+nir que les fonctions standard mises à disposition dans ‘SCI/demos/demos_lib’ ainsi que leur appel.
+Les scripts s’insérant entre ces fonctions standard seront appelés par la fonction standard demo_run(fil)
+et seront écrits dans un fichier annexe .sce. Tout le reste de la démonstration figurera dans des fichiers
+annexes, notamment les fonctions, qui seront écrites dans les fichiers .sci.
+L’intérêt de ceci est que le développeur du logiciel SCILAB pourra modifier à sa guise la forme des démons-
+trations sans rentrer dans le cœur des scripts.
+Par ailleurs il vous est demandé de ne pas faire apparaître le scripts ou les calculs sur la console mais
+plutôt dans des interfaces ‘x_message’ obtenues avec demo_message.
+
+        Voici un descriptif des fonctions écrites spécialement pour des démonstrations et disponibles dans
+le répertoire SCI/demos/demos_lib : 
+   La fonction demo_run  vous permet d’exécuter les scripts que vous aurez écrits sur les fichiers annexes
+et qui sépareront les autres fonctions du répertoire ‘demos_lib’ entre elles.
+   La fonction demo_wp_begin est à utiliser en début de démonstration. Elle place le script en mode de non
+affichage du texte, place la console en largeur standard en enregistrant sa largeur initiale dans ‘oldln’,
+et renvoie le chemin du fichier mis en argument s’il n’est pas ’nofile’ dans la variable ‘path’.
+   La fonction demo_compiler s’utilise comme test pour savoir si l’ordinateur du lecteur de votre démons-
+tration possède ou non un compilateur C. Elle renvoie un booléen qui l’indique dans la variable ‘ans’.
+   La fonction demo_message sert à afficher des messages, en particulier des calculs ou des précisions con-
+cernant la démonstration. Elle prend en argument un texte entre crochets.
+   La fonction demo_choose s’utilise pour proposer un choix entre diverses options de la démonstration.
+Ces options sont écrites sous forme d’un vecteur colonne de textes. Elle renvoie dans la variable ‘num’ le
+numéro de ligne choisi par le lecteur.
+   La fonction demo_mdialog permet de proposer au lecteur de la démonstration de choisir lui–même les valeurs
+des paramètres. Le premier argument d’entrée est le titre de la boîte de dialogue, le second, le nom des
+variables à modifier, et le troisième, les valeurs choisies par défaut.
+   La fonction demo_function_choice s’utilise si votre démonstration comporte une liste d’items parmi les-
+quels on choisira entre des versions différentes. La liste s’appellera ‘demolist’ et comportera deux colonnes,
+la première pour le nom de la version et la seconde pour le nom de la fonction à appeler. Elle efface aussi
+la fenêtre graphique précédant la démonstration et remet la console à sa largeur initiale si l’on quitte votre
+démonstration.
+
+        Vous pouvez maintenant commencer à écrire vos scripts. Pensez à choisir des noms de variables cohé-
+rents avec leur signification et à ajouter des commentaires régulièrement pour que l’on puisse vous comprendre!
