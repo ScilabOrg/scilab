@@ -14,13 +14,13 @@ plutôt dans des interfaces ‘x_message’ obtenues avec demo_message.
 le répertoire SCI/demos/demos_lib : 
    La fonction demo_run  vous permet d’exécuter les scripts que vous aurez écrits sur les fichiers annexes
 et qui sépareront les autres fonctions du répertoire ‘demos_lib’ entre elles.
-   La fonction demo_wp_begin est à utiliser en début de démonstration. Elle place le script en mode de non
+   La fonction demo_begin est à utiliser en début de démonstration. Elle place le script en mode de non
 affichage du texte, place la console en largeur standard en enregistrant sa largeur initiale dans ‘oldln’,
 et renvoie le chemin du fichier mis en argument s’il n’est pas ’nofile’ dans la variable ‘path’.
    La fonction demo_compiler s’utilise comme test pour savoir si l’ordinateur du lecteur de votre démons-
 tration possède ou non un compilateur C. Elle renvoie un booléen qui l’indique dans la variable ‘ans’.
    La fonction demo_message sert à afficher des messages, en particulier des calculs ou des précisions con-
-cernant la démonstration. Elle prend en argument un texte entre crochets.
+cernant la démonstration. Elle prend en argument le fichier où est écrit le texte.
    La fonction demo_choose s’utilise pour proposer un choix entre diverses options de la démonstration.
 Ces options sont écrites sous forme d’un vecteur colonne de textes. Elle renvoie dans la variable ‘num’ le
 numéro de ligne choisi par le lecteur.
@@ -32,6 +32,8 @@ quels on choisira entre des versions différentes. La liste s’appellera ‘demolist
 la première pour le nom de la version et la seconde pour le nom de la fonction à appeler. Elle efface aussi
 la fenêtre graphique précédant la démonstration et remet la console à sa largeur initiale si l’on quitte votre
 démonstration.
+   La fonction demo_end sert à terminer proprement sa démonstration. Elle remet comme avant la démonstration
+la largeur de la console et elle efface les variables affectées pendant la démonstration.
 
         Vous pouvez maintenant commencer à écrire vos scripts. Pensez à choisir des noms de variables cohé-
 rents avec leur signification et à ajouter des commentaires régulièrement pour que l’on puisse vous comprendre!
