@@ -18,7 +18,8 @@ function MoveLink_()
     kc = find(%win==windows(:,2)); 
     
     if kc==[] then //** the press is not inside an scicos actiview window 
-      message('This window is not an active scicos window')
+      //** This message has been suppressed : have a good day :)
+      //** message("This window is not an active scicos window")
       Cmenu=[]; %pt=[]; return
     elseif windows(kc,1)<0 then //** the press is inside a palette 
       kpal = -windows(kc,1)    ; 
