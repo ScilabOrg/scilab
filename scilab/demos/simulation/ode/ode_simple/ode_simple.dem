@@ -1,0 +1,20 @@
+// Copyright INRIA
+// Simple Example
+
+ xbasc()
+// ODE definition
+ deff('[xd]=lin(t,x,a)','xd=a*x')
+ a=[1 1;0 2];
+// Integration and comparison with exp
+ ea=ode(eye(2,2),0,1,list(lin,a)),expm(a)
+// New integration with another a
+ t=0:0.1:3;
+ ee=ode(1,0,t,list(lin,1));
+// Visualization
+plot2d(t',ee',(1:2),leg='x1@x2');
+a=gca();
+a.title.text='simple ODE';
+a.title.font_size=3;
+
+//xtitle('dx=a*x','t',' ')
+
