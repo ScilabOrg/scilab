@@ -31,20 +31,22 @@ if and(size(Select)==[1,2]) then //** only one object selected
    
    // This case is used when trying to replace a block by itself
    // It does a duplicate to be Simulink/Dymola compatible
-   if and(Clipboard.graphics.sz==Sel_obj.graphics.sz)& ...
-	 (Clipboard.graphics.orig==Sel_obj.graphics.orig) then
-     scs_m_save = scs_m; nc_save = needcompile ;
+   if and(Clipboard.graphics.sz   == Sel_obj.graphics.sz)  & ...
+	 (Clipboard.graphics.orig == Sel_obj.graphics.orig) then
+      scs_m_save = scs_m    ;
+      nc_save = needcompile ;
      
-      blk = Clipboard
-      blk.graphics.orig = Clipboard.graphics.orig+Clipboard.graphics.sz/2;
+      blk = Clipboard ;
+      blk.graphics.orig = Clipboard.graphics.orig+Clipboard.graphics.sz/2 ;
       scs_m.objs($+1) = blk //** add the object at the top 
       drawobj(blk); //** draw the single object 
       edited = %t
       enable_undo = %t
-      Select = [size(scs_m.objs),%win]; //** it's a really dirty trick ;)
-                                        //** because the pasted object is the last ;)
+      Select = [size(scs_m.objs), %win]; //** it's a really dirty trick ;)
+                                         //** because the pasted object is the last ;)
      else
-       [scs_m, needcompile] = do_replace(scs_m, needcompile, Clipboard,Select)
+      //** the true replace is there 
+      [scs_m, needcompile] = do_replace(scs_m, needcompile, Clipboard, Select);
    end
    
   else
@@ -52,7 +54,7 @@ if and(size(Select)==[1,2]) then //** only one object selected
    Cmenu=[]; %pt = []; %ppt = [] ; return 
   end
   
-else   
+else //** no object is selected for Paste: Paste Object in the void    
     
     if typeof(Clipboard)=='Block'| typeof(Clipboard)=='Text' then
       
