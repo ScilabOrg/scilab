@@ -1,3 +1,3 @@
-function demo_run(demo.sci)
-exec(demo.sci)
+function demo_run(fil)
+exec(fil)
 endfunction
