@@ -1,300 +1,345 @@
-function scs_m=changeports(scs_m,path,o_n)
-// Move  change number of ports of block with path path and modify connected links if any
-//!
-//look at connected links
-// Copyright INRIA
-  connected = []; dx=[]; dy=[] ;
-  o = scs_m(path)
-  k = path($)
-  [nin_n,nout_n,ncin_n,ncout_n] = (o_n.model.in,o_n.model.out,o_n.model.evtin,o_n.model.evtout)
-  [sz,orient,ip,op,cip,cop] = (o.graphics.sz,o.graphics.flip,o.graphics.pin,o.graphics.pout,..
-			       o.graphics.pein,o.graphics.peout);
-  [nin,nout,ncin,ncout] = (o_n.model.in, o_n.model.out, o_n.model.evtin, o_n.model.evtout);
+function scs_m = changeports(scs_m, path, o_n)
+//** INRIA 
+//**
+//** 27 July 2007
+//**
+//**         BEWARE : This is an ---> EXPERIMENTAL VERSION <--- ! 
+//**
+//** This function is able to replace any block with any other block. We made a reasonable effort 
+//** to reutilize the information associated at the ports with the aim to mantain the connections. 
+//** When the connection are incompatible, the links are removed.
+//** The existing links are moved in order to match the port's positions.
+//** 
+//** Please left the disp messages: they can be useful as debug utility if someone will add more
+//** port type. 
+//**
+//**
+//** ToDo : adjust the links in square angle (horizontal and vertical links only).
+//**
+//**
 
-  //standard inputs
-  nip  = size(ip,'*')
-  nipn = size(nin_n,'*')
-  ipn = ip
-  if nip>nipn then
-    //number of input ports decreased
-    if or(ip(nipn+1:$)>0) then
-      hilite_obj(k) //** new
-      message('Connected ports cannot be suppressed')
-      unhilite_obj(k) //** new
-      return
-    end
-    kc  = find(ip>0) ;
-    ipn = ip(1:nipn) ;
-  elseif nip<nipn then
-    //number of input ports increased 
-    if ip<>[] then kc=find(ip>0),else kc=[];end
-    ipn = [ip; zeros(nipn-nip,1)]
-  end
+  //** ---- INITIALIZATION ----
+  //**
+  //**
+    
+  //** isolate the object that will be substituited 
+  o = scs_m(path) ; 
+  
+  //** extract the proprieties of the OLD object 
+  [pin, pout, pein, peout, in_mod, out_mod] = (o.graphics.pin,  o.graphics.pout, ...
+                                               o.graphics.pein, o.graphics.peout, ...
+                                               o.graphics.in_implicit, o.graphics.out_implicit);
+  
+  //** "o_n" is the NEW object 
+  [pin_n, pout_n, pein_n, peout_n, in_mod_n, out_mod_n] = (o_n.graphics.pin,  o_n.graphics.pout, ...
+                                                           o_n.graphics.pein, o_n.graphics.peout, ...
+							   o_n.graphics.in_implicit, o_n.graphics.out_implicit);
+  //** ---------------------------------------------
+  //**
+  
+  //** acquire the dimension of the new block input and output ports and
+  //** put all the ports of the new block in unconnected [0] state  
+    
+  size_pin_n = size(pin_n,'*')  ;
+  pin_n = zeros(size_pin_n, 1 ) ; 
+    
+  size_pout_n = size(pout_n,'*') ;  
+  pout_n = zeros(size_pout_n, 1) ;
+  
+  size_pein_n = size(pein_n,'*') ;
+  pein_n = zeros(size_pein_n, 1) ;
+  
+  size_peout_n = size(peout_n,'*') ;
+  peout_n = zeros(size_peout_n, 1) ; 
+  
+  //** Acquire the size of the old block
+  size_pin   = size(pin,'*')   ;
+  size_pout  = size(pout,'*')  ;  
+  size_pein  = size(pein,'*')  ;
+  size_peout = size(peout,'*') ;
+  
 
-  if  nip<>nipn then
-    connected = [connected ip(kc)'];
-    dy=[dy,(-sz(2)/(nipn+1)+sz(2)/(nip+1))*kc]; //new-old
-    dx=[dx,0*kc];
-  end
+  //** New object ports position an type 
+  //** x , y : absolute coordinates of the port 
+  //** t     : 1 (standard); -1 (event) ; 2 (Modelica)
+  execstr('[xin, yin, tin]='+o.gui+'(''getinputs'', o)');
+  execstr('[xin_n, yin_n, tin_n]='+o.gui+'(''getinputs'', o_n)');
+  
+  execstr('[xout, yout, tout]='+o.gui+'(''getoutputs'',o)');
+  execstr('[xout_n, yout_n, tout_n]='+o.gui+'(''getoutputs'',o_n)');
+  
+  size_inputs   = size(tin,'*')     ;
+  size_inputs_n = size(tin_n,'*')   ;
+  size_outputs    = size(tout,'*')   ;
+  size_outputs_n  = size(tout_n,'*') ;
+  
+  //** Inputs of the OLD block 
+  xsmin=[] ; ysmin =[] ; tsmin = []; xein = [] ; yein = [] 
+  for i=1:size_inputs
+  
+     if tin(i)==1 | tin(i)==2 then //** standard OR Modelica input 
+        xsmin = [ xsmin xin(i) ] ;
+	ysmin = [ ysmin yin(i) ] ;
+	tsmin = [ tsmin tin(i) ] ;
+     elseif tin(i)==-1 then //** event input 
+        xein = [ xein xin(i) ] ;
+	yein = [ yein yin(i) ] ;
+     else
+       disp("InOLD:The input type is unknow"); pause 
+     end    
+  
+  end //**... of for loop 
+  
+  //** Inputs of the NEW block 
+  xsmin_n=[] ; ysmin_n =[] ; tsmin_n = []; xein_n = [] ; yein_n = [] 
+  for i=1:size_inputs_n
+  
+     if tin_n(i)==1 | tin_n(i)==2 then //** standard OR Modelica input 
+        xsmin_n = [ xsmin_n xin_n(i) ] ;
+	ysmin_n = [ ysmin_n yin_n(i) ] ;
+	tsmin_n = [ tsmin_n tin_n(i) ] ;
+     elseif tin_n(i)==-1 then //** event input 
+        xein_n = [ xein_n xin_n(i) ] ;
+	yein_n = [ yein_n yin_n(i) ] ;
+     else
+       disp("InNew:The input type is unknow"); pause 
+     end    
+  
+  end //**... of for loop 
 
-  //standard outputs
-  nop  = size(op,'*')
-  nopn = size(nout_n,'*')
-  opn = op
-  if nop>nopn then
-    //number of output ports decreased
-    if or(op(nopn+1:$)>0) then
-      hilite_obj(k) //** new
-      message('Connected ports cannot be suppressed')
-      unhilite_obj(k) //** new
-      return
-    end
-    kc=find(op>0)
-    opn=op(1:nopn)
-  elseif nop<nopn then
-    //number of input ports increased 
-    if op<>[] then kc=find(op>0),else kc=[];end
-    opn=[op;zeros(nopn-nop,1)]
-  end
+  //** Outputs of the OLD block 
+  xsmout=[] ; ysmout =[] ; tsmout = []; xeout = [] ; yeout = [] 
+  for i=1:size_outputs
+  
+     if tout(i)==1 | tout(i)==2 then //** standard OR Modelica output 
+        xsmout = [ xsmout xout(i) ] ;
+	ysmout = [ ysmout yout(i) ] ;
+	tsmout = [ tsmout tout(i) ] ;
+     elseif tout(i)==-1 then //** event input 
+        xeout = [ xeout xout(i) ] ;
+	yeout = [ yeout yout(i) ] ;
+     else
+       disp("OutOLD:The output type is unknow"); pause 
+     end    
+  
+  end //**... of for loop 
+  
+  //** Outputs of the NEW block 
+  xsmout_n=[] ; ysmout_n =[] ; tsmout_n = []; xeout_n = [] ; yeout_n = [] 
+  for i=1:size_outputs_n
+  
+     if tout_n(i)==1 | tout_n(i)==2 then //** standard OR Modelica output 
+        xsmout_n = [ xsmout_n xout_n(i) ] ;
+	ysmout_n = [ ysmout_n yout_n(i) ] ;
+	tsmout_n = [ tsmout_n tout_n(i) ] ;
+     elseif tout_n(i)==-1 then //** event input 
+        xeout_n = [ xeout_n xout_n(i) ] ;
+	yeout_n = [ yeout_n yout_n(i) ] ;
+     else
+       disp("OutNew:The output type is unknow"); pause 
+     end    
+  
+  end //**... of for loop
 
-  if nop<>nopn then
-    connected=[connected op(kc)']
-    dy=[dy,(-sz(2)/(nopn+1)+sz(2)/(nop+1))*kc]; //new-old
-    dx=[dx,0*kc];
-  end
+  InputLinkToCon  = []; xInPortToCon  = [] ;  yInPortToCon  = [] ;
+  OutputLinkToCon = []; xOutPortToCon = [] ;  yOutPortToCon = [] ; 
+  
+  LinkToDel = [];
+  
+  //**------------------ INPUT PORTS ---------------------------------------------------------------
+  if size_pin >0 then 
+   
+    for i=1:size_pin //** for all the input "pin" of the old block 
+  //** if the port is linked AND the new block has enough ports AND the two ports are of the same E/I 
+    //**                                                    AND the same Standard/Modelica type  
+       if  pin(i)>0 & i<=size_pin_n & in_mod(i)==in_mod_n(i) & tsmin(i)==tsmin_n(i) then  
+         pin_n(i) = pin(i); //** assign the port to the old Link 
+	 InputLinkToCon = [InputLinkToCon pin(i)] ;   //** add the Link to the "to be reconnected links" vector
+           xInPortToCon = [xInPortToCon xsmin_n(i)] ; //** recover the coordinate of the new equivalent port 
+	   yInPortToCon = [yInPortToCon ysmin_n(i)] ; //** and pile up in the vector 
+       else
+       	 if pin(i)>0 //** if the old port was connected 
+	   LinkToDel = [LinkToDel pin(i)]; //** add the Link to the "to be deleted links" vector 
+	 end 
+       end 
+    
+    end //** of the for loop 
+    
+    o_n.graphics.pin = pin_n ; //** update the "scs_m" input_port - link association  
+    
+  end 
+  //**---------------------------------------------------------------------------------------------
+  
+  //**------------------ EVENT INPUT PORTS --------------------------------------------------------
+  if size_pein >0 then 
+    
+    for i=1:size_pein //** for all the event input of the old block 
+  //** if the port is linked AND the new block has enough ports  
+       if  pein(i)>0 & i<=size_pein_n then  
+         pein_n(i) = pein(i); //** assign the port to the old Link
+         InputLinkToCon = [LinkToCon pein(i)] ; //** add the Link to the "to be reconnected links" vector
+	   xInPortToCon = [xInPortToCon xein_n(i)] ; //** recover the coordinate of the new equivalent port 
+	   yInPortToCon = [yInPortToCon yein_n(i)] ; //** and pile up in the vector 
+       else
+       	 if pein(i)>0 //** if the old port was connected 
+	   LinkToDel = [LinkToDel pein(i)]; //** add the Link to the "to be deleted links" vector 
+	 end 
+       end 
+    
+    end //** of the for loop 
+  
+    o_n.graphics.pein = pein_n ; //** update the "scs_m" event_input_port - event_link association
+    
+  end 
+  //**---------------------------------------------------------------------------------------------
 
-  //event inputs
-  ncip=size(cip,'*')
-  ncipn=size(ncin_n,'*')
-  cipn=cip
-  if ncip>ncipn then
-    //number of input ports decreased
-    if or(cip(ncipn+1:$)>0) then
-      hilite_obj(k) //** new
-      message('Connected ports cannot be suppressed')
-      unhilite_obj(k) //** new
-      return
-    end
-    kc=find(cip>0)
-    cipn=cip(1:ncipn)
-  elseif ncip<ncipn then
-    //number of input ports increased 
-    if cip<>[] then kc=find(cip>0),else kc=[];end
-    cipn=[cip;zeros(ncipn-ncip,1)]
-  end
+  //**------------------ OUTPUT PORTS -------------------------------------------------------------
+  if size_pout >0 then 
+    
+    for i=1:size_pout //** for all the output "pout" of the old block 
+  //** if the port is linked AND the new block has enough ports AND the two ports are of the same E/I 
+    //**                                                        AND the same Standard/Modelica type    
+       if  pout(i)>0 & i<=size_pout_n & out_mod(i)==out_mod_n(i) & tsmout(i)==tsmout_n(i) then  
+         pout_n(i) = pout(i); //** assign the port to the old Link
+	 OutputLinkToCon = [OutputLinkToCon pout(i)] ; //** add the Link to the "to be reconnected links" vector
+           xOutPortToCon = [xOutPortToCon xsmout_n(i)] ; //** recover the coordinate of the new equivalent port 
+	   yOutPortToCon = [yOutPortToCon ysmout_n(i)] ; //** and pile up in the vector  
+       else
+       	 if pout(i)>0 //** if the old port was connected 
+	   LinkToDel = [LinkToDel pout(i)]; //** add the Link to the "to be deleted links" vector 
+	 end 
+       end 
+    
+    end //** of the for loop 
+  
+    o_n.graphics.pout = pout_n ; //** update the "scs_m" ouput_port - link association
+    
+  end 
+  //**---------------------------------------------------------------------------------------------
 
-  if ncip<>ncipn then
-    connected=[connected cip(kc)']
-    dx=[dx,(sz(1)/(ncipn+1)-sz(1)/(ncip+1))*kc]
-    dy=[dy,0*kc]
-  end
+  //**------------------ EVENT OUTPUT PORTS -------------------------------------------------------
+  if size_peout >0 then 
+    
+    for i=1:size_peout //** for all the event input of the old block 
+  //** if the port is linked AND the new block has enough ports   
+       if  peout(i)>0 & i<=size_peout_n then  
+         peout_n(i) = peout(i); //** assign the port to the old Link
+	 OutputLinkToCon = [OutputLinkToCon peout(i)] ; //** add the Link to the "to be reconnected links" vector
+	   xOutPortToCon = [xOutPortToCon xeout_n(i)] ; //** recover the coordinate of the new equivalent port 
+	   yOutPortToCon = [yOutPortToCon yeout_n(i)] ; //** and pile up in the vector
+       else
+       	 if peout(i)>0 //** if the old port was connected 
+	   LinkToDel = [LinkToDel peout(i)]; //** add the Link to the "to be deleted links" vector 
+	 end 
+       end 
+    
+    end //** of the for loop 
+  
+    o_n.graphics.peout = peout_n ; //** update the "scs_m" event_ouput_port - event_link association
+    
+  end 
+  //**--------------------------------------------------------------------------------------------- 
 
-  //event outputs 
-  ncop=size(cop,'*')
-  ncopn=size(ncout_n,'*')
-  copn=cop
-  if ncop>ncopn then
-    //number of output ports decreased
-    if or(cop(ncopn+1:$)>0) then
-      hilite_obj(k) //** new
-      message('Connected ports cannot be suppressed')
-      unhilite_obj(k) //** new
-      return
-    end
-    kc=find(cop>0)
-    copn=cop(1:ncopn)
-  elseif ncop<ncopn then
-    //number of input ports increased 
-    if cop<>[] then kc=find(cop>0),else kc=[];end
-    copn=[cop;zeros(ncopn-ncop,1)]
-  end
-
-  if ncop<>ncopn then
-    connected=[connected,cop(kc)']
-    dx=[dx, (sz(1)/(ncopn+1)-sz(1)/(ncop+1))*kc]
-    dy=[dy,0*kc]
-  end
-  // update  block
-
+    
+  //** New graphics section 
   drawlater() ;
   gh_curwin = gh_current_window;
   o_size = size(gh_curwin.children.children);
-//   gr_k = o_size(1) - k + 1; //** semi empirical equation :)
-  gr_k = get_gri(k,o_size(1))
-  gh_link_i=[];
+  
+  k = path($) ; //** the scs_m index of the target 
+  gr_k = get_gri(k, o_size(1))
+  
+  gh_link = [];
+   
+  //** ------------------------ ADJUST THE CONNECTED LINKS ----------------------------------------
+  
+  //**-------------------------- Input Links ---------------------------------------
+  if size(InputLinkToCon,'*') > 0 then 
+  
+   for i=1:size(InputLinkToCon,'*')
+  
+      Link_index = InputLinkToCon(i) ;
+      oi = scs_m.objs(Link_index)
+      
+      [xlink, ylink, ct ,from ,to ] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to) ;
+  
+      xlink($) = xInPortToCon(i) ; ylink($) = yInPortToCon(i) ; //** force the position of last point
+      
+      //** Utilise the "theta" block parameters to compute the ppysical position of the port on the screen
+      xxx = rotate([xlink($);ylink($)],...
+                   o_n.graphics.theta*%pi/180,...
+                  [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
+      xlink($) = xxx(1,:);
+      ylink($) = xxx(2,:);
+      
+      oi.xx = xlink ; oi.yy = ylink ;                           //** link 
+      scs_m.objs(Link_index) = oi; //** update the scs_m 
+      
+      ghi = get_gri(Link_index, o_size(1) );       //** calc the index of the connected link
+      gh_link = gh_curwin.children.children(ghi);  //** recover the handle 
+      gh_link.children.data = [oi.xx , oi.yy];//** update the object  
+      
+   end //** for loop 
+  
+  end   
+  
+  //**---------------------------------
+  
+  //**----------------------- Output Links -------------------------------------------
+  
+  if size(OutputLinkToCon,'*') > 0 then 
+  
+   for i=1:size(OutputLinkToCon,'*')
+      
+      Link_index = OutputLinkToCon(i) ;
+      oi = scs_m.objs(Link_index)
+      
+      [xlink, ylink, ct ,from ,to ] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to) ;
+  
+      xlink(1) = xOutPortToCon(i) ; ylink(1) = yOutPortToCon(i) ; //** force the first point of the link 
+      
+      //** Utilise the "theta" block parameters to compute the ppysical position of the port on the screen
+      xxx = rotate([xlink(1);ylink(1)],...
+                   o_n.graphics.theta*%pi/180,...
+                  [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
+      xlink(1) = xxx(1,:);
+      ylink(1) = xxx(2,:);
+      
+      oi.xx = xlink ; oi.yy = ylink ; 
+      
+      scs_m.objs(Link_index) = oi;    //** update the scs_m 
+      
+      ghi = get_gri(Link_index, o_size(1) );       //** calc the index of the connected link
+      gh_link = gh_curwin.children.children(ghi);  //** recover the handle 
+      gh_link.children.data = [oi.xx , oi.yy];//** update the object 
+   
+   end //** for loop  
+  
+  end  
+  
+  //**--------------------------------
+   
+  for i=1:size(LinkToDel,'*')
+     Link_index = LinkToDel(i) ; //** the Link to be deleted 
+     gr = %t                   ; //** do not update the screen 
+     [scs_m, DEL, DELL] = do_delete1(scs_m, Link_index, gr) ; 
+  end 
+  
+  //** ------------------------ END OF : ADJUST THE CONNECTED LINKS -------------------------------  
+  
+  //**---------------------------------------------------------------------------------------------     
+  //** ------- Update  block -------------------
 
-  o_n.graphics.pin = ipn;
-  o_n.graphics.pout=opn;
-  o_n.graphics.pein=cipn;
-  o_n.graphics.peout = copn;
-  o_n.model.in = nin_n;
-  o_n.model.out = nout_n;
-  o_n.model.evtin = ncin_n;
-  o_n.model.evtout = ncout_n;
-  //*********************************
-  if nip<>nipn|nop<>nopn|ncip<>ncipn|ncop<>ncopn then
-    // build movable segments for all connected links
-    //===============================================
-    xx=[];yy=[];ii=[];clr=[];mx=[];my=[]
-
-    for i1=1:size(connected,'*')
-
-      i=connected(i1)
-      oi=scs_m.objs(i)
-
-//       gh_i = o_size(1) - i + 1 ; //** calc the handler of all the connected link(s)
-      gh_i = get_gri(i,o_size(1));
-      gh_link_i = [ gh_link_i gh_curwin.children.children(gh_i) ]; //** new
-
-      //[xl,yl,ct,from,to]=oi([2,3,7:9])
-      [xl,yl,ct,from,to]=(oi.xx,oi.yy,oi.ct,oi.from,oi.to)
-      clr=[clr ct(1)]
-      nl=prod(size(xl))
-      if from(1)==k then
-	ii=[ii i]
-	// build movable segments for this link
-	if nl>=4 then
-	  x1=xl(1:4)
-	  y1=yl(1:4)
-	elseif nl==3 then 
-	  // 3 points link add one point at the begining
-	  x1=xl([1 1:3])
-	  y1=yl([1 1:3])
-	elseif xl(1)==xl(2)|yl(1)==yl(2) then 
-	  // vertical or horizontal   2 points link add a point in the middle
-	  x1=[xl(1);xl(1)+(xl(2)-xl(1))/2;xl(1)+(xl(2)-xl(1))/2;xl(2)]
-	  y1=[yl(1);yl(1)+(yl(2)-yl(1))/2;yl(1)+(yl(2)-yl(1))/2;yl(2)]
-	else
-	  // oblique 2 points link add 2 points in the middle
-	  x1=[xl(1);xl(1)+(xl(2)-xl(1))/2;xl(1)+(xl(2)-xl(1))/2;xl(2)]
-	  y1=[yl(1);yl(1);yl(2);yl(2)]
-	end
-	//set allowed (x or y) move for each points of build movable segments
-	if nl==3 then
-	  if xl(1)==xl(2) then 
-	    mx=[mx,[1;1;1;0]]
-	    my=[my,[1;1;0;0]]
-	  else
-	    mx=[mx,[1;1;0;0]]
-	    my=[my,[1;1;1;0]]
-	  end
-	else
-	  if xl(1)==xl(2) then
-	    mx=[mx,[1;1;0;0]]
-	    my=[my,[1;1;1;0]]
-	  else
-	    mx=[mx,[1;0;0;0]]
-	    my=[my,[1;1;0;0]]
-	  end
-	end
-	mx(:,$)=mx(:,$)*dx(i1)
-	my(:,$)=my(:,$)*dy(i1)
-	xx=[xx x1];yy=[yy y1]  //store  movable segments for this link
-      elseif to(1)==k then
-	ii=[ii -i]
-	// build movable segments
-	if nl>=4 then
-	  x1=xl(nl:-1:nl-3)
-	  y1=yl(nl:-1:nl-3)
-	elseif nl==3 then 
-	  // 3 points link add one point at the end
-	  sel=[nl:-1:nl-2,nl-2]
-	  x1=xl([nl nl:-1:nl-2])
-	  y1=yl([nl nl:-1:nl-2])
-	elseif xl(1)==xl(2)|yl(1)==yl(2) then 
-	  // vertical or horizontal 2 points link add a point in the middle
-	  xm=xl(2)+(xl(1)-xl(2))/2
-	  x1= [xl(2);xm;xm;xl(1)]
-	  ym=yl(2)+(yl(1)-yl(2))/2;
-	  y1= [yl(2);ym;ym;yl(1)]
-	else
-	  // oblique 2 points link add 2 points in the middle
-	  xm=xl(2)+(xl(1)-xl(2))/2
-	  x1=[xl(2);xm;xm;xl(1)]
-	  y1=[yl(2);yl(2);yl(1);yl(1)]
-	end
-	if nl==3 then
-	  if x1(2)==x1(3) then 
-	    mx=[mx,[1;1;1;0]]
-	    my=[my,[1;1;0;0]]
-	  else
-	    mx=[mx,[1;1;0;0]]
-	    my=[my,[1;1;1;0]]
-	  end
-	else
-	  if x1(1)==x1(2) then
-	    mx=[mx,[1;1;0;0]]
-	    my=[my,[1;1;1;0]]
-	  else
-	    mx=[mx,[1;0;0;0]]
-	    my=[my,[1;1;0;0]]
-	  end
-	end
-	mx(:,$)=mx(:,$)*dx(i1)
-	my(:,$)=my(:,$)*dy(i1)
-	xx=[xx x1];yy=[yy y1] 
-      end
-    end
-
-    [mxx,nxx]=size(xx)
-
-    if connected<>[] then // move connected links  
-      // erase moving part of links
-      //** xpolys(xx,yy,clr) ; //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-
-      // draw moving part of links
-      xx=xx+mx
-      yy=yy+my
-      //** xpolys(xx,yy,clr); //** OLD GRAPHIC HERE !   <---------!!!!!!!!!
-
-      //udate moved links in scicos structure
-      for i=1:prod(size(ii))
-	oi=scs_m.objs(abs(ii(i)))
-	// xl=oi(2);yl=oi(3);nl=prod(size(xl))
-	xl=oi.xx;yl=oi.yy;nl=prod(size(xl))
-	if ii(i)>0 then
-	  if nl>=4 then
-	    xl(1:4)=xx(:,i)
-	    yl(1:4)=yy(:,i)
-	  elseif nl==3 then
-	    xl=xx(2:4,i)
-	    yl=yy(2:4,i)
-	  else
-	    xl=xx(:,i)
-	    yl=yy(:,i)
-	  end
-	else
-	  if nl>=4 then
-	    xl(nl-3:nl)=xx(4:-1:1,i)
-	    yl(nl-3:nl)=yy(4:-1:1,i)
-	  elseif nl==3 then
-	    xl=xx(4:-1:2,i)
-	    yl=yy(4:-1:2,i)
-	  else
-	    xl=xx(4:-1:1,i)
-	    yl=yy(4:-1:1,i)
-	  end
-	end
-	nl=prod(size(xl))
-	//eliminate double points
-	kz=find((xl(2:nl)-xl(1:nl-1))^2+(yl(2:nl)-yl(1:nl-1))^2==0)
-	xl(kz)=[];yl(kz)=[]
-	//store
-	oi.xx=xl;oi.yy=yl;
-	scs_m.objs(abs(ii(i)))=oi;
-        gh_link_i(i).children.data = [oi.xx , oi.yy]
-      end
-    end
-
-  end
-  // redraw block
-  //quick update for new graphics
-  update_gr(gr_k,o_n);
-  draw(gh_curwin.children);
+  //** ------- Graphics --------------
+  //** redraw block
+  //** quick update for new graphics
+  update_gr(gr_k, o_n)    ;
+  draw(gh_curwin.children); //** redraw the graphic data structure 
   show_pixmap();
-  //** if pixmap then xset('wshow'),end
-
-  // update block in scicos structure
+  
+  //**-------- Scicos -----------------
+  //** update block in scicos structure
+  
   scs_m.objs(k) = o_n ;
 
 endfunction
