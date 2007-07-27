@@ -1,5 +1,5 @@
 getf('SCI/demos/demos_lib/demo_begin.sci');
-[path,oldln]=demo_wp_begin('control.dem');
+[path,oldln]=demo_begin('control.dem');
 
 demolist=['LQG',               'lqg/lqg.dem'
 	  'Mixed-sensitivity', 'mixed.dem'

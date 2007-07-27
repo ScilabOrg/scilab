@@ -1,3 +1,3 @@
 function demo_run(fil)
-exec(fil)
+exec(fil);
 endfunction

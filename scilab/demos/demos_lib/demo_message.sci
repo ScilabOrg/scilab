@@ -1,3 +1,4 @@
-function demo_message(text)
-x_message(text)
+function demo_message(fil)
+text=mgetl(fil);
+x_message(text);
 endfunction

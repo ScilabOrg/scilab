@@ -1,7 +1,7 @@
 // Copyright INRIA
 
 getf('SCI/demos/demos_lib/demo_begin.sci');
-[path,oldln]=demo_wp_begin('optimization.dem');
+[path,oldln]=demo_begin('optimization.dem');
 
 demolist=['LMITOOL',                    'lmitool/lmi.dem'
 	  'Multiflow problem',          'multiflow/multiflow.dem'
