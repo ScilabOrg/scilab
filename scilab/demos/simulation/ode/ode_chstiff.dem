@@ -1,20 +1,15 @@
 // Copyright INRIA
 //chemical process (stiff)
-mode(-1)
+
 xbasc();
-x_message(['Integration of ODE:';...
-	'dy1/dt=-0.04*y1 + 1d4*y2*y3';...
-	'dy3/dt= 3d7*y2*y2';...
-	'dy2/dt= -dy1/dt - dy3/dt';...
-	'finding points such that';...
-	'y1=1.e-4 or y3=1.e-2'])
-clc;
-mode(1)
 // Equations definition
 deff('[yd]=chem(t,y)',[
     'yd(1)=-0.04*y(1) + 1d4*y(2)*y(3);';
     'yd(3)= 3d7*y(2)*y(2);';
     'yd(2)= -yd(1) - yd(3);'])
+  // finding points such that
+	// y1=1.e-4 or y3=1.e-2
+
 
 // Integration
 t=[1.d-5:0.02:.4 0.41:.1:4 40 400 4000 40000 4d5 4d6 4d7 4d8 4d9 4d10];
