@@ -44,7 +44,7 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	deriv.o sin_blk.o cos_blk.o tan_blk.o asin_blk.o acos_blk.o atan_blk.o \
         sinh_blk.o cosh_blk.o tanh_blk.o asinh_blk.o acosh_blk.o atanh_blk.o \
 	evtvardly.o edgetrig.o tcslti4.o tcsltj4.o dsslti4.o \
-	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o readf4.o writef4.o\
+	csslti4.o cstblk4.o samphold4.o dollar4.o invblk4.o delay4.o \
 	cevscpe.o cfscope.o cscopxy.o canimxy.o canimxy3d.o cscopxy3d.o \
 	matmul_m.o mattran_m.o cmatview.o cmat3d.o \
 	extdiag.o exttril.o mat_bksl.o mat_diag.o mat_lu.o mat_svd.o \
@@ -232,7 +232,6 @@ dollar4.o: dollar4.c scicos_block.h
 invblk4.o: invblk4.c scicos_block.h
 delay4.o: delay4.c scicos_block.h
 readf4.o: readf4.c ../machine.h scicos_block.h
-writef4.o: writef4.c ../machine.h scicos_block.h
 tree.o: tree.c ../machine.h ../sci_mem_alloc.h
 matmul_m.o: matmul_m.c scicos_block4.h
 mattram_m.o: mattran_m.c scicos_block4.h
