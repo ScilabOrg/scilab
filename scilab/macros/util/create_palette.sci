@@ -28,7 +28,7 @@ function routines=create_palette(Path)
       disp('Constructing '+txt)
       if txt=='Sources' then
 	lisf=['CONST_m.sci';'GENSQR_f.sci';'RAMP.sci';  
-	      'RAND_f.sci';'RFILE.sci';
+	      'RAND_f.sci';'RFILE_f.sci';
 	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
@@ -40,7 +40,7 @@ function routines=create_palette(Path)
 	      'CANIMXY.sci';   'CSCOPE.sci';
 	      'OUTIMPL_f.sci'; 
 	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';
-	      'OUT_f.sci';      'WFILE.sci';
+	      'OUT_f.sci';      'WFILE_f.sci';
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
 	      'CSCOPXY3D.sci';   'CANIMXY3D';
 	      'CMATVIEW.sci';	'CMAT3D.sci']
