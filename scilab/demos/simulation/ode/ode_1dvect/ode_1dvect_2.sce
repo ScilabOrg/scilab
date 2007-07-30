@@ -50,3 +50,14 @@ while(%t)
 	t1=t0:0.1:tmax; 
 	[sol1,rd]=ode("root",y0,t0,t1,1.d-2,1.d-4,f,2,g);
 	t2=t0:-0.1:tmin;
+	[sol2,rd]=ode("root",y0,t0,t2,1.d-2,1.d-4,f,2,g);
+	p1.data=[t1(1:size(sol1,"*"))' sol1'];
+	p2.data=[t2(1:size(sol2,"*"))' sol2'];
+	show_pixmap()
+	oldt0=t0; oldy0=y0;
+      end
+    end
+  end
+end
+fig.pixmap='off';
+lines(oldln(1))
