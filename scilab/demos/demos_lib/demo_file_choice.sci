@@ -31,7 +31,7 @@ else if ch=='root' then
   end
 
   else
-    deff('[]=demoex(num)','exec(path+demolist(num,2),-1)')
+    deff('[]=demoex(num)','exec(path+demolist(num,2),-1)');
     while %t then
       num=tk_choose(demolist(:,1),'Choose a demo');
       if num==0 then 

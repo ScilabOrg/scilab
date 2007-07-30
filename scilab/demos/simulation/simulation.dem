@@ -3,9 +3,10 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 
 demolist=['n-pendulum','npend/npend.dem';
 	  'Wheel simulation','wheel2/wheel.dem';
-	  'Bike Simulation','bike/bike.dem';
+	  'Bike Simulation','bike/bike_gateway.sce';
 	  'ODE''S','ode/ode.dem';
 	  'DAE''S','dae/dae.dem']
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice(path,'no');
+clear;

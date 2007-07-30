@@ -8,9 +8,9 @@ demolist=[
 'Chemical process (Stiff)','ode_chstiff/ode_chstiff_gateway.sce';
 'Chemical process (Implicit)','ode_chimpl/ode_chimpl_gateway.sce';
 'Lorentz equation','ode_lorentz/ode_lorentz_gateway.sce'
-'ODE 1D vector field','ode_1Dvect/ode_1dvect.dem'
-'Van der Pol vector field','ode_vanderpol.dem'
-'Lotka-Volterra vector field','ode_lotka.dem']
+'ODE 1D vector field','ode_1Dvect/ode_1dvect_gateway.sce'
+'Van der Pol vector field','ode_vanderpol/ode_vanderpol_gateway.sce'
+'Lotka-Volterra vector field','ode_lotka/ode_lotka_gateway.sce']
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice(path,'no');

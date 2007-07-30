@@ -11,9 +11,10 @@ while %t do
   case 0
     return
   case 1
-    demoexc("dae1.dem");
+    demoexc("dae1/dae1_gateway.sce");
   case 2
-    demoexc("dae2.dem");
+    demoexc("dae2/dae2_gateway.sce");
   end
 end
 mode(0)
+clear;
