@@ -153,8 +153,6 @@ extern  integer C2F(realtimeinit)();
 extern  integer C2F(sxevents)();
 extern  integer C2F(stimer)();
 extern  integer C2F(xscion)();
-extern  integer C2F(ddaskr)();
-extern  integer C2F(lsodar2)();
 
 extern int scilab_timer_check();
 
@@ -1588,7 +1586,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	}
       }
       /*--discrete zero crossings----dzero--------------------*/
-      if (ng>0){ /* storing ZC signs just after a ddaskr call*/
+      if (ng>0){ /* storing ZC signs just after a sundials call*/
 	zdoit(g, x, x, told); if (*ierr != 0) {freeall;return;  }
 	for (jj = 0; jj < ng; ++jj) 
 	  if(g[jj]>=0)jroot[jj]=5;else jroot[jj]=-5;
@@ -1659,6 +1657,8 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   realtype *scicos_xproperty;
   void *ida_mem;
   UserData data;
+  IDAMem copy_IDA_mem;
+  int maxnj;
   /*-------------------- Analytical Jacobian memory allocation ----------*/
   int  Jn, Jnx, Jno, Jni, Jactaille;
   double uround;
@@ -1715,7 +1715,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
     NV_DATA_S(yp)=xd;
 
     reltol = (realtype) rtol;
-    abstol = (realtype) Atol;  // Ith(abstol,1) = realtype) Atol;
+    abstol = (realtype) Atol;  /*  Ith(abstol,1) = realtype) Atol;*/
 
     IDx = NULL;
     IDx = N_VNew_Serial(*neq); 
@@ -1741,6 +1741,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       FREE(Mode_save);
       return;
     }
+    copy_IDA_mem= (IDAMem) ida_mem;
 
     flag = IDAMalloc(ida_mem, simblkdaskr, T0, yy, yp, IDA_SS, reltol, &abstol);
     if(check_flag(&flag, "IDAMalloc", 1)){
@@ -1814,7 +1815,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       return;
     };
 
-    //Jacobian_Flag=0;
+    /*Jacobian_Flag=0; */
     if (Jacobian_Flag==1){/* set by the block with A-Jac in flag-4 using Set_Jacobian_flag(1); */
       Jn=*neq;
       Jnx=Blocks[AJacobian_block-1].nx;
@@ -1861,6 +1862,14 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       };
     }
 
+    maxnj=1;
+    flag=IDASetMaxNumJacsIC(ida_mem, maxnj);
+    if (check_flag(&flag, "IDASetMaxNumJacsIC", 1)) {
+      *ierr=10000;    
+      freeallx
+	return;
+    };
+    
   }/* testing if neq>0 */
 
   uround = 1.0;
@@ -2019,7 +2028,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	      return;
 	    }
 
-	    // yy->PH
+	    /* yy->PH */
 	    flag =IDAReInit(ida_mem, simblkdaskr, (realtype)(*told), yy, yp, IDA_SS, reltol, &abstol);
 	    if (check_flag(&flag, "CVodeReInit", 1)) {
 	      *ierr=10000;    
@@ -2029,21 +2038,18 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  
 
 	  
-	    phase=2;//IDACalcIC: PHI-> yy0: if (ok) yy0_cic-> PHI
+	    phase=2; /* IDACalcIC: PHI-> yy0: if (ok) yy0_cic-> PHI*/
+	    copy_IDA_mem->ida_kk=1;
 	    flag=IDACalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
 	    phase=1;
 
-	    flag = IDAGetConsistentIC(ida_mem, yy, yp);// PHI->YY
+	    flag = IDAGetConsistentIC(ida_mem, yy, yp); /* PHI->YY */
 
 	    if (*ierr > 5) {  /* *ierr>5 => singularity in block */
 	      freeallx;
 	      return;
 	    }
 
-	    if (*ierr > 5) {
-	      freeallx;
-	      return;
-	    }
 	    if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
             {
 	      if (istate==4) {
@@ -4407,7 +4413,7 @@ int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *
 
   C2F(ierode).iero = *ierr;
 
-  return (*ierr); //ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok
+  return (*ierr); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
 }
 
 
@@ -4939,9 +4945,14 @@ int Jacobians(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
   HuGuKx=FuKuGx+nx*nx;
   /* HuGuKx+m*m; =>  m*m=size of HuGuKx */
   /* ------------------ Numerical Jacobian--->> Hx,Kx */
-  job=0;/* read residuals;*/
-  Jdoit(ERR1, xc, xcdot,&ttx,&job);
-  if (*ierr < 0) return -1;
+
+  /* read residuals;*/
+  /* job=0;
+     Jdoit(ERR1, xc, xcdot,&ttx,&job);
+     if (*ierr < 0) return -1; */
+  /* "residual" already contains the current residual, 
+     so Masoud removed the first call to Jdoit*/
+
   for (i=0;i<m;i++)
     for (j=0;j<ni;j++)
       Kx[j+i*ni]=u[j][0];
@@ -4962,7 +4973,7 @@ int Jacobians(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
     if (*ierr < 0) return -1;
     inc_inv = ONE/inc;
     for(j=0;j<m;j++)
-      Hx[m*i+j]=(ERR2[j]-ERR1[j])*inc_inv;
+      Hx[m*i+j]=(ERR2[j]-residual[j])*inc_inv;
     for (j=0;j<ni;j++)
       Kx[j+i*ni]=(u[j][0]-Kx[j+i*ni])*inc_inv;
     xc[i]=xi;
