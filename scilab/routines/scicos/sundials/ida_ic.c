@@ -222,9 +222,7 @@ int IDACalcIC(void *ida_mem, int icopt, realtype tout1)
   }
 
   /* Set the test constant in the Newton convergence test */
-
   IDA_mem->ida_epsNewt = epiccon;
-  IDA_mem->ida_kk=1; /* addedd by masoud*/
   /* Initializations: 
      cjratio = 1 (for use in direct linear solvers); 
      set nbacktr = 0; */
@@ -286,7 +284,7 @@ int IDACalcIC(void *ida_mem, int icopt, realtype tout1)
 
   /* Free temporary space */
 
-  /* masoud:  in order to return the computed new values even if they are not consistent*/ 
+  /* Masoud:  in order to return computed new values even if they are not consistent*/ 
     N_VScale(ONE, yy0, phi[0]); /* addedd by masoud*/
     N_VScale(ONE, yp0, phi[1]); /* addedd by masoud*/
     
@@ -357,7 +355,6 @@ static int IDAnlsIC (IDAMem IDA_mem)
   tv1 = ee;
   tv2 = tempv2;
   tv3 = phi[2];
-  //printf("\n\r  XX_ic IDAnlsIC RES evaluation  ");
   retval = res(t0, yy0, yp0, delta, rdata);
 
   nre++;
@@ -367,12 +364,10 @@ static int IDAnlsIC (IDAMem IDA_mem)
   N_VScale(ONE, delta, savres);
 
   /* Loop over nj = number of linear solve Jacobian setups. */
-  // maxnj=1;
   for(nj = 1; nj <= maxnj; nj++) {
     /* If there is a setup routine, call it. */
      if(setupNonNull) {
       nsetups++;
-      //printf(" XX_JAC_IC IDAnlsIC ");
       retval = lsetup(IDA_mem, yy0, yp0, delta, tv1, tv2, tv3);
 
       if(retval < 0) return(IDA_LSETUP_FAIL);
@@ -455,9 +450,6 @@ static int IDANewtonIC(IDAMem IDA_mem)
     /* Call the Linesearch function and return if it failed. */
     retval = IDALineSrch(IDA_mem, &delnorm, &fnorm);
     if(retval != IDA_SUCCESS) return(retval);
-
-    //return(IC_SLOW_CONVRG);
-    // return(IC_CONV_FAIL);
 
     /* Set the observed convergence rate and test for convergence. */
     rate = fnorm/oldfnrm;
