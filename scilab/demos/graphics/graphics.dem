@@ -4,13 +4,13 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_begin('graphics.dem');
 
 demolist=['2D and 3D plots','plots/dessin.dem',
-		'Basic functions','basic/xdemo.dem',
+		'Basic functions','basic/xdemo_gateway.sce',
 		'Animation','anim/anim.dem',
-		'Finite Elements','fec/fec.dem',
+		'Finite Elements','fec/fec_gateway.sce',
 		'Bezier curves and surfaces','bezier/bezier.dem',
 		'More surfaces','more/surfaces.dem',
-		'Misc','misc/misc.dem',
-		'Complex elementary functions','cmplxfunc/cmplxfunc.dem',
+		'Misc','misc/misc_gateway.sce',
+		'Complex elementary functions','cmplxfunc/cmplxfunc_gateway.sce',
 		'bar histogram','bar/bar.dem']
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');

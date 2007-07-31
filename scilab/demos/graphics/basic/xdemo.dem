@@ -1,6 +1,8 @@
 // Copyright ENPC
 
 getf('SCI/demos/demos_lib/demo_begin.sci');
+getf('SCI/demos/demos_lib/demo_function_choice.sci');
+
 [path,oldln]=demo_begin('xdemo.dem');
 
 exec(path+'xdemo-1.dem');
@@ -15,6 +17,5 @@ demolist=[
     'Colored histogram','xdemo7()';
     'Pie Chart','xdemo8()' ]
 
-getf('SCI/demos/demos_lib/demo_function_choice.sci');
 demo_function_choice;
 
