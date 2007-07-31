@@ -1,20 +1,22 @@
-mode(-1);
+
 // Copyright ENPC 
 
 getf('SCI/demos/demos_lib/demo_begin.sci');
-[path,oldln]=demo_begin('wheel.dem');
+getf('SCI/demos/demos_lib/demo_compiler.sci');
+getf('SCI/demos/demos_lib/demo_choose.sci');
 
 getf(path+'show.sci');
-getf('SCI/demos/demos_lib/demo_compiler.sci');
+
+[path,oldln]=demo_begin('wheel.dem');
 
 xbasc();
 fs = get('figure_style');
 set("figure_style","old");
 
-getf('SCI/demos/demos_lib/demo_choose.sci');
 choice=['Reading a precomputed trajectory';
         'Simulation with ode (needs f77 and link. may fail, see help link)']
 titl='Simulation or Visualisation ? (click below)';
+
 demo_choose(choice,titl);
 
 select num,
