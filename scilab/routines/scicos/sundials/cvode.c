@@ -436,17 +436,20 @@ int CVodeMalloc(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
 
   if (y0==NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_NULL_Y0);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_NULL_Y0);
   }
 
   if ((itol != CV_SS) && (itol != CV_SV) && (itol != CV_WF)) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_BAD_ITOL);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_BAD_ITOL);
   }
 
   if (f == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_NULL_F);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_NULL_F);
   }
 
   /* Test if all required vector operations are implemented */
@@ -454,7 +457,8 @@ int CVodeMalloc(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
   nvectorOK = CVCheckNvector(y0);
   if(!nvectorOK) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_BAD_NVECTOR);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_BAD_NVECTORs);
   }
 
   /* Test tolerances */
@@ -463,12 +467,14 @@ int CVodeMalloc(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
 
     if (abstol == NULL) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_NULL_ABSTOL);
-      return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+      return(CV_NULL_ABSTOL);
     }
 
     if (reltol < ZERO) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_BAD_RELTOL);
-      return(CV_ILL_INPUT);
+      /* return(CV_ILL_INPUT); Masoud */
+      return(CV_BAD_RELTOL);
     }
 
     if (itol == CV_SS)
@@ -478,7 +484,8 @@ int CVodeMalloc(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
 
     if (neg_abstol) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_BAD_ABSTOL);
-      return(CV_ILL_INPUT);
+      /* return(CV_ILL_INPUT); Masoud */
+      return(CV_BAD_ABSTOL);
     }
 
   }
@@ -624,17 +631,20 @@ int CVodeReInit(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
 
   if (y0 == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_NULL_Y0);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_NULL_Y0);
   }
   
   if ((itol != CV_SS) && (itol != CV_SV) && (itol != CV_WF)) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_BAD_ITOL);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_BAD_ITOL);
   }
 
   if (f == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_NULL_F);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_NULL_F);
   }
 
   /* Test tolerances */
@@ -643,12 +653,14 @@ int CVodeReInit(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
 
     if (abstol == NULL) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_NULL_ABSTOL);
-      return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+      return(CV_NULL_ABSTOL);
     }
 
     if (reltol < ZERO) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_BAD_RELTOL);
-      return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+      return(CV_BAD_RELTOL);
     }
     
     if (itol == CV_SS) {
@@ -659,7 +671,8 @@ int CVodeReInit(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
     
     if (neg_abstol) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeReInit", MSGCV_BAD_ABSTOL);
-      return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+      return(CV_BAD_ABSTOL);
     }
 
   }
@@ -817,7 +830,8 @@ int CVodeRootInit(void *cvode_mem, int nrtfn, CVRootFn g, void *gdata)
         liw -= nrt;
 
         CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeRootInit", MSGCV_NULL_G);
-	return(CV_ILL_INPUT);
+	/* return(CV_ILL_INPUT); Masoud */
+	return(CV_NULL_G);
       }
       else {
 	gfun = g;
@@ -831,7 +845,8 @@ int CVodeRootInit(void *cvode_mem, int nrtfn, CVRootFn g, void *gdata)
   cv_mem->cv_nrtfn = nrt;
   if (g == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeRootInit", MSGCV_NULL_G);
-    return(CV_ILL_INPUT);
+    /* return(CV_ILL_INPUT); Masoud */
+    return(CV_NULL_G);
   }
   else gfun = g;
 
@@ -1027,13 +1042,16 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
   /* Check for yout != NULL */
   if ((y = yout) == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_YOUT_NULL);
-    return(CV_ILL_INPUT);
+    /*    return(CV_ILL_INPUT); Masoud*/
+    return(CV_YOUT_NULL);
+
   }
 
   /* Check for tret != NULL */
   if (tret == NULL) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_TRET_NULL);
-    return(CV_ILL_INPUT);
+    /*    return(CV_ILL_INPUT); Masoud*/
+    return(CV_TRET_NULL);
   }
 
   /* Check for valid itask */
@@ -1042,14 +1060,16 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       (itask != CV_NORMAL_TSTOP) &&
       (itask != CV_ONE_STEP_TSTOP) ) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_ITASK);
-    return(CV_ILL_INPUT);
+    /*    return(CV_ILL_INPUT); Masoud*/
+    return(CV_BAD_ITASK);
   }
 
   /* Split itask into task and istop */
   if ((itask == CV_NORMAL_TSTOP) || (itask == CV_ONE_STEP_TSTOP)) {
     if ( tstopset == FALSE ) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_NO_TSTOP);
-      return(CV_ILL_INPUT);
+    /*    return(CV_ILL_INPUT); Masoud*/
+      return(CV_NO_TSTOP);
     }
     istop = TRUE;
   } else {
@@ -1099,7 +1119,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     h = hin;
     if ( (h != ZERO) && ((tout-tn)*h < ZERO) ) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_H0);
-      return(CV_ILL_INPUT);
+    /*    return(CV_ILL_INPUT); Masoud*/
+      return(CV_BAD_H0);
     }
     if (h == ZERO) {
       hflag = CVHin(cv_mem, tout);
@@ -1117,7 +1138,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     if (istop) {
       if ( (tstop - tn)*h < ZERO ) {
         CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_TSTOP, tn);
-        return(CV_ILL_INPUT);
+	/*    return(CV_ILL_INPUT); Masoud*/
+        return(CV_BAD_TSTOP);
       }
       if ( (tn + h - tstop)*h > ZERO ) 
         h = (tstop - tn)*(ONE-FOUR*uround);
@@ -1139,7 +1161,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
 
       if (retval == INITROOT) {
         CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVRcheck1", MSGCV_BAD_INIT_ROOT);
-        return(CV_ILL_INPUT);
+	/*    return(CV_ILL_INPUT); Masoud*/
+        return(CV_BAD_INIT_ROOT);
       } else if (retval == CV_RTFUNC_FAIL) {
         CVProcessError(cv_mem, CV_RTFUNC_FAIL, "CVODE", "CVRcheck1", MSGCV_RTFUNC_FAILED, tn);
         return(CV_RTFUNC_FAIL);
@@ -1179,7 +1202,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
 
       if (retval == CLOSERT) {
         CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVRcheck2", MSGCV_CLOSE_ROOTS, tlo);
-        return(CV_ILL_INPUT);
+	/*    return(CV_ILL_INPUT); Masoud*/
+        return(CV_CLOSE_ROOTS);
       } else if (retval == CV_RTFUNC_FAIL) {
         CVProcessError(cv_mem, CV_RTFUNC_FAIL, "CVODE", "CVRcheck2", MSGCV_RTFUNC_FAILED, tlo);
         return(CV_RTFUNC_FAIL);
@@ -1193,8 +1217,6 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       if ( ABS(tn - tretlast) > troundoff ) {
 
         retval = CVRcheck3(cv_mem);
-	//printf(" \n\r x22=%d ",retval);
-
         if (retval == CV_SUCCESS) {     /* no root found */
           irfnd = 0;
           if ((irfndp == 1) && (task == CV_ONE_STEP)) {
@@ -1220,7 +1242,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     /* Test for tn past tstop */
     if ( istop && ((tstop - tn)*h < ZERO) ) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_TSTOP, tn);
-      return(CV_ILL_INPUT);
+      /* return(CV_ILL_INPUT); Masoud */
+      return(CV_BAD_TSTOP);
     }
 
     /* In CV_NORMAL mode, test if tout was reached */
@@ -1229,7 +1252,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       ier =  CVodeGetDky(cv_mem, tout, 0, yout);
       if (ier != CV_SUCCESS) {
         CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_TOUT, tout);
-        return(CV_ILL_INPUT);
+	/* return(CV_ILL_INPUT); Masoud */
+        return(CV_BAD_TOUT);
       }
       return(CV_SUCCESS);
     }
@@ -1248,7 +1272,8 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
         ier =  CVodeGetDky(cv_mem, tstop, 0, yout);
         if (ier != CV_SUCCESS) {
           CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_TSTOP, tn);
-          return(CV_ILL_INPUT);
+	/* return(CV_ILL_INPUT); Masoud */
+          return(CV_BAD_TSTOP);
         }
         tretlast = *tret = tstop;
         return(CV_TSTOP_RETURN);
@@ -1689,19 +1714,24 @@ static int CVInitialSetup(CVodeMem cv_mem)
   } else {
     if (efun == NULL) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVInitialSetup", MSGCV_NO_EFUN);
-      return(CV_ILL_INPUT);
+      /*return(CV_ILL_INPUT); Masoud */
+      return(CV_NO_EFUN);
+
     }
   }
 
   ewtsetOK = efun(zn[0], ewt, e_data);
   if (ewtsetOK != 0) {
 
-    if (itol == CV_WF) 
+    if (itol == CV_WF){ 
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVInitialSetup", MSGCV_EWT_FAIL);
-    else 
+      /*return(CV_ILL_INPUT); Masoud */
+      return(CV_EWT_FAIL);
+    }else{ 
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVInitialSetup", MSGCV_BAD_EWT);
-    
-    return(CV_ILL_INPUT);
+    /*return(CV_ILL_INPUT); Masoud */
+    return(CV_BAD_EWT);
+    }
   }
   
   /* Check if lsolve function exists (if needed)
@@ -1710,7 +1740,8 @@ static int CVInitialSetup(CVodeMem cv_mem)
   if (iter == CV_NEWTON) {
     if (lsolve == NULL) {
       CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVInitialSetup", MSGCV_LSOLVE_NULL);
-      return(CV_ILL_INPUT);
+      /*return(CV_ILL_INPUT); Masoud */
+      return(CV_LSOLVE_NULL);
     }
     if (linit != NULL) {
       ier = linit(cv_mem);
