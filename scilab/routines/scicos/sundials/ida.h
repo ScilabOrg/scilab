@@ -99,6 +99,36 @@ extern "C" {
 
 #define IDA_RTFUNC_FAIL     -20
 
+  /* added by masoud*/
+#define IDA_YOUT_NULL            -28
+#define IDA_TRET_NULL            -29
+#define IDA_BAD_ITASK            -30
+#define IDA_NO_TSTOP             -31
+#define IDA_BAD_H0               -32
+#define IDA_BAD_TSTOP            -33
+#define IDA_BAD_INIT_ROOT        -34
+#define IDA_NO_EFUN              -35
+#define IDA_EWT_FAIL             -36
+#define IDA_LSOLVE_NULL          -38
+#define IDA_NULL_Y0              -39
+#define IDA_BAD_ITOL             -40
+#define IDA_NULL_F               -41
+#define IDA_BAD_NVECTOR          -42
+#define IDA_NULL_ABSTOL          -43
+#define IDA_BAD_RELTOL           -44
+#define IDA_BAD_ABSTOL           -45
+#define IDA_NULL_G               -46
+#define IDA_BAD_TOUT             -47
+#define IDA_YP0_NULL             -48 
+#define IDA_RES_NULL             -49
+#define IDA_YRET_NULL            -50
+#define IDA_YPRET_NULL           -51
+#define IDA_BAD_HINIT            -52
+#define IDA_MISSING_ID           -53
+#define IDA_Y0_FAIL_CONSTR       -54
+#define IDA_TOO_CLOSE            -55
+#define IDA_CLOSE_ROOTS          -56
+
   /*
    * ----------------------------------------------------------------
    * Type : IDAResFn                                                   
