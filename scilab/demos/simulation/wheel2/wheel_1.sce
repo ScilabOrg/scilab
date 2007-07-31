@@ -1,0 +1,52 @@
+
+xbasc();
+fs = get('figure_style');
+set("figure_style","old");
+
+select num,
+ case 0
+  return;
+ case 2 then 
+  demo_compiler();
+  if (ans==%t) then
+	  mode(0);
+	  wheel_build_and_load() 
+	  wheelg=wheelgf;
+	  tmin=0.0;tmax=15;nn=300;
+	  times=(0:(nn-1));
+	  times=tmax*times/(nn-1) +tmin*((nn-1)*ones(times)-times);
+	  //               INITIAL CONDITIONS
+	  x0=[0;                 	//theta
+  	  	%pi/2+0.1;   	//phi
+    		0;              //psi
+    		5.0;        	//Dtheta
+    		0.0;          	//Dphi
+    		4.0;         	//Dpsi
+    		0;           	//x
+    		0];           	//y
+
+	  //               SIMULATION
+	  x=ode(x0,tmin,times,'wheel');
+	  xselect();
+	  xbasc();
+	  show(x);
+	  ystr=[ 'phi';'theta';'psi';'Dpsi';'Dtheta';'Dpsi';'x';'y'];
+        flag=2;
+	  while flag==2, [n1,n2]=size(x);
+  		flag=tk_choose(['Stop';'Go on'],'Choose');
+                if flag==2,x0=evstr(x_mdialog(['Initial conditions'],...
+                      ystr,string(x(:,n2))));
+  		x=ode(x0,tmin,times,'wheel');
+  		xbasc();show(x)
+		end;
+	 end
+	end
+ case 1 then // A precomputed value for 
+	     //x0=[0;%pi/2+0.1;0;5.0;0.0;4.0;0;0];
+	x=read(path+'/x.wrt',8,301);
+	wheelg=wheelgs;
+	show(x);
+end
+
+set('figure_style',fs);
+
