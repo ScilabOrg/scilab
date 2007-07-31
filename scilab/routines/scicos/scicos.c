@@ -1283,14 +1283,14 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
     
     flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
     if (check_flag(&flag, "CVodeMalloc", 1)) {
-      *ierr=10000;    
+      *ierr=300+(-flag);
       freeall
       return;
     };
     
     flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
     if (check_flag(&flag, "CVodeRootInit", 1)) {
-      *ierr=10000;  
+      *ierr=300+(-flag);
       freeall
       return;
     };
@@ -1298,7 +1298,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   /* Call CVDense to specify the CVDENSE dense linear solver */
     flag = CVDense(cvode_mem, *neq);
     if (check_flag(&flag, "CVDense", 1)) {
-      *ierr=10000;    
+      *ierr=300+(-flag);
       freeall
 	return;
     };
@@ -1306,7 +1306,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
     if(hmax>0){
       flag=CVodeSetMaxStep(cvode_mem, (realtype) hmax);
       if (check_flag(&flag, "CVodeSetMaxStep", 1)) {
-	*ierr=10000;    
+	*ierr=300+(-flag);
 	freeall;
 	return;
       };
@@ -1433,14 +1433,14 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	if (hot==0){ /* hot==0 : cold restart*/
 	  flag = CVodeSetStopTime(cvode_mem, (realtype)tstop);  /* Setting the stop time*/
 	  if (check_flag(&flag, "CVodeSetStopTime", 1)) {    
-	    *ierr=10000;    
+	    *ierr=300+(-flag);
 	    freeall;
 	    return;
 	  };
 	  
 	  flag =CVodeReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
 	  if (check_flag(&flag, "CVodeReInit", 1)) {
-	    *ierr=10000;    
+	    *ierr=300+(-flag);
 	    freeall;
 	    return;
 	  };
@@ -1471,8 +1471,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
 	  phase=1;
 	  if (((flag<0)&& flag != CV_TOO_MUCH_WORK)||(*ierr > 5) ) { /*     *ierr>5 => singularity in block */
-	    sciprint("\nSUNDIALS_ERROR: CVode failed with flag = %d\n\n",flag);
-	    *ierr=10000;    
+	    *ierr=300+(-flag);
 	    freeall;
 	    return;
 	  };
@@ -1508,7 +1507,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  if (Discrete_Jump==0){
 	    flagr = CVodeGetRootInfo(cvode_mem, jroot);
 	    if (check_flag(&flagr, "CVodeGetRootInfo", 1)) {
-	      *ierr=10000;    
+	      *ierr=300+(-flagr);
 	      freeall;
 	      return;
 	    };	
@@ -1745,6 +1744,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
     flag = IDAMalloc(ida_mem, simblkdaskr, T0, yy, yp, IDA_SS, reltol, &abstol);
     if(check_flag(&flag, "IDAMalloc", 1)){
+      *ierr=200+(-flag);  
       IDAFree(&ida_mem);
       N_VDestroy_Serial(IDx);
       N_VDestroy_Serial(yp);
@@ -1758,7 +1758,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
     flag = IDARootInit(ida_mem, ng, grblkdaskr, NULL);
     if (check_flag(&flag, "IDARootInit", 1)) {
-      *ierr=10000;  
+      *ierr=200+(-flag);  
       IDAFree(&ida_mem);
       N_VDestroy_Serial(IDx);
       N_VDestroy_Serial(yp);
@@ -1772,7 +1772,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
     flag = IDADense(ida_mem, *neq);
     if (check_flag(&flag, "IDADense", 1)) {
-      *ierr=10000;  
+      *ierr=200+(-flag);  
       IDAFree(&ida_mem);
       N_VDestroy_Serial(IDx);
       N_VDestroy_Serial(yp);
@@ -1803,7 +1803,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
     data->ewt   = N_VNew_Serial(*neq);
     if (check_flag((void *)data->ewt, "N_VNew_Serial", 0)) {
-      *ierr=10000;
+      *ierr=200+(-flag);  
       FREE(data);
       IDAFree(&ida_mem);
       N_VDestroy_Serial(IDx);
@@ -1838,16 +1838,16 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       }
 
       flag = IDADenseSetJacFn(ida_mem, Jacobians, data);
-      if(check_flag(&flag, "IDADenseSetJacFn", 1)) {
-	*ierr=10000;  
+      if(check_flag(&flag, "IDADenseSetJacFn", 1)) {       
+      *ierr=200+(-flag);  
 	freeallx
 	  return;
       };  
     }
 
     flag = IDASetRdata(ida_mem, data);
-    if (check_flag(&flag, "IDASetRdata", 1)) {
-      *ierr=10000;    
+    if (check_flag(&flag, "IDASetRdata", 1)) {      
+      *ierr=200+(-flag);  
       freeallx
 	return;
     };
@@ -1855,8 +1855,8 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
  
     if(hmax>0){
       flag=IDASetMaxStep(ida_mem, (realtype) hmax);
-      if (check_flag(&flag, "CVodeSetMaxStep", 1)) {
-	*ierr=10000;    
+      if (check_flag(&flag, "IDASetMaxStep", 1)) {
+	*ierr=200+(-flag);
 	freeallx
 	return;
       };
@@ -1865,7 +1865,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
     maxnj=1;
     flag=IDASetMaxNumJacsIC(ida_mem, maxnj);
     if (check_flag(&flag, "IDASetMaxNumJacsIC", 1)) {
-      *ierr=10000;    
+      *ierr=200+(-flag);
       freeallx
 	return;
     };
@@ -1994,7 +1994,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  /* Setting the stop time*/
 	  flag = IDASetStopTime(ida_mem, (realtype)tstop);  
 	  if (check_flag(&flag, "IDASetStopTime", 1)) {    
-	    *ierr=10000;    
+	    *ierr=200+(-flag);
 	    freeallx;
 	    return;
 	  };
@@ -2023,7 +2023,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
 	    flag=IDASetId(ida_mem,IDx);
 	    if (check_flag(&flag, "IDASetId", 1)) {
-	      *ierr=10000;    
+	      *ierr=200+(-flag); 
 	      freeallx
 	      return;
 	    }
@@ -2031,18 +2031,15 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	    /* yy->PH */
 	    flag =IDAReInit(ida_mem, simblkdaskr, (realtype)(*told), yy, yp, IDA_SS, reltol, &abstol);
 	    if (check_flag(&flag, "CVodeReInit", 1)) {
-	      *ierr=10000;    
+	      *ierr=200+(-flag);
 	      freeallx;
 	      return;
 	    };	
 	  
-
-	  
 	    phase=2; /* IDACalcIC: PHI-> yy0: if (ok) yy0_cic-> PHI*/
 	    copy_IDA_mem->ida_kk=1;
-	    flag=IDACalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
+	    flagr=IDACalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
 	    phase=1;
-
 	    flag = IDAGetConsistentIC(ida_mem, yy, yp); /* PHI->YY */
 
 	    if (*ierr > 5) {  /* *ierr>5 => singularity in block */
@@ -2080,10 +2077,18 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
  		break;
 		}
 	    }
-	    if ( Mode_change==0)      break;
+	    if ( Mode_change==0){
+	      if (flagr>=0) break;
+	      else{
+		*ierr=200+(-flagr); /* error messages are given in intcsccios.c*/
+		freeallx;
+		return;
+	      }
+
+	    }
 	  }/* mode-CIC  counter*/
-	  if(Mode_change==1){
-	    *ierr = 100 - (-17);
+	  if(Mode_change==1){ 
+	    *ierr = 23;
 	    freeallx;
 	    return;
 	  }
@@ -2111,23 +2116,22 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	/*--discrete zero crossings----dzero--------------------*/
 	if (Discrete_Jump==0){/* if there was a dzero, its event should be activated*/
 	  phase=2;
-	  flag = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL_TSTOP);
+	  flagr = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL_TSTOP);
 	  phase=1;
-	  if (((flag<0)&& flag != IDA_TOO_MUCH_WORK)||(*ierr > 5) ) { /*     *ierr>5 => singularity in block */
+	  if (((flagr<0)&& flagr != IDA_TOO_MUCH_WORK)||(*ierr > 5) ) { /*     *ierr>5 => singularity in block */
 	    hot=0;
-	    /*fprintf(stderr, "\nSUNDIALS_ERROR: Ida failed with flag = %d\n\n",flag);*/
-	    *ierr=10000;    
+	    *ierr=200+(-flagr);    
 	    freeallx;
 	    return;
 	  };
 	}else{
-	  flag = IDA_ROOT_RETURN; /* in order to handle discrete jumps */
+	  flagr = IDA_ROOT_RETURN; /* in order to handle discrete jumps */
 	}
 	
-	if ( flag==IDA_TOO_MUCH_WORK ) {  /* -1 == CV_TOO_MUCH_WORK) */
+	if ( flagr==IDA_TOO_MUCH_WORK ) {  /* -1 == CV_TOO_MUCH_WORK) */
 	  sciprint("**** SUNDIALS.Ida: too much work at time=%g (may be it's a stiff region)\r\n",*told);	  
 	  hot = 0;
-	}else if  (flag>=0 ) {
+	}else if  (flagr>=0 ) {
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
 	    sciprint("****SUNDIALS.Ida reached: %f\r\n",*told);
 	  hot = 1;
@@ -2140,14 +2144,14 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  return;
 	}
 
-	if (flag == CV_ZERO_DETACH_RETURN){hot=0;}; /* new feature of sundials, detects unmasking */
-	if (flag == IDA_ROOT_RETURN) {
+	if (flagr == CV_ZERO_DETACH_RETURN){hot=0;}; /* new feature of sundials, detects unmasking */
+	if (flagr == IDA_ROOT_RETURN) {
 	  /*     .        at a least one root has been found */
 	  hot = 0;
 	  if (Discrete_Jump==0){
 	    flagr = IDAGetRootInfo(ida_mem, jroot);
 	    if (check_flag(&flagr, "IDAGetRootInfo", 1)) {
-	      *ierr=10000;    
+ 	      *ierr=200+(-flagr);    
 	      freeallx;
 	      return;
 	    };
@@ -4388,15 +4392,18 @@ int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *
   
   realtype hh;
   int qlast;
-  int jj;
+  int jj,flag;
 
   data = (UserData) rdata; 
 
   hh=ZERO;
-  IDAGetCurrentStep(data->ida_mem, &hh);
+  flag=IDAGetCurrentStep(data->ida_mem, &hh);
+  if (flag<0) {  *ierr=200+(-flag); return (*ierr);};   
 
   qlast=0;
-  IDAGetCurrentOrder(data->ida_mem, &qlast);
+  flag=IDAGetCurrentOrder(data->ida_mem, &qlast);
+  if (flag<0) {  *ierr=200+(-flag); return (*ierr);};   
+  
   alpha=ZERO;
   for (jj=0;jj<qlast;jj++)
     alpha=alpha -ONE/(jj+1);
@@ -4891,7 +4898,7 @@ int Jacobians(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
   double  ttx;
   double *xc, *xcdot, *residual;
   /*  char chr;*/
-  int i,j,n, nx,ni,no,nb,m;
+  int i,j,n, nx,ni,no,nb,m,flag;
   double *RX, *Fx, *Fu, *Gx, *Gu, *ERR1,*ERR2;
   double *Hx, *Hu,*Kx,*Ku,*HuGx,*FuKx,*FuKuGx,*HuGuKx;
   double ysave;
@@ -4916,8 +4923,12 @@ int Jacobians(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
 
   data = (UserData) jdata;
   ewt = data->ewt;
-  IDAGetCurrentStep(data->ida_mem, &hh);
-  IDAGetErrWeights(data->ida_mem, ewt);
+  flag=IDAGetCurrentStep(data->ida_mem, &hh);
+  if (flag<0) {  *ierr=200+(-flag); return (*ierr);};   
+
+  flag=IDAGetErrWeights(data->ida_mem, ewt);
+  if (flag<0) {  *ierr=200+(-flag); return (*ierr);};   
+
   ewt_data=NV_DATA_S(ewt);
   srur =(double) RSqrt(UNIT_ROUNDOFF);
 
