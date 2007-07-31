@@ -1,6 +1,6 @@
 //Input editor function of Scicos code generator
 //
-//@l@n, 21/07/07
+//@l@n, 31/07/07
 //
 function CodeGeneration_()
 
@@ -3105,7 +3105,7 @@ endfunction
 //
 //Copyright INRIA
 //
-// rmq : Les fonction zdoit, cdoit, doit sont pas utilisé pour le moment
+// rmq : La fonction zdoit n'est pas utilisée pour le moment
 function Code=make_standalone42()
   x=cpr.state.x;
   modptr=cpr.sim.modptr;
@@ -3139,8 +3139,6 @@ function Code=make_standalone42()
   Z=[z;zeros(lstsize(outtb),1);work]';
   nX=size(x,'*');
   nztotal=size(z,1);
-  //nZ=size(z,'*')+lstsize(outtb)+clkptr($);
-  nZ=size(Z,'*');
 
   stalone = %t;
 
@@ -3337,8 +3335,7 @@ function Code=make_standalone42()
           strcat(string(work),"," )+'};',70)
         '  */'
         ''
-        cformatline('  double z[]={'+strcat(string(Z),',')+'};',70)
-       '']
+        cformatline('  double z[]={'+strcat(string(Z),',')+'};',70)]
 
   if size(z,1) <> 0 then
     for i=1:(length(zptr)-1)
@@ -3359,26 +3356,26 @@ function Code=make_standalone42()
         bbb=emptystr(3,1);
         if and(aaa+bbb~=['INPUTPORTEVTS';'OUTPUTPORTEVTS';'EVTGEN_f']) then
           Code($+1)='';
-          Code($+1)=' /* Routine name of block: '+strcat(string(cpr.sim.funs(i)));
-          Code($+1)='    Gui name of block: '+strcat(string(OO.gui));
+          Code($+1)='  /* Routine name of block: '+strcat(string(cpr.sim.funs(i)));
+          Code($+1)='     Gui name of block: '+strcat(string(OO.gui));
           //Code($+1)='/* Name block: '+strcat(string(cpr.sim.funs(i)));
           //Code($+1)='Object number in diagram: '+strcat(string(cpr.corinv(i)));
-          Code($+1)='   Compiled structure index: '+strcat(string(i));
+          Code($+1)='     Compiled structure index: '+strcat(string(i));
           if stripblanks(OO.model.label)~=emptystr() then
             Code=[Code;
-                  cformatline('   Label: '+strcat(string(OO.model.label)),70)]
+                  cformatline('     Label: '+strcat(string(OO.model.label)),70)]
           end
           if stripblanks(OO.graphics.exprs(1))~=emptystr() then
             Code=[Code;
-                  cformatline('   Exprs: '+strcat(OO.graphics.exprs(1),","),70)]
+                  cformatline('     Exprs: '+strcat(OO.graphics.exprs(1),","),70)]
           end
           if stripblanks(OO.graphics.id)~=emptystr() then
             Code=[Code;
-                  cformatline('   Identification: '+..
+                  cformatline('     Identification: '+..
                      strcat(string(OO.graphics.id)),70)]
           end
           Code=[Code;
-                cformatline('   z={'+...
+                cformatline('     z={'+...
                 strcat(string(z(zptr(i):zptr(i+1)-1)),",")+'};',70)]
           Code($+1)=' */';
         end
@@ -3406,15 +3403,8 @@ function Code=make_standalone42()
   if Code_oz <> [] then
     Code=[Code;
           '  /* oz declaration */'
-          Code_oz
-          '']
+          Code_oz]
   end
-
-  Code=[Code
-        '  /* Get work ptr of blocks */'
-        '  void **work;'
-        '  work = (void **)(z+'+string(nZ)+');'
-        '']
 
   //** declaration of outtb
   Code_outtb = [];
@@ -3435,6 +3425,7 @@ function Code=make_standalone42()
 
   if Code_outtb<>[] then
     Code=[Code
+          ''
           '  /* outtbptr declaration */'
           '  '+rdnom+'_block_outtbptr = (void **)(z+'+string(nztotal)+');'
           ''
@@ -3451,8 +3442,15 @@ function Code=make_standalone42()
 
   if Code_outtbptr<>[] then
     Code=[Code;
-          Code_outtbptr]
+          Code_outtbptr
+          '']
   end
+
+  //** declaration of work
+  Code=[Code
+        '  /* Get work ptr of blocks */'
+        '  void **work;'
+        '  work = (void **)(z+'+string(size(z,'*')+lstsize(outtb))+');']
 
   for kf=1:nblk
     nx=xptr(kf+1)-xptr(kf);       //** number of continuous state
