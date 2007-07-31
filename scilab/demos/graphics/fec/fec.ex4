@@ -40,3 +40,4 @@ a.title.font_size=3;
 if new_style then, drawnow(), end
 
 mode(0);
+

@@ -21,19 +21,22 @@ xset("colormap",jetcolormap(128));
 if new_style then, drawlater(), end
 amdbaR(path+'MESH');
 meshvisu();
-xtitle("a mesh (click to continue)");
+xtitle("a mesh");
 a=gca(); a.title.font_size=3;
 if new_style then, drawnow(), end
-xclick();
+//xclick();
+x_message('click to continue');
 
 xbasc();
 xset("use color",1);
 if new_style then, drawlater(), end
 emc2C(1,6,path+'MESH.VAL');
-xtitle("display a fem solution (click to continue)");
+xtitle("display a fem solution");
 a=gca(); a.title.font_size=3;
 if new_style then, drawnow(), end
-xclick();
+//xclick();
+x_message('click to continue');
+
 
 xbasc();
 xset("use color",1);
