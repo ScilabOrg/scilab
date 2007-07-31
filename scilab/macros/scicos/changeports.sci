@@ -177,7 +177,7 @@ function scs_m = changeports(scs_m, path, o_n)
   //** if the port is linked AND the new block has enough ports  
        if  pein(i)>0 & i<=size_pein_n then  
          pein_n(i) = pein(i); //** assign the port to the old Link
-         InputLinkToCon = [LinkToCon pein(i)] ; //** add the Link to the "to be reconnected links" vector
+         InputLinkToCon = [InputLinkToCon pein(i)] ; //** add the Link to the "to be reconnected links" vector
 	   xInPortToCon = [xInPortToCon xein_n(i)] ; //** recover the coordinate of the new equivalent port 
 	   yInPortToCon = [yInPortToCon yein_n(i)] ; //** and pile up in the vector 
        else
