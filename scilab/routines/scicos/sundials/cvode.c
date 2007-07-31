@@ -458,7 +458,7 @@ int CVodeMalloc(void *cvode_mem, CVRhsFn f, realtype t0, N_Vector y0,
   if(!nvectorOK) {
     CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVodeMalloc", MSGCV_BAD_NVECTOR);
     /* return(CV_ILL_INPUT); Masoud */
-    return(CV_BAD_NVECTORs);
+    return(CV_BAD_NVECTOR);
   }
 
   /* Test tolerances */
