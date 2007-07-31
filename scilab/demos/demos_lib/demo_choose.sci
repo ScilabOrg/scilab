@@ -1,5 +1,6 @@
 function [num]=demo_choose(fil)
-mopen(fil);
+
+load(fil,'choice','titl');
+
 num=tk_choose(choice,titl);
-mclose(fil);
 endfunction
