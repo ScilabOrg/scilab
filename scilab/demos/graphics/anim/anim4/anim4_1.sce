@@ -1,0 +1,52 @@
+mode(0);
+
+// Hide the toolbar
+toolbar(0,'off');
+curFont=xget('font');
+
+// Save the graphic context
+kp = xget('pixmap');
+
+xset('pixmap',1);
+	xset('wwpc');
+	t=-%pi:0.3:%pi;
+	contour(t,t,sin(t)'*cos(t),10,35,45,'X@Y@Z',[0,2,4])
+	xset('wshow');
+	if driver()=='Pos' then
+	  sp=5;
+	else
+	  sp=1;
+	end
+	
+	I=35:sp:80;
+	
+	realtimeinit(0.05);
+	for i=1:size(I,'*')
+	  realtime(i)
+	  xset('wwpc');
+	xset("font",curFont(1),3);
+  xtitle("rotation of a 3d contour");
+	  contour(t,t,sin(t)'*cos(t),10,I(i),45,'X@Y@Z',[0,0,4])
+	  xset('wshow');
+	end
+	
+	I=45:sp:80
+	
+	realtimeinit(0.05);
+	
+	for i=1:size(I,'*')
+	  realtime(i)
+	  xset('wwpc');
+	xset("font",curFont(1),3);
+  xtitle("rotation of a 3d contour");
+	  contour(t,t,sin(t)'*cos(t),10,80,I(i),'X@Y@Z',[0,0,4]);
+	  xset('wshow');
+	end
+
+xset("pixmap",0);
+
+// Restore the graphic context
+xset('pixmap',kp);
+xset('font',curFont(1),curFont(2))
+
+mode(-1);
