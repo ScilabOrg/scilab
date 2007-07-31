@@ -2216,19 +2216,232 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z,
              break;
 
    case 20  : strcpy(C2F(cha1).buf,"initial conditions not converging");
-              C2F(curblk).kfun=0;
               break;
 
-   case 21  : sprintf(C2F(cha1).buf, "cannot allocate memory in block=%d", \
-                     C2F(curblk).kfun);
-              C2F(curblk).kfun=0;
+   case 21  : sprintf(C2F(cha1).buf, "cannot allocate memory in block=%d",C2F(curblk).kfun);
               break;
 
    case 22  : strcpy(C2F(cha1).buf,"sliding mode condition, cannot integrate");
-              C2F(curblk).kfun=0;
-              break;
+               break;
 
-   default  : if(ierr>=1000)
+   case 23  : strcpy(C2F(cha1).buf,"Cannot find the initial mode, maybe there is a sliding mode condition");
+               break;
+
+	      /* IDA error messages*/
+   case 201  : strcpy(C2F(cha1).buf,"IDA_MEM_NULL:The argument ida_mem was NULL");
+               break;
+
+   case 202  : strcpy(C2F(cha1).buf,"IDA_ILL_INPUT: One of the input arguments was illegal. This errors message may be returned if the linear solver function initialization (called by the user after calling IDACreate) failed to set the linear solver-specific lsolve field in ida_mem.");
+               break;
+
+   case 203  : strcpy(C2F(cha1).buf,"IDA_NO_MALLOC: indicating that ida_mem was not allocated.");
+               break;
+  
+   case 204  : strcpy(C2F(cha1).buf,"IDA_TOO_MUCH_WORK: The solver took mxstep internal steps but could not reach tout. The default value for mxstep is MXSTEP_DEFAULT = 500.");
+               break;
+   
+   case 205  : strcpy(C2F(cha1).buf,"IDA_TOO_MUCH_ACC: The solver could not satisfy the accuracy demanded by the user for some internal step.");
+               break;
+
+   case 206  : strcpy(C2F(cha1).buf,"IDA_ERR_FAIL: Error test failures occurred too many times (=MXETF = 10) during one internal step or occurred with |h|=h_min");
+               break;
+
+   case 207  : strcpy(C2F(cha1).buf,"IDA_CONV_FAIL: IDACalcIC->Failed to get convergence of the Newton iterations. or IDA_solve->Convergence test failures occurred too many times (= MXNCF = 10) during one internal step. ");
+               break;
+ 
+   case 208  : strcpy(C2F(cha1).buf,"IDA_LINIT_FAIL: The linear solver's initialization routine failed.");
+               break;
+ 
+   case 209  : strcpy(C2F(cha1).buf,"IDA_LSETUP_FAIL: The linear solver's setup routine had a non-recoverable error.");
+               break;
+
+   case 210  : strcpy(C2F(cha1).buf,"IDA_LSOLVE_FAIL: The linear solver's solve routine had a non-recoverable error.");
+               break;
+  
+   case 211  : strcpy(C2F(cha1).buf,"IDA_RES_FAIL: The user's residual routine returned a non-recoverable error flag.");
+               break;
+ 
+   case 212  : strcpy(C2F(cha1).buf,"IDA_CONSTR_FAIL: IDACalcIC was unable to find a solution satisfying the inequality constraints.");
+               break;
+ 
+   case 213  : strcpy(C2F(cha1).buf,"IDA_REP_RES_ERR: The user's residual function repeatedly returned a recoverable error flag, but the solver was unable to recover.");
+               break;
+
+   case 214  : strcpy(C2F(cha1).buf,"IDA_MEM_FAIL: A memory allocation failed.");
+               break;
+
+   case 215  : strcpy(C2F(cha1).buf,"IDA_BAD_T: t is not in the interval [tn-hu,tn].");
+               break;
+  
+   case 216  : strcpy(C2F(cha1).buf,"IDA_BAD_EWT: Some component of the error weight vector is zero (illegal), either for the input value of y0 or a corrected value.");
+               break;
+
+   case 217  : strcpy(C2F(cha1).buf,"IDA_FIRST_RES_FAIL: The user's residual routine returned  a recoverable error flag on the first call, but IDACalcIC was unable to recover. .");
+               break;
+  
+   case 218  : strcpy(C2F(cha1).buf,"IDA_LINESEARCH_FAIL: The Linesearch algorithm failed to find a solution with a step larger than steptol in weighted RMS norm.");
+               break;
+
+   case 219  : strcpy(C2F(cha1).buf,"IDA_NO_RECOVERY: The user's residual routine, or the linear solver's setup or solve routine had a  recoverable error, but IDACalcIC was unable to recover.");
+               break;
+
+   case 220  : strcpy(C2F(cha1).buf,"IDA_RTFUNC_FAIL: The root founding function failed.");
+               break;
+
+   case 228  : strcpy(C2F(cha1).buf,"IDA_YOUT_NULL: 'yout' = NULL illegal.");
+               break;
+   case 229  : strcpy(C2F(cha1).buf,"IDA_TRET_NULL: 'tret' = NULL illegal.");
+               break;
+   case 230  : strcpy(C2F(cha1).buf,"IDA_BAD_ITASK: Illegal value for itask.");
+               break;
+   case 231  : strcpy(C2F(cha1).buf,"IDA_NO_ESTOP: itask = IDA_NORMAL_TSTOP or itask = IDA_ONE_STEP_TSTOP but tstop was not set");
+               break;
+   case 232  : strcpy(C2F(cha1).buf,"IDA_BAD_H0: h0 and tout - t0 inconsistent.");
+               break;
+   case 233  : strcpy(C2F(cha1).buf,"IDA_BAD_TSTOP: tstop is behind current simulation time in the direction of integration.");
+               break;
+   case 234  : strcpy(C2F(cha1).buf,"IDA_BAD_INIT_ROOT: Root found at and very near initial t.");
+               break;
+   case 235  : strcpy(C2F(cha1).buf,"IDA_NO_EFUN: itol = IDA_WF but no EwtSet function was provided.");
+               break;
+   case 236  : strcpy(C2F(cha1).buf,"IDA_EWT_FAIL: The user-provide EwtSet function failed.");
+               break;
+   case 237  : strcpy(C2F(cha1).buf,"-----------------:)-----------"); 
+               break;
+   case 238  : strcpy(C2F(cha1).buf,"IDA_LSOLVE_NULL: The linear solver's solve routine is NULL.");
+               break;
+   case 239  : strcpy(C2F(cha1).buf,"IDA_NULL_Y0: y0 = NULL illegal.");
+               break;
+   case 240  : strcpy(C2F(cha1).buf,"IDA_BAD_ITOL:Illegal value for itol. The legal values are IDA_SS, IDA_SV, and IDA_WF.");
+               break;
+   case 241  : strcpy(C2F(cha1).buf,"IDA_NULL_F: user supplied ODE routine is (NULL) illegal.");
+               break;
+   case 242  : strcpy(C2F(cha1).buf,"IDA_BAD_NVECTOR: A required vector operation is not implemented.");
+               break;
+   case 243  : strcpy(C2F(cha1).buf,"IDA_NULL_ABSTOL: absolute tolerances is = NULL illegal.");
+               break;
+   case 244  : strcpy(C2F(cha1).buf,"IDA_BAD_RELTOL: relative tolerances is reltol < 0 illegal.");
+               break;
+   case 245  : strcpy(C2F(cha1).buf,"IDA_BAD_ABSTOL: abstol has negative component(s) (illegal).");
+               break;
+   case 246  : strcpy(C2F(cha1).buf,"IDA_NULL_G: user supplied zero-crossing routine is (NULL) illegal..");
+               break;
+   case 247  : strcpy(C2F(cha1).buf,"IDA_BAD_TOUT: Trouble interpolating. 'tout' too far back in direction of integration");
+               break;
+   case 248  : strcpy(C2F(cha1).buf,"IDA_YP0_NULL: the derivative yp0 = NULL is illegal.");
+               break;
+   case 249  : strcpy(C2F(cha1).buf,"IDA_RES_NULL: th returned residual res = NULL is illegal.");
+               break;
+   case 250  : strcpy(C2F(cha1).buf,"IDA_YRET_NULL: yret = NULL illegal..");
+               break;
+   case 251  : strcpy(C2F(cha1).buf,"IDA_YPRET_NULL: yret = NULL illegal..");
+               break;
+   case 252  : strcpy(C2F(cha1).buf,"IDA_BAD_HINIT: yret = NULL illegal..");
+               break;
+   case 253  : strcpy(C2F(cha1).buf,"IDA_MISSING_ID :id = NULL ('id' defines algebraic and differential states) but suppressalg option on.");
+               break;
+   case 254  : strcpy(C2F(cha1).buf,"IDA_Y0_FAIL_CONSTR: y0 fails to satisfy constraints.");
+               break;
+   case 255  : strcpy(C2F(cha1).buf,"IDA_TOO_CLOSE: 'tout' too close to 't0' to start integration.");
+               break;
+   case 256  : strcpy(C2F(cha1).buf,"IDA_CLOSE_ROOTS: Root found at and very near starting time.");
+               break;
+
+	      /* CVODE error messages*/
+   case 301  : strcpy(C2F(cha1).buf,"CV_TOO_MUCH_WORK: The solver took mxstep internal steps but could not reach 'tout'. The default value for mxstep is MXSTEP_DEFAULT = 500.");
+               break;
+
+   case 302  : strcpy(C2F(cha1).buf,"CV_TOO_MUCH_ACC: The solver could not satisfy the accuracy demanded by the user for some internal step");
+               break;
+ 
+   case 303  : strcpy(C2F(cha1).buf,"CV_ERR_FAILURE: Error test failures occurred too many times (=MXETF = 7) during one internal step or occurred with |h|=h_min ");
+               break;
+
+   case 304  : strcpy(C2F(cha1).buf,"CV_CONV_FAILURE: Convergence test failures occurred too many times (= MXNCF = 10) during one internal time step or occurred with |h| = hmin.");
+               break;
+
+   case 305  : strcpy(C2F(cha1).buf,"CV_LINIT_FAIL: The linear solver's initialization function failed.");
+               break;
+  
+   case 306  : strcpy(C2F(cha1).buf,"CV_LSETUP_FAIL: The linear solver's setup routine failed in an unrecoverable manner.");
+               break;
+ 
+   case 307  : strcpy(C2F(cha1).buf,"CV_LSOLVE_FAIL: The linear solver's solve routine failed in an unrecoverable manner.");
+               break;
+  
+   case 308  : strcpy(C2F(cha1).buf,"CV_RHSFUNC_FAIL: The right-hand side function (user supplied ODE) failed in an unrecoverable manner");
+               break;
+
+   case 309  : strcpy(C2F(cha1).buf,"CV_FIRST_RHSFUNC_ERR: The right-hand side function (user supplied ODE) had a recoverable error at th efirst call");
+               break;
+ 
+   case 310  : strcpy(C2F(cha1).buf,"CV_REPTD_RHSFUNC_ERR: Convergence tests occurred too many times due to repeated recoverable errors in the right-hand side function (user supplied ODE). This error may be raised due to repeated  recoverable errors during the estimation of an initial step size.");
+               break;
+  
+   case 311  : strcpy(C2F(cha1).buf,"CV_UNREC_RHSFUNC_ERR: The right-hand side function (user supplied ODE) had a recoverable error, but no recovery was possible.");
+               break;
+   case 312  : strcpy(C2F(cha1).buf,"CV_RTFUNC_FAIL: The rootfinding routine failed in an unrecoverable manner.");
+               break;
+   case 320  : strcpy(C2F(cha1).buf,"CV_MEM_FAIL: a memory allocation failed, including an attempt to increase maxord");
+               break;
+   case 321  : strcpy(C2F(cha1).buf,"CV_MEM_NULL: the cvode memory was NULL");
+               break;
+   case 322  : strcpy(C2F(cha1).buf,"CV_ILL_INPUT: indicating an input argument was illegal. This include the situation where a component of the error weight vector becomes negative during internal time-stepping. This also includes if the linear solver function initialization (called by the user after calling CVodeCreat) failed to set the linear solver-specific 'lsolve' field in cvode_mem. This error happens if number of root functions is positive but the return surface value is NULL. ");
+               break;
+   case 323  : strcpy(C2F(cha1).buf,"CV_NO_MALLOC: indicating that cvode_mem has not been allocated (i.e., CVodeMalloc has not been called).");
+               break;
+   case 324  : strcpy(C2F(cha1).buf,"CV_BAD_K: k (the order of the derivative of y to be computed) is not in the range 0, 1, ..., qu, where qu is the order last used");
+               break;
+   case 325  : strcpy(C2F(cha1).buf,"CV_BAD_T: t is not in the interval [tn-hu,tn].");
+               break;
+   case 326  : strcpy(C2F(cha1).buf,"CV_BAD_DKY:  The dky argument was NULL. dky is the output derivative vector [((d/dy)^k)y](t).");
+               break;
+   case 327  : strcpy(C2F(cha1).buf,"CV_TOO_CLOSE: 'tout' too close to 't0' to start integration.");
+               break;
+   case 328  : strcpy(C2F(cha1).buf,"CV_YOUT_NULL: 'yout' = NULL illegal.");
+               break;
+   case 329  : strcpy(C2F(cha1).buf,"CV_TRET_NULL: 'tret' = NULL illegal.");
+               break;
+   case 330  : strcpy(C2F(cha1).buf,"CV_BAD_ITASK: Illegal value for itask.");
+               break;
+   case 331  : strcpy(C2F(cha1).buf,"CV_NO_ESTOP: itask = CV_NORMAL_TSTOP or itask = CV_ONE_STEP_TSTOP but tstop was not set");
+               break;
+   case 332  : strcpy(C2F(cha1).buf,"CV_BAD_H0: h0 and tout - t0 inconsistent.");
+               break;
+   case 333  : strcpy(C2F(cha1).buf,"CV_BAD_TSTOP: tstop is behind current simulation time in the direction of integration.");
+               break;
+   case 334  : strcpy(C2F(cha1).buf,"CV_BAD_INIT_ROOT: Root found at and very near initial t.");
+               break;
+   case 335  : strcpy(C2F(cha1).buf,"CV_NO_EFUN: itol = CV_WF but no EwtSet function was provided.");
+               break;
+   case 336  : strcpy(C2F(cha1).buf,"CV_EWT_FAIL: The user-provide EwtSet function failed.");
+               break;
+   case 337  : strcpy(C2F(cha1).buf,"CV_BAD_EWT: Initial ewt has component(s) equal to zero (illegal).");
+               break;
+   case 338  : strcpy(C2F(cha1).buf,"CV_LSOLVE_NULL: The linear solver's solve routine is NULL.");
+               break;
+   case 339  : strcpy(C2F(cha1).buf,"CV_NULL_Y0: y0 = NULL illegal.");
+               break;
+   case 340  : strcpy(C2F(cha1).buf,"CV_BAD_ITOL:Illegal value for itol. The legal values are CV_SS, CV_SV, and CV_WF.");
+               break;
+   case 341  : strcpy(C2F(cha1).buf,"CV_NULL_F: user supplied ODE routine is (NULL) illegal.");
+               break;
+   case 342  : strcpy(C2F(cha1).buf,"CV_BAD_NVECTOR: A required vector operation is not implemented.");
+               break;
+   case 343  : strcpy(C2F(cha1).buf,"CV_NULL_ABSTOL: absolute tolerances is = NULL illegal.");
+               break;
+   case 344  : strcpy(C2F(cha1).buf,"CV_BAD_RELTOL: relative tolerances is reltol < 0 illegal.");
+               break;
+   case 345  : strcpy(C2F(cha1).buf,"CV_BAD_ABSTOL: abstol has negative component(s) (illegal).");
+               break;
+   case 346  : strcpy(C2F(cha1).buf,"CV_NULL_G: user supplied zero-crossing routine is (NULL) illegal..");
+               break;
+   case 347  : strcpy(C2F(cha1).buf,"CV_BAD_TOUT: Trouble interpolating. 'tout' too far back in direction of integration");
+               break;
+   case 348  : strcpy(C2F(cha1).buf,"CV_CLOSE_ROOTS: Root found at and very near starting time.");
+               break;
+
+  default  : if(ierr>=1000)
                 strcpy(C2F(cha1).buf,"unknown or erroneous block");
               else if (ierr>=100)
               {
