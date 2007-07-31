@@ -2,6 +2,7 @@
 // Copyright INRIA
 
 getf('SCI/demos/demos_lib/demo_begin.sci');
+getf('SCI/demos/demos_lib/demo_message.sci');
 getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
@@ -11,8 +12,8 @@ getf(path+'macros/'+'velod.sci');
 getf(path+'macros/'+'velodp.sci');
 getf(path+'macros/'+'show.sci');
 
-demo_run('SCI/demos/simulation/bike/bike_1.sce');
+demo_message('SCI/demos/simulation/bike/bike.dem');
 
-demo_run('SCI/demos/simulation/bike/bike_2.sce');
+demo_run('SCI/demos/simulation/bike/bike_1.sce');
 
 demo_end();
