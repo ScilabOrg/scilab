@@ -371,29 +371,35 @@ int IDAMalloc(void *ida_mem, IDAResFn res,
   
   if (yy0 == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_Y0_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_NULL_Y0); 
+
   }
   
   if (yp0 == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_YP0_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_YP0_NULL); 
   }
 
   if ((itol != IDA_SS) && (itol != IDA_SV) && (itol != IDA_WF)) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_BAD_ITOL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_BAD_ITOL);
   }
 
   if (res == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_RES_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_RES_NULL); 
   }
 
   /* Test if all required vector operations are implemented */
   nvectorOK = IDACheckNvector(yy0);
   if (!nvectorOK) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_BAD_NVECTOR);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_BAD_NVECTOR);
   }
 
   /* Test tolerances */
@@ -402,12 +408,14 @@ int IDAMalloc(void *ida_mem, IDAResFn res,
 
     if (atol == NULL) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_ATOL_NULL);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_NULL_ABSTOL); 
     }
 
     if (rtol < ZERO) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_BAD_RTOL);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_RELTOL); 
     }
    
     if (itol == IDA_SS) { 
@@ -418,7 +426,8 @@ int IDAMalloc(void *ida_mem, IDAResFn res,
 
     if (neg_atol) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAMalloc", MSG_BAD_ATOL);
-      return(IDA_ILL_INPUT); 
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_ABSTOL); 
     }
 
   }
@@ -548,22 +557,26 @@ int IDAReInit(void *ida_mem, IDAResFn res,
   
   if (yy0 == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_Y0_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_NULL_Y0); 
   }
   
   if (yp0 == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_YP0_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_YP0_NULL); 
   }
 
   if ((itol != IDA_SS) && (itol != IDA_SV) && (itol != IDA_WF)) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_BAD_ITOL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_BAD_ITOL);
   }
 
   if (res == NULL) { 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_RES_NULL);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_RES_NULL); 
   }
 
   /* Test tolerances */
@@ -572,12 +585,14 @@ int IDAReInit(void *ida_mem, IDAResFn res,
 
     if (atol == NULL) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_ATOL_NULL);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_NULL_ABSTOL); 
     }
     
     if (rtol < ZERO) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_BAD_RTOL);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_RELTOL); 
     }
    
     if (itol == IDA_SS) { 
@@ -587,7 +602,8 @@ int IDAReInit(void *ida_mem, IDAResFn res,
     }
     if (neg_atol) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAReInit", MSG_BAD_ATOL);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_ABSTOL); 
     }
 
   }
@@ -724,7 +740,8 @@ int IDARootInit(void *ida_mem, int nrtfn, IDARootFn g, void *gdata)
         liw -= nrt;
 
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDARootInit", MSG_ROOT_FUNC_NULL);
-	return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+	return(IDA_NULL_G);
       }
       else {
 	gfun = g;
@@ -738,7 +755,8 @@ int IDARootInit(void *ida_mem, int nrtfn, IDARootFn g, void *gdata)
   IDA_mem->ida_nrtfn = nrt;
   if (g == NULL) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDARootInit", MSG_ROOT_FUNC_NULL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_NULL_G);
   }
   else gfun = g;
 
@@ -957,31 +975,36 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
 
   if (yret == NULL) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_YRET_NULL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_YRET_NULL);
   }
   yy = yret;  
 
   if (ypret == NULL) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_YPRET_NULL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_YPRET_NULL);
   }
   yp = ypret;
   
   if (tret == NULL) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_TRET_NULL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_TRET_NULL);
   }
 
   if ((itask < IDA_NORMAL) || (itask > IDA_ONE_STEP_TSTOP)) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_ITASK);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_BAD_ITASK);
   }
   
   /* Split itask into task and istop */
   if ( (itask == IDA_NORMAL_TSTOP) || (itask == IDA_ONE_STEP_TSTOP) ) {
     if ( tstopset == FALSE ) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_NO_TSTOP);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_NO_TSTOP);
     }
     istop = TRUE;
   } else {
@@ -1012,13 +1035,15 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
     troundoff = TWO*uround*(ABS(tn) + ABS(tout));    
     if (tdist < troundoff) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_TOO_CLOSE);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_TOO_CLOSE);
     }
 
     hh = hin;
     if ( (hh != ZERO) && ((tout-tn)*hh < ZERO) ) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_HINIT);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_HINIT);
     }
 
     if (hh == ZERO) {
@@ -1034,7 +1059,8 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
     if (istop) {
       if ( (tstop - tn)*hh < ZERO) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TSTOP, tn);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_TSTOP);
       }
       if ( (tn + hh - tstop)*hh > ZERO) 
         hh = (tstop - tn)*(ONE-FOUR*uround);
@@ -1048,9 +1074,11 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
       ier = IDARcheck1(IDA_mem);
       if (ier == INITROOT) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDARcheck1", MSG_BAD_INIT_ROOT);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_INIT_ROOT);
       } else if (ier == IDA_RTFUNC_FAIL) {
         IDAProcessError(IDA_mem, IDA_RTFUNC_FAIL, "IDA", "IDARcheck1", MSG_RTFUNC_FAILED, tn);
+	/*  return(IDA_ILL_INPUT); Masoud */
         return(IDA_RTFUNC_FAIL);
       }
     }
@@ -1084,7 +1112,8 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
 
       if (ier == CLOSERT) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDARcheck2", MSG_CLOSE_ROOTS, tlo);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_CLOSE_ROOTS);
       } else if (ier == IDA_RTFUNC_FAIL) {
         IDAProcessError(IDA_mem, IDA_RTFUNC_FAIL, "IDA", "IDARcheck2", MSG_RTFUNC_FAILED, tlo);
         return(IDA_RTFUNC_FAIL);
@@ -1537,14 +1566,16 @@ int IDAInitialSetup(IDAMem IDA_mem)
   if (suppressalg)
     if (id->ops->nvwrmsnormmask == NULL) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_BAD_NVECTOR);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_NVECTOR);
   }
 
   /* Test id vector for legality */
   
   if (suppressalg && (id==NULL)){ 
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_MISSING_ID);
-    return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_MISSING_ID); 
   }
 
   /* Load ewt */
@@ -1555,19 +1586,23 @@ int IDAInitialSetup(IDAMem IDA_mem)
   } else {
     if (efun == NULL) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_NO_EFUN);
-      return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_NO_EFUN);
     }
   }
 
   ier = efun(phi[0], ewt, edata);
   if (ier != 0) {
 
-      if (itol == IDA_WF) 
+    if (itol == IDA_WF){ 
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_FAIL_EWT);
-      else
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_EWT_FAIL);
+    }else{
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_BAD_EWT);
-
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_EWT);
+    }
   }
 
   /* Check to see if y0 satisfies constraints. */
@@ -1576,7 +1611,8 @@ int IDAInitialSetup(IDAMem IDA_mem)
     conOK = N_VConstrMask(constraints, phi[0], tempv2);
     if (!conOK) { 
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_Y0_FAIL_CONSTR);
-      return(IDA_ILL_INPUT); 
+    /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_Y0_FAIL_CONSTR); 
     }
   }
 
@@ -1584,13 +1620,15 @@ int IDAInitialSetup(IDAMem IDA_mem)
 
   if (lsolve == NULL) {
     IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_LSOLVE_NULL);
-    return(IDA_ILL_INPUT);
+    /*  return(IDA_ILL_INPUT); Masoud */
+    return(IDA_LSOLVE_NULL);
   }
 
   if (linit != NULL) {
     ier = linit(IDA_mem);
     if (ier != 0) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDAInitialSetup", MSG_LINIT_FAIL);
+      /*  return(IDA_ILL_INPUT); Masoud */
       return(IDA_LINIT_FAIL);
     }
   }
@@ -1716,7 +1754,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
       ier = IDAGetSolution(IDA_mem, tout, yret, ypret);
       if (ier != IDA_SUCCESS) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TOUT, tout);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_TOUT);
       }
       *tret = tretlast = tout;
       return(IDA_SUCCESS);
@@ -1736,7 +1775,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
     /* Test for tn past tstop, tn = tretlast, tn past tout, tn near tstop. */
     if ( (tn - tstop)*hh > ZERO) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TSTOP, tn);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_TSTOP);
     }
     if (tout == tretlast) {
       *tret = tretlast = tout;
@@ -1746,7 +1786,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
       ier = IDAGetSolution(IDA_mem, tout, yret, ypret);
       if (ier != IDA_SUCCESS) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TOUT, tout);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_TOUT);
       }
       *tret = tretlast = tout;
       return(IDA_SUCCESS);
@@ -1756,7 +1797,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
       ier = IDAGetSolution(IDA_mem, tstop, yret, ypret);
       if (ier != IDA_SUCCESS) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TSTOP, tn);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_TSTOP);
       }
       *tret = tretlast = tstop;
       return(IDA_TSTOP_RETURN);
@@ -1769,7 +1811,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
     /* Test for tn past tstop, tn past tretlast, and tn near tstop. */
     if ((tn - tstop)*hh > ZERO) {
       IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TSTOP, tn);
-      return(IDA_ILL_INPUT);
+      /*  return(IDA_ILL_INPUT); Masoud */
+      return(IDA_BAD_TSTOP);
     }
     if ((tn - tretlast)*hh > ZERO) {
       ier = IDAGetSolution(IDA_mem, tn, yret, ypret);
@@ -1781,7 +1824,8 @@ static int IDAStopTest1(IDAMem IDA_mem, realtype tout, realtype *tret,
       ier = IDAGetSolution(IDA_mem, tstop, yret, ypret);
       if (ier != IDA_SUCCESS) {
         IDAProcessError(IDA_mem, IDA_ILL_INPUT, "IDA", "IDASolve", MSG_BAD_TSTOP, tn);
-        return(IDA_ILL_INPUT);
+	/*  return(IDA_ILL_INPUT); Masoud */
+        return(IDA_BAD_TSTOP);
       }
       *tret = tretlast = tstop;
       return(IDA_TSTOP_RETURN);
