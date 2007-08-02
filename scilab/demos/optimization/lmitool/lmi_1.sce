@@ -1,0 +1,22 @@
+['      ';
+	   'LMITOOL is a Scilab package for LMI optimization';
+	   '           ';
+	   'It can solve the following problem';
+	   '                 ';
+	   '   minimize  f(X1,...,XM)  ';
+	   'subject to the LME constraints: ';
+	   '   Gi(X1,...,XM)=0,  i=1,2,...,p,';
+	   'and the LMI constraints:  ';
+	   '   Hj(X1,...,XM)>=0,  j=1,2,...,q.';
+	   '              ';
+	   'where';
+	   'X1,...,XM are unknown real matrices';
+	   'f is the objective function, a linear scalar function of the entries of the X''s,';
+	   'Gi''s are affine matrix functions of the entries of the X''s,';
+	   'Hj''s are affine symmetric matrix functions of the entries of the X''s.';
+	   '            ';
+	   'For a detailed description and examples consult: ';
+	   '          ''LMITOOL: a Package for LMI Optimization in Scilab, User''s Guide'' ';
+	   '          ';
+	   '          ';
+	   'LMITOOL uses Semidefinite Programming package SP developed by L. Vandenberghe and S. Boyd.']
