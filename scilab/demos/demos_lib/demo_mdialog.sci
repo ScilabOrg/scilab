@@ -1,4 +1,4 @@
-function [rep]=demo_mdialog(fil)
+function [resp]=demo_mdialog(fil)
 load(fil,'titl','namevar','value');
 
 resp=x_mdialog(titl,namevar,value);

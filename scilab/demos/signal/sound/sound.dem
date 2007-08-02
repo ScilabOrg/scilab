@@ -15,7 +15,7 @@ xbasc();analyze(s);
 a=gca();
 a.title.text='sound'
 a.title.font_size=3;
-halt();
+x_message('Clock Ok to continue.');
 // Save the file in WAV format.
 // we renormalize s in order to check that save+load is invariant
 s=s-sum(s)/prod(size(s)); s=s/max(abs(s));
@@ -28,7 +28,7 @@ xbasc();mapsound(s);
 a=gca();
 a.title.text='sound'
 a.title.font_size=3;
-halt();
+x_message('Clock Ok to continue.');
 // Or a Fourier analysis.
 xbasc();analyze(s);
 a=gca();

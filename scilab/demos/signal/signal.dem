@@ -4,14 +4,14 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_begin('signal.dem');
 
 demolist=['Spectral Estimation',                'spect/spect_gateway.sce'
-          'IIR filter design ',                 'iir.dem'
-          'Minimax FIR filter design',          'remezfilt.dem'
-	  'Wiegner filter',                     'wiener.dem'
-	  'Bode plots',                         'bode.dem'
-	  'Arma simulation and identification', 'arma/arma1.dem'
-	  'Arma, bidimensional version',        'arma/arma2.dem'
-	  'Arma, Spectral power estimation',    'arma/arma3.dem' 
-	  'Sound',                              'sound/sound.dem'];
+          'IIR filter design ',                 'iir/iir_gateway.sce'
+          'Minimax FIR filter design',          'minimax/remezfilt_gateway.sce'
+	  'Wiener filter',                     'wiener/wiener_gateway.sce'
+	  'Bode plots',                         'bode/bode_gateway.sce'
+	  'Arma simulation and identification', 'arma_simul/arma1_gateway.sce'
+	  'Arma, bidimensional version',        'arma_bidim/arma2_gateway.sce'
+	  'Arma, Spectral power estimation',    'arma_spect/arma3_gateway.sce' 
+	  'Sound',                              'sound/sound_gateway.sce'];
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice(path,'no');
