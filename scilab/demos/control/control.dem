@@ -7,7 +7,7 @@ demolist=['LQG',               'lqg/lqg_gateway.sce'
 	  'Inverted pendulum', 'pendulum/pendule_gateway.sce'
 	  'Flat systems',      'flat/flat_gateway.sce'
 	  'Tracking',          'tracking/track_gateway.sce'
-	  'Robust control',    'robust/rob.dem']
+	  'Robust control',    'robust/rob_gateway.sce']
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice(path,'no');

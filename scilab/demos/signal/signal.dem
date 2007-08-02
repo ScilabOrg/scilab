@@ -3,7 +3,7 @@
 getf('SCI/demos/demos_lib/demo_begin.sci');
 [path,oldln]=demo_begin('signal.dem');
 
-demolist=['Spectral Estimation',                'spect.dem'
+demolist=['Spectral Estimation',                'spect/spect_gateway.sce'
           'IIR filter design ',                 'iir.dem'
           'Minimax FIR filter design',          'remezfilt.dem'
 	  'Wiegner filter',                     'wiener.dem'
