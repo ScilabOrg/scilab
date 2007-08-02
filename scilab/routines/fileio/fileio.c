@@ -2048,7 +2048,10 @@ static int Store_Scan(int *nrow, int *ncol, sfdir *type_s, sfdir *type, int *ret
 
   if (rowcount==0) {
     for ( i=0 ; i < MAXSCAN ; i++) type_s[i]=SF_F; /* initialisation */
-    if (nr<0) nr=blk;
+    if (nr<0) {
+      nr=blk;
+      *nrow=nr; /*added by S. Steer to fix bug 2453*/
+    }
     nc=n;
     *ncol=nc;
     *retval_s=*retval;
@@ -2076,8 +2079,8 @@ static int Store_Scan(int *nrow, int *ncol, sfdir *type_s, sfdir *type, int *ret
       }
 
     /* check for memory and REALLOC if necessary*/
-    /*&&nr>0&&nc>0 added by S. Steer for bug 2399 fix */
-    if (rowcount>= nr&&nr>0&&nc>0) {
+    /*&&nc>0 added by S. Steer for bug 2399 fix */
+    if (rowcount>= nr&&nc>0) {
       nr=nr+blk;
       *nrow=nr;
       if ( (*data = (entry *) REALLOC(*data,nc*nr*sizeof(entry)))==NULL) {
