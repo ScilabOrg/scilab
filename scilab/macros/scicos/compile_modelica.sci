@@ -71,9 +71,23 @@ function [ok,name,nx,nin,nout,ng,nm,nz]=compile_modelica(fil)
 	  molibs=[molibs;listfiles(mlibs(k)+ext)];
 	end
 	
-	translator=translator+strcat(' -lib '+molibs);
+	txt=[];
+	for k=1:size(molibs,'*')
+	  [pathx,fnamex,extensionx]=fileparts(molibs(k));
+	  if (fnamex<>'MYMOPACKAGE') then 
+	    txt=[txt;mgetl(molibs(k))];
+	  end
+	end
+	mputl(txt,TMPDIR+'/MYMOPACKAGE.mo');
+        // all Modelica files found in "modelica_libs" directories are
+        // merged into the  temporary file  "MYMOPACKAGE.mo". This is done
+        // because in Windows the length of the command line is limited.
+	translator=translator+strcat(' -lib '+ TMPDIR+'/MYMOPACKAGE.mo');	
+	//translator=translator+strcat(' -lib '+molibs);
+	
 	instr=translator+' -lib '+fil+' -o '+path+name+'_flattened.mo"+" -"+...
 	      "command ""'+name+' x;"" > '+TMPDIR+'/Ltranslator.err'; 
+
 	if execstr('unix_s(instr)','errcatch')<>0 then
 	  x_message(['Modelica translator error:'
 		     mgetl(TMPDIR+'/Ltranslator.err');
