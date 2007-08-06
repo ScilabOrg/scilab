@@ -31,7 +31,7 @@ BLOCKS_CODE=evtdly.o cstblk.o \
 	intpol.o intplt.o minblk.o maxblk.o dlradp.o  iocopy.o \
 	sum2.o sum3.o delayv.o mux.o demux.o samphold.o dollar.o \
 	intrp2.o intrpl.o fsv.o memo.o \
-	diffblk.o constraint.o ifthel.o eselect.o 
+	diffblk.o constraint.o ifthel.o eselect.o
 
 
 BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
@@ -86,7 +86,7 @@ BLOCKSC=selector.o sum.o prod.o switchn.o relay.o readc.o writec.o writeau.o \
 	shift_8_RC.o shift_16_RC.o shift_32_RC.o shift_u8_RA.o shift_u16_RA.o shift_u32_RA.o\
 	extract_bit_u32_UH1.o extract_bit_u16_UH1.o extract_bit_u8_UH1.o extract_bit_u32_MSB1.o\
 	extract_bit_u16_MSB1.o extract_bit_u8_MSB1.o extract_bit_u32_RB1.o extract_bit_u16_RB1.o extract_bit_u8_RB1.o\
-	rndblk_m.o relational_op.o
+	rndblk_m.o relational_op.o curve_c.o
 
 OBJSF=intcos.o coselm.o sciblk.o  \
 	sctree.o ftree2.o ftree3.o ftree4.o skipvars.o scierr.o scifunc.o \
