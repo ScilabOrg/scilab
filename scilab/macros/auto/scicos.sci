@@ -152,9 +152,21 @@ if ~super_block then
     %scs_wgrid = [10;10;12];
   end
 
-  //** Scicos internal function (scicos/routines/permuteobj) override in order to assure full
+  //** disable scilab function protection
+  prot=funcprot();
+  funcprot(0);
+
+  //** to load functions of ged in scicos
+  exec(SCI+'/macros/util/ged.sci',-1);
+
+  //** Scicos internal functions override in order to assure full
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
+  //** for rotation of text
+  xstringb = xstringb2; //TO be removed in Scilab 5
+
+  //** restore scilab function protection
+  funcprot(prot)
 
   //**----------------------------- RIGHT MOUSE BUTTON MENUS (Popup) ------------------------
   //** Right Mouse Button Menus:
@@ -220,10 +232,6 @@ if ~super_block then
  end
 
  exec(loadpallibs, 1) //** load the palettes libraries, -1 => no echo on the Scilab console 
-
- prot=funcprot();funcprot(0);
- exec(SCI+'/macros/util/ged.sci',-1); //to load functions of ged in scicos
- funcprot(prot)
 
 end //** end of the main if() not superblock
 

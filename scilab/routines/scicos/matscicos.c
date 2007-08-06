@@ -26,6 +26,7 @@ extern int intgetscicosvarsc _PARAMS((char *fname, unsigned long l));
 extern int intcurblkc _PARAMS((char *fname, unsigned long l));
 extern int intbuildouttb _PARAMS((char *fname, unsigned long l));
 extern int intpermutobj_c _PARAMS((char *fname,unsigned long l));
+extern int intscixstringb _PARAMS((char *fname,unsigned long l));
 /*-----------------------------------------------------------------------------------*/ 
 static intcscicosTable Tab[]={
   {inttimescicos,"scicos_time"},
@@ -43,6 +44,7 @@ static intcscicosTable Tab[]={
   {intcurblkc,"curblockc"},
   {intbuildouttb,"buildouttb"},
   {intpermutobj_c,"permutobj"},
+  {intscixstringb,"xstringb2"},
 };
 /*-----------------------------------------------------------------------------------*/ 
 int C2F(intcscicos)()
