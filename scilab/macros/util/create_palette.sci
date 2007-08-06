@@ -32,7 +32,7 @@ function routines=create_palette(Path)
 	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
-	      'TIME_f.sci'; 'Modulo_Count.sci']
+	      'TIME_f.sci'; 'Modulo_Count.sci';'Sigbuilder.sci']
 	
       elseif txt=='Sinks' then
 	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';
