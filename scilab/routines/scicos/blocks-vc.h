@@ -350,6 +350,8 @@ extern void extract_bit_u8_RB1 __PARAMS((ARGS_scicos));
 extern void rndblk_m __PARAMS((ARGS_scicos));
 extern void relational_op __PARAMS((ARGS_scicos));
 extern void curve_c __PARAMS((ARGS_scicos));
+extern void counter __PARAMS((ARGS_scicos));
+extern void m_frequ __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -386,6 +388,7 @@ OpTab tabsim[] ={
 {"cos_blk",(ScicosF) cos_blk},
 {"cosblk",(ScicosF) F2C(cosblk)},
 {"cosh_blk",(ScicosF) cosh_blk},
+{"counter",(ScicosF) counter},
 {"cscope",(ScicosF) cscope},
 {"cscopxy3d",(ScicosF) cscopxy3d},
 {"cscopxy",(ScicosF) cscopxy},
@@ -591,6 +594,7 @@ OpTab tabsim[] ={
 {"maxblk",(ScicosF) F2C(maxblk)},
 {"memo",(ScicosF) F2C(memo)},
 {"mfclck",(ScicosF) F2C(mfclck)},
+{"m_frequ",(ScicosF) m_frequ},
 {"minblk",(ScicosF) F2C(minblk)},
 {"minmax",(ScicosF) minmax},
 {"modulo_count",(ScicosF) modulo_count},
@@ -702,6 +706,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 348 ;
+int ntabsim= 350 ;
 #endif 
 /***********************************/

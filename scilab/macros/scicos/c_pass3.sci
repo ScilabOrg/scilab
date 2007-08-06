@@ -6,6 +6,7 @@ corinv=cpr.corinv;
 sim=cpr.sim;
 for k=1:size(corinv)
   if type(corinv(k))==1 then
+    if corinv(k)>size(%cpr.cor) then ok=%f;cpr=list();return;end
     if size(corinv(k),'*')==1 then
       bllst(k)=scs_m.objs(corinv(k)).model;
     else

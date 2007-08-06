@@ -101,10 +101,15 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	cor(k)=-cur_fictitious
 	sco_mat=[sco_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(1),string(find(block_from(:)==o.gui))]]
  	from_mat=[from_mat;[string(cur_fictitious),string(-1),o.graphics.exprs(1),string(find(block_from(:)==o.gui))]]
-      elseif or(o.gui==block_tag)
+      elseif or(o.gui==block_tag) then
 	tag_exprs=[tag_exprs;[o.graphics.exprs(1),string(find(block_tag(:)==o.gui))]]
 	cur_fictitious=cur_fictitious+1;
 	cor(k)=-cur_fictitious
+      elseif o.gui=='SampleCLK' then
+        cur_fictitious=cur_fictitious+1;
+        cor(k)=-cur_fictitious
+        sco_mat=[sco_mat;[string(cur_fictitious),string(1),string(o.model.rpar(1)),..
+                  	   string(o.model.rpar(2)),string(4)]]
       elseif or(o.gui==blocks_to_remove) then
 	cur_fictitious=cur_fictitious+1;
 	cor(k)=cur_fictitious

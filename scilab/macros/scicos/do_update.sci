@@ -60,9 +60,17 @@ select needcompile
  case 2 then // partial recompilation
   alreadyran=do_terminate()
   [%cpr,ok]=c_pass3(scs_m,%cpr)
-  %state0=%cpr.state
-  if ~ok then return,end
-  needcompile=0
+  if ok then
+    %state0=%cpr.state
+    needcompile=0; 
+    return;
+  end
+  disp("Partial compilation failed. Attempting a full compilation.");
+  [%cpr,ok]=do_compile(scs_m)
+  if ok then
+    %state0=%cpr.state
+    needcompile=0
+  end
  case 4 then  // full compilation
   alreadyran=do_terminate()
   [%cpr,ok]=do_compile(scs_m)

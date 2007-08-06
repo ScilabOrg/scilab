@@ -75,8 +75,14 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
       ind(kb)=kr;
     end
   end
-
-  
+  if (find(sco_mat(:,5)==string(4))<>[]) then
+    [links_table,blklst,corinvt,ok]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m)
+     if ~ok then
+        cmat=[],ccmat=[],cor=[],corinv=[]
+	return,
+      end
+  end
+  nb=size(corinvt)
   nl=size(links_table,1)/2
   links_table=[links_table(:,1:3) matrix([1;1]*(1:nl),-1,1) links_table(:,4) ];
 
