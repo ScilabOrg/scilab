@@ -133,8 +133,6 @@ extern void samphold4 __PARAMS((ARGS_scicos));
 extern void dollar4 __PARAMS((ARGS_scicos));
 extern void invblk4 __PARAMS((ARGS_scicos));
 extern void delay4 __PARAMS((ARGS_scicos));
-extern void readf4 __PARAMS((ARGS_scicos));
-extern void writef4 __PARAMS((ARGS_scicos));
 extern void cevscpe __PARAMS((ARGS_scicos));
 extern void cfscope __PARAMS((ARGS_scicos));
 extern void cscopxy __PARAMS((ARGS_scicos));
@@ -351,6 +349,7 @@ extern void extract_bit_u16_RB1 __PARAMS((ARGS_scicos));
 extern void extract_bit_u8_RB1 __PARAMS((ARGS_scicos));
 extern void rndblk_m __PARAMS((ARGS_scicos));
 extern void relational_op __PARAMS((ARGS_scicos));
+extern void curve_c __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -401,6 +400,7 @@ OpTab tabsim[] ={
 {"cumsumz_c",(ScicosF) cumsumz_c},
 {"cumsumz_m",(ScicosF) cumsumz_m},
 {"cumsumz_r",(ScicosF) cumsumz_r},
+{"curve_c",(ScicosF) curve_c},
 {"dband",(ScicosF) F2C(dband)},
 {"deadband",(ScicosF) deadband},
 {"delay4_i16",(ScicosF) delay4_i16},
@@ -610,7 +610,6 @@ OpTab tabsim[] ={
 {"ratelimiter",(ScicosF) ratelimiter},
 {"readau",(ScicosF) readau},
 {"readc",(ScicosF) readc},
-{"readf4",(ScicosF) readf4},
 {"readf",(ScicosF) F2C(readf)},
 {"relational_op_i16",(ScicosF) relational_op_i16},
 {"relational_op_i32",(ScicosF) relational_op_i32},
@@ -698,12 +697,11 @@ OpTab tabsim[] ={
 {"variable_delay",(ScicosF) variable_delay},
 {"writeau",(ScicosF) writeau},
 {"writec",(ScicosF) writec},
-{"writef4",(ScicosF) writef4},
 {"writef",(ScicosF) F2C(writef)},
 {"zcross2",(ScicosF) zcross2},
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 349 ;
+int ntabsim= 348 ;
 #endif 
 /***********************************/
