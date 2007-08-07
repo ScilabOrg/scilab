@@ -1,3 +1,5 @@
+// Copyright  INRIA
+
 mode(-1);
 
 while %t then
