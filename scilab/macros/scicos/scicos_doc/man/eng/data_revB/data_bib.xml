@@ -1826,4 +1826,44 @@ Add here the function bibliography if any
 </BIBLIO>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<BIBLIO>
+<SP>
+
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<BIBLIO>
+<SP>
+Add here the function bibliography if any
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

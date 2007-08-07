@@ -1926,4 +1926,44 @@ Ajoutez ici la bibliographie si besoin
 </BIBLIO>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<BIBLIO>
+<SP>
+Ajoutez ici la bibliographie si besoin
+</SP>
+</BIBLIO>
+</FILE>
+
 </DATA>

@@ -2005,4 +2005,41 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM><LINK>Modulo_Count</LINK></SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM><LINK>MFCLCK_f</LINK></SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM><LINK>CLOCK_c</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Counter</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>ESELECT_f</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>M_freq</LINK></SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
 </DATA>

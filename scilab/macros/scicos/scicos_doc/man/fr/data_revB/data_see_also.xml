@@ -2032,4 +2032,44 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>ajouter un lien ici</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
 </DATA>

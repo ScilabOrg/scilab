@@ -1952,4 +1952,44 @@ Add here the used function name and  references
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Add here the used function name and  references
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

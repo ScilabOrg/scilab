@@ -7524,4 +7524,128 @@ Properties : Type 'str' of size -1.
 </PARAM>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Minimum</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The lowest number of the counter.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Maximum</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The highest number of the counter.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Rule (1=Increment 2=Decrement</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The rule of counting. If it is 1 then the counter counts from the lower number to the higher number. the count in this case is increasing. otherwise, if the rule is equal to 2 the counter will decrease and it will count from the higher number to the lower one.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Sample time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+Vector of sample time values.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Offset</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+Vector of offset values. Must have the same size as the Sample time and each offset value must be less than its corresponding sample time.
+</SP>
+<SP>
+Properties : Type 'vec' of size -1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+<PARAM_ITEM>
+<PARAM_NAME>Sample time</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The Sample time value.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+<PARAM_ITEM>
+<PARAM_NAME>Offset</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+The offset value.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<PARAM>
+<PARAM_INDENT>
+
+</PARAM_INDENT>
+</PARAM>
+</FILE>
+
 </DATA>

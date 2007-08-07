@@ -1134,4 +1134,24 @@
 <SHORT_DESCRIPTION name="GotoTagVisibilityMO">Define Scope of GOTOMO tag visibility</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<SHORT_DESCRIPTION name="CURVE_c">CURVE_c title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<SHORT_DESCRIPTION name="Counter">Counter</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<SHORT_DESCRIPTION name="M_freq">Multiple Frequencies</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<SHORT_DESCRIPTION name="SampleCLK">Sample Time Clock</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder title</SHORT_DESCRIPTION>
+</FILE>
+
 </DATA>

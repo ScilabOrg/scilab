@@ -1956,4 +1956,44 @@ Ajoutez ici les noms et références des fonctions utilisées
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+Ajoutez ici les noms et références des fonctions utilisées
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 </DATA>

@@ -3167,4 +3167,79 @@ This block is used in case of modelica's connection. For more information on how
 </DESCRIPTION>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Add here a paragraph of the function description
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This block count from minimal to maximal or from maximal to minimal depending on the choice of the rule.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+This blocks generates events at specific sample time of the simulation time. The sample time is given in the "Sample Time" field and the offset is given in the "Offset" field. This block has one event input, the number of event outputs depends on the number of different sample time. For exemple if the vector of sample time is [1 1 2] and the vector of offset is [0 .5 0] then the block has 7 outputs.</P>
+<P> - The first output is activated when the simulation time is equal to a multiple of the first sample time plus the first offset</P>
+<P> - The second output is activated when the simulation time is equal to a multiple of the second sample time plus the second offset.</P>
+<P> - The third output is activated when we have both cases, first case and second case.</P>
+<P> - The fourth output is activated when the simulation time is equal to a multiple of the third sample time plus the third offset.</P>
+<P> - The fifth output is activated when we have both cases, first case and forth case.</P>
+<P> - The sixth output is activated when we have both cases, second case and fourth case.</P>
+<P> - The seventh output is activated when we have both cases, third case and forth case.</P>
+<P> etc...</P>
+<P> So the number of outputs is equal to 2**number of differents time values. Each of these time values is represented by a binary number associated to the output's number in decimal.</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK blocks in our diagram are synchronous. The synchronism is done due to two differents methods of computation in the compilation phase.</P>
+<P>The first method consists of computing a clock that is faster than all the SampleCLK connected to a counter which activate the event select block.</P>
+<P> The clock is calculated due to the following rule.</P>
+<P> If all the blocks have the same offset then the frequency of the clock is the gcd of the sample time, and the offset of the clock is equal to the offset.</P>
+<P> If the offsets are differents, then the frequency of the clock is the gcd of the sample time and the offset, and the offset of the clock is equal to 0.</P>
+<P> The Counter counts from one to the least commun multiple of the sample time (lcm).</P>
+<P> The number of outputs of the ESELECT_f block is equal to the lcm.</P>
+<P>The second method uses the Multifrequency block it generates events only for specific time. Events in this method are not periodicly generated as in the first one.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+Add here a paragraph of the function description
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
 </DATA>

@@ -1827,4 +1827,44 @@ Exemple
 </EXAMPLE>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<EXAMPLE>
+<P>
+Exemple
+</P>
+</EXAMPLE>
+</FILE>
+
 </DATA>

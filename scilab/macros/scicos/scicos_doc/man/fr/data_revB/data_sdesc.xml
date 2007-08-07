@@ -1133,4 +1133,24 @@
 <SHORT_DESCRIPTION name="GotoTagVisibilityMO">GotoTagVisibilityMO titre</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<SHORT_DESCRIPTION name="CURVE_c">CURVE_c titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<SHORT_DESCRIPTION name="Counter">Counter titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<SHORT_DESCRIPTION name="M_freq">M_freq titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<SHORT_DESCRIPTION name="SampleCLK">SampleCLK titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder titre</SHORT_DESCRIPTION>
+</FILE>
+
 </DATA>

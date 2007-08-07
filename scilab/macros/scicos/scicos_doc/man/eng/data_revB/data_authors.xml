@@ -2208,4 +2208,44 @@ Add here the author  references
 </AUTHORS>
 </FILE>
 
+<FILE name='CURVE_c' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='Counter' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<AUTHORS>
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
+</AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
 </DATA>
