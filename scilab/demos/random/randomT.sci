@@ -1,3 +1,4 @@
+// Copyright INRIA
 
 function [z]=RndIntT(n)
 	[lhs,rhs]=argn(0)
