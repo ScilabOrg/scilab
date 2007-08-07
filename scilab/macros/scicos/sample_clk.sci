@@ -1,13 +1,14 @@
 function [Ts,bllst,corinv,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m)
-  [num]=x_choose(['event select';'multiple frequency'],..
-                   ["You have to choose a method for the sample time computation:";..
-                    "The first method is a periodic synchronize system";..
-                    "it uses the event select block to generate events"; "at every clock time (regular period)";..
-                    "The number of outputs is equal to the least common"; "multiple of the input frequencies ";..
-                    "The second method uses the multi-frequency block";..
-                    "it generates an event only on the used time";..
-                    "The default value is select method"])
+//   [num]=x_choose(['event select';'multiple frequency'],..
+//                    ["You have to choose a method for the sample time computation:";..
+//                     "The first method is a periodic synchronize system";..
+//                     "it uses the event select block to generate events"; "at every clock time (regular period)";..
+//                     "The number of outputs is equal to the least common"; "multiple of the input frequencies ";..
+//                     "The second method uses the multi-frequency block";..
+//                     "it generates an event only on the used time";..
+//                     "The default value is select method"])
   //num=scs_m.props.tol(8)
+  num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
   if num==2 then
   [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
   else
@@ -112,8 +113,9 @@ endfunction
 function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
   ok=%t
   index=find(MAT(:,5)==string(4))
-  frequ=evstr(MAT(index,3));
-  offset=evstr(MAT(index,4));
+  MAT1=MAT(index,:);
+  frequ=evstr(MAT1(:,3));
+  offset=evstr(MAT1(:,4));
   offset=offset(:);frequ=frequ(:);
   if size(unique(offset),'*')>1 then
        [pgcd,den]=fixedpointgcd([frequ;offset]);
@@ -165,8 +167,9 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
    Ts($+1:2:$+2*mn,:)=[nb*ones(mn,1) k' -ones(mn,2)]
    Ts($+1-(2*mn-2):2:$+1,:)=[nb*ones(mn,1) ones(mn,2) -ones(mn,1)]
    for i=1:size(frequ,'*')
-        num=-evstr(MAT(find((evstr(MAT(:,3))==frequ(i))&(evstr(MAT(:,4))==offset(i))),1))
-        Ts(find(Ts(:,1)==num),1)=-num;
+        num=evstr(MAT1(find((evstr(MAT1(:,3))==frequ(i))&(evstr(MAT1(:,4))==offset(i))),1))
+       for ii=num'
+        Ts(find(Ts(:,1)==-ii),1)=ii;
         j=2**(i-1):2**i:mn;
         v=j;
         for k=1:2**(i-1)-1;
@@ -176,7 +179,8 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
         ON=ones(size(v,'*'),1)
         N=[1:size(v,'*')]';
         Ts($+1:2:$+2*size(v,'*'),:)=[nb*ON v' -ON -ON]
-        Ts($+1-(2*size(v,'*')-2):2:$+1,:)=[-num*ON N ON -ON]
+        Ts($+1-(2*size(v,'*')-2):2:$+1,:)=[ii*ON N ON -ON]
+       end
     end
 endfunction
 
