@@ -1,3 +1,9 @@
+// ==========================================
+// Copyright INRIA
+// Copyright Enpc
+// last modified : 14th, December 2005
+// ==========================================
+
 mode(0)
 
 // Hide the toolbar

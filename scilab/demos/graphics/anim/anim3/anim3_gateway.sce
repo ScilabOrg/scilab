@@ -1,8 +1,3 @@
-// ==========================================
-// Copyright INRIA
-// Copyright Enpc
-// last modified : 14th, December 2005
-// ==========================================
 
 getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_message.sci');
