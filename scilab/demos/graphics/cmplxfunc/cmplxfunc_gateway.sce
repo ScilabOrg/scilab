@@ -7,7 +7,7 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('cmplxfunc.dem');
+[path,oldln]=demo_begin('cmplxfunc_gateway.sce');
 
 exec("SCI/demos/graphics/cmplxfunc/cmplxfunc.sci");
 getf("SCI/demos/graphics/cmplxfunc/MacCmplx.sci")  //  les macros utilisees ici
