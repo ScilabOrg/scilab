@@ -1,10 +1,10 @@
 User's guide : how to create a demonstration
 
-your demonstrations shall be written according to a precise principle : the main file does only contain
-the standard functions at your disposal in the repository 'SCI_demos/demos_lib'as well as their call.
-The scripts that are between these standard function will be called by the standard function demo_run(fil)
-and be written in an annex .sce file. Allthe rest of the demonstration will apppearin the annex files, par-
-ticularlythe functions, that will be written in .sci files.
+your demonstrations shall be written according to a precise principle : the main file is an interface file
+that does only contain the standard functions at your disposal in the repository 'SCI/demos/demos_lib'as well
+as their call. The scripts that are between these standard function will be called by the standard function
+demo_run(fil) and be written in an annex .sce file. All the rest of the demonstration will apppear in the
+annex files, particularly the functions, that will be written in .sci files.
 The interest is that the developer of the SCILAB logiciel can thus modify as he want the shape of the de-
 monstration without enter inside the script.
 On another side, you are asked not to make appear the scripts or calculation on the console but rather
@@ -20,18 +20,16 @@ in 'oldln', and gives the path of the file given in argument in the variable 'pa
 'nofile'.
    The function demo_compiler is used as test to know if the reader of your demonstration's computer owns or
 not a compiler C. It gives a boolean indicating this in the variable 'ans'.
-   the function demo_message allows to display some messages, particularly calculations or explanations about
-the demonstration.It take as argument a text in.
    The function demo_message is used to display messages, particularly calculations or comments about the de-
 monstration. It takes as argument the file where stand the code lines.
    the function demo_choose is used to propose a choice between various options of the demonstration. These
-are written under the shape of a column text vector. It gives the number of the chosen line in the variable
-'num'.
+are written under the shape of a column text vector in the file to call. It gives the number of the chosen
+line in the variable 'num'.
    The function demo_mdialog allows to propose to the reader to chose himself the values of the parameters.
-The first entered argument is the title of the dialog box, the second is the name of the parameters and the
-third the default parameter values.
+The first argument in the file to call is the title of the dialog box, the second is the name of the parame-
+ters and the third the default parameter values.
    The function demo_function_choice can be used if your demonstration contains a list of versions among
-which it will be chosen between different versions.The list shall be called 'demolist' and contain two co-
+which it will be chosen between different versions.The list shall be called 'demolist' and contains two co-
 lumns, the first for the version's name and the second for the name of the function to call. It erases the
 graphic window remaining before the demonstration too, and resets the console to its initial width if the rea-
 der quits the demonstration.
