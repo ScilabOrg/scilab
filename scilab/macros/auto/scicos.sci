@@ -609,8 +609,12 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
           disp(exeString)  ;
         end
 	//** Don't ever think to touch this line of code ;)
-	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
-                                                          //** exec the desired action				  
+	ierr=execstr('exec('+%cor_item_exec(%koko,2)+',-1)','errcatch','n')
+	if ierr > 0 then 
+	  Cmenu='Replot';
+	  disp(['I recover from the following error:';lasterror()])
+	end
+	
 	//** unselect ALL the previous selected object and select again the actually selected object
 	//** because some command (operation) could select/unselect some object (the mods are registered
 	//** in the "Select" variable)
