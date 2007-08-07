@@ -20,7 +20,11 @@ function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
     scs_m=[]
     [path,name,ext]=splitfilepath(fname)
     //first pass
-    if ext=='cos'|ext=='COS'|ext=='cosf'|ext=='COSF' then
+    if ext=='cos'|ext=='COS'|ext=='cosf'|ext=='COSF'|ext=='' then
+      if ext=='' then  // to allow user not to enter necessarily the extension
+	fname=fname+'.cos'
+	ext='cos'
+      end
       [x,ierr]=fileinfo(fname)
       if ierr==0 then
         ww=stacksize()

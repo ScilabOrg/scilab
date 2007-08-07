@@ -16,13 +16,19 @@ function [scs_m, edited] = do_SaveAs()
   
   select ext
     
-    case "cos" then
+   case "cos" then
     ok = %t
     frmt = 'unformatted'
     
-    case "cosf" then
+   case "cosf" then
     ok = %t
     frmt = 'formatted'
+    
+   case "" then
+     ok = %t
+     frmt = 'unformatted'
+     fname=fname+".cos"
+     ext='cos'
   else
     message("Only *.cos binary or cosf ascii files allowed");
     return //** EXIT Point 
