@@ -1,3 +1,5 @@
+// Copyright  INRIA
+
 function demo_truck()
   initial = [-2;3;0.5235988;0;0;1]
   final   = [0;0;0;0;0;0]
