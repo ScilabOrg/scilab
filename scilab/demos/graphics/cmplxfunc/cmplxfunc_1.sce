@@ -1,3 +1,8 @@
+// demo pour visualisation des fonctions elementaires
+// complexes - Bruno Pincon
+
+// Adapted for new graphic by Pierre MARECHAL ( 16/12/2005 )
+
 getf('SCI/demos/demos_lib/demo_mdialog.sci');
 
 demolist = [
@@ -24,35 +29,8 @@ Title = [
 	"";
 	"    Choose a function    "];
 
-title_custom = [
-	"---BE CAREFUL NOTHING IS PROTECTED---";
-	"                                     ";
-	" To draw your own complex  function :";
-	"                                     ";
-	"1/ define the  function by a correct ";
-	"   string where  the complex var must";
-	"   be z ; also  as  the function will";
-	"   be evaluated  on  a matrix  don''t ";
-	"   forget the . to operate in element";
-	"   wize meaning ; examples :         ";
-	"   z.^2     (z+1).*(z-1)   (1)./(z+2)";
-	"   sqrt(z)  (z+%i).*(z-%i) 1+2*z+z.^2";
-	"                                     ";
-	"2/ define the type of the domain     ";
-	"   string Square or Disk             ";
-	"                                     ";
-	"3/ define the ""radius"" R of the domain";
-	"                                     ";
-  "4/ may be your function has a kind of";
-  "   discontinuity on Ox  or  Oy => put";
-  "   the string Ox or Oy or No if not  "];
-title_items_custom = [
-	"1/ string     ";
-	"2/ Type Domain";
-	"3/ R          ";
-	"4/ Cut on Axe "];
 rep_init = ["(1)./((z+2).*(2-z))";"Disk";"1.9";"No"];
-rep = rep_init;       
+resp = rep_init;       
 
 while %t
 	
@@ -62,20 +40,21 @@ while %t
 		break
 	else
 	  if num == 15
-	     [rep]=demo_mdialog(title_custom,title_items_custom, rep);
-		  if rep == [] then
-		    rep = rep_init
+	     exec('SCI/demos/graphics/cmplxfunc/cmplxfunc_dial.sce');
+	     [resp]=demo_mdialog('SCI/demos/graphics/cmplxfunc/cmplxfunc_dial.bin');
+		  if resp == [] then
+		    resp = rep_init
 		  else
-			 select rep(4)
+			 select resp(4)
 				  case "Ox" ; e = 0.001; TypeCut = "Ox";
 				  case "Oy" ; e = 0.001; TypeCut = "Oy";
-				  else e=0  ; TypeCut = "Ox" ; rep(4) = "No" ;
+				  else e=0  ; TypeCut = "Ox" ; resp(4) = "No" ;
 			 end
-			 deff("Z=f(z)","Z="+rep(1))
+			 deff("Z=f(z)","Z="+resp(1))
 			 theta = -110; alpha = 75;
-			 R = evstr(rep(3));
+			 R = evstr(resp(3));
 			 StrFunc="f";
-			 select rep(2)
+			 select resp(2)
 				  case "Square"
 					 PlotCmplxFunc(R,e,"Square",TypeCut,41,"f",theta,alpha,[0;0]);
 				  case "Disk"
