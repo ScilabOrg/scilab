@@ -16,13 +16,14 @@ t=[1.d-5:0.02:.4 0.41:.1:4 40 400 4000 40000 4d5 4d6 4d7 4d8 4d9 4d10];
 rtol=1.d-4;atol=[1.d-6;1.d-10;1.d-6];
 y=ode([1;0;0],0,t,rtol,atol,chem);
 // Visualisation
-halt();xbasc();
+x_message('Click Ok to continue.');
+xbasc();
 rect=[1.d-5,-0.1,1d11,1.1];
 plot2d1("oln",t',(diag([1 10000 1])*y)',(1:3),"111",' y1@10000 y2@y3',rect)
 a=gca();
 a.title.text='chemical process (stiff)';
 a.title.font_size=3;
-halt();
+x_message('Click Ok to continue.');
 // Add surface condition
 nt=prod(size(t));
 deff('[y]=Surf(t,x)','y=[x(1)-1.e-4;x(3)-1.e-2]')
