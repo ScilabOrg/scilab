@@ -28,6 +28,7 @@ curFont=xget('font');
 	  y= (u/2)'*sin(v);
 	  z= (sin(u).*u)'*(1+cos(v)/2);
 	  realtime(k);
+	  delete(gce());
 	  plot3d2(x,y,z,-1,62,152,'X@Y@Z',[10,1,4],[-15 10 -5 5 -10 12])
 	  xset('wshow')
 	end
