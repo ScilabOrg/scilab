@@ -86,10 +86,10 @@ while %t do
       mode(1)
       
       exec('SCI/demos/control/pid/pid_dial.sce');
-      demo_mdialog('SCI/demos/control/pid/pid_dial.bin');
+      [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial.bin');
       
-      if resp==[] then break,end
-      dttmax=evstr(resp);
+      if rep==[] then break,end
+      dttmax=evstr(rep);
       dt=evstr(dttmax(1));tmax=evstr(dttmax(2));
       t=0:dt/5:tmax;
       n1=tk_choose(['Step response?';'Impulse response?'],'Simulation:');
@@ -111,6 +111,7 @@ while %t do
   a.title.font_size=3;
       end
       mode(-1)
+      
     elseif Plant(4)=='d' then
       mode(1)
       defv=['100'];
@@ -129,6 +130,9 @@ while %t do
 	  u=ones(1,Tmax);u(1)=0;
 	  xbasc(1);xset("window",1);xselect();
 	  plot2d([(1:Tmax)',(1:Tmax)'],[(dsimul(Tpid,u))',(ones(1:Tmax)')])
+	  a=gca();
+    a.title.text='PID, step response'
+    a.title.font_size=3;
 	  
 	  mode(-1)
 	case 2 then
@@ -136,6 +140,9 @@ while %t do
 	  u=zeros(1,Tmax);u(1)=1;
 	  xbasc(1);xset("window",1);xselect();
 	  plot2d((1:Tmax)',(dsimul(Tpid,u))')
+	  a=gca();
+    a.title.text='PID, impulse response'
+    a.title.font_size=3;
 	  mode(-1)
 	end
       end
