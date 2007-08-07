@@ -117,15 +117,9 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
   frequ=evstr(MAT1(:,3));
   offset=evstr(MAT1(:,4));
   offset=offset(:);frequ=frequ(:);
-  if size(unique(offset),'*')>1 then
-       [pgcd,den]=fixedpointgcd([frequ;offset]);
-       off=0;
-   else
-       [pgcd,den]=fixedpointgcd([frequ])
-       off=unique(offset);
-   end
+  [pgcd,den]=fixedpointgcd([frequ;offset]);
+   off=0;
     [m1,k]=uni(frequ,offset);
-//    m1=frequ+offset
     frd=uint32(m1.*double(den))
     frequ=frequ(k);
     frd1=uint32((frequ.*double(den)));
@@ -140,6 +134,7 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
     end
     [n,k]=gsort(mat(:,1),'g','i');
     mat=mat(k,:);
+    if size(mat,1)>1 then
     while (find(mat(1:$-1,1)==mat(2:$,1))<>[]) then
            ind=find(mat(1:$-1,1)==mat(2:$,1));
            ind=ind(1);
@@ -152,6 +147,11 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
     if find(m(:,3)==0)<>[] then
        m(find(m(:,3)==0),:)=[];
        count=0;
+    end
+    else
+    m=[frd1 1];
+    count=0;
+    off=offset;
     end
     mn=(2**size(m1,'*'))-1;
     fir=-ones(1,mn);

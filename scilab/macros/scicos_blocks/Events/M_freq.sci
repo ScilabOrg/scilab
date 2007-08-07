@@ -26,15 +26,9 @@ case 'set' then
        message("The |Offset| must be less than the Frequency");ok=%f
     end
     if ok then
-    if size(unique(offset),'*')>1 then
-       [pgcd,den]=fixedpointgcd([frequ;offset]);
-       off=0;
-    else
-       [pgcd,den]=fixedpointgcd([frequ])
-       off=unique(offset);
-    end
+    [pgcd,den]=fixedpointgcd([frequ;offset]);
+    off=0;
     [m1,k]=uni(frequ,offset);
-//    m1=frequ+offset
     frd=uint32(m1.*double(den))
     frequ=frequ(k);
     frd1=uint32((frequ.*double(den)));
@@ -50,6 +44,7 @@ case 'set' then
     end
     [n,k]=gsort(mat(:,1),'g','i');
     mat=mat(k,:);
+   if size(mat,1)>1 then
     while (find(mat(1:$-1,1)==mat(2:$,1))<>[]) then
            ind=find(mat(1:$-1,1)==mat(2:$,1));
            ind=ind(1);
@@ -63,10 +58,17 @@ case 'set' then
        m(find(m(:,3)==0),:)=[];
        count=0;
     end
+   else
+    m=[frd1 1];
+    count=0;
+    off=offset;
+   end
     if or(model.rpar(:)<>[frequ;offset]) then needcompile=4;y=needcompile,end
       model.opar=list(m,double(den),off,count)
       mn=(2**size(m1,'*'))-1;
-      graphics.sz=[40+(mn-3)*10 40]
+      if mn>3 then graphics.sz=[40+(mn-3)*10 40]
+      else graphics.sz=[50 40]
+      end
       model.evtin=1
       model.evtout=ones(mn,1);
       model.firing=-ones(1,mn);
