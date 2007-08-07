@@ -1,3 +1,4 @@
+// Copyright ENPC
 
 xbasc();
 fs = get('figure_style');

@@ -1,7 +1,4 @@
-
-// Copyright ENPC 
-
-
+ 
 getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_compiler.sci');
 getf('SCI/demos/demos_lib/demo_message.sci');
@@ -9,7 +6,7 @@ getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_choose.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('wheel.dem');
+[path,oldln]=demo_begin('wheel_gateway.sce');
 
 getf('SCI/demos/simulation/wheel2/show.sci');
 
