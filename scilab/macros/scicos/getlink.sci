@@ -1,6 +1,6 @@
 function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
-//edition of a link from an output block to an input  block
 // Copyright INRIA
+// edition of a link from an output block to an input  block
 
 //** BEWARE: "d9" state is not yet tested after Replot removal
 //** 24/07/07: Al@n's patch for rotation of blocks
@@ -211,8 +211,8 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
         [%win, Cmenu] = resume(curwin,'Quit')
       end
 
-      //** rigth mouse OR [ESC] key I want to disengage the current Link action
-      if or(rep(3)==[2 5 12 65307]) then 
+      //** any rigth mouse event OR [Esc] OR [d] key : I want to disengage the current Link action
+      if or(rep(3)==[2 5 12 65307 100]) then 
           p_size = size(gh_curwin.children.children)
           d_size = p_size(1)-o_size(1);
           if d_size > 0 then
