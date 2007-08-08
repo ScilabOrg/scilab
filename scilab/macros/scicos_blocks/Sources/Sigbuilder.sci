@@ -91,7 +91,7 @@ scs_m_1=scicos_diagram(..
               wpar=[600,450,0,0,600,450],..
               Title=["Sigbuilder","./"],..
               tol=[ .0001; .000001;1.000E-10;100001;0;0;0],..
-              tf=200,..
+              tf=100,..
               context=" ",..
               void1=[],..
               options=tlist(["scsopt","3D","Background","Link","ID","Cmap"],list(%t,33),[8,1],[1,5],..
@@ -102,17 +102,29 @@ scs_m_1=scicos_diagram(..
 scs_m_1.objs(1)=scicos_block(..
                 gui="CURVE_c",..
                 graphics=scicos_graphics(..
-                         orig=[333.41693,565.89722],..
+                         orig=[332.88977,584.45066],..
                          sz=[40,40],..
                          flip=%t,..
                          theta=0,..
-                         exprs=[],..
+                         exprs=["3";"[0 1 3*%pi 12]";"[1 1 8 4]";"y";"n"],..
                          pin=[],..
                          pout=6,..
                          pein=4,..
                          peout=2,..
-                         gr_i=list(["txt=[''CURVE''];";"xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');"],..
-                         8),..
+                         gr_i=list(..
+                         ["rpar=arg1.model.rpar;n=model.ipar(1);order=model.ipar(2);";
+                         "xx=rpar(1:n);yy=rpar(n+1:2*n);NP=6;";
+                         "[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy,NP)";
+                         "xmx=maxi(XX);xmn=mini(XX);";
+                         "ymx=maxi(YY);ymn=mini(YY);";
+                         "dx=xmx-xmn;if dx==0 then dx=maxi(xmx/2,1);end";
+                         "xmn=xmn-dx/20;xmx=xmx+dx/20;";
+                         "dy=ymx-ymn;if dy==0 then dy=maxi(ymx/2,1);end;";
+                         "ymn=ymn-dy/20;ymx=ymx+dy/20;";
+                         "xx2=orig(1)+sz(1)*((XX-xmn)/(xmx-xmn));";
+                         "yy2=orig(2)+sz(2)*((YY-ymn)/(ymx-ymn));";
+                         "xset(''color'',2)";
+                         "xpoly(xx2,yy2,''lines'');"],8),..
                          id="",..
                          in_implicit=[],..
                          out_implicit="E"),..
@@ -129,12 +141,8 @@ scs_m_1.objs(1)=scicos_block(..
                          state=[],..
                          dstate=[],..
                          odstate=list(),..
-                         rpar=[0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19; -.7616491; .6755537;
-                         1.4739763;1.1443051; .8529775; .4529708; .7223316;1.9273332; .6380837;
-                          -.8498895; .2546697;-1.5417208; -.6834217; -.7209534; .8145126; .3240162;
-                          -.1884803; .4241610;-1.0327357; -.6779672;1.756593;1.026554;0; -.3093156;
-                          -.3371249;0; .4402990;0;-1.3815015;0;0;0;0;0;0; -.5012552;0;0;0;1.0643056],..
-                         ipar=[20;5;1],..
+                         rpar=[0;1;9.424778;12;1;1;8;4; -.3276272; .3022189; -.4438581;-2.8311723],..
+                         ipar=[4;3;1],..
                          opar=list(),..
                          blocktype="c",..
                          firing=0,..
@@ -145,8 +153,8 @@ scs_m_1.objs(1)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(2)=scicos_link(..
-                  xx=[353.41693;354.69887],..
-                  yy=[560.18294;551.413],..
+                  xx=[352.88977;350.83491],..
+                  yy=[578.73637;552.34327],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -155,7 +163,7 @@ scs_m_1.objs(2)=scicos_link(..
 scs_m_1.objs(3)=scicos_block(..
                 gui="CLKSPLIT_f",..
                 graphics=scicos_graphics(..
-                         orig=[354.69887;551.413],..
+                         orig=[350.83491;552.34327],..
                          sz=[ .3333333, .3333333],..
                          flip=%t,..
                          theta=0,..
@@ -193,8 +201,8 @@ scs_m_1.objs(3)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(4)=scicos_link(..
-                  xx=[354.69887;304.24048;304.24048;302.05225;353.41693;353.41693],..
-                  yy=[551.413;551.413;636.02377;636.02377;636.02377;611.61151],..
+                  xx=[350.83491;286.24528;286.24528;352.16095;352.88977],..
+                  yy=[552.34327;552.34327;661.27274;661.27274;630.16494],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -203,7 +211,7 @@ scs_m_1.objs(4)=scicos_link(..
 scs_m_1.objs(5)=scicos_block(..
                 gui="OUT_f",..
                 graphics=scicos_graphics(..
-                         orig=[401.98836,575.89722],..
+                         orig=[401.4612,594.45066],..
                          sz=[20,20],..
                          flip=%t,..
                          theta=0,..
@@ -241,8 +249,8 @@ scs_m_1.objs(5)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(6)=scicos_link(..
-                  xx=[381.98836;401.98836],..
-                  yy=[585.89722;585.89722],..
+                  xx=[381.4612;401.4612],..
+                  yy=[604.45066;604.45066],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[1,1],..
@@ -251,7 +259,7 @@ scs_m_1.objs(6)=scicos_link(..
 scs_m_1.objs(7)=scicos_block(..
                 gui="CLKOUTV_f",..
                 graphics=scicos_graphics(..
-                         orig=[344.69887,491.413],..
+                         orig=[340.83491,492.34327],..
                          sz=[20,30],..
                          flip=%t,..
                          theta=0,..
@@ -289,8 +297,8 @@ scs_m_1.objs(7)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(8)=scicos_link(..
-                  xx=[354.69887;354.69887],..
-                  yy=[551.413;521.413],..
+                  xx=[350.83491;350.83491],..
+                  yy=[552.34327;522.34327],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -310,7 +318,7 @@ model=scicos_model(..
          dstate=[],..
          odstate=list(),..
          rpar=scs_m_1,..
-         ipar=[],..
+         ipar=[],.. 
          opar=list(),..
          blocktype="h",..
          firing=[],..
@@ -319,10 +327,142 @@ model=scicos_model(..
          nzcross=0,..
          nmode=0,..
          equations=list())
-  //gr_i='xstringb(orig(1),orig(2),''Sigbuilder'',sz(1),sz(2),''fill'')';
-  gr_i=["";"if orient then";"  xset(''thickness'',2);";"  xpolys(orig(1)+[0.1;0.21;0.25;0.32;0.39;0.44;0.44;0.6;0.6;0.61;0.65;0.7;0.75;0.86;0.93;0.99;0.99;0.99]*sz(1),orig(2)+[0.58;0.72;0.78;0.81;0.79;0.7;0.46;0.46;0.68;0.74;0.92;0.56;0.71;0.6;0.6;0.48;0.48;0.48]*sz(2),5)";"  xpolys(orig(1)+[0.04,0.1;0.98,0.1]*sz(1),orig(2)+[0.36,0.04;0.36,0.91]*sz(2),[2,2])";"else";"  xset(''thickness'',2);";"  xpolys(orig(1)+[0.9;0.79;0.75;0.68;0.61;0.56;0.56;0.4;0.4;0.39;0.35;0.3;0.25;0.14;0.07;0.01;0.01;0.01]*sz(1),orig(2)+[0.58;0.72;0.78;0.81;0.79;0.7;0.46;0.46;0.68;0.74;0.92;0.56;0.71;0.6;0.6;0.48;0.48;0.48]*sz(2),5)";"  xpolys(orig(1)+[0.96,0.9;0.02,0.9]*sz(1),orig(2)+[0.36,0.04;0.36,0.91]*sz(2),[2,2])";"end";"  xset(''thickness'',1);";"  xset(''color'',1)";"  xfpolys(orig(1)+[0.7;0.63;0.71;0.65;0.57;0.5;0.5;0.7]*sz(1),orig(2)+[0.52;0.49;0.32;0.29;0.46;0.42;0.68;0.52]*sz(2),8)";"  xset(''thickness'',2);";"  xpolys(orig(1)+[0.5;0.7;0.63;0.71]*sz(1),orig(2)+[0.68;0.52;0.49;0.32]*sz(2),1)";"  xstring(orig(1)+0.2*sz(1),orig(2)+0.12*sz(2),""Signal"")";"  xstring(orig(1)+0.2*sz(1),orig(2)+0.0*sz(2),""builder"")";]
-
-  
-  x=standard_define([2.3 2.3],model,[],gr_i)
+//  gr_i='xstringb(orig(1),orig(2),''Sigbuilder'',sz(1),sz(2),''fill'')';
+    gr_i=['ipar=arg1.model.rpar.objs(1).model.ipar';
+	'rpar=arg1.model.rpar.objs(1).model.rpar';
+	'n=ipar(1);order=ipar(2);';
+	'xx=rpar(1:n);yy=rpar(n+1:2*n);NP=6;';
+	'[XX,YY,rpardummy]=Do_Spline2(n,order,xx,yy,NP)';
+	'xmx=maxi(XX);xmn=mini(XX);';
+	'ymx=maxi(YY);ymn=mini(YY);';
+	'dx=xmx-xmn;if dx==0 then dx=maxi(xmx/2,1);end';
+	'xmn=xmn-dx/20;xmx=xmx+dx/20;';
+	'dy=ymx-ymn;if dy==0 then dy=maxi(ymx/2,1);end;';
+	'ymn=ymn-dy/20;ymx=ymx+dy/20;';
+	'rect=[xmn,ymn;xmx,ymx];';
+	'xx2=orig(1)+sz(1)*((XX-xmn)/(xmx-xmn));';
+	'yy2=orig(2)+sz(2)*((YY-ymn)/(ymx-ymn));';
+	'xset(''color'',2)';
+	'xpoly(xx2,yy2,''lines'');']
+    
+  x=standard_define([2 2],model,[],gr_i)
 end
 endfunction
+
+
+//=========================================================
+function [X,Y,orpar]=Do_Spline2(N,order,x,y,NP)
+
+  X=[];Y=[];orpar=[];
+  for i=1:N-1
+    X=[X;linspace(x(i),x(i+1),NP)']; // pour tous sauf "linear" et "zero order"
+  end
+
+  METHOD=getmethod(order);
+
+  if (METHOD=='zero order') then 
+    X=x(1);Y=y(1);
+    for i=1:N-1
+      X=[X;x(i);x(i+1);x(i+1)];
+      Y=[Y;y(i);y(i);y(i+1)];
+    end  
+  end    
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='linear') then
+    X=[];
+    for i=1:N
+      X=[X;x(i)];
+      Y=[Y;y(i)];
+    end  
+  end
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (N>2) & (METHOD=='order 2') then
+    Z=ORDER2(x,y);
+    A=Z(1:N-1); 
+    B=Z(N:2*N-2);
+    C=Z(2*N-1:3*N-3);
+    
+    for j=1:size(X,'*')
+      for i=N-1:-1:1
+	if X(j)>=x(i) then,break;end
+      end
+      Y(j)=A(i)*(X(j)-x(i))^2+B(i)*(X(j)-x(i))+C(i);
+    end    
+    orpar=matrix(Z,-1,1)   
+  end  
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='not_a_knot') then
+    try
+    d = splin(x, y, METHOD);
+    Y = interp(X, x, y, d);    
+    orpar=d(:);
+    catch
+     xinfo('ERROR in SPLINE: '+METHOD)
+    end
+    
+  end
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='periodic') then
+    if y(1)<>y(N) then 
+      y(N)=y(1)
+    end
+    try 
+      d = splin(x, y,METHOD);
+      Y = interp(X, x, y, d);  
+      orpar=d(:);
+    catch
+    xinfo('ERROR in SPLINE: '+METHOD)
+    end
+  end
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='monotone' ) then
+    try
+      d = splin(x, y, METHOD);
+      Y = interp(X, x, y, d);  
+      orpar=d(:);
+    catch
+    xinfo('ERROR in SPLINE: '+METHOD)
+    end
+  
+  end
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='fast') then
+    try
+      d = splin(x, y, METHOD);
+      Y = interp(X, x, y, d);    
+      orpar=d(:);
+    catch
+      xinfo('ERROR in SPLINE:  '+METHOD)    
+    end  
+  end  
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (METHOD=='clamped') then
+    try
+      d = splin(x, y, METHOD,[0;0]);
+      Y = interp(X, x, y, d);    
+      orpar=d(:);
+    catch
+      xinfo('ERROR in SPLINE: '+METHOD)    
+    end
+  end  
+  
+endfunction
+
+function METHOD=getmethod(order)
+  select order
+   case 0 then, METHOD='zero order'
+   case 1 then, METHOD='linear'
+   case 2 then, METHOD='order 2'
+   case 3 then, METHOD='not_a_knot'
+   case 4 then, METHOD='periodic'
+   case 5 then, METHOD='monotone'
+   case 6 then, METHOD='fast'
+   case 7 then, METHOD='clamped'
+  end
+endfunction
+
+
+
+
+
+
