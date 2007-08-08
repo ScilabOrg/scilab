@@ -6,7 +6,7 @@ function Resize_()
 
   enable_undo = %t       ;
 
-  //new graphic functions is now included in do_resize
+  //** new graphic functions is now included in do_resize
   [%pt,scs_m] = do_resize(%pt,scs_m)
 
   edited = %t ;
