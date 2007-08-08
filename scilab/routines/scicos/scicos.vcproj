@@ -766,6 +766,9 @@ cd .. &gt;nul
 				RelativePath=".\cosh_blk.c">
 			</File>
 			<File
+				RelativePath=".\counter.c">
+			</File>
+			<File
 				RelativePath=".\cscope.c">
 			</File>
 			<File
@@ -800,6 +803,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\cumsumz_r.c">
+			</File>
+			<File
+				RelativePath=".\curve_c.c">
 			</File>
 			<File
 				RelativePath=".\sundials\cvode.c">
@@ -1127,6 +1133,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\logicalop_ui8.c">
+			</File>
+			<File
+				RelativePath=".\m_frequ.c">
 			</File>
 			<File
 				RelativePath=".\mat_bksl.c">
