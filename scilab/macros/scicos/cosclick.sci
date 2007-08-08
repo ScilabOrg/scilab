@@ -12,12 +12,15 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   
   Cmenu=[]; %pt=[]; btn = 0 ; //** Clear variables
   
-  //** ----------> ASK if this control is really indispensable <------------------//
-  //** if the current Scicos windows is NOT present in the list of Scilab window  //
-  if ~or( winsid()==curwin ) then //**                                            //
-    gh_win = gcf();                     //** get the handler of the curent window //
-    disp("...cosclic.sci...|:"); pause; //** debug only                           //
-    Cmenu='Quit'; return ; //** EXIT Point                                        //
+  //** --> This control is really indispensable because the user can                       //
+  //**     - click over a Scicos window, then (very quickly)                               //
+  //**     - Close the window clicking over the [X] button                                 //
+  //** if the current Scicos windows is NOT present in the list of Scilab window           //
+  if ~or( winsid()==curwin ) then //**                                                     //
+    //** disp("...cosclic.sci: fast Select then CloseWindow...|:"); pause; //** debug only //
+    win = curwin   ;
+    Cmenu = "Quit" ; 
+    return         ; //** EXIT Point //
   end   
   //**----------------------------------------------------------------------------//
   
