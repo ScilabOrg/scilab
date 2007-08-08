@@ -1,44 +1,43 @@
-function [%pt,scs_m]=do_tild(%pt,scs_m)
+function [%pt,scs_m] = do_tild(%pt,scs_m)
 // Copyright INRIA
 //** Alan 02/12/06 : use of objects swap in gh_curwin.children.children()
-
-  win = %win;
-
+//**
+//**  8 Aug 2007   : extended version  
+//**
+  win = %win ; //** acquire the window id
+  
   gh_curwin = gh_current_window ; //** acquire the current window handler
   o_size = size(gh_curwin.children.children) ; //** o_size(1) is the number of compound object
-  xc = %pt(1) ; yc = %pt(2)   ;
-  k = getblock(scs_m,[xc;yc]) ;
+  
+  xc = %pt(1) ;
+  yc = %pt(2) ;
+  k = getblock(scs_m, [xc;yc]) ; //** try to recover the block 
 
   if k==[] then
-    return
-  end ; //** if you click in the void ... return back
-
-  if get_connected(scs_m,k)<>[] then //** see message
-     hilite_obj(k); //** new
-     message('Connected block can''t be tilded')
-     unhilite_obj(k); //** new
-     return
+    return ; //** if you click in the void : just return back
   end
 
-  //**--------- scs_m object manipulation -------------------
-  o = scs_m.objs(k) ; //** scs_m
-  geom = o.graphics ; geom.flip = ~geom.flip ; o.graphics = geom;
-
-  //**---------------------------------------------------------
-  //gr_k = o_size(1) - k + 1 ; //** semi empirical equation :)
-  gr_k=get_gri(k,o_size(1))
-  drawlater();
-  update_gr(gr_k,o)
-  draw(gh_curwin.children);
-  show_pixmap() ;
-  //**------------------------------------------------------------
-
+  //** save the diagram for  
   scs_m_save = scs_m ; //** ... for undo ...
-
-  scs_m.objs(k)=o
-
-  [scs_m_save,enable_undo,edited]=resume(scs_m_save,%t,%t)
-
-  //** ... force a Replot() in the calling function
+  
+  
+  //**--------- scs_m object manipulation -------------------
+  
+  path = list('objs',k)      ; //** acquire the index in the "global" diagram
+  
+  o = scs_m.objs(k) ;    //** scs_m
+  
+  o_n  = scs_m.objs(k) ; //** copy the old object in the new one 
+  
+  geom = o_n.graphics  ; //** isolate the geometric proprieties 
+  
+  geom.flip = ~geom.flip ; //** flip the object 
+  
+  o_n.graphics = geom; //** update the new object 
+  
+  scs_m = changeports(scs_m, path, o_n); 
+  
+ 
+  [scs_m_save, enable_undo, edited] = resume(scs_m_save, %t, %t)
 
 endfunction
