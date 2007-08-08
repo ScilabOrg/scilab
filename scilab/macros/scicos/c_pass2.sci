@@ -625,7 +625,7 @@ function [ordclk,ordptr,cord,typ_l,clkconnect,connectmat,bllst,dep_t,dep_u,..
                             ' and '+string(bli)+'replaced with links from '+..
                                                  string(bl)+' to '+string(bli)),
                     end
-		    xx(:,2)=nout;
+		    xx(:,2)=jj;
 		    clkconnect=[clkconnect;xx]
 		end
 	      end
