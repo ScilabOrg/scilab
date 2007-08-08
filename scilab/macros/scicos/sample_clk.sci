@@ -1,4 +1,4 @@
-function [Ts,bllst,corinv,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m)
+function [Ts,bllst,corinv,ind,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind)
 //   [num]=x_choose(['event select';'multiple frequency'],..
 //                    ["You have to choose a method for the sample time computation:";..
 //                     "The first method is a periodic synchronize system";..
@@ -10,11 +10,11 @@ function [Ts,bllst,corinv,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m)
   //num=scs_m.props.tol(8)
   num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
   if num==2 then
-  [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
+  [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
   else
   [frequ,offset,freqdiv,den,flg,ok]=clock_major(MAT)
   if ok then 
-    [Ts,corinv,bllst,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg)
+    [Ts,corinv,bllst,ind,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind)
   end
   end
 endfunction
@@ -47,7 +47,7 @@ if (offset > frequ) then
 end
 endfunction
 
-function [Ts,corinv,bllst,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg)
+function [Ts,corinv,bllst,ind,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind)
 //modification to support double
 ok=%t
 n=lstsize(scs_m.objs)
@@ -56,7 +56,9 @@ bllst($+1)=scicos_model(sim=list("evtdly4",4),in=[],in2=[],intyp=1,out=[],out2=[
 		     rpar=[frequ;offset],ipar=[],opar=list(),blocktype="d",firing=offset,..
 		     dep_ut=[%f,%f],label="",nzcross=0,nmode=0,equations=list());
 corinv($+1)=n+1
-nb=size(corinv)
+nc=size(corinv)
+ind($+1)=nc;
+nb=size(bllst);
 Ts($+1:$+2,:)=[nb 1 -1 -1;..
 		nb 1 1  -1]
 if flg then
@@ -72,7 +74,10 @@ if flg then
 		     dep_ut=[%t,%f],label="",nzcross=0,nmode=0,equations=list());
     corinv($+1)=n+2
     corinv($+1)=n+3
-    nb=size(corinv)
+    nb=size(bllst)
+    nc=size(corinv)
+    ind($+1)=nc-1;
+    ind($+1)=nc;
     Ts($+1:$+4,:)=[nb-2 1 -1 -1;..
 	 	    nb-1,1,1,-1;..
 		    nb-1,1,-1,1;..
@@ -110,7 +115,7 @@ N=uint32(N)*denom_com./uint32(D);
 value=gcd(N);
 endfunction
 
-function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
+function [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
   ok=%t
   index=find(MAT(:,5)==string(4))
   MAT1=MAT(index,:);
@@ -127,6 +132,7 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
     frd1=double(frd1);
     frd=double(frd);
     offset=offset(k);
+    if size(frd,'*')>1 then
     mat=[];
     for i=1:size(frd,'*')
          mat1=[offset(i)*double(den):frd1(i):double(ppcm)]';
@@ -134,7 +140,6 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
     end
     [n,k]=gsort(mat(:,1),'g','i');
     mat=mat(k,:);
-    if size(mat,1)>1 then
     while (find(mat(1:$-1,1)==mat(2:$,1))<>[]) then
            ind=find(mat(1:$-1,1)==mat(2:$,1));
            ind=ind(1);
@@ -148,14 +153,17 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
        m(find(m(:,3)==0),:)=[];
        count=0;
     end
-    else
-    m=[frd1 1];
-    count=0;
-    off=offset;
-    end
     mn=(2**size(m1,'*'))-1;
     fir=-ones(1,mn);
     fir(mat(1,2))=mat(1,1)/double(den);
+    else
+    m=[frd1 1 frd1];
+    mat=m;
+    count=0;
+    off=offset;
+    fir=off;
+    end
+    mn=(2**size(m1,'*'))-1;
     n=lstsize(scs_m.objs);
     bllst($+1)=scicos_model(sim=list("m_frequ",4),in=[],in2=[],intyp=1,out=[],out2=[],outtyp=1,..
                        evtin=1,evtout=ones(mn,1),state=[],dstate=[],odstate=list(),rpar=[],ipar=[],..
@@ -163,6 +171,9 @@ function [Ts,bllst,corinv,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m)
                        label="",nzcross=0,nmode=0,equations=list());
    corinv($+1)=n+1;
    nb=size(corinv);
+   nc=size(bllst);
+   ind($+1)=nc;
+
    k=1:mn;
    Ts($+1:2:$+2*mn,:)=[nb*ones(mn,1) k' -ones(mn,2)]
    Ts($+1-(2*mn-2):2:$+1,:)=[nb*ones(mn,1) ones(mn,2) -ones(mn,1)]

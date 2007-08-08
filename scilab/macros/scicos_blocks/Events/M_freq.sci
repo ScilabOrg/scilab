@@ -58,10 +58,15 @@ case 'set' then
        m(find(m(:,3)==0),:)=[];
        count=0;
     end
+    mn=(2**size(m1,'*'))-1;
+    fir=-ones(1,mn);
+    fir(mat(1,2))=mat(1,1)/double(den);
    else
-    m=[frd1 1];
+    m=[frd1 1 frd1];
+    mat=m;
     count=0;
     off=offset;
+    fir=off;
    end
     if or(model.rpar(:)<>[frequ;offset]) then needcompile=4;y=needcompile,end
       model.opar=list(m,double(den),off,count)
@@ -71,8 +76,7 @@ case 'set' then
       end
       model.evtin=1
       model.evtout=ones(mn,1);
-      model.firing=-ones(1,mn);
-      model.firing(mat(1,2))=mat(1,1)/double(den);
+      model.firing=fir;
       graphics.exprs=exprs
       x.graphics=graphics
       x.model=model

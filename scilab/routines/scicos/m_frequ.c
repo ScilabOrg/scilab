@@ -37,16 +37,8 @@ void m_frequ(scicos_block *block,int flag)
    /* event date computation */
    case 3  : {
               counter=*block->work;
-              t=get_scicos_time();
-             /* (*counter)++;*/ /*increase counter*/ 
+              t=get_scicos_time(); 
               *counter+=(int)mat[*(counter+1)]; /*increase counter*/
- /*             *counter=*counter%(*ppcm);
-              if (*counter==(int)mat[*(counter+1)+2*m]) {
-                 block->evout[(int)mat[*(counter+1)+m]-1]=*off+(mat[*(counter+1)+2*m]/(*Dt))-t;
-                 (*(counter+1))++;
-                  *(counter+1)=*(counter+1)%m;}*/
-/*	      *counter=*counter%m;
-              block->evout[(int)mat[*(counter)+m]-1]=*off+(mat[*(counter)+2*m]/(*Dt))-t;*/
               block->evout[(int)mat[*(counter+1)+m]-1]=*off+((double)*counter/(*Dt))-t;
               (*(counter+1))++;
 	      *(counter+1)=*(counter+1)%m;

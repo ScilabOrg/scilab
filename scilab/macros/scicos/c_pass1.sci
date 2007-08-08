@@ -76,7 +76,7 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
     end
   end
   if (find(sco_mat(:,5)==string(4))<>[]) then
-    [links_table,blklst,corinvt,ok]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m)
+    [links_table,blklst,corinvt,ind,ok]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m,ind)
      if ~ok then
         cmat=[],ccmat=[],cor=[],corinv=[]
 	return,
@@ -139,7 +139,6 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
 	ok=%f;return
       end
     end
-
     //renumber blocks according to their types	
     corinv=list();corinvm=list();
     for kb=1:nb
