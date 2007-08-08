@@ -683,7 +683,7 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   title = (char**)scicos_malloc(scoGetNumberOfSubwin(pScopeMemory)*sizeof(char*));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
-      title[i] = (char*)scicos_malloc(500*sizeof(char)); //Why 500 ? BECAUSE :)
+      title[i] = (char*)scicos_malloc(20*sizeof(char)); //Why 20 ? BECAUSE :) should be less than 255
       sprintf(title[i],"Graphic %d",i+1);
     }
 
@@ -694,9 +694,9 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
   sciSetUsedWindow(scoGetWindowID(pScopeMemory));
   for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
     {
-      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_title,title[i],500);
-      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_x_label,x_title,500);
-      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_y_label,y_title,500);
+      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_title,title[i],strlen(title[i]));
+      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_x_label,x_title,strlen(x_title));
+      sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_y_label,y_title,strlen(y_title));
 
       
       sciSetFontDeciWidth(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_x_label, 0);
@@ -712,7 +712,7 @@ void scoAddTitlesScope(ScopeMemory * pScopeMemory, char * x, char * y, char * z)
       for(i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
 	{
 	  sciSetFontDeciWidth(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_z_label, 0);
-	  sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_z_label,z_title,500);
+	  sciSetText(pSUBWIN_FEATURE(scoGetPointerAxes(pScopeMemory,i))->mon_z_label,z_title,strlen(z_title));
 	}
     }
   for(i = 0; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
