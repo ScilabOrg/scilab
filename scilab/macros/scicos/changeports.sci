@@ -37,6 +37,24 @@ function scs_m = changeports(scs_m, path, o_n)
   //** ---------------------------------------------
   //**
   
+  //** ------------ QUICK & DIRTY TRICK -------------
+  //** This code "export back" the "E" (explicit, standard) / "I" (implicit, Modelica)
+  //** proprieties to the "old" block because very old block/superblock does not have 
+  //** these proprieties 
+  
+  //** for the "old blocks" input(s) with not defined proprieties  
+  if in_mod==[] then 
+       in_mod = in_mod_n ; //** "export back" the "E" / "I" 
+  end 
+  
+  //** for the "old blocks" output(s) with not defined proprieties  
+  if out_mod==[] then
+      out_mod = out_mod_n ; //** "export back" the "E" / "I"
+  end 
+  
+  //**-----------------------------------------------
+  
+  
   //** acquire the dimension of the new block input and output ports and
   //** put all the ports of the new block in unconnected [0] state  
     
@@ -145,6 +163,8 @@ function scs_m = changeports(scs_m, path, o_n)
   OutputLinkToCon = []; xOutPortToCon = [] ;  yOutPortToCon = [] ; 
   
   LinkToDel = [];
+  
+  //** disp("...changeports... : inspect variables"); pause //** DEBUG ONLY 
   
   //**------------------ INPUT PORTS ---------------------------------------------------------------
   if size_pin >0 then 
