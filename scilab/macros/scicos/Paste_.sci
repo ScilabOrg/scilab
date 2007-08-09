@@ -94,9 +94,9 @@ else //** no object is selected for Paste: Paste Object in the void
 	end
       end
       
-      
-      Clipboard = list()   // region is not persistent
-      
+      //** ------------------ BUG -------------------------
+      //** Clipboard = list()   // region is not persistent
+      //** ------------------------------------------------ 
    
       if size(reg.objs)>=1 then
 	Select = []; //** clear the data structure
