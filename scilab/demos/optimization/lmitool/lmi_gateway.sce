@@ -5,6 +5,7 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_message.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
+getf('SCI/demos/demos_lib/demo_choose.sci');
 
 [path,oldln]=demo_begin('lmi_gateway.sce');
 getf('SCI/demos/optimization/lmitool/lmidem.sci');

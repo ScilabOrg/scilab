@@ -1,3 +1,7 @@
+// Copyright INRIA
+
+exec('SCI/demos/control/lqg/lqg_ch_1.sce');
+[num]=demo_choose('SCI/demos/control/lqg/lqg_ch_1.bin');
 
 select num
 	case 0
@@ -5,8 +9,10 @@ select num
 	case 1
 		mode(1)
 		s=poly(0,'s');
-		str='(s-1)/(s^2-5*s+1)';
-		rep=x_dialog('Nominal plant?',str)
+		
+		exec('SCI/demos/control/lqg/lqg_dial_1.sce');
+		[rep]=demo_mdialog('SCI/demos/control/lqg/lqg_dial_1.bin');
+		
 		if rep==[] then return,end
 		Plant=evstr(rep);
 		Plant=syslin('c',Plant);
@@ -14,8 +20,10 @@ select num
 	case 2
 		mode(1)
 		z=poly(0,'z');
-		str='(z+1)/(z^2-5*z+2)'
-		rep=x_dialog('Nominal plant?',str)
+		
+		exec('SCI/demos/control/lqg/lqg_dial_2.sce');
+		[rep]=demo_mdialog('SCI/demos/control/lqg/lqg_dial_2.bin');
+		
 		if rep==[] then return,end
 		Plant=evstr(rep);
 		Plant=syslin('d',Plant);
@@ -60,7 +68,10 @@ demo_message('SCI/demos/control/lqg/lqg_5.sce');
 
 resp=['Frequency response';'Time response'];
 while %t do
-	n=x_choose(resp,'Select response(s)');
+
+	exec('SCI/demos/control/lqg/lqg_ch_2.sce');
+	[n]=demo_choose('SCI/demos/control/lqg/lqg_ch_2.bin');
+
 	select n
 		case 0
 			disp("LQG demo stops!");break;
@@ -71,14 +82,18 @@ while %t do
 		case 2
 			if Plant(4)=='c' then
 			mode(1)
-			defv=['0.1','20'];
-			Title='Enter Sampling period and Tmax';
-			rep=x_mdialog(Title,['Sampling period?';'Tmax?'],defv)
+			
+			exec('SCI/demos/control/lqg/lqg_dial_3.sce');
+			[rep]=demo_mdialog('SCI/demos/control/lqg/lqg_dial_3.bin');
+						
 			if rep==[] then break,end
 			dttmax=evstr(rep)
 			dt=evstr(dttmax(1));tmax=evstr(dttmax(2));
 			t=0:dt/5:tmax;
-			n1=x_choose(['Step response?';'Impulse response?'],'Simulation:');
+			
+			exec('SCI/demos/control/lqg/lqg_ch_3.sce');
+			[n1]=demo_choose('SCI/demos/control/lqg/lqg_ch_3.bin');
+						
 			select n1
 				case 1 then
 					scf(1);clf();xselect();
@@ -90,13 +105,17 @@ while %t do
 			mode(-1)
 		elseif Plant(4)=='d' then
 			mode(1)
-			defv=['30'];
-			Title='Tmax?';
-			rep=x_mdialog(Title,['Tmax='],defv)
+			
+			exec('SCI/demos/control/lqg/lqg_dial_4.sce');
+			[rep]=demo_mdialog('SCI/demos/control/lqg/lqg_dial_4.bin');
+			
 			if rep==[] then break,end
 			Tmax=evstr(rep);
 			mode(-1)
-			n2=x_choose(['Step response?';'Impulse response?'],'Simulation:');
+			
+			exec('SCI/demos/control/lqg/lqg_ch_3.sce');
+			[n2]=demo_choose('SCI/demos/control/lqg/lqg_ch_3.bin');
+						
 			select n2
 				case 0 then
 					break;

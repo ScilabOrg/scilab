@@ -1,8 +1,9 @@
 xdel(0);
 while %t
-  %demo_=tk_choose(['H-infinity gain';'Output Feedback';'Sylvester equation'],...
-      ['This is a sample of LMI problems that LMITOOL can solve';
-      'Select a problem (other examples are given in demos/lmitool directory)']);
+
+  exec(path+'lmi_ch.sce');
+  [%demo_]=demo_choose(path+'lmi_ch.bin');
+
   select %demo_
   case 0
     return;
@@ -10,8 +11,9 @@ while %t
     clc;
     mode(1)
     lmidem('SCI/demos/optimization/lmitool/normopt.sci');getf('SCI/demos/optimization/lmitool/normopt.sci');
-    x_message(['Let''s try a simple example with 3 states';...
-	    'Edit below A,B,C,D matrices']);
+    
+    demo_message(path+'lmi_3.sce');
+
     [ok,A,B,C,D]=getvalue('Enter A, B, C, D matrices',['A';'B';'C';'D'],...
 	list('mat',[3,3],'mat',[3,2],'mat',[2,3],'mat',[2,2]),...
 	['[0,1,0;2,3,1;-1,-2,0]','[1,0;-2,1;0,1]','[1,2,0;0,1,-2]','[0,0;0,0]']);
@@ -26,8 +28,9 @@ while %t
     clc;
     mode(1)
    lmidem('SCI/demos/optimization/lmitool/of.sci');getf('SCI/demos/optimization/lmitool/of.sci');
-    x_message(['Let''s try a simple example with 3 states';...
-	    'Enter A,B,C matrices']);
+   
+   demo_message(path+'lmi_4.sce');
+    
     [ok,A,B,C]=getvalue('Edit below A, B, C matrices',['A';'B';'C'],...
 	list('mat',[3,3],'mat',[3,2],'mat',[2,3]),...
 	['[0,1,0;2,3,1;-1,-2,0]','[1,0;-2,1;0,1]','[1,2,0;0,1,-2]']);
@@ -40,8 +43,9 @@ while %t
     clc;
     mode(1)
     lmidem('SCI/demos/optimization/lmitool/sylvester.sci');getf('SCI/demos/optimization/lmitool/sylvester.sci');
-    x_message(['Let''s try a simple example with 3 states';...
-	    'Enter A,B,C matrices']);
+  
+    demo_message(path+'lmi_4.sce');
+    
     [ok,A,B,C]=getvalue('Edit below A, B, C matrices',['A';'B';'C'],...
 	list('mat',[3,3],'mat',[2,2],'mat',[3,2]),...
 	['[0,1,0;2,3,1;-1,-2,0]','[1,0;-2,1]','[1,2;0,1;1,-2]']);

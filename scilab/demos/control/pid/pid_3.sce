@@ -1,6 +1,10 @@
+// Copyright INRIA
+
 s=poly(0,'s');z=poly(0,'z');
 
-n=tk_choose(['Continuous time';'Discrete time'],'Select time domain');
+exec(path+'pid_ch_1.sce');
+[n]=demo_choose(path+'pid_ch_1.bin');
+
 select n
  case 0
   warning('Demo stops!');return;
@@ -8,8 +12,10 @@ select n
   mode(1)
   dom='c';
   s=poly(0,'s');
-  str='[(s-1)/(s^2+5*s+1)]';
-  rep=x_dialog('Nominal plant?',str);
+  
+  exec(path+'pid_dial_2.sce');
+  [rep]=demo_mdialog(path+'pid_dial_2.bin');
+  
   if rep==[] then return,end
   Plant=evstr(rep); 
   Plant=syslin('c',Plant);
@@ -18,8 +24,10 @@ case 2
   mode(1)  
   dom='d'
   z=poly(0,'z');
-  str='(z+1)/(z^2-5*z+2)'
-  rep=x_dialog('Nominal plant?',str);
+  
+  exec(path+'pid_dial_3.sce');
+  [rep]=demo_mdialog(path+'pid_dial_3.bin');
+  
   if rep==[] then return,end
   Plant=evstr(rep)
   Plant=syslin('d',Plant);
@@ -38,7 +46,10 @@ while %t
   if dom=='d' then
     Title='Enter your PID controller K(z)=Kp*(1+T0/z+T1*z)';
   end
-  defv=x_mdialog(Title,['Kp=';'T0=';'T1='],defv);
+  
+  exec(path+'pid_dial_4.sce');
+  [defv]=demo_mdialog(path+'pid_dial_4.bin');  
+  
   if defv==[] then warning('Demo stops!');return;end
   Kp=evstr(defv(1));T0=evstr(defv(2));T1=evstr(defv(3));
   if dom=='c' then
@@ -52,9 +63,9 @@ while %t
 
   disp(spec(Winv(2)),'closed loop eigenvalues');//Check internal stability
   if maxi(real(spec(Winv(2)))) > 0 then 
-    x_message('You loose: closed-loop is UNSTABLE!!!');
+    demo_message(path+'pid_4.sce');
   else
-    x_message('Congratulations: closed-loop is STABLE !!!');
+    demo_message(path+'pid_5.sce');
     break;
   end
   mode(-1)
@@ -66,9 +77,11 @@ Tpid(5)=clean(Tpid(5));
 disp(clean(ss2tf(Spid)),'Sensitivity function');
 disp(clean(ss2tf(Tpid)),'Complementary sensitivity function');
 
-resp=['Frequency response';'Time response'];
 while %t do
-  n=tk_choose(resp,'Select response(s)');
+
+  exec(path+'pid_ch_2.sce');
+  [n]=demo_choose(path+'pid_ch_2.bin');
+
   if degree(Tpid(5))>0 then
     warning('Improper transfer function! D(s) set to D(0)')
     Tpid(5)=coeff(Tpid(5),0);
@@ -85,14 +98,17 @@ while %t do
     if Plant(4)=='c' then
       mode(1)
       
-      exec('SCI/demos/control/pid/pid_dial.sce');
-      [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial.bin');
+      exec('SCI/demos/control/pid/pid_dial_1.sce');
+      [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial_1.bin');
       
       if rep==[] then break,end
       dttmax=evstr(rep);
       dt=evstr(dttmax(1));tmax=evstr(dttmax(2));
       t=0:dt/5:tmax;
-      n1=tk_choose(['Step response?';'Impulse response?'],'Simulation:');
+
+      exec(path+'pid_ch_3.sce');
+      [n1]=demo_choose(path+'pid_ch_3.bin');
+
       if n1==0 then
 	warning('Demo stops!');return;
       end
@@ -113,15 +129,19 @@ while %t do
       mode(-1)
       
     elseif Plant(4)=='d' then
-      mode(1)
-      defv=['100'];
-      Title='Tmax?'
-      rep=x_mdialog(Title,['Tmax='],defv);
+      mode(1);
+      
+      exec('SCI/demos/control/pid/pid_dial_5.sce');
+      [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial_5.bin');
+
       if rep==[] then break,end
       Tmax=evstr(rep);
       mode(-1)
       while %t do
-	n=tk_choose(['Step response?';'Impulse response?'],'Simulation:');
+ 
+  exec(path+'pid_ch_4.sce');
+  [n]=demo_choose(path+'pid_ch_4.bin');
+  
 	select n
 	case 0 then
 	  break

@@ -1,3 +1,6 @@
+// This is just a graphic demo of the bike
+// Copyright INRIA
+
 fs = get('figure_style');
 curFont=xget("font");
 
@@ -5,12 +8,11 @@ xbasc();
           
 go_on=%t;
 
-demolist=['bike : unstable trajectory';
-          'bike : stable trajectory!'];
-
 while go_on then
 	
-	num=tk_choose(demolist(:,1),'Choose a bike');
+	exec('SCI/demos/simulation/bike/bike_ch.sce');
+	[num]=demo_choose('SCI/demos/simulation/bike/bike_ch.bin');
+	
 	if num==0 then
 		go_on=%f;
     set('figure_style',fs);

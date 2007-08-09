@@ -1,7 +1,6 @@
 // Copyright INRIA
 mode(-1)
 clc;
-getf('SCI/demos/demos_lib/demo_mdialog.sci');
 
 //display the diagram
 x=[5,10,20,40,50,70,80,90];xmin=-10;xmax=100;

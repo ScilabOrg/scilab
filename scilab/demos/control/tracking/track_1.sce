@@ -27,7 +27,9 @@ instants=0:dt:tmax;
 totrack=flts(uu(instants),dscr(Model,dt));    //Signal
 xbasc();
 plot2d(instants',totrack');
-x_message('Click OK to see the tracking.')
+
+demo_message('SCI/demos/control/tracking/track_2.sce')
+
 xbasc()
 //
 [L,M,T]=gfrancis(Plant,Model);

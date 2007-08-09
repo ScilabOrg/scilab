@@ -115,14 +115,15 @@ function []=metro()
       Arrivee=x_choose(Lstation,'Choose the station of arrival');
       if(Depart==0|Arrivee==0) then return  end;
 	if (Lnode(Depart)==-1|Lnode(Arrivee)==-1) then
-	  x_message(['You have chosen an RER station to the suburbs'; 
-		     'The RER net will be added later']);
+	  
+	  
+	 demo_message(path+'meta_2.sce');
+	
 	end;
 	if (Lnode(Depart)==-2) then
-	  x_message(['Are you sure it''s time to leave?';
-		     'If yes, you go to the entrance of the campus.';
-		     'You take the INRIA shuttle to one of the 3 railway stations of Versailles.';
-		     'Then you take the train to Paris (15-20 minutes).']), 
+	  
+	  demo_message(path+'meta_3.sce'), 
+	  
 	  Lnode(Depart)=-1;
 	end;
 	rep=0;
@@ -139,12 +140,9 @@ function []=metro()
 	end
 	if rep==2 then Lnode(Arrivee)=-1;end
 	if rep==1 then 
-	  x_message(['INRIA-Rocquencourt is located near Versailles.';
-		     'From Paris you have to take the train to Versailles and then the INRIA shuttle.';
-		     'You have 3 possibilities from Paris:';
-		     '- starting from Saint-Lazare station you reach the Versailles-Rive Droite station';
-		     '- starting from Invalides station you reach the Versailles-Rive Gauche station';
-		     '- starting from Montparnasse-Bienvenue station you reach the Versailles-Chantiers station']);	
+	
+	  demo_message(path+'meta_4.sce');	
+	
 	  Lnode(Arrivee)=-1;  
 	end
       end
@@ -236,7 +234,6 @@ function []=metro()
 
       xpause(1d6)
       execstr('EGdata_'+w+'.GraphList.node_label(TTT)='' ''')
-
       x_message(['Duration of the travel (in minutes): '+string(EndTemps) ; 
 		 ' ' ;
 		 'The number of changes is: '+string(EndChange);

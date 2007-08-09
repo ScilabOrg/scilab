@@ -3,7 +3,10 @@
 mode(-1);
 
 while %t then
-  num=tk_choose(demolist(:,1),'Choose a vehicle');
+
+  exec(path+'flat_ch.sce');
+  [num]=demo_choose(path+'flat_ch.bin');
+
   if num==0 then break,end
   select num
     case 1 then
