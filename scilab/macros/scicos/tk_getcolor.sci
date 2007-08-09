@@ -12,7 +12,7 @@ txt=  'proc createmxn {frame r g b taille ind} {global maxrow n;set n"+...
       " $dx ];if ($c!=$ind) { button '"$frame.$i$j'" -padx 6 -pady 3"+...
       " -bg $bg  -borderwidth 4 -activebackground $bg -relief sunken -command [list titi $i $j]} else {button '"$frame.$i$j'"  -padx 6 -pady 3 -bg $bg -borderwidth 4 -activebackground $bg -relief raised -command [list titi $i $j]};grid '"$frame.$i$j'" -row $i -column $j -sticky news;bind '"$frame.$i$j'" <Enter> [list '"$frame.$i$j'" configure -relief raised];bind '"$frame.$i$j'" <Leave> [list '"$frame.$i$j'" configure -relief sunken];incr {c}};	grid columnconfigure $frame $i -weight 1;grid rowconfigure $frame $j -weight 1}};proc titi {g h} {global maxrow n;set x {$h + $n*$g +1};set x [expr $x];ScilabEval Color=''$x'';destroy .toto};'
   
-col=xget('colormap')
+col=get(gcf(),"color_map")  //xget('colormap')
 ta=size(col,1);
   maxrow=ceil(sqrt(ta))
   maxcol=ceil(ta/maxrow)
