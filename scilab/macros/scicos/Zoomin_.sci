@@ -24,6 +24,7 @@ function Zoomin_()
       swap_handles(gh_window.children.children($), gh_window.children.children(1));
       delete(gh_window.children.children(1)); //** delete the old grid
     end
+    ChangeTextFont(gh_window)
     drawnow();
     show_pixmap();
 

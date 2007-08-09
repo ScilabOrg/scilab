@@ -73,10 +73,24 @@ function rotate_compound(sel_x, sel_y, sel_w, sel_h, blk, theta)
 
          case "Text" then
             //disp('text')
-
+	    ht=gh_curwin.children.children(i);
+	    //Turpitude en attendant que l'on puisse tourner le text
+            //filled (scilab5)
+	    if theta > 0 then th=360 - theta,else  th=-theta,end
+	    if ht.text_box_mode=="filled"&th<>0 then
+	      ht.text_box_mode="off";
+	      ht.user_data="filled";
+	      ht.font_angle=th;
+	      ChangeTextFont(ht)
+	    elseif ht.user_data=="filled"&th==0 then
+	      ht.text_box_mode="filled"
+	      ht.user_data=[]
+	     end
+	     ht.font_angle=0;
+           
             //** get bounding box of text with no rotation
-            rect = stringbox(gh_curwin.children.children(i).text,gh_curwin.children.children(i).data(1),...
-                             gh_curwin.children.children(i).data(2))
+            rect = stringbox(ht.text,ht.data(1),...
+                             ht.data(2))
             x=rect(1,2);
             y=rect(2,2);
             w=rect(1,3)-rect(1,2);
@@ -87,15 +101,8 @@ function rotate_compound(sel_x, sel_y, sel_w, sel_h, blk, theta)
                           [sel_x+sel_w/2;sel_y-sel_h/2])
 
             //** update lower left point of text
-            gh_curwin.children.children(i).data = [xxx(1,2) xxx(2,2)]
-
-            //**adjust theta according to gh_txt.font_angle
-            if theta > 0 then
-              gh_curwin.children.children(i).font_angle = 360 - theta
-            else
-              gh_curwin.children.children(i).font_angle = -theta
-            end
-
+            ht.data = [xxx(1,2) xxx(2,2)]
+	    ht.font_angle=th;
          case "Polyline" then
             //disp('polyline')
 
