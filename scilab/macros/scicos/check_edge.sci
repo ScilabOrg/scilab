@@ -37,7 +37,7 @@ function Cmenu=check_edge(o,Cmenu,%pt)
       //find output port location projected on the block
       [%xout,%yout,typout]=getoutputports(o)
 
-      if %xout<>[] then
+      if %xout<>[] & ~(o.gui=="SPLIT_f" | o.gui=="CLKSPLIT_f") then
 
         %xxyymax=o.graphics.orig(:)+o.graphics.sz(:)
 

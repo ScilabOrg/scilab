@@ -35,11 +35,11 @@ for i=n:-1:1
     //** ------------------- BLOKS --------------------------
       [orig, sz] = (o.graphics.orig, o.graphics.sz) ; //** origin and size
       
-      if scs_m.objs(i).gui=="SPLIT_f" | scs_m.objs(i).gui=="CLKSPLIT_f"
-        eps = 12  ; //** quad sensivity
-      else
-        eps =  6  ; //** standard  	
-      end  
+      //if scs_m.objs(i).gui=="SPLIT_f" | scs_m.objs(i).gui=="CLKSPLIT_f"
+      //  eps = 12  ; //** quad sensivity
+      //else
+      //  eps =  6  ; //** standard  	
+      //end  
       
       sz   = sz + 2*eps ; //** the dection size is larger than the phisical size 
       orig = orig - eps ; //** geometrical correction of the coordinate 
