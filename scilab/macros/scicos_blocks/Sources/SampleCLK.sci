@@ -2,16 +2,46 @@ function [x,y,typ]=SampleCLK(job,arg1,arg2)
   x=[];y=[];typ=[]
   select job
    case 'plot' then
+    thik=xget('thickness');
     pat=xget('pattern'); xset('pattern',default_color(0))
     orig=arg1.graphics.orig;
     sz=arg1.graphics.sz;
     orient=arg1.graphics.flip;
-    xarcs([orig(1),orig(2)+sz(2),sz(1),sz(2),-360*64,360*64]',5);
-    x=orig(1)*ones(1,2)+sz(1)*[1/2 1/2];
-    y=orig(2)*ones(1,2)+sz(2)*[0 1];
+    x=orig(1)*ones(1,9)+sz(1)*[0 1/16 15/16 1 15/16 14/16 2/16 1/16 0];
+    y=orig(2)*ones(1,9)+sz(2)*[2/3 1 1 2/3 1/3 0 0 1/3 2/3];
+    xpolys(x',y',5*ones(9,1));
+//    xarcs([orig(1),orig(2)+sz(2),sz(1),sz(2),-360*64,360*64]',5);
+    x=orig(1)*ones(1,2)+sz(1)*[0 1];
+    y=orig(2)*ones(1,2)+sz(2)*[2/3 2/3];
     xpolys(x',y',5*ones(2,1));
-    xstringb(orig(1)+sz(1)/16,orig(2)+sz(2)/16,arg1.graphics.exprs(1),3*sz(1)/8,7*sz(2)/8,'fill')
-    xstringb(orig(1)+9*sz(1)/16,orig(2)+sz(2)/16,arg1.graphics.exprs(2),3*sz(1)/8,7*sz(2)/8,'fill')
+    x=orig(1)*ones(1,2)+sz(1)*[1/16 15/16];
+    y=orig(2)*ones(1,2)+sz(2)*[1/3 1/3];
+    xpolys(x',y',5*ones(2,1));
+    xstringb(orig(1)+sz(1)/16,orig(2)+2*sz(2)/3+sz(2)/16,arg1.graphics.exprs(1),7*sz(1)/8,sz(2)/3-sz(2)/8,'fill')
+    xstringb(orig(1)+sz(1)/16,orig(2)+sz(2)/3+sz(2)/16,arg1.graphics.exprs(2),7*sz(1)/8,sz(2)/3-sz(2)/8,'fill')
+    font=xget('font')
+    xset('font', options.ID(1)(1), options.ID(1)(2))
+    xstringb(orig(1)+2*sz(1)/16,orig(2)+sz(2)/16,'S-CLK',sz(1)/2,sz(2)/3-sz(2)/8,'fill')
+    xx=[0:.01:1];
+    yy=(1/4-(xx-1/2)^2)^(1/2)+1/2;
+    x=(orig(1)+5*sz(1)/8)*ones(1,101)+sz(1)/4*xx;
+    y=(orig(2))*ones(1,101)+sz(2)/3*yy;
+    xset('thickness',2);
+    xpolys(x',y',5*ones(101,1));
+    xx=[1:-.01:.01 0];
+    yy=-(1/4-(xx-1/2)^2)^(1/2)+1/2;
+    x=(orig(1)+5*sz(1)/8)*ones(1,101)+sz(1)/4*xx;
+    y=(orig(2))*ones(1,101)+sz(2)/3*yy;
+    xpolys(x',y',5*ones(101,1));
+    xset('thickness',1);
+    x=(orig(1)+5*sz(1)/8)*ones(1,2)+sz(1)/4*[1/2 1/2];
+    y=(orig(2))*ones(1,2)+sz(2)/3*[1/2 15/16];
+    xpolys(x',y',2*ones(2,1));
+    x=(orig(1)+5*sz(1)/8)*ones(1,2)+sz(1)/4*[1/2 1/2+(3*2^(1/2))/16];
+    y=(orig(2))*ones(1,2)+sz(2)/3*[1/2 1/2+(3*2^(1/2))/16];
+    xpolys(x',y',2*ones(2,1));
+    xset('thickness',thik);
+    xset('font',font(1),font(2));
     xf=40
     yf=60
     nout=1;
@@ -91,6 +121,12 @@ case 'set' then
       model.rpar=[frequ;offset]
       model.evtout=1
       model.firing=-1//compatibility
+//       aa=max(length(exprs(1)),length(exprs(2)));
+//       if aa>1 then 
+//          graphics.sz=[10*aa 20]
+//       else 
+//          graphics.sz=[20 20]
+//       end
       graphics.exprs=exprs
       x.graphics=graphics
       x.model=model
@@ -108,8 +144,8 @@ case 'define' then
   model.dep_ut=[%f %f]
 
   exprs=[sci2exp(1);sci2exp(0)]
-  x=standard_define([2 2],model,exprs,' ')
-  x.graphics.id="S-CLK"
+  x=standard_define([3 2],model,exprs,' ')
+//  x.graphics.id="S-CLK"
 end
 endfunction
 

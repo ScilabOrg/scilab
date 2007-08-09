@@ -1,14 +1,14 @@
 function [Ts,bllst,corinv,ind,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind)
-  [num]=x_choose(['event select';'multiple frequency'],..
-                   ["You have to choose a method for the sample time computation:";..
-                    "The first method is a periodic synchronize system";..
-                    "it uses the event select block to generate events"; "at every clock time (regular period)";..
-                    "The number of outputs is equal to the least common"; "multiple of the input frequencies ";..
-                    "The second method uses the multi-frequency block";..
-                    "it generates an event only on the used time";..
-                    "The default value is select method"])
+//   [num]=x_choose(['event select';'multiple frequency'],..
+//                    ["You have to choose a method for the sample time computation:";..
+//                     "The first method is a periodic synchronize system";..
+//                     "it uses the event select block to generate events"; "at every clock time (regular period)";..
+//                     "The number of outputs is equal to the least common"; "multiple of the input frequencies ";..
+//                     "The second method uses the multi-frequency block";..
+//                     "it generates an event only on the used time";..
+//                     "The default value is select method"])
   //num=scs_m.props.tol(8)
-  //num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
+  num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
   if num==2 then
   [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
   else
@@ -64,6 +64,7 @@ Ts($+1:$+2,:)=[nb 1 -1 -1;..
 if flg then
    
    nn=lcm(freqdiv)
+   nn=double(nn)/(frequ*(double(den)));
    bllst($+1)=scicos_model(sim=list("counter",4),in=[],in2=[],intyp=1,out=1,out2=1,..
 		     outtyp=1,evtin=1,evtout=[],state=[],dstate=0,odstate=list(),..
 		     rpar=[],ipar=[1;double(nn);1],opar=list(),blocktype="c",firing=[],..
