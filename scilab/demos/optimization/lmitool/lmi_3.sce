@@ -1,0 +1,3 @@
+['Let''s try a simple example with 3 states';...
+	   
+	    'Edit below A,B,C,D matrices']
