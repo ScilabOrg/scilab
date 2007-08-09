@@ -50,7 +50,7 @@ function MoveLink_()
       //**--------------------------------------------------------------
       if ObjSel<=1 then //** with zero or one object already selected 
         
-	Cmenu = check_edge(scs_m.objs(%kk),'Move',%pt);
+	Cmenu = check_edge(scs_m.objs(%kk),"Move",%pt);
 	//** N.B. if the click is over an output port [Cmenu = "Link"]       
         
 	if Cmenu=="Link" then
