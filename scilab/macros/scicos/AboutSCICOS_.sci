@@ -7,7 +7,9 @@ function AboutSCICOS_()
 
     disablemenus() ; //** disable dynamical menu (just to be safe)
 
-    x_message([strsubst(get_scicos_version(),"scicos","SCICOS -")+"-"]);
+    message([strsubst(get_scicos_version(),"scicos","SCICOS -")+"-";...
+             "Do you want to see more ?";...
+	     "      www.scicos.org "]);
 
     enablemenus() ;  //** re-enable dynamical menu
 
