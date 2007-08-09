@@ -6,7 +6,11 @@ function Open_()
 // 
 //** Open a saved diagram 
     
-    Cmenu = [] ; 
+    Cmenu  = []  ;
+    Select = []  ;  //** empty
+    //** Select_back = [] ; //** empty
+    //** %ppt = []; //** used to store last valid click position for "Paste" operation 
+    //** Clipboard = []; //** used in Copy Cut and Paste function  
     
     if edited & ~super_block then //** if is edited and is NOT a superblock
       num = x_message(['Diagram has not been saved'],['OK','Go Back'])
@@ -60,19 +64,19 @@ function Open_()
 	              message(['Error occur when evaluating context:' lasterror()])
 	        else
 	              deff('%fonct()',scs_m.props.context)
-	              %outfun=macrovar(%fonct);
+	              %outfun = macrovar(%fonct);
 	              //perform eval only if context contains functions which may give
 	              //different results from one execution to next
 	              if or(%outfun(4)=='rand')|or(%outfun(4)=='exec')|or(%outfun(4)=='load') then
-	                  disablemenus() ;
-	                  [scs_m,%cpr,needcompile,ok] = do_eval(scs_m,%cpr) ;
-	                  enablemenus() ;
+	                  //** disablemenus() ; //** the menu are already disabled 
+	                  [scs_m, %cpr, needcompile, ok] = do_eval(scs_m, %cpr) ;
+	                  //** enablemenus()  ;
 	              end
-	         end
-	         //** xset('window',%now_win)
-	         set("current_figure", %now_win);
+	        end
+	         
+	        set("current_figure", %now_win);
       else
-	         scs_m.props.context = ' ';
+	        scs_m.props.context = ' '; //** put the context to void 
       end
       //**--------------
    
