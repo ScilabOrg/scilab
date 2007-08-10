@@ -1920,9 +1920,7 @@
 
 <FILE name='ROOTCOEF' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>add a key here</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
@@ -2032,6 +2030,14 @@
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
+<SEE_ALSO>
+<SEE_ALSO_ITEM>
+<LINK>add a key here</LINK>
+</SEE_ALSO_ITEM>
+</SEE_ALSO>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
 <SEE_ALSO>
 <SEE_ALSO_ITEM>
 <LINK>add a key here</LINK>

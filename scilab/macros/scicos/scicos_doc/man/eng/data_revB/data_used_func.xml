@@ -1508,7 +1508,7 @@ for this block we have four differents functions:
 <FILE name='BITCLEAR' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-<LINK>bit_clear</LINK>
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1516,7 +1516,7 @@ for this block we have four differents functions:
 <FILE name='BITSET' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-<LINK>bit_set</LINK>
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1532,12 +1532,7 @@ for this block we have four differents functions:
 <FILE name='EXTRACTBITS' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-<LINK>extract_bit_i32</LINK>,
-<LINK>extract_bit_i16</LINK>,
-<LINK>extract_bit_i8</LINK>,
-<LINK>extract_bit_ui32</LINK>,
-<LINK>extract_bit_ui16</LINK>,
-<LINK>extract_bit_ui8</LINK>
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1846,7 +1841,7 @@ Add here the used function name and  references
 <FILE name='ROOTCOEF' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-Add here the used function name and  references
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>

@@ -1374,8 +1374,8 @@ Add here the author  references
 
 <FILE name='CONST_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1636,8 +1636,8 @@ Add here the author  references
 
 <FILE name='REGISTER' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1780,8 +1780,8 @@ Add here the author  references
 
 <FILE name='DOLLAR_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1890,8 +1890,8 @@ Add here the author  references
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -2114,8 +2114,8 @@ Add here the author  references
 
 <FILE name='ROOTCOEF' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>

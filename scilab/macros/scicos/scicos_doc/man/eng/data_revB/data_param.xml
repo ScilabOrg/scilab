@@ -3710,7 +3710,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Constant</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+The constant value. From this value the block herits its data type.
 </SP>
 <SP>
 Properties : Type 'vec' of size -1.
@@ -5192,6 +5192,18 @@ Properties : Type 'vec' of size -1.
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
 
+<PARAM_ITEM>
+<PARAM_NAME>Datatype</PARAM_NAME>
+<PARAM_DESCRIPTION>
+<SP>
+This block support all datatypes besides complex.
+</SP>
+<SP>
+Properties : Type 'vec' of size 1.
+</SP>
+</PARAM_DESCRIPTION>
+</PARAM_ITEM>
+
 </PARAM_INDENT>
 </PARAM>
 </FILE>
@@ -6060,7 +6072,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>initial condition</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+The output of the simulation for the first sampling period, during which the output of the Unit Delay block is otherwise undefined.  .
 </SP>
 <SP>
 Properties : Type 'mat' of size [-1,-2].
@@ -6072,7 +6084,7 @@ Properties : Type 'mat' of size [-1,-2].
 <PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
+When "Inherit" is yes, the block inherit its event input.
 </SP>
 <SP>
 Properties : Type 'vec' of size -1.
@@ -6504,7 +6516,7 @@ Properties : Type 'mat' of size [1,2].
 <PARAM_NAME>Datatype(1=real double 2=Complex 3=int32 ...)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-: Type 'vec' of size 1. The parameter description 1.
+: Type 'vec' of size 1. Output datatype. This block can support all data types.
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -7208,7 +7220,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+This block can only support double inputs values. These values can be real or complex.
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -7220,7 +7232,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>input row size</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
+The input row size.
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.

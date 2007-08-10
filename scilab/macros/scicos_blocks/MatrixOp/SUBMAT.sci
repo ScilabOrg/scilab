@@ -15,10 +15,11 @@ case 'set' then
   x=arg1
   graphics=arg1.graphics;label=graphics.exprs
   model=arg1.model;
-  if size(label,'*')==14 then label(9)=[],end //compatiblity
+//  if size(label,'*')==14 then label(9)=[],end 
+  if size(label,'*')==5 then label(6)=sci2exp([1 1]),end //compatiblity
   while %t do
-    [ok,typ,a,b,c,d,exprs]=getvalue('Set SUBMAT Block',..
-	    ['Datatype (1=real double  2=Complex)';'Starting Row Index';'Ending Row Index';'Starting Column Index';'Ending Column Index'],list('vec',1,'vec',1,'vec',1,'vec',1,'vec',1),label)
+    [ok,typ,a,b,c,d,inp,exprs]=getvalue('Set SUBMAT Block',..
+	    ['Datatype (1=real double  2=Complex)';'Starting Row Index';'Ending Row Index';'Starting Column Index';'Ending Column Index';'Input Dimensions'],list('vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',2),label)
     if ~ok then break,end
     if (typ==1) then
 	junction_name='submat';
@@ -31,12 +32,17 @@ case 'set' then
     else message("Datatype is not supported");ok=%f;
     end
     if (a<=0) | (b<=0) | (c<=0) | (d<=0) then message("invalid index");ok=%f;end
+    if b<a then message("ending row must be greater than starting row"); ok=%f;end
+    if d<c then message("ending column must be greater than starting column"); ok=%f;end
+    if b>inp(1) then message ("index of ending row is out of range");ok=%f;end
+    if d>inp(2) then message ("index of ending column is out of range");ok=%f;end
     model.ipar=[a;b;c;d];
-    in=[model.in model.in2];
+    in=[inp(1) inp(2)];
     out=[(b-a)+1 (d-c)+1];
     funtyp=4;
+    label=exprs;
     if ok then
-	label=exprs;
+	
       [model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),[],[])
       model.sim=list(junction_name,funtyp);
       graphics.exprs=label;
