@@ -163,7 +163,6 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
-//  xstringb = xstringb2; //TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
