@@ -1657,7 +1657,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   void *ida_mem;
   UserData data;
   IDAMem copy_IDA_mem;
-  int maxnj;
+  int maxnj, maxnit;
   /*-------------------- Analytical Jacobian memory allocation ----------*/
   int  Jn, Jnx, Jno, Jni, Jactaille;
   double uround;
@@ -1862,13 +1862,22 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       };
     }
 
-    maxnj=1;
+    maxnj=100; /* setting the maximum number of Jacobian evaluation during a Newton step */
     flag=IDASetMaxNumJacsIC(ida_mem, maxnj);
     if (check_flag(&flag, "IDASetMaxNumJacsIC", 1)) {
       *ierr=200+(-flag);
       freeallx
-	return;
+      return;
     };
+
+    maxnit=1; /* setting the maximum number of Newton iterations in any one attemp to solve CIC */
+    flag=IDASetMaxNumItersIC(ida_mem, maxnit);
+    if (check_flag(&flag, "IDASetMaxNumItersIC", 1)) {
+      *ierr=200+(-flag);
+      freeallx
+      return;
+    };
+
     
   }/* testing if neq>0 */
 
