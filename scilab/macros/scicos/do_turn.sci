@@ -105,6 +105,7 @@ function [scs_m]=do_turn(%pt,scs_m,theta)
   //**------ draw object in new graphics structure ---------
   gr_k=get_gri(k,o_size(1))
   drawlater();
+  gh_curwin.children.children(gr_k+1)
   update_gr(gr_k,o)
   draw(gh_curwin.children);
   show_pixmap() ;

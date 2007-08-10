@@ -3,5 +3,5 @@ function Export_()
 //**    
     do_export(scs_m) ;
     
-    Cmenu='Replot'   ;
+    Cmenu=[]//'Replot'   ;
 endfunction
