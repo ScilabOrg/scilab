@@ -6,8 +6,8 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('wiener_gateway.sce');
 
-demo_message('SCI/demos/signal/wiener/wiener_1.sce');
+demo_message(path+'wiener_1.sce');
 
-demo_run('SCI/demos/signal/wiener/wiener_1.sce');
+demo_run(path+'wiener_1.sce');
 
 demo_end();

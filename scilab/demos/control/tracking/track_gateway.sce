@@ -5,8 +5,8 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('track_gateway.sce');
 
-demo_message('SCI/demos/control/tracking/track_1.sce');
+demo_message(path+'track_1.sce');
 
-demo_run('SCI/demos/control/tracking/track_1.sce');
+demo_run(path+'track_1.sce');
 
 demo_end();

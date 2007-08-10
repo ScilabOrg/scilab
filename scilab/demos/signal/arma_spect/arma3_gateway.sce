@@ -5,9 +5,9 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('arma3_gateway.sce');
 
-demo_message('SCI/demos/signal/arma_spect/arma3_1.sce');
+demo_message(path+'arma3_1.sce');
 
-demo_run('SCI/demos/signal/arma_spect/arma3_1.sce');
+demo_run(path+'arma3_1.sce');
 
 demo_end();
 

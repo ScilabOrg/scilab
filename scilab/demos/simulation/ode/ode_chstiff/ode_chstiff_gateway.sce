@@ -3,10 +3,10 @@ getf('SCI/demos/demos_lib/demo_message.sci');
 getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('SCI/demos/simulation/ode/ode_chstiff/ode_chstiff_gateway.sce');
+[path,oldln]=demo_begin('ode_chstiff_gateway.sce');
 
-demo_message('SCI/demos/simulation/ode/ode_chstiff/ode_chstiff_1.sce');
+demo_message(path+'ode_chstiff_1.sce');
 
-demo_run('SCI/demos/simulation/ode/ode_chstiff/ode_chstiff_1.sce');
+demo_run(path+'ode_chstiff_1.sce');
 
 demo_end();

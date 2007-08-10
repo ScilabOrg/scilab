@@ -7,9 +7,9 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('dae1_gateway.sce');
 
-demo_message('SCI/demos/simulation/dae/dae1/dae1_1.sce');
+demo_message(path+'dae1_1.sce');
 
-demo_run('SCI/demos/simulation/dae/dae1/dae1_2.sce');
+demo_run(path+'dae1_2.sce');
 
 //la variable demolist dans demo_run est perdue après execution
 //c'est la variable de simulation.dem qui est récupérée par demo_file_choice

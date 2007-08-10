@@ -5,9 +5,9 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('pendule_gateway.sce');
 
-getf('SCI/demos/control/pendulum/simulation.sci')
-getf('SCI/demos/control/pendulum/graphics.sci')
+getf(path+'simulation.sci')
+getf(path+'graphics.sci')
 //
-demo_run('SCI/demos/control/pendulum/pendule_1.sce');
+demo_run(path+'pendule_1.sce');
 
 demo_end();

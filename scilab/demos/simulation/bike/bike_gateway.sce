@@ -13,8 +13,8 @@ getf(path+'macros/'+'velod.sci');
 getf(path+'macros/'+'velodp.sci');
 getf(path+'macros/'+'show.sci');
 
-demo_message('SCI/demos/simulation/bike/bike.dem');
+demo_message(path+'bike.dem');
 
-demo_run('SCI/demos/simulation/bike/bike_1.sce');
+demo_run(path+'bike_1.sce');
 
 demo_end();

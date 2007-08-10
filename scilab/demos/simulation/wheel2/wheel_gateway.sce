@@ -8,13 +8,13 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('wheel_gateway.sce');
 
-getf('SCI/demos/simulation/wheel2/show.sci');
+getf(path+'show.sci');
 
-demo_message('SCI/demos/simulation/wheel2/wheel_1.sce');
+demo_message(path+'wheel_1.sce');
 
-exec('SCI/demos/simulation/wheel2/wheel2_ch.sce');
-demo_choose('SCI/demos/simulation/wheel2/wheel2_ch.bin');
+exec(path+'wheel2_ch.sce');
+demo_choose(path+'wheel2_ch.bin');
 
-demo_run('SCI/demos/simulation/wheel2/wheel_1.sce');
+demo_run(path+'wheel_1.sce');
 
 demo_end();

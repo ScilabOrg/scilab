@@ -5,8 +5,8 @@ getf('SCI/demos/demos_lib/demo_function_choice.sci');
 
 [path,oldln]=demo_begin('random_gateway.sce');
 
-getf('SCI/demos/random/random.sci');
-exec('SCI/demos/random/randomT.sci');
+getf(path+'random.sci');
+exec(path+'randomT.sci');
 
 demolist=[
 	'Simulation of a binomial random variable','set figure_style new;xbasc();BinomialT();';

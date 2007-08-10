@@ -20,8 +20,8 @@ demolist=['Surface with holes 1','xbasc();showinstr(hole3d);hole3d();';
 	  'Black Hole','xbasc();showinstr(bh);bh(50);';
 	  'Riemann surface (n=2)','xbasc();showinstr(cplxroot);cplxroot(2,20,130,45);']
 
-getf('SCI/demos/graphics/more/Macros.sci');
-exec('SCI/demos/graphics/more/surfaces.sci');
+getf(path+'Macros.sci');
+exec(path+'surfaces.sci');
 
 demo_function_choice();
 

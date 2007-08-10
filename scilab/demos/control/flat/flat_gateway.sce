@@ -11,6 +11,6 @@ getf('SCI/demos/demos_lib/demo_choose.sci');
 getf(path+'car.sci');
 getf(path+'truck.sci');
 
-demo_run('SCI/demos/control/flat/flat_1.sce');
+demo_run(path+'flat_1.sce');
 
 demo_end();

@@ -9,10 +9,10 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('cmplxfunc_gateway.sce');
 
-exec("SCI/demos/graphics/cmplxfunc/cmplxfunc.sci");
-getf("SCI/demos/graphics/cmplxfunc/MacCmplx.sci")  //  les macros utilisees ici
+exec(path+"cmplxfunc.sci");
+getf(path+"MacCmplx.sci")  //  les macros utilisees ici
 
-demo_run('SCI/demos/graphics/cmplxfunc/cmplxfunc_1.sce');
+demo_run(path+'cmplxfunc_1.sce');
 
 demo_end();
 

@@ -6,11 +6,11 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('iir_gateway.sce');
 
-exec('SCI/demos/signal/iir/iir_dial.sce');
-[resp]=demo_mdialog('SCI/demos/signal/iir/iir_dial.bin');
+exec(path+'iir_dial.sce');
+[resp]=demo_mdialog(path+'iir_dial.bin');
 
-demo_message('SCI/demos/signal/iir/iir_1.sce');
+demo_message(path+'iir_1.sce');
 
-demo_run('SCI/demos/signal/iir/iir_1.sce');
+demo_run(path+'iir_1.sce');
 
 demo_end();
