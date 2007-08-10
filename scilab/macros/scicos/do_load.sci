@@ -1,20 +1,48 @@
-function [ok,scs_m,%cpr,edited]=do_load(fname,typ)
-  // Copyright INRIA
-  [lhs,rhs]=argn(0)
-  edited=%f
-  if rhs<2 then typ='diagram',end
+function [ok, scs_m, %cpr, edited] = do_load(fname,typ)
+//** Copyright INRIA
+//**
+//** Load a Scicos diagram 
+//**
 
-  if alreadyran&typ=='diagram' then
-    do_terminate() //end current simulation
+  global %scicos_demo_mode ; 
+
+  [lhs,rhs] = argn(0) ;
+  edited = %f         ;
+  
+  if rhs<2 then
+    typ = "diagram"
   end
 
-  scicos_debug(0) //set debug level to 0 for new diagram loaded
+  if alreadyran & typ=="diagram" then
+    do_terminate(); //end current simulation
+  end
 
-  current_version=get_scicos_version()
-  scicos_ver='scicos2.2' //default version, for latter version scicos_ver is stored in files
+  scicos_debug(0); //set debug level to 0 for new diagram loaded
 
-  if rhs<=0 then fname=getfile('*.cos*'),end
-  fname=stripblanks(fname)
+  current_version = get_scicos_version() ;
+  scicos_ver = "scicos2.2" //** default version,
+                           //** for latter version scicos_ver is stored in files
+
+  //** function [p] = tk_getfile(file_mask, path, Title, multip)	   
+  if %scicos_demo_mode==1 then 
+      //** open a demo file 
+      if rhs<=0 then
+        file_mask = "*.cos*" ;  //** force the demos/scicos path 
+	path      =  SCI+"/demos/scicos" ; 
+	fname = getfile(file_mask, path) ; 
+      end
+ 
+  else 
+      //** conventional Open 
+      if rhs<=0 then
+        fname = getfile('*.cos*') ; 
+      end
+  end 
+  %scicos_demo_mode = []; //** clear the variable  
+  
+  
+  fname = stripblanks(fname) ; 
+  
   if fname<>emptystr() then
     %cpr=list()
     scs_m=[]
