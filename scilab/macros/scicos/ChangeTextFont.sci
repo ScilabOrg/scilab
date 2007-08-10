@@ -16,7 +16,6 @@ function ChangeTextFont(h)
   case "Text" then
     disp(h.user_data,h.text_box_mode,h.font_angle)
     if h.user_data == "filled"&h.font_angle <> 0 then
-      in=h.font_size
       sz=5;st=h.font_style;W=h.text_box(1),H=h.text_box(2),t=h.text;
       while %t
 	rect=xstringl(0,0,t,st,sz)
@@ -24,7 +23,6 @@ function ChangeTextFont(h)
 	sz=sz-1
       end
       h.font_size=sz
-      disp([in sz])
     end
   end
 endfunction
