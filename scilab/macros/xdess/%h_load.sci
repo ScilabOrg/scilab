@@ -132,7 +132,7 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       set(title,"background"       , mget(1,'il',fd)); // title.background
       set(title,"fill_mode"        , toggle(mget(1,'c',fd))); //title.fill_mode
     end
-    
+    pause
     set(title,"font_style"       , mget(1,'c',fd)); // title.font_style
     set(title,"font_size"        , mget(1,'c',fd)); // title.font_size
 
@@ -1009,6 +1009,7 @@ endfunction
 
 function load_user_data(fd)
   if is_higher_than([3 1 0 0]) then
+    h; //make a copy of the calling context h here
     load(fd,'user_data')
     if user_data<>[] then 
       h.user_data=user_data;
