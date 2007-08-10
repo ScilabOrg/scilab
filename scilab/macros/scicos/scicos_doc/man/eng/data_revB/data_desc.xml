@@ -1327,13 +1327,13 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-The CUMSUM block sums the element of an input m*n matrix u along either the rows, the columns or the first non singleton dimension. When the <B>Sum along</B> parameter is set to "1", the block sums across the elements of each row. The result will be displayed as a m*1 matrix.
+The CUMSUM block sums the element of an input m*n matrix u along either the rows, the columns or the first non singleton dimension. When the "Sum along" parameter is set to "1", the block sums across the elements of each row. The result will be displayed as a m*1 matrix.
 </P>
 <P>
-When the <B>Sum along</B> parameter is set to "2", the block sums across the elements of each column. The result will be display as a 1*n matrix.
+When the "Sum along" parameter is set to "2", the block sums across the elements of each column. The result will be display as a 1*n matrix.
 </P>
 <P>
-When the <B>Sum along </B>parameter is set to "0", the block sums across the first non singleton dimension. The result will be displayed as one element.
+When the "Sum along" parameter is set to "0", the block sums across the first non singleton dimension. The result will be displayed as one element.
 This block is equivalent to cumsum in scilab.
 </P>
 </DESCRIPTION_ITEM>
@@ -1359,9 +1359,9 @@ The EXTRACT block extracts some elements from the matrix. The size of the output
 <DESCRIPTION_ITEM>
 <P>
 The EXTTRI block extracts some elements from the input matrix u.</P>
-<P> When the <B>Extraction type</B> is set to "1", the block copies the elements on and above the main diagonal to an output matrix of the same size. The elements below the main diagonal are set to zero.</P>
-<P> When the <B>Extraction type</B> is set to "2", the block copies the elements on and below the main diagonal to an output matrix of the same size. The elements above the main diagonal are set to zero.</P>
-<P> When the <B>Extraction type</B> is set to "3", the block copies the elements on the main diagonal to an output matrix of the same size. The elements above and below the main diagonal are set to zero.
+<P> When the "Extraction type" is set to "1", the block copies the elements on and above the main diagonal to an output matrix of the same size. The elements below the main diagonal are set to zero.</P>
+<P> When the "Extraction type" is set to "2", the block copies the elements on and below the main diagonal to an output matrix of the same size. The elements above the main diagonal are set to zero.</P>
+<P> When the "Extraction type" is set to "3", the block copies the elements on the main diagonal to an output matrix of the same size. The elements above and below the main diagonal are set to zero.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1449,8 +1449,8 @@ The MATDIAG block create a diagonal matrix from a 1D vector. If the input is a M
 <DESCRIPTION_ITEM>
 <P>
 The MATEIG calculate the eigenvalues and the eigenvectors of a square input matrix U.</P>
-<P> When the <B>decomposition type</B> is set to 1, the block outputs the eigenvalues in a vector form, if the input is a M-by-M matrix the output is a M-by-1 vector.</P>
-<P> When the <B>decomposition type</B> is set to 2, the block outputs two matrices. for an M-by-M input matrix,the first output is a M-by-M diagonal matrix composed by the eigenvalues, and the second is a M-by-M matrices composed by the eigenvectors; the eigenvectors are represented by the columns of the matrix.</P>
+<P> When the "Decomposition type" is set to 1, the block outputs the eigenvalues in a vector form, if the input is a M-by-M matrix the output is a M-by-1 vector.</P>
+<P> When the "Decomposition type" is set to 2, the block outputs two matrices. for an M-by-M input matrix,the first output is a M-by-M diagonal matrix composed by the eigenvalues, and the second is a M-by-M matrices composed by the eigenvectors; the eigenvectors are represented by the columns of the matrix.</P>
 <P> The equivalent of the MATEIG block in Scilab is "spec(A)"
 </P>
 </DESCRIPTION_ITEM>
@@ -2288,7 +2288,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block outputs a sub matrix of the input matrix. The output matrix will be defining by using the parameters of this block.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -3184,7 +3184,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This block count from minimal to maximal or from maximal to minimal depending on the choice of the rule.
+This block counts from minimal to maximal or from maximal to minimal depending on the choice of the rule.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -3236,6 +3236,41 @@ The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK b
 <DESCRIPTION_ITEM>
 <P>
 Add here a paragraph of the function description
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='GAINBLK' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+The GAINBLK computes the product of a square matrix A by the input matrix U, where the number of rows/cols of A is equal to the number of rows of U. The input/output datatype is defined by the type of the Gain matrix A, it can take all the integer's datatype.
+On overflow, the result can take different forms:</P>
+<P>1- A normal non saturated result.</P>
+<P>2- A saturated result.</P>
+<P>3- An error message warning the user about the overflow.</P>
+<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
+</P>
+</DESCRIPTION_ITEM>
+</DESCRIPTION_INDENT>
+</DESCRIPTION>
+</FILE>
+
+<FILE name='SUMMATION' type='XML'>
+<DESCRIPTION>
+<DESCRIPTION_INDENT>
+<DESCRIPTION_ITEM>
+<P>
+The Sum block performs addition or subtraction on its inputs. This block can add or subtract scalar, vector, or matrix inputs. It can also collapse the elements of a single input vector.</P>
+<P>The number of inputs is given by the second parameter. This parameter can be a vector of +1 and -1 or it can be a positif value. In the first case the size of the vector indicates the number of inputs and the signs indicates whether it is a summation or a substraction. In the second case, the block is a summation block and the value indicates the number of inputs.</P>
+<P>On overflow, the result can take different forms:</P>
+<P>1- A normal non saturated result.</P>
+<P>2- A saturated result.</P>
+<P>3- An error message warning the user about the overflow.</P>
+<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>

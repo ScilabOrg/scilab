@@ -346,7 +346,7 @@ INRIA
 
 <FILE name='GAINBLK' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Ramine Nikoukhah'>
+<AUTHORS_ITEM label='Fady NASSIF'>
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
@@ -776,7 +776,7 @@ INRIA
 
 <FILE name='SUMMATION' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Ramine Nikoukhah'>
+<AUTHORS_ITEM label='Fady NASSIF'>
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
@@ -1708,8 +1708,8 @@ Add here the author  references
 
 <FILE name='SUBMAT' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>

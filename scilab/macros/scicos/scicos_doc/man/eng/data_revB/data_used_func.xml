@@ -323,7 +323,9 @@
 
 <FILE name='GAINBLK' type='XML'>
 <USED_FUNCTIONS>
+<SP>
 
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -671,7 +673,9 @@
 
 <FILE name='SUMMATION' type='XML'>
 <USED_FUNCTIONS>
+<SP>
 
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -910,13 +914,7 @@
 <FILE name='CUMSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-For this block we have six differnts functions.
-<LINK>cumsum_m</LINK>,
-<LINK>cumsumz_m</LINK>,
-<LINK>cumsum_r</LINK>,
-<LINK>cumsumz_r</LINK>,
-<LINK>cumsum_c</LINK>,
-<LINK>cumsumz_c</LINK>
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -934,13 +932,7 @@ For this block we have two differents functions:
 <FILE name='EXTTRI' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-For this block we have six differents functions:
-<LINK> exttril </LINK>,
-<LINK> exttriu </LINK>,
-<LINK> extdiag </LINK>,
-<LINK> exttrilz </LINK>,
-<LINK> exttriuz </LINK>,
-<LINK> extdiagz </LINK>.
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
@@ -1312,12 +1304,7 @@ for this block we have four differents functions:
 <FILE name='MATSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
-<LINK>mat_sum.c</LINK>,
-<LINK>mat_suml.c</LINK>,
-<LINK>mat_sumc.c</LINK>,
-<LINK>matz_sum.c</LINK>,
-<LINK>matz_suml.c</LINK>,
-<LINK>matz_sumc.c</LINK>,
+
 </SP>
 </USED_FUNCTIONS>
 </FILE>
