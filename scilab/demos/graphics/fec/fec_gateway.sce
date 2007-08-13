@@ -12,10 +12,10 @@ getf('SCI/demos/demos_lib/demo_end.sci');
 
 [path,oldln]=demo_begin('fec_gateway.sce');
 
-demolist=['Finite Element display with colorbar','fec.ex4';
-	  'Finite Element display with a mesh','fec.ex2';
-	  'Sfgrayplot ','fec.ex3'];
+demolist=['Finite Element display with colorbar','fec_gateway.ex4';
+	  'Finite Element display with a mesh','fec_gateway.ex2';
+	  'Sfgrayplot ','fec_gateway.ex3'];
 
-demo_file_choice(path,'no');
+demo_file_choice('SCI/demos/graphics/fec/','no');
 
 demo_end();
