@@ -163,6 +163,7 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
+  xstringb = xstringb2; //TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
@@ -556,10 +557,12 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
     end
   end
 
+  disp(Cmenu)
+  
   //** Command classification and message retrivial 
   [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
   xinfo(mess); //** show the message associated to the command 
-  
+    disp(Cmenu)
   //** ----------------- State variable filtering -----------------------------------------
   //** clear the %pt information for backward compatibility
   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'

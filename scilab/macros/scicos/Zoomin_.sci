@@ -24,8 +24,6 @@ function Zoomin_()
       swap_handles(gh_window.children.children($), gh_window.children.children(1));
       delete(gh_window.children.children(1)); //** delete the old grid
     end
-    ChangeAngledTextFont(gh_window)//Turpitude en attendant que l'on puisse
-                             //tourner le text filled 
     drawnow();
     show_pixmap();
 
