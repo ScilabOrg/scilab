@@ -73,8 +73,11 @@ void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
   xmax = period*(scoGetPeriodCounter(*pScopeMemory,0)+1);
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
-  scoAddCoupleOfSegments(*pScopeMemory,colors);
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
+      scoAddCoupleOfSegments(*pScopeMemory,colors);
+    }
   scicos_free(colors);
 }
 
@@ -102,46 +105,57 @@ void cevscpe(scicos_block * block, int flag)
 
     case StateUpdate:
       {
-	t = get_scicos_time();
+
 	/* Charging elements */
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	if(scoGetScopeActivation(pScopeMemory) == 1)
 	  {
-	    cevscpe_draw(block,&pScopeMemory,0);
-	  }
-
-	scoRefreshDataBoundsX(pScopeMemory,t);
-	
-	/*Not Factorize*/
-
-	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-	  {
-	    if((GetNev(block)&(1<<i))==(1<<i))
+	    t = get_scicos_time();
+	    if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	      {
-		tab[nbseg]=i;
-		nbseg++;
+		cevscpe_draw(block,&pScopeMemory,0);
 	      }
-	  }
 
-	for(i = 0 ; i < nbseg ; i++)
-	  {
-	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,tab[i]);
-	    pSEGS_FEATURE(pShortDraw)->vx[0] = t;
-	    pSEGS_FEATURE(pShortDraw)->vx[1] = t;
-	    pSEGS_FEATURE(pShortDraw)->vy[0] = i*0.8/nbseg;
-	    pSEGS_FEATURE(pShortDraw)->vy[1] = (i+1)*0.8/nbseg;
-	    pSEGS_FEATURE(pShortDraw)->Nbr1 = 2;
-	    pSEGS_FEATURE(pShortDraw)->Nbr2 = 2;
+	    scoRefreshDataBoundsX(pScopeMemory,t);
+	
+	    /*Not Factorize*/
+
+	    for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+	      {
+		if((GetNev(block)&(1<<i))==(1<<i))
+		  {
+		    tab[nbseg]=i;
+		    nbseg++;
+		  }
+	      }
+
+	    for(i = 0 ; i < nbseg ; i++)
+	      {
+		pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,tab[i]);
+		pSEGS_FEATURE(pShortDraw)->vx[0] = t;
+		pSEGS_FEATURE(pShortDraw)->vx[1] = t;
+		pSEGS_FEATURE(pShortDraw)->vy[0] = i*0.8/nbseg;
+		pSEGS_FEATURE(pShortDraw)->vy[1] = (i+1)*0.8/nbseg;
+		pSEGS_FEATURE(pShortDraw)->Nbr1 = 2;
+		pSEGS_FEATURE(pShortDraw)->Nbr2 = 2;
+	      }
+	    /*End of Not Factorize*/
+	    scoDrawScopeAmplitudeTimeStyle(pScopeMemory,t);
 	  }
-	/*End of Not Factorize*/
-	scoDrawScopeAmplitudeTimeStyle(pScopeMemory,t);
 	break;
       }
 
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
-	scoDelCoupleOfSegments(pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	    scoDelCoupleOfSegments(pScopeMemory);
+	  }
 	scoFreeScopeMemory(block->work,&pScopeMemory);
 	break;
       }

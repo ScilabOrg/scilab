@@ -64,9 +64,12 @@ void cmatview_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstd
 
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, -1, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
-  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
-  scoAddGrayplotForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
+      scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
+      scoAddGrayplotForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+    }
   scicos_free(mat);
 
 }
@@ -101,40 +104,49 @@ void cmatview(scicos_block * block, int flag)
       {
 	/*Retreiving Scope in the block->work*/
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-	/* If window has been destroyed we recreate it */
-	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	if(scoGetScopeActivation(pScopeMemory) == 1)
 	  {
-	    cmatview_draw(block,&pScopeMemory,0);
-	  }
-
-	pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
-	rpar = GetRparPtrs(block);
-	alpha = rpar[0];
-	beta = rpar[1];
-	u1 = GetInPortPtrs(block,1);
-
-	dim_i = GetInPortRows(block,1);
-	dim_j = GetInPortCols(block,1);
-
-	for(i = 0 ; i < dim_i ; i++)
-	  {
-	    for(j = 0; j < dim_j ; j++)
+	    /* If window has been destroyed we recreate it */
+	    if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	      {
-		pGRAYPLOT_FEATURE(pShortDraw)->pvecz[i*dim_j+j] = floor(alpha*u1[j+i*dim_j]+beta);
+		cmatview_draw(block,&pScopeMemory,0);
 	      }
-	  }
-	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
-	  {
+	    
+	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
+	    rpar = GetRparPtrs(block);
+	    alpha = rpar[0];
+	    beta = rpar[1];
+	    u1 = GetInPortPtrs(block,1);
+	    
+	    dim_i = GetInPortRows(block,1);
+	    dim_j = GetInPortCols(block,1);
+	    
+	    for(i = 0 ; i < dim_i ; i++)
+	      {
+		for(j = 0; j < dim_j ; j++)
+		  {
+		    pGRAYPLOT_FEATURE(pShortDraw)->pvecz[i*dim_j+j] = floor(alpha*u1[j+i*dim_j]+beta);
+		  }
+	      }
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	      {
 	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	      }
+	    sciDrawObj(scoGetPointerShortDraw(pScopeMemory,0,0));
 	  }
-	sciDrawObj(scoGetPointerShortDraw(pScopeMemory,0,0));
-
 	break;
       }//End of stateupdate
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;
       }

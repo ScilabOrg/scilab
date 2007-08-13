@@ -14,86 +14,118 @@
 #include "scoSetProperty.h"
 #include <stdio.h>
 
+void scoSetWindowIDInUserData(ScopeMemory * pScopeMemory,int block_number)
+{
+  scoGraphicalObject pTemp = scoGetPointerScopeWindow(pScopeMemory);
+  pFIGURE_FEATURE(pTemp)->user_data = (int*)scicos_malloc(sizeof(int));
+  pFIGURE_FEATURE(pTemp)->user_data[0] = block_number;
+  pFIGURE_FEATURE(pTemp)->size_of_user_data = 1;
+}
+
+
+scoInteger scoGetUserData(scoGraphicalObject pTemp)
+{
+  return pFIGURE_FEATURE(pTemp)->user_data[0];
+}
+
+
 void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int * win_pos, int * win_dim, double * xmin, double * xmax, double * ymin, double * ymax, double * zmin, double * zmax)
 {
   int i;
   extern int get_block_number();
-
+  int block_number = get_block_number();
+  int user_data = -1;
   scoGraphicalObject pTemp;
   scoGraphicalObject pTemp2;
   //if win-id is -1 we give an auto number based on the block_number on the diagram
   if (win_id == -1)
     {
-      win_id = 20000 + get_block_number() ; 
+      win_id = 20000 + block_number; 
     }
-  scoSetWindowID(pScopeMemory,win_id);
   //if we restart the simulation this command delete all previous children of the window
-  DeleteObjs(win_id);
-  //Dont forget this kind of command
-  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-  pTemp = sciGetCurrentFigure();
-  scoSetHandleScopeWindow(pScopeMemory,sciGetHandle(pTemp));
-  for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
+  if ((pTemp = sciIsExistingFigure(&win_id)) != NULL)
     {
-      if (i == 0)
+      if (pFIGURE_FEATURE(pTemp)->user_data != NULL)
 	{
-	  //We are getting the Handle of the current axes but in the same time we are constructing it (see below)
-	  //Here pTemp is the pointer on the ScopeWindow
-	  scoSetHandleAxes(pScopeMemory,i,sciGetHandle(sciGetSelectedSubWin(pTemp)));
+      user_data = scoGetUserData(pTemp);
 	}
-      else
+    }
+  if ((user_data == -1 ) || (user_data == win_id))
+    {
+      scoSetWindowID(pScopeMemory,win_id);
+      DeleteObjs(win_id);
+      scoSetScopeActivation(pScopeMemory,1); //Activate It ! Let's Rock !
+      //Dont forget this kind of command
+      sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+      pTemp = sciGetCurrentFigure();
+      scoSetHandleScopeWindow(pScopeMemory,sciGetHandle(pTemp));
+      scoSetWindowIDInUserData(pScopeMemory,block_number);
+      for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
 	{
-	  //Here pTemp is the pointer on the ScopeWindow
-	  scoSetHandleAxes(pScopeMemory,i,sciGetHandle(ConstructSubWin(pTemp, win_id)));
+	  if (i == 0)
+	    {
+	      //We are getting the Handle of the current axes but in the same time we are constructing it (see below)
+	      //Here pTemp is the pointer on the ScopeWindow
+	      scoSetHandleAxes(pScopeMemory,i,sciGetHandle(sciGetSelectedSubWin(pTemp)));
+	    }
+	  else
+	    {
+	      //Here pTemp is the pointer on the ScopeWindow
+	      scoSetHandleAxes(pScopeMemory,i,sciGetHandle(ConstructSubWin(pTemp, win_id)));
+	    }
+	  //Here pTemp2 is the pointer on the current Axes
+	  pTemp2 = scoGetPointerAxes(pScopeMemory,i);
+	  sciSetFontDeciWidth(pTemp2, 0);
+	  sciSetIsBoxed(pTemp2,TRUE);
+	  //Here we don't want "smart" limits
+	  pSUBWIN_FEATURE(pTemp2)->tight_limits = TRUE;
+	  //Here PTemp2 is the pointer on the current Subwint
+	  //WRect is for position of Axes in the window
+	  pSUBWIN_FEATURE(pTemp2)->WRect[0] = 0;
+	  pSUBWIN_FEATURE(pTemp2)->WRect[1] = (double)i/scoGetNumberOfSubwin(pScopeMemory);
+	  pSUBWIN_FEATURE(pTemp2)->WRect[2] = 1;
+	  pSUBWIN_FEATURE(pTemp2)->WRect[3] = (double)1/scoGetNumberOfSubwin(pScopeMemory);
+	  switch(dimension)
+	    {
+	    case 3:
+	      pSUBWIN_FEATURE(pTemp2)->is3d = TRUE;
+	      pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[2] = TRUE;
+	      //SRECT is here to give number of x,y, or z legends
+	      pSUBWIN_FEATURE(pTemp2)->SRect[4] = zmin[i];
+	      pSUBWIN_FEATURE(pTemp2)->SRect[5] = zmax[i];
+	    case 2:
+	      pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[1] = TRUE;
+	      pSUBWIN_FEATURE(pTemp2)->SRect[2] = ymin[i];
+	      pSUBWIN_FEATURE(pTemp2)->SRect[3] = ymax[i];
+	    case 1:
+	      pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[0] = TRUE;
+	      pSUBWIN_FEATURE(pTemp2)->SRect[0] = xmin[i];
+	      pSUBWIN_FEATURE(pTemp2)->SRect[1] = xmax[i];
+	      break;
+	    default:
+	      sciprint("SCOPE ERROR : Error in dimension number\n");
+	      break;
+	    }
+
 	}
-      //Here pTemp2 is the pointer on the current Axes
-      pTemp2 = scoGetPointerAxes(pScopeMemory,i);
-      sciSetFontDeciWidth(pTemp2, 0);
-      sciSetIsBoxed(pTemp2,TRUE);
-      //Here we don't want "smart" limits
-      pSUBWIN_FEATURE(pTemp2)->tight_limits = TRUE;
-      //Here PTemp2 is the pointer on the current Subwint
-      //WRect is for position of Axes in the window
-      pSUBWIN_FEATURE(pTemp2)->WRect[0] = 0;
-      pSUBWIN_FEATURE(pTemp2)->WRect[1] = (double)i/scoGetNumberOfSubwin(pScopeMemory);
-      pSUBWIN_FEATURE(pTemp2)->WRect[2] = 1;
-      pSUBWIN_FEATURE(pTemp2)->WRect[3] = (double)1/scoGetNumberOfSubwin(pScopeMemory);
-      switch(dimension)
+      if(win_pos != NULL)
 	{
-	case 3:
-	  pSUBWIN_FEATURE(pTemp2)->is3d = TRUE;
-	  pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[2] = TRUE;
-	  //SRECT is here to give number of x,y, or z legends
-	  pSUBWIN_FEATURE(pTemp2)->SRect[4] = zmin[i];
-	  pSUBWIN_FEATURE(pTemp2)->SRect[5] = zmax[i];
-	case 2:
-	  pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[1] = TRUE;
-	  pSUBWIN_FEATURE(pTemp2)->SRect[2] = ymin[i];
-	  pSUBWIN_FEATURE(pTemp2)->SRect[3] = ymax[i];
-	case 1:
-	  pSUBWIN_FEATURE(pTemp2)->axes.axes_visible[0] = TRUE;
-	  pSUBWIN_FEATURE(pTemp2)->SRect[0] = xmin[i];
-	  pSUBWIN_FEATURE(pTemp2)->SRect[1] = xmax[i];
-	  break;
-	default:
-	  sciprint("SCOPE ERROR : Error in dimension number\n");
-	  break;
+	  if (win_pos[0] >= 0)
+	    sciSetFigurePos(pTemp, win_pos[0], win_pos[1]);
+	}
+      if(win_dim != NULL)
+	{
+	  if (win_dim[0] >= 0)
+	    sciSetDim(pTemp, &win_dim[0], &win_dim[1]);
 	}
 
+      sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+      sciDrawObj(pTemp);
     }
-  if(win_pos != NULL)
+  else
     {
-      if (win_pos[0] >= 0)
-	sciSetFigurePos(pTemp, win_pos[0], win_pos[1]);
+      sciprint("This Scope (block number : %d) has same number than another. It has been desactivated !\n",block_number);
     }
-  if(win_dim != NULL)
-    {
-      if (win_dim[0] >= 0)
-	sciSetDim(pTemp, &win_dim[0], &win_dim[1]);
-    }
-
-  sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-  sciDrawObj(pTemp);
 }
 
 void scoRefreshDataBoundsX(ScopeMemory * pScopeMemory, double t)

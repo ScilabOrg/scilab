@@ -106,11 +106,14 @@ void cmscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
 
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, xmin, xmax, ymin, ymax, NULL, NULL);
-  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
 
   /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
   /* 	scoAddPolylineLineStyle(*pScopeMemory,colors); */
-  scoAddCoupleOfPolylines(*pScopeMemory,colors);
+      scoAddCoupleOfPolylines(*pScopeMemory,colors);
+    }
   scicos_free(number_of_curves_by_subwin);
   scicos_free(colors);
   scicos_free(period);
@@ -150,45 +153,57 @@ void cmscope(scicos_block * block, int flag)
   
     case StateUpdate:
       {
-	/* Charging Elements */
-	t = get_scicos_time();
 	/*Retreiving Scope in the block->work*/
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-	/* If window has been destroyed we recreate it */
-	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	if(scoGetScopeActivation(pScopeMemory) == 1)
 	  {
-	    cmscope_draw(block,&pScopeMemory,0);
-	  }
-
-	scoRefreshDataBoundsX(pScopeMemory,t);
-
-	//Here we are calculating the points in the polylines
-	for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
-	  {
-	    u1 = GetRealInPortPtrs(block,i+1);
-	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,0);
-	    NbrPtsShort = pPOLYLINE_FEATURE(pShortDraw)->n1;
-	    for (j = 0; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
+	    /* Charging Elements */
+	    t = get_scicos_time();
+	    /* If window has been destroyed we recreate it */
+	    if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	      {
-		pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
-		pPOLYLINE_FEATURE(pShortDraw)->pvx[NbrPtsShort] = t;
-		pPOLYLINE_FEATURE(pShortDraw)->pvy[NbrPtsShort] = u1[j];
-		pPOLYLINE_FEATURE(pShortDraw)->n1++;
+		cmscope_draw(block,&pScopeMemory,0);
 	      }
-	  }
 
-	scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
+	    scoRefreshDataBoundsX(pScopeMemory,t);
 
+	    //Here we are calculating the points in the polylines
+	    for (i = 0 ; i < scoGetNumberOfSubwin(pScopeMemory) ; i++)
+	      {
+		u1 = GetRealInPortPtrs(block,i+1);
+		pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,0);
+		NbrPtsShort = pPOLYLINE_FEATURE(pShortDraw)->n1;
+		for (j = 0; j < scoGetNumberOfCurvesBySubwin(pScopeMemory,i) ; j++)
+		  {
+		    pShortDraw = scoGetPointerShortDraw(pScopeMemory,i,j);
+		    pPOLYLINE_FEATURE(pShortDraw)->pvx[NbrPtsShort] = t;
+		    pPOLYLINE_FEATURE(pShortDraw)->pvy[NbrPtsShort] = u1[j];
+		    pPOLYLINE_FEATURE(pShortDraw)->n1++;
+		  }
+	      }
+
+	    scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
+
+	    
+	    //Break of the switch don t forget it !
+	  }//End of stateupdate
 	break; 
-	//Break of the switch don t forget it !
-      }//End of stateupdate
-      
-      //This case is activated when the simulation is done or when we close scicos
+	//This case is activated when the simulation is done or when we close scicos
+      }
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
-	scoDelCoupleOfPolylines(pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	    scoDelCoupleOfPolylines(pScopeMemory);
+
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
+
 	break;
       }
     }

@@ -67,19 +67,23 @@ void cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdr
     }
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  for( i = 0 ; i < number_of_curves_by_subwin ; i++)
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
     {
-      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
-      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[0]);
-      ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
-      LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
-      sciSetLineWidth(ShortDraw, line_size);
-      sciSetMarkSize(ShortDraw, line_size);
-      sciSetLineWidth(LongDraw, line_size);
-      sciSetMarkSize(LongDraw, line_size);
+      for( i = 0 ; i < number_of_curves_by_subwin ; i++)
+	{
+	  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[0]);
+	  scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[0]);
+	  ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
+	  LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
+	  sciSetLineWidth(ShortDraw, line_size);
+	  sciSetMarkSize(ShortDraw, line_size);
+	  sciSetLineWidth(LongDraw, line_size);
+	  sciSetMarkSize(LongDraw, line_size);
+	}
+      scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
     }
-  scoAddTitlesScope(*pScopeMemory,"x","y",NULL);
 }
+
 
 /** \fn void cscopxy(scicos_block * block, int flag)
     \brief the computational function
@@ -107,6 +111,9 @@ void cscopxy(scicos_block * block, int flag)
     case StateUpdate:
       {
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    
 	/* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
@@ -124,9 +131,9 @@ void cscopxy(scicos_block * block, int flag)
 	    pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort] = u2[i];
 	    pPOLYLINE_FEATURE(Pinceau)->n1++;
 	  }
-
+	
 	scoDrawScopeXYStyle(pScopeMemory);
-
+	  }
 	break; //Break of the switch don t forget it !
       }//End of stateupdate
       
@@ -134,6 +141,13 @@ void cscopxy(scicos_block * block, int flag)
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    Pinceau = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(Pinceau)->user_data = NULL;
+	    pFIGURE_FEATURE(Pinceau)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break; //Break of the switch
       }

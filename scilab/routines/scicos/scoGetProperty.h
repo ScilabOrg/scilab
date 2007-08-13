@@ -140,4 +140,11 @@ scoGraphicalObject scoGetPointerShortDraw(ScopeMemory * pScopeMemory, int i, int
 */
 scoGraphicalObject scoGetPointerLongDraw(ScopeMemory * pScopeMemory, int i, int j);
 
+/**
+   \brief Get status of activation of the block
+   \return 1 activated or 0 deactivated (by default)
+  
+*/
+scoInteger scoGetScopeActivation(ScopeMemory * pScopeMemory);
+
 #endif

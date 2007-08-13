@@ -27,6 +27,16 @@
 */
 void scoInitOfWindow(ScopeMemory * pScopeMemory, int dimension, int win_id, int * win_pos, int * win_dim, double * xmin, double * xmax, double * ymin, double * ymax, double * zmin, double * zmax);
 
+/**
+   \brief Allocate space and set block_number in the user_data of the window associated in the pScopeMemory
+ **/
+void scoSetInUserData(ScopeMemory * pScopeMemory,int block_number);
+
+/**
+   \brief Retrive UserData[0] (i.e. the block_number we have stocked)
+   \param pTemp is a pointer on the figure
+ **/
+scoInteger scoGetUserData(scoGraphicalObject pTemp);
 
 /*--------------------------CREATIONS FUNCTIONS-----------------------------*/
 /*

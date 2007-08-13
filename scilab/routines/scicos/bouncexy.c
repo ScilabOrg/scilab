@@ -75,6 +75,8 @@ void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstd
     }
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
   pTemp = scoGetPointerScopeWindow(*pScopeMemory);
   pAxes = scoGetPointerAxes(*pScopeMemory,0);
 
@@ -94,6 +96,7 @@ void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstd
     }
   scoAddRectangleForLongDraw(*pScopeMemory,0,0,xmin,(ymax-fabs(ymin)),fabs(xmax-xmin),fabs(ymax-ymin));
   sciDrawObj(scoGetPointerLongDraw(*pScopeMemory,0,0));
+    }
   scicos_free(colors);
   scicos_free(size_balls);
 
@@ -123,9 +126,12 @@ void bouncexy(scicos_block * block,int flag)
       }
     case StateUpdate:
       {
-	t = get_scicos_time();
+
 	/*Retreiving Scope in the block->work*/
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    t = get_scicos_time();
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -163,11 +169,19 @@ void bouncexy(scicos_block * block,int flag)
 	  }
 
 	scicos_free(size_balls);
+	  }
 	break;
       }
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;  
       }

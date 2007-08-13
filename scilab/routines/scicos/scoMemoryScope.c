@@ -133,6 +133,7 @@ void scoInitScopeMemory(void ** block_work, ScopeMemory ** pScopeMemory, int num
 	  scoSetHandleLongDraw(*pScopeMemory,i,j,0);
 	}
     }
+  scoSetScopeActivation(*pScopeMemory,0); //Not activated by default
 }
 
 

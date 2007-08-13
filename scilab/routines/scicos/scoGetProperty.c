@@ -88,3 +88,7 @@ scoDouble scoGetPeriod(ScopeMemory * pScopeMemory, int i)
   return pScopeMemory->period[i];
 }
 
+scoInteger scoGetScopeActivation(ScopeMemory * pScopeMemory)
+{
+  return pScopeMemory->activated;
+}

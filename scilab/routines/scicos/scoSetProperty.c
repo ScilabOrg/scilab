@@ -87,3 +87,8 @@ void scoSetPeriod(ScopeMemory * pScopeMemory, int i,double value)
 {
   pScopeMemory->period[i] = value;
 }
+
+void scoSetScopeActivation(ScopeMemory * pScopeMemory, int status)
+{
+  pScopeMemory->activated = status;
+}

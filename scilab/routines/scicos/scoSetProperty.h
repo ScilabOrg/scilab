@@ -140,4 +140,13 @@ void scoSetHandleFromPointerLongDraw(ScopeMemory * pScopeMemory, int i,int j, sc
 */
 void scoSetHandleFromPointerScopeWindow(ScopeMemory * pScopeMemory, scoGraphicalObject value);
 
+
+/**
+   \brief Set value for activation (1 activate 0 else (by default))
+   \param pScopeMemory a pointer on a ScopeMemory
+   \param status : 1 activate 0 deactivate
+*/
+void scoSetScopeActivation(ScopeMemory * pScopeMemory, int status);
+
+
 #endif

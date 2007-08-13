@@ -78,25 +78,27 @@ void cscopxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
     }
 
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;	
-  scoAddTitlesScope(*pScopeMemory,"x","y","z");
-
-	
-  for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory,0) ; i++)
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
     {
-      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
-      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;	
+      scoAddTitlesScope(*pScopeMemory,"x","y","z");
       
-      ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
-      LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
-
-      sciSetLineWidth(ShortDraw, line_size[i]);
-      sciSetMarkSize(ShortDraw, line_size[i]);
-      sciSetLineWidth(LongDraw, line_size[i]);
-      sciSetMarkSize(LongDraw, line_size[i]);
+	
+      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory,0) ; i++)
+	{
+	  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
+	  scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
+	  
+	  ShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,i);
+	  LongDraw = scoGetPointerLongDraw(*pScopeMemory,0,i);
+	  
+	  sciSetLineWidth(ShortDraw, line_size[i]);
+	  sciSetMarkSize(ShortDraw, line_size[i]);
+	  sciSetLineWidth(LongDraw, line_size[i]);
+	  sciSetMarkSize(LongDraw, line_size[i]);
+	}
     }
-
   scicos_free(color);
   scicos_free(line_size);
 }
@@ -127,39 +129,47 @@ void cscopxy3d(scicos_block * block, int flag)
     case StateUpdate:
       {
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-
-	/* Charging Elements */
-	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
+	if(scoGetScopeActivation(pScopeMemory) == 1)
 	  {
-	    cscopxy3d_draw(block,&pScopeMemory,0);
-	  }
+	    /* Charging Elements */
+	    if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
+	      {
+		cscopxy3d_draw(block,&pScopeMemory,0);
+	      }
 
-	u1 = GetRealInPortPtrs(block,1);
-	u2 = GetRealInPortPtrs(block,2);
-	u3 = GetRealInPortPtrs(block,3);
-
-	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-	  {
-	    Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
-
-	    NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
-
-	    pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort] = u1[i];
-	    pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort] = u2[i];
-	    pPOLYLINE_FEATURE(Pinceau)->pvz[NbrPtsShort] = u3[i];
+	    u1 = GetRealInPortPtrs(block,1);
+	    u2 = GetRealInPortPtrs(block,2);
+	    u3 = GetRealInPortPtrs(block,3);
 	    
-	    pPOLYLINE_FEATURE(Pinceau)->n1++;
+	    for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
+	      {
+		Pinceau = scoGetPointerShortDraw(pScopeMemory,0,i);
+		
+		NbrPtsShort = pPOLYLINE_FEATURE(Pinceau)->n1;
+		
+		pPOLYLINE_FEATURE(Pinceau)->pvx[NbrPtsShort] = u1[i];
+		pPOLYLINE_FEATURE(Pinceau)->pvy[NbrPtsShort] = u2[i];
+		pPOLYLINE_FEATURE(Pinceau)->pvz[NbrPtsShort] = u3[i];
+	    
+		pPOLYLINE_FEATURE(Pinceau)->n1++;
+	      }
+	    
+	    scoDrawScopeXYStyle(pScopeMemory);
 	  }
-
-	scoDrawScopeXYStyle(pScopeMemory);
-
-	break; //Break of the switch don t forget it !
-      }//End of stateupdate
+	    break; //Break of the switch don t forget it !
+	  }//End of stateupdate
       
       //This case is activated when the simulation is done or when we close scicos
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    Pinceau = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(Pinceau)->user_data = NULL;
+	    pFIGURE_FEATURE(Pinceau)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break; //Break of the switch
       }

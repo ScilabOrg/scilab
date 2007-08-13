@@ -85,18 +85,20 @@ void canimxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
 	}
 
       scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-	    
-      pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->pixmap = 1;
-      pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->wshow = 1;
+      if(scoGetScopeActivation(*pScopeMemory) == 1)
+	{ 
+	  pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->pixmap = 1;
+	  pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->wshow = 1;
 
-      for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory, 0) ; i++)
-	{
-	  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
-	  Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
+	  for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(*pScopeMemory, 0) ; i++)
+	    {
+	      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
+	      Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
 
-	  sciSetMarkSize(Pinceau, line_size[i]);
+	      sciSetMarkSize(Pinceau, line_size[i]);
 
-	  pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+	      pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+	    }
 	}
     }
   /*else if 2 or more elements*/
@@ -108,71 +110,76 @@ void canimxy3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int first
 	  scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
 	}
       scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
-      gomme_color = sciGetBackground(scoGetPointerAxes(*pScopeMemory,0));
-      /*if mark style*/
-      if(color[0] < 0)
+      if(scoGetScopeActivation(*pScopeMemory) == 1)
 	{
-	  if(firstdraw == 1)
+	  gomme_color = sciGetBackground(scoGetPointerAxes(*pScopeMemory,0));
+	  /*if mark style*/
+	  if(color[0] < 0)
 	    {
-	      scoSetShortDrawSize(*pScopeMemory,0,1);
-	      scoSetLongDrawSize(*pScopeMemory,0,buffer_size-1);
-	    }
-	  for(i = 0 ; i < nbr_curves ; i++)
-	    {
-	      //because of color[0] is negative it will add a black mark with style number color[0]
-	      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
-	      scoAddPolylineForShortDraw(*pScopeMemory,0,i+nbr_curves,color[i]); //same type of mark and black for the rubber
-	      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
+	      if(firstdraw == 1)
+		{
+		  scoSetShortDrawSize(*pScopeMemory,0,1);
+		  scoSetLongDrawSize(*pScopeMemory,0,buffer_size-1);
+		}
+	      for(i = 0 ; i < nbr_curves ; i++)
+		{
+		  //because of color[0] is negative it will add a black mark with style number color[0]
+		  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
+		  scoAddPolylineForShortDraw(*pScopeMemory,0,i+nbr_curves,color[i]); //same type of mark and black for the rubber
+		  scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
 		    
-	      Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
-	      Gomme = scoGetPointerShortDraw(*pScopeMemory,0,i+nbr_curves);
-	      Trait = scoGetPointerLongDraw(*pScopeMemory,0,i);
+		  Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(*pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(*pScopeMemory,0,i);
 
-	      sciSetMarkSize(Pinceau, line_size[i]);
-	      sciSetMarkSize(Gomme, line_size[i]);
-	      sciSetMarkSize(Trait, line_size[i]);		   
+		  sciSetMarkSize(Pinceau, line_size[i]);
+		  sciSetMarkSize(Gomme, line_size[i]);
+		  sciSetMarkSize(Trait, line_size[i]);		   
  
-	      pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
-	      pPOLYLINE_FEATURE(Gomme)->n1 = 1;
-	      sciSetMarkForeground(Gomme, gomme_color); //here the rubber becomes colored like the background of the axes
-	      pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
+		  pPOLYLINE_FEATURE(Pinceau)->n1 = 1;
+		  pPOLYLINE_FEATURE(Gomme)->n1 = 1;
+		  sciSetMarkForeground(Gomme, gomme_color); //here the rubber becomes colored like the background of the axes
+		  pPOLYLINE_FEATURE(Trait)->n1 = buffer_size-1;
+		}
 	    }
-	}
-      /*if line style*/
-      else
-	{
-	  if(firstdraw == 1)
+	
+	  /*if line style*/
+	  else
 	    {
-	      scoSetShortDrawSize(*pScopeMemory,0,2);
-	      scoSetLongDrawSize(*pScopeMemory,0,buffer_size);
-	    }
+	      if(firstdraw == 1)
+		{
+		  scoSetShortDrawSize(*pScopeMemory,0,2);
+		  scoSetLongDrawSize(*pScopeMemory,0,buffer_size);
+		}
 
-	  for(i = 0 ; i < nbr_curves ; i++)
-	    {
-	      scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
-	      scoAddPolylineForShortDraw(*pScopeMemory,0,i+nbr_curves,gomme_color);
-	      scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
+	      for(i = 0 ; i < nbr_curves ; i++)
+		{
+		  scoAddPolylineForShortDraw(*pScopeMemory,0,i,color[i]);
+		  scoAddPolylineForShortDraw(*pScopeMemory,0,i+nbr_curves,gomme_color);
+		  scoAddPolylineForLongDraw(*pScopeMemory,0,i,color[i]);
 		    
-	      Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
-	      Gomme = scoGetPointerShortDraw(*pScopeMemory,0,i+nbr_curves);
-	      Trait = scoGetPointerLongDraw(*pScopeMemory,0,i);
+		  Pinceau = scoGetPointerShortDraw(*pScopeMemory,0,i);
+		  Gomme = scoGetPointerShortDraw(*pScopeMemory,0,i+nbr_curves);
+		  Trait = scoGetPointerLongDraw(*pScopeMemory,0,i);
 		    
-	      sciSetLineWidth(Pinceau, line_size[i]);
-	      sciSetLineWidth(Gomme, line_size[i]);
-	      sciSetLineWidth(Trait, line_size[i]);
+		  sciSetLineWidth(Pinceau, line_size[i]);
+		  sciSetLineWidth(Gomme, line_size[i]);
+		  sciSetLineWidth(Trait, line_size[i]);
 
-	      pPOLYLINE_FEATURE(Pinceau)->n1 = 2;
-	      pPOLYLINE_FEATURE(Gomme)->n1 = 2;
-	      pPOLYLINE_FEATURE(Trait)->n1 = buffer_size;
+		  pPOLYLINE_FEATURE(Pinceau)->n1 = 2;
+		  pPOLYLINE_FEATURE(Gomme)->n1 = 2;
+		  pPOLYLINE_FEATURE(Trait)->n1 = buffer_size;
+		}
 	    }
 	}
     }
-	
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;
-	
-  scoAddTitlesScope(*pScopeMemory,"x","y","z");
-
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = alpha;
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = theta;
+      
+      scoAddTitlesScope(*pScopeMemory,"x","y","z");
+    }
   scicos_free(color);
   scicos_free(line_size);
 }
@@ -186,7 +193,7 @@ void canimxy3d(scicos_block * block, int flag)
   /* Declarations*/
   double *u1,*u2,*u3;
   ScopeMemory * pScopeMemory;
-
+  scoGraphicalObject pShortDraw;
   /* State Machine Control */
   switch(flag)
     {
@@ -200,7 +207,9 @@ void canimxy3d(scicos_block * block, int flag)
     case StateUpdate:
       {
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-	/* Charging Elements */
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    /* Charging Elements */
 	if (scoGetPointerScopeWindow(pScopeMemory) == NULL) // If the window has been destroyed we recreate it
 	  {
 	    canimxy3d_draw(block,&pScopeMemory,0);
@@ -212,7 +221,7 @@ void canimxy3d(scicos_block * block, int flag)
 	u3 = GetRealInPortPtrs(block,3);
 
 	scoDrawScopeAnimXYStyle(pScopeMemory,u1,u2,u3);
-
+	  }
 	break; //Break of the switch don t forget it !
       }//End of stateupdate
       
@@ -220,6 +229,13 @@ void canimxy3d(scicos_block * block, int flag)
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break; //Break of the switch
       }

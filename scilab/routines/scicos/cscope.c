@@ -73,11 +73,13 @@ void cscope_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
 
   /*Creating the Scope*/
   scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
-
-  /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
-  scoAddCoupleOfPolylines(*pScopeMemory,colors);
-  /* scoAddPolylineLineStyle(*pScopeMemory,colors); */
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      scoAddTitlesScope(*pScopeMemory,"t","y",NULL);
+      /*Add a couple of polyline : one for the shortdraw and one for the longdraw*/
+      scoAddCoupleOfPolylines(*pScopeMemory,colors);
+      /* scoAddPolylineLineStyle(*pScopeMemory,colors); */
+    }
   scicos_free(colors);
 }
 
@@ -103,9 +105,12 @@ void cscope(scicos_block * block,int flag)
       }
     case StateUpdate:
       {
-	t = get_scicos_time();
-	/*Retreiving Scope in the block->work*/
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    t = get_scicos_time();
+	/*Retreiving Scope in the block->work*/
+	    
 	/*If window has been destroyed we recreate it*/
 	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	  {
@@ -128,12 +133,20 @@ void cscope(scicos_block * block,int flag)
 
 	//Draw the Scope
 	scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
+	  }
 	break;
       }
     case Ending:
       {
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
-	scoDelCoupleOfPolylines(pScopeMemory);
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	    scoDelCoupleOfPolylines(pScopeMemory);
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;  
       }

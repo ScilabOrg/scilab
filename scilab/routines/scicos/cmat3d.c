@@ -83,41 +83,42 @@ void cmat3d_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdra
 
   /*Creating the Scope with axes*/
   scoInitOfWindow(*pScopeMemory, dimension, -1, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, &zmin, &zmax);
+  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    {
+      /*Here we put the special window feature like pixmap or text title
+	Dont forget that the function scoAddTitleScope redraws the window at end so it would be a good idea to put it at the end*/
+      pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->pixmap = 1;
+      pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->wshow = 1;
 
-  /*Here we put the special window feature like pixmap or text title
-   Dont forget that the function scoAddTitleScope redraws the window at end so it would be a good idea to put it at the end*/
-  pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->pixmap = 1;
-  pFIGURE_FEATURE(scoGetPointerScopeWindow(*pScopeMemory))->wshow = 1;
+      sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
 
-  sciSetColormap(scoGetPointerScopeWindow(*pScopeMemory), mat , size_mat/3, 3);
-
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = 50;
-  pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = 280;
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->alpha = 50;
+      pSUBWIN_FEATURE(scoGetPointerAxes(*pScopeMemory,0))->theta = 280;
   
-  /*Adding graphic elements like plot3d or polyline and so*/
-  if(ipar[3] == 1)
-    {
-      scoAddPlot3dForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
-    }
-  else
-    {
+      /*Adding graphic elements like plot3d or polyline and so*/
+      if(ipar[3] == 1)
+	{
+	  scoAddPlot3dForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+	}
+      else
+	{
 	  double h_x,h_y;
-      scoAddPlot3dForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
-      pShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,0);
-      h_x = fabs((xmax-xmin)/(GetInPortSize(block,1,1)-1));
-      h_y = fabs((ymax-ymin)/(GetInPortSize(block,1,2)-1));
+	  scoAddPlot3dForShortDraw(*pScopeMemory,0,0,GetInPortSize(block,1,1),GetInPortSize(block,1,2));
+	  pShortDraw = scoGetPointerShortDraw(*pScopeMemory,0,0);
+	  h_x = fabs((xmax-xmin)/(GetInPortSize(block,1,1)-1));
+	  h_y = fabs((ymax-ymin)/(GetInPortSize(block,1,2)-1));
       
-      for(i = 0 ; i < size_in_x ; i++)
-	{
-	  pSURFACE_FEATURE(pShortDraw)->pvecx[i] = xmin + i*h_x;
-	} 
-      for(i = 0 ; i < size_in_y ; i++)
-	{
-	  pSURFACE_FEATURE(pShortDraw)->pvecy[i] = ymin + i*h_y;
-	} 
+	  for(i = 0 ; i < size_in_x ; i++)
+	    {
+	      pSURFACE_FEATURE(pShortDraw)->pvecx[i] = xmin + i*h_x;
+	    } 
+	  for(i = 0 ; i < size_in_y ; i++)
+	    {
+	      pSURFACE_FEATURE(pShortDraw)->pvecy[i] = ymin + i*h_y;
+	    } 
+	}
+      scoAddTitlesScope(*pScopeMemory,"x","y","z");
     }
-  scoAddTitlesScope(*pScopeMemory,"x","y","z");
-
   /*Dont forget to free your scicos_malloc or MALLOC*/
   scicos_free(mat);
 
@@ -140,58 +141,67 @@ void cmat3d(scicos_block * block, int flag)
   /* State Machine Control */
   switch(flag)
     {
-    /*Flag 4*/
+      /*Flag 4*/
     case Initialization:
       {
         /*We create the window for the first time, so 1 is in parameters*/
 	cmat3d_draw(block,&pScopeMemory,1);
 	break; //dont forget the break
       }
-    /*Flag 2*/
+      /*Flag 2*/
     case StateUpdate:
       {
 	/*Retreiving Scope in the block->work*/
 	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-
-	/* If window has been destroyed we recreate it */
-	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
+	if(scoGetScopeActivation(pScopeMemory) == 1)
 	  {
-            //0 here because of the recreation
-	    cmat3d_draw(block,&pScopeMemory,0);
-	  }
-        /*Here some allocations and calcul wich are necessary*/
-	pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
 
-	u1 = GetInPortPtrs(block,1);
-	dim_i = GetInPortRows(block,1);
-	dim_j = GetInPortCols(block,1);
-
-	for(i = 0 ; i < dim_i ; i++)
-	  {
-	    
-	    for(j = 0; j < dim_j ; j++)
+	    /* If window has been destroyed we recreate it */
+	    if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
 	      {
-		pSURFACE_FEATURE(pShortDraw)->pvecz[j+i*dim_j] = u1[j+dim_j*i];
+		//0 here because of the recreation
+		cmat3d_draw(block,&pScopeMemory,0);
 	      }
-	  }
-        
-        /*Here is the draw instructions*/
-	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
-	  {
-	    C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
-	  }
-	sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	    /*Here some allocations and calcul wich are necessary*/
+	    pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,0);
 
+	    u1 = GetInPortPtrs(block,1);
+	    dim_i = GetInPortRows(block,1);
+	    dim_j = GetInPortCols(block,1);
+
+	    for(i = 0 ; i < dim_i ; i++)
+	      {
+	    
+		for(j = 0; j < dim_j ; j++)
+		  {
+		    pSURFACE_FEATURE(pShortDraw)->pvecz[j+i*dim_j] = u1[j+dim_j*i];
+		  }
+	      }
+        
+	    /*Here is the draw instructions*/
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    if(pFIGURE_FEATURE(scoGetPointerScopeWindow(pScopeMemory))->pixmap == 1)
+	      {
+		C2F(dr)("xset","wshow",PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
+	      }
+	    sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+	  }
 	break; //dont forget the break
       }
-    /*Flag 5*/
+      /*Flag 5*/
     case Ending:
       {
         /*Retrieve Memory*/
 	scoRetrieveScopeMemory(block->work, &pScopeMemory);
         /*Here we can add specific instructions to be sure that we have stick short and longdraw if we need it. Cscope for example stick the last short to the long to have one curve to move*/
         /*Free Memory*/
+	if(scoGetScopeActivation(pScopeMemory) == 1)
+	  {
+	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+	    pShortDraw = sciGetCurrentFigure();
+	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+	  }
 	scoFreeScopeMemory(block->work, &pScopeMemory);
 	break;
       }

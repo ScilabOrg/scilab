@@ -118,6 +118,8 @@ typedef struct
   
   scoLineOfDouble   period;
 
+  scoInteger activated;
+
 } ScopeMemory;
 
 /*External function of malloc/free - Don't forget to use these and not malloc or MALLOC*/
