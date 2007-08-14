@@ -72,7 +72,7 @@ case 'getorigin' then
 	exprs(4)=perop;
 	SaveExit=%t
        else//_____________________No graphics__________________________
-	[Xdummy,Ydummy,orpar]=Do_Spline(N,mtd,xy(:,1),xy(:,2),2);
+	[Xdummy,Ydummy,orpar]=Do_Spline(N,mtd,xy(:,1),xy(:,2));
 	if (METHOD=='periodic') then // periodic spline
 	  xy(N,2)=xy(1,2);
 	end	
@@ -106,11 +106,11 @@ case 'getorigin' then
   end
  case 'define' then  
   model=scicos_model()
-  xx=[0;1;2];yy=[1;2;0];  N=3;  Method=3;  PeriodicOption='y';  Graf='n'
+  xx=[0, 1, 2];yy=[10, 20, -30];  N=3;  Method=3;  PeriodicOption='y';  Graf='n'
   model.sim=list('curve_c',4)
   model.in=[]
   model.out=1
-  model.rpar=[xx;yy]
+  model.rpar=[xx(:);yy(:)]
   model.ipar=[N;Method;1]
   model.blocktype='c'
   model.dep_ut=[%f %t]
@@ -120,8 +120,8 @@ case 'getorigin' then
   exprs=[sci2exp(Method);sci2exp(xx);sci2exp(yy);PeriodicOption;Graf]
   
   gr_i=['rpar=arg1.model.rpar;n=model.ipar(1);order=model.ipar(2);';
-	'xx=rpar(1:n);yy=rpar(n+1:2*n);NP=6;';
-	'[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy,NP)';
+	'xx=rpar(1:n);yy=rpar(n+1:2*n);';
+	'[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy)';
 	'xmx=maxi(XX);xmn=mini(XX);';
 	'ymx=maxi(YY);ymn=mini(YY);';
 	'dx=xmx-xmn;if dx==0 then dx=maxi(xmx/2,1);end';
@@ -218,7 +218,7 @@ xmx=maxi(xy(:,1));xmn=mini(xy(:,1)),xmn=max(xmn,0);
 ymx=maxi(xy(:,2));ymn=mini(xy(:,2));
 dx=xmx-xmn;dy=ymx-ymn
 if dx==0 then dx=maxi(xmx/2,1),end;
-xmn=xmn;xmx=xmx+dx/50
+xmx=xmx+dx/50;
 if dy==0 then dy=maxi(ymx/2,1),end;
 ymn=ymn-dy/50;ymx=ymx+dy/50;
 
@@ -556,8 +556,8 @@ while %t then //=================================================
     HIT=%f
     if N<>0 then
       xt=xy(:,1);yt=xy(:,2);
-      dist=((xt-ones(N,1)*xc)/dx)^2+((yt-ones(N,1)*yc)/dy)^2
-      [m,k]=mini(dist);m=sqrt(m)
+      dist=((xt-ones(N,1)*xc))^2+((yt-ones(N,1)*yc))^2
+      [dca,k]=mini(dist);
       rectx=a.data_bounds;
       ex=abs(rectx(2,1)-rectx(1,1))/80;
       ey=abs(rectx(2,2)-rectx(1,2))/80;
@@ -646,25 +646,22 @@ function [orpar,oipar]=drawSplin(a,xy,iipar,irpar)
 
   if (N==0) then, return; end
   if (N==1) then, order=0; end
-  NP=10;// number of intermediate points between two data points 
-  [X,Y,orpar]=Do_Spline(N,order,x,y,NP);
-
+//  NP=50;// number of intermediate points between two data points 
+  [X,Y,orpar]=Do_Spline(N,order,x,y);
   if (periodicoption==1) then 
     X=[X;X($)];
     Y=[Y;Y(1)];
   else
     xmx=maxi(points.data(:,1));  xmn=mini(points.data(:,1));
-    XMX=xmx; XMN=max(0,xmn);
-    dx=XMX-XMN; if dx==0 then dx=maxi(XMX/2,1),end;
-    XMX=XMX+dx/50;
+    XMX=max(0,xmx); XMN=max(0,xmn);
     xmx1=max(a.x_ticks.locations)
-    XMX=max(XMX,xmx1);
+    XMX=max(XMX,xmx1);    
     X=[X;XMX];
     Y=[Y;Y($)];
   end
-   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   splines.data=[X,Y];    
-   oipar=[N;iipar(2);periodicoption]
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  splines.data=[X,Y];    
+  oipar=[N;iipar(2);periodicoption]
 endfunction
 //=============================================================
 function [xyt,orpar,oipar]=movept(a,xy,iipar,irpar,k)
@@ -732,12 +729,12 @@ function   rectx=findrect(a)
   ymx=maxi(points.data(:,2));ymn=mini(points.data(:,2));
 
   
-  XMX=xmx;            XMN=max(0,xmn);
+  XMX=max(0,xmx);            XMN=max(0,xmn);
   YMX=max(ymx,ymx1);  YMN=min(ymn,ymn1);
   
   dx=XMX-XMN;dy=YMX-YMN
   if dx==0 then dx=maxi(XMX/2,1),end;
-  XMN=XMN;XMX=XMX+dx/50
+  XMX=XMX+dx/50
   if dy==0 then dy=maxi(YMX/2,1),end;
   YMN=YMN-dy/50;YMX=YMX+dy/50;  
   rectx=[XMN,YMN;XMX,YMX];
@@ -957,12 +954,8 @@ function [sok]=SaveToFile(xye)
  end 
 endfunction
 //=========================================================
-function [X,Y,orpar]=Do_Spline(N,order,x,y,NP)
-
+function [X,Y,orpar]=Do_Spline(N,order,x,y)
   X=[];Y=[];orpar=[];
-  for i=1:N-1
-    X=[X;linspace(x(i),x(i+1),NP)']; // pour tous sauf "linear" et "zero order"
-  end
 
   METHOD=getmethod(order);
 
@@ -971,7 +964,8 @@ function [X,Y,orpar]=Do_Spline(N,order,x,y,NP)
     for i=1:N-1
       X=[X;x(i);x(i+1);x(i+1)];
       Y=[Y;y(i);y(i);y(i+1)];
-    end  
+    end
+    return
   end    
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   if (METHOD=='linear') then
@@ -979,9 +973,20 @@ function [X,Y,orpar]=Do_Spline(N,order,x,y,NP)
     for i=1:N
       X=[X;x(i)];
       Y=[Y;y(i)];
-    end  
+    end
+    return
   end
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if (N<25) then NP=10;else
+   if (N<50) then NP=5;else
+    if (N<100) then NP=2;else
+      if (N<200) then NP=1;else
+        NP=0;end;end;end;
+  end
+  for i=1:N-1
+    X=[X;linspace(x(i),x(i+1),NP+2)']; // pour tous sauf "linear" et "zero order"
+  end
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   if (N>2) & (METHOD=='order 2') then
     Z=ORDER2(x,y);
     A=Z(1:N-1);

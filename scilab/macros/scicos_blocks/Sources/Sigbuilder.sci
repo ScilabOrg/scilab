@@ -90,31 +90,31 @@ scs_m_1=scicos_diagram(..
         props=scicos_params(..
               wpar=[600,450,0,0,600,450],..
               Title=["Sigbuilder","./"],..
-              tol=[ .0001; .000001;1.000E-10;100001;0;0;0],..
+              tol=[0.0001;0.000001;1.000D-10;100001;0;0;0],..
               tf=100,..
               context=" ",..
               void1=[],..
               options=tlist(["scsopt","3D","Background","Link","ID","Cmap"],list(%t,33),[8,1],[1,5],..
-              list([5,1],[4,1]),[ .8, .8, .8]),..
+              list([5,1],[4,1]),[0.8,0.8,0.8]),..
               void2=[],..
               void3=[],..
               doc=list()))
 scs_m_1.objs(1)=scicos_block(..
                 gui="CURVE_c",..
                 graphics=scicos_graphics(..
-                         orig=[332.88977,584.45066],..
+                         orig=[329.63473,606.18517],..
                          sz=[40,40],..
                          flip=%t,..
                          theta=0,..
-                         exprs=["3";"[0 1 3*%pi 12]";"[1 1 8 4]";"y";"n"],..
+                         exprs=["3";"[0,1,2]";"[10,20,-30]";"y";"n"],..
                          pin=[],..
                          pout=6,..
                          pein=4,..
                          peout=2,..
                          gr_i=list(..
                          ["rpar=arg1.model.rpar;n=model.ipar(1);order=model.ipar(2);";
-                         "xx=rpar(1:n);yy=rpar(n+1:2*n);NP=6;";
-                         "[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy,NP)";
+                         "xx=rpar(1:n);yy=rpar(n+1:2*n);";
+                         "[XX,YY,rpardummy]=Do_Spline(n,order,xx,yy)";
                          "xmx=maxi(XX);xmn=mini(XX);";
                          "ymx=maxi(YY);ymn=mini(YY);";
                          "dx=xmx-xmn;if dx==0 then dx=maxi(xmx/2,1);end";
@@ -141,8 +141,8 @@ scs_m_1.objs(1)=scicos_block(..
                          state=[],..
                          dstate=[],..
                          odstate=list(),..
-                         rpar=[0;1;9.424778;12;1;1;8;4; -.3276272; .3022189; -.4438581;-2.8311723],..
-                         ipar=[4;3;1],..
+                         rpar=[0;1;2;10;20;-30],..
+                         ipar=[3;3;1],..
                          opar=list(),..
                          blocktype="c",..
                          firing=0,..
@@ -153,8 +153,8 @@ scs_m_1.objs(1)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(2)=scicos_link(..
-                  xx=[352.88977;350.83491],..
-                  yy=[578.73637;552.34327],..
+                  xx=[349.63473;349.49528],..
+                  yy=[600.47089;565.10704],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -163,8 +163,8 @@ scs_m_1.objs(2)=scicos_link(..
 scs_m_1.objs(3)=scicos_block(..
                 gui="CLKSPLIT_f",..
                 graphics=scicos_graphics(..
-                         orig=[350.83491;552.34327],..
-                         sz=[ .3333333, .3333333],..
+                         orig=[349.49528;565.10704],..
+                         sz=[0.3333333,0.3333333],..
                          flip=%t,..
                          theta=0,..
                          exprs=[],..
@@ -201,8 +201,8 @@ scs_m_1.objs(3)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(4)=scicos_link(..
-                  xx=[350.83491;286.24528;286.24528;352.16095;352.88977],..
-                  yy=[552.34327;552.34327;661.27274;661.27274;630.16494],..
+                  xx=[349.49528;266.69602;266.69602;270.35525;342.80795;342.80795;349.63473],..
+                  yy=[565.10704;565.10704;680.99483;680.99483;680.99483;651.89946;651.89946],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -211,7 +211,7 @@ scs_m_1.objs(4)=scicos_link(..
 scs_m_1.objs(5)=scicos_block(..
                 gui="OUT_f",..
                 graphics=scicos_graphics(..
-                         orig=[401.4612,594.45066],..
+                         orig=[398.20616,616.18517],..
                          sz=[20,20],..
                          flip=%t,..
                          theta=0,..
@@ -249,8 +249,8 @@ scs_m_1.objs(5)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(6)=scicos_link(..
-                  xx=[381.4612;401.4612],..
-                  yy=[604.45066;604.45066],..
+                  xx=[378.20616;398.20616],..
+                  yy=[626.18517;626.18517],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[1,1],..
@@ -259,7 +259,7 @@ scs_m_1.objs(6)=scicos_link(..
 scs_m_1.objs(7)=scicos_block(..
                 gui="CLKOUTV_f",..
                 graphics=scicos_graphics(..
-                         orig=[340.83491,492.34327],..
+                         orig=[339.49528,505.10704],..
                          sz=[20,30],..
                          flip=%t,..
                          theta=0,..
@@ -297,8 +297,8 @@ scs_m_1.objs(7)=scicos_block(..
                          equations=list()),..
                 doc=list())
 scs_m_1.objs(8)=scicos_link(..
-                  xx=[350.83491;350.83491],..
-                  yy=[552.34327;522.34327],..
+                  xx=[349.49528;349.49528],..
+                  yy=[565.10704;535.10704],..
                   id="drawlink",..
                   thick=[0,0],..
                   ct=[5,-1],..
@@ -318,7 +318,7 @@ model=scicos_model(..
          dstate=[],..
          odstate=list(),..
          rpar=scs_m_1,..
-         ipar=[],.. 
+         ipar=[],..
          opar=list(),..
          blocktype="h",..
          firing=[],..
@@ -331,8 +331,8 @@ model=scicos_model(..
     gr_i=['ipar=arg1.model.rpar.objs(1).model.ipar';
 	'rpar=arg1.model.rpar.objs(1).model.rpar';
 	'n=ipar(1);order=ipar(2);';
-	'xx=rpar(1:n);yy=rpar(n+1:2*n);NP=6;';
-	'[XX,YY,rpardummy]=Do_Spline2(n,order,xx,yy,NP)';
+	'xx=rpar(1:n);yy=rpar(n+1:2*n);';
+	'[XX,YY,rpardummy]=Do_Spline2(n,order,xx,yy)';
 	'xmx=maxi(XX);xmn=mini(XX);';
 	'ymx=maxi(YY);ymn=mini(YY);';
 	'dx=xmx-xmn;if dx==0 then dx=maxi(xmx/2,1);end';
@@ -351,13 +351,9 @@ endfunction
 
 
 //=========================================================
-function [X,Y,orpar]=Do_Spline2(N,order,x,y,NP)
+function [X,Y,orpar]=Do_Spline2(N,order,x,y)
 
   X=[];Y=[];orpar=[];
-  for i=1:N-1
-    X=[X;linspace(x(i),x(i+1),NP)']; // pour tous sauf "linear" et "zero order"
-  end
-
   METHOD=getmethod(order);
 
   if (METHOD=='zero order') then 
@@ -366,6 +362,7 @@ function [X,Y,orpar]=Do_Spline2(N,order,x,y,NP)
       X=[X;x(i);x(i+1);x(i+1)];
       Y=[Y;y(i);y(i);y(i+1)];
     end  
+    return;
   end    
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   if (METHOD=='linear') then
@@ -374,6 +371,16 @@ function [X,Y,orpar]=Do_Spline2(N,order,x,y,NP)
       X=[X;x(i)];
       Y=[Y;y(i)];
     end  
+    return;
+  end
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   if (N<20) then NP=4;else
+   if (N<40) then NP=2;else
+    if (N<100) then NP=1;else
+        NP=0;end;end;
+  end
+  for i=1:N-1
+    X=[X;linspace(x(i),x(i+1),NP+2)']; // pour tous sauf "linear" et "zero order"
   end
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   if (N>2) & (METHOD=='order 2') then
@@ -460,6 +467,43 @@ function METHOD=getmethod(order)
    case 7 then, METHOD='clamped'
   end
 endfunction
+
+
+function [Z]=ORDER2(x,y)
+N=size(x,'*')-1;
+A=zeros(3*N-1,N*3);
+B=zeros(3*N-1,1);
+for i=1:N
+   j=3*(i-1)+1;
+   A(j,i+2*N)=1;
+   B(j)=y(i);
+   A(j+1,i)=(x(i+1)-x(i))^2;
+   A(j+1,i+N)=x(i+1)-x(i);
+   A(j+1,i+2*N)=1;
+   B(j+1)=y(i+1);
+end
+
+for i=1:N-1
+   j=3*(i-1)+1;
+   A(j+2,i)=2*(x(i+1)-x(i));
+   A(j+2,i+N)=1;   
+   A(j+2,i+N+1)=-1;
+end
+
+Q=zeros(3*N,3*N);
+for i=1:N
+  Q(i,i)=4*(x(i+1)-x(i))^2
+  Q(i,i+N)=2*(x(i+1)-x(i))
+  Q(i+N,i)=2*(x(i+1)-x(i))
+  Q(i+N,i+N)=1;
+end
+
+At=[Q,A';A,zeros(3*N-1,3*N-1)]
+Bt=[zeros(3*N,1);B]
+Zt=At\Bt;
+Z=Zt(1:3*N,1)
+endfunction
+//===================================================
 
 
 
