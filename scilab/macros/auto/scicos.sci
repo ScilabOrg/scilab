@@ -163,7 +163,7 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
-//  xstringb = xstringb2; //TO be removed in Scilab 5
+  xstringb = xstringb2; //TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
@@ -683,13 +683,13 @@ gh_winback = gcf() ; //** save the active window
   
   gh_curwin = gh_current_window ; //** acquire the current Scicos window 
   
-  drawlater();
+ 
   for i=1:size(Select,1)
 
     [junk, win, o] = get_selection(Select(i,:))
 
     gh_curwin = scf(win); //** select current window
-
+    drawlater();
     o_size = size ( gh_curwin.children.children ) ;
     //** initial size
     //** at this point I need to build the [scs_m] <-> [gh_window] datastructure
@@ -710,8 +710,12 @@ gh_winback = gcf() ; //** save the active window
 
   end  
   
-  draw(gh_curwin.children)
-  show_pixmap()
+  if flag=='on' then draw(gh_curwin.children);end  // no need to draw
+                                                   // twice
+                                                   // particularly in
+                                                   // case of palettes
+						 
+  if gh_curwin.pixmap=='on' then show_pixmap();end
     
 scf(gh_winback); //** restore the 
 

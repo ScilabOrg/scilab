@@ -63,7 +63,8 @@ function [wa,ha] = do_export(scs_m, fname, titleflag)
     gh_axes = gh_winc.children ; //** axes handle
   end
   
-  copy(gh_curwin.children, gh_axes) ;
+  //copy(gh_curwin.children, gh_axes) ;
+  
 
   //**-------------------------------------------------------------------
   
@@ -114,9 +115,12 @@ function [wa,ha] = do_export(scs_m, fname, titleflag)
   //** --------------------- Output ------------------------------------------
   if num == 1 then //** Postscript file 
 //    set_posfig_dim(wa*%zoom/1.8, ha*%zoom/1.8) 
+
     set_posfig_dim(wa, ha) 
-    ChangeAngledTextFont(gh_axes)
-    draw(gh_axes) ; //** draw the window 
+    drawobjs(scs_m,gcf())
+    drawnow()
+    //ChangeAngledTextFont(gh_axes)
+    //draw(gh_axes) ; //** draw the window 
     xend();driver(driv);
 
     if ~exists('%scicos_landscape') then %scicos_landscape=1;end
