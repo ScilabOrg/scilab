@@ -163,7 +163,7 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
-  xstringb = xstringb2; //TO be removed in Scilab 5
+//  xstringb = xstringb2; //TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
@@ -215,7 +215,7 @@ if ~super_block then
 			     'Export',..
 			     'Quit',..
 			     'Background color',..
-			     'Aspect'  ,..
+			     'Show Block Shadow'  ,..
 			     'Zoom in' ,..
 			     'Zoom out',..
 			     'Help');
@@ -557,12 +557,10 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
     end
   end
 
-  disp(Cmenu)
-  
   //** Command classification and message retrivial 
   [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
   xinfo(mess); //** show the message associated to the command 
-    disp(Cmenu)
+
   //** ----------------- State variable filtering -----------------------------------------
   //** clear the %pt information for backward compatibility
   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
@@ -610,11 +608,15 @@ while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
           exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
           disp(exeString)  ;
         end
-	//** Don't ever think to touch this line of code ;)
-	ierr=execstr('exec('+%cor_item_exec(%koko,2)+',-1)','errcatch','n')
-	if ierr > 0 then 
+	//
+        ierr=0
+	execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
+        if ierr > 0 then
+	  Select_back=[];Select=[]
 	  Cmenu='Replot';
-	  disp(['I recover from the following error:';lasterror()])
+	  disp(['I recovered from the following error:';
+                lasterror();
+                'in '+%cor_item_exec(%koko,2)'+' action.'])
 	end
 	
 	//** unselect ALL the previous selected object and select again the actually selected object
