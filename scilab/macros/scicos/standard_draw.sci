@@ -193,9 +193,8 @@ end //** of on/off control
   end
 
   //** Check of the graphics object has generated any error
-  if execstr(gr_i,'errcatch')<>0 then
-    message(['Error in Icon defintion'; 'See error message in scilab window'])
+  if execstr(gr_i,'errcatch','n')<>0 then
+    message(['Error in Icon defintion'; lasterror()])
   end
 
 endfunction
-
