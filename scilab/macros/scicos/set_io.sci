@@ -172,11 +172,11 @@ function [model,...
  n1=size(in1(:,1),'*') //current number of input port of model
   n=size(in(:,1),'*') //given number of input port
  if n1>n then
-   if or(ip1(n+1:$)>0) then
-     message('set_io : '+...
-              'Connected ports cannot be suppressed')
-      ok=%f
-       return, end
+//    if or(ip1(n+1:$)>0) then
+//      message('set_io : '+...
+//               'Connected ports cannot be suppressed')
+//       ok=%f
+//        return, end
    ip1=ip1(1:n)
  else
    ip1=[ip1;zeros(n-n1,1)]
@@ -184,11 +184,11 @@ function [model,...
  n1=size(out1(:,1),'*')
   n=size(out(:,1),'*')
  if n1>n then
-   if or(op1(n+1:$)>0) then
-     message('set_io : '+...
-              'Connected ports cannot be suppressed')
-      ok=%f
-       return, end
+//    if or(op1(n+1:$)>0) then
+//      message('set_io : '+...
+//               'Connected ports cannot be suppressed')
+//       ok=%f
+//        return, end
    op1=op1(1:n)
  else
    op1=[op1;zeros(n-n1,1)]
@@ -197,11 +197,11 @@ function [model,...
  n1=size(clkin1,'*')
   n=size(clkin,'*')
  if n1>n then
-   if or(cip1(n+1:$)>0) then
-     message('set_io : '+...
-              'Connected ports cannot be suppressed')
-      ok=%f
-       return, end
+//    if or(cip1(n+1:$)>0) then
+//      message('set_io : '+...
+//               'Connected ports cannot be suppressed')
+//       ok=%f
+//        return, end
    cip1=cip1(1:n)
  else
    cip1=[cip1;zeros(n-n1,1)]
@@ -209,11 +209,11 @@ function [model,...
  n1=size(clkout1,'*')
   n=size(clkout,'*')
  if n1>n then
-   if or(cop1(n+1:$)>0) then
-     message('set_io : '+...
-              'Connected ports cannot be suppressed')
-      ok=%f
-       return, end
+//    if or(cop1(n+1:$)>0) then
+//      message('set_io : '+...
+//               'Connected ports cannot be suppressed')
+//       ok=%f
+//        return, end
    cop1=cop1(1:n)
  else
    cop1=[cop1;zeros(n-n1,1)]
@@ -224,28 +224,28 @@ function [model,...
  if ip1<>[] then
    in_impl=I(ones(ip1))
     in_impl(in_implicit)='I'
-   kk=size(graphics.in_implicit,'*')
-    k=find(ip1<>0) //connected links
-     k=k(find(k<=kk))
-   if or(graphics.in_implicit(k)<>in_impl(k)) then
-     message('set_io : '+...
-              'Connected ports types cannot be changed')
-      ok=%f
-       return, end
+//    kk=size(graphics.in_implicit,'*')
+//     k=find(ip1<>0) //connected links
+//      k=k(find(k<=kk))
+//    if or(graphics.in_implicit(k)<>in_impl(k)) then
+//      message('set_io : '+...
+//               'Connected ports types cannot be changed')
+//       ok=%f
+//        return, end
  else
    in_impl=[]
  end
  if op1<>[] then
    out_impl=I(ones(op1))
     out_impl(out_implicit)='I'
-   kk=size(graphics.out_implicit,'*')
-    k=find(op1<>0) //connected links
-     k=k(find(k<=kk))
-   if or(graphics.out_implicit(k)<>out_impl(k)) then
-     message('set_io : '+...
-              'Connected ports types cannot be changed')
-      ok=%f
-       return, end
+//    kk=size(graphics.out_implicit,'*')
+//     k=find(op1<>0) //connected links
+//      k=k(find(k<=kk))
+//    if or(graphics.out_implicit(k)<>out_impl(k)) then
+//      message('set_io : '+...
+//               'Connected ports types cannot be changed')
+//       ok=%f
+//        return, end
  else
    out_impl=[]
  end
