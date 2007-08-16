@@ -2135,7 +2135,6 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	}else{
 	  flagr = IDA_ROOT_RETURN; /* in order to handle discrete jumps */
 	}
-	
 	if ( flagr==IDA_TOO_MUCH_WORK ) {  /* -1 == CV_TOO_MUCH_WORK) */
 	  sciprint("**** SUNDIALS.Ida: too much work at time=%g (may be it's a stiff region)\r\n",*told);	  
 	  hot = 0;
@@ -2152,7 +2151,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  return;
 	}
 
-	if (flagr == CV_ZERO_DETACH_RETURN){hot=0;}; /* new feature of sundials, detects unmasking */
+	if (flagr == IDA_ZERO_DETACH_RETURN){hot=0;}; /* new feature of sundials, detects unmasking */
 	if (flagr == IDA_ROOT_RETURN) {
 	  /*     .        at a least one root has been found */
 	  hot = 0;
@@ -4440,6 +4439,7 @@ int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void *g_dat
   *ierr= 0;
   C2F(ierode).iero = 0;
   zdoit((double *)gout, NV_DATA_S(yp), NV_DATA_S(yy),&tx);
+  printf("\n\r t=%g ggg=%g",tx, gout[0]);
   C2F(ierode).iero = *ierr;
   return (*ierr);
 }

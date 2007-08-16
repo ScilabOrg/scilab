@@ -1232,7 +1232,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
           CVProcessError(cv_mem, CV_RTFUNC_FAIL, "CVODE", "CVRcheck3", MSGCV_RTFUNC_FAILED, tlo);
           return(CV_RTFUNC_FAIL);
         } else if (retval == ZERODETACHING) {  /* Zero detaching */
-	   irfnd = 2;
+	   irfnd = 1;
 	   tretlast = *tret = tlo;
           return(CV_ZERO_DETACH_RETURN);
 	}
@@ -1380,7 +1380,6 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     if (nrtfn > 0) {
 
       retval = CVRcheck3(cv_mem);
-      //      printf(" \n\r x3=%d ",retval);
 
       if (retval == RTFOUND) {  /* A new root was found */
         irfnd = 1;
@@ -1392,7 +1391,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
         istate = CV_RTFUNC_FAIL;
         break;
       }else if (retval == ZERODETACHING) {  /* Zero detaching */
-	irfnd = 2;
+	irfnd = 1;
         istate = CV_ZERO_DETACH_RETURN;
         tretlast = *tret = tlo;
         break;
@@ -4188,7 +4187,6 @@ static int CVRootfind(CVodeMem cv_mem)
     for (i = 0; i < nrtfn; i++) grout[i] = ghi[i];
     return(CV_SUCCESS);
   }
-  //printf(" \n\r imax=%d glo[imax]=%g,ghi[imax]=%g\n\r",imax,glo[imax],ghi[imax]);
 
   /* Initialize alpha to avoid compiler warning */
   alpha = ONE;
@@ -4252,7 +4250,6 @@ static int CVRootfind(CVodeMem cv_mem)
   istuck=-1;iunstuck=-1;
   maxfrac = ZERO;
   for (i = 0;  i < nrtfn; i++) {
-    //    printf(" \n\r 22) tlo=%g, thi=%g i=%d glo=%g, grout[i]=%g, ghi=%g iroots=%d\n\r",tlo,thi,i,glo[i],grout[i],ghi[i],iroots[i]);
     if ((ABS(grout[i])==ZERO)&& (iroots[i]!=MASKED))  istuck=i;
     if ((ABS(grout[i])> ZERO)&& (iroots[i]==MASKED))  iunstuck=i;
     if ((ABS(grout[i])> ZERO)&& (glo[i]*grout[i] <= ZERO)) {
@@ -4264,7 +4261,6 @@ static int CVRootfind(CVodeMem cv_mem)
     }
   }
 
-  // printf("\n\r imax=%d,istuck=%d,iunstuck=%d, tmid=%g",imax,istuck,iunstuck,tmid);
   if (imax>=0)
     sgnchg=TRUE;
   else if (istuck>=0) {

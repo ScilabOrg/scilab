@@ -1141,7 +1141,11 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
         } else if (ier == IDA_RTFUNC_FAIL) {  /* g failed */
           IDAProcessError(IDA_mem, IDA_RTFUNC_FAIL, "IDA", "IDARcheck3", MSG_RTFUNC_FAILED, tlo);
           return(IDA_RTFUNC_FAIL);
-        }
+	} else if (ier == ZERODETACHING) {  /* Zero detaching */
+	  irfnd = 1;
+	  tretlast = *tret = tlo;
+          return(IDA_ZERO_DETACH_RETURN);
+	}
       }
 
     } /* end of root stop check */
@@ -1236,6 +1240,11 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
       } else if (ier == IDA_RTFUNC_FAIL) { /* g failed */
         IDAProcessError(IDA_mem, IDA_RTFUNC_FAIL, "IDA", "IDARcheck3", MSG_RTFUNC_FAILED, tlo);
         istate = IDA_RTFUNC_FAIL;
+        break;
+      }else if (ier == ZERODETACHING) {  /* Zero detaching */
+	irfnd = 1;
+        istate = IDA_ZERO_DETACH_RETURN;
+        tretlast = *tret = tlo;
         break;
       }
 
@@ -2253,7 +2262,6 @@ static int IDANls(IDAMem IDA_mem)
     /* If indicated, call linear solver setup function and reset parameters. */
     if (callSetup){
       nsetups++;
-      // printf("coocoo");
       retval = lsetup(IDA_mem, yy, yp, delta, tempv1, tempv2, tempv3);
       cjold = cj;
       cjratio = ONE;
@@ -3363,7 +3371,6 @@ static int IDARootfind(IDAMem IDA_mem)
   istuck=-1;iunstuck=-1;
   maxfrac = ZERO;
   for (i = 0;  i < nrtfn; i++) {
-    //    printf(" \n\r 22) tlo=%g, thi=%g i=%d glo=%g, grout[i]=%g, ghi=%g iroots=%d\n\r",tlo,thi,i,glo[i],grout[i],ghi[i],iroots[i]);
     if ((ABS(grout[i])==ZERO)&& (iroots[i]!=MASKED))  istuck=i;
     if ((ABS(grout[i])> ZERO)&& (iroots[i]==MASKED))  iunstuck=i;
     if ((ABS(grout[i])> ZERO)&& (glo[i]*grout[i] <= ZERO)) {
@@ -3375,7 +3382,6 @@ static int IDARootfind(IDAMem IDA_mem)
     }
   }
 
-  // printf("\n\r imax=%d,istuck=%d,iunstuck=%d, tmid=%g",imax,istuck,iunstuck,tmid);
   if (imax>=0)
     sgnchg=TRUE;
   else if (istuck>=0) {

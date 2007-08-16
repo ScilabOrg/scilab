@@ -68,11 +68,11 @@ extern "C" {
    * ----------------------------------------
    */
 
-#define IDA_SUCCESS          0
-#define IDA_TSTOP_RETURN     1
-#define IDA_ROOT_RETURN      2
-
-#define IDA_WARNING          99
+#define IDA_SUCCESS              0
+#define IDA_TSTOP_RETURN         1
+#define IDA_ROOT_RETURN          2
+#define IDA_ZERO_DETACH_RETURN   3
+#define IDA_WARNING              99
 
 #define IDA_MEM_NULL        -1
 #define IDA_ILL_INPUT       -2
