@@ -1638,7 +1638,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   static integer j, k;
   static double t;
   static integer jj, jt;
-  static integer istate, ntimer;
+  static integer  ntimer;
   static double rhotmp,tstop;
   static integer inxsci;
   static integer kpo, kev;
@@ -2058,7 +2058,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 
 	    if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
             {
-	      if (istate==4) {
+	      if (flagr>=0) {
 		sciprint("**** SUNDIALS.IDA succesfully initialized *****/r/n" );
 	      }
 	      else{
@@ -2114,7 +2114,6 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	if (ng>0 && hot==0){
 	  zdoit(g, xd, x,told);
 	  if (*ierr != 0) {freeallx;return;  }
-	  istate=0;
 	  for (jj = 0; jj < ng; ++jj) {
 	    if((g[jj]>=0.0)&&( jroot[jj]==-5)) {Discrete_Jump=1;jroot[jj]=1;}
 	    else if((g[jj]<0.0)&&( jroot[jj]==5)) {Discrete_Jump=1;jroot[jj]=-1;}
