@@ -681,7 +681,7 @@ function selecthilite(Select, flag)  // update the image
   
 gh_winback = gcf() ; //** save the active window
   
-  gh_curwin = gh_current_window ; //** acquire the current Scicos window 
+  gh_curwin = [] ; //** acquire the current Scicos window 
   
  
   for i=1:size(Select,1)
@@ -689,6 +689,7 @@ gh_winback = gcf() ; //** save the active window
     [junk, win, o] = get_selection(Select(i,:))
 
     gh_curwin = scf(win); //** select current window
+
     drawlater();
     o_size = size ( gh_curwin.children.children ) ;
     //** initial size
@@ -709,14 +710,12 @@ gh_winback = gcf() ; //** save the active window
     end
 
   end  
-  
-  if flag=='on' then draw(gh_curwin.children);end  // no need to draw
-                                                   // twice
-                                                   // particularly in
-                                                   // case of palettes
-						 
-  if gh_curwin.pixmap=='on' then show_pixmap();end
-    
+
+
+  if gh_curwin<>[] then 
+    draw(gh_curwin.children);
+    if gh_curwin.pixmap=='on' then show_pixmap();end
+  end      
 scf(gh_winback); //** restore the 
 
 endfunction
