@@ -4439,7 +4439,6 @@ int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void *g_dat
   *ierr= 0;
   C2F(ierode).iero = 0;
   zdoit((double *)gout, NV_DATA_S(yp), NV_DATA_S(yy),&tx);
-  printf("\n\r t=%g ggg=%g",tx, gout[0]);
   C2F(ierode).iero = *ierr;
   return (*ierr);
 }
