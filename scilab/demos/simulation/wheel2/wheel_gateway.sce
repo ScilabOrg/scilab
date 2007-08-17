@@ -12,8 +12,8 @@ getf(path+'show.sci');
 
 demo_message(path+'wheel_1.sce');
 
-exec(path+'wheel2_ch.sce');
-demo_choose(path+'wheel2_ch.bin');
+exec(path+'wheel_ch.sce');
+demo_choose(path+'wheel_ch.bin');
 
 demo_run(path+'wheel_1.sce');
 

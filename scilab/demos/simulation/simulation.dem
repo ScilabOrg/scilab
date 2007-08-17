@@ -1,4 +1,6 @@
 getf('SCI/demos/demos_lib/demo_begin.sci');
+getf('SCI/demos/demos_lib/demo_file_choice.sci');
+
 [path,oldln]=demo_begin('simulation.dem');
 
 demolist=['n-pendulum','npend/npend_gateway.sce';
@@ -7,6 +9,5 @@ demolist=['n-pendulum','npend/npend_gateway.sce';
 	  'ODE''S','ode/ode.dem';
 	  'DAE''S','dae/dae.dem']
 
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice(path,'no');
 clear;
