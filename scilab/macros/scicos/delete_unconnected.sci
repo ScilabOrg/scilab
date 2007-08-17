@@ -1,13 +1,5 @@
 function scs_m=delete_unconnected(scs_m);
 // Copyright INRIA
-//**
-// delete unconnected blocks and all relevant parts of a diagram
-// may be used before compilation
-//**
-
- if %scicos_debug_gr then
-   disp("delete_unconnected...")
- end
 
  n = lstsize(scs_m.objs);
 

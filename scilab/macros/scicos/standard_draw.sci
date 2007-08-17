@@ -36,7 +36,7 @@ function standard_draw (o, frame, draw_ports, up)
 //** ----------------------------------
 
 //** local haldler(read/write) = semiglobalhandler(read/only)
-  gh_curwin = gh_current_window     ; //** get the handle of the current graphics window
+
 
   gr_i = o.graphics.gr_i
 
@@ -105,7 +105,7 @@ function standard_draw (o, frame, draw_ports, up)
 if exists('%scicos_with_grid') then
   if %scicos_with_grid then
     scs_m_i=[]; cpr_i=[] ; sflag=[] ;
-
+    gh_curwin = gh_current_window     ; //** get the handle of the current graphics window
     win_id = gh_curwin.figure_id
 
     kc = find(win_id==windows(:,2))
