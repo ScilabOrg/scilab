@@ -125,7 +125,7 @@ function gh_blk = drawobj(o, gh_window)
     end
 
     if ierr<>0 then 
-      message(['Block '+o.gui+ ' not defined'; 'You must leave scicos and define it now.']) ;
+      message(['Problem loading block '+o.gui'; lasterror()]) ;
       gh_blk = [];
     end
 
