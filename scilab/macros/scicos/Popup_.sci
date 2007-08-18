@@ -103,10 +103,9 @@ else //** single / multiple object(s) switch
       o_size = size(gh_curwin.children.children);  
       gh_k   = get_gri(k,o_size(1)) ;
       gh_blk = gh_curwin.children.children(gh_k);
-      
-      Select = [k,%win];
-      selecthilite(Select,"on") ; // immediate select operation 
-      
+       
+      Select = [k %win];               //** select
+
     else
       //** in the void of a palette 
       Cmenu==[]; %pt=[]; %ppt=[]; Select=[];

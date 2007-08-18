@@ -1,11 +1,11 @@
-function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
+function [scs_m,needcompile,Select] = do_duplicate(%pt,scs_m,needcompile,Select)
 // Copyright INRIA
 //** Comments by Simone Mannori
 //** If you double click an object in a palettes windows, a call at "Duplicate_" is generated ->
 //** then the "do_duplicate":  - this very function - is is executed : Welcome to the Real Mess :)
 //**
 
-  xinfo('Click where you want object to be placed (right-click to cancel)');
+//  xinfo('Click where you want object to be placed (right-click to cancel)');
 
   win = %win; //** win contains the windows id where you do the double click
   xc = %pt(1); yc = %pt(2); //** acquire the last mouse position
@@ -47,8 +47,10 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
   end
 
   if k<>[] then
-  //** if the proper flag is set, the duplicate function is active
-  //** the duplicate function move an empty box until the user
+   
+
+    //** if the proper flag is set, the duplicate function is active
+    //** the duplicate function move an empty box until the user
 
     [xy, sz] = (o.graphics.orig, o.graphics.sz) //** origin and size
     %xc = xy(1);  %yc = xy(2) ; //** default start position
@@ -58,6 +60,9 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
                          //** to handle the block as a single entity
     draw(gh_blk.parent)
     show_pixmap();
+
+    xinfo('Click where you want object to be placed (right-click to cancel)');
+
 //**--------------------------------------------------------------------------
 //** ---> main loop that move the empty box until you click
     gh_cw = gcf();
@@ -108,7 +113,11 @@ function [scs_m,needcompile] = do_duplicate(%pt,scs_m,needcompile)
     m_obj_pos = size(scs_m.objs) ; //** the return parameter is a matrix
     obj_pos = m_obj_pos(1) + 1 ;
     scs_m.objs($+1) = o ; //** add the object to the data structure
-    needcompile = 4     ;
+    needcompile = 4     
+
+    Select = [size(scs_m.objs), get(gh_current_window,"figure_id")];
+
+
     [scs_m_save, nc_save, enable_undo, edited] = resume(scs_m_save,nc_save,%t,%t) ; //** ? ? ?
 
   end
