@@ -359,12 +359,6 @@ Add here a paragraph of the function description
  This  is  a floating scope block. 
 </FILE>
 
-<FILE name='GAINBLK' type='LATEX'>
-This block is a gain block. The output is the Gain times the regular
-input (vector). The dimensions of Gain determines the input (number of
-columns) and output (number of rows) port sizes.   
-</FILE>
-
 <FILE name='GENSIN_f' type='LATEX'>
 This block is a sine wave generator: $M*\sin(F*t+P) $ 
 </FILE>
@@ -807,12 +801,6 @@ specified time. If the simulation time is less than the Step time
 parameter value, the block's output is the Initial value parameter
 value. For simulation time greater than or equal to the Step time, the
 output is the Final value parameter value. 
-</FILE>
-
-<FILE name='SUMMATION' type='LATEX'>
-The Sum block performs addition or subtraction on its inputs. This
-block can add or subtract scalar, vector, or matrix inputs. It can
-also collapse the elements of a single input vector. 
 </FILE>
 
 <FILE name='SUM_f' type='LATEX'>
@@ -3244,38 +3232,38 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-The GAINBLK computes the product of a square matrix A by the input matrix U, where the number of rows/cols of A is equal to the number of rows of U. The input/output datatype is defined by the type of the Gain matrix A, it can take all the integer's datatype.
-On overflow, the result can take different forms:</P>
-<P>1- A normal non saturated result.</P>
-<P>2- A saturated result.</P>
-<P>3- An error message warning the user about the overflow.</P>
-<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The GAINBLK computes the product of a square matrix A by the input matrix U, where the number of rows/cols of A is equal to the number of rows of U. The input/output datatype is defined by the type of the Gain matrix A. It can take all the datatype.
+	On overflow, the result can take different forms:</P>
+	<P>1- A normal non saturated result.</P>
+	<P>2- A saturated result.</P>
+	<P>3- An error message warning the user about the overflow.</P>
+	<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-The Sum block performs addition or subtraction on its inputs. This block can add or subtract scalar, vector, or matrix inputs. It can also collapse the elements of a single input vector.</P>
-<P>The number of inputs is given by the second parameter. This parameter can be a vector of +1 and -1 or it can be a positif value. In the first case the size of the vector indicates the number of inputs and the signs indicates whether it is a summation or a substraction. In the second case, the block is a summation block and the value indicates the number of inputs.</P>
-<P>On overflow, the result can take different forms:</P>
-<P>1- A normal non saturated result.</P>
-<P>2- A saturated result.</P>
-<P>3- An error message warning the user about the overflow.</P>
-<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	The Sum block performs addition or subtraction on its inputs. This block can add or subtract scalar, vector, or matrix inputs. It can also collapse the elements of a single input vector.</P>
+	<P>The number of inputs is given by the second parameter. This parameter can be a vector of +1 and -1 or it can be a positif value. In the first case the size of the vector indicates the number of inputs and the signs indicates whether it is a summation or a substraction. In the second case, the block is a summation block and the value indicates the number of inputs.</P>
+	<P>On overflow, the result can take different forms:</P>
+	<P>1- A normal non saturated result.</P>
+	<P>2- A saturated result.</P>
+	<P>3- An error message warning the user about the overflow.</P>
+	<P> The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 </DATA>

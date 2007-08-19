@@ -345,11 +345,17 @@ INRIA
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Ramine Nikoukhah'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='GENSIN_f' type='XML'>
@@ -775,11 +781,17 @@ INRIA
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Ramine Nikoukhah'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
@@ -1374,8 +1386,8 @@ Add here the author  references
 
 <FILE name='CONST_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1470,8 +1482,8 @@ Add here the author  references
 
 <FILE name='GAINBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1636,8 +1648,8 @@ Add here the author  references
 
 <FILE name='REGISTER' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1708,8 +1720,8 @@ Add here the author  references
 
 <FILE name='SUBMAT' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1780,8 +1792,8 @@ Add here the author  references
 
 <FILE name='DOLLAR_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1890,8 +1902,8 @@ Add here the author  references
 
 <FILE name='SAMPHOLD_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1978,272 +1990,272 @@ INRIA
 
 <FILE name='BITCLEAR1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=clock_doc'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=evtdly_doc'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='FROM' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='GOTO' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='GotoTagVisibility' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='SETW' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKGOTO' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKGotoTagVisibility' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='FROMMO' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='GOTOMO' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='GotoTagVisibilityMO' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CURVE_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='Counter' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='M_freq' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='SampleCLK' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='Fady NASSIF'>
+: INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='entrez ici le nom des auteurs'>
-Ajoutez ici les références des auteurs
+<AUTHORS_ITEM label='enter here the author name'>
+Add here the author  references
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>

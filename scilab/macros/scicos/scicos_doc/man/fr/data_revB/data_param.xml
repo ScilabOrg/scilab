@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?>
 <DATA flag="param">
 
 <FILE name='ABS_VALUE' type='LATEX'>
@@ -1451,20 +1452,33 @@
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre définit la matrice carré A. Ce bloc supporte tous les types de données.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
 
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. Une matrice de réels.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Lorsque que ce paramètre est mis à la valeur 0, le résultat est similaire à une addition de deux matrices. Lorque la valeur est à 1, lorqu'un dépassement intervient, le bloc sature la valeur de sortie. Lorsque la valeur est égale à 2, alors, lors d'un dépassement de capacité, un message d'erreur est envoyé à l'utilisateur. Lorsque le type de donnée est un nombre réel ou un nombre complexe, ce paramètre n'est pas pris en compte.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taile 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='GENSIN_f' type='LATEX'>
@@ -2829,20 +2843,43 @@
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype (1=real double  2=complex 3=int32 ...)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Indique le type de donnée des entrées/sortie. Tous les types de données, numérotés de 1 à 8, sont supportés.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Indique le nombre d'entrées et le type d'opération (addition ou soustraction). Voir la description pour plus de détails.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Lorsque que ce paramètre est mis à la valeur 0, le résultat est similaire à une addition de deux matrices. Lorque la valeur est à 1, lorqu'un dépassement intervient, le bloc sature la valeur de sortie. Lorsque la valeur est égale à 2, alors, lors d'un dépassement de capacité, un message d'erreur est envoyé à l'utilisateur. Lorsque le type de donnée est un nombre réel ou un nombre complexe, ce paramètre n'est pas pris en compte.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taile 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>

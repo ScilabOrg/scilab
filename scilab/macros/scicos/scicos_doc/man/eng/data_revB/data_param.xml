@@ -754,14 +754,6 @@
 \end{itemize}
 </FILE>
 
-<FILE name='GAINBLK' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Gain   1
-\item {Gain:} a real matrix. 
-\end{itemize}
-</FILE>
-
 <FILE name='GENSIN_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
@@ -1486,15 +1478,6 @@
 %Final value   1
 \item {Final value:} The block output when the simulation time reaches
   and exceeds the Step time parameter.  
-\end{itemize}
-</FILE>
-
-<FILE name='SUMMATION' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Number of inputs or sign vector (of +1, -1)   [1;-1]
-\item {Number of inputs or sign vector :}Select this parameter to
-  require that all inputs must have the same data type.  
 \end{itemize}
 </FILE>
 
@@ -7673,64 +7656,72 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' of size [-1,-1]. This parameter defined the square matrix A. This block can support all Data types.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Do on Overflow (0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal multiplication of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    This parameter defined the square matrix A. This block can support all Data types.
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Do on Overflow (0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    When this parameter is set to zero the result is similar to a normal multiplication of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype (1=real double  2=complex 3=int32 ...)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' of size 1. It indicates the type of the input/output data. It support all datatype, number must be between 1 and 8.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' of size -1. It indicates the number of inputs and the operation see the description for more detail.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' of size 1. When this parameter is set to zero the result is similar to a normal summation of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears. If the Data type is double or complex this parameter is not used.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype (1=real double  2=complex 3=int32 ...)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    It indicates the type of the input/output data. It support all datatype, number must be between 1 and 8.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>      
+      <PARAM_ITEM>
+	<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    It indicates the number of inputs and the operation see the description for more detail.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Do on Overflow(0=Nothing 1=Saturate 2=Error)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    When this parameter is set to zero the result is similar to a normal summation of two integer matrix. When it is set to 1, on overflow the block saturate the result. When it is set to 2, on overflow an error message box appears. If the Data type is double or complex this parameter is not used.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 </DATA>

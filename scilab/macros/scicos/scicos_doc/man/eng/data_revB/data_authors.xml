@@ -345,11 +345,17 @@ INRIA
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Fady NASSIF'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='GENSIN_f' type='XML'>
@@ -775,11 +781,17 @@ INRIA
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Fady NASSIF'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
@@ -1470,8 +1482,8 @@ Add here the author  references
 
 <FILE name='GAINBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>

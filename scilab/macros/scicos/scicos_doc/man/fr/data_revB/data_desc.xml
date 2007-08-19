@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?>
 <DATA flag="desc">
 
 <FILE name='ABS_VALUE' type='XML'>
@@ -553,15 +554,19 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes de U. Les types de données des entrées/sorties sont définis par le type de donnée de la matrice gain A.
+	  <P>Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs différentes suivant le paramètre "DO ON OVERFLOW":</P>
+	  <P>1- Un résulat non saturé.</P>
+	  <P>2- Un résultat saturé.</P>
+	  <P>3- Un message d'erreur est signalé lorsqu'un dépassement intervient.</P>
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='GENSIN_f' type='XML'>
@@ -1253,15 +1258,22 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P> Ce bloc fait l'addition ou la soustraction de ses entrées. Ce bloc
+	peut additioner et soustraire des grandeurs scalaires, vectorielles et
+	matricielles. Il peut aussi faire la somme cumulative d'une seule entrée
+	vectorielle.</P>
+	<P> Le nombre d'entrée est donné par le second paramètre de la boite de dialogue. Ce paramètre peut être un vecteur de nombre +1 et -1 ou bien
+	il peut être une seule valeur positive. Dans le premier cas le vecteur donne le nombre d'entrée et le signe indique si c'est une addition ou une soustraction. Pour le second choix, ce bloc est un additionneur dont le nombre d'entrée est déterminée par la valeur de ce paramètre.</P>
+	<P>Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs différentes suivant le troisième paramètre "DO ON OVERFLOW":</P>
+	<P>1- Un résulat non saturé.</P>
+	<P>2- Un résultat saturé.</P>
+	<P>3- Un message d'erreur est signalé lorsqu'un dépassement intervient.</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
