@@ -38,7 +38,7 @@ LOGIC titre
  $\epsfig{file=LOGIC.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/LOGIC_blk.gif"
  ALT="\epsfig{file=LOGIC.eps,width=90.00pt}">
 
@@ -51,28 +51,24 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html6"
+<LI><A NAME="tex2html7"
   HREF="LOGIC.htm#SECTION00010000000000000000">LOGIC titre</A>
 <UL>
-<LI><A NAME="tex2html7"
-  HREF="LOGIC.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="LOGIC.htm#SECTION00022000000000000000">Description</A>
+  HREF="LOGIC.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html9"
-  HREF="LOGIC.htm#SECTION00023000000000000000">Boîte de dialogue</A>
+  HREF="LOGIC.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html10"
-  HREF="LOGIC.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+  HREF="LOGIC.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html11"
-  HREF="LOGIC.htm#SECTION00025000000000000000">Fonction d'interface</A>
+  HREF="LOGIC.htm#SECTION00024000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html12"
-  HREF="LOGIC.htm#SECTION00026000000000000000">Fonction de calcul (type 4)</A>
+  HREF="LOGIC.htm#SECTION00025000000000000000">Fonction d'interface</A>
 <LI><A NAME="tex2html13"
-  HREF="LOGIC.htm#SECTION00027000000000000000">Fonction utilisée</A>
+  HREF="LOGIC.htm#SECTION00026000000000000000">Voir aussi</A>
 <LI><A NAME="tex2html14"
-  HREF="LOGIC.htm#SECTION00028000000000000000">Voir aussi</A>
+  HREF="LOGIC.htm#SECTION00027000000000000000">Auteurs</A>
 <LI><A NAME="tex2html15"
-  HREF="LOGIC.htm#SECTION00029000000000000000">Auteurs</A>
-<LI><A NAME="tex2html16"
   HREF="LOGIC.htm#SECTION00030000000000000000">Bibliographie</A>
 </UL>
 </UL><BR>
@@ -99,7 +95,7 @@ Boîte de dialogue</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="136" BORDER="0"
+ WIDTH="477" HEIGHT="133" BORDER="0"
  SRC="../../images/scicos/LOGIC_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=LOGIC_gui.eps,width=300pt}
@@ -151,66 +147,27 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>LOGIC.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/IntegerOp/LOGIC.sci <A NAME="tex2html4"
+  HREF="LOGIC_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Fonction de calcul (type 4)</A>
-</font></H3>
- <SMALL CLASS="TINY">  </SMALL><BR>
-<PRE  CLASS="verbatim">#include "scicos_block4.h"
-#include &lt;math.h&gt;
-
-void logic(scicos_block *block,int flag)
-{
-  char *u,*y;
-  char inp,num;
-  int i,nin,nout,mo;
-  char *opar;
-  
-  nin=GetNin(block);
-  nout=GetNout(block);
-  opar=Getint8OparPtrs(block,1);
-  mo=GetOparSize(block,1,1);
-
-  if (flag==1)
-   {num=0;
-    for (i=0;i&lt;nin;i++)
-	{
-	 u=Getint8InPortPtrs(block,i+1);
-	 inp=*u;
-	 if (inp&gt;0) inp=1;
-	 else inp=0;
-	 inp=inp&lt;&lt;i;
-	 num=num+inp;
-	}
-    for (i=0;i&lt;nout;i++)
-	{
-	 y=Getint8OutPortPtrs(block,i+1);
-	 *y=*(opar+num+i*mo);
-	}
-   }
-}
-</PRE>
-
-<H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Fonction utilisée</A>
-</font></H3>
-<b>logic.c</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Voir aussi</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html5"
   HREF="SRFLIPFLOP.htm">SRFLIPFLOP - SRFLIPFLOP titre (Bloc Scicos)</A>
 </LI>
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html6"
   HREF="JKFLIPFLOP.htm">JKFLIPFLOP - JKFLIPFLOP titre (Bloc Scicos)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Auteurs</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

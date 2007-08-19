@@ -39,7 +39,7 @@ ISELECT_m title
  $\epsfig{file=ISELECT_m.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/ISELECT_m_blk.gif"
  ALT="\epsfig{file=ISELECT_m.eps,width=90.00pt}">
 
@@ -52,22 +52,22 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="ISELECT_m.htm#SECTION00010000000000000000">ISELECT_m title</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="ISELECT_m.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="ISELECT_m.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="ISELECT_m.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="ISELECT_m.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="ISELECT_m.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="ISELECT_m.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="ISELECT_m.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="ISELECT_m.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="ISELECT_m.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="ISELECT_m.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
+  HREF="ISELECT_m.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="ISELECT_m.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
   HREF="ISELECT_m.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,7 +93,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="118" BORDER="0"
+ WIDTH="477" HEIGHT="117" BORDER="0"
  SRC="../../images/scicos/ISELECT_m_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=ISELECT_m_gui.eps,width=300pt}
@@ -155,56 +155,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>ISELECT_m.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Branching/ISELECT_m.sci <A NAME="tex2html4"
+  HREF="ISELECT_m_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block4.h"
-#include "../machine.h"
-#include &lt;memory.h&gt;
 
-void selector_m(scicos_block *block,int flag)
- {
-  void *u;
-  void *y;
-  double *z;
-  int nu,mu,ic,nev,nin,so;
-
-  z=GetDstate(block);
-  nin=GetNin(block);
-  ic=(int)z[0];
-  if (flag&lt;3)
-     {ic=0;
-      nev=GetNev(block);
-      while (nev&gt;=1) 
-           {
-     	    ic=ic+1;
-     	    nev=nev/2;
-    	   }
-     }
-  if (nin&gt;1)
-     {
-      mu=GetInPortRows(block,ic);
-      nu=GetInPortCols(block,ic);
-      u=GetInPortPtrs(block,ic);
-      so=GetSizeOfOut(block,1);
-      y=GetOutPortPtrs(block,1);
-      memcpy(y,u,mu*nu*so);
-      }
-   else
-      {
-       mu=GetInPortRows(block,1);
-       nu=GetInPortCols(block,1);
-       u=GetRealInPortPtrs(block,1);
-       y=GetRealOutPortPtrs(block,ic);
-       so=GetSizeOfIn(block,1);
-       memcpy(y,u,mu*nu*so);
-       }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/selector_m.c (Type 4) <A NAME="tex2html5"
+  HREF="selector_m_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>

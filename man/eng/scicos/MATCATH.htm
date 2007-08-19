@@ -39,7 +39,7 @@ MATCATH: Horizental Concatenation
  $\epsfig{file=MATCATH.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="144" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="144" HEIGHT="227" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATCATH_blk.gif"
  ALT="\epsfig{file=MATCATH.eps,width=90.00pt}">
 
@@ -52,29 +52,27 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html8"
   HREF="MATCATH.htm#SECTION00010000000000000000">MATCATH: Horizental Concatenation</A>
 <UL>
-<LI><A NAME="tex2html6"
-  HREF="MATCATH.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html7"
-  HREF="MATCATH.htm#SECTION00022000000000000000">Description</A>
-<LI><A NAME="tex2html8"
-  HREF="MATCATH.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html9"
-  HREF="MATCATH.htm#SECTION00024000000000000000">Example</A>
+  HREF="MATCATH.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html10"
-  HREF="MATCATH.htm#SECTION00025000000000000000">Default properties</A>
+  HREF="MATCATH.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html11"
-  HREF="MATCATH.htm#SECTION00026000000000000000">Interfacing function</A>
+  HREF="MATCATH.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html12"
-  HREF="MATCATH.htm#SECTION00027000000000000000">Computational function (type 4)</A>
+  HREF="MATCATH.htm#SECTION00024000000000000000">Example</A>
 <LI><A NAME="tex2html13"
-  HREF="MATCATH.htm#SECTION00028000000000000000">Used functions</A>
+  HREF="MATCATH.htm#SECTION00025000000000000000">Default properties</A>
 <LI><A NAME="tex2html14"
-  HREF="MATCATH.htm#SECTION00029000000000000000">See also</A>
+  HREF="MATCATH.htm#SECTION00026000000000000000">Interfacing function</A>
 <LI><A NAME="tex2html15"
-  HREF="MATCATH.htm#SECTION000210000000000000000">Authors</A>
+  HREF="MATCATH.htm#SECTION00027000000000000000">Computational function</A>
+<LI><A NAME="tex2html16"
+  HREF="MATCATH.htm#SECTION00028000000000000000">See also</A>
+<LI><A NAME="tex2html17"
+  HREF="MATCATH.htm#SECTION00029000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
@@ -101,7 +99,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="109" BORDER="0"
+ WIDTH="477" HEIGHT="108" BORDER="0"
  SRC="../../images/scicos/MATCATH_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=MATCATH_gui.eps,width=300pt}
@@ -161,61 +159,37 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>MATCATH.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/MatrixOp/MATCATH.sci <A NAME="tex2html4"
+  HREF="MATCATH_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim"># include "scicos_block4.h"
-# include "../machine.h"
-#include &lt;stdio.h&gt;
 
-void mat_cath(scicos_block *block,int flag)
-{
- double *u;
- double *y;
- int mu,nu;
- int i,j,ij,k,bk;
- 
- mu =GetInPortRows(block,1);
- y=GetRealOutPortPtrs(block,1);
-if ((flag==1) || (flag==6))
-   {for(j=0;j&lt;mu;j++)
-        {k=j;
-	 for (bk=1;bk&lt;GetNin(block)+1;bk++) 
-   	     {u=GetRealInPortPtrs(block,bk);
-	     nu=GetInPortCols(block,bk);
-     	     for(i=0;i&lt;nu;i++)
-		{ij=j+i*mu;
-	 	 y[k]=u[ij];
- 		 k+= mu;
-		}
- 	     }
-	}
-    }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/mat_cath.c <A NAME="tex2html5"
+  HREF="mat_cath_routcos.htm">[view code]</A>
+</LI>
+<LI>SCI/routines/scicos/matz_cath.c <A NAME="tex2html6"
+  HREF="matz_cath_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00028000000000000000">
-Used functions</A>
-</font></H3>
-For this block we have two functions:
-<b>mat_cath</b>,
-<b>matz_cath</b>
-
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
 See also</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html7"
   HREF="MATCATV.htm">MATCATV - MATCATV Vertical Concatenation (Scicos Block)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION000210000000000000000">
+<H3><font color="blue"><A NAME="SECTION00029000000000000000">
 Authors</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

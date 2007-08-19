@@ -39,7 +39,7 @@ MATINV Matrix Inverse
  $\epsfig{file=MATINV.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATINV_blk.gif"
  ALT="\epsfig{file=MATINV.eps,width=90.00pt}">
 
@@ -52,27 +52,25 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html6"
+<LI><A NAME="tex2html9"
   HREF="MATINV.htm#SECTION00010000000000000000">MATINV Matrix Inverse</A>
 <UL>
-<LI><A NAME="tex2html7"
-  HREF="MATINV.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html8"
-  HREF="MATINV.htm#SECTION00022000000000000000">Description</A>
-<LI><A NAME="tex2html9"
-  HREF="MATINV.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="MATINV.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="MATINV.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html11"
-  HREF="MATINV.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="MATINV.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html12"
-  HREF="MATINV.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="MATINV.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html13"
-  HREF="MATINV.htm#SECTION00027000000000000000">Used functions</A>
+  HREF="MATINV.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html14"
-  HREF="MATINV.htm#SECTION00028000000000000000">See also</A>
+  HREF="MATINV.htm#SECTION00025000000000000000">Interfacing function</A>
 <LI><A NAME="tex2html15"
-  HREF="MATINV.htm#SECTION00029000000000000000">Authors</A>
+  HREF="MATINV.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html16"
+  HREF="MATINV.htm#SECTION00027000000000000000">See also</A>
+<LI><A NAME="tex2html17"
+  HREF="MATINV.htm#SECTION00028000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
@@ -97,7 +95,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="85" BORDER="0"
+ WIDTH="477" HEIGHT="83" BORDER="0"
  SRC="../../images/scicos/MATINV_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=MATINV_gui.eps,width=300pt}
@@ -144,103 +142,40 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>MATINV.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/MatrixOp/MATINV.sci <A NAME="tex2html4"
+  HREF="MATINV_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim"># include "scicos_block4.h"
-# include "../machine.h"
-#include &lt;stdio.h&gt;
 
-#if WIN32
-#define NULL    0
-#endif
-
-extern int C2F(dgetrf)();
-extern int C2F(dgetri)();
-typedef struct
-{         int *ipiv;
-          double *dwork;
-} mat_inv_struct ;
-void mat_inv(scicos_block *block,int flag)
-{
- double *u;
- double *y;
- int nu;
- int info;
- int i;
- mat_inv_struct *ptr;
- 
- nu =GetInPortRows(block,1);
- u=GetRealInPortPtrs(block,1);
- y=GetRealOutPortPtrs(block,1);
-
-             /*init : initialization*/
-if (flag==4)
-   {if((*(block-&gt;work)=(mat_inv_struct*) scicos_malloc(sizeof(mat_inv_struct)))==NULL)
-	{set_block_error(-16);
-	 return;}
-    ptr=*(block-&gt;work);
-    if((ptr-&gt;ipiv=(int*) scicos_malloc(sizeof(int)*nu))==NULL)
-	{set_block_error(-16);
-	 scicos_free(ptr);
-	 return;}
-    if((ptr-&gt;dwork=(double*) scicos_malloc(sizeof(double)*nu))==NULL)
-	{set_block_error(-16);
-	 scicos_free(ptr-&gt;ipiv);
-	 scicos_free(ptr);
-	 return;}
-   }
-
-       /* Terminaison */
-else if (flag==5)
-   {ptr=*(block-&gt;work);
-    if ((ptr-&gt;dwork)!=NULL){
-    	scicos_free(ptr-&gt;ipiv);
-    	scicos_free(ptr-&gt;dwork);
-    	scicos_free(ptr);
-    	return;}
-   }
-
-else
-   {
-    ptr=*(block-&gt;work);
-    for (i=0;i&lt;(nu*nu);i++)   { y[i]=u[i];}
-    C2F(dgetrf)(&amp;nu,&amp;nu,&amp;y[0],&amp;nu,ptr-&gt;ipiv,&amp;info);
-    if (info !=0)
-       {if (flag!=6)
-   	{set_block_error(-7);
-        return;}}
-    C2F (dgetri)(&amp;nu,y,&amp;nu,ptr-&gt;ipiv,ptr-&gt;dwork,&amp;nu,&amp;info);
-    
-   }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/mat_inv.c <A NAME="tex2html5"
+  HREF="mat_inv_routcos.htm">[view code]</A>
+</LI>
+<LI>SCI/routines/scicos/matz_inv.c <A NAME="tex2html6"
+  HREF="matz_inv_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Used functions</A>
-</font></H3>
-for this block we have two differents functions:
-<b>mat_inv</b>,
-<b>matz_inv</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 See also</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html7"
   HREF="MATLU.htm">MATLU - MATLU LU Factorization (Scicos Block)</A>
 </LI>
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html8"
   HREF="MATPINV.htm">MATPINV - MATPINV Matrix PsedoInverse (Scicos Block)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Authors</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

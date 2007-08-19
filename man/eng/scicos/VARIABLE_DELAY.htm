@@ -39,7 +39,7 @@ Variable delay
  $\epsfig{file=VARIABLE_DELAY.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/VARIABLE_DELAY_blk.gif"
  ALT="\epsfig{file=VARIABLE_DELAY.eps,width=90.00pt}">
 
@@ -52,22 +52,22 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="VARIABLE_DELAY.htm#SECTION00010000000000000000">Variable delay</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="VARIABLE_DELAY.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="VARIABLE_DELAY.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="VARIABLE_DELAY.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="VARIABLE_DELAY.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="VARIABLE_DELAY.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="VARIABLE_DELAY.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="VARIABLE_DELAY.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="VARIABLE_DELAY.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="VARIABLE_DELAY.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="VARIABLE_DELAY.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
+  HREF="VARIABLE_DELAY.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="VARIABLE_DELAY.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
   HREF="VARIABLE_DELAY.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -97,7 +97,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="189" BORDER="0"
+ WIDTH="477" HEIGHT="187" BORDER="0"
  SRC="../../images/scicos/VARIABLE_DELAY_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=VARIABLE_DELAY_gui.eps,width=300pt}
@@ -149,103 +149,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>VARIABLE_DELAY.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Linear/VARIABLE_DELAY.sci <A NAME="tex2html4"
+  HREF="VARIABLE_DELAY_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block.h"
-#include &lt;math.h&gt;
-#include "../machine.h"
 
-#if WIN32
-#define NULL    0
-#define max(a,b) ((a) &gt;= (b) ? (a) : (b))
-#define min(a,b) ((a) &lt;= (b) ? (a) : (b))
-#endif
-
-extern void sciprint __PARAMS((char *fmt,...));
-
-void variable_delay(scicos_block *block,int flag)
-{/*  rpar[0]=max delay, rpar[1]=init value, ipar[0]=buffer length */
-  double* pw,del,t,td;
-  int* iw;
-  int i,j,k;
-  if (flag == 4){/* the workspace is used to store previous values */
-    if ((*block-&gt;work=
-	 scicos_malloc(sizeof(int)+sizeof(double)* 
-		       block-&gt;ipar[0]*(1+block-&gt;insz[0])))== NULL ) {
-      set_block_error(-16);
-      return;
-    }
-    pw=*block-&gt;work; 
-    pw[0]=-block-&gt;rpar[0]*block-&gt;ipar[0];
-    for(i=1;i&lt; block-&gt;ipar[0];i++){
-      pw[i]=pw[i-1]+block-&gt;rpar[0];
-      for(j=1;j&lt; block-&gt;insz[0]+1;j++){
-	pw[i+block-&gt;ipar[0]*j]=block-&gt;rpar[1];
-      }
-    }
-    iw=(int *) (pw+block-&gt;ipar[0]*(1+block-&gt;insz[0]));
-    *iw=0;
-  }else  if (flag == 5){
-    scicos_free(*block-&gt;work);
-  } else if (flag==1) {
-    if (get_phase_simulation()==1) do_cold_restart();
-    pw=*block-&gt;work; 
-    iw=(int *) (pw+block-&gt;ipar[0]*(1+block-&gt;insz[0]));
-    t=get_scicos_time();
-    del=min(max(0,block-&gt;inptr[1][0]),block-&gt;rpar[0]);
-    td=t-del;
-    if(td&lt;pw[*iw]){
-      sciprint("delayed time=%f but last stored time=%f \r\n", td, pw[*iw]);
-      sciprint("Consider increasing the length of buffer in variable delay block\r\n");
-    }
-    if (t&gt;pw[(block-&gt;ipar[0]+*iw-1)%block-&gt;ipar[0]]){
-      for(j=1;j&lt; block-&gt;insz[0]+1;j++){
-	pw[*iw +block-&gt;ipar[0]*j]=block-&gt;inptr[0][j-1];
-      }
-      pw[*iw]=t;
-      *iw=(*iw+1)%block-&gt;ipar[0];
-    }else{
-      for(j=1;j&lt; block-&gt;insz[0]+1;j++){
-	pw[(block-&gt;ipar[0]+*iw-1)%block-&gt;ipar[0] +block-&gt;ipar[0]*j]=block-&gt;inptr[0][j-1];
-      }
-      pw[(block-&gt;ipar[0]+*iw-1)%block-&gt;ipar[0]]=t;
-    }
-
-    i=0;j= block-&gt;ipar[0]-1;
-
-    while (j-i&gt;1) {
-      k=(i+j)/2;
-      if (td&lt;pw[(k+*iw)%block-&gt;ipar[0]]) {
-	j=k;
-      }else if (td&gt;pw[(k+*iw)%block-&gt;ipar[0]]) {
-	i=k;
-      }else{
-	i=k;
-	j=k;
-	break;
-      }
-    }
-    i=(i+*iw)%block-&gt;ipar[0];
-    j=(j+*iw)%block-&gt;ipar[0];
-    del=pw[j]-pw[i];
-    if(del!=0.0){
-      for (k=1;k&lt;block-&gt;insz[0]+1;k++){
-	block-&gt;outptr[0][k-1]=((pw[j]-td)*pw[i+block-&gt;ipar[0]*k] +
-			       (td-pw[i])*pw[j+block-&gt;ipar[0]*k])/del;
-      }
-    }else{
-      for (k=1;k&lt;block-&gt;insz[0]+1;k++){
-	block-&gt;outptr[0][k-1]=pw[i+block-&gt;ipar[0]*k];
-      }
-    }
-  }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/variable_delay.c (Type 4) <A NAME="tex2html5"
+  HREF="variable_delay_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>

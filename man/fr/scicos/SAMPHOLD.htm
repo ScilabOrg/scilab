@@ -39,7 +39,7 @@ SAMPHOLD titre
  $\epsfig{file=SAMPHOLD.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SAMPHOLD_blk.gif"
  ALT="\epsfig{file=SAMPHOLD.eps,width=90.00pt}">
 
@@ -52,18 +52,18 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
+<LI><A NAME="tex2html5"
   HREF="SAMPHOLD.htm#SECTION00010000000000000000">SAMPHOLD titre</A>
 <UL>
-<LI><A NAME="tex2html4"
-  HREF="SAMPHOLD.htm#SECTION00021000000000000000">Description</A>
-<LI><A NAME="tex2html5"
-  HREF="SAMPHOLD.htm#SECTION00022000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html6"
-  HREF="SAMPHOLD.htm#SECTION00023000000000000000">Fonction d'interface</A>
+  HREF="SAMPHOLD.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="SAMPHOLD.htm#SECTION00024000000000000000">Fonction de calcul (type 4)</A>
+  HREF="SAMPHOLD.htm#SECTION00022000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html8"
+  HREF="SAMPHOLD.htm#SECTION00023000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html9"
+  HREF="SAMPHOLD.htm#SECTION00024000000000000000">Fonction de calcul</A>
+<LI><A NAME="tex2html10"
   HREF="SAMPHOLD.htm#SECTION00025000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -106,29 +106,22 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>SAMPHOLD.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Linear/SAMPHOLD.sci <A NAME="tex2html3"
+  HREF="SAMPHOLD_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
-Fonction de calcul (type 4)</A>
+Fonction de calcul</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block.h"
 
-void samphold4(scicos_block *block,int flag)
-{
-  /* c     Copyright INRIA
-     
-  Scicos block simulator
-  returns sample and hold  of the input */
-  
-  int i;
-  if (flag ==1){
-    for (i=0;i&lt;block-&gt;insz[0];i++) 
-      block-&gt;outptr[0][i]=block-&gt;inptr[0][i];
-  }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/samphold4.c (Type 4) <A NAME="tex2html4"
+  HREF="samphold4_routcos.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Auteurs</A>

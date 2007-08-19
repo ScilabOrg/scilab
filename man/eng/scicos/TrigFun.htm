@@ -52,22 +52,22 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="TrigFun.htm#SECTION00010000000000000000">Trigonometric function</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="TrigFun.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="TrigFun.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="TrigFun.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="TrigFun.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="TrigFun.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="TrigFun.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="TrigFun.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="TrigFun.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="TrigFun.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="TrigFun.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
+  HREF="TrigFun.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="TrigFun.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
   HREF="TrigFun.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -97,7 +97,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="145" BORDER="0"
+ WIDTH="477" HEIGHT="143" BORDER="0"
  SRC="../../images/scicos/TrigFun_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=TrigFun_gui.eps,width=300pt}
@@ -143,26 +143,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>TrigFun.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/NonLinear/TrigFun.sci <A NAME="tex2html4"
+  HREF="TrigFun_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block.h"
-#include &lt;math.h&gt;
 
-void sin_blk(scicos_block *block,int flag)
-{
-  int j;
-  if(flag==1){
-    for (j=0;j&lt;block-&gt;insz[0];j++) {
-      block-&gt;outptr[0][j]=sin(block-&gt;inptr[0][j]);
-    }
-  }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/sin_blk.c (Type 4) <A NAME="tex2html5"
+  HREF="sin_blk_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>

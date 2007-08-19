@@ -39,7 +39,7 @@ MATDIAG titre
  $\epsfig{file=MATDIAG.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATDIAG_blk.gif"
  ALT="\epsfig{file=MATDIAG.eps,width=90.00pt}">
 
@@ -52,27 +52,25 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html8"
   HREF="MATDIAG.htm#SECTION00010000000000000000">MATDIAG titre</A>
 <UL>
-<LI><A NAME="tex2html6"
-  HREF="MATDIAG.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html7"
-  HREF="MATDIAG.htm#SECTION00022000000000000000">Description</A>
-<LI><A NAME="tex2html8"
-  HREF="MATDIAG.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html9"
-  HREF="MATDIAG.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+  HREF="MATDIAG.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html10"
-  HREF="MATDIAG.htm#SECTION00025000000000000000">Fonction d'interface</A>
+  HREF="MATDIAG.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html11"
-  HREF="MATDIAG.htm#SECTION00026000000000000000">Fonction de calcul (type 4)</A>
+  HREF="MATDIAG.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html12"
-  HREF="MATDIAG.htm#SECTION00027000000000000000">Fonction utilisée</A>
+  HREF="MATDIAG.htm#SECTION00024000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html13"
-  HREF="MATDIAG.htm#SECTION00028000000000000000">Voir aussi</A>
+  HREF="MATDIAG.htm#SECTION00025000000000000000">Fonction d'interface</A>
 <LI><A NAME="tex2html14"
-  HREF="MATDIAG.htm#SECTION00029000000000000000">Auteurs</A>
+  HREF="MATDIAG.htm#SECTION00026000000000000000">Fonction de calcul</A>
+<LI><A NAME="tex2html15"
+  HREF="MATDIAG.htm#SECTION00027000000000000000">Voir aussi</A>
+<LI><A NAME="tex2html16"
+  HREF="MATDIAG.htm#SECTION00028000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
@@ -97,7 +95,7 @@ Boîte de dialogue</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="85" BORDER="0"
+ WIDTH="477" HEIGHT="83" BORDER="0"
  SRC="../../images/scicos/MATDIAG_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=MATDIAG_gui.eps,width=300pt}
@@ -147,52 +145,37 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>MATDIAG.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/MatrixOp/MATDIAG.sci <A NAME="tex2html4"
+  HREF="MATDIAG_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Fonction de calcul (type 4)</A>
+Fonction de calcul</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block4.h"
-#include "../machine.h"
 
-void mat_diag(scicos_block *block,int flag)
-{
-  double *u1;
-  double *y;
-
-  int mu,i,ii;
-
-  mu=GetInPortRows(block,1);
-
-  u1=GetRealInPortPtrs(block,1);
-  y=GetRealOutPortPtrs(block,1);
-  for (i=0;i&lt;mu*mu;i++) *(y+i)=0;
-  for (i=0;i&lt;mu;i++)     
-	{ii=i+i*mu;
-	 *(y+ii)=*(u1+i);}
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/mat_diag.c <A NAME="tex2html5"
+  HREF="mat_diag_routcos.htm">[voir code]</A>
+</LI>
+<LI>SCI/routines/scicos/matz_diag.c <A NAME="tex2html6"
+  HREF="matz_diag_routcos.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Fonction utilisée</A>
-</font></H3>
-For this block we use two differents functions:
-<b>mat_diag</b>,
-<b>matz_diag</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Voir aussi</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html7"
   HREF="EXTTRI.htm">EXTTRI - EXTTRI titre (Bloc Scicos)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Auteurs</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

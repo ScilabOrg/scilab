@@ -52,22 +52,22 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="INTRP2BLK_f.htm#SECTION00010000000000000000">Interpolation 2D</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="INTRP2BLK_f.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="INTRP2BLK_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="INTRP2BLK_f.htm#SECTION00023000000000000000">Boîte de dialogue</A>
+  HREF="INTRP2BLK_f.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="INTRP2BLK_f.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+  HREF="INTRP2BLK_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="INTRP2BLK_f.htm#SECTION00025000000000000000">Fonction d'interface</A>
+  HREF="INTRP2BLK_f.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html10"
-  HREF="INTRP2BLK_f.htm#SECTION00026000000000000000">Fonction de calcul (type 1)</A>
+  HREF="INTRP2BLK_f.htm#SECTION00024000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html11"
+  HREF="INTRP2BLK_f.htm#SECTION00025000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html12"
+  HREF="INTRP2BLK_f.htm#SECTION00026000000000000000">Fonction de calcul</A>
+<LI><A NAME="tex2html13"
   HREF="INTRP2BLK_f.htm#SECTION00027000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,7 +93,7 @@ Boîte de dialogue</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="198" BORDER="0"
+ WIDTH="477" HEIGHT="195" BORDER="0"
  SRC="../../images/scicos/INTRP2BLK_f_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=INTRP2BLK_f_gui.eps,width=300pt}
@@ -146,50 +146,22 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>INTRP2BLK_f.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/NonLinear/INTRP2BLK_f.sci <A NAME="tex2html4"
+  HREF="INTRP2BLK_f_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Fonction de calcul (type 1)</A>
+Fonction de calcul</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">      subroutine intrp2(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
-     &amp;     rpar,nrpar,ipar,nipar,u1,nu1,u2,nu2,y1,ny1)
-c     Copyright INRIA
 
-c     Scicos block simulator
-c     ipar(1) : the number of input
-c
-      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*)
-      double precision y1,u1,u2
-      double precision vx1,vx2,vy1,vy2,vz1,vz2,vz3,vz4
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*),i
-      integer nipar
-c
-c    
-      do 100 i=2,ipar(1)
-         if (u1.le.rpar(i)) goto 200 
- 100  continue
-      i=ipar(1)
- 200  do 300 j=2,ipar(2)
-         if (u2.le.rpar(j+ipar(1))) goto 400 
- 300  continue
-      j=ipar(2)
- 400  continue
-      vy1=rpar(ipar(1)+j-1)
-      vy2=rpar(ipar(1)+j)
-      vz1=rpar(ipar(1)+ipar(2)+(i-2)*ipar(2)+j-1)
-      vz4=rpar(ipar(1)+ipar(2)+(i-2)*ipar(2)+j)
-      vz2=rpar(ipar(1)+ipar(2)+(i-1)*ipar(2)+j-1)
-      vz3=rpar(ipar(1)+ipar(2)+(i-1)*ipar(2)+j)
-      vx1=rpar(i-1)
-      vx2=rpar(i)     
-      y1=(1.0d0-(u2-vy1)/(vy2-vy1))*(vz1+(vz2-vz1)*(u1-vx1)/(vx2-vx1))
-     $     +((u2-vy1)/(vy2-vy1))*(vz4+(vz3-vz4)*(u1-vx1)/(vx2-vx1))
-      return
-      end
-
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/intrp2.f (Type 1) <A NAME="tex2html5"
+  HREF="intrp2_routcos.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Auteurs</A>

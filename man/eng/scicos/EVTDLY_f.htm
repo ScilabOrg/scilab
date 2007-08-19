@@ -32,14 +32,14 @@ Scicos Block
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="EVTDLY_f"></A>
 <BR>
-Event select
+Event delay
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
  $\epsfig{file=EVTDLY_f.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/EVTDLY_f_blk.gif"
  ALT="\epsfig{file=EVTDLY_f.eps,width=90.00pt}">
 
@@ -52,24 +52,35 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
-  HREF="EVTDLY_f.htm#SECTION00010000000000000000">Event select</A>
-<UL>
-<LI><A NAME="tex2html4"
-  HREF="EVTDLY_f.htm#SECTION00021000000000000000">Description</A>
-<LI><A NAME="tex2html5"
-  HREF="EVTDLY_f.htm#SECTION00022000000000000000">Dialog box</A>
 <LI><A NAME="tex2html6"
-  HREF="EVTDLY_f.htm#SECTION00023000000000000000">Default properties</A>
+  HREF="EVTDLY_f.htm#SECTION00010000000000000000">Event delay</A>
+<UL>
 <LI><A NAME="tex2html7"
-  HREF="EVTDLY_f.htm#SECTION00024000000000000000">Interfacing function</A>
+  HREF="EVTDLY_f.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="EVTDLY_f.htm#SECTION00025000000000000000">Computational function (type 0)</A>
+  HREF="EVTDLY_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="EVTDLY_f.htm#SECTION00026000000000000000">Authors</A>
+  HREF="EVTDLY_f.htm#SECTION00023000000000000000">Dialog box</A>
+<LI><A NAME="tex2html10"
+  HREF="EVTDLY_f.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html11"
+  HREF="EVTDLY_f.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="EVTDLY_f.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
+  HREF="EVTDLY_f.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Events_pal.htm">Events - Events palette</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
 Description</A>
 </font></H3>
 
@@ -77,13 +88,13 @@ Description</A>
 One event is generated  <B>Delay</B>  after an event enters the unique
 input event port. Block may also generate an initial output event.   
 
-<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
 </font></H3>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="211" BORDER="0"
+ WIDTH="477" HEIGHT="209" BORDER="0"
  SRC="../../images/scicos/EVTDLY_f_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=EVTDLY_f_gui.eps,width=300pt}
@@ -100,7 +111,7 @@ Dialog box</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Default properties</A>
 </font></H3>
 
@@ -129,37 +140,27 @@ Default properties</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>EVTDLY_f.sci</TT>
 
-<H3><font color="blue"><A NAME="SECTION00025000000000000000">
-Computational function (type 0)</A>
-</font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">      subroutine evtdly(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
-     &amp;     rpar,nrpar,ipar,nipar,u,nu,y,ny)
-c     Copyright INRIA
-c     Scicos block simulator
-c     event delay
-c     delay=rpar(1)
-c
-      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
-      integer nipar,nu,ny
-
-c
-c
-      if(flag.eq.3) then
-         tvec(1)=t+rpar(1)
-      endif
-      return
-      end
-</PRE>
+<UL>
+<LI>SCI/macros/scicos_blocks/Events/EVTDLY_f.sci <A NAME="tex2html4"
+  HREF="EVTDLY_f_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function</A>
+</font></H3>
+
+<UL>
+<LI>SCI/routines/scicos/evtdly.f (Type 0) <A NAME="tex2html5"
+  HREF="evtdly_routcos.htm">[view code]</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>
 </font></H3>
 <b>Ramine Nikoukhah</b> INRIA

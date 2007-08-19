@@ -39,7 +39,7 @@ Matrix Conjugate
  $\epsfig{file=MATZCONJ.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATZCONJ_blk.gif"
  ALT="\epsfig{file=MATZCONJ.eps,width=90.00pt}">
 
@@ -52,27 +52,23 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html6"
   HREF="MATZCONJ.htm#SECTION00010000000000000000">Matrix Conjugate</A>
 <UL>
-<LI><A NAME="tex2html6"
-  HREF="MATZCONJ.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html7"
-  HREF="MATZCONJ.htm#SECTION00022000000000000000">Description</A>
+  HREF="MATZCONJ.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="MATZCONJ.htm#SECTION00023000000000000000">Example</A>
+  HREF="MATZCONJ.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="MATZCONJ.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="MATZCONJ.htm#SECTION00023000000000000000">Example</A>
 <LI><A NAME="tex2html10"
-  HREF="MATZCONJ.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="MATZCONJ.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
-  HREF="MATZCONJ.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="MATZCONJ.htm#SECTION00025000000000000000">Interfacing function</A>
 <LI><A NAME="tex2html12"
-  HREF="MATZCONJ.htm#SECTION00027000000000000000">Used functions</A>
+  HREF="MATZCONJ.htm#SECTION00026000000000000000">See also</A>
 <LI><A NAME="tex2html13"
-  HREF="MATZCONJ.htm#SECTION00028000000000000000">See also</A>
-<LI><A NAME="tex2html14"
-  HREF="MATZCONJ.htm#SECTION00029000000000000000">Authors</A>
+  HREF="MATZCONJ.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
@@ -133,54 +129,24 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>MATZCONJ.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/MatrixOp/MATZCONJ.sci <A NAME="tex2html4"
+  HREF="MATZCONJ_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
-</font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block4.h"
-#include "../machine.h"
-
-void matz_conj(scicos_block *block,int flag)
-{
-  double *u1r;
-  double *u1i;
-  double *yr;
-  double *yi;
-
-  int nu,mu,i;
-
-  mu=GetOutPortRows(block,1);
-  nu=GetOutPortCols(block,1);
-  u1r=GetRealInPortPtrs(block,1);
-  u1i=GetImagInPortPtrs(block,1);
-  yr=GetRealOutPortPtrs(block,1);
-  yi=GetImagOutPortPtrs(block,1);
-  
-  for (i=0;i&lt;mu*nu;i++) 
-	{*(yr+i)=*(u1r+i);
-	 *(yi+i)=-(*(u1i+i));}
-}
-</PRE>
-
-<H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Used functions</A>
-</font></H3>
-<b>matz_conj.c</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 See also</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html5"
   HREF="Matrix_pal.htm">Matrix_pal - Matrix title (Scicos Palette)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

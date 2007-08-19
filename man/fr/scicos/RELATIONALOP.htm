@@ -39,7 +39,7 @@ Opération relationnelle
  $\epsfig{file=RELATIONALOP.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="122" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="121" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/RELATIONALOP_blk.gif"
  ALT="\epsfig{file=RELATIONALOP.eps,width=90.00pt}">
 
@@ -52,22 +52,22 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="RELATIONALOP.htm#SECTION00010000000000000000">Opération relationnelle</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="RELATIONALOP.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="RELATIONALOP.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="RELATIONALOP.htm#SECTION00023000000000000000">Boîte de dialogue</A>
+  HREF="RELATIONALOP.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="RELATIONALOP.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+  HREF="RELATIONALOP.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="RELATIONALOP.htm#SECTION00025000000000000000">Fonction d'interface</A>
+  HREF="RELATIONALOP.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html10"
-  HREF="RELATIONALOP.htm#SECTION00026000000000000000">Fonction de calcul (type 4)</A>
+  HREF="RELATIONALOP.htm#SECTION00024000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html11"
+  HREF="RELATIONALOP.htm#SECTION00025000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html12"
+  HREF="RELATIONALOP.htm#SECTION00026000000000000000">Fonction de calcul</A>
+<LI><A NAME="tex2html13"
   HREF="RELATIONALOP.htm#SECTION00027000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,7 +93,7 @@ Boîte de dialogue</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="93" BORDER="0"
+ WIDTH="477" HEIGHT="112" BORDER="0"
  SRC="../../images/scicos/RELATIONALOP_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=RELATIONALOP_gui.eps,width=300pt}
@@ -159,128 +159,22 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>RELATIONALOP.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Misc/RELATIONALOP.sci <A NAME="tex2html4"
+  HREF="RELATIONALOP_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Fonction de calcul (type 4)</A>
+Fonction de calcul</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block.h"
-#include &lt;math.h&gt;
 
-
-void relationalop(scicos_block *block,int flag)
-{
-  int i;
-  i=block-&gt;ipar[0];
-  if(flag==1){
-    if ((block-&gt;ng!=0)&amp;(get_phase_simulation()==2))
-      {
-	block-&gt;outptr[0][0]=block-&gt;mode[0]-1.0;
-      }
-    else {
-      switch (i)
-	{
-	case 0:
-	  if(block-&gt;inptr[0][0]==block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;
-	  
-	case 1:
-	  if(block-&gt;inptr[0][0]!=block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;
-	case 2:
-	  if(block-&gt;inptr[0][0]&lt;block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;    
-	case 3:
-	  if(block-&gt;inptr[0][0]&lt;=block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;   
-	case 4:
-	  if(block-&gt;inptr[0][0]&gt;=block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;   
-	case 5:
-	  if(block-&gt;inptr[0][0]&gt;block-&gt;inptr[1][0]) {
-	    block-&gt;outptr[0][0]=1.0;
-	  }else{
-	    block-&gt;outptr[0][0]=0.0;
-	  }
-	  break;
-	}
-    }
-
-  }else if(flag==9){
-    block-&gt;g[0]=block-&gt;inptr[0][0]-block-&gt;inptr[1][0];
-    if (get_phase_simulation()==1) {
-      switch (i)
-	{
-	case 0:
-	  if(block-&gt;inptr[0][0]==block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;
-	  
-	case 1:
-	  if(block-&gt;inptr[0][0]!=block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;
-	case 2:
-	  if(block-&gt;inptr[0][0]&lt;block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;    
-	case 3:
-	  if(block-&gt;inptr[0][0]&lt;=block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;   
-	case 4:
-	  if(block-&gt;inptr[0][0]&gt;=block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;   
-	case 5:
-	  if(block-&gt;inptr[0][0]&gt;block-&gt;inptr[1][0]) {
-	    block-&gt;mode[0]=(int)2.0;
-	  }else{
-	    block-&gt;mode[0]=(int)1.0;
-	  }
-	  break;
-	}
-    }
-  }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/relationalop.c (Type 4) <A NAME="tex2html5"
+  HREF="relationalop_routcos.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Auteurs</A>

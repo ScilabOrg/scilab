@@ -39,7 +39,7 @@ MATDET titre
  $\epsfig{file=MATDET.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATDET_blk.gif"
  ALT="\epsfig{file=MATDET.eps,width=90.00pt}">
 
@@ -52,27 +52,25 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html8"
   HREF="MATDET.htm#SECTION00010000000000000000">MATDET titre</A>
 <UL>
-<LI><A NAME="tex2html6"
-  HREF="MATDET.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html7"
-  HREF="MATDET.htm#SECTION00022000000000000000">Description</A>
-<LI><A NAME="tex2html8"
-  HREF="MATDET.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html9"
-  HREF="MATDET.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+  HREF="MATDET.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html10"
-  HREF="MATDET.htm#SECTION00025000000000000000">Fonction d'interface</A>
+  HREF="MATDET.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html11"
-  HREF="MATDET.htm#SECTION00026000000000000000">Fonction de calcul (type 4)</A>
+  HREF="MATDET.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html12"
-  HREF="MATDET.htm#SECTION00027000000000000000">Fonction utilisée</A>
+  HREF="MATDET.htm#SECTION00024000000000000000">Propriétés par défaut</A>
 <LI><A NAME="tex2html13"
-  HREF="MATDET.htm#SECTION00028000000000000000">Voir aussi</A>
+  HREF="MATDET.htm#SECTION00025000000000000000">Fonction d'interface</A>
 <LI><A NAME="tex2html14"
-  HREF="MATDET.htm#SECTION00029000000000000000">Auteurs</A>
+  HREF="MATDET.htm#SECTION00026000000000000000">Fonction de calcul</A>
+<LI><A NAME="tex2html15"
+  HREF="MATDET.htm#SECTION00027000000000000000">Voir aussi</A>
+<LI><A NAME="tex2html16"
+  HREF="MATDET.htm#SECTION00028000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
@@ -97,7 +95,7 @@ Boîte de dialogue</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="85" BORDER="0"
+ WIDTH="477" HEIGHT="83" BORDER="0"
  SRC="../../images/scicos/MATDET_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=MATDET_gui.eps,width=300pt}
@@ -147,106 +145,37 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>MATDET.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/MatrixOp/MATDET.sci <A NAME="tex2html4"
+  HREF="MATDET_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Fonction de calcul (type 4)</A>
+Fonction de calcul</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim"># include "scicos_block4.h"
-# include "../machine.h"
-#include &lt;stdio.h&gt;
 
-#if WIN32
-#define NULL    0
-#endif
-
-extern int C2F(dgetrf)();
-typedef struct
-{         int *ipiv;
-          double *wrk;
-} mat_det_struct ;
-void mat_det(scicos_block *block,int flag)
-{
- double *u;
- double *y;
- int nu;
- int info;
- int i;
- double D,l;
- mat_det_struct *mdet;
- 
- nu =GetInPortRows(block,1);
- u=GetRealInPortPtrs(block,1);
- y=GetRealOutPortPtrs(block,1);
-
-             /*init : initialization*/
-if (flag==4)
-
-   {if((*(block-&gt;work)=(mat_det_struct*) scicos_malloc(sizeof(mat_det_struct)))==NULL)
-	{set_block_error(-16);
-	 return;}
-    mdet=*(block-&gt;work);
-    if((mdet-&gt;ipiv=(int*) scicos_malloc(sizeof(int)*nu))==NULL)
-	{set_block_error(-16);
-	 scicos_free(mdet);
-	 return;}
-    if((mdet-&gt;wrk=(double*) scicos_malloc(sizeof(double)*(nu*nu)))==NULL)
-	{set_block_error(-16);
-	 scicos_free(mdet-&gt;ipiv);
-	 scicos_free(mdet);
-	 return;}
-    }
-
-       /* Terminaison */
-else if (flag==5)
-   {mdet=*(block-&gt;work);
-    if(mdet-&gt;wrk!=NULL) {
-	scicos_free(mdet-&gt;ipiv);
-    	scicos_free(mdet-&gt;wrk);
-    	scicos_free(mdet);
-    	return;}
-   }
-
-else
-   {
-    mdet=*(block-&gt;work);
-    for (i=0;i&lt;(nu*nu);i++)   mdet-&gt;wrk[i]=u[i];
-     C2F(dgetrf)(&amp;nu,&amp;nu,mdet-&gt;wrk,&amp;nu,mdet-&gt;ipiv,&amp;info);
-    if (info !=0)
-       {if (flag!=6)
-    	{set_block_error(-7);
-        return;}}
-      D=1;
-    for (i=0;i&lt;nu;i++)
-       {if((*(mdet-&gt;ipiv+i))!=i+1) D=-D;
-        l=*(mdet-&gt;wrk+i*(nu+1));
-        D=D*l;
-        };
-     *y=D;
-    }
- }
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/mat_det.c <A NAME="tex2html5"
+  HREF="mat_det_routcos.htm">[voir code]</A>
+</LI>
+<LI>SCI/routines/scicos/matz_det.c <A NAME="tex2html6"
+  HREF="matz_det_routcos.htm">[voir code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Fonction utilisée</A>
-</font></H3>
-For this block we have two functions:
-<b>mat_det</b>,
-<b>matz_det</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Voir aussi</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html7"
   HREF="MATINV.htm">MATINV - MATINV titre (Bloc Scicos)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Auteurs</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

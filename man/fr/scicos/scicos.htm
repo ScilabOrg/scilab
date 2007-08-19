@@ -202,6 +202,8 @@ if ~super_block then
       'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
       'Delete',                'Delete: Click on the object to delete';
       'Flip',                  'Click on block to be flipped'      ;
+      'Rotate Left',           'Click on block to be turned left'  ;
+      'Rotate Right',          'Click on block to be turned right' ;
       'Open/Set',              'Click to open block or make a link';
       'MoveLink',              ''                                  ;
       'SelectLink',            ''                                  ;
@@ -213,13 +215,12 @@ if ~super_block then
       'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
       'Icon',                  'Click on block to edit its icon';
       'Color',                 'Click on object to paint';
-      'Help',                  'Click on object or menu to get help'
       'Identification',        'Click on an object to set or get identification';
       'Resize',                'Click block to resize';
       'Block Documentation',   'Click on a block to set or get it''s documentation'
      ]
   //
-
+  
   //**--------------------------------------------------------------------------------------
 
   //** initialize the "scicos_contex" datastructure (Scilab script inside SCICOS simulation)
@@ -231,7 +232,7 @@ if ~super_block then
 
   //** initialize a "scicos_debug_gr" variable for debugging editor
   if ~exists('%scicos_debug_gr') then
-    %scicos_debug_gr = %f;
+    %scicos_debug_gr = %f; //** debug mode : default is "%f" 
   end
 
   //** initialize a "scicos_with_grid" variable for drawing a grid
@@ -244,16 +245,32 @@ if ~super_block then
     %scs_wgrid = [10;10;12];
   end
 
-  //** Scicos internal function (scicos/routines/permuteobj) override in order to assure full
+  //** disable scilab function protection
+  prot=funcprot();
+  funcprot(0);
+
+  //** to load functions of ged in scicos
+  exec(SCI+'/macros/util/ged.sci',-1);
+
+  //** Scicos internal functions override in order to assure full
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
+  //** for rotation of text
+  xstringb = xstringb2; //TO be removed in Scilab 5
 
+  //** restore scilab function protection
+  funcprot(prot)
+
+  //**----------------------------- RIGHT MOUSE BUTTON MENUS (Popup) ------------------------
   //** Right Mouse Button Menus:
   //**        "%scicos_lhb_list" data structure initialization 
   //**                 
   //** Create an empty list() data structure 
   %scicos_lhb_list = list();
   
+  //** Fill the data structure with menu/command/functions definitions  
+  
+  //** state_var = 1 : right click over a valid object inside the CURRENT Scicos Window
   %scicos_lhb_list(1) = list('Open/Set',..
 			     'Cut',..
 			     'Copy',..
@@ -274,9 +291,10 @@ if ~super_block then
 			           'Get Info',..
 			           'Identification',..
 			           'Block Documentation'),..
-			     'Code Generation',..
-			     'Help');
-			  
+			           'Code Generation',..
+			           'Help');
+  
+  //** state_var = 2 : right click in the void of the CURRENT Scicos Window			  
   %scicos_lhb_list(2) = list('Undo',..
                              'Paste',..
 			     'Palettes',..
@@ -290,24 +308,23 @@ if ~super_block then
 			     'Export',..
 			     'Quit',..
 			     'Background color',..
-			     'Aspect'  ,..
+			     'Show Block Shadow'  ,..
 			     'Zoom in' ,..
 			     'Zoom out',..
 			     'Help');
 
+  //** state_var = 3 : right click over a valid object inside a PALETTE or
+  //**                 not a current Scicos window
+  //** 
   %scicos_lhb_list(3) = list('Copy',..
-                             'Duplicate',..
 			     'Help');
-
+ //**----------------------------------------------------------------------------------------
+ 
  if exists('scicoslib')==0 then 
    load('SCI/macros/scicos/lib') ; //** load all the libraries relative to the palettes
  end
 
  exec(loadpallibs, 1) //** load the palettes libraries, -1 =&gt; no echo on the Scilab console 
-
- prot=funcprot();funcprot(0);
- exec(SCI+'/macros/util/ged.sci',-1); //to load functions of ged in scicos
- funcprot(prot)
 
 end //** end of the main if() not superblock
 
@@ -480,7 +497,8 @@ if ~super_block then
       mpopup   = tk_mpopup   ; //** the pop up Windowz
       choose   = tk_scicos_choose   ;
     else
-    //** ... for Unix machines   
+      //** ... for Unix machines   
+      getvalue = tk_getvalue ;
       mpopup = tk_mpopupX    ; //** for the Penguin 
       deff('x=choose(varargin)', 'x=x_choose(varargin(1:$))');
     end
@@ -635,7 +653,7 @@ while ( Cmenu &lt;&gt; 'Quit' ) //** Cmenu -&gt; exit from Scicos
   //** Command classification and message retrivial 
   [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
   xinfo(mess); //** show the message associated to the command 
-  
+
   //** ----------------- State variable filtering -----------------------------------------
   //** clear the %pt information for backward compatibility
   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
@@ -661,7 +679,7 @@ while ( Cmenu &lt;&gt; 'Quit' ) //** Cmenu -&gt; exit from Scicos
       //** in the case of 'SelectLink'|Cmenu_n=='MoveLink', if previous command is CmenuType ONE operation
       //** is not completed, just recover and use %pt = %pt_n in order to complete the prev. command,
       //** otherwise update both Cmenu and %pt because the user has choose to abort the old command.
-      if (Cmenu_n=='SelectLink'| Cmenu_n=='MoveLink') &amp; Cmenu&lt;&gt;[] &amp; CmenuType==1 &amp; %pt==[] then
+      if (Cmenu_n=='SelectLink' | Cmenu_n=='MoveLink') &amp; Cmenu&lt;&gt;[] &amp; CmenuType==1 &amp; %pt==[] then
 	if %pt_n&lt;&gt;[] then %pt = %pt_n; end
       else
         if Cmenu_n&lt;&gt;[] then Cmenu = Cmenu_n; end
@@ -683,9 +701,17 @@ while ( Cmenu &lt;&gt; 'Quit' ) //** Cmenu -&gt; exit from Scicos
           exeString = "Executing.... " + %cor_item_exec(%koko,2) ;
           disp(exeString)  ;
         end
-	//** Don't ever think to touch this line of code ;)
-	execstr('exec('+%cor_item_exec(%koko,2)+',-1)') ; //** call the function that
-                                                          //** exec the desired action				  
+	//
+        ierr=0
+	execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
+        if ierr &gt; 0 then
+	  Select_back=[];Select=[]
+	  Cmenu='Replot';
+	  disp(['I recovered from the following error:';
+                lasterror();
+                'in '+%cor_item_exec(%koko,2)'+' action.'])
+	end
+	
 	//** unselect ALL the previous selected object and select again the actually selected object
 	//** because some command (operation) could select/unselect some object (the mods are registered
 	//** in the "Select" variable)
@@ -744,45 +770,6 @@ endfunction
 
 //** ----------------------------------------------------------------------------------------------------------------
 
-function selecthilite(Select, flag)  // update the image
-  
-  gh_curwin = gh_current_window ; //** default value
-  
-  gh_winback = gcf() //** get the window
-
-  drawlater();
-  for i=1:size(Select,1)
-
-    [junk, win, o] = get_selection(Select(i,:))
-
-    gh_curwin = scf(win); //** select current window
-
-    o_size = size ( gh_curwin.children.children ) ;
-    //** initial size
-    //** at this point I need to build the [scs_m] &lt;-&gt; [gh_window] datastructure
-    //** I need an equivalent index for the graphics
-
-    //** "k" is the object index in the data structure "scs_m"
-    //** compute the equivalent "gh_k" for the graphics datastructure
-    k = Select (i,1)
-    //gh_k = o_size(1) - k + 1 ; //** semi empirical equation :)
-    gh_k = get_gri(k,o_size(1)); //** Alan -
-
-    if gh_k&gt;0 then //** Alan - to disable some crash when we have delete obj
-        //** get the handle of the graphics entity to modify
-        gh_obj = gh_curwin.children.children(gh_k);
-        //** update mark_mode property
-        gh_obj.children(1).mark_mode = flag  ;
-    end
-
-  end  
-  
-  draw(gh_curwin.children)
-  show_pixmap()
-  
-  scf(gh_winback)
-
-endfunction
 
 //**---------------------------------------------------------------------------------------------------------------------
 </PRE>

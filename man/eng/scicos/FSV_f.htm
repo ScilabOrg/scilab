@@ -39,7 +39,7 @@ FSV_f title
  $\epsfig{file=FSV_f.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/FSV_f_blk.gif"
  ALT="\epsfig{file=FSV_f.eps,width=90.00pt}">
 
@@ -52,18 +52,18 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
+<LI><A NAME="tex2html5"
   HREF="FSV_f.htm#SECTION00010000000000000000">FSV_f title</A>
 <UL>
-<LI><A NAME="tex2html4"
-  HREF="FSV_f.htm#SECTION00021000000000000000">Description</A>
-<LI><A NAME="tex2html5"
-  HREF="FSV_f.htm#SECTION00022000000000000000">Default properties</A>
 <LI><A NAME="tex2html6"
-  HREF="FSV_f.htm#SECTION00023000000000000000">Interfacing function</A>
+  HREF="FSV_f.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="FSV_f.htm#SECTION00024000000000000000">Computational function (type 1)</A>
+  HREF="FSV_f.htm#SECTION00022000000000000000">Default properties</A>
 <LI><A NAME="tex2html8"
+  HREF="FSV_f.htm#SECTION00023000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html9"
+  HREF="FSV_f.htm#SECTION00024000000000000000">Computational function</A>
+<LI><A NAME="tex2html10"
   HREF="FSV_f.htm#SECTION00025000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -106,42 +106,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>FSV_f.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/NonLinear/FSV_f.sci <A NAME="tex2html3"
+  HREF="FSV_f_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
-Computational function (type 1)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">      subroutine fsv(flag,nevprt,t,xd,x,nx,z,nz,tvec,
-     $        ntvec,rpar,nrpar,ipar,nipar
-     $        ,u1,nu1,y1,ny1)
-c
-c
-      double precision t,xd(*),x(*),z(*),tvec(*)
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
-      double precision rpar(*),u1(*),y1(*)
-c
-c
-      doubleprecision a,a0,b0,g
-      a=u1(1)
-      y1(1)=0.d0
-      if(a.gt.1.0d0) then
-         return
-      endif
-      g=1.4d0
-      a0=2.0d0/g
-      b0=(g+1)/g
-      if(a.lt.0.528d0) then
-         a=(2/(g+1.0d0))**(g/(g-1.0d0))  
-      endif
-      y1(1)=sqrt(2.0d0*g*(a**a0-a**b0)/(g-1.0d0))
-   
- 
-c
-c
-      end
-</PRE>
+
+<UL>
+<LI>SCI/routines/scicos/fsv.f (Type 1) <A NAME="tex2html4"
+  HREF="fsv_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Authors</A>

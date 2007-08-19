@@ -39,7 +39,7 @@ DOLLAR title
  $\epsfig{file=DOLLAR.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/DOLLAR_blk.gif"
  ALT="\epsfig{file=DOLLAR.eps,width=90.00pt}">
 
@@ -52,20 +52,20 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
+<LI><A NAME="tex2html5"
   HREF="DOLLAR.htm#SECTION00010000000000000000">DOLLAR title</A>
 <UL>
-<LI><A NAME="tex2html4"
-  HREF="DOLLAR.htm#SECTION00021000000000000000">Description</A>
-<LI><A NAME="tex2html5"
-  HREF="DOLLAR.htm#SECTION00022000000000000000">Dialog box</A>
 <LI><A NAME="tex2html6"
-  HREF="DOLLAR.htm#SECTION00023000000000000000">Default properties</A>
+  HREF="DOLLAR.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="DOLLAR.htm#SECTION00024000000000000000">Interfacing function</A>
+  HREF="DOLLAR.htm#SECTION00022000000000000000">Dialog box</A>
 <LI><A NAME="tex2html8"
-  HREF="DOLLAR.htm#SECTION00025000000000000000">Computational function (type 4)</A>
+  HREF="DOLLAR.htm#SECTION00023000000000000000">Default properties</A>
 <LI><A NAME="tex2html9"
+  HREF="DOLLAR.htm#SECTION00024000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html10"
+  HREF="DOLLAR.htm#SECTION00025000000000000000">Computational function</A>
+<LI><A NAME="tex2html11"
   HREF="DOLLAR.htm#SECTION00026000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -82,7 +82,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="135" BORDER="0"
+ WIDTH="477" HEIGHT="132" BORDER="0"
  SRC="../../images/scicos/DOLLAR_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=DOLLAR_gui.eps,width=300pt}
@@ -138,31 +138,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>DOLLAR.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Linear/DOLLAR.sci <A NAME="tex2html3"
+  HREF="DOLLAR_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">#include "scicos_block.h"
 
-void dollar4(scicos_block *block,int flag)
-{
-  /* c     Copyright INRIA
-     
-  Scicos block simulator
-  Ouputs delayed input */
-  
-  int i;
-  for(i=0;i&lt; block-&gt;insz[0];i++){
-    if (flag ==1 || flag ==6 || flag ==4)
-      block-&gt;outptr[0][i]=block-&gt;z[i];
-    else if (flag == 2)
-      block-&gt;z[i]=block-&gt;inptr[0][i];
-  }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/dollar4.c (Type 4) <A NAME="tex2html4"
+  HREF="dollar4_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
 Authors</A>

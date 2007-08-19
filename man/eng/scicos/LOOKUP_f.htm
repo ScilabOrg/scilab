@@ -39,7 +39,7 @@ Lookup table
  $\epsfig{file=LOOKUP_f.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/LOOKUP_f_blk.gif"
  ALT="\epsfig{file=LOOKUP_f.eps,width=90.00pt}">
 
@@ -52,20 +52,20 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="LOOKUP_f.htm#SECTION00010000000000000000">Lookup table</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="LOOKUP_f.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="LOOKUP_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="LOOKUP_f.htm#SECTION00023000000000000000">Default properties</A>
+  HREF="LOOKUP_f.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="LOOKUP_f.htm#SECTION00024000000000000000">Interfacing function</A>
+  HREF="LOOKUP_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="LOOKUP_f.htm#SECTION00025000000000000000">Computational function (type 0)</A>
+  HREF="LOOKUP_f.htm#SECTION00023000000000000000">Default properties</A>
 <LI><A NAME="tex2html10"
+  HREF="LOOKUP_f.htm#SECTION00024000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html11"
+  HREF="LOOKUP_f.htm#SECTION00025000000000000000">Computational function</A>
+<LI><A NAME="tex2html12"
   HREF="LOOKUP_f.htm#SECTION00026000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -118,47 +118,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>LOOKUP_f.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/NonLinear/LOOKUP_f.sci <A NAME="tex2html4"
+  HREF="LOOKUP_f_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
-Computational function (type 0)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">      subroutine lookup(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
-     &amp;     rpar,nrpar,ipar,nipar,u,nu,y,ny)
-c     Copyright INRIA
 
-c     Scicos block simulator
-c     rpar(1:n)  =  u coordinate discretisation must be strictly increasing
-c     rpar(n+1:2*n)  =  y coordinate discretisation
-c
-      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
-      integer nipar,nu,ny
-
-c
-      double precision du,dout
-      integer i
-c
-      n=nrpar/2
-      if(n.gt.2) then
-         do 10 i=2,n-1
-            if (u(1).le.rpar(i)) goto 20
- 10      continue
-      else
-         if(n.eq.1) then
-            y(1)=rpar(2)
-            return
-         endif
-         i=2
-      endif
- 20   continue
-      du=rpar(i)-rpar(i-1)
-      dout=rpar(n+i)-rpar(n+i-1)
-      y(1)=rpar(n+i)-(rpar(i)-u(1))*dout/du
-      end
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/lookup.f (Type 0) <A NAME="tex2html5"
+  HREF="lookup_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
 Authors</A>

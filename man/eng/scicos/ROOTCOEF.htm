@@ -30,8 +30,9 @@ Scicos Block
   HREF="./ROOTCOEF.htm">eng</A>
 
 </DIV>
-<H2><A NAME="SECTION00010000000000000000"></A><A NAME="ROOTCOEF"></A><BR>
-ROOTCOEF title
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="ROOTCOEF"></A>
+<BR>
+Coeficient computation
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
@@ -51,33 +52,24 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
-  HREF="ROOTCOEF.htm#SECTION00010000000000000000">ROOTCOEF title</A>
-<UL>
 <LI><A NAME="tex2html6"
-  HREF="ROOTCOEF.htm#SECTION00021000000000000000">Palette</A>
+  HREF="ROOTCOEF.htm#SECTION00010000000000000000">Coeficient computation</A>
+<UL>
 <LI><A NAME="tex2html7"
-  HREF="ROOTCOEF.htm#SECTION00022000000000000000">Description</A>
+  HREF="ROOTCOEF.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="ROOTCOEF.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="ROOTCOEF.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="ROOTCOEF.htm#SECTION00024000000000000000">Example</A>
+  HREF="ROOTCOEF.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="ROOTCOEF.htm#SECTION00025000000000000000">Default properties</A>
+  HREF="ROOTCOEF.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
-  HREF="ROOTCOEF.htm#SECTION00026000000000000000">Interfacing function</A>
+  HREF="ROOTCOEF.htm#SECTION00025000000000000000">Interfacing function</A>
 <LI><A NAME="tex2html12"
-  HREF="ROOTCOEF.htm#SECTION00027000000000000000">Computational function (type 4)</A>
+  HREF="ROOTCOEF.htm#SECTION00026000000000000000">Computational function</A>
 <LI><A NAME="tex2html13"
-  HREF="ROOTCOEF.htm#SECTION00028000000000000000">Used functions</A>
-<LI><A NAME="tex2html14"
-  HREF="ROOTCOEF.htm#SECTION00029000000000000000">See also</A>
-<LI><A NAME="tex2html15"
-  HREF="ROOTCOEF.htm#SECTION000210000000000000000">Authors</A>
-<LI><A NAME="tex2html16"
-  HREF="ROOTCOEF.htm#SECTION00030000000000000000">Bibliography</A>
-</UL>
-</UL><BR>
+  HREF="ROOTCOEF.htm#SECTION00027000000000000000">Authors</A>
+</UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
 Palette</A>
@@ -93,7 +85,7 @@ Description</A>
 </font></H3>
 
 <P>
-  Add here a paragraph of the function description  
+This block computes the coeficients of a polynomial given its root values.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
@@ -101,7 +93,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="109" BORDER="0"
+ WIDTH="477" HEIGHT="108" BORDER="0"
  SRC="../../images/scicos/ROOTCOEF_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=ROOTCOEF_gui.eps,width=300pt}
@@ -112,23 +104,20 @@ Dialog box</A>
 
 <UL>
 <LI><b>Datatype(1=real double  2=Complex)</b>
-<BR>   The parameter description 1.
-<BR>   Properties : Type 'vec' of size 1.
+<BR>
+This block can only support double inputs values. These values can be real or complex.
+<BR>
+Properties : Type 'vec' of size 1.
 </LI>
 <LI><b>input row size</b>
-<BR>   The parameter description 2.
-<BR>   Properties : Type 'vec' of size 1.
+<BR>
+The input row size.
+<BR>
+Properties : Type 'vec' of size 1.
 </LI>
 </UL>
 
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
-Example</A>
-</font></H3>
-<PRE>
-Example
-</PRE>
-
-<H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Default properties</A>
 </font></H3>
 
@@ -157,56 +146,30 @@ Default properties</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
-</font></H3>
-<TT>ROOTCOEF.sci</TT>
-
-<H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Computational function (type 4)</A>
-</font></H3>
- <SMALL CLASS="TINY">  </SMALL><BR>
-<PRE  CLASS="verbatim">#include "scicos_block4.h"
-#include "../machine.h"
-extern int C2F(dprxc)();
-void root_coef(scicos_block *block,int flag)
-{
-  double *u;
-  double *y;
-  int mu;
-  mu=GetInPortRows(block,1);
-
-  u=GetRealInPortPtrs(block,1);
-  y=GetRealOutPortPtrs(block,1);
-  if (flag==1||flag==6)
-  C2F(dprxc)(&amp;mu,u,y);
-}
-</PRE>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
-Used functions</A>
-</font></H3>
-Add here the used function name and  references
-
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
-See also</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
-  HREF="add a key here.htm">add a key here</A>
+<LI>SCI/macros/scicos_blocks/MatrixOp/ROOTCOEF.sci <A NAME="tex2html4"
+  HREF="ROOTCOEF_intfunc.htm">[view code]</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION000210000000000000000">
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
+Computational function</A>
+</font></H3>
+
+<UL>
+<LI>SCI/routines/scicos/root_coef.c (Type 4) <A NAME="tex2html5"
+  HREF="root_coef_routcos.htm">[view code]</A>
+</LI>
+</UL>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>
 </font></H3>
-<b>enter here the author name</b> Add here the author  references
- 
-<H3><font color="blue"><A NAME="SECTION00030000000000000000">
-Bibliography</A>
-</font></H3><DL COMPACT><DD>Add here the function bibliography if any
-</DL>
+<b>Fady NASSIF</b> : INRIA
 
 <BR>
 

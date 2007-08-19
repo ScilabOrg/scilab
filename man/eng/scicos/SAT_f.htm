@@ -39,7 +39,7 @@ SAT_f title
  $\epsfig{file=SAT_f.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="151" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SAT_f_blk.gif"
  ALT="\epsfig{file=SAT_f.eps,width=90.00pt}">
 
@@ -52,22 +52,22 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="SAT_f.htm#SECTION00010000000000000000">SAT_f title</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="SAT_f.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="SAT_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="SAT_f.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="SAT_f.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="SAT_f.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="SAT_f.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="SAT_f.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="SAT_f.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="SAT_f.htm#SECTION00026000000000000000">Computational function (type 1)</A>
+  HREF="SAT_f.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
+  HREF="SAT_f.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="SAT_f.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
   HREF="SAT_f.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,7 +93,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="208" BORDER="0"
+ WIDTH="477" HEIGHT="205" BORDER="0"
  SRC="../../images/scicos/SAT_f_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=SAT_f_gui.eps,width=300pt}
@@ -155,47 +155,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>SAT_f.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/NonLinear/SAT_f.sci <A NAME="tex2html4"
+  HREF="SAT_f_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 1)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">      subroutine lusat(flag,nevprt,t,xd,x,nx,z,nz,tvec,ntvec,
-     &amp;     rpar,nrpar,ipar,nipar,u,nu,y,ny,g,ng)
-c     Copyright INRIA
 
-c     Scicos block simulator
-c     Lower-Upper saturation
-c     Continous block, MIMO
-c
-      double precision t,xd(*),x(*),z(*),tvec(*),rpar(*),u(*),y(*)
-      double precision g(*)
-      integer flag,nevprt,nx,nz,ntvec,nrpar,ipar(*)
-      integer nipar,nu,ny,ng
-
-c
-      if (flag.eq.9) then
-         do 10 i=1,nu
-            g(i)=u(i)-rpar(1)
-            g(i+nu)=u(i)-rpar(2)
- 10      continue
-      endif
-
-      if (flag.eq.1) then
-         do 15 i=1,nu
-            if (u(i).le.rpar(1))then
-               y(i)=rpar(1)*rpar(3)
-            else if(u(i).ge.rpar(2))then
-               y(i)=rpar(2)*rpar(3)
-            else
-               y(i)=rpar(3)*u(i)
-            endif
- 15      continue
-      endif
-      end
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/lusat.f (Type 1) <A NAME="tex2html5"
+  HREF="lusat_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>

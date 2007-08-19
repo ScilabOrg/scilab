@@ -51,28 +51,26 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html6"
+<LI><A NAME="tex2html10"
   HREF="SHIFT.htm#SECTION00010000000000000000">SHIFT Shift Bits</A>
 <UL>
-<LI><A NAME="tex2html7"
-  HREF="SHIFT.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html8"
-  HREF="SHIFT.htm#SECTION00022000000000000000">Description</A>
-<LI><A NAME="tex2html9"
-  HREF="SHIFT.htm#SECTION00023000000000000000">Dialog box</A>
-<LI><A NAME="tex2html10"
-  HREF="SHIFT.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
-  HREF="SHIFT.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="SHIFT.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html12"
-  HREF="SHIFT.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="SHIFT.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html13"
-  HREF="SHIFT.htm#SECTION00027000000000000000">Used functions</A>
+  HREF="SHIFT.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html14"
-  HREF="SHIFT.htm#SECTION00028000000000000000">See also</A>
+  HREF="SHIFT.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html15"
-  HREF="SHIFT.htm#SECTION00029000000000000000">Authors</A>
+  HREF="SHIFT.htm#SECTION00025000000000000000">Interfacing function</A>
 <LI><A NAME="tex2html16"
+  HREF="SHIFT.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html17"
+  HREF="SHIFT.htm#SECTION00027000000000000000">See also</A>
+<LI><A NAME="tex2html18"
+  HREF="SHIFT.htm#SECTION00028000000000000000">Authors</A>
+<LI><A NAME="tex2html19"
   HREF="SHIFT.htm#SECTION00030000000000000000">Bibliography</A>
 </UL>
 </UL><BR>
@@ -101,7 +99,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="103" BORDER="0"
+ WIDTH="477" HEIGHT="102" BORDER="0"
  SRC="../../images/scicos/SHIFT_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=SHIFT_gui.eps,width=300pt}
@@ -147,103 +145,50 @@ Default properties</A>
 </LI>
 <LI><b>discrete-time state:</b> no
 </LI>
-<LI><b>name of computational function:</b> <EM>shift_i32</EM>
+<LI><b>name of computational function:</b> <EM>shift_32_LA</EM>
 </LI>
 </UL>
 
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>SHIFT.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/IntegerOp/SHIFT.sci <A NAME="tex2html4"
+  HREF="SHIFT_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL><BR>
-<PRE  CLASS="verbatim"># include "scicos_block4.h"
-# include "../machine.h"
-# include &lt;math.h&gt;
 
-void shift_i32(scicos_block *block,int flag)
-{
-  long *u,*y,v;
-  unsigned long k; 
-  int *ipar;
-  int mu,nu,i,j;
-
-  mu=GetInPortRows(block,1);
-  nu=GetInPortCols(block,1);
-  u=Getint32InPortPtrs(block,1);
-  y=Getint32OutPortPtrs(block,1);
-  ipar=GetIparPtrs(block);
-  k=pow(2,31);
-  if(ipar[0]&gt;=0)
-      {for (i=0;i&lt;mu*nu;i++)
-	    {if (ipar[1]==0)
-            	{y[i]=u[i]&lt;&lt;ipar[0];}
-	     else{
-		 v=u[i];
-		 for(j=0;j&lt;ipar[0];j++)
-		     {
-		      y[i]=v&amp;k;
-                      if (y[i]==0)  y[i]=v&lt;&lt;1;
-		      else {
-		          y[i]=v&lt;&lt;1;
-		          y[i]=(y[i])|(1);
-		          }
-		      v=y[i];
-		      }
-                   }
-              }
-       }
-  else
-      {for (i=0;i&lt;mu*nu;i++)
-            {if (ipar[1]==0)
-            	{y[i]=u[i]&gt;&gt;-ipar[0];}
-	     else{
-		 v=u[i];
-		 for(j=0;j&lt;-ipar[0];j++)
-		     {
-		      y[i]=v&amp;1;
-                      if (y[i]==0)
-			 {y[i]=v&gt;&gt;1;
-			  y[i]=y[i]&amp;(k-1);}
-		      else {
-		          y[i]=v&gt;&gt;1;
-		          y[i]=(y[i])|(k);
-		          }
-		      v=y[i];
-		      }
-                   }
-              }
-      }
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/shift_i32.c <A NAME="tex2html5"
+  HREF="shift_i32_routcos.htm">[view code]</A>
+</LI>
+<LI>SCI/routines/scicos/shift_i16.c <A NAME="tex2html6"
+  HREF="shift_i16_routcos.htm">[view code]</A>
+</LI>
+<LI>SCI/routines/scicos/shift_i8.c <A NAME="tex2html7"
+  HREF="shift_i8_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
-Used functions</A>
-</font></H3>
-<b>shift_i32</b>,
-<b>shift_i16</b>,
-<b>shift_i8</b>,
-<b>shift_ui32</b>,
-<b>shift_ui16</b>,
-<b>shift_ui8</b>
-
-<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 See also</A>
 </font></H3>
 
 <UL>
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html8"
   HREF="BITSET.htm">BITSET - BITSET Set a Bit (Scicos Block)</A>
 </LI>
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html9"
   HREF="BITCLEAR.htm">BITCLEAR - BITCLEAR Clear a Bit (Scicos Block)</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00029000000000000000">
+<H3><font color="blue"><A NAME="SECTION00028000000000000000">
 Authors</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA

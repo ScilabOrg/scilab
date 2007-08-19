@@ -39,7 +39,7 @@ Backlash
  $\epsfig{file=BACKLASH.eps,width=90.00pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="122" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="143" HEIGHT="121" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/BACKLASH_blk.gif"
  ALT="\epsfig{file=BACKLASH.eps,width=90.00pt}">
 
@@ -52,22 +52,22 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="BACKLASH.htm#SECTION00010000000000000000">Backlash</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="BACKLASH.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="BACKLASH.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="BACKLASH.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="BACKLASH.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="BACKLASH.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="BACKLASH.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="BACKLASH.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="BACKLASH.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
-  HREF="BACKLASH.htm#SECTION00026000000000000000">Computational function (type 4)</A>
+  HREF="BACKLASH.htm#SECTION00024000000000000000">Default properties</A>
 <LI><A NAME="tex2html11"
+  HREF="BACKLASH.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
+  HREF="BACKLASH.htm#SECTION00026000000000000000">Computational function</A>
+<LI><A NAME="tex2html13"
   HREF="BACKLASH.htm#SECTION00027000000000000000">Authors</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -97,7 +97,7 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="142" BORDER="0"
+ WIDTH="477" HEIGHT="140" BORDER="0"
  SRC="../../images/scicos/BACKLASH_gui.gif"
  ALT="\begin{figure}\begin{center}
 \epsfig{file=BACKLASH_gui.eps,width=300pt}
@@ -148,66 +148,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>BACKLASH.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Misc/BACKLASH.sci <A NAME="tex2html4"
+  HREF="BACKLASH_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
-Computational function (type 4)</A>
+Computational function</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">
-#include "scicos_block.h"
-#include &lt;math.h&gt;
 
-#if WIN32
-#define NULL    0
-#endif
-
-void backlash(scicos_block *block,int flag)
-{ 
-  double* rw,t;
-  if (flag == 4){/* the workspace is used to store previous values */
-    if ((*block-&gt;work=	 scicos_malloc(sizeof(double)* 4))== NULL ) {
-      set_block_error(-16);
-      return;
-    }
-    rw=*block-&gt;work; 
-    t=get_scicos_time();
-    rw[0]=t;
-    rw[1]=t;
-    rw[2]=block-&gt;rpar[0];
-    rw[3]=block-&gt;rpar[0];
-  }else  if (flag == 5){
-    scicos_free(*block-&gt;work);
-  }else  if (flag == 1) {
-    rw=*block-&gt;work;
-    t=get_scicos_time();
-    if(t&gt;rw[1]) {
-      rw[0]=rw[1];
-      rw[2]=rw[3];
-    }
-    rw[1]=t;
-    if(block-&gt;inptr[0][0]&gt;rw[2]+block-&gt;rpar[1]/2){
-      rw[3]=block-&gt;inptr[0][0]-block-&gt;rpar[1]/2;
-    } else if (block-&gt;inptr[0][0]&lt;rw[2]-block-&gt;rpar[1]/2){
-      rw[3]=block-&gt;inptr[0][0]+block-&gt;rpar[1]/2;
-    } else {
-      rw[3]=rw[2];
-    }
-    block-&gt;outptr[0][0]=rw[3];
-  }  else if (flag == 9) {
-    rw=*block-&gt;work;
-    t=get_scicos_time();
-    if(t&gt;rw[1]){
-      block-&gt;g[0] = block-&gt;inptr[0][0]-block-&gt;rpar[1]/2-rw[3];
-      block-&gt;g[1] = block-&gt;inptr[0][0]+block-&gt;rpar[1]/2-rw[3];
-    }else{
-      block-&gt;g[0] = block-&gt;inptr[0][0]-block-&gt;rpar[1]/2-rw[2];
-      block-&gt;g[1] = block-&gt;inptr[0][0]+block-&gt;rpar[1]/2-rw[2];
-    }
-  } 
-}
-</PRE>
+<UL>
+<LI>SCI/routines/scicos/backlash.c (Type 4) <A NAME="tex2html5"
+  HREF="backlash_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00027000000000000000">
 Authors</A>
