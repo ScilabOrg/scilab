@@ -1031,7 +1031,7 @@
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_f">Activation clock</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLOCK_c">Activation clock</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>

@@ -1978,13 +1978,13 @@ Ajoutez ici un paragraphe pour la description de la fonction
 
 <FILE name='MATMUL' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Le bloc MATMUL fait la multiplication matricielle de ses deux entrées. Le nombre de lignes de la seconde matrice doit être égal au nombre de colonnes de la première. La sortie est une matrice où le nombre de lignes est égal à celui de la première matrice d'entrée et où le nombre de colonnes est égal à celui de la deuxième matrice d'entrée.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
 </DESCRIPTION>
 </FILE>
 
@@ -2469,15 +2469,15 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Ce bloc fait la transposition d'une matrice de taille MxN en matrice de taille NxM. Pour les données de type complexe, celui-ci utilise une transposition Hermitienne. L'instruction scilab équivalente de ce bloc est y=u'.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>

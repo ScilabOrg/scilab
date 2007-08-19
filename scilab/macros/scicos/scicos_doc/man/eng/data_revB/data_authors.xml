@@ -1220,9 +1220,12 @@ INRIA
 
 <FILE name='MATMUL' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Fady NASSIF'>
-INRIA
-</AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=MATMUL_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1546,9 +1549,12 @@ INRIA
 
 <FILE name='MATTRAN' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Fady NASSIF'>
-INRIA
-</AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=MATTRAN_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 

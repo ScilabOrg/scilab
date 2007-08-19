@@ -2707,20 +2707,32 @@ param(2): scalar. Time t.
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' of size 1. It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype(1=real double 2=Complex)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Multiplication rule (1= * 2= .* )</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    ?
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
@@ -4548,23 +4560,21 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    It indicates the data type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>

@@ -131,6 +131,7 @@ utilpath=SCI+'/macros/util/';
                    man_path=doc_path+'man/',..
                    rout_path=SCI+'/routines/scicos/',..
                    mod_flag='Scicos',..
+                   path_flag='SCI',..
                    pal_path=palpath,..
                    block_flag='scs',..
                    web_path='',..

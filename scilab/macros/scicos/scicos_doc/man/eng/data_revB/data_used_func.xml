@@ -1708,25 +1708,19 @@ for this block we have four differents functions:
 
 <FILE name='BITCLEAR1' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1738,41 +1732,31 @@ Add here the used function name and  references
 
 <FILE name='DLATCH1' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1808,33 +1792,25 @@ Add here the used function name and  references
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1848,41 +1824,31 @@ Add here the used function name and  references
 
 <FILE name='SETW' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1936,9 +1902,7 @@ Add here the used function name and  references
 
 <FILE name='CURVE_c' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1968,9 +1932,7 @@ Add here the used function name and  references
 
 <FILE name='Sigbuilder' type='XML'>
 <USED_FUNCTIONS>
-<SP>
-Add here the used function name and  references
-</SP>
+
 </USED_FUNCTIONS>
 </FILE>
 

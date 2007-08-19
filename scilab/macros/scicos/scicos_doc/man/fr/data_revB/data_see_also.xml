@@ -351,9 +351,8 @@
 
 <FILE name='GAINBLK' type='XML'>
 <SEE_ALSO>
-
-
-
+<SEE_ALSO_ITEM><LINK>INTMUL</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MATMUL</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
@@ -797,8 +796,6 @@
 
 <FILE name='SUMMATION' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -1794,281 +1791,217 @@
 
 <FILE name='BITCLEAR1' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
-</SEE_ALSO>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>EVTDLY_c</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>CLOCK_c</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='FROM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>GOTO</LINK> </SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM> <LINK>GotoTagVisibility</LINK> </SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GOTO' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>FROM</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GotoTagVisibility</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GotoTagVisibility' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GOTO</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>FROM</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SETW' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>FROM</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKGOTO' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GOTO</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CLKGotoTagVisibility' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GotoTagVisibility</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='FROMMO' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>FROM</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GOTOMO' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GOTO</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='GotoTagVisibilityMO' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>GotoTagVisibility</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CURVE_c' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Counter' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Modulo_Count</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='M_freq' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>MFCLCK_f</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='SampleCLK' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>CLOCK_c</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>Counter</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>ESELECT_f</LINK></SEE_ALSO_ITEM>
+<SEE_ALSO_ITEM><LINK>M_freq</LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
 <SEE_ALSO>
-<SEE_ALSO_ITEM>
-<LINK>ajouter un lien ici</LINK>
-</SEE_ALSO_ITEM>
+
+</SEE_ALSO>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<SEE_ALSO>
+
 </SEE_ALSO>
 </FILE>
 

@@ -1600,25 +1600,19 @@
 
 <FILE name='BITCLEAR1' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
@@ -1630,41 +1624,31 @@ Add here the function bibliography if any
 
 <FILE name='DLATCH1' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
@@ -1700,81 +1684,61 @@ Add here the function bibliography if any
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SETW' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
@@ -1828,9 +1792,7 @@ Add here the function bibliography if any
 
 <FILE name='CURVE_c' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 
@@ -1860,9 +1822,7 @@ Add here the function bibliography if any
 
 <FILE name='Sigbuilder' type='XML'>
 <BIBLIO>
-<SP>
-Add here the function bibliography if any
-</SP>
+
 </BIBLIO>
 </FILE>
 

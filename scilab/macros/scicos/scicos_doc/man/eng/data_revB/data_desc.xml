@@ -1496,15 +1496,15 @@ The MATLU Block outputs two matrices L and U, with row pivoting, from the LU fac
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-The MATMUL block computes the matrix multiplication of two inputs matrices.The number of rows of the second matrix must be equal to the number of columns of the first matrix. The output is a matrix where the number of rows is equal to that of the first input matrix and the number of columns is equal to that of the second input matrix.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The MATMUL block computes the matrix multiplication of two inputs matrices.The number of rows of the second matrix must be equal to the number of columns of the first matrix. The output is a matrix where the number of rows is equal to that of the first input matrix and the number of columns is equal to that of the second input matrix.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
@@ -2002,15 +2002,15 @@ The equivalent function of this block in scilab is: "sum".
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This Block transposes an MxN matrix to a NxM matrix. For complex data type it uses the hermitian transpose. The equivalent of this block in Scilab is y=u'.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This Block transposes an MxN matrix to a NxM matrix. For complex data type it uses the hermitian transpose. The equivalent of this block in Scilab is y=u'.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>

@@ -1330,25 +1330,25 @@
 
 <FILE name='MATSUM' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
@@ -1426,7 +1426,7 @@
 
 <FILE name='RICC' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
@@ -1558,13 +1558,13 @@
 
 <FILE name='SQRT' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <BIBLIO>
-
+	
 </BIBLIO>
 </FILE>
 
@@ -1594,126 +1594,74 @@
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <BIBLIO>
-
-</BIBLIO>
-</FILE>
-
-<FILE name='BITCLEAR' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+	
 </BIBLIO>
 </FILE>
 
 <FILE name='BITCLEAR1' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='BITSET' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='CONVERT' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='EXTRACTBITS' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='FROM' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1721,7 +1669,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='GOTO' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1729,159 +1677,75 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='GotoTagVisibility' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='INTGAINBLK' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTLOGICAL_OP' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTMUL' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
-
-<FILE name='INTREGISTER' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='LOGIC' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='RELATIONAL_OP' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SETW' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='SHIFT' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
-</BIBLIO>
-</FILE>
 
-<FILE name='SUMMATIONI' type='XML'>
-<BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1889,7 +1753,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='CLKGOTO' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1897,7 +1761,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='CLKGotoTagVisibility' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1905,7 +1769,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='FROMMO' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1913,7 +1777,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='GOTOMO' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1921,23 +1785,21 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='GotoTagVisibilityMO' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='CURVE_c' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 
 <FILE name='Counter' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1945,7 +1807,7 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='M_freq' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
@@ -1953,16 +1815,14 @@ Ajoutez ici la bibliographie si besoin
 <FILE name='SampleCLK' type='XML'>
 <BIBLIO>
 <SP>
-Ajoutez ici la bibliographie si besoin
+
 </SP>
 </BIBLIO>
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
 <BIBLIO>
-<SP>
-Ajoutez ici la bibliographie si besoin
-</SP>
+
 </BIBLIO>
 </FILE>
 

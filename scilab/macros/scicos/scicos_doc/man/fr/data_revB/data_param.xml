@@ -4548,23 +4548,32 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype(1=real double 2=Complex)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre indique le type de donnée de la sortie. Ce bloc fonctionne uniquement avec des types de donnée réelle(1) et complexe(2). Si un autre type que 1 et 2 est indiqué, alors Scicos retourne le message d'erreur "Datatype is not supported".
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Multiplication rule (1= * 2= .* )</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    ?
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='MATPINV' type='XML'>
@@ -6416,23 +6425,21 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype(1=real double  2=Complex)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre indique le type de donnée de la sortie. Ce bloc fonctionne uniquement avec des types de donnée réelle(1) et complexe(2). Si un autre type que 1 et 2 est indiqué, alors Scicos retourne le message d'erreur "Datatype is not supported".
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
