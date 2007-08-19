@@ -18,7 +18,7 @@ case 'set' then
   if size(label,'*')==1 then label(2)=sci2exp(1),end //compatiblity
   while %t do
     [ok,typ,rule,exprs]=getvalue('Set MATMUL Block',..
-	    ['Datatype(1=real double  2=Complex)';
+	    ['Datatype(1=real double 2=Complex)';
 	     'Multiplication rule (1= * 2= .* )'],list('vec',1,'vec',1),label)
     if ~ok then break,end
     if (typ<>1&typ<>2) then message("type is not supported");ok=%f;end

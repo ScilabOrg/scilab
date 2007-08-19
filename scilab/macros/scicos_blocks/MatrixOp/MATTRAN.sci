@@ -18,7 +18,7 @@ case 'set' then
   if size(label,'*')==14 then label(9)=[],end //compatiblity
   while %t do
     [ok,typ,exprs]=getvalue('Set MATTRAN Block',..
-	    ['Datatype(1=real double  2=Complex)'],list('vec',1),label)
+	    ['Datatype(1=real double 2=Complex)'],list('vec',1),label)
     if ~ok then break,end
     if (typ==1) then
 	junction_name='mattran_m';
