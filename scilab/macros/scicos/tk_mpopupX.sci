@@ -9,7 +9,7 @@ function Cmenu=tk_mpopupX(ll)
 
   [txt,MM] = create_popup(ll)
   ierr = execstr('TCL_EvalStr(txt)','continue')
-  while (Cmenu<>[]&Done<>[])
+  while (Cmenu==[]&Done==[])
      xpause(1000)
   end
 
