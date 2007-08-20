@@ -505,7 +505,23 @@
 </FILE>
 
 <FILE name='buildouttb' type='XML'>
-<SHORT_DESCRIPTION name="buildouttb">buildouttb title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="buildouttb">Build of the sublist %cpr.state.outtb</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+	<SHORT_DESCRIPTION name="phase_simulation">Get the current simulation phase</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="set_xproperty">Set the type of the state equation system</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="pointer_xproperty">Get the type of the state equation system</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+	<SHORT_DESCRIPTION name="getblocklabel">Get the label of a scicos block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='c_block' type='XML'>
@@ -513,7 +529,7 @@
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<SHORT_DESCRIPTION name="curblock">curblock title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="curblock">Return the current called scicos block during the simulation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='fortran_block' type='XML'>
@@ -533,15 +549,15 @@
 </FILE>
 
 <FILE name='lincos' type='XML'>
-<SHORT_DESCRIPTION name="lincos"> Constructs by linearization a linear state-space model from a general dynamical system described by a scicos diagram </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="lincos">Constructs by linearization a linear state-space model from a general dynamical system described by a scicos diagram </SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos' type='XML'>
-<SHORT_DESCRIPTION name="scicos">  Block diagram editor and GUI for the hybrid simulator</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos">Block diagram editor and GUI for the hybrid simulator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">scicos_debug title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_debug">Set the level of the Scicos debugging</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -549,7 +565,7 @@
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
-<SHORT_DESCRIPTION name="scicos_time">scicos_time title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_time">Returns the current time during simulation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicosim' type='XML'>
@@ -565,11 +581,11 @@
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<SHORT_DESCRIPTION name="var2vec">var2vec title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="var2vec">Transform a scilab variable in a vector of double</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<SHORT_DESCRIPTION name="vec2var">vec2var title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="vec2var">Transform a vector of double in a scilab variable</SHORT_DESCRIPTION>
 </FILE>
 
 

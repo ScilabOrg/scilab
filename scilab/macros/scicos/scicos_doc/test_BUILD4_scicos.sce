@@ -76,16 +76,19 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""steadycos.sci""></SCI>"
                "  </CHAPTER>"
                ""
-               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnï¿½e"">  </CHAPTER>"
+               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnée"">  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Scilab built-in functions"" fr=""Fonctions utilitaires Scilab"">"
-               "    <SCI varpath=""autopath"" name=""var2vec""></SCI>"
-               "    <SCI varpath=""autopath"" name=""vec2var""></SCI>"
+               "    <SCI varpath=""autopath"" name=""buildouttb""></SCI>"
                "    <SCI varpath=""autopath"" name=""curblock""></SCI>"
+               "    <SCI varpath=""autopath"" name=""getblocklabel""></SCI>"
+               "    <SCI varpath=""autopath"" name=""phase_simulation""></SCI>"
+               "    <SCI varpath=""autopath"" name=""pointer_xproperty""></SCI>"
                "    <SCI varpath=""autopath"" name=""scicos_debug""></SCI>"
                "    <SCI varpath=""autopath"" name=""scicos_time""></SCI>"
-               "    <SCI varpath=""autopath"" name=""getscicosvars""></SCI>"
-               "    <SCI varpath=""autopath"" name=""buildouttb""></SCI>"
+               "    <SCI varpath=""autopath"" name=""set_xproperty""></SCI>"
+               "    <SCI varpath=""autopath"" name=""var2vec""></SCI>"
+               "    <SCI varpath=""autopath"" name=""vec2var""></SCI>"
                "  </CHAPTER>"
                ""
                "</WHATIS>"];
@@ -225,14 +228,18 @@ listf_of_autosci=[autopath,"scicos.sci","sci";
                   autopath,"steadycos.sci","sci"];
 
 //Interfaced function
-listf_of_interf=["","scicosim.sci","sci";
-                 "","getscicosvars","sci";
-                 "","buildouttb","sci";
-                 "","var2vec","sci";
-                 "","vec2var","sci";
+listf_of_interf=["","buildouttb","sci";
                  "","curblock","sci";
+                 "","getblocklabel","sci";
+                 "","phase_simulation","sci";
+                 "","pointer_xproperty","sci";
                  "","scicos_debug","sci";
-                 "","scicos_time","sci"];
+                 "","scicos_time","sci"
+                 "","set_xproperty","sci";
+                 "","scicosim.sci","sci";
+                 "","getscicosvars","sci";
+                 "","var2vec","sci";
+                 "","vec2var","sci";];
 
 //**--palettes--*/
 //Sources palette
@@ -248,7 +255,7 @@ clear i;clear listf;
 listf_of_linear=[palpath,"Linear.cosf","pal"];
 listf = basename(listfiles(opath2(6)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBï¿½GICI
+  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBéGICI
     listf_of_linear=[listf_of_linear;
                      opath2(6),listf(i),"block"];
   end
@@ -330,7 +337,7 @@ clear i;clear listf;
 listf_of_matop=[palpath,"Matrix.cosf","pal"];
 listf = basename(listfiles(opath2(13)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'INTGAINBLK.sci' then //!!!!!!! YAUNBï¿½GICI
+  if listf(i)<>'INTGAINBLK.sci' then //!!!!!!! YAUNBéGICI
     listf_of_matop=[listf_of_matop;
                    opath2(13),listf(i),"block"];
   end
@@ -350,7 +357,7 @@ clear i;clear listf;
 listf_of_misc=[];
 listf = basename(listfiles(opath2(7)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'m_sin.sci' then //!!!!!!! YAUNBï¿½GICI
+  if listf(i)<>'m_sin.sci' then //!!!!!!! YAUNBéGICI
     listf_of_misc=[listf_of_misc;
                    opath2(7),listf(i),"block"];
   end

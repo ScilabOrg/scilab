@@ -509,12 +509,28 @@
 <SHORT_DESCRIPTION name="buildouttb">Construction d'une liste vide %cpr.state.outtb</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='phase_simulation' type='XML'>
+	<SHORT_DESCRIPTION name="phase_simulation">Retourne la phase actuelle de simulation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="set_xproperty">Définit le type du système d'équations d'état</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="pointer_xproperty">Retourne le type du système d'équations d'état</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+	<SHORT_DESCRIPTION name="getblocklabel">Retourne le label d'un bloc scicos</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='c_block' type='XML'>
 <SHORT_DESCRIPTION name="c_block">Language C</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<SHORT_DESCRIPTION name="curblock">curblock titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="curblock">Retourne l'actuel bloc scicos appelé pendant la simulation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='fortran_block' type='XML'>
@@ -542,7 +558,7 @@
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">scicos_debug titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_debug">Definit le niveau de déboguage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -550,7 +566,7 @@
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
-<SHORT_DESCRIPTION name="scicos_time">scicos_time titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_time">Retourne le temps courant pendant la simulation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicosim' type='XML'>
@@ -566,11 +582,11 @@
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<SHORT_DESCRIPTION name="var2vec">var2vec titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="var2vec">Transforme une variable scilab en un vecteur de double</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<SHORT_DESCRIPTION name="vec2var">vec2var titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="vec2var">Transforme un vecteur de double en une variable scilab</SHORT_DESCRIPTION>
 </FILE>
 
 
