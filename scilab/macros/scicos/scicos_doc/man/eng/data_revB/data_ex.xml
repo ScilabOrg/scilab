@@ -1486,25 +1486,19 @@ The easiest example to consider is the OR example. In this case we have two inpu
 
 <FILE name='BITCLEAR1' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1516,41 +1510,31 @@ Example
 
 <FILE name='DLATCH1' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1586,33 +1570,25 @@ Example
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1626,41 +1602,31 @@ Example
 
 <FILE name='SETW' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1714,9 +1680,7 @@ Example
 
 <FILE name='CURVE_c' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
 </FILE>
 
@@ -1751,10 +1715,28 @@ When t=2 we loop back to 0.
 
 <FILE name='Sigbuilder' type='XML'>
 <EXAMPLE>
-<P>
-Example
-</P>
+
 </EXAMPLE>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <EXAMPLE><![CDATA[
+  ]]></EXAMPLE>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <EXAMPLE><![CDATA[
+  ]]></EXAMPLE>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <EXAMPLE><![CDATA[
+  ]]></EXAMPLE>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <EXAMPLE><![CDATA[
+  ]]></EXAMPLE>
 </FILE>
 
 </DATA>

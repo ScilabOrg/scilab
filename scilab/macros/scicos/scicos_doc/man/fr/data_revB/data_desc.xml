@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?>
 <DATA flag="desc">
 
 <FILE name='ABS_VALUE' type='XML'>
@@ -3546,6 +3545,54 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
 </DESCRIPTION>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 </DATA>

@@ -7707,7 +7707,7 @@ Properties : Type 'vec' of size 1.
 	    Properties : Type 'vec' of size 1.
 	  </SP>
 	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>      
+      </PARAM_ITEM>
       <PARAM_ITEM>
 	<PARAM_NAME>Number of inputs or sign vector (of +1, -1)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
@@ -7731,6 +7731,74 @@ Properties : Type 'vec' of size 1.
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
     </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Name of param.</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      add here the parameter description
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Name of param.</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      add here the parameter description
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Name of param.</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      add here the parameter description
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Name of param.</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      add here the parameter description
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
   </PARAM>
 </FILE>
 

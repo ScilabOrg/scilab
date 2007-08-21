@@ -1261,129 +1261,97 @@ INRIA
 
 <FILE name='ABSBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLR' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CONST' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1397,89 +1365,67 @@ Add here the author  references
 
 <FILE name='COSBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DLR' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DLSS' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1493,49 +1439,37 @@ INRIA
 
 <FILE name='GAIN_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1576,65 +1510,49 @@ INRIA
 
 <FILE name='MAX_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MEMORY_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MFCLCK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='NPN' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1646,9 +1564,7 @@ Add here the author  references
 
 <FILE name='PNP' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1662,9 +1578,7 @@ Add here the author  references
 
 <FILE name='RFILE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1678,49 +1592,37 @@ INRIA
 
 <FILE name='SAMPHOLD' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='STEP' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1734,65 +1636,49 @@ Add here the author  references
 
 <FILE name='SWITCH2_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1838,9 +1724,7 @@ INRIA
 
 <FILE name='GAINBLK_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1884,9 +1768,7 @@ INRIA
 
 <FILE name='RAND_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1900,9 +1782,7 @@ INRIA
 
 <FILE name='RELAY_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1956,17 +1836,13 @@ INRIA
 
 <FILE name='EXPBLK_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -1996,25 +1872,19 @@ INRIA
 
 <FILE name='BITCLEAR1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -2028,41 +1898,31 @@ INRIA
 
 <FILE name='DLATCH1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='DelayRE' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='Div' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -2100,33 +1960,25 @@ INRIA
 
 <FILE name='IMPSPLIT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='Neg' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='PID' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -2140,41 +1992,31 @@ Add here the author  references
 
 <FILE name='SETW' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='func_block' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -2228,9 +2070,7 @@ Add here the author  references
 
 <FILE name='CURVE_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
 </FILE>
 
@@ -2260,10 +2100,32 @@ Add here the author  references
 
 <FILE name='Sigbuilder' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-Add here the author  references
-</AUTHORS_ITEM>
+
 </AUTHORS>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
 </FILE>
 
 </DATA>

@@ -1330,25 +1330,25 @@
 
 <FILE name='MATSUM' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
@@ -1426,7 +1426,7 @@
 
 <FILE name='RICC' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
@@ -1558,13 +1558,13 @@
 
 <FILE name='SQRT' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
 <FILE name='DFLIPFLOP' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
@@ -1594,7 +1594,7 @@
 
 <FILE name='SRFLIPFLOP' type='XML'>
 <BIBLIO>
-	
+
 </BIBLIO>
 </FILE>
 
@@ -1824,6 +1824,72 @@
 <BIBLIO>
 
 </BIBLIO>
+</FILE>
+
+<FILE name='BITCLEAR' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
 </FILE>
 
 </DATA>

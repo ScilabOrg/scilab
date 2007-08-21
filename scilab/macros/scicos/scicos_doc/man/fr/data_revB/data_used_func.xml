@@ -1936,4 +1936,28 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='getblocklabel' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
 </DATA>
