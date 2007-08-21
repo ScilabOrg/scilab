@@ -110,35 +110,7 @@ function [scs_m, fct] = do_addnew(scs_m)
 
     //check version
     current_version = get_scicos_version()
-    if type(scs_m_super)==17 then
-      if find(getfield(1,scs_m_super)=='version')<>[] then
-        if scs_m_super.version<>'' then
-          scicos_ver=scs_m_super.version
-        else
-          if find(getfield(1,blk.model)=='equations')<>[] then
-            scicos_ver = "scicos2.7.3" //for compatibility
-          else
-            scicos_ver = "scicos2.7" //for compatibility
-          end
-          message(["Warning : you want to import an old compiled super block.";
-                   "I will try to translate this block by generating ";
-                   "a new interfacing function in TMPDIR"])
-        end
-      else
-        if find(getfield(1,blk.model)=='equations')<>[] then
-          scicos_ver = "scicos2.7.3" //for compatibility
-        else
-          scicos_ver = "scicos2.7" //for compatibility
-        end
-        message(["Warning : you want to import an old compiled super block.";
-                 "I will try to translate this block by generating ";
-                 "a new interfacing function in TMPDIR"])
-      end
-    else
-      message("Can''t import block in scicos, sorry" )
-      fct=[]
-      return
-    end
+    scicos_ver = find_scicos_version(scs_m_super)
 
     //do version
     if scicos_ver<>current_version then
@@ -161,7 +133,7 @@ function [scs_m, fct] = do_addnew(scs_m)
       elseif blk.model.sim(1)=='csuper' then
         save_csuper(scs_m_super,TMPDIR,blk.graphics.gr_i,blk.graphics.sz)
       end
-      message(name+".sci generated in "+TMPDIR+"." )
+      message(["Old block detected !";"New block "+name+".sci generated in "+TMPDIR+"."])
 
       //load new interfacing function
       [u,err]=file('open',TMPDIR+'/'+name+'.sci','old','formatted')

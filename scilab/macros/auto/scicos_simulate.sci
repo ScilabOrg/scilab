@@ -150,6 +150,19 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
      error('scicos_simulate : wrong number of parameters.')
   end
 
+  //check version
+  current_version = get_scicos_version()
+  scicos_ver = find_scicos_version(scs_m)
+
+  //do version
+  if scicos_ver<>current_version then
+    ierr=execstr('scs_m=do_version(scs_m,scicos_ver)','errcatch')
+    if ierr<>0 then
+      message("Can''t convert old diagram (problem in version)")
+      return
+    end
+  end
+
   Ignore=[]
 
   if flag=='nw' then

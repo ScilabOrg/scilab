@@ -94,6 +94,8 @@ function [ok, scs_m, %cpr, edited] = do_load(fname,typ)
       if find(getfield(1,scs_m)=='version')<>[] then
         if scs_m.version<>'' then
           scicos_ver=scs_m.version
+        else
+          scicos_ver=find_scicos_version(scs_m)
         end
       end
     end
