@@ -27,17 +27,20 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 //--------------------------------------------------------------------------------------------
 // Copyright INRIA
 
-//** Check for Scilab "command line mode" that does not support SCICOS 
+//**-------------------------------------------------------------------------------------------
+//** Check for Scilab "command line mode" that does not support SCICOS
+//** This check verify if "scicos()" is started form a command line Scilab with no graphics 
+//** support (almost obsolete function) 
 noguimode = find(sciargs()=="-nogui");
 if (noguimode <>[]) then
    clear noguimode
    warning(" Scilab in no gui mode : Scicos unavailable");
-   abort;
+   abort ; //** EXIT form Scicos () 
 end;
 
 clear noguimode
 
-[lhs,rhs] = argn(0) ;
+//**-------------------------------------------------------------------------------------------
 
 //** ----------------------------- Check the recurring calling level of scicos_new -------------------------------
 
@@ -163,7 +166,8 @@ if ~super_block then
   //** compatibility with NGI (J.B. Silvy)
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
-  xstringb = xstringb2; //TO be removed in Scilab 5
+  //** PATCH 
+  //** xstringb = xstringb2; //TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
@@ -270,6 +274,8 @@ if ~super_block then // init of some global variables
 end
 //
 
+[lhs, rhs] = argn(0) ; //** recover the arguments of "scicos(<rhs>)" 
+
 if rhs>=1 then //** scicos_new(...) is called with some arguments
 
   if type(scs_m)==10 then //diagram is given by its filename
@@ -295,6 +301,7 @@ if rhs>=1 then //** scicos_new(...) is called with some arguments
   end
 
 else //** scicos_new() is called without arguments (AND - implicitly - is NOT a superblock)
+
 //** ----------- Normal : not a superblock -----------------  
 //** ------------- NORMAL OPENING OF A BRAND NEW GRAPHICS WINDOW--------------------------------
 
@@ -308,11 +315,12 @@ end
 
 //
 
-if typeof(scs_m)<>'diagram' then error('first argument must be a scicos diagram'),end
+if typeof(scs_m)<>'diagram' then
+  error("First argument must be a Scicos diagram");
+end
 
 
-//**-------------------------------------------------------------------------------------------
-//** Dynamic menu preparation
+//**----------------------- Dynamic menu and shortcut preparation -----------------------------------------
 //**
 %cor_item_exec = []; //** init
 
@@ -368,6 +376,7 @@ options = scs_m.props.options
 // solver
 %scicos_solver = scs_m.props.tol(6)
 
+//** ------- GRAPHICS INITIALIZATION: Palettes, TK functions, --------- -----------------------------------
 //**-------------------------- I'm NOT inside a superblock  -----------------------------------------------
 if ~super_block then
 
@@ -375,17 +384,15 @@ if ~super_block then
   curwin = get ( gh_current_window, "figure_id") ;
 
   palettes = list();
-  noldwin = 0
-  windows = [1 curwin]
-  pixmap = %scicos_display_mode
+  noldwin = 0      ;
+  windows = [1 curwin] ; 
+  pixmap = %scicos_display_mode ;// obsolete: the pixmap is "on" as default 
   //
 
   if ~exists('%scicos_gui_mode') then
     if with_tk() then %scicos_gui_mode=1, else %scicos_gui_mode=0, end
   end
-  //%scicos_gui_mode=0
 
-  
   if %scicos_gui_mode==1 then
   //** scicos is active in graphical mode   
     prot = funcprot();
@@ -395,7 +402,7 @@ if ~super_block then
     
     savefile = tk_savefile; //** Tk    "        "
     
-    getcolor = tk_getcolor;
+    getcolor = tk_getcolor; //** Tk    "        "
     
     //** --------- Popup OS dependent definition -----------------
     if MSDOS then  
@@ -472,10 +479,11 @@ end
 
 //** ----------------------------------------------------------------------------------------------
 
-//** ---------- This piece of code is relative to the "Contex" handling and evaluation ------------
 
+//**----------------------------------- CONTEXT ------------------------------------------------- 
+//** -------- This piece of code is relative to the "Contex" handling and evaluation ------------
 //set context (variable definition...)
-if type(scs_m.props.context) == 10 then
+if type(scs_m.props.context) == 10 then //** if the variable is defined 
 
   gh_percent_now_win = gcf(); //** save current figure handle
 
@@ -507,15 +515,16 @@ if type(scs_m.props.context) == 10 then
   end
 
   scf(gh_percent_now_win); //** restore current figure handle
+
 else
 
-  scs_m.props.context=' '
+  scs_m.props.context = ' ' ; //** put the variable to empty state 
 
 end
 //** ---------- End of "Contex" handling and evaluation (was: "the very obscure code") -------------
 //**
 //** -----------------------------------------------------------------------------------------------
-//** Begin of the command interpreter loop
+//** Begin of the Main command interpreter loop
 
 // state machine variables
 
@@ -535,7 +544,7 @@ Clipboard = []; //** used in Copy Cut and Paste function
 //** --- End of initialization ----------------------------------------------------------- 
 
 
-drawobjs(scs_m) ; //** draw the full diagram 
+drawobjs(scs_m) ; //** draw the full diagram from the original Scicos data structure 
 
 //** ------------------------ Command Interpreter / State Machine / Main Loop ----------------------------
 
@@ -641,8 +650,10 @@ end //**--->  end of the while loop: the only way to exit is with the 'Quit' com
 
 do_exit() ; //** this function is executed in case of 'Quit' command
 
-endfunction
-
+endfunction //** scicos() end here :) : had a good day
+//**
+//*
+//**
 //** ----------------------------------------------------------------------------------------------------------------
 //*******************************************************************************************************************
 
