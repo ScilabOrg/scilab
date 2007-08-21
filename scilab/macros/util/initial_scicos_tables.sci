@@ -107,7 +107,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   Help     = ['Help',..
               'Help',..
 	      'Demos',..
-	      'About SCICOS'];	      
+	      'About Scicos'];	      
 	      
 	      
   %scicos_menu = list(File,Diagram,Palette,Edit,View,Simulate,Format,Tools,Help);
