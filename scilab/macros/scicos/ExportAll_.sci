@@ -3,7 +3,7 @@ function ExportAll_()
 //**
 
 //** Temp. patch  
-x_message (["This function is not yet active"; "for the New Graphics Scicos Editor"; "... have a good day :)"]);
+message (["This function is not yet active"; "for the New Graphics Scicos Editor"; "... have a good day :)"]);
 
 Cmenu=[];
 
