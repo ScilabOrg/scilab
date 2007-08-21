@@ -30,7 +30,8 @@ Scicos Block
   HREF="./SHIFT.htm">eng</A>
 
 </DIV>
-<H2><A NAME="SECTION00010000000000000000"></A><A NAME="SHIFT"></A><BR>
+<H2><A NAME="SECTION00010000000000000000"></A><A NAME="SHIFT"></A>
+<BR>
 SHIFT Shift Bits
 </H2>
 <DIV ALIGN="CENTER">
@@ -70,10 +71,7 @@ Contents</A>
   HREF="SHIFT.htm#SECTION00027000000000000000">See also</A>
 <LI><A NAME="tex2html18"
   HREF="SHIFT.htm#SECTION00028000000000000000">Authors</A>
-<LI><A NAME="tex2html19"
-  HREF="SHIFT.htm#SECTION00030000000000000000">Bibliography</A>
-</UL>
-</UL><BR>
+</UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
 Palette</A>
@@ -89,9 +87,11 @@ Description</A>
 </font></H3>
 
 <P>
-  This block shifts the bits of the input signal. In this operation the digits are moved to the right or to the left. The user can choose the rule to shifts the bits. It can be normal or cycle by setting the "Shifttype" parameter to "0" or "1". 
-<BR>When the Shifttype is 0, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted out of either end are discarded. Zeros are shifted in on the right, in the case of left shift; in the case of right shifts, copies of the sign bit is shifted in on the left. 
-<BR>When the "Shifttype" is 1,a circular shift is applied to the input signal. In this case, the bits are rotated as if the left and right ends of the register are joined. The value that is shifted in on the right during a left-shift is whatever values was shifted out on the left, and vice versa.  
+This block shifts the bits of the input signal. In this operation the digits are moved to the right or to the left. The user can choose the rule to shifts the bits. It can be normal or cycle by setting the "Shifttype" parameter to "0" or "1". 
+<BR>
+When the Shifttype is 0, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted out of either end are discarded. Zeros are shifted in on the right, in the case of left shift; in the case of right shifts, copies of the sign bit is shifted in on the left. 
+<BR>
+When the "Shifttype" is 1,a circular shift is applied to the input signal. In this case, the bits are rotated as if the left and right ends of the register are joined. The value that is shifted in on the right during a left-shift is whatever values was shifted out on the left, and vice versa.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
@@ -192,11 +192,6 @@ See also</A>
 Authors</A>
 </font></H3>
 <b>Fady NASSIF</b> INRIA
- 
-<H3><font color="blue"><A NAME="SECTION00030000000000000000">
-Bibliography</A>
-</font></H3><DL COMPACT><DD>Add here the function bibliography if any
-</DL>
 
 <BR>
 
