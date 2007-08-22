@@ -2,8 +2,8 @@
 
 s=poly(0,'s');z=poly(0,'z');
 
-exec(path+'pid_ch_1.sce');
-[n]=demo_choose(path+'pid_ch_1.bin');
+exec('SCI/demos/control/pid/pid_ch_1.sce');
+[n]=demo_choose('SCI/demos/control/pid/pid_ch_1.bin');
 
 select n
  case 0
@@ -13,8 +13,8 @@ select n
   dom='c';
   s=poly(0,'s');
   
-  exec(path+'pid_dial_2.sce');
-  [rep]=demo_mdialog(path+'pid_dial_2.bin');
+  exec('SCI/demos/control/pid/pid_dial_2.sce');
+  [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial_2.bin');
   
   if rep==[] then return,end
   Plant=evstr(rep); 
@@ -25,8 +25,8 @@ case 2
   dom='d'
   z=poly(0,'z');
   
-  exec(path+'pid_dial_3.sce');
-  [rep]=demo_mdialog(path+'pid_dial_3.bin');
+  exec('SCI/demos/control/pid/pid_dial_3.sce');
+  [rep]=demo_mdialog('SCI/demos/control/pid/pid_dial_3.bin');
   
   if rep==[] then return,end
   Plant=evstr(rep)
@@ -47,8 +47,8 @@ while %t
     Title='Enter your PID controller K(z)=Kp*(1+T0/z+T1*z)';
   end
   
-  exec(path+'pid_dial_4.sce');
-  [defv]=demo_mdialog(path+'pid_dial_4.bin');  
+  exec('SCI/demos/control/pid/pid_dial_4.sce');
+  [defv]=demo_mdialog('SCI/demos/control/pid/pid_dial_4.bin');  
   
   if defv==[] then warning('Demo stops!');return;end
   Kp=evstr(defv(1));T0=evstr(defv(2));T1=evstr(defv(3));
@@ -63,9 +63,9 @@ while %t
 
   disp(spec(Winv(2)),'closed loop eigenvalues');//Check internal stability
   if maxi(real(spec(Winv(2)))) > 0 then 
-    demo_message(path+'pid_4.sce');
+    demo_message('SCI/demos/control/pid/pid_4.sce');
   else
-    demo_message(path+'pid_5.sce');
+    demo_message('SCI/demos/control/pid/pid_5.sce');
     break;
   end
   mode(-1)
@@ -79,8 +79,8 @@ disp(clean(ss2tf(Tpid)),'Complementary sensitivity function');
 
 while %t do
 
-  exec(path+'pid_ch_2.sce');
-  [n]=demo_choose(path+'pid_ch_2.bin');
+  exec('SCI/demos/control/pid/pid_ch_2.sce');
+  [n]=demo_choose('SCI/demos/control/pid/pid_ch_2.bin');
 
   if degree(Tpid(5))>0 then
     warning('Improper transfer function! D(s) set to D(0)')
@@ -106,8 +106,8 @@ while %t do
       dt=evstr(dttmax(1));tmax=evstr(dttmax(2));
       t=0:dt/5:tmax;
 
-      exec(path+'pid_ch_3.sce');
-      [n1]=demo_choose(path+'pid_ch_3.bin');
+      exec('SCI/demos/control/pid/pid_ch_3.sce');
+      [n1]=demo_choose('SCI/demos/control/pid/pid_ch_3.bin');
 
       if n1==0 then
 	warning('Demo stops!');return;
@@ -139,8 +139,8 @@ while %t do
       mode(-1)
       while %t do
  
-  exec(path+'pid_ch_4.sce');
-  [n]=demo_choose(path+'pid_ch_4.bin');
+  exec('SCI/demos/control/pid/pid_ch_4.sce');
+  [n]=demo_choose('SCI/demos/control/pid/pid_ch_4.bin');
   
 	select n
 	case 0 then
