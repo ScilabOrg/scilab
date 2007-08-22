@@ -36,10 +36,10 @@ end
 disp(spec(h_cl(Pms,r,K)),'closed loop eigenvalues')    //Check internal stability
 [Ssens,Rsens,Tsens]=sensi(P22,K);  //Sensitivity functions
 
-demo_message(path+'mixed_4.sce');
+demo_message('SCI/demos/control/mixed/mixed_4.sce');
 
-exec(path+'mixed_dial_4.sce');
-[www]=demo_mdialog(path+'mixed_dial_4.bin');
+exec('SCI/demos/control/mixed/mixed_dial_4.sce');
+[www]=demo_mdialog('SCI/demos/control/mixed/mixed_dial_4.bin');
 
 if www==[] then return,end
 
