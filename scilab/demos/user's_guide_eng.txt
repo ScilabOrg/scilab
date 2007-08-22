@@ -3,8 +3,11 @@ User's guide : how to create a demonstration
 your demonstrations shall be written according to a precise principle : the main file is an interface file
 that does only contain the standard functions at your disposal in the repository 'SCI/demos/demos_lib'as well
 as their call. The scripts that are between these standard function will be called by the standard function
-demo_run(fil) and be written in an annex .sce file. All the rest of the demonstration will apppear in the
-annex files, particularly the functions, that will be written in .sci files.
+'demo_run(fil)' and be written in an annex mydemo_1.sce, then mydemo_2.sce file, etc.The files containing texts
+called by the demo_message function will get the same shape like mydemo_num.sce. The files called by the func-
+tions 'demo_mdialog' and 'demo_choose' will respectively get the shape mydemo_dial_num.sce and mydemo_ch_num.sce.
+The rest of the demonstration will apppear in the annex files, particularly the functions, that will be writ-
+ten in .sci files.
 The interest is that the developer of the SCILAB logiciel can thus modify as he want the shape of the de-
 monstration without enter inside the script.
 On another side, you are asked not to make appear the scripts or calculation on the console but rather
@@ -12,28 +15,28 @@ within the 'x_message' interface, obtained with demo_message.
 
 	Here is a description of the functions written especially for the demonstration and available in
 the repository SCI/demos/demos_lib : 
-   The function demo_run allows you to execute the scripts you would have written on annex files.These
+   The function 'demo_run' allows you to execute the scripts you would have written on annex files.These
 scripts will separate the other standard functions between themselves.
-   The function demo_begin shall be used on the beginning of the demonstration. It sets the scripts in mode
+   The function 'demo_begin' shall be used on the beginning of the demonstration. It sets the scripts in mode
 of non display of the text, fixes the console width to its standard state while recording the previous width
 in 'oldln', and gives the path of the file given in argument in the variable 'path' if the argument is not
 'nofile'.
-   The function demo_compiler is used as test to know if the reader of your demonstration's computer owns or
+   The function 'demo_compiler' is used as test to know if the reader of your demonstration's computer owns or
 not a compiler C. It gives a boolean indicating this in the variable 'ans'.
-   The function demo_message is used to display messages, particularly calculations or comments about the de-
+   The function 'demo_message' is used to display messages, particularly calculations or comments about the de-
 monstration. It takes as argument the file where stand the code lines.
-   the function demo_choose is used to propose a choice between various options of the demonstration. These
+   the function 'demo_choose' is used to propose a choice between various options of the demonstration. These
 are written under the shape of a column text vector in the file to call. It gives the number of the chosen
 line in the variable 'num'.
-   The function demo_mdialog allows to propose to the reader to chose himself the values of the parameters.
+   The function 'demo_mdialog' allows to propose to the reader to chose himself the values of the parameters.
 The first argument in the file to call is the title of the dialog box, the second is the name of the parame-
 ters and the third the default parameter values.
-   The function demo_function_choice can be used if your demonstration contains a list of versions among
+   The function 'demo_function_choice' can be used if your demonstration contains a list of versions among
 which it will be chosen between different versions.The list shall be called 'demolist' and contains two co-
 lumns, the first for the version's name and the second for the name of the function to call. It erases the
 graphic window remaining before the demonstration too, and resets the console to its initial width if the rea-
 der quits the demonstration.
-   The function demo_end shall be used to end properly the demonstration. Its resets like before the demons-
+   The function 'demo_end' shall be used to end properly the demonstration. Its resets like before the demons-
 tration the width of the console and erases the variables used for the demonstration.
 
 	Now you can begin to write your scripts.Be careful to choose easy to understand variable names and
