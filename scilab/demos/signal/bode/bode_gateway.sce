@@ -4,11 +4,11 @@ getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
 
-[path,oldln]=demo_begin('bode_gateway.sce');
+demo_begin;
 
-demo_message(path+'bode_1.sce');
+demo_message('SCI/demos/signal/bode/bode_1.sce');
 
-demo_run(path+'bode_1.sce');
+demo_run('SCI/demos/signal/bode/bode_1.sce');
 
 demo_end();
 

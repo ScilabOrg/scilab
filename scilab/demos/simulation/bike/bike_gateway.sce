@@ -7,14 +7,14 @@ getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 getf('SCI/demos/demos_lib/demo_choose.sci');
 
-[path,oldln]=demo_begin('bike_gateway.sce');
+demo_begin;
 
-getf(path+'macros/'+'velod.sci');
-getf(path+'macros/'+'velodp.sci');
-getf(path+'macros/'+'show.sci');
+getf('SCI/demos/simulation/bike/macros/'+'velod.sci');
+getf('SCI/demos/simulation/bike/macros/'+'velodp.sci');
+getf('SCI/demos/simulation/bike/macros/'+'show.sci');
 
-demo_message(path+'bike.dem');
+demo_message('SCI/demos/simulation/bike/bike.dem');
 
-demo_run(path+'bike_1.sce');
+demo_run('SCI/demos/simulation/bike/bike_1.sce');
 
 demo_end();
