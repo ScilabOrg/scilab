@@ -22,7 +22,8 @@ function demo_datafit()
   // show the fitting curve
   plot2d(X',FF(X)',[5,2],'002','Fitting function');
   ;;
-  realtimeinit(0.1);for k=1:30,realtime(k),end
+ realtimeinit(0.1);for k=1:30,realtime(k),end
+  set('old_style','off')
 endfunction
 
 function y=FF(x)
