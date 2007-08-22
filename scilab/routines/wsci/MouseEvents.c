@@ -7,6 +7,8 @@
 #define CTRL_KEY 1000
 #define SHIFT_KEY 2000
 /*-----------------------------------------------------------------------------------*/
+#define FOCUS_CHANGED 30
+/*-----------------------------------------------------------------------------------*/
 #define PRESSED_LEFT 0
 #define RELEASED_LEFT -5
 #define CLCK_LEFT 3
@@ -150,7 +152,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 				
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, CTRL_KEY+CLCK_LEFT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -165,7 +167,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 				
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, SHIFT_KEY+CLCK_LEFT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -177,7 +179,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,CLCK_LEFT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -200,7 +202,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, CTRL_KEY+CLCK_MIDDLE, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -213,7 +215,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, SHIFT_KEY+CLCK_MIDDLE, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -225,7 +227,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,CLCK_MIDDLE, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -248,7 +250,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, CTRL_KEY+CLCK_RIGHT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -262,7 +264,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos, SHIFT_KEY+CLCK_RIGHT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
@@ -275,7 +277,7 @@ void ON_EVENT_GRAPH_WM_MOUSEMOVE(HWND hwnd, int x, int y, UINT keyFlags)
 			{
 				if (focushaschanged)
 				{
-					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,CLCK_RIGHT, 0, 0);
+					PushClickQueue (ScilabGC->CurWindow, MOUSEX+horzsinPos,MOUSEY+vertsinPos,FOCUS_CHANGED, 0, 0);
 					focushaschanged = FALSE;
 				}
 				else
