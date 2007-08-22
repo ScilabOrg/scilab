@@ -52,8 +52,16 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     end
     
     return  //** --> EXIT  
-
   //**-----------------------------------------------------------
+  elseif (btn==30) then //** This code is produced ONLY on Windows and is used
+                        //** to signal the switch of the focus to a new, not yet active,
+			//** Scilab window. This code is produced ONLY ONE time, then
+			//** the xclick return back to the usual behavior.
+			//** For the moment this event is just ignored.  
+      //** Cmenu = []    ;
+      //** %pt   = []    ; 
+      return  //** --> EXIT 
+  //** -----------------------------------------------------------
   elseif (btn==3) then //** Single click : Left Mouse Button : no window check         
     Cmenu = "SelectLink" ; 
     
@@ -63,7 +71,7 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   
   //**-------------------------------------------------------------    
   elseif (btn==10) & (win==curwin) then //** "Left Mouse Double Click" in the current Scicos window
-    Cmenu='Open/Set'  //** Possible cases : 1 - Void (empty)
+    Cmenu="Open/Set"  //** Possible cases : 1 - Void (empty)
                       //**                  2 - Block
                       //**                  3 - Link
                       //**                  4 - Super Block
@@ -74,9 +82,9 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     //** if jj is NOT empty means that you are in a Palette or in a Navigator  
     if jj <> [] then
       if or(windows(jj,1)==100000) then
-        Cmenu = 'Open/Set'  //double click in the navigator: mode open-set --> Navigator Window
+        Cmenu = "Open/Set"  //double click in the navigator: mode open-set --> Navigator Window
        else
-	Cmenu = 'Duplicate' //** Double Click In a Palette windows ---> jump to Duplicate  
+	Cmenu = "Duplicate" //** Double Click In a Palette windows ---> jump to Duplicate  
       end
     else
       Cmenu=[]; %pt=[]; //** otherwise, clear state variable
@@ -119,16 +127,16 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     //** ------ Key combos ------------------------------------ 
     // [CRTL]+[x] | [Delete]   | [Backspace]  --> Cut
     if (btn==1120)|(btn==65288)|(btn==65535) then //** [CRTL]+[x] --> Cut
-      Cmenu='Cut'; %pt=[];
+      Cmenu="Cut"; %pt=[];
     
     elseif (btn==1099) then            //** [CTRL]+[c] --> Copy
-      Cmenu='Copy';%pt=[];
+      Cmenu="Copy"; %pt=[];
     
     elseif (btn==1118) then            //** [CTRL]+[v] --> Paste 
-      Cmenu='Paste'; %pt = [xc,yc] ;   //** acquire the position for the "Paste"
+      Cmenu="Paste"; %pt = [xc,yc] ;   //** acquire the position for the "Paste"
     
     elseif (btn==255) then             //** Backspace  --> Delete (erase) object          
-      Cmenu='Delete';%pt=[];
+      Cmenu="Delete"; %pt=[];
     
     //** ----- Mouse + Keyb. combos ---------------------------  
     elseif (btn==1003) | (btn==2003) then  //** [CTRL]+[Left btn click] OR [Shift]+[Left btn click]
