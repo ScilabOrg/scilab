@@ -3,11 +3,9 @@
 getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 
-[path,oldln]=demo_begin('optimization.dem');
-
 demolist=['LMITOOL',                    'lmitool/lmi_gateway.sce'
 	  'Multiflow problem',          'multiflow/multiflow_gateway.sce'
           'Non linear data fitting',    'datafit/datafit_gateway.sce']
 
-demo_file_choice(path,'no');
+demo_file_choice('SCI/demos/optimization/','no');
 
