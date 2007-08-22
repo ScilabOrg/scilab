@@ -25,13 +25,13 @@ function CodeGeneration_()
     end
     if scs_m.objs(k).model.sim(1)=='super' then
       disablemenus()
-      all_scs_m=scs_m;
+      
       XX=scs_m.objs(k);
-      [ok,XX,alreadyran]=do_compile_superblock42(XX,all_scs_m,k,alreadyran)
+      [ok,XX,alreadyran]=do_compile_superblock42(XX,scs_m,k,alreadyran)
       enablemenus()
 
       if ok then 
-        scs_m.objs(k)=XX
+        scs_m = changeports(scs_m,list('objs',k), XX)//scs_m.objs(k)=XX
         edited=%t;
         needcompile=4
         Cmenu='Replot';
