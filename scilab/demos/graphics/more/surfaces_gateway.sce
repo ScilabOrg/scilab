@@ -4,7 +4,7 @@ getf('SCI/demos/demos_lib/demo_begin.sci');
 getf('SCI/demos/demos_lib/demo_function_choice.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('surfaces_gateway.sce');
+demo_begin;
 
 
 demolist=['Surface with holes 1','xbasc();showinstr(hole3d);hole3d();';
@@ -20,8 +20,8 @@ demolist=['Surface with holes 1','xbasc();showinstr(hole3d);hole3d();';
 	  'Black Hole','xbasc();showinstr(bh);bh(50);';
 	  'Riemann surface (n=2)','xbasc();showinstr(cplxroot);cplxroot(2,20,130,45);']
 
-getf(path+'Macros.sci');
-exec(path+'surfaces.sci');
+getf('SCI/demos/graphics/more/Macros.sci');
+exec('SCI/demos/graphics/more/surfaces.sci');
 
 demo_function_choice();
 

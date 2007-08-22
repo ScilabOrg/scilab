@@ -6,15 +6,15 @@ getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_choose.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('wheel_gateway.sce');
+demo_begin;
 
-getf(path+'show.sci');
+getf('SCI/demos/simulation/wheel2/show.sci');
 
-demo_message(path+'wheel_1.sce');
+demo_message('SCI/demos/simulation/wheel2/wheel_1.sce');
 
-exec(path+'wheel_ch.sce');
-demo_choose(path+'wheel_ch.bin');
+exec('SCI/demos/simulation/wheel2/wheel_ch.sce');
+demo_choose('SCI/demos/simulation/wheel2/wheel_ch.bin');
 
-demo_run(path+'wheel_1.sce');
+demo_run('SCI/demos/simulation/wheel2/wheel_1.sce');
 
 demo_end();

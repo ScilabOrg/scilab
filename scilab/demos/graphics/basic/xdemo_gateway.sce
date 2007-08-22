@@ -5,11 +5,11 @@ getf('SCI/demos/demos_lib/demo_function_choice.sci');
 getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('xdemo_gateway.sce');
+demo_begin;
 
-exec(path+'xdemo_1.sce');
+exec('SCI/demos/graphics/basic/xdemo_1.sce');
 
-demo_run(path+'xdemo_2.sce');
+demo_run('SCI/demos/graphics/basic/xdemo_2.sce');
 
 demolist=[
     'Rectangles, Arcs, Polylines, Segments and Numbers','xdemo1()';
