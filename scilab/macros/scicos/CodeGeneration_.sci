@@ -4875,7 +4875,7 @@ function [txt]=write_code_cdoit(flag)
         tmp_='*(('+TYPE+' *)'+rdnom+'_block_outtbptr['+string(ix)+'])'
         txt=[txt;
              '    i=max(min((integer) '+...
-              tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);'
+              tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);'
              '    switch(i)'
              '    {']
         //*******//
@@ -4987,7 +4987,7 @@ function [txt]=write_code_doit(ev,flag)
         //** C **//
         txt=[txt;
              '    i=max(min((integer) '+...
-              tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);'
+              tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);'
              '    switch(i)'
              '    {']
         //*******//
@@ -5099,7 +5099,7 @@ function [txt]=write_code_idoit()
         tmp_='*(('+TYPE+' *)'+rdnom+'_block_outtbptr['+string(ix)+'])'
         txt=[txt;
              '    i=max(min((integer) '+...
-              tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);']
+              tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);']
         txt=[txt;
              '    switch(i)'
              '    {']
@@ -5213,7 +5213,7 @@ function [txt]=write_code_odoit(flag)
         txt=[txt;
              '    if (block_'+rdnom+'['+string(bk-1)+'].nmode<0) {';
              '      i=max(min((integer) '+...
-                tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);'
+                tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);'
              '    }'
              '    else {'
              '      i=block_'+rdnom+'['+string(bk-1)+'].mode[0];'
@@ -5343,7 +5343,7 @@ function [txt]=write_code_ozdoit(ev,flag)
         txt=[txt;
              '    if (phase==1 || block_'+rdnom+'['+string(bk-1)+'].nmode==0) {';
              '      i=max(min((integer) '+...
-              tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);'
+              tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);'
              '    }'
              '    else {'
              '      i=block_'+rdnom+'['+string(bk-1)+'].mode[0];'
@@ -5475,7 +5475,7 @@ function [txt]=write_code_zdoit()
         txt=[txt;
              '    if (phase==1 || block_'+rdnom+'['+string(bk-1)+'].nmode==0){';
              '      i=max(min((integer) '+...
-               tmp_+',block_'+rdnom+'['+string(bk-1)+'].nevprt),1);'
+               tmp_+',block_'+rdnom+'['+string(bk-1)+'].evout),1);'
              '    else {'
              '      i=block_'+rdnom+'['+string(bk-1)+'].mode[0];'
              '    }']
