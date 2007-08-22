@@ -4,8 +4,11 @@ Vos démonstrations doivent être écrites selon un principe bien précis : le fichi
 d'interface qui ne doit contenir que les fonctions standard mises à disposition dans ‘SCI/demos/demos_lib’
 ainsi que leur appel.
 Les scripts s’insérant entre ces fonctions standard seront appelés par la fonction standard demo_run(fil)
-et seront écrits dans un fichier annexe .sce. Tout le reste de la démonstration figurera dans des fichiers
-annexes, notamment les fonctions, qui seront écrites dans les fichiers .sci.
+et seront écrits dans un fichier annexe mademo_1.sce, puis mademo_2.sce, etc. Les fichiers contenant des
+textes appelés par la fonction 'demo_message' auront la même convention de nommage en mademo_num.sce. Les
+fichiers appelés par les fonctions 'demo_mdialog' et 'demo_choose' auront respectivement la forme
+mademo_dial_num.sce et mademo_ch_num.sce. Le reste de la démonstration, notamment les fonctions, seront
+écrites dans les fichiers .sci.
 L’intérêt de ceci est que le développeur du logiciel SCILAB pourra modifier à sa guise la forme des démons-
 trations sans rentrer dans le cœur des scripts.
 Par ailleurs il vous est demandé de ne pas faire apparaître le scripts ou les calculs sur la console mais
@@ -13,27 +16,27 @@ plutôt dans des interfaces ‘x_message’ obtenues avec demo_message.
 
         Voici un descriptif des fonctions écrites spécialement pour des démonstrations et disponibles dans
 le répertoire SCI/demos/demos_lib : 
-   La fonction demo_run  vous permet d’exécuter les scripts que vous aurez écrits sur les fichiers annexes
+   La fonction 'demo_run'  vous permet d’exécuter les scripts que vous aurez écrits sur les fichiers annexes
 et qui sépareront les autres fonctions du répertoire ‘demos_lib’ entre elles.
-   La fonction demo_begin est à utiliser en début de démonstration. Elle place le script en mode de non
+   La fonction 'demo_begin' est à utiliser en début de démonstration. Elle place le script en mode de non
 affichage du texte, place la console en largeur standard en enregistrant sa largeur initiale dans ‘oldln’,
 et renvoie le chemin du fichier mis en argument s’il n’est pas ’nofile’ dans la variable ‘path’.
-   La fonction demo_compiler s’utilise comme test pour savoir si l’ordinateur du lecteur de votre démons-
+   La fonction 'demo_compiler' s’utilise comme test pour savoir si l’ordinateur du lecteur de votre démons-
 tration possède ou non un compilateur C. Elle renvoie un booléen qui l’indique dans la variable ‘ans’.
-   La fonction demo_message sert à afficher des messages, en particulier des calculs ou des précisions con-
+   La fonction 'demo_message' sert à afficher des messages, en particulier des calculs ou des précisions con-
 cernant la démonstration. Elle prend en argument le fichier où est écrit le texte.
-   La fonction demo_choose s’utilise pour proposer un choix entre diverses options de la démonstration.
+   La fonction 'demo_choose' s’utilise pour proposer un choix entre diverses options de la démonstration.
 Ces options sont écrites dans le fichier appelé sous forme d’un vecteur colonne de textes. Elle renvoie dans
  la variable ‘num’ le numéro de ligne choisi par le lecteur.
-   La fonction demo_mdialog permet de proposer au lecteur de la démonstration de choisir lui–même les valeurs
+   La fonction 'demo_mdialog' permet de proposer au lecteur de la démonstration de choisir lui–même les valeurs
 des paramètres. Le premier argument dans le fichier appelé est le titre de la boîte de dialogue, le second, le
 nom des variables à modifier, et le troisième, les valeurs choisies par défaut.
-   La fonction demo_function_choice s’utilise si votre démonstration comporte une liste d’items parmi les-
+   La fonction 'demo_function_choice' s’utilise si votre démonstration comporte une liste d’items parmi les-
 quels on choisira entre des versions différentes. La liste s’appellera ‘demolist’ et comportera deux colonnes,
 la première pour le nom de la version et la seconde pour le nom de la fonction à appeler. Elle efface aussi
 la fenêtre graphique précédant la démonstration et remet la console à sa largeur initiale si l’on quitte votre
 démonstration.
-   La fonction demo_end sert à terminer proprement sa démonstration. Elle remet comme avant la démonstration
+   La fonction 'demo_end' sert à terminer proprement sa démonstration. Elle remet comme avant la démonstration
 la largeur de la console et elle efface les variables affectées pendant la démonstration.
 
         Vous pouvez maintenant commencer à écrire vos scripts. Pensez à choisir des noms de variables cohé-
