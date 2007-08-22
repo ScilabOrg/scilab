@@ -10,7 +10,7 @@ getf('SCI/demos/demos_lib/demo_file_choice.sci');
 getf('SCI/demos/demos_lib/demo_message.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('fec_gateway.sce');
+demo_begin;
 
 demolist=['Finite Element display with colorbar','fec_gateway.ex4';
 	  'Finite Element display with a mesh','fec_gateway.ex2';
