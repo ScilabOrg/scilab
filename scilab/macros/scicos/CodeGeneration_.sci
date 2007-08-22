@@ -1,6 +1,6 @@
 //Input editor function of Scicos code generator
 //
-//@l@n, 16/08/07
+//@l@n, 22/08/07
 //
 function CodeGeneration_()
 
@@ -25,12 +25,12 @@ function CodeGeneration_()
     end
     if scs_m.objs(k).model.sim(1)=='super' then
       disablemenus()
-      
+
       XX=scs_m.objs(k);
       [ok,XX,alreadyran]=do_compile_superblock42(XX,scs_m,k,alreadyran)
       enablemenus()
 
-      if ok then 
+      if ok then
         scs_m = changeports(scs_m,list('objs',k), XX)//scs_m.objs(k)=XX
         edited=%t;
         needcompile=4
@@ -1995,6 +1995,7 @@ function Code=make_computational42()
         '  int    phase = get_phase_simulation();'
         ''
         '  int kf;'
+        '  int i;'
         '  int* reentryflag;'
         ''
         '  double *args[100];'
@@ -3313,6 +3314,7 @@ function Code=make_standalone42()
         '  int nevprt=1;'
         '  int local_flag;'
         '  int nport;'
+        '  int i;'
         '  double *args[100];'
         '']
 
