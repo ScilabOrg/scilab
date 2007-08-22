@@ -4,8 +4,8 @@ mode(-1);
 
 while %t then
 
-  exec(path+'flat_ch.sce');
-  [num]=demo_choose(path+'flat_ch.bin');
+  exec('SCI/demos/control/flat/flat_ch.sce');
+  [num]=demo_choose('SCI/demos/control/flat/flat_ch.bin');
 
   if num==0 then break,end
   select num
