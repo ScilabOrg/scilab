@@ -1,8 +1,7 @@
-function [path,oldln]=demo_begin(fil)
+function demo_begin
 mode(-1);
-if fil~='nofile' then
-  path=get_absolute_file_path(fil);
-end
+save('SCI/var.data',who('local'));
+clear
 oldln=lines();lines(0);
 endfunction
 
