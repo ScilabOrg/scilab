@@ -1,4 +1,4 @@
-function routines=create_palette(Path)
+function [routines,IntFunc]=create_palette(Path)
   load SCI/macros/scicos/lib;
   scicos_ver=get_scicos_version();
   rhs=argn(2)
@@ -23,18 +23,18 @@ function routines=create_palette(Path)
     exec(loadpallibs,-1) 
     path='SCI/macros/scicos/'
 
-    routines=[]
+    routines=[];IntFunc=[];
     for txt=scicos_pal(:,1)'
       disp('Constructing '+txt)
       if txt=='Sources' then
 	lisf=['CONST_m.sci';'GENSQR_f.sci';'RAMP.sci';  
 	      'RAND_f.sci';'RFILE_f.sci';
-	      'CLKINV_f.sci'; 'CURV_c.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
+	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
 	      'TIME_f.sci'; 'Modulo_Count.sci';'Sigbuilder.sci';'Counter.sci';
               'SampleCLK.sci']
-	
+
       elseif txt=='Sinks' then
 	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';
 	      'CSCOPXY.sci';   'WRITEC_f.sci';
@@ -43,7 +43,7 @@ function routines=create_palette(Path)
 	      'CLKOUTV_f.sci';  'CEVENTSCOPE.sci';
 	      'OUT_f.sci';      'WFILE_f.sci';
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
-	      'CSCOPXY3D.sci';   'CANIMXY3D';
+	      'CSCOPXY3D.sci';   'CANIMXY3D.sci';
 	      'CMATVIEW.sci';	'CMAT3D.sci']
 	
       elseif txt=='Branching' then
@@ -126,11 +126,11 @@ function routines=create_palette(Path)
       else
 	error('Palette '+txt+' does not exists')
       end
+      IntFunc=[IntFunc;lisf];
       routines=[routines;build_palette(lisf,path,txt)]
     end
-//    chdir(savepwd)
   end
-  routines=unique(routines)
+  routines=unique(routines);IntFunc=unique(IntFunc);
 endfunction
 
 
