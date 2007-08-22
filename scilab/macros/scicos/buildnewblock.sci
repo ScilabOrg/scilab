@@ -1,5 +1,5 @@
 //** buildnewblock : generates Makefiles for
-//                   the generated C code of ascicos block,
+//                   the generated C code of a scicos block,
 //                   compile and link it in Scilab
 //
 // Input : blknam : a prefix
@@ -76,10 +76,14 @@ function [ok]=buildnewblock(blknam,files,filestan,libs,rpat,ldflags,cflags)
     [a,b]=c_link(blknam);
   end
 
+  //** save path in case of error in ilib_compile
+  oldpath=getcwd();
+
   //** compile Makefile
   ierr=execstr('libn=ilib_compile(''lib''+blknam,Makename)','errcatch')
   if ierr<>0 then
     ok=%f;
+    chdir(oldpath);
     x_message(['sorry compiling problem';lasterror()]);
     return;
   end
