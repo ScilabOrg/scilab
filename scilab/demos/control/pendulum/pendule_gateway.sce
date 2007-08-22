@@ -3,11 +3,11 @@ getf('SCI/demos/demos_lib/demo_run.sci');
 getf('SCI/demos/demos_lib/demo_message.sci');
 getf('SCI/demos/demos_lib/demo_end.sci');
 
-[path,oldln]=demo_begin('pendule_gateway.sce');
+demo_begin;
 
-getf(path+'simulation.sci')
-getf(path+'graphics.sci')
+getf('SCI/demos/control/pendulum/simulation.sci')
+getf('SCI/demos/control/pendulum/graphics.sci')
 //
-demo_run(path+'pendule_1.sce');
+demo_run('SCI/demos/control/pendulum/pendule_1.sce');
 
 demo_end();
