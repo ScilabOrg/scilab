@@ -1,5 +1,3 @@
-getf('SCI/demos/demos_lib/demo_begin.sci');
-[path,oldln]=demo_begin('control.dem');
 
 demolist=['LQG',               'lqg/lqg_gateway.sce'
 	  'Mixed-sensitivity', 'mixed/mixed_gateway.sce'
@@ -10,6 +8,6 @@ demolist=['LQG',               'lqg/lqg_gateway.sce'
 	  'Robust control',    'robust/rob_gateway.sce']
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
-demo_file_choice(path,'no');
+demo_file_choice('SCI/demos/control/','no');
 
 
