@@ -4707,13 +4707,8 @@ BOOL sci_update_frame_bounds_3d(sciPointObj *pobj)
   ppsubwin->axes.xlim[3] = ppsubwin->axes.nxgrads;
   ppsubwin->axes.ylim[3] = ppsubwin->axes.nygrads;
   ppsubwin->axes.zlim[3] = ppsubwin->axes.nzgrads;
-   
      
-  /*   ppsubwin->axes.reverse[0] = FALSE; /\*TRUE;*\/ */
-  /*   ppsubwin->axes.reverse[1] = FALSE; /\*TRUE;*\/  */
-  /*   ppsubwin->axes.reverse[2] = FALSE; /\*TRUE;*\/  */
-     
-  wininfo("alpha=%.1f,theta=%.1f",ppsubwin->alpha,ppsubwin->theta); 
+  /*wininfo("alpha=%.1f,theta=%.1f",ppsubwin->alpha,ppsubwin->theta);*/
     
   for(i=0;i<6;i++)
     if(ppsubwin->FRect[i] != ExistingFRect[i]){
@@ -7688,6 +7683,9 @@ sciDrawObj (sciPointObj * pobj)
        
 	psonstmp = psonstmp->pprev;
       }
+
+	  /* draw the info Message */
+      C2F(dr)("xinfo",sciGetInfoMessage(pobj),PI0,PI0,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,6L,0L);
 
       /* return to the current window */
       C2F(dr)("xset","window",&curWinNum,PI0,PI0,PI0,PI0,PI0,&dv,&dv,&dv,&dv,5L,7L);
