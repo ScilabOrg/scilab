@@ -30,6 +30,12 @@ demo_message('SCI/demos/control/pid/pid_3.sce');
 		<SEE_ALSO_ITEM>
 			<LINK>x_message</LINK>
 		</SEE_ALSO_ITEM>
+		<SEE_ALSO_ITEM>
+			<LINK>demo_begin</LINK>
+		</SEE_ALSO_ITEM>
+		<SEE_ALSO_ITEM>
+			<LINK>demo_end</LINK>
+		</SEE_ALSO_ITEM>
 	</SEE_ALSO>
 	
 	<AUTHORS>

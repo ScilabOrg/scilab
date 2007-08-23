@@ -24,10 +24,17 @@ demo_run('SCI/demos/control/pid/pid_1.sce');
 	
 	<SEE_ALSO>
 		<SEE_ALSO_ITEM>
-			<LINK>demo_message</LINK>
+			<LINK>exec</LINK>
 		</SEE_ALSO_ITEM>
 		<SEE_ALSO_ITEM>
-			<LINK>exec</LINK>
+			<LINK>demo_message</LINK>
+		</SEE_ALSO_ITEM>
+		
+		<SEE_ALSO_ITEM>
+			<LINK>demo_begin</LINK>
+		</SEE_ALSO_ITEM>
+		<SEE_ALSO_ITEM>
+			<LINK>demo_end</LINK>
 		</SEE_ALSO_ITEM>
 	</SEE_ALSO>
 	
