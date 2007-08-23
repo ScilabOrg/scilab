@@ -35,8 +35,7 @@ function [x,y,typ]=FROMMO(job,arg1,arg2)
 	   -1/7   1/14
 	   -1/7  -1/14]*diag([xf,yf])
       dy=sz(2)/(nout+1)
-      xset('background',34)
-      xset('pattern',default_color(1))
+       xset('pattern',default_color(1))
     if orient then  //standard orientation
       for k=1:nout
 	xpoly(out(:,1)+ones(5,1)*(orig(1)+sz(1)),..
