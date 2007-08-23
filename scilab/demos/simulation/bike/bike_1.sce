@@ -19,17 +19,17 @@ while go_on then
 	else
 		select num
 		case 1 then 
-			getf(path+'macros/'+'velo4p.sci');
+			getf('SCI/demos/simulation/bike/macros/'+'velo4p.sci');
 			//getf(path+'macros/'+'velo5.sci');
-			x=read(path+'data/x1.dat',46,368,"(e10.4)");
+			x=read('SCI/demos/simulation/bike/data/x1.dat',46,368,"(e10.4)");
 			set figure_style old;
 			xbasc();
 			xset("font",curFont(1),3);
 			xtitle('bike simulation, unstable trajectory');
 			show(x(:,300:368),1,1,velo4p);
 		case 2 then 
-			getf(path+'macros/'+'velo1.sci');
-			x=read(path+'data/'+'xdemo.dat',46,401,"(e10.4)");
+			getf('SCI/demos/simulation/bike/macros/'+'velo1.sci');
+			x=read('SCI/demos/simulation/bike/data/'+'xdemo.dat',46,401,"(e10.4)");
 			set figure_style old;
 			xbasc();
 			xset("font",curFont(1),3);
