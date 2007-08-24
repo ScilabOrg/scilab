@@ -1154,8 +1154,8 @@ void C2F(setwindowdim)(x, y, v3, v4)
       sciGetScrollInfo(ScilabXgc, SB_VERT, &vertsi);
       sciGetScrollInfo(ScilabXgc, SB_HORZ, &horzsi);
     
-      ScilabXgc->CWindowWidth = Max((int) *x,50);
-      ScilabXgc->CWindowHeight =Max((int) *y,50);
+      ScilabXgc->CWindowWidth = Max((int) *x,10);
+      ScilabXgc->CWindowHeight =Max((int) *y,10);
       if ( sciGetwresize() == 1 ) {
 	ScilabXgc->CWindowWidthView  = ScilabXgc->CWindowWidth;
 	ScilabXgc->CWindowHeightView = ScilabXgc->CWindowHeight;
