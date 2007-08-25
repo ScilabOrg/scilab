@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="desc">
 
 <FILE name='ABS_VALUE' type='XML'>
@@ -1579,15 +1580,15 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='buildouttb' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Construit une liste "outtb" initialisée.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='c_block' type='XML'>

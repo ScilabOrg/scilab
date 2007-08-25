@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="param">
 
 <FILE name='ABS_VALUE' type='LATEX'>
@@ -3411,20 +3412,67 @@
 </FILE>
 
 <FILE name='buildouttb' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Nom du paramètre</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: ajoutez ici la description du paramètre
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>outtb</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    une liste de taille n.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>lnksz</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre donne la taille d'un objet scilab dans la liste outtb.
+	  </SP>
+	  <SP>
+	    Cette matrice de nombres entiers ou de nombres réels peut avoir une taille n,2 ou 2,n.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>lnktyp</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre donne le type d'objet scilab dans outtb :
+	  </SP>
+	  <SP>
+	    1 : réel
+	  </SP>
+	  <SP>
+	    2 : complexe
+	  </SP>
+	  <SP>
+	    3 : int32
+	  </SP>
+	  <SP>
+	    4 : int16
+	  </SP>
+	  <SP>
+	    5 : int8
+	  </SP>
+	  <SP>
+	    6 : uint32
+	  </SP>
+	  <SP>
+	    7 : uint16
+	  </SP>
+	  <SP>
+	    8 : uint8
+	  </SP>
+	  <SP>
+	    sinon : réel
+	  </SP>
+	  <SP>
+	    Cette matrice de nombres entiers ou de nombres réels peut avoir une taille n,1 ou 1,n.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='c_block' type='XML'>

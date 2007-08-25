@@ -967,11 +967,11 @@ INRIA
 </FILE>
 
 <FILE name='buildouttb' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Alan Layec'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='c_block' type='XML'>
@@ -1015,11 +1015,14 @@ INRIA
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='Alan Layec'>
-INRIA
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='lincos' type='XML'>

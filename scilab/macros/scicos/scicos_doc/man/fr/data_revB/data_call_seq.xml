@@ -1,111 +1,130 @@
 <DATA flag="cseq">
-
+  
 <FILE name='buildouttb' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [outtb]=buildouttb(lnksz,lnktyp)
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      blk=curblock()
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [myvar]=getscicosvars(str)
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='lincos' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>sys = lincos(scs_m,x0,u0,param)</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>sys= lincos(scs_m [,x0,u0 [,param] ])</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='scicos' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>[scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      scs_m = scicos([toto])
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      scicos_debug(level)
+    </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      level=scicos_debug()
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>Info = scicos_simulate(scs_m,Info,%scicos_context,flag)</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      Info=scicos_simulate(scs_m,Info[,%scicos_context][,flag])
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      t=scicos_time()
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='scicosim' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+    [state,t] = scicosim(state,tcur,tf,sim,str,tol)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='steadycos' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>[X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [X,U,Y,XP]=steadycos(scs_m,X,U,Y,Indx,Indu,Indy [,Indxp [,param ] ])
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [vec]=var2vec(var)
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<CALLING_SEQUENCE>
-<CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE_ITEM>
-</CALLING_SEQUENCE>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [vec]=vec2var(var)
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
 </FILE>
-
 
 <FILE name='getblocklabel' type='XML'>
   <CALLING_SEQUENCE>
-  <CALLING_SEQUENCE_ITEM>
-   </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      [label]=getblocklabel(blk)
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='phase_simulation' type='XML'>
   <CALLING_SEQUENCE>
-  <CALLING_SEQUENCE_ITEM>
-   </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      [psim]=phase_simulation()
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='pointer_xproperty' type='XML'>
   <CALLING_SEQUENCE>
-  <CALLING_SEQUENCE_ITEM>
-   </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      [xprop]=pointer_xproperty
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 
 <FILE name='set_xproperty' type='XML'>
   <CALLING_SEQUENCE>
-  <CALLING_SEQUENCE_ITEM>
-   </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      set_xproperty(xprop)
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 

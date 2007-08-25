@@ -1795,20 +1795,67 @@
 </FILE>
 
 <FILE name='buildouttb' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>outtb</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    a list of size n.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>lnksz</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    That parameter gives the size of scilab object in outtb.
+	  </SP>
+	  <SP>
+	    This matrix of integer or real numbers can have a n,2 or 2,n size.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>lnktyp</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    That parameters gives the type of scilab object in outtb :
+	  </SP>
+	  <SP>
+	    1 : double
+	  </SP>
+	  <SP>
+	    2 : complex
+	  </SP>
+	  <SP>
+	    3 : int32
+	  </SP>
+	  <SP>
+	    4 : int16
+	  </SP>
+	  <SP>
+	    5 : int8
+	  </SP>
+	  <SP>
+	    6 : uint32
+	  </SP>
+	  <SP>
+	    7 : uint16
+	  </SP>
+	  <SP>
+	    8 : uint8
+	  </SP>
+	  <SP>
+	    else : double
+	  </SP>
+	  <SP>
+	    This matrix of integer or real numbers can have a n,1 or 1,n size.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='c_block' type='LATEX'>
