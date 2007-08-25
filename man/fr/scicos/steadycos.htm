@@ -49,7 +49,7 @@ Module</A>
 Séquence d'appel</A>
 </font></H3>
 <PRE>
-[X,U,Y,XP] = steadycos(scs_m,X,U,Y,Indx,Indu,Indy,Indxp,param)
+[X,U,Y,XP]=steadycos(scs_m,X,U,Y,Indx,Indu,Indy [,Indxp [,param ] ])
 </PRE>
 
 <H3><font color="blue"><A NAME="SECTION00013000000000000000">
@@ -137,6 +137,21 @@ Contenu du fichier</A>
 //
 
 [lhs,rhs]=argn(0)
+IN=[];OUT=[];
+
+//check version
+current_version = get_scicos_version()
+scicos_ver = find_scicos_version(scs_m)
+
+//do version
+if scicos_ver&lt;&gt;current_version then
+  ierr=execstr('scs_m=do_version(scs_m,scicos_ver)','errcatch')
+  if ierr&lt;&gt;0 then
+    error('Can''t convert old diagram (problem in version)')
+    return
+  end
+end
+
 if rhs==7 then
   Indxp=[ ];param=list(1.d-6,0)
 elseif rhs==8 then
@@ -146,8 +161,6 @@ else
   error('wrong number of arguments. 7, 8 or 9 expected.')
 end
 
-
-IN=[];OUT=[];
 for i=1:length(scs_m.objs)
   if typeof(scs_m.objs(i))=='Block' then  
     if scs_m.objs(i).gui=='IN_f' then
