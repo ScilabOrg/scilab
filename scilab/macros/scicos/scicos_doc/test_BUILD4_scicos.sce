@@ -82,6 +82,7 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""buildouttb""></SCI>"
                "    <SCI varpath=""autopath"" name=""curblock""></SCI>"
                "    <SCI varpath=""autopath"" name=""getblocklabel""></SCI>"
+               "    <SCI varpath=""autopath"" name=""getscicosvars""></SCI>"
                "    <SCI varpath=""autopath"" name=""phase_simulation""></SCI>"
                "    <SCI varpath=""autopath"" name=""pointer_xproperty""></SCI>"
                "    <SCI varpath=""autopath"" name=""scicos_debug""></SCI>"
