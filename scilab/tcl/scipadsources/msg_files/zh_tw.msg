@@ -189,12 +189,11 @@
                     Polish translation by Bartosz Kosiorek 2005.\n\
                     Spanish translation by Juan Nicol嫳 Quesada 2006\n\
                     中文繁體版李運璋  2006."
- 
+
 
 # db_watch.tcl
 ::msgcat::mcset zh_tw "Watch" "檢視"
 ::msgcat::mcset zh_tw "Watch variables:" "檢視變數 :"
-::msgcat::mcset zh_tw "Remove" "移除"
 ::msgcat::mcset zh_tw "Call stack:" "呼叫堆疊:"
 ::msgcat::mcset zh_tw "Show watch variables" "顯示檢視變數"
 ::msgcat::mcset zh_tw "Hide watch variables" "隱藏檢視變數"

@@ -107,7 +107,6 @@
 # db_watch.tcl
 ::msgcat::mcset no "Watch" "Overvåk"
 ::msgcat::mcset no "Watch variables:" "Overvåk variabler :"
-::msgcat::mcset no "Remove" "Fjern"
 ::msgcat::mcset no "Call stack:" "Call stack:"
 ::msgcat::mcset no "Hide watch &variables" "Skjul overvåkede &variabler"
 ::msgcat::mcset no "Hide call &stack" "Skjul call &stack"
@@ -366,17 +365,6 @@
 ::msgcat::mcset no "&Recent files" "Tidligere redigerte filer"
 ::msgcat::mcset no "&Backup files depth" "Sikkerhetskopidybde (antall .bak filer)"
 ::msgcat::mcset no "&Locale" "&Språk"
-# locale names (common)
-::msgcat::mcset no "da locale (da)" "Dansk (da)"
-::msgcat::mcset no "de locale (de)" "Deutsch (de)"
-::msgcat::mcset no "fr locale (fr)" "Français (fr)"
-::msgcat::mcset no "eng locale (eng)" "English (eng)"
-::msgcat::mcset no "es locale (es)" "Español (es)"
-::msgcat::mcset no "it locale (it)" "Italiano (it)"
-::msgcat::mcset no "no locale (no)" "Norsk (no)"
-::msgcat::mcset no "pl locale (pl)" "Polski (pl)"
-::msgcat::mcset no "se locale (se)" "Svenska (se)"
-::msgcat::mcset no "zh_tw locale (zh_tw)" "中文繁體 (zh_tw)"
 
 # menues.tcl - Windows menu
 ::msgcat::mcset no "&Maximize" "&Maksimer"
