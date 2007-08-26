@@ -1539,7 +1539,6 @@ int C2F(syncexec)(str, ns, ierr, seq, str_len)
   static int *Rstk = C2F(recu).rstk-1;
   static int *Lstk = C2F(vstk).lstk-1;
   static int *Infstk  = C2F(vstk).infstk-1;
-  sciprint(" entering syncexec\n");
   Pt = max(Pt,0);Pts=Pt;
   Top = max(Top,0);Tops=Top;
   C2F(bexec)(str, ns, ierr, (*ns));
