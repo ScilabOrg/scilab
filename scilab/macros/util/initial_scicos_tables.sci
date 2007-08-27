@@ -52,7 +52,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
               'Palettes',..
 	      'Pal editor',..
 	      'Load as Palette',..
-	      'Save as Palette'];
+	      'Save as Palette',..
+              'Pal Tree'];
 	      
   Edit     = ['Edit',..
               'Undo',..
@@ -75,6 +76,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
               'Zoom in',..
 	      'Zoom out',..
               'Fit diagram to figure',..
+              'Browser',..
               'Grid'];
 	            	      
   Simulate = ['Simulate',..
@@ -99,6 +101,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      
   Tools    = ['Tools',..
               'Get Info',..
+              'Details',..
 	      'Navigator'..
 	      'Code Generation',..
 	      'Shortcuts',..

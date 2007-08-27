@@ -213,9 +213,12 @@ function [scs_m, fct] = do_addnew(scs_m)
   xy = [%xc,%yc];
   blk.graphics.orig = xy ; //** update object position in the data strucure
 
+  scs_m_save = scs_m,nc_save=needcompile ;
+   
   scs_m.objs($+1) = blk ; //** add the object to the data structure
 
-  // disp("After Object Positioning"); pause
+  needcompile = 4     
+  [scs_m_save, nc_save, enable_undo, edited] = resume(scs_m_save,nc_save,%t,%t)
 
 endfunction
 

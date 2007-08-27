@@ -6,6 +6,39 @@ function OpenSet_()
 //** 25 Jully 2007 : 
 //** Comments by Simone Mannori
 
+global %diagram_path_objective
+
+if ~%diagram_open then
+    %kk=Select(1)
+    super_path = [super_path, %kk] ; 
+    [o, modified, newparametersb, needcompileb, editedb] =..
+                      clickin( scs_m.objs(%kk));
+
+    edited = edited | editedb ;
+    super_path($-size(%kk,2)+1:$) = [] ;
+
+    if editedb then
+      scs_m_save = scs_m       ; //** save the old diagram 
+      nc_save    = needcompile ; //** and its state 
+      needcompile = max(needcompile, needcompileb)
+      scs_m.objs(%kk)=o
+    end
+
+    if modified then
+      newparameters = mark_newpars(%kk,newparametersb,newparameters) ; 
+    end
+
+//    if isequal(%diagram_path_objective,super_path) then
+//      if ~or(curwin==winsid()) then 
+//        gh_current_window = scf(curwin);
+//        restore(gh_current_window)
+//        drawobjs(scs_m, gh_current_window)  ; //** redraw all the objects !
+//      end  
+//    end
+    return
+ end
+
+
 disablemenus() ; //** disable the "interrupts" from dynamic menu :)
   
   %xc = %pt(1); %yc = %pt(2); //** last mouse position
@@ -25,8 +58,8 @@ disablemenus() ; //** disable the "interrupts" from dynamic menu :)
 
   //** '%kk' is the object index
 
-  //**---------------------------------------------------------------------------
-  if %kk<>[] then //** if the double click is not in the void -------------------
+  //**-----------------------------------------------------------------
+  if %kk<>[] then //** if the double click is not in the void ---------
     //**
     Select_back = Select; 
     selecthilite(Select_back, "off") ; //  unHilite previous objects
@@ -35,7 +68,8 @@ disablemenus() ; //** disable the "interrupts" from dynamic menu :)
     //**
     super_path = [super_path, %kk] ; 
     [o, modified, newparametersb, needcompileb, editedb] = clickin( scs_m(%Path) );
-    //** BEWARE : "clickin can modify the "Cmenu" to force the creation of a Link  
+    //** BEWARE : "clickin can modify the "Cmenu" 
+    //to force the creation of a Link  
     
     //** this POC potentially dangerous !!!
     if Cmenu=="Link" then
@@ -48,31 +82,11 @@ disablemenus() ; //** disable the "interrupts" from dynamic menu :)
     //** exit from superblock if parent window is destroyed
     //**--------------------------------------------------------------------------
     // in case previous window has been destroyed
-    if ~or(curwin==winsid()) then //** if there are NOT windows inside the list
-      gh_curwin = scf(curwin);
-      gh_current_window = gh_curwin ; //** ... non ne sono proprio sicuro ....
-                                      //** ... pero' sembra che funzioni .....
-      clf(gh_curwin) ;
-      gh_curwin.pixmap = "on"
-
-      if ~set_cmap(scs_m.props.options('Cmap')) then // add colors if required
-        scs_m.props.options('3D')(1)=%f //disable 3D block shape
-      end
-
-      set_background(gh_curwin)   ;
-      pwindow_set_size(gh_curwin) ;
-      window_set_size(gh_curwin)  ;
-      drawobjs(scs_m, gh_curwin)  ; //** redraw all the objects !
-      menu_stuff() ;
-
-      if ~super_block then
-	           delmenu(curwin,'stop')
-	           addmenu(curwin,'stop',list(1,'haltscicos'))
-	           unsetmenu(curwin,'stop')
-      else
-	unsetmenu(curwin,'Simulate')
-      end
-    end  // end of redrawing deleted parent
+//    if ~or(curwin==winsid()) then 
+//      gh_current_window = scf(curwin);
+//      restore(gh_current_window)
+//      drawobjs(scs_m, gh_current_window)  ; //** redraw 
+//    end  
     //-----------------------------------------------------------------------
 
     
@@ -112,3 +126,5 @@ disablemenus() ; //** disable the "interrupts" from dynamic menu :)
   enablemenus()      ; 
   
 endfunction
+
+

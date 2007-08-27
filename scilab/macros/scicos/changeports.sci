@@ -47,6 +47,7 @@ function scs_m = changeports(scs_m, path, o_n)
    
   //** ------- Update  block --------------------------------------------
 
+if %diagram_open then
   //** ------- Graphics ---------------
   drawlater() ;
   gh_curwin = gh_current_window;
@@ -61,6 +62,7 @@ function scs_m = changeports(scs_m, path, o_n)
   draw(gh_curwin.children); //** redraw the graphic data structure 
   show_pixmap();
   
+end
   //**-------- Scicos -----------------
   //** update block in scicos structure
   
@@ -313,7 +315,7 @@ function [scs_m, o_n, LinkToDel] = match_ports(scs_m, path, o_n)
     
   end 
   //**--------------------------------------------------------------------------------------------- 
-
+if %diagram_open then
     
   //** New graphics section 
   drawlater() ;
@@ -324,6 +326,7 @@ function [scs_m, o_n, LinkToDel] = match_ports(scs_m, path, o_n)
   gr_k = get_gri(k, o_size(1))
   
   gh_link = [];
+end
    
   //** ------------------------ ADJUST THE CONNECTED LINKS ----------------------------------------
   
@@ -351,10 +354,11 @@ function [scs_m, o_n, LinkToDel] = match_ports(scs_m, path, o_n)
       oi.xx = xlink ; oi.yy = ylink ;                           //** link 
       scs_m.objs(Link_index) = oi; //** update the scs_m 
       
+if %diagram_open then
       ghi = get_gri(Link_index, o_size(1) );       //** calc the index of the connected link
       gh_link = gh_curwin.children.children(ghi);  //** recover the handle 
       gh_link.children.data = [oi.xx , oi.yy];//** update the object  
-      
+end      
    end //** for loop 
   
   end   
@@ -384,11 +388,11 @@ function [scs_m, o_n, LinkToDel] = match_ports(scs_m, path, o_n)
       oi.xx = xlink ; oi.yy = ylink ; 
       
       scs_m.objs(Link_index) = oi;    //** update the scs_m 
-      
+if %diagram_open then      
       ghi = get_gri(Link_index, o_size(1) );       //** calc the index of the connected link
       gh_link = gh_curwin.children.children(ghi);  //** recover the handle 
       gh_link.children.data = [oi.xx , oi.yy];//** update the object 
-   
+end
    end //** for loop  
   
   end  

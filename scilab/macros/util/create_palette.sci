@@ -1,7 +1,20 @@
 function [routines,IntFunc]=create_palette(Path)
+// This function generates a palette if Path is a string indicating
+// the directoy in which the interfacing functions of the blocks are
+// to be found. 
+// If Path is not present or if it is %t, then standard scicos
+// palettes are regenerated. If %f, then only IntFunc (list of
+// interfacing functions) is returned. List of routines is empty in
+// this case. 
   load SCI/macros/scicos/lib;
   scicos_ver=get_scicos_version();
   rhs=argn(2)
+  if rhs==1 & type(Path)==4 then // generate scicos palettes
+    rhs=0
+    gener=Path
+  elseif rhs==0 then
+    gener=%t
+  end
   if rhs==1 then
     Path=pathconvert(Path,%t,%t)
     PalName=basename(part(Path,1:length(Path)-1))
@@ -127,7 +140,7 @@ function [routines,IntFunc]=create_palette(Path)
 	error('Palette '+txt+' does not exists')
       end
       IntFunc=[IntFunc;lisf];
-      routines=[routines;build_palette(lisf,path,txt)]
+      if gener then routines=[routines;build_palette(lisf,path,txt)];end
     end
   end
   routines=unique(routines);IntFunc=unique(IntFunc);

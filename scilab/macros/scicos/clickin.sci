@@ -20,12 +20,16 @@ end  // for standard_document to work
 
 modified = %f; newparameters = list(); needcompile = 0;
 
-Cmenu = check_edge(o,Cmenu,%pt); 
+if %diagram_open then
 
-if Cmenu==('Link') then
-  //we have clicked near a port
-  [Cmenu] = resume('Link')
+  Cmenu = check_edge(o,Cmenu,%pt); 
+
+  if Cmenu==('Link') then
+    //we have clicked near a port
+    [Cmenu] = resume('Link')
+  end
 end
+
 
 //**---------------------------------------------------------------------
 if typeof(o)=='Block' then  
@@ -33,15 +37,15 @@ if typeof(o)=='Block' then
   
   //**------------------- SuperBlock ------------------------------------
   if o.model.sim=='super' then
+
+      lastwin = curwin; // save the current window
     
-    lastwin = curwin; // save the current window
-    
-    curwin = get_new_window(windows)
-    
-    //** xset('window', curwin); 
-    
-    gh_curwin = scf(curwin); 
-    
+      curwin = get_new_window(windows)
+
+    if %diagram_open then    
+      gh_curwin = scf(curwin); 
+    end
+
     execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
     
     //** Inside the 'set' section of 'scicos_blocs/Misc/SUPER_f.sci' there is a recursive call
