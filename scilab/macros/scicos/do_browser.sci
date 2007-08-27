@@ -40,13 +40,14 @@ endfunction
 function tt=crlist1(scs_m,Path,tt)
   for i=1:size(scs_m.objs)
     o=scs_m.objs(i);
-    path=Path+','+string(i)
-    if o.model.sim=='super' then
+    if typeof(o)=='Block' then
+      path=Path+','+string(i)
+      if o.model.sim=='super' then
 	titre2=o.model.rpar.props.title(1);
 	tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
 	tt=crlist1(o.model.rpar,path,tt)
+      end
     end
   end
-  
 endfunction
 
