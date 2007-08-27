@@ -1042,11 +1042,14 @@ INRIA
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
-
-</AUTHORS_ITEM>
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicos_debug_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -1059,9 +1062,7 @@ INRIA
 
 <FILE name='scicos_time' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
 
-</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 

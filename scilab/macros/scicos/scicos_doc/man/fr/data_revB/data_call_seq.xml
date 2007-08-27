@@ -21,6 +21,9 @@
     <CALLING_SEQUENCE_ITEM>
       [myvar]=getscicosvars(str)
     </CALLING_SEQUENCE_ITEM>
+    <CALLING_SEQUENCE_ITEM>
+      [myvar]=getscicosvars([str1;str2;...])
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 

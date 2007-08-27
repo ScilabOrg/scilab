@@ -1963,20 +1963,216 @@ ports. The size of the vector gives the number of event input ports.
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>str,str1,str2,...</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    That parameter can be a string or a matrix of string. The following entries are allowed :
+	  </SP>
+	  <SP>
+	    "x" :
+	  </SP>
+	  <SP>
+	    "nx" :
+	  </SP>
+	  <SP>
+	    "xptr" :
+	  </SP>
+	  <SP>
+	    "zcptr" :
+	  </SP>
+	  <SP>
+	    "z" :
+	  </SP>
+	  <SP>
+	    "nz" :
+	  </SP>
+	  <SP>
+	    "zptr" :
+	  </SP>
+	  <SP>
+	    "noz" :
+	  </SP>
+	  <SP>
+	    "oz" :
+	  </SP>
+	  <SP>
+	    "ozsz" :
+	  </SP>
+	  <SP>
+	    "oztyp" :
+	  </SP>
+	  <SP>
+	    "ozptr" :
+	  </SP>
+	  <SP>
+	    "rpar" :
+	  </SP>
+	  <SP>
+	    "rpptr" :
+	  </SP>
+	  <SP>
+	    "ipar" :
+	  </SP>
+	  <SP>
+	    "ipptr" :
+	  </SP>
+	  <SP>
+	    "opar" :
+	  </SP>
+	  <SP>
+	    "oparsz" :
+	  </SP>
+	  <SP>
+	    "opartyp" :
+	  </SP>
+	  <SP>
+	    "opptr" :
+	  </SP>
+	  <SP>
+	    "outtb" :
+	  </SP>
+	  <SP>
+	    "inpptr" :
+	  </SP>
+	  <SP>
+	    "outptr" :
+	  </SP>
+	  <SP>
+	    "inplnk" :
+	  </SP>
+	  <SP>
+	    "outlnk" :
+	  </SP>
+	  <SP>
+	    "subs" :
+	  </SP>
+	  <SP>
+	    "tevts" :
+	  </SP>
+	  <SP>
+	    "evtspt" :
+	  </SP>
+	  <SP>
+	    "pointi" :
+	  </SP>
+	  <SP>
+	    "iord" :
+	  </SP>
+	  <SP>
+	    "oord" :
+	  </SP>
+	  <SP>
+	    "zord" :
+	  </SP>
+	  <SP>
+	    "funtyp" :
+	  </SP>
+	  <SP>
+	    "ztyp" :
+	  </SP>
+	  <SP>
+	    "cord" :
+	  </SP>
+	  <SP>
+	    "ordclk" :
+	  </SP>
+	  <SP>
+	    "clkptr" :
+	  </SP>
+	  <SP>
+	    "ordptr" :
+	  </SP>
+	  <SP>
+	    "critev" :
+	  </SP>
+	  <SP>
+	    "mod" :
+	  </SP>
+	  <SP>
+	    "nmod" :
+	  </SP>
+	  <SP>
+	    "iz" :
+	  </SP>
+	  <SP>
+	    "izptr" :
+	  </SP>
+	  <SP>
+	    "nblk" :
+	  </SP>
+	  <SP>
+	    "outtbptr" :
+	  </SP>
+	  <SP>
+	    "outtbpsz" :
+	  </SP>
+	  <SP>
+	    "outtbtyp" :
+	  </SP>
+	  <SP>
+	    "nlnk" :
+	  </SP>
+	  <SP>
+	    "ncord" :
+	  </SP>
+	  <SP>
+	    "nordptr" :
+	  </SP>
+	  <SP>
+	    "iwa" :
+	  </SP>
+	  <SP>
+	    "blocks" :
+	  </SP>
+	  <SP>
+	    "ng" :
+	  </SP>
+	  <SP>
+	    "g" :
+	  </SP>
+	  <SP>
+	    "t0" :
+	  </SP>
+	  <SP>
+	    "tf" :
+	  </SP>
+	  <SP>
+	    "Atol" :
+	  </SP>
+	  <SP>
+	    "rtol" :
+	  </SP>
+	  <SP>
+	    "ttol" :
+	  </SP>
+	  <SP>
+	    "deltat" :
+	  </SP>
+	  <SP>
+	    "hmax" :
+	  </SP>
+	  <SP>
+	    "nelem" :
+	  </SP>
+	  <SP>
+	    "outtb_elem" :
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
 
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+      <PARAM_ITEM>
+	<PARAM_NAME>myvar</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            That output parameter can be an int32 matrix, a double matrix or a Tlist. This is given by the input parameter.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='lincos' type='XML'>
@@ -2063,20 +2259,58 @@ opened (default name Untitled).
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+  <PARAM_INDENT>
+    <PARAM_ITEM>
+      <PARAM_NAME>level</PARAM_NAME>
+      <PARAM_DESCRIPTION>
+	<SP>
+	  set/get the current level of the scicos simulation debugging.
+	</SP>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>0</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>1</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>2</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>3</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+      </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -2146,20 +2380,18 @@ to avoid recompilation when not needed. Normally it should not be modified.
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>t</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    that is the current simulated time returned in real number.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='scicosim' type='XML'>
@@ -7790,16 +8022,34 @@ Properties : Type 'vec' of size 1.
 <FILE name='phase_simulation' type='XML'>
   <PARAM>
   <PARAM_INDENT>
-
     <PARAM_ITEM>
-    <PARAM_NAME>Name of param.</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      add here the parameter description
-      </SP>
-    </PARAM_DESCRIPTION>
+      <PARAM_NAME>psim</PARAM_NAME>
+      <PARAM_DESCRIPTION>
+	<SP>
+	  get the current phase of the simulation
+	</SP>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>1</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		The simulator is on a discrete activation.
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+	<PARAM_INDENT>
+	  <PARAM_ITEM>
+	    <PARAM_NAME>2</PARAM_NAME>
+	    <PARAM_DESCRIPTION>
+	      <SP>
+		The simulator is realizing a continuous time domain integration.
+	      </SP>
+	    </PARAM_DESCRIPTION>
+	  </PARAM_ITEM>
+	</PARAM_INDENT>
+      </PARAM_DESCRIPTION>
     </PARAM_ITEM>
-
   </PARAM_INDENT>
   </PARAM>
 </FILE>

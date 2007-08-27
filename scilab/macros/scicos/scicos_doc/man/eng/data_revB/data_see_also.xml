@@ -1033,9 +1033,9 @@
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<SEE_ALSO>
-
-</SEE_ALSO>
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM><LINK>DEBUG_SCICOS</LINK></SEE_ALSO_ITEM>
+  </SEE_ALSO>
 </FILE>
 
 <FILE name='lincos' type='XML'>
@@ -1053,9 +1053,9 @@
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SEE_ALSO>
-
-</SEE_ALSO>
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM><LINK>DEBUG_SCICOS</LINK></SEE_ALSO_ITEM>
+  </SEE_ALSO>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>

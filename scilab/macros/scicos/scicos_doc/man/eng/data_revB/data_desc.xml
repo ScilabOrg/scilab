@@ -1099,33 +1099,14 @@ linked before simulation.
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='lincos' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Construct a linear state-space system by linearizing a model
-given as a Scicos diagram.
-</P>
-</DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<P>
-The output is a Scilab data structure of type continuous-time state-space linear system.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <P>
+    That utility function is used to retrieve working arrays of scicos simulator and compilator during simulation.
+    </P>
+    <P>
+      It can be used inside a scilab block to get information of all type of blocks. That function is very useful to debug diagrams and to do prototypes of simulations.
+    </P>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos' type='XML'>
@@ -1151,15 +1132,18 @@ The input and output arguments are useful for debugging purposes.
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This scilab function is useful to set the debug level of a sicos simulation.
+	</P>
+	<P>
+	  One can used it in the "Calc" mode of the scicos editor or as an instruction in a scilab block or in an interfacing function.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -1179,13 +1163,7 @@ need not be compiled before being saved.
 
 <FILE name='scicos_time' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+
 </DESCRIPTION>
 </FILE>
 
@@ -3265,11 +3243,11 @@ Add here a paragraph of the function description
 <FILE name='phase_simulation' type='XML'>
   <DESCRIPTION>
     <DESCRIPTION_INDENT>
-    <DESCRIPTION_ITEM>
-    <P>
-    Add here a paragraph of the function description
-    </P>
-    </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  That function says if the scicos simulator is realizing the time domain integration.
+	</P>
+      </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
   </DESCRIPTION>
 </FILE>

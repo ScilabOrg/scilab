@@ -558,7 +558,7 @@
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">Definit le niveau de déboguage de scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_debug">Definit le niveau de débogage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>

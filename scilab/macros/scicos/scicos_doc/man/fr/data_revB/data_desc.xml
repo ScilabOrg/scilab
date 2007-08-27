@@ -1644,15 +1644,14 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <P>
+    Cette fonction utilitaire est utilisée pour retrouver les tableaux de travail du compilateur et du simulateur scicos pendant la simulation.
+    </P>
+    <P>
+      Elle peut-être utilisée dans un bloc scilab pour retourner des informations de tous types de blocs. Cette fonction est très utile pour débugger les diagrammes et pour prototyper des simulations.
+    </P>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='lincos' type='XML'>
@@ -1692,15 +1691,18 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Cette fonction sert à paramétrer le niveau de débogage de la simulation scicos.
+	</P>
+	<P>
+	  Elle peut être utilisée soit en mode "Calc" dans l'éditeur Scicos ou en tant qu' instruction dans un bloc scilab ou bien dans une fonction d'interfaçage.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -1723,13 +1725,7 @@ Ajoutez ici un paragraphe pour la description de la fonction
 
 <FILE name='scicos_time' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+
 </DESCRIPTION>
 </FILE>
 
@@ -3549,11 +3545,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 <FILE name='phase_simulation' type='XML'>
   <DESCRIPTION>
     <DESCRIPTION_INDENT>
-    <DESCRIPTION_ITEM>
-    <P>
-    Ajoutez ici un paragraphe pour la description de la fonction
-    </P>
-    </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Cette fonction permet de savoir si le simulateur scicos est dans sa phase d'intégration temporelle.
+	</P>
+      </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
   </DESCRIPTION>
 </FILE>
