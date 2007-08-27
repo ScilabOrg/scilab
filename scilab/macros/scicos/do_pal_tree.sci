@@ -66,7 +66,6 @@ function tt=crlist(scs_m,Path,tt)
       tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     else
       
-      pause
       if o.model.sim=='super'&(o.model.rpar.props.title(1)<>'Super Block') then
 
 	titre2=o.model.rpar.props.title(1);
