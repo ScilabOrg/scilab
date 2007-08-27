@@ -132,7 +132,6 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       set(Title,"background"       , mget(1,'il',fd)); // title.background
       set(Title,"fill_mode"        , toggle(mget(1,'c',fd))); //title.fill_mode
     end
-    pause
     set(Title,"font_style"       , mget(1,'c',fd)); // title.font_style
     set(Title,"font_size"        , mget(1,'c',fd)); // title.font_size
 
