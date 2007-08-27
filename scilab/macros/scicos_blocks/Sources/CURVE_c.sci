@@ -23,7 +23,6 @@ case 'getorigin' then
   SaveExit=%f
   while %t do
     Ask_again=%f
-    save_curwin=curwin;
     [ok,Method,Stxx,Styy,PeriodicOption,graf,exprs]=getvalue('Spline data',['Spline"+...
 		    " Method (0..7)';'x';'y';'Periodic signal(y/n)?';'Launch"+...
 		    " graphic window(y/n)?'],list('vec',1,'str',1, ...
@@ -49,6 +48,11 @@ case 'getorigin' then
 	exprs(5)='n';// exprs.graf='n'
 	ipar=[N;mtd;PO];
 	rpar=[];
+        if ~exists('curwin') then
+         gh=gcf();
+         curwin=gh.figure_id
+        end
+        save_curwin=curwin;
 	curwin=max(winsid())+1; 
 	[orpar,oipar,ok]=poke_point(xy,ipar,rpar);   
 	curwin=save_curwin;
@@ -358,7 +362,7 @@ while %t then //=================================================
       //-------------------------------------------------------------------  
    case 'Periodic signal' then 
     if PeridicOption==1 then, ans0='y',else, ans0='n',end;
-    [mok,myans]=getvalue('Generating peridic signal',['y/n'],list('str',1),list(ans0));
+    [mok,myans]=getvalue('Generating periodic signal',['y/n'],list('str',1),list(ans0));
     if ((myans=='y')|(myans=='Y')) then,PeridicOption=1,else,PeridicOption=0;end;
     ipar(3)=PeridicOption;
     [rpar,ipar]=AutoScale(a,xy,ipar,rpar) 
