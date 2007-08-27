@@ -35,7 +35,7 @@ tt=['package require BWidget'
 
 tt=[tt;'wm title $w '+scs_m.props.title(1)];
 Pgif=SCI+'/macros/scicos/scicos_doc/man/gif_icons/';
-GIFT=listfiles(''"'+Pgif+'*.gif'"');
+GIFT=listfiles(Pgif+'*.gif');
 GIF=[];
 for i=1:size(GIFT,1)
   [jxpath,Gname,jext]=splitfilepath(GIFT(i));
@@ -65,6 +65,8 @@ function tt=crlist(scs_m,Path,tt)
       titre2='Deleted'
       tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     else
+      
+      pause
       if o.model.sim=='super'&(o.model.rpar.props.title(1)<>'Super Block') then
 
 	titre2=o.model.rpar.props.title(1);
