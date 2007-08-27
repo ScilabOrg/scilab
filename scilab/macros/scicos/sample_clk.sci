@@ -1,4 +1,4 @@
-function [Ts,bllst,corinv,ind,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind)
+function [Ts,bllst,corinv,ind,ok,scs_m,flgcdgen,freof]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind,flgcdgen)
 //   [num]=x_choose(['event select';'multiple frequency'],..
 //                    ["You have to choose a method for the sample time computation:";..
 //                     "The first method is a periodic synchronize system";..
@@ -8,13 +8,13 @@ function [Ts,bllst,corinv,ind,ok]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind)
 //                     "it generates an event only on the used time";..
 //                     "The default value is select method"])
   //num=scs_m.props.tol(8)
-  num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
-  if num==2 then
+  //num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
+  if flgcdgen==-1 then
   [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
   else
   [frequ,offset,freqdiv,den,flg,ok]=clock_major(MAT)
   if ok then 
-    [Ts,corinv,bllst,ind,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind)
+    [Ts,corinv,bllst,ind,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind,flgcdgen)
   end
   end
 endfunction
@@ -47,20 +47,44 @@ if (offset > frequ) then
 end
 endfunction
 
-function [Ts,corinv,bllst,ind,ok]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind)
+function [Ts,corinv,bllst,ind,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind,flgcdgen)
 //modification to support double
 ok=%t
+
 n=lstsize(scs_m.objs)
-bllst($+1)=scicos_model(sim=list("evtdly4",4),in=[],in2=[],intyp=1,out=[],out2=[],..
-		     outtyp=1,evtin=1,evtout=1,state=[],dstate=[],odstate=list(),..
-		     rpar=[frequ;offset],ipar=[],opar=list(),blocktype="d",firing=offset,..
-		     dep_ut=[%f,%f],label="",nzcross=0,nmode=0,equations=list());
+if flgcdgen<>-1 then
+  flgcdgen=flgcdgen+1
+  bllst($+1)=scicos_model(sim=list("bidon",0),in=[],in2=[],intyp=1,out=[],out2=[],..
+                          outtyp=1,evtin=[],evtout=1,state=[],dstate=[],odstate=list(),..
+                          rpar=[],ipar=flgcdgen,opar=list(),blocktype="d",firing=-1,..
+                          dep_ut=[%f,%f],label="",nzcross=0,nmode=0,equations=list());
+  freof=[frequ;offset];
+  blk=CLKINV_f('define');
+  blk.gui='EVTGEN_f';
+  blk.model.ipar=flgcdgen;
+  blk.model.sim(1)="bidon";
+  blk.graphics.exprs=sci2exp(flgcdgen);
+  blk.graphics.sz=[20 30];
+  blk.graphics.peout=20
+  scs_m.objs($+1)=blk
+else
+  bllst($+1)=scicos_model(sim=list("evtdly4",4),in=[],in2=[],intyp=1,out=[],out2=[],..
+  		     outtyp=1,evtin=1,evtout=1,state=[],dstate=[],odstate=list(),..
+  		     rpar=[frequ;offset],ipar=[],opar=list(),blocktype="d",firing=offset,..
+                     dep_ut=[%f,%f],label="",nzcross=0,nmode=0,equations=list());
+ //scs_m.objs(n+1)=EVTDLY_c('define');
+ // scs_m.objs(n+1).model.rpar=[frequ;offset];
+ //scs_m.objs(n+1).model.firing=offset;
+  freof=[frequ;offset];
+end
 corinv($+1)=n+1
 nb=size(corinv)
 nc=size(bllst);
 ind($+1)=nc;
-Ts($+1:$+2,:)=[nb 1 -1 -1;..
-		nb 1 1  -1]
+if flgcdgen==-1 then
+   Ts($+1:$+2,:)=[nb 1 -1 -1;..
+		  nb 1 1  -1]
+end
 if flg then
    
    nn=lcm(freqdiv)
@@ -74,7 +98,12 @@ if flg then
 		     rpar=[],ipar=[],opar=list(),blocktype="l",firing=-ones(nn,1),..
 		     dep_ut=[%t,%f],label="",nzcross=0,nmode=0,equations=list());
     corinv($+1)=n+2
+    scs_m.objs(n+2)=Counter('define');
+    scs_m.objs(n+2).model.ipar=[1;double(nn);1];
     corinv($+1)=n+3
+    scs_m.objs(n+3)=ESELECT_f('define');
+    scs_m.objs(n+3).model.evtout=ones(nn,1);
+    scs_m.objs(n+3).model.firing=-ones(nn,1);
     nc=size(bllst)
     nb=size(corinv)
     ind($+1)=nc-1;

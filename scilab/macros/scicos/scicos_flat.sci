@@ -78,19 +78,20 @@ loc_mat=[];from_mat=[];tag_exprs=[];sco_mat=[];
 	 end
 	 vec=unique(locomat)
 	 if size(vec,1)<>size(loc_mat,1) then
-            if (ksup==0) then
-	     hilite_path([path,k],'There is another local CLKGOTO in this diagram',%t);
-            else
+            if flgcdgen<>-1 then path=[numk path];scs_m=all_scs_m; end
+           if (ksup==0)|flgcdgen<>-1  then
+	     hilite_path([path,k],"There is another local GOTO in this diagram with the same tag ''"+loc_mat($,3)+"''",%t);
+           else
              gh_wins = gcf();
              mxwin=maxi(winsid());
              scs_show(scs_m,mxwin+1);
              hilite_obj(k);
-             message("There is another local GOTO in this diagram with the same tag");
+             message("There is another local GOTO in this diagram with the same tag ''"+loc_mat($,3)+"''");
              gh_del = scf(mxwin+1);
              unhilite_obj(k);
 	     delete(gh_del);
              scf(gh_wins);
-            end
+           end
 	    ok=%f;return
 	 end
        	else

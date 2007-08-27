@@ -1,4 +1,4 @@
-function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
+function  [blklst,cmat,ccmat,cor,corinv,ok,scs_m,flgcdgen,freof]=c_pass1(scs_m,flgcdgen)
   //derived from c_pass1 for implicit diagrams
 //%Purpose
 // Determine one level blocks and connections matrix
@@ -24,6 +24,8 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
 //!
 // Serge Steer 2003, Copyright INRIA
 //c_pass1;
+  if argn(2)<=1 then flgcdgen=-1, end
+  freof=[]; 
   [cor,corinvt,links_table,cur_fictitious,sco_mat,ok]=scicos_flat(scs_m);
   if ok then
      [links_table,sco_mat,ok]=global_case(links_table,sco_mat)
@@ -34,14 +36,32 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
   end
   index1=find(sco_mat(:,2)=='-1')
   if index1<>[] then
-      for i=index1
-      [path]=findinlist(cor,-evstr(sco_mat(i,1)))
-      full_path=path(1)
-      hilite_path(full_path,"Error in compilation, There is a FROM without a GOTO",%t)
-      ok=%f;
-      blklst=[];cmat=[],ccmat=[],cor=[],corinv=[]
-      return;
-      end
+       for i=index1
+         [path]=findinlist(cor,-evstr(sco_mat(i,1)))
+         full_path=path(1)
+         if flgcdgen<>-1 then full_path=[numk full_path];scs_m=all_scs_m;end
+            hilite_path(full_path,"Error in compilation, There is a FROM ''"+(sco_mat(i,3))+ "'' without a GOTO",%t)
+//          else     
+//           mxwin=maxi(winsid())
+//           for k=1:size(full_path,'*')
+//               hilite_obj(numk(k))
+//               scs_m1=all_scs_m.objs(numk(k)).model.rpar;
+//               scs_show(scs_m1,mxwin+k)
+//           end
+//           hilite_obj(full_path($))          
+//           message("Error in compilation, There is a FROM ''"+(sco_mat(i,3))+"'' without a GOTO");
+//           for k=size(full_path,'*'):-1:1,
+//              gh_del = scf(mxwin+k);
+//              delete(gh_del)
+//           end
+//           scf(gh_wins);
+//           unhilite_obj(numk(1))
+//           scs_m1=[]
+//          end 
+          ok=%f;
+          blklst=[];cmat=[],ccmat=[],cor=[],corinv=[]
+          return;
+        end
   end
   nb=size(corinvt);
   reg=1:nb
@@ -76,7 +96,11 @@ function  [blklst,cmat,ccmat,cor,corinv,ok]=c_pass1(scs_m)
     end
   end
   if (find(sco_mat(:,5)==string(4))<>[]) then
-    [links_table,blklst,corinvt,ind,ok]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m,ind)
+   if flgcdgen ==-1 then
+    [links_table,blklst,corinvt,ind,ok]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m,ind,flgcdgen)
+   else 
+    [links_table,blklst,corinvt,ind,ok,scs_m,flgcdgen,freof]=sample_clk(sco_mat,links_table,blklst,corinvt,scs_m,ind,flgcdgen)
+   end
      if ~ok then
         cmat=[],ccmat=[],cor=[],corinv=[]
 	return,

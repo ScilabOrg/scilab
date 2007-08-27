@@ -27,11 +27,36 @@ function CodeGeneration_()
       disablemenus()
 
       XX=scs_m.objs(k);
-      [ok,XX,alreadyran]=do_compile_superblock42(XX,scs_m,k,alreadyran)
+      [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(XX,scs_m,k,alreadyran)
       enablemenus()
 
       if ok then
-        scs_m = changeports(scs_m,list('objs',k), XX)//scs_m.objs(k)=XX
+        scs_m = changeports(scs_m,list('objs',k), XX);  //scs_m.objs(k)=XX
+        if flgcdgen <> szclkINTemp then
+           // XX.graphics.pein($)=size(scs_m.objs)+2
+            XX.graphics.pein=[XX.graphics.pein;size(scs_m.objs)+2]
+            scs_m.objs(k)=XX
+            bk=SampleCLK('define');
+            [posx,posy]=getinputports(XX)
+             posx=posx($);posy=posy($);
+             teta=XX.graphics.theta
+             pos=rotate([posx;posy],teta*%pi/180,[XX.graphics.orig(1)+XX.graphics.sz(1)/2,XX.graphics.orig(2)+XX.graphics.sz(2)/2]) 
+             posx=pos(1);posy=pos(2);
+             bk.graphics.orig=[posx posy]+[-30 20]
+             bk.graphics.sz=[60 40]
+             bk.graphics.exprs=[sci2exp(freof(1));sci2exp(freof(2))]
+             bk.model.rpar=freof;
+             bk.graphics.peout=size(scs_m.objs)+2
+            scs_m.objs($+1)=bk;
+            [posx2,posy2]=getoutputports(bk);
+            lnk=scicos_link();
+            lnk.xx=[posx2;posx];
+            lnk.yy=[posy2;posy];
+            lnk.ct=[5 -1]
+            lnk.from=[size(scs_m.objs) 1 0]
+            lnk.to=[k flgcdgen 1]
+            scs_m.objs($+1)=lnk;
+        end
         edited=%t;
         needcompile=4
         Cmenu='Replot';
@@ -927,7 +952,7 @@ function ok=gen_gui42();
   end
 endfunction
 
-function  [ok,XX,alreadyran]=do_compile_superblock42(XX,all_scs_m,numk,alreadyran)
+function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(XX,all_scs_m,numk,alreadyran)
 // Transforms a given Scicos discrete and continuous SuperBlock into a C defined Block
 // Copyright INRIA
 
@@ -1012,8 +1037,14 @@ function  [ok,XX,alreadyran]=do_compile_superblock42(XX,all_scs_m,numk,alreadyra
   if szclkIN==0 then
     szclkIN=[]
   end
-
-  [bllst,connectmat,clkconnect,cor,corinv,ok]=c_pass1(scs_m);
+  flgcdgen=szclkIN;
+  [bllst,connectmat,clkconnect,cor,corinv,ok,scs_m,flgcdgen,freof]=c_pass1(scs_m,flgcdgen);
+  if flgcdgen<> szclkIN
+    clkIN=[clkIN flgcdgen]
+  end
+  szclkINTemp=szclkIN;
+  szclkIN=flgcdgen;
+ // [bllst,connectmat,clkconnect,cor,corinv,ok]=c_pass1(scs_m);
 
   //Test for  ALWAYS_ACTIVE sblock (RN -25/06/07)
   ALWAYS_ACTIVE=%f;
