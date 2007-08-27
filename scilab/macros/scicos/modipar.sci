@@ -31,7 +31,6 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
   end
 
   nb=prod(size(rpptr))-1
-
   for k=newparameters
     if prod(size(k))==1 then //parameter of a simple block
       kc=cor(k) //index of modified block in compiled structure
@@ -108,7 +107,7 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
           nek=-(ozptr(kc+1)-ozptr(kc))
         elseif ((fun(2)==5) | (fun(2)==10005)) then // sciblocks type 5 | 10005
           if lstsize(odstatek)>0 then
-            nek=1-(ozptr(kc+1)-ozptr(kc)) //nombre d'états supplémentaires
+            nek=1-(ozptr(kc+1)-ozptr(kc)) //nombre d'ï¿½tats supplï¿½mentaires
           else
             nek=-(ozptr(kc+1)-ozptr(kc))
           end
@@ -121,7 +120,8 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
         if nek<>0&sel<>[] then
           while lstsize(odst)<max(nek+sel), odst($+1)=[], end
           while lstsize(odst0)<max(nek+sel), odst0($+1)=[], end
-          if nek>0 then sel=fftshift(sel), end
+//          if nek>0 then sel=fftshift(sel), end
+          if nek>0 then sel=gsort(sel), end
           for j=sel
             odst(j+nek)=odst(j)
             odst0(j+nek)=odst0(j)
@@ -161,14 +161,13 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 	  ipptr(kc+1:$)=ipptr(kc+1:$)+nek
 	  ipar(ipptr(kc):ipptr(kc+1)-1)=ipark,
 	end
-
         //Change objects parameters
         if ((type(opark)<>15) | ...
            (type(fun)<>15)) then //old sci blocks or odstatek not a list
-          nek=-(opptr(kc+1)-opptr(kc))
+          neopark=-(opptr(kc+1)-opptr(kc))
         elseif ((fun(2)==5) | (fun(2)==10005)) then // sciblocks
           if lstsize(opark)>0 then
-            nek=1-(opptr(kc+1)-opptr(kc)) //nombre de paramètres supplémentaires
+            nek=1-(opptr(kc+1)-opptr(kc)) //nombre de paramï¿½tres supplï¿½mentaires
           else
             nek=-(opptr(kc+1)-opptr(kc))
           end
@@ -180,8 +179,9 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
         sel=opptr(kc+1):opptr($)-1
         if nek<>0&sel<>[] then
           while lstsize(opar)<max(nek+sel), opar($+1)=[], end
-          if nek>0 then sel=fftshift(sel), end
-          for j=sel, opar(j+nek)=opar(j), end
+  //        if nek>0 then sel=fftshift(sel), end
+        if nek>0 then sel=gsort(sel), end
+          for j=sel, opar(j+nek)=opar(j); end
         end
         opptr(kc+1:$)=opptr(kc+1:$)+nek;
         if ((type(opark)==15) & (type(fun)==15)) then
@@ -193,7 +193,6 @@ function [%state0,state,sim]=modipar(newparameters,%state0,state,sim,scs_m,cor)
             for j=1:lstsize(opark), opar(opptr(kc)+j-1)=opark(j), end
           end
         end
-
 	//Change simulation routine
 	if type(sim('funs')(kc))<>13 then   //scifunc
 	  sim('funs')(kc)=fun(1);
