@@ -1874,20 +1874,18 @@
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>blk</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    the current block number in the compiled structure.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='fortran_block' type='LATEX'>
@@ -7767,18 +7765,25 @@ Properties : Type 'vec' of size 1.
 
 <FILE name='getblocklabel' type='XML'>
   <PARAM>
-  <PARAM_INDENT>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Name of param.</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      add here the parameter description
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-  </PARAM_INDENT>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>blk</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Integer parameter. Set the index of a block (in the compiled structure).
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>label</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    String parameter. Gives the string of the label of the
+	    block numbered blk.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
   </PARAM>
 </FILE>
 

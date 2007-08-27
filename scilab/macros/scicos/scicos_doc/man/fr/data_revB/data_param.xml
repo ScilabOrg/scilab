@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="param">
 
 <FILE name='ABS_VALUE' type='LATEX'>
@@ -3519,20 +3520,18 @@
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Nom du paramètre</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: ajoutez ici la description du paramètre
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>blk</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    le numéro du bloc courant dans la structure compilée.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='fortran_block' type='XML'>
@@ -9575,18 +9574,25 @@ Propriétés : Type 'vec' de taille 1.
 
 <FILE name='getblocklabel' type='XML'>
   <PARAM>
-  <PARAM_INDENT>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Nom du paramètre</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      ajoutez ici la description du paramètre
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-  </PARAM_INDENT>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>blk</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Paramètre entier. Définit l'index d'un bloc dans la
+	    structure compilée.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>label</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Chaînes de caractères. Retourne le label du bloc numéroté blk.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
   </PARAM>
 </FILE>
 
