@@ -6674,8 +6674,10 @@ when the type is int8 or uint8 the number must be positif and less than 8.
 
   \item {\bf seed} \\
         matrix\\
-        seed value for a sequence of random number.\\
-        Properties : Type 'mat' of size [-1,-2].
+        Seed value for a sequence of random number.\\
+	First number is for the real part and the second for the
+	imaginary part.\\
+        Properties : Type 'mat' of size [1,2].
 \end{itemize}
 </FILE>
 

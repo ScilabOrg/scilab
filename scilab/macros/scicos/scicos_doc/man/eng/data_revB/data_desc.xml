@@ -170,13 +170,11 @@ signals.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-
 This component is a model for any device or system that produces a
 constant electromotive force between its port. The output voltage of
 this DC volatge source is defined by the user. The black port
 indicates the positive voltage. The ohmic resistance of this DC
 voltage source is zero.
-
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -193,7 +191,7 @@ the current passing through the coponent. The measure is given to the
 explicit part of the model via an explicit pout. Conventionally,
 current flowing into the black port is consiered positive. The ohmic
 resistance of this block is zero.
-/P>
+</P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
 </DESCRIPTION>
