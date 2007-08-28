@@ -24,7 +24,7 @@ case 'set' then
   model=arg1.model;
   while %t do
     [ok,minim,maxim,rule,exprs]=getvalue('Set Counter  block parameters',..
-	['Minimum';'Maximum';'Rule (1=Increment 2=Decrement'],..
+	['Minimum';'Maximum';'Rule (1=Increment 2=Decrement)'],..
           list('vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end
     maxim=int(maxim);minim=int(minim);
