@@ -41,7 +41,7 @@ function [routines,IntFunc]=create_palette(Path)
       disp('Constructing '+txt)
       if txt=='Sources' then
 	lisf=['CONST_m.sci';'GENSQR_f.sci';'RAMP.sci';  
-	      'RAND_f.sci';'RFILE_f.sci';
+	      'RAND_m.sci';'RFILE_f.sci';
 	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
