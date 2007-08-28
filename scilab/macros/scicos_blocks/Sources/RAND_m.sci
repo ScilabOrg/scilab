@@ -23,7 +23,7 @@ case 'set' then
 	' ';
 	'A and B must be matrix with equal sizes'],..
 	['Datatype(1=real double  2=complex)';'flag';'A';'B';'SEED'],..
-	list('vec',1,'vec',1,'mat',[-1 -2],'mat','[-1 -2]','mat',[-1 -2]),exprs)
+	list('vec',1,'vec',1,'mat',[-1 -2],'mat','[-1 -2]','mat',[1 2]),exprs)
     if ~ok then break,end
     if flag<>0&flag<>1 then
       message('flag must be equal to 1 or 0')
