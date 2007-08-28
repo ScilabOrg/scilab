@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="desc">
 
-<FILE name='ABS_VALUE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ABS_VALUE' type='LATEX'>
+Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
@@ -1130,16 +1122,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='RFILE_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RFILE_f' type='LATEX'>
+Ce bloc permet à l'utilisateur de lire des données dans un fichier.
+Ces données peuvent être formatées ou binaires.
+Les paramètres {\bf  Output record selection} et {\bf Time record selection}
+permettent de selectionner des données parmi les enregistrements du fichier.
+Chaque appel au bloc avance d'un enregistrement.
 </FILE>
 
 <FILE name='Resistor' type='LATEX'>
@@ -2018,16 +2006,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='ABSBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ABSBLK_f' type='LATEX'>
+Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
@@ -2618,28 +2598,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='RFILE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='RICC' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RFILE' type='LATEX'>
+Ce bloc permet à l'utilisateur de lire des données dans un fichier.
+Ces données peuvent être formatées ou binaires.
+Les paramètres {\bf  Output record selection} et {\bf Time record selection}
+permettent de selectionner des données parmi les enregistrements du fichier.
+Chaque appel au bloc avance d'un enregistrement.
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
@@ -3189,16 +3153,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLOCK_c' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLOCK_c' type='LATEX'>
+Ce bloc est un super-bloc construit grâce au bloc \htmladdnormallink{EVTDLY\_c}{EVTDLY_c.htm} qui est rebouclé sur lui-même.\\
+L'unique sortie de ce bloc génère des événements à des dates précises, qui sont déterminées par le paramètre {\bf Period} de la boîte de dialogue.
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
@@ -3249,16 +3206,13 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='EVTDLY_c' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EVTDLY_c' type='LATEX'>
+Chaque évènement de sortie est réalisé après l'évènement 
+d'entrée par un laps de temps {\bf Delay}.\\
+La date de l'évènement de sortie est donc déterminée par la formule :
+\begin{eqnarray}
+ t_{i}&=&t_{\rm{init}} + i * T_{\rm{delay}},
+\end{eqnarray}
 </FILE>
 
 <FILE name='FROM' type='XML'>
@@ -3478,15 +3432,15 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='Counter' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          Ce bloc, suivant la loi choisie, compte à partir d'un minimum vers un maximum ou d'un maximum vers un maximum.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='M_freq' type='XML'>

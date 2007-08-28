@@ -1226,29 +1226,32 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Delay</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant le retard temporel entre les évènements d'entrée et de sortie.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Date of initial output event</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant la première date de l'évènement de sortie. Si aucune date initiale est nécéssaire alors ce champ doit être renseigné par une valeur négative.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Delay</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Un scalaire à valeur réelle donnant le retard temporel entre les évènements d'entrée et de sortie.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Date of initial output event</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Un scalaire à valeur réelle donnant la première date de l'évènement de sortie. Si aucune date initiale est nécéssaire alors ce champ doit être renseigné par une valeur négative.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
@@ -2528,57 +2531,42 @@
 </PARAM>
 </FILE>
 
-<FILE name='RFILE_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='RFILE_f' type='LATEX'>
+\begin{itemize}
+  %Time record selection   []
+  \item {\bf Time record selection} \\
+        une matrice vide ou un entier positif.\\
+        Si un entier $i$ est donnée, le $i^{\rm \grave{e}me}$ élément de 
+	l'enregistrement lu est supposé être la date de
+	l'évènement de sortie.
+	Si ce paramètre est vide, alors le bloc ne fournit pas d'évènements
+	de sortie.
+	Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Time record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        un vecteur d'entiers positifs. \\
+        $[k_1,\cdots,k_n]$. Le $k_i^{\rm i\grave{e}me}$ élément de l'enregistrement lu donne la valeur de la $i^{\rm i\grave{e}me}$ sortie.\\
+	Properties : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Outputs record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input Format   (7(e10.3,1x))
+  \item {\bf Input Format} \\
+        une chaîne de caractères définissant le format d'enregistrement 
+        (de type fortran ou bien vide pour aucun format).
+        Si ce paramètre est renseigné alors il doit être encadrer 
+        par des paranthèse. Par exemple : $(e10.3)$.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 5.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité de la lecture, il est possible d'enregistrer les données d'entrée dans un buffer. Les données sont alors délivrées à chaque appel du bloc lorsque le buffer est rempli.\\
+	Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='Resistor' type='XML'>
@@ -7344,72 +7332,42 @@ Propriétés : Type 'vec' de taille -1.
 </PARAM>
 </FILE>
 
-<FILE name='RFILE' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='RFILE' type='LATEX'>
+\begin{itemize}
+  %Time record selection   []
+  \item {\bf Time record selection} \\
+        une matrice vide ou un entier positif.\\
+        Si un entier $i$ est donnée, le $i^{\rm \grave{e}me}$ élément de 
+	l'enregistrement lu est supposé être la date de
+	l'évènement de sortie.
+	Si ce paramètre est vide, alors le bloc ne fournit pas d'évènements
+	de sortie.
+	Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Time record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        un vecteur d'entiers positifs. \\
+        $[k_1,\cdots,k_n]$. Le $k_i^{\rm i\grave{e}me}$ élément de l'enregistrement lu donne la valeur de la $i^{\rm i\grave{e}me}$ sortie.\\
+	Properties : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Outputs record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'str' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input Format   (7(e10.3,1x))
+  \item {\bf Input Format} \\
+        une chaîne de caractères définissant le format d'enregistrement 
+        (de type fortran ou bien vide pour aucun format).
+        Si ce paramètre est renseigné alors il doit être encadrer 
+        par des paranthèse. Par exemple : $(e10.3)$.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'str' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 5.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité de la lecture, il est possible d'enregistrer les données d'entrée dans un buffer. Les données sont alors délivrées à chaque appel du bloc lorsque le buffer est rempli.\\
+	Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='RICC' type='XML'>
@@ -9034,36 +8992,23 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
-<FILE name='CLOCK_c' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLOCK_c' type='LATEX'>
+  %@lan
+  \begin{itemize}
+     
+     \item {\bf Period} \\
+           scalaire. \\
+           La periode de l'horloge.\\
+           Une période est le temps qui sépare deux événements de sortie.\\
+	   Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Period</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+     \item {\bf Init time} \\
+           scalaire. \\
+	   La date de départ.\\
+           Si celle-ci est négative alors l'horloge ne démarre jamais.\\
+	   Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Init time</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \end{itemize}
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
@@ -9155,35 +9100,32 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Delay</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Date of initial output event</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Delay</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Un scalaire à valeur réelle donnant le retard temporel entre les évènements d'entrée et de sortie.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Date of initial output event</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Un scalaire à valeur réelle donnant la première date de l'évènement de sortie. Si aucune date initiale est nécéssaire alors ce champ doit être renseigné par une valeur négative.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='FROM' type='XML'>
@@ -9675,47 +9617,43 @@ Propriétés : Type 'str' de taille -1.
 </FILE>
 
 <FILE name='Counter' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Minimum</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Maximum</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Rule (1=Increment 2=Decrement</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Minimum</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La valeur minimale du compteur.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Maximum</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La valeur maximale du compteur.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Rule (1=Increment 2=Decrement)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La loi de comptage. Si ce paramètre est égal à 1, le compteur s'incrémente de la valeur minimale vers la valeur maximale. Sinon, si ce paramètre est égal à 2, alors le compteur diminue sa valeur du maximum vers le minimum.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='M_freq' type='XML'>

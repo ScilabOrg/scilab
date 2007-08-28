@@ -1,11 +1,11 @@
 <DATA flag="sdesc">
 
 <FILE name='ABS_VALUE' type='XML'>
-<SHORT_DESCRIPTION name="ABS_VALUE">Absolute value </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ABS_VALUE">Absolute value</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_f">Display </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="AFFICH_f">Display</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ANDBLK' type='XML'>
@@ -365,7 +365,7 @@
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="RFILE_f">Read from file </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE_f">Read from file (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
@@ -666,7 +666,7 @@
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="ABSBLK_f">ABSBLK_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ABSBLK_f">Absolute value (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
@@ -866,7 +866,7 @@
 </FILE>
 
 <FILE name='RFILE' type='XML'>
-<SHORT_DESCRIPTION name="RFILE">RFILE title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE">Read from file</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RICC' type='XML'>
@@ -1071,7 +1071,7 @@
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Event delay</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_c">Event delay</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROM' type='XML'>

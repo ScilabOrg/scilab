@@ -1,8 +1,11 @@
 <DATA flag="spdesc">
 
 <FILE name='RAND_f' type='SPECIALDESC'>
-dial_width_html=220pt
+	dial_width_html=220pt
 </FILE>
 
+<FILE name='CLOCK_c' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
 
 </DATA>

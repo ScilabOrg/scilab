@@ -719,7 +719,7 @@ port is routed to the regular output.
 
 <FILE name='RFILE_f' type='LATEX'>
 This block allows user to read datas in a file, in formatted or binary
-mode. {\bf  Output record selection}  and  {\bf Time record Selection}
+mode. {\bf  Output record selection}  and  {\bf Time record selection}
   allows the user to select data among file records.   Each call to the block
 advance one record in the file.   
 </FILE>
@@ -1530,16 +1530,8 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='ABSBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ABSBLK_f' type='LATEX'>
+The Abs block outputs the absolute value of the input.
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
@@ -2134,16 +2126,11 @@ This block realizes a shift register. At every input event, the register is shif
 </DESCRIPTION>
 </FILE>
 
-<FILE name='RFILE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RFILE' type='LATEX'>
+This block allows user to read datas in a file, in formatted or binary
+mode.
+{\bf  Output record selection}  and  {\bf Time record selection} allows the user to select data among file records.
+Each call to the block advance one record in the file.
 </FILE>
 
 <FILE name='RICC' type='XML'>
@@ -2819,8 +2806,9 @@ This scope put some balls into a cage and show their evolution according x and y
 
 <FILE name='CLOCK_c' type='LATEX'>
 This block is a Super Block constructed by feeding back the output of
-an event delay block into its input event port. The unique output of
-this block generates a regular train of events.
+the block  \htmladdnormallink{EVTDLY\_c}{EVTDLY_c.htm} into its input event port. \\
+The unique output of this block generates a regular train of events that's scheduled by the dialog
+parameter {\bf Period}.
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
@@ -3131,15 +3119,15 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='Counter' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block counts from minimal to maximal or from maximal to minimal depending on the choice of the rule.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block counts from minimal to maximal or from maximal to minimal depending on the choice of the rule.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='M_freq' type='XML'>

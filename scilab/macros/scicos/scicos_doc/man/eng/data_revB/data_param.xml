@@ -650,14 +650,16 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Delay   0.1
-\item {Delay:} scalar. Time delay between input and output event. 
-%Date of initial output event   0.1
-\item {Date of initial output event:}scalar. If {\bf Auto-exec>=0 } block
-  initially generates an output event at date{\bf  Auto-exec}.  
-\end{itemize}
+  %automatically generated, please edit
+  \begin{itemize}
+
+     %Delay   0.1
+     \item {Delay:} scalar. Time delay between input and output event.
+
+     %Date of initial output event   0.1
+     \item {Date of initial output event:}scalar. If {\bf Auto-exec>=0 } block
+             initially generates an output event at date{\bf  Auto-exec}.  
+  \end{itemize}
 </FILE>
 
 <FILE name='EVTGEN_f' type='LATEX'>
@@ -1321,30 +1323,39 @@
 </FILE>
 
 <FILE name='RFILE_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%Time record selection   []
-\item {Time record selection:} an empty matrix or a positive
-  integer. If an integer  $i$  is given the  $i$ th element of the read
-  record is assumed to be the date of the output event. If empty no
-  output event exists.  
-%Outputs record selection   1
-\item {Outputs record selection:} a vector of positive integer.
-  $[k_1,\cdots,k_n]$. The  $k_i$ th element of the read record gives
-  the value of  i th output.   
-%Input file name   foo
-\item {Input file name:} a character string defining the path of the file 
-%Input Format   (7(e10.3,1x))
-\item {Input Format:} a character string defining the Fortran format
-  to use or nothing for an unformatted (binary) write. If given, the
-  format must began by a left parenthesis and end by a right
-  parenthesis. example: $(e10.3)$.  
-%Buffer size   2
-\item {Buffer size:} To improve efficiency it is possible to buffer
-  the input data. read on the file is only done after each  {\bf Buffer
-  size}  call to the block.  
-%Output size   1
-\item {Output size:}a scalar. This fixes the number of ``value'' read. 
+  %Time record selection   []
+  \item {\bf Time record selection} \\
+        an empty matrix or a positive integer. \\
+        If an integer  $i$  is given the  $i$ th element of the read
+        record is assumed to be the date of the output event.
+        If empty no output event exists.\\
+	Properties : Type 'vec' of size -1.
+
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        a vector of positive integer.\\
+        $[k_1,\cdots,k_n]$. The $k_i$ th element of the read record gives the value of  i th output.\\
+	Properties : Type 'vec' of size -1.
+
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        a character string defining the path of the file.\\
+	Properties : Type 'str' of size 1.
+
+  %Input Format   (7(e10.3,1x))
+  \item {\bf Input Format} \\
+        a character string defining the Fortran format
+	to use or nothing for an unformatted (binary) write. If given, the
+	format must began by a left parenthesis and end by a right
+	parenthesis. example: $(e10.3)$.\\
+	Properties : Type 'str' of size 1.
+
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. read on the file is only done after each  {\bf Buffer size}  call to the block.\\
+	Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -5491,71 +5502,40 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='RFILE' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+\begin{itemize}
+  %Time record selection   []
+  \item {\bf Time record selection} \\
+        an empty matrix or a positive integer. \\
+        If an integer  $i$  is given the  $i$ th element of the read
+        record is assumed to be the date of the output event.
+        If empty no output event exists.\\
+	Properties : Type 'vec' of size -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Time record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        a vector of positive integer.\\
+        $[k_1,\cdots,k_n]$. The $k_i$ th element of the read record gives the value of  i th output.\\
+	Properties : Type 'vec' of size -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Outputs record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        a character string defining the path of the file.\\
+	Properties : Type 'str' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'str' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input Format   (7(e10.3,1x))
+  \item {\bf Input Format} \\
+        a character string defining the Fortran format
+	to use or nothing for an unformatted (binary) write. If given, the
+	format must began by a left parenthesis and end by a right
+	parenthesis. example: $(e10.3)$.\\
+	Properties : Type 'str' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'str' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. read on the file is only done after each  {\bf Buffer size}  call to the block.\\
+	Properties : Type 'vec' of size 1.
+\end{itemize}
 </FILE>
 
 <FILE name='RICC' type='XML'>
@@ -7193,15 +7173,21 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='CLOCK_c' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Period   0.1
-\item {Period:} scalar. One over the frequency of the clock. Period is
-  the time that separates two output events.    
-%Init time   0.1
-\item {Init time:} scalar. Starting date. if negative the clock never
-  starts.   
-\end{itemize}
+  %@lan
+  \begin{itemize}
+     
+     \item {\bf Period} \\
+           scalar. \\
+           One over the frequency of the clock. \\
+           Period is the time that separates two output events.\\
+	   Properties : Type 'vec' of size 1.
+
+     \item {\bf Init time} \\
+           scalar. \\
+           Starting date. \\
+           If negative the clock never starts.\\
+	   Properties : Type 'vec' of size 1.
+  \end{itemize}
 </FILE>
 
 <FILE name='DLATCH1' type='XML'>
@@ -7792,47 +7778,43 @@ Properties : Type 'str' of size -1.
 </FILE>
 
 <FILE name='Counter' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Minimum</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The lowest number of the counter.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Maximum</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The highest number of the counter.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Rule (1=Increment 2=Decrement</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The rule of counting. If it is 1 then the counter counts from the lower number to the higher number. the count in this case is increasing. otherwise, if the rule is equal to 2 the counter will decrease and it will count from the higher number to the lower one.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Minimum</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The lowest number of the counter.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Maximum</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The highest number of the counter.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Rule (1=Increment 2=Decrement)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The rule of counting. If it is 1 then the counter counts from the lower number to the higher number. the count in this case is increasing. otherwise, if the rule is equal to 2 the counter will decrease and it will count from the higher number to the lower one.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='M_freq' type='XML'>

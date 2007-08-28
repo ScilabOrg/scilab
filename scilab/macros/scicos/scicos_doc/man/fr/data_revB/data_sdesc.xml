@@ -366,7 +366,7 @@
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
@@ -667,7 +667,7 @@
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="ABSBLK_f">ABSBLK_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ABSBLK_f">Valeur absolue (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
@@ -867,7 +867,7 @@
 </FILE>
 
 <FILE name='RFILE' type='XML'>
-<SHORT_DESCRIPTION name="RFILE">RFILE titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RICC' type='XML'>
@@ -1059,7 +1059,7 @@
 </FILE>
 
 <FILE name='CLOCK_c' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_c">CLOCK_c titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLOGICAL_OP' type='XML'>
@@ -1079,7 +1079,7 @@
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_c">EVTDLY_c titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_c">Retard évènementiel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROM' type='XML'>
@@ -1155,7 +1155,7 @@
 </FILE>
 
 <FILE name='Counter' type='XML'>
-<SHORT_DESCRIPTION name="Counter">Counter titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Counter">Compteur</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='M_freq' type='XML'>
@@ -1283,7 +1283,7 @@
 </FILE>
 
 <FILE name='CLOCK_c_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLOCK_c">CLOCK_c</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLOCK_f_intfunc' type='XML'>
