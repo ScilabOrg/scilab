@@ -31,7 +31,7 @@ This block, with two event inputs and a regular output, outputs +1 or
 </FILE>
 
 <FILE name='ANIMXY_f' type='LATEX'>
-This block realizes the visualization of the evolution of the two
+__OBSOLETE__ This block realizes the visualization of the evolution of the two
 regular input signals by drawing the second input as a function of the
 first at instants of events on the event input port.  
 </FILE>
@@ -193,7 +193,7 @@ the current passing through the coponent. The measure is given to the
 explicit part of the model via an explicit pout. Conventionally,
 current flowing into the black port is consiered positive. The ohmic
 resistance of this block is zero.
-</P>
+/P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
 </DESCRIPTION>
@@ -285,7 +285,7 @@ slightly, depending on the type of input.
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='LATEX'>
-This block realizes the visualization of the input event signals.  
+__OBSOLETE__ This block realizes the visualization of the input event signals.  
 </FILE>
 
 <FILE name='EVTDLY_f' type='LATEX'>
@@ -354,7 +354,7 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='FSCOPE_f' type='LATEX'>
- This  is  a floating scope block. 
+__OBSOLETE__  This  is  a floating scope block. 
 </FILE>
 
 <FILE name='GENSIN_f' type='LATEX'>
@@ -771,7 +771,7 @@ have the same number of elements.)
 </FILE>
 
 <FILE name='SCOPXY_f' type='LATEX'>
-This block realizes the visualization of the evolution of the two
+__OBSOLETE__ This block realizes the visualization of the evolution of the two
 regular input signals by drawing the second input as a function of the
 first at instants of events on the event input port.   
 </FILE>
@@ -1573,7 +1573,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.  
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1585,7 +1585,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port. 
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1597,7 +1597,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block realizes the visualization of the input event signals.  
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1609,7 +1609,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This  is  a floating scope block. 
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1693,7 +1693,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This scope is useful to see the evolution in 3 dimensions of a grid.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1705,7 +1705,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This scope is useful to see the evolution of a quantity on a colored grid.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1753,7 +1753,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.   
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1765,7 +1765,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port. 
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2812,7 +2812,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This scope put some balls into a cage and show their evolution according x and y.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
