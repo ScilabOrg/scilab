@@ -50,11 +50,11 @@
 </FILE>
 
 <FILE name='CLKSOMV_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSOMV_f">Activation union </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSOMV_f">Union d'activations</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLOCK_f' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_f">Horloge d'activation</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLOCK_f">Horloge d'activation (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLR_f' type='XML'>
@@ -74,7 +74,7 @@
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
-<SHORT_DESCRIPTION name="CONST_f">Constante</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONST_f">Constante (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
@@ -142,7 +142,7 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Selecteur d'évènement</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Retard évènementiel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
@@ -338,7 +338,7 @@
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
-<SHORT_DESCRIPTION name="RAND_f">Générateur aléatoire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_f">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
@@ -558,7 +558,7 @@
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">Definit le niveau de débogage de scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -695,15 +695,15 @@
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKIN_f">CLKIN_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKIN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKOUT_f">CLKOUT_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKOUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSOM_f">CLKSOM_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSOM_f">Union d'activations</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
@@ -727,11 +727,11 @@
 </FILE>
 
 <FILE name='CONST' type='XML'>
-<SHORT_DESCRIPTION name="CONST">CONST titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONST">Constante (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
-<SHORT_DESCRIPTION name="CONST_m">CONST_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONST_m">Constante</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>
@@ -979,7 +979,7 @@
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
-<SHORT_DESCRIPTION name="RAND_m">RAND_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>

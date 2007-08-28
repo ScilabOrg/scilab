@@ -1094,19 +1094,15 @@ INRIA
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
+  <AUTHORS>
 
-</AUTHORS_ITEM>
-</AUTHORS>
+  </AUTHORS>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<AUTHORS>
-<AUTHORS_ITEM label='enter here the author name'>
+  <AUTHORS>
 
-</AUTHORS_ITEM>
-</AUTHORS>
+  </AUTHORS>
 </FILE>
 
 

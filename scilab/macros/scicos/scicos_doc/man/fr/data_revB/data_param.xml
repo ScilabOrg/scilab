@@ -4088,7 +4088,7 @@
 	    <PARAM_NAME>0</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -4098,7 +4098,7 @@
 	    <PARAM_NAME>1</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -4108,7 +4108,7 @@
 	    <PARAM_NAME>2</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -4118,7 +4118,7 @@
 	    <PARAM_NAME>3</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -4427,37 +4427,49 @@
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Nom du paramètre</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: ajoutez ici la description du paramètre
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>var</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Paramètre d'entrée. Peut-être tous types d'objet scilab.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>vec</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Paramètre de sortie. Un vecteur de nombres réels.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Nom du paramètre</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: ajoutez ici la description du paramètre
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>vec</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Paramètre d'entrée. Un vecteur de nombres réels.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>var</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Paramètre de sortie. Peut-être tous types d'objet scilab.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 

@@ -2272,7 +2272,7 @@ opened (default name Untitled).
 	    <PARAM_NAME>0</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -2282,7 +2282,7 @@ opened (default name Untitled).
 	    <PARAM_NAME>1</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -2292,7 +2292,7 @@ opened (default name Untitled).
 	    <PARAM_NAME>2</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -2302,7 +2302,7 @@ opened (default name Untitled).
 	    <PARAM_NAME>3</PARAM_NAME>
 	    <PARAM_DESCRIPTION>
 	      <SP>
-		
+
 	      </SP>
 	    </PARAM_DESCRIPTION>
 	  </PARAM_ITEM>
@@ -2648,37 +2648,49 @@ param(2): scalar. Time t.
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>var</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Input parameter. Can be any types of scilab objects.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>vec</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Output parameter. A vector of real numbers.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Name of param.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: add here the parameter description
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>vec</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Input parameter. A vector of real numbers.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>var</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Output parameter. Can be any types of scilab objects.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 
@@ -6640,72 +6652,31 @@ when the type is int8 or uint8 the number must be positif and less than 8.
 </PARAM>
 </FILE>
 
-<FILE name='RAND_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='RAND_m' type='LATEX'>
+\begin{itemize}
+  \item {\bf Datatype(1=real double  2=complex)} \\
+        It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported". \\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double  2=complex</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  \item {\bf flag} \\
+        0 or 1.\\
+        0 for uniform distribution on  [A,A+B]. \\
+        1 for normal distribution.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>flag</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  \item {\bf A} \\
+        matrix\\
+        Properties : Type 'mat' of size [-1,-2].
 
-<PARAM_ITEM>
-<PARAM_NAME>A</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  \item {\bf B} \\
+        matrix\\
+        Properties : Type 'mat' of size [-1,-2].
 
-<PARAM_ITEM>
-<PARAM_NAME>B</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'mat' of size &quot;[-1 -2]&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>SEED</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'mat' of size [1,2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \item {\bf seed} \\
+        matrix\\
+        seed value for a sequence of random number.\\
+        Properties : Type 'mat' of size [-1,-2].
+\end{itemize}
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>

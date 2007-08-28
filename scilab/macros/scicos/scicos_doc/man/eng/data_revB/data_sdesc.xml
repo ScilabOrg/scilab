@@ -53,7 +53,7 @@
 </FILE>
 
 <FILE name='CLOCK_f' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_f">Activation clock </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLOCK_f">Activation clock (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLR_f' type='XML'>
@@ -73,7 +73,7 @@
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
-<SHORT_DESCRIPTION name="CONST_f">Constant </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONST_f">Constant (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
@@ -337,7 +337,7 @@
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
-<SHORT_DESCRIPTION name="RAND_f">Random generator </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_f">Random generator (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
@@ -694,15 +694,15 @@
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKIN_f">CLKIN_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKIN_f">Input regular port</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKOUT_f">CLKOUT_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKOUT_f">Output regular port</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSOM_f">CLKSOM_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSOM_f">Activation union</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
@@ -726,7 +726,7 @@
 </FILE>
 
 <FILE name='CONST' type='XML'>
-<SHORT_DESCRIPTION name="CONST">CONST title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONST">Constant (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
@@ -978,7 +978,7 @@
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
-<SHORT_DESCRIPTION name="RAND_m">RAND_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_m">Random generator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>

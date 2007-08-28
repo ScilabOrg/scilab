@@ -1051,16 +1051,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='RAND_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RAND_f' type='LATEX'>
+Ce bloc est un générateur de nombres aléatoires : chaque composantes de sortie
+prend des valeurs constantes aléatoires par morceaux. Pour chaque événements les
+sorties prennent des nouvelles valeurs indépendantes.\\
+La taille du port de sortie est déterminée par la taille des vecteurs {\bf A} et {\bf B}.
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
@@ -1772,29 +1767,28 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='var2vec' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Les fonctions var2vec / vec2var sont utilisées dans les fonctions d'interfaçages des blocs scilab pour donner la possibilité à l'utilisateur de manipuler des objets scilab avec le registre des paramètres réels (rpar) et avec le registre des états discrets (z).
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='vec2var' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Les fonctions var2vec / vec2var sont utilisées dans les fonctions d'interfaçages des blocs scilab pour donner la possibilité à l'utilisateur de manipuler des objets scilab avec le registre des paramètres réels (rpar) et avec le registre des états discrets (z).
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
-
 
 <FILE name='CUMSUM' type='XML'>
 <DESCRIPTION>
@@ -2960,16 +2954,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='RAND_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RAND_m' type='LATEX'>
+Ce bloc est un générateur de nombres aléatoires : chaque composantes de sortie
+prend des valeurs constantes aléatoires par morceaux. Pour chaque événements les
+sorties prennent des nouvelles valeurs indépendantes.\\
+La taille du port de sortie est déterminée par la taille des matrices {\bf A} et {\bf B}.
 </FILE>
 
 <FILE name='RELATIONAL_OP' type='XML'>

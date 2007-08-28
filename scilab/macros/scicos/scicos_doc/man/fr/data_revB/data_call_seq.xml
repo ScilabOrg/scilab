@@ -94,7 +94,7 @@
 <FILE name='vec2var' type='XML'>
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>
-      [vec]=vec2var(var)
+      [var]=vec2var(vec)
     </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
