@@ -15,9 +15,8 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
 
   curwin = get_new_window(windows) //** get a new win_id 
   
-  if or(curwin==winsid()) then //** protection: if the new win_id is already in the list 
-    //** xdel(curwin);              //** delete it !
-    clf(curwin)  ;
+  if or(curwin==winsid()) then //** protection: if the new win_id is already in the list              
+    clf(curwin)  ;  //** delete it !
   end
   
   windows = [windows;[-kpal curwin]] ; //** add the new window ad the "windows" list as palette
@@ -25,15 +24,8 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
   
   palettes(kpal) = scs_m ; //** save the diagram in the datastructure 
   
-  //
-  
-  //** xset('window',curwin)
   gh_curwin = scf(curwin) ; //** open the new palette windows with proper id 
 
-  //** xselect(); //** put the focus on the new window (not necessary)
-  
-  //** xset('alufunction',3) /** set copy mode (obsolete)
-  
   if ~MSDOS then //** Unix case
     delmenu(curwin,'3D Rot.')
     delmenu(curwin,'UnZoom')
@@ -115,10 +107,10 @@ function [palettes,windows] = do_load_as_palette(palettes,windows)
   
   drawobjs(palettes(kpal),gh_curwin)
   
-  xinfo('Palette: may be used to copy  blocks or regions'); 
+  xinfo("The Palette can be used to copy blocks or regions"); 
   
-  drawnow();
-  //**xset('window',lastwin)
+  drawnow(); show_pixmap();
+
   scf(lastwin) ;
   
 endfunction

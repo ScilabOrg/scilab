@@ -139,7 +139,6 @@ function [palettes,windows] = do_palettes(palettes,windows)
  
   options = palettes(kpal).props.options
     
-  // set_background()
   //** I switch to the direct acces 
   gh_palette.background = options.Background(1) ; //** "options" is sub structure of scs_m  
      
@@ -149,7 +148,7 @@ function [palettes,windows] = do_palettes(palettes,windows)
         
   drawobjs( palettes(kpal) ); //** draw all the object of the palettes 
 
-  xinfo('Palette: may be used to copy  blocks or regions')  
+  xinfo("The Palette can be used to copy blocks or regions");   
   
   //** force the proprieties of the palette windows:
   //** the user should be capable to change the size of the window   

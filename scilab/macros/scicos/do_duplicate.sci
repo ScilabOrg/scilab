@@ -4,9 +4,7 @@ function [scs_m,needcompile,Select] = do_duplicate(%pt,scs_m,needcompile,Select)
 //** If you double click an object in a palettes windows, a call at "Duplicate_" is generated ->
 //** then the "do_duplicate":  - this very function - is is executed : Welcome to the Real Mess :)
 //**
-
-//  xinfo('Click where you want object to be placed (right-click to cancel)');
-
+  
   win = %win; //** win contains the windows id where you do the double click
   xc = %pt(1); yc = %pt(2); //** acquire the last mouse position
   kc = find(win==windows(:,2)); //** find the window in the active Scicos windows  
