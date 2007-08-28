@@ -50,7 +50,6 @@
 ::msgcat::mcset da "Function name:" "Funktionsnavn:"
 ::msgcat::mcset da "Obtain" "Hent"
 ::msgcat::mcset da "Input arguments:" "Input-argumenter:"
-::msgcat::mcset da "Remove" "Fjern"
 ::msgcat::mcset da "The selected function has not been found in the opened files, maybe it was deleted since last configuration of the debugger.\nUse button \"" \
                    "Den valgte funktion blev ikke fundet i de åbnede filer, den er måske blevet slettet siden den sidste konfiguration af debuggeren.\nBrug knappen \""
     ::msgcat::mcset da "\" to refresh the list of available functions." \
@@ -94,7 +93,6 @@
 # db_watch.tcl
 ::msgcat::mcset da "Watch" "Overvåg"
 ::msgcat::mcset da "Watch variables:" "Overvågede variable:"
-::msgcat::mcset da "Remove" "Fjern"
 ::msgcat::mcset da "Call stack:" "Call stack:"
 ::msgcat::mcset da "Show watch variables" "Vis overvågede variable"
 ::msgcat::mcset da "Hide watch variables" "Skjul overvågede variable"
@@ -334,16 +332,6 @@
     ::msgcat::mcset da "&Recent files" "&Seneste filer"
     ::msgcat::mcset da "&Backup files depth" "Dybde af &backup-filer"
     ::msgcat::mcset da "&Locale" "S&prog"
-        # locale names (common)
-        ::msgcat::mcset da "da locale (da)" "Dansk (da)"
-        ::msgcat::mcset da "de locale (de)" "Deutsch (de)"
-        ::msgcat::mcset da "fr locale (fr)" "Français (fr)"
-        ::msgcat::mcset da "eng locale (eng)" "English (eng)"
-        ::msgcat::mcset da "es locale (es)" "Español (es)"
-        ::msgcat::mcset da "it locale (it)" "Italiano (it)"
-        ::msgcat::mcset da "no locale (no)" "Norsk (no)"
-        ::msgcat::mcset da "pl locale (pl)" "Polski (pl)"
-        ::msgcat::mcset da "se locale (se)" "Svenska (se)"
 
     # menues.tcl - Windows menu
     ::msgcat::mcset da "&Maximize" "&Maksimer"

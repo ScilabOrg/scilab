@@ -114,11 +114,10 @@
 # db_watch.tcl
 ::msgcat::mcset de "Watch" "Beobachten"
 ::msgcat::mcset de "Watch variables:" "Beobachtete Variablen :"
-::msgcat::mcset de "Remove" "Entfernen"
 ::msgcat::mcset de "Call stack:" "Ausführungsstapel:"
 ::msgcat::mcset de "Hide watch &variables" "Beobachtete &Variablen verstecken"
 ::msgcat::mcset de "Hide call &stack" "Ausführungs&stapel verstecken"
-::msgcat::mcset de "Undefined elements are not legal in variable"\
+::msgcat::mcset de "Undefined  or non editable elements are not legal in variable"\
                    "Undefinierte Elemente sind als Variable nicht erlaubt"
 ::msgcat::mcset de ".\nThis variable will not be updated in Scilab."\
                    ".\n Diese Variable wird in Scilab nicht aktualisiert."
@@ -392,17 +391,7 @@
 ::msgcat::mcset de "&Recent files" "Z&uletzt geöffnete Dateien"
 ::msgcat::mcset de "&Backup files depth" "A&nzahl der Sicherungskopien"
 ::msgcat::mcset de "&Locale" "S&prachumgebung"
-# locale names (common)
-::msgcat::mcset de "da locale (da)" "Dansk (da)"
-::msgcat::mcset de "de locale (de)" "Deutsch (de)"
-::msgcat::mcset de "fr locale (fr)" "Français (fr)"
-::msgcat::mcset de "eng locale (eng)" "English (eng)"
-::msgcat::mcset de "es locale (es)" "Español (es)"
-::msgcat::mcset de "it locale (it)" "Italiano (it)"
-::msgcat::mcset de "no locale (no)" "Norsk (no)"
-::msgcat::mcset de "pl locale (pl)" "Polski (pl)"
-::msgcat::mcset de "se locale (se)" "Svenska (se)"
-::msgcat::mcset de "zh_tw locale (zh_tw)" "中文繁體 (zh_tw)"
+
 
 # menues.tcl - Windows menu
 ::msgcat::mcset de "&Maximize" "&Maximieren"
