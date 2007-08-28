@@ -1,19 +1,24 @@
-function disablemenus(men)
+function disablemenus(xinfo_flag)
 // Copyright INRIA
+//** Comments by Simone Mannori
 
 //** Disable the dynamic menu to avoid unintentional command generation during
 //** interactive operations (Move, OpenSet, Link creation, etc.)
 
-[lhs,rhs] = argn()
+//** if a "xinfo_flag" is specified, the default xinfo message is not printed 
 
-xinfo("Please be patient...") ;
+//** [lhs,rhs] = argn()
 
-//curwin=xget('window') //** Please left this instruction commented 
+if rhs<1 then //** if no argument is specified
+  xinfo("Please be patient...") ; //** print the default message 
+end   
 
-if rhs<1 then
-  men = menus(1)
-end
+//   curwin=xget('window') //** Please left this instruction commented 
+//** if rhs<1 then         //** obsolete code inside 
+//**   men = menus(1)
+//** end
 
+men = menus(1); 
 for k=1:size(men,'*')
   unsetmenu(curwin,men(k)); //** 
 end
