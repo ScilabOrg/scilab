@@ -1,16 +1,15 @@
-// Copyright INRIA
-
+function [scs_m, fct] = do_addnew(scs_m)
+//** Copyright INRIA
+//** Comments by Simone Mannori
+//**
+//** Add a new block (defined by its GUI function to a palette
 //** 22 May 2006: Looking for a bug inside the new graphics handling 
-
-// add a new block (defined by its GUI function to a palette
-
+//**
 //** "scs_m" is the diagram datastructure
-
+//**
 //** "fct" is a flag control variable used by the calling function Addnewblock
 //**       it is used to signal modification of the datastructure
-
-function [scs_m, fct] = do_addnew(scs_m)
-
+//**
 //**---------- This part handle the file related functions and error handling --------------
 
   fct = [] ;
@@ -20,20 +19,23 @@ function [scs_m, fct] = do_addnew(scs_m)
 
   name = stripblanks(name);
 
-  if name==emptystr() then message('No block name specified');return,end ; //** --> Exit point
+  if name==emptystr() then
+      message("No block name specified");
+      return
+  end ; //** --> Exit point
 
-  to_get=%f
+  to_get = %f ;
 
   if exists(name)==0 then
-    to_get=%t
+    to_get = %t ;
   else
     execstr('tp=type('+name+')')
-    to_get=tp<>11&tp<>13
+    to_get = tp<>11 & tp<>13 
   end
 
   if to_get then // try to get it
-    path=name+'.sci'
-    path=getfile("*.sci",path,title="File containing function: "+name)
+    path = name+'.sci'
+    path = getfile("*.sci", path, title="File containing function: "+name)
 
     if length(path)<=0 then return,end
     [u,err]=file('open',path,'old','formatted')
@@ -45,35 +47,43 @@ function [scs_m, fct] = do_addnew(scs_m)
 
     if execstr('getf(u)','errcatch')<>0 then
       file('close',u)
-      message([name+' erroneous function:';lasterror()])
+      message([name + " erroneous function:"; lasterror()])
       return
     end
 
     file('close',u)
 
-    if ~exists(name) then message(name+' is not defined in this file'),return,end
+    if ~exists(name) then
+       message(name+" is not defined in this file")
+       return
+    end
 
-    fct=path
+    fct = path
 
   else
 
-    fct=emptystr()
+    fct = emptystr()
 
-  end
+  end //** 
 
+  
   //define the block
   ierror = execstr('blk='+name+'(''define'')','errcatch')
   if ierror <>0 & ierror <>4 then
-    message(['Error in GUI function';lasterror()] )
-    fct=[]
+    message([ "Error in GUI function"; lasterror() ])
+    fct = [] ;
     return
   end
 
   if ierror == 4 then
     irr=message(['Error in GUI function--The error was:';
-		lasterror();'It could be an old GUI';
-	     'Should I try to translate (no guarantee)?'],['yes','no'])
-    if irr==2 then fct=[];return
+		            lasterror();'It could be an old GUI';
+	              'Should I try to translate (no guarantee)?'],['yes','no'])
+    
+    if irr==2 then
+      
+      fct=[]
+      return
 
     else
       funcprot_val=funcprot()
@@ -88,9 +98,9 @@ function [scs_m, fct] = do_addnew(scs_m)
 	         return
       end
 
-      do_version=do_version;//load do_version and its subfunctions
+      do_version = do_version; //load do_version and its subfunctions
 
-      ierror=execstr('blk=up_to_date(blk)','errcatch');
+      ierror = execstr('blk=up_to_date(blk)','errcatch');
 
       if ierror <>0 then
 	          message("Translation did not work, sorry")
@@ -98,9 +108,9 @@ function [scs_m, fct] = do_addnew(scs_m)
 	          return
       end
 
-    end
+    end //** irr
 
-  end
+  end //** ierror
 
   //**------ Al@n's update ---------/////////////
   if blk.model.sim(1)=='super'|...
@@ -166,16 +176,16 @@ function [scs_m, fct] = do_addnew(scs_m)
 
 //** This code basically works ( :-) ) : it is the "Replot" that need attention :)
 
-  xinfo('Choose block position in the window')
+  xinfo("Choose block position in the window");
 
-  blk.graphics.sz = 20*blk.graphics.sz;
+  blk.graphics.sz = 20 * blk.graphics.sz;
   %xc = 100; %yc = 100; //** default start position
-   xy =[%xc,%yc] ;
-  blk.graphics.orig = xy
+   xy = [%xc,%yc] ;
+  blk.graphics.orig = xy ; 
 
-  gh_blk=drawobj(blk); //** draw the block (in the buffer) - using the corresponding Interface Function
-                       //** Scilab Language - of the specific block (blk) and get back the graphic handler
-		       //** to handle the block as a single entity
+  gh_blk = drawobj(blk); //** draw the block (in the buffer) - using the corresponding Interface Function
+                         //** Scilab Language - of the specific block (blk) and get back the graphic handler
+	  	         //** to handle the block as a single entity
 
 //**-----------------------------------------------------------------
 //** ---> main loop that move the empty box until you click
@@ -187,33 +197,37 @@ function [scs_m, fct] = do_addnew(scs_m)
 
     //** Protection from window closing
     if rep(3)==-100 then //active window has been closed
-      //** driver(dr); //** obsolete removed
-      [%win,Cmenu] = resume(curwin,'Quit')
+      [%win,Cmenu] = resume(curwin,"Quit")
     end
 
-    xm=rep(1) ; ym = rep(2) ;
-    dx = xm - %xc ; dy = ym - %yc ;
+    xm = rep(1) ; //** coordinate acquisition  
+    ym = rep(2) ;
+    dx = xm - %xc ; //** incremental coordinate 
+    dy = ym - %yc ;
     drawlater();
-    move (gh_blk , [dx dy]);
-    draw(gh_blk.parent);
-    show_pixmap();
+     move (gh_blk , [dx dy]);
+     draw(gh_blk.parent);
+     show_pixmap();
 
-    %xc = xm ;%yc = ym ; //** position update
+     %xc = xm ;%yc = ym ; //** position update
 
   end //** ---> of the while loop
 //**----------------------------------------------------------------------
-  //** window closing protection
-  if xget('window') <> curwin then
+  
+  //** out-of-the-loop window closing protection 
+  gh_window = gcf(); 
+  if gh_window.figure_id <> curwin then
     //active window has been closed
-    [%win,Cmenu]=resume(curwin,'Quit')
+    [%win, Cmenu] = resume(curwin,"Quit")
   end
 
-  xinfo(' ')
+  xinfo(" "); 
 
   xy = [%xc,%yc];
   blk.graphics.orig = xy ; //** update object position in the data strucure
 
-  scs_m_save = scs_m,nc_save=needcompile ;
+  scs_m_save = scs_m       ;
+  nc_save    = needcompile ;
    
   scs_m.objs($+1) = blk ; //** add the object to the data structure
 
@@ -224,7 +238,7 @@ endfunction
 
 //**---------------------------------------------------------------------------------------------------
 
-function objsi =up_to_date(o)
+function objsi = up_to_date(o)
   if size(o(2)) > 8 then
     if type(o(2)(9))==15 then 
       gr_io=o(2)(9)(1);
@@ -277,7 +291,7 @@ endfunction
 
 //** --------------------------------------------------------------------------------------------
 
-function o=standard_define_old(sz,model,label,gr_i)
+function o = standard_define_old(sz,model,label,gr_i)
 //initialize graphic part of the block data structure
 // Copyright INRIA
 [lhs,rhs]=argn(0)

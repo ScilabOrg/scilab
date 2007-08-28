@@ -7,6 +7,8 @@ function do_exit()
 //**      inside the 'set' section of 'SUPER_f.sci' interfacing function of
 //**      Super Block 
 
+xinfo(" "); 
+
 r = 0 ; 
 
 //**---------------------------------------------------------------
