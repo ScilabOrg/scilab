@@ -1,6 +1,7 @@
-function [o,modified,newparameters,needcompile,edited]=clickin(o)
-//!
-// Copyright INRIA
+function [o, modified, newparameters, needcompile, edited] = clickin(o)
+//** Copyright INRIA
+//** Comments by Simone Mannori
+//**
 //
 //  o             : structure of clicked object, may be modified
 //
@@ -18,62 +19,67 @@ if needcompile==4 then
       %cpr=list()
 end  // for standard_document to work
 
-modified = %f; newparameters = list(); needcompile = 0;
+modified = %f;          //** not very clear internal flags 
+newparameters = list();
+needcompile = 0 ;
 
-if %diagram_open then
+//**
+if %diagram_open then //** %diagram_open is a global variable that signal if the diagram is show
 
-  Cmenu = check_edge(o,Cmenu,%pt); 
+  Cmenu = check_edge(o, Cmenu, %pt); 
 
-  if Cmenu==('Link') then
+  if Cmenu==("Link") then
     //we have clicked near a port
-    [Cmenu] = resume('Link')
+    [Cmenu] = resume("Link") ; //** EXIT with Link operation 
   end
-end
 
+end
+//** 
 
 //**---------------------------------------------------------------------
-if typeof(o)=='Block' then  
+if typeof(o)=="Block" then  
   //** ----------------------------- Block ------------------------------
   
-  //**------------------- SuperBlock ------------------------------------
-  if o.model.sim=='super' then
+  //**----------------Look for a SuperBlock ----------------------------
+  if o.model.sim=="super" then
 
       lastwin = curwin; // save the current window
     
-      curwin = get_new_window(windows)
+      curwin = get_new_window(windows) ; //** need a brand new window where open the 
+                                         //** super block
+    if %diagram_open then     //** if the window is open open 
+      gh_curwin = scf(curwin); //**   
+    end                       //** 
 
-    if %diagram_open then    
-      gh_curwin = scf(curwin); 
-    end
-
+    //** Check if this data structure is used in others parts of the code  
     execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
     
     //** Inside the 'set' section of 'scicos_blocs/Misc/SUPER_f.sci' there is a recursive call
     //** at 'scicos' with the sub->scs_m as parameter 
-    execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)') ; //** ???
+    execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)') ; //** this is the key of 
+    //** the recursive superblock opening 
     
+    //** Check is this comments is still valid 
     //edited variable is returned by SUPER_f -- NO LONGER TRUE
     if ~%exit then
       edited = diffobjs(o,o_n)
       
       if edited then
 	o = o_n
-	modified = prod( size(newparameters) )>0
+	modified = prod( size(newparameters) )>0 ; 
       end
     
     end
     
     curwin = lastwin
     if (~(or(curwin==winsid()))) then
-          Cmenu = resume('Open/Set');
-    end
+          Cmenu = resume("Open/Set"); //** if the curwin is not present 
+    end                               
     
-    //** xset('window',curwin)
-    //** xselect()
     gh_curwin = scf(curwin); 
   
   //**-------------------- C superblock ??? -----------------------------  
-  elseif o.model.sim=='csuper' then
+  elseif o.model.sim=="csuper" then
     execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)')
     modified = prod(size(newparameters))>0
     edited = modified
@@ -166,14 +172,19 @@ if typeof(o)=='Block' then
       o=o_n
     end
   end
+
 //**---------------------- Link -------------------------------------------------
-elseif typeof(o)=='Link' then  
-  [Cmenu] = resume('Link')
+elseif typeof(o)=="Link" then  
+  
+  [Cmenu] = resume("Link")
+
 //**---------------------- Text -------------------------------------------------  
-elseif typeof(o)=='Text' then
+elseif typeof(o)=="Text" then
+  
   execstr('o_n='+o.gui+'(''set'',o)') ;
   edited = or(o<>o_n) ; 
   o = o_n ; 
+
 end
 
 endfunction
