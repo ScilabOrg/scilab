@@ -3169,6 +3169,6 @@ ES, 26/08/07
  * added an emulation of gettext() in msgdiff.sci, for backporting to BUILD_4
  * version --> 6.128
 
-ES, 26/08/07 
+ES, 30/08/07 
 * Backport to BUILD_4
-* Version -->  6.128BP1
+* Version -->  6.129BP1

@@ -488,7 +488,7 @@ proc showwatch_bp {} {
     bind $watch <Alt-[fb $buttonAddge]>                    "$buttonAddge invoke"
     bind $watch <Alt-[fb $buttonRemovege]>                 "$buttonRemovege invoke"
     bind $watch <Alt-[fb $checkboxfiltererrors]>           "$checkboxfiltererrors invoke"
-    bind $watch <Alt-[fb $buttonClose]>                    "$buttonClose invoke"
+    bind $watch <Alt-[fb $buttonClose]>                    "after 0 {$buttonClose invoke}"
 
     update
     if {!$firsttimeinshowwatch} {
