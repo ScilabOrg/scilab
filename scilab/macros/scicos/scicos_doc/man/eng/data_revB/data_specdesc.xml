@@ -6,6 +6,12 @@
 
 <FILE name='CLOCK_c' type='SPECIALDESC'>
 	dial_width_html=220pt
+	super_width_html=100pt
+</FILE>
+
+<FILE name='CLOCK_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+	super_width_html=100pt
 </FILE>
 
 <FILE name='WFILE' type='SPECIALDESC'>
@@ -54,6 +60,27 @@
 
 <FILE name='TCLSS_f' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='DELAY_f' type='SPECIALDESC'>
+	super_width_html=220pt
+</FILE>
+
+<FILE name='GAINBLK_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='GAIN_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='INTEGRAL_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='PID' type='SPECIALDESC'>
+	dial_width_html=240pt
+	super_width_html=220pt
 </FILE>
 
 </DATA>

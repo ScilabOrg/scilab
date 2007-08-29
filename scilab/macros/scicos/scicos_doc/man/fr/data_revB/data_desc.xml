@@ -345,16 +345,14 @@ Les dimensions des matrices et de l'état initial doivent être appropriées.
 Lorsque qu'un événement active le bloc (par son unique port événementiel) l'état est alors mis à jour.
 </FILE>
 
-<FILE name='DOLLAR_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DOLLAR_f' type='LATEX'>
+Le bloc retard retarde ses entrées de la période spécifiée au niveau du port
+d'entrée événementiel.
+Ce bloc est équivalent à l'opérateur discret $z^{-1}$.
+Il accepte une seule entrée et génére une seule sortie qui peuvent être
+aussi bien un scalaire qu'un vecteur.
+Si l'entrée est un vecteur alors tous les éléments du vecteur sont
+retardés par la même période.
 </FILE>
 
 <FILE name='Diode' type='LATEX'>
@@ -633,16 +631,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='INTEGRAL' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INTEGRAL' type='LATEX'>
+Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
 <FILE name='INTRP2BLK_f' type='XML'>
@@ -2188,15 +2178,18 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          Ce super-bloc compilé réalise un retard discret.
+          Il est construit avec un registre à décalage et une horloge.
+          La valeur du retard est donnée par la pas temporel discret multiplié
+          par le nombre-1 d'état du registre.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
@@ -2263,27 +2256,27 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes de U.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Ce bloc calcule le produit d'une matrice carré A par une matrice d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes de U.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
@@ -2298,28 +2291,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='INTEGRAL_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INTEGRAL_f' type='LATEX'>
+Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
-<FILE name='INTEGRAL_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INTEGRAL_m' type='LATEX'>
+Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
@@ -2688,28 +2665,32 @@ Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeu
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE}{RFILE.htm}.
 </FILE>
 
-<FILE name='DOLLAR' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DOLLAR' type='LATEX'>
+Le bloc retard retarde ses entrées de la période spécifiée au niveau du port
+d'entrée événementiel.
+Ce bloc est équivalent à l'opérateur discret $z^{-1}$.
+Il accepte une seule entrée et génére une seule sortie qui peuvent être
+aussi bien un scalaire qu'un vecteur.
+Si l'entrée est un vecteur alors tous les éléments du vecteur sont
+retardés par la même période.
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+        Le bloc retard retarde ses entrées de la période spécifiée au niveau du port d'entrée événementiel. Ce bloc est équivalent à l'opérateur discret z-1.
+	Il accepte une seule entrée et génére une seule sortie qui peuventt être aussi bien un scalaire qu'un vecteur.
+	Si l'entrée est un vecteur alors tous les éléments du vecteur sont retardés par la même période.
+	</P>
+	<P>
+        Ce bloc supporte tous les types de données de scicos.
+        Les types de données en entrée/sortie sont hérités du paramètre "initial condition".
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>

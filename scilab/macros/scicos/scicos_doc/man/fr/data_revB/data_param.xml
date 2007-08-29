@@ -966,29 +966,32 @@
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. Un réel qui détermine l'état initial à la sortie du bloc retard à la première période d'échantillonnage.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. Sélectionner 'yes' pour activer ce bloc par héritage d'évènements.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Définit la valeur de la sortie au début de la simulation.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Lorsque "Inherit" est égal à 1 alors le bloc hérite des événements provenant des ports d'entrée réguliers.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='Diode' type='XML'>
@@ -1385,7 +1388,7 @@
 	<PARAM_NAME>Gain</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Ce paramètre définit la matrice carré A. Ce bloc supporte tous les types de données.
+	    Ce paramètre définit la matrice carré A. Ce paramètre supporte tous les types de données.
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'mat' de taille [-1,-1].
@@ -1554,57 +1557,39 @@
 </PARAM>
 </FILE>
 
-<FILE name='INTEGRAL' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='INTEGRAL' type='LATEX'>
+\begin{itemize}
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         Un vecteur ou un scalaire définissant les conditions initiales.\\
+         Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial Condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With re-intialization (1:yes, 0:no)   0
+  \item {\bf With re-intialization} \\
+        Si ce paramètre est mis à {\bf 1}, celui-ci permet la 
+        réinitialisation de l'état à une condition
+        initiale définie par la valeur présente sur le deuxième port
+        d'entrée régulier.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With re-intialization (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With saturation (1:yes, 0:no)   0
+  \item {\bf With saturation} \\
+        Si ce paramètre est placé à 1, alors les états sont limités
+        à des valeurs qui seront comprises entre la limite basse de
+        saturation (Lower limit) et la limite haute de saturation
+        (Upper limit).\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With saturation (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Upper limit   1
+  \item {\bf Upper limit} \\
+        La limite haute de saturation de l'intégration.\\
+        Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Upper limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Lower limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 5.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Lower limit   -1
+  \item {\bf Lower limit} \\
+        La limite basse de saturation de l'intégration.\\
+        Propriétés : Type 'vec' de taille -1.
+\end{itemize}
 </FILE>
 
 <FILE name='INTRP2BLK_f' type='XML'>
@@ -6007,35 +5992,32 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Discretisation time step</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Register initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Discretisation time step</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Définit la période temporelle de l'horloge intégrée.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Register initial state</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Définit la longueur et les conditions initiales du registre à décalage.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
@@ -6219,43 +6201,39 @@ Propriétés : Type 'vec' de taille &quot;size(%3,2)&quot;.
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre définit la matrice carré A.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Ce paramètre définit la matrice carré A.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
@@ -6290,100 +6268,50 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
-<FILE name='INTEGRAL_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+<FILE name='INTEGRAL_f' type='LATEX'>
+\begin{itemize}
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         Un scalaire définissant la condition initiale.\\
+         Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
-<FILE name='INTEGRAL_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='INTEGRAL_m' type='LATEX'>
+\begin{itemize}
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         Un vecteur ou un scalaire définissant les conditions initiales.\\
+	 La définition du type de donnée en entrée/sortie est définit
+         grâce à ce paramètre. Le type peut être réel ou complexe.\\
+         Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial Condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With re-intialization (1:yes, 0:no)   0
+  \item {\bf With re-intialization} \\
+        Si ce paramètre est mis à {\bf 1}, celui-ci permet la 
+        réinitialisation de l'état à une condition
+        initiale définie par la valeur présente sur le deuxième port
+        d'entrée régulier.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With re-intialization (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With saturation (1:yes, 0:no)   0
+  \item {\bf With saturation} \\
+        Si ce paramètre est placé à 1, alors les états sont limités
+        à des valeurs qui seront comprises entre la limite basse de
+        saturation (Lower limit) et la limite haute de saturation
+        (Upper limit).\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With saturation (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Upper limit   1
+  \item {\bf Upper limit} \\
+        La limite haute de saturation de l'intégration.\\
+         Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Upper limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Lower limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 5.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
-</FILE>
-
-<FILE name='INVBLK' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-</PARAM_INDENT>
-</PARAM>
+  %Lower limit   -1
+  \item {\bf Lower limit} \\
+        La limite basse de saturation de l'intégration.\\
+         Propriétés : Type 'mat' de taille [-1,-1].
+\end{itemize}
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
@@ -7804,67 +7732,61 @@ Propriétés : Type 'str' de taille 1.
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Définit la valeur de la sortie au début de la simulation.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Lorsque "Inherit" est égal à 1 alors le bloc hérite des événements provenant des ports d'entrée réguliers.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Définit la valeur de la sortie au début de la simulation.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+            Lorsque "Inherit" est égal à 1 alors le bloc hérite des événements provenant des ports d'entrée réguliers.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>

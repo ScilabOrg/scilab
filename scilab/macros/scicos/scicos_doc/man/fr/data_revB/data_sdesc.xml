@@ -122,7 +122,7 @@
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR_f">Registre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR_f">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Diode' type='XML'>
@@ -214,7 +214,7 @@
 </FILE>
 
 <FILE name='INTEGRAL' type='XML'>
-<SHORT_DESCRIPTION name="INTEGRAL">Integration</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INTEGRAL">Integration (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INTRP2BLK_f' type='XML'>
@@ -751,7 +751,7 @@
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
-<SHORT_DESCRIPTION name="DELAY_f">DELAY_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DELAY_f">Retard temporel discret</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
@@ -779,11 +779,11 @@
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="GAINBLK_f">GAINBLK_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GAINBLK_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
-<SHORT_DESCRIPTION name="GAIN_f">GAIN_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GAIN_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
@@ -791,11 +791,11 @@
 </FILE>
 
 <FILE name='INTEGRAL_f' type='XML'>
-<SHORT_DESCRIPTION name="INTEGRAL_f">INTEGRAL_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INTEGRAL_f">Integration (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
-<SHORT_DESCRIPTION name="INTEGRAL_m">INTEGRAL_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INTEGRAL_m">Integration</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
@@ -931,11 +931,11 @@
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR">DOLLAR titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR_m">DOLLAR_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR_m">Opérateur retard</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
@@ -1103,7 +1103,7 @@
 </FILE>
 
 <FILE name='PID' type='XML'>
-<SHORT_DESCRIPTION name="PID">PID titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="PID">PID regulator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>

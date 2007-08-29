@@ -572,14 +572,33 @@
 \end{itemize}
 </FILE>
 
-<FILE name='DOLLAR_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%initial condition   0
-\item {initial condition:} The output of the simulation for the first
-  sampling period, during which the output of the Unit Delay block is
-  otherwise undefined. 
-\end{itemize}
+<FILE name='DOLLAR_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The output of the simulation for the first sampling period, during which the output of the Unit Delay block is otherwise undefined.  .
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    When "Inherit" is yes, the block inherit its event input.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='Diode' type='XML'>
@@ -874,21 +893,35 @@
 </FILE>
 
 <FILE name='INTEGRAL' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%Initial Condition   0
-\item {Initial Condition:} A vector/scalar initial conditions.
-%With re-intialization (1:yes, 0:no)   0
-\item {With re-intialization :} To reset its state to the  specified
-  initial condition based on an external signal select {\bf 1}.
-%With saturation (1:yes, 0:no)   0
-\item {With saturation :} If selected, limits the states to a value
-  between the Lower saturation limit and Upper saturation limit
-  parameters. 
-%Upper limit   1
-\item {Upper limit:}The upper limit for the integral. 
-%Lower limit   -1
-\item {Lower limit:}The lower limit for the integral. 
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         A vector/scalar initial conditions.\\
+         Properties : Type 'vec' of size -1.
+
+  %With re-intialization (1:yes, 0:no)   0
+  \item {\bf With re-intialization} \\
+        To reset its state to the  specified
+        initial condition based on an external signal select {\bf 1}.\\
+        Properties : Type 'vec' of size 1.
+
+  %With saturation (1:yes, 0:no)   0
+  \item {\bf With saturation} \\
+        If selected, limits the states to a value
+        between the Lower saturation limit and Upper saturation limit
+        parameters.\\
+        Properties : Type 'vec' of size 1.
+
+  %Upper limit   1
+  \item {\bf Upper limit} \\
+        The upper limit for the integral.\\
+        Properties : Type 'vec' of size -1.
+
+  %Lower limit   -1
+  \item {\bf Lower limit} \\
+        The lower limit for the integral.\\
+        Properties : Type 'vec' of size -1.
+
 \end{itemize}
 </FILE>
 
@@ -4364,35 +4397,32 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='DELAY_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Discretisation time step</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Register initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Discretisation time step</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Set the time period of the integrated clock.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Register initial state</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Set the length and the initial conditions of the register.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
@@ -4581,43 +4611,39 @@ Properties : Type 'vec' of size &quot;size(%3,2)&quot;.
 </FILE>
 
 <FILE name='GAINBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    This parameter defined the square matrix A.
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='GAIN_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    This parameter defined the square matrix A.
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-1].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
@@ -4652,92 +4678,48 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='INTEGRAL_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+<FILE name='INTEGRAL_f' type='LATEX'>
+\begin{itemize}
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         A scalar that gives the initial condition.\\
+         Properties : Type 'vec' of size 1.
+\end{itemize}
 </FILE>
 
-<FILE name='INTEGRAL_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='INTEGRAL_m' type='LATEX'>
+\begin{itemize}
+  %Initial Condition   0
+  \item {\bf Initial Condition} \\
+         A vector/scalar initial conditions.\\
+         With that parameter, one can define the datatype of
+         the input/output. It can be a real or a complex type.\\
+         Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial Condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With re-intialization (1:yes, 0:no)   0
+  \item {\bf With re-intialization} \\
+        To reset its state to the  specified
+        initial condition based on an external signal select {\bf 1}.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With re-intialization (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %With saturation (1:yes, 0:no)   0
+  \item {\bf With saturation} \\
+        If selected, limits the states to a value
+        between the Lower saturation limit and Upper saturation limit
+        parameters.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>With saturation (1:yes, 0:no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Upper limit   1
+  \item {\bf Upper limit} \\
+        The upper limit for the integral.\\
+        Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Upper limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Lower limit   -1
+  \item {\bf Lower limit} \\
+        The lower limit for the integral.\\
+        Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Lower limit</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='INVBLK' type='XML'>
@@ -6190,67 +6172,61 @@ Properties : Type 'str' of size 1.
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The output of the simulation for the first sampling period, during which the output of the Unit Delay block is otherwise undefined.  .
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    When "Inherit" is yes, the block inherit its event input.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The output of the simulation for the first sampling period, during which the output of the Unit Delay block is otherwise undefined.  .
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-2].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-When "Inherit" is yes, the block inherit its event input.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>initial condition</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The output of the simulation for the first sampling period, during which the output of the Unit Delay block is otherwise undefined.  .
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    When "Inherit" is yes, the block inherit its event input.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
@@ -7783,7 +7759,7 @@ Properties : Type 'vec' of size 1.
 	<PARAM_NAME>Gain</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    This parameter defined the square matrix A. This block can support all Data types.
+	    This parameter defined the square matrix A. That parameter can support all Data types.
 	  </SP>
 	  <SP>
 	    Properties : Type 'mat' of size [-1,-1].
@@ -8004,23 +7980,6 @@ Properties : Type 'vec' of size 1.
 
   </PARAM_INDENT>
   </PARAM>
-</FILE>
-
-<FILE name='GAINBLK' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Gain   1
-\item {Gain:} a real matrix. 
-\end{itemize}
-</FILE>
-
-<FILE name='SUMMATION' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Number of inputs or sign vector (of +1, -1)   [1;-1]
-\item {Number of inputs or sign vector :}Select this parameter to
-  require that all inputs must have the same data type.  
-\end{itemize}
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
