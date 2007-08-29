@@ -58,11 +58,11 @@
 </FILE>
 
 <FILE name='CLR_f' type='XML'>
-<SHORT_DESCRIPTION name="CLR_f">Fonction de transfert continue</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLR_f">Fonction de transfert continue (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="CLSS_f">Système d'équations d'état continu</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS_f">Système d'équations d'état continu (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
@@ -114,11 +114,11 @@
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
-<SHORT_DESCRIPTION name="DLR_f">Fonction de transfert discrète</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR_f">Fonction de transfert discrète (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="DLSS_f">Système d'équations d'état discrètes</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS_f">Système d'équations d'état discrètes (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
@@ -366,7 +366,7 @@
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
@@ -438,7 +438,7 @@
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS_f">Système linéaire continu avec saut</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS_f">Système linéaire continu avec saut (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
@@ -675,7 +675,7 @@
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="BIGSOM_f">BIGSOM_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="BIGSOM_f">Somme (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -711,11 +711,11 @@
 </FILE>
 
 <FILE name='CLR' type='XML'>
-<SHORT_DESCRIPTION name="CLR">CLR titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLR">Fonction de transfert continue</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
-<SHORT_DESCRIPTION name="CLSS">CLSS titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS">Système d'équations d'état continu</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
@@ -763,7 +763,7 @@
 </FILE>
 
 <FILE name='DLR' type='XML'>
-<SHORT_DESCRIPTION name="DLR">DLR titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR">Fonction de transfert discrète</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -771,7 +771,7 @@
 </FILE>
 
 <FILE name='DLSS' type='XML'>
-<SHORT_DESCRIPTION name="DLSS">DLSS titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS">Système d'équations d'état discrètes</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
@@ -915,7 +915,7 @@
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS">TCLSS titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS">Système linéaire continu avec saut</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -923,7 +923,7 @@
 </FILE>
 
 <FILE name='WFILE' type='XML'>
-<SHORT_DESCRIPTION name="WFILE">WFILE titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="WFILE">Ecriture dans un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block' type='XML'>

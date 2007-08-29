@@ -517,83 +517,46 @@
 </PARAM>
 </FILE>
 
-<FILE name='CLR_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLR_f' type='LATEX'>
+\begin{itemize}
+  %Numerator (s)   1
+  \item {\bf Numerator} \\
+        Ce paramètre définit le numérateur de la fonction de transfert.\\
+        Celà doit être un polynôme définit dans l'espace de LaPlace. \\
+        Propriétés : Type 'pol' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'pol' de taille 1. Polynôme définit dans l'espace de LaPlace.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'pol' de taille 1. Polynôme définit dans l'espace de LaPlace.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Denominator (s)   1+s
+  \item {\bf Denominator} \\
+        Ce paramètre définit le dénominateur de la fonction de transfert.
+        Celà doit être un polynôme définit dans l'espace de LaPlace. \\
+        Propriétés : Type 'pol' de taille 1.
+\end{itemize}
 </FILE>
 
-<FILE name='CLSS_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLSS_f' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. Une matrice carré. La matrice [A]
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. la matrice [B]. Vide ([]) si le système n'a pas d'entrée.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;].la matrice [C]. Vide ([]) si le système n'a pas de sortie.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. la matrice [D].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille &quot;size(%1,2)&quot;. Un scalaire ou un vecteur donnant l'état inital du système.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
@@ -963,82 +926,43 @@
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+\begin{itemize}
+  \item {\bf Numerator (z)} \\
+        Ce paramètre définit le numérateur de la fonction de transfert.\\
+        Celà doit être un polynôme définit dans l'espace de la transformée en z. \\
+        Propriétés : Type 'pol' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'pol' de taille 1. Un polynôme dans l'espace de la transformée en z.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'pol' de taille 1. Un polynôme dans l'espace de la transformée en z.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \item {\bf Denominator (z)} \\
+        Ce paramètre définit le dénominateur de la fonction de transfert.
+        Celà doit être un polynôme définit dans l'espace de la transformée en z. \\
+        Propriétés : Type 'pol' de taille 1.
+\end{itemize}
 </FILE>
 
-<FILE name='DLSS_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='DLSS_f' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. Une matrice carré. La matrice [A].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. La matrice [B].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;]. La matrice [C].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. La matrice [D].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille &quot;size(%1,2)&quot;. Un vecteur donnant l'état initial du système.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
@@ -2559,7 +2483,7 @@
         une chaîne de caractères définissant le format d'enregistrement 
         (de type fortran ou bien vide pour aucun format).
         Si ce paramètre est renseigné alors il doit être encadrer 
-        par des paranthèse. Par exemple : $(e10.3)$.\\
+        par des paranthèses. Par exemple : $(e10.3)$.\\
 	Propriétés : Type 'str' de taille 1.
 
   %Buffer size   2
@@ -2991,57 +2915,30 @@
 </PARAM>
 </FILE>
 
-<FILE name='TCLSS_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='TCLSS_f' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;]. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;]. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille &quot;size(%1,2)&quot;. La description du paramètre 5.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
@@ -3259,48 +3156,31 @@
 </PARAM>
 </FILE>
 
-<FILE name='WFILE_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='WFILE_f' type='LATEX'>
+\begin{itemize}
+  %Input size   1
+  \item {\bf Input size} \\
+        un scalaire. Cela fixe la taille de l'entrée.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output Format   (7(e10.3,1x))
+  \item {\bf Output Format} \\
+        une chaîne de caractères définissant le format d'enregistrement
+        (de type fortran ou bien vide pour aucun format).
+        Si ce paramètre est renseigné alors il doit être encadrer 
+        par des paranthèses. Par exemple : $(e10.3)$.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité de la lecture, il est possible d'enregistrer les données d'entrée dans un buffer. Les données sont alors délivrées à chaque appel du bloc lorsque le buffer est rempli.\\
+	Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='WRITEAU_f' type='XML'>
@@ -5051,23 +4931,21 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inputs ports signs/gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inputs ports signs/gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Définit le signe de l'addition ainsi qu'un gain pour chaque entrées.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -5602,104 +5480,46 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
-<FILE name='CLR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLR' type='LATEX'>
+\begin{itemize}
+  %Numerator (s)   1
+  \item {\bf Numerator} \\
+        Ce paramètre définit le numérateur de la fonction de transfert.\\
+        Celà doit être un polynôme définit dans l'espace de LaPlace. \\
+        Propriétés : Type 'pol' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'pol' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'pol' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Denominator (s)   1+s
+  \item {\bf Denominator} \\
+        Ce paramètre définit le dénominateur de la fonction de transfert.
+        Celà doit être un polynôme définit dans l'espace de LaPlace. \\
+        Propriétés : Type 'pol' de taille 1.
+\end{itemize}
 </FILE>
 
-<FILE name='CLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 5.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
@@ -6270,36 +6090,18 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
-<FILE name='DLR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='DLR' type='LATEX'>
+\begin{itemize}
+  \item {\bf Numerator (z)} \\
+        Ce paramètre définit le numérateur de la fonction de transfert.\\
+        Celà doit être un polynôme définit dans l'espace de la transformée en z. \\
+        Propriétés : Type 'pol' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'pol' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'pol' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \item {\bf Denominator (z)} \\
+        Ce paramètre définit le dénominateur de la fonction de transfert.
+        Celà doit être un polynôme définit dans l'espace de la transformée en z. \\
+        Propriétés : Type 'pol' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -6382,72 +6184,30 @@ Propriétés : Type 'vec' de taille &quot;size(%3,2)&quot;.
 </PARAM>
 </FILE>
 
-<FILE name='DLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='DLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 5.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
@@ -7360,7 +7120,7 @@ Propriétés : Type 'vec' de taille -1.
         une chaîne de caractères définissant le format d'enregistrement 
         (de type fortran ou bien vide pour aucun format).
         Si ce paramètre est renseigné alors il doit être encadrer 
-        par des paranthèse. Par exemple : $(e10.3)$.\\
+        par des paranthèses. Par exemple : $(e10.3)$.\\
 	Propriétés : Type 'str' de taille 1.
 
   %Buffer size   2
@@ -7818,72 +7578,30 @@ Propriétés : Type 'vec' de taille 1.
 </PARAM>
 </FILE>
 
-<FILE name='TCLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='TCLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf $A$ matrix} \\
+       Une matrice carré. \\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf B matrix} \\
+       La matrice $B$, [] si le système n'a pas d'entrées.\\
+       Propriétés : Type 'mat' de taille ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf C matrix} \\
+       La matrice $C$, [] si le système n'a pas de sorties.\\
+       Propriétés : Type 'mat' de taille ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'mat' de taille [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf D matrix} \\
+       La matrice $D$, [] si le système n'a pas de terme D.\\
+       Propriétés : Type 'mat' de taille [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 5.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ \item {\bf Initial state} \\
+       Un état initial du système ( vectoriel ou scalaire).\\
+       Propriétés : Type 'vec' de taille "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -7894,60 +7612,31 @@ Propriétés : Type 'vec' de taille &quot;size(%1,2)&quot;.
 </PARAM>
 </FILE>
 
-<FILE name='WFILE' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='WFILE' type='LATEX'>
+\begin{itemize}
+  %Input size   1
+  \item {\bf Input size} \\
+        un scalaire. Cela fixe la taille de l'entrée.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 2.
-</SP>
-<SP>
-Propriétés : Type 'str' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output Format   (7(e10.3,1x))
+  \item {\bf Output Format} \\
+        une chaîne de caractères définissant le format d'enregistrement
+        (de type fortran ou bien vide pour aucun format).
+        Si ce paramètre est renseigné alors il doit être encadrer 
+        par des paranthèses. Par exemple : $(e10.3)$.\\
+	Propriétés : Type 'str' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 3.
-</SP>
-<SP>
-Propriétés : Type 'str' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 4.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité de la lecture, il est possible d'enregistrer les données d'entrée dans un buffer. Les données sont alors délivrées à chaque appel du bloc lorsque le buffer est rempli.\\
+	Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='generic_block' type='XML'>

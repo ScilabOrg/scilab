@@ -8,4 +8,52 @@
 	dial_width_html=220pt
 </FILE>
 
+<FILE name='WFILE' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='WFILE_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='CLSS' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='CLSS_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='DLSS' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='DLSS_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='DLR' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='DLR_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='CLR' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='CLR_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='TCLSS' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='TCLSS_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
 </DATA>

@@ -57,11 +57,11 @@
 </FILE>
 
 <FILE name='CLR_f' type='XML'>
-<SHORT_DESCRIPTION name="CLR_f">Continuous transfer function</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLR_f">Continuous transfer function (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="CLSS_f">Continuous state-space system </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS_f">Continuous state-space system (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
@@ -113,11 +113,11 @@
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
-<SHORT_DESCRIPTION name="DLR_f">Discrete transfer function </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR_f">Discrete transfer function (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="DLSS_f">Discrete state-space system </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS_f">Discrete state-space system (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
@@ -365,7 +365,7 @@
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="RFILE_f">Read from file (Old block)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE_f">Read from file</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
@@ -409,7 +409,7 @@
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
-<SHORT_DESCRIPTION name="SUM_f">Addition </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SUM_f">Addition</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SUPER_f' type='XML'>
@@ -437,7 +437,7 @@
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS_f">Continuous linear system with jump</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS_f">Continuous linear system with jump (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
@@ -489,7 +489,7 @@
 </FILE>
 
 <FILE name='WFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="WFILE_f">Write to file </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="WFILE_f">Write to file</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WRITEAU_f' type='XML'>
@@ -674,7 +674,7 @@
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="BIGSOM_f">BIGSOM_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="BIGSOM_f">Sum (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -710,11 +710,11 @@
 </FILE>
 
 <FILE name='CLR' type='XML'>
-<SHORT_DESCRIPTION name="CLR">CLR title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLR">Continuous transfer function</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS' type='XML'>
-<SHORT_DESCRIPTION name="CLSS">CLSS title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS">Continuous state-space system</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
@@ -762,7 +762,7 @@
 </FILE>
 
 <FILE name='DLR' type='XML'>
-<SHORT_DESCRIPTION name="DLR">DLR title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR">Discrete transfer function</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -770,7 +770,7 @@
 </FILE>
 
 <FILE name='DLSS' type='XML'>
-<SHORT_DESCRIPTION name="DLSS">DLSS title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS">Discrete state-space system</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
@@ -914,7 +914,7 @@
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS">TCLSS title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS">Continuous linear system with jump</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -922,7 +922,7 @@
 </FILE>
 
 <FILE name='WFILE' type='XML'>
-<SHORT_DESCRIPTION name="WFILE">WFILE title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="WFILE">Write to file</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block' type='XML'>

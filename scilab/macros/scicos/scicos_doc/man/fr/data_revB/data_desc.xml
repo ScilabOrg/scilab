@@ -161,28 +161,21 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLR_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLR_f' type='LATEX'>
+Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
+représenté par une fonction de transfert rationnelle.
+La fonction rationnelle doit être une fonction propre.
 </FILE>
 
-<FILE name='CLSS_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLSS_f' type='LATEX'>
+Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
+\begin{align}
+\dot x&=Ax+Bu\\
+  y   &=C*x+D*u
+\end{align}
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
@@ -337,28 +330,19 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='DLR_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DLR_f' type='LATEX'>
+Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
+représenté par une fonction de transfert rationnelle
+dans l'espace de la transformée en z.
+La fonction rationnelle doit être une fonction propre.
 </FILE>
 
-<FILE name='DLSS_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DLSS_f' type='LATEX'>
+Ce bloc réalise un système d'équations d'état temporel discret.
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
+Lorsque qu'un événement active le bloc (par son unique port événementiel) l'état est alors mis à jour.
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
@@ -1127,7 +1111,8 @@ Ce bloc permet à l'utilisateur de lire des données dans un fichier.
 Ces données peuvent être formatées ou binaires.
 Les paramètres {\bf  Output record selection} et {\bf Time record selection}
 permettent de selectionner des données parmi les enregistrements du fichier.
-Chaque appel au bloc avance d'un enregistrement.
+Chaque appel au bloc avance d'un enregistrement.\\
+Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE\_f}{WFILE_f.htm}
 </FILE>
 
 <FILE name='Resistor' type='LATEX'>
@@ -1259,16 +1244,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
   </DESCRIPTION>
 </FILE>
 
-<FILE name='SUM_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SUM_f' type='LATEX'>
+Le bloc somme reéalise l'addition de ses entrées.
+Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
 </FILE>
 
 <FILE name='SUPER_f' type='XML'>
@@ -1345,16 +1323,17 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='TCLSS_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='TCLSS_f' type='LATEX'>
+Ce bloc réalise un système d'équations d'etat en temporel continu avec
+la possibilités de réaliser des sauts dans l'état.
+Le nombre d'entrées de ce bloc est deux.
+La première entrée est l'entrée régulière du système linéaire.
+La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée évènementiel.
+Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
+Les tailles des entrées et des sorties sont ajustées automatiquement.
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
@@ -1514,28 +1493,12 @@ zéro.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='WFILE_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='WRITEAU_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='WFILE_f' type='LATEX'>
+Ce bloc permet à l'utilisateur de sauvegarder des données dans un fichier.
+Ces données peuvent être formatées ou binaires.
+Chaque appel au bloc correspond à un enregistrement.
+Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeur du temps lorsque le bloc est appelé et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrée.\\
+Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE\_f}{RFILE_f.htm}.
 </FILE>
 
 <FILE name='WRITEC_f' type='XML'>
@@ -2022,16 +1985,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='BIGSOM_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='BIGSOM_f' type='LATEX'>
+Le bloc somme réalise l'addition de ses entrées.
+Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -2130,40 +2086,21 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLR' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLR' type='LATEX'>
+Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
+représenté par une fonction de transfert rationnelle.
+La fonction rationnelle doit être une fonction propre.
 </FILE>
 
-<FILE name='CLSS' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='CMAT3D' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLSS' type='LATEX'>
+Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
+\begin{align}
+\dot x&=Ax+Bu\\
+  y   &=C*x+D*u
+\end{align}
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
@@ -2286,16 +2223,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='DLR' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DLR' type='LATEX'>
+Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
+représenté par une fonction de transfert rationnelle
+dans l'espace de la transformée en z.
+La fonction rationnelle doit être une fonction propre.
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -2310,16 +2242,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='DLSS' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DLSS' type='LATEX'>
+Ce bloc réalise un système d'équations d'état temporel discret.
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
+Lorsque qu'un événement active le bloc (par son unique port événementiel) l'état est alors mis à jour.
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
@@ -2603,7 +2531,8 @@ Ce bloc permet à l'utilisateur de lire des données dans un fichier.
 Ces données peuvent être formatées ou binaires.
 Les paramètres {\bf  Output record selection} et {\bf Time record selection}
 permettent de selectionner des données parmi les enregistrements du fichier.
-Chaque appel au bloc avance d'un enregistrement.
+Chaque appel au bloc avance d'un enregistrement.\\
+Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE}{WFILE.htm}.
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
@@ -2726,16 +2655,17 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='TCLSS' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='TCLSS' type='LATEX'>
+Ce bloc réalise un système d'équations d'etat en temporel continu avec
+la possibilités de réaliser des sauts dans l'état.
+Le nombre d'entrées de ce bloc est deux.
+La première entrée est l'entrée régulière du système linéaire.
+La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée évènementiel.
+Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
+Le système est défini par les matrices $(A,B,C,D)$
+et par l'état initial $x_0$.
+Les dimensions des matrices et de l'état initial doivent être appropriées.
+Les tailles des entrées et des sorties sont ajustées automatiquement.
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -2750,28 +2680,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='WFILE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='generic_block' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='WFILE' type='LATEX'>
+Ce bloc permet à l'utilisateur de sauvegarder des données dans un fichier.
+Ces données peuvent être formatées ou binaires.
+Chaque appel au bloc correspond à un enregistrement.
+Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeur du temps lorsque le bloc est appelé et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrée.
+Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE}{RFILE.htm}.
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>

@@ -278,26 +278,49 @@
 <FILE name='CLR_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Numerator (s)   1
-\item {Numerator :} A polynomial in s. 
-%Denominator (s)   1+s
-\item {Denominator :}A polynomial in s. 
+  %Numerator (s)   1
+  \item {\bf Numerator} \\
+        This parameter sets the numerator of the transfert function.\\
+        This must be a polynomial in s.\\
+        Properties : Type 'pol' of size 1.
+
+  %Denominator (s)   1+s
+  \item {\bf Denominator} \\
+        This parameter sets the denominator of the transfert function.\\
+        This must be a polynomial in s.\\
+        Properties : Type 'pol' of size 1.
+
 \end{itemize}
 </FILE>
 
 <FILE name='CLSS_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%A matrix   -1
-\item {$A$ matrix:} square matrix. The $A$ matrix 
-%B matrix   1
-\item {B matrix:} the $ B $ matrix,  []  if system has no input 
-%C matrix   1
-\item {C matrix:} the  $C$  matrix ,  []  if system has no output 
-%D matrix   0
-\item {D matrix:} the $ D$  matrix,  []  if system has no  D  term.
-%Initial state   0
-\item {Initial state:} A vector/scalar initial state of the system. 
+
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
+
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
+
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
+
 \end{itemize}
 </FILE>
 
@@ -505,28 +528,47 @@
 </FILE>
 
 <FILE name='DLR_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%Numerator (z)   1
-\item {Numerator :}A polynomial in {\bf z}. 
-%Denominator (z)   1+z
-\item {Denominator :} A polynomial in {\bf z}. 
+  \item {\bf Numerator (z)} \\
+        This parameter sets the numerator of the transfert function.\\
+        This must be a polynomial in {\bf z}.\\
+        Properties : Type 'pol' of size 1.
+
+  \item {\bf Denominator (z)} \\
+        This parameter sets the denominator of the transfert function.\\
+        This must be a polynomial in {\bf z}.\\
+        Properties : Type 'pol' of size 1.
 \end{itemize}
 </FILE>
 
 <FILE name='DLSS_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%A matrix   0
-\item {A matrix:} square matrix. The {\bf A }matrix 
-%B matrix   1
-\item {B matrix:} the {\bf B} matrix 
-%C matrix   1
-\item {C matrix:} the {\bf C} matrix 
-%D matrix   0
-\item {D matrix:} the {\bf D} matrix 
-%Initial state   0
-\item {Initial state $x_0$:}  vector. The initial state of the system.
+
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
+
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
+
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
+
 \end{itemize}
 </FILE>
 
@@ -1582,18 +1624,33 @@
 </FILE>
 
 <FILE name='TCLSS_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%A matrix   0
-\item {A matrix:} square matrix. The{\bf A }matrix 
-%B matrix   1
-\item {B matrix:} the{\bf B} matrix 
-%C matrix   1
-\item {C matrix:} the {\bf C} matrix 
-%D matrix   0
-\item {D matrix:} the{\bf D} matrix 
-%Initial state   0
-\item {Initial state $x_0$:}  vector. The initial state of the system.
+
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
+
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
+
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
+
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
+
 \end{itemize}
 </FILE>
 
@@ -1742,21 +1799,31 @@
 </FILE>
 
 <FILE name='WFILE_f' type='LATEX'>
-%automatically generated, please edit
 \begin{itemize}
-%Input size   1
-\item {Input size:}a scalar. This fixes the input size 
-%Output file name   foo
-\item {Output file name:}a character string defining the path of the file 
-%Output Format   (7(e10.3,1x))
-\item {Output Format:}a character string defining the Fortran format
-  to use or nothing for an unformatted (binary) write. If given, the
-  format must began by a left parenthesis and end by a right
-  parenthesis. example: (e10.3).  
-%Buffer size   2
-\item {Buffer size:} To improve efficiency it is possible to buffer
-  the input data. Write on the file is only done after each {\bf Buffer
-  size } calls to the block.  
+  %Input size   1
+  \item {\bf Input size} \\
+        a scalar. This fixes the input size.\\
+        Properties : Type 'vec' of size 1.
+
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        a character string defining the path of the file.\\
+	Properties : Type 'str' of size 1.
+
+  %Ouput Format   (7(e10.3,1x))
+  \item {\bf Output Format} \\
+        a character string defining the Fortran format
+	to use or nothing for an unformatted (binary) write. If given, the
+	format must began by a left parenthesis and end by a right
+	parenthesis. example: $(e10.3)$.\\
+	Properties : Type 'str' of size 1.
+
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. Write on the file is only done after each 
+        {\bf Buffer size} call to the block.\\
+	Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -3214,23 +3281,21 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inputs ports signs/gain</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inputs ports signs/gain</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Set sign and a gain for each inputs.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -3765,104 +3830,53 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='CLR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLR' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
+  %Numerator (s)   1
+  \item {\bf Numerator} \\
+        This parameter sets the numerator of the transfert function.\\
+        This must be a polynomial in s.\\
+        Properties : Type 'pol' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'pol' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Denominator (s)   1+s
+  \item {\bf Denominator} \\
+        This parameter sets the denominator of the transfert function.\\
+        This must be a polynomial in s.\\
+        Properties : Type 'pol' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (s)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'pol' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
-<FILE name='CLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='CLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'vec' of size &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
@@ -4433,36 +4447,18 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='DLR' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='DLR' type='LATEX'>
+\begin{itemize}
+  \item {\bf Numerator (z)} \\
+        This parameter sets the numerator of the transfert function.\\
+        This must be a polynomial in {\bf z}.\\
+        Properties : Type 'pol' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Numerator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'pol' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Denominator (z)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'pol' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \item {\bf Denominator (z)} \\
+        This parameter sets the denominator of the transfert function.\\
+        This must be a polynomial in {\bf z}.\\
+        Properties : Type 'pol' of size 1.
+\end{itemize}
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -4545,72 +4541,35 @@ Properties : Type 'vec' of size &quot;size(%3,2)&quot;.
 </PARAM>
 </FILE>
 
-<FILE name='DLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='DLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'vec' of size &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='FSV_f' type='XML'>
@@ -5998,72 +5957,35 @@ Properties : Type 'vec' of size 1.
 </PARAM>
 </FILE>
 
-<FILE name='TCLSS' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='TCLSS' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>A matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %A matrix   -1
+ \item {\bf $A$ matrix} \\
+       A square matrix. \\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>B matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;size(%1,2)&quot;,&quot;-1&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %B matrix   1
+ \item {\bf B matrix} \\
+       The $ B $ matrix,  []  if system has no input.\\
+       Properties : Type 'mat' of size ["size(\%1,2)","-1"].
 
-<PARAM_ITEM>
-<PARAM_NAME>C matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'mat' of size [&quot;-1&quot;,&quot;size(%1,2)&quot;].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %C matrix   1
+ \item {\bf C matrix} \\
+       The  $C$  matrix ,  []  if system has no output.\\
+       Properties : Type 'mat' of size ["-1","size(\%1,2)"].
 
-<PARAM_ITEM>
-<PARAM_NAME>D matrix</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'mat' of size [-1,-1].
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %D matrix   0
+ \item {\bf D matrix} \\
+       The $ D$  matrix,  []  if system has no  D  term.\\
+       Properties : Type 'mat' of size [-1,-1].
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial state</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 5.
-</SP>
-<SP>
-Properties : Type 'vec' of size &quot;size(%1,2)&quot;.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+ %Initial state   0
+ \item {\bf Initial state} \\
+       A vector/scalar initial state of the system.\\
+       Properties : Type 'vec' of size "size(\%1,2)".
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -6074,60 +5996,33 @@ Properties : Type 'vec' of size &quot;size(%1,2)&quot;.
 </PARAM>
 </FILE>
 
-<FILE name='WFILE' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='WFILE' type='LATEX'>
+\begin{itemize}
+  %Input size   1
+  \item {\bf Input size} \\
+        a scalar. This fixes the input size.\\
+        Properties : Type 'vec' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Input size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        a character string defining the path of the file.\\
+	Properties : Type 'str' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 2.
-</SP>
-<SP>
-Properties : Type 'str' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Ouput Format   (7(e10.3,1x))
+  \item {\bf Output Format} \\
+        a character string defining the Fortran format
+	to use or nothing for an unformatted (binary) write. If given, the
+	format must began by a left parenthesis and end by a right
+	parenthesis. example: $(e10.3)$.\\
+	Properties : Type 'str' of size 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Output Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 3.
-</SP>
-<SP>
-Properties : Type 'str' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 4.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. Write on the file is only done after each 
+        {\bf Buffer size} call to the block.\\
+	Properties : Type 'vec' of size 1.
+\end{itemize}
 </FILE>
 
 <FILE name='generic_block' type='XML'>
