@@ -13,10 +13,10 @@ tt = ["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
       'proc qqx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''3'''"}'
       'catch {destroy .ss}'
       'toplevel .ss'
-      'Tree .ss.t -xscrollcommand {.ss.xsb set} -yscrollcommand {.ss.ysb set} "+...
-        " -width 30'
       'scrollbar .ss.ysb -command {.ss.t yview}'
       'scrollbar .ss.xsb -command {.ss.t xview} -orient horizontal'
+      'Tree .ss.t -xscrollcommand '".ss.xsb set'" -yscrollcommand '".ss.ysb set'" "+...
+      " -width 30'
       'grid .ss.t .ss.ysb -sticky nsew'
       ' grid .ss.xsb -sticky ew'
       ' grid rowconfig    .ss 0 -weight 1'
