@@ -33,6 +33,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 //** support (almost obsolete function) 
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//** Magic Global Variable for Diagram Browser 
 global %scicos_navig
 global %diagram_path_objective
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -73,6 +74,7 @@ if super_path<>[] then
   end
 end
 
+//**-----------------------------------------------------------------------------------------------
 if ~super_block then
 
   // Check and define SCICOS palette , menu , shortcut , display mode , palette libraries
@@ -187,7 +189,7 @@ if ~super_block then
   swap_handles = permutobj; //TO be removed in Scilab 5
   //** for rotation of text
   //** PATCH 
-   xstringb = xstringb2; //   TU LE LAISSE SIMONE !!!!!//TO be removed in Scilab 5
+   xstringb = xstringb2; //** BEWARE: TO be removed in Scilab 5
 
   //** restore scilab function protection
   funcprot(prot)
@@ -263,14 +265,12 @@ if ~super_block then
 
 end //** end of the main if() not superblock
 
-//** ---- End the NOT-Superbloc initialization and check ----
+//** ----------------------------- End the NOT-Superbloc initialization and check ----------------------
 
+//** Magic Numbers 
 Main_Scicos_window = 1000 ; //** set default value of the main scicos window
 
-
-
-
-//Initialisation
+//** Initialisation
 newparameters = list() ;
 enable_undo = %f
 edited = %f
@@ -279,15 +279,14 @@ needreplay = %f
 %exp_dir = PWD
 
 
-
-
 global %tableau
 
+//**----------------------------------------------------------------------------------
 if ~super_block then // init of some global variables
   %zoom    = 1.4      ; //** original value by Ramine
   pal_mode = %f       ;  // Palette edition mode
-//  newblocks=[] // table of added functions in pal_mode
-//  super_path=[] // path to the currently opened superblock
+  //  newblocks=[] // table of added functions in pal_mode
+  //  super_path=[] // path to the currently opened superblock
 
   scicos_paltmp = scicos_pal ;
 
@@ -302,7 +301,7 @@ if ~super_block then // init of some global variables
   execstr('load(''.scicos_short'')','errcatch')  // keyboard shortcuts
 
 end
-//
+//**----------------------------------------------------------------------------------
 
 [lhs, rhs] = argn(0) ; //** recover the arguments of "scicos(<rhs>)" 
 
@@ -331,14 +330,10 @@ if rhs>=1 then //** scicos_new(...) is called with some arguments
   end
 
 else //** scicos_new() is called without arguments (AND - implicitly - is NOT a superblock)
-
-//** ----------- Normal : not a superblock -----------------  
-//** ------------- NORMAL OPENING OF A BRAND NEW GRAPHICS WINDOW--------------------------------
-
+ 
+  //** ------------- NORMAL OPENING OF A BRAND NEW GRAPHICS WINDOW--------------------------------
   gh_Main_Scicos_window = scf(Main_Scicos_window); //** new way to open a brand new graphics windows  
-
   scs_m = scicos_diagram(version=get_scicos_version()) ;
-
   %cpr = list(); needcompile = 4; alreadyran = %f; %state0 = list() ;
 
 end
@@ -413,8 +408,8 @@ options = scs_m.props.options
 // solver
 %scicos_solver = scs_m.props.tol(6)
 
-//** ------- GRAPHICS INITIALIZATION: Palettes, TK functions, --------- -----------------------------------
-//**-------------------------- I'm NOT inside a superblock  -----------------------------------------------
+//** ------- GRAPHICS INITIALIZATION: Palettes, TK functions, ---------
+//**-------------------------- I'm NOT inside a superblock  -----------
 if ~super_block then
 
   gh_current_window = scf(Main_Scicos_window);
@@ -562,64 +557,72 @@ end //  %diagram_open test
 
 //** --------- Command Interpreter / State Machine / Main Loop ------------
 
-while ( Cmenu <> 'Quit' ) //** Cmenu -> exit from Scicos
+while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
 
-[%stack] = stacksize()        
-if %stack(2)/%stack(1)> 0.3 then  
-    stacksize(2*%stack(1))                                          //
-    disp('stacksize increased to '+string(2*%stack(1)))             //
-end                                                               //
+   //** Dynamic stacksize for very big diagram           //
+   [%stack] = stacksize()                                //
+   if %stack(2)/%stack(1)> 0.3 then                      //
+     stacksize(2*%stack(1))                              //
+     disp("Stacksize increased to "+string(2*%stack(1))) //
+   end                                                   //
 
-if %scicos_navig<>[] then
-   if ~isequal(%diagram_path_objective,super_path) then
-        %diagram_open=%f
-        [Cmenu,Select]=Find_Next_Step(%diagram_path_objective,super_path)
-        if Cmenu=='OpenSet' then
-           ierr=0
-           execstr('ierr=exec(OpenSet_,''errcatch'',-1)')
-           if ierr<>0 then message(lasterror()),end
+   //**--------------------------------------------------------------------
+   if %scicos_navig<>[] then //** navigation mode active 
+     
+     if ~isequal(%diagram_path_objective,super_path) then
+       %diagram_open  = %f
+       [Cmenu,Select] = Find_Next_Step(%diagram_path_objective,super_path)
+       if Cmenu=="OpenSet" then
+         ierr=0
+         execstr('ierr=exec(OpenSet_,''errcatch'',-1)')
+         //**---------------------------------------------------
+	 if ierr<>0 then message(lasterror()),end
            if isequal(%diagram_path_objective,super_path) then
              if ~or(curwin==winsid()) then 
                 gh_current_window = scf(curwin);
-                restore(gh_current_window)
-                restore_menu()
-                %scicos_navig=[]
-                Cmenu="Replot"
+                restore(gh_current_window);
+                restore_menu();
+                %scicos_navig=[];
+                Cmenu="Replot";
 	        Select_back=[];Select=[]
              end  
            end
-        end
+         end
+         //**---------------------------------------------------
+        else
+	  %scicos_navig=[]
+        end 
    else
-        %scicos_navig=[]
-   end 
-else
-  %diagram_open=%t
+     %diagram_open=%t
 
-  if Select<>[] then
-    if ~or(Select(1,2) == winsid()) then
+     if Select<>[] then
+       if ~or(Select(1,2) == winsid()) then
          Select = [] ; //** imply a full Reset 
-    end
-  end
-
-  //** Command classification and message retrivial 
-  [CmenuType, mess] = CmType(Cmenu); //** recover command type and message  
-  xinfo(mess); //** show the message associated to the command 
-
-  //** ----------------- State variable filtering -----------------------------------------
-  //** clear the %pt information for backward compatibility
-  //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
-  if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end
-
-  //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
-  if ( Cmenu<> [] & CmenuType==0) then %pt=[]; end
-
-  //** if 'Cmenu' is NOT empty and 'CmenuType' is "1" and there is at least one object selected 
-  if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
-       [%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
-  end
-  //** ------------------------------------------------------------------------------------
+     end
   
-  //** ---- Main decisional branch --------------------------------------------------------
+   end
+   //**--------------------------------------------------------------------
+   
+   //** Command classification and message retrivial 
+   [CmenuType, mess] = CmType(Cmenu); //** local function: see below in this file
+                                      //** recover command type and message  
+   xinfo(mess); //** show the message associated to the command 
+
+   //** ----------------- State variable filtering -----------------------------------------
+   //** clear the %pt information for backward compatibility
+   //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
+   if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end
+
+   //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
+   if ( Cmenu<> [] & CmenuType==0) then %pt=[]; end
+
+   //** if 'Cmenu' is NOT empty and 'CmenuType' is "1" and there is at least one object selected 
+   if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
+     [%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
+   end
+   //** ------------------------------------------------------------------------------------
+  
+   //** ---------------------- Main decisional section --------------------------------------
   //** if no command is issued "Cmenu==[]" or
   //**    CmenuType==1 and no %pt information and no object selected 
   if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then
@@ -680,7 +683,8 @@ else
       
    end //** not_ready / ready ... to exec a command 
    //**---------------------------------------------------------------------------------------------------
-end // test %diagram   
+end // test %diagram
+   
 end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
 
 do_exit() ; //** this function is executed in case of 'Quit' command
@@ -697,7 +701,7 @@ function [itype, mess] = CmType(Cmenu)
   k = find (Cmenu == CmenuTypeOneVector(:,1)); 
   if k==[] then //** if is not type 1 (empty k)
     itype = 0 ; //** set type to zero
-    mess=''   ; //** set message to nothing 
+    mess=''   ; //** set message to empty
     return    ; //** --> EXIT point : return back 
   end
 
