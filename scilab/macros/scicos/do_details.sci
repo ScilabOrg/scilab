@@ -1,4 +1,9 @@
 function do_details(x)
+//** INRIA
+//** Comments by Simone Mannori
+
+//** ... The Devil is in the Details ;) ...
+
   if type(x)==1 then
     Select=x
     sel_items = size(Select)   ; 
@@ -20,5 +25,7 @@ function do_details(x)
   else
     o=x
   end
-  tree_show(o)
+
+  tree_show(o) ; //** beware to the BWidget version 
+
 endfunction
