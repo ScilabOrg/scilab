@@ -7,7 +7,7 @@ function tree_show(x)
  end
 
 tt = ["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
-      "set auto_path [linsert $auto_path 0 $BWpath]" 
+      "if {[lsearch $auto_path $BWpath]==-1} { set auto_path [linsert $auto_path 0 $BWpath] }" 
       "package require BWidget 1.7.0"
       'proc ppx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''1'''"}'
       'proc qqx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''3'''"}'

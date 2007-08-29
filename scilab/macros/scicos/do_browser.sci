@@ -13,9 +13,11 @@ endfunction
 function tt = scs_TreeView(scs_m)
   x = [];
   y = 0 ;
-tt=[ "set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
-     "set auto_path [linsert $auto_path 0 $BWpath]" 
-     "package require BWidget 1.7.0"
+tt=["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
+    "if {[lsearch $auto_path $BWpath]==-1} {"
+    "    set auto_path [linsert $auto_path 0 $BWpath]"
+    "}" 
+    "package require BWidget 1.7.0"
     'set w .scsTree'
     'proc ppsc {label} {global blkox; set blkox $label;ScilabEval '"Cmenu=''BrowseTo'''"}'
     'catch {destroy $w}'
