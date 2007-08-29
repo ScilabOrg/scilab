@@ -9,7 +9,7 @@ endfunction
 
 function tt=scs_m_TreeView(scs_m)
   x=[];y=0;
-tt=['package require BWidget'
+tt=["package require BWidget 1.7.0"
     'set w .palettes'
     'proc ppxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''PlaceinDiagram'''"}'
     'proc qqxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''TkPopup'''"}'
