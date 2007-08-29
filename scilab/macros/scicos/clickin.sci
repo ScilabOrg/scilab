@@ -51,6 +51,9 @@ if typeof(o)=="Block" then
       gh_curwin = scf(curwin); //**   
     end                       //** 
 
+    //**
+    //**  Plese put one eye on it 
+    //**
     //** Check if this data structure is used in others parts of the code  
     execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
     
