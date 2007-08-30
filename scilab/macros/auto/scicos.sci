@@ -55,7 +55,6 @@ clear noguimode
 slevel = prod ( size ( find ( %mac=='scicos') ) ) ; //** "slevel" is the superblock level
 super_block = slevel > 1 ; //** ... means that the actual SCICOS is a superblock diagram
 
-//**--------------------------------------------------------------------------------------------------------------
 
 if ~super_block then
   super_path=[] // path to the currently opened superblock
@@ -481,7 +480,7 @@ if %diagram_open then
 
 gh_current_window = gcf() ; //** get the current graphics window
 restore(gh_current_window)
-exec(restore_menu)
+exec(restore_menu,-1)
 
 end // %diagram_open test
 
@@ -548,12 +547,15 @@ Cmenu = []     ; //** valid command = empty
 Select = []      ; //** empty
 Select_back = [] ; //** empty
 %ppt = []; //** used to store last valid click position for "Paste" operation 
-Clipboard = []; //** used in Copy Cut and Paste function 
+//Clipboard = []; //** used in Copy Cut and Paste function 
 //** --- End of initialization ----------------------------------------------------------- 
 if %diagram_open then
    drawobjs(scs_m) ; //** draw the full diagram from the original Scicos data structure 
 end //  %diagram_open test
 
+
+global Clipboard  // to make it possible to copy and paste from one
+                  // super block to another
 
 //** --------- Command Interpreter / State Machine / Main Loop ------------
 
@@ -581,7 +583,7 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
              if ~or(curwin==winsid()) then 
                 gh_current_window = scf(curwin);
                 restore(gh_current_window);
-                restore_menu();
+                exec(restore_menu,-1)
                 %scicos_navig=[];
                 Cmenu="Replot";
 	        Select_back=[];Select=[]
@@ -657,7 +659,7 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
         if ~or(curwin==winsid()) then 
           gh_current_window = scf(curwin);
           restore(gh_current_window)
-          restore_menu()
+          exec(restore_menu,-1)
 	  Select_back=[];Select=[]
           Cmenu='Replot';
         elseif ierr > 0 then
@@ -685,16 +687,14 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
    //**---------------------------------------------------------------------------------------------------
 end // test %diagram
    
-end //**--->  end of the while loop: the only way to exit is with the 'Quit' command  -------------------------------
+end //**--->  end of the while loop: the only way to exit is with the 'Quit' command 
 
 do_exit() ; //** this function is executed in case of 'Quit' command
 
 endfunction //** scicos() end here :) : had a good day
 //**
-//*
-//**
-//** ----------------------------------------------------------------------------------------------------------------
-//*******************************************************************************************************************
+
+
 
 function [itype, mess] = CmType(Cmenu)
   //** look inside "CmenuTypeOneVector" if the command is type 1 (need both Cmenu and %pt)
