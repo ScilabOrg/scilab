@@ -125,6 +125,7 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   elseif btn > 31 then //** [CTRL] + [.] combination  
 
     //** ------ Key combos ------------------------------------ 
+        
     // [CRTL]+[x] | [Delete]   | [Backspace]  --> Cut
     if (btn==1120)|(btn==65288)|(btn==65535) then //** [CRTL]+[x] --> Cut
       Cmenu="Cut"; %pt=[];
@@ -143,8 +144,13 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
       Cmenu="CtrlSelect";                  //** Multiple, additive object selection 
     
     elseif (btn==1122) then                //**  [CTRL]+[z] --> Undo 
-      Cmenu="Undo"
+      Cmenu="Undo";
+    //**-------------------------------------------------------
     
+    elseif (btn==1115) then                //** [CRTL]+[s] --> Save the diagram 
+      Cmenu="Save";
+    
+    //**-------------------------------------------------------
     else
     //** ---- Shortcut ----------------------------------------
       Cmenu = %tableau( min (100,btn-31) ); //** (global) %tableau is the standard single key shorcut conversion
@@ -157,33 +163,5 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     end //** end of keyboard combinations 
   
   end //** end of cosclik() filter 
-
-//
-//  
-//  %scicos_short  =
-//  
-// !a  Align      !
-// !              !
-// !d  Delete     !
-// !              !
-// !c  Duplicate  !
-// !              !
-// !m  Move       !
-// !              !
-// !u  Undo       !
-// !              !
-// !f  Flip       !
-// !              !
-// !o  Open/Set   !
-// !              !
-// !s  Save       !
-// !              !
-// !i  Get Info   !
-// !              !
-// !r  Replot     !
-// !              !
-// !l  Link       !
-// !              !
-// !q  Quit       !
 
 endfunction
