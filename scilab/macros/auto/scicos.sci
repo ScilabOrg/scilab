@@ -78,81 +78,60 @@ if ~super_block then
 
   // Check and define SCICOS palette , menu , shortcut , display mode , palette libraries
   if exists('scicos_pal')==0 | exists('%scicos_menu')==0 | exists('%scicos_short')==0 | ...
-       exists('%scicos_display_mode')==0| exists('scicos_pal_libs')==0 then
+      exists('%scicos_display_mode')==0 | exists('scicos_pal_libs')==0 | ...
+       exists('%scicos_lhb_list')==0 | exists('%CmenuTypeOneVector')==0   then
 
     [scicos_pal_d, %scicos_menu_d, %scicos_short_d, %scicos_help_d,...
-         %scicos_display_mode_d, modelica_libs_d, scicos_pal_libs_d] = initial_scicos_tables() ;
+     %scicos_display_mode_d, modelica_libs_d, scicos_pal_libs_d,...
+     %scicos_lhb_list_d, %CmenuTypeOneVector_d ] = initial_scicos_tables() ;
 
     if exists('scicos_pal')==0 then
-      x_message(['scicos_pal not defined'; 'using default values'])
+      message(["scicos_pal not defined"; "using default values"])
       scicos_pal = scicos_pal_d ;
     end
 
     if exists('%scicos_menu')==0 then
-      x_message(['%scicos_menu not defined'; 'using default values'])
+      message(["%scicos_menu not defined"; "using default values"])
       %scicos_menu = %scicos_menu_d ;
     end
 
     if exists('%scicos_short')==0 then
-      x_message(['%scicos_short not defined'; 'using default values'])
+      message(["%scicos_short not defined"; "using default values"])
       %scicos_short = %scicos_short_d ;
     end
 
     if exists('%scicos_help')==0 then
-      x_message(['%scicos_help not defined'; 'using default values'])
+      message(["%scicos_help not defined"; "using default values"])
       %scicos_help = %scicos_help_d ;
     end
 
     if exists('%scicos_display_mode')==0 then
-      x_message(['%scicos_display_mode not defined'; 'using default values'])
+      message(["%scicos_display_mode not defined"; "using default values"])
       %scicos_display_mode = %scicos_display_mode_d ;
     end
 
     if exists('modelica_libs')==0 then
-      x_message(['modelica_libs not defined'; 'using default values'])
+      message(["modelica_libs not defined"; "using default values"])
       modelica_libs = modelica_libs_d ;
     end
 
     if exists('scicos_pal_libs')==0 then
-      x_message(['scicos_pal_libs not defined'; 'using default values'])
+      message(["scicos_pal_libs not defined"; "using default values"])
       scicos_pal_libs = scicos_pal_libs_d ;
     end
 
+    if exists('%scicos_lhb_list')==0 then
+      message(["%scicos_lhb_list not defined"; "using default values"])
+      %scicos_lhb_list = %scicos_lhb_list_d ;
+    end
+
+    if exists('%CmenuTypeOneVector')==0 then
+      message(["%CmenuTypeOneVector not defined"; "using default values"])
+      %CmenuTypeOneVector = %CmenuTypeOneVector_d ;
+    end
+    
   end //** ... of the initialization variable
   //**--------------------------------------------------------------
-
-  //** 'CmenuTypeOneVector' store the list of the commands/function to be called that require both 'Cmenu' AND '%pt'
-  // menus of type 1 (require %pt)
-   CmenuTypeOneVector =..
-     ['Region to Super Block', 'Click, drag region and click (left to fix, right to cancel)'        ;
-      'Smart Move',            'Click object to move, drag and click (left to fix, right to cancel)';
-      'Move',                  'Click object to move, drag and click (left to fix, right to cancel)';
-      'Duplicate',             'Click on the object to duplicate, drag, click (left to copy, right to cancel)';
-      'Replace',               'Click on new object , click on object to be replaced';
-      'Align',                 'Click on an a port , click on a port of object to be moved';
-      'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
-      'Delete',                'Delete: Click on the object to delete';
-      'Flip',                  'Click on block to be flipped'      ;
-      'Rotate Left',           'Click on block to be turned left'  ;
-      'Rotate Right',          'Click on block to be turned right' ;
-      'Open/Set',              'Click to open block or make a link';
-      'MoveLink',              ''                                  ;
-      'SelectLink',            ''                                  ;
-      'CtrlSelect',            ''                                  ;
-      'SelectRegion',          ''                                  ;
-      'Popup',                 ''                                  ;
-      'Label',                 'Click block to label';
-      'Get Info',              'Click on object  to get information on it';
-      'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
-      'Icon',                  'Click on block to edit its icon';
-      'Color',                 'Click on object to paint';
-      'Identification',        'Click on an object to set or get identification';
-      'Resize',                'Click block to resize';
-      'Block Documentation',   'Click on a block to set or get it''s documentation'
-     ]
-  //
-  
-  //**-----------------------------
 
   //** initialize the "scicos_contex" datastructure (Scilab script inside SCICOS simulation)
   if ~exists('%scicos_context') then
@@ -192,77 +171,17 @@ if ~super_block then
 
   //** restore scilab function protection
   funcprot(prot)
-
-  //**----------------------------- RIGHT MOUSE BUTTON MENUS (Popup) ------------------------
-  //** Right Mouse Button Menus:
-  //**        "%scicos_lhb_list" data structure initialization 
-  //**                 
-  //** Create an empty list() data structure 
-  %scicos_lhb_list = list();
-  
-  //** Fill the data structure with menu/command/functions definitions  
-  
-  //** state_var = 1 : right click over a valid object inside the CURRENT Scicos Window
-  %scicos_lhb_list(1) = list('Open/Set',..
-			     'Cut',..
-			     'Copy',..
-			     'Smart Move',..
-			     'Move',..
-			     'Duplicate',..
-			     'Delete',..
-			     'Link',..
-			     'Align',..
-			     'Replace',..
-			     'Flip',..
-			     list( 'Properties',..
-			           'Resize',..
-			           'Icon',..
-			           'Icon Editor',..
-			           'Color',..
-			           'Label',..
-			           'Get Info',..
-                                   'Details',..
-			           'Identification',..
-			           'Block Documentation'),..
-			           'Code Generation',..
-			           'Help');
-  
-  //** state_var = 2 : right click in the void of the CURRENT Scicos Window			  
-  %scicos_lhb_list(2) = list('Undo',..
-                             'Paste',..
-			     'Palettes',..
-			     'Context',..
-			     'Add new block',..
-			     'Region to Super Block',..
-			     'Replot',..
-			     'Save',..
-			     'Save As',..
-			     'Load',..
-			     'Export',..
-			     'Quit',..
-			     'Background color',..
-			     'Show Block Shadow'  ,..
-			     'Zoom in' ,..
-			     'Zoom out',..
-                             'Pal Tree',..
-                             'Browser',..
-                             'Details',..
-			     'Help');
-
-  //** state_var = 3 : right click over a valid object inside a PALETTE or
-  //**                 not a current Scicos window
-  //** 
-  %scicos_lhb_list(3) = list('Copy',..
-			     'Help');
- //**------------------------------
  
- if exists('scicoslib')==0 then 
-   load('SCI/macros/scicos/lib') ; 
- end
+  //** check and - eventually - load the Scicos function library  
+  if exists('scicoslib')==0 then 
+    load('SCI/macros/scicos/lib') ; 
+  end
 
- exec(loadpallibs, 1) //** load the palettes libraries
+  exec(loadpallibs, 1) //** load library that contains the INTERFACING
+                       //** functions of all the blocks presents in 
+		       //** the Scicos Palettes
 
-end //** end of the main if() not superblock
+end //** end of the main if() not superblock initialization 
 
 //** ----------------------------- End the NOT-Superbloc initialization and check ----------------------
 
@@ -697,8 +616,8 @@ endfunction //** scicos() end here :) : had a good day
 
 
 function [itype, mess] = CmType(Cmenu)
-  //** look inside "CmenuTypeOneVector" if the command is type 1 (need both Cmenu and %pt)
-  k = find (Cmenu == CmenuTypeOneVector(:,1)); 
+  //** look inside "%CmenuTypeOneVector" if the command is type 1 (need both Cmenu and %pt)
+  k = find (Cmenu == %CmenuTypeOneVector(:,1)); 
   if k==[] then //** if is not type 1 (empty k)
     itype = 0 ; //** set type to zero
     mess=''   ; //** set message to empty
@@ -712,7 +631,7 @@ function [itype, mess] = CmType(Cmenu)
 
   itype = 1 ; 
 
-  mess = CmenuTypeOneVector(k,2) ; 
+  mess = %CmenuTypeOneVector(k,2) ; 
   
 endfunction
 
