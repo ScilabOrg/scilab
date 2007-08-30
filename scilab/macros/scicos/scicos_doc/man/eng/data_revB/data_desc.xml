@@ -24,7 +24,7 @@ understand.
 This block, with two event inputs and a regular output, outputs +1 or
 -1 on its regular ouput depending on input events.     
 \begin{enumerate}
-\item[+1]: When events are synchronously present on both event input ports
+\item[+1]: When events are synchronously (present on both event input ports),
 
 \item[-1]: When only one event is present.
  \end{enumerate}
@@ -273,7 +273,6 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='ESELECT_f' type='LATEX'>
-
 A Selector block accepts either vector or matrix signals as input. Set
 the Input Type parameter to the type of signal (vector or matrix) that
 the block should accept in your model. The parameter dialog box and
@@ -287,8 +286,10 @@ __OBSOLETE__ This block realizes the visualization of the input event signals.
 </FILE>
 
 <FILE name='EVTDLY_f' type='LATEX'>
-One event is generated  {\bf Delay}  after an event enters the unique
-input event port. Block may also generate an initial output event.   
+One event is generated after an event enters the unique
+input event port.
+The delay is defined by the dialogue parameter {\bf Delay}.
+Block may also generate an initial output event.   
 </FILE>
 
 <FILE name='EVTGEN_f' type='LATEX'>
@@ -297,12 +298,14 @@ is larger than equal to zero, if not, no event is generated.
 </FILE>
 
 <FILE name='EVTVARDLY' type='LATEX'>
- One event is generated Delay after an event enters the unique input
- event port. Block may also generate an initial output event.  
+One event is generated Delay after an event enters the unique input
+event port.
+The value of the delay is read from the regular input port.
+Block may also generate an initial output event.  
 </FILE>
 
 <FILE name='EXPBLK_f' type='LATEX'>
-This block realizes  $y(i)=a^u(i)$. The input and output port sizes are
+This block realizes $y(i)=a^u(i)$. The input and output port sizes are
 determined by the compiler.   
 </FILE>
 

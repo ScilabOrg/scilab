@@ -5,31 +5,26 @@
 Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 </FILE>
 
-<FILE name='AFFICH_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='AFFICH_f' type='LATEX'>
+Peandant la simulation, ce bloc affiche sur le diagramme 
+la valeur lue sur son unique port d'entrée événementiel.\\
+{\bf Attention :} a chaque fois que le bloc est déplacé, l'utilisateur
+doit cliquer sur celui-ci pour éditer ses paramètres. La position
+d'affichage est alors automatiquement ajustée.
 </FILE>
 
-<FILE name='ANDBLK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ANDBLK' type='LATEX'>
+TODO
 </FILE>
 
-<FILE name='ANDLOG_f' type='XML'>
+<FILE name='ANDLOG_f' type='LATEX'>
+Ce bloc possédant deux entrées événementielles et une sortie régulière,
+délivre +1 ou -1 sur sa sortie régulière suivant ses entrées événementielles.
+\begin{enumerate}
+\item[+1]: Lorsque les événements sont synchrones (même événement présent sur les deux ports événementiels simultanément),
+
+\item[-1]: Lorsqu'un seul événement est présent.
+ \end{enumerate}
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
@@ -89,28 +84,17 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CBLOCK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CBLOCK' type='LATEX'>
+Ce bloc crée une fonction de calcul squelette en C.
+Il crée aussi une librairie et un fichier objet à la compilation.
 </FILE>
 
-<FILE name='CLINDUMMY_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLINDUMMY_f' type='LATEX'>
+Ce bloc peut être placé dans tous diagrammes qui contient un ou
+des blocs 'zero-crossing' et qui ne dispose pas de blocs contenant
+des états continus (x) temps dépendant (dep\_t=\%t).
+Grâce à cela, le simulateur utilisera le solveur ode pour la détection
+de surfaces des blocs 'zero-crossing'.
 </FILE>
 
 <FILE name='CLKINV_f' type='LATEX'>
@@ -266,16 +250,8 @@ composant est zéro.
 
 </FILE>
 
-<FILE name='DEADBAND' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DEADBAND' type='LATEX'>
+Fournit une zone où la sortie est égale à zéro.
 </FILE>
 
 <FILE name='DEBUG_SCICOS' type='XML'>
@@ -290,28 +266,18 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='DEMUX' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DEMUX' type='LATEX'>
+En fournissant un vecteur sur le port d'entrée régulier, ce bloc
+peut séparer les éléments de l'entrée par des vecteurs sur les ports
+de sortie.
+L'entrée est donc définie $u=[y_1;y_2,\cdots;y_n]$, où  $y_i$ sont
+numérotés dans un ordre décroissant.
+Les tailles des ports d'entrée et de sortie sont déterminées par le contexte.
 </FILE>
 
-<FILE name='DERIV' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DERIV' type='LATEX'>
+Le bloc dérivée fait l'approximation de la dérivée de son entrée en calculant:
+$$\frac{\Delta u}{\Delta t}$$.
 </FILE>
 
 <FILE name='DLR_f' type='LATEX'>
@@ -365,16 +331,13 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='ESELECT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ESELECT_f' type='LATEX'>
+Un bloc selecteur accepte sur son entrée aussi bien un vecteur qu'une matrice.
+Vous pouvez définir le paramètre {\bf Input Type} au type de signal que vous
+utilisez dans votre modèle (matrice ou vecteur).
+Les paramètres de la boîte de dialogue et l'aspect du bloc changent en accord
+avec le type de l'entrée, ainsi que la manière dont il détermine les éléments 
+à sélectionner.
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='XML'>
@@ -389,76 +352,41 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='EVTDLY_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EVTDLY_f' type='LATEX'>
+Ce bloc génére à la sortie des événements retardés par rapport aux
+événements qui arrivent à l'entrée.
+Le retard est définit par la valeur du paramètre {\bf Delay}.
+Ce bloc peut aussi généré un événement à une date initiale.
 </FILE>
 
-<FILE name='EVTGEN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EVTGEN_f' type='LATEX'>
+Un événement est généré sur le port unique de sortie événementiel
+si la valeur du paramètre {\bf Event time} est plus grand ou égal à
+zéro.
+Si cette valeur est négative alors aucun événement ne sera généré.
 </FILE>
 
-<FILE name='EVTVARDLY' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EVTVARDLY' type='LATEX'>
+Ce bloc génére à la sortie des événements retardés par rapport aux
+événements qui arrivent à l'entrée.
+Le retard est définit par la valeur qui est lu sur le port d'entrée
+régulier.
+Ce bloc peut aussi généré un événement à une date initiale.
 </FILE>
 
-<FILE name='EXPBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EXPBLK_f' type='LATEX'>
+Ce bloc calcule $y(i)=a^u(i)$. 
+Les tailles des ports d'entrée et de sortie sont déterminées par
+le compilateur.
 </FILE>
 
-<FILE name='EXPRESSION' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EXPRESSION' type='LATEX'>
+Le bloc EXPRESSION applique à son entrée les fonctions Scilab spécifiées
+en paramètre.
 </FILE>
 
-<FILE name='EXTRACTOR' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EXTRACTOR' type='LATEX'>
+Extrait ou sélectionne une entrée régulière parmi plusieurs entrées régulières.
 </FILE>
 
 <FILE name='Electrical_pal' type='XML'>
@@ -553,40 +481,26 @@ Terre est zéro. Chaque circuit électrique doit contenir au moins un
 </DESCRIPTION>
 </FILE>
 
-<FILE name='HALT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='HALT_f' type='LATEX'>
+Ce bloc a un unique port d'entrée événementiel.
+Lorsqu'un événement se présente sur ce port, alors la simulation
+est arrêtée et la main est rendue à la fenêtre principale de Scicos.
+La simulation peut être redémarrée ou continuée grâce au bouton Run.
 </FILE>
 
-<FILE name='HYSTHERESIS' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='HYSTHERESIS' type='LATEX'>
+Permutte la valeur de la sortie entre deux constantes.
+TODO
 </FILE>
 
 <FILE name='IFTHEL_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+Ce bloc génére un événement sur l'une ses deux sorties événementielles
+lorsqu'un événement en entrée active celui-ci.
+Suivant le signe de la valeur lue sur le port d'entrée régulier,
+l'événement est généré soit sur la branche 'then' ou bien sur la branche
+'else'.
+Ce bloc est un bloc synchrone, ce qui signifie que les événements en entrée
+et en sortie sont générés exactement à la même date et simultanément.
 </FILE>
 
 <FILE name='INIMPL_f' type='LATEX'>
@@ -598,40 +512,27 @@ l'intérieur d'un système vers l'extérieur.
 Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
-<FILE name='INTRP2BLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INTRP2BLK_f' type='LATEX'>
+La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
+bilinéaire.
+Ce bloc a deux entrées scalaires et une seule sortie scalaire.
+Les grandeurs $X(i)$ et $Y(i)$ donnent respectivement les coordonnées
+$X,Y$ du $i^{\rm \grave{e}me$ point de donnée et la fonction $Z(Y(i),X(i))$
+sa valeur.
 </FILE>
 
-<FILE name='INTRPLBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INTRPLBLK_f' type='LATEX'>
+La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
+linéaire.
+Ce bloc a une seule entrée scalaire et une seule sortie scalaire.
+Les grandeurs $X$ et $Y$ donnent respectivement les coordonnées
+$X,Y$ des points de données qui seront interpolées.
+$X$ doit être strictement croissant.
 </FILE>
 
-<FILE name='INVBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INVBLK_f' type='LATEX'>
+Ce bloc calcule $y(i)=1/u(i)$.
+La taille de l'entrée/sortie est déterminée par le contexte.
 </FILE>
 
 <FILE name='IN_f' type='LATEX'>
@@ -641,16 +542,9 @@ Dans un superbloc, les ports d'entrée réguliers doivent être numérotés
 de 1 jusqu'au nombre de ports d'entrée réguliers composant le superbloc.
 </FILE>
 
-<FILE name='ISELECT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='ISELECT_f' type='LATEX'>
+Sélectionne des signaux suivant les événements d'entrée.
+Ce bloc a un seul port régulier d'entrée.
 </FILE>
 
 <FILE name='Inductor' type='LATEX'>
@@ -669,40 +563,21 @@ travers le composant est donné par :
  fréquence et est passante pour les signaux DC.
 </FILE>
 
-<FILE name='LOGBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='LOGBLK_f' type='LATEX'>
+Ce bloc calcule $y(i)=log(u(i))/log(a)$. 
+Les tailles des ports d'entrée/sortie sont déterminés par le contexte.
 </FILE>
 
-<FILE name='LOGICAL_OP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='LOGICAL_OP' type='LATEX'>
+Le bloc Opérateur Logique réalise une opération logique
+sur ses entrées qui est spécifiée en paramètre.
+Une valeur d'entrée est VRAI (1), si elle est différente de zéro, et
+elle est FAUSSE (0) si elle est égale zéro.
 </FILE>
 
-<FILE name='LOOKUP_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='LOOKUP_f' type='LATEX'>
+Ce bloc réalise une fonction non-linéaire qui est définit grâce à un
+éditeur graphique.
 </FILE>
 
 <FILE name='Linear_pal' type='XML'>
