@@ -134,4 +134,28 @@
 <FILE name='GENSQR_f' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
+
+<FILE name='RAMP' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='QUANT_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='WRITEAU_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='WRITEC_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='STEP_FUNCTION' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='READAU_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
 </DATA>

@@ -1115,10 +1115,17 @@
 <FILE name='Modulo_Count' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%initial state ($>$=0)   0
-\item {initial state :}  A scalar initial discrete state
-%Modulo what number ($>$0)   3
-\item {Modulo what number :} Number of required discrete signals. 
+
+  %initial state ($>$=0)   0
+  \item {\bf initial state} \\
+         A scalar initial discrete state. \\
+         Properties : Type 'vec' of size 1
+
+  %Modulo what number ($>$0)   3
+  \item {\bf Modulo what number} \\
+         Number of required discrete signals.\\
+         Properties : Type 'vec' of size 1
+
 \end{itemize}
 </FILE>
 
@@ -1333,43 +1340,69 @@
 <FILE name='QUANT_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Step   0.1
-\item {Step:}scalar, Quantization step 
-%Quantization Type (1-4)   1
-\item {Quantization Type :} scalar with possible values 1,2,3 or 4 
-  \begin{description}
-         \item[1] Round method 
-	\item[2] Truncation method 
-	\item [3]Floor method 
-	\item [4]Ceil method 
-  \end{description}
+
+  %Step   0.1
+  \item {\bf Step}\\
+        scalar, Quantization step \\
+        Properties : Type 'vec' of size 1.
+
+  %Quantization Type (1-4)   1
+  \item {\bf Quantization Type}\\
+        scalar with possible values 1,2,3 or 4 
+        \begin{description}
+           \item[1] Round method 
+           \item[2] Truncation method 
+           \item[3] Floor method 
+           \item[4] Ceil method 
+        \end{description}
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
 <FILE name='RAMP' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Slope   0
-\item {Slope:} The rate of change of the generated signal. 
-%Start time   0
-\item {Start time:}The time at which the signal begins to be generated. 
-%Initial output   0
-\item {Initial output:}The initial value of the signal. 
+
+  %Slope   0
+  \item {\bf Slope} \\
+        The rate of change of the generated signal.\\
+        Properties : Type 'vec' of size 1.
+
+  %Start time   0
+  \item {\bf Start time} \\
+        The time at which the signal begins to be generated.\\
+        Properties : Type 'vec' of size 1.
+
+  %Initial output   0
+  \item {\bf Initial output} \\
+        The initial value of the signal. \\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
 <FILE name='RAND_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%flag   0
-\item {flag:}0 or 1. 0 for uniform distribution on  $ [A,A+B ]$ and 1 for
-  normal distribution.   
-%A   0
-\item {A:} scalar 
-%B   1
-\item {B:} scalar
-%seed   7560437
-\item {seed:} seed value for a sequence of random number.
+  \item {\bf flag} \\
+        0 or 1.\\
+        0 for uniform distribution on  [A,A+B]. \\
+        1 for normal distribution.\\
+        Properties : Type 'vec' of size 1.
+
+  \item {\bf A} \\
+        vector\\
+        Properties : Type 'vec' of size 1.
+
+  \item {\bf B} \\
+        vector\\
+        Properties : Type 'vec' of size 1.
+
+  \item {\bf seed} \\
+        scalar\\
+        Seed value for a sequence of random number.\\
+        Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -1386,52 +1419,87 @@
 <FILE name='READAU_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Input file name   test.au
-\item {Input file name:} a character string defining the path of the file.
-%Buffer size   20
-\item {Buffer size:} To improve efficiency it is possible to buffer
-  the input data. read on the file is only done after each  Buffer
-  size  call to the block.
-%Swap mode 0/1   0
-\item {Swap mode 0/1:}With  {\bf Swap mode=1}  the file is supposed to be
-  coded in "little endian IEEE format" and data are swaped if
-  necessary to match the IEEE format of the processor. If  {\bf Swap
-  mode=0} then automatic bytes swap is disabled.  
+
+  %Input file name   test.au
+  \item {\bf Input file name} \\
+        a character string defining the path of the file.\\
+        Properties : Type 'str' of size 1
+
+  %Buffer size   20
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. 
+        Read on the file is only done after each  Buffer
+        size call to the block.\\
+        Properties : Type 'vec' of size 1
+
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        With  {\bf Swap mode=1} the file is supposed to be
+        coded in "little endian IEEE format" and data are swaped if
+        necessary to match the IEEE format of the processor.
+        If {\bf Swap mode=0} then automatic bytes swap is disabled.\\ 
+        Properties : Type 'vec' of size 1
+
 \end{itemize}
 </FILE>
 
 <FILE name='READC_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Time record selection   []
-\item {Time record selection:} an empty matrix or a positive
-  integer. If an integer  i  is given the  i th element of the read
-  record is assumed to be the date of the output event. If empty no
-  output event exists.  
-%Outputs record selection   1
-\item {Outputs record selection:} a vector of positive integer.
-  $[k_1,\cdots,k_n]$ ,The  $k_i$ th element of the read record gives
-  the  value of  $i$th output.   
-%Input file name   foo
-\item {Input file name:}a character string defining the path of the file.
-%Input Format   d  
-\item {Input Format:} a character string defining the format to use. 
-%Record size   1
-\item {Record size:} The file is supposed to be formed by a sequence of
-  data with same format. these data are organized in a sequence of
-  record each of them containing  Record size  data.  
-%Buffer size (in records)   20
-\item {Buffer size :} To improve efficiency it is possible to buffer
-  the input data. read on the file is only done after each  Buffer
-  size  call to the block.  
-%Initial record index   1
-\item {Initial record index:} a scalar. This fixes the first record of
-  the file to use.  
-%Swap mode 0/1   0
-\item {Swap mode 0/1:} With  {\bf Swap mode=1}  the file is supposed to be
-  coded in "little endian IEEE format" and data are swaped if
-  necessary to match the IEEE format of the processor. If  {\bf Swap
-  mode=0} then automatic bytes swap is disabled.  
+
+  %Time record selection []
+  \item {\bf Time record selection} \\
+        an empty matrix or a positive integer.\\
+        If an integer  i  is given the  i th element of the read
+        record is assumed to be the date of the output event.\\
+        If empty no output event exists.\\
+        Properties : Type 'vec' of size -1
+
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        a vector of positive integer.\\
+        $[k_1,\cdots,k_n]$ ,The  $k_i$ th element of the read record gives
+        the value of  $i$th output.\\
+        Properties : Type 'vec' of size -1
+
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        a character string defining the path of the file.\\
+        Properties : Type 'str' of size 1
+
+  %Input Format   d  
+  \item {\bf Input Format} \\
+        a character string defining the format to use.\\
+        Properties : Type 'str' of size 1
+
+  %Record size   1
+  \item {\bf Record size} \\
+        The file is supposed to be formed by a sequence of 
+        data with same format. \\
+        These data are organized in a sequence of record each 
+        of them containing Record size data.\\
+        Properties : Type 'vec' of size 1
+
+  %Buffer size (in records)   20
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer the input data. 
+        Read on the file is only done after each Buffer size call 
+        to the block.\\
+        Properties : Type 'vec' of size 1
+
+  %Initial record index   1
+  \item {\bf Initial record index} \\
+        a scalar. This fixes the first record of the file to use.\\
+        Properties : Type 'vec' of size 1
+
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        With  {\bf Swap mode=1}  the file is supposed to be
+        coded in "little endian IEEE format" and data are swaped if
+        necessary to match the IEEE format of the processor.
+        If {\bf Swap mode=0} then automatic bytes swap is disabled.\\
+        Properties : Type 'vec' of size 1
 \end{itemize}
 </FILE>
 
@@ -1555,8 +1623,11 @@
 <FILE name='SCALAR2VECTOR' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%size of output (-1: if don't know)   -1
-\item {size of output :} Number of component in vector output.
+  %size of output (-1: if don't know)   -1
+  \item {\bf size of output} \\
+        Number of component in vector output.\\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -1624,15 +1695,25 @@
 <FILE name='STEP_FUNCTION' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Step time   1
-\item {Step time:}The time, in seconds, when the output jumps from the
-  Initial value parameter to the Final value parameter. 
-%Initial value   0
-\item {Initial value:} The block output until the simulation time
-  reaches the Step time parameter.  
-%Final value   1
-\item {Final value:} The block output when the simulation time reaches
-  and exceeds the Step time parameter.  
+
+  %Step time   1
+  \item {\bf Step time} \\
+        The time, in seconds, when the output jumps from the
+        Initial value parameter to the Final value parameter.\\
+        Properties : Type 'vec' of size 1.
+
+  %Initial value   0
+  \item {\bf Initial value}\\
+        The block output until the simulation time
+        reaches the Step time parameter.\\
+        Properties : Type 'vec' of size -1.
+
+  %Final value   1
+  \item {\bf Final value} \\
+        The block output when the simulation time reaches
+        and exceeds the Step time parameter.\\
+        Properties : Type 'vec' of size -1.
+
 \end{itemize}
 </FILE>
 
@@ -1932,37 +2013,59 @@
 <FILE name='WRITEAU_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Buffer size   2
-\item {Buffer size:} To improve efficiency it is possible to buffer
-  the input data. read on the file is only done after each  Buffer
-  size  call to the block.
-%Swap mode 0/1   0
-\item {Swap mode 0/1:} With  {\bf Swap mode=1}  the file is supposed to be
-  coded in "little endian IEEE format" and data are swaped if
-  necessary to match the IEEE format of the processor. If  {\bf Swap
-  mode=0} then automatic bytes swap is disabled.
+
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer
+        the input data. read on the file is only done after each  Buffer
+        size call to the block.\\
+        Properties : Type 'vec' of size 1
+
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        With  {\bf Swap mode=1}  the file is supposed to be
+        coded in "little endian IEEE format" and data are swaped if
+        necessary to match the IEEE format of the processor. If  {\bf Swap
+        mode=0} then automatic bytes swap is disabled.\\
+        Properties : Type 'vec' of size 1
+
 \end{itemize}
 </FILE>
 
 <FILE name='WRITEC_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Input size   1
-\item {Input size:} a scalar, the size of the input. 
-%Output file name   foo
-\item {Output file name:} a character string defining the output file
-  name. 
-%Output Format   c  
-\item {Output Format:} a character string defining the format to use 
-%Buffer size   2
-\item {Buffer size:} o improve efficiency it is possible to buffer the
-  input data. read on the file is only done after each {\bf Buffer
-    size}  call to the block.  
-%Swap mode 0/1   0
-\item {Swap mode 0/1:}With  {\bf Swap mode=1}  the file is supposed to be
-  coded in ``little endian IEEE format'' and data are swaped if
-  necessary to match the IEEE format of the processor. If  {\bf Swap mode=0}
-  then automatic bytes swap is disabled.   
+
+  %Input size   1
+  \item {\bf Input size} \\
+        a scalar, the size of the input.\\
+        Properties : Type 'vec' of size 1
+
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        a character string defining the output file name.\\
+        Properties : Type 'str' of size 1
+
+  %Output Format   c  
+  \item {\bf Output Format} \\
+        a character string defining the format to use.\\
+        Properties : Type 'str' of size 1
+
+  %Buffer size   2
+  \item {\bf Buffer size} \\
+        To improve efficiency it is possible to buffer the
+        input data. read on the file is only done after each {\bf Buffer
+        size} call to the block.\\
+        Properties : Type 'vec' of size 1
+
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        With {\bf Swap mode=1} the file is supposed to be
+        coded in ``little endian IEEE format'' and data are swaped if
+        necessary to match the IEEE format of the processor.
+        If {\bf Swap mode=0} then automatic bytes swap is disabled.\\
+        Properties : Type 'vec' of size 1
+
 \end{itemize}
 </FILE>
 

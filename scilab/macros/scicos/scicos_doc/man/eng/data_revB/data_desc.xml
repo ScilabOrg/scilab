@@ -638,22 +638,22 @@ of methods:
 \begin{enumerate}   
 \item Round  method:  
 \begin{align*}
- y(i)&=Step*(int(u(i)/Step+0.5)-0.5)&  \texttt{if}\  u(i)<0 .\\  
- y(i)&=Step*(int(u(i)/Step-0.5)+0.5) & \texttt{if} \ u(i)>=0 .  
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{if} \; u(i)<0 .\\  
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{if} \; u(i)>=0 .  
  \end{align*}
 \item Truncation method:
 \begin{align*}
- y(i)&=Step*(int(u(i)/Step+0.5)) &\texttt{ if} \  u(i)<0 .  \\
- y(i)&=Step*(int(u(i)/Step-0.5)) &\texttt{if}  \ u(i)>=0 .  
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{if} \; u(i)<0 .  \\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{if} \; u(i)>=0 .  
 \end{align*}
  
 \item Floor method:  
 \begin{align*}
- y(i)&=Step*(int(u(i)/Step+0.5))  .  
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .  
  \end{align*}
 \item  Ceil method:  
 \begin{align*}
- y(i)&=Step*(int(u(i)/Step-0.5)) \end{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) \end{align*}
 \end{enumerate}
 </FILE>
 
@@ -681,7 +681,7 @@ limit.
 </FILE>
 
 <FILE name='READAU_f' type='LATEX'>
- loads a sound file specified by the string aufile, returning the
+ Loads a sound file specified by the string aufile, returning the
  sampled data in y. The .au extension is appended if no extension is
  given. Amplitude values are in the range [-1,+1]. auread supports
  multichannel data in the following formats: 
@@ -693,8 +693,8 @@ limit.
 </FILE>
 
 <FILE name='READC_f' type='LATEX'>
-This block allows user to read datas in a C file.  Output record
-selection  and  Time record Selection  allows the user to select data
+This block allows user to read datas in a C file. {\bf Output record
+selection} and {\bf Time record Selection} allows the user to select data
 among file records. Each call to the block advance one record in the
 file.    
 </FILE>
@@ -765,8 +765,8 @@ elements.When using blocks with more than one input port (such as the
 Sum or Relational Operator block), you can mix vector and scalar
 inputs. When you do this, the scalar inputs are expanded into vectors
 of identical elements whose widths are equal to the width of the
-vector inputs. (If more than one block input is a vector, they must
-have the same number of elements.) 
+vector inputs. If more than one input port is a vector, they must
+have the same number of elements.
 </FILE>
 
 <FILE name='SCOPXY_f' type='LATEX'>
@@ -841,8 +841,7 @@ input is passed. Otherwise, the third input is passed.
 </FILE>
 
 <FILE name='SWITCH_f' type='LATEX'>
-
-This is a  Manual Switch block. It selects one of its  inputs to pass
+This is a Manual Switch block. It selects one of its inputs to pass
 through to the output. The selected input is propagated to the output,
 while the unselected inputs are discarded.  
 </FILE>
@@ -911,13 +910,13 @@ The Transport Delay block delays the input by a specified amount of
 time. It can be used to simulate a time delay. At the start of the
 simulation, the block outputs the Initial input parameter until the
 simulation time exceeds the Time delay parameter, when the block
-begins generating the delayed input. The Time delay parameter must be
-nonnegative. 
+begins generating the delayed input. \\
+The Time delay parameter must be nonnegative. 
 </FILE>
 
 <FILE name='TIME_f' type='LATEX'>
-This block is a time generator. The unique regular output is the
-current time.   
+This block is a time generator.\\
+The unique regular output is the current time.   
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='XML'>
@@ -1040,11 +1039,10 @@ The pair block is \htmladdnormallink{RFILE\_f}{RFILE_f.htm}.
 
 <FILE name='WRITEAU_f' type='LATEX'>
 This block  writes a sound file specified by the string aufile. The
- data should  be arranged with one channel per column. Amplitude
- values outside the   range [-1,+1] are clipped prior to
- writing. auwrite supports  multichannel data for 8-bit mu-law and 8-
- and 16-bit linear formats.  
-
+data should  be arranged with one channel per column. Amplitude
+values outside the   range [-1,+1] are clipped prior to
+writing. auwrite supports  multichannel data for 8-bit mu-law and 8-
+and 16-bit linear formats.  
 </FILE>
 
 <FILE name='WRITEC_f' type='LATEX'>

@@ -558,8 +558,10 @@
 
 <FILE name='QUANT_f' type='XML'>
 <USED_FUNCTIONS>
-
-
+<LINK>qzrnd</LINK>
+<LINK>qztrn</LINK>
+<LINK>qzflr</LINK>
+<LINK>qzcel</LINK>
 </USED_FUNCTIONS>
 </FILE>
 

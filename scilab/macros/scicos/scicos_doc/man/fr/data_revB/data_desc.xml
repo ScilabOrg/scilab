@@ -753,16 +753,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='Modulo_Count' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='Modulo_Count' type='LATEX'>
+Ce bloc est un bloc discret.
+Il délivre un signal scalaire périodique qui a une forme déterminée
+par les choix de l'utilisateur.
 </FILE>
 
 <FILE name='NEGTOPOS_f' type='XML'>
@@ -939,28 +933,36 @@ bloc.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='QUANT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='QUANT_f' type='LATEX'>
+Ce bloc quantifie le signal d'entrée suivant les méthodes choisies :
+\begin{enumerate}   
+\item méthode 'Round' :  
+\begin{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{si} \; u(i)<0 .\\  
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{si} \; u(i)>=0 .  
+ \end{align*}
+\item méthode 'Truncation' :
+\begin{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{si} \; u(i)<0 .  \\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{si} \; u(i)>=0 .  
+\end{align*}
+\item méthode 'Floor' :  
+\begin{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .  
+ \end{align*}
+\item  méthode 'Ceil' :  
+\begin{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) \end{align*}
+\end{enumerate}
+
 </FILE>
 
-<FILE name='RAMP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='RAMP' type='LATEX'>
+Le bloc RAMP génére un signal qui commence à une date et à une valeur
+spécifiées et évolue suivant une pente donnée.
+Les paramètres {\bf Slope , Start time} et {\bf Initial output} déterminent
+les caractéristiques du signal de sortie.
+Ces paramètres doivent avoir des dimensions identiques.
 </FILE>
 
 <FILE name='RAND_f' type='LATEX'>
@@ -982,52 +984,34 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='READAU_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='READAU_f' type='LATEX'>
+Charge un son enregistré dans un fichier 'au'.
+Les données échantillonnées seront écrites sur la sortie y du bloc.
+Si l'extension du fichier n'est pas spécifiée alors l'extension '.au' est
+automatiquement ajoutée.
+Les valeurs d'amplitude sont comprises entre [-1,+1].
+La lecture 'au' supporte les données multi-canaux sous les formats suivants :
+\begin{itemize}
+   \item 8-bit mu-law 
+   \item 8-, 16-, and 32-bit linear
+   \item Floating-point
+\end{itemize}
 </FILE>
 
-<FILE name='READC_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='READC_f' type='LATEX'>
+Ce bloc permet de lire des données dans un fichier C.
+Les paramètres {\bf Output record selection] et {\bf Time record Selection}
+permettent de sélectionner des données dans les enregistrements du fichier.
+Chaque appel au bloc, fait avancer d'un enregistrement dans le fichier.
 </FILE>
 
-<FILE name='REGISTER_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='REGISTER_f' type='LATEX'>
+Ce bloc réalise un registre à décalage.
+Pour chaque événements d'entrée, le registre est décalé d'un élément.
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+Ce bloc fait une comparaison logique de ses entrées.
 </FILE>
 
 <FILE name='RELAY_f' type='XML'>
@@ -1052,7 +1036,6 @@ Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE\_f}{WFILE_f.ht
 </FILE>
 
 <FILE name='Resistor' type='LATEX'>
-
 Une résistance est un composant électrique à deux ports qui résiste à
 un courant électrique en produisant une chute de tension ($V$) : la loi
 d'Ohm.
@@ -1089,28 +1072,20 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SAWTOOTH_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SAWTOOTH_f' type='LATEX'>
+Ce bloc est un générateur de dents de scie : 
+la sortie de ce bloc est calculée par $(t-t_i)$ de $t_i$ jusqu'à $t_{i+1}$
+où $t_i$ et $t_{i+1}$ sont les instants de deux événements d'entrée successifs.
 </FILE>
 
-<FILE name='SCALAR2VECTOR' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SCALAR2VECTOR' type='LATEX'>
+Ce bloc convertit une valeur scalaire en un vecteur.
+Lorsque des blocs avec plus d'un port régulier son utilisés (comme Somme
+ou le bloc Relational Operator), vous pouvez mixer des entrées scalaires
+et vectorielles.
+Lorsque vous faites cela, les entrées scalaires sont étendues à des vecteurs
+dont les tailles sont égales aux tailles des vecteurs d'entrée.
+Si plus d'un port d'entrée est vectoriel, alors ils doivent avoir la même taille.
 </FILE>
 
 <FILE name='SCOPXY_f' type='XML'>
@@ -1149,16 +1124,13 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='STEP_FUNCTION' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='STEP_FUNCTION' type='LATEX'>
+Le bloc 'Step' réalise un saut entre deux niveaux définis à un temps
+spécifié.
+Si le temps de simulation est inférieur au paramètre {\bf Step time}, la 
+sortie est égale à la valeur du paramètre {\bf Initial value}.
+Pour les temps de simulation supérieurs, la sortie est égale à la valeur
+du paramètre {\bf Final value}.
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
@@ -1181,7 +1153,7 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='SUM_f' type='LATEX'>
-Le bloc somme reéalise l'addition de ses entrées.
+Le bloc somme réalise l'addition de ses entrées.
 Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
 </FILE>
 
@@ -1209,16 +1181,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SWITCH_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SWITCH_f' type='LATEX'>
+Ce bloc est un 'interrupteur' manuel.
+Il sélectionne une de ses entrées pour la rédigirer vers sa sortie.
+Les entrées non sélectionnées ne sont donc pas propagées.
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
@@ -1272,40 +1238,25 @@ Les dimensions des matrices et de l'état initial doivent être appropriées.
 Les tailles des entrées et des sorties sont ajustées automatiquement.
 </FILE>
 
-<FILE name='TEXT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='TEXT_f' type='LATEX'>
+Ce bloc spécial est utilisée pour ajouter du texte dans un diagramme scicos.
+Il n'affecte pas la simulation.
 </FILE>
 
-<FILE name='TIME_DELAY' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='TIME_DELAY' type='LATEX'>
+Ce bloc retarde l'entrée par un laps de temps spécifié.
+Il peut être utilisé pour la simulation d'un retad temporel.
+Au début de la simulation, le bloc délivre la valeur du paramètre
+{\bf Initial input} jusqu'à ce que le temps de la simulation dépasse
+le paramètre {\bf Time delay}, auquel cas, le bloc commence à réaliser
+le retard.\\
+La valeur du paramètre {\bf Time delay} doit être non-négative.
 </FILE>
 
-<FILE name='TIME_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='TIME_f' type='LATEX'>
+Ce bloc est un générateur de temps.\\
+La seule sortie régulière de ce bloc donne le temps courant de la
+simulation.
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='XML'>
@@ -1437,16 +1388,16 @@ Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeu
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE\_f}{RFILE_f.htm}.
 </FILE>
 
-<FILE name='WRITEC_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='WRITEAU_f' type='LATEX'>
+Ce bloc écrit un fichier son de type 'au'.
+Les données doivent être rangées avec un canal par colonne.
+Les valeurs en dehors de l'échelle [-1 +1] seront coupées à l'écriture.
+L'écriture 'au' supporte les données multi-canaux pour les formats
+'8-bit mu-law' et '8-,16-bit linear'.
+</FILE>
+
+<FILE name='WRITEC_f' type='LATEX'>
+Ce bloc permet d'écrire des données dans un fichier C au format binaire.
 </FILE>
 
 <FILE name='ZCROSS_f' type='XML'>

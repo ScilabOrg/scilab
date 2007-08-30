@@ -1419,17 +1419,17 @@
 
 <FILE name='GENSIN_f' type='LATEX'>
 \begin{itemize}
-  \item {Magnitude} \\
+  \item {\bf Magnitude} \\
          un scalaire à valeur réelle.\\
          L'amplitude $M$ de la sinusoide.\\
          Type 'vec' de taille 1.
 
-  \item {Frequency} \\
+  \item {\bf Frequency} \\
         un scalaire à valeur réelle.\\
         La pulsation $F$ (rad/s) de la sinusoide.\\
 	Type 'vec' de taille 1.
 
-  \item {phase} \\
+  \item {\bf phase} \\
         un scalaire à valeur réelle. \\
         La phase à l'origine $P$ (en radian) de la sinusoide.\\
 	Type 'vec' de taille 1.
@@ -1881,30 +1881,21 @@
 </PARAM>
 </FILE>
 
-<FILE name='Modulo_Count' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='Modulo_Count' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>initial state (&gt;=0)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %initial state ($>$=0)   0
+  \item {\bf initial state} \\
+         Un état initial discret scalaire.\\
+         Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Modulo what number (&gt;0)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Modulo what number ($>$0)   3
+  \item {\bf Modulo what number} \\
+         Nombre de signaux discrets requis.\\
+         Propriétés : Type 'vec' de taille 1
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='NEGTOPOS_f' type='XML'>
@@ -2149,109 +2140,74 @@
 </PARAM>
 </FILE>
 
-<FILE name='QUANT_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='QUANT_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Step</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Step   0.1
+  \item {\bf Step}\\
+        scalaire, le pas de quantification\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Quantization Type (1-4)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Quantization Type (1-4)   1
+  \item {\bf Quantization Type}\\
+        scalire avec des valeurs possibles 1,2,3 ou 4
+        \begin{description}
+           \item[1] méthode 'Round'
+           \item[2] méthode 'Truncation'
+           \item[3] méthode 'Floor'
+           \item[4] méthode 'Ceil' 
+        \end{description}
+        Propriétés : Type 'vec' de taille 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
-<FILE name='RAMP' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='RAMP' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Slope</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Slope   0
+  \item {\bf Slope} \\
+        La pente du signal généré.\\
+        The rate of change of the generated signal.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Start time</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Start time   0
+  \item {\bf Start time} \\
+        La date d'origine à laquelle le signal est généré.
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial output</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Initial output   0
+  \item {\bf Initial output} \\
+        La valeur initiale du signal.\\
+        Propriétés : Type 'vec' de taille 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
+
 </FILE>
 
-<FILE name='RAND_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='RAND_f' type='LATEX'>
+\begin{itemize}
+  \item {\bf flag} \\
+        0 ou 1.\\
+        0 pour une distribution uniforme sur [A,A+B]. \\
+        1 pour une distribution normale.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>flag</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  \item {\bf A} \\
+        vecteur\\
+        Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>A</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  \item {\bf B} \\
+        vecteur\\
+        Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>B</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille &quot;size(%2,''*'')&quot;. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>seed</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  \item {\bf seed} \\
+        scalaire\\
+        Valeur de "graine" pour une séquence de nombre aléatoire.\\
+        Propriétés : Type 'vec' de taille 1.
+\end{itemize}
 </FILE>
 
 <FILE name='RATELIMITER' type='XML'>
@@ -2280,119 +2236,97 @@
 </PARAM>
 </FILE>
 
-<FILE name='READAU_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='READAU_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Input file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input file name   test.au
+  \item {\bf Input file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+        Propriétés : Type 'str' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Buffer size   20
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité du bloc, il est possible de
+        mettre les données dans un buffer.
+        La lecture dans le fichier est alors fait après chaque
+        appel au bloc lorsque le buffer est rempli.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        Avec le paramètre {\bf Swap mode=1} le fichier est supposé être
+        au format IEEE "little endian" et les données sont 
+        entrelacées si nécessaire pour répondre au format IEEE du processeur.
+        Si {\bf Swap mode=0} alors l'entrelacement est désactivé. \\
+        Propriétés : Type 'vec' de taille 1
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
-<FILE name='READC_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='READC_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Time record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Time record selection []
+  \item {\bf Time record selection} \\
+        une matrice vide ou un entier positif.\\
+        Si un entier i est donné, le $i^{\rm\grave{e}me}$ élément
+        de l'enregistrement lu est supposé être la date de la sortie
+        d'événement.\\
+        Si ce paramètre est vide alors le bloc n'a pas de 
+        sortie événementielle. \\
+        Propriétés : Type 'vec' de taille -1
 
-<PARAM_ITEM>
-<PARAM_NAME>Outputs record selection</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Outputs record selection   1
+  \item {\bf Outputs record selection} \\
+        un vecteur ou un entier positif.\\
+        $[k_1,\cdots,k_n]$ ,le  $k_i^{\rm\grave{e}me}$ élément
+        de l'enregistrement lu donne la valeur de la $i^{\rm\grave{e}me}$
+        sortie.\\
+        Propriétés : Type 'vec' de taille -1
 
-<PARAM_ITEM>
-<PARAM_NAME>Input file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input file name   foo
+  \item {\bf Input file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+        Propriétés : Type 'str' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Input Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input Format   d  
+  \item {\bf Input Format} \\
+        une chaîne de caractères définissant le format
+        à utiliser.\\
+        Propriétés : Type 'str' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Record size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 5.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Record size   1
+  \item {\bf Record size} \\
+        Le fichier est supposé être formé par des séquence de données
+        au même format.\\
+        Ces données sont organisées en séquence d'enregistrement dont
+        la taille est déterminée par ce paramètre.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size (in records)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 6.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Buffer size (in records)   20
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité du bloc, il est possible de
+        mettre les données dans un buffer.
+        La lecture dans le fichier est alors fait après chaque
+        appel au bloc lorsque le buffer est rempli.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial record index</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 7.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Initial record index   1
+  \item {\bf Initial record index} \\
+        Un scalaire. Cela définit le premier enregistrement à lire dans le
+        fichier.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 8.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        Avec le paramètre {\bf Swap mode=1} le fichier est supposé être
+        au format IEEE "little endian" et les données sont 
+        entrelacées si nécessaire pour répondre au format IEEE du processeur.
+        Si {\bf Swap mode=0} alors l'entrelacement est désactivé. \\
+        Propriétés : Type 'vec' de taille 1
+\end{itemize}
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
@@ -2728,39 +2662,32 @@
 </PARAM>
 </FILE>
 
-<FILE name='STEP_FUNCTION' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='STEP_FUNCTION' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Step time</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Step time   1
+  \item {\bf Step time} \\
+        Le temps en seconde à partir duquel la sortie saute de
+        la valeur du paramètre {\bf Initial value} à la valeur
+        du paramètre {\bf Final value}.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Initial value</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Initial value   0
+  \item {\bf Initial value}\\
+        La valeur de la sortie du bloc jusqu'à ce que
+        le temps de la simulation arrive à la valeur du
+        paramètre {\bf Step time}.\\
+        Propriétés : Type 'vec' de taille -1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Final value</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Final value   1
+  \item {\bf Final value} \\
+        La valeur de la sortie du bloc lorsque le temps de
+        simulation est supérieur à la valeur du paramètre
+        {\bf Step time}.\\
+        Propriétés : Type 'vec' de taille -1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='SUMMATION' type='XML'>
@@ -3192,83 +3119,71 @@
 \end{itemize}
 </FILE>
 
-<FILE name='WRITEAU_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='WRITEAU_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Buffer size   20
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité du bloc, il est possible de
+        mettre les données dans un buffer.
+        La lecture dans le fichier est alors fait après chaque
+        appel au bloc lorsque le buffer est rempli.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        Avec le paramètre {\bf Swap mode=1} le fichier est supposé être
+        au format IEEE "little endian" et les données sont 
+        entrelacées si nécessaire pour répondre au format IEEE du processeur.
+        Si {\bf Swap mode=0} alors l'entrelacement est désactivé. \\
+        Propriétés : Type 'vec' de taille 1
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
-<FILE name='WRITEC_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='WRITEC_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Input size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Input size   1
+  \item {\bf Input size} \\
+        un scalaire, la taille de l'entrée.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Output file name</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output file name   foo
+  \item {\bf Output file name} \\
+        une chaîne de caractères définissant le chemin du fichier.\\
+        Propriétés : Type 'str' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Output Format</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'str' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Output Format   d  
+  \item {\bf Output Format} \\
+        une chaîne de caractères définissant le format
+        à utiliser.\\
+        Propriétés : Type 'str' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Buffer size</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 4.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Buffer size (in records)   20
+  \item {\bf Buffer size} \\
+        Pour améliorer l'efficacité du bloc, il est possible de
+        mettre les données dans un buffer.
+        L'écriture dans le fichier est alors fait après chaque
+        appel au bloc lorsque le buffer est rempli.\\
+        Propriétés : Type 'vec' de taille 1
 
-<PARAM_ITEM>
-<PARAM_NAME>Swap mode 0/1</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 5.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Initial record index   1
+  \item {\bf Initial record index} \\
+        Un scalaire. Cela définit le premier enregistrement à lire dans le
+        fichier.\\
+        Propriétés : Type 'vec' de taille 1
 
-</PARAM_INDENT>
-</PARAM>
+  %Swap mode 0/1   0
+  \item {\bf Swap mode 0/1} \\
+        Avec le paramètre {\bf Swap mode=1} le fichier est supposé être
+        au format IEEE "little endian" et les données sont 
+        entrelacées si nécessaire pour répondre au format IEEE du processeur.
+        Si {\bf Swap mode=0} alors l'entrelacement est désactivé. \\
+        Propriétés : Type 'vec' de taille 1
+\end{itemize}
 </FILE>
 
 <FILE name='ZCROSS_f' type='XML'>
