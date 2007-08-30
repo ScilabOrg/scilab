@@ -113,52 +113,31 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLKINV_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKINV_f' type='LATEX'>
+Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
+Il est utilisé pour représenter un port d'entrée événementiel.
+Dans un superbloc, les ports doivent être numérotés à partir de 1
+jusqu'au nombre de ports.  
 </FILE>
 
-<FILE name='CLKOUTV_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKOUTV_f' type='LATEX'>
+Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
+Il est utilisé pour représenter un port de sortie événementiel.
+Dans un superbloc, les ports doivent être numérotés à partir de 1
+jusqu'au nombre de ports.  
 </FILE>
 
-<FILE name='CLKSOMV_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKSOMV_f' type='LATEX'>
+Ce bloc est un bloc d'addition d'événement à trois entrées.
+La sortie reproduit les événements de tous les ports d'entrées.
+A proprement parler, CLKSOMV n'est pas un vrai bloc scicos, car
+il est ignoré pendant la phase de compilation.\\
+Les sorties et les entrées de ce bloc sont synchronisées.
 </FILE>
 
-<FILE name='CLOCK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLOCK_f' type='LATEX'>
+Ce bloc est un super-bloc construit grâce au bloc \htmladdnormallink{EVTDLY\_f}{EVTDLY_f.htm} qui est rebouclé sur lui-même.\\
+L'unique sortie de ce bloc génère des événements à des dates précises, qui sont déterminées par le paramètre {\bf Period} de la boîte de dialogue.
 </FILE>
 
 <FILE name='CLR_f' type='LATEX'>
@@ -203,15 +182,15 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          Ce bloc est un générateur de valeurs constantes.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
@@ -227,15 +206,20 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='CURV_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Ce bloc définit une fonction tabulée en fonction du temps.
+	  Entre chaque point des mailles, ce bloc réalise une interpolation
+	  linéaire. En dehors des points tabulés, il fournit les derniers
+          points rencontrés.
+          L'utilisateur peut définir les différents points
+          en utilisant un éditeur graphique de courbes.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='Capacitor' type='LATEX'>
@@ -543,28 +527,15 @@ Ajoutez ici un paragraphe pour la description de la fonction
   </DESCRIPTION>
 </FILE>
 
-<FILE name='GENSIN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='GENSIN_f' type='LATEX'>
+Ce bloc est un générateur de sinusoïde : $M*\sin(F*t+P)$
 </FILE>
 
-<FILE name='GENSQR_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='GENSQR_f' type='LATEX'>
+Ce bloc est un générateur de signal carré : la sortie prend des valeurs
+entre -M et M.
+Pour chaque événement reçu, la sortie saute d'une valeur -M à M 
+ou de M à -M.
 </FILE>
 
 <FILE name='Ground' type='XML'>
@@ -576,7 +547,6 @@ Cet élément est un composant électrique simple fournissant une tension
 de référence dans des circuits électriques. Le potentiel au noeud de
 Terre est zéro. Chaque circuit électrique doit contenir au moins un
 élément Terre.
-
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -619,16 +589,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='INIMPL_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INIMPL_f' type='LATEX'>
+Les ports d'entrée INIMPL\_f sont des liens qui permettent de connecter
+l'intérieur d'un système vers l'extérieur.
 </FILE>
 
 <FILE name='INTEGRAL' type='LATEX'>
@@ -671,16 +634,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='IN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='IN_f' type='LATEX'>
+Ce bloc doit être utilisé dans un superbloc pour représenter un port
+d'entrée régulier. La taille de ce port est automatiquement ajustée.
+Dans un superbloc, les ports d'entrée réguliers doivent être numérotés
+de 1 jusqu'au nombre de ports d'entrée réguliers composant le superbloc.
 </FILE>
 
 <FILE name='ISELECT_f' type='XML'>
@@ -843,28 +801,16 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='OUTIMPL_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='OUTIMPL_f' type='LATEX'>
+Les ports de sortie OUTIMPL\_f sont des liens qui permettent de connecter
+l'extérieur d'un système vers l'intérieur.
 </FILE>
 
-<FILE name='OUT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='OUT_f' type='LATEX'>
+Ce bloc doit être utilisé dans un superbloc pour représenter un port
+de sortie régulier. La taille de ce port est ajustée automatiquement.
+Dans un superbloc, les ports de sortie réguliers doivent être numérotés
+de 1 jusqu'au nombre de ports de sortie réguliers composant le superbloc.
 </FILE>
 
 <FILE name='Others_pal' type='XML'>
@@ -2028,51 +1974,31 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='CLKIN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKIN_f' type='LATEX'>
+Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
+Il est utilisé pour représenter un port d'entrée événementiel.
+Dans un superbloc, les ports doivent être numérotés à partir de 1
+jusqu'au nombre de ports.  
 </FILE>
 
-<FILE name='CLKOUT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKOUT_f' type='LATEX'>
+Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
+Il est utilisé pour représenter un port de sortie événementiel.
+Dans un superbloc, les ports doivent être numérotés à partir de 1
+jusqu'au nombre de ports.
 </FILE>
 
-<FILE name='CLKSOM_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='CLKSOM_f' type='LATEX'>
+Ce bloc est un bloc d'addition d'événement à trois entrées.
+La sortie reproduit les événements de tous les ports d'entrées.
+A proprement parler, CLKSOM\_f n'est pas un vrai bloc scicos, car
+il est ignoré pendant la phase de compilation.\\
+Les sorties et les entrées de ce bloc sont synchronisées.
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+
 </DESCRIPTION>
 </FILE>
 
@@ -2106,27 +2032,27 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='CONST' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          Ce bloc est un générateur de valeurs constantes.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          Ce bloc est un générateur de valeurs constantes.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>

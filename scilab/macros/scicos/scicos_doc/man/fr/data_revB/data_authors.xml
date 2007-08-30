@@ -1357,9 +1357,12 @@ INRIA
 
 <FILE name='CONST_m' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
-</AUTHORS_ITEM>
+  <AUTHORS_ITEM label='Fady NASSIF'>
+    INRIA
+  </AUTHORS_ITEM>
+  <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+    INRIA
+  </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 

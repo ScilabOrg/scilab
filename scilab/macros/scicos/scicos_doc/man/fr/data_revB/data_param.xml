@@ -450,37 +450,39 @@
 </FILE>
 
 <FILE name='CLKINV_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. un entier qui définit le numéro de port.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKOUTV_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. un entier donnant le numéro de port.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKSOMV_f' type='XML'>
@@ -492,29 +494,32 @@
 </FILE>
 
 <FILE name='CLOCK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Period</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La période est le temps qui sépare deux événements consécutifs.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>Init time</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La date de l'événement inital.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Period</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La période est le temps qui sépare deux événements consécutifs.
+	  </SP>
+	  <SP>
+            Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>Init time</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La date de l'événement inital.
+	  </SP>
+	  <SP>
+            Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLR_f' type='LATEX'>
@@ -684,20 +689,21 @@
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Constant</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. Un vecteur de réel. La taille du vecteur donne la taille du port régulier de sortie. La valeur de la constante(i) est la valeur de la composante i du port de sortie.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Constant</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Un vecteur de réel. La taille du vecteur donne la taille du port régulier de sortie. La valeur de la constante(i) est la valeur de la composante i du port de sortie.
+	  </SP>
+	  <SP>
+            Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
@@ -1413,27 +1419,41 @@
 
 <FILE name='GENSIN_f' type='LATEX'>
 \begin{itemize}
-  \item {Magnitude:} un scalaire à valeur réelle. L'amplitude $M$ de la sinusoide.
-  \item {Frequency:} un scalaire à valeur réelle. La pulsation $\omega$ (rad/s) de la sinusoide.
-  \item {phase:} un scalaire à valeur réelle. La phase à l'origine (en radian) de la sinusoide.
+  \item {Magnitude} \\
+         un scalaire à valeur réelle.\\
+         L'amplitude $M$ de la sinusoide.\\
+         Type 'vec' de taille 1.
+
+  \item {Frequency} \\
+        un scalaire à valeur réelle.\\
+        La pulsation $F$ (rad/s) de la sinusoide.\\
+	Type 'vec' de taille 1.
+
+  \item {phase} \\
+        un scalaire à valeur réelle. \\
+        La phase à l'origine $P$ (en radian) de la sinusoide.\\
+	Type 'vec' de taille 1.
+
 \end{itemize}
 </FILE>
 
 <FILE name='GENSQR_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Amplitude</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. Un scalaire à valeur réelle donnant l'amplide M de la forme d'onde rectangulaire.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Amplitude</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	   Un scalaire à valeur réelle donnant l'amplide M
+           de la forme d'onde carrée.
+	  </SP>
+	   Type 'vec' de taille 1.
+	  <SP>
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='Ground' type='XML'>
@@ -1541,20 +1561,21 @@
 </FILE>
 
 <FILE name='INIMPL_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Spécifie le numéro du port d'entrée.
+	  </SP>
+	  <SP>
+            Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='INTEGRAL' type='LATEX'>
@@ -1662,20 +1683,21 @@
 </FILE>
 
 <FILE name='IN_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='ISELECT_f' type='XML'>
@@ -1911,37 +1933,39 @@
 </FILE>
 
 <FILE name='OUTIMPL_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Spécifie le numéro du port de sortie.
+	  </SP>
+	  <SP>
+            Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='OUT_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='PDE' type='XML'>
@@ -5410,43 +5434,39 @@ Propriétés : Type 'vec' de taille -1.
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    un entier qui définit le numéro de port.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
@@ -5620,43 +5640,50 @@ Propriétés : Type 'vec' de taille 1.
 </FILE>
 
 <FILE name='CONST' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Constant</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Constant</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    La valeur constante.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Constant</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Constant</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Une matrice de tous types.
+	  </SP>
+	  <SP>
+            Les dimensions de la matrice donnent les dimensions du port 
+            régulier de sortie.
+	  </SP>
+	  <SP> 
+           La valeur de la constante(i,j) est la valeur de la composante(i,j)
+           du port de sortie.
+	  </SP>
+	  <SP> 
+           Le type de donnée de la sortie du bloc est hérité de cette valeur.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'mat' de taille [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>

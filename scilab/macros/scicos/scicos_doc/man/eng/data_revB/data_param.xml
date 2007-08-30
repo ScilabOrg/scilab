@@ -239,20 +239,40 @@
 </PARAM>
 </FILE>
 
-<FILE name='CLKINV_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Port number   1
-\item {Port number:} an integer defining the port number. 
-\end{itemize}
+<FILE name='CLKINV_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
-<FILE name='CLKOUTV_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Port number   1
-\item {Port number:} an integer giving the port number. 
-\end{itemize}
+<FILE name='CLKOUTV_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKSOMV_f' type='XML'>
@@ -266,12 +286,17 @@
 <FILE name='CLOCK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Period   0.1
-\item {Period:} scalar. One over the frequency of the clock. Period is
-  the time that separates two output events.    
-%Init time   0.1
-\item {Init time:} scalar. Starting date. if negative the clock never
-  starts.   
+ %Period   0.1
+ \item {\bf Period} \\
+       scalar. One over the frequency of the clock. Period is
+       the time that separates two output events.  \\
+       Properties : Type 'vec' of size 1.
+
+ %Init time   0.1
+ \item {\bf Init time} \\
+        scalar. Starting date. if negative the clock never
+        starts. \\
+        Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -382,9 +407,11 @@
 %automatically generated, please edit
 \begin{itemize}
 %Constant   1
-\item {Constant:} a real vector. The vector size gives the size of the
+\item {\bf Constant} \\
+  a real vector. The vector size gives the size of the
   output port. The value  {\bf constants(i)}  is assigned to the ith
-  component of the output.  
+  component of the output.  \\
+  Properties :  Type 'vec' of size -1.
 \end{itemize}
 </FILE>
 
@@ -820,20 +847,37 @@
 <FILE name='GENSIN_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Magnitude   1
-\item {Magnitude:} a scalar. The magnitude M.
-%Frequency   1
-\item {Frequency:} a scalar. The frequency F. 
-%phase   0
-\item {phase:} a scalar. The phase P. 
+
+  %Magnitude   1
+  \item {\bf Magnitude} \\
+        a scalar. 
+        The magnitude M.\\
+        Type 'vec' of size 1.
+
+  %Frequency   1
+  \item {\bf Frequency} \\
+        a scalar. 
+        The frequency F.\\
+        Type 'vec' of size 1.
+
+  %phase   0
+  \item {\bf phase} \\
+        a scalar. 
+        The phase P.\\
+        Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
 <FILE name='GENSQR_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Amplitude   1
-\item {Amplitude:} a scalar  $M$ .
+
+  %Amplitude   1
+  \item {Amplitude}\\
+         a scalar $M$.\\
+         Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -887,8 +931,11 @@
 <FILE name='INIMPL_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Port number   1
-\item {Port number:} Specify the port number of the Inport block.
+
+  %Port number   1
+  \item {\bf Port number} \\
+        Specify the port number of the Inport block.\\
+        Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -955,13 +1002,22 @@
 </PARAM>
 </FILE>
 
-<FILE name='IN_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Port number   1
-\item {Port number:} An integer giving the port number. 
-\end{itemize}
-
+<FILE name='IN_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='ISELECT_f' type='LATEX'>
@@ -1085,17 +1141,30 @@
 <FILE name='OUTIMPL_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Port number   1
-\item {Port number:} Specify the port number of the Outport block.
+
+  %Port number   1
+  \item {\bf Port number} \\
+        Specify the port number of the Outport block.\\
+        Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
-<FILE name='OUT_f' type='LATEX'>
-%automatically generated, please edit
-\begin{itemize}
-%Port number   1
-\item {Port number:} an integer giving the port number. 
-\end{itemize}
+<FILE name='OUT_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='PDE' type='XML'>
@@ -3808,58 +3877,44 @@ Properties : Type 'vec' of size -1.
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Port number</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Port number</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    an integer defining the port number.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CLKSOM_f' type='XML'>
 <PARAM>
-<PARAM_INDENT>
 
-</PARAM_INDENT>
-</PARAM>
-</FILE>
-
-<FILE name='CLKSPLIT_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-</PARAM_INDENT>
 </PARAM>
 </FILE>
 
@@ -4025,43 +4080,49 @@ Properties : Type 'vec' of size 1.
 </FILE>
 
 <FILE name='CONST' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Constant</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Constant</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    The constant value.
+	  </SP>
+	  <SP>
+	    Properties : Type 'vec' of size -1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='CONST_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Constant</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The constant value. From this value the block herits its data type.
-</SP>
-<SP>
-Properties : Type 'vec' of size -1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Constant</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    A matrix of any type.
+	  </SP>
+	  <SP>
+            The size of the matrix gives the size of the regular output port.
+	  </SP>
+	  <SP> 
+           The constant(i,j) value is the component(i,j) value of the
+           output port.
+	  </SP>
+	  <SP>
+	    From this value the block herits its data type.
+	  </SP>
+	  <SP>
+	    Properties : Type 'mat' of size [-1,-2].
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='COSBLK_f' type='XML'>

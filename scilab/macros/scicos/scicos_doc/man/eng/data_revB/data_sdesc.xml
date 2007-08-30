@@ -1099,7 +1099,7 @@
 </FILE>
 
 <FILE name='PID' type='XML'>
-<SHORT_DESCRIPTION name="PID">Correcteur PID</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="PID">PID regulator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>

@@ -155,16 +155,12 @@
 
 <FILE name='CURV_f' type='XML'>
 <SEE_ALSO>
-
-
-
+  <SEE_ALSO_ITEM><LINK>Sigbuilder </LINK></SEE_ALSO_ITEM>
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Capacitor' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
