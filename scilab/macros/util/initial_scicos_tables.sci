@@ -234,7 +234,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
       'Move',                  "Click object to move, drag and click (left to fix, right to cancel)";
       'Duplicate',             "Click on the object to duplicate, drag, click (left to copy, right to cancel)";
       'Align',                 "Click on an a port , click on a port of object to be moved";
-      'Link',                  "Click link origin, drag, click left for final or intermediate points or right to cancel";
+      'Link',                  "Drag, click left for final or intermediate points or right to cancel";
       'Delete',                "Delete: Click on the object to delete";
       'Flip',                  "Click on block to be flipped"      ;
       'Rotate Left',           "Click on block to be turned left"  ;
@@ -260,7 +260,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   //Scicos Menus Help definitions===========================================
   
   %scicos_help = tlist(..
-		     ['sch','Display mode','Window','Background color','Default link colors',..
+		     ['sch', ...
+		      'Display mode','Window','Background color','Default link colors',..
 		      'ID fonts','Aspect','Add color','Focus','Shift','Zoom in','Zoom out',..
 		      'Fit diagram to figure','View','Help','Calc','Palettes','Context',...
                       'Cut','Copy','Paste','Set grid',..
@@ -272,7 +273,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 		      'Save As','Load','Load as Palette','Save as Palette','Save as Interf Func',..
 		      'Set Diagram Info','Navigator','Quit','Open/Set','Resize','Icon',..
 		      'Color','Label','Get Info','Identification','Documentation',..
-		      'Code Generation','Export','Export All','Pal editor','Icon Editor','Shortcuts'],..
+		      'Code Generation','Export','Export All','Pal editor','Icon Editor','Shortcuts'],.. //**
 		     ["Display mode can be 0 or 1. In mode 1, scicos editor uses the";
 		      "pixmap option of Scilab graphics to create   a backing";
 		      "store for the graphics used for displaying scicos diagrams. ";
