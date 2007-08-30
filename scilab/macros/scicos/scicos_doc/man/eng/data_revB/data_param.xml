@@ -3975,7 +3975,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Bounds Vector X (-1 for standard)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+If you let -1 the x ticks would be between 0 and 1 else you can put your own vector.
 </SP>
 <SP>
 Properties : Type 'vec' of size -1.
@@ -3987,7 +3987,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Bounds Vector Y (-1 for standard)</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
+If you let -1 the x ticks would be between 0 and 1 else you can put your own vector.
 </SP>
 <SP>
 Properties : Type 'vec' of size -1.
@@ -3999,10 +3999,10 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>ColorMap</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 3.
+The colormap is a range color linked to the window output of the scope. You can put a jetcolormap or hotcolormap or graycolormap or your own (see colormap help).
 </SP>
 <SP>
-Properties : Type 'vec' of size -1.
+Properties : Must be a mx3 matrix and m >= 3
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -4011,7 +4011,7 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Zmin</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 4.
+Minimum value in Z values
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -4023,7 +4023,7 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Zmax</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 5.
+Maximum values in Z values
 </SP>
 <SP>
 Properties : Type 'vec' of size 1.
@@ -4043,10 +4043,10 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>ColorMap</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 1.
+The colormap is a range color linked to the window output of the scope. You can put a jetcolormap or hotcolormap or graycolormap or your own (see colormap help).
 </SP>
 <SP>
-Properties : Type 'vec' of size -1.
+Properties : Must be a mx3 matrix and m >= 3
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -4055,10 +4055,10 @@ Properties : Type 'vec' of size -1.
 <PARAM_NAME>Minimum level range</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 2.
+The minimum level range is the minimum value who comes in the regular input port. It would be linked to the 'cold value' of the colormap.
 </SP>
 <SP>
-Properties : Type 'vec' of size 1.
+Properties : A scalar
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>
@@ -4067,10 +4067,10 @@ Properties : Type 'vec' of size 1.
 <PARAM_NAME>Maximum level range</PARAM_NAME>
 <PARAM_DESCRIPTION>
 <SP>
-The parameter description 3.
+The maximum level range is the maximum value who comes in the regular input port. It would be linked to the 'hot value' of the colormap.
 </SP>
 <SP>
-Properties : Type 'vec' of size 1.
+Properties : A scalar
 </SP>
 </PARAM_DESCRIPTION>
 </PARAM_ITEM>

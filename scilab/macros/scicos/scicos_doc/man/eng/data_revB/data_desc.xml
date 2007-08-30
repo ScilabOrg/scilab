@@ -1558,7 +1558,7 @@ scalar or vector inputs.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.  
+This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.  When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1570,7 +1570,7 @@ This block realizes the visualization of the evolution of the two regular input 
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port. 
+This block realizes the visualization of the evolution of the two regular input signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1647,7 +1647,7 @@ $x_0$. The dimensions must be compatible.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This scope is useful to see the evolution in 3 dimensions of a grid.
+CMAT3D is a scope that shows matrix values as z values on a xy grid.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1659,7 +1659,7 @@ This scope is useful to see the evolution in 3 dimensions of a grid.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This scope is useful to see the evolution of a quantity on a colored grid.
+CMATVIEW is a scope that shows matrix values on a colormapped grid.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1707,7 +1707,7 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.   
+This block realizes the visualization of the evolution of the two regular inputs signals by drawing the second input as a function of the first at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1719,7 +1719,7 @@ This block realizes the visualization of the evolution of the two regular input 
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port. 
+This block realizes the visualization of the evolution of the three regular inputs signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>

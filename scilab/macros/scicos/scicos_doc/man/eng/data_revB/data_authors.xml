@@ -129,6 +129,8 @@ INRIA
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
 </AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -152,6 +154,8 @@ INRIA
 <AUTHORS>
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1279,25 +1283,41 @@ INRIA
 
 <FILE name='CANIMXY' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1339,13 +1359,21 @@ INRIA
 
 <FILE name='CMAT3D' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1374,13 +1402,21 @@ INRIA
 
 <FILE name='CSCOPXY' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1887,7 +1923,11 @@ INRIA
 
 <FILE name='BOUNCEXY' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Benoit Bayol'>
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
