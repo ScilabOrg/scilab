@@ -170,7 +170,7 @@ function [%pt,scs_m] = do_select2block(%pt,scs_m)
   if lstsize(reg.objs)==0 then return, end
   //superblock should not inherit the context nor the name
   reg.props.context=' ' 
-  reg.props.title(1)='Untitled'
+  reg.props.title(1)='SuperBlock'
 
   sup = SUPER_f('define')
   sup.graphics.orig   = [(rect(1)+rect(3))/2-20,(rect(2)+rect(4))/2-20]
