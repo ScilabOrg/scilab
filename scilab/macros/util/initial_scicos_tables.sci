@@ -1,10 +1,16 @@
-function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
-	  %scicos_display_mode, modelica_libs,scicos_pal_libs] = initial_scicos_tables()
+function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
+	  %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
+	  %scicos_lhb_list, %CmenuTypeOneVector ] = initial_scicos_tables()
 //**
 //** INRIA
+//** Comments by Simone Mannori
 //** 04 Sep 2006 : updated file with the last "scicos_new" mods
 //**
-//** Called from "scilab/scilab.star" at scilab startup
+//** 30 August 2007: some data structure are moved from scicos.sci here.
+//**
+//**
+//** N.B. :
+//**        This function is called from "scilab/scilab.star" at Scilab's startup
   
 	    
   %scicos_display_mode = 0 ; //** obsolete: with the new graphics the display mode
@@ -115,6 +121,74 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 	      
   %scicos_menu = list(File,Diagram,Palette,Edit,View,Simulate,Format,Tools,Help);
   
+  //Scicos Right Mouse Button Menu ===========================================
+  //** 
+  
+    //**----------------------------- RIGHT MOUSE BUTTON MENUS (Popup) ------------------------
+  //** Right Mouse Button Menus:
+  //**        "%scicos_lhb_list" data structure initialization 
+  //**                 
+  //** Create an empty list() data structure 
+  %scicos_lhb_list = list();
+  
+  //** Fill the data structure with menu/command/functions definitions  
+  
+  //** state_var = 1 : right click over a valid object inside the CURRENT Scicos Window
+  %scicos_lhb_list(1) = list('Open/Set',..
+			     'Cut',..
+			     'Copy',..
+			     'Smart Move',..
+			     'Move',..
+			     'Duplicate',..
+			     'Delete',..
+			     'Link',..
+			     'Align',..
+			     'Replace',..
+			     'Flip',..
+			     list( 'Properties',..
+			           'Resize',..
+			           'Icon',..
+			           'Icon Editor',..
+			           'Color',..
+			           'Label',..
+			           'Get Info',..
+                                   'Details',..
+			           'Identification',..
+			           'Block Documentation'),..
+			           'Code Generation',..
+			           'Help');
+  
+  //** state_var = 2 : right click in the void of the CURRENT Scicos Window			  
+  %scicos_lhb_list(2) = list('Undo',..
+                             'Paste',..
+			     'Palettes',..
+			     'Context',..
+			     'Add new block',..
+			     'Region to Super Block',..
+			     'Replot',..
+			     'Save',..
+			     'Save As',..
+			     'Load',..
+			     'Export',..
+			     'Quit',..
+			     'Background color',..
+			     'Show Block Shadow'  ,..
+			     'Zoom in' ,..
+			     'Zoom out',..
+                             'Pal Tree',..
+                             'Browser',..
+                             'Details',..
+			     'Help');
+
+  //** state_var = 3 : right click over a valid object inside a PALETTE or
+  //**                 not a current Scicos window
+  //** 
+  %scicos_lhb_list(3) = list('Copy',..
+			     'Help');
+ //**------------------------------
+
+  
+  
   //Scicos Shortcuts definitions===========================================
   //** single key shortcut "quick menu" 
   %scicos_short=['a','Align'
@@ -147,8 +221,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
   end
 
   //Scicos Menus Help definitions===========================================
-
-
+  
   %scicos_help = tlist(..
 		     ['sch','Display mode','Window','Background color','Default link colors',..
 		      'ID fonts','Aspect','Add color','Focus','Shift','Zoom in','Zoom out',..
@@ -503,4 +576,41 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
 		     [' Pal editor allows you to define and reorder the palettes.'],..
 		     [' Icon Editor allows you to define graphically the icon of the block.'],..
 		     [' Used to define personalized shortcuts.'])
+
+		     
+  //** Scicos "xinfo" messages ===========================================
+  //** 		     
+  //** "%CmenuTypeOneVector" store the list of the commands/function to be called that require both 'Cmenu' AND '%pt'
+  //** menus of type 1 (require %pt)
+  %CmenuTypeOneVector =..
+     ['Region to Super Block', 'Click, drag region and click (left to fix, right to cancel)'        ;
+      'Smart Move',            'Click object to move, drag and click (left to fix, right to cancel)';
+      'Move',                  'Click object to move, drag and click (left to fix, right to cancel)';
+      'Duplicate',             'Click on the object to duplicate, drag, click (left to copy, right to cancel)';
+      'Replace',               'Click on new object , click on object to be replaced';
+      'Align',                 'Click on an a port , click on a port of object to be moved';
+      'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
+      'Delete',                'Delete: Click on the object to delete';
+      'Flip',                  'Click on block to be flipped'      ;
+      'Rotate Left',           'Click on block to be turned left'  ;
+      'Rotate Right',          'Click on block to be turned right' ;
+      'Open/Set',              'Click to open block or make a link';
+      'MoveLink',              ''                                  ;
+      'SelectLink',            ''                                  ;
+      'CtrlSelect',            ''                                  ;
+      'SelectRegion',          ''                                  ;
+      'Popup',                 ''                                  ;
+      'Label',                 'Click block to label';
+      'Get Info',              'Click on object  to get information on it';
+      'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
+      'Icon',                  'Click on block to edit its icon';
+      'Color',                 'Click on object to paint';
+      'Identification',        'Click on an object to set or get identification';
+      'Resize',                'Click block to resize';
+      'Block Documentation',   'Click on a block to set or get it''s documentation'
+     ]
+    
+  //**-----------------------------
+
+//** This is the END, the END my friend". By The Doors, Apocalypse Now.    
 endfunction
