@@ -7,7 +7,7 @@ function do_exit()
 //**      inside the 'set' section of 'SUPER_f.sci' interfacing function of
 //**      Super Block 
 
-xinfo(" "); 
+//** xinfo(" "); 
 
 r = 0 ; 
 
@@ -50,11 +50,10 @@ end
 for win=windows(size(windows,1):-1:noldwin+1,2)'
   
   if or(win==winsid()) then
-    //** xbasc(win) ; 
-    //** xdel(win)  ;
     gh_del = scf(win) ; //** select the 'win'window and get the handle
     delete (gh_del)   ; //** delete the window   
   end
 
 end
+
 endfunction
