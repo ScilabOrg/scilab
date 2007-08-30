@@ -2,6 +2,10 @@ function [scs_m,DEL,DELL]=do_delete1(scs_m,K,gr)
 //!
 // Copyright INRIA
 //
+//**  30 August 2007 :
+//**                BEWARE: this code is BUGGED : see the residual split after delete
+//**                        this bug is older than Simone (see scilab 3.1.1) 
+//**
 //** 22 June 2006 : New Graphics Interface update
 //
 // Perform deletion of scs_m object whose index are given in the vector

@@ -20,7 +20,8 @@ function [%pt,scs_m,needcompile,Select] = do_delete(%pt,scs_m,needcompile,Select
   scs_m_save = scs_m               ;
   nc_save = needcompile            ;
 
-  [scs_m,DEL] = do_delete1(scs_m,K,%t);
+  [scs_m,DEL] = do_delete1(scs_m,K,%t); //** this is the function that do most of 
+                                        //** the work and IS BUGGED ! (30/08/2007)
 
   //** 28 Aug 2006: Defused :)
   //** WARNING! : potentially dangerous code here : can ruin the coherence !
