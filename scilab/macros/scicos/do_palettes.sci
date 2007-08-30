@@ -7,12 +7,19 @@ function [palettes,windows] = do_palettes(palettes,windows)
 //      Copyright INRIA
 //** 
 
-  //** Call a Tk interactive menu in order to choose a palette 
-  kpal = choose(scicos_pal(:,1),'Choose a Palette')
- 
-  //** if no Palette are choosen the exit 
-  if kpal==0 then return,end
-
+  global ClipboardPal
+  
+  if ClipboardPal==[] then
+    //** Call a Tk interactive menu in order to choose a palette 
+    kpal = choose(scicos_pal(:,1),'Choose a Palette')
+    
+    //** if no Palette are choosen the exit 
+    if kpal==0 then return,end
+  else
+    kpal=ClipboardPal
+    ClipboardPal=[]
+  end
+  
   lastwin = curwin ; //** save the current graphic window_id 
   
   winpal = find(windows(:,1)==-kpal) ; //** look for the winid of the selected palette 
