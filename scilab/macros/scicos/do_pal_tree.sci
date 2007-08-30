@@ -35,11 +35,6 @@ endfunction
 
 function tt = pal_TreeView(scs_m)
 
-disp("."); //** debug only 
-
-x = [] ; //** why ?
-y = 0  ; //** ???
-
 tt=[ "set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
      "if {[lsearch $auto_path $BWpath]==-1} {"
      "    set auto_path [linsert $auto_path 0 $BWpath]"
