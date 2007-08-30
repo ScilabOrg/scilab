@@ -42,7 +42,7 @@ function [routines,IntFunc]=create_palette(Path)
       if txt=='Sources' then
 	lisf=['CONST_m.sci';'GENSQR_f.sci';'RAMP.sci';  
 	      'RAND_m.sci';'RFILE_f.sci';
-	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; ' READAU_f.sci';
+	      'CLKINV_f.sci'; 'CURV_f.sci';  'INIMPL_f.sci'; 'READAU_f.sci';
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
 	      'TIME_f.sci'; 'Modulo_Count.sci';'Sigbuilder.sci';'Counter.sci';
