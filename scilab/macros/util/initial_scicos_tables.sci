@@ -21,17 +21,19 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   //** %scs_wgrid(3) : color
   %scs_wgrid = [10;10;12]; //**define aspect of grid
 
-  //Scicos palettes =================================================================
+  //Scicos palettes names ============================================================
   //**
   pal_names = ['Sources'    ;'Sinks'           ;'Linear'          ;'Non_linear';
                'Matrix'     ;'Integer'         ;'Events'          ;'Threshold' ;
                'Others'     ;'Branching'       ;'Electrical'      ;'ThermoHydraulics';
                'OldBlocks'  ;'DemoBlocks'];
   scicos_pal= [pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
-  //Scicos palettes loading ===========================================
+  
+  //Scicos palettes libs list ========================================================
+  //**
   scicos_pal_libs = ['Branching','Events','Misc','Sinks','Threshold','Linear', ...
-	  'MatrixOp','NonLinear','Sources','Electrical','Hydraulics','PDE',...
-	  'IntegerOp'];
+	             'MatrixOp','NonLinear','Sources','Electrical','Hydraulics','PDE',...
+	             'IntegerOp'];
 
   //Scicos Menu definitions==========================================================
   //**
@@ -143,8 +145,9 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			     'Delete',..
 			     'Link',..
 			     'Align',..
-			     'Replace',..
 			     'Flip',..
+			     'Rotate Left',..
+			     'Rotate Right',..      
 			     list( 'Properties',..
 			           'Resize',..
 			           'Icon',..
@@ -155,8 +158,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                                    'Details',..
 			           'Identification',..
 			           'Block Documentation'),..
-			           'Code Generation',..
-			           'Help');
+			     'Code Generation',..
+			     'Help');
   
   //** state_var = 2 : right click in the void of the CURRENT Scicos Window			  
   %scicos_lhb_list(2) = list('Undo',..
@@ -220,6 +223,40 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
     modelica_libs=[modelica_libs,TMPDIR+'/Modelica'];
   end
 
+  		     
+  //** Scicos "xinfo" messages ===========================================
+  //** 		     
+  //** "%CmenuTypeOneVector" store the list of the commands/function to be called that require both 'Cmenu' AND '%pt'
+  //** menus of type 1 (require %pt)
+  %CmenuTypeOneVector =..
+     ['Region to Super Block', "Press lef mouse button, drag region and release (right button to cancel)" ;
+      'Smart Move',            "Click object to move, drag and click (left to fix, right to cancel)";
+      'Move',                  "Click object to move, drag and click (left to fix, right to cancel)";
+      'Duplicate',             "Click on the object to duplicate, drag, click (left to copy, right to cancel)";
+      'Align',                 "Click on an a port , click on a port of object to be moved";
+      'Link',                  "Click link origin, drag, click left for final or intermediate points or right to cancel";
+      'Delete',                "Delete: Click on the object to delete";
+      'Flip',                  "Click on block to be flipped"      ;
+      'Rotate Left',           "Click on block to be turned left"  ;
+      'Rotate Right',          "Click on block to be turned right" ;
+      'Open/Set',              "Click to open block or make a link";
+      'MoveLink',              ''                                  ; //** hidden commands 
+      'SelectLink',            ''                                  ;
+      'CtrlSelect',            ''                                  ;
+      'SelectRegion',          ''                                  ;
+      'Popup',                 ''                                  ;
+      'Label',                 "Click block to label";
+      'Get Info',              "Click on object  to get information on it";
+      'Code Generation',       "Click on a Superblock (without activation output) to obtain a coded block!" ;
+      'Icon',                  "Click on block to edit its icon";
+      'Color',                 "Click on object to choose its color";
+      'Identification',        "Click on an object to set or get identification";
+      'Resize',                "Click block to resize";
+      'Block Documentation',   "Click on a block to set or get it''s documentation"
+     ]
+    
+  //**-----------------------------
+ 
   //Scicos Menus Help definitions===========================================
   
   %scicos_help = tlist(..
@@ -576,41 +613,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 		     [' Pal editor allows you to define and reorder the palettes.'],..
 		     [' Icon Editor allows you to define graphically the icon of the block.'],..
 		     [' Used to define personalized shortcuts.'])
-
-		     
-  //** Scicos "xinfo" messages ===========================================
-  //** 		     
-  //** "%CmenuTypeOneVector" store the list of the commands/function to be called that require both 'Cmenu' AND '%pt'
-  //** menus of type 1 (require %pt)
-  %CmenuTypeOneVector =..
-     ['Region to Super Block', 'Click, drag region and click (left to fix, right to cancel)'        ;
-      'Smart Move',            'Click object to move, drag and click (left to fix, right to cancel)';
-      'Move',                  'Click object to move, drag and click (left to fix, right to cancel)';
-      'Duplicate',             'Click on the object to duplicate, drag, click (left to copy, right to cancel)';
-      'Replace',               'Click on new object , click on object to be replaced';
-      'Align',                 'Click on an a port , click on a port of object to be moved';
-      'Link',                  'Click link origi-n, drag, click left for final or intermediate points or right to cancel';
-      'Delete',                'Delete: Click on the object to delete';
-      'Flip',                  'Click on block to be flipped'      ;
-      'Rotate Left',           'Click on block to be turned left'  ;
-      'Rotate Right',          'Click on block to be turned right' ;
-      'Open/Set',              'Click to open block or make a link';
-      'MoveLink',              ''                                  ;
-      'SelectLink',            ''                                  ;
-      'CtrlSelect',            ''                                  ;
-      'SelectRegion',          ''                                  ;
-      'Popup',                 ''                                  ;
-      'Label',                 'Click block to label';
-      'Get Info',              'Click on object  to get information on it';
-      'Code Generation',       'Click on a Superblock (without activation output) to obtain a coded block!' ;
-      'Icon',                  'Click on block to edit its icon';
-      'Color',                 'Click on object to paint';
-      'Identification',        'Click on an object to set or get identification';
-      'Resize',                'Click block to resize';
-      'Block Documentation',   'Click on a block to set or get it''s documentation'
-     ]
-    
-  //**-----------------------------
 
 //** This is the END, the END my friend". By The Doors, Apocalypse Now.    
 endfunction
