@@ -73,7 +73,7 @@ end
 
 Path = 'root'
 tt = crlist(scs_m, Path, tt);
-
+tt = [tt;' $w.t bindImage <B1-Motion> {pp}']; 
 tt = [tt;' $w.t bindImage <Double-1> {pp}'];
 tt = [tt;' $w.t bindImage <3> {qq}'];
 endfunction
