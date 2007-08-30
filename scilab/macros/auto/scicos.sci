@@ -469,7 +469,7 @@ Select_back = [] ; //** empty
 //Clipboard = []; //** used in Copy Cut and Paste function 
 //** --- End of initialization ----------------------------------------------------------- 
 if %diagram_open then
-   drawobjs(scs_m) ; //** draw the full diagram from the original Scicos data structure 
+   execstr('drawobjs(scs_m)', 'errcatch') ; //** draw the full diagram from the original Scicos data structure 
 end //  %diagram_open test
 
 
