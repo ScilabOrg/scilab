@@ -158,4 +158,28 @@
 <FILE name='READAU_f' type='SPECIALDESC'>
 	dial_width_html=260pt
 </FILE>
+
+<FILE name='INTRP2BLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='INTRPLBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='EXPBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='EXPBLK_m' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='LOGBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='POWBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
 </DATA>

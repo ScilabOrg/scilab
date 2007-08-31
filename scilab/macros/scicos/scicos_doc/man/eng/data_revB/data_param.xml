@@ -3,8 +3,11 @@
 <FILE name='ABS_VALUE' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%use zero\_crossing (1: yes) (0:no)   1
-\item {use zero\_crossing :} Select to enable zero crossing detection. 
+
+  %use zero\_crossing (1: yes) (0:no)   1
+  \item {\bf use zero\_crossing} \\
+        Select to enable zero crossing detection. \\
+        Properties : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -771,8 +774,12 @@
 <FILE name='EXPBLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%a ($>$0)   \%e
-\item {a :} A real positive scalar 
+
+  %a ($>$0)  \%e
+  \item {\bf a} \\
+        A real positive scalar.\\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -975,22 +982,39 @@
 <FILE name='INTRP2BLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%X coord.   [0;1]
-\item {X coord.:} an n-vector (strictly increasing) 
-%Y coord.   [0;1]
-\item {Y coord.:} an m-vector (strictly increasing) 
-%Z values   [0,1;1,2]
-\item {Z values:} an $m \times n$ matrix 
+
+  %X coord.   [0;1]
+  \item {\bf X coord.} \\
+        an n-vector (strictly increasing).\\
+        Properties : Type 'vec' of size -1
+
+  %Y coord.   [0;1]
+  \item {\bf Y coord.} \\
+        an m-vector (strictly increasing).\\
+        Properties : Type 'vec' of size -1
+
+  %Z values   [0,1;1,2]
+  \item {\bf Z values} \\
+        an $m \times n$ matrix.\\
+        Properties : Type 'mat' of size [-1,-1]
+
 \end{itemize}
 </FILE>
 
 <FILE name='INTRPLBLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%X coord.   [0;1]
-\item {X coord.:}A vector (strictly increasing). 
-%Y coord.   [0;1]
-\item {Y coord.:}A vector (same size as $X$ coord). 
+
+  %X coord.   [0;1]
+  \item {\bf X coord.}\\
+        A vector (strictly increasing).\\
+        Properties : Type 'vec' of size -1
+
+  %Y coord.   [0;1]
+  \item {\bf Y coord.}\\
+        A vector (same size as $X$ coord).\\
+        Properties : Type 'vec' of size -1
+
 \end{itemize}
 </FILE>
 
@@ -1051,8 +1075,12 @@
 <FILE name='LOGBLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Basis ($>$1)   \%e
-\item {Basis :} A real scalar greater than 1.   
+
+  %Basis ($>$1)   \%e
+  \item {\bf Basis} \\
+        A real scalar greater than 1.\\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -1079,13 +1107,23 @@
 <FILE name='MAXMIN' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Min (1) or Max (2)    2
-\item {Min :} The function (min or max) to apply to the input.
-%Number of input vectors (1 or 2)   1
-\item {Number of input vectors :}The number of inputs to the block.
-%zero-crossing (1: yes, 0;no)   1
-\item {zero-crossing :} Select to enable zero crossing detection to
-  detect minimum and maximum values.  
+
+  %Min (1) or Max (2)    2
+  \item {\bf Min or Max} \\
+        The function (min or max) to apply to the input.\\
+        Properties : Type 'vec' of size 1.
+
+  %Number of input vectors (1 or 2)   1
+  \item {\bf Number of input vectors} \\
+        The number of inputs to the block.\\
+        Properties : Type 'vec' of size 1.
+
+  %zero-crossing (1: yes, 0;no)   1
+  \item {\bf zero-crossing} \\
+        Select to enable zero crossing detection to
+        detect minimum and maximum values.\\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -1202,8 +1240,12 @@
 <FILE name='POWBLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%to the power of   1.5
-\item {to the power of:}real scalar 
+
+  %to the power of   1.5
+  \item {\bf to the power of} \\
+        real scalar.\\
+        Properties : Type 'vec' of size 1.
+
 \end{itemize}
 </FILE>
 
@@ -1506,9 +1548,11 @@
 <FILE name='REGISTER_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
-%Register initial condition   0;0;0;0;0;0;0;0;0;0
-\item {Register initial condition:} A column vector. It contains the
-  initial state of the register.  
+
+  %Register initial condition   0;0;0;0;0;0;0;0;0;0
+  \item {\bf Register initial condition} \\
+        A column vector. It contains the initial state of the register.\\
+        Properties : Type 'vec' of size -1
 \end{itemize}
 </FILE>
 
@@ -6882,24 +6926,16 @@ when the type is int8 or uint8 the number must be positif and less than 8.
 </PARAM>
 </FILE>
 
-<FILE name='EXPBLK_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='EXPBLK_m' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>a (&gt;0)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-The parameter description 1.
-</SP>
-<SP>
-Properties : Type 'vec' of size 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %a ($>$0)  \%e
+  \item {\bf a} \\
+        A real positive scalar.\\
+        Properties : Type 'vec' of size 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>

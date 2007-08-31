@@ -3,7 +3,10 @@
 
 <FILE name='ABS_VALUE' type='LATEX'>
 \begin{itemize}
-\item {use zero\_crossing :} Choix Oui/Non (1/0) pour activer la détection de passage à zéro.
+
+  \item {\bf use zero\_crossing} \\
+        Choix Oui/Non (1/0) pour activer la détection de passage à zéro.\\
+        Propriétés : Type 'vec' de taille 1.
 \end{itemize}
 </FILE>
 
@@ -1222,20 +1225,22 @@
 </FILE>
 
 <FILE name='EXPBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>a (&gt;0)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. Un scalaire à valeur réelle positive donnant le nombre élévé à la puissance u.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>a (&gt;0)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	   Un scalaire à valeur réelle positive donnant 
+	   le nombre élévé à la puissance u.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='EXPRESSION' type='XML'>
@@ -1613,65 +1618,43 @@
 \end{itemize}
 </FILE>
 
-<FILE name='INTRP2BLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='INTRP2BLK_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>X coord.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %X coord.   [0;1]
+  \item {\bf X coord.} \\
+        un vecteur de taille n (strictement croissant).\\
+        Propriétés : Type 'vec' de taille -1
 
-<PARAM_ITEM>
-<PARAM_NAME>Y coord.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Y coord.   [0;1]
+  \item {\bf Y coord.} \\
+        un vecteur de taille m (strictement croissant).\\
+        Propriétés : Type 'vec' de taille -1
 
-<PARAM_ITEM>
-<PARAM_NAME>Z values</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'mat' de taille [-1,-1]. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Z values   [0,1;1,2]
+  \item {\bf Z values} \\
+        une matrice de taille m,n.\\
+        Propriétés : Type 'mat' de taille [-1,-1]
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
-<FILE name='INTRPLBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='INTRPLBLK_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>X coord.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %X coord.   [0;1]
+  \item {\bf X coord.}\\
+        un vecteur (strictement croissant).\\
+        Propriétés : Type 'vec' de taille -1
 
-<PARAM_ITEM>
-<PARAM_NAME>Y coord.</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Y coord.   [0;1]
+  \item {\bf Y coord.}\\
+        un vecteur (de même taille que $X$).\\
+        Propriétés : Type 'vec' de taille -1
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='INVBLK_f' type='XML'>
@@ -1743,21 +1726,16 @@
 </PARAM>
 </FILE>
 
-<FILE name='LOGBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='LOGBLK_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Basis (&gt;1)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Basis ($>$1)   \%e
+  \item {\bf Basis} \\
+        Un scalaire plus grand que 1.\\
+        Propriétés : Type 'vec' de taille 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='LOGICAL_OP' type='XML'>
@@ -1794,39 +1772,28 @@
 </PARAM>
 </FILE>
 
-<FILE name='MAXMIN' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='MAXMIN' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Min (1) or Max (2) </PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Min (1) or Max (2)    2
+  \item {\bf Min or Max} \\
+        La fonction (min ou max) à appliquer à l'entrée.\\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>Number of input vectors (1 or 2)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 2.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %Number of input vectors (1 or 2)   1
+  \item {\bf Number of input vectors} \\
+        Le nombre d'entrées du bloc. \\
+        Propriétés : Type 'vec' de taille 1.
 
-<PARAM_ITEM>
-<PARAM_NAME>zero-crossing (1: yes, 0;no)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 3.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %zero-crossing (1: yes, 0;no)   1
+  \item {\bf zero-crossing} \\
+        Sélectionnez ce paramètre pour permettre
+        l'utilisation de la détection 'zero crossing'
+        pour déterminer les valeurs minimales et maximales.\\
+        Propriétés : Type 'vec' de taille 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='MUX' type='XML'>
@@ -1984,21 +1951,16 @@
 </PARAM>
 </FILE>
 
-<FILE name='POWBLK_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='POWBLK_f' type='LATEX'>
+%automatically generated, please edit
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>to the power of</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
+  %to the power of   1.5
+  \item {\bf to the power of} \\
+        scalaire.\\
+        Propriétés : Type 'vec' de taille 1.
 
-</PARAM_INDENT>
-</PARAM>
+\end{itemize}
 </FILE>
 
 <FILE name='PRODUCT' type='XML'>
@@ -2329,21 +2291,15 @@
 \end{itemize}
 </FILE>
 
-<FILE name='REGISTER_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
+<FILE name='REGISTER_f' type='LATEX'>
+\begin{itemize}
 
-<PARAM_ITEM>
-<PARAM_NAME>Register initial condition</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille -1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  %Register initial condition   0;0;0;0;0;0;0;0;0;0
+  \item {\bf Register initial condition} \\
+        Un vecteur colonne.\\
+        Ce paramètre contient l'état initial du registre.\\
+        Propriétés : Type 'vec' de taille -1
+\end{itemize}
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
@@ -8221,23 +8177,22 @@ Propriétés : Type 'str' de taille 1.
 </FILE>
 
 <FILE name='EXPBLK_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>a (&gt;0)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-La description du paramètre 1.
-</SP>
-<SP>
-Propriétés : Type 'vec' de taille 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>a (&gt;0)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	   Un scalaire à valeur réelle positive donnant 
+	   le nombre élévé à la puissance u.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>

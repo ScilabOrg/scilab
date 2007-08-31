@@ -517,7 +517,7 @@ La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
 bilinéaire.
 Ce bloc a deux entrées scalaires et une seule sortie scalaire.
 Les grandeurs $X(i)$ et $Y(i)$ donnent respectivement les coordonnées
-$X,Y$ du $i^{\rm \grave{e}me$ point de donnée et la fonction $Z(Y(i),X(i))$
+$X,Y$ du $i^{\rm \grave{e}me}$ point de donnée et $Z(Y(i),X(i))$
 sa valeur.
 </FILE>
 
@@ -526,7 +526,7 @@ La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
 linéaire.
 Ce bloc a une seule entrée scalaire et une seule sortie scalaire.
 Les grandeurs $X$ et $Y$ donnent respectivement les coordonnées
-$X,Y$ des points de données qui seront interpolées.
+$X,Y$ des points de données qui seront interpolés.
 $X$ doit être strictement croissant.
 </FILE>
 
@@ -576,7 +576,7 @@ elle est FAUSSE (0) si elle est égale zéro.
 </FILE>
 
 <FILE name='LOOKUP_f' type='LATEX'>
-Ce bloc réalise une fonction non-linéaire qui est définit grâce à un
+Ce bloc réalise une fonction non-linéaire qui est défini grâce à un
 éditeur graphique.
 </FILE>
 
@@ -592,16 +592,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='MAXMIN' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='MAXMIN' type='LATEX'>
+Ce bloc peut trouver aussi bien le maximum que le minimum dans les
+éléments de ses entrées.
+La fonction min ou max peut être choisie dans les paramètres de la
+boîte de dialogue.
 </FILE>
 
 <FILE name='MUX' type='XML'>
@@ -718,16 +713,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='POWBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='POWBLK_f' type='LATEX'>
+Ce bloc réalise $y(i)=u(i)^a$.
+Les tailles des ports d'entrée/sortie sont déterminées par le
+compilateur.
 </FILE>
 
 <FILE name='PRODUCT' type='XML'>
@@ -742,16 +731,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='PROD_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='PROD_f' type='LATEX'>
+La sortie de ce bloc est le produit élément par élément des entrées.
 </FILE>
 
 <FILE name='PerteDP' type='XML'>
@@ -1881,16 +1862,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
   </DESCRIPTION>
 </FILE>
 
-<FILE name='COSBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='COSBLK_f' type='LATEX'>
+$$y=\cos(u)$$
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
@@ -2051,16 +2024,9 @@ Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
-<FILE name='INVBLK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INVBLK' type='LATEX'>
+Ce bloc calcule $y(i)=1/u(i)$.
+La taille de l'entrée/sortie est déterminée par le contexte.
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
@@ -2124,15 +2090,16 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Ce bloc trouve la valeur maximale dans les éléments
+          de son vecteur d'entrée.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
@@ -2172,15 +2139,16 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Ce bloc trouve la valeur minimale dans les éléments
+          de son vecteur d'entrée.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
@@ -2680,16 +2648,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='EXPBLK_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EXPBLK_m' type='LATEX'>
+Ce bloc calcule $y(i)=a^u(i)$. \\
+Les tailles des ports d'entrée et de sortie sont déterminées par
+le compilateur.
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>

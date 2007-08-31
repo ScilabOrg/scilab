@@ -1691,16 +1691,8 @@ CMATVIEW is a scope that shows matrix values on a colormapped grid.
   </DESCRIPTION>
 </FILE>
 
-<FILE name='COSBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='COSBLK_f' type='LATEX'>
+$$y=\cos(u)$$
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
@@ -1860,16 +1852,9 @@ This block is an integrator. The output is the integral of the input.
 This block is an integrator. The output is the integral of the input.
 </FILE>
 
-<FILE name='INVBLK' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='INVBLK' type='LATEX'>
+This block computes $y(i)=1/u(i)$.
+The input (output) size is determined by the context.
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
@@ -1937,15 +1922,15 @@ This block decomposes a complex number by seperating the real and imaginary part
 </FILE>
 
 <FILE name='MAX_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          That block find the max value in the elements of its input vector.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
@@ -1985,15 +1970,15 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='MIN_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+          That block find the min value in the elements of its input vector.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
@@ -2582,16 +2567,9 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='EXPBLK_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EXPBLK_m' type='LATEX'>
+This block realizes $y(i)=a^u(i)$. The input and output port sizes are
+determined by the compiler.
 </FILE>
 
 <FILE name='INVBLK_m' type='XML'>
