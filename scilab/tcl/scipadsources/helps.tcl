@@ -6,7 +6,7 @@ proc setScipadVersionString {} {
     # or for filling in manually when backporting Scipad from
     # the trunk to the BUILD4 environment (BUILD4 does not
     # understand instruction getversion)
-    set ScipadVersion "6.128BP1"
+    set ScipadVersion "6.129BP1"
     # try/end so that this code portion can be kept with no change
     # even in a backported version
     set comm1 "try;"
@@ -120,6 +120,8 @@ if {0} {
     bind $tbox.text <Shift-Button-3> {break}
     bind $tbox.text <Control-Button-3> {break}
     bind $tbox.text <ButtonRelease-2> {break}
+    bind $tbox.text <Return> "destroy $tbox;break"
+    bind $tbox.text <KP_Enter> "destroy $tbox;break"
     update idletasks
     setwingeom $tbox
     wm resizable $tbox 1 1

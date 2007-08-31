@@ -225,7 +225,7 @@ c     mtlb_mode
       goto 999
  660  call intclear("clear")
       goto 999
- 670  call intwhat("what")
+ 670  call intwhat("what"//char(0))
       goto 999
  680  call intsciargs("sciargs")
       goto 999
@@ -251,31 +251,31 @@ c     mtlb_mode
       goto 999
  697  call lasterror('lasterror')
       goto 999
- 698  call intversion('version')
+ 698  call intversion('version'//char(0))
       goto 999
- 699  call loadhistory('loadhistory')
+ 699  call loadhistory('loadhistory'//char(0))
       goto 999
- 700  call savehistory('savehistory')
+ 700  call savehistory('savehistory'//char(0))
       goto 999
- 701  call gethistory('gethistory')
+ 701  call gethistory('gethistory'//char(0))
       goto 999
- 702  call resethistory('resethistory')
+ 702  call resethistory('resethistory'//char(0))
       goto 999
  703  call macr2tree('macr2tree')
       goto 999
- 705  call intsleep('sleep')
+ 705  call intsleep('sleep'//char(0))
       goto 999 
- 706  call intgetos('getos')
+ 706  call intgetos('getos'//char(0))
       goto 999 
- 707  call intbanner('banner')
+ 707  call intbanner('banner'//char(0))
       goto 999     
- 708  call intfromjava('fromjava')
+ 708  call intfromjava('fromjava'//char(0))
       goto 999
- 709  call intcalendar('Calendar')
+ 709  call intcalendar('Calendar'//char(0))
       goto 999
- 710  call intgetmemory('getmemory')
+ 710  call intgetmemory('getmemory'//char(0))
       goto 999
- 711  call intfromc('fromc')
+ 711  call intfromc('fromc'//char(0))
       goto 999   
  712  call intbytecode()
       goto 999   
