@@ -3,6 +3,12 @@ function scs_m = changeports(scs_m, path, o_n)
 //**
 //** 27 July 2007
 //**
+//
+//**         BEWARE: this version has some residual graphical bug with some 
+//**                   Modelica electrical connected blocks
+//* 
+//
+//
 //**         BEWARE : This is an ---> EXPERIMENTAL VERSION <--- ! 
 //**
 //** This function is able to replace any block with any other block. We made a reasonable effort 

@@ -1,38 +1,55 @@
-function k=getblock(scs_m,pt)
+function k = getblock(scs_m, pt)
+//** Copyright INRIA
+//**
 //** 24/07/07: Al@n's patch for rotation of blocks
-// Copyright INRIA
-n=lstsize(scs_m.objs)
-xf=60;
-yf=40;
-x=pt(1);
-y=pt(2)
-data=[]
-for i=n:-1:1
-  k=i
-  o=scs_m.objs(i)
-  if typeof(o)=='Block' then
+//**
+//** 31/08/07: Simone code optimizion and varius comments 
 
-    [orig,sz]=(o.graphics.orig,o.graphics.sz);
+//** Magic Numbers 
+xf = 60; //** default block dimension 
+yf = 40;
 
-    dx=xf/7;
-    dy=yf/7;
+dx = xf/7 ; //** default tollerance band around 
+dy = yf/7 ; //** the block 
+//**--------------------------------------------
+
+x = pt(1); //** "click" position 
+y = pt(2);
+
+data = []; //** init 
+k    = []; 
+
+n = lstsize(scs_m.objs); //** numbers of objects in the diagram 
+
+for i=n:-1:1 //** scan all the scs_m objects 
+  k = i
+  o = scs_m.objs(i)
+  
+  if typeof(o)=="Block" then
+
+    [orig, sz] = (o.graphics.orig,o.graphics.sz);
 
     if %pt<>[] then
-      xxx=rotate([pt(1);pt(2)],...
-                 -o.graphics.theta*%pi/180,...
-                 [orig(1)+sz(1)/2;orig(2)+sz(2)/2]);
-      x=xxx(1);
-      y=xxx(2);
+      xxx = rotate([pt(1);pt(2)],...
+                   -o.graphics.theta * %pi/180,...
+                   [orig(1) + sz(1)/2; orig(2) + sz(2)/2]);
+      x = xxx(1);
+      y = xxx(2);
     end
 
-    data=[(orig(1)-dx-x)*(orig(1)+sz(1)+dx-x),..
-          (orig(2)-dy-y)*(orig(2)+sz(2)+dy-y)]
+    data = [(orig(1)-dx-x)*(orig(1)+sz(1)+dx-x),...
+            (orig(2)-dy-y)*(orig(2)+sz(2)+dy-y) ]
 
-    if data(1)<0&data(2)<0 then
-      return
+    if data(1)<0 & data(2)<0 then
+      return ; //** EXIT on the first object found
+               //** with [k] index  
     end
 
-  end
-end
-k=[]
+  end //** Blocks
+  
+end //**... for loop 
+
+k = [] ; //** not object was found  
+
 endfunction
+
