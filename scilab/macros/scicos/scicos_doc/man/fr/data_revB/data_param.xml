@@ -1540,29 +1540,32 @@
 </FILE>
 
 <FILE name='IFTHEL_f' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Inherit (1: no, 0: yes)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. Si 'no' est sélectionné, alors le bloc est activé par son port évènementiel d'entrée, sinon il est actvé par les évènements hérités via son port régulier d'entrée.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-<PARAM_ITEM>
-<PARAM_NAME>zero-crossing (0: no, 1: yes)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1.  A sélectionner pour permettre la détection de zéro.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Inherit (1: no, 0: yes)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Si 'no' est sélectionné, alors le bloc est activé par son port évènementiel d'entrée, sinon il est activé par les évènements hérités via son port régulier d'entrée.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+      <PARAM_ITEM>
+	<PARAM_NAME>zero-crossing (0: no, 1: yes)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    A sélectionner pour permettre la détection de zéro.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='INIMPL_f' type='XML'>
@@ -8061,20 +8064,22 @@ Propriétés : Type 'str' de taille 1.
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
-<PARAM>
-<PARAM_INDENT>
-
-<PARAM_ITEM>
-<PARAM_NAME>Datatype(1=real double 2=Complex 3=int32 ...)</PARAM_NAME>
-<PARAM_DESCRIPTION>
-<SP>
-: Type 'vec' de taille 1. La description du paramètre 1.
-</SP>
-</PARAM_DESCRIPTION>
-</PARAM_ITEM>
-
-</PARAM_INDENT>
-</PARAM>
+  <PARAM>
+    <PARAM_INDENT>
+      <PARAM_ITEM>
+	<PARAM_NAME>Datatype(1=real double 2=Complex 3=int32 ...)</PARAM_NAME>
+	<PARAM_DESCRIPTION>
+	  <SP>
+	    Le type de donnée de la sortie. 
+	    Ce bloc supporte tous les types de données.
+	  </SP>
+	  <SP>
+	    Propriétés : Type 'vec' de taille 1.
+	  </SP>
+	</PARAM_DESCRIPTION>
+      </PARAM_ITEM>
+    </PARAM_INDENT>
+  </PARAM>
 </FILE>
 
 <FILE name='SHIFT' type='XML'>

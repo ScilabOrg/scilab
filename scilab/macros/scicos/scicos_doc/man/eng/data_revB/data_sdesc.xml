@@ -874,7 +874,7 @@
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD">SAMPHOLD title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPHOLD">Sample and hold (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>

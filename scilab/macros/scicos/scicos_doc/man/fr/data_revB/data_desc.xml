@@ -493,7 +493,7 @@ Permutte la valeur de la sortie entre deux constantes.
 TODO
 </FILE>
 
-<FILE name='IFTHEL_f' type='XML'>
+<FILE name='IFTHEL_f' type='LATEX'>
 Ce bloc génére un événement sur l'une ses deux sorties événementielles
 lorsqu'un événement en entrée active celui-ci.
 Suivant le signe de la valeur lue sur le port d'entrée régulier,
@@ -740,7 +740,6 @@ La sortie de ce bloc est le produit élément par élément des entrées.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-
 Un bloc de PertDP représente un tuyau hydraulique avec des pertes de
 charge. Ce composant représente une perte de charge hydraulique où la
 perte de pression est directement proportionnelle au débit, état
@@ -904,28 +903,21 @@ les ports de la résistance divisée par le courant qui passe au travers
 
 </FILE>
 
-<FILE name='SAMPLEHOLD_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SAMPLEHOLD_f' type='LATEX'>
+A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
+entrée sur sa sortie et maintient cette valeur jusqu'au prochain
+événement.
+Pour réaliser un échantillonneur bloqueur périodique, l'entrée
+événementielle doit être connectée à une horloge {\bf Clock}.
 </FILE>
 
-<FILE name='SATURATION' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SATURATION' type='LATEX'>
+Le bloc saturation impose des limites maximale et minimale sur un signal.
+Lorsque le signal est compris dans l'échelle définie par les paramètres
+{\bf Upper limit} et {\bf Lower limi}, celui ci est reporté à la sortie
+sans modifications.
+Lorsque le signal sort de ces limites, alors le signal sature à la sortie
+du bloc.
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='LATEX'>
@@ -2232,16 +2224,12 @@ Chaque appel au bloc avance d'un enregistrement.\\
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE}{WFILE.htm}.
 </FILE>
 
-<FILE name='SAMPHOLD' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SAMPHOLD' type='LATEX'>
+A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
+entrée sur sa sortie et maintient cette valeur jusqu'au prochain
+événement.
+Pour réaliser un échantillonneur bloqueur périodique, l'entrée
+événementielle doit être connectée à une horloge {\bf Clock}.
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
@@ -2564,16 +2552,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SAMPHOLD_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SAMPHOLD_m' type='LATEX'>
+A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
+entrée sur sa sortie et maintient cette valeur jusqu'au prochain
+événement.
+Pour réaliser un échantillonneur bloqueur périodique, l'entrée
+événementielle doit être connectée à une horloge {\bf Clock}.
 </FILE>
 
 <FILE name='SHIFT' type='XML'>

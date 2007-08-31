@@ -374,7 +374,7 @@
 </FILE>
 
 <FILE name='SAMPLEHOLD_f' type='XML'>
-<SHORT_DESCRIPTION name="SAMPLEHOLD_f">Echantillonneur bloqueur</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPLEHOLD_f">Echantillonneur bloqueur (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
@@ -875,7 +875,7 @@
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD">SAMPHOLD titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPHOLD">Echantillonneur bloqueur (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
@@ -991,7 +991,7 @@
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD_m">SAMPHOLD_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAMPHOLD_m">Echantillonneur bloqueur</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
