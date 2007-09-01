@@ -8,7 +8,7 @@ Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 <FILE name='AFFICH_f' type='LATEX'>
 Peandant la simulation, ce bloc affiche sur le diagramme 
 la valeur lue sur son unique port d'entrée événementiel.\\
-{\bf Attention :} a chaque fois que le bloc est déplacé, l'utilisateur
+{\bf Attention :} a  fois que le bloc est déplacé, l'utilisateur
 doit cliquer sur celui-ci pour éditer ses paramètres. La position
 d'affichage est alors automatiquement ajustée.
 </FILE>
@@ -821,8 +821,8 @@ Ces paramètres doivent avoir des dimensions identiques.
 </FILE>
 
 <FILE name='RAND_f' type='LATEX'>
-Ce bloc est un générateur de nombres aléatoires : chaque composantes de sortie
-prend des valeurs constantes aléatoires par morceaux. Pour chaque événements les
+Ce bloc est un générateur de nombres aléatoires : chaque composante de sortie
+prend des valeurs constantes aléatoires par morceaux. Pour chaque événement les
 sorties prennent des nouvelles valeurs indépendantes.\\
 La taille du port de sortie est déterminée par la taille des vecteurs {\bf A} et {\bf B}.
 </FILE>
@@ -862,7 +862,7 @@ Chaque appel au bloc, fait avancer d'un enregistrement dans le fichier.
 
 <FILE name='REGISTER_f' type='LATEX'>
 Ce bloc réalise un registre à décalage.
-Pour chaque événements d'entrée, le registre est décalé d'un élément.
+Pour chaque événement d'entrée, le registre est décalé d'un élément.
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
@@ -1078,7 +1078,7 @@ Ce bloc réalise un système d'équations d'etat en temporel continu avec
 la possibilités de réaliser des sauts dans l'état.
 Le nombre d'entrées de ce bloc est deux.
 La première entrée est l'entrée régulière du système linéaire.
-La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée évènementiel.
+La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée événementiel.
 Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
 Le système est défini par les matrices $(A,B,C,D)$
 et par l'état initial $x_0$.
@@ -2345,7 +2345,7 @@ Ce bloc réalise un système d'équations d'etat en temporel continu avec
 la possibilités de réaliser des sauts dans l'état.
 Le nombre d'entrées de ce bloc est deux.
 La première entrée est l'entrée régulière du système linéaire.
-La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée évènementiel.
+La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée événementiel.
 Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
 Le système est défini par les matrices $(A,B,C,D)$
 et par l'état initial $x_0$.
@@ -2522,8 +2522,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='RAND_m' type='LATEX'>
-Ce bloc est un générateur de nombres aléatoires : chaque composantes de sortie
-prend des valeurs constantes aléatoires par morceaux. Pour chaque événements les
+Ce bloc est un générateur de nombres aléatoires : chaque composante de sortie
+prend des valeurs constantes aléatoires par morceaux. Pour chaque événement les
 sorties prennent des nouvelles valeurs indépendantes.\\
 La taille du port de sortie est déterminée par la taille des matrices {\bf A} et {\bf B}.
 </FILE>
@@ -2800,9 +2800,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='EVTDLY_c' type='LATEX'>
-Chaque évènement de sortie est réalisé après l'évènement 
+Chaque événement de sortie est réalisé après l'événement 
 d'entrée par un laps de temps {\bf Delay}.\\
-La date de l'évènement de sortie est donc déterminée par la formule :
+La date de l'événement de sortie est donc déterminée par la formule :
 \begin{eqnarray}
  t_{i}&=&t_{\rm{init}} + i * T_{\rm{delay}},
 \end{eqnarray}

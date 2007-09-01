@@ -28,11 +28,26 @@ function txt=gen_outline_pal(listf)
        "</PAL>"];
 endfunction
 
+//gen_outline_dir
+function txt=gen_outline_dir(listf)
+  txt=[];
+//  txt='<PAL varpath=""palpath"" name="""+listf(find(listf(:,3)=='pal'),2)+""">";
+  txt="  <SUBCHAPTER eng=""subchapter"" fr=""souschapitre"">";
+  for i=2:size(listf,1)
+     txt=[txt;
+          "   <BLK varpath="""" name="""+basename(listf(i,2))+"""></BLK>"]
+  end
+  txt=[txt;
+       "</SUBCHAPTER>"];
+endfunction
+
+//gen_outline_pal=gen_outline_dir;
+
 //gen_scs_outline
 function tt=generate_scs_outline()
  tt = ["<WHATIS>";
               "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
-              "  <DATE>19 Septembre 2006</DATE>";
+              "  <DATE>19 Septembre 2007</DATE>";
               "";
               "  <CHAPTER eng=""Editor"" fr=""Editeur""></CHAPTER>";
               "";
@@ -47,6 +62,8 @@ function tt=generate_scs_outline()
               "  "+gen_outline_pal(listf_of_nonlinear);
               ""
               "  "+gen_outline_pal(listf_of_branching);
+              ""
+              "  "+gen_outline_pal(listf_of_misc);
               ""
               "  "+gen_outline_pal(listf_of_threshold);
               ""
@@ -195,29 +212,8 @@ end
 //                 'rout'   : low level routine
 
 //TO BE DONE
-my_listf=[palpath,"Others.cosf","pal";
-          "","c_block.sci","block";
-          "","fortran_block.sci","block";
-          //"","SUPER_f.sci","block";
-          //"","scifunc_block.sci","block";
-          //"","TEXT_f.sci","block";
-          //"","CBLOCK.sci","block";
-          //"","RATELIMITER.sci","block";
-          //"","BACKLASH.sci","block";
-          //"","DEADBAND.sci","block";
-          // "","EXPRESSION.sci","block"; //CEST ENDOUBLE
-          //"","CONSTRAINT_f.sci","block";
-          //"","HYSTHERESIS.sci","block";
-          //"","LOGICAL_OP.sci","block";
-          //"","RELATIONALOP.sci","block";
-          "","generic_block2.sci","block";
-          //"","DEBUG_SCICOS.sci","block";
-          "","PDE.sci","block"];
-          //"","EDGE_TRIGGER.sci","block";
-          //"","Extract_Activation.sci","block"
-
-//          "","MBLOCK.sci","block"; A verif
-//          "","generic_block3.sci","block";  A verif
+my_listf=[// "","EXPRESSION.sci","block"; //CEST ENDOUBLE
+          ];
 
 //util macros
 listf_of_utilsci=[];
@@ -243,6 +239,7 @@ listf_of_interf=["","buildouttb","sci";
                  "","vec2var","sci";];
 
 //**--palettes--*/
+
 //Sources palette
 listf_of_sources=[palpath,"Sources.cosf","pal"];
 listf = basename(listfiles(opath2(11)+"*.sci"))+".sci";
@@ -291,14 +288,7 @@ end
 clear i;clear listf;
 
 //Oldblocks palette
-//Please update!
 listf_of_oldblocks=[palpath,"OldBlocks.cosf","pal"];
-listf = ['generic_block.sci'];
-for i = 1:size(listf,1)
-  listf_of_oldblocks=[listf_of_oldblocks;
-                      opath2(1),listf(i),"block"];
-end
-clear i;clear listf;
 
 //Sinks palette
 listf_of_sinks=[palpath,"Sinks.cosf","pal"];
@@ -355,7 +345,7 @@ end
 clear i;clear listf;
 
 //Misc directory
-listf_of_misc=[];
+listf_of_misc=[palpath,"Others.cosf","pal"];
 listf = basename(listfiles(opath2(7)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
   if listf(i)<>'m_sin.sci' then //!!!!!!! YAUNBÈGICI
@@ -363,6 +353,8 @@ for i = 1:size(listf,1)
                    opath2(7),listf(i),"block"];
   end
 end
+listf_of_misc=[listf_of_misc;
+               opath2(9),"PDE.sci","block"]; //??
 clear i;clear listf;
 
 //**------------*/

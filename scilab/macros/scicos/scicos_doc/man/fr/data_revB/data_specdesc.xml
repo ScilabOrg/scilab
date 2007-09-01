@@ -18,7 +18,15 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='RFILE' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
 <FILE name='WFILE_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='RFILE_f' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
 
@@ -63,6 +71,14 @@
 </FILE>
 
 <FILE name='DELAY_f' type='SPECIALDESC'>
+	super_width_html=220pt
+</FILE>
+
+<FILE name='TIME_DELAY' type='SPECIALDESC'>
+	super_width_html=220pt
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='SPECIALDESC'>
 	super_width_html=220pt
 </FILE>
 
@@ -147,7 +163,155 @@
 	dial_width_html=260pt
 </FILE>
 
+<FILE name='WRITEC_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='READC_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='STEP_FUNCTION' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='STEP' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
 <FILE name='READAU_f' type='SPECIALDESC'>
 	dial_width_html=260pt
+</FILE>
+
+<FILE name='INTRP2BLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='INTRPLBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='EXPBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='EXPBLK_m' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='LOGBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='POWBLK_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='SampleCLK' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='SAT_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='TrigFun' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='FROMMO' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='CLKFROM' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='EXTRACTOR' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='FROM' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='GotoTagVisibility' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='SWITCH_f' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='DIFF_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='LOGICAL_OP' type='SPECIALDESC'>
+	dial_width_html=280pt
+</FILE>
+
+<FILE name='MEMORY_f' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='RATELIMITER' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='PDE' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='ZCROSS_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='EVTGEN_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='HALT_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='MCLOCK_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='MFCLCK_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='Capacitor' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='ConstantVoltage' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='Resistor' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='SineVoltage' type='SPECIALDESC'>
+	dial_width_html=260pt
+</FILE>
+
+<FILE name='VsourceAC' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='VVsourceAC' type='SPECIALDESC'>
+	dial_width_html=220pt
 </FILE>
 </DATA>
