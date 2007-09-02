@@ -201,16 +201,8 @@ resistance of this block is zero.
 Provide a region of zero output
 </FILE>
 
-<FILE name='DEBUG_SCICOS' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DEBUG_SCICOS' type='LATEX'>
+
 </FILE>
 
 <FILE name='DEMUX' type='LATEX'>
@@ -260,16 +252,8 @@ reaches a certain limit ($Maxexp$), the diode characterisic becomes
 linear to avoid overflow.
 </FILE>
 
-<FILE name='EDGE_TRIGGER' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='EDGE_TRIGGER' type='LATEX'>
+
 </FILE>
 
 <FILE name='ESELECT_f' type='LATEX'>
@@ -282,7 +266,7 @@ slightly, depending on the type of input.
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='LATEX'>
-__OBSOLETE__ This block realizes the visualization of the input event signals.  
+This block realizes the visualization of the input event signals.  
 </FILE>
 
 <FILE name='EVTDLY_f' type='LATEX'>
@@ -342,20 +326,12 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='Extract_Activation' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='Extract_Activation' type='LATEX'>
+
 </FILE>
 
 <FILE name='FSCOPE_f' type='LATEX'>
-__OBSOLETE__  This  is  a floating scope block. 
+This  is  a floating scope block. 
 </FILE>
 
 <FILE name='GENSIN_f' type='LATEX'>
@@ -593,7 +569,7 @@ inputs. This block produces outputs using either element-wise or
 matrix multiplication, depending on the value of the Multiplication
 parameter. You specify the operations with the Number of inputs
 parameter. Multiply(+1) and divide (-1) characters indicate the
-operations to be performed on the inputs: 
+operations to be performed on the inputs.
 </FILE>
 
 <FILE name='PROD_f' type='LATEX'>
@@ -612,27 +588,25 @@ altitudes, and some other thermo-hydraulic coefficients.
 </FILE>
 
 <FILE name='PotentialSensor' type='LATEX'>
-
 This block is used to measure the voltage with respect to the
 reference voltage ({\bf Ground} block) in an electircal circuit. The
 voltage is given to the explicit part of the model via an explicit
 output port.
-
 </FILE>
 
 <FILE name='PuitsP' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This thermohydraulic component represents a thermo-hydraulic constant
-pressure drain (well). This block is specified with its pressure and
-temperature.  Conventionally, the flow direction is positive when
-fluid flows into the block.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This thermohydraulic component represents a thermo-hydraulic constant
+	  pressure drain (well). This block is specified with its pressure and
+	  temperature.  Conventionally, the flow direction is positive when
+	  fluid flows into the block.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='QUANT_f' type='LATEX'>
@@ -773,15 +747,15 @@ have the same number of elements.
 </FILE>
 
 <FILE name='SCOPXY_f' type='LATEX'>
-__OBSOLETE__ This block realizes the visualization of the evolution of the two
+This block realizes the visualization of the evolution of the two
 regular input signals by drawing the second input as a function of the
 first at instants of events on the event input port.   
 </FILE>
 
 <FILE name='SELECT_f' type='LATEX'>
 This block routes one of the regular inputs to the unique regular
-output. the choice of which input is to be routed is done, initially
-by the "initial connected input" parameter. Then, every time the block
+output. The choice of which input is to be routed is done, initially
+by the {\bf initial connected input} parameter. Then, every time the block
 is activated through its i-th input activation port, the i-th regular
 input value port is put to the regular output.   
 </FILE>
@@ -1099,6 +1073,17 @@ diagram must be saved along with the diagram and loaded or dynamically
 linked before simulation. 
 </FILE>
 
+<FILE name='generic_block3' type='LATEX'>
+The block provides a generic interfacing function but the
+computational function needs to be defined separately, either as a
+Scilab function or  a Fortran or a C function. Besides the name of the
+function, user should specify information such as the type, whether or
+not the block contains a direct feed-through term. The function
+realising computational functions of generic blocks of a scicos
+diagram must be saved along with the diagram and loaded or dynamically
+linked before simulation. 
+</FILE>
+
 <FILE name='getscicosvars' type='XML'>
   <DESCRIPTION>
     <P>
@@ -1111,25 +1096,25 @@ linked before simulation.
 </FILE>
 
 <FILE name='scicos' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Scicos is a visual editor for constructing models of hybrid
-dynamical systems. Invoking Scicos with no argument opens up an
-empty Scicos window. Models can then be assembled, loaded,
-saved, compiled, simulated, using GUI of Scicos.  Scicos
-serves as an interface to the various block diagram compilers
-and the hybrid simulator scicosim.
-</P>
-</DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<P>
-The input and output arguments are useful for debugging purposes.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Scicos is a visual editor for constructing models of hybrid
+	  dynamical systems. Invoking Scicos with no argument opens up an
+	  empty Scicos window. Models can then be assembled, loaded,
+	  saved, compiled, simulated, using GUI of Scicos.  Scicos
+	  serves as an interface to the various block diagram compilers
+	  and the hybrid simulator scicosim.
+	</P>
+      </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The input and output arguments are useful for debugging purposes.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
@@ -1148,18 +1133,18 @@ The input and output arguments are useful for debugging purposes.
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
-<DESCRIPTION>
-<P>
-This function is used to simulate scicos diagrams in batch
-mode. It requires the scs_m structure which can be obtained by
-loading in Scilab the .cos file (e.g. load
-mydiagram.cos).
-</P>
-<P>
-Contrary to the function <LINK> scicosim</LINK>, the diagram
-need not be compiled before being saved.
-</P>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <P>
+      This function is used to simulate scicos diagrams in batch
+      mode. It requires the scs_m structure which can be obtained by
+      loading in Scilab the .cos file (e.g. load
+      mydiagram.cos).
+    </P>
+    <P>
+      Contrary to the function <LINK> scicosim</LINK>, the diagram
+      need not be compiled before being saved.
+    </P>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
@@ -1169,65 +1154,65 @@ need not be compiled before being saved.
 </FILE>
 
 <FILE name='scicosim' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Simulator for Scicos compiled diagram.
-</P>
-<P>
-Usually scicosim is called by scicos to perform simulation of
-a diagram.
-</P>
-<P>
-But scicosim may also be called outside Scicos. Typical usage
-in such a case may be :
-</P>
-</DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<P>
-1- Use Scicos to define a block diagram, compile it.
-</P>
-<P>
-2- Save the compiled diagram using Save,SaveAs Scicos menus.
-</P>
-<P>
-3- In Scilab, load saved file using load function. You get
-variables scicos_ver, scs_m, %cpr scs_m is the diagram Scicos main data structure.
-</P>
-<P>
-%cpr is the data structure containing (state,sim,cor,corinv)
-if the diagram had been compiled before saved, else %cpr=list().
-</P>
-<P>
-4- Extract state, sim out of cpr.
-</P>
-<P>
-5- Execute [state,t]=scicosim(state,0,tf,sim,'start',tol) for initialisation.
-</P>
-<P>
-6- Execute [state,t]=scicosim(state,0,tf,sim,'run',tol) for
-simulation from 0 to tf.
-</P>
-<P>
-Many successives such calls may be
-performed changing initial and final time.
-</P>
-<P>
-7- Execute [state,t]=scicosim(state,0,tf,sim,'finish',tol) at
-the very end of the simulation to close files,...
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<P>
-For advanced user it is possible to "manually"
-change some parameters or state values.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Simulator for Scicos compiled diagram.
+	</P>
+	<P>
+	  Usually scicosim is called by scicos to perform simulation of
+	  a diagram.
+	</P>
+	<P>
+	  But scicosim may also be called outside Scicos. Typical usage
+	  in such a case may be :
+	</P>
+      </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<DESCRIPTION_ITEM>
+	  <P>
+	    1- Use Scicos to define a block diagram, compile it.
+	  </P>
+	  <P>
+	    2- Save the compiled diagram using Save,SaveAs Scicos menus.
+	  </P>
+	  <P>
+	    3- In Scilab, load saved file using load function. You get
+	    variables scicos_ver, scs_m, %cpr scs_m is the diagram Scicos main data structure.
+	  </P>
+	  <P>
+	    %cpr is the data structure containing (state,sim,cor,corinv)
+	    if the diagram had been compiled before saved, else %cpr=list().
+	  </P>
+	  <P>
+	    4- Extract state, sim out of cpr.
+	  </P>
+	  <P>
+	    5- Execute [state,t]=scicosim(state,0,tf,sim,'start',tol) for initialisation.
+	  </P>
+	  <P>
+	    6- Execute [state,t]=scicosim(state,0,tf,sim,'run',tol) for
+	    simulation from 0 to tf.
+	  </P>
+	  <P>
+	    Many successives such calls may be
+	    performed changing initial and final time.
+	  </P>
+	  <P>
+	    7- Execute [state,t]=scicosim(state,0,tf,sim,'finish',tol) at
+	    the very end of the simulation to close files,...
+	  </P>
+	</DESCRIPTION_ITEM>
+      </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  For advanced user it is possible to "manually"
+	  change some parameters or state values.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='scifunc_block' type='LATEX'>
@@ -1239,19 +1224,18 @@ is slower. For more information see Scicos reference manual.
 </FILE>
 
 <FILE name='steadycos' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This function finds the steady state for a given system described
-by a Scicos diagram. The diagram consists in general of a Super
-block with input and output port blocks. The steady states
-concerns only the continuous-time dynamics.
-</P>
-</DESCRIPTION_ITEM>
-
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This function finds the steady state for a given system described
+	  by a Scicos diagram. The diagram consists in general of a Super
+	  block with input and output port blocks. The steady states
+	  concerns only the continuous-time dynamics.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='var2vec' type='XML'>
@@ -1279,22 +1263,22 @@ concerns only the continuous-time dynamics.
 </FILE>
 
 <FILE name='CUMSUM' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-The CUMSUM block sums the element of an input m*n matrix u along either the rows, the columns or the first non singleton dimension. When the "Sum along" parameter is set to "1", the block sums across the elements of each row. The result will be displayed as a m*1 matrix.
-</P>
-<P>
-When the "Sum along" parameter is set to "2", the block sums across the elements of each column. The result will be display as a 1*n matrix.
-</P>
-<P>
-When the "Sum along" parameter is set to "0", the block sums across the first non singleton dimension. The result will be displayed as one element.
-This block is equivalent to cumsum in scilab.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The CUMSUM block sums the element of an input m*n matrix u along either the rows, the columns or the first non singleton dimension. When the "Sum along" parameter is set to "1", the block sums across the elements of each row. The result will be displayed as a m*1 matrix.
+	</P>
+	<P>
+	  When the "Sum along" parameter is set to "2", the block sums across the elements of each column. The result will be display as a 1*n matrix.
+	</P>
+	<P>
+	  When the "Sum along" parameter is set to "0", the block sums across the first non singleton dimension. The result will be displayed as one element.
+	  This block is equivalent to cumsum in scilab.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
@@ -1537,16 +1521,12 @@ Add here a paragraph of the function description
 The Abs block outputs the absolute value of the input.
 </FILE>
 
-<FILE name='AFFICH_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='AFFICH_m' type='LATEX'>
+This block displays the value of its unique input inside the block (in
+the diagram) during simulation. The block must be located in the main
+Scicos window.\\   
+{\bf Warning:} each time the block is moved user must click on it to set its
+parameters. The display position is then automatically updated.  
 </FILE>
 
 <FILE name='BIGSOM_f' type='LATEX'>
@@ -1555,51 +1535,51 @@ scalar or vector inputs.
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.  When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes the visualization of the evolution of the two regular input signals by drawing the second input as a function of the first at instants of events on the event input port.  When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes the visualization of the evolution of the two regular input signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes the visualization of the evolution of the two regular input signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the buffer length is reached. This scope is useful to make simple animations.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes the visualization of the input event signals.  
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes the visualization of the input event signals.  
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This  is  a floating scope block. 
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This is a floating scope block. 
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CLKIN_f' type='LATEX'>
@@ -1644,27 +1624,27 @@ $x_0$. The dimensions must be compatible.
 </FILE>   
 
 <FILE name='CMAT3D' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-CMAT3D is a scope that shows matrix values as z values on a xy grid.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  CMAT3D is a scope that shows matrix values as z values on a xy grid.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-CMATVIEW is a scope that shows matrix values on a colormapped grid.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  CMATVIEW is a scope that shows matrix values on a colormapped grid.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CONST' type='XML'>
@@ -1696,27 +1676,27 @@ $$y=\cos(u)$$
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes the visualization of the evolution of the two regular inputs signals by drawing the second input as a function of the first at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes the visualization of the evolution of the two regular inputs signals by drawing the second input as a function of the first at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes the visualization of the evolution of the three regular inputs signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes the visualization of the evolution of the three regular inputs signals by drawing the third input as a function of the two others at instants of events on the event input port. When a point is drawn on screen it stays until the simulation is finished.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
@@ -1747,16 +1727,11 @@ Add here a paragraph of the function description
   </DESCRIPTION>
 </FILE>
 
-<FILE name='DEMUX_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='DEMUX_f' type='LATEX'>
+Given a vector valued input this block splits inputs over vector
+valued outputs. So $ u=[y_1;y_2,\cdots;y_n]$ , where  $y_i$  are
+numbered from top to bottom. Input and Output port sizes are
+determined by the context.
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
@@ -1870,19 +1845,19 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-The MATSUM block returns the sum of the element of an input matrix/vector.
-When the Sum along is set to all the block outputs the sum of all the elements of the matrix. The output is then a scalar.
-When the Sum along is set to lines the block is a rowwise sum. The output is a row vector.
-When the Sum along is set to Columns the block is a columnwise sum. The output is a column vector.
-The equivalent function of this block in scilab is: "sum".
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The MATSUM block returns the sum of the element of an input matrix/vector.
+	  When the Sum along is set to all the block outputs the sum of all the elements of the matrix. The output is then a scalar.
+	  When the Sum along is set to lines the block is a rowwise sum. The output is a row vector.
+	  When the Sum along is set to Columns the block is a columnwise sum. The output is a column vector.
+	  The equivalent function of this block in scilab is: "sum".
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='MATTRAN' type='XML'>
@@ -1993,16 +1968,11 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='MUX_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='MUX_f' type='LATEX'>
+Given  $n$  vector valued inputs this block merges inputs in an single
+output vector. So  $y=[u_1;u_2;\cdots;u_n]$ , where  $u_i$  are
+numbered from top to bottom. Input and Output port sizes are
+determined by the context.
 </FILE>
 
 <FILE name='NPN' type='XML'>
@@ -2042,15 +2012,15 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-This block realizes a shift register. At every input event, the register is shifted one step.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  This block realizes a shift register. At every input event, the register is shifted one step.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='RFILE' type='LATEX'>
@@ -2085,40 +2055,26 @@ output and hold it until input event. For periodic Sample and hold,
 event input must be generated by a  {\bf Clock}.
 </FILE>
 
-<FILE name='SAT_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SAT_f' type='LATEX'>
+The Saturation block imposes upper and lower bounds on a signal. When
+the input signal is within the range specified by the Lower limit and
+Upper limit parameters, the input signal passes through
+unchanged. When the input signal is outside these bounds, the signal
+is clipped to the upper or lower bound. When the Lower limit and Upper
+limit parameters are set to the same value, the block outputs that
+value.
 </FILE>
 
-<FILE name='SELECT_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SELECT_m' type='LATEX'>
+This block routes one of the regular inputs to the unique regular
+output. The choice of which input is to be routed is done, initially
+by the {\bf initial connected input} parameter. Then, every time the block
+is activated through its i-th input activation port, the i-th regular
+input value port is put to the regular output.
 </FILE>
 
-<FILE name='SINBLK_f' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SINBLK_f' type='LATEX'>
+$$y={\rm sin}(u)
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
@@ -2157,16 +2113,17 @@ This block outputs a sub matrix of the input matrix. The output matrix will be d
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SWITCH2_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='SWITCH2_m' type='LATEX'>
+The Switch block passes through the first (top) input or the third
+(bottom) input based on the value of the second (middle) input. The
+first and third inputs are called data inputs. The second input is
+called the control input. You select the conditions under which the
+first input is passed with the Criteria for passing first input
+parameter. You can make the block check whether the control input is
+greater than or equal to the threshold value, purely greater than the
+threshold value, or nonzero. If the control input meets the condition
+set in the Criteria for passing first input parameter, then the first
+input is passed. Otherwise, the third input is passed. 
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -2181,7 +2138,8 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='TANBLK_f' type='XML'>
+<FILE name='TANBLK_f' type='LATEX'>
+$$y={\rm tan}(u)$$
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
@@ -2307,17 +2265,6 @@ This block outputs a contiguous selection of bits from the input integer number.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='GAINBLK_m' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
 
 <FILE name='INTGAINBLK' type='XML'>
 <DESCRIPTION>
@@ -3157,21 +3104,21 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='lincos' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Construct a linear state-space system by linearizing a model
-given as a Scicos diagram.
-</P>
-</DESCRIPTION_ITEM>
-<DESCRIPTION_ITEM>
-<P>
-The output is a Scilab data structure of type continuous-time state-space linear system.
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+      <DESCRIPTION_ITEM>
+	<P>
+	  Construct a linear state-space system by linearizing a model
+	  given as a Scicos diagram.
+	</P>
+      </DESCRIPTION_ITEM>
+      <DESCRIPTION_ITEM>
+	<P>
+	  The output is a Scilab data structure of type continuous-time state-space linear system.
+	</P>
+      </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 </DATA>

@@ -5,7 +5,7 @@
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_f">Display</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="AFFICH_f">Display (old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ANDBLK' type='XML'>
@@ -133,7 +133,7 @@
 </FILE>
 
 <FILE name='ESELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="ESELECT_f">Event-Select </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ESELECT_f">Synchronous block Event-Select</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='XML'>
@@ -141,7 +141,7 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Event delay</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Event delay (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
@@ -153,7 +153,7 @@
 </FILE>
 
 <FILE name='EXPBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="EXPBLK_f">Exp </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EXPBLK_f">Exp (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EXPRESSION' type='XML'>
@@ -205,7 +205,7 @@
 </FILE>
 
 <FILE name='IFTHEL_f' type='XML'>
-<SHORT_DESCRIPTION name="IFTHEL_f">If-Then-Else </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IFTHEL_f">Synchronous block If-Then-Else</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INIMPL_f' type='XML'>
@@ -225,7 +225,7 @@
 </FILE>
 
 <FILE name='INVBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="INVBLK_f">Inverse</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INVBLK_f">Inverse (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IN_f' type='XML'>
@@ -233,7 +233,7 @@
 </FILE>
 
 <FILE name='ISELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="ISELECT_f">Iselect </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ISELECT_f">Iselect (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Inductor' type='XML'>
@@ -353,7 +353,7 @@
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER_f">Shift register </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="REGISTER_f">Shift register (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
@@ -377,7 +377,7 @@
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
-<SHORT_DESCRIPTION name="SATURATION">Saturation </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SATURATION">Saturation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='XML'>
@@ -393,7 +393,7 @@
 </FILE>
 
 <FILE name='SELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="SELECT_f">Select </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SELECT_f">Select (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SIGNUM' type='XML'>
@@ -417,15 +417,15 @@
 </FILE>
 
 <FILE name='SWITCH2' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH2">Switch2 </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SWITCH2">Switch2 (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SWITCH_f' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH_f">Switch </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SWITCH_f">Switch</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
-<SHORT_DESCRIPTION name="Sinks">Sinks palette </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Sinks">Sinks palette</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SourceP' type='XML'>
@@ -433,7 +433,7 @@
 </FILE>
 
 <FILE name='Sources_pal' type='XML'>
-<SHORT_DESCRIPTION name="Sources">Sources palette </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Sources">Sources palette</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
@@ -445,7 +445,7 @@
 </FILE>
 
 <FILE name='TIME_DELAY' type='XML'>
-<SHORT_DESCRIPTION name="TIME_DELAY">Time delay </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TIME_DELAY">Time delay</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TIME_f' type='XML'>
@@ -541,7 +541,11 @@
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
-<SHORT_DESCRIPTION name="generic_block2">Generic </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block2">Generic block (Old block)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block3' type='XML'>
+<SHORT_DESCRIPTION name="generic_block2">Generic block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
@@ -569,11 +573,11 @@
 </FILE>
 
 <FILE name='scicosim' type='XML'>
-<SHORT_DESCRIPTION name="scicosim">  Scicos (batch) simulation function </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicosim">Scicos (batch) simulation function </SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scifunc_block' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block">Scilab function block</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scifunc_block">Scilab function block (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='steadycos' type='XML'>
@@ -642,7 +646,7 @@
 </FILE>
 
 <FILE name='MATMAGPHI' type='XML'>
-<SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI Complex to Mgnitude and Angle Conversion</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI Complex to Magnitude and Angle Conversion</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATMUL' type='XML'>
@@ -670,7 +674,7 @@
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_m">AFFICH_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="AFFICH_m">Display (old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
@@ -706,7 +710,7 @@
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSPLIT_f">CLKSPLIT_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSPLIT_f">Event link split</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLR' type='XML'>
@@ -754,7 +758,7 @@
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
-<SHORT_DESCRIPTION name="DEMUX_f">DEMUX_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DEMUX_f">Demultiplexer (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
@@ -802,7 +806,7 @@
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="ISELECT_m">ISELECT_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ISELECT_m">Iselect</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
@@ -846,7 +850,7 @@
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
-<SHORT_DESCRIPTION name="MUX_f">MUX_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MUX_f">Mulitplexer (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='NPN' type='XML'>
@@ -878,15 +882,15 @@
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
-<SHORT_DESCRIPTION name="SAT_f">SAT_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAT_f">Saturation (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="SELECT_m">SELECT_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SELECT_m">Select</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="SINBLK_f">SINBLK_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SINBLK_f">SINBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
@@ -902,7 +906,7 @@
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH2_m">SWITCH2_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SWITCH2_m">Switch2</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -910,7 +914,7 @@
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="TANBLK_f">TANBLK_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TANBLK_f">TANBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
@@ -918,7 +922,7 @@
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
-<SHORT_DESCRIPTION name="TRASH_f">TRASH_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TRASH_f">Trash block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
@@ -926,7 +930,7 @@
 </FILE>
 
 <FILE name='generic_block' type='XML'>
-<SHORT_DESCRIPTION name="generic_block">generic_block title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block">Generic block (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
@@ -1087,7 +1091,7 @@
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="IMPSPLIT_f">IMPSPLIT_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IMPSPLIT_f">Implicit regular link split</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='JKFLIPFLOP1' type='XML'>
@@ -1111,7 +1115,7 @@
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="SPLIT_f">SPLIT_f title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SPLIT_f">Regular link split</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SRFLIPFLOP1' type='XML'>
@@ -1123,7 +1127,7 @@
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block_m">scifunc_block_m title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scifunc_block_m">Scilab function block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>

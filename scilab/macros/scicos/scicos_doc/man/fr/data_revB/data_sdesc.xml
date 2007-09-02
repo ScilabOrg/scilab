@@ -6,11 +6,11 @@
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_f">Affichage</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="AFFICH_f">Affichage (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ANDBLK' type='XML'>
-<SHORT_DESCRIPTION name="ANDBLK">Et actvation</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ANDBLK">Et activation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
@@ -134,7 +134,7 @@
 </FILE>
 
 <FILE name='ESELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="ESELECT_f">Event-Select</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ESELECT_f">Bloc synchrone Event-Select</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVENTSCOPE_f' type='XML'>
@@ -142,7 +142,7 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Retard évènementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Retard évènementiel (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
@@ -154,7 +154,7 @@
 </FILE>
 
 <FILE name='EXPBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="EXPBLK_f">Exponentielle</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EXPBLK_f">Exponentielle (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EXPRESSION' type='XML'>
@@ -206,7 +206,7 @@
 </FILE>
 
 <FILE name='IFTHEL_f' type='XML'>
-<SHORT_DESCRIPTION name="IFTHEL_f">Si-Alors-Sinon</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IFTHEL_f">Bloc synchrone If-Then-Else</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INIMPL_f' type='XML'>
@@ -226,7 +226,7 @@
 </FILE>
 
 <FILE name='INVBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="INVBLK_f">Inverse</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INVBLK_f">Inverse (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IN_f' type='XML'>
@@ -234,7 +234,7 @@
 </FILE>
 
 <FILE name='ISELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="ISELECT_f">Iselect</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ISELECT_f">Iselect (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Inductor' type='XML'>
@@ -354,7 +354,7 @@
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER_f">Registre à décalage</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="REGISTER_f">Registre à décalage (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
@@ -394,7 +394,7 @@
 </FILE>
 
 <FILE name='SELECT_f' type='XML'>
-<SHORT_DESCRIPTION name="SELECT_f">Select</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SELECT_f">Select (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SIGNUM' type='XML'>
@@ -418,7 +418,7 @@
 </FILE>
 
 <FILE name='SWITCH2' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH2">Switch2</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SWITCH2">Switch2 (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SWITCH_f' type='XML'>
@@ -542,7 +542,11 @@
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
-<SHORT_DESCRIPTION name="generic_block2">Bloc générique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block2">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block3' type='XML'>
+<SHORT_DESCRIPTION name="generic_block3">Bloc générique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='getscicosvars' type='XML'>
@@ -574,7 +578,7 @@
 </FILE>
 
 <FILE name='scifunc_block' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block">Bloc Scilab</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scifunc_block">Bloc Scilab (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='steadycos' type='XML'>
@@ -671,7 +675,7 @@
 </FILE>
 
 <FILE name='AFFICH_m' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_m">AFFICH_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="AFFICH_m">Affichage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='BIGSOM_f' type='XML'>
@@ -679,19 +683,19 @@
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY">CANIMXY titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CANIMXY">Scope animé y=f(x)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY3D">CANIMXY3D titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CANIMXY3D">Scope animé z=f(x,y)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CEVENTSCOPE">CEVENTSCOPE titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CEVENTSCOPE">Scope pour événements</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CFSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CFSCOPE">CFSCOPE titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CFSCOPE">Scope flottant</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
@@ -707,7 +711,7 @@
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSPLIT_f">CLKSPLIT_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSPLIT_f">Croisement de liens événementiels</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLR' type='XML'>
@@ -719,11 +723,11 @@
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
-<SHORT_DESCRIPTION name="CMAT3D">CMAT3D titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CMAT3D">Scope matriciel 3D</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
-<SHORT_DESCRIPTION name="CMATVIEW">CMATVIEW titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CMATVIEW">Scope matriciel coloré</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONST' type='XML'>
@@ -739,11 +743,11 @@
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
-<SHORT_DESCRIPTION name="CSCOPXY">CSCOPXY titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CSCOPXY">Scope y=f(x)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPXY3D' type='XML'>
-<SHORT_DESCRIPTION name="CSCOPXY3D">CSCOPXY3D titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CSCOPXY3D">Scope z=f(x,y)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DELAYV_f' type='XML'>
@@ -755,7 +759,7 @@
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
-<SHORT_DESCRIPTION name="DEMUX_f">DEMUX_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DEMUX_f">Démultiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DIFF_f' type='XML'>
@@ -803,7 +807,7 @@
 </FILE>
 
 <FILE name='ISELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="ISELECT_m">ISELECT_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ISELECT_m">Iselect</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATSUM' type='XML'>
@@ -847,7 +851,7 @@
 </FILE>
 
 <FILE name='MUX_f' type='XML'>
-<SHORT_DESCRIPTION name="MUX_f">MUX_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MUX_f">Multiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='NPN' type='XML'>
@@ -863,7 +867,7 @@
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER">REGISTER titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="REGISTER">Registre à décalage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RFILE' type='XML'>
@@ -879,15 +883,15 @@
 </FILE>
 
 <FILE name='SAT_f' type='XML'>
-<SHORT_DESCRIPTION name="SAT_f">SAT_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAT_f">Saturation (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="SELECT_m">SELECT_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SELECT_m">Select</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SINBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="SINBLK_f">SINBLK_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SINBLK_f">SINBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
@@ -903,7 +907,7 @@
 </FILE>
 
 <FILE name='SWITCH2_m' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH2_m">SWITCH2_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SWITCH2_m">Switch2</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -911,7 +915,7 @@
 </FILE>
 
 <FILE name='TANBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="TANBLK_f">TANBLK_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TANBLK_f">TANBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
@@ -919,7 +923,7 @@
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
-<SHORT_DESCRIPTION name="TRASH_f">TRASH_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TRASH_f">Bloc terminaison</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
@@ -927,7 +931,7 @@
 </FILE>
 
 <FILE name='generic_block' type='XML'>
-<SHORT_DESCRIPTION name="generic_block">generic_block titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
@@ -1095,7 +1099,7 @@
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="IMPSPLIT_f">IMPSPLIT_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IMPSPLIT_f">Croisement de liens réguliers implicites</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Neg' type='XML'>
@@ -1115,7 +1119,7 @@
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="SPLIT_f">SPLIT_f titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SPLIT_f">Croisement de liens réguliers</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='func_block' type='XML'>
@@ -1123,7 +1127,7 @@
 </FILE>
 
 <FILE name='scifunc_block_m' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block_m">scifunc_block_m titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scifunc_block_m">Bloc Scilab</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>

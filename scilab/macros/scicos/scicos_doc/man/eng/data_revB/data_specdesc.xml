@@ -75,11 +75,11 @@
 </FILE>
 
 <FILE name='TIME_DELAY' type='SPECIALDESC'>
-	super_width_html=220pt
+	dial_width_html=220pt
 </FILE>
 
 <FILE name='VARIABLE_DELAY' type='SPECIALDESC'>
-	super_width_html=220pt
+	dial_width_html=220pt
 </FILE>
 
 <FILE name='GAINBLK_f' type='SPECIALDESC'>
