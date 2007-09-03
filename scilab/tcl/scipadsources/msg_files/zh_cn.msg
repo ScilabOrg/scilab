@@ -120,11 +120,11 @@
 ::msgcat::mcset zh_cn "Note: This message might also be triggered by a string\n \
                  quoted with single quotes and containing the word \"function\",\n \
                  when \"Colorize \'strings\'\" is unchecked in the Options menu." \
-                   "注意: 如果选单中 \"彩色字串(&s) (Colorize \'strings\')\" 未被勾选，\n \
+                   "注意: 如果选单中 \"多色显示(&s) (Colorize \'strings\')\" 未被勾选，\n \
                    此讯息也可能被单引号 包覆之内含 \"function\" 的字串\n \
                  所触发."
 ::msgcat::mcset zh_cn "This known bug can be worked around simply by checking \"Colorize \'&strings\'\"." \
-                   "这个 bug 可以很简单的透过勾选 \"彩色字串(&s)\" 以避免."
+                   "这个 bug 可以很简单的透过勾选 \"多色显示(&s)\" 以避免."
 ::msgcat::mcset zh_cn "Unterminated function definition found" "函数定义未结束"
 ::msgcat::mcset zh_cn "Warning!\n\n \
                  One or more function is defined more than once in the currently opened files.\n \
@@ -498,7 +498,8 @@
     # menues.tcl - Scheme menu
     ::msgcat::mcset zh_cn "S&cilab" "S&cilab"
     ::msgcat::mcset zh_cn "&XML" "&XML"
-    ::msgcat::mcset zh_cn "&none" "&aucun"
+    ::msgcat::mcset zh_cn "&none" "无(&n)"
+    ::msgcat::mcset zh_cn "&Colorize" "多色显示(&C)"
 
     # menues.tcl - Options menu
     ::msgcat::mcset zh_cn "&Fonts..." "字体(&F)..."
@@ -507,7 +508,7 @@
         ::msgcat::mcset zh_cn "&Always" "永远要"
         ::msgcat::mcset zh_cn "Ask for &big files" "档案过大时询问"
         ::msgcat::mcset zh_cn "&Never" "不须要"
-        ::msgcat::mcset zh_cn "Colorize \'&strings\'" "彩色字串"
+        ::msgcat::mcset zh_cn "Colorize \'&strings\'" "多色显示"
     ::msgcat::mcset zh_cn "Line n&umbers" "行号(&u)"
         ::msgcat::mcset zh_cn "&Hide" "隐藏(H)"
         ::msgcat::mcset zh_cn "&Left aligned" "左边对齐(L)"
@@ -551,10 +552,10 @@
     ::msgcat::mcset zh_cn "&Maximize" "视窗最大化(&M)"
     ::msgcat::mcset zh_cn "&Split" "分割(&S)"
     ::msgcat::mcset zh_cn "S&plit (side by side)" "左右分割(&p)"
-    ::msgcat::mcset zh_cn "Sp&lit file" "D&iviser le fichier"
-    ::msgcat::mcset zh_cn "Spl&it file (side by side)" "Diviser le fichier (c系&te □ c系te)"
+    ::msgcat::mcset zh_cn "Sp&lit file" "分割档案(&l)"
+    ::msgcat::mcset zh_cn "Spl&it file (side by side)" "左右分割档案(&i)"
     ::msgcat::mcset zh_cn "Tile all &vertically" "垂直重叠(&v)"
-    ::msgcat::mcset zh_cn "Tile all &horizontally" "水平重叠(&v)"
+    ::msgcat::mcset zh_cn "Tile all &horizontally" "水平重叠(&h)"
     ::msgcat::mcset zh_cn "Space sashes &evenly" "视窗均分(&e)"
     ::msgcat::mcset zh_cn "Opened Files" "开启之档案"
 
@@ -643,6 +644,47 @@
 
 # scipad.tcl
 ::msgcat::mcset zh_cn "NOT CONNECTED TO SCILAB" "未与 SCILAB 连结"
+
+# whichfun.tcl
+::msgcat::mcset zh_cn "Being at line" "第"
+    ::msgcat::mcset zh_cn ", function" "行, 函数"
+    ::msgcat::mcset zh_cn "begins at" "起始位置为"
+    ::msgcat::mcset zh_cn ", and there are" ", 共有"
+    ::msgcat::mcset zh_cn "continued lines, i.e. we are at line" "行连续行，也就是目前为第"
+    ::msgcat::mcset zh_cn "of" "行，此行位于"
+::msgcat::mcset zh_cn "Function" "函数"
+    ::msgcat::mcset zh_cn "line" "行"
+::msgcat::mcset zh_cn "The cursor is not currently inside a function body." "游标目前不在函数内部."
+::msgcat::mcset zh_cn "Which function?" "哪一个函数 ?"
+
+
+
+#preference variables description
+::msgcat::mcset zh_cn "BGCOLOR" "编辑区背景色"
+::msgcat::mcset zh_cn "BGLNMARGCOLOR" "行号背景色"
+::msgcat::mcset zh_cn "FGCOLOR" "文字"
+::msgcat::mcset zh_cn "FGLNMARGCOLOR" "行号"
+::msgcat::mcset zh_cn "CURCOLOR" "游标"
+::msgcat::mcset zh_cn "PARCOLOR" "括符 ()"
+::msgcat::mcset zh_cn "BRAKCOLOR" "中括符 \\\[\\\]"
+::msgcat::mcset zh_cn "BRACCOLOR" "大括符  {}"
+::msgcat::mcset zh_cn "PUNCOLOR"  "标点符号"
+::msgcat::mcset zh_cn "INTFCOLOR" "内部函数"
+::msgcat::mcset zh_cn "COMMCOLOR" "指令"
+::msgcat::mcset zh_cn "SCICCOLOR" "Scicos 函数"
+::msgcat::mcset zh_cn "OPCOLOR"   "运算子"
+::msgcat::mcset zh_cn "QTXTCOLOR"  "字串文字"
+::msgcat::mcset zh_cn "REMCOLOR" "注解"
+::msgcat::mcset zh_cn "XMLCOLOR" "XML 标签"
+::msgcat::mcset zh_cn "NUMCOLOR" "数字"
+::msgcat::mcset zh_cn "SELCOLOR" "选择区"
+::msgcat::mcset zh_cn "BREAKPOINTCOLOR" "停止点背景"
+::msgcat::mcset zh_cn "LFUNCOLOR" "程式库函数"
+::msgcat::mcset zh_cn "PDEFCOLOR" "系统变数"
+::msgcat::mcset zh_cn "FOUNDTEXTCOLOR" "符合条件之文字"
+::msgcat::mcset zh_cn "CONTLINECOLOR" "连续行"
+::msgcat::mcset zh_cn "USERFUNCOLOR" "使用者定义之函数"
+
 
 
 #overriding tcl-core dialogs (many are actually already found in 
