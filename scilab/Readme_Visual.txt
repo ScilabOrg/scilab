@@ -12,7 +12,7 @@ Install Java 2 JDK
    and modify first line (PVM_ROOT=...) with the good path
 3] copy in root of scilab directory : "tcl" directory (see below)
 4] copy in routines\Javasci jni.h and jni_md.h from Java 2 JDK
-5] click on scilab.sln (to launch Visual) or devenv scilab.sln /build release (via command line, to build release)
+5] click on scilab.sln (to launch Visual) or devenv scilab.sln /build "release with atlas" (via command line, to build release)
 
 
 N.B:
