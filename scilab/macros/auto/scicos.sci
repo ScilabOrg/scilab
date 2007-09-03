@@ -475,6 +475,7 @@ end //  %diagram_open test
 
 global Clipboard  // to make it possible to copy and paste from one
                   // super block to another
+global Scicos_commands   // programmed commands
 
 //** --------- Command Interpreter / State Machine / Main Loop ------------
 
@@ -485,11 +486,19 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
    if %stack(2)/%stack(1)> 0.3 then                      //
      stacksize(2*%stack(1))                              //
      disp("Stacksize increased to "+string(2*%stack(1))) //
-   end                                                   //
+   end        
+   
+   if %scicos_navig==[] then 
+    if Scicos_commands<>[] then
+     disp(Scicos_commands(1))
+     execstr(Scicos_commands(1))
+     Scicos_commands(1)=[]
+    end
+   end
 
    //**--------------------------------------------------------------------
    if %scicos_navig<>[] then //** navigation mode active 
-     
+    while %scicos_navig<>[] do
      if ~isequal(%diagram_path_objective,super_path) then
        %diagram_open  = %f
        [Cmenu,Select] = Find_Next_Step(%diagram_path_objective,super_path)
@@ -498,7 +507,7 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
          execstr('ierr=exec(OpenSet_,''errcatch'',-1)')
          //**---------------------------------------------------
 	 if ierr<>0 then message(lasterror()),end
-           if isequal(%diagram_path_objective,super_path) then
+         if isequal(%diagram_path_objective,super_path) then
              if ~or(curwin==winsid()) then 
                 gh_current_window = scf(curwin);
                 restore(gh_current_window);
@@ -507,21 +516,27 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
                 Cmenu="Replot";
 	        Select_back=[];Select=[]
              end  
-           end
          end
+       elseif Cmenu=="Quit" then
+         do_exit()
+         return
+       end
          //**---------------------------------------------------
-        else
+     else
 	  %scicos_navig=[]
-        end 
-   else
-     %diagram_open=%t
-
-     if Select<>[] then
-       if ~or(Select(1,2) == winsid()) then
-         Select = [] ; //** imply a full Reset 
      end
-  
-   end
+    end 
+   else
+
+
+
+      %diagram_open=%t
+
+      if Select<>[] then
+        if ~or(Select(1,2) == winsid()) then
+          Select = [] ; //** imply a full Reset 
+        end
+      end
    //**--------------------------------------------------------------------
    
    //** Command classification and message retrivial 
@@ -574,6 +589,7 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
 	//
         ierr=0
 	execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
+
         // in case window has disappeared
         if ~or(curwin==winsid()) then 
           gh_current_window = scf(curwin);
@@ -609,6 +625,19 @@ end // test %diagram
 end //**--->  end of the while loop: the only way to exit is with the 'Quit' command 
 
 do_exit() ; //** this function is executed in case of 'Quit' command
+
+if ~super_block then
+  //close TCL windows
+  TCL_EvalStr('catch {destroy .palettes}')
+  TCL_EvalStr('catch {destroy .ss}')
+  TCL_EvalStr('catch {destroy .scsTree}')
+  // clear all globals defore leaving
+  clearglobal Clipboard  
+  clearglobal Scicos_commands 
+  clearglobal %tableau
+  clearglobal %scicos_navig
+  clearglobal %diagram_path_objective
+end
 
 endfunction //** scicos() end here :) : had a good day
 //**

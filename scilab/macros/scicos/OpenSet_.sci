@@ -6,10 +6,24 @@ function OpenSet_()
 //** 25 Jully 2007 : 
 //** Comments by Simone Mannori
 
-  global %diagram_path_objective
+  global %diagram_path_objective  //probably not needed
 
   if ~%diagram_open then
     %kk=Select(1)
+
+    ierr=execstr('xxx=scs_m.objs(%kk).model.sim','errcatch','n')
+    if ierr==0 then
+       if xxx<>'super' then ierr=1;end
+    end
+    if ierr<>0 then
+        message(['This path does not lead to a super block.';
+                 'The browser is not up-to-date. Open a new one.'])
+        global %scicos_navig   //probably not needed
+        %scicos_navig=[]  // stop navigation
+        return
+    end
+
+
     super_path = [super_path, %kk] ; 
     
     disablemenus() // does nothing if parent is not open
@@ -73,16 +87,6 @@ function OpenSet_()
       enablemenus()      ;
       return ; //** ---> EXIT point
     end
-    
-    //** exit from superblock if parent window is destroyed
-    //**--------------------------------------------------------------------------
-    // in case previous window has been destroyed
-    //    if ~or(curwin==winsid()) then 
-    //      gh_current_window = scf(curwin);
-    //      restore(gh_current_window)
-    //      drawobjs(scs_m, gh_current_window)  ; //** redraw 
-    //    end  
-    //-----------------------------------------------------------------------
     
     
     //** Distruction (closing) of a Navigator window 

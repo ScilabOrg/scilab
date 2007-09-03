@@ -8,12 +8,12 @@ if super_path==[] then
   disablemenus();
    do_browser(scs_m);
   enablemenus();  
-else
-  message("Browser can only be launched from main diagram.") ;
-  //** I would change this message to:
-  //**  "Browser can only be launched from main diagram."
-  //**  "Please close all the super blocks and launch"
-  //**  "The Browser from the main diagram"
+else        
+      Scicos_commands=['%diagram_path_objective=[];%scicos_navig=1';
+		       'Cmenu='"Browser'";%scicos_navig=[]';
+		       '%diagram_path_objective='+sci2exp(super_path)+';%scicos_navig=1';
+		      ]
+//  message("Browser can only be launched from main diagram.") ;
 end
 
 endfunction
