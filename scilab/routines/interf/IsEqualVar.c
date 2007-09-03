@@ -49,17 +49,9 @@ RecursionRecordPtr Rrec;
 int MaxRec; /* allocated size for the array Rrec, 0 means not allocated */
 
 /* macros for debugging */ 
-#if _MSC_VER > 1310
-#define DEBUG_BASE(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */;
-#define DEBUG_LIST(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */ ;
-#define DEBUG_OVERLOADING(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */ ;
-#else
-#ifndef _MSC_VER
-#define DEBUG_BASE(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */;
-#define DEBUG_LIST(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */ ;
-#define DEBUG_OVERLOADING(fmt, ...) /*sciprint(fmt, __VA_ARGS__) */ ;
-#endif
-#endif
+/*#define DEBUG_BASE(fmt, ...)sciprint(fmt, __VA_ARGS__) */;
+/*#define DEBUG_LIST(fmt, ...) sciprint(fmt, __VA_ARGS__) */ ;
+/*#define DEBUG_OVERLOADING(fmt, ...) sciprint(fmt, __VA_ARGS__) */ ;
 
 
 
@@ -93,25 +85,12 @@ int C2F(intisequalvar)(char * fname, int *job, long int fl)
   int l1,lk, il1,ilk;
   int n1,nk; //memory size used by the variable, only used for overloaded comparison
 
-  #if _MSC_VER > 1310
-    DEBUG_OVERLOADING("entering intisequal Top=%d, Rhs=%d, Rstk[pt]=%d\n",Top,Rhs,Rstk[Pt]);
-#else
-#ifndef _MSC_VER
-    DEBUG_OVERLOADING("entering intisequal Top=%d, Rhs=%d, Rstk[pt]=%d\n",Top,Rhs,Rstk[Pt]);
-#endif
-#endif
-
+  /*DEBUG_OVERLOADING("entering intisequal Top=%d, Rhs=%d, Rstk[pt]=%d\n",Top,Rhs,Rstk[Pt]);*/
 
 
   SetDoubleCompMode(*job); /* floating point numbers are compared bitwize */
   if (Rstk[Pt]==914||Rstk[Pt]==915) { /* coming back after evaluation of overloading function */
-	  #if _MSC_VER > 1310
-    DEBUG_OVERLOADING("intisequal called back by the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);
-#else
-#ifndef _MSC_VER
-    DEBUG_OVERLOADING("intisequal called back by the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);
-#endif
-#endif
+    /*DEBUG_OVERLOADING("intisequal called back by the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);*/
     
     /* Restore context */
     kmin = Ids[1 + Pt * nsiz];
@@ -152,20 +131,14 @@ int C2F(intisequalvar)(char * fname, int *job, long int fl)
       Ids[1 + Pt * nsiz] = k;
       Ids[2 + Pt * nsiz] = srhs;
       Ids[3 + Pt * nsiz] = topk;
-     return 0;
+      return 0;
     }
     else if (res == -2) {/* Memory allocation failed */
       Error(112);
       FreeRec();
       return 0;
     }
-	#if _MSC_VER > 1310
-    DEBUG_OVERLOADING("k=%d, res=%d\n", k,res);
-#else
-#ifndef _MSC_VER
-    DEBUG_OVERLOADING("k=%d, res=%d\n", k,res);
-#endif
-#endif
+    /*DEBUG_OVERLOADING("k=%d, res=%d\n", k,res);*/
     
     if (res == 0) goto END;
     topk++;
@@ -239,15 +212,7 @@ int IsEqualOverloaded(double *d1, int n1, double *d2, int n2)
     Rstk[Pt]=915;
   }
 
-    	  #if _MSC_VER > 1310
-  DEBUG_OVERLOADING("IsEqualVar Overloaded calls the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);
-#else
-#ifndef _MSC_VER
-  DEBUG_OVERLOADING("IsEqualVar Overloaded calls the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);
-#endif
-#endif
-
-
+  /*DEBUG_OVERLOADING("IsEqualVar Overloaded calls the parser Top=%d, Rhs=%d, Pt=%d\n",Top,Rhs,Pt);*/
 
   return -1;
 }
@@ -268,15 +233,7 @@ int IsEqualVar(double *d1, int n1, double *d2, int n2)
   int *id2 = (int *) d2;
   int res;
 
-  #if _MSC_VER > 1310
-  DEBUG_BASE("IsEqualVar %d %d \n",id1[0],id2[0]);
-#else
-#ifndef _MSC_VER
-  DEBUG_BASE("IsEqualVar %d %d \n",id1[0],id2[0]);
-#endif
-#endif
-
-  
+  /*DEBUG_BASE("IsEqualVar %d %d \n",id1[0],id2[0]);*/
 
   /* Check the type */
   if ((id1[0] != id2[0])) goto DIFFER;
@@ -355,7 +312,7 @@ int IsEqualList(double *d1, double *d2)
    * call to Scilab for evaluation of overloading function
    * The redusion is emulated using the Rrec data structure to memorize the path 
    * to the current element.
- */
+   */
   int l,k,res,nelt;
   int *id1, *id2;
   int *ip1, *ip2;
@@ -400,14 +357,7 @@ int IsEqualList(double *d1, double *d2)
   /* check the array of "pointers" on list elements*/
   if (!IsEqualIntegerArray(nelt+1, id1+2, id2+2)) goto DIFFER;
 
-  #if _MSC_VER > 1310
-  DEBUG_LIST("STARTLEVEL nelt=%d\n",nelt);
-#else
-#ifndef _MSC_VER
-  DEBUG_LIST("STARTLEVEL nelt=%d\n",nelt);
-#endif
-#endif
-
+  /*DEBUG_LIST("STARTLEVEL nelt=%d\n",nelt);*/
   
   k = 0;
  SETLEVEL:
@@ -424,14 +374,7 @@ int IsEqualList(double *d1, double *d2)
     if (krec > 0 ) { /* end of a sub-level */
       /* restore upper level context*/
       krec--;
-	  	  #if _MSC_VER > 1310
-    DEBUG_LIST("Sublist ELEMENT  index=%d finished, previous restored from krec=%d\n",k+1,krec);
-#else
-#ifndef _MSC_VER
-    DEBUG_LIST("Sublist ELEMENT  index=%d finished, previous restored from krec=%d\n",k+1,krec);
-#endif
-#endif
-
+      /*DEBUG_LIST("Sublist ELEMENT  index=%d finished, previous restored from krec=%d\n",k+1,krec);*/
       
       d1 = Rrec[krec].d1;
       d2 = Rrec[krec].d2;
@@ -440,15 +383,8 @@ int IsEqualList(double *d1, double *d2)
       id1 = (int *) d1;
       id2 = (int *) d2;
       nelt = id1[1];
-#if _MSC_VER > 1310
-    DEBUG_LIST("back to lower level nelt=%d  index=%d krec=%d\n",nelt,k+1,krec);
-#else
-#ifndef _MSC_VER
-    DEBUG_LIST("back to lower level nelt=%d  index=%d krec=%d\n",nelt,k+1,krec);
-#endif
-#endif
+      /*DEBUG_LIST("back to lower level nelt=%d  index=%d krec=%d\n",nelt,k+1,krec);*/
 
-      
       goto  SETLEVEL;  
     }
     else /* end of main level */
@@ -466,16 +402,7 @@ int IsEqualList(double *d1, double *d2)
 
   if (id1[0]!=15 && id1[0]!=16&& id1[0]!=17) { /* elements which are not lists */
     res = IsEqualVar(d1, ip1[k+1]-ip1[k], d2, ip2[k+1]-ip2[k]);
-#if _MSC_VER > 1310
-    DEBUG_LIST("Regular ELEMENT  index=%d res=%d\n",k+1,res);
-#else
-#ifndef _MSC_VER
-    DEBUG_LIST("Regular ELEMENT  index=%d res=%d\n",k+1,res);
-#endif
-#endif
-
-
-
+    /*DEBUG_LIST("Regular ELEMENT  index=%d res=%d\n",k+1,res);*/
     if (!res) goto DIFFER;
     if (res == -1) { /*overloading function evaluation required */
       /* preserve context */
@@ -490,15 +417,7 @@ int IsEqualList(double *d1, double *d2)
 
   }
   else { /* sub list found*/
-#if _MSC_VER > 1310
-    DEBUG_LIST("Sublist ELEMENT  index=%d started, previous stored in krec=%d\n",k+1,krec);
-#else
-#ifndef _MSC_VER
-    DEBUG_LIST("Sublist ELEMENT  index=%d started, previous stored in krec=%d\n",k+1,krec);
-#endif
-#endif
-
-
+    /*DEBUG_LIST("Sublist ELEMENT  index=%d started, previous stored in krec=%d\n",k+1,krec);*/
 
     Rrec[krec].k  = k;
     krec++;
@@ -518,7 +437,7 @@ int IsEqualList(double *d1, double *d2)
  * @return 0 is the variables differ and 1 if they are identical 
  * @author Serge Steer
  * @see IsEqualVar
-  */
+ */
 int IsEqualLib(double *d1, double *d2)
 {
   int n,l;
@@ -537,7 +456,7 @@ int IsEqualLib(double *d1, double *d2)
   if (!IsEqualIntegerArray(n, id1+2, id2+2)) goto DIFFER; 
   l = n+2;
 
-   /* Check the number of names */
+  /* Check the number of names */
   if (id1[l] != id2[l]) goto DIFFER;
   n = id1[l];l++;
 
@@ -662,7 +581,7 @@ int IsEqualBoolMat(double *d1, double *d2)
  * @return 0 is the variables differ and 1 if they are identical 
  * @author Serge Steer
  * @see IsEqualVar
-  */
+ */
 int IsEqualStringMat(double *d1, double *d2)
 {
   int n;
@@ -682,7 +601,7 @@ int IsEqualStringMat(double *d1, double *d2)
   n = id1[1]*id1[2];
   if ( !IsEqualIntegerArray(n+1, id1+4, id2+4) ) goto DIFFER; 
 
- /* Check the array of character codes (integer) */
+  /* Check the array of character codes (integer) */
   if (!IsEqualIntegerArray(id1[4+n]-1, id1+5+n, id2+5+n)) goto DIFFER;
   return 1;
  DIFFER:
@@ -697,7 +616,7 @@ int IsEqualStringMat(double *d1, double *d2)
  * @return 0 is the variables differ and 1 if they are identical 
  * @author Serge Steer
  * @see IsEqualVar
-  */
+ */
 int IsEqualPolyMat(double *d1, double *d2)
 {
   int l,n;
@@ -726,7 +645,7 @@ int IsEqualPolyMat(double *d1, double *d2)
   /* Check the array of double precision numbers */
   l = (n + 10)/2;/* the beginning of first field in th double array */
 
- /* check the array of numbers */
+  /* check the array of numbers */
   if ( !IsEqualDoubleArray(id1[8+n]-1, d1+l, d2+l) ) goto DIFFER;
 
   return 1;
@@ -917,7 +836,7 @@ int IsEqualFunction(double *d1, double *d2)
  * @return 0 is the variables differ and 1 if they are identical 
  * @author Serge Steer
  * @see IsEqualVar
-  */
+ */
 int IsEqualLUPtr(double *d1, double *d2)
 {
   int *id1 = (int *) d1;
@@ -956,14 +875,8 @@ int IsEqualLUPtr(double *d1, double *d2)
 int IsEqualDoubleArrayIEEE(int n, double *d1, double *d2)
 {
   int i;
-  #if _MSC_VER > 1310
-    DEBUG_BASE("IEEE comparison of %d doubles\n",n);
-#else
-#ifndef _MSC_VER
-    DEBUG_BASE("IEEE comparison of %d doubles\n",n);
-#endif
-#endif
-  
+  /*DEBUG_BASE("IEEE comparison of %d doubles\n",n);*/
+ 
   if (n == 0) return 1;
   for (i = 0; i<n; i++){
     if (d1[i] != d2[i]) goto DIFFER;
@@ -987,15 +900,8 @@ int IsEqualDoubleArrayBinary(int n, double *d1, double *d2)
   long long *l1= (long long *)d1;
   long long *l2= (long long *)d2;
 
-  	  #if _MSC_VER > 1310
-    DEBUG_BASE("binary comparison of %d doubles \n",n);
-#else
-#ifndef _MSC_VER
-   DEBUG_BASE("binary comparison of %d doubles \n",n);
-#endif
-#endif
-
-  
+  /*DEBUG_BASE("binary comparison of %d doubles \n",n);*/
+ 
   if (n == 0) return 1;
   for (i = 0; i<n; i++){
     if (l1[i] != l2[i]) goto DIFFER;
@@ -1041,15 +947,7 @@ int IsEqualIntegerArray(int n, int *d1, int *d2)
 {
   int i;
 
-#if _MSC_VER > 1310
-  DEBUG_BASE("comparison of %d ints\n",n);
-#else
-#ifndef _MSC_VER
-  DEBUG_BASE("comparison of %d ints\n",n);
-#endif
-#endif
-
-
+  /*DEBUG_BASE("comparison of %d ints\n",n);*/
 
   if (n == 0) return 1;
   for (i = 0; i<n; i++){
@@ -1088,16 +986,7 @@ int IsEqualShortIntegerArray(int typ, int n, int *d1, int *d2)
 {
   int i;
   
-#if _MSC_VER > 1310
-  DEBUG_BASE("comparison of %d int %d bytes\n",n,typ);
-#else
-#ifndef _MSC_VER
-  DEBUG_BASE("comparison of %d int %d bytes\n",n,typ);
-#endif
-#endif
-
-
-
+  /*DEBUG_BASE("comparison of %d int %d bytes\n",n,typ);*/
   if (n == 0) return 1;
   switch (typ) {
   case 0:
@@ -1164,7 +1053,7 @@ int AllocRecIfRequired(int krec)
 
 void SetDoubleCompMode(int mode)
 {
-     DoubleCompMode=mode;
+  DoubleCompMode=mode;
 }
 /**GetDoubleCompMode
  * Utility function used to get the way double numbers are compared
@@ -1174,5 +1063,5 @@ void SetDoubleCompMode(int mode)
 
 int GetDoubleCompMode()
 {
-     return DoubleCompMode;
+  return DoubleCompMode;
 }
