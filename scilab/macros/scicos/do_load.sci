@@ -61,10 +61,8 @@ function [ok, scs_m, %cpr, edited] = do_load(fname,typ)
           stacksize(2*x(1))
         end
       else
-        message(name+' cannot be loaded.')
-        ok=%f;
-        scs_m=scicos_diagram(version=current_version);
-        return
+        message([name+' cannot be loaded.';'Opening a new diagram'])
+	ext='new'
       end
     else
       message(['Only *.cos (binary) and *.cosf (formatted) files';
@@ -81,6 +79,11 @@ function [ok, scs_m, %cpr, edited] = do_load(fname,typ)
     elseif ext=='cosf'|ext=='COSF' then
       ierr=execstr('exec(fname,-1)','errcatch')
       ok=%t
+    elseif ext=='new'
+      ok=%t
+      ierr=0
+      scs_m=scicos_diagram(version=current_version)
+      scs_m.props.title=name
     end
     if ierr<>0 then
       message('An error has occur during execution of '+name+'.')
