@@ -12,7 +12,7 @@ function [scs_m, edited] = do_SaveAs()
     return ; //** EXIT point 
   end
 
-  [path,name,ext] = splitfilepath(fname)
+  [path,name,ext] = splitfilepath_cos(fname)
   
   select ext
     

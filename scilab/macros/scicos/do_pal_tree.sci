@@ -62,7 +62,7 @@ GIFT = listfiles(Pgif+'*.gif');
 GIF  = [];
 
 for i=1:size(GIFT,1)
-  [jxpath,Gname,jext] = splitfilepath(GIFT(i));
+  [jxpath,Gname,jext] = splitfilepath_cos(GIFT(i));
   GIF = [GIF;Gname];
 end
 

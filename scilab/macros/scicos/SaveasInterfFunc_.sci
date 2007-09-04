@@ -7,7 +7,7 @@ function SaveasInterfFunc_()
     while ~ok then
       fname = savefile('*.sci')
       if fname<>emptystr() then 
-	[Dir,name,ext] = splitfilepath(fname)
+	[Dir,name,ext] = splitfilepath_cos(fname)
 	select ext
 	case 'sci' then
 	  ok=%t

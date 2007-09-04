@@ -46,7 +46,7 @@ function [ok, scs_m, %cpr, edited] = do_load(fname,typ)
   if fname<>emptystr() then
     %cpr=list()
     scs_m=[]
-    [path,name,ext]=splitfilepath(fname)
+    [path,name,ext]=splitfilepath_cos(fname)
     //first pass
     if ext=='cos'|ext=='COS'|ext=='cosf'|ext=='COSF'|ext=='' then
       if ext=='' then  // to allow user not to enter necessarily the extension
