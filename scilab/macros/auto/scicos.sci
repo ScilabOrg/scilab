@@ -490,7 +490,7 @@ while ( Cmenu <> "Quit" ) //** Cmenu -> exit from Scicos
    
    if %scicos_navig==[] then 
     if Scicos_commands<>[] then
-     disp(Scicos_commands(1))
+//     disp(Scicos_commands(1))
      execstr(Scicos_commands(1))
      Scicos_commands(1)=[]
     end
