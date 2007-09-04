@@ -36,12 +36,12 @@ MIN
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MIN_f.eps,width=90.00pt}$
+ $\epsfig{file=MIN_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MIN_f_blk.gif"
- ALT="\epsfig{file=MIN_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=MIN_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -73,7 +73,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="OldBlocks_pal.htm">OldBlocks - OldBlocks title</A>
+  HREF="OldBlocks_pal.htm">OldBlocks - Old blocks palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -81,8 +81,8 @@ Description</A>
 </font></H3>
 
 <P>
-That block find the min value in the elements of its input vector.  
-<BR>
+That block find the min value in the elements of its input vector.
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Default properties</A>
 </font></H3>
@@ -96,17 +96,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>minblk</EM>
 </LI>

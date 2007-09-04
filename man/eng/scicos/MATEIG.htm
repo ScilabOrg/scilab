@@ -36,12 +36,12 @@ MATEIG Matrix Eigenvalues
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATEIG.eps,width=90.00pt}$
+ $\epsfig{file=MATEIG.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATEIG_blk.gif"
- ALT="\epsfig{file=MATEIG.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATEIG.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -81,7 +81,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix title</A>
+  HREF="Matrix_pal.htm">Matrix - Matrix operation palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -89,11 +89,11 @@ Description</A>
 </font></H3>
 
 <P>
-The MATEIG calculate the eigenvalues and the eigenvectors of a square input matrix U. 
+The MATEIG calculate the eigenvalues and the eigenvectors of a square input matrix U.  
 <BR>
-When the "Decomposition type" is set to 1, the block outputs the eigenvalues in a vector form, if the input is a M-by-M matrix the output is a M-by-1 vector. 
+When the "Decomposition type" is set to 1, the block outputs the eigenvalues in a vector form, if the input is a M-by-M matrix the output is a M-by-1 vector.  
 <BR>
-When the "Decomposition type" is set to 2, the block outputs two matrices. for an M-by-M input matrix,the first output is a M-by-M diagonal matrix composed by the eigenvalues, and the second is a M-by-M matrices composed by the eigenvectors; the eigenvectors are represented by the columns of the matrix. 
+When the "Decomposition type" is set to 2, the block outputs two matrices. for an M-by-M input matrix,the first output is a M-by-M diagonal matrix composed by the eigenvalues, and the second is a M-by-M matrices composed by the eigenvectors; the eigenvectors are represented by the columns of the matrix.  
 <BR>
 The equivalent of the MATEIG block in Scilab is "spec(A)"  
 <BR>
@@ -118,6 +118,8 @@ Dialog box</A>
 It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>decomposition type (1=eig values  2=eig values+eig vectors</b>
 <BR>
@@ -151,17 +153,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,1] / type 2</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>mat_vps</EM>
 </LI>

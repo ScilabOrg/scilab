@@ -36,12 +36,12 @@ Relational operation
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=RELATIONALOP.eps,width=90.00pt}$
+ $\epsfig{file=RELATIONALOP.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="122" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="169" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/RELATIONALOP_blk.gif"
- ALT="\epsfig{file=RELATIONALOP.eps,width=90.00pt}">
+ ALT="\epsfig{file=RELATIONALOP.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -85,8 +85,6 @@ Description</A>
 </font></H3>
 
 <P>
-
-<P>
 It performs logical comparison of its two inputs. 
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
@@ -95,10 +93,10 @@ Dialog box</A>
 
 <DIV ALIGN="CENTER">
 <IMG
- WIDTH="477" HEIGHT="112" BORDER="0"
+ WIDTH="573" HEIGHT="134" BORDER="0"
  SRC="../../images/scicos/RELATIONALOP_gui.gif"
  ALT="\begin{figure}\begin{center}
-\epsfig{file=RELATIONALOP_gui.eps,width=300pt}
+\epsfig{file=RELATIONALOP_gui.eps,width=360pt}
 \end{center}\end{figure}">
 </DIV>
 
@@ -135,17 +133,22 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 2 / 1  1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR>   <b>   - port 2 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>relationalop</EM>
 </LI>

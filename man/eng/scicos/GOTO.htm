@@ -36,12 +36,12 @@ GOTO Pass block input to From block
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=GOTO.eps,width=90.00pt}$
+ $\epsfig{file=GOTO.eps,height=67.5pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="101" HEIGHT="107" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/GOTO_blk.gif"
- ALT="\epsfig{file=GOTO.eps,width=90.00pt}">
+ ALT="\epsfig{file=GOTO.eps,height=67.5pt}">
 
 </DIV>
 <BR>
@@ -85,14 +85,14 @@ Description</A>
 </font></H3>
 
 <P>
-The main role of the GOTO/FROM blocks is to transport signals from a block to another block without connecting them physically. The GOTO block transports its input data to its corresponding FROM block. A simple GOTO block can send data to multiple FROM, although a FROM can receive data from only one GOTO. 
+The main role of the GOTO/FROM blocks is to transport signals from a block to another block without connecting them physically. The GOTO block transports its input data to its corresponding FROM block. A simple GOTO block can send data to multiple FROM, although a FROM can receive data from only one GOTO.  
 <BR>
-The GOTO and FROM blocks are connected by the tag parameter. 
+The GOTO and FROM blocks are connected by the tag parameter.  
 <BR>
-The "Tag Visibility" parameter indicates if the location of the FROM block is limitted: 
-<BR>- Local : means that the corresponding FROM of that GOTO must be in the same subsystem. 
-<BR>- Scoped: means that the corresponding FROM of that GOTO must be in the same subsystem or in any subsystem below the GotoTagVisibility block in the model hierarchy 
-<BR>- Global: means that the corresponding FROM of that GOTO can be anywhere in the model. 
+The "Tag Visibility" parameter indicates if the location of the FROM block is limitted:  
+<BR>- Local: means that the corresponding FROM of that GOTO must be in the same subsystem.  
+<BR>- Scoped: means that the corresponding FROM of that GOTO must be in the same subsystem or in any subsystem below the GotoTagVisibility block in the model hierarchy.  
+<BR>- Global: means that the corresponding FROM of that GOTO can be anywhere in the model.  
 <BR>
 This block can support all the data types.  
 <BR>
@@ -117,6 +117,8 @@ Dialog box</A>
 This parameter identifies the Goto block whose scope is defined in this block.
 <BR>
 Properties : Type 'str' of size -1.
+
+<P>
 </LI>
 <LI><b>Tag Visibility(1=Local 2=scoped 3= global)</b>
 <BR>
@@ -139,17 +141,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type -1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>goto</EM>
 </LI>

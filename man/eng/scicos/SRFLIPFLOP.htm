@@ -36,12 +36,12 @@ SR flip-flop
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SRFLIPFLOP.eps,width=90.00pt}$
+ $\epsfig{file=SRFLIPFLOP.eps,height=112.5pt}$
  -->
 <IMG
- WIDTH="151" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="141" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SRFLIPFLOP_blk.gif"
- ALT="\epsfig{file=SRFLIPFLOP.eps,width=90.00pt}">
+ ALT="\epsfig{file=SRFLIPFLOP.eps,height=112.5pt}">
 
 </DIV>
 <BR>
@@ -85,7 +85,16 @@ Description</A>
 </font></H3>
 
 <P>
-This block describe the simplest and the most fundamental latch the SR flip flop. Where S and R are the input and Q and !Q are the outputs.If S (Set) is pulsed high while R is held low, then the Q output is forced high, and stays high when S returns low; similarly, if R (Reset) is pulsed high while S is held low, then the Q output is forced low, and stays low when R returns low. When both are low, Q(t) takes the same state as Q(t-1). When they are both high, both Q and !Q take the low values we are in an unstable state. Practicaly we have to avoid this case.This block is almostly used with digital number, the input data type is int8.
+This block describe the simplest and the most fundamental latch
+the SR flip flop. Where S and R are the input and Q and !Q are the
+outputs.If S (Set) is pulsed high while R is held low, then the Q
+output is forced high, and stays high when S returns low; similarly,
+if R (Reset) is pulsed high while S is held low, then the Q output
+is forced low, and stays low when R returns low. When both are low,
+Q(t) takes the same state as Q(t-1). When they are both high, both Q
+and !Q take the low values we are in an unstable state. Practicaly we
+have to avoid this case.This block is almostly used with digital
+number, the input data type is int8.
 <BR>
 <P>
 The truth table of this block is
@@ -137,17 +146,23 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 2 / 1  1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 5</b>
+<BR>   <b>   - port 2 : size [1,1] / type 5</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 5</b>
+<BR>   <b>   - port 2 : size [1,1] / type 5</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 2 / 1  1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>csuper</EM>
 </LI>

@@ -36,12 +36,12 @@ Select
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SELECT_m.eps,width=90.00pt}$
+ $\epsfig{file=SELECT_m.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SELECT_m_blk.gif"
- ALT="\epsfig{file=SELECT_m.eps,width=90.00pt}">
+ ALT="\epsfig{file=SELECT_m.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -102,6 +102,36 @@ Dialog box</A>
 \end{center}\end{figure}">
 </DIV>
 
+<P>
+
+<UL>
+<LI><B>Datatype(1= real double  2=Complex)</B>
+<BR>
+It indicates the type of the output. It support only the two
+	types double (1) and complex (2). If we input another entry
+	in this label scicos will print the message
+	"Datatype is not supported".
+	Properties : Type 'vec' of size 1
+
+<P>
+</LI>
+<LI><B>number of inputs</B>
+<BR>
+a scalar. Number of regular and event inputs. 
+<BR>
+Properties : Type 'vec' of size 1
+
+<P>
+</LI>
+<LI><B>initial connected input</B>
+<BR>
+an integer. It must be between 1 and
+        the number of inputs.  
+<BR>
+Properties : Type 'vec' of size 1
+</LI>
+</UL>
+
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Default properties</A>
 </font></H3>
@@ -115,17 +145,22 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 2 / -1  -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 2
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 2 / 1  1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>selector_m</EM>
 </LI>

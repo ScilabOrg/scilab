@@ -36,12 +36,12 @@ FROM Receives data from a corresponding GOTO
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=FROM.eps,width=90.00pt}$
+ $\epsfig{file=FROM.eps,height=67.5pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="101" HEIGHT="107" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/FROM_blk.gif"
- ALT="\epsfig{file=FROM.eps,width=90.00pt}">
+ ALT="\epsfig{file=FROM.eps,height=67.5pt}">
 
 </DIV>
 <BR>
@@ -85,11 +85,11 @@ Description</A>
 </font></H3>
 
 <P>
-The main role of the GOTO/FROM blocks is to transport signals from a block to another block without connecting them physically.The FROM block transports its received data (from the correponding GOTO) to its output. Multiples FROM blocks can receive data from one GOTO, although a GOTO can send data to multiple FROM. 
+The main role of the GOTO/FROM blocks is to transport signals from a block to another block without connecting them physically. The FROM block transports its received data (from the correponding GOTO) to its output. Multiples FROM blocks can receive data from one GOTO, although a GOTO can send data to multiple FROM.  
 <BR>
-The GOTO and FROM blocks are connected by the tag parameter. 
+The GOTO and FROM blocks are connected by the tag parameter.  
 <BR>
-For information on the visibility and limitation of these blocks please refer to the GOTO documentation. 
+For information on the visibility and limitation of these blocks please refer to the GOTO documentation.  
 <BR>
 This block can support all the data types.  
 <BR>
@@ -130,17 +130,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 0 / 
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type -1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>from</EM>
 </LI>

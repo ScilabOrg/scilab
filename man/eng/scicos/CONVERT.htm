@@ -36,12 +36,12 @@ CONVERT Data Type Conversion
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CONVERT.eps,width=90.00pt}$
+ $\epsfig{file=CONVERT.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CONVERT_blk.gif"
- ALT="\epsfig{file=CONVERT.eps,width=90.00pt}">
+ ALT="\epsfig{file=CONVERT.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -85,7 +85,7 @@ Description</A>
 </font></H3>
 
 <P>
-This block converts an input signal of any data type to a specified data type. The input can be real, complex or integer. When the output is an integer and when overflow occurs the block three different forms of results: 
+This block converts an input signal of any data type to a specified data type. The input can be real, complex or integer. When the output is an integer and when overflow occurs the block three different forms of results :  
 <BR>
 1- A normal non saturated result. 
 <BR>
@@ -93,7 +93,7 @@ This block converts an input signal of any data type to a specified data type. T
 <BR>
 3- An error message warning the user about the overflow.. 
 <BR>
-The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2. 
+The user can select one of these three forms by setting the "DO ON OVERFLOW" field to 0,1 or 2.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
@@ -116,12 +116,16 @@ Dialog box</A>
 It indicates the input data type, it can be a double or an integer.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>output type (1= double 3=int32  4=int16 5=int8 ...)</b>
 <BR>
 It indicates the output data type, it can be a double or an integer.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Do on Overflow(0=Nothing 1=Saturate 2=Error)</b>
 <BR>
@@ -144,17 +148,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 3</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>convert</EM>
 </LI>

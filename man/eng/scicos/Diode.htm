@@ -36,12 +36,12 @@ Electrical diode
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=Diode.eps,width=90.00pt}$
+ $\epsfig{file=Diode.eps,height=45pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="76" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="72" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/Diode_blk.gif"
- ALT="\epsfig{file=Diode.eps,width=90.00pt}">
+ ALT="\epsfig{file=Diode.eps,height=45pt}">
 
 </DIV>
 <BR>
@@ -52,20 +52,20 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html4"
+<LI><A NAME="tex2html6"
   HREF="Diode.htm#SECTION00010000000000000000">Electrical diode</A>
 <UL>
-<LI><A NAME="tex2html5"
-  HREF="Diode.htm#SECTION00021000000000000000">Palette</A>
-<LI><A NAME="tex2html6"
-  HREF="Diode.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="Diode.htm#SECTION00023000000000000000">Dialog box</A>
+  HREF="Diode.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="Diode.htm#SECTION00024000000000000000">Default properties</A>
+  HREF="Diode.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="Diode.htm#SECTION00025000000000000000">Interfacing function</A>
+  HREF="Diode.htm#SECTION00023000000000000000">Dialog box</A>
 <LI><A NAME="tex2html10"
+  HREF="Diode.htm#SECTION00024000000000000000">Default properties</A>
+<LI><A NAME="tex2html11"
+  HREF="Diode.htm#SECTION00025000000000000000">Interfacing function</A>
+<LI><A NAME="tex2html12"
   HREF="Diode.htm#SECTION00026000000000000000">Modelica model</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -81,8 +81,6 @@ Palette</A>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
 Description</A>
 </font></H3>
-
-<P>
 
 <P>
 This component consists of a simple diode parallel with an ohmic
@@ -151,18 +149,24 @@ Dialog box</A>
 Saturation current
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Voltage equivalent to temperature (Volt)</b>
 <BR>
 Voltage equivalent of temperature
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Max exponent for linear continuation</b>
 <BR>
 Max exponent for linear continuation
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>R (ohm)</b>
 <BR>
@@ -185,17 +189,19 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>number/sizes/type of inputs:</b> 1 / [1,] / 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
+<LI><b>number/sizes/type of outputs:</b> 1 / [1,] / 1
 </LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of modelica function:</b> <EM>Diode</EM>
 </LI>
@@ -204,32 +210,22 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>Diode.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Electrical/Diode.sci <A NAME="tex2html4"
+  HREF="Diode_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
 Modelica model</A>
 </font></H3>
- <SMALL CLASS="TINY">  </SMALL>
-<BR>
-<PRE  CLASS="verbatim">model Diode "Simple diode" 
-   Pin p, n;
-    parameter Real Ids=1.e-6 "Saturation current";
-    parameter Real Vt=0.04   "Voltage equivalent of temperature (kT/qn)";
-    parameter Real Maxexp=15 "Max. exponent for linear continuation";
-    parameter Real R=1.e8 "Parallel ohmic resistance";
-    Real v;
-  equation 
-   v = p.v - n.v;
 
-   p.i = if noEvent(v/Vt &gt; Maxexp) then 
-	Ids*(Modelica.Math.exp(Maxexp)*(1 + v/Vt - Maxexp) - 1) + v/R 
-  else 
-	Ids*(Modelica.Math.exp(v/Vt) - 1) + v/R;
-
-   p.i = -n.i;
-
-  end Diode;
-</PRE>
+<UL>
+<LI>SCI/macros/scicos_blocks/Electrical/Diode.mo <A NAME="tex2html5"
+  HREF="Diode_routcos.htm">[view code]</A>
+</LI>
+</UL>
 
 <BR>
 

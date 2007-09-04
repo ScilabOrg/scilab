@@ -36,12 +36,12 @@ Synchronous block If-Then-Else
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=IFTHEL_f.eps,width=90.00pt}$
+ $\epsfig{file=IFTHEL_f.eps,height=112.5pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="169" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/IFTHEL_f_blk.gif"
- ALT="\epsfig{file=IFTHEL_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=IFTHEL_f.eps,height=112.5pt}">
 
 </DIV>
 <BR>
@@ -108,8 +108,8 @@ Dialog box</A>
 <UL>
 <LI><B>Inherit</B> 
 <BR>
-If no, then it inherits the event from event input
-        port, elseif yes, then event is activated by regular input port.
+If no, then it inherits the event from event input port,
+	elseif yes, then event is activated by regular input port.
 <BR>
 Properties : Type 'vec' of size 1.
 
@@ -138,17 +138,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> yes
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type -1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 2 / 1  1
+<LI><b>number/sizes of activation outputs:</b> 2
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>ifthel</EM>
 </LI>

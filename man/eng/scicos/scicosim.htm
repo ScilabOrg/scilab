@@ -106,7 +106,7 @@ Parameters</A>
    'start' , 'run' or 'finish'. Function must be first called with 'start', then with 'run' one or more times, and finally with 'finish'.
 </LI>
 <LI><b>tol :</b>
-   vector [atol,rtol,ttol,deltat,realtimescale,solver,hmax] where atol, rtol are respectively the absolute and relative tolerances for ode or dae solver, ttol is the precision on event dates (must be very small). deltat is maximum integration interval for each call to ode solver (sometimes needed to force restaring the call to solver). raltimescale is the correspondance between simulation time and real time (0 means no slowing down). solver is the choice of solver (0: lsodar, 100: daskr). hmax: max step size used by solver. Default: [0.0001,1.000E-06,1.000E-10,100001,0,0]
+   vector [atol,rtol,ttol,deltat,realtimescale,solver,hmax] where atol, rtol are respectively the absolute and relative tolerances for ode or dae solver, ttol is the precision on event dates (must be very small), deltat is maximum integration interval for each call to ode solver (sometimes needed to force restaring the call to solver), realtimescale is the correspondance between simulation time and real time (0 means no slowing down), solver is the choice of solver (0: lsodar, 100: daskr), hmax: max step size used by solver. Default: [0.0001,1.000E-06,1.000E-10,100001,0,0]
 </LI>
 <LI><b>state :</b>
    state after simulation

@@ -36,12 +36,12 @@ BITCLEAR Clear a Bit
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=BITCLEAR.eps,width=90.00pt}$
+ $\epsfig{file=BITCLEAR.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/BITCLEAR_blk.gif"
- ALT="\epsfig{file=BITCLEAR.eps,width=90.00pt}">
+ ALT="\epsfig{file=BITCLEAR.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -110,10 +110,12 @@ Dialog box</A>
 It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>index of bit (0 is leat significant)</b>
 <BR>
-It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32. when the type is int16 or uint16 the number must be positif and less than 16 when the type is int8 or uint8 the number must be positif and less than 8
+It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32. When the type is int16 or uint16 the number must be positif and less than 16. When the type is int8 or uint8 the number must be positif and less than 8.
 <BR>
 Properties : Type 'vec' of size 1.
 </LI>
@@ -132,17 +134,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 3</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 3</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>bit_clear_32</EM>
 </LI>

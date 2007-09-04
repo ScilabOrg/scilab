@@ -36,12 +36,12 @@ Sample Time Clock
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SampleCLK.eps,width=90.00pt}$
+ $\epsfig{file=SampleCLK.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SampleCLK_blk.gif"
- ALT="\epsfig{file=SampleCLK.eps,width=90.00pt}">
+ ALT="\epsfig{file=SampleCLK.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -85,19 +85,19 @@ Description</A>
 </font></H3>
 
 <P>
-The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK blocks in our diagram are synchronous. The synchronism is done due to two differents methods of computation in the compilation phase. 
+The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK blocks in our diagram are synchronous. The synchronism is done due to two differents methods of computation in the compilation phase.  
 <BR>
-The first method consists of computing a clock that is faster than all the SampleCLK connected to a counter which activate the event select block. 
+The first method consists of computing a clock that is faster than all the SampleCLK connected to a counter which activate the event select block.  
 <BR>
 The clock is calculated due to the following rule. 
 <BR>
-If all the blocks have the same offset then the frequency of the clock is the gcd of the sample time, and the offset of the clock is equal to the offset. 
+If all the blocks have the same offset then the frequency of the clock is the gcd of the sample time, and the offset of the clock is equal to the offset.  
 <BR>
-If the offsets are differents, then the frequency of the clock is the gcd of the sample time and the offset, and the offset of the clock is equal to 0. 
+If the offsets are differents, then the frequency of the clock is the gcd of the sample time and the offset, and the offset of the clock is equal to 0.  
 <BR>
-The Counter counts from one to the least commun multiple of the sample time (lcm). 
+The Counter counts from one to the least commun multiple of the sample time (lcm).  
 <BR>
-The number of outputs of the ESELECT_f block is equal to the lcm. 
+The number of outputs of the ESELECT_f block is equal to the lcm.  
 <BR>
 The second method uses the Multifrequency block it generates events only for specific time. Events in this method are not periodicly generated as in the first one.  
 <BR>
@@ -122,6 +122,8 @@ Dialog box</A>
 The Sample time value.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Offset</b>
 <BR>
@@ -144,17 +146,15 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 0 / 
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 1 / 1
+<LI><b>number/sizes of activation outputs:</b> 1
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>sampleclk</EM>
 </LI>

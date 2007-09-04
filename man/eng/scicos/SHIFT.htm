@@ -36,12 +36,12 @@ SHIFT Shift Bits
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SHIFT.eps,width=90.00pt}$
+ $\epsfig{file=SHIFT.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SHIFT_blk.gif"
- ALT="\epsfig{file=SHIFT.eps,width=90.00pt}">
+ ALT="\epsfig{file=SHIFT.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -87,9 +87,9 @@ Description</A>
 </font></H3>
 
 <P>
-This block shifts the bits of the input signal. In this operation the digits are moved to the right or to the left. The user can choose the rule to shifts the bits. It can be normal or cycle by setting the "Shifttype" parameter to "0" or "1". 
+This block shifts the bits of the input signal. In this operation the digits are moved to the right or to the left. The user can choose the rule to shifts the bits. It can be normal or cycle by setting the "Shifttype" parameter to "0" or "1".  
 <BR>
-When the Shifttype is 0, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted out of either end are discarded. Zeros are shifted in on the right, in the case of left shift; in the case of right shifts, copies of the sign bit is shifted in on the left. 
+When the Shifttype is 0, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted out of either end are discarded. Zeros are shifted in on the right, in the case of left shift; in the case of right shifts, copies of the sign bit is shifted in on the left.  
 <BR>
 When the "Shifttype" is 1,a circular shift is applied to the input signal. In this case, the bits are rotated as if the left and right ends of the register are joined. The value that is shifted in on the right during a left-shift is whatever values was shifted out on the left, and vice versa.  
 <BR>
@@ -114,16 +114,20 @@ Dialog box</A>
 It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Number of bits to shift left (use negatif number to shift right)</b>
 <BR>
 It indicates the number of bits the input signal is shifted. A positif value indicates a shift left, negatif values indicates shift right.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Shifttype(0=Arithmetic 1=Circular)</b>
 <BR>
-It indicate the rule used to shift the bits. It can be arithmetic or circular. When the Shifttype is normal, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted
+It indicate the rule used to shift the bits. It can be arithmetic or circular. When the Shifttype is normal, an arithmetic shift is applied to the input signal. In this case, the bits that are shifted.
 <BR>
 Properties : Type 'vec' of size 1.
 </LI>
@@ -142,17 +146,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 3</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 3</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>shift_32_LA</EM>
 </LI>

@@ -36,12 +36,12 @@ MATBKSL:left matrix division
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATBKSL.eps,width=90.00pt}$
+ $\epsfig{file=MATBKSL.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATBKSL_blk.gif"
- ALT="\epsfig{file=MATBKSL.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATBKSL.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -81,7 +81,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix title</A>
+  HREF="Matrix_pal.htm">Matrix - Matrix operation palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -89,7 +89,7 @@ Description</A>
 </font></H3>
 
 <P>
-The MATBKSL block outputs the left matrix division. It is a solution to A*x=B. The higher input is the A matrix, the lower one is the B matrix, and the output is x. If A is an M-by-N1 matrix, B must be a M-by-N2 where N1 and N2 can be different or equal. The output x is a N1-by-N2 matrix. 
+The MATBKSL block outputs the left matrix division. It is a solution to A*x=B. The higher input is the A matrix, the lower one is the B matrix, and the output is x. If A is an M-by-N1 matrix, B must be a M-by-N2 where N1 and N2 can be different or equal. The output x is a N1-by-N2 matrix.  
 <BR>
 The equivalent of BACKSLASH is "&#239;n Scilab.  
 <BR>
@@ -140,17 +140,22 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 2 / -1  -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : size [-1,-3] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-2,-3] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -2
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>mat_bksl</EM>
 </LI>
@@ -185,7 +190,7 @@ See also</A>
 
 <UL>
 <LI><A NAME="tex2html7"
-  HREF="MATDIV.htm">MATDIV - MATDIV title (Scicos Block)</A>
+  HREF="MATDIV.htm">MATDIV - MATDIV Matrix division (Scicos Block)</A>
 </LI>
 <LI><A NAME="tex2html8"
   HREF="MATMUL.htm">MATMUL - MATMUL Matrix Multiplication (Scicos Block)</A>

@@ -36,12 +36,12 @@ Display (old block)
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=AFFICH_f.eps,width=90.00pt}$
+ $\epsfig{file=AFFICH_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/AFFICH_f_blk.gif"
- ALT="\epsfig{file=AFFICH_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=AFFICH_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -133,7 +133,7 @@ Properties : Type 'vec' of size 1
 <LI><B>Number of rational part digits</B>
 <BR>
 n integer greater than or
-	equal 0, the number of digits used to represent the rational part  
+	equal 0, the number of digits used to represent the rational part 
 <BR>
 Properties : Type 'vec' of size 1
 
@@ -161,17 +161,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>affich</EM>
 </LI>

@@ -72,23 +72,27 @@ case 'getorigin' then
 	typ=list()
 	%exit=resume(%t),
       else
+        global %scicos_navig
+        global Scicos_commands 
+        %scicos_navig=[];Scicos_commands=[]
 	if ~or(curwin==winsid()) then  // in case super block is closed
-	  xset("window",curwin)
+          scf(curwin)
+	  //xset("window",curwin)
 	end
       end
     end
   end
   
 case 'define' then
-  scs=scicos_diagram()
-  scs.props.title='Super Block'
-  model=scicos_model()
-  model.sim='super'
-  model.in=1
-  model.out=1
-  model.rpar=scs
-  model.blocktype='h'
-  model.dep_ut=[%f %f]
+  scs=scicos_diagram();
+  scs.props.title='Super Block';
+  model=scicos_model();
+  model.sim='super';
+  model.in=1;
+  model.out=1;
+  model.rpar=scs;
+  model.blocktype='h';
+  model.dep_ut=[%f %f];
 
   gr_i=['thick=xget(''thickness'');xset(''thickness'',2);';
     'xx=orig(1)+      [2 4 4]*(sz(1)/7);';

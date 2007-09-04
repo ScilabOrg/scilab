@@ -36,12 +36,12 @@ Single Display Scope
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CSCOPE.eps,width=90.00pt}$
+ $\epsfig{file=CSCOPE.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CSCOPE_blk.gif"
- ALT="\epsfig{file=CSCOPE.eps,width=90.00pt}">
+ ALT="\epsfig{file=CSCOPE.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -118,8 +118,9 @@ a vector of integers. The i-th element is the color
  WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CSCOPE_img4_eng.gif"
  ALT="$ &lt;0$"></SPAN>
-) used to draw the evolution of the i-th
-	input port signal. See  <B>plot2d</B>  for color (dash type) definitions.   
+) used to draw the evolution
+	of the i-th input port signal. See <B>plot2d</B> for color
+	(dash type) definitions. 
 <BR>
 Properties : Type 'vec' of size 8
 
@@ -128,8 +129,10 @@ Properties : Type 'vec' of size 8
 <LI><B>Output window number </B>
 <BR>
 The number of graphic window used for 
-	the display. It is often good to use high values to avoid conflict 
-	with palettes and Super Block windows. If default value is used <B>	(1)</B>, Scicos define the output window number.  
+	the display. It is often good to use high values to avoid
+	conflict with palettes and Super Block windows. If default
+	value is used <B>(1)</B>, Scicos define the output window
+	number. 
 <BR>
 Properties : Type 'vec' of size 1
 
@@ -138,8 +141,8 @@ Properties : Type 'vec' of size 1
 <LI><B>Output window position</B>
 <BR>
 a 2 vector specifying the coordinates
-	of the upper left corner of the graphic window. Answer [] for 
-	default window position.
+	of the upper left corner of the graphic window.
+	Answer [] for default window position.
 <BR>
 Properties : Type 'vec' of size 1
 
@@ -148,8 +151,8 @@ Properties : Type 'vec' of size 1
 <LI><B>Output window sizes</B>
 <BR>
 a 2 vector specifying the coordinates of
-        the upper left corner of the graphic window. Answer [] for default 
-	window position.
+        the upper left corner of the graphic window.
+	Answer [] for default window position.
 <BR>
 Properties : Type 'vec' of size -1
 
@@ -195,10 +198,10 @@ Properties : Type 'vec' of size 1
 <LI><B>Accept herited events 0/1</B>
 <BR>
 if 0  <B>CSCOPE_f</B>  draws a new point
-	only when an event occurs on its event input port. If 1  <B>CSCOPE_f</B>
-	draws a new point when an event occurs on its event input port and
-	when it's regular input changes due to an event on an other upstrem
-	block (herited events).  
+	only when an event occurs on its event input port. 
+	If 1 <B>CSCOPE_f</B> draws a new point when an event occurs
+        on its event input port and when it's regular input changes
+	due to an event on an other upstream block (herited events). 
 <BR>
 Properties : Type 'vec' of size 1
 
@@ -225,17 +228,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>cscope</EM>
 </LI>

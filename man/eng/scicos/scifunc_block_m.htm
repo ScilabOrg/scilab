@@ -36,12 +36,12 @@ Scilab function block
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=scifunc_block_m.eps,width=90.00pt}$
+ $\epsfig{file=scifunc_block_m.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/scifunc_block_m_blk.gif"
- ALT="\epsfig{file=scifunc_block_m.eps,width=90.00pt}">
+ ALT="\epsfig{file=scifunc_block_m.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -83,8 +83,12 @@ Description</A>
 </font></H3>
 
 <P>
-Add here a paragraph of the function description  
-<BR>
+This block can realize any type of Scicos block. The function of the
+block is defined interactively using dialogue boxes and in Scilab
+language. During simulation, these instructions are interpreted by
+Scilab; the simulation of diagrams that include these types of blocks
+is slower. For more information see Scicos reference manual.
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
 </font></H3>
@@ -101,63 +105,82 @@ Dialog box</A>
 <P>
 
 <UL>
-<LI><b>input ports sizes</b>
+<LI><B>input ports sizes</B>
 <BR>
-The parameter description 1.
+a scalar. Number of regular input ports 
 <BR>
-Properties : Type 'mat' of size [-1,2].
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>output port sizes</b>
+<LI><B>output port sizes</B>
 <BR>
-The parameter description 2.
+a scalar. Number of regular output ports 
 <BR>
-Properties : Type 'mat' of size [-2,2].
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>input event ports sizes</b>
+<LI><B>input event ports sizes</B>
 <BR>
-The parameter description 3.
+a scalar. Number of input event ports 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>output events ports sizes</b>
+<LI><B>output events ports sizes</B>
 <BR>
-The parameter description 4.
+a scalar. Number of output event ports 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial continuous state</b>
+<LI><B>initial continuous state</B>
 <BR>
-The parameter description 5.
+a column vector. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial discrete state</b>
+<LI><B>initial discrete state</B>
 <BR>
-The parameter description 6.
+a column vector. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>System parameters vector</b>
+<LI><B>System parameters vector</B>
 <BR>
-The parameter description 7.
+a string: c or d (<B>CBB</B> or <B>	DBB</B>), other  types are not supported.   
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial firing vector (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/scifunc_block_m_img3_eng.gif"
- ALT="$ &lt;$"></SPAN>
-0 for no firing)</b>
+<LI><B>initial firing vector </B>
 <BR>
-The parameter description 8.
+vector. Size of this vector corresponds
+	to the number of event outputs. The value of the i-th entry
+	specifies the time of the preprogrammed event firing on the i-th
+	output event port. If less than zero, no event is preprogrammed. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size sum(%4)
+
+<P>
 </LI>
-<LI><b>is block always active (0:no, 1:yes)</b>
+<LI><B>is block always active </B>
 <BR>
-The parameter description 9.
+other dialogues are opened
+	consecutively where used may input Scilab code associated with the
+	computations needed (block initialization, outputs, continuous and
+	discrete state, output events date, block ending)
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size 1
+ 
 </LI>
 </UL>
 
@@ -174,17 +197,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>scifunc</EM>
 </LI>

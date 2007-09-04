@@ -32,16 +32,16 @@ Scicos Block
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="SineVoltage"></A>
 <BR>
-SineVoltage title
+Sine voltage source
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SineVoltage.eps,width=90.00pt}$
+ $\epsfig{file=SineVoltage.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SineVoltage_blk.gif"
- ALT="\epsfig{file=SineVoltage.eps,width=90.00pt}">
+ ALT="\epsfig{file=SineVoltage.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -52,16 +52,16 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
-  HREF="SineVoltage.htm#SECTION00010000000000000000">SineVoltage title</A>
-<UL>
 <LI><A NAME="tex2html4"
-  HREF="SineVoltage.htm#SECTION00021000000000000000">Description</A>
+  HREF="SineVoltage.htm#SECTION00010000000000000000">Sine voltage source</A>
+<UL>
 <LI><A NAME="tex2html5"
-  HREF="SineVoltage.htm#SECTION00022000000000000000">Dialog box</A>
+  HREF="SineVoltage.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html6"
-  HREF="SineVoltage.htm#SECTION00023000000000000000">Default properties</A>
+  HREF="SineVoltage.htm#SECTION00022000000000000000">Dialog box</A>
 <LI><A NAME="tex2html7"
+  HREF="SineVoltage.htm#SECTION00023000000000000000">Default properties</A>
+<LI><A NAME="tex2html8"
   HREF="SineVoltage.htm#SECTION00024000000000000000">Interfacing function</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,24 +93,32 @@ Dialog box</A>
 The parameter description 1.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>phase (rad)</b>
 <BR>
 The parameter description 2.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Frequency (Hz)</b>
 <BR>
 The parameter description 3.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Voltageoffset (V)</b>
 <BR>
 The parameter description 4.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Timeoffset (s)</b>
 <BR>
@@ -133,17 +141,19 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>number/sizes/type of inputs:</b> 1 / [1,] / 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
+<LI><b>number/sizes/type of outputs:</b> 1 / [1,] / 1
 </LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of modelica function:</b> <EM>SineVoltage</EM>
 </LI>
@@ -152,7 +162,12 @@ Default properties</A>
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Interfacing function</A>
 </font></H3>
-<TT>SineVoltage.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Electrical/SineVoltage.sci <A NAME="tex2html3"
+  HREF="SineVoltage_intfunc.htm">[view code]</A>
+</LI>
+</UL>
 
 <BR>
 

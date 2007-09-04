@@ -36,12 +36,12 @@ MATINV Matrix Inverse
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATINV.eps,width=90.00pt}$
+ $\epsfig{file=MATINV.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATINV_blk.gif"
- ALT="\epsfig{file=MATINV.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATINV.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix title</A>
+  HREF="Matrix_pal.htm">Matrix - Matrix operation palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-The MATINV Block outputs the inverse of a square input matrix using the LU factorization. A warning message is printed if the input is badly scaled or nearly singular.The equivalent function of this block in Scilab is "inv".  
+The MATINV Block outputs the inverse of a square input matrix using the LU factorization. A warning message is printed if the input is badly scaled or nearly singular. The equivalent function of this block in Scilab is "inv".  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
@@ -107,7 +107,7 @@ Dialog box</A>
 <UL>
 <LI><b>Datatype(1=real double  2=Complex)</b>
 <BR>
-The parameter description 1.It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 <BR>
 Properties : Type 'vec' of size 1.
 </LI>
@@ -126,17 +126,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>mat_inv</EM>
 </LI>
@@ -174,7 +178,7 @@ See also</A>
   HREF="MATLU.htm">MATLU - MATLU LU Factorization (Scicos Block)</A>
 </LI>
 <LI><A NAME="tex2html8"
-  HREF="MATPINV.htm">MATPINV - MATPINV Matrix PsedoInverse (Scicos Block)</A>
+  HREF="MATPINV.htm">MATPINV - MATPINV Matrix PseudoInverse (Scicos Block)</A>
 </LI>
 </UL>
 

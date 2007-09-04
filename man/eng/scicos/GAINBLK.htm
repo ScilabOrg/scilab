@@ -36,12 +36,12 @@ Gain
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=GAINBLK.eps,width=90.00pt}$
+ $\epsfig{file=GAINBLK.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/GAINBLK_blk.gif"
- ALT="\epsfig{file=GAINBLK.eps,width=90.00pt}">
+ ALT="\epsfig{file=GAINBLK.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-The GAINBLK computes the product of a square matrix A by the input matrix U, where the number of rows/cols of A is equal to the number of rows of U. The input/output datatype is defined by the type of the Gain matrix A. It can take all the datatype. On overflow, the result can take different forms: 
+The GAINBLK computes the product of a square matrix A by the input matrix U, where the number of rows/cols of A is equal to the number of rows of U. The input/output datatype is defined by the type of the Gain matrix A. It can take all the datatype. On overflow, the result can take different forms:  
 <BR>
 1- A normal non saturated result. 
 <BR>
@@ -118,6 +118,8 @@ Dialog box</A>
 This parameter defined the square matrix A. That parameter can support all Data types.
 <BR>
 Properties : Type 'mat' of size [-1,-1].
+
+<P>
 </LI>
 <LI><b>Do on Overflow (0=Nothing 1=Saturate 2=Error)</b>
 <BR>
@@ -140,17 +142,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>gainblk</EM>
 </LI>

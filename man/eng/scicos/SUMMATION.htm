@@ -36,12 +36,12 @@ SUMMATION Matrix Summation
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SUMMATION.eps,width=90.00pt}$
+ $\epsfig{file=SUMMATION.eps,height=112.5pt}$
  -->
 <IMG
- WIDTH="144" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="113" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SUMMATION_blk.gif"
- ALT="\epsfig{file=SUMMATION.eps,width=90.00pt}">
+ ALT="\epsfig{file=SUMMATION.eps,height=112.5pt}">
 
 </DIV>
 <BR>
@@ -85,9 +85,9 @@ Description</A>
 </font></H3>
 
 <P>
-The Sum block performs addition or subtraction on its inputs. This block can add or subtract scalar, vector, or matrix inputs. It can also collapse the elements of a single input vector. 
+The Sum block performs addition or subtraction on its inputs. This block can add or subtract scalar, vector, or matrix inputs. It can also collapse the elements of a single input vector.  
 <BR>
-The number of inputs is given by the second parameter. This parameter can be a vector of +1 and -1 or it can be a positif value. In the first case the size of the vector indicates the number of inputs and the signs indicates whether it is a summation or a substraction. In the second case, the block is a summation block and the value indicates the number of inputs. 
+The number of inputs is given by the second parameter. This parameter can be a vector of +1 and -1 or it can be a positif value. In the first case the size of the vector indicates the number of inputs and the signs indicates whether it is a summation or a substraction. In the second case, the block is a summation block and the value indicates the number of inputs.  
 <BR>
 On overflow, the result can take different forms: 
 <BR>
@@ -120,12 +120,16 @@ Dialog box</A>
 It indicates the type of the input/output data. It support all datatype, number must be between 1 and 8.
 <BR>
 Properties : Type 'vec' of size 1.
+
+<P>
 </LI>
 <LI><b>Number of inputs or sign vector (of +1, -1)</b>
 <BR>
 It indicates the number of inputs and the operation see the description for more detail.
 <BR>
 Properties : Type 'vec' of size -1.
+
+<P>
 </LI>
 <LI><b>Do on Overflow(0=Nothing 1=Saturate 2=Error)</b>
 <BR>
@@ -148,17 +152,22 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 2 / -1  -1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / -1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>summation</EM>
 </LI>

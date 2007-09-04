@@ -36,12 +36,12 @@ Floating point scope
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CFSCOPE.eps,width=90.00pt}$
+ $\epsfig{file=CFSCOPE.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_blk.gif"
- ALT="\epsfig{file=CFSCOPE.eps,width=90.00pt}">
+ ALT="\epsfig{file=CFSCOPE.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -103,67 +103,100 @@ Dialog box</A>
 <P>
 
 <UL>
-<LI><b>Color (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+<LI><B>Color </B>
+<BR>
+a vector of integers. The i-th element is the color
+	number (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_img3_eng.gif"
- ALT="$ &gt;$"></SPAN>
-0) or mark (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ ALT="$ &gt;0$"></SPAN>
+) or dash type (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_img4_eng.gif"
- ALT="$ &lt;$"></SPAN>
-0) vector (8 entries)</b>
+ ALT="$ &lt;0$"></SPAN>
+) used to draw the evolution
+        of the i-th input port signal. See  <B>plot2d</B>  for color
+       (dash type) definitions. 
 <BR>
-The parameter description 1.
-<BR>
-Properties : Type 'vec' of size 8.
+Properties : Type 'vec' of size 8
+
+<P>
 </LI>
-<LI><b>Output window number (-1 for automatic)</b>
+<LI><B>Output window number </B>
 <BR>
-The parameter description 2.
+The number of graphic window used for 
+	the display. It is often good to use high values to avoid
+        conflict with palettes and Super Block windows. If default
+        value is used <B>(1)</B>, Scicos define the output window
+        number. 
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>Output window position</b>
+<LI><B>Output window position</B>
 <BR>
-The parameter description 3.
+a 2 vector specifying the coordinates
+	of the upper left corner of the graphic window. Answer [] for 
+	default window position. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>Output window sizes</b>
+<LI><B>Output window sizes</B>
 <BR>
-The parameter description 4.
+a 2 vector specifying the coordinates of
+	the upper left corner of the graphic window. Answer []
+        for default window position.   
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>Ymin</b>
+<LI><B>Ymin</B>
 <BR>
-The parameter description 5.
+Minimum  values of the input; used to set up the Y-axis
+	of the plot in the graphics window.   
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>Ymax</b>
+<LI><B>Ymax</B>
 <BR>
-The parameter description 6.
+Maximum values of the input; used to set up the Y-axis
+	of the plot in the graphics window.   
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>Refresh period</b>
+<LI><B>Refresh period</B>
 <BR>
-The parameter description 7.
+Maximum value on the X-axis (time). The plot
+	is redrawn when time reaches a multiple of this value. 
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size
+
+<P>
 </LI>
-<LI><b>Buffer size</b>
+<LI><B>Buffer size</B>
 <BR>
-The parameter description 8.
+To improve efficiency it is possible to buffer the
+	input data. The drawing is only done after each
+        <B>Buffer size</B> call to the block. 
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>Links to view</b>
+<LI><B>Links to view</B>
 <BR>
-The parameter description 9.
+This parameter allows you to display the output
+	of specified link. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size 1
 </LI>
 </UL>
 
@@ -180,17 +213,15 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 0 / 
+<LI><b>number/sizes of activation inputs:</b> 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>cfscope</EM>
 </LI>

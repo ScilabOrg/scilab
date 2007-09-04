@@ -36,12 +36,12 @@ Generic block (Old block)
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=generic_block.eps,width=90.00pt}$
+ $\epsfig{file=generic_block.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/generic_block_blk.gif"
- ALT="\epsfig{file=generic_block.eps,width=90.00pt}">
+ ALT="\epsfig{file=generic_block.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -75,7 +75,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="OldBlocks_pal.htm">OldBlocks - OldBlocks title</A>
+  HREF="OldBlocks_pal.htm">OldBlocks - Old blocks palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -83,8 +83,9 @@ Description</A>
 </font></H3>
 
 <P>
-Add here a paragraph of the function description  
-<BR>
+
+<P>
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
 </font></H3>
@@ -101,87 +102,121 @@ Dialog box</A>
 <P>
 
 <UL>
-<LI><b>simulation function</b>
+<LI><B>simulation function</B>
 <BR>
-The parameter description 1.
+Name of the function to be loaded.
 <BR>
-Properties : Type 'str' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>function type (0,1,2,..)</b>
+<LI><B>function type </B>
 <BR>
-The parameter description 2.
+Type of the computational function supported
+	by  scicos.
 <BR>
-Properties : Type 'vec' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>input ports sizes</b>
+<LI><B>input ports sizes</B>
 <BR>
-The parameter description 3.
+Number of regular input ports. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>output port sizes</b>
+<LI><B>output port sizes</B>
 <BR>
-The parameter description 4.
+Number of regular input ports. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>input event ports sizes</b>
+<LI><B>input event ports sizes</B>
 <BR>
-The parameter description 5.
+a vector of ones, size of event input
+	ports. The size of the vector gives the number of event
+	input ports.
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>output events ports sizes</b>
+<LI><B>output events ports sizes</B>
 <BR>
-The parameter description 6.
+a vector of ones, size of event
+	output ports. The size of the vector gives the number of of event
+	output ports. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial continuous state</b>
+<LI><B>initial continuous state</B>
 <BR>
-The parameter description 7.
+A column vector of Initial State
+	Conditions.  
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial discrete state</b>
+<LI><B>initial discrete state</B>
 <BR>
-The parameter description 8.
+A column vector Initial discrete  Conditions.
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>Real parameters vector</b>
+<LI><B>Real parameters vector</B>
 <BR>
-The parameter description 9.
+column vector. Any parameters used 
+	in the block can be defined here as a column vector.  
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>Integer parameters vector</b>
+<LI><B>Integer parameters vector</B>
 <BR>
-The parameter description 10.
+column vector. Any integer
+	parameters used in the block can be defined here as a column
+	vector. 
 <BR>
-Properties : Type 'vec' of size -1.
+Properties : Type 'vec' of size -1
+
+<P>
 </LI>
-<LI><b>initial firing vector (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/generic_block_img3_eng.gif"
- ALT="$ &lt;$"></SPAN>
-0 for no firing)</b>
+<LI><B>initial firing vector </B>
 <BR>
-The parameter description 11.
+vector. Size of this vector corresponds
+	to the number of event outputs. The value of the i-th entry
+	specifies the time of the preprogrammed event firing on the i-th
+	output event port. If less than zero, no event is preprogrammed.
 <BR>
-Properties : Type 'vec' of size "sum(%6)".
+Properties : Type 'vec' of size sum(%6)
+
+<P>
 </LI>
-<LI><b>direct feedthrough (y or n)</b>
+<LI><B>direct feedthrough </B>
 <BR>
-The parameter description 12.
+character "y" or "n", specifies if block
+	has a direct input to output feedthrough. 
 <BR>
-Properties : Type 'str' of size 1.
+Properties : Type 'vec' of size 1
+
+<P>
 </LI>
-<LI><b>time dependence (y or n)</b>
+<LI><B>time dependence </B>
 <BR>
-The parameter description 13.
+Time dependance : character "y" or "n",
+	specifies if block output depends explicitly on time. 
 <BR>
-Properties : Type 'str' of size 1.
+Properties : Type 'vec' of size 1
 </LI>
 </UL>
 
@@ -198,17 +233,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>sinblk</EM>
 </LI>

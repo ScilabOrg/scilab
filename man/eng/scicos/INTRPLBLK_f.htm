@@ -36,12 +36,12 @@ Interpolation
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=INTRPLBLK_f.eps,width=90.00pt}$
+ $\epsfig{file=INTRPLBLK_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/INTRPLBLK_f_blk.gif"
- ALT="\epsfig{file=INTRPLBLK_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=INTRPLBLK_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -86,8 +86,8 @@ Description</A>
 
 <P>
 The output of this block is a function of the input obtained by linear
-interpolation. This block has a single scalar input and a single
-scalar output port. The <SPAN CLASS="MATH"><IMG
+interpolation. This block has a single scalar input and a single scalar
+output port. The <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/INTRPLBLK_f_img2_eng.gif"
  ALT="$ X$"></SPAN>
@@ -104,8 +104,8 @@ coordinate and the <SPAN CLASS="MATH"><IMG
  WIDTH="18" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/INTRPLBLK_f_img3_eng.gif"
  ALT="$ Y$"></SPAN>
- coordinate of the data points to be
-interpolated. <SPAN CLASS="MATH"><IMG
+ coordinate of the data points to be interpolated.
+ <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/INTRPLBLK_f_img2_eng.gif"
  ALT="$ X$"></SPAN>
@@ -162,17 +162,21 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 1 / 1
+<LI><b>regular inputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 0
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 0 / 
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> no
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>intrpl</EM>
 </LI>

@@ -36,12 +36,12 @@ Sawtooth generator
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SAWTOOTH_f.eps,width=90.00pt}$
+ $\epsfig{file=SAWTOOTH_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SAWTOOTH_f_blk.gif"
- ALT="\epsfig{file=SAWTOOTH_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=SAWTOOTH_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -87,12 +87,12 @@ This block is a sawtooth wave generator: output is <SPAN CLASS="MATH"><IMG
  WIDTH="57" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/SAWTOOTH_f_img2_eng.gif"
  ALT="$ (t-t_i)$"></SPAN>
- from <SPAN CLASS="MATH"><IMG
+ from
+<SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/SAWTOOTH_f_img3_eng.gif"
  ALT="$ t_i$"></SPAN>
- to
-<SPAN CLASS="MATH"><IMG
+ to <SPAN CLASS="MATH"><IMG
  WIDTH="33" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/SAWTOOTH_f_img4_eng.gif"
  ALT="$ t_{i+1}$"></SPAN>
@@ -104,8 +104,8 @@ This block is a sawtooth wave generator: output is <SPAN CLASS="MATH"><IMG
  WIDTH="33" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/SAWTOOTH_f_img4_eng.gif"
  ALT="$ t_{i+1}$"></SPAN>
- denote the times of two successive input
-events.    
+ denote the times of two
+successive input events.    
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Default properties</A>
@@ -120,17 +120,18 @@ Default properties</A>
 </LI>
 <LI><b>mode:</b> no
 </LI>
-<LI><b>number/sizes of inputs:</b> 0 / 
+<LI><b>regular outputs:</b>
+<BR>   <b>   - port 1 : size [1,1] / type 1</b>
+<BR></LI>
+<LI><b>number/sizes of activation inputs:</b> 1
 </LI>
-<LI><b>number/sizes of outputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation inputs:</b> 1 / 1
-</LI>
-<LI><b>number/sizes of activation outputs:</b> 0 / 
+<LI><b>number/sizes of activation outputs:</b> 0
 </LI>
 <LI><b>continuous-time state:</b> no
 </LI>
 <LI><b>discrete-time state:</b> yes
+</LI>
+<LI><b>object discrete-time state:</b> no
 </LI>
 <LI><b>name of computational function:</b> <EM>sawtth</EM>
 </LI>
