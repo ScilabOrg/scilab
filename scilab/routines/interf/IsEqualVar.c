@@ -6,9 +6,27 @@
  *    This file contains the routines used by the isequalbitwise and isequal  builtin functions
  --------------------------------------------------------------------------*/
 
+#ifdef _MSC_VER
+#include <windows.h>
+#endif
+
 #include <string.h>
 #include "../stack-c.h"
 #include "IsEqualVar.h"
+
+#ifdef LONG_LONG
+#undef LONG_LONG
+#endif
+
+#ifdef _MSC_VER
+        #if _MSC_VER <=1200 
+                typedef __int64 LONG_LONG;
+        #else
+                typedef long long LONG_LONG;
+        #endif
+#else 
+        typedef long long LONG_LONG;
+#endif
 
 static int IsEqualDoubleMat(double *d1, double *d2);
 static int IsEqualPolyMat(double *d1, double *d2);
@@ -897,8 +915,8 @@ int IsEqualDoubleArrayIEEE(int n, double *d1, double *d2)
 int IsEqualDoubleArrayBinary(int n, double *d1, double *d2)
 {
   int i;
-  long long *l1= (long long *)d1;
-  long long *l2= (long long *)d2;
+  LONG_LONG *l1= (LONG_LONG *)d1;
+  LONG_LONG *l2= (LONG_LONG *)d2;
 
   /*DEBUG_BASE("binary comparison of %d doubles \n",n);*/
  
