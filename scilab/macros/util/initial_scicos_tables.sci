@@ -47,6 +47,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 	      'Save as Interf Func',..
 	      'Export',..
 	      'Export All',..
+              'Exit Scicos',..
 	      'Quit' ];
   
   Diagram  = ['Diagram',..
@@ -54,6 +55,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 	      'Purge',..
 	      'Set Diagram Info',..
 	      'Region to Super Block',..
+              'Up To Main Diagram',..
 	      'Context' ];
   
   Palette  = ['Palette',..
@@ -84,7 +86,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
               'Zoom in',..
 	      'Zoom out',..
               'Fit diagram to figure',..
-              'Browser',..
+              'Available Parameters',..
               'Grid'];
 	            	      
   Simulate = ['Simulate',..
@@ -110,7 +112,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   Tools    = ['Tools',..
               'Get Info',..
               'Details',..
-	      'Navigator'..
+              'Browser',..
 	      'Code Generation',..
 	      'Shortcuts',..
 	      'Calc'];
