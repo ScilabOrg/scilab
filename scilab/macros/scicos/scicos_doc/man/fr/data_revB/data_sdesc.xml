@@ -1,28 +1,100 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="sdesc">
 
+<FILE name='ABSBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="ABSBLK_f">Valeur absolue (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ABSBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ABSBLK_f">ABSBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ABS_VALUE' type='XML'>
 <SHORT_DESCRIPTION name="ABS_VALUE">Valeur absolue</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ABS_VALUE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ABS_VALUE">ABS_VALUE</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
 <SHORT_DESCRIPTION name="AFFICH_f">Affichage (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='AFFICH_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="AFFICH_f">AFFICH_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='AFFICH_m' type='XML'>
+<SHORT_DESCRIPTION name="AFFICH_m">Affichage</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='AFFICH_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="AFFICH_m">AFFICH_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ANDBLK' type='XML'>
 <SHORT_DESCRIPTION name="ANDBLK">Et activation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ANDBLK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ANDBLK">ANDBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
 <SHORT_DESCRIPTION name="ANDLOG_f">ET logique</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='ANIMXY_f' type='XML'>
-<SHORT_DESCRIPTION name="ANIMXY_f">Animation 2D</SHORT_DESCRIPTION>
+<FILE name='ANDLOG_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ANDLOG_f">ANDLOG_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='BACKLASH' type='XML'>
 <SHORT_DESCRIPTION name="BACKLASH">Backlash</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BACKLASH_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BACKLASH">BACKLASH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BIGSOM_f' type='XML'>
+<SHORT_DESCRIPTION name="BIGSOM_f">Somme (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BIGSOM_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BIGSOM_f">BIGSOM_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BITCLEAR' type='XML'>
+<SHORT_DESCRIPTION name="BITCLEAR">BITCLEAR Raz un bit</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BITCLEAR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BITCLEAR">BITCLEAR</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<SHORT_DESCRIPTION name="BITSET">BITSET Positionne un bit</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BITSET_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BITSET">BITSET</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<SHORT_DESCRIPTION name="BOUNCE">Générateur de coordonnées de balles</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<SHORT_DESCRIPTION name="BOUNCEXY">Afficheur de baballes</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCEXY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BOUNCEXY">BOUNCEXY</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='BOUNCE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="BOUNCE">BOUNCE</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Bache' type='XML'>
@@ -33,56 +105,300 @@
 <SHORT_DESCRIPTION name="Branching">Palette Branching</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CANIMXY' type='XML'>
+<SHORT_DESCRIPTION name="CANIMXY">Scope animé y=f(x)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CANIMXY3D' type='XML'>
+<SHORT_DESCRIPTION name="CANIMXY3D">Scope animé z=f(x,y)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CANIMXY3D_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CANIMXY3D">CANIMXY3D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CANIMXY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CANIMXY">CANIMXY</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CBLOCK' type='XML'>
 <SHORT_DESCRIPTION name="CBLOCK">New C</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CBLOCK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CBLOCK">CBLOCK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CEVENTSCOPE' type='XML'>
+<SHORT_DESCRIPTION name="CEVENTSCOPE">Scope pour événements</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CEVENTSCOPE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CEVENTSCOPE">CEVENTSCOPE</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CFSCOPE' type='XML'>
+<SHORT_DESCRIPTION name="CFSCOPE">Scope flottant</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CFSCOPE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CFSCOPE">CFSCOPE</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLINDUMMY_f' type='XML'>
 <SHORT_DESCRIPTION name="CLINDUMMY_f">Dummy </SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLINDUMMY_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLINDUMMY_f">CLINDUMMY_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKFROM' type='XML'>
+<SHORT_DESCRIPTION name="CLKFROM">Récepteur de donnée pour un boc CLKGOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKFROM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKFROM">CLKFROM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<SHORT_DESCRIPTION name="CLKGOTO">Transmetteur de donnée pour un bloc CLKFROM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGOTO_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKGOTO">CLKGOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<SHORT_DESCRIPTION name="CLKGotoTagVisibility">Définit la portée des données d'un bloc CLKGOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKGotoTagVisibility">CLKGotoTagVisibility</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CLKINV_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKINV_f">Port d'entrée évènementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKINV_f">Port d'entrée événementiel</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKINV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKINV_f">CLKINV_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKIN_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKIN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKIN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKIN_f">CLKIN_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKOUTV_f' type='XML'>
 <SHORT_DESCRIPTION name="CLKOUTV_f">Port de sortie d'activation</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLKOUTV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKOUTV_f">CLKOUTV_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKOUT_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKOUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKOUT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKOUT_f">CLKOUT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CLKSOMV_f' type='XML'>
 <SHORT_DESCRIPTION name="CLKSOMV_f">Union d'activations</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSOMV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKSOMV_f">CLKSOMV_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSOM_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKSOM_f">Union d'activations</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSOM_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKSOM_f">CLKSOM_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSPLIT_f' type='XML'>
+<SHORT_DESCRIPTION name="CLKSPLIT_f">Croisement de liens événementiels</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLKSPLIT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLKSPLIT_f">CLKSPLIT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLOCK_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLOCK_f' type='XML'>
 <SHORT_DESCRIPTION name="CLOCK_f">Horloge d'activation (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLOCK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLOCK_f">CLOCK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLR' type='XML'>
+<SHORT_DESCRIPTION name="CLR">Fonction de transfert continue</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CLR_f' type='XML'>
 <SHORT_DESCRIPTION name="CLR_f">Fonction de transfert continue (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLR_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLR_f">CLR_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLR">CLR</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLSS' type='XML'>
+<SHORT_DESCRIPTION name="CLSS">Système d'équations d'état continu</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS_f' type='XML'>
 <SHORT_DESCRIPTION name="CLSS_f">Système d'équations d'état continu (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CLSS_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLSS_f">CLSS_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CLSS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CLSS">CLSS</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMAT3D' type='XML'>
+<SHORT_DESCRIPTION name="CMAT3D">Scope matriciel 3D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMAT3D_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CMAT3D">CMAT3D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMATVIEW' type='XML'>
+<SHORT_DESCRIPTION name="CMATVIEW">Scope matriciel coloré</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMATVIEW_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CMATVIEW">CMATVIEW</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CMSCOPE' type='XML'>
 <SHORT_DESCRIPTION name="CMSCOPE">Scope à affichage multiple</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CMSCOPE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CMSCOPE">CMSCOPE</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST' type='XML'>
+<SHORT_DESCRIPTION name="CONST">Constante (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONSTRAINT_f' type='XML'>
 <SHORT_DESCRIPTION name="CONSTRAINT_f">Constraint</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CONSTRAINT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CONSTRAINT_f">CONSTRAINT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CONST_f' type='XML'>
 <SHORT_DESCRIPTION name="CONST_f">Constante (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CONST_f">CONST_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CONST">CONST</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_m' type='XML'>
+<SHORT_DESCRIPTION name="CONST_m">Constante</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONST_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CONST_m">CONST_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<SHORT_DESCRIPTION name="CONVERT">CONVERT Convertion de dtype de données</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CONVERT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CONVERT">CONVERT</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='COSBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="COSBLK_f">COSBLK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='COSBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="COSBLK_f">COSBLK_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CSCOPE' type='XML'>
 <SHORT_DESCRIPTION name="CSCOPE">Scope</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='CSCOPE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CSCOPE">CSCOPE</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPXY' type='XML'>
+<SHORT_DESCRIPTION name="CSCOPXY">Scope y=f(x)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPXY3D' type='XML'>
+<SHORT_DESCRIPTION name="CSCOPXY3D">Scope z=f(x,y)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPXY3D_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CSCOPXY3D">CSCOPXY3D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CSCOPXY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CSCOPXY">CSCOPXY</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<SHORT_DESCRIPTION name="CUMSUM">CUMSUM Somme cumulative</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CUMSUM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CUMSUM">CUMSUM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CURVE_c' type='XML'>
+<SHORT_DESCRIPTION name="CURVE_c">CURVE_c titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CURVE_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CURVE_c">CURVE_c titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CURV_f' type='XML'>
 <SHORT_DESCRIPTION name="CURV_f">Courbe</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CURV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CURV_f">CURV_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Capacitor' type='XML'>
@@ -93,6 +409,14 @@
 <SHORT_DESCRIPTION name="ConstantVoltage">Source de tension électrique constante</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Counter' type='XML'>
+<SHORT_DESCRIPTION name="Counter">Compteur</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Counter_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Counter">Counter</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='CurrentSensor' type='XML'>
 <SHORT_DESCRIPTION name="CurrentSensor">Capteur de courant électrique</SHORT_DESCRIPTION>
 </FILE>
@@ -101,68 +425,260 @@
 <SHORT_DESCRIPTION name="DEADBAND">Zone morte</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DEADBAND_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DEADBAND">DEADBAND</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='DEBUG_SCICOS' type='XML'>
 <SHORT_DESCRIPTION name="DEBUG_SCICOS">Bloc debug</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEBUG_SCICOS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DEBUG_SCICOS">DEBUG_SCICOS</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DELAYV_f' type='XML'>
+<SHORT_DESCRIPTION name="DELAYV_f">DELAYV_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DELAYV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DELAYV_f">DELAYV_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DELAY_f' type='XML'>
+<SHORT_DESCRIPTION name="DELAY_f">Retard temporel discret</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DELAY_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DELAY_f">DELAY_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DEMUX' type='XML'>
 <SHORT_DESCRIPTION name="DEMUX">Démultiplexeur</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DEMUX_f' type='XML'>
+<SHORT_DESCRIPTION name="DEMUX_f">Démultiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEMUX_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DEMUX_f">DEMUX_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DEMUX_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DEMUX">DEMUX</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='DERIV' type='XML'>
 <SHORT_DESCRIPTION name="DERIV">Dérivée</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DERIV_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DERIV">DERIV</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DFLIPFLOP' type='XML'>
+<SHORT_DESCRIPTION name="DFLIPFLOP">DFLIPFLOP Bascule D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DFLIPFLOP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DFLIPFLOP">DFLIPFLOP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DIFF_f' type='XML'>
+<SHORT_DESCRIPTION name="DIFF_f">DIFF_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DIFF_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DIFF_f">DIFF_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<SHORT_DESCRIPTION name="DLATCH">DLATCH Bascule D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLATCH_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLATCH">DLATCH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLR' type='XML'>
+<SHORT_DESCRIPTION name="DLR">Fonction de transfert discrète</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLRADAPT_f' type='XML'>
+<SHORT_DESCRIPTION name="DLRADAPT_f">DLRADAPT_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLRADAPT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLRADAPT_f">DLRADAPT_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
 <SHORT_DESCRIPTION name="DLR_f">Fonction de transfert discrète (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DLR_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLR_f">DLR_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLR">DLR</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLSS' type='XML'>
+<SHORT_DESCRIPTION name="DLSS">Système d'équations d'état discrètes</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='DLSS_f' type='XML'>
 <SHORT_DESCRIPTION name="DLSS_f">Système d'équations d'état discrètes (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLSS_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLSS_f">DLSS_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DLSS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DLSS">DLSS</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR' type='XML'>
+<SHORT_DESCRIPTION name="DOLLAR">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
 <SHORT_DESCRIPTION name="DOLLAR_f">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DOLLAR_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DOLLAR_f">DOLLAR_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DOLLAR">DOLLAR</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR_m' type='XML'>
+<SHORT_DESCRIPTION name="DOLLAR_m">Opérateur retard</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='DOLLAR_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="DOLLAR_m">DOLLAR_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='Diode' type='XML'>
 <SHORT_DESCRIPTION name="Diode">Diode électrique</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<SHORT_DESCRIPTION name="EDGETRIGGER">EDGETRIGGER titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EDGETRIGGER_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EDGETRIGGER">EDGETRIGGER</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EDGE_TRIGGER' type='XML'>
 <SHORT_DESCRIPTION name="EDGE_TRIGGER">Bloc EDGE TRIGGER</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='EDGE_TRIGGER_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EDGE_TRIGGER">EDGE_TRIGGER</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ESELECT_f' type='XML'>
 <SHORT_DESCRIPTION name="ESELECT_f">Bloc synchrone Event-Select</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='EVENTSCOPE_f' type='XML'>
-<SHORT_DESCRIPTION name="EVENTSCOPE_f">Scope d'évènement</SHORT_DESCRIPTION>
+<FILE name='ESELECT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ESELECT_f">ESELECT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_c' type='XML'>
+<SHORT_DESCRIPTION name="EVTDLY_c">Retard événementiel</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EVTDLY_c">EVTDLY_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Retard évènementiel (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Retard événementiel (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTDLY_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EVTDLY_f">EVTDLY_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTGEN_f">Générateur d'évènement</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTGEN_f">Générateur d'événement</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTGEN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EVTGEN_f">EVTGEN_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTVARDLY' type='XML'>
-<SHORT_DESCRIPTION name="EVTVARDLY">Retard variable évènementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTVARDLY">Retard variable événementiel</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EVTVARDLY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EVTVARDLY">EVTVARDLY</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EXPBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="EXPBLK_f">Exponentielle (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='EXPBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXPBLK_f">EXPBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXPBLK_m' type='XML'>
+<SHORT_DESCRIPTION name="EXPBLK_m">Exponentielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXPBLK_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXPBLK_m">EXPBLK_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='EXPRESSION' type='XML'>
 <SHORT_DESCRIPTION name="EXPRESSION">Expression mathématique</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='EXPRESSION_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXPRESSION">EXPRESSION</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<SHORT_DESCRIPTION name="EXTRACT">EXTRACT Extraction de matrices</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<SHORT_DESCRIPTION name="EXTRACTBITS">EXTRACTBITS Extraction de bits</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACTBITS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXTRACTBITS">EXTRACTBITS</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='EXTRACTOR' type='XML'>
 <SHORT_DESCRIPTION name="EXTRACTOR">Extractor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACTOR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXTRACTOR">EXTRACTOR</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTRACT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXTRACT">EXTRACT</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTTRI' type='XML'>
+<SHORT_DESCRIPTION name="EXTTRI">EXTTRI Extraction diagonale ou triangulaire</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='EXTTRI_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="EXTTRI">EXTTRI</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Electrical_pal' type='XML'>
@@ -177,20 +693,112 @@
 <SHORT_DESCRIPTION name="Extract_Activation">Bloc Extract_Activation</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='FSCOPE_f' type='XML'>
-<SHORT_DESCRIPTION name="FSCOPE_f">Scope flottant</SHORT_DESCRIPTION>
+<FILE name='Extract_Activation_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Extract_Activation">Extract_Activation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROM' type='XML'>
+<SHORT_DESCRIPTION name="FROM">FROM Récepteur de données d'un bloc GOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<SHORT_DESCRIPTION name="FROMMO">FROMMO Récepteur de données d'un bloc GOTOMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMMO_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="FROMMO">FROMMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="FROM">FROM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FSV_f' type='XML'>
+<SHORT_DESCRIPTION name="FSV_f">FSV_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FSV_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="FSV_f">FSV_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GAINBLK' type='XML'>
 <SHORT_DESCRIPTION name="GAINBLK">Gain</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='GAINBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="GAINBLK_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GAINBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GAINBLK_f">GAINBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GAINBLK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GAINBLK">GAINBLK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GAIN_f' type='XML'>
+<SHORT_DESCRIPTION name="GAIN_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GAIN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GAIN_f">GAIN_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GENERAL_f' type='XML'>
+<SHORT_DESCRIPTION name="GENERAL_f">GENERAL_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GENERAL_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GENERAL_f">GENERAL_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='GENSIN_f' type='XML'>
 <SHORT_DESCRIPTION name="GENSIN_f">Générateur sinusoïdal</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='GENSIN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GENSIN_f">GENSIN_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='GENSQR_f' type='XML'>
 <SHORT_DESCRIPTION name="GENSQR_f">Generator de signaux carré</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GENSQR_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GENSQR_f">GENSQR_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<SHORT_DESCRIPTION name="GOTO">GOTO Transmetteur de données vers un bloc FROM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<SHORT_DESCRIPTION name="GOTOMO">GOTOMO Transmetteur de données vers un bloc FROMMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTOMO_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GOTOMO">GOTOMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GOTO_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GOTO">GOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<SHORT_DESCRIPTION name="GotoTagVisibility">Définit la portée des données d'un bloc GOTO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<SHORT_DESCRIPTION name="GotoTagVisibilityMO">Définit la portée des données d'un bloc GOTOMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GotoTagVisibilityMO">GotoTagVisibilityMO</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='GotoTagVisibility_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="GotoTagVisibility">GotoTagVisibility</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Ground' type='XML'>
@@ -201,84 +809,456 @@
 <SHORT_DESCRIPTION name="HALT_f">Halt</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='HALT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="HALT_f">HALT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='HYSTHERESIS' type='XML'>
 <SHORT_DESCRIPTION name="HYSTHERESIS">Hystheresis</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='HYSTHERESIS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="HYSTHERESIS">HYSTHERESIS</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IFTHEL_f' type='XML'>
 <SHORT_DESCRIPTION name="IFTHEL_f">Bloc synchrone If-Then-Else</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='IFTHEL_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="IFTHEL_f">IFTHEL_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='IMPSPLIT_f' type='XML'>
+<SHORT_DESCRIPTION name="IMPSPLIT_f">Croisement de liens réguliers implicites</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='IMPSPLIT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="IMPSPLIT_f">IMPSPLIT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='INIMPL_f' type='XML'>
 <SHORT_DESCRIPTION name="INIMPL_f">Port implicie d'entrée</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INIMPL_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INIMPL_f">INIMPL_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INTEGRAL' type='XML'>
 <SHORT_DESCRIPTION name="INTEGRAL">Integration (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='INTEGRAL_f' type='XML'>
+<SHORT_DESCRIPTION name="INTEGRAL_f">Integration (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTEGRAL_f">INTEGRAL_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTEGRAL">INTEGRAL</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL_m' type='XML'>
+<SHORT_DESCRIPTION name="INTEGRAL_m">Integration</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTEGRAL_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTEGRAL_m">INTEGRAL_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<SHORT_DESCRIPTION name="INTMUL">INTMUL Multiplication matricielle de nombre entiers</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTMUL_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTMUL">INTMUL</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='INTRP2BLK_f' type='XML'>
 <SHORT_DESCRIPTION name="INTRP2BLK_f">Interpolation 2D</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INTRP2BLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTRP2BLK_f">INTRP2BLK_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INTRPLBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="INTRPLBLK_f">Interpolation</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='INTRPLBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INTRPLBLK_f">INTRPLBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK' type='XML'>
+<SHORT_DESCRIPTION name="INVBLK">Inverse</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='INVBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="INVBLK_f">Inverse (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INVBLK_f">INVBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='INVBLK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="INVBLK">INVBLK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IN_f' type='XML'>
 <SHORT_DESCRIPTION name="IN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='IN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="IN_f">IN_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ISELECT_f' type='XML'>
 <SHORT_DESCRIPTION name="ISELECT_f">Iselect (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ISELECT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ISELECT_f">ISELECT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ISELECT_m' type='XML'>
+<SHORT_DESCRIPTION name="ISELECT_m">Iselect</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ISELECT_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ISELECT_m">ISELECT_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Inductor' type='XML'>
 <SHORT_DESCRIPTION name="Inductor">Inductance électrique</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Integer_pal' type='XML'>
+<SHORT_DESCRIPTION name="Integer">Palette Integer</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<SHORT_DESCRIPTION name="JKFLIPFLOP">JKFLIPFLOP Bascule JK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='JKFLIPFLOP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="JKFLIPFLOP">JKFLIPFLOP</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="LOGBLK_f">Logarithme</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOGBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="LOGBLK_f">LOGBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<SHORT_DESCRIPTION name="LOGIC">Logique combinatoire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='LOGICAL_OP' type='XML'>
 <SHORT_DESCRIPTION name="LOGICAL_OP">Opération logique</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='LOGICAL_OP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="LOGICAL_OP">LOGICAL_OP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOGIC_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="LOGIC">LOGIC</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='LOOKUP_f' type='XML'>
 <SHORT_DESCRIPTION name="LOOKUP_f">Lookup table</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='LOOKUP_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="LOOKUP_f">LOOKUP_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Linear_pal' type='XML'>
 <SHORT_DESCRIPTION name="Linear">Palette Lineaire</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='MATBKSL' type='XML'>
+<SHORT_DESCRIPTION name="MATBKSL">MATBKSL Division matricielle à gauche</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATBKSL_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATBKSL">MATBKSL</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATH' type='XML'>
+<SHORT_DESCRIPTION name="MATCATH">MATCATH Concaténation horizontale</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATH_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATCATH">MATCATH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATV' type='XML'>
+<SHORT_DESCRIPTION name="MATCATV">MATCATV Concaténation verticale</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATCATV_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATCATV">MATCATV</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDET' type='XML'>
+<SHORT_DESCRIPTION name="MATDET">MATDET Déterminant</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDET_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATDET">MATDET</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIAG' type='XML'>
+<SHORT_DESCRIPTION name="MATDIAG">MATDIAG Matrice diagonale</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIAG_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATDIAG">MATDIAG</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIV' type='XML'>
+<SHORT_DESCRIPTION name="MATDIV">MATDIV Division matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATDIV_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATDIV">MATDIV</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEIG' type='XML'>
+<SHORT_DESCRIPTION name="MATEIG">MATEIG Valeurs propes matricielles</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEIG_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATEIG">MATEIG</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEXPM' type='XML'>
+<SHORT_DESCRIPTION name="MATEXPM">MATEXPM Exponentielle matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATEXPM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATEXPM">MATEXPM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATINV' type='XML'>
+<SHORT_DESCRIPTION name="MATINV">MATINV Matrice inverse</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATINV_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATINV">MATINV</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATLU' type='XML'>
+<SHORT_DESCRIPTION name="MATLU">MATLU Factorisation LU matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATLU_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATLU">MATLU</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMAGPHI' type='XML'>
+<SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI Convertion matricielle complexe/module-phase</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMAGPHI_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMUL' type='XML'>
+<SHORT_DESCRIPTION name="MATMUL">MATMUL Multiplication Matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATMUL_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATMUL">MATMUL</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATPINV' type='XML'>
+<SHORT_DESCRIPTION name="MATPINV">MATPINV Pseudo-invertion matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATPINV_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATPINV">MATPINV</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATRESH' type='XML'>
+<SHORT_DESCRIPTION name="MATRESH">MATRESH Redimensionnement matriciel</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATRESH_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATRESH">MATRESH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATSING' type='XML'>
+<SHORT_DESCRIPTION name="MATSING">MATSING Décomposition en valeurs singulières</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATSING_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATSING">MATSING</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATSUM' type='XML'>
+<SHORT_DESCRIPTION name="MATSUM">Somme matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATSUM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATSUM">MATSUM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATTRAN' type='XML'>
+<SHORT_DESCRIPTION name="MATTRAN">MATTRAN Transposition Matricielle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATTRAN_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATTRAN">MATTRAN</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATZCONJ' type='XML'>
+<SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ Matrice conjugéetitre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATZCONJ_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATZREIM' type='XML'>
+<SHORT_DESCRIPTION name="MATZREIM">MATZREIM Décomposition matricielle complexe</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MATZREIM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MATZREIM">MATZREIM</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='MAXMIN' type='XML'>
 <SHORT_DESCRIPTION name="MAXMIN">Minimun Maximun</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MAXMIN_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MAXMIN">MAXMIN</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MAX_f' type='XML'>
+<SHORT_DESCRIPTION name="MAX_f">MAX</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MAX_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MAX_f">MAX_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MBLOCK' type='XML'>
+  <SHORT_DESCRIPTION name="MBLOCK">Bloc modélica générique</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MBLOCK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MBLOCK">MBLOCK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MCLOCK_f' type='XML'>
+<SHORT_DESCRIPTION name="MCLOCK_f">MCLOCK_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MCLOCK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MCLOCK_f">MCLOCK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MEMORY_f' type='XML'>
+<SHORT_DESCRIPTION name="MEMORY_f">MEMORY_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MEMORY_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MEMORY_f">MEMORY_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MFCLCK_f' type='XML'>
+<SHORT_DESCRIPTION name="MFCLCK_f">MFCLCK_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MFCLCK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MFCLCK_f">MFCLCK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MIN_f' type='XML'>
+<SHORT_DESCRIPTION name="MIN_f">MIN</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MIN_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MIN_f">MIN_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MOTOR' type='XML'>
+<SHORT_DESCRIPTION name="MOTOR">MOTOR titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MUX' type='XML'>
 <SHORT_DESCRIPTION name="MUX">Multiplexeur</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='MUX_f' type='XML'>
+<SHORT_DESCRIPTION name="MUX_f">Multiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MUX_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MUX_f">MUX_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MUX_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MUX">MUX</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='M_SWITCH' type='XML'>
 <SHORT_DESCRIPTION name="M_SWITCH">Switch à port multiple</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_SWITCH_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="M_SWITCH">M_SWITCH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<SHORT_DESCRIPTION name="M_freq">Horloge à fréquence multiples</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='M_freq_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="M_freq">M_freq</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Matrix_pal' type='XML'>
+<SHORT_DESCRIPTION name="Matrix">Palette d'opérations matricielles</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Modulo_Count' type='XML'>
 <SHORT_DESCRIPTION name="Modulo_Count">Compteur modulo</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Modulo_Count_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Modulo_Count">Modulo_Count</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='NEGTOPOS_f' type='XML'>
 <SHORT_DESCRIPTION name="NEGTOPOS_f">Détection de front montant</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='NEGTOPOS_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="NEGTOPOS_f">NEGTOPOS_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='NPN' type='XML'>
+<SHORT_DESCRIPTION name="NPN">NPN transitor</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='NRMSOM_f' type='XML'>
 <SHORT_DESCRIPTION name="NRMSOM_f">Merge data</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='NRMSOM_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="NRMSOM_f">NRMSOM_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Non_linear_pal' type='XML'>
@@ -289,8 +1269,20 @@
 <SHORT_DESCRIPTION name="OUTIMPL_f">Port implicite de sortie</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='OUTIMPL_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="OUTIMPL_f">OUTIMPL_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='OUT_f' type='XML'>
 <SHORT_DESCRIPTION name="OUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='OUT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="OUT_f">OUT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='OldBlocks_pal' type='XML'>
+<SHORT_DESCRIPTION name="OldBlocks">Palette des anciens blocs</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Others_pal' type='XML'>
@@ -301,20 +1293,52 @@
 <SHORT_DESCRIPTION name="PDE">Bloc PDE</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PDE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PDE">PDE</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<SHORT_DESCRIPTION name="PID">PID regulator</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PID_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PID">PID</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PNP' type='XML'>
+<SHORT_DESCRIPTION name="PNP">Transitor PNP</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='POSTONEG_f' type='XML'>
 <SHORT_DESCRIPTION name="POSTONEG_f">Détection de front descendant</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='POSTONEG_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="POSTONEG_f">POSTONEG_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='POWBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="POWBLK_f">Puissance</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='POWBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="POWBLK_f">POWBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='PRODUCT' type='XML'>
 <SHORT_DESCRIPTION name="PRODUCT">Produit</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PRODUCT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PRODUCT">PRODUCT</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='PROD_f' type='XML'>
 <SHORT_DESCRIPTION name="PROD_f">Multiplication</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PROD_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PROD_f">PROD_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='PerteDP' type='XML'>
@@ -333,96 +1357,344 @@
 <SHORT_DESCRIPTION name="QUANT_f">Quantification</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='QUANT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="QUANT_f">QUANT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='RAMP' type='XML'>
 <SHORT_DESCRIPTION name="RAMP">Rampe</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RAMP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RAMP">RAMP</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
 <SHORT_DESCRIPTION name="RAND_f">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='RAND_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RAND_f">RAND_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RAND_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RAND_m">RAND_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='RATELIMITER' type='XML'>
 <SHORT_DESCRIPTION name="RATELIMITER">Rate limiter </SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RATELIMITER_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RATELIMITER">RATELIMITER</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='READAU_f' type='XML'>
 <SHORT_DESCRIPTION name="READAU_f">Lecteur d'un fichier son AU</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='READAU_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="READAU_f">READAU_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='READC_f' type='XML'>
 <SHORT_DESCRIPTION name="READC_f">Lecture de donée binaire</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='READC_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="READC_f">READC_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='REGISTER' type='XML'>
+<SHORT_DESCRIPTION name="REGISTER">Registre à décalage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
 <SHORT_DESCRIPTION name="REGISTER_f">Registre à décalage (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='REGISTER_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="REGISTER_f">REGISTER_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='REGISTER_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="REGISTER">REGISTER</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='RELATIONALOP' type='XML'>
 <SHORT_DESCRIPTION name="RELATIONALOP">Opération relationnelle</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RELATIONALOP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RELATIONALOP">RELATIONALOP</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELAY_f' type='XML'>
 <SHORT_DESCRIPTION name="RELAY_f">Relay </SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='RELAY_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RELAY_f">RELAY_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RFILE' type='XML'>
+<SHORT_DESCRIPTION name="RFILE">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='RFILE_f' type='XML'>
 <SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RFILE_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RFILE_f">RFILE_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RFILE_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RFILE">RFILE</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RICC' type='XML'>
+<SHORT_DESCRIPTION name="RICC">RICC Equation de Riccati</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='RICC_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="RICC">RICC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<SHORT_DESCRIPTION name="ROOTCOEF">Calcul de coefficients de polynômes</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ROOTCOEF_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ROOTCOEF">ROOTCOEF</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor' type='XML'>
 <SHORT_DESCRIPTION name="Resistor">Résistance électrique</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='SAMPHOLD' type='XML'>
+<SHORT_DESCRIPTION name="SAMPHOLD">Echantillonneur bloqueur (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAMPHOLD_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SAMPHOLD">SAMPHOLD</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<SHORT_DESCRIPTION name="SAMPHOLD_m">Echantillonneur bloqueur</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAMPHOLD_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SAMPHOLD_m">SAMPHOLD_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SAMPLEHOLD_f' type='XML'>
 <SHORT_DESCRIPTION name="SAMPLEHOLD_f">Echantillonneur bloqueur (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAMPLEHOLD_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SAMPLEHOLD_f">SAMPLEHOLD_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SATURATION' type='XML'>
 <SHORT_DESCRIPTION name="SATURATION">Saturation</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='SATURATION_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SATURATION">SATURATION</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAT_f' type='XML'>
+<SHORT_DESCRIPTION name="SAT_f">Saturation (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SAT_f">SAT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SAWTOOTH_f' type='XML'>
 <SHORT_DESCRIPTION name="SAWTOOTH_f">Générateur de dents de scie</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SAWTOOTH_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SAWTOOTH_f">SAWTOOTH_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SCALAR2VECTOR' type='XML'>
 <SHORT_DESCRIPTION name="SCALAR2VECTOR">Scalaire vers vecteur</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='SCOPXY_f' type='XML'>
-<SHORT_DESCRIPTION name="SCOPXY_f">Scope XY</SHORT_DESCRIPTION>
+<FILE name='SCALAR2VECTOR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SCALAR2VECTOR">SCALAR2VECTOR</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SELECT_f' type='XML'>
 <SHORT_DESCRIPTION name="SELECT_f">Select (Old block)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='SELECT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SELECT_f">SELECT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SELECT_m' type='XML'>
+<SHORT_DESCRIPTION name="SELECT_m">Select</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SELECT_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SELECT_m">SELECT_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<SHORT_DESCRIPTION name="SHIFT">SHIFT Décalage binaire</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SHIFT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SHIFT">SHIFT</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SIGNUM' type='XML'>
 <SHORT_DESCRIPTION name="SIGNUM">Signum</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SIGNUM_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SIGNUM">SIGNUM</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SINBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="SINBLK_f">SINBLK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SINBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SINBLK_f">SINBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SLIDER_f' type='XML'>
+<SHORT_DESCRIPTION name="SLIDER_f">SLIDER_f titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SLIDER_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SLIDER_f">SLIDER_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SPLIT_f' type='XML'>
+<SHORT_DESCRIPTION name="SPLIT_f">Croisement de liens réguliers</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SPLIT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SPLIT_f">SPLIT_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SQRT' type='XML'>
+<SHORT_DESCRIPTION name="SQRT">SQRT Racine carré</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SQRT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SQRT">SQRT</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
+<SHORT_DESCRIPTION name="SRFLIPFLOP">SRFLIPFLOP Bascule RS</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SRFLIPFLOP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SRFLIPFLOP">SRFLIPFLOP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='STEP' type='XML'>
+<SHORT_DESCRIPTION name="STEP">STEP titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>
 <SHORT_DESCRIPTION name="STEP_FUNCTION">Générateur de marche d'escalier</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='STEP_FUNCTION_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="STEP_FUNCTION">STEP_FUNCTION</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='STEP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="STEP">STEP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUBMAT' type='XML'>
+<SHORT_DESCRIPTION name="SUBMAT">SUBMAT Extrait une sous-matrice</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUBMAT_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SUBMAT">SUBMAT</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SUMMATION' type='XML'>
 <SHORT_DESCRIPTION name="SUMMATION">Somme</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUMMATION_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SUMMATION">SUMMATION</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SUM_f' type='XML'>
 <SHORT_DESCRIPTION name="SUM_f">Addition</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='SUM_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SUM_f">SUM_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SUPER_f' type='XML'>
 <SHORT_DESCRIPTION name="SUPER_f">Super bloc</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SUPER_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SUPER_f">SUPER_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SWITCH2' type='XML'>
 <SHORT_DESCRIPTION name="SWITCH2">Switch2 (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='SWITCH2_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SWITCH2">SWITCH2</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH2_m' type='XML'>
+<SHORT_DESCRIPTION name="SWITCH2_m">Switch2</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH2_m_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SWITCH2_m">SWITCH2_m</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SWITCH_f' type='XML'>
 <SHORT_DESCRIPTION name="SWITCH_f">Switch</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SWITCH_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SWITCH_f">SWITCH_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SampleCLK' type='XML'>
+<SHORT_DESCRIPTION name="SampleCLK">Horloge synchrone</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SampleCLK_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SampleCLK">SampleCLK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sigbuilder' type='XML'>
+<SHORT_DESCRIPTION name="Sigbuilder">Construction de signaux</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Sigbuilder_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SineVoltage' type='XML'>
+<SHORT_DESCRIPTION name="SineVoltage">Source de tension sinusoïdale</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
@@ -437,20 +1709,60 @@
 <SHORT_DESCRIPTION name="Sources">Palette Sources</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='TANBLK_f' type='XML'>
+<SHORT_DESCRIPTION name="TANBLK_f">TANBLK</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TANBLK_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TANBLK_f">TANBLK_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TCLSS' type='XML'>
+<SHORT_DESCRIPTION name="TCLSS">Système linéaire continu avec saut</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='TCLSS_f' type='XML'>
 <SHORT_DESCRIPTION name="TCLSS_f">Système linéaire continu avec saut (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TCLSS_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TCLSS_f">TCLSS_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TCLSS_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TCLSS">TCLSS</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TEXT_f' type='XML'>
 <SHORT_DESCRIPTION name="TEXT_f">Texte</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='TEXT_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TEXT_f">TEXT_f</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='TIME_DELAY' type='XML'>
 <SHORT_DESCRIPTION name="TIME_DELAY">Retard temporel</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='TIME_DELAY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TIME_DELAY">TIME_DELAY</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='TIME_f' type='XML'>
 <SHORT_DESCRIPTION name="TIME_f">Temps</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TIME_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TIME_f">TIME_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TRASH_f' type='XML'>
+<SHORT_DESCRIPTION name="TRASH_f">Bloc terminaison</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TRASH_f_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TRASH_f">TRASH_f</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='XML'>
@@ -465,8 +1777,16 @@
 <SHORT_DESCRIPTION name="TrigFun">Fonction trigonométrique</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='TrigFun_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TrigFun">TrigFun</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='VARIABLE_DELAY' type='XML'>
 <SHORT_DESCRIPTION name="VARIABLE_DELAY">Retard variable</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VARIABLE_DELAY_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VARIABLE_DELAY">VARIABLE_DELAY</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VVsourceAC' type='XML'>
@@ -489,1513 +1809,12 @@
 <SHORT_DESCRIPTION name="VsourceAC">Source de tension électrique AC</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='WFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="WFILE_f">Ecriture dans un fichier</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='WRITEAU_f' type='XML'>
-<SHORT_DESCRIPTION name="WRITEAU_f">Ecrite de fichier son AU</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='WRITEC_f' type='XML'>
-<SHORT_DESCRIPTION name="WRITEC_f">Ecriture de donnée binaire</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ZCROSS_f' type='XML'>
-<SHORT_DESCRIPTION name="ZCROSS_f">Détection des passages à zéro</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='buildouttb' type='XML'>
-<SHORT_DESCRIPTION name="buildouttb">Construction d'une liste vide %cpr.state.outtb</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='phase_simulation' type='XML'>
-	<SHORT_DESCRIPTION name="phase_simulation">Retourne la phase actuelle de simulation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='set_xproperty' type='XML'>
-	<SHORT_DESCRIPTION name="set_xproperty">Définit le type du système d'équations d'état</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='pointer_xproperty' type='XML'>
-	<SHORT_DESCRIPTION name="pointer_xproperty">Retourne le type du système d'équations d'état</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='getblocklabel' type='XML'>
-	<SHORT_DESCRIPTION name="getblocklabel">Retourne le label d'un bloc scicos</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='c_block' type='XML'>
-<SHORT_DESCRIPTION name="c_block">Language C</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='curblock' type='XML'>
-<SHORT_DESCRIPTION name="curblock">Retourne l'actuel bloc scicos appelé pendant la simulation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='fortran_block' type='XML'>
-<SHORT_DESCRIPTION name="fortran_block">Fortran</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='freq_div' type='XML'>
-<SHORT_DESCRIPTION name="freq_div">Diviseur de fréquence</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='generic_block2' type='XML'>
-<SHORT_DESCRIPTION name="generic_block2">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='generic_block3' type='XML'>
-<SHORT_DESCRIPTION name="generic_block3">Bloc générique</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='getscicosvars' type='XML'>
-<SHORT_DESCRIPTION name="getscicosvars">Fonction superviseur utilitaire</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='lincos' type='XML'>
-<SHORT_DESCRIPTION name="lincos">Construit par linéarisation un modèle linéaire d'équations d'état à partir d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scicos' type='XML'>
-<SHORT_DESCRIPTION name="scicos">Editeur de schéma bloc et interface graphique pour le simulateur hybride</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scicos_simulate' type='XML'>
-<SHORT_DESCRIPTION name="scicos_simulate">Fonction pour éxécuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scicos_time' type='XML'>
-<SHORT_DESCRIPTION name="scicos_time">Retourne le temps courant pendant la simulation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scicosim' type='XML'>
-<SHORT_DESCRIPTION name="scicosim">Fonction de simulation scicos en ligne de commande</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scifunc_block' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block">Bloc Scilab (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='steadycos' type='XML'>
-<SHORT_DESCRIPTION name="steadycos">Trouve un régime établi d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='var2vec' type='XML'>
-<SHORT_DESCRIPTION name="var2vec">Transforme une variable scilab en un vecteur de double</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='vec2var' type='XML'>
-<SHORT_DESCRIPTION name="vec2var">Transforme un vecteur de double en une variable scilab</SHORT_DESCRIPTION>
-</FILE>
-
-
-<FILE name='CUMSUM' type='XML'>
-<SHORT_DESCRIPTION name="CUMSUM">CUMSUM titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTRACT' type='XML'>
-<SHORT_DESCRIPTION name="EXTRACT">EXTRACT titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTTRI' type='XML'>
-<SHORT_DESCRIPTION name="EXTTRI">EXTTRI titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATBKSL' type='XML'>
-<SHORT_DESCRIPTION name="MATBKSL">MATBKSL titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATCATH' type='XML'>
-<SHORT_DESCRIPTION name="MATCATH">MATCATH titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATCATV' type='XML'>
-<SHORT_DESCRIPTION name="MATCATV">MATCATV titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDET' type='XML'>
-<SHORT_DESCRIPTION name="MATDET">MATDET titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDIAG' type='XML'>
-<SHORT_DESCRIPTION name="MATDIAG">MATDIAG titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDIV' type='XML'>
-<SHORT_DESCRIPTION name="MATDIV">MATDIV titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATEIG' type='XML'>
-<SHORT_DESCRIPTION name="MATEIG">MATEIG titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATEXPM' type='XML'>
-<SHORT_DESCRIPTION name="MATEXPM">MATEXPM titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATINV' type='XML'>
-<SHORT_DESCRIPTION name="MATINV">MATINV titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATLU' type='XML'>
-<SHORT_DESCRIPTION name="MATLU">MATLU titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATMAGPHI' type='XML'>
-<SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATMUL' type='XML'>
-<SHORT_DESCRIPTION name="MATMUL">MATMUL Multiplication Matricielle</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATPINV' type='XML'>
-<SHORT_DESCRIPTION name="MATPINV">MATPINV titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATRESH' type='XML'>
-<SHORT_DESCRIPTION name="MATRESH">MATRESH titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATSING' type='XML'>
-<SHORT_DESCRIPTION name="MATSING">MATSING titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Matrix_pal' type='XML'>
-<SHORT_DESCRIPTION name="Matrix">Matrix titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ABSBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="ABSBLK_f">Valeur absolue (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='AFFICH_m' type='XML'>
-<SHORT_DESCRIPTION name="AFFICH_m">Affichage</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BIGSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="BIGSOM_f">Somme (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CANIMXY' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY">Scope animé y=f(x)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CANIMXY3D' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY3D">Scope animé z=f(x,y)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CEVENTSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CEVENTSCOPE">Scope pour événements</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CFSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CFSCOPE">Scope flottant</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKIN_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKIN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKOUT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKOUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKSOM_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSOM_f">Union d'activations</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSPLIT_f">Croisement de liens événementiels</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLR' type='XML'>
-<SHORT_DESCRIPTION name="CLR">Fonction de transfert continue</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLSS' type='XML'>
-<SHORT_DESCRIPTION name="CLSS">Système d'équations d'état continu</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CMAT3D' type='XML'>
-<SHORT_DESCRIPTION name="CMAT3D">Scope matriciel 3D</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CMATVIEW' type='XML'>
-<SHORT_DESCRIPTION name="CMATVIEW">Scope matriciel coloré</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONST' type='XML'>
-<SHORT_DESCRIPTION name="CONST">Constante (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONST_m' type='XML'>
-<SHORT_DESCRIPTION name="CONST_m">Constante</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='COSBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="COSBLK_f">COSBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CSCOPXY' type='XML'>
-<SHORT_DESCRIPTION name="CSCOPXY">Scope y=f(x)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CSCOPXY3D' type='XML'>
-<SHORT_DESCRIPTION name="CSCOPXY3D">Scope z=f(x,y)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DELAYV_f' type='XML'>
-<SHORT_DESCRIPTION name="DELAYV_f">DELAYV_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DELAY_f' type='XML'>
-<SHORT_DESCRIPTION name="DELAY_f">Retard temporel discret</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DEMUX_f' type='XML'>
-<SHORT_DESCRIPTION name="DEMUX_f">Démultiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DIFF_f' type='XML'>
-<SHORT_DESCRIPTION name="DIFF_f">DIFF_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLR' type='XML'>
-<SHORT_DESCRIPTION name="DLR">Fonction de transfert discrète</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLRADAPT_f' type='XML'>
-<SHORT_DESCRIPTION name="DLRADAPT_f">DLRADAPT_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLSS' type='XML'>
-<SHORT_DESCRIPTION name="DLSS">Système d'équations d'état discrètes</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FSV_f' type='XML'>
-<SHORT_DESCRIPTION name="FSV_f">FSV_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAINBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="GAINBLK_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAIN_f' type='XML'>
-<SHORT_DESCRIPTION name="GAIN_f">Gain (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GENERAL_f' type='XML'>
-<SHORT_DESCRIPTION name="GENERAL_f">GENERAL_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTEGRAL_f' type='XML'>
-<SHORT_DESCRIPTION name="INTEGRAL_f">Integration (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTEGRAL_m' type='XML'>
-<SHORT_DESCRIPTION name="INTEGRAL_m">Integration</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INVBLK' type='XML'>
-<SHORT_DESCRIPTION name="INVBLK">Inverse</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ISELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="ISELECT_m">Iselect</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATSUM' type='XML'>
-<SHORT_DESCRIPTION name="MATSUM">Somme matricielle</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATTRAN' type='XML'>
-<SHORT_DESCRIPTION name="MATTRAN">MATTRAN Transposition Matricielle</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATZCONJ' type='XML'>
-<SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATZREIM' type='XML'>
-<SHORT_DESCRIPTION name="MATZREIM">MATZREIM titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MAX_f' type='XML'>
-<SHORT_DESCRIPTION name="MAX_f">MAX</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MCLOCK_f' type='XML'>
-<SHORT_DESCRIPTION name="MCLOCK_f">MCLOCK_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MEMORY_f' type='XML'>
-<SHORT_DESCRIPTION name="MEMORY_f">MEMORY_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MFCLCK_f' type='XML'>
-<SHORT_DESCRIPTION name="MFCLCK_f">MFCLCK_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MIN_f' type='XML'>
-<SHORT_DESCRIPTION name="MIN_f">MIN</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MOTOR' type='XML'>
-<SHORT_DESCRIPTION name="MOTOR">MOTOR titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MUX_f' type='XML'>
-<SHORT_DESCRIPTION name="MUX_f">Multiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='NPN' type='XML'>
-<SHORT_DESCRIPTION name="NPN">NPN titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='OldBlocks_pal' type='XML'>
-<SHORT_DESCRIPTION name="OldBlocks">OldBlocks titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PNP' type='XML'>
-<SHORT_DESCRIPTION name="PNP">PNP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='REGISTER' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER">Registre à décalage</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RFILE' type='XML'>
-<SHORT_DESCRIPTION name="RFILE">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RICC' type='XML'>
-<SHORT_DESCRIPTION name="RICC">RICC titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAMPHOLD' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD">Echantillonneur bloqueur (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAT_f' type='XML'>
-<SHORT_DESCRIPTION name="SAT_f">Saturation (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SELECT_m' type='XML'>
-<SHORT_DESCRIPTION name="SELECT_m">Select</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SINBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="SINBLK_f">SINBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SLIDER_f' type='XML'>
-<SHORT_DESCRIPTION name="SLIDER_f">SLIDER_f titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='STEP' type='XML'>
-<SHORT_DESCRIPTION name="STEP">STEP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUBMAT' type='XML'>
-<SHORT_DESCRIPTION name="SUBMAT">SUBMAT titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SWITCH2_m' type='XML'>
-<SHORT_DESCRIPTION name="SWITCH2_m">Switch2</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SineVoltage' type='XML'>
-<SHORT_DESCRIPTION name="SineVoltage">SineVoltage titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TANBLK_f' type='XML'>
-<SHORT_DESCRIPTION name="TANBLK_f">TANBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TCLSS' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS">Système linéaire continu avec saut</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TRASH_f' type='XML'>
-<SHORT_DESCRIPTION name="TRASH_f">Bloc terminaison</SHORT_DESCRIPTION>
-</FILE>
-
 <FILE name='WFILE' type='XML'>
 <SHORT_DESCRIPTION name="WFILE">Ecriture dans un fichier</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='generic_block' type='XML'>
-<SHORT_DESCRIPTION name="generic_block">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DOLLAR' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DOLLAR_m' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR_m">Opérateur retard</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BITCLEAR' type='XML'>
-<SHORT_DESCRIPTION name="BITCLEAR">BITCLEAR titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BITSET' type='XML'>
-<SHORT_DESCRIPTION name="BITSET">BITSET titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<SHORT_DESCRIPTION name="CONVERT">CONVERT titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTRACTBITS' type='XML'>
-<SHORT_DESCRIPTION name="EXTRACTBITS">EXTRACTBITS titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAINBLK_m' type='XML'>
-<SHORT_DESCRIPTION name="GAINBLK_m">GAINBLK_m titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTGAINBLK' type='XML'>
-<SHORT_DESCRIPTION name="INTGAINBLK">INTGAINBLK titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTLOGICAL_OP' type='XML'>
-<SHORT_DESCRIPTION name="INTLOGICAL_OP">INTLOGICAL_OP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTMUL' type='XML'>
-<SHORT_DESCRIPTION name="INTMUL">INTMUL titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTREGISTER' type='XML'>
-<SHORT_DESCRIPTION name="INTREGISTER">INTREGISTER titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Integer_pal' type='XML'>
-<SHORT_DESCRIPTION name="Integer">Integer titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RAND_m' type='XML'>
-<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RELATIONAL_OP' type='XML'>
-<SHORT_DESCRIPTION name="RELATIONAL_OP">RELATIONAL_OP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RELAY_m' type='XML'>
-<SHORT_DESCRIPTION name="RELAY_m">RELAY_m titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAMPHOLD_m' type='XML'>
-<SHORT_DESCRIPTION name="SAMPHOLD_m">Echantillonneur bloqueur</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SHIFT' type='XML'>
-<SHORT_DESCRIPTION name="SHIFT">SHIFT titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SQRT' type='XML'>
-<SHORT_DESCRIPTION name="SQRT">SQRT titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUMMATIONI' type='XML'>
-<SHORT_DESCRIPTION name="SUMMATIONI">SUMMATIONI titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DFLIPFLOP' type='XML'>
-<SHORT_DESCRIPTION name="DFLIPFLOP">DFLIPFLOP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLATCH' type='XML'>
-<SHORT_DESCRIPTION name="DLATCH">DLATCH titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLATCH1' type='XML'>
-<SHORT_DESCRIPTION name="DLATCH1">DLATCH1 titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXPBLK_m' type='XML'>
-<SHORT_DESCRIPTION name="EXPBLK_m">Exponentielle</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INVBLK_m' type='XML'>
-<SHORT_DESCRIPTION name="INVBLK_m">INVBLK_m titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='JKFLIPFLOP' type='XML'>
-<SHORT_DESCRIPTION name="JKFLIPFLOP">JKFLIPFLOP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<SHORT_DESCRIPTION name="JKFLIPFLOP1">JKFLIPFLOP1 titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='LOGIC' type='XML'>
-<SHORT_DESCRIPTION name="LOGIC">LOGIC titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SRFLIPFLOP' type='XML'>
-<SHORT_DESCRIPTION name="SRFLIPFLOP">SRFLIPFLOP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<SHORT_DESCRIPTION name="SRFLIPFLOP1">SRFLIPFLOP1 titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BITCLEAR1' type='XML'>
-<SHORT_DESCRIPTION name="BITCLEAR1">BITCLEAR1 titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BOUNCE' type='XML'>
-<SHORT_DESCRIPTION name="BOUNCE">BOUNCE titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BOUNCEXY' type='XML'>
-<SHORT_DESCRIPTION name="BOUNCEXY">BOUNCEXY titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLOCK_c' type='XML'>
-<SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLOGICAL_OP' type='XML'>
-<SHORT_DESCRIPTION name="DLOGICAL_OP">DLOGICAL_OP titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DelayRE' type='XML'>
-<SHORT_DESCRIPTION name="DelayRE">DelayRE titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Div' type='XML'>
-<SHORT_DESCRIPTION name="Div">Div titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EDGETRIGGER' type='XML'>
-<SHORT_DESCRIPTION name="EDGETRIGGER">EDGETRIGGER titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EVTDLY_c' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_c">Retard évènementiel</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FROM' type='XML'>
-<SHORT_DESCRIPTION name="FROM">FROM titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GOTO' type='XML'>
-<SHORT_DESCRIPTION name="GOTO">GOTO titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GotoTagVisibility' type='XML'>
-<SHORT_DESCRIPTION name="GotoTagVisibility">GotoTagVisibility titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='IMPSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="IMPSPLIT_f">Croisement de liens réguliers implicites</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Neg' type='XML'>
-<SHORT_DESCRIPTION name="Neg">Neg titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PID' type='XML'>
-<SHORT_DESCRIPTION name="PID">PID regulator</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ROOTCOEF' type='XML'>
-<SHORT_DESCRIPTION name="ROOTCOEF">ROOTCOEF titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SETW' type='XML'>
-<SHORT_DESCRIPTION name="SETW">SETW titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="SPLIT_f">Croisement de liens réguliers</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='func_block' type='XML'>
-<SHORT_DESCRIPTION name="func_block">func_block titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='scifunc_block_m' type='XML'>
-<SHORT_DESCRIPTION name="scifunc_block_m">Bloc Scilab</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKFROM' type='XML'>
-<SHORT_DESCRIPTION name="CLKFROM">CLKFROM titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKGOTO' type='XML'>
-<SHORT_DESCRIPTION name="CLKGOTO">CLKGOTO titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKGotoTagVisibility' type='XML'>
-<SHORT_DESCRIPTION name="CLKGotoTagVisibility">CLKGotoTagVisibility titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FROMMO' type='XML'>
-<SHORT_DESCRIPTION name="FROMMO">FROMMO titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GOTOMO' type='XML'>
-<SHORT_DESCRIPTION name="GOTOMO">GOTOMO titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GotoTagVisibilityMO' type='XML'>
-<SHORT_DESCRIPTION name="GotoTagVisibilityMO">GotoTagVisibilityMO titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CURVE_c' type='XML'>
-<SHORT_DESCRIPTION name="CURVE_c">CURVE_c titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Counter' type='XML'>
-<SHORT_DESCRIPTION name="Counter">Compteur</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='M_freq' type='XML'>
-<SHORT_DESCRIPTION name="M_freq">M_freq titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SampleCLK' type='XML'>
-<SHORT_DESCRIPTION name="SampleCLK">SampleCLK titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Sigbuilder' type='XML'>
-<SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder titre</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ABSBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ABSBLK_f">ABSBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ABS_VALUE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ABS_VALUE">ABS_VALUE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='AFFICH_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="AFFICH_f">AFFICH_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='AFFICH_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="AFFICH_m">AFFICH_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ANDBLK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ANDBLK">ANDBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ANDLOG_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ANDLOG_f">ANDLOG_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BACKLASH_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BACKLASH">BACKLASH</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BIGSOM_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BIGSOM_f">BIGSOM_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BITCLEAR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BITCLEAR">BITCLEAR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BITSET_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BITSET">BITSET</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BOUNCEXY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BOUNCEXY">BOUNCEXY</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='BOUNCE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="BOUNCE">BOUNCE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CANIMXY3D_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CANIMXY3D">CANIMXY3D</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CANIMXY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CANIMXY">CANIMXY</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CBLOCK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CBLOCK">CBLOCK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CEVENTSCOPE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CEVENTSCOPE">CEVENTSCOPE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CFSCOPE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CFSCOPE">CFSCOPE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLINDUMMY_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLINDUMMY_f">CLINDUMMY_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKFROM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKFROM">CLKFROM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKGOTO_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKGOTO">CLKGOTO</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKGotoTagVisibility_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKGotoTagVisibility">CLKGotoTagVisibility</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKINV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKINV_f">CLKINV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKIN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKIN_f">CLKIN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKOUTV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKOUTV_f">CLKOUTV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKOUT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKOUT_f">CLKOUT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKSOMV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKSOMV_f">CLKSOMV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKSOM_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKSOM_f">CLKSOM_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLKSPLIT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLKSPLIT_f">CLKSPLIT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLOCK_c_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLOCK_c">Horloge d'activation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLOCK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLOCK_f">CLOCK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLR_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLR_f">CLR_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLR">CLR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLSS_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLSS_f">CLSS_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CLSS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CLSS">CLSS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CMAT3D_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CMAT3D">CMAT3D</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CMATVIEW_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CMATVIEW">CMATVIEW</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CMSCOPE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CMSCOPE">CMSCOPE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONSTRAINT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CONSTRAINT_f">CONSTRAINT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONST_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CONST_f">CONST_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONST_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CONST">CONST</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONST_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CONST_m">CONST_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CONVERT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CONVERT">CONVERT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='COSBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="COSBLK_f">COSBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CSCOPE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CSCOPE">CSCOPE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CSCOPXY3D_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CSCOPXY3D">CSCOPXY3D</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CSCOPXY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CSCOPXY">CSCOPXY</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CUMSUM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CUMSUM">CUMSUM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='CURV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CURV_f">CURV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Counter_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="Counter">Counter</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DEADBAND_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DEADBAND">DEADBAND</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DEBUG_SCICOS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DEBUG_SCICOS">DEBUG_SCICOS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DELAYV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DELAYV_f">DELAYV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DELAY_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DELAY_f">DELAY_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DEMUX_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DEMUX_f">DEMUX_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DEMUX_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DEMUX">DEMUX</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DERIV_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DERIV">DERIV</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DFLIPFLOP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DFLIPFLOP">DFLIPFLOP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DIFF_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DIFF_f">DIFF_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLATCH_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLATCH">DLATCH</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLRADAPT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLRADAPT_f">DLRADAPT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLR_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLR_f">DLR_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLR">DLR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLSS_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLSS_f">DLSS_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DLSS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DLSS">DLSS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DOLLAR_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DOLLAR_f">DOLLAR_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DOLLAR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DOLLAR">DOLLAR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='DOLLAR_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="DOLLAR_m">DOLLAR_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EDGETRIGGER_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EDGETRIGGER">EDGETRIGGER</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EDGE_TRIGGER_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EDGE_TRIGGER">EDGE_TRIGGER</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ESELECT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ESELECT_f">ESELECT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EVTDLY_c_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EVTDLY_c">EVTDLY_c</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EVTDLY_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EVTDLY_f">EVTDLY_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EVTGEN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EVTGEN_f">EVTGEN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EVTVARDLY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EVTVARDLY">EVTVARDLY</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXPBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXPBLK_f">EXPBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXPBLK_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXPBLK_m">EXPBLK_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXPRESSION_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXPRESSION">EXPRESSION</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTRACTBITS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXTRACTBITS">EXTRACTBITS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTRACTOR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXTRACTOR">EXTRACTOR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTRACT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXTRACT">EXTRACT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='EXTTRI_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="EXTTRI">EXTTRI</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Extract_Activation_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="Extract_Activation">Extract_Activation</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FROMMO_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="FROMMO">FROMMO</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FROM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="FROM">FROM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='FSV_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="FSV_f">FSV_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAINBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GAINBLK_f">GAINBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAINBLK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GAINBLK">GAINBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GAIN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GAIN_f">GAIN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GENERAL_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GENERAL_f">GENERAL_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GENSIN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GENSIN_f">GENSIN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GENSQR_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GENSQR_f">GENSQR_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GOTOMO_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GOTOMO">GOTOMO</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GOTO_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GOTO">GOTO</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GotoTagVisibilityMO_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GotoTagVisibilityMO">GotoTagVisibilityMO</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='GotoTagVisibility_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="GotoTagVisibility">GotoTagVisibility</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='HALT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="HALT_f">HALT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='HYSTHERESIS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="HYSTHERESIS">HYSTHERESIS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='IFTHEL_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="IFTHEL_f">IFTHEL_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='IMPSPLIT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="IMPSPLIT_f">IMPSPLIT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INIMPL_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INIMPL_f">INIMPL_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTEGRAL_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTEGRAL_f">INTEGRAL_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTEGRAL_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTEGRAL">INTEGRAL</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTEGRAL_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTEGRAL_m">INTEGRAL_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTMUL_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTMUL">INTMUL</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTRP2BLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTRP2BLK_f">INTRP2BLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INTRPLBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INTRPLBLK_f">INTRPLBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INVBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INVBLK_f">INVBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='INVBLK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="INVBLK">INVBLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='IN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="IN_f">IN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ISELECT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ISELECT_f">ISELECT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ISELECT_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ISELECT_m">ISELECT_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='JKFLIPFLOP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="JKFLIPFLOP">JKFLIPFLOP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='LOGBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="LOGBLK_f">LOGBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='LOGICAL_OP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="LOGICAL_OP">LOGICAL_OP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='LOGIC_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="LOGIC">LOGIC</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='LOOKUP_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="LOOKUP_f">LOOKUP_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATBKSL_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATBKSL">MATBKSL</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATCATH_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATCATH">MATCATH</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATCATV_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATCATV">MATCATV</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDET_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATDET">MATDET</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDIAG_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATDIAG">MATDIAG</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATDIV_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATDIV">MATDIV</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATEIG_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATEIG">MATEIG</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATEXPM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATEXPM">MATEXPM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATINV_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATINV">MATINV</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATLU_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATLU">MATLU</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATMAGPHI_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATMAGPHI">MATMAGPHI</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATMUL_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATMUL">MATMUL</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATPINV_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATPINV">MATPINV</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATRESH_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATRESH">MATRESH</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATSING_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATSING">MATSING</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATSUM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATSUM">MATSUM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATTRAN_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATTRAN">MATTRAN</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATZCONJ_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MATZREIM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MATZREIM">MATZREIM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MAXMIN_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MAXMIN">MAXMIN</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MAX_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MAX_f">MAX_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MCLOCK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MCLOCK_f">MCLOCK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MEMORY_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MEMORY_f">MEMORY_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MFCLCK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MFCLCK_f">MFCLCK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MIN_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MIN_f">MIN_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MUX_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MUX_f">MUX_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='MUX_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MUX">MUX</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='M_SWITCH_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="M_SWITCH">M_SWITCH</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='M_freq_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="M_freq">M_freq</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='Modulo_Count_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="Modulo_Count">Modulo_Count</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='NEGTOPOS_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="NEGTOPOS_f">NEGTOPOS_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='NRMSOM_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="NRMSOM_f">NRMSOM_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='OUTIMPL_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="OUTIMPL_f">OUTIMPL_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='OUT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="OUT_f">OUT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PDE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="PDE">PDE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PID_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="PID">PID</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='POSTONEG_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="POSTONEG_f">POSTONEG_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='POWBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="POWBLK_f">POWBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PRODUCT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="PRODUCT">PRODUCT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='PROD_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="PROD_f">PROD_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='QUANT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="QUANT_f">QUANT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RAMP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RAMP">RAMP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RAND_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RAND_f">RAND_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RAND_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RAND_m">RAND_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RATELIMITER_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RATELIMITER">RATELIMITER</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='READAU_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="READAU_f">READAU_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='READC_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="READC_f">READC_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='REGISTER_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="REGISTER_f">REGISTER_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='REGISTER_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="REGISTER">REGISTER</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RELATIONALOP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RELATIONALOP">RELATIONALOP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RELAY_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RELAY_f">RELAY_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RFILE_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RFILE_f">RFILE_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RFILE_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RFILE">RFILE</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='RICC_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="RICC">RICC</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='ROOTCOEF_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="ROOTCOEF">ROOTCOEF</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAMPHOLD_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SAMPHOLD">SAMPHOLD</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAMPHOLD_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SAMPHOLD_m">SAMPHOLD_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAMPLEHOLD_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SAMPLEHOLD_f">SAMPLEHOLD_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SATURATION_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SATURATION">SATURATION</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SAT_f">SAT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SAWTOOTH_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SAWTOOTH_f">SAWTOOTH_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SCALAR2VECTOR_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SCALAR2VECTOR">SCALAR2VECTOR</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SELECT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SELECT_f">SELECT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SELECT_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SELECT_m">SELECT_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SHIFT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SHIFT">SHIFT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SIGNUM_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SIGNUM">SIGNUM</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SINBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SINBLK_f">SINBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SLIDER_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SLIDER_f">SLIDER_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SPLIT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SPLIT_f">SPLIT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SQRT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SQRT">SQRT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SRFLIPFLOP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SRFLIPFLOP">SRFLIPFLOP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='STEP_FUNCTION_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="STEP_FUNCTION">STEP_FUNCTION</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='STEP_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="STEP">STEP</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUBMAT_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SUBMAT">SUBMAT</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUMMATION_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SUMMATION">SUMMATION</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUM_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SUM_f">SUM_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SUPER_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SUPER_f">SUPER_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SWITCH2_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SWITCH2">SWITCH2</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SWITCH2_m_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SWITCH2_m">SWITCH2_m</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SWITCH_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SWITCH_f">SWITCH_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='SampleCLK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="SampleCLK">SampleCLK</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TANBLK_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TANBLK_f">TANBLK_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TCLSS_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TCLSS_f">TCLSS_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TCLSS_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TCLSS">TCLSS</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TEXT_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TEXT_f">TEXT_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TIME_DELAY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TIME_DELAY">TIME_DELAY</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TIME_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TIME_f">TIME_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TRASH_f_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TRASH_f">TRASH_f</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='TrigFun_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TrigFun">TrigFun</SHORT_DESCRIPTION>
-</FILE>
-
-<FILE name='VARIABLE_DELAY_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="VARIABLE_DELAY">VARIABLE_DELAY</SHORT_DESCRIPTION>
+<FILE name='WFILE_f' type='XML'>
+<SHORT_DESCRIPTION name="WFILE_f">Ecriture dans un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WFILE_f_intfunc' type='XML'>
@@ -2006,12 +1825,24 @@
   <SHORT_DESCRIPTION name="WFILE">WFILE</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='WRITEAU_f' type='XML'>
+<SHORT_DESCRIPTION name="WRITEAU_f">Ecrite de fichier son AU</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='WRITEAU_f_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="WRITEAU_f">WRITEAU_f</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='WRITEC_f' type='XML'>
+<SHORT_DESCRIPTION name="WRITEC_f">Ecriture de donnée binaire</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='WRITEC_f_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="WRITEC_f">WRITEC_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<SHORT_DESCRIPTION name="ZCROSS_f">Détection des passages à zéro</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ZCROSS_f_intfunc' type='XML'>
@@ -2048,6 +1879,14 @@
 
 <FILE name='bouncexy_routcos' type='XML'>
   <SHORT_DESCRIPTION name="bouncexy">bouncexy</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<SHORT_DESCRIPTION name="buildouttb">Construction d'une liste vide %cpr.state.outtb</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<SHORT_DESCRIPTION name="c_block">Language C</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='c_block_intfunc' type='XML'>
@@ -2124,6 +1963,14 @@
 
 <FILE name='cumsum_m_routcos' type='XML'>
   <SHORT_DESCRIPTION name="cumsum_m">cumsum_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<SHORT_DESCRIPTION name="curblock">Retourne l'actuel bloc scicos appelé pendant la simulation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='curve_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="curve_c">curve_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='deadband_routcos' type='XML'>
@@ -2222,8 +2069,16 @@
   <SHORT_DESCRIPTION name="extractz">extractz</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='fortran_block' type='XML'>
+<SHORT_DESCRIPTION name="fortran_block">Fortran</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='fortran_block_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="fortran_block">fortran_block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<SHORT_DESCRIPTION name="freq_div">Diviseur de fréquence</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='freq_div_intfunc' type='XML'>
@@ -2234,6 +2089,10 @@
   <SHORT_DESCRIPTION name="fsv">fsv</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='func_block' type='XML'>
+<SHORT_DESCRIPTION name="func_block">func_block titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='func_block_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="func_block">func_block</SHORT_DESCRIPTION>
 </FILE>
@@ -2242,8 +2101,24 @@
   <SHORT_DESCRIPTION name="gainblk">gainblk</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='generic_block' type='XML'>
+<SHORT_DESCRIPTION name="generic_block">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<SHORT_DESCRIPTION name="generic_block2">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='generic_block2_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="generic_block2">generic_block2</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block3' type='XML'>
+<SHORT_DESCRIPTION name="generic_block3">Bloc générique</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='generic_block3_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="generic_block3">generic_block3</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block_intfunc' type='XML'>
@@ -2256,6 +2131,14 @@
 
 <FILE name='gensqr_routcos' type='XML'>
   <SHORT_DESCRIPTION name="gensqr">gensqr</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+	<SHORT_DESCRIPTION name="getblocklabel">Retourne le label d'un bloc scicos</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<SHORT_DESCRIPTION name="getscicosvars">Fonction superviseur utilitaire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='hltblk_routcos' type='XML'>
@@ -2298,8 +2181,16 @@
   <SHORT_DESCRIPTION name="invblk">invblk</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='lincos' type='XML'>
+<SHORT_DESCRIPTION name="lincos">Construit par linéarisation un modèle linéaire d'équations d'état à partir d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='logblk_routcos' type='XML'>
   <SHORT_DESCRIPTION name="logblk">logblk</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logic_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logic">logic titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='logicalop_routcos' type='XML'>
@@ -2370,6 +2261,10 @@
   <SHORT_DESCRIPTION name="mat_sing">mat_sing</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='mat_sqrt_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="mat_sqrt">mat_sqrt titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='mat_sum_routcos' type='XML'>
   <SHORT_DESCRIPTION name="mat_sum">mat_sum</SHORT_DESCRIPTION>
 </FILE>
@@ -2390,6 +2285,10 @@
   <SHORT_DESCRIPTION name="matmul_m">matmul_m</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='mattran_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="mattran_m">mattran_m titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='matz_abs_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_abs">matz_abs</SHORT_DESCRIPTION>
 </FILE>
@@ -2408,6 +2307,10 @@
 
 <FILE name='matz_catv_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_catv">matz_catv</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matz_conj_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_conj">matz_conj titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_det_routcos' type='XML'>
@@ -2438,12 +2341,24 @@
   <SHORT_DESCRIPTION name="matz_pinv">matz_pinv</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='matz_reim_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_reim">matz_reim titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matz_reimc_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_reimc">matz_reimc titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='matz_reshape_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_reshape">matz_reshape</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_sing_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_sing">matz_sing</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matz_sqrt_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_sqrt">matz_sqrt titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_svd_routcos' type='XML'>
@@ -2460,6 +2375,10 @@
 
 <FILE name='matzmul_m_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matzmul_m">matzmul_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matztran_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matztran_m">matztran_m titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='maxblk_routcos' type='XML'>
@@ -2498,8 +2417,16 @@
   <SHORT_DESCRIPTION name="mux">mux</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='phase_simulation' type='XML'>
+	<SHORT_DESCRIPTION name="phase_simulation">Retourne la phase actuelle de simulation</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='plusblk_routcos' type='XML'>
   <SHORT_DESCRIPTION name="plusblk">plusblk</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="pointer_xproperty">Retourne le type du système d'équations d'état</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='powblk_routcos' type='XML'>
@@ -2514,8 +2441,20 @@
   <SHORT_DESCRIPTION name="product">product</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='qzcel_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="qzcel">qzcel titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='qzflr_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="qzflr">qzflr titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='qzrnd_routcos' type='XML'>
   <SHORT_DESCRIPTION name="qzrnd">qzrnd</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='qztrn_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="qztrn">qztrn titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ramp_routcos' type='XML'>
@@ -2548,6 +2487,10 @@
 
 <FILE name='relay_routcos' type='XML'>
   <SHORT_DESCRIPTION name="relay">relay</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ricc_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="ricc_m">ricc_m titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='rndblk_m_routcos' type='XML'>
@@ -2586,8 +2529,36 @@
   <SHORT_DESCRIPTION name="scalar2vector">scalar2vector</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos' type='XML'>
+<SHORT_DESCRIPTION name="scicos">Editeur de schéma bloc et interface graphique pour le simulateur hybride</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<SHORT_DESCRIPTION name="scicos_simulate">Fonction pour éxécuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<SHORT_DESCRIPTION name="scicos_time">Retourne le temps courant pendant la simulation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<SHORT_DESCRIPTION name="scicosim">Fonction de simulation scicos en ligne de commande</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<SHORT_DESCRIPTION name="scifunc_block">Bloc Scilab (Ancien bloc)</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scifunc_block_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="scifunc_block">scifunc_block</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<SHORT_DESCRIPTION name="scifunc_block_m">Bloc Scilab</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scifunc_block_m_intfunc' type='XML'>
@@ -2604,6 +2575,10 @@
 
 <FILE name='selector_routcos' type='XML'>
   <SHORT_DESCRIPTION name="selector">selector</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='set_xproperty' type='XML'>
+	<SHORT_DESCRIPTION name="set_xproperty">Définit le type du système d'équations d'état</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='shift_i16_routcos' type='XML'>
@@ -2632,6 +2607,10 @@
 
 <FILE name='slider_routcos' type='XML'>
   <SHORT_DESCRIPTION name="slider">slider</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='steadycos' type='XML'>
+<SHORT_DESCRIPTION name="steadycos">Trouve un régime établi d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='step_func_routcos' type='XML'>
@@ -2686,8 +2665,16 @@
   <SHORT_DESCRIPTION name="trash">trash</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='var2vec' type='XML'>
+<SHORT_DESCRIPTION name="var2vec">Transforme une variable scilab en un vecteur de double</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='variable_delay_routcos' type='XML'>
   <SHORT_DESCRIPTION name="variable_delay">variable_delay</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+<SHORT_DESCRIPTION name="vec2var">Transforme un vecteur de double en une variable scilab</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='writeau_routcos' type='XML'>
@@ -2709,5 +2696,6 @@
 <FILE name='zcross_routcos' type='XML'>
   <SHORT_DESCRIPTION name="zcross">zcross</SHORT_DESCRIPTION>
 </FILE>
+
 
 </DATA>

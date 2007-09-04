@@ -1,5 +1,5 @@
 <DATA flag="cseq">
-  
+
 <FILE name='buildouttb' type='XML'>
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>
@@ -12,6 +12,14 @@
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>
       blk=curblock()
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
+<FILE name='getblocklabel' type='XML'>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [label]=getblocklabel(blk)
     </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
@@ -30,6 +38,22 @@
 <FILE name='lincos' type='XML'>
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>sys= lincos(scs_m [,x0,u0 [,param] ])</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
+<FILE name='phase_simulation' type='XML'>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [psim]=phase_simulation()
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
+<FILE name='pointer_xproperty' type='XML'>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      [xprop]=pointer_xproperty
+    </CALLING_SEQUENCE_ITEM>
   </CALLING_SEQUENCE>
 </FILE>
 
@@ -75,6 +99,14 @@
   </CALLING_SEQUENCE>
 </FILE>
 
+<FILE name='set_xproperty' type='XML'>
+  <CALLING_SEQUENCE>
+    <CALLING_SEQUENCE_ITEM>
+      set_xproperty(xprop)
+    </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
 <FILE name='steadycos' type='XML'>
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>
@@ -99,36 +131,5 @@
   </CALLING_SEQUENCE>
 </FILE>
 
-<FILE name='getblocklabel' type='XML'>
-  <CALLING_SEQUENCE>
-    <CALLING_SEQUENCE_ITEM>
-      [label]=getblocklabel(blk)
-    </CALLING_SEQUENCE_ITEM>
-  </CALLING_SEQUENCE>
-</FILE>
-
-<FILE name='phase_simulation' type='XML'>
-  <CALLING_SEQUENCE>
-    <CALLING_SEQUENCE_ITEM>
-      [psim]=phase_simulation()
-    </CALLING_SEQUENCE_ITEM>
-  </CALLING_SEQUENCE>
-</FILE>
-
-<FILE name='pointer_xproperty' type='XML'>
-  <CALLING_SEQUENCE>
-    <CALLING_SEQUENCE_ITEM>
-      [xprop]=pointer_xproperty
-    </CALLING_SEQUENCE_ITEM>
-  </CALLING_SEQUENCE>
-</FILE>
-
-<FILE name='set_xproperty' type='XML'>
-  <CALLING_SEQUENCE>
-    <CALLING_SEQUENCE_ITEM>
-      set_xproperty(xprop)
-    </CALLING_SEQUENCE_ITEM>
-  </CALLING_SEQUENCE>
-</FILE>
 
 </DATA>

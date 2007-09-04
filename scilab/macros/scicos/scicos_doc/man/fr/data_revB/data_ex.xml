@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="ex">
 
+<FILE name='ABSBLK_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='ABS_VALUE' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
@@ -8,6 +14,12 @@
 
 <FILE name='AFFICH_f' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='AFFICH_m' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -21,13 +33,38 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='ANIMXY_f' type='XML'>
+<FILE name='BACKLASH' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
 </FILE>
 
-<FILE name='BACKLASH' type='XML'>
+<FILE name='BIGSOM_f' type='XML'>
 <EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='BITCLEAR' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -36,8 +73,32 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CANIMXY' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CANIMXY3D' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CBLOCK' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CEVENTSCOPE' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CFSCOPE' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -46,8 +107,32 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CLKINV_f' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKIN_f' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -56,8 +141,32 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CLKOUT_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CLKSOMV_f' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKSOM_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLKSPLIT_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -66,8 +175,20 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CLR' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CLR_f' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CLSS' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -76,8 +197,26 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CMAT3D' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CMATVIEW' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CMSCOPE' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CONST' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -91,8 +230,50 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='CONST_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='COSBLK_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CSCOPE' type='XML'>
 <EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='CSCOPXY' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CSCOPXY3D' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='CURVE_c' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 
@@ -111,6 +292,12 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='Counter' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='CurrentSensor' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
@@ -126,10 +313,28 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='DELAYV_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DELAY_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='DEMUX' type='XML'>
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DEMUX_f' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -142,10 +347,46 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DIFF_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLR' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLRADAPT_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='DLR_f' type='XML'>
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='DLSS' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -158,6 +399,12 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='DOLLAR' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='DOLLAR_f' type='XML'>
 <EXAMPLE>
 
@@ -166,10 +413,22 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='DOLLAR_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='Diode' type='XML'>
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -188,10 +447,8 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='EVENTSCOPE_f' type='XML'>
+<FILE name='EVTDLY_c' type='XML'>
 <EXAMPLE>
-
-
 
 </EXAMPLE>
 </FILE>
@@ -228,10 +485,28 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='EXPBLK_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='EXPRESSION' type='XML'>
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -244,16 +519,32 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='EXTTRI' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='Extract_Activation' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
-<FILE name='FSCOPE_f' type='XML'>
+<FILE name='FROM' type='XML'>
 <EXAMPLE>
 
+</EXAMPLE>
+</FILE>
 
+<FILE name='FROMMO' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='FSV_f' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -262,6 +553,24 @@
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GAINBLK_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GAIN_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GENERAL_f' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -278,6 +587,30 @@
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -314,6 +647,12 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='IMPSPLIT_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='INIMPL_f' type='XML'>
 <EXAMPLE>
 
@@ -330,6 +669,24 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='INTEGRAL_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTEGRAL_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='INTRP2BLK_f' type='XML'>
 <EXAMPLE>
 
@@ -342,6 +699,12 @@
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='INVBLK' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -370,6 +733,12 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='ISELECT_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='Inductor' type='XML'>
 <EXAMPLE>
 
@@ -378,10 +747,22 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='JKFLIPFLOP' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <EXAMPLE>
 
 
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -398,638 +779,6 @@
 <EXAMPLE>
 
 
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='MAXMIN' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='MUX' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='M_SWITCH' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='Modulo_Count' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='NEGTOPOS_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='NRMSOM_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='OUTIMPL_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='OUT_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PDE' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='POSTONEG_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='POWBLK_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PRODUCT' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PROD_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PerteDP' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PotentialSensor' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PuitsP' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='QUANT_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RAMP' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RAND_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RATELIMITER' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='READAU_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='READC_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='REGISTER_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RELATIONALOP' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RELAY_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RFILE_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='Resistor' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SAMPLEHOLD_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SATURATION' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SAWTOOTH_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SCALAR2VECTOR' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SCOPXY_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SELECT_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SIGNUM' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='STEP_FUNCTION' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SUMMATION' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SUM_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SUPER_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SWITCH2' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SWITCH_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SourceP' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TCLSS_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TEXT_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TIME_DELAY' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TIME_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TrigFun' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VARIABLE_DELAY' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VVsourceAC' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VanneReglante' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VariableResistor' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VoltageSensor' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='VsourceAC' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='WFILE_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='WRITEAU_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='WRITEC_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='ZCROSS_f' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='buildouttb' type='XML'>
-<EXAMPLE><![CDATA[
-]]></EXAMPLE>
-</FILE>
-
-<FILE name='c_block' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='curblock' type='XML'>
-<EXAMPLE><![CDATA[
-]]></EXAMPLE>
-</FILE>
-
-<FILE name='fortran_block' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='freq_div' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='generic_block2' type='XML'>
-<EXAMPLE>
-
-
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='getscicosvars' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='lincos' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scicos' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scicos_debug' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scicos_simulate' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scicos_time' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scicosim' type='XML'>
-<EXAMPLE>
-</EXAMPLE>
-</FILE>
-
-<FILE name='scifunc_block' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='steadycos' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='var2vec' type='XML'>
-  <EXAMPLE>
-    <P>  -->a=list("cos",[1.1,2])</P>
-    <P>   a  = </P>
-    <P> </P>
-    <P>         a(1)</P>
-    <P>   </P>
-    <P>   cos   </P>
-    <P>   </P>
-    <P>         a(2)</P>
-    <P>   </P>
-    <P>      1.1    2.  </P>
-    <P></P>
-    <P></P>
-    <P>  -->b=var2vec(a)         </P>
-    <P>   b  =</P>
-    <P>   </P>
-    <P>      4.244-314  </P>
-    <P>      1.273-313  </P>
-    <P>      8.488-314  </P>
-    <P>      2.122-314  </P>
-    <P>      4.941-324  </P>
-    <P>      8.488-314  </P>
-    <P>      5.093-313  </P>
-    <P>      2.122-314  </P>
-    <P>      2.122-314  </P>
-    <P>      9.881-324  </P>
-    <P>      1.1        </P>
-    <P>      2.         </P>
-  </EXAMPLE>
-</FILE>
-
-<FILE name='vec2var' type='XML'>
-  <EXAMPLE>
-    <P>  -->a=list("cos",[1.1,2])</P>
-    <P>   a  = </P>
-    <P> </P>
-    <P>         a(1)</P>
-    <P>   </P>
-    <P>   cos   </P>
-    <P>   </P>
-    <P>         a(2)</P>
-    <P>   </P>
-    <P>      1.1    2.  </P>
-    <P></P>
-    <P></P>
-    <P>  -->b=var2vec(a)         </P>
-    <P>   b  =</P>
-    <P>   </P>
-    <P>      4.244-314  </P>
-    <P>      1.273-313  </P>
-    <P>      8.488-314  </P>
-    <P>      2.122-314  </P>
-    <P>      4.941-324  </P>
-    <P>      8.488-314  </P>
-    <P>      5.093-313  </P>
-    <P>      2.122-314  </P>
-    <P>      2.122-314  </P>
-    <P>      9.881-324  </P>
-    <P>      1.1        </P>
-    <P>      2.         </P>
-    <P></P>
-    <P></P>
-    <P>  -->c=vec2var(b)</P>
-    <P>   c  =</P>
-    <P>   </P>
-    <P>   </P>
-    <P>         c(1)</P>
-    <P>   </P>
-    <P>   cos   </P>
-    <P>   </P>
-    <P>         c(2)</P>
-    <P>   </P>
-    <P>      1.1    2.  </P>
-    <P></P>
-  </EXAMPLE>
-</FILE>
-
-
-<FILE name='CUMSUM' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EXTRACT' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EXTTRI' type='XML'>
-<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -1128,216 +877,6 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='ABSBLK_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='AFFICH_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='BIGSOM_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CANIMXY' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CANIMXY3D' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CEVENTSCOPE' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CFSCOPE' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKIN_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKOUT_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKSOM_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKSPLIT_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLR' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLSS' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CMAT3D' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CMATVIEW' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CONST' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CONST_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='COSBLK_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CSCOPXY' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CSCOPXY3D' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DELAYV_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DELAY_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DEMUX_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DIFF_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DLR' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DLRADAPT_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DLSS' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='FSV_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GAINBLK_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GAIN_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GENERAL_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTEGRAL_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTEGRAL_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INVBLK' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='ISELECT_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
 <FILE name='MATSUM' type='XML'>
 <EXAMPLE>
 
@@ -1373,7 +912,21 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='MAXMIN' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='MAX_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='MBLOCK' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
@@ -1409,13 +962,87 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='MUX' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='MUX_f' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
+<FILE name='M_SWITCH' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='Modulo_Count' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='NEGTOPOS_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='NPN' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='NRMSOM_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='OUTIMPL_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='OUT_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PDE' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PID' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
@@ -1427,8 +1054,142 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='POSTONEG_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='POWBLK_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PRODUCT' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PROD_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PerteDP' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PotentialSensor' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='PuitsP' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='QUANT_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RAMP' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RAND_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RATELIMITER' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='READAU_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='READC_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='REGISTER' type='XML'>
 <EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='REGISTER_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RELATIONALOP' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='RELAY_f' type='XML'>
+<EXAMPLE>
+
+
 
 </EXAMPLE>
 </FILE>
@@ -1439,8 +1200,30 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='RFILE_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='RICC' type='XML'>
 <EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='ROOTCOEF' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='Resistor' type='XML'>
+<EXAMPLE>
+
+
 
 </EXAMPLE>
 </FILE>
@@ -1451,14 +1234,74 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='SAMPHOLD_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SAMPLEHOLD_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SATURATION' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='SAT_f' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
+<FILE name='SAWTOOTH_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SCALAR2VECTOR' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SELECT_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='SELECT_m' type='XML'>
 <EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SHIFT' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SIGNUM' type='XML'>
+<EXAMPLE>
+
+
 
 </EXAMPLE>
 </FILE>
@@ -1475,151 +1318,7 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='STEP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SUBMAT' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SWITCH2_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SineVoltage' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TANBLK_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TCLSS' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='TRASH_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='WFILE' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='generic_block' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DOLLAR' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DOLLAR_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='BITCLEAR' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='BITSET' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EXTRACTBITS' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GAINBLK_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTGAINBLK' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTLOGICAL_OP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTMUL' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INTREGISTER' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RAND_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RELATIONAL_OP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='RELAY_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SAMPHOLD_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SHIFT' type='XML'>
+<FILE name='SPLIT_f' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
@@ -1631,242 +1330,74 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='SUMMATIONI' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DFLIPFLOP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DLATCH' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EXPBLK_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='INVBLK_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='JKFLIPFLOP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='LOGIC' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
 <FILE name='SRFLIPFLOP' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
-<FILE name='BITCLEAR1' type='XML'>
+<FILE name='STEP' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
-<FILE name='BOUNCE' type='XML'>
+<FILE name='STEP_FUNCTION' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SUBMAT' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
-<FILE name='BOUNCEXY' type='XML'>
+<FILE name='SUMMATION' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SUM_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SUPER_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SWITCH2' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SWITCH2_m' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>
 </FILE>
 
-<FILE name='CLOCK_c' type='XML'>
+<FILE name='SWITCH_f' type='XML'>
 <EXAMPLE>
 
-</EXAMPLE>
-</FILE>
 
-<FILE name='DLATCH1' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DLOGICAL_OP' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='DelayRE' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='Div' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EDGETRIGGER' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='EVTDLY_c' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='FROM' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GOTO' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GotoTagVisibility' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='IMPSPLIT_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='Neg' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='PID' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='ROOTCOEF' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SETW' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SPLIT_f' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='SRFLIPFLOP1' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='func_block' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='scifunc_block_m' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKFROM' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKGOTO' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CLKGotoTagVisibility' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='FROMMO' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GOTOMO' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='GotoTagVisibilityMO' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='CURVE_c' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='Counter' type='XML'>
-<EXAMPLE>
-
-</EXAMPLE>
-</FILE>
-
-<FILE name='M_freq' type='XML'>
-<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -1883,9 +1414,235 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='SineVoltage' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='SourceP' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TANBLK_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TCLSS' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TCLSS_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TEXT_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TIME_DELAY' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TIME_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TRASH_f' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='TrigFun' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VVsourceAC' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VanneReglante' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VariableResistor' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VoltageSensor' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='VsourceAC' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='WFILE' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='WFILE_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='WRITEAU_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='WRITEC_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<EXAMPLE><![CDATA[
+]]></EXAMPLE>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<EXAMPLE><![CDATA[
+]]></EXAMPLE>
+</FILE>
+
+<FILE name='fortran_block' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<EXAMPLE>
+
+
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='generic_block' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='generic_block3' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='getblocklabel' type='XML'>
   <EXAMPLE><![CDATA[
   ]]></EXAMPLE>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='lincos' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
 </FILE>
 
 <FILE name='phase_simulation' type='XML'>
@@ -1898,9 +1655,131 @@
   ]]></EXAMPLE>
 </FILE>
 
+<FILE name='scicos' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<EXAMPLE>
+</EXAMPLE>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='set_xproperty' type='XML'>
   <EXAMPLE><![CDATA[
   ]]></EXAMPLE>
 </FILE>
+
+<FILE name='steadycos' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='var2vec' type='XML'>
+  <EXAMPLE>
+    <P>  -->a=list("cos",[1.1,2])</P>
+    <P>   a  = </P>
+    <P> </P>
+    <P>         a(1)</P>
+    <P>   </P>
+    <P>   cos   </P>
+    <P>   </P>
+    <P>         a(2)</P>
+    <P>   </P>
+    <P>      1.1    2.  </P>
+    <P></P>
+    <P></P>
+    <P>  -->b=var2vec(a)         </P>
+    <P>   b  =</P>
+    <P>   </P>
+    <P>      4.244-314  </P>
+    <P>      1.273-313  </P>
+    <P>      8.488-314  </P>
+    <P>      2.122-314  </P>
+    <P>      4.941-324  </P>
+    <P>      8.488-314  </P>
+    <P>      5.093-313  </P>
+    <P>      2.122-314  </P>
+    <P>      2.122-314  </P>
+    <P>      9.881-324  </P>
+    <P>      1.1        </P>
+    <P>      2.         </P>
+  </EXAMPLE>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+  <EXAMPLE>
+    <P>  -->a=list("cos",[1.1,2])</P>
+    <P>   a  = </P>
+    <P> </P>
+    <P>         a(1)</P>
+    <P>   </P>
+    <P>   cos   </P>
+    <P>   </P>
+    <P>         a(2)</P>
+    <P>   </P>
+    <P>      1.1    2.  </P>
+    <P></P>
+    <P></P>
+    <P>  -->b=var2vec(a)         </P>
+    <P>   b  =</P>
+    <P>   </P>
+    <P>      4.244-314  </P>
+    <P>      1.273-313  </P>
+    <P>      8.488-314  </P>
+    <P>      2.122-314  </P>
+    <P>      4.941-324  </P>
+    <P>      8.488-314  </P>
+    <P>      5.093-313  </P>
+    <P>      2.122-314  </P>
+    <P>      2.122-314  </P>
+    <P>      9.881-324  </P>
+    <P>      1.1        </P>
+    <P>      2.         </P>
+    <P></P>
+    <P></P>
+    <P>  -->c=vec2var(b)</P>
+    <P>   c  =</P>
+    <P>   </P>
+    <P>   </P>
+    <P>         c(1)</P>
+    <P>   </P>
+    <P>   cos   </P>
+    <P>   </P>
+    <P>         c(2)</P>
+    <P>   </P>
+    <P>      1.1    2.  </P>
+    <P></P>
+  </EXAMPLE>
+</FILE>
+
 
 </DATA>

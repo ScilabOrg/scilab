@@ -1,5 +1,11 @@
 <DATA flag="ufunc">
 
+<FILE name='ABSBLK_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='ABS_VALUE' type='XML'>
 <USED_FUNCTIONS>
 
@@ -8,6 +14,12 @@
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='AFFICH_m' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -25,7 +37,7 @@
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='ANIMXY_f' type='XML'>
+<FILE name='BACKLASH' type='XML'>
 <USED_FUNCTIONS>
 
 
@@ -33,10 +45,36 @@
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='BACKLASH' type='XML'>
+<FILE name='BIGSOM_f' type='XML'>
 <USED_FUNCTIONS>
 
+</USED_FUNCTIONS>
+</FILE>
 
+<FILE name='BITCLEAR' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BITSET' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BOUNCE' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='BOUNCEXY' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -49,10 +87,34 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CANIMXY' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CANIMXY3D' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CBLOCK' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CEVENTSCOPE' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CFSCOPE' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -65,10 +127,40 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CLKFROM' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKGOTO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKGotoTagVisibility' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CLKINV_f' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKIN_f' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -81,10 +173,34 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CLKOUT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CLKSOMV_f' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKSOM_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLKSPLIT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLOCK_c' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -97,10 +213,22 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CLR' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CLR_f' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CLSS' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -113,10 +241,28 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CMAT3D' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CMATVIEW' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CMSCOPE' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CONST' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -137,10 +283,56 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='CONST_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CONVERT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>convert</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='COSBLK_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CSCOPE' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CSCOPXY' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CSCOPXY3D' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CUMSUM' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='CURVE_c' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -169,6 +361,14 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='Counter' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='CurrentSensor' type='XML'>
 <USED_FUNCTIONS>
 
@@ -191,10 +391,28 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='DELAYV_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DELAY_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='DEMUX' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DEMUX_f' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -207,10 +425,46 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='DFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DIFF_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLATCH' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLR' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLRADAPT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='DLR_f' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='DLSS' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -223,6 +477,12 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='DOLLAR' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='DOLLAR_f' type='XML'>
 <USED_FUNCTIONS>
 
@@ -231,10 +491,22 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='DOLLAR_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='Diode' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EDGETRIGGER' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -253,10 +525,8 @@
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='EVENTSCOPE_f' type='XML'>
+<FILE name='EVTDLY_c' type='XML'>
 <USED_FUNCTIONS>
-
-
 
 </USED_FUNCTIONS>
 </FILE>
@@ -293,11 +563,35 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='EXPBLK_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='EXPRESSION' type='XML'>
 <USED_FUNCTIONS>
 
 
 
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXTRACT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+For this block we have two differents functions:
+<LINK>extract</LINK>,
+<LINK>extractz</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='EXTRACTBITS' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -309,13 +603,37 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='EXTTRI' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='Extract_Activation' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='FSCOPE_f' type='XML'>
+<FILE name='FROM' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='FROMMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='FSV_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -329,6 +647,24 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='GAINBLK_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GAIN_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GENERAL_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='GENSIN_f' type='XML'>
 <USED_FUNCTIONS>
 
@@ -338,6 +674,38 @@
 <FILE name='GENSQR_f' type='XML'>
 <USED_FUNCTIONS>
 
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GOTO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GOTOMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GotoTagVisibility' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='GotoTagVisibilityMO' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -369,6 +737,12 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='IMPSPLIT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='INIMPL_f' type='XML'>
 <USED_FUNCTIONS>
 
@@ -385,6 +759,31 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='INTEGRAL_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTEGRAL_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INTMUL' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>matmul_i32n</LINK>,<LINK>matmul_i16n</LINK>,<LINK>matmul_i8n</LINK>,<LINK>matmul_ui32n</LINK>,
+<LINK>matmul_ui16n</LINK>,<LINK>matmul_ui8n</LINK>,
+<LINK>matmul_i32s</LINK>,<LINK>matmul_i16s</LINK>,<LINK>matmul_i8s</LINK>,<LINK>matmul_ui32s</LINK>,
+<LINK>matmul_ui16s</LINK>,<LINK>matmul_ui8s</LINK>,
+<LINK>matmul_i32e</LINK>,<LINK>matmul_i16e</LINK>,<LINK>matmul_i8e</LINK>,<LINK>matmul_ui32e</LINK>,
+<LINK>matmul_ui16e</LINK>,<LINK>matmul_ui8e</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='INTRP2BLK_f' type='XML'>
 <USED_FUNCTIONS>
 
@@ -397,6 +796,12 @@
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='INVBLK' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -425,10 +830,22 @@
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='ISELECT_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='Inductor' type='XML'>
 <USED_FUNCTIONS>
 
 
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='JKFLIPFLOP' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -438,6 +855,14 @@
 
 
 
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='LOGIC' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>logic.c</LINK>
+</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -454,488 +879,6 @@
 
 
 
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='MAXMIN' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='MUX' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='M_SWITCH' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='Modulo_Count' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='NEGTOPOS_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='NRMSOM_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='OUTIMPL_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='OUT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PDE' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='POSTONEG_f' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='POWBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PRODUCT' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PROD_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PerteDP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PotentialSensor' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PuitsP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='QUANT_f' type='XML'>
-<USED_FUNCTIONS>
-<LINK>qzrnd</LINK>
-<LINK>qztrn</LINK>
-<LINK>qzflr</LINK>
-<LINK>qzcel</LINK>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RAMP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RAND_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RATELIMITER' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='READAU_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='READC_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='REGISTER_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RELATIONALOP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RELAY_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RFILE_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='Resistor' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SAMPLEHOLD_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SATURATION' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SAWTOOTH_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SCALAR2VECTOR' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SCOPXY_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SELECT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SIGNUM' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='STEP_FUNCTION' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SUMMATION' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SUM_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SUPER_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SWITCH2' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SWITCH_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SourceP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TCLSS_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TEXT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TIME_DELAY' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TIME_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TrigFun' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VARIABLE_DELAY' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VVsourceAC' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VanneReglante' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VariableResistor' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VoltageSensor' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='VsourceAC' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='WFILE_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='WRITEAU_f' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='WRITEC_f' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='ZCROSS_f' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='buildouttb' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='c_block' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='curblock' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='fortran_block' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='freq_div' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='generic_block2' type='XML'>
-<USED_FUNCTIONS>
-
-
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='getscicosvars' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='lincos' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scicos' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scicos_debug' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scicos_simulate' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scicos_time' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scicosim' type='XML'>
-<USED_FUNCTIONS>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='scifunc_block' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='steadycos' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='var2vec' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='vec2var' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-
-<FILE name='CUMSUM' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='EXTRACT' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-For this block we have two differents functions:
-<LINK>extract</LINK>,
-<LINK>extractz</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='EXTTRI' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1093,216 +1036,6 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='ABSBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='AFFICH_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BIGSOM_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CANIMXY' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CANIMXY3D' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CEVENTSCOPE' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CFSCOPE' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLKIN_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLKOUT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLKSOM_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLKSPLIT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLR' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLSS' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CMAT3D' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CMATVIEW' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CONST' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CONST_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='COSBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CSCOPXY' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CSCOPXY3D' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DELAYV_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DELAY_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DEMUX_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DIFF_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DLR' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DLRADAPT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DLSS' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='FSV_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GAINBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GAIN_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GENERAL_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTEGRAL_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTEGRAL_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INVBLK' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='ISELECT_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
 <FILE name='MATSUM' type='XML'>
 <USED_FUNCTIONS>
 <SP>
@@ -1337,7 +1070,21 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='MAXMIN' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='MAX_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='MBLOCK' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1373,7 +1120,39 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='MUX' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='MUX_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='M_SWITCH' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='M_freq' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Modulo_Count' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='NEGTOPOS_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1385,7 +1164,125 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='NRMSOM_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='OUTIMPL_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='OUT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PDE' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PID' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='PNP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='POSTONEG_f' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='POWBLK_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PRODUCT' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PROD_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PerteDP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PotentialSensor' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='PuitsP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='QUANT_f' type='XML'>
+<USED_FUNCTIONS>
+<LINK>qzrnd</LINK>
+<LINK>qztrn</LINK>
+<LINK>qzflr</LINK>
+<LINK>qzcel</LINK>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RAMP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RAND_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RAND_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RATELIMITER' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='READAU_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='READC_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1397,7 +1294,31 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='REGISTER_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELATIONALOP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RELAY_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='RFILE' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='RFILE_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1411,7 +1332,39 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='ROOTCOEF' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Resistor' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='SAMPHOLD' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SAMPHOLD_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SAMPLEHOLD_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SATURATION' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1423,206 +1376,25 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='SAWTOOTH_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SCALAR2VECTOR' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SELECT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='SELECT_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SINBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SLIDER_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='STEP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SUBMAT' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SWITCH2_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SineVoltage' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TANBLK_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TCLSS' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='TRASH_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='WFILE' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='generic_block' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DOLLAR' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DOLLAR_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BITCLEAR' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BITSET' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CONVERT' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>convert</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='EXTRACTBITS' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GAINBLK_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTGAINBLK' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>gainblk_i32n</LINK>,<LINK>gainblk_i16n</LINK>,<LINK>gainblk_i8n</LINK>,<LINK>gainblk_ui32n</LINK>,
-<LINK>gainblk_ui16n</LINK>,<LINK>gainblk_ui8n</LINK>,
-<LINK>gainblk_i32s</LINK>,<LINK>gainblk_i16s</LINK>,<LINK>gainblk_i8s</LINK>,<LINK>gainblk_ui32s</LINK>,
-<LINK>gainblk_ui16s</LINK>,<LINK>gainblk_ui8s</LINK>,
-<LINK>gainblk_i32e</LINK>,<LINK>gainblk_i16e</LINK>,<LINK>gainblk_i8e</LINK>,<LINK>gainblk_ui32e</LINK>,
-<LINK>gainblk_ui16e</LINK>,<LINK>gainblk_ui8e</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTLOGICAL_OP' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>logicalop_i32</LINK>,
-<LINK>logicalop_i16</LINK>,
-<LINK>logicalop_i8</LINK>,
-<LINK>logicalop_ui32</LINK>,
-<LINK>logicalop_ui16</LINK>,
-<LINK>logicalop_ui8</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTMUL' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>matmul_i32n</LINK>,<LINK>matmul_i16n</LINK>,<LINK>matmul_i8n</LINK>,<LINK>matmul_ui32n</LINK>,
-<LINK>matmul_ui16n</LINK>,<LINK>matmul_ui8n</LINK>,
-<LINK>matmul_i32s</LINK>,<LINK>matmul_i16s</LINK>,<LINK>matmul_i8s</LINK>,<LINK>matmul_ui32s</LINK>,
-<LINK>matmul_ui16s</LINK>,<LINK>matmul_ui8s</LINK>,
-<LINK>matmul_i32e</LINK>,<LINK>matmul_i16e</LINK>,<LINK>matmul_i8e</LINK>,<LINK>matmul_ui32e</LINK>,
-<LINK>matmul_ui16e</LINK>,<LINK>matmul_ui8e</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INTREGISTER' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>delay4_i32</LINK>,
-<LINK>delay4_i16</LINK>,
-<LINK>delay4_i8</LINK>,
-<LINK>delay4_ui32</LINK>,
-<LINK>delay4_ui16</LINK>,
-<LINK>delay4_ui8</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RAND_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RELATIONAL_OP' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>relational_op_i32</LINK>,
-<LINK>relational_op_i16</LINK>,
-<LINK>relational_op_i8</LINK>,
-<LINK>relational_op_ui32</LINK>,
-<LINK>relational_op_ui16</LINK>,
-<LINK>relational_op_ui8</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='RELAY_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SAMPHOLD_m' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1641,190 +1413,19 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='SQRT' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>mat_sqrt.c</LINK>,
-<LINK>matz_sqrt.c</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SUMMATIONI' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>summation</LINK>,<LINK>summation_z</LINK>
-<LINK>summation_i32n</LINK>,<LINK>summation_i16n</LINK>,<LINK>summation_i8n</LINK>,<LINK>summation_ui32n</LINK>,
-<LINK>summation_ui16n</LINK>,<LINK>summation_ui8n</LINK>,
-<LINK>summation_i32s</LINK>,<LINK>summation_i16s</LINK>,<LINK>summation_i8s</LINK>,<LINK>summation_ui32s</LINK>,
-<LINK>summation_ui16s</LINK>,<LINK>summation_ui8s</LINK>,
-<LINK>summation_i32e</LINK>,<LINK>summation_i16e</LINK>,<LINK>summation_i8e</LINK>,<LINK>summation_ui32e</LINK>,
-<LINK>summation_ui16e</LINK>,<LINK>summation_ui8e</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DFLIPFLOP' type='XML'>
+<FILE name='SIGNUM' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='DLATCH' type='XML'>
+<FILE name='SINBLK_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='EXPBLK_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='INVBLK_m' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='JKFLIPFLOP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='LOGIC' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-<LINK>logic.c</LINK>
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SRFLIPFLOP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BITCLEAR1' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BOUNCE' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='BOUNCEXY' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLOCK_c' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DLATCH1' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DLOGICAL_OP' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='DelayRE' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='Div' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='EDGETRIGGER' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='EVTDLY_c' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='FROM' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GOTO' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GotoTagVisibility' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='IMPSPLIT_f' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='JKFLIPFLOP1' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='Neg' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='PID' type='XML'>
-<USED_FUNCTIONS>
-
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='ROOTCOEF' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='SETW' type='XML'>
+<FILE name='SLIDER_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
@@ -1836,25 +1437,40 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='SRFLIPFLOP1' type='XML'>
+<FILE name='SQRT' type='XML'>
+<USED_FUNCTIONS>
+<SP>
+<LINK>mat_sqrt.c</LINK>,
+<LINK>matz_sqrt.c</LINK>
+</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='func_block' type='XML'>
+<FILE name='STEP' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='scifunc_block_m' type='XML'>
+<FILE name='STEP_FUNCTION' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='CLKFROM' type='XML'>
+<FILE name='SUBMAT' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SUMMATION' type='XML'>
 <USED_FUNCTIONS>
 <SP>
 
@@ -1862,65 +1478,33 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='CLKGOTO' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CLKGotoTagVisibility' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='FROMMO' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GOTOMO' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='GotoTagVisibilityMO' type='XML'>
-<USED_FUNCTIONS>
-<SP>
-
-</SP>
-</USED_FUNCTIONS>
-</FILE>
-
-<FILE name='CURVE_c' type='XML'>
+<FILE name='SUM_f' type='XML'>
 <USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='Counter' type='XML'>
+<FILE name='SUPER_f' type='XML'>
 <USED_FUNCTIONS>
-<SP>
 
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='M_freq' type='XML'>
+<FILE name='SWITCH2' type='XML'>
 <USED_FUNCTIONS>
-<SP>
 
-</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SWITCH2_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SWITCH_f' type='XML'>
+<USED_FUNCTIONS>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1938,10 +1522,215 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='SineVoltage' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='SourceP' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TANBLK_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TCLSS' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TCLSS_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TEXT_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TIME_DELAY' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TIME_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TRASH_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='TrigFun' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VARIABLE_DELAY' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VVsourceAC' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VanneReglante' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VariableResistor' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VoltageSensor' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='VsourceAC' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='WFILE' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='WFILE_f' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='WRITEAU_f' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='WRITEC_f' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='ZCROSS_f' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='buildouttb' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='c_block' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='curblock' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='fortran_block' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='freq_div' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='func_block' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='generic_block' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='generic_block2' type='XML'>
+<USED_FUNCTIONS>
+
+
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='generic_block3' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='getblocklabel' type='XML'>
   <USED_FUNCTIONS>
 
   </USED_FUNCTIONS>
+</FILE>
+
+<FILE name='getscicosvars' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='lincos' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
 </FILE>
 
 <FILE name='phase_simulation' type='XML'>
@@ -1956,10 +1745,67 @@ for this block we have four differents functions:
   </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='scicos' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_debug' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_simulate' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_time' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicosim' type='XML'>
+<USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scifunc_block' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scifunc_block_m' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='set_xproperty' type='XML'>
   <USED_FUNCTIONS>
 
   </USED_FUNCTIONS>
 </FILE>
+
+<FILE name='steadycos' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='var2vec' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='vec2var' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 
 </DATA>
