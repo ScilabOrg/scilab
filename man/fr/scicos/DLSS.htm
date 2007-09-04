@@ -36,12 +36,12 @@ Système d'équations d'état discrètes
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=DLSS.eps,width=90.00pt}$
+ $\epsfig{file=DLSS.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="76" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="270" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/DLSS_blk.gif"
- ALT="\epsfig{file=DLSS.eps,width=90.00pt}">
+ ALT="\epsfig{file=DLSS.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -95,7 +95,8 @@ et par l'état initial <SPAN CLASS="MATH"><IMG
  ALT="$ x_0$"></SPAN>
 .
 Les dimensions des matrices et de l'état initial doivent être appropriées.
-Lorsque qu'un événement active le bloc (par son unique port événementiel) l'état est alors mis à jour.
+Lorsque qu'un événement active le bloc (par son unique port événementiel)
+l'état est alors mis à jour.
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -184,17 +185,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> oui
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>dsslti4</EM>
 </LI>

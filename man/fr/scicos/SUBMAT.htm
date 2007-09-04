@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="SUBMAT"></A>
 <BR>
-SUBMAT titre
+SUBMAT Extrait une sous-matrice
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SUBMAT.eps,width=90.00pt}$
+ $\epsfig{file=SUBMAT.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SUBMAT_blk.gif"
- ALT="\epsfig{file=SUBMAT.eps,width=90.00pt}">
+ ALT="\epsfig{file=SUBMAT.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html6"
-  HREF="SUBMAT.htm#SECTION00010000000000000000">SUBMAT titre</A>
+  HREF="SUBMAT.htm#SECTION00010000000000000000">SUBMAT Extrait une sous-matrice</A>
 <UL>
 <LI><A NAME="tex2html7"
   HREF="SUBMAT.htm#SECTION00021000000000000000">Palette</A>
@@ -77,7 +77,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -85,7 +85,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This block outputs a sub matrix of the input matrix. The output matrix will be defining by using the parameters of this block.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -108,30 +108,40 @@ Boîte de dialogue</A>
 Type of the output matrix. It can be double or complex.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Starting Row Index</b>
 <BR>
 The first row of the submatrix.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Ending Row Index</b>
 <BR>
 The last row of the Submatrix.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Starting Column Index</b>
 <BR>
 The first column of the submatrix.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Ending Column Index</b>
 <BR>
 The last row of the submatrix.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Input Dimension</b>
 <BR>
@@ -154,17 +164,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>submat</EM>
 </LI>

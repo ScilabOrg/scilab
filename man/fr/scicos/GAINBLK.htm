@@ -36,12 +36,12 @@ Gain
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=GAINBLK.eps,width=90.00pt}$
+ $\epsfig{file=GAINBLK.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/GAINBLK_blk.gif"
- ALT="\epsfig{file=GAINBLK.eps,width=90.00pt}">
+ ALT="\epsfig{file=GAINBLK.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes de U. Les types de données des entrées/sorties sont définis par le type de donnée de la matrice gain A.  Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs différentes suivant le paramètre "DO ON OVERFLOW": 
+Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes de U. Les types de données des entrées/sorties sont définis par le type de donnée de la matrice gain A.   Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs différentes suivant le paramètre "DO ON OVERFLOW":  
 <BR>
 1- Un résulat non saturé. 
 <BR>
@@ -117,6 +117,8 @@ Boîte de dialogue</A>
 Ce paramètre définit la matrice carré A. Ce paramètre supporte tous les types de données.
 <BR>
 Propriétés : Type 'mat' de taille [-1,-1].
+
+<P>
 </LI>
 <LI><b>Do on Overflow(0=Nothing 1=Saturate 2=Error)</b>
 <BR>
@@ -139,17 +141,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>gainblk</EM>
 </LI>
@@ -181,7 +187,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html6"
-  HREF="INTMUL.htm">INTMUL - INTMUL titre (Bloc Scicos)</A>
+  HREF="INTMUL.htm">INTMUL - INTMUL Multiplication matricielle de nombre entiers (Bloc Scicos)</A>
 </LI>
 <LI><A NAME="tex2html7"
   HREF="MATMUL.htm">MATMUL - MATMUL Multiplication Matricielle (Bloc Scicos)</A>

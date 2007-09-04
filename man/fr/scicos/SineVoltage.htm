@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="SineVoltage"></A>
 <BR>
-SineVoltage titre
+Source de tension sinusoïdale
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=SineVoltage.eps,width=90.00pt}$
+ $\epsfig{file=SineVoltage.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/SineVoltage_blk.gif"
- ALT="\epsfig{file=SineVoltage.eps,width=90.00pt}">
+ ALT="\epsfig{file=SineVoltage.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -52,16 +52,16 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html3"
-  HREF="SineVoltage.htm#SECTION00010000000000000000">SineVoltage titre</A>
-<UL>
 <LI><A NAME="tex2html4"
-  HREF="SineVoltage.htm#SECTION00021000000000000000">Description</A>
+  HREF="SineVoltage.htm#SECTION00010000000000000000">Source de tension sinusoïdale</A>
+<UL>
 <LI><A NAME="tex2html5"
-  HREF="SineVoltage.htm#SECTION00022000000000000000">Boîte de dialogue</A>
+  HREF="SineVoltage.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html6"
-  HREF="SineVoltage.htm#SECTION00023000000000000000">Propriétés par défaut</A>
+  HREF="SineVoltage.htm#SECTION00022000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html7"
+  HREF="SineVoltage.htm#SECTION00023000000000000000">Propriétés par défaut</A>
+<LI><A NAME="tex2html8"
   HREF="SineVoltage.htm#SECTION00024000000000000000">Fonction d'interface</A>
 </UL></UL>
 <!--End of Table of Contents-->
@@ -93,24 +93,32 @@ Boîte de dialogue</A>
 La description du paramètre 1.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>phase (rad)</b>
 <BR>
 La description du paramètre 2.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Frequency (Hz)</b>
 <BR>
 La description du paramètre 3.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Voltageoffset (V)</b>
 <BR>
 La description du paramètre 4.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Timeoffset (s)</b>
 <BR>
@@ -133,17 +141,19 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>nombre/taille/type des entrées régulières:</b> 1 / [1,] / 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
+<LI><b>nombre/taille/type des sorties sorties régulières:</b> 1 / [1,] / 1
 </LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
+<LI><b>nombre/taille des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre/taille des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction modelica:</b> <EM>SineVoltage</EM>
 </LI>
@@ -152,7 +162,12 @@ Propriétés par défaut</A>
 <H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Fonction d'interface</A>
 </font></H3>
-<TT>SineVoltage.sci</TT>
+
+<UL>
+<LI>SCI/macros/scicos_blocks/Electrical/SineVoltage.sci <A NAME="tex2html3"
+  HREF="SineVoltage_intfunc.htm">[voir code]</A>
+</LI>
+</UL>
 
 <BR>
 

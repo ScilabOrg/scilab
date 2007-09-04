@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="FROM"></A>
 <BR>
-FROM titre
+FROM Récepteur de données d'un bloc GOTO
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=FROM.eps,width=90.00pt}$
+ $\epsfig{file=FROM.eps,height=67.5pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="101" HEIGHT="107" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/FROM_blk.gif"
- ALT="\epsfig{file=FROM.eps,width=90.00pt}">
+ ALT="\epsfig{file=FROM.eps,height=67.5pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html7"
-  HREF="FROM.htm#SECTION00010000000000000000">FROM titre</A>
+  HREF="FROM.htm#SECTION00010000000000000000">FROM Récepteur de données d'un bloc GOTO</A>
 <UL>
 <LI><A NAME="tex2html8"
   HREF="FROM.htm#SECTION00021000000000000000">Palette</A>
@@ -85,7 +85,13 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+The main role of the GOTO/FROM blocks is to transport signals from a block to another block without connecting them physically. The FROM block transports its received data (from the correponding GOTO) to its output. Multiples FROM blocks can receive data from one GOTO, although a GOTO can send data to multiple FROM.  
+<BR>
+The GOTO and FROM blocks are connected by the tag parameter.  
+<BR>
+For information on the visibility and limitation of these blocks please refer to the GOTO documentation.  
+<BR>
+This block can support all the data types.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -124,17 +130,18 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type -1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>from</EM>
 </LI>
@@ -156,10 +163,10 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html5"
-  HREF="GOTO.htm">GOTO - GOTO titre (Bloc Scicos)</A>
+  HREF="GOTO.htm">GOTO - GOTO Transmetteur de données vers un bloc FROM (Bloc Scicos)</A>
 </LI>
 <LI><A NAME="tex2html6"
-  HREF="GotoTagVisibility.htm">GotoTagVisibility - GotoTagVisibility titre (Bloc Scicos)</A>
+  HREF="GotoTagVisibility.htm">GotoTagVisibility - Définit la portée des données d'un bloc GOTO (Bloc Scicos)</A>
 </LI>
 </UL>
 

@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="BITSET"></A>
 <BR>
-BITSET titre
+BITSET Positionne un bit
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=BITSET.eps,width=90.00pt}$
+ $\epsfig{file=BITSET.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/BITSET_blk.gif"
- ALT="\epsfig{file=BITSET.eps,width=90.00pt}">
+ ALT="\epsfig{file=BITSET.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html7"
-  HREF="BITSET.htm#SECTION00010000000000000000">BITSET titre</A>
+  HREF="BITSET.htm#SECTION00010000000000000000">BITSET Positionne un bit</A>
 <UL>
 <LI><A NAME="tex2html8"
   HREF="BITSET.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Integer_pal.htm">Integer - Integer titre</A>
+  HREF="Integer_pal.htm">Integer - Palette Integer</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This blocks set the specified bit of the integer input to 1. The user can specify the bit in the field:"index of bit". Bit 0 is the least significant bit.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -109,13 +109,15 @@ Boîte de dialogue</A>
 <BR>
 It indicates the type of the input/output data. It support all the integer datatype, number must be between 3 and 8.
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  1.
+
+<P>
 </LI>
 <LI><b>index of bit (0 is leat significant)</b>
 <BR>
-It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32. when the type is int16 or uint16 the number must be positif and less than 16 when the type is int8 or uint8 the number must be positif and less than 8.
+It indicate the index of the bit to clear. When the type is int32 or uint32 the number must be positif and less than 32. When the type is int16 or uint16 the number must be positif and less than 16. When the type is int8 or uint8 the number must be positif and less than 8.
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  1.
 </LI>
 </UL>
 
@@ -132,17 +134,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 3</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 3</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>bit_set_32</EM>
 </LI>
@@ -174,7 +180,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html6"
-  HREF="BITCLEAR.htm">BITCLEAR - BITCLEAR titre (Bloc Scicos)</A>
+  HREF="BITCLEAR.htm">BITCLEAR - BITCLEAR Raz un bit (Bloc Scicos)</A>
 </LI>
 </UL>
 

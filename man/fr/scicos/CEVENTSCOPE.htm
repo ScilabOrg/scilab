@@ -36,12 +36,12 @@ Scope pour événements
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CEVENTSCOPE.eps,width=90.00pt}$
+ $\epsfig{file=CEVENTSCOPE.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CEVENTSCOPE_blk.gif"
- ALT="\epsfig{file=CEVENTSCOPE.eps,width=90.00pt}">
+ ALT="\epsfig{file=CEVENTSCOPE.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -103,49 +103,79 @@ Boîte de dialogue</A>
 <P>
 
 <UL>
-<LI><b>Number of event inputs</b>
+<LI><B>Number of event inputs</B>
 <BR>
-La description du paramètre 1.
-<BR>
-Propriétés : Type 'vec' de taille 1.
-</LI>
-<LI><b>colors c (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+an integer giving the number of event
+        input ports colors : a vector of integers. The i-th element is the
+        color number (<SPAN CLASS="MATH"><IMG
+ WIDTH="45" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CEVENTSCOPE_img3_fr.gif"
- ALT="$ &gt;$"></SPAN>
-0) or mark (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ ALT="$ &gt;=0$"></SPAN>
+) or dash type (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CEVENTSCOPE_img4_fr.gif"
- ALT="$ &lt;$"></SPAN>
-0)</b>
+ ALT="$ &lt;0$"></SPAN>
+) used to draw the evolution of
+        the i-th input port signal. See  <B>xset</B>  for color (dash type)
+        definitions.  
 <BR>
-La description du paramètre 2.
-<BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  1
+
+<P>
 </LI>
-<LI><b>Output window number (-1 for automatic)</b>
+<LI><B>colors c </B>
 <BR>
-La description du paramètre 3.
+an integer. It is the color number (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CEVENTSCOPE_img5_fr.gif"
+ ALT="$ &gt;0$"></SPAN>
+) or dash
+	type (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CEVENTSCOPE_img4_fr.gif"
+ ALT="$ &lt;0$"></SPAN>
+) used to draw the evolution of the input port signal. See
+	<B>plot2d</B>  for color (dash type) definitions.
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
 </LI>
-<LI><b>Output window position</b>
+<LI><B>Output window number</B>
 <BR>
-La description du paramètre 4.
+The number of graphic window used for the
+	display. It is often good to use high values to avoid conflict with
+	palettes and Super Block windows. If you have more than one scope,
+	make sure they don't have the same window numbers (unless
+	superposition of the curves is desired). Output window position : a
+	2 vector specifying the coordinates of the upper left corner of the
+	graphic window. Answer [] for default window position.  
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  1
+
+<P>
 </LI>
-<LI><b>Output window sizes</b>
+<LI><B>Output window position</B>
 <BR>
-La description du paramètre 5.
-<BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
 </LI>
-<LI><b>Refresh period</b>
+<LI><B>Output window sizes</B>
 <BR>
-La description du paramètre 6.
+a 2 vector specifying the width and height
+	of the graphic window. Answer [] for default window dimensions.
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
+</LI>
+<LI><B>Refresh period</B>
+<BR>
+Maximum value on the X-axis (time). The plot is
+	redrawn when time reaches a multiple of this value.   
+<BR>
+Propriétés : Type 'vec' de taille  1
 </LI>
 </UL>
 
@@ -162,17 +192,15 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>cevscpe</EM>
 </LI>

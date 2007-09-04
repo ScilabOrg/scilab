@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="MATMAGPHI"></A>
 <BR>
-MATMAGPHI titre
+MATMAGPHI Convertion matricielle complexe/module-phase
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATMAGPHI.eps,width=90.00pt}$
+ $\epsfig{file=MATMAGPHI.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATMAGPHI_blk.gif"
- ALT="\epsfig{file=MATMAGPHI.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATMAGPHI.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html8"
-  HREF="MATMAGPHI.htm#SECTION00010000000000000000">MATMAGPHI titre</A>
+  HREF="MATMAGPHI.htm#SECTION00010000000000000000">MATMAGPHI Convertion matricielle complexe/module-phase</A>
 <UL>
 <LI><A NAME="tex2html9"
   HREF="MATMAGPHI.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,11 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+MATMAGPHI Block has two types of decomposotions. 
+<BR>
+When the type is set to one, the block converts a complex number to the magnitude and the radian angle, in this case the input is complex and the outputs are real double. If the input is real double, the angle will be zero or PI and the magnitude will be equal to the absolute of the input number.  
+<BR>
+When the type is set to two, the block outputs a complex number given the magnitude and the radian angle. In this case the inputs are real double and the output is complex.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -126,17 +130,22 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 2</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 2 / -1  -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>matz_abs</EM>
 </LI>
@@ -171,7 +180,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html7"
-  HREF="MATZREIM.htm">MATZREIM - MATZREIM titre (Bloc Scicos)</A>
+  HREF="MATZREIM.htm">MATZREIM - MATZREIM Décomposition matricielle complexe (Bloc Scicos)</A>
 </LI>
 </UL>
 

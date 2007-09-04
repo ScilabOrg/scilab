@@ -36,12 +36,12 @@ Expression mathématique
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=EXPRESSION.eps,width=90.00pt}$
+ $\epsfig{file=EXPRESSION.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/EXPRESSION_blk.gif"
- ALT="\epsfig{file=EXPRESSION.eps,width=90.00pt}">
+ ALT="\epsfig{file=EXPRESSION.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -109,12 +109,16 @@ Boîte de dialogue</A>
 Un scalaire à valeur entière donnant le nombre de port d'entrée régulier. Ces entrées peuvent-être scalaires ou vectorielles.
 <BR>
 Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>scilab expression</b>
 <BR>
 Chaine de caractères définissant la relation mathématique à appliquer aux entrées. C'est une expression scilab.
 <BR>
 Type 'str' de taille 1.
+
+<P>
 </LI>
 <LI><b>use zero-crossing (0: no, 1 yes)</b>
 <BR>
@@ -137,17 +141,22 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> oui
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 2 / 1  1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR>   <b>   - port 2 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>evaluate_expr</EM>
 </LI>

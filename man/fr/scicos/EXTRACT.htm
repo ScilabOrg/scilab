@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="EXTRACT"></A>
 <BR>
-EXTRACT titre
+EXTRACT Extraction de matrices
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=EXTRACT.eps,width=90.00pt}$
+ $\epsfig{file=EXTRACT.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/EXTRACT_blk.gif"
- ALT="\epsfig{file=EXTRACT.eps,width=90.00pt}">
+ ALT="\epsfig{file=EXTRACT.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html8"
-  HREF="EXTRACT.htm#SECTION00010000000000000000">EXTRACT titre</A>
+  HREF="EXTRACT.htm#SECTION00010000000000000000">EXTRACT Extraction de matrices</A>
 <UL>
 <LI><A NAME="tex2html9"
   HREF="EXTRACT.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+The EXTRACT block extracts some elements from the matrix. The size of the output depends on the number of rows and number of columns to extract.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -110,12 +110,16 @@ Boîte de dialogue</A>
 It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Lines to extract</b>
 <BR>
 It indicates the numbers of the lines to extract.
 <BR>
 Propriétés : Type 'mat' de taille [1,-1].
+
+<P>
 </LI>
 <LI><b>Columns to extract</b>
 <BR>
@@ -138,17 +142,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>extract</EM>
 </LI>
@@ -183,7 +191,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html7"
-  HREF="EXTTRI.htm">EXTTRI - EXTTRI titre (Bloc Scicos)</A>
+  HREF="EXTTRI.htm">EXTTRI - EXTTRI Extraction diagonale ou triangulaire (Bloc Scicos)</A>
 </LI>
 </UL>
 

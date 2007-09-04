@@ -36,12 +36,12 @@ Bloc synchrone Event-Select
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=ESELECT_f.eps,width=90.00pt}$
+ $\epsfig{file=ESELECT_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/ESELECT_f_blk.gif"
- ALT="\epsfig{file=ESELECT_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=ESELECT_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -113,12 +113,16 @@ Boîte de dialogue</A>
 Un scalaire à valeur entière. Nombre de ports de sortie événementiel.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Inherit (1: no, 0: yes)</b>
 <BR>
 Si 'no' est sélectionné, alors le bloc est activé par son entrée événementiel. Si 'yes' est sélectionnée, alors le bloc est activé par les événements du signal reçu sur son port d'entrée régulier.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>zero-crossing (0: no, 1: yes)</b>
 <BR>
@@ -141,17 +145,18 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type -1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 2 / 1  1
+<LI><b>nombre des sorties évènementielles:</b> 2
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>eselect</EM>
 </LI>

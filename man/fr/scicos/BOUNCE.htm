@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="BOUNCE"></A>
 <BR>
-BOUNCE titre
+Générateur de coordonnées de balles
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=BOUNCE.eps,width=90.00pt}$
+ $\epsfig{file=BOUNCE.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/BOUNCE_blk.gif"
- ALT="\epsfig{file=BOUNCE.eps,width=90.00pt}">
+ ALT="\epsfig{file=BOUNCE.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html5"
-  HREF="BOUNCE.htm#SECTION00010000000000000000">BOUNCE titre</A>
+  HREF="BOUNCE.htm#SECTION00010000000000000000">Générateur de coordonnées de balles</A>
 <UL>
 <LI><A NAME="tex2html6"
   HREF="BOUNCE.htm#SECTION00021000000000000000">Description</A>
@@ -95,48 +95,64 @@ Boîte de dialogue</A>
 La description du paramètre 1.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>Radius</b>
 <BR>
 La description du paramètre 2.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>[xmin,xmax,ymin,ymax]</b>
 <BR>
 La description du paramètre 3.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>xpos</b>
 <BR>
 La description du paramètre 4.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>xdpos</b>
 <BR>
 La description du paramètre 5.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>ypos</b>
 <BR>
 La description du paramètre 6.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>ydpos</b>
 <BR>
 La description du paramètre 7.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>g (gravity)</b>
 <BR>
 La description du paramètre 8.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>C (aerodynamic coeff</b>
 <BR>
@@ -159,17 +175,19 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [2,1] / type 1</b>
+<BR>   <b>   - port 2 : taille [2,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 2 / 2  2
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> oui
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>bounce_ball</EM>
 </LI>

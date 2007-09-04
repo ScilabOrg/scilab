@@ -36,12 +36,12 @@ Scope flottant
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CFSCOPE.eps,width=90.00pt}$
+ $\epsfig{file=CFSCOPE.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_blk.gif"
- ALT="\epsfig{file=CFSCOPE.eps,width=90.00pt}">
+ ALT="\epsfig{file=CFSCOPE.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -103,67 +103,100 @@ Boîte de dialogue</A>
 <P>
 
 <UL>
-<LI><b>Color (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+<LI><B>Color </B>
+<BR>
+a vector of integers. The i-th element is the color
+	number (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_img3_fr.gif"
- ALT="$ &gt;$"></SPAN>
-0) or mark (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ ALT="$ &gt;0$"></SPAN>
+) or dash type (<SPAN CLASS="MATH"><IMG
+ WIDTH="32" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CFSCOPE_img4_fr.gif"
- ALT="$ &lt;$"></SPAN>
-0) vector (8 entries)</b>
+ ALT="$ &lt;0$"></SPAN>
+) used to draw the evolution
+        of the i-th input port signal. See  <B>plot2d</B>  for color
+       (dash type) definitions. 
 <BR>
-La description du paramètre 1.
-<BR>
-Propriétés : Type 'vec' de taille 8.
+Propriétés : Type 'vec' de taille  8
+
+<P>
 </LI>
-<LI><b>Output window number (-1 for automatic)</b>
+<LI><B>Output window number </B>
 <BR>
-La description du paramètre 2.
+The number of graphic window used for 
+	the display. It is often good to use high values to avoid
+        conflict with palettes and Super Block windows. If default
+        value is used <B>(1)</B>, Scicos define the output window
+        number. 
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  1
+
+<P>
 </LI>
-<LI><b>Output window position</b>
+<LI><B>Output window position</B>
 <BR>
-La description du paramètre 3.
+a 2 vector specifying the coordinates
+	of the upper left corner of the graphic window. Answer [] for 
+	default window position. 
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
 </LI>
-<LI><b>Output window sizes</b>
+<LI><B>Output window sizes</B>
 <BR>
-La description du paramètre 4.
+a 2 vector specifying the coordinates of
+	the upper left corner of the graphic window. Answer []
+        for default window position.   
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
 </LI>
-<LI><b>Ymin</b>
+<LI><B>Ymin</B>
 <BR>
-La description du paramètre 5.
+Minimum  values of the input; used to set up the Y-axis
+	of the plot in the graphics window.   
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  -1
+
+<P>
 </LI>
-<LI><b>Ymax</b>
+<LI><B>Ymax</B>
 <BR>
-La description du paramètre 6.
+Maximum values of the input; used to set up the Y-axis
+	of the plot in the graphics window.   
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  1
+
+<P>
 </LI>
-<LI><b>Refresh period</b>
+<LI><B>Refresh period</B>
 <BR>
-La description du paramètre 7.
+Maximum value on the X-axis (time). The plot
+	is redrawn when time reaches a multiple of this value. 
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille 
+
+<P>
 </LI>
-<LI><b>Buffer size</b>
+<LI><B>Buffer size</B>
 <BR>
-La description du paramètre 8.
+To improve efficiency it is possible to buffer the
+	input data. The drawing is only done after each
+        <B>Buffer size</B> call to the block. 
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille  1
+
+<P>
 </LI>
-<LI><b>Links to view</b>
+<LI><B>Links to view</B>
 <BR>
-La description du paramètre 9.
+This parameter allows you to display the output
+	of specified link. 
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille  1
 </LI>
 </UL>
 
@@ -180,17 +213,15 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>cfscope</EM>
 </LI>

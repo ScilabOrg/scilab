@@ -36,12 +36,12 @@ Bloc générique (Ancien bloc)
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=generic_block.eps,width=90.00pt}$
+ $\epsfig{file=generic_block.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/generic_block_blk.gif"
- ALT="\epsfig{file=generic_block.eps,width=90.00pt}">
+ ALT="\epsfig{file=generic_block.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -75,7 +75,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="OldBlocks_pal.htm">OldBlocks - OldBlocks titre</A>
+  HREF="OldBlocks_pal.htm">OldBlocks - Palette des anciens blocs</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -83,8 +83,9 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
-<BR>
+
+<P>
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
 </font></H3>
@@ -101,87 +102,141 @@ Boîte de dialogue</A>
 <P>
 
 <UL>
-<LI><b>simulation function</b>
+<LI><B>simulation function</B>
 <BR>
-La description du paramètre 1.
+Nom de la fonction de simulation à charger.
 <BR>
-Propriétés : Type 'str' de taille 1.
+Propriétés : Type 'vec' de taille 1
+
+<P>
 </LI>
-<LI><b>function type (0,1,2,..)</b>
+<LI><B>function type </B>
 <BR>
-La description du paramètre 2.
+Définit le type de la fonction de calcul.
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille 1
+
+<P>
 </LI>
-<LI><b>input ports sizes</b>
+<LI><B>input ports sizes</B>
 <BR>
-La description du paramètre 3.
+Un vecteur contenant des valeurs positives, nulles ou négatives.
+        La taille de ce vecteur donne le
+        nombre de ports réguliers d'entrée.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>output port sizes</b>
+<LI><B>output port sizes</B>
 <BR>
-La description du paramètre 4.
+Un vecteur contenant des valeurs positives, nulles ou négatives.
+        La taille de ce vecteur donne le
+        nombre de ports réguliers de sortie.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>input event ports sizes</b>
+<LI><B>input event ports sizes</B>
 <BR>
-La description du paramètre 5.
+Un vecteur contenant des valeurs 1.
+        La taille de ce vecteur donne le
+        nombre de ports événementiels d'entrée.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>output events ports sizes</b>
+<LI><B>output events ports sizes</B>
 <BR>
-La description du paramètre 6.
+Un vecteur contenant des valeurs 1.
+        La taille de ce vecteur donne le
+        nombre de ports événementiels de sortie.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial continuous state</b>
+<LI><B>initial continuous state</B>
 <BR>
-La description du paramètre 7.
+Un vecteur colonne.
+	Conditions initiales des états continus.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial discrete state</b>
+<LI><B>initial discrete state</B>
 <BR>
-La description du paramètre 8.
+Un vecteur colonne.
+        Conditions initiales des états discrets.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>Real parameters vector</b>
+<LI><B>Real parameters vector</B>
 <BR>
-La description du paramètre 9.
+Vecteur des paramètres réels.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>Integer parameters vector</b>
+<LI><B>Integer parameters vector</B>
 <BR>
-La description du paramètre 10.
+Vecteur des paramètres entiers.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial firing vector (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+<LI><B>initial firing vector </B>
+<BR>
+Un vecteur. La taille de ce vecteur correspond
+	au nombre de sorties événementielles.
+	La valeur de la <!-- MATH
+ $i^{\rm\grave{e}me}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="35" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/generic_block_img3_fr.gif"
- ALT="$ &lt;$"></SPAN>
-0 for no firing)</b>
+ ALT="$ i^{\rm\grave{e}me}$"></SPAN>
+ entrée
+	spécifie la date initiale préprogrammée du 
+	<!-- MATH
+ $i^{\rm\grave{e}me}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="35" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/generic_block_img3_fr.gif"
+ ALT="$ i^{\rm\grave{e}me}$"></SPAN>
+ port événementiel de sortie.
+	Si la valeur est inférieure à zéro, alors aucun
+	événement n'est préprogrammé.
 <BR>
-La description du paramètre 11.
-<BR>
-Propriétés : Type 'vec' de taille "sum(%6)".
+Propriétés : Type 'vec' de taille sum(%6)
+
+<P>
 </LI>
-<LI><b>direct feedthrough (y or n)</b>
+<LI><B>direct feedthrough </B>
 <BR>
-La description du paramètre 12.
+L'entrée du bloc à un instant donné, détermine
+	la sortie du bloc à ce même instant.
+	Cela force le bloc à répondre instantanément, comme
+	si le système était en régime établi.
 <BR>
-Propriétés : Type 'str' de taille 1.
+Propriétés : Type 'vec' de taille 1
+
+<P>
 </LI>
-<LI><b>time dependence (y or n)</b>
+<LI><B>time dependence </B>
 <BR>
-La description du paramètre 13.
+Permet de déterminer si le bloc doit être
+	marqué comme temps dépendant.
 <BR>
-Propriétés : Type 'str' de taille 1.
+Propriétés : Type 'vec' de taille 1
 </LI>
 </UL>
 
@@ -198,17 +253,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>sinblk</EM>
 </LI>

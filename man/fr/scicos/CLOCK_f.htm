@@ -36,12 +36,12 @@ Horloge d'activation (Ancien bloc)
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=CLOCK_f.eps,width=90.00pt}$
+ $\epsfig{file=CLOCK_f.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CLOCK_f_blk.gif"
- ALT="\epsfig{file=CLOCK_f.eps,width=90.00pt}">
+ ALT="\epsfig{file=CLOCK_f.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -77,7 +77,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="OldBlocks_pal.htm">OldBlocks - OldBlocks titre</A>
+  HREF="OldBlocks_pal.htm">OldBlocks - Palette des anciens blocs</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -85,11 +85,15 @@ Description</A>
 </font></H3>
 
 <P>
-Ce bloc est un super-bloc construit grâce au bloc <A NAME="tex2html4"
+Ce bloc est un super-bloc construit grâce au bloc
+<A NAME="tex2html4"
   HREF="EVTDLY_f.htm">EVTDLY_f</A>
-qui est rebouclé sur lui-même.
+qui
+est rebouclé sur lui-même.
 <BR>
-L'unique sortie de ce bloc génère des événements à des dates précises, qui sont déterminées par le paramètre <B>Period</B> de la boîte de dialogue.
+L'unique sortie de ce bloc génère des événements
+à des dates précises, qui sont déterminées par le
+paramètre <B>Period</B> de la boîte de dialogue.
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -105,19 +109,31 @@ Boîte de dialogue</A>
 </DIV>
 
 <P>
-
+  
 <UL>
-<LI><b>Period</b>
+<LI><B>Period</B> 
 <BR>
-La période est le temps qui sépare deux événements consécutifs.
+scalaire. 
+<BR>
+La periode de l'horloge.
+<BR>
+Une période est le temps qui sépare deux événements de sortie.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
-<LI><b>Init time</b>
+<LI><B>Init time</B> 
 <BR>
-La date de l'événement inital.
+scalaire. 
+<BR>
+La date de départ.
+<BR>
+Si celle-ci est négative alors l'horloge ne démarre jamais.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 </UL>
 
@@ -134,17 +150,15 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 1 / 1
+<LI><b>nombre des sorties évènementielles:</b> 1
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>csuper</EM>
 </LI>

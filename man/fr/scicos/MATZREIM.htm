@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="MATZREIM"></A>
 <BR>
-MATZREIM titre
+MATZREIM Décomposition matricielle complexe
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATZREIM.eps,width=90.00pt}$
+ $\epsfig{file=MATZREIM.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="101" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="203" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATZREIM_blk.gif"
- ALT="\epsfig{file=MATZREIM.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATZREIM.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html8"
-  HREF="MATZREIM.htm#SECTION00010000000000000000">MATZREIM titre</A>
+  HREF="MATZREIM.htm#SECTION00010000000000000000">MATZREIM Décomposition matricielle complexe</A>
 <UL>
 <LI><A NAME="tex2html9"
   HREF="MATZREIM.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This block decomposes a complex number by seperating the real and imaginary parts or compose a comples number by joining the two parts. The user can select even to seperate or to join real and imaginary part by setting the decomposition type to 1 or 2. When it is set to 1, the input is a complex matrix and the outputs are the real and imaginary parts of the input. When it set to 2, The inputs are two real matrices, the output is a complex number with real part the first input and imaginary part the second input.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -107,7 +107,7 @@ Boîte de dialogue</A>
 <UL>
 <LI><b>decomposition type (1=Complex2Real&amp;amp;Imag 2=Real&amp;amp;Imag2Complex)</b>
 <BR>
-Indicates the type to use for the decomposition. see the description part for more information.
+Indicates the type to use for the decomposition. See the description part for more information.
 <BR>
 Propriétés : Type 'vec' de taille 1.
 </LI>
@@ -126,17 +126,22 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 2</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : taille [-1,-2] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 2 / -1  -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>matz_reim</EM>
 </LI>
@@ -171,7 +176,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html7"
-  HREF="MATMAGPHI.htm">MATMAGPHI - MATMAGPHI titre (Bloc Scicos)</A>
+  HREF="MATMAGPHI.htm">MATMAGPHI - MATMAGPHI Convertion matricielle complexe/module-phase (Bloc Scicos)</A>
 </LI>
 </UL>
 

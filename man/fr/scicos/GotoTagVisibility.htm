@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="GotoTagVisibility"></A>
 <BR>
-GotoTagVisibility titre
+Définit la portée des données d'un bloc GOTO
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=GotoTagVisibility.eps,width=90.00pt}$
+ $\epsfig{file=GotoTagVisibility.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="165" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="102" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/GotoTagVisibility_blk.gif"
- ALT="\epsfig{file=GotoTagVisibility.eps,width=90.00pt}">
+ ALT="\epsfig{file=GotoTagVisibility.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html7"
-  HREF="GotoTagVisibility.htm#SECTION00010000000000000000">GotoTagVisibility titre</A>
+  HREF="GotoTagVisibility.htm#SECTION00010000000000000000">Définit la portée des données d'un bloc GOTO</A>
 <UL>
 <LI><A NAME="tex2html8"
   HREF="GotoTagVisibility.htm#SECTION00021000000000000000">Palette</A>
@@ -85,7 +85,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This block defines the accessibility of the GOTO block when it is configure as "scoped". The FROM block corresponding to that GOTO must be in the same subsystem of the GotoTagVisibility or in subsystems below it in the model hierarchy.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -124,17 +124,15 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 0 / 
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>gototagvisibility</EM>
 </LI>
@@ -156,10 +154,10 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html5"
-  HREF="GOTO.htm">GOTO - GOTO titre (Bloc Scicos)</A>
+  HREF="GOTO.htm">GOTO - GOTO Transmetteur de données vers un bloc FROM (Bloc Scicos)</A>
 </LI>
 <LI><A NAME="tex2html6"
-  HREF="FROM.htm">FROM - FROM titre (Bloc Scicos)</A>
+  HREF="FROM.htm">FROM - FROM Récepteur de données d'un bloc GOTO (Bloc Scicos)</A>
 </LI>
 </UL>
 

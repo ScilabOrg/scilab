@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="DLATCH"></A>
 <BR>
-DLATCH titre
+DLATCH Bascule D
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=DLATCH.eps,width=90.00pt}$
+ $\epsfig{file=DLATCH.eps,height=112.5pt}$
  -->
 <IMG
- WIDTH="144" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="141" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/DLATCH_blk.gif"
- ALT="\epsfig{file=DLATCH.eps,width=90.00pt}">
+ ALT="\epsfig{file=DLATCH.eps,height=112.5pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html8"
-  HREF="DLATCH.htm#SECTION00010000000000000000">DLATCH titre</A>
+  HREF="DLATCH.htm#SECTION00010000000000000000">DLATCH Bascule D</A>
 <UL>
 <LI><A NAME="tex2html9"
   HREF="DLATCH.htm#SECTION00021000000000000000">Palette</A>
@@ -77,7 +77,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Integer_pal.htm">Integer - Integer titre</A>
+  HREF="Integer_pal.htm">Integer - Palette Integer</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -85,8 +85,43 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This block outputs the input state when the input gate is high.
+The input is D the enable is C. Q and !Q are the outputs of 
+this block. This block is almostly used with digital number, 
+the input data type is int8.
 <BR>
+<P>
+The truth table of this block is
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER">C</TD>
+<TD ALIGN="CENTER">D</TD>
+<TD ALIGN="CENTER">Q</TD>
+<TD ALIGN="CENTER">!Q</TD>
+</TR>
+<TR><TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+</TABLE>
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Propriétés par défaut</A>
 </font></H3>
@@ -100,17 +135,23 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 2 / 1  1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 5</b>
+<BR>   <b>   - port 2 : taille [1,1] / type -1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 5</b>
+<BR>   <b>   - port 2 : taille [1,1] / type 5</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 2 / 1  1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>csuper</EM>
 </LI>
@@ -130,12 +171,12 @@ Fonction d'interface</A>
 Contenu du super-bloc compilé</A>
 </font></H3>
  <!-- MATH
- $\epsfig{file=DLATCH_super.eps,width=150.00pt}$
+ $\epsfig{file=DLATCH_super.eps,width=240pt}$
  -->
 <IMG
- WIDTH="239" HEIGHT="90" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="383" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/DLATCH_img2_fr.gif"
- ALT="\epsfig{file=DLATCH_super.eps,width=150.00pt}">
+ ALT="\epsfig{file=DLATCH_super.eps,width=240pt}">
 
 
 <H3><font color="blue"><A NAME="SECTION00026000000000000000">
@@ -144,13 +185,13 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html5"
-  HREF="DFLIPFLOP.htm">DFLIPFLOP - DFLIPFLOP titre (Bloc Scicos)</A>
+  HREF="DFLIPFLOP.htm">DFLIPFLOP - DFLIPFLOP Bascule D (Bloc Scicos)</A>
 </LI>
 <LI><A NAME="tex2html6"
-  HREF="SRFLIPFLOP.htm">SRFLIPFLOP - SRFLIPFLOP titre (Bloc Scicos)</A>
+  HREF="SRFLIPFLOP.htm">SRFLIPFLOP - SRFLIPFLOP Bascule RS (Bloc Scicos)</A>
 </LI>
 <LI><A NAME="tex2html7"
-  HREF="JKFLIPFLOP.htm">JKFLIPFLOP - JKFLIPFLOP titre (Bloc Scicos)</A>
+  HREF="JKFLIPFLOP.htm">JKFLIPFLOP - JKFLIPFLOP Bascule JK (Bloc Scicos)</A>
 </LI>
 </UL>
 

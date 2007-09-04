@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="MATCATH"></A>
 <BR>
-MATCATH titre
+MATCATH Concaténation horizontale
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=MATCATH.eps,width=90.00pt}$
+ $\epsfig{file=MATCATH.eps,height=112.5pt}$
  -->
 <IMG
- WIDTH="144" HEIGHT="228" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="113" HEIGHT="179" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/MATCATH_blk.gif"
- ALT="\epsfig{file=MATCATH.eps,width=90.00pt}">
+ ALT="\epsfig{file=MATCATH.eps,height=112.5pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html8"
-  HREF="MATCATH.htm#SECTION00010000000000000000">MATCATH titre</A>
+  HREF="MATCATH.htm#SECTION00010000000000000000">MATCATH Concaténation horizontale</A>
 <UL>
 <LI><A NAME="tex2html9"
   HREF="MATCATH.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,9 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+The MATCATH Block outputs the horizontal concatenation of multiple matrices. It is also called concatenation according to the columns. The inputs U1,U2,...,Un must have the same number of rows. The output is a M-by-(N1+N2+...+Nn) matrix, where N1,N2,...,Nn are the numbers of columns of the inputs matrices, and M is the number of rows.  
+<BR>
+The equivalent of MATCATH in Scilab is y=[U1 U2 ... Un].  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -107,9 +109,11 @@ Boîte de dialogue</A>
 <UL>
 <LI><b>Datatype(1=real double  2=Complex)</b>
 <BR>
-It indicates the type of the output. It support only the two types double (1) and complex (2). If we input another entry in this label scicos will print the message "Datatype is not supported".
+Ce paramètre indique le type de donnée de la sortie. Ce bloc fonctionne uniquement avec des types de donnée réels(1) et complexes(2). Si un autre type que 1 et 2 est indiqué, alors Scicos retourne le message d'erreur "Datatype is not supported".
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>number of columns of each matrix</b>
 <BR>
@@ -132,17 +136,22 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 2 / -1  -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-2] / type 1</b>
+<BR>   <b>   - port 2 : taille [-1,-3] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>mat_cath</EM>
 </LI>
@@ -177,7 +186,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html7"
-  HREF="MATCATV.htm">MATCATV - MATCATV titre (Bloc Scicos)</A>
+  HREF="MATCATV.htm">MATCATV - MATCATV Concaténation verticale (Bloc Scicos)</A>
 </LI>
 </UL>
 

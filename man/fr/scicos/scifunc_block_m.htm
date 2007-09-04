@@ -36,12 +36,12 @@ Bloc Scilab
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=scifunc_block_m.eps,width=90.00pt}$
+ $\epsfig{file=scifunc_block_m.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/scifunc_block_m_blk.gif"
- ALT="\epsfig{file=scifunc_block_m.eps,width=90.00pt}">
+ ALT="\epsfig{file=scifunc_block_m.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -83,8 +83,12 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
-<BR>
+This block can realize any type of Scicos block. The function of the
+block is defined interactively using dialogue boxes and in Scilab
+language. During simulation, these instructions are interpreted by
+Scilab; the simulation of diagrams that include these types of blocks
+is slower. For more information see Scicos reference manual. 
+
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
 </font></H3>
@@ -101,63 +105,107 @@ Boîte de dialogue</A>
 <P>
 
 <UL>
-<LI><b>input ports sizes</b>
+<LI><B>input ports sizes</B>
 <BR>
-La description du paramètre 1.
+Un scalaire.
+        Le nombre de ports réguliers d'entrée.
 <BR>
-Propriétés : Type 'mat' de taille [-1,2].
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>output port sizes</b>
+<LI><B>output port sizes</B>
 <BR>
-La description du paramètre 2.
+Un scalaire.
+        Le nombre de ports réguliers de sortie.
 <BR>
-Propriétés : Type 'mat' de taille [-2,2].
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>input event ports sizes</b>
+<LI><B>input event ports sizes</B>
 <BR>
-La description du paramètre 3.
+Un scalaire.
+        Le nombre de ports événementiel d'entrée.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>output events ports sizes</b>
+<LI><B>output events ports sizes</B>
 <BR>
-La description du paramètre 4.
+Un scalaire.
+        Le nombre de ports événementiel de sortie.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial continuous state</b>
+<LI><B>initial continuous state</B>
 <BR>
-La description du paramètre 5.
+Un vecteur colonne.
+        Conditions initiales des états continus.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial discrete state</b>
+<LI><B>initial discrete state</B>
 <BR>
-La description du paramètre 6.
+Un vecteur colonne.
+        Conditions initiales des états discrets.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>System parameters vector</b>
+<LI><B>System parameters vector</B>
 <BR>
-La description du paramètre 7.
+une chaîne de caractères : c ou d
+	(<B>CBB</B> ou <B>DBB</B>), les autres
+	types ne sont supportés.
 <BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille -1
+
+<P>
 </LI>
-<LI><b>initial firing vector (<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+<LI><B>initial firing vector </B>
+<BR>
+Un vecteur. La taille de ce vecteur correspond
+	au nombre de sorties événementielles.
+	La valeur de la <!-- MATH
+ $i^{\rm\grave{e}me}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="35" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/scifunc_block_m_img3_fr.gif"
- ALT="$ &lt;$"></SPAN>
-0 for no firing)</b>
+ ALT="$ i^{\rm\grave{e}me}$"></SPAN>
+ entrée
+	spécifie la date initiale préprogrammée du 
+	<!-- MATH
+ $i^{\rm\grave{e}me}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="35" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="../../images/scicos/scifunc_block_m_img3_fr.gif"
+ ALT="$ i^{\rm\grave{e}me}$"></SPAN>
+ port événementiel de sortie.
+	Si la valeur est inférieure à zéro, alors aucun
+	événement n'est préprogrammé.
 <BR>
-La description du paramètre 8.
-<BR>
-Propriétés : Type 'vec' de taille -1.
+Propriétés : Type 'vec' de taille sum(%4)
+
+<P>
 </LI>
-<LI><b>is block always active (0:no, 1:yes)</b>
+<LI><B>is block always active </B>
 <BR>
-La description du paramètre 9.
+other dialogues are opened
+	consecutively where used may input Scilab code associated with the
+	computations needed (block initialization, outputs, continuous and
+	discrete state, output events date, block ending)
 <BR>
-Propriétés : Type 'vec' de taille 1.
+Propriétés : Type 'vec' de taille 1
+ 
 </LI>
 </UL>
 
@@ -174,17 +222,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>scifunc</EM>
 </LI>

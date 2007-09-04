@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="BOUNCEXY"></A>
 <BR>
-BOUNCEXY titre
+Afficheur de baballes
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=BOUNCEXY.eps,width=90.00pt}$
+ $\epsfig{file=BOUNCEXY.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/BOUNCEXY_blk.gif"
- ALT="\epsfig{file=BOUNCEXY.eps,width=90.00pt}">
+ ALT="\epsfig{file=BOUNCEXY.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html5"
-  HREF="BOUNCEXY.htm#SECTION00010000000000000000">BOUNCEXY titre</A>
+  HREF="BOUNCEXY.htm#SECTION00010000000000000000">Afficheur de baballes</A>
 <UL>
 <LI><A NAME="tex2html6"
   HREF="BOUNCEXY.htm#SECTION00021000000000000000">Description</A>
@@ -97,42 +97,56 @@ Boîte de dialogue</A>
 La description du paramètre 1.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>radii</b>
 <BR>
 La description du paramètre 2.
 <BR>
 Propriétés : Type 'vec' de taille -1.
+
+<P>
 </LI>
 <LI><b>window number (-1 for automatic)</b>
 <BR>
 La description du paramètre 3.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>animation mode (0,1)</b>
 <BR>
 La description du paramètre 4.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Xmin</b>
 <BR>
 La description du paramètre 5.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Xmax</b>
 <BR>
 La description du paramètre 6.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Ymin</b>
 <BR>
 La description du paramètre 7.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Ymax</b>
 <BR>
@@ -155,17 +169,19 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 2 / -1  -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,1] / type 1</b>
+<BR>   <b>   - port 2 : taille [-1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> oui
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>bouncexy</EM>
 </LI>

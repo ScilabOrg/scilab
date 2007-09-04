@@ -36,12 +36,12 @@ Fonction de transfert discrète
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=DLR.eps,width=90.00pt}$
+ $\epsfig{file=DLR.eps,height=101.25pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="152" HEIGHT="161" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/DLR_blk.gif"
- ALT="\epsfig{file=DLR.eps,width=90.00pt}">
+ ALT="\epsfig{file=DLR.eps,height=101.25pt}">
 
 </DIV>
 <BR>
@@ -108,7 +108,7 @@ Boîte de dialogue</A>
 <BR>
 Ce paramètre définit le numérateur de la fonction de transfert.
 <BR>
-Celà doit être un polynôme définit dans l'espace de la transformée en z. 
+Celà doit être un polynôme définit dans l'espace de la transformée en z.
 <BR>
 Propriétés : Type 'pol' de taille 1.
 
@@ -117,7 +117,7 @@ Propriétés : Type 'pol' de taille 1.
 <LI><B>Denominator (z)</B> 
 <BR>
 Ce paramètre définit le dénominateur de la fonction de transfert.
-        Celà doit être un polynôme définit dans l'espace de la transformée en z. 
+        Celà doit être un polynôme définit dans l'espace de la transformée en z.
 <BR>
 Propriétés : Type 'pol' de taille 1.
 </LI>
@@ -136,17 +136,21 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 1 / 1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [1,1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 1
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 1 / 1
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> oui
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>dsslti4</EM>
 </LI>

@@ -32,16 +32,16 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="RICC"></A>
 <BR>
-RICC titre
+RICC Equation de Riccati
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
- $\epsfig{file=RICC.eps,width=90.00pt}$
+ $\epsfig{file=RICC.eps,height=90pt}$
  -->
 <IMG
- WIDTH="143" HEIGHT="152" ALIGN="BOTTOM" BORDER="0"
+ WIDTH="135" HEIGHT="143" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/RICC_blk.gif"
- ALT="\epsfig{file=RICC.eps,width=90.00pt}">
+ ALT="\epsfig{file=RICC.eps,height=90pt}">
 
 </DIV>
 <BR>
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html7"
-  HREF="RICC.htm#SECTION00010000000000000000">RICC titre</A>
+  HREF="RICC.htm#SECTION00010000000000000000">RICC Equation de Riccati</A>
 <UL>
 <LI><A NAME="tex2html8"
   HREF="RICC.htm#SECTION00021000000000000000">Palette</A>
@@ -79,7 +79,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Matrix_pal.htm">Matrix - Matrix titre</A>
+  HREF="Matrix_pal.htm">Matrix - Palette d'opérations matricielles</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -87,7 +87,19 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+This block computes the solution of riccati equation using different method and for both case continuous and discrete.  
+<BR>
+The riccati equation in continuous time is: 
+<BR>
+A*X+X*A+C-X*D*X=0  
+<BR>
+The riccati equation in discrete time is: 
+<BR>
+A*X*(inv(In-D))*A-X+C=0 
+<BR>
+where A is an NxN matrix, it is the first input of the block, C and D are two NxN symetrics matrices and are respectivly the second and third input of the RICC block. X represent the output of the block, it is also a NxN matrix.  
+<BR>
+The user can choose between two methods of computation. For the continuous time he can use even the Schur method or the matrix sign function approach method, by setting the Model parameter to 1 or 2. For the discrete time, the models are the Schur method and the inverse free spectral decomposition method.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -110,6 +122,8 @@ Boîte de dialogue</A>
 For continuous time signal set this parameter to 1. For discrete input time set it to 2.
 <BR>
 Propriétés : Type 'vec' de taille 1.
+
+<P>
 </LI>
 <LI><b>Model(1=Schr  2=sign(cont) inv(disc))</b>
 <BR>
@@ -132,17 +146,23 @@ Propriétés par défaut</A>
 </LI>
 <LI><b>mode:</b> non
 </LI>
-<LI><b>nombre/taille des entrées régulières:</b> 3 / -1  -1  -1
+<LI><b>entrée régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-1] / type 1</b>
+<BR>   <b>   - port 2 : taille [-1,-1] / type 1</b>
+<BR>   <b>   - port 3 : taille [-1,-1] / type 1</b>
+<BR></LI>
+<LI><b>sorties régulières:</b>
+<BR>   <b>   - port 1 : taille [-1,-1] / type 1</b>
+<BR></LI>
+<LI><b>nombre des entrées évènementielles:</b> 0
 </LI>
-<LI><b>nombre/taille des sorties sorties régulières:</b> 1 / -1
-</LI>
-<LI><b>nombre/taille des entrées évènementielles:</b> 0 / 
-</LI>
-<LI><b>nombre/taille des sorties évènementielles:</b> 0 / 
+<LI><b>nombre des sorties évènementielles:</b> 0
 </LI>
 <LI><b>possède un état continu:</b> non
 </LI>
 <LI><b>possède un état discret:</b> non
+</LI>
+<LI><b>possède un état objet:</b> non
 </LI>
 <LI><b>nom de la fonction de calcul:</b> <EM>ricc_m</EM>
 </LI>
@@ -174,7 +194,7 @@ Voir aussi</A>
 
 <UL>
 <LI><A NAME="tex2html6"
-  HREF="Matrix_pal.htm">Matrix_pal - Matrix titre (Palette Scicos)</A>
+  HREF="Matrix_pal.htm">Matrix_pal - Palette d'opérations matricielles (Palette Scicos)</A>
 </LI>
 </UL>
 
