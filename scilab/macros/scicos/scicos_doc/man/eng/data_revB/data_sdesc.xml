@@ -100,6 +100,14 @@
 <SHORT_DESCRIPTION name="Bache"> Thermohydraulic tank (reservoir)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Bache_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Bache">Bache</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Bache_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Bache">Bache</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='Branching_pal' type='XML'>
 <SHORT_DESCRIPTION name="Branching">Branching palette </SHORT_DESCRIPTION>
 </FILE>
@@ -389,7 +397,7 @@
 </FILE>
 
 <FILE name='CURVE_c_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="CURVE_c">CURVE_c title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="CURVE_c">CURVE_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CURV_f' type='XML'>
@@ -404,8 +412,24 @@
 <SHORT_DESCRIPTION name="Capacitor">Electrical capacitor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Capacitor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Capacitor">Capacitor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Capacitor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Capacitor">Capacitor</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ConstantVoltage' type='XML'>
 <SHORT_DESCRIPTION name="ConstantVoltage">Electrical DC voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ConstantVoltage_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="ConstantVoltage">ConstantVoltage</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='ConstantVoltage_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="ConstantVoltage">ConstantVoltage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Counter' type='XML'>
@@ -418,6 +442,14 @@
 
 <FILE name='CurrentSensor' type='XML'>
 <SHORT_DESCRIPTION name="CurrentSensor">Electrical current sensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CurrentSensor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="CurrentSensor">CurrentSensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='CurrentSensor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="CurrentSensor">CurrentSensor</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DEADBAND' type='XML'>
@@ -566,6 +598,14 @@
 
 <FILE name='Diode' type='XML'>
 <SHORT_DESCRIPTION name="Diode">Electrical diode</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Diode_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Diode">Diode</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Diode_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Diode">Diode</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
@@ -804,6 +844,14 @@
 <SHORT_DESCRIPTION name="Ground">Ground (zero potential reference)</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Ground_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Ground">Ground</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Ground_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Ground">Ground</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='HALT_f' type='XML'>
 <SHORT_DESCRIPTION name="HALT_f">Halt </SHORT_DESCRIPTION>
 </FILE>
@@ -934,6 +982,14 @@
 
 <FILE name='Inductor' type='XML'>
 <SHORT_DESCRIPTION name="Inductor">Electrical inductor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Inductor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Inductor">Inductor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Inductor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Inductor">Inductor</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Integer_pal' type='XML'>
@@ -1157,7 +1213,7 @@
 </FILE>
 
 <FILE name='MBLOCK_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="MBLOCK">MBLOCK title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="MBLOCK">MBLOCK</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MCLOCK_f' type='XML'>
@@ -1194,6 +1250,10 @@
 
 <FILE name='MOTOR' type='XML'>
 <SHORT_DESCRIPTION name="MOTOR">MOTOR title</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='MOTOR_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="MOTOR">MOTOR</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MUX' type='XML'>
@@ -1252,6 +1312,14 @@
 <SHORT_DESCRIPTION name="NPN">NPN transistor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='NPN_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="NPN">NPN</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='NPN_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="NPN">NPN</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='NRMSOM_f' type='XML'>
 <SHORT_DESCRIPTION name="NRMSOM_f">Merge data </SHORT_DESCRIPTION>
 </FILE>
@@ -1308,6 +1376,10 @@
 <SHORT_DESCRIPTION name="PNP">PNP transistor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PNP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PNP">PNP</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='POSTONEG_f' type='XML'>
 <SHORT_DESCRIPTION name="POSTONEG_f">Threshold positive to negative </SHORT_DESCRIPTION>
 </FILE>
@@ -1344,12 +1416,36 @@
 <SHORT_DESCRIPTION name="PerteDP">Thermohydraulic pipe</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PerteDP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PerteDP">PerteDP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PerteDP_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="PerteDP">PerteDP</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='PotentialSensor' type='XML'>
 <SHORT_DESCRIPTION name="PotentialSensor">Potential sensor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PotentialSensor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PotentialSensor">PotentialSensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PotentialSensor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="PotentialSensor">PotentialSensor</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='PuitsP' type='XML'>
 <SHORT_DESCRIPTION name="PuitsP">Thermohydraulic drain (well)</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='PuitsP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="PuitsP">PuitsP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Puits_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Puits">Puits</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='QUANT_f' type='XML'>
@@ -1474,6 +1570,10 @@
 
 <FILE name='Resistor' type='XML'>
 <SHORT_DESCRIPTION name="Resistor">Electrical resistor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Resistor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="Resistor">Resistor</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
@@ -1689,11 +1789,15 @@
 </FILE>
 
 <FILE name='Sigbuilder_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Sigbuilder">Sigbuilder</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <SHORT_DESCRIPTION name="SineVoltage">Sine voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SineVoltage_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SineVoltage">SineVoltage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sinks_pal' type='XML'>
@@ -1702,6 +1806,14 @@
 
 <FILE name='SourceP' type='XML'>
 <SHORT_DESCRIPTION name="SourceP">Thermohydraulic constant pressure source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SourceP_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SourceP">SourceP</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Source_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Source">Source</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sources_pal' type='XML'>
@@ -1792,20 +1904,60 @@
 <SHORT_DESCRIPTION name="VVsourceAC">Variable AC voltage source</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='VVsourceAC_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VVsourceAC">VVsourceAC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VVsourceAC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="VVsourceAC">VVsourceAC</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='VanneReglante' type='XML'>
 <SHORT_DESCRIPTION name="VanneReglante">Thermohydraulic control valve</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VanneReglante_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VanneReglante">VanneReglante</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VanneReglante_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="VanneReglante">VanneReglante</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VariableResistor' type='XML'>
 <SHORT_DESCRIPTION name="VariableResistor">Electrical variable resistor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='VariableResistor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VariableResistor">VariableResistor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VariableResistor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="VariableResistor">VariableResistor</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='VoltageSensor' type='XML'>
 <SHORT_DESCRIPTION name="VoltageSensor">Electrical voltage sensor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='VoltageSensor_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VoltageSensor">VoltageSensor</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VoltageSensor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="VoltageSensor">VoltageSensor</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='VsourceAC' type='XML'>
 <SHORT_DESCRIPTION name="VsourceAC">Electrical AC voltage source</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VsourceAC_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="VsourceAC">VsourceAC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='VsourceAC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="VsourceAC">VsourceAC</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WFILE' type='XML'>
@@ -1969,7 +2121,7 @@
 </FILE>
 
 <FILE name='curve_c_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="curve_c">curve_c title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="curve_c">curve_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='deadband_routcos' type='XML'>
@@ -2117,7 +2269,7 @@
 </FILE>
 
 <FILE name='generic_block3_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="generic_block3">generic_block3 title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="generic_block3">generic_block3</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block_intfunc' type='XML'>
@@ -2189,7 +2341,7 @@
 </FILE>
 
 <FILE name='logic_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="logic">logic title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="logic">logic</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='logicalop_routcos' type='XML'>
@@ -2261,7 +2413,7 @@
 </FILE>
 
 <FILE name='mat_sqrt_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="mat_sqrt">mat_sqrt title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="mat_sqrt">mat_sqrt</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='mat_sum_routcos' type='XML'>
@@ -2285,7 +2437,7 @@
 </FILE>
 
 <FILE name='mattran_m_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="mattran_m">mattran_m title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="mattran_m">mattran_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_abs_routcos' type='XML'>
@@ -2309,7 +2461,7 @@
 </FILE>
 
 <FILE name='matz_conj_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="matz_conj">matz_conj title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="matz_conj">matz_conj</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_det_routcos' type='XML'>
@@ -2341,11 +2493,11 @@
 </FILE>
 
 <FILE name='matz_reim_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="matz_reim">matz_reim title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="matz_reim">matz_reim</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_reimc_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="matz_reimc">matz_reimc title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="matz_reimc">matz_reimc</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_reshape_routcos' type='XML'>
@@ -2357,7 +2509,7 @@
 </FILE>
 
 <FILE name='matz_sqrt_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="matz_sqrt">matz_sqrt title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="matz_sqrt">matz_sqrt</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matz_svd_routcos' type='XML'>
@@ -2377,7 +2529,7 @@
 </FILE>
 
 <FILE name='matztran_m_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="matztran_m">matztran_m title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="matztran_m">matztran_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='maxblk_routcos' type='XML'>
@@ -2441,11 +2593,11 @@
 </FILE>
 
 <FILE name='qzcel_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="qzcel">qzcel title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="qzcel">qzcel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='qzflr_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="qzflr">qzflr title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="qzflr">qzflr</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='qzrnd_routcos' type='XML'>
@@ -2453,7 +2605,7 @@
 </FILE>
 
 <FILE name='qztrn_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="qztrn">qztrn title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="qztrn">qztrn</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ramp_routcos' type='XML'>
@@ -2489,7 +2641,7 @@
 </FILE>
 
 <FILE name='ricc_m_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="ricc_m">ricc_m title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="ricc_m">ricc_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='rndblk_m_routcos' type='XML'>

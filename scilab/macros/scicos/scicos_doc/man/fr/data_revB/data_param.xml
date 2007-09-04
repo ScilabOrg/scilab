@@ -29,7 +29,7 @@
 
   %Font size   1
   \item {\bf Font size}\\ 
-	Entier, la taille de la police utilisé. \\
+	Entier, la taille de la police utilisée. \\
 	Propriétés : Type 'vec' de taille 1
 
   %Color   1
@@ -74,7 +74,7 @@
 
   %Font size   1
   \item {\bf Font size}\\ 
-	Entier, la taille de la police utilisé. \\
+	Entier, la taille de la police utilisée. \\
 	Propriétés : Type 'vec' de taille 1
 
   %Color   1
@@ -189,7 +189,7 @@
 	<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    It indicates the type of the input/output data. 
+	    It indicates the type of the input/output data.
 	    It support all the integer datatype, number must
 	    be between 3 and 8.
 	  </SP>
@@ -224,7 +224,7 @@
 	<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    It indicates the type of the input/output data. 
+	    It indicates the type of the input/output data.
 	    It support all the integer datatype, number must
 	    be between 3 and 8.
 	  </SP>
@@ -940,7 +940,7 @@
 	<PARAM_NAME>Tag</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    This parameter identifies the Goto block whose 
+	    This parameter identifies the Goto block whose
             scope is defined in this block.
 	  </SP>
 	  <SP>
@@ -1510,7 +1510,7 @@
 	  <SP>
 	    When this parameter is set to zero the result is similar to a normal
 	    multiplication of two integer matrix. When it is set
-	    to 1, on overflow the block saturate the result. When it is 
+	    to 1, on overflow the block saturate the result. When it is
 	    set to 2, on overflow an error message box appears.
 	  </SP>
 	  <SP>
@@ -2248,6 +2248,38 @@
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
     </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
+<FILE name='DLR_f' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Numerator (z)</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      La description du paramètre 1.
+      </SP>
+      <SP>
+      Propriétés : Type 'pol' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Denominator (z)</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      La description du paramètre 2.
+      </SP>
+      <SP>
+      Propriétés : Type 'pol' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
   </PARAM>
 </FILE>
 
@@ -5248,6 +5280,38 @@
 \end{itemize}
 </FILE>
 
+<FILE name='RATELIMITER' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>max slope</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      La description du paramètre 1.
+      </SP>
+      <SP>
+      Propriétés : Type 'vec' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>min slope</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      La description du paramètre 2.
+      </SP>
+      <SP>
+      Propriétés : Type 'vec' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
 <FILE name='READAU_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
@@ -6031,7 +6095,7 @@
 	<PARAM_NAME>Datatype (1=real double  2=complex 3=int32 ...)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Indique le type de donnée des entrées/sortie. 
+	    Indique le type de donnée des entrées/sortie.
 	    Tous les types de données, numérotés de 1 à 8,
 	    sont supportés.
 	  </SP>
@@ -7742,7 +7806,7 @@
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    contains compilation and simulation information and is used
-	    to avoid recompilation when not needed. Normally it should 
+	    to avoid recompilation when not needed. Normally it should
 	    not be modified.
 	  </SP>
 	</PARAM_DESCRIPTION>

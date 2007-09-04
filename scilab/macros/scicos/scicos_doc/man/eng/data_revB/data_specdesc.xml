@@ -1,5 +1,9 @@
 <DATA flag="spdesc">
 
+<FILE name='Bache' type='SPECIALDESC'>
+	dial_width_html=340pt
+</FILE>
+
 <FILE name='CLKFROM' type='SPECIALDESC'>
 	dial_width_html=220pt
 </FILE>
@@ -17,20 +21,20 @@
 	dial_width_html=240pt
 </FILE>
 
-<FILE name='CLKSOM_f' type='SPECIALDESC'>
-	lr_margin_html=0.5
-</FILE>
-
-<FILE name='CLKSOMV_f' type='SPECIALDESC'>
-	ud_margin_html=0.5
-</FILE>
-
 <FILE name='CLKOUTV_f' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
 
 <FILE name='CLKOUT_f' type='SPECIALDESC'>
 	dial_width_html=240pt
+</FILE>
+
+<FILE name='CLKSOMV_f' type='SPECIALDESC'>
+	ud_margin_html=0.5
+</FILE>
+
+<FILE name='CLKSOM_f' type='SPECIALDESC'>
+	lr_margin_html=0.5
 </FILE>
 
 <FILE name='CLOCK_c' type='SPECIALDESC'>
@@ -76,12 +80,6 @@
 	dial_width_html=240pt
 </FILE>
 
-<FILE name='Inductor' type='SPECIALDESC'>
-	ud_margin_html=0.6
-	scale_blk_html=0.5
-	dial_width_html=240pt
-</FILE>
-
 <FILE name='ConstantVoltage' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
@@ -90,8 +88,22 @@
 	super_width_html=220pt
 </FILE>
 
+<FILE name='DEMUX' type='SPECIALDESC'>
+	lr_margin_html=.9
+</FILE>
+
+<FILE name='DFLIPFLOP' type='SPECIALDESC'>
+	lr_margin_html=0.5
+	super_width_html=260pt
+</FILE>
+
 <FILE name='DIFF_f' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='DLATCH' type='SPECIALDESC'>
+	lr_margin_html=0.5
+	super_width_html=240pt
 </FILE>
 
 <FILE name='DLR' type='SPECIALDESC'>
@@ -185,6 +197,12 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='Inductor' type='SPECIALDESC'>
+	ud_margin_html=0.6
+	scale_blk_html=0.5
+	dial_width_html=240pt
+</FILE>
+
 <FILE name='JKFLIPFLOP' type='SPECIALDESC'>
 	lr_margin_html=.5
 </FILE>
@@ -194,10 +212,6 @@
 </FILE>
 
 <FILE name='LOGICAL_OP' type='SPECIALDESC'>
-	dial_width_html=360pt
-</FILE>
-
-<FILE name='RELATIONALOP' type='SPECIALDESC'>
 	dial_width_html=360pt
 </FILE>
 
@@ -217,17 +231,13 @@
 	lr_margin_html=.9
 </FILE>
 
+<FILE name='M_freq' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
 <FILE name='NRMSOM_f' type='SPECIALDESC'>
 	lr_margin_html=3
 	dial_width_html=260pt
-</FILE>
-
-<FILE name='DEMUX' type='SPECIALDESC'>
-	lr_margin_html=.9
-</FILE>
-
-<FILE name='M_freq' type='SPECIALDESC'>
-	dial_width_html=220pt
 </FILE>
 
 <FILE name='OUTIMPL_f' type='SPECIALDESC'>
@@ -251,6 +261,11 @@
 
 <FILE name='POWBLK_f' type='SPECIALDESC'>
 	dial_width_html=240pt
+</FILE>
+
+<FILE name='PuitsP' type='SPECIALDESC'>
+	lr_margin_html=0.5
+	dial_width_html=360pt
 </FILE>
 
 <FILE name='QUANT_f' type='SPECIALDESC'>
@@ -277,6 +292,10 @@
 	dial_width_html=260pt
 </FILE>
 
+<FILE name='RELATIONALOP' type='SPECIALDESC'>
+	dial_width_html=360pt
+</FILE>
+
 <FILE name='RFILE' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
@@ -293,6 +312,10 @@
 
 <FILE name='SAT_f' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='SRFLIPFLOP' type='SPECIALDESC'>
+	lr_margin_html=0.5
 </FILE>
 
 <FILE name='STEP' type='SPECIALDESC'>
@@ -315,11 +338,20 @@
 	dial_width_html=260pt
 </FILE>
 
+<FILE name='SourceP' type='SPECIALDESC'>
+	lr_margin_html=0.5
+	dial_width_html=360pt
+</FILE>
+
 <FILE name='TCLSS' type='SPECIALDESC'>
 	dial_width_html=220pt
 </FILE>
 
 <FILE name='TCLSS_f' type='SPECIALDESC'>
+	dial_width_html=220pt
+</FILE>
+
+<FILE name='TEXT_f' type='SPECIALDESC'>
 	dial_width_html=220pt
 </FILE>
 
@@ -337,6 +369,15 @@
 
 <FILE name='VVsourceAC' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='VanneReglante' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='VariableResistor' type='SPECIALDESC'>
+	ud_margin_html=3
+	scale_blk_html=0.4
 </FILE>
 
 <FILE name='VsourceAC' type='SPECIALDESC'>
@@ -363,44 +404,5 @@
 	dial_width_html=220pt
 </FILE>
 
-<FILE name='TEXT_f' type='SPECIALDESC'>
-	dial_width_html=220pt
-</FILE>
 
-<FILE name='VariableResistor' type='SPECIALDESC'>
-	ud_margin_html=3
-	scale_blk_html=0.4
-</FILE>
-
-<FILE name='PuitsP' type='SPECIALDESC'>
-	lr_margin_html=0.5
-	dial_width_html=360pt
-</FILE>
-
-<FILE name='SourceP' type='SPECIALDESC'>
-	lr_margin_html=0.5
-	dial_width_html=360pt
-</FILE>
-
-<FILE name='Bache' type='SPECIALDESC'>
-	dial_width_html=340pt
-</FILE>
-
-<FILE name='VanneReglante' type='SPECIALDESC'>
-	dial_width_html=240pt
-</FILE>
-
-<FILE name='DFLIPFLOP' type='SPECIALDESC'>
-	lr_margin_html=0.5
-	super_width_html=260pt
-</FILE>
-
-<FILE name='DLATCH' type='SPECIALDESC'>
-	lr_margin_html=0.5
-	super_width_html=240pt
-</FILE>
-
-<FILE name='SRFLIPFLOP' type='SPECIALDESC'>
-	lr_margin_html=0.5
-</FILE>
 </DATA>

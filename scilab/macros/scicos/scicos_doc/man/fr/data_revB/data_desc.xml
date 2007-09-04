@@ -12,7 +12,7 @@ Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 <FILE name='AFFICH_f' type='LATEX'>
 Pendant la simulation, ce bloc affiche sur le diagramme 
 la valeur lue sur son unique port d'entrée événementiel.\\
-{\bf Attention :} a  fois que le bloc est déplacé, l'utilisateur
+{\bf Attention :} à chaque fois que le bloc est déplacé, l'utilisateur
 doit cliquer sur celui-ci pour éditer ses paramètres. La position
 d'affichage est alors automatiquement ajustée.
 </FILE>
@@ -20,7 +20,7 @@ d'affichage est alors automatiquement ajustée.
 <FILE name='AFFICH_m' type='LATEX'>
 Pendant la simulation, ce bloc affiche sur le diagramme 
 la valeur lue sur son unique port d'entrée événementiel.\\
-{\bf Attention :} a  fois que le bloc est déplacé, l'utilisateur
+{\bf Attention :} à chaque fois que le bloc est déplacé, l'utilisateur
 doit cliquer sur celui-ci pour éditer ses paramètres. La position
 d'affichage est alors automatiquement ajustée.
 </FILE>
@@ -127,10 +127,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
       <DESCRIPTION_ITEM>
 	<P>
 	  This block realizes the visualization of the evolution of
-          the two regular input signals by drawing the second input 
-          as a function of the first at instants of events on the 
-          event input port.  When a point is drawn on screen it stays 
-          until the buffer length is reached. This scope is useful to 
+          the two regular input signals by drawing the second input
+          as a function of the first at instants of events on the
+          event input port.  When a point is drawn on screen it stays
+          until the buffer length is reached. This scope is useful to
           make simple animations.
 	</P>
       </DESCRIPTION_ITEM>
@@ -143,11 +143,11 @@ Ajoutez ici un paragraphe pour la description de la fonction
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block realizes the visualization of the evolution of 
+	  This block realizes the visualization of the evolution of
           the three regular input signals by drawing the third input
           as a function of the two others at instants of events on the
-          event input port. When a point is drawn on screen it stays 
-          until the buffer length is reached. This scope is useful to 
+          event input port. When a point is drawn on screen it stays
+          until the buffer length is reached. This scope is useful to
           make simple animations.
 	</P>
       </DESCRIPTION_ITEM>
@@ -165,7 +165,7 @@ Il crée aussi une librairie et un fichier objet à la compilation.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block realizes the visualization of the input event 
+	  This block realizes the visualization of the input event
           signals.
 	</P>
       </DESCRIPTION_ITEM>
@@ -198,9 +198,9 @@ de surfaces des blocs 'zero-crossing'.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block is used to connect events ports. For more 
-          information on how it works please refer to the 
-          documentation of the FROM block by clicking on the link in 
+	  This block is used to connect events ports. For more
+          information on how it works please refer to the
+          documentation of the FROM block by clicking on the link in
           the "See also" field.
 	</P>
       </DESCRIPTION_ITEM>
@@ -289,13 +289,21 @@ Les sorties et les entrées de ce bloc sont synchronisées.
 </FILE>
 
 <FILE name='CLOCK_c' type='LATEX'>
-Ce bloc est un super-bloc construit grâce au bloc \htmladdnormallink{EVTDLY\_c}{EVTDLY_c.htm} qui est rebouclé sur lui-même.\\
-L'unique sortie de ce bloc génère des événements à des dates précises, qui sont déterminées par le paramètre {\bf Period} de la boîte de dialogue.
+Ce bloc est un super-bloc construit grâce au bloc
+\htmladdnormallink{EVTDLY\_c}{EVTDLY_c.htm} qui 
+est rebouclé sur lui-même.\\
+L'unique sortie de ce bloc génère des événements
+à des dates précises, qui sont déterminées par le
+paramètre {\bf Period} de la boîte de dialogue.
 </FILE>
 
 <FILE name='CLOCK_f' type='LATEX'>
-Ce bloc est un super-bloc construit grâce au bloc \htmladdnormallink{EVTDLY\_f}{EVTDLY_f.htm} qui est rebouclé sur lui-même.\\
-L'unique sortie de ce bloc génère des événements à des dates précises, qui sont déterminées par le paramètre {\bf Period} de la boîte de dialogue.
+Ce bloc est un super-bloc construit grâce au bloc
+\htmladdnormallink{EVTDLY\_f}{EVTDLY_f.htm} qui
+est rebouclé sur lui-même.\\
+L'unique sortie de ce bloc génère des événements
+à des dates précises, qui sont déterminées par le
+paramètre {\bf Period} de la boîte de dialogue.
 </FILE>
 
 <FILE name='CLR' type='LATEX'>
@@ -398,7 +406,7 @@ Ce bloc est un générateur de valeurs constantes.
 	  <P>2- A saturated result.</P>
 	  <P>3- An error message warning the user about the overflow..</P>
 	<P>
-        The user can select one of these three forms by setting 
+        The user can select one of these three forms by setting
         the "DO ON OVERFLOW" field to 0,1 or 2.
         </P>
       </DESCRIPTION_ITEM>
@@ -425,10 +433,10 @@ Ce bloc ne possède qu'une seule échelle temporelle.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block realizes the visualization of the evolution of the 
-          two regular inputs signals by drawing the second input as a 
+	  This block realizes the visualization of the evolution of the
+          two regular inputs signals by drawing the second input as a
           function of the first at instants of events on the event input
-          port. When a point is drawn on screen it stays until the 
+          port. When a point is drawn on screen it stays until the
           simulation is finished.
 	</P>
       </DESCRIPTION_ITEM>
@@ -442,9 +450,9 @@ Ce bloc ne possède qu'une seule échelle temporelle.
       <DESCRIPTION_ITEM>
 	<P>
 	  This block realizes the visualization of the evolution of the
-          three regular inputs signals by drawing the third input as a 
-          function of the two others at instants of events on the event 
-          input port. When a point is drawn on screen it stays until the 
+          three regular inputs signals by drawing the third input as a
+          function of the two others at instants of events on the event
+          input port. When a point is drawn on screen it stays until the
           simulation is finished.
 	</P>
       </DESCRIPTION_ITEM>
@@ -457,20 +465,20 @@ Ce bloc ne possède qu'une seule échelle temporelle.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  The CUMSUM block sums the element of an input m*n matrix u 
-          along either the rows, the columns or the first non singleton 
-          dimension. When the "Sum along" parameter is set to "1", the 
-          block sums across the elements of each row. The result will be 
+	  The CUMSUM block sums the element of an input m*n matrix u
+          along either the rows, the columns or the first non singleton
+          dimension. When the "Sum along" parameter is set to "1", the
+          block sums across the elements of each row. The result will be
           displayed as a m*1 matrix.
 	</P>
 	<P>
-	  When the "Sum along" parameter is set to "2", the block sums 
-          across the elements of each column. The result will be display 
+	  When the "Sum along" parameter is set to "2", the block sums
+          across the elements of each column. The result will be display
           as a 1*n matrix.
 	</P>
 	<P>
-	  When the "Sum along" parameter is set to "0", the block sums 
-          across the first non singleton dimension. The result will be 
+	  When the "Sum along" parameter is set to "0", the block sums
+          across the first non singleton dimension. The result will be
           displayed as one element.
 	  This block is equivalent to cumsum in scilab.
 	</P>
@@ -729,7 +737,8 @@ Ce bloc réalise un système d'équations d'état temporel discret.
 Le système est défini par les matrices $(A,B,C,D)$
 et par l'état initial $x_0$.
 Les dimensions des matrices et de l'état initial doivent être appropriées.
-Lorsque qu'un événement active le bloc (par son unique port événementiel) l'état est alors mis à jour.
+Lorsque qu'un événement active le bloc (par son unique port événementiel)
+l'état est alors mis à jour.
 </FILE>
 
 <FILE name='DOLLAR' type='LATEX'>
@@ -757,17 +766,17 @@ retardés par la même période.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-        Le bloc retard retarde ses entrées de la période spécifiée au niveau 
-        du port d'entrée événementiel. Ce bloc est équivalent à l'opérateur 
+        Le bloc retard retarde ses entrées de la période spécifiée au niveau
+        du port d'entrée événementiel. Ce bloc est équivalent à l'opérateur
         discret z-1.
 	Il accepte une seule entrée et génére une seule sortie qui peuvent
         être aussi bien un scalaire qu'un vecteur.
-	Si l'entrée est un vecteur alors tous les éléments du vecteur sont 
+	Si l'entrée est un vecteur alors tous les éléments du vecteur sont
         retardés par la même période.
 	</P>
 	<P>
         Ce bloc supporte tous les types de données de scicos.
-        Les types de données en entrée/sortie sont hérités du paramètre 
+        Les types de données en entrée/sortie sont hérités du paramètre
         "initial condition".
 	</P>
       </DESCRIPTION_ITEM>
@@ -889,20 +898,20 @@ en paramètre.
 	  <P>
           1- When "Upper Half" is selected the block outputs the half
              of the input that contain the most significant bit. In this
-             case the third parameter "number of bits or index of bit" 
+             case the third parameter "number of bits or index of bit"
              is ignored.
           </P>
 	  <P>
-          2- When "Lower Half" is selected the block outputs the half 
+          2- When "Lower Half" is selected the block outputs the half
              of the input that contain the least significant bit. In this
-             case the third parameter "number of bits or index of bit" 
+             case the third parameter "number of bits or index of bit"
              is ignored.
           </P>
 	  <P>
           3- When "Range starting with most significant bit" is selected
              the block outputs certain number of bits of the input that
-             contain the most significant bit. In this case the third 
-             parameter "number of bits or index of bit" defines the 
+             contain the most significant bit. In this case the third
+             parameter "number of bits or index of bit" defines the
              number of bits to extract.
           </P>
 	  <P>
@@ -914,14 +923,14 @@ en paramètre.
           </P>
 	  <P>
           5- When "Range of bits" is selected the block outputs a range
-             of bits of the input. In this case the third parameter 
+             of bits of the input. In this case the third parameter
              "number of bits or index of bit" defines the range of bits
              to extract, it must be a vector with the format [start,end].
           </P>
 	<P>
-        The extracted value depends on the forth parameter "Treat bit 
-        field as an integer". When it is set to 0 the input scaling is 
-        used to determine the output scaling. When it is set to 1, only 
+        The extracted value depends on the forth parameter "Treat bit
+        field as an integer". When it is set to 0 the input scaling is
+        used to determine the output scaling. When it is set to 1, only
         the extracted bits forms the output number.
 	</P>
       </DESCRIPTION_ITEM>
@@ -941,9 +950,9 @@ Extrait ou sélectionne une entrée régulière parmi plusieurs entrées régulières.
 	The EXTTRI block extracts some elements from the input matrix u.
         </P>
 	<P>
-        When the "Extraction type" is set to "1", the block copies the 
-        elements on and above the main diagonal to an output matrix of 
-        the same size. The elements below the main diagonal are set to 
+        When the "Extraction type" is set to "1", the block copies the
+        elements on and above the main diagonal to an output matrix of
+        the same size. The elements below the main diagonal are set to
         zero.
         </P>
 	<P>
@@ -984,9 +993,9 @@ Ajoutez ici un paragraphe pour la description de la fonction
 	<P>
 	The main role of the GOTO/FROM blocks is to transport signals
         from a block to another block without connecting them physically.
-        The FROM block transports its received data (from the 
-        correponding GOTO) to its output. Multiples FROM blocks can 
-        receive data from one GOTO, although a GOTO can send data to 
+        The FROM block transports its received data (from the
+        correponding GOTO) to its output. Multiples FROM blocks can
+        receive data from one GOTO, although a GOTO can send data to
         multiple FROM.
         </P>
 	<P>
@@ -1101,19 +1110,19 @@ ou de M à -M.
         The GOTO and FROM blocks are connected by the tag parameter.
         </P>
 	<P>
-        The "Tag Visibility" parameter indicates if the location of 
+        The "Tag Visibility" parameter indicates if the location of
         the FROM block is limitted:
         </P>
-	  <P> 
+	  <P>
           - Local: means that the corresponding FROM of that GOTO must
                    be in the same subsystem.
           </P>
-	  <P> 
+	  <P>
           - Scoped: means that the corresponding FROM of that GOTO must
                     be in the same subsystem or in any subsystem below
                     the GotoTagVisibility block in the model hierarchy.
           </P>
-	  <P> 
+	  <P>
           - Global: means that the corresponding FROM of that GOTO can
                     be anywhere in the model.
           </P>
@@ -1242,7 +1251,7 @@ Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 	 <P>2- A saturated result.</P>
 	 <P>3- An error message warning the user about the overflow.</P>
 	<P>
-        The user can select one of these three forms by setting 
+        The user can select one of these three forms by setting
         the "DO ON OVERFLOW" field to 0,1 or 2.
 	</P>
       </DESCRIPTION_ITEM>
@@ -1286,11 +1295,6 @@ de 1 jusqu'au nombre de ports d'entrée réguliers composant le superbloc.
 </FILE>
 
 <FILE name='ISELECT_f' type='LATEX'>
-Sélectionne des signaux suivant les événements d'entrée.
-Ce bloc a un seul port régulier d'entrée.
-</FILE>
-
-<FILE name='ISELECT_m' type='XML'>
 Sélectionne des signaux suivant les événements d'entrée.
 Ce bloc a un seul port régulier d'entrée.
 </FILE>
@@ -1464,7 +1468,7 @@ Ajoutez ici un paragraphe pour la description de la fonction
 	  The MATCATV Block outputs the vertical concatenation of
           multiple matrices. It is also called concatenation according
           to the rows. The inputs U1,U2,...,Un must have the same
-          number of columns. The output is a (M1+M2+...+Mn)-by-N 
+          number of columns. The output is a (M1+M2+...+Mn)-by-N
           matrix, where M1,M2,...,Mn are the numbers of rows of the
           inputs matrices, and N is the number of columns.
 	</P>
@@ -1662,7 +1666,7 @@ Ajoutez ici un paragraphe pour la description de la fonction
         </P>
 	<P>
         When the input is a M-by-N matrix the output is a
-        N-by-M matrix. The eqivalent function of this block 
+        N-by-M matrix. The eqivalent function of this block
         in Scilab is "pinv".
 	</P>
       </DESCRIPTION_ITEM>
@@ -1675,8 +1679,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  The RESHAPE block changes the dimensions of a matrix or 
-          a vector to another dimensions specified by the user in 
+	  The RESHAPE block changes the dimensions of a matrix or
+          a vector to another dimensions specified by the user in
           the "output size desired" label. The output size must be
           less or equal to the input size.
 	</P>
@@ -1907,7 +1911,7 @@ determines which data input is passed through to the output port.
               first case and second case.
         </P>
 	<P> - The fourth output is activated when the simulation time
-              is equal to a multiple of the third sample time plus 
+              is equal to a multiple of the third sample time plus
               the third offset.
         </P>
 	<P> - The fifth output is activated when we have both cases,
@@ -2166,6 +2170,18 @@ Ce bloc réalise un registre à décalage.
 Pour chaque événement d'entrée, le registre est décalé d'un élément.
 </FILE>
 
+<FILE name='RELATIONALOP' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='RELAY_f' type='LATEX'>
 This block routes one of the regular inputs to the unique regular
 output. the choice of which input is to be routed is done, initially
@@ -2347,6 +2363,18 @@ entrée événementielle $i$, alors la valeur présente sur le
   </DESCRIPTION>
 </FILE>
 
+<FILE name='SIGNUM' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='SINBLK_f' type='LATEX'>
 $$y={\rm sin}(u)$$
 </FILE>
@@ -2459,7 +2487,7 @@ du paramètre {\bf Final value}.
 	peut additioner et soustraire des grandeurs scalaires, vectorielles et
 	matricielles. Il peut aussi faire la somme cumulative d'une seule entrée
 	vectorielle.</P>
-	<P> 
+	<P>
         Le nombre d'entrée est donné par le second paramètre de la boite de dialogue.
         Ce paramètre peut être un vecteur de nombre +1 et -1 ou bien
 	il peut être une seule valeur positive. Dans le premier cas le vecteur donne le
@@ -2791,6 +2819,18 @@ Construit une liste "outtb" initialisée.
 <FILE name='c_block' type='LATEX'>
 Ce bloc crée une fonction de calcul squelette en C.
 Il crée aussi une librairie et un fichier objet à la compilation.
+</FILE>
+
+<FILE name='curblock' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='fortran_block' type='LATEX'>

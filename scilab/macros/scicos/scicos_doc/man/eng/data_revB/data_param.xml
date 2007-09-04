@@ -167,7 +167,7 @@
 	<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    It indicates the type of the input/output data. 
+	    It indicates the type of the input/output data.
 	    It support all the integer datatype, number must
 	    be between 3 and 8.
 	  </SP>
@@ -202,7 +202,7 @@
 	<PARAM_NAME>Datatype(3=int32 4=int16 5=int8 ...)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    It indicates the type of the input/output data. 
+	    It indicates the type of the input/output data.
 	    It support all the integer datatype, number must
 	    be between 3 and 8.
 	  </SP>
@@ -2570,7 +2570,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the
 	    two types double (1) and complex (2). If we input another
-	    entry in this label scicos will print the message 
+	    entry in this label scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3418,7 +3418,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message 
+	    in this label scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3439,7 +3439,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message 
+	    in this label scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3471,7 +3471,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message 
+	    in this label scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -5161,6 +5161,74 @@
 \end{itemize}
 </FILE>
 
+<FILE name='RFILE' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Time record selection</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      The parameter description 1.
+      </SP>
+      <SP>
+      Properties : Type 'vec' of size -1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Outputs record selection</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      The parameter description 2.
+      </SP>
+      <SP>
+      Properties : Type 'vec' of size -1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Input file name</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      The parameter description 3.
+      </SP>
+      <SP>
+      Properties : Type 'str' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Input Format</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      The parameter description 4.
+      </SP>
+      <SP>
+      Properties : Type 'str' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Buffer size</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      The parameter description 5.
+      </SP>
+      <SP>
+      Properties : Type 'vec' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
 <FILE name='RFILE_f' type='LATEX'>
 \begin{itemize}
   %Time record selection   []
@@ -5438,6 +5506,7 @@
 	Properties : Type 'vec' of size 1
 \end{itemize}
 </FILE>
+
 <FILE name='SHIFT' type='XML'>
   <PARAM>
     <PARAM_INDENT>
@@ -7495,7 +7564,7 @@
 	    tolerances for ode or dae solver, ttol is the precision on
 	    event dates (must be very small), deltat is maximum
 	    integration interval for each call to ode solver (sometimes
-	    needed to force restaring the call to solver), 
+	    needed to force restaring the call to solver),
 	    realtimescale is the correspondance between simulation
 	    time and real time (0 means no slowing down),
 	    solver is the choice of solver (0: lsodar, 100: daskr),
