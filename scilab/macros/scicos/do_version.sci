@@ -34,14 +34,14 @@ if version=='scicos2.7.3' | version=='scicos4' |...
   //********************************//
   ncl=lines()
   lines(0)
-  printf("Update old scicos diagram. Please wait... ")
-  tic;
+  //printf("Update old scicos diagram. Please wait... ")
+  //tic;
   version='scicos4.2';
   //*** do certification ***//
   scs_m=update_scs_m(scs_m);
   //*** update scope ***//
   scs_m=do_version42(scs_m);
-  printf("Done ! (%s s)\n",string(toc()))
+  //printf("Done ! (%s s)\n",string(toc()))
   lines(ncl(2))
   //*********************************//
 end
@@ -51,11 +51,6 @@ endfunction
 function scs_m_new=do_version42(scs_m)
   scs_m_new=scs_m
   n=size(scs_m.objs);
-  %scicos_context=struct()
-  [%scicos_context,ierr]=script2var(scs_m.props.context,%scicos_context)
-  if ierr<>0 then
-   error("Problem in update of Scope : can''t read context");
-  end
   for j=1:n //loop on objects
     o=scs_m.objs(j);
     if typeof(o)=='Block' then
@@ -84,16 +79,10 @@ function scs_m_new=do_version42(scs_m)
         scs_m_new.objs(j).gui='CMSCOPE'
 	scs_m_new.objs(j).model.dstate=[]
         scs_m_new.objs(j).model.sim=list('cmscope', 4)
-        [AA,ierr]=context_evstr(scs_m_new.objs(j).graphics.exprs(1),%scicos_context);
-        if ierr<>0 then
-         error("Problem in update of MSCOPE_f : can''t read context");
-        end
-        A=AA(1)
-        A=A(:);
-        A=A';
- 	nb_A=size(A,2);
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
 	B=stripblanks(scs_m.objs(j).graphics.exprs(8));
-	B(1:nb_A)=B;
+	B(1:a)=B;
         B = strcat(B', ' ');
         scs_m_new.objs(j).graphics.exprs(8) = B;
 	rpar=scs_m_new.objs(j).model.rpar(:);
@@ -103,8 +92,6 @@ function scs_m_new=do_version42(scs_m)
 	   period(i)=rpar(2);
 	end
 	scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
-	in = scs_m_new.objs(j).model.in(:);
-	a = size(in,1);
 	in2 = ones(a,1);
 	scs_m_new.objs(j).model.in2 = in2;
 	scs_m_new.objs(j).model.intyp = in2;
@@ -150,16 +137,10 @@ function scs_m_new=do_version42(scs_m)
 	scs_m_new.objs(j).model.ipar = [scs_m_new.objs(j).model.ipar(:);1]
       elseif o.gui=='CMSCOPE' then
         scs_m_new.objs(j).model.dstate=[]
-        [AA,ierr]=context_evstr(scs_m_new.objs(j).graphics.exprs(1),%scicos_context);
-        if ierr<>0 then
-         error("Problem in update of CMSCOPE_f : can''t evaluate variable");
-        end
-        A=AA(1)
-        A=A(:);
-        A=A';
-        nb_A=size(A,2);
+	in = scs_m_new.objs(j).model.in(:);
+	a = size(in,1);
         B=stripblanks(scs_m.objs(j).graphics.exprs(8));
-        B(1:nb_A)=B;
+        B(1:a)=B;
         B = strcat(B', ' ');
         scs_m_new.objs(j).graphics.exprs(8)=B;
         rpar=scs_m_new.objs(j).model.rpar(:);
@@ -169,8 +150,6 @@ function scs_m_new=do_version42(scs_m)
           period(i)=rpar(2);
         end
         scs_m_new.objs(j).model.rpar = [rpar(1);period(:);rpar(3:size(rpar,1))]
-        in = scs_m_new.objs(j).model.in(:);
-        a = size(in,1);
         in2 = ones(a,1);
         scs_m_new.objs(j).model.in2 = in2;
         scs_m_new.objs(j).model.intyp = in2;
