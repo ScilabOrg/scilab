@@ -74,43 +74,36 @@ Description</A>
 </font></H3>
 
 <P>
-This block realizes a continuous-time linear state-space system.  
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+This block realizes a continuous-time linear state-space system.
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+\dot x&=Ax+Bu\\
+  y   &=C*x+D*u
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="57" ALIGN="LEFT"
  SRC="../../images/scicos/CLSS_f_img2_eng.gif"
- ALT="$\displaystyle \dot x$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="91" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img3_eng.gif"
- ALT="$\displaystyle =Ax+Bu$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img4_eng.gif"
- ALT="$\displaystyle y$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="126" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img5_eng.gif"
- ALT="$\displaystyle =C*x+D*u$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
+ ALT="\begin{eqnarray}
+\dot x&amp;=Ax+Bu\\
+y &amp;=C*x+D*u
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
 The system is defined by the <SPAN CLASS="MATH"><IMG
  WIDTH="96" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img6_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img3_eng.gif"
  ALT="$ (A,B,C,D)$"></SPAN>
  matrices and the initial state
 <SPAN CLASS="MATH"><IMG
  WIDTH="22" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img7_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img4_eng.gif"
  ALT="$ x_0$"></SPAN>
-. The dimensions must be compatible.   
+. The dimensions must be compatible.
 
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
 Dialog box</A>
@@ -130,7 +123,7 @@ Dialog box</A>
 <UL>
 <LI><B><SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img9_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img6_eng.gif"
  ALT="$ A$"></SPAN>
  matrix</B> 
 <BR>
@@ -144,7 +137,7 @@ Properties : Type 'mat' of size [-1,-1].
 <BR>
 The <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img10_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img7_eng.gif"
  ALT="$ B $"></SPAN>
  matrix,  []  if system has no input.
 <BR>
@@ -156,7 +149,7 @@ Properties : Type 'mat' of size ["size(%1,2)","-1"].
 <BR>
 The  <SPAN CLASS="MATH"><IMG
  WIDTH="18" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img11_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img8_eng.gif"
  ALT="$ C$"></SPAN>
  matrix ,  []  if system has no output.
 <BR>
@@ -168,7 +161,7 @@ Properties : Type 'mat' of size ["-1","size(%1,2)"].
 <BR>
 The <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_f_img12_eng.gif"
+ SRC="../../images/scicos/CLSS_f_img9_eng.gif"
  ALT="$ D$"></SPAN>
  matrix,  []  if system has no  D  term.
 <BR>
