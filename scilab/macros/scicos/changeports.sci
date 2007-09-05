@@ -347,9 +347,15 @@ end
                    o_n.graphics.theta*%pi/180,...
                   [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
 
-      //** force the position of last point
-      xlink($) = xxx(1,:);
-      ylink($) = xxx(2,:);
+      if from(1)==path(2) then
+        //** if the bloc is connected to a link with a 'from' tag
+        //** force the position to the first point of the link
+        xlink(1) = xxx(1,:); ylink(1) = xxx(2,:);
+      else
+        //** else if it is connected to a link with a 'to' tag
+        //** force the position to the last point of the link
+        xlink($) = xxx(1,:); ylink($) = xxx(2,:);
+      end
       
       oi.xx = xlink ; oi.yy = ylink ;                           //** link 
       scs_m.objs(Link_index) = oi; //** update the scs_m 
@@ -381,9 +387,15 @@ end
                    o_n.graphics.theta*%pi/180,...
                   [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
 
-      //** force the first point of the link
-      xlink(1) = xxx(1,:);
-      ylink(1) = xxx(2,:);
+      if from(1)==path(2) then
+        //** if the bloc is connected to a link with a 'from' tag
+        //** force the position to the first point of the link
+        xlink(1) = xxx(1,:); ylink(1) = xxx(2,:);
+      else
+        //** else if it is connected to a link with a 'to' tag
+        //** force the position to the last point of the link
+        xlink($) = xxx(1,:); ylink($) = xxx(2,:);
+      end
       
       oi.xx = xlink ; oi.yy = ylink ; 
       
