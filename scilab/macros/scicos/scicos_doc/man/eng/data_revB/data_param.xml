@@ -2893,7 +2893,7 @@
 \begin{itemize}
 
   %Amplitude   1
-  \item {Amplitude}\\
+  \item {\bf Amplitude}\\
          a scalar $M$.\\
          Properties : Type 'vec' of size 1.
 

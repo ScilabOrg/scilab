@@ -139,6 +139,10 @@
 	dial_width_html=220pt
 </FILE>
 
+<FILE name='Extract_Activation' type='SPECIALDESC'>
+	super_width_html=110pt
+</FILE>
+
 <FILE name='FROM' type='SPECIALDESC'>
 	dial_width_html=220pt
 </FILE>

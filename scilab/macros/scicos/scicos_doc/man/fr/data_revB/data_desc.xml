@@ -982,8 +982,10 @@ etc.
 Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
-<FILE name='Extract_Activation' type='LATEX'>
+<FILE name='Extract_Activation' type='XML'>
+  <DESCRIPTION>
 
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='FROM' type='XML'>
@@ -1209,8 +1211,10 @@ Ce bloc est un bloc synchrone, ce qui signifie que les événements en entrée
 et en sortie sont générés exactement à la même date et simultanément.
 </FILE>
 
-<FILE name='IMPSPLIT_f' type='LATEX'>
+<FILE name='IMPSPLIT_f' type='XML'>
+  <DESCRIPTION>
 
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='INIMPL_f' type='LATEX'>
@@ -2090,24 +2094,25 @@ donnée à la partie explicite du modèle par un port explicite.
 
 <FILE name='QUANT_f' type='LATEX'>
 Ce bloc quantifie le signal d'entrée suivant les méthodes choisies :
-\begin{enumerate}   
-\item méthode 'Round' :  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{si} \; u(i)<0 .\\  
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{si} \; u(i)>=0 .  
- \end{align*}
+\begin{enumerate}
+\item méthode 'Round' :
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{si} \; u(i)<0 .\\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{si} \; u(i)>=0 .
+\end{eqnarray}
 \item méthode 'Truncation' :
-\begin{align*}
+\begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{si} \; u(i)<0 .  \\
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{si} \; u(i)>=0 .  
-\end{align*}
-\item méthode 'Floor' :  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .  
- \end{align*}
-\item  méthode 'Ceil' :  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) \end{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{si} \; u(i)>=0 .
+\end{eqnarray}
+\item méthode 'Floor' :
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .
+\end{eqnarray}
+\item  méthode 'Ceil' :
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))
+\end{eqnarray}
 \end{enumerate}
 </FILE>
 
@@ -2391,8 +2396,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SPLIT_f' type='LATEX'>
+<FILE name='SPLIT_f' type='XML'>
+<DESCRIPTION>
 
+</DESCRIPTION>
 </FILE>
 
 <FILE name='SQRT' type='LATEX'>

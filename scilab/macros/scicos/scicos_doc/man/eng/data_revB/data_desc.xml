@@ -929,8 +929,10 @@ such as voltage source, diode, capacitor, etc.
 Add here a paragraph of the function description
 </FILE>
 
-<FILE name='Extract_Activation' type='LATEX'>
+<FILE name='Extract_Activation' type='XML'>
+  <DESCRIPTION>
 
+  </DESCRIPTION>
 </FILE>
 
 <FILE name='FROM' type='XML'>
@@ -1158,8 +1160,10 @@ is generated on the first or second output.
 This is a synchro block, {\em i.e.}, input and output event are synchronized. 
 </FILE>
 
-<FILE name='IMPSPLIT_f' type='LATEX'>
+<FILE name='IMPSPLIT_f' type='XML'>
+<DESCRIPTION>
 
+</DESCRIPTION>
 </FILE>
 
 <FILE name='INIMPL_f' type='LATEX'>
@@ -2022,25 +2026,25 @@ direction is positive when fluid flows into the block.
 <FILE name='QUANT_f' type='LATEX'>
 This block outputs the quantization of the input according to a choice
 of methods:
-\begin{enumerate}   
-\item Round  method:  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{if} \; u(i)<0 .\\  
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{if} \; u(i)>=0 .  
- \end{align*}
+\begin{enumerate}
+\item Round  method:
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{if} \; u(i)<0 .\\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{if} \; u(i)>=0 .
+ \end{eqnarray}
 \item Truncation method:
-\begin{align*}
+\begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{if} \; u(i)<0 .  \\
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{if} \; u(i)>=0 .  
-\end{align*}
- 
-\item Floor method:  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .  
- \end{align*}
-\item  Ceil method:  
-\begin{align*}
- y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) \end{align*}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{if} \; u(i)>=0 .
+\end{eqnarray}
+\item Floor method:
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .
+\end{eqnarray}
+\item  Ceil method:
+\begin{eqnarray}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))
+\end{eqnarray}
 \end{enumerate}
 </FILE>
 
@@ -2290,7 +2294,7 @@ The Sign block indicates the sign of the input:
 </FILE>
 
 <FILE name='SINBLK_f' type='LATEX'>
-$$y={\rm sin}(u)
+$$y={\rm sin}(u)$$
 </FILE>
 
 <FILE name='SLIDER_f' type='XML'>
@@ -2305,8 +2309,10 @@ Add here a paragraph of the function description
 </DESCRIPTION>
 </FILE>
 
-<FILE name='SPLIT_f' type='LATEX'>
+<FILE name='SPLIT_f' type='XML'>
+<DESCRIPTION>
 
+</DESCRIPTION>
 </FILE>
 
 <FILE name='SQRT' type='LATEX'>
@@ -2612,7 +2618,7 @@ This block is a time generator.\\
 The unique regular output is the current time.   
 </FILE>
 
-<FILE name='TRASH_f' type='LATEX'>
+<FILE name='TRASH_f' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
