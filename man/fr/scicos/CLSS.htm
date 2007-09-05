@@ -84,40 +84,33 @@ Description</A>
 
 <P>
 Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+\dot x&=&Ax+Bu\\
+  y   &=&C*x+D*u
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="57" ALIGN="LEFT"
  SRC="../../images/scicos/CLSS_img2_fr.gif"
- ALT="$\displaystyle \dot x$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="91" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_img3_fr.gif"
- ALT="$\displaystyle =Ax+Bu$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-(<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_img4_fr.gif"
- ALT="$\displaystyle y$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="126" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_img5_fr.gif"
- ALT="$\displaystyle =C*x+D*u$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-(<SPAN CLASS="arabic">2</SPAN>)</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
+ ALT="\begin{eqnarray}
+\dot x&amp;=&amp;Ax+Bu\\
+y &amp;=&amp;C*x+D*u
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
 Le système est défini par les matrices <SPAN CLASS="MATH"><IMG
  WIDTH="96" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_img6_fr.gif"
+ SRC="../../images/scicos/CLSS_img3_fr.gif"
  ALT="$ (A,B,C,D)$"></SPAN>
 
 et par l'état initial <SPAN CLASS="MATH"><IMG
  WIDTH="22" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CLSS_img7_fr.gif"
+ SRC="../../images/scicos/CLSS_img4_fr.gif"
  ALT="$ x_0$"></SPAN>
 .
 Les dimensions des matrices et de l'état initial doivent être appropriées.
@@ -140,7 +133,7 @@ Boîte de dialogue</A>
 <UL>
 <LI><B><SPAN CLASS="MATH"><IMG
  WIDTH="17" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_img9_fr.gif"
+ SRC="../../images/scicos/CLSS_img6_fr.gif"
  ALT="$ A$"></SPAN>
  matrix</B> 
 <BR>
@@ -154,7 +147,7 @@ Propriétés : Type 'mat' de taille [-1,-1].
 <BR>
 La matrice <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_img10_fr.gif"
+ SRC="../../images/scicos/CLSS_img7_fr.gif"
  ALT="$ B$"></SPAN>
 , [] si le système n'a pas d'entrées.
 <BR>
@@ -166,7 +159,7 @@ Propriétés : Type 'mat' de taille ["size(%1,2)","-1"].
 <BR>
 La matrice <SPAN CLASS="MATH"><IMG
  WIDTH="18" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_img11_fr.gif"
+ SRC="../../images/scicos/CLSS_img8_fr.gif"
  ALT="$ C$"></SPAN>
 , [] si le système n'a pas de sorties.
 <BR>
@@ -178,7 +171,7 @@ Propriétés : Type 'mat' de taille ["-1","size(%1,2)"].
 <BR>
 La matrice <SPAN CLASS="MATH"><IMG
  WIDTH="19" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CLSS_img12_fr.gif"
+ SRC="../../images/scicos/CLSS_img9_fr.gif"
  ALT="$ D$"></SPAN>
 , [] si le système n'a pas de terme D.
 <BR>
