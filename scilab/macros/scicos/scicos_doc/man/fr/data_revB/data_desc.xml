@@ -320,10 +320,10 @@ La fonction rationnelle doit être une fonction propre.
 
 <FILE name='CLSS' type='LATEX'>
 Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
-\begin{align}
-\dot x&=Ax+Bu\\
-  y   &=C*x+D*u
-\end{align}
+\begin{eqnarray}
+\dot x&=&Ax+Bu\\
+  y   &=&C*x+D*u
+\end{eqnarray}
 Le système est défini par les matrices $(A,B,C,D)$
 et par l'état initial $x_0$.
 Les dimensions des matrices et de l'état initial doivent être appropriées.
@@ -331,10 +331,10 @@ Les dimensions des matrices et de l'état initial doivent être appropriées.
 
 <FILE name='CLSS_f' type='LATEX'>
 Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
-\begin{align}
-\dot x&=Ax+Bu\\
-  y   &=C*x+D*u
-\end{align}
+\begin{eqnarray}
+\dot x&=&Ax+Bu\\
+  y   &=&C*x+D*u
+\end{eqnarray}
 Le système est défini par les matrices $(A,B,C,D)$
 et par l'état initial $x_0$.
 Les dimensions des matrices et de l'état initial doivent être appropriées.

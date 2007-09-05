@@ -26,6 +26,7 @@
 </FILE>
 
 <FILE name='CLKOUT_f' type='SPECIALDESC'>
+	lr_margin_html=0.5
 	dial_width_html=240pt
 </FILE>
 
@@ -89,7 +90,7 @@
 </FILE>
 
 <FILE name='DEMUX' type='SPECIALDESC'>
-	lr_margin_html=.9
+	lr_margin_html=1.1
 </FILE>
 
 <FILE name='DFLIPFLOP' type='SPECIALDESC'>
@@ -263,6 +264,11 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='PROD_f' type='SPECIALDESC'>
+	lr_margin_html=0.5
+	dial_width_html=240pt
+</FILE>
+
 <FILE name='PuitsP' type='SPECIALDESC'>
 	lr_margin_html=0.5
 	dial_width_html=360pt
@@ -323,6 +329,11 @@
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='SPECIALDESC'>
+	dial_width_html=240pt
+</FILE>
+
+<FILE name='SUM_f' type='SPECIALDESC'>
+	lr_margin_html=0.5
 	dial_width_html=240pt
 </FILE>
 

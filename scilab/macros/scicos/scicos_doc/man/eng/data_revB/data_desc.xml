@@ -294,23 +294,23 @@ be proper.
 </FILE>
 
 <FILE name='CLSS' type='LATEX'>
-This block realizes a continuous-time linear state-space system.  
-\begin{align}
-\dot x&=Ax+Bu\\
-  y   &=C*x+D*u
- \end{align}  
+This block realizes a continuous-time linear state-space system.
+\begin{eqnarray}
+\dot x&=&Ax+Bu\\
+  y   &=&C*x+D*u
+\end{eqnarray}
 The system is defined by the $(A,B,C,D)$ matrices and the initial state
 $x_0$. The dimensions must be compatible.
 </FILE>
 
 <FILE name='CLSS_f' type='LATEX'>
-This block realizes a continuous-time linear state-space system.  
-\begin{align}
+This block realizes a continuous-time linear state-space system.
+\begin{eqnarray}
 \dot x&=Ax+Bu\\
   y   &=C*x+D*u
- \end{align}  
+\end{eqnarray}
 The system is defined by the $(A,B,C,D)$ matrices and the initial state
-$x_0$. The dimensions must be compatible.   
+$x_0$. The dimensions must be compatible.
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
