@@ -341,13 +341,13 @@ end
       oi = scs_m.objs(Link_index)
       
       [xlink, ylink, ct ,from ,to ] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to) ;
-  
-      xlink($) = xInPortToCon(i) ; ylink($) = yInPortToCon(i) ; //** force the position of last point
       
-      //** Utilise the "theta" block parameters to compute the ppysical position of the port on the screen
-      xxx = rotate([xlink($);ylink($)],...
+      //** Use theta parameters to compute the physical position of the port on the screen
+      xxx = rotate([xInPortToCon(i);yInPortToCon(i)],...
                    o_n.graphics.theta*%pi/180,...
                   [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
+
+      //** force the position of last point
       xlink($) = xxx(1,:);
       ylink($) = xxx(2,:);
       
@@ -375,13 +375,13 @@ end
       oi = scs_m.objs(Link_index)
       
       [xlink, ylink, ct ,from ,to ] = (oi.xx, oi.yy, oi.ct, oi.from, oi.to) ;
-  
-      xlink(1) = xOutPortToCon(i) ; ylink(1) = yOutPortToCon(i) ; //** force the first point of the link 
       
-      //** Utilise the "theta" block parameters to compute the physical position of the port on the screen
-      xxx = rotate([xlink(1);ylink(1)],...
+      //** Use theta parameters to compute the physical position of the port on the screen
+      xxx = rotate([xOutPortToCon(i);yOutPortToCon(i)],...
                    o_n.graphics.theta*%pi/180,...
                   [o_n.graphics.orig(1)+o_n.graphics.sz(1)/2;o_n.graphics.orig(2)+o_n.graphics.sz(2)/2]);
+
+      //** force the first point of the link
       xlink(1) = xxx(1,:);
       ylink(1) = xxx(2,:);
       
