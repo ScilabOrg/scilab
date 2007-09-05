@@ -898,6 +898,7 @@ double *outtc;
   SCSUINT8_COP *outtbucptr;   /*to store unsigned int8 of outtb */
   SCSUINT16_COP *outtbusptr;  /*to store unsigned int16 of outtb */
   SCSUINT32_COP *outtbulptr;  /*to store unsigned int32 of outtb */
+  int *outtb_nelem;           /*to store maximum number of element*/
   int outtbtyp;               /*to store type of data*/
   int *outtbsz;               /*to store size of data*/
   outtb_el *outtb_elem;       /*to store ptr of outtb_elem structure */
@@ -911,12 +912,20 @@ double *outtc;
   outtb_elem=scicos_imp.outtb_elem;
   /*get outtbsz from import struct.*/
   outtbsz=scicos_imp.outtbsz;
+  /*get max number of elem in outtb*/
+  outtb_nelem=scicos_imp.nelem;
 
   /*initialization of position in outtc */
   j=0;
 
   while (j<*nsize)
   {
+   /*test to know if we are outside outtb_elem*/
+   if (nvec[j]>(*outtb_nelem)) {
+    set_block_error(-1);
+    return;
+   }
+
    lnk=outtb_elem[nvec[j]-1].lnk;
    pos=outtb_elem[nvec[j]-1].pos;
    outtbtyp=scicos_imp.outtbtyp[lnk];

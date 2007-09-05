@@ -25,6 +25,7 @@ extern void Objstring(char *fname,
                 BOOL isboxed,
                 BOOL isline,
                 BOOL isfilled);
+extern void updateScaleIfRequired(sciPointObj * pSubWin);
 
 /*
  * int MlistGetFieldNumber(int *ptr, const char *string)
@@ -296,8 +297,7 @@ int intsetxproperty(fname,fname_len)
 }
 
 int intsetblockerror(fname,fname_len)
-     /* renvoi le type d'equation get_pointer_xproperty() 
-      *	(-1: algebriques, +1 differentielles) */
+     /* renvoi une erreur */
      char *fname;
      unsigned long fname_len;
 {
@@ -2223,7 +2223,7 @@ C2F(scicos)(l_state_x,l_sim_xptr,l_state_z,
              C2F(curblk).kfun=0;
              break;
 
-   case 6  : strcpy(C2F(cha1).buf,"a block has been called with input out of its domain");
+   case 6  : sprintf(C2F(cha1).buf,"the block %d has been called with input out of its domain",C2F(curblk).kfun);
              break;
 
    case 7  : strcpy(C2F(cha1).buf,"singularity in a block");
@@ -4271,7 +4271,7 @@ int intscixstringb(char *fname,unsigned long fname_len)
     /* set the largest font */
     C2F(dr1)("xset","font",&cur_font_[0],&largestFont,PI0,PI0,PI0,PI0,PD0,PD0,PD0,PD0,0L,0L);
 
-    updateScaleIfRequired( sciGetSelectedSubWin ( sciGetCurrentFigure () ) ) ;
+    updateScaleIfRequired(sciGetSelectedSubWin(sciGetCurrentFigure())) ;
 
     wc=0.;
     i_max=0;
