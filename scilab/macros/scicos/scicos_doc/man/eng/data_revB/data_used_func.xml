@@ -911,10 +911,14 @@ For this block we have two differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='LOGBLK_f' type='XML'>
+<FILE name='Keyboard_shortcuts' type='XML'>
 <USED_FUNCTIONS>
 
+</USED_FUNCTIONS>
+</FILE>
 
+<FILE name='LOGBLK_f' type='XML'>
+<USED_FUNCTIONS>
 
 </USED_FUNCTIONS>
 </FILE>
@@ -1211,9 +1215,13 @@ for this block we have four differents functions:
 
 <FILE name='M_freq' type='XML'>
 <USED_FUNCTIONS>
-<SP>
 
-</SP>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+<USED_FUNCTIONS>
+
 </USED_FUNCTIONS>
 </FILE>
 

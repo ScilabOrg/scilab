@@ -735,6 +735,12 @@ B=[1 0 0;4 5 0;7 8 9;10 11 12]
 </EXAMPLE>
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <EXAMPLE>
 </EXAMPLE>
@@ -1018,6 +1024,12 @@ When t=1, the first output is activated (001).
 When t=1.5, the second output is activated (010).
 When t=2 we loop back to 0.
 </P>
+</EXAMPLE>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+<EXAMPLE>
+
 </EXAMPLE>
 </FILE>
 

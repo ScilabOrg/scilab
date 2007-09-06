@@ -1,5 +1,19 @@
 <DATA flag="cseq">
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>
+   </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>
+   </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
 <FILE name='buildouttb' type='XML'>
   <CALLING_SEQUENCE>
     <CALLING_SEQUENCE_ITEM>

@@ -947,6 +947,12 @@ INRIA
 </AUTHORS>
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
@@ -1229,6 +1235,12 @@ INRIA
 </FILE>
 
 <FILE name='Matrix_pal' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
 <AUTHORS>
 
 </AUTHORS>

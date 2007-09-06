@@ -1009,6 +1009,10 @@
   <SHORT_DESCRIPTION name="JKFLIPFLOP">JKFLIPFLOP</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+  <SHORT_DESCRIPTION name="Keyboard_shortcuts">Liste des raccourcis clavier</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="LOGBLK_f">Logarithme</SHORT_DESCRIPTION>
 </FILE>
@@ -1295,6 +1299,10 @@
 
 <FILE name='Matrix_pal' type='XML'>
 <SHORT_DESCRIPTION name="Matrix">Palette d'opérations matricielles</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+  <SHORT_DESCRIPTION name="Menu_entries">Entrées des menus de l'éditeur</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Modulo_Count' type='XML'>

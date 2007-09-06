@@ -828,10 +828,14 @@
 </SEE_ALSO>
 </FILE>
 
-<FILE name='LOGBLK_f' type='XML'>
+<FILE name='Keyboard_shortcuts' type='XML'>
 <SEE_ALSO>
 
+</SEE_ALSO>
+</FILE>
 
+<FILE name='LOGBLK_f' type='XML'>
+<SEE_ALSO>
 
 </SEE_ALSO>
 </FILE>
@@ -1060,8 +1064,6 @@
 <FILE name='M_SWITCH' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -1077,18 +1079,20 @@
 </SEE_ALSO>
 </FILE>
 
-<FILE name='Modulo_Count' type='XML'>
+<FILE name='Menu_entries' type='XML'>
 <SEE_ALSO>
 
+</SEE_ALSO>
+</FILE>
 
+<FILE name='Modulo_Count' type='XML'>
+<SEE_ALSO>
 
 </SEE_ALSO>
 </FILE>
 
 <FILE name='NEGTOPOS_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>

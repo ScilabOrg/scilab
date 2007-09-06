@@ -1321,6 +1321,12 @@ Q(t-1)\\
 \end{tabular}
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
+</FILE>
+
 <FILE name='LOGBLK_f' type='LATEX'>
 This block realizes  $y(i)=log(u(i))/log(a)$ . The input and output port
 sizes are determined by the context.  
@@ -1884,6 +1890,12 @@ determines which data input is passed through to the output port.
 
 <FILE name='Matrix_pal' type='LATEX'>
 Add here a paragraph of the function description
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
 </FILE>
 
 <FILE name='Modulo_Count' type='LATEX'>

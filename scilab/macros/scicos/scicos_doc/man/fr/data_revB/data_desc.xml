@@ -1376,6 +1376,12 @@ Q(t-1)\\
 \end{tabular}
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
+</FILE>
+
 <FILE name='LOGBLK_f' type='LATEX'>
 Ce bloc calcule $y(i)=log(u(i))/log(a)$. 
 Les tailles des ports d'entrée/sortie sont déterminés par le contexte.
@@ -1949,6 +1955,12 @@ determines which data input is passed through to the output port.
 
 <FILE name='Matrix_pal' type='LATEX'>
 Ajoutez ici un paragraphe pour la description de la fonction
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
 </FILE>
 
 <FILE name='Modulo_Count' type='LATEX'>

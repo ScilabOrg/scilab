@@ -742,8 +742,6 @@
 <FILE name='Inductor' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
@@ -753,10 +751,14 @@
 </EXAMPLE>
 </FILE>
 
-<FILE name='LOGBLK_f' type='XML'>
+<FILE name='Keyboard_shortcuts' type='XML'>
 <EXAMPLE>
 
+</EXAMPLE>
+</FILE>
 
+<FILE name='LOGBLK_f' type='XML'>
+<EXAMPLE>
 
 </EXAMPLE>
 </FILE>
@@ -985,6 +987,12 @@
 </FILE>
 
 <FILE name='M_freq' type='XML'>
+<EXAMPLE>
+
+</EXAMPLE>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
 <EXAMPLE>
 
 </EXAMPLE>

@@ -788,6 +788,12 @@
 </BIBLIO>
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<BIBLIO>
+
+</BIBLIO>
+</FILE>
+
 <FILE name='LOGBLK_f' type='XML'>
 <BIBLIO>
 
@@ -1026,10 +1032,14 @@
 </BIBLIO>
 </FILE>
 
-<FILE name='Modulo_Count' type='XML'>
+<FILE name='Menu_entries' type='XML'>
 <BIBLIO>
 
+</BIBLIO>
+</FILE>
 
+<FILE name='Modulo_Count' type='XML'>
+<BIBLIO>
 
 </BIBLIO>
 </FILE>

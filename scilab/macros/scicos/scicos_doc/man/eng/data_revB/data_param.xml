@@ -3340,6 +3340,12 @@
 </PARAM>
 </FILE>
 
+<FILE name='Keyboard_shortcuts' type='XML'>
+<PARAM>
+
+</PARAM>
+</FILE>
+
 <FILE name='LOGBLK_f' type='LATEX'>
 %automatically generated, please edit
 \begin{itemize}
@@ -4172,6 +4178,12 @@
       </PARAM_ITEM>
     </PARAM_INDENT>
   </PARAM>
+</FILE>
+
+<FILE name='Menu_entries' type='XML'>
+<PARAM>
+
+</PARAM>
 </FILE>
 
 <FILE name='Modulo_Count' type='LATEX'>
