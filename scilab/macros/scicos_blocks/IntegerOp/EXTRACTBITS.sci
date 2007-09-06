@@ -19,11 +19,17 @@ case 'set' then
   graphics=arg1.graphics;exprs=graphics.exprs
   model=arg1.model;
   while %t do
-    [ok,Datatype,rule,bit,scal,exprs]=getvalue('Set parameters',..
-	['Datatype(3=int32 4=int16 5=int8 ...)';..
-	 'Bits to extract(1=Upper Half 2=Lower Half 3=Range starting with most significant bit 4=Range ending with least significant bit 5=Range of bits)';..
-	 'number of bits or index of bit (case range of bits:[start,end],0 is leat significant bit)';..
-	 'Treat bit field as an integer(0=no 1=yes)'],..
+    [ok,Datatype,rule,bit,scal,exprs]=getvalue(...
+        ['            Set parameters';'';'-Dataype : set the integer type';..
+         '     3=int32, 4=int16, 5=int8, ...';..
+         '-Bits to extract :';'     1=Upper Half';'     2=Lower Half';..
+         '     3=Range from MSB';'     4=Range to LSB';'     5=Range of bits';..
+         '-Number of bits or index of bit :';'     case range of bits:[start,end],0 is LSB';..
+         '-Treat bit field as an integer (0=no 1=yes)';''],..
+	['Datatype';..
+	 'Bits to extract';..
+	 'Number of bits or index of bit';..
+	 'Treat bit field as an integer'],..
 	list('vec',1,'vec',1,'vec',-1,'vec',1),exprs)
     if ~ok then break,end
     if (rule<1)|(rule>5) then message('Incorrect index '+string(rule)+' ; must be 1 to 5.');ok=%f;end
