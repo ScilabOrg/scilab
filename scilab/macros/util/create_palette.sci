@@ -96,7 +96,7 @@ function [routines,IntFunc]=create_palette(Path)
 	      'BACKLASH.sci';'DEADBAND.sci';'EXPRESSION.sci';
 	      'CONSTRAINT_f.sci';'HYSTHERESIS.sci';'DEBUG_SCICOS.sci';
 	      'LOGICAL_OP.sci';'RELATIONALOP.sci';'generic_block3.sci';
-	      'MBLOCK.sci']
+	      'MBLOCK.sci';'PDE.sci']
 	
       elseif txt=='Linear' then
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR_m.sci';
@@ -111,7 +111,8 @@ function [routines,IntFunc]=create_palette(Path)
 	      'BIGSOM_f.sci';'INTEGRAL_f.sci';'GAINBLK_f.sci';
 	      'DELAYV_f.sci';'DELAY_f.sci'; 'DEMUX_f.sci';'MUX_f.sci';
 	      'MFCLCK_f.sci';'MCLOCK_f.sci';'COSBLK_f.sci';   'DLRADAPT_f.sci';
-	      'SINBLK_f.sci'; 'TANBLK_f.sci';'generic_block.sci']
+	      'SINBLK_f.sci'; 'TANBLK_f.sci';'generic_block.sci';'RAND_f.sci';
+	      'DOLLAR_f.sci']
 
       elseif txt=='DemoBlocks' then
 	lisf=['BOUNCE.sci';'BOUNCEXY.sci']
