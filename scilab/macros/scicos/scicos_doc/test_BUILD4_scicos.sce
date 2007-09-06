@@ -49,7 +49,10 @@ function tt=generate_scs_outline()
               "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
               "  <DATE>19 Septembre 2007</DATE>";
               "";
-              "  <CHAPTER eng=""Editor"" fr=""Editeur""></CHAPTER>";
+              "  <CHAPTER eng=""Editor"" fr=""Editeur"">";
+              "    <SCI varpath="""" name=""Menu_entries""></SCI>"
+              "    <SCI varpath="""" name=""Keyboard_shortcuts""></SCI>"
+              "  </CHAPTER>"
               "";
               "  <CHAPTER eng=""Blocks list"" fr=""Liste des blocs"">"];
 
@@ -111,6 +114,166 @@ function tt=generate_scs_outline()
                "  </CHAPTER>"
                ""
                "</WHATIS>"];
+endfunction
+
+//gen_entries : generate tex file of entries of editor menu from
+//initial_scicos_tables
+function [txt_en] = gen_entries (typdoc,lang)
+ [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
+  %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
+  %scicos_lhb_list, %CmenuTypeOneVector ] = initial_scicos_tables();
+
+ txt_en=[]
+ txt_fr=[]
+ %scicos_help_fr=%scicos_help;
+ %scicos_menu_fr=%scicos_menu;
+
+ //** loop on number of menu
+ for i=1:lstsize(%scicos_menu)
+   //** get the menu title
+   menu_title=%scicos_menu(i)(1)
+
+   //** get entries
+   menu_lst=%scicos_menu(i)(2:$)
+
+   //** Add title in txt of help
+   txt_en=[txt_en;
+           '\subsection{'+latexsubst(menu_title)+' menu}'
+           '\begin{itemize}']
+
+   //** loop on number of entries
+   for j=1:size(menu_lst,2)
+     //** get entry
+     entry_title = menu_lst(j);
+
+     //** Add title:entry in txt of help
+     txt_en=[txt_en;
+             '\item {\bf '+latexsubst(menu_title)+':'+entry_title]
+             '      '
+
+     //** Check if there is a shorcut
+     sc_ind=find(%scicos_short(:,2)==entry_title)
+     if sc_ind<>[] then
+       txt_en($) = txt_en($) + ' ('+%scicos_short(sc_ind,1)+')'
+     end
+
+     //**retrieve help in %scicos_help
+     if execstr('help_txt = %scicos_help(entry_title)','errcatch')==0 then
+       txt_en($) = txt_en($) + '}\\'
+       txt_en=[txt_en;
+               '      '+latexsubst(help_txt);
+               '']
+     else
+      txt_en($) = txt_en($) + '}'
+       txt_en=[txt_en;
+               '';
+               '']
+     end
+   end
+
+   txt_en = [txt_en;
+             '\end{itemize}']
+ end
+endfunction
+
+//gen_shortc : generate tex file of keyborad shorcuts of the editor
+//from initial_scicos_tables
+function [txt_en] = gen_shortc (typdoc,lang)
+ [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
+  %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
+  %scicos_lhb_list, %CmenuTypeOneVector ] = initial_scicos_tables();
+
+ txt_en = [];
+
+ txt_en = [txt_en;
+           '\begin{itemize}']
+ //** loop on number of menu
+ for i=1:size(%scicos_short,1)
+
+   txt_en = [txt_en;
+             '  \item{\bf '''+%scicos_short(i,1)+''' :} ' + %scicos_short(i,2)]
+
+ end
+
+ txt_en = [txt_en;
+           '\end{itemize}']
+endfunction
+
+//gen_scs_editor_help : main generator for scitexgendoc of tex files
+//for the scicos editor
+function gen_scs_editor_help(typdoc,%gd)
+
+   for i=1:size(%gd.lang,1)
+      //**------ entries ------**//
+      //** generate body of the tex file
+      tt=gen_entries(typdoc,%gd.lang(i))
+      //** generate tex head
+      head_tex=get_head_tex(["","Menu_entries","sci"],typdoc,i,%gd)
+      //** change title of html head
+      if %gd.lang(i)=='fr' then
+         head_tex=strsubst(head_tex,'Fonction Scilab','Editeur Scicos')
+      elseif %gd.lang(i)=='eng' then
+         head_tex=strsubst(head_tex,'Scilab Function','Scicos Editor')
+      end
+
+      //** generate txt of tex file
+      txt_entries=[head_tex;
+                   tt
+                   '\htmlinfo*'
+                   '\end{document}']
+      //**---------------------**//
+
+
+      //**------ shortcuts ------**//
+      //** generate body of the tex file
+      tt=gen_shortc(typdoc,%gd.lang(i))
+      //** generate tex head
+      head_tex=get_head_tex(["","Keyboard_shortcuts","sci"],typdoc,i,%gd)
+      //** change title of html head
+      if %gd.lang(i)=='fr' then
+         head_tex=strsubst(head_tex,'Fonction Scilab','Editeur Scicos')
+      elseif %gd.lang(i)=='eng' then
+         head_tex=strsubst(head_tex,'Scilab Function','Scicos Editor')
+      end
+
+      //** generate txt of tex file
+      txt_shortcuts=[head_tex;
+                     tt
+                     '\htmlinfo*'
+                     '\end{document}']
+      //**---------------------**//
+
+      //create lang directory
+      if fileinfo(%gd.lang(i)+'/')==[] then
+       mkdir(%gd.lang(i))
+      end
+
+      name=get_extname(["","Menu_entries","sci"],%gd)
+
+      //create object directory for
+      //tex compilation
+      if fileinfo(%gd.lang(i)+'/'+...
+                   name)==[] then
+        mkdir(%gd.lang(i)+'/'+name)
+      end
+
+      mputl(txt_entries,%gd.lang(i)+...
+            '/'+name+...
+            '/'+name+'.tex');
+
+      name=get_extname(["","Keyboard_shortcuts","sci"],%gd)
+
+      //create object directory for
+      //tex compilation
+      if fileinfo(%gd.lang(i)+'/'+...
+                   name)==[] then
+        mkdir(%gd.lang(i)+'/'+name)
+      end
+
+      mputl(txt_shortcuts,%gd.lang(i)+...
+            '/'+name+...
+            '/'+name+'.tex');
+   end
 endfunction
 //**----------------------------------------------------------**//
 
@@ -194,7 +357,6 @@ create_gendoc_dirs(%gendoc);
 if ~exists('%already_import') then
   %already_import = %f;
 end
-
 
 //**-------------------Files declaration----------------------**//
 //define list of files to be documented
@@ -361,6 +523,11 @@ clear i;clear listf;
 listf_of_demos=[palpath,"DemoBlocks.cosf","pal"];
 //**------------*/
 
+//**--Editor--*/
+list_of_editor = ["","Menu_entries","sci";
+                  "","Keyboard_shortcuts","sci";]
+//**------------*/
+
 //**----------------------------------------------------------**//
 
 
@@ -397,7 +564,8 @@ my_list = [my_listf;
            listf_of_matop;
            listf_of_intop;
            listf_of_misc;
-           listf_of_demos];
+           listf_of_demos;
+           list_of_editor];
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 
@@ -448,6 +616,18 @@ end
 //          without any errors.
 //
 //-->generate_aux_tex_file(my_list,'html',%gendoc);
+
+
+//STEP_3a : do a second pass for import_data and generation of
+//          auxiliaries tex files (not necessary)
+//          That improves interfacing functions and
+//          computational functions man pages
+//
+//-->import_data_to_file('all',%gendoc);generate_aux_tex_file(my_list,'html',%gendoc);
+
+//STEP_3b : Generate tex files for the scicos editor
+//
+//-->gen_scs_editor_help('html',%gendoc);
 
 //STEP_4 : Convert auxiliaries tex file in html.
 //
