@@ -161,7 +161,7 @@ INRIA
 <FILE name='CLKFROM' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -169,7 +169,7 @@ INRIA
 <FILE name='CLKGOTO' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -177,7 +177,7 @@ INRIA
 <FILE name='CLKGotoTagVisibility' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -331,7 +331,7 @@ INRIA
   <AUTHORS_ITEM label='Fady NASSIF'>
     INRIA
   </AUTHORS_ITEM>
-  <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+  <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=CONST_doc'>
     INRIA
   </AUTHORS_ITEM>
 </AUTHORS>
@@ -418,7 +418,7 @@ INRIA
 <FILE name='Counter' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -550,7 +550,7 @@ INRIA
 <FILE name='DOLLAR_m' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -694,7 +694,7 @@ INRIA
 <FILE name='FROM' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -702,7 +702,7 @@ INRIA
 <FILE name='FROMMO' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -715,7 +715,7 @@ INRIA
 
 <FILE name='GAINBLK' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=GAINBLK_doc'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -766,7 +766,7 @@ INRIA
 <FILE name='GOTO' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -774,7 +774,7 @@ INRIA
 <FILE name='GOTOMO' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -782,7 +782,7 @@ INRIA
 <FILE name='GotoTagVisibility' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -790,7 +790,7 @@ INRIA
 <FILE name='GotoTagVisibilityMO' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -854,9 +854,17 @@ INRIA
 </FILE>
 
 <FILE name='INTEGRAL_m' type='XML'>
-<AUTHORS>
-
-</AUTHORS>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=INTEGRAL_doc'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Alan Layec'>
+      INRIA
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Ramine Nikoukhah'>
+      INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
 </FILE>
 
 <FILE name='INTMUL' type='XML'>
@@ -957,6 +965,9 @@ INRIA
 
 <FILE name='LOGICAL_OP' type='XML'>
 <AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+INRIA
+</AUTHORS_ITEM>
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
 </AUTHORS_ITEM>
@@ -1212,7 +1223,7 @@ INRIA
 <FILE name='M_freq' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1381,7 +1392,12 @@ INRIA
 
 <FILE name='RAND_m' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Fady Nassif'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1412,7 +1428,7 @@ INRIA
 <FILE name='REGISTER' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1427,6 +1443,9 @@ INRIA
 
 <FILE name='RELATIONALOP' type='XML'>
 <AUTHORS>
+<AUTHORS_ITEM label='Fady NASSIF'>
+INRIA
+</AUTHORS_ITEM>
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
 </AUTHORS_ITEM>
@@ -1466,7 +1485,7 @@ INRIA
 <FILE name='ROOTCOEF' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1486,7 +1505,7 @@ INRIA
 <FILE name='SAMPHOLD_m' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1539,7 +1558,12 @@ INRIA
 
 <FILE name='SELECT_m' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Fady NASSIF'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1610,7 +1634,7 @@ INRIA
 <FILE name='SUBMAT' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1655,7 +1679,12 @@ INRIA
 
 <FILE name='SWITCH2_m' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label='Fady NASSIF'>
+INRIA
+</AUTHORS_ITEM>
+<AUTHORS_ITEM label='Ramine Nikoukhah'>
+INRIA
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 
@@ -1670,7 +1699,7 @@ INRIA
 <FILE name='SampleCLK' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Fady NASSIF'>
-: INRIA
+INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
@@ -1851,7 +1880,7 @@ INRIA
 
 <FILE name='buildouttb' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=buildouttb_doc'>
       INRIA
     </AUTHORS_ITEM>
   </AUTHORS>
@@ -1928,7 +1957,7 @@ INRIA
 
 <FILE name='getscicosvars' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=getscicosvars_doc'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Ramine Nikoukhah'>
@@ -1967,7 +1996,7 @@ INRIA
 
 <FILE name='scicos_debug' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicos_debug_doc'>
+    <AUTHORS_ITEM label='Alan Layec' to='alan.layec@inria.fr?subject=scicos_debug_doc'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Ramine Nikoukhah'>

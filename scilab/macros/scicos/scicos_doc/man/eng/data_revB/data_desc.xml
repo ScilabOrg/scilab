@@ -737,7 +737,7 @@ all elements of the vector are delayed by the same sample period.
 </FILE>
 
 <FILE name='DemoBlocks_pal' type='LATEX'>
-	Add here a paragraph of the function description
+Add here a paragraph of the function description
 </FILE>
 
 <FILE name='Diode' type='LATEX'>
@@ -1273,7 +1273,7 @@ signals.
 </FILE>
 
 <FILE name='Integer_pal' type='LATEX'>
-
+Add here a paragraph of the function description
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='LATEX'>

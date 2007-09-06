@@ -76,6 +76,10 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='CUMSUM' type='SPECIALDESC'>
+	dial_width_html=360pt
+</FILE>
+
 <FILE name='Capacitor' type='SPECIALDESC'>
 	ud_margin_html=0.5
 	dial_width_html=240pt
@@ -139,8 +143,16 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='EXTRACTBITS' type='SPECIALDESC'>
+	dial_width_html=280pt
+</FILE>
+
 <FILE name='EXTRACTOR' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='EXTTRI' type='SPECIALDESC'>
+	dial_width_html=350pt
 </FILE>
 
 <FILE name='Extract_Activation' type='SPECIALDESC'>
@@ -153,6 +165,10 @@
 
 <FILE name='FROMMO' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='GAINBLK' type='SPECIALDESC'>
+	dial_width_html=340pt
 </FILE>
 
 <FILE name='GAINBLK_f' type='SPECIALDESC'>
@@ -194,6 +210,10 @@
 	dial_width_html=220pt
 </FILE>
 
+<FILE name='INTMUL' type='SPECIALDESC'>
+	dial_width_html=340pt
+</FILE>
+
 <FILE name='INTRP2BLK_f' type='SPECIALDESC'>
 	dial_width_html=240pt
 </FILE>
@@ -222,6 +242,10 @@
 
 <FILE name='LOGICAL_OP' type='SPECIALDESC'>
 	dial_width_html=360pt
+</FILE>
+
+<FILE name='MATSUM' type='SPECIALDESC'>
+	dial_width_html=340pt
 </FILE>
 
 <FILE name='MCLOCK_f' type='SPECIALDESC'>
@@ -328,6 +352,14 @@
 	dial_width_html=220pt
 </FILE>
 
+<FILE name='SELECT_m' type='SPECIALDESC'>
+	dial_width_html=320pt
+</FILE>
+
+<FILE name='SHIFT' type='SPECIALDESC'>
+	dial_width_html=340pt
+</FILE>
+
 <FILE name='SRFLIPFLOP' type='SPECIALDESC'>
 	lr_margin_html=0.5
 </FILE>
@@ -343,6 +375,10 @@
 <FILE name='SUM_f' type='SPECIALDESC'>
 	lr_margin_html=0.5
 	dial_width_html=240pt
+</FILE>
+
+<FILE name='SUMMATION' type='SPECIALDESC'>
+	dial_width_html=330pt
 </FILE>
 
 <FILE name='SWITCH_f' type='SPECIALDESC'>
