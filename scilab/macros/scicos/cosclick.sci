@@ -38,8 +38,8 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   //** cosclic() filter and command association 
   
   //**--------------------------------------------------------------------------
-  
-  
+ global inactive_windows  
+ 
   if btn==-100 then //** window closing check 
   //**------------------------------------------------------------
   //** The window has been closed 
@@ -52,6 +52,29 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     end
     
     return  //** --> EXIT  
+  end
+  
+  if (win==-1)& (btn==-2) then
+    from=max(strindex(str,'_'))+1;
+    to=max(strindex(str,'('))-1
+    win=evstr(part(str,from:to))
+  end
+  // If the event is a TCL event then win=[]
+  if win<>[] & find(win==inactive_windows(2))<>[] then
+    global Scicos_commands
+    pathh=inactive_windows(1)(find(win==inactive_windows(2)))
+    cmd='Cmenu=''SelectLink'''
+    if btn==-2 then
+         cmd='Cmenu='+part(str,9:length(str)-1)+';execstr(''Cmenu=''+Cmenu)'
+    end
+
+    Scicos_commands=['%diagram_path_objective='+sci2exp(pathh)+';%scicos_navig=1';
+		     cmd+';%pt='+sci2exp(%pt)+';xselect();%scicos_navig=[]';
+		    ]
+    //inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
+    //ha=gcf();ha.user_data=scs_m;
+    return
+  
   //**-----------------------------------------------------------
   elseif (btn==30) then //** This code is produced ONLY on Windows and is used
                         //** to signal the switch of the focus to a new, not yet active,

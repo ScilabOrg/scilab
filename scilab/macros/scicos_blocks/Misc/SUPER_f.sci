@@ -1,6 +1,7 @@
 function [x,y,typ]=SUPER_f(job,arg1,arg2)
 // Copyright INRIA
 x=[];y=[],typ=[]
+
 select job
 case 'plot' then
   standard_draw(arg1)

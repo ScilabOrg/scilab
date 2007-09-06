@@ -12,6 +12,7 @@ function New_()
     end             //** No -> %r = 1 ; Yes -> %r = 2  
     
     if %r==2 then
+      inactive_windows=close_inactive_windows(inactive_windows,super_path)
       if alreadyran then
           do_terminate() ; // terminate current simulation
       end  

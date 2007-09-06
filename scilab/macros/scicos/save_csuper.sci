@@ -82,7 +82,7 @@ function path=save_csuper(scs_m,fpath,gr_i,sz)
 	 '    end'
 	 '    xx=arg1(spath)'+com+' get the block';
 	 '    execstr(''xxn=''+xx.gui+''(''''set'''',xx)'')'
-	 '    if diffobjs(xxn,xx) then '
+	 '    if ~isequalbitwise(xxn,xx) then '
 	 '      model=xx.model'
 	 '      model_n=xxn.model'
 	 '      if ~is_modelica_block(xx) then'

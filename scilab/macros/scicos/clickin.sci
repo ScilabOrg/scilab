@@ -44,29 +44,53 @@ if typeof(o)=="Block" then
   if o.model.sim=="super" then
 
       lastwin = curwin; // save the current window
-    
-      curwin = get_new_window(windows) ; //** need a brand new window where open the 
+
+      global inactive_windows
+      jkk=[]
+
+      for jk=1:size(inactive_windows(2),'*')
+         if isequal(inactive_windows(1)(jk),super_path) then 
+           jkk=[jkk,jk]
+         end
+      end
+      curwinc=-1
+
+      for jk=jkk 
+        curwinc=inactive_windows(2)(jk),
+        ha=gcf(curwinc)
+//        if diffobjs(o.model.rpar,ha.user_data) then
+//           pause
+//           xdel(curwinc)
+//           curwinc=-1
+//        else
+           inactive_windows(1)(jk)=null();inactive_windows(2)(jk)=[]
+           curwin=curwinc           
+//        end
+      end
+      if curwinc <0 then
+        curwin = get_new_window(windows) ; //** need a brand new window where open the 
+      end
+
                                          //** super block
     if %diagram_open then     //** if the window is open open 
       gh_curwin = scf(curwin); //**   
     end                       //** 
 
-    //**
-    //**  Plese put one eye on it 
-    //**
+
     //** Check if this data structure is used in others parts of the code  
-    execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
+    //    execstr('scs_m_'+string(slevel)+'=scs_m'); //** extract the 'scs_m' of the superblock
     
     //** Inside the 'set' section of 'scicos_blocs/Misc/SUPER_f.sci' there is a recursive call
     //** at 'scicos' with the sub->scs_m as parameter 
     execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)') ; //** this is the key of 
     //** the recursive superblock opening 
     
+
+
     //** Check is this comments is still valid 
     //edited variable is returned by SUPER_f -- NO LONGER TRUE
     if ~%exit then
-      edited = diffobjs(o,o_n)
-      
+      edited = ~isequalbitwise(o,o_n) //diffobjs(o,o_n)
       if edited then
 	o = o_n
 	modified = prod( size(newparameters) )>0 ; 

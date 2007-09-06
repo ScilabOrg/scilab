@@ -6,55 +6,71 @@ function OpenSet_()
 //** 25 Jully 2007 : 
 //** Comments by Simone Mannori
 
-  global %diagram_path_objective  //probably not needed
+  global inactive_windows
 
   if ~%diagram_open then
     %kk=Select(1)
-
-    ierr=execstr('xxx=scs_m.objs(%kk).model.sim','errcatch','n')
+    if size(scs_m.objs)<%kk then
+      ierr=1
+    else
+      ierr=execstr('xxx=scs_m.objs(%kk).model.sim','errcatch','n')
+    end
     if ierr==0 then
-       if xxx<>'super' then ierr=1;end
+      if xxx<>'super' then ierr=1;end
     end
     if ierr<>0 then
-        message(['This path does not lead to a super block.';
-                 'The browser is not up-to-date. Open a new one.'])
-        global %scicos_navig   //probably not needed
-        %scicos_navig=[]  // stop navigation
-        return
+      message(['This super block is not active anymore or';
+	       'the browser is not up-to-date.'])
+      %scicos_navig=[]  // stop navigation
+      return
     end
-
+    
+    inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
+      if or(curwin==winsid()) then  // in case the current window is open and
+                            // remains open by becoming inactive
+	ha=gcf()
+	ha.user_data=scs_m;
+      end	
 
     super_path = [super_path, %kk] ; 
     
-    disablemenus() // does nothing if parent is not open
+    //disablemenus() // does nothing if parent is not open
     
     [o, modified, newparametersb, needcompileb, editedb] =..
 	clickin( scs_m.objs(%kk));
 
-    edited = edited | editedb ;
-    super_path($-size(%kk,2)+1:$) = [] ;
+    indx=find(curwin==inactive_windows(2))
+    if indx<>[] then
+        inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
+    end
 
+    
+    edited = edited | editedb ;
+    
+    
+    super_path($-size(%kk,2)+1:$) = [] ;
+    
     if editedb then
       scs_m_save = scs_m       ; //** save the old diagram 
       nc_save    = needcompile ; //** and its state 
       needcompile = max(needcompile, needcompileb)
       scs_m.objs(%kk)=o
     end
-
+    
     if modified then
       newparameters = mark_newpars(%kk,newparametersb,newparameters) ; 
     end
-
-    enablemenus() // does nothing if parent is not open
+    
+    //enablemenus() // does nothing if parent is not open
     return
   end
-
-
-  disablemenus() ; //** disable the "interrupts" from dynamic menu :)
+  
+  
+//  disablemenus() ; //** disable the "interrupts" from dynamic menu :)
   
   %xc = %pt(1); %yc = %pt(2); //** last mouse position
   
-
+  
   if windows(find(%win==windows(:,2)),1)==100000 then
     //** ------------------ Navigator -------------------------------
     //click in navigator
@@ -74,9 +90,20 @@ function OpenSet_()
     Select_back = Select; 
     selecthilite(Select_back, "off") ; //  unHilite previous objects
     Select = [%kk %win];               //** select the double clicked block 
-    selecthilite(Select, "on") ;       //  Hilite the actual selected object
+    selecthilite(Select, "on") ;       
+				       
+    inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
+    ha=gcf();
+    //ha.user_data=scs_m;		
+		       
     super_path = [super_path, %kk] ; 
-    [o, modified, newparametersb, needcompileb, editedb] = clickin( scs_m(%Path) );
+    [o, modified, newparametersb, needcompileb, editedb] = clickin( ...
+	scs_m(%Path) );
+
+    indx=find(curwin==inactive_windows(2))
+    inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
+
+    
     //** BEWARE : "clickin can modify the "Cmenu" 
     //to force the creation of a Link  
     
@@ -84,7 +111,7 @@ function OpenSet_()
     if Cmenu=="Link" then
       %pt = [%xc, %yc]   ;
       super_path($) = [] ;
-      enablemenus()      ;
+//      enablemenus()      ;
       return ; //** ---> EXIT point
     end
     
@@ -122,7 +149,7 @@ function OpenSet_()
   
   Cmenu = []; %pt = [] ;
   
-  enablemenus()      ; 
+//  enablemenus()      ; 
   
 endfunction
 

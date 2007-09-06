@@ -45,16 +45,36 @@ if ~super_block then //** if I'm exit from the main Scicos diagram
 end
 //**----------------------------------------------------------------
 
-//**--------------------------------------------------------------
-//** close all the unuseful window 
-for win=windows(size(windows,1):-1:noldwin+1,2)'
-  
-  if or(win==winsid()) then
-    //** xbasc(win) ; 
-    //** xdel(win)  ;
-    gh_del = scf(win) ; //** select the 'win'window and get the handle
-    delete (gh_del)   ; //** delete the window   
-  end
+winrem=[size(windows,1):-1:noldwin+1]
 
+global %scicos_navig
+global inactive_windows
+
+if %scicos_navig<>[] then
+  ii=winrem(find(windows(winrem,1)>0)) //find super block (not palette)
+  if size(ii,'*')<>1 then disp('non e possibile'),pause,end
+  winkeep=windows(ii(1),2)
+  inactive_windows(1)($+1)=super_path
+  inactive_windows(2)($+1)=winkeep  // (1) is for security
+  if or(winkeep==winsid()) then  // in case the current window is open and
+                            // remains open by becoming inactive
+    	ww=gcf()
+	scf(winkeep)
+	ha=gcf()
+	ha.user_data=scs_m;
+	scf(ww)
+  end	   
+else
+  ii=-1
+end
+
+for i=winrem
+  if i<>ii then
+    win=windows(i,2)
+    if or(win==winsid()) then
+      gh_del = scf(win) ; //** select the 'win'window and get the handle
+      delete (gh_del)   ; //** delete the window   
+    end
+  end
 end
 endfunction
