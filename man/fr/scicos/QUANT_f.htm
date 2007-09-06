@@ -88,111 +88,85 @@ Description</A>
 Ce bloc quantifie le signal d'entrée suivant les méthodes choisies :
 
 <OL>
-<LI>méthode 'Round' :  
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+<LI>méthode 'Round' :
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{si} \; u(i)<0 .\\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{si} \; u(i)>=0 .
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="58" ALIGN="LEFT"
  SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="280" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img3_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5)$"></SPAN></TD>
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="96" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img4_fr.gif"
- ALT="$\displaystyle \texttt{si} \; u(i)&lt;0 .$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="280" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img5_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5)$"></SPAN></TD>
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="110" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img6_fr.gif"
- ALT="$\displaystyle \texttt{si} \; u(i)&gt;=0 .$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
+ ALT="\begin{eqnarray}
+y(i)&amp;={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &amp;\texttt...
+...p}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &amp;\texttt{si} \; u(i)&gt;=0 .
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
 </LI>
 <LI>méthode 'Truncation' :
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="237" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img7_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))$"></SPAN></TD>
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="96" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{si} \; u(i)<0 .  \\
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{si} \; u(i)>=0 .
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="58" ALIGN="LEFT"
+ SRC="../../images/scicos/QUANT_f_img3_fr.gif"
+ ALT="\begin{eqnarray}
+y(i)&amp;={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &amp;\texttt{si}...
+... Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &amp;\texttt{si} \; u(i)&gt;=0 .
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
+</LI>
+<LI>méthode 'Floor' :
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="31" ALIGN="LEFT"
  SRC="../../images/scicos/QUANT_f_img4_fr.gif"
- ALT="$\displaystyle \texttt{si} \; u(i)&lt;0 .$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="237" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img8_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))$"></SPAN></TD>
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="110" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img6_fr.gif"
- ALT="$\displaystyle \texttt{si} \; u(i)&gt;=0 .$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
+ ALT="\begin{eqnarray}
+y(i)&amp;={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) .
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
 </LI>
-<LI>méthode 'Floor' :  
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="242" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img9_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) .$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
-</LI>
-<LI>méthode 'Ceil' :  
-<P></P>
-<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
-<TR VALIGN="MIDDLE">
-<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
- WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img2_fr.gif"
- ALT="$\displaystyle y(i)$"></SPAN></TD>
-<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
- WIDTH="237" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/QUANT_f_img8_fr.gif"
- ALT="$\displaystyle ={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))$"></SPAN></TD>
-<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
-&nbsp;&nbsp;&nbsp;</TD></TR>
-</TABLE></DIV>
-<BR CLEAR="ALL"><P></P>
+<LI>méthode 'Ceil' :
+<BR>
+<DIV ALIGN="RIGHT" CLASS="mathdisplay">
+<P ALIGN="LEFT"><!-- MATH
+ \begin{eqnarray}
+\htmlimage{align=left}
+ y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))
+\end{eqnarray}
+ -->
+<IMG
+ WIDTH="556" HEIGHT="31" ALIGN="LEFT"
+ SRC="../../images/scicos/QUANT_f_img5_fr.gif"
+ ALT="\begin{eqnarray}
+y(i)&amp;={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))
+\end{eqnarray}">
+<BR CLEAR="ALL">
+<P>
+<BR CLEAR="ALL"></DIV><P></P>
 </LI>
 </OL>
 
