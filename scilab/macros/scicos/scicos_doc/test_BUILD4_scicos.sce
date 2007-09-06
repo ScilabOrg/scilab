@@ -275,6 +275,17 @@ function gen_scs_editor_help(typdoc,%gd)
             '/'+name+'.tex');
    end
 endfunction
+
+//gen_scicos_doc : generate all the scicos doc
+function gen_scicos_doc(my_list,typdoc,%gd)
+  generate_aux_tex_file(my_list,typdoc,%gd);
+  import_data_to_file('all',%gd);
+  generate_aux_tex_file(my_list,typdoc,%gd);
+  gen_scs_editor_help(typdoc,%gd);
+  generate_html_file(my_list,%gd);
+  gen_whatis(%gd.mpath.data(1)+'/outline.xml',%gd);
+endfunction
+
 //**----------------------------------------------------------**//
 
 //**-------------------path definition-----------------------**//
