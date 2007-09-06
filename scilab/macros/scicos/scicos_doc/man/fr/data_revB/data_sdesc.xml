@@ -593,6 +593,10 @@
 <SHORT_DESCRIPTION name="DOLLAR_m">Opérateur retard</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DemoBlocks_pal' type='XML'>
+<SHORT_DESCRIPTION name="DemoBlocks">Palette DemoBlocks</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='DOLLAR_m_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="DOLLAR_m">DOLLAR_m</SHORT_DESCRIPTION>
 </FILE>
@@ -1706,7 +1710,7 @@
 </FILE>
 
 <FILE name='STEP' type='XML'>
-<SHORT_DESCRIPTION name="STEP">STEP titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="STEP">STEP bloc</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>

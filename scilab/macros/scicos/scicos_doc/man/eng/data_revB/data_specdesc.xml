@@ -86,7 +86,7 @@
 </FILE>
 
 <FILE name='DELAY_f' type='SPECIALDESC'>
-	super_width_html=220pt
+	super_width_html=280pt
 </FILE>
 
 <FILE name='DEMUX' type='SPECIALDESC'>
@@ -121,6 +121,10 @@
 
 <FILE name='DLSS_f' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='DemoBlocks_pal' type='SPECIALDESC'>
+	scs_diagr_height_pal_html=50pt
 </FILE>
 
 <FILE name='EVTGEN_f' type='SPECIALDESC'>
@@ -345,6 +349,14 @@
 	dial_width_html=240pt
 </FILE>
 
+<FILE name='SWITCH2' type='SPECIALDESC'>
+	dial_width_html=350pt
+</FILE>
+
+<FILE name='SWITCH2_m' type='SPECIALDESC'>
+	dial_width_html=350pt
+</FILE>
+
 <FILE name='SampleCLK' type='SPECIALDESC'>
 	dial_width_html=220pt
 </FILE>
@@ -372,6 +384,10 @@
 
 <FILE name='TIME_DELAY' type='SPECIALDESC'>
 	dial_width_html=220pt
+</FILE>
+
+<FILE name='Threshold_pal' type='SPECIALDESC'>
+	scs_diagr_height_pal_html=50pt
 </FILE>
 
 <FILE name='TrigFun' type='SPECIALDESC'>

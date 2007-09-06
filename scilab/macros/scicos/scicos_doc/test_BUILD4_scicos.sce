@@ -80,7 +80,8 @@ function tt=generate_scs_outline()
               "  "+ gen_outline_pal(listf_of_matop);
               ""
               "  "+ gen_outline_pal(listf_of_intop);
-              ""]
+              ""
+              "  "+ gen_outline_pal(listf_of_demos);]
 
   tt = [tt;
                "  </CHAPTER>"
@@ -357,6 +358,7 @@ listf_of_misc=[listf_of_misc;
                opath2(9),"PDE.sci","block"]; //??
 clear i;clear listf;
 
+listf_of_demos=[palpath,"DemoBlocks.cosf","pal"];
 //**------------*/
 
 //**----------------------------------------------------------**//
@@ -394,7 +396,8 @@ my_list = [my_listf;
            listf_of_thermo;
            listf_of_matop;
            listf_of_intop;
-           listf_of_misc];
+           listf_of_misc;
+           listf_of_demos];
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 

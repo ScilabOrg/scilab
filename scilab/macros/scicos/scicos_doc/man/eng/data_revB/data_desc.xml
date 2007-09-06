@@ -736,6 +736,10 @@ all elements of the vector are delayed by the same sample period.
   </DESCRIPTION>
 </FILE>
 
+<FILE name='DemoBlocks_pal' type='LATEX'>
+	Add here a paragraph of the function description
+</FILE>
+
 <FILE name='Diode' type='LATEX'>
 This component consists of a simple diode parallel with an ohmic
 resistance ($R$). The current passing through this component is
@@ -2366,13 +2370,7 @@ Q(t-1)&
 
 <FILE name='STEP' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+	
 </DESCRIPTION>
 </FILE>
 

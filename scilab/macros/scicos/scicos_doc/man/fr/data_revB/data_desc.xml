@@ -784,6 +784,10 @@ retardés par la même période.
   </DESCRIPTION>
 </FILE>
 
+<FILE name='DemoBlocks_pal' type='LATEX'>
+	Add here a paragraph of the function description
+</FILE>
+
 <FILE name='Diode' type='LATEX'>
 Ce composant consiste en une diode simple mise en parallèle avec une résistance
 ohmique $R$. Le courant qui passe dans la diode est défini en
@@ -2453,13 +2457,7 @@ Q(t-1)&
 
 <FILE name='STEP' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+
 </DESCRIPTION>
 </FILE>
 

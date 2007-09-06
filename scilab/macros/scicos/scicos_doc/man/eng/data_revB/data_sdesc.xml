@@ -596,6 +596,10 @@
   <SHORT_DESCRIPTION name="DOLLAR_m">DOLLAR_m</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='DemoBlocks_pal' type='XML'>
+<SHORT_DESCRIPTION name="DemoBlocks">DemoBlocks palette</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='Diode' type='XML'>
 <SHORT_DESCRIPTION name="Diode">Electrical diode</SHORT_DESCRIPTION>
 </FILE>
@@ -1705,11 +1709,11 @@
 </FILE>
 
 <FILE name='STEP' type='XML'>
-<SHORT_DESCRIPTION name="STEP">STEP title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="STEP">Block STEP</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>
-<SHORT_DESCRIPTION name="STEP_FUNCTION">Step function generator </SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="STEP_FUNCTION">Step function generator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='STEP_FUNCTION_intfunc' type='XML'>

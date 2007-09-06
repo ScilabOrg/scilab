@@ -9,13 +9,11 @@
 <FILE name='ABS_VALUE' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -29,21 +27,17 @@
 <FILE name='ANDBLK' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BACKLASH' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -81,15 +75,11 @@
 <FILE name='Bache' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Branching_pal' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -109,8 +99,6 @@
 <FILE name='CBLOCK' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -128,8 +116,6 @@
 
 <FILE name='CLINDUMMY_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -155,8 +141,6 @@
 <FILE name='CLKINV_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -169,8 +153,6 @@
 <FILE name='CLKOUTV_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -182,8 +164,6 @@
 
 <FILE name='CLKSOMV_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -209,8 +189,6 @@
 <FILE name='CLOCK_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -223,8 +201,6 @@
 <FILE name='CLR_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -236,8 +212,6 @@
 
 <FILE name='CLSS_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -257,8 +231,6 @@
 <FILE name='CMSCOPE' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -271,15 +243,11 @@
 <FILE name='CONSTRAINT_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -347,8 +315,6 @@
 <FILE name='ConstantVoltage' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -361,15 +327,11 @@
 <FILE name='CurrentSensor' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='DEADBAND' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -395,8 +357,6 @@
 <FILE name='DEMUX' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -408,8 +368,6 @@
 
 <FILE name='DERIV' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -451,8 +409,6 @@
 <FILE name='DLR_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -464,8 +420,6 @@
 
 <FILE name='DLSS_f' type='XML'>
 <SEE_ALSO>
-
-
 
 </SEE_ALSO>
 </FILE>
@@ -479,8 +433,6 @@
 <FILE name='DOLLAR_f' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
@@ -490,10 +442,14 @@
 </SEE_ALSO>
 </FILE>
 
-<FILE name='Diode' type='XML'>
+<FILE name='DemoBlocks_pal' type='XML'>
 <SEE_ALSO>
 
+</SEE_ALSO>
+</FILE>
 
+<FILE name='Diode' type='XML'>
+<SEE_ALSO>
 
 </SEE_ALSO>
 </FILE>
