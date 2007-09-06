@@ -1307,6 +1307,11 @@ Sélectionne des signaux suivant les événements d'entrée.
 Ce bloc a un seul port régulier d'entrée.
 </FILE>
 
+<FILE name='ISELECT_m' type='LATEX'>
+Sélectionne des signaux suivant les événements d'entrée.
+Ce bloc a un seul port régulier d'entrée.
+</FILE>
+
 <FILE name='Inductor' type='LATEX'>
 Une bobine est un composant électrique qui peut stocker l'énergie
 dans des circuits électriques.  Le rapport entre la tension $v$ aux

@@ -372,16 +372,12 @@
 	dial_width_html=240pt
 </FILE>
 
-<FILE name='SUM_f' type='SPECIALDESC'>
-	lr_margin_html=0.5
-	dial_width_html=240pt
-</FILE>
-
 <FILE name='SUMMATION' type='SPECIALDESC'>
 	dial_width_html=330pt
 </FILE>
 
-<FILE name='SWITCH_f' type='SPECIALDESC'>
+<FILE name='SUM_f' type='SPECIALDESC'>
+	lr_margin_html=0.5
 	dial_width_html=240pt
 </FILE>
 
@@ -391,6 +387,10 @@
 
 <FILE name='SWITCH2_m' type='SPECIALDESC'>
 	dial_width_html=350pt
+</FILE>
+
+<FILE name='SWITCH_f' type='SPECIALDESC'>
+	dial_width_html=240pt
 </FILE>
 
 <FILE name='SampleCLK' type='SPECIALDESC'>

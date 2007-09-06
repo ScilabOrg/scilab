@@ -2020,12 +2020,28 @@
   <SHORT_DESCRIPTION name="backlash">backlash</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='bit_clear_16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="bit_clear_16">bit_clear_16</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='bit_clear_32_routcos' type='XML'>
   <SHORT_DESCRIPTION name="bit_clear_32">bit_clear_32</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='bit_clear_8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="bit_clear_8">bit_clear_8</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='bit_set_16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="bit_set_16">bit_set_16</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='bit_set_32_routcos' type='XML'>
   <SHORT_DESCRIPTION name="bit_set_32">bit_set_32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='bit_set_8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="bit_set_8">bit_set_8</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='bounce_ball_routcos' type='XML'>
@@ -2116,8 +2132,28 @@
   <SHORT_DESCRIPTION name="cstblk">cstblk</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='cumsum_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="cumsum_c">cumsum_c</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='cumsum_m_routcos' type='XML'>
   <SHORT_DESCRIPTION name="cumsum_m">cumsum_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='cumsum_r_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="cumsum_r">cumsum_r</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='cumsumz_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="cumsumz_c">cumsumz_c</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='cumsumz_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="cumsumz_m">cumsumz_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='cumsumz_r_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="cumsumz_r">cumsumz_r</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='curblock' type='XML'>
@@ -2132,8 +2168,28 @@
   <SHORT_DESCRIPTION name="deadband">deadband</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='delay4_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="delay4">delay4</SHORT_DESCRIPTION>
+<FILE name='delay4_i16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_i16">delay4_i16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='delay4_i32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_i32">delay4_i32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='delay4_i8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_i8">delay4_i8</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='delay4_ui16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_ui16">delay4_ui16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='delay4_ui32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_ui32">delay4_ui32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='delay4_ui8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="delay4_ui8">delay4_ui8</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='delay_routcos' type='XML'>
@@ -2180,10 +2236,6 @@
   <SHORT_DESCRIPTION name="edgetrig">edgetrig</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='eselect_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="eselect">eselect</SHORT_DESCRIPTION>
-</FILE>
-
 <FILE name='evaluate_expr_routcos' type='XML'>
   <SHORT_DESCRIPTION name="evaluate_expr">evaluate_expr</SHORT_DESCRIPTION>
 </FILE>
@@ -2208,8 +2260,144 @@
   <SHORT_DESCRIPTION name="expblk">expblk</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='extdiag_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extdiag">extdiag</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extdiagz_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extdiagz">extdiagz</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_LH_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_LH">extract_bit_16_LH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_LSB_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_LSB">extract_bit_16_LSB</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_MSB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_MSB0">extract_bit_16_MSB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_MSB1">extract_bit_16_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_RB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_RB0">extract_bit_16_RB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_RB1">extract_bit_16_RB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_UH0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_UH0">extract_bit_16_UH0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_16_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_16_UH1">extract_bit_16_UH1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_LH_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_LH">extract_bit_32_LH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_LSB_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_LSB">extract_bit_32_LSB</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_MSB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_MSB0">extract_bit_32_MSB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_MSB1">extract_bit_32_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_RB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_RB0">extract_bit_32_RB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_RB1">extract_bit_32_RB1</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='extract_bit_32_UH0_routcos' type='XML'>
   <SHORT_DESCRIPTION name="extract_bit_32_UH0">extract_bit_32_UH0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_32_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_32_UH1">extract_bit_32_UH1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_LH_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_LH">extract_bit_8_LH</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_LSB_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_LSB">extract_bit_8_LSB</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_MSB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_MSB0">extract_bit_8_MSB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_MSB1">extract_bit_8_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_RB0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_RB0">extract_bit_8_RB0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_RB1">extract_bit_8_RB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_UH0_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_UH0">extract_bit_8_UH0</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_8_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_8_UH1">extract_bit_8_UH1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u16_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u16_MSB1">extract_bit_u16_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u16_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u16_RB1">extract_bit_u16_RB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u16_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u16_UH1">extract_bit_u16_UH1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u32_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u32_MSB1">extract_bit_u32_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u32_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u32_RB1">extract_bit_u32_RB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u32_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u32_UH1">extract_bit_u32_UH1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u8_MSB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u8_MSB1">extract_bit_u8_MSB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u8_RB1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u8_RB1">extract_bit_u8_RB1</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='extract_bit_u8_UH1_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="extract_bit_u8_UH1">extract_bit_u8_UH1</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='extract_routcos' type='XML'>
@@ -2222,6 +2410,22 @@
 
 <FILE name='extractz_routcos' type='XML'>
   <SHORT_DESCRIPTION name="extractz">extractz</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='exttril_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="exttril">exttril</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='exttrilz_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="exttrilz">exttrilz</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='exttriu_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="exttriu">exttriu</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='exttriuz_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="exttriuz">exttriuz</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='fortran_block' type='XML'>
@@ -2252,8 +2456,80 @@
   <SHORT_DESCRIPTION name="func_block">func_block</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='gainblk_i16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i16e">gainblk_i16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i16n">gainblk_i16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i16s">gainblk_i16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i32e">gainblk_i32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i32n">gainblk_i32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i32s">gainblk_i32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i8e">gainblk_i8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i8n">gainblk_i8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_i8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_i8s">gainblk_i8s</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='gainblk_routcos' type='XML'>
   <SHORT_DESCRIPTION name="gainblk">gainblk</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui16e">gainblk_ui16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui16n">gainblk_ui16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui16s">gainblk_ui16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui32e">gainblk_ui32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui32n">gainblk_ui32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui32s">gainblk_ui32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui8e">gainblk_ui8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui8n">gainblk_ui8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='gainblk_ui8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="gainblk_ui8s">gainblk_ui8s</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block' type='XML'>
@@ -2304,16 +2580,16 @@
   <SHORT_DESCRIPTION name="hystheresis">hystheresis</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='ifthel_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="ifthel">ifthel</SHORT_DESCRIPTION>
-</FILE>
-
 <FILE name='integr_routcos' type='XML'>
   <SHORT_DESCRIPTION name="integr">integr</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='integral_func_routcos' type='XML'>
   <SHORT_DESCRIPTION name="integral_func">integral_func</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='integralz_func_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="integralz_func">integralz_func</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='intplt_routcos' type='XML'>
@@ -2348,8 +2624,32 @@
   <SHORT_DESCRIPTION name="logic">logic</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='logicalop_i16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_i16">logicalop_i16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logicalop_i32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_i32">logicalop_i32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logicalop_i8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_i8">logicalop_i8</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='logicalop_routcos' type='XML'>
   <SHORT_DESCRIPTION name="logicalop">logicalop</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logicalop_ui16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_ui16">logicalop_ui16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logicalop_ui32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_ui32">logicalop_ui32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='logicalop_ui8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="logicalop_ui8">logicalop_ui8</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='lookup_routcos' type='XML'>
@@ -2424,6 +2724,14 @@
   <SHORT_DESCRIPTION name="mat_sum">mat_sum</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='mat_sumc_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="mat_sumc">mat_sumc</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='mat_suml_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="mat_suml">mat_suml</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='mat_svd_routcos' type='XML'>
   <SHORT_DESCRIPTION name="mat_svd">mat_svd</SHORT_DESCRIPTION>
 </FILE>
@@ -2436,8 +2744,84 @@
   <SHORT_DESCRIPTION name="mat_vpv">mat_vpv</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='matmul2_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul2_m">matmul2_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i16e">matmul_i16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i16n">matmul_i16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i16s">matmul_i16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i32e">matmul_i32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i32n">matmul_i32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i32s">matmul_i32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i8e">matmul_i8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i8n">matmul_i8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_i8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_i8s">matmul_i8s</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='matmul_m_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matmul_m">matmul_m</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui16e">matmul_ui16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui16n">matmul_ui16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui16s">matmul_ui16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui32e">matmul_ui32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui32n">matmul_ui32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui32s">matmul_ui32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui8e">matmul_ui8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui8n">matmul_ui8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matmul_ui8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matmul_ui8s">matmul_ui8s</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='mattran_m_routcos' type='XML'>
@@ -2516,6 +2900,18 @@
   <SHORT_DESCRIPTION name="matz_sqrt">matz_sqrt</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='matz_sum_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_sum">matz_sum</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matz_sumc_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_sumc">matz_sumc</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matz_suml_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matz_suml">matz_suml</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='matz_svd_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_svd">matz_svd</SHORT_DESCRIPTION>
 </FILE>
@@ -2526,6 +2922,10 @@
 
 <FILE name='matz_vpv_routcos' type='XML'>
   <SHORT_DESCRIPTION name="matz_vpv">matz_vpv</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='matzmul2_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="matzmul2_m">matzmul2_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='matzmul_m_routcos' type='XML'>
@@ -2636,8 +3036,32 @@
   <SHORT_DESCRIPTION name="readf">readf</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='relationalop_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="relationalop">relationalop</SHORT_DESCRIPTION>
+<FILE name='relational_op_i16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_i16">relational_op_i16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_i32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_i32">relational_op_i32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_i8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_i8">relational_op_i8</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op">relational_op</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_ui16_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_ui16">relational_op_ui16</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_ui32_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_ui32">relational_op_ui32</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='relational_op_ui8_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="relational_op_ui8">relational_op_ui8</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='relay_routcos' type='XML'>
@@ -2658,6 +3082,10 @@
 
 <FILE name='root_coef_routcos' type='XML'>
   <SHORT_DESCRIPTION name="root_coef">root_coef</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='rootz_coef_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="rootz_coef">rootz_coef</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='samphold4_m_routcos' type='XML'>
@@ -2736,16 +3164,64 @@
 	<SHORT_DESCRIPTION name="set_xproperty">Set the type of the state equation system</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='shift_i16_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="shift_i16">shift_i16</SHORT_DESCRIPTION>
+<FILE name='shift_16_LA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_16_LA">shift_16_LA</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='shift_i32_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="shift_i32">shift_i32</SHORT_DESCRIPTION>
+<FILE name='shift_16_LC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_16_LC">shift_16_LC</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='shift_i8_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="shift_i8">shift_i8</SHORT_DESCRIPTION>
+<FILE name='shift_16_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_16_RA">shift_16_RA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_16_RC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_16_RC">shift_16_RC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_32_LA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_32_LA">shift_32_LA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_32_LC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_32_LC">shift_32_LC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_32_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_32_RA">shift_32_RA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_32_RC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_32_RC">shift_32_RC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_8_LA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_8_LA">shift_8_LA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_8_LC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_8_LC">shift_8_LC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_8_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_8_RA">shift_8_RA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_8_RC_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_8_RC">shift_8_RC</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_u16_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_u16_RA">shift_u16_RA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_u32_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_u32_RA">shift_u32_RA</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='shift_u8_RA_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="shift_u8_RA">shift_u8_RA</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='signum_routcos' type='XML'>
@@ -2776,12 +3252,92 @@
   <SHORT_DESCRIPTION name="submat">submat</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='submatz_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="submatz">submatz</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='sum_routcos' type='XML'>
   <SHORT_DESCRIPTION name="sum">sum</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='summation_i16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i16e">summation_i16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i16n">summation_i16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i16s">summation_i16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i32e">summation_i32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i32n">summation_i32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i32s">summation_i32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i8e">summation_i8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i8n">summation_i8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_i8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_i8s">summation_i8s</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='summation_routcos' type='XML'>
   <SHORT_DESCRIPTION name="summation">summation</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui16e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui16e">summation_ui16e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui16n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui16n">summation_ui16n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui16s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui16s">summation_ui16s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui32e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui32e">summation_ui32e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui32n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui32n">summation_ui32n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui32s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui32s">summation_ui32s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui8e_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui8e">summation_ui8e</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui8n_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui8n">summation_ui8n</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_ui8s_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_ui8s">summation_ui8s</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='summation_z_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="summation_z">summation_z</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='switch2_m_routcos' type='XML'>
