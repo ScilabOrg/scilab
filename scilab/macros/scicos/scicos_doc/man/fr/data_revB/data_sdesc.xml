@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="sdesc">
 
 <FILE name='ABCD_Blocks' type='XML'>
@@ -3133,8 +3132,36 @@
 <SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_diagram' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_diagram">scicos_diagram titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_graphics' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_graphics">scicos_graphics titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_link' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_link">scicos_link titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_model' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_model">scicos_model titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_params' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_params">scicos_params titre</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_sim' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_sim">scicos_sim titre</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_simulate' type='XML'>
 <SHORT_DESCRIPTION name="scicos_simulate">Fonction pour éxécuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_state' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_state">scicos_state titre</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>

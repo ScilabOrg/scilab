@@ -2023,11 +2023,53 @@ INRIA
   </AUTHORS>
 </FILE>
 
+<FILE name='scicos_diagram' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_graphics' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_link' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_model' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_params' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_sim' type='XML'>
+<AUTHORS>
+
+</AUTHORS>
+</FILE>
+
 <FILE name='scicos_simulate' type='XML'>
 <AUTHORS>
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
 </AUTHORS_ITEM>
+</AUTHORS>
+</FILE>
+
+<FILE name='scicos_state' type='XML'>
+<AUTHORS>
+
 </AUTHORS>
 </FILE>
 

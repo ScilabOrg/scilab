@@ -3132,8 +3132,36 @@
 <SHORT_DESCRIPTION name="scicos_debug">Set the level of the Scicos debugging</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_diagram' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_diagram">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_graphics' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_graphics">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_link' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_link">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_model' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_model">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_params' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_params">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_sim' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_sim">  add short decription here</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_simulate' type='XML'>
 <SHORT_DESCRIPTION name="scicos_simulate"> Function for running scicos simulation in batch mode.</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_state' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_state">  add short decription here</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>

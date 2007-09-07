@@ -918,11 +918,9 @@ For this block we have two differents functions:
 </FILE>
 
 <FILE name='Keyboard_shortcuts' type='XML'>
-  <USED_FUNCTIONS>
-    <SP>
-     Ajoutez ici les noms et références des fonctions utilisées
-    </SP>
-  </USED_FUNCTIONS>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
 </FILE>
 
 <FILE name='LOGBLK_f' type='XML'>
@@ -1893,8 +1891,50 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='scicos_diagram' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_graphics' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_link' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_model' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_params' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_sim' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='scicos_simulate' type='XML'>
 <USED_FUNCTIONS>
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_state' type='XML'>
+<USED_FUNCTIONS>
+
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1906,6 +1946,7 @@ for this block we have four differents functions:
 
 <FILE name='scicosim' type='XML'>
 <USED_FUNCTIONS>
+
 </USED_FUNCTIONS>
 </FILE>
 
