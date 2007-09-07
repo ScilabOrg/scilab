@@ -71,8 +71,7 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     Scicos_commands=['%diagram_path_objective='+sci2exp(pathh)+';%scicos_navig=1';
 		     cmd+';%pt='+sci2exp(%pt)+';xselect();%scicos_navig=[]';
 		    ]
-    //inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
-    //ha=gcf();ha.user_data=scs_m;
+
     return
   
   //**-----------------------------------------------------------
@@ -91,6 +90,9 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   //** -----------------------------------------------------------
   elseif (btn==0) then //** Press button : Left Mouse Button : no window check 
     Cmenu = "MoveLink"   ; 
+
+  elseif (btn==1000) then //** Press button : Left Mouse Button : no window check 
+    Cmenu = "Smart Move"   ; 
   
   //**-------------------------------------------------------------    
   elseif (btn==10) & (win==curwin) then //** "Left Mouse Double Click" in the current Scicos window

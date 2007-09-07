@@ -15,7 +15,10 @@ function Open_()
   if edited & ~super_block then //** if is edited and is NOT a superblock
     num = x_message(['Diagram has not been saved'],['OK','Go Back'])
     if num==2 then return;end
-    if alreadyran then do_terminate(),end  //terminate current simulation
+    if alreadyran then do_terminate(),end  //terminate current
+                                           //simulation
+    clear(%scicos_solver)  // avoids forcing implicit compilation in
+                           // some situations    
     alreadyran = %f ;
   end
 

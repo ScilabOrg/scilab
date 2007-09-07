@@ -16,7 +16,8 @@ function New_()
       if alreadyran then
           do_terminate() ; // terminate current simulation
       end  
-      
+      clear(%scicos_solver)  // avoids forcing implicit compilation in
+                           // some situations 
       alreadyran = %f ; 
       scs_m = scicos_diagram(version=get_scicos_version()) ; //** create a empty diagram 
       %wpar = scs_m.props ; 

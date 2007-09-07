@@ -30,6 +30,7 @@ case 'getorigin' then
 		  'Edit or exit by removing all edition'],['Edit'; ...
 		    'Exit'])
       if %r==2 then 
+	xdel(curwin)
 	typ=list()
 	%exit=resume(%t),
       else
@@ -38,7 +39,8 @@ case 'getorigin' then
         %scicos_navig=[];Scicos_commands=[]
 	if ~or(curwin==winsid()) then  // in case super block is closed
           scf(curwin)
-	  //xset("window",curwin)
+	  indx=find(curwin==inactive_windows(2))
+	  inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
 	end
       end
     end

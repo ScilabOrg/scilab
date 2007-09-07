@@ -115,6 +115,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
               'Browser',..
 	      'Code Generation',..
 	      'Shortcuts',..
+	      'Activate Scilab Window',..
 	      'Calc'];
   
   Help     = ['Help',..

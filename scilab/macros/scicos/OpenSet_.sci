@@ -28,13 +28,11 @@ function OpenSet_()
     inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
       if or(curwin==winsid()) then  // in case the current window is open and
                             // remains open by becoming inactive
-	ha=gcf()
-	ha.user_data=scs_m;
+//	ha=gcf()
+//	ha.user_data=scs_m;
       end	
 
     super_path = [super_path, %kk] ; 
-    
-    //disablemenus() // does nothing if parent is not open
     
     [o, modified, newparametersb, needcompileb, editedb] =..
 	clickin( scs_m.objs(%kk));
@@ -43,25 +41,21 @@ function OpenSet_()
     if indx<>[] then
         inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
     end
-
     
     edited = edited | editedb ;
-    
-    
     super_path($-size(%kk,2)+1:$) = [] ;
     
     if editedb then
       scs_m_save = scs_m       ; //** save the old diagram 
       nc_save    = needcompile ; //** and its state 
       needcompile = max(needcompile, needcompileb)
-      scs_m.objs(%kk)=o
+      %Path = list('objs',%kk)
+      scs_m = update_redraw_obj(scs_m, %Path,o) ;//scs_m.objs(%kk)=o
     end
     
     if modified then
       newparameters = mark_newpars(%kk,newparametersb,newparameters) ; 
     end
-    
-    //enablemenus() // does nothing if parent is not open
     return
   end
   
@@ -70,18 +64,9 @@ function OpenSet_()
   
   %xc = %pt(1); %yc = %pt(2); //** last mouse position
   
+  %kk = getobj(scs_m,[%xc;%yc]) ; //** acquire the index in the current diagram 
+  %Path = list('objs',%kk)      ; //** create the path to the object   
   
-  if windows(find(%win==windows(:,2)),1)==100000 then
-    //** ------------------ Navigator -------------------------------
-    //click in navigator
-    [%Path,%kk,ok] = whereintree(%Tree,%xc,%yc)
-    if ok & %kk<>[] then %Path($)=null(); %Path($)=null(); end
-    if ~ok then %kk=[], end
-  else
-    //** ---- Is not a navigator -> look for the object -------------
-    %kk = getobj(scs_m,[%xc;%yc]) ; //** acquire the index in the current diagram 
-    %Path = list('objs',%kk)      ; //** create the path to the object   
-  end
 
   //** '%kk' is the object index
 
@@ -93,8 +78,6 @@ function OpenSet_()
     selecthilite(Select, "on") ;       
 				       
     inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
-    ha=gcf();
-    //ha.user_data=scs_m;		
 		       
     super_path = [super_path, %kk] ; 
     [o, modified, newparametersb, needcompileb, editedb] = clickin( ...
@@ -111,20 +94,10 @@ function OpenSet_()
     if Cmenu=="Link" then
       %pt = [%xc, %yc]   ;
       super_path($) = [] ;
-//      enablemenus()      ;
       return ; //** ---> EXIT point
     end
     
-    
-    //** Distruction (closing) of a Navigator window 
-    if needcompileb==4 then
-      %kw = find(windows(:,1)==100000)
-      if %kw<>[] then
-	xdel(windows(%kw,2)) ; //** DANGER : DANGER : DANGER
-	%Tree = list()
-      end
-    end
-    
+   
     edited = edited | editedb ;
     super_path($-size(%kk,2)+1:$) = [] ;
     
@@ -141,7 +114,7 @@ function OpenSet_()
     end
     
     // note if block parameters have been modified
-    if modified&~pal_mode  then
+    if modified  then
       newparameters = mark_newpars(%kk,newparametersb,newparameters) ; //** DANGER
     end
     

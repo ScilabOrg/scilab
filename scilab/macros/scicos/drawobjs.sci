@@ -15,7 +15,9 @@ function drawobjs(scs_m, gh_window)
        
        for i=1 : lstsize(scs_m.objs) //** draw object by object
             scs_m_index = i ; //** creation of a semiglobal variable for object indexing
-	    gh_blk = drawobj(scs_m.objs(i));
+	    gh_blk = drawobj(scs_m.objs(i),gh_curwin);  // IS
+                                                        // ,gh_curwin
+                                                        // needed ?
        end
     
     else //** the argument is explicit
