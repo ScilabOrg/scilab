@@ -1,5 +1,11 @@
 <DATA flag="desc">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <DESCRIPTION>
+
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='ABSBLK_f' type='LATEX'>
 The Abs block outputs the absolute value of the input.
 </FILE>

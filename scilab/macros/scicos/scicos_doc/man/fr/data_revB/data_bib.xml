@@ -1,5 +1,11 @@
 <DATA flag="bib">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
 <FILE name='ABSBLK_f' type='XML'>
 <BIBLIO>
 

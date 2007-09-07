@@ -1,5 +1,12 @@
 <DATA flag="cseq">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>
+   </CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+</FILE>
+
 <FILE name='Keyboard_shortcuts' type='XML'>
   <CALLING_SEQUENCE>
   <CALLING_SEQUENCE_ITEM>

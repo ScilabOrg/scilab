@@ -1,5 +1,9 @@
 <DATA flag="sdesc">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <SHORT_DESCRIPTION name="ABCD_Blocks">Alphabetical order</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ABSBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="ABSBLK_f">Absolute value (Old block)</SHORT_DESCRIPTION>
 </FILE>

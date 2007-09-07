@@ -1,5 +1,11 @@
 <DATA flag="auth">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
 <FILE name='ABSBLK_f' type='XML'>
 <AUTHORS>
 

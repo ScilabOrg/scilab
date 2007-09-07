@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="desc">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <DESCRIPTION>
+
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='ABSBLK_f' type='LATEX'>
 Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
 </FILE>

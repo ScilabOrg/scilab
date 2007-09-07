@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="param">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <PARAM>
+
+  </PARAM>
+</FILE>
+
 <FILE name='ABSBLK_f' type='XML'>
 <PARAM>
 <PARAM_INDENT>

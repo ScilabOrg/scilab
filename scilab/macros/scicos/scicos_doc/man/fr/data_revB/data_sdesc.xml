@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="sdesc">
 
+<FILE name='ABCD_Blocks' type='XML'>
+  <SHORT_DESCRIPTION name="ABCD_Blocks">Ordre alphabétique</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='ABSBLK_f' type='XML'>
 <SHORT_DESCRIPTION name="ABSBLK_f">Valeur absolue (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
