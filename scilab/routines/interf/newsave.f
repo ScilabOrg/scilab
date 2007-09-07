@@ -56,7 +56,7 @@ c     loop on variables to save
          return
       endif
       call savevar(fd,idstk(1,k),il,vol,ierr)
-      if(ierr.ne.0) then
+      if(ierr.ne.0.and.err.le.0.and.err1.lt.0) then
          call error(263)
          if (.not.opened) call mclose (fd,res)
          return
