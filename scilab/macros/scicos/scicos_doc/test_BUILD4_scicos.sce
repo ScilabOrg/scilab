@@ -16,6 +16,19 @@
 
 
 //**--------------definition of some functions----------------**//
+//gen_outline_block
+function txt=gen_outline_block(listf)
+  txt = ["<WHATIS>";
+         "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
+         "  <DATE>19 Septembre 2007</DATE>";
+         "";]
+  for i=1:size(listf,1)
+     txt=[txt;
+          "   <BLK varpath="""" name="""+basename(listf(i,2))+"""></BLK>"]
+  end
+  txt = [txt;"</WHATIS>"];
+endfunction
+
 //gen_outline_pal
 function txt=gen_outline_pal(listf)
   txt=[];
@@ -23,6 +36,23 @@ function txt=gen_outline_pal(listf)
   for i=2:size(listf,1)
      txt=[txt;
           "   <BLK varpath="""" name="""+basename(listf(i,2))+"""></BLK>"]
+  end
+  txt=[txt;
+       "</PAL>"];
+endfunction
+
+//gen_outline_pal
+function txt=gen_outline_pal2(listf)
+
+  txt=[];
+  txt='<PAL varpath=""palpath"" name="""+listf(find(listf(:,3)=='pal'),2)+""">";
+  list_of_blocks = return_block_pal(listf(find(listf(:,3)=='pal'),1)+...
+                                    listf(find(listf(:,3)=='pal'),2));
+  [s,k]=gsort(convstr(list_of_blocks),'r','i');
+  list_of_blocks=[list_of_blocks(k)];
+  for i=1:size(list_of_blocks,1)
+     txt=[txt;
+          "   <BLK varpath="""" name="""+list_of_blocks(i)+"""></BLK>"]
   end
   txt=[txt;
        "</PAL>"];
@@ -41,7 +71,7 @@ function txt=gen_outline_dir(listf)
        "</SUBCHAPTER>"];
 endfunction
 
-//gen_outline_pal=gen_outline_dir;
+gen_outline_pal=gen_outline_pal2;
 
 //gen_scs_outline
 function tt=generate_scs_outline()
@@ -54,10 +84,14 @@ function tt=generate_scs_outline()
               "    <SCI varpath="""" name=""Keyboard_shortcuts""></SCI>"
               "  </CHAPTER>"
               "";
-              "  <CHAPTER eng=""Blocks list"" fr=""Liste des blocs"">"];
+              "  <CHAPTER eng=""Blocks"" fr=""Blocs"">";
+              "   <SECTION eng=""Blocks list"" fr=""Liste des blocs"">";
+              "     <SCI varpath="""" name=""ABCD_Blocks""></SCI>"
+              "   </SECTION>";
+              ""
+              "   <SECTION eng=""Blocks by palette"" fr=""Blocs par palette"">";];
 
  tt = [tt;
-              ""
               "  "+gen_outline_pal(listf_of_sources);
               ""
               "  "+gen_outline_pal(listf_of_linear);
@@ -69,8 +103,6 @@ function tt=generate_scs_outline()
               "  "+gen_outline_pal(listf_of_misc);
               ""
               "  "+gen_outline_pal(listf_of_threshold);
-              ""
-              "  "+gen_outline_pal(listf_of_oldblocks);
               ""
               "  "+gen_outline_pal(listf_of_sinks);
               ""
@@ -87,6 +119,7 @@ function tt=generate_scs_outline()
               "  "+ gen_outline_pal(listf_of_demos);]
 
   tt = [tt;
+               "   </SECTION>";
                "  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Batch functions"" fr=""Fonctions en ligne de commande"">"
@@ -97,7 +130,23 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""steadycos.sci""></SCI>"
                "  </CHAPTER>"
                ""
-               "  <CHAPTER eng=""Data Structure"" fr=""Structure de donnée"">  </CHAPTER>"
+               "  <CHAPTER eng=""Scilab Data Structure"" fr=""Structure de donnée scilab"">"
+               "   <SECTION eng=""Diagram"" fr=""Diagramme"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_diagram""></SCI>"
+               "    <SCI varpath=""opath2(1)"" name=""scicos_params""></SCI>"
+               "   </SECTION>";
+               "   <SECTION eng=""Blocks"" fr=""Blocs"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_model""></SCI>"
+               "    <SCI varpath=""opath2(1)"" name=""scicos_graphics""></SCI>"
+               "   </SECTION>";
+               "   <SECTION eng=""Links"" fr=""Liens"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_link""></SCI>"
+               "   </SECTION>";
+               "   <SECTION eng=""Compilation/Simulation"" fr=""Compilation/Simulation"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_state""></SCI>"
+               "    <SCI varpath=""opath2(1)"" name=""scicos_sim""></SCI>"
+               "   </SECTION>";
+               "  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Scilab built-in functions"" fr=""Fonctions utilitaires Scilab"">"
                "    <SCI varpath=""autopath"" name=""buildouttb""></SCI>"
@@ -276,6 +325,16 @@ function gen_scs_editor_help(typdoc,%gd)
    end
 endfunction
 
+//gen_scicos_whatis : generate the whatis fileS
+function gen_scicos_whatis(%gd)
+  gen_whatis(%gd.mpath.data(1)+'/ABCDblocks.xml',%gd);
+  for i=1:size(%gd.mpath.html,1)
+    unix_g(%gd.cmd.mv+%gd.mpath.html(i)+...
+            'whatis.htm '+%gd.mpath.html(i)+'ABCD_Blocks.htm');
+  end
+  gen_whatis(%gd.mpath.data(1)+'/outline.xml',%gd);
+endfunction
+
 //gen_scicos_doc : generate all the scicos doc
 function gen_scicos_doc(my_list,typdoc,%gd)
   generate_aux_tex_file(my_list,typdoc,%gd);
@@ -283,7 +342,7 @@ function gen_scicos_doc(my_list,typdoc,%gd)
   generate_aux_tex_file(my_list,typdoc,%gd);
   gen_scs_editor_help(typdoc,%gd);
   generate_html_file(my_list,%gd);
-  gen_whatis(%gd.mpath.data(1)+'/outline.xml',%gd);
+  gen_scicos_whatis(%gd)
 endfunction
 
 //**----------------------------------------------------------**//
@@ -532,11 +591,23 @@ listf_of_misc=[listf_of_misc;
 clear i;clear listf;
 
 listf_of_demos=[palpath,"DemoBlocks.cosf","pal"];
+
+listf_of_ABCD=["","ABCD_Blocks","sci"];
 //**------------*/
 
 //**--Editor--*/
 list_of_editor = ["","Menu_entries","sci";
-                  "","Keyboard_shortcuts","sci";]
+                  "","Keyboard_shortcuts","sci";];
+//**------------*/
+
+//**--scilab structure--*/
+list_of_scistruc = [opath2(1),"scicos_diagram.sci","sci";
+                    opath2(1),"scicos_params.sci","sci";
+                    opath2(1),"scicos_link.sci","sci";
+                    opath2(1),"scicos_model.sci","sci";
+                    opath2(1),"scicos_graphics.sci","sci";
+                    opath2(1),"scicos_state.sci","sci";
+                    opath2(1),"scicos_sim.sci","sci";];
 //**------------*/
 
 //**----------------------------------------------------------**//
@@ -576,7 +647,18 @@ my_list = [my_listf;
            listf_of_intop;
            listf_of_misc;
            listf_of_demos;
-           list_of_editor];
+           list_of_editor;
+           listf_of_ABCD;
+           list_of_scistruc];
+
+//**------------------ABCDblocks.xml generation------------------**//
+list_of_ABCDblocks=[my_list(find(my_list(:,3)=='block'),:);
+                    my_list(find(my_list(:,3)=='mblock'),:)];
+[s,k]=gsort(convstr(list_of_ABCDblocks(:,2)),'r','i');
+list_of_ABCDblocks=list_of_ABCDblocks(k,:);
+outline_txt=gen_outline_block(list_of_ABCDblocks);
+mputl(outline_txt,%gendoc.mpath.data(1)+'/ABCDblocks.xml');
+//**----------------------------------------------------------**//
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
 
