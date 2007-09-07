@@ -346,7 +346,7 @@
 </FILE>
 
 <FILE name='CONVERT' type='XML'>
-<SHORT_DESCRIPTION name="CONVERT">CONVERT Convertion de dtype de données</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONVERT">CONVERT Convertion de type de données</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONVERT_intfunc' type='XML'>

@@ -118,7 +118,8 @@ Bouchon}.
 </FILE>
 
 <FILE name='Branching_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Dans la palette Branching, vous pouvez trouver divers blocs
+pour la gestion des données véhiculées par les liens réguliers.
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -647,7 +648,7 @@ Q&
 \end{tabular}
 </FILE>
 
-<FILE name='DIFF_f' type='LATEX'>
+<FILE name='DIFF_f' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
@@ -785,7 +786,8 @@ retardés par la même période.
 </FILE>
 
 <FILE name='DemoBlocks_pal' type='LATEX'>
-	Add here a paragraph of the function description
+Les blocs de cette palette sont utilisés pour faire des
+diagrammes de démonstration.
 </FILE>
 
 <FILE name='Diode' type='LATEX'>
@@ -983,7 +985,10 @@ etc.
 </FILE>
 
 <FILE name='Events_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+La palette 'Events' (événements) est utilisée pour manipuler les
+événements sur le diagramme. Elle contient entre autre plusieurs
+sources d'activation, des blocs synchrones ainsi que des blocs
+pour regrouper/combiner les événements sur un seul lien.
 </FILE>
 
 <FILE name='Extract_Activation' type='XML'>
@@ -1328,7 +1333,10 @@ travers le composant est donné par :
 </FILE>
 
 <FILE name='Integer_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Cette palette est dédicacée aux nombres entiers.
+Des opérateurs variés sont ici implémentés pour la logique
+et la manipulation des champs de bits ainsi que des portes
+logiques qui sont fréquemment utilisées dans les circuits numériques.
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='LATEX'>
@@ -1435,7 +1443,8 @@ Ce bloc réalise une fonction non-linéaire qui est défini grâce à un
 </FILE>
 
 <FILE name='Linear_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Cette palette contient des opérateurs basiques et des sous-systèmes
+linéaires.
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
@@ -1954,7 +1963,9 @@ determines which data input is passed through to the output port.
 </FILE>
 
 <FILE name='Matrix_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Cette palette contient tous les blocs dont vous avez
+besoin pour réaliser des opérations matricielles 
+simples et complexes.
 </FILE>
 
 <FILE name='Menu_entries' type='XML'>
@@ -1994,7 +2005,7 @@ block's Number of inputs parameter.
 </FILE>
 
 <FILE name='Non_linear_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Cette palette contient des fonctions non-linéaires.
 </FILE>
 
 <FILE name='OUTIMPL_f' type='LATEX'>
@@ -2015,8 +2026,10 @@ Elle est fournie pour pouvoir assurer la compatibilité
 avec des anciens diagrammes contenant ces anciens blocs.
 </FILE>
 
-<FILE name='Others_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+<FILE name='Others_pal' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
 </FILE>
 
 <FILE name='PDE' type='XML'>
@@ -2656,7 +2669,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='Sinks_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Dans la palette Sinks, vous pouvez trouver une variété de
+blocs utilisés pour afficher (Scope) et écrire les données
+dans des fichiers pendant la simulation ainsi que des ports
+de sortie utilisés dans les superblocs.\\
+Les blocs de cette palette ne possèdent pas de ports réguliers
+de sortie.
 </FILE>
 
 <FILE name='SourceP' type='LATEX'>
@@ -2666,7 +2684,11 @@ direction positive conventionnelle est quand le fluide sort du bloc.
 </FILE>
 
 <FILE name='Sources_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+La plupart des blocs de la palette source peuvent être compris comme
+des générateurs de données.
+Cette palette contient aussi des blocs pour lire des données dans des
+fichers, ainsi que des ports d'entrée utilisés dans les superblocs.\\
+Les blocs de cette palette ne possèdent pas de ports réguliers d'entrée.
 </FILE>
 
 <FILE name='TANBLK_f' type='LATEX'>
@@ -2722,13 +2744,14 @@ simulation.
 
 <FILE name='TRASH_f' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+ <DESCRIPTION_INDENT>
+  <DESCRIPTION_ITEM>
+  <P>
+  Ce bloc est un bloc de terminaison.
+  Il ne fait rien.
+  </P>
+  </DESCRIPTION_ITEM>
+ </DESCRIPTION_INDENT>
 </DESCRIPTION>
 </FILE>
 
@@ -2739,7 +2762,10 @@ réglantes, etc.
 </FILE>
 
 <FILE name='Threshold_pal' type='LATEX'>
-Ajoutez ici un paragraphe pour la description de la fonction
+Les blocs de cette palette sont utilisés pour détecter des passages à
+certaines valeurs des variables d'état pendant la simulation.
+Ces blocs utilisent les solveurs (EDO ou EAD) pour réaliser cette
+opération.
 </FILE>
 
 <FILE name='TrigFun' type='LATEX'>
@@ -2861,7 +2887,7 @@ Il crée aussi une librairie et un fichier objet à la compilation.
 </FILE>
 
 <FILE name='freq_div' type='LATEX'>
-Ce bloc est un super bloc.
+Ce bloc est un superbloc.
 L'entrée événementielle est redirigée une fois parmi n à la sortie.
 </FILE>
 

@@ -103,7 +103,7 @@
 </FILE>
 
 <FILE name='DIFF_f' type='SPECIALDESC'>
-	dial_width_html=220pt
+	dial_width_html=260pt
 </FILE>
 
 <FILE name='DLATCH' type='SPECIALDESC'>
@@ -357,7 +357,7 @@
 </FILE>
 
 <FILE name='SHIFT' type='SPECIALDESC'>
-	dial_width_html=340pt
+	dial_width_html=360pt
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='SPECIALDESC'>

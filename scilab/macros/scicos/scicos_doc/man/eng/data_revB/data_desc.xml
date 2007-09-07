@@ -104,7 +104,8 @@ blocked by a {\bf stopper} block.
 </FILE>
 
 <FILE name='Branching_pal' type='LATEX'>
-Add here a paragraph of the function description
+In the branching palette, you can find miscellaneous blocks
+for the management of the data driven by the regular links.
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -737,7 +738,8 @@ all elements of the vector are delayed by the same sample period.
 </FILE>
 
 <FILE name='DemoBlocks_pal' type='LATEX'>
-Add here a paragraph of the function description
+The Blocks of that palette are used in some scicos
+diagrams of demonstration.
 </FILE>
 
 <FILE name='Diode' type='LATEX'>
@@ -930,7 +932,9 @@ such as voltage source, diode, capacitor, etc.
 </FILE>
 
 <FILE name='Events_pal' type='LATEX'>
-Add here a paragraph of the function description
+The events palette is used to handle events in the diagram.
+It contains several activation clocks, synchronous blocks and
+blocks to gather events in a single link.
 </FILE>
 
 <FILE name='Extract_Activation' type='XML'>
@@ -1273,7 +1277,10 @@ signals.
 </FILE>
 
 <FILE name='Integer_pal' type='LATEX'>
-Add here a paragraph of the function description
+That palette is dedicated to handle integer numbers.
+Various basic operators for the management of bit fields and
+for logic are implemented as well as common gates encountered
+in digital ciruits.
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='LATEX'>
@@ -1379,7 +1386,7 @@ editor.
 </FILE>
 
 <FILE name='Linear_pal' type='LATEX'>
-Add here a paragraph of the function description
+That palette contains basic linear operators and sub-systems.
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
@@ -1889,7 +1896,8 @@ determines which data input is passed through to the output port.
 </FILE>
 
 <FILE name='Matrix_pal' type='LATEX'>
-Add here a paragraph of the function description
+Matrix palette contains all blocks that you need to
+do simple and complex matrix operations.
 </FILE>
 
 <FILE name='Menu_entries' type='XML'>
@@ -1928,20 +1936,20 @@ block's Number of inputs parameter.
 </FILE>
 
 <FILE name='Non_linear_pal' type='LATEX'>
-Add here a paragraph of the function description
+That palette contains nonlinear functions.
 </FILE>
 
 <FILE name='OUTIMPL_f' type='LATEX'>
 Outport blocks are the links from a system to a destination outside
-the system.  
+the system.
 </FILE>
 
 <FILE name='OUT_f' type='LATEX'>
 This block must only be used inside Scicos Super Blocks to represent a
 regular output port. In a Super Block, regular output ports must be
-numbered from 1 to the number of regular output ports.  size of the
+numbered from 1 to the number of regular output ports.  Size of the
 output is determined by the compiler according to the connected blocks
-port sizes.    
+port sizes.
 </FILE>
 
 <FILE name='OldBlocks_pal' type='LATEX'>
@@ -1950,8 +1958,10 @@ It is provided to support compatibility with old diagrams
 that use old blocks.
 </FILE>
 
-<FILE name='Others_pal' type='LATEX'>
-Add here a paragraph of the function description
+<FILE name='Others_pal' type='XML'>
+<DESCRIPTION>
+
+</DESCRIPTION>
 </FILE>
 
 <FILE name='PDE' type='XML'>
@@ -2565,7 +2575,10 @@ Add here a paragraph of the function description
 </FILE>
 
 <FILE name='Sinks_pal' type='LATEX'>
-Add here a paragraph of the function description
+In Sinks palette, you can find a variety of blocks used
+to display (Scope) and write data during simulation and also
+somes output ports used in superblocks.\\
+The blocks of that palette doesn't have regular output ports.
 </FILE>
 
 <FILE name='SourceP' type='LATEX'>
@@ -2576,7 +2589,10 @@ fluid flows out of the block.
 </FILE>
 
 <FILE name='Sources_pal' type='LATEX'>
-Add here a paragraph of the function description
+Most of blocks of te Source palette can be viewed as data generators.
+That palette also contains blocks to read data from files and input
+ports used in superblocks.\\
+The blocks of that palette doesn't have regular input ports.
 </FILE>
 
 <FILE name='TANBLK_f' type='LATEX'>
@@ -2630,13 +2646,14 @@ The unique regular output is the current time.
 
 <FILE name='TRASH_f' type='XML'>
 <DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
+ <DESCRIPTION_INDENT>
+  <DESCRIPTION_ITEM>
+  <P>
+   That block is an end-block.
+   It do nothing.
+  </P>
+  </DESCRIPTION_ITEM>
+ </DESCRIPTION_INDENT>
 </DESCRIPTION>
 </FILE>
 
@@ -2646,7 +2663,9 @@ components such as pressure source, pipe, control valves, etc.
 </FILE>
 
 <FILE name='Threshold_pal' type='LATEX'>
-Add here a paragraph of the function description
+Threshold blocks are used to detect values crossing of state variables
+during the simulation.
+This blocks use the solvers (ODE or DAE) to do that operation.
 </FILE>
 
 <FILE name='TrigFun' type='LATEX'>
