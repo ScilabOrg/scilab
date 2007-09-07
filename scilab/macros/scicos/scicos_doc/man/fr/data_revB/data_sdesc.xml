@@ -1490,7 +1490,7 @@
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
-<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RAND_m_intfunc' type='XML'>
