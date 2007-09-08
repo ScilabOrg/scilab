@@ -322,13 +322,17 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " are to be set in a ""File menu"" dialog."])
 
   %scicos_help=scicos_help('Export',...
-               [" This menu is used to export Scicos diagram in postscript format."])
+               [" This menu is used to export a figure of the "
+                " current Scicos diagram. The export can be done"
+                " directly in postscript format or done first in a"
+                " graphic window to export in a second step in all"
+                " the format that scilab can provide."])
 
   %scicos_help=scicos_help('Export All',...
                [" This menu is used to export Scicos diagrams in postscript format."])
 
   %scicos_help=scicos_help('Exit Scicos',...
-               [" Click on the Exit Scicos menu item to close Scicos. ";
+               [" Click on the Exit Scicos menu item to close Scicos.";
                 " That menu allows to return to Scilab session ";
                 " even if the current diagram is a Super block."])
 
@@ -351,7 +355,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " Replot is useful for ''cleaning'' this memory."])
 
   %scicos_help=scicos_help('Purge',...
-               [" Select the Purge menu item to get a clean data structure ";
+               [" Select the Purge menu item to get a clean data structure.";
                 " If diagram has been hugely modified many deleted blocks";
                 " may remain in the data structure. It may be  useful to";
                 " suppress then before saving."])
@@ -367,7 +371,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                [" This menu allows to transform a rectangular region of the";
                 " current diagram by a super block.";
                 " Click  on a corner of the region , drag an click left to";
-                " fix the region (left click cancels selection)";
+                " fix the region (left click cancels selection).";
                 " ";
                 " Region is replaced by a super block and links are redrawn."])
 
@@ -383,7 +387,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " These instructions will be evaluated each time the diagram ";
                 " is loaded.";
                 " ";
-                " If you  change the value of a symbolic Scicos parameters in ";
+                " If you change the value of a symbolic Scicos parameters in ";
                 " the context, all the blocks are updated (Eval is performed)."])
 
 //**** Palette Menu *****/
@@ -407,7 +411,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " takes the name of the file (without the extension).";
                 " ";
                 " If extension is "".cosf"" an ASCII  formatted save is performed";
-                " instead of binary save. It may take a while";
+                " instead of binary save. It may take a while.";
                 " ";
                 " .scilab user file is updated if necessary."])
 
@@ -454,7 +458,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " are deleted as well."])
 
   %scicos_help=scicos_help('Move',...
-               [" To move a block in  the active editor Scicos window";
+               [" To move a block in the active editor Scicos window";
                 " or in edited palette,";
                 " select first the Move menu item, ";
                 " then click on the selected block, link segment or link";
@@ -476,7 +480,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scicos_help=scicos_help('Align',...
                [" To obtain nice diagrams, you can align ports of";
                 " different blocks, vertically and horizontally.";
-                " Select first  the Align menu item, then click on the first";
+                " Select first the Align menu item, then click on the first";
                 " port and finally on the second port.";
                 " The block corresponding to the second port is moved.";
                 " ";
@@ -493,32 +497,38 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scicos_help=scicos_help('Rotate Left',...
                [" Rotate Left allows to turn a block on the Left.";
                 " Each time the block is turned left, his angle is";
-                " decresead of 45 degree"])
+                " decresead of 45 degrees.";
+                " ";
+                " If no blocks or many blocks are selected, this is";
+                " the block under the mouse pointer which turns."])
 
   %scicos_help=scicos_help('Rotate Right',...
                [" Rotate Right allows to turn a block on the right.";
                 " Each time the block is turned right, his angle is";
-                " incresead of 45 degree"])
+                " incresead of 45 degrees.";
+                " ";
+                " If no blocks or many blocks are selected, this is";
+                " the block under the mouse pointer which turns."])
 
   %scicos_help=scicos_help('Add new block',...
                [" To add a newly defined block to the current palette or diagram";
-                " select first this menu item, A dialog box will pop up ";
+                " select first this menu item. A dialog box will pop up ";
                 " asking for the name of the GUI function associated ";
                 " with the block. If this function is not already loaded";
                 " it was search in the current directory. The user may then";
-                " click at the desired position of the block icon ."])
+                " click at the desired position of the block icon."])
 
   %scicos_help=scicos_help('Block Documentation',...
-               [" This menu allows to set or get documentation for a block ";
+               [" This menu allows to set or get documentation for a block.";
                 " ";
-                " Selecting this menu and clicking on a block  opens an";
+                " Selecting this menu and clicking on a block opens an";
                 " editable dialog box."])
 
   %scicos_help=scicos_help('Label',...
                [" To add a label to block, select first this menu item, click next";
                 " on the desired block. A dialog appear that allows you to enter ";
                 " the desired label.";
-                " labels are used to import data from a block in an other one."])
+                " Labels are used to import data from a block in an other one."])
 
 //****** View Menu ******/
 //***********************/
@@ -597,7 +607,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                [" Set the debug level: 0 (no debugging), 1 (light";
                 " debugging information printout), 2 (more information";
                 " printout and execution of Debug Block if any in diagram),"
-                " 3 (silent debugging mode)"])
+                " 3 (silent debugging mode)."])
 
   %scicos_help=scicos_help('Run',...
                [" Select the Run menu item to start the simulation.";
@@ -614,7 +624,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   %scicos_help=scicos_help('Set grid',...
                [" Set the size and the color of ";
-                " the grid for the current diagram"])
+                " the grid for the current diagram."])
 
   %scicos_help=scicos_help('Add color',...
                [" This menu allows to add new color to the diagram private";
@@ -650,7 +660,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                [" This menu allows to set an identificator to a link or a block ";
                 " block identificators are drawn under the block icon. Super blocks";
                 " input/output ports identificators are replicated over the block";
-                " shape ports. Links identificators are not displayed";
+                " shape ports. Links identificators are not displayed.";
                 " ";
                 " Selecting this menu and clicking on a block or links opens an";
                 " editable dialog box."])
@@ -658,7 +668,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scicos_help=scicos_help('Icon',...
                [" To change the icon of a block, select first this menu item,";
                 " click next on the desired block. A dialog appear that allows ";
-                " you to enter Scilab instructions used to draw the icon";
+                " you to enter Scilab instructions used to draw the icon.";
                 " ";
                 " You may use the icon_editor menu to generate the Scilab";
                 " instructions."])
@@ -714,12 +724,11 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                 " the pause mode (see the help on pause).";
                 " In the Scilab main window and you may enter Scilab instructions";
                 " to compute whatever you want.";
-                " to go back to Scicos you need enter the ""return"" or";
+                " To go back to Scicos you need enter the ""return"" or";
                 " ""[...]=return(...)"" Scilab instruction.";
                 " ";
                 " If you use ""[...]=return(...)"" Scilab instruction take care";
-                " not to modify Scicos variables such as ""scs_m"",""scs_gc"",";
-                " ""menus"",""datam"",...";
+                " not to modify Scicos variables such as ""scs_m"".";
                 " ";
                 " If you have modified Scicos graphic window you may restore it ";
                 " using the Scicos ""Replot"" menu."])
@@ -743,7 +752,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
 //****** Old items ******/
 //***********************/
-
 //   %scicos_help=scicos_help('Display mode',...
 //                ["Display mode can be 0 or 1. In mode 1, scicos editor uses the";
 //                 "pixmap option of Scilab graphics to create   a backing";
