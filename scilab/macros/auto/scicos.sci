@@ -529,6 +529,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 		Cmenu="Replot";
 		Select_back=[];Select=[]
 	      else
+		gh_current_window = scf(curwin);
 		if ~isequal(Select,Select_back) then
 		  selecthilite(Select_back, "off") ; // unHilite previous objects
 		  selecthilite([], "on") ;       // Hilite the actual selected object
@@ -552,8 +553,12 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	exec(restore_menu,-1)
 	Select_back=[];Select=[]
 	Cmenu='Replot';
+      else
+        gh_current_window = scf(curwin);
       end
-      
+
+
+
       if Select<>[] then
 	if ~or(Select(1,2) == winsid()) then
 	  Select = [] ; //** imply a full Reset 
@@ -572,7 +577,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       
       //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
       if ( Cmenu<> [] & CmenuType==0) then %pt=[]; end
-      
+      	gh_current_window = scf(curwin);
       //** if 'Cmenu' is NOT empty and 'CmenuType' is "1" and there is at least one object selected 
       if (Cmenu<>[] & CmenuType==1 & %pt==[] & Select<>[]) then
 	[%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
@@ -587,7 +592,6 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	//** I'm not ready to exec a command: I need more information using cosclik()
 	[btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ;
 
-//disp(%pt_n),disp(Cmenu_n)
 	if (Cmenu_n=='SelectLink' | Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
 	  if %pt_n<>[] then %pt = %pt_n; end
 	else
@@ -604,10 +608,10 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  
 	  Select_back = Select; //** save the selected object list 
 	  
-	  
 	  ierr=0
 	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 	  //execstr('exec('+%cor_item_exec(%koko,2)+',-1)')
+
 	  // in case window has disappeared
 	  if ierr > 0 then
 	    Cmenu='Replot'
@@ -618,6 +622,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	    mprintf('%s\n',terr)
 	    
 	  elseif or(curwin==winsid()) then
+	    gh_current_window = scf(curwin);
 	    if ~isequal(Select,Select_back) then
 	      selecthilite(Select_back, "off") ; // unHilite previous objects
 	      selecthilite(Select, "on") ;       // Hilite the actual selected object
@@ -657,8 +662,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     ok=do_save(scs_m,TMPDIR+'/BackupSave.cos') 
     if ok then  //need to save %cpr because the one in .cos cannot be
                 //used to continue simulation
-      if ~exists(%tcur) then %tcur=[];end
-      if ~exists(%scicos_solver) then %scicos_solver=0;end
+      if ~exists('%tcur') then %tcur=[];end
+      if ~exists('%scicos_solver') then %scicos_solver=0;end
       save(TMPDIR+'/BackupInfo', needcompile,alreadyran, %cpr,%state0,%tcur,..
                                             %scicos_solver,inactive_windows)
     end

@@ -2,9 +2,11 @@ function hilite_path(path,mess,with_intermediates)
 //hilite a block included in a superblock hierarchy and displays a
 //message.   If required all the intermediate superblocs are displayed
 //first entry of the path must be a bloc of currently opened diagram  
-  if %scicos_debug_gr then
-    disp("hilite_path...")
-  end
+
+  global   Scicos_commands
+
+  Scicos_commands=['%diagram_path_objective='+sci2exp(path(1:$-1))+';%scicos_navig=1';
+		   'Cmenu=[];xselect();%scicos_navig=[];']
 
   if argn(2)<3 then with_intermediates=%f,end
   if argn(2)<2 then mess=' ',end

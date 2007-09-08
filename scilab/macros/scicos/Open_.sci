@@ -21,15 +21,14 @@ function Open_()
                            // some situations    
     alreadyran = %f ;
   end
-
   inactive_windows=close_inactive_windows(inactive_windows,super_path)
-  
+
   xselect();
-  
+
   disablemenus(); 
-  
+
   [ok,scs_m,%cpr,edited] = do_load();
-  
+
   if super_block then edited = %t;end
   
   if ok then
@@ -38,7 +37,7 @@ function Open_()
     end
     
     options = scs_m.props.options ; 
-    
+
     clf() ; 
     
     set_background();
@@ -89,7 +88,7 @@ function Open_()
     //**--------------
     
     drawlater() ;
-    
+
     drawobjs(scs_m) ;
     
     drawnow() ;show_pixmap() ;

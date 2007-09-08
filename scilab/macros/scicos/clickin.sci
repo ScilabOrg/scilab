@@ -57,7 +57,7 @@ if typeof(o)=="Block" then
 
       for jk=jkk 
         curwinc=inactive_windows(2)(jk),
-        ha=gcf(curwinc)
+//        ha=gcf(curwinc)
 //        if diffobjs(o.model.rpar,ha.user_data) then
 //           pause
 //           xdel(curwinc)

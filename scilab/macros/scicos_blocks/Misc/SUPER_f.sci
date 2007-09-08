@@ -36,12 +36,15 @@ case 'getorigin' then
       else
         global %scicos_navig
         global Scicos_commands 
+        global inactive_windows
         %scicos_navig=[];Scicos_commands=[]
 	if ~or(curwin==winsid()) then  // in case super block is closed
           scf(curwin)
-	  indx=find(curwin==inactive_windows(2))
-	  inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
 	end
+        indx=find(curwin==inactive_windows(2))
+        if indx<> [] then
+	   inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
+        end
       end
     end
   end

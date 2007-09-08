@@ -3,7 +3,7 @@ function New_()
 //**     
     Cmenu = [] ; //** clear previous command 
     
-    %r = 1     ; //** preload the default answer
+    %r = 2     ; //** preload the default answer
     if edited then
       %r = message(["Diagram has not been saved";
 	            "Are you sure you want to proceed ?"],['No';'Yes'])
@@ -16,7 +16,7 @@ function New_()
       if alreadyran then
           do_terminate() ; // terminate current simulation
       end  
-      clear(%scicos_solver)  // avoids forcing implicit compilation in
+      clear('%scicos_solver')  // avoids forcing implicit compilation in
                            // some situations 
       alreadyran = %f ; 
       scs_m = scicos_diagram(version=get_scicos_version()) ; //** create a empty diagram 

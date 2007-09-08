@@ -1,4 +1,4 @@
-function tree_show(x)
+function tree_show(x,titletop)
 //** INRIA
 //** Comments by Simone Mannori
 
@@ -29,7 +29,12 @@ end
 
 v = getfield(1,x);
 
-tt = 'wm title .ss '+v(1);
+if argn(2)>1 then
+   tt = 'wm title .ss {'+titletop+'}';
+else
+   tt = 'wm title .ss '+v(1);
+end
+
 TCL_EvalStr(tt)
 Path = 'root'
 crlist3(x,Path);
@@ -43,7 +48,12 @@ function crlist3(x,Path)
   if type(x)==15 then
       II=1:size(x);v=string(II);
   else 
-      v=getfield(1,x);II=2:size(v,'*');
+      v=getfield(1,x);
+      if type(x)==17 & v(1)=='st' then
+         II=3:size(v,'*');
+      else
+         II=2:size(v,'*');
+      end
   end
   for i=II
     path=Path+','+string(i)
@@ -59,7 +69,12 @@ function crlist3(x,Path)
 	TCL_EvalStr('.ss.t insert end '+Path+' '+path+' -image [Bitmap::get folder] -text {'+titre2+'}')
 	crlist3(o,path) //** recursive 
     else
-        titre2=titre+': '+sprintf('%s',sci2exp(o))  ;
+        if size(o,'*')>40 then
+          tts=typeof(o)+' of size '+sci2exp(size(o))
+        else
+          tts=sprintf('%s',sci2exp(o))
+        end
+        titre2=titre+': '+tts  ;
         TCL_EvalStr('set yy {'+titre2+'}')
         TCL_EvalStr('.ss.t insert end '+Path+' '+path+' -text $yy')
     end
