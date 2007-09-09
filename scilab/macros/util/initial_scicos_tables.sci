@@ -914,13 +914,13 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                           'graphics','link','state','sim']);
 
   //** define scs_help_scilst lists
-  %scs_help_diagr=tlist(['diagr']);       //** diagr
-  %scs_help_params=tlist(['params']);     //** params
-  %scs_help_model=tlist(['model']);       //** model
-  %scs_help_graphics=tlist(['graphics']); //** graphics
-  %scs_help_link=tlist(['link']);         //** link
-  %scs_help_state=tlist(['state']);       //** state
-  %scs_help_sim=tlist(['sim']);           //** sim
+  %scs_help_diagr=tlist(['lst']);    //** diagr
+  %scs_help_params=tlist(['lst']);   //** params
+  %scs_help_model=tlist(['lst']);    //** model
+  %scs_help_graphics=tlist(['lst']); //** graphics
+  %scs_help_link=tlist(['lst']);     //** link
+  %scs_help_state=tlist(['lst']);    //** state
+  %scs_help_sim=tlist(['lst']);      //** sim
 
   //****** scicos_diagram ******/
   //****************************/
@@ -928,28 +928,34 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'props',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_diagr=scicos_help(%scs_help_diagr,...
                  'objs',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_diagr=scicos_help(%scs_help_diagr,...
                  'version',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
 
   //****** scicos_params ******/
@@ -958,91 +964,111 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'wpar',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'title',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tol',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tf',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'context',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void1',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'options',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void2',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void3',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'doc',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   //****** scicos_model ******/
   //**************************/
@@ -1050,199 +1076,243 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'sim',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'in',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'in2',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'intyp',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'out',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'out2',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'outtyp',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'evtin',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'evtout',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'state',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'dstate',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'odstate',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'rpar',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'ipar',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'opar',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'blocktype',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'firing',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'dep_ut',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'label',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nzcross',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nmode',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'equations',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   //****** scicos_graphics ******/
   //*****************************/
@@ -1250,118 +1320,144 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'orig',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'sz',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'flip',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'theta',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'exprs',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pin',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pout',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pein',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'peout',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'gr_i',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'id',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'in_implicit',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'out_implicit',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   //****** scicos_link ******/
   //*************************/
@@ -1369,433 +1465,1299 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'xx',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'yy',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'id',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'thick',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'ct',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'from',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'to',...
                  ["";
                   " ";
-                  "Type : "])
+                  " Size : ";
+                  " Type : "])
 //                  ["";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   //****** scicos_state ******/
   //**************************/
   %scs_help_state=scicos_help(%scs_help_state,...
-                 'x',...
-                 ["";
+                 'state',...
+                 [" Scilab typed list of type {xcs}. It contains all"
+                  " the states of the model, that is, everything than"
+                  " can evolve during the simulation.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " state contains {x}, {z}, {oz}, {iz}, "
+                  " {tevts}, {evtspt}, {pointi} and {outtb}."
+                  " ";
+                  " Size : 9.";
+                  " Type : scilab tlist"])
+
+//  %scs_help_state=scicos_help(%scs_help_state,...
+//                 'state',...
+//                  [" Une liste typée scilab de type {xcs}. Cette";
+//                   " liste contient tous les états du diagramme qui";
+//                   " vont évoluer pendant la simulation";
 //                   " ";
-//                   Type : "])
+//                   " state contient {x}, {z}, {oz}, {iz}, "
+//                   " {tevts}, {evtspt}, {pointi} et {outtb}."
+//                   " ";
+//                   " Taille : 9.";
+//                   " Type : tlist scilab."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'x',...
+                 [" The continuous-time state register, which is obtained "
+                  " by concatenating the continuous-time states of all "
+                  " the blocks.";
+                  " ";
+                  " Size : total of all the size of continuous-time state registers.";
+                  " Type : column vector of real numbers."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'x',...
+//                  [" Le registre des états continus qui est obtenu";
+//                   " en concatenant tous les états continus de tous";
+//                   " les blocs."
+//                   " ";
+//                   " Taille : total des tailles de tous les registres des états continus.";
+//                   " Type : vecteur colonne de nombres réels."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'z',...
-                 ["";
+                 [" The discrete-time state register, which is obtained"
+                  " by concatenating the discrete-time states of all"
+                  " the blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total of all the size of discrete-time state registers.";
+                  " Type : column vector of real number."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'z',...
+//                  [" Le registre des états discrets qui est obtenu";
+//                   " en concatenant tous les états discrets de tous";
+//                   " les blocs."
 //                   " ";
-//                   Type : "])
+//                   " Taille : total des tailles de tous les registres des états discrets.";
+//                   " Type : vecteur colonne de nombres réels."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'oz',...
-                 ["";
+                 [" The list of the object discrete-time state, which"
+                  " is obtained by concatenating the object "
+                  " discrete-time states of all the blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total of all the size of object state.";
+                  " Type : list of scilab object."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'oz',...
+//                  [" La liste des états objets discrets obtenue";
+//                   " par la concaténation de tous les états objets";
+//                   " de tous les blocs";
 //                   " ";
-//                   Type : "])
+//                   " Taille : total des tailles de toutes les listes des états objet.";
+//                   " Type : liste scilab."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'iz',...
-                 ["";
+                 [" Vector of size equal to the number of blocks."
+                  " That vector is used to store pointers of the "
+                  " working state register (work). If a block needs "
+                  " to allocate memory at initialization (flag 4), "
+                  " the associated pointer is saved here.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks.";
+                  " Type : column vector of real numbers."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'iz',...
+//                  [" Vecteur de taille égale au nombre de blocs.";
+//                   " Ce vecteur est utilisé pour enregistrer les"
+//                   " pointeurs des registres de travail (work)"
+//                   " Si un bloc fait une allocation du registre work"
+//                   " à l''initialisation (flag=4) alors le pointeur"
+//                   " associé est enregistré ici."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs.";
+//                   " Type : vecteur colonne de nombres réels."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'tevts',...
-                 ["";
+                 [" Vector of size equal to the number of activation"
+                  " sources. It contains the scheduled times for"
+                  " programmed activations in {evtspt}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of activation sources.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'tevts',...
+//                  [" Un vecteur de taille égale au nombre";
+//                   " de sources d''activation. C''est une table
+//                   " contenant les dates des événements "
+//                   " programmés dans {evtspt}."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de sources d''activation.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'evtspt',...
-                 ["";
+                 [" Vector of size equal to the number of activation"
+                  " sources. It is an event scheduler. ";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of activation sources.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'evtspt',...
+//                  [" Un vecteur de taille égale au nombre";
+//                   " de sources d''activation. C''est une table
+//                   " d''événements."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de sources d''activation.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'pointi',...
-                 ["";
+                 [" The number of the next programmed event.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : 1.";
+                  " Type : integer."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'pointi',...
+//                  [" Le numéro du prochain événement";
 //                   " ";
-//                   Type : "])
+//                   " Taille : 1";
+//                   " Type : entier."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'outtb',...
-                 ["";
+                 [" Scilab list containing all output registers "
+                  " of blocks. Each element of that list contains "
+                  " typed matrix-based data.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of regular output ports.";
+                  " Type : list of scilab matrix."])
+
+//   %scs_help_state=scicos_help(%scs_help_state,...
+//                  'outtb',...
+//                  [" Liste scilab contenant tous les registres";
+//                   " de sortie des blocs. Chaque éléments de cette"
+//                   " liste contient des données typées matricielles."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de ports réguliers de sortie.";
+//                   " Type : liste scilab contenant des matrices."])
 
   //****** scicos_sim ******/
   //************************/
   %scs_help_sim=scicos_help(%scs_help_sim,...
-                 'funs',...
-                 ["";
+                 'sim',...
+                 [" Scilab typed list of type {scs}. It contains "
+                  " static arrays coming from the result of the"
+                  " compilation. That arrays does not evolve"
+                  " during the simulation."
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : 33";
+                  " Type : scilab tlist"])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'sim',...
+//                  [" Une liste typée scilab de type {scs}. Cette";
+//                   " liste contient des tableaux statiques issus"
+//                   " du résultat de la compilation. Ces tableaux"
+//                   " n''évoluent pas pendant la simulation."
 //                   " ";
-//                   Type : "])
+//                   " Taille : 33";
+//                   " Type : tlist scilab."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'funs',...
+                 [" A list containing names of the computational"
+                  " functions or scilab functions.";
+                  " "
+                  " Size : number of blocks.";
+                  " Type : list of strings and/or scilab function."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'funs',...
+//                  [" Une liste qui contient les noms des";
+//                   " fonctions de calculs ou des fonctions";
+//                   " scilab";
+//                   " ";
+//                   " Taille : nombre de blocs.";
+//                   " Type : liste scilab."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'xptr',...
-                 ["";
+                 [" A vector pointer to the continuous time state "
+                  " register {x}. The continuous-time state of "
+                  " block {i} is "
+                  " {state.x(sim.xptr(i):sim.xptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'xptr',...
+//                  [" Un vecteur pointant vers le registre des états";
+//                   " continus {x}. Le registre des états continus";
+//                   " du bloc {i} peut-être retrouvé par :";
+//                   " {state.x(sim.xptr(i):sim.xptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'zptr',...
-                 ["";
+                 [" A vector pointer to the discrete time state "
+                  " register {z}. The discrete-time state of "
+                  " block {i} is "
+                  " {state.z(sim.zptr(i):sim.zptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'zptr',...
+//                  [" Un vecteur pointant vers le registre des états";
+//                   " discret {z}. Le registre des états discrets";
+//                   " du bloc {i} peut-être retrouvé par :";
+//                   " {state.z(sim.zptr(i):sim.zptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ozptr',...
-                 ["";
+                 [" A vector pointer to the object discrete state "
+                  " register {oz}. The object discrete state of "
+                  " block {i} is "
+                  " {state.oz(sim.ozptr(i):sim.ozptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ozptr',...
+//                  [" Un vecteur pointant vers le registre des états";
+//                   " objets discret {oz}. Le registre des états objets";
+//                   " du bloc {i} peut-être retrouvé par :";
+//                   " {state.oz(sim.ozptr(i):sim.ozptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'zcptr',...
-                 ["";
-                  " ";
-                  "Type : "])
-//                  ["";
+                 [" A vector pointer to the zero-crossing surfaces.";
+                  " register. That vector gives by block the used";
+                  " number of the zero-crossing.";
+                  "";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'zcptr',...
+//                  [" Un vecteur pointant vers le registre des";
+//                   " détections de surfaces. Ce vecteur indique";
+//                   " par bloc le nombre de passages à zéro utilisé.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'inpptr',...
-                 ["";
+                 [" (sim.inpptr(i+1)-sim.inpptr(i)) gives the number of";
+                  " regular input ports of the i block.";
+                  " inpptr(i) points to the beginning of ith block";
+                  " inputs within the indirection table {inplnk}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'inpptr',...
+//                  [" (sim.inpptr(i+1)-sim.inpptr(i)) donne le nombre";
+//                   " de ports réguliers d''entrée du bloc i.";
+//                   " inpptr(i) pointe vers le début des ports d''entrée"
+//                   " du bloc i et les connections à ces ports peuvent"
+//                   " retrouvées par la table d''indirection {inplnk}."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'outptr',...
-                 ["";
+                 [" (sim.outptr(i+1)-sim.outptr(i)) gives the number of";
+                  " regular ouyput ports of the i block.";
+                  " outptr(i) points to the beginning of ith block";
+                  " outputs within the indirection table {outlnk}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'outptr',...
+//                  [" (sim.outptr(i+1)-sim.outptr(i)) donne le nombre";
+//                   " de ports réguliers de sortie du bloc i.";
+//                   " outptr(i) pointe vers le début des ports de sortie"
+//                   " du bloc i et les connections à ces ports peuvent"
+//                   " retrouvées par la table d''indirection {outlnk}."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'inplnk',...
-                 ["";
+                 [" (cpr.sim.inplnk(cpr.sim.inpptr(i)-1+j))"
+                  " is the index of the link connected to "
+                  " the jth input port of the ith block where "
+                  " j goes from 1 to "
+                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i)). ";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of regular input port.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'inplnk',...
+//                  [" (cpr.sim.inplnk(cpr.sim.inpptr(i)-1+j))";
+//                   " est l''index du lien connecté à l''entrée j";
+//                   " du bloc i, où j va de 1 jusqu''à";
+//                   " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i))";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de port réguliers d''entrée.";
+//                   " Type : vecteur colonne de nombre entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'outlnk',...
-                 ["";
+                 [" (cpr.sim.outlnk(cpr.sim.outptr(i)-1+j))"
+                  " is the index of the link connected to "
+                  " the jth output port of the ith block where "
+                  " j goes from 1 to "
+                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i)). ";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of regular output port.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'outlnk',...
+//                  [" (cpr.sim.outlnk(cpr.sim.outptr(i)-1+j))";
+//                   " est l''index du lien connecté à la sortie j";
+//                   " du bloc i, où j va de 1 jusqu''à";
+//                   " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i))";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de port réguliers de sortie.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'rpar',...
-                 ["";
+                 [" Vector of real parameters that is "
+                  " obtained by concatenating the real" 
+                  " parameters registers of all the blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of real parameters.";
+                  " Type : column vector of real numbers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'rpar',...
+//                  [" Vecteur des paramètres réels qui est";
+//                   " obtenu en concatenant les registres"
+//                   " des paramètres réels de tous les blocs."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de paramètres réels.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'rpptr',...
-                 ["";
+                 [" A vector pointer to the real parameters"
+                  " register {rpar}. The real parameters of"
+                  " block i are "
+                  " {sim.rpar(sim.rpptr(i):sim.rpptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'rpptr',...
+//                  [" Un vecteur pointant vers le registre des";
+//                   " paramètres réels {rpar}. Les paramètres "
+//                   " réels du bloc i peuvent être retrouvés par :";
+//                   " {sim.rpar(sim.rpptr(i):sim.rpptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ipar',...
-                 ["";
+                 [" Vector of integer parameters that is "
+                  " obtained by concatenating the integer"
+                  " parameters registers of all the blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of integer parameters.";
+                  " Type : column vector of integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ipar',...
+//                  [" Vecteur des paramètres entiers qui est";
+//                   " obtenu en concatenant les registres"
+//                   " des paramètres entiers de tous les blocs."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de paramètres entiers.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ipptr',...
-                 ["";
+                 [" A vector pointer to the integer parameters"
+                  " register {ipar}. The integer parameters of"
+                  " block i are "
+                  " {sim.ipar(sim.ipptr(i):sim.ipptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of real numbers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ipptr',...
+//                  [" Un vecteur pointant vers le registre des";
+//                   " paramètres entier {ipar}. Les paramètres "
+//                   " entiers du bloc i peuvent être retrouvés par :";
+//                   " {sim.ipar(sim.ipptr(i):sim.ipptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'opar',...
-                 ["";
+                 [" List of object parameters that is "
+                  " obtained by concatenating the list"
+                  " of object parameters of all the blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of object parameters.";
+                  " Type : list of scilab objects."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'opar',...
+//                  [" Liste des paramètres objets qui est";
+//                   " obtenue en concatenant les listes"
+//                   " des paramètres objets de tous les blocs."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de paramètres objets.";
+//                   " Type : liste scilab."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'opptr',...
-                 ["";
+                 [" A vector pointer to the object parameters"
+                  " list {opar}. The object parameters of"
+                  " block i are "
+                  " {sim.opar(sim.opptr(i):sim.opptr(i+1)-1)}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'opptr',...
+//                  [" Un vecteur pointant vers la liste des";
+//                   " paramètres objets {opar}. Les paramètres "
+//                   " entiers du bloc i peuvent être retrouvés par :";
+//                   " {sim.opar(sim.opptr(i):sim.opptr(i+1)-1)}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'clkptr',...
-                 ["";
+                 [" A vector pointer to output activation ports.";
+                  " (cpr.sim.clkptr(i):cpr.sim.clkptr(i+1)-1) "
+                  " gives the number of output event ports";
+                  " of the block i.";
                   " ";
-                  "Type : "])
-//                  ["";
-//                   " ";
-//                   Type : "])
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'clkptr',...
+//                  [" Un vecteur pointant vers les ports ";
+//                   " d''activation de sortie."
+//                   " (cpr.sim.clkptr(i):cpr.sim.clkptr(i+1)-1)"
+//                   " donne les numéros des ports de sortie"
+//                   " événementiel du bloc i."
+//                   " "
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ordptr',...
-                 ["";
+                 [" A vector pointer to {ordclk} designating the"
+                  " part of {ordclk} corresponding to a given"
+                  " activation.";
+                  "(cpr.sim.ordptr(i):cpr.sim.ordptr(i+1)-1)"
+                  " points to the region within ordclk indicates "
+                  " the number of blocks activated by the output"
+                  " event ports numbered i."
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of sources of activation + 1.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ordptr',...
+//                  [" Un vecteur pointant vers {ordclk}";
+//                   " (cpr.sim.ordptr(i):cpr.sim.ordptr(i+1)-1)"
+//                   " pointe vers la zone de ordclk qui"
+//                   " indique les numéros des blocs activés par"
+//                   " le port événementiel numérotés i."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de source d''activations + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'execlk',...
-                 ["";
+                 ["Unused.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : -";
+                  " Type : matrix of real."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'execlk',...
+//                  ["Non utilisé.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : ";
+//                   " Type : "])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ordclk',...
-                 ["";
+                 [" A matrix associated to blocks activated by"
+                  " output activation ports. The first column"
+                  " contains the block number, and  the second,"
+                  " the event code by which the block should be"
+                  " called.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : total number of blocks summed by source of activations.";
+                  " Type : matrix of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ordclk',...
+//                  [" Une matrice associé aux blocs activés par";
+//                   " événements. La première colonne contient";
+//                   " les numéros des blocs et la deuxième le"
+//                   " code de l''événement par lequel le bloc"
+//                   " sera appelé pendant la simulation"
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre total de bloc sommé par source d''activations.";
+//                   " Type : matrice de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'cord',...
-                 ["";
+                 [" A matrix associated to always active blocks."
+                  " The first column contains the block number, "
+                  " and the second, the event code by which the "
+                  " block should be called.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : ncord.";
+                  " Type : matrix of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'cord',...
+//                  [" Une matrice associé aux blocs activés en";
+//                   " permanence. La première colonne contient";
+//                   " les numéros des blocs et la deuxième le"
+//                   " code de l''événement par lequel le bloc"
+//                   " sera appelé pendant la simulation"
 //                   " ";
-//                   Type : "])
+//                   " Taille : ncord.";
+//                   " Type : matrice de nombres entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'oord',...
-                 ["";
+                 [" Subset of {cord}. Blocks of that matrix "
+                  " have outputs which affect computation of"
+                  " continuous state derivatives"
                   " ";
-                  "Type : "])
-//                  ["";
-//                   " ";
-//                   Type : "])
+                  " Size : noord.";
+                  " Type : matrix of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'oord',...
+//                  [" Sous-ensemble de {cord}. Les blocs de cette";
+//                   " matrice ont des sorties qui affectent le "
+//                   " calcul des états continus.";
+//                   "  ";
+//                   " Taille : noord.";
+//                   " Type : matrice de nombres entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'zord',...
-                 ["";
+                 [" Subset of {zord}. Blocks of that matrix "
+                  " have outputs which affect computation of"
+                  " zero-crossing surfaces."
                   " ";
-                  "Type : "])
-//                  ["";
-//                   " ";
-//                   Type : "])
+                  " Size : nzord.";
+                  " Type : matrix of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'zord',...
+//                  [" Sous-ensemble de {cord}. Les blocs de cette";
+//                   " matrice ont des sorties qui affectent le "
+//                   " calcul des détections de surface.";
+//                   "  ";
+//                   " Taille : nzord.";
+//                   " Type : matrice de nombres entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'critev',...
-                 ["";
+                 [" A vector of size equal to the number of "
+                  " activations and containing zeros and "
+                  " ones. The value one indicates that the "
+                  " activation is critical in the sense that"
+                  " the continuous-time solver must be cold "
+                  " restarted.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of source of activation.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'critev',...
+//                  [" Un vecteur de taille égale au nombre";
+//                   " d''activation. Ce vecteur est composé de";
+//                   " 0 et de 1 qui indiquent si des événements";
+//                   " sont critiques dans le sens où le solveur";
+//                   " doit redémarrer à froid.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de sources d''activation.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'nb',...
-                 ["";
+                 [" Number of blocks. Note that the number of"
+                  " blocks may differ from the original number"
+                  " of blocks in the diagram because {c_pass2}"
+                  " may duplicate some conditional blocks."
                   " ";
-                  "Type : "])
-//                  ["";
-//                   " ";
-//                   Type : "])
+                  " Size : 1";
+                  " Type : integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'nb',...
+//                  [" Nombre de blocs. Notez que le nombre de";
+//                   " blocs peut être différent du nombre";
+//                   " original de blocs dans le diagramme";
+//                   " car la fonction {c_pass2} du compilateur";
+//                   " peut dupliquer des blocs synchrones.";
+//                   " "
+//                   " Taille : 1";
+//                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ztyp',...
-                 ["";
+                 [" A vector of size equal to the number of blocks."
+                  " A 1 entry indicates that the block may have "
+                  " zero-crossings, even if it doesn''t in the "
+                  " context of the diagram.  Usually not used by "
+                  " the simulator. ";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks.";
+                  " Type : column vector of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ztyp',...
+//                  [" Un vecteur de taille égale au nombre de blocs.";
+//                   " Une entrée égale à 1 indique que le bloc possède";
+//                   " une détection de surface."
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de source d''activations + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'nblk',...
-                 ["";
+                 ["Not used. Set to {nb}.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'nblk',...
+//                  ["Pas utilisé. Mis à {nb}.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : 1";
+//                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ndcblk',...
-                 ["";
+                 ["Not used.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : -";
+                  " Type : integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'ndcblk',...
+//                  ["Pas utilisé.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : -";
+//                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'subscr',...
-                 ["";
+                 [" Not used.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : 0";
+                  " Type : empty real."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'subscr',...
+//                  ["Pas utilisé.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : 0";
+//                   " Type : vide."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'funtyp',...
-                 ["";
+                 [" A vector of size equal to the number of blocks"
+                  " indicating the type of the computational function"
+                  " of the block. Block type can be 0 through 5."
+                  " Currently only type 4 (C language) and type 5"
+                  " (Scilab language) computational functions should"
+                  " be used. But older blocks can also be used.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : number of blocks.";
+                  " Type : column vector of integer."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'funtyp',...
+//                  [" Un vecteur de taille égale au nombre de blocs";
+//                   " qui indique le type de la fonction de calcul.";
+//                   " Le type de bloc peut aller de 0 à 5.";
+//                   " Les blocs courants de Scicos sont les blocs";
+//                   " de type 4 (bloc C) et de type 5 (bloc scilab).";
+//                   " Les anciens blocs restent compatibles.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'iord',...
-                 ["";
+                 [" A matrix associated to blocks that"
+                  " must be activated at the start of "
+                  " the simulation. This includes blocks "
+                  " inheriting from constant blocks and "
+                  " always active blocks.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : niord.";
+                  " Type : matrix of integers."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'iord',...
+//                  [" Une matrice qui associe les blocs à activer ";
+//                   " au début de la simulation. Celà inclue les";
+//                   " blocs {Constante} et les blocs activés en";
+//                   " permanence.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : niord.";
+//                   " Type : matrice de nombres entiers."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'labels',...
-                 ["";
+                 [" A string vector of size equal"
+                  " to the number of blocks "
+                  " containing block labels.";
                   " ";
-                  "Type : "])
-//                  ["";
+                  " Size : numbers of blocks.";
+                  " Type : column vector of strings."])
+
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'labels',...
+//                  [" Un vecteur de chaîne de caractères de";
+//                   " taille égale au nombre de blocs "
+//                   " contenant les labels des blocs.";
 //                   " ";
-//                   Type : "])
+//                   " Taille : nombre de blocs.";
+//                   " Type : vecteur colonne de chaînes de caractères."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'modptr',...
-                 ["";
+                 [" A vector pointer to the block modes.";
                   " ";
-                  "Type : "])
-//                  ["";
-//                   " ";
-//                   Type : "])
+                  " Size : number of blocks + 1.";
+                  " Type : column vector of integer."])
 
+//   %scs_help_sim=scicos_help(%scs_help_sim,...
+//                  'modptr',...
+//                  [" Un vecteur pointant sur les modes des blocs";
+//                   " ";
+//                   " Taille : nombre de blocs + 1.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   //==========================================================
 
   //Enter here traduction for initial scicos tables ==========
+  if ~exists('LANGUAGE') then global LANGUAGE, end
+
+  if LANGUAGE=='fr' then
+  //****** scicos_state ******/
+  //**************************/
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'state',...
+                  [" Une liste typée scilab de type {xcs}. Cette";
+                   " liste contient tous les états du diagramme qui";
+                   " vont évoluer pendant la simulation.";
+                   " ";
+                   " state contient {x}, {z}, {oz}, {iz}, "
+                   " {tevts}, {evtspt}, {pointi} et {outtb}."
+                   " ";
+                   " Taille : 9.";
+                   " Type : tlist scilab."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'x',...
+                 [" Le registre des états continus qui est obtenu";
+                  " en concatenant tous les états continus de tous";
+                  " les blocs."
+                  " ";
+                  " Taille : total des tailles de tous les registres des états continus.";
+                  " Type : vecteur colonne de nombres réels."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'z',...
+                 [" Le registre des états discrets qui est obtenu";
+                  " en concatenant tous les états discrets de tous";
+                  " les blocs."
+                  " ";
+                  " Taille : total des tailles de tous les registres des états discrets.";
+                  " Type : vecteur colonne de nombres réels."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'oz',...
+                 [" La liste des états objets discrets obtenue";
+                  " par la concaténation de tous les états objets";
+                  " de tous les blocs.";
+                  " ";
+                  " Taille : total des tailles de toutes les listes des états objet.";
+                  " Type : liste scilab."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'iz',...
+                 [" Vecteur de taille égale au nombre de blocs.";
+                  " Ce vecteur est utilisé pour enregistrer les"
+                  " pointeurs des registres de travail (work)"
+                  " Si un bloc fait une allocation du registre work"
+                  " à l''initialisation (flag=4) alors le pointeur"
+                  " associé est enregistré ici."
+                  " ";
+                  " Taille : nombre de blocs.";
+                  " Type : vecteur colonne de nombres réels."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'tevts',...
+                 [" Un vecteur de taille égale au nombre";
+                  " de sources d''activation. C''est une table"
+                  " contenant les dates des événements "
+                  " programmés dans {evtspt}."
+                  " ";
+                  " Taille : nombre de sources d''activation.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'evtspt',...
+                 [" Un vecteur de taille égale au nombre";
+                  " de sources d''activation. C''est une table"
+                  " d''événements."
+                  " ";
+                  " Taille : nombre de sources d''activation.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'pointi',...
+                 [" Le numéro du prochain événement";
+                  " ";
+                  " Taille : 1";
+                  " Type : entier."])
+
+  %scs_help_state=scicos_help(%scs_help_state,...
+                 'outtb',...
+                 [" Liste scilab contenant tous les registres";
+                  " de sortie des blocs. Chaque éléments de cette"
+                  " liste contient des données typées matricielles."
+                  " ";
+                  " Taille : nombre de ports réguliers de sortie.";
+                  " Type : liste scilab contenant des matrices."])
+
+  //****** scicos_sim ******/
+  //************************/
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'sim',...
+                 [" Une liste typée scilab de type {scs}. Cette";
+                  " liste contient des tableaux statiques issus"
+                  " du résultat de la compilation. Ces tableaux"
+                  " n''évoluent pas pendant la simulation."
+                  " ";
+                  " Taille : 33";
+                  " Type : tlist scilab."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'funs',...
+                 [" Une liste qui contient les noms des";
+                  " fonctions de calculs ou des fonctions";
+                  " scilab";
+                  " ";
+                  " Taille : nombre de blocs.";
+                  " Type : liste scilab."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'xptr',...
+                 [" Un vecteur pointant vers le registre des états";
+                  " continus {x}. Le registre des états continus";
+                  " du bloc {i} peut-être retrouvé par :";
+                  " {state.x(sim.xptr(i):sim.xptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'zptr',...
+                 [" Un vecteur pointant vers le registre des états";
+                  " discret {z}. Le registre des états discrets";
+                  " du bloc {i} peut-être retrouvé par :";
+                  " {state.z(sim.zptr(i):sim.zptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ozptr',...
+                 [" Un vecteur pointant vers le registre des états";
+                  " objets discret {oz}. Le registre des états objets";
+                  " du bloc {i} peut-être retrouvé par :";
+                  " {state.oz(sim.ozptr(i):sim.ozptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'zcptr',...
+                 [" Un vecteur pointant vers le registre des";
+                  " détections de surfaces. Ce vecteur indique";
+                  " par bloc le nombre de passages à zéro utilisé.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'inpptr',...
+                 [" (sim.inpptr(i+1)-sim.inpptr(i)) donne le nombre";
+                  " de ports réguliers d''entrée du bloc i.";
+                  " inpptr(i) pointe vers le début des ports d''entrée"
+                  " du bloc i et les connections à ces ports peuvent"
+                  " retrouvées par la table d''indirection {inplnk}."
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'outptr',...
+                 [" (sim.outptr(i+1)-sim.outptr(i)) donne le nombre";
+                  " de ports réguliers de sortie du bloc i.";
+                  " outptr(i) pointe vers le début des ports de sortie"
+                  " du bloc i et les connections à ces ports peuvent"
+                  " retrouvées par la table d''indirection {outlnk}."
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'inplnk',...
+                 [" (cpr.sim.inplnk(cpr.sim.inpptr(i)-1+j))";
+                  " est l''index du lien connecté à l''entrée j";
+                  " du bloc i, où j va de 1 jusqu''à";
+                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i))";
+                  " ";
+                  " Taille : nombre total de port réguliers d''entrée.";
+                  " Type : vecteur colonne de nombre entier."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'outlnk',...
+                 [" (cpr.sim.outlnk(cpr.sim.outptr(i)-1+j))";
+                  " est l''index du lien connecté à la sortie j";
+                  " du bloc i, où j va de 1 jusqu''à";
+                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i))";
+                  " ";
+                  " Taille : nombre total de port réguliers de sortie.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'rpar',...
+                 [" Vecteur des paramètres réels qui est";
+                  " obtenu en concatenant les registres"
+                  " des paramètres réels de tous les blocs."
+                  " ";
+                  " Taille : nombre total de paramètres réels.";
+                  " Type : vecteur colonne de nombre réels."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'rpptr',...
+                 [" Un vecteur pointant vers le registre des";
+                  " paramètres réels {rpar}. Les paramètres "
+                  " réels du bloc i peuvent être retrouvés par :";
+                  " {sim.rpar(sim.rpptr(i):sim.rpptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ipar',...
+                 [" Vecteur des paramètres entiers qui est";
+                  " obtenu en concatenant les registres"
+                  " des paramètres entiers de tous les blocs."
+                  " ";
+                  " Taille : nombre total de paramètres entiers.";
+                  " Type : vecteur colonne de nombre réels."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ipptr',...
+                 [" Un vecteur pointant vers le registre des";
+                  " paramètres entier {ipar}. Les paramètres "
+                  " entiers du bloc i peuvent être retrouvés par :";
+                  " {sim.ipar(sim.ipptr(i):sim.ipptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entier."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'opar',...
+                 [" Liste des paramètres objets qui est";
+                  " obtenue en concatenant les listes"
+                  " des paramètres objets de tous les blocs."
+                  " ";
+                  " Taille : nombre total de paramètres objets.";
+                  " Type : liste scilab."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'opptr',...
+                 [" Un vecteur pointant vers la liste des";
+                  " paramètres objets {opar}. Les paramètres "
+                  " entiers du bloc i peuvent être retrouvés par :";
+                  " {sim.opar(sim.opptr(i):sim.opptr(i+1)-1)}.";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'clkptr',...
+                 [" Un vecteur pointant vers les ports ";
+                  " d''activation de sortie."
+                  " (cpr.sim.clkptr(i):cpr.sim.clkptr(i+1)-1)"
+                  " donne les numéros des ports de sortie"
+                  " événementiel du bloc i."
+                  " "
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ordptr',...
+                 [" Un vecteur pointant vers {ordclk}";
+                  " (cpr.sim.ordptr(i):cpr.sim.ordptr(i+1)-1)"
+                  " pointe vers la zone de ordclk qui"
+                  " indique les numéros des blocs activés par"
+                  " le port événementiel numérotés i."
+                  " ";
+                  " Taille : nombre de source d''activations + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'execlk',...
+                 ["Non utilisé.";
+                  " ";
+                  " Taille : ";
+                  " Type : "])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ordclk',...
+                 [" Une matrice associé aux blocs activés par";
+                  " événements. La première colonne contient";
+                  " les numéros des blocs et la deuxième le"
+                  " code de l''événement par lequel le bloc"
+                  " sera appelé pendant la simulation"
+                  " ";
+                  " Taille : nombre total de bloc sommé par source d''activations.";
+                  " Type : matrice de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'cord',...
+                 [" Une matrice associé aux blocs activés en";
+                  " permanence. La première colonne contient";
+                  " les numéros des blocs et la deuxième le"
+                  " code de l''événement par lequel le bloc"
+                  " sera appelé pendant la simulation"
+                  " ";
+                  " Taille : ncord.";
+                  " Type : matrice de nombres entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'oord',...
+                 [" Sous-ensemble de {cord}. Les blocs de cette";
+                  " matrice ont des sorties qui affectent le "
+                  " calcul des états continus.";
+                  "  ";
+                  " Taille : noord.";
+                  " Type : matrice de nombres entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'zord',...
+                 [" Sous-ensemble de {cord}. Les blocs de cette";
+                  " matrice ont des sorties qui affectent le "
+                  " calcul des détections de surface.";
+                  "  ";
+                  " Taille : nzord.";
+                  " Type : matrice de nombres entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'critev',...
+                 [" Un vecteur de taille égale au nombre";
+                  " d''activation. Ce vecteur est composé de";
+                  " 0 et de 1 qui indiquent si des événements";
+                  " sont critiques dans le sens où le solveur";
+                  " doit redémarrer à froid.";
+                  " ";
+                  " Taille : nombre de sources d''activation.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'nb',...
+                 [" Nombre de blocs. Notez que le nombre de";
+                  " blocs peut être différent du nombre";
+                  " original de blocs dans le diagramme";
+                  " car la fonction {c_pass2} du compilateur";
+                  " peut dupliquer des blocs synchrones.";
+                  " "
+                  " Taille : 1";
+                  " Type : entier."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ztyp',...
+                 [" Un vecteur de taille égale au nombre de blocs.";
+                  " Une entrée égale à 1 indique que le bloc possède";
+                  " une détection de surface."
+                  " ";
+                  " Taille : nombre de source d''activations + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'nblk',...
+                 ["Pas utilisé. Mis à {nb}.";
+                  " ";
+                  " Taille : 1";
+                  " Type : entier."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'ndcblk',...
+                 ["Pas utilisé.";
+                  " ";
+                  " Taille : -";
+                  " Type : entier."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'subscr',...
+                 ["Pas utilisé.";
+                  " ";
+                  " Taille : 0";
+                  " Type : vide."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'funtyp',...
+                 [" Un vecteur de taille égale au nombre de blocs";
+                  " qui indique le type de la fonction de calcul.";
+                  " Le type de bloc peut aller de 0 à 5.";
+                  " Les blocs courants de Scicos sont les blocs";
+                  " de type 4 (bloc C) et de type 5 (bloc scilab).";
+                  " Les anciens blocs restent compatibles.";
+                  " ";
+                  " Taille : nombre de blocs.";
+                  " Type : vecteur colonne de nombre entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'iord',...
+                 [" Une matrice qui associe les blocs à activer ";
+                  " au début de la simulation. Celà inclue les";
+                  " blocs {Constante} et les blocs activés en";
+                  " permanence.";
+                  " ";
+                  " Taille : niord.";
+                  " Type : matrice de nombres entiers."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'labels',...
+                 [" Un vecteur de chaîne de caractères de";
+                  " taille égale au nombre de blocs "
+                  " contenant les labels des blocs.";
+                  " ";
+                  " Taille : nombre de blocs.";
+                  " Type : vecteur colonne de chaînes de caractères."])
+
+  %scs_help_sim=scicos_help(%scs_help_sim,...
+                 'modptr',...
+                 [" Un vecteur pointant sur les modes des blocs";
+                  " ";
+                  " Taille : nombre de blocs + 1.";
+                  " Type : vecteur colonne de nombre entiers."])
+  end
   //==========================================================
 
   //Build final Scicos Help list =============================

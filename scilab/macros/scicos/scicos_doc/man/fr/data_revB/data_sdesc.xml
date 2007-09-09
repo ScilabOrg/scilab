@@ -1,7 +1,7 @@
 <DATA flag="sdesc">
 
 <FILE name='ABCD_Blocks' type='XML'>
-  <SHORT_DESCRIPTION name="ABCD_Blocks">Ordre alphabétique</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="ABCD_Blocks">Blocs par ordre alphabétique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>

@@ -165,6 +165,31 @@ function tt=generate_scs_outline()
                "</WHATIS>"];
 endfunction
 
+//gen_void_list_doc : generate void tex txt to do doc of a
+//                    typed list
+function [txt] = gen_void_list_doc(typdoc,lang,list_t)
+  if lang=='fr' then
+    tt_desc='entrez ici la description';
+    tt_typ ='Type : ';
+  else
+    tt_desc='enter here the description';
+    tt_typ ='Type : ';
+  end
+
+  fields_lst=getfield(1,list_t);
+  txt=['\begin{itemize}'];
+  for i=2:size(fields_lst,2)
+     txt=[txt;
+          '  '+'\item{\bf '+fields_lst(i)'+'}\\';
+          '        '+tt_desc
+          '        '+ tt_typ
+          ''];
+  end
+
+  txt=[txt
+       '\end{itemize}'];
+endfunction
+
 //gen_entries : generate tex file of entries of editor menu from
 //initial_scicos_tables
 function [txt_en] = gen_entries (typdoc,lang)
@@ -206,8 +231,8 @@ function [txt_en] = gen_entries (typdoc,lang)
        txt_en($) = txt_en($) + ' ('+%scicos_short(sc_ind,1)+')'
      end
 
-     //**retrieve help in %scicos_help
-     if execstr('help_txt = %scicos_help(entry_title)','errcatch')==0 then
+     //**retrieve help in %scicos_help.menu
+     if execstr('help_txt = %scicos_help.menu(entry_title)','errcatch')==0 then
        txt_en($) = txt_en($) + '}\\'
        txt_en=[txt_en;
                '      '+latexsubst(help_txt);

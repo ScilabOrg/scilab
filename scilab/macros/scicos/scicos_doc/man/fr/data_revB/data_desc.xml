@@ -828,12 +828,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='ESELECT_f' type='LATEX'>
-Un bloc selecteur accepte sur son entrée aussi bien un vecteur qu'une matrice.
-Vous pouvez définir le paramètre {\bf Input Type} au type de signal que vous
-utilisez dans votre modèle (matrice ou vecteur).
-Les paramètres de la boîte de dialogue et l'aspect du bloc changent en accord
-avec le type de l'entrée, ainsi que la manière dont il détermine les éléments 
-à sélectionner.
+Bloc spécial similaire au bloc If-Then-Else. Les entrées/sorties
+événementielles sont synchronisées. L'événement entrant est redirigé
+sur l'un des ports de sortie événementiels suivant le valeur de
+l'entrée régulière.
 </FILE>
 
 <FILE name='EVTDLY_c' type='LATEX'>
@@ -2369,13 +2367,19 @@ entrée événementielle $i$, alors la valeur présente sur le
 </FILE>
 
 <FILE name='SELECT_m' type='LATEX'>
-Ce bloc redirige l'une de ses entrées régulières sur l'unique
-sortie régulière.
-Le choix qui est fait pour savoir quel est le port d'entrée redirigé
-est initalement fait par le paramètre {\bf initial connected input}.
-Pendant la simulation, à chaque fois que ce bloc est activé par son
-entrée événementielle $i$, alors la valeur présente sur le
- $i^{\rm \grave{e}me}$ port régulier est recopiée sur la sortie.
+Un bloc selecteur accepte sur son entrée aussi bien un vecteur qu'une matrice.
+Vous pouvez définir le paramètre {\bf Input Type} au type de signal que vous
+utilisez dans votre modèle (matrice ou vecteur).
+Les paramètres de la boîte de dialogue et l'aspect du bloc changent en accord
+avec le type de l'entrée, ainsi que la manière dont il détermine les éléments 
+à sélectionner.
+%Ce bloc redirige l'une de ses entrées régulières sur l'unique
+%sortie régulière.
+%Le choix qui est fait pour savoir quel est le port d'entrée redirigé
+%est initalement fait par le paramètre {\bf initial connected input}.
+%Pendant la simulation, à chaque fois que ce bloc est activé par son
+%entrée événementielle $i$, alors la valeur présente sur le
+% $i^{\rm \grave{e}me}$ port régulier est recopiée sur la sortie.
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
