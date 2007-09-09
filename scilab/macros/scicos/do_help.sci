@@ -125,8 +125,10 @@ end //** of the No Selection / Selection case
     
   else //** nm==1 ; 
 
-    if execstr('mess = %scicos_help(name)' , 'errcatch') <>0 then
-      mess = "No help available on this topic. Sorry.";
+    if execstr('mess = %scicos_help.menu(name)' , 'errcatch') <>0 then
+      if execstr('mess = %scicos_help(name)' , 'errcatch') <>0 then
+        mess = "No help available on this topic. Sorry.";
+      end
     end
   
     message(mess); //** show the message   
