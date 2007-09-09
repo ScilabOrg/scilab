@@ -49,6 +49,10 @@ Clicking on the New menu item loads an empty diagram in the
 <P>
 </LI>
 <LI><B>File:Open</B>
+<BR>
+Select the Open menu item to load an ASCII or binary file
+       containing a saved block diagram or palette.
+       A dialog box allows user choosing the file.
 
 <P>
 </LI>
@@ -66,23 +70,7 @@ Select the save menu item to save the block diagram
        select the Save As menu item. If you select this
        menu item and you have never clicked on the Save As
        menu item, the diagram is saved in the current directory
-       as <SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/Menu_entries_img1_fr.gif"
- ALT="$ &lt;$"></SPAN>
-window_name<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/Menu_entries_img2_fr.gif"
- ALT="$ &gt;$"></SPAN>
-.cos where <SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/Menu_entries_img1_fr.gif"
- ALT="$ &lt;$"></SPAN>
-window_name<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/Menu_entries_img2_fr.gif"
- ALT="$ &gt;$"></SPAN>
- is the name
+       as "window_name".cos where "window_name" is the name
        of the window appearing on top of the window (usually
        Untitled or Super Block).
 
@@ -93,9 +81,9 @@ The .cos binary files are machine independent.
 </LI>
 <LI><B>File:Save As</B>
 <BR>
-Select the Save As menu item to save the block diagram
-       or palette in a  file. A dialog box allows choosing 
-       the file which must have a .cos or .cosf extension. The diagram
+Select the Save As menu item to save the block diagram or
+       palette in a file. A dialog box allows choosing the file
+       which must have a .cos or .cosf extension. The diagram
        takes the name of the file (without the extension).
 
 <P>
@@ -109,14 +97,18 @@ If extension is ".cosf" an ASCII  formatted save is performed
 <BR>
 Select "the Save as Interf. Func." menu item to save the 
        diagram as a new Scicos block. A Scilab function is generated
-       and saved in a  file with ".sci" extension. File name and path
+       and saved in a file with ".sci" extension. File name and path
        are to be set in a "File menu" dialog.
 
 <P>
 </LI>
 <LI><B>File:Export</B>
 <BR>
-This menu is used to export Scicos diagram in postscript format.
+This menu is used to export a figure of the 
+       current Scicos diagram. The export can be done
+       directly in postscript format or done first in a
+       graphic window to export in a second step in all
+       the format that scilab can provide.
 
 <P>
 </LI>
@@ -127,12 +119,16 @@ This menu is used to export Scicos diagrams in postscript format.
 <P>
 </LI>
 <LI><B>File:Exit Scicos</B>
+<BR>
+Click on the Exit Scicos menu item to close Scicos.
+       That menu allows to return to Scilab session 
+       even if the current diagram is a Super block.
 
 <P>
 </LI>
 <LI><B>File:Quit (q)</B>
 <BR>
-Click on the Exit menu item to close current diagram. 
+Click on the Quit menu item to close current diagram. 
        If current diagram is not a Super block, Exit menu closes 
        Scicos and returns to Scilab session. Save your diagram 
        or/and your palette before leaving.
@@ -161,7 +157,7 @@ Replot is useful for 'cleaning' this memory.
 </LI>
 <LI><B>Diagram:Purge</B>
 <BR>
-select the Purge menu item to get a clean data structure:
+Select the Purge menu item to get a clean data structure.
        If diagram has been hugely modified many deleted blocks
        may remain in the data structure. It may be  useful to
        suppress then before saving.
@@ -170,8 +166,8 @@ select the Purge menu item to get a clean data structure:
 </LI>
 <LI><B>Diagram:Set Diagram Info</B>
 <BR>
-This menu allows to set user's diagram information;
-       this info is stored in the diagram data structure
+This menu allows to set user's diagram information.
+       This info is stored in the diagram data structure
        and may be used for diagram documentation.
 
 <P>
@@ -183,8 +179,8 @@ Information format may be redefined by user.
 <BR>
 This menu allows to transform a rectangular region of the
        current diagram by a super block.
-       Click  on a corner of the region , drag an click left to
-       fix the region (left click cancels selection)
+       Click  on a corner of the region, drag an click left to
+       fix the region (left click cancels selection).
 
 <P>
 Region is replaced by a super block and links are redrawn.
@@ -197,16 +193,16 @@ Region is replaced by a super block and links are redrawn.
 </LI>
 <LI><B>Diagram:Context</B>
 <BR>
-When you select this menu item you obtain a dialog to
-       enter Scilab instructions for defining symbolic Scicos parameters
-        used in block definitions or to do whatever you want
+When you select this menu item you obtain a dialog to enter 
+       Scilab instructions for defining symbolic Scicos parameters 
+       used in block definitions or to do whatever you want.
 
 <P>
 These instructions will be evaluated each time the diagram 
        is loaded.
 
 <P>
-If you  change the value of a symbolic Scicos parameters in 
+If you change the value of a symbolic Scicos parameters in 
        the context, all the blocks are updated (Eval is performed).
 
 <P>
@@ -231,7 +227,7 @@ Pal editor allows you to define and reorder the palettes.
 </LI>
 <LI><B>Palette:Load as Palette</B>
 <BR>
-select the Load menu item to load an ASCII or binary file
+Select this Load menu item to load an ASCII or binary file
        containing a saved block diagram as a palette.
        A dialog box allows user choosing the file.
 
@@ -246,7 +242,7 @@ Select the Save as Palette menu item to save the block diagram
 
 <P>
 If extension is ".cosf" an ASCII  formatted save is performed
-       instead of binary save. It may take a while
+       instead of binary save. It may take a while.
 
 <P>
 .scilab user file is updated if necessary.
@@ -295,7 +291,7 @@ Paste places the object in the Clipboard in the diagram.
 To duplicate a block in the active editor Scicos window
        select first the Duplicate menu item, then
        click (with left button) on the to-be-copied block
-       in Scicos windows or in a palette) ,  and
+       in Scicos windows or in a palette), and
        finally click left where you want the copy
        be placed in the active editor Scicos window.
 
@@ -312,7 +308,7 @@ Right click cancel the copy action.
 <BR>
 To delete  blocks or a links, select first the Delete
        menu item, then click successively on the selected objects
-      (with left button).
+       (with left button).
 
 <P>
 When you delete a block all links connected to it
@@ -322,7 +318,7 @@ When you delete a block all links connected to it
 </LI>
 <LI><B>Edit:Move (m)</B>
 <BR>
-To move a block in  the active editor Scicos window
+To move a block in the active editor Scicos window
        or in edited palette,
        select first the Move menu item, 
        then click on the selected block, link segment or link
@@ -352,7 +348,7 @@ Right click cancel the move action.
 <BR>
 To obtain nice diagrams, you can align ports of
        different blocks, vertically and horizontally.
-       Select first  the Align menu item, then click on the first
+       Select first the Align menu item, then click on the first
        port and finally on the second port.
        The block corresponding to the second port is moved.
 
@@ -371,30 +367,49 @@ To reverse the positions of the (regular) inputs
        ports which are numbered from left to right.
 
 <P>
-A connected block cannot be flipped.
-
-<P>
 </LI>
 <LI><B>Edit:Rotate Left (t)</B>
 <BR>
+Rotate Left allows to turn a block on the Left.
+       Each time the block is turned left, his angle is
+       decresead of 45 degrees.
+
+<P>
+If no blocks or many blocks are selected, this is
+       the block under the mouse pointer which turns.
+
 <P>
 </LI>
 <LI><B>Edit:Rotate Right (T)</B>
 <BR>
+Rotate Right allows to turn a block on the right.
+       Each time the block is turned right, his angle is
+       incresead of 45 degrees.
+
+<P>
+If no blocks or many blocks are selected, this is
+       the block under the mouse pointer which turns.
+
 <P>
 </LI>
 <LI><B>Edit:Add new block</B>
 <BR>
 To add a newly defined block to the current palette or diagram
-       select first this menu item, A dialog box will pop up 
+       select first this menu item. A dialog box will pop up 
        asking for the name of the GUI function associated 
        with the block. If this function is not already loaded
        it was search in the current directory. The user may then
-       click at the desired position of the block icon .
+       click at the desired position of the block icon.
 
 <P>
 </LI>
 <LI><B>Edit:Block Documentation</B>
+<BR>
+This menu allows to set or get documentation for a block.
+
+<P>
+Selecting this menu and clicking on a block opens an
+       editable dialog box.
 
 <P>
 </LI>
@@ -403,7 +418,7 @@ To add a newly defined block to the current palette or diagram
 To add a label to block, select first this menu item, click next
        on the desired block. A dialog appear that allows you to enter 
        the desired label.
-       labels are used to import data from a block in an other one.
+       Labels are used to import data from a block in an other one.
 
 <P>
 </LI>
@@ -416,20 +431,22 @@ View menu</A>
 <LI><B>View:Zoom in (+)</B>
 <BR>
 When you select this menu item the diagram is zoomed in 
-      by a factor of 10%.
+       by a factor of 10%.
 
 <P>
 </LI>
 <LI><B>View:Zoom out (-)</B>
 <BR>
 When you select this menu item the diagram is zoomed out 
-      by a factor of 10%.
+       by a factor of 10%.
 
 <P>
 </LI>
 <LI><B>View:Fit diagram to figure (=)</B>
 <BR>
-When you select this menu item the diagram is fit in the figure
+When you select this menu item
+       the diagram is fit to the size
+       of the current window.
 
 <P>
 </LI>
@@ -438,6 +455,8 @@ When you select this menu item the diagram is fit in the figure
 <P>
 </LI>
 <LI><B>View:Grid (g)</B>
+<BR>
+Show/hide a grid in the current diagram.
 
 <P>
 </LI>
@@ -483,7 +502,7 @@ Max step size (max time step taken by solver).
 </LI>
 <LI><B>Simulate:Compile</B>
 <BR>
-select the Compile menu item to compile the block diagram.
+Select the Compile menu item to compile the block diagram.
        This menu item need never be used since compilation is
        performed automatically, if necessary, before
        the beginning of every simulation (Run menu item).
@@ -500,9 +519,9 @@ Normally, a new compilation is not needed if only
 </LI>
 <LI><B>Simulate:Eval</B>
 <BR>
-All dialogs user answers may be Scilab instructions
-       they are evaluated immediately and stored as character strings.
-       select this menu item to have them re-evaluated according to
+All dialogs user answers may be Scilab instructions.
+       They are evaluated immediately and stored as character strings.
+       Select this menu item to have them re-evaluated according to
        new values of underlying Scilab variables. 
 
 <P>
@@ -516,7 +535,8 @@ These underlying Scilab variables may be user global variables
 <BR>
 Set the debug level: 0 (no debugging), 1 (light
        debugging information printout), 2 (more information
-       printout and execution of Debug Block if any in diagram)
+       printout and execution of Debug Block if any in diagram),
+       3 (silent debugging mode).
 
 <P>
 </LI>
@@ -542,7 +562,8 @@ Format menu</A>
 <UL>
 <LI><B>Format:Set grid</B>
 <BR>
-Set the grid
+Set the size and the color of 
+       the grid for the current diagram.
 
 <P>
 </LI>
@@ -570,18 +591,21 @@ To change the background color of an object, select first
 </LI>
 <LI><B>Format:Background color</B>
 <BR>
-This menu allows to change the background and default foreground
-       colors.
+This menu allows to change the background and default
+       foreground colors.
 
 <P>
 </LI>
 <LI><B>Format:Show Block Shadow</B>
+<BR>
+This menu allows to select 3D shape for blocks and 
+       associated parameters.
 
 <P>
 </LI>
 <LI><B>Format:Resize</B>
 <BR>
-To change the size of a block , select first this menu item,
+To change the size of a block, select first this menu item,
        click next on the desired block. A dialog appear that allows 
        you to change the width and/or height of the block shape.
 
@@ -592,7 +616,7 @@ To change the size of a block , select first this menu item,
 This menu allows to set an identificator to a link or a block 
        block identificators are drawn under the block icon. Super blocks
        input/output ports identificators are replicated over the block
-       shape ports. Links identificators are not displayed
+       shape ports. Links identificators are not displayed.
 
 <P>
 Selecting this menu and clicking on a block or links opens an
@@ -611,7 +635,7 @@ This menu allows to change the font used to write in the block
 <BR>
 To change the icon of a block, select first this menu item,
        click next on the desired block. A dialog appear that allows 
-       you to enter Scilab instructions used to draw the icon
+       you to enter Scilab instructions used to draw the icon.
 
 <P>
 You may use the icon_editor menu to generate the Scilab
@@ -646,6 +670,14 @@ Select this menu and click on an object.
 <P>
 </LI>
 <LI><B>Tools:Browser</B>
+<BR>
+This menu opens a graphic window with a tree 
+       representation of the super blocks hierarchy.
+       Each node represents a superblock.
+
+<P>
+Browser window is useful to open directly a super-block
+       everywhere in the hierarchy.
 
 <P>
 </LI>
@@ -677,19 +709,22 @@ Used to define personalized shortcuts.
 
 <P>
 </LI>
+<LI><B>Tools:Activate Scilab Window</B>
+
+<P>
+</LI>
 <LI><B>Tools:Calc</B>
 <BR>
 When you select this menu item you switch Scilab to 
        the pause mode (see the help on pause).
        In the Scilab main window and you may enter Scilab instructions
        to compute whatever you want.
-       to go back to Scicos you need enter the "return" or
+       To go back to Scicos you need enter the "return" or
        "[...]=return(...)" Scilab instruction.
 
 <P>
 If you use "[...]=return(...)" Scilab instruction take care
-       not to modify Scicos variables such as "scs_m","scs_gc",
-       "menus","datam",...
+       not to modify Scicos variables such as "scs_m".
 
 <P>
 If you have modified Scicos graphic window you may restore it 
@@ -699,11 +734,11 @@ If you have modified Scicos graphic window you may restore it
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00019000000000000000">
-Help menu</A>
+? menu</A>
 </font></H3>
 
 <UL>
-<LI><B>Help:Help</B>
+<LI><B>?:Help (h)</B>
 <BR>
 To get help on an object or menu buttons,
        select first Help menu item and then on 
@@ -711,11 +746,18 @@ To get help on an object or menu buttons,
 
 <P>
 </LI>
-<LI><B>Help:Demos</B>
+<LI><B>?:Demos</B>
+<BR>
+The Demos menu allows to open some
+       examples of scicos diagram.
 
 <P>
 </LI>
-<LI><B>Help:About Scicos</B>
+<LI><B>?:About Scicos</B>
+<BR>
+About Scicos item display the
+      current version of Scicos and
+      gives some useful informations.
 
 <P>
 </LI>
