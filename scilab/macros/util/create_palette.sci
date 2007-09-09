@@ -84,7 +84,7 @@ function [routines,IntFunc]=create_palette(Path)
 	lisf=['ANDBLK.sci';'HALT_f.sci';'freq_div.sci';
 	      'ANDLOG_f.sci';'EVTDLY_f.sci';'IFTHEL_f.sci';'ESELECT_f.sci';
 	      'CLKSOMV_f.sci';'CLOCK_c.sci';'EVTGEN_f.sci';'EVTVARDLY.sci';
-              'M_freq.sci']
+              'M_freq.sci';'SampleCLK.sci']
 
       elseif txt=='Threshold' then
 	lisf=[  'NEGTOPOS_f.sci';  'POSTONEG_f.sci';  'ZCROSS_f.sci']

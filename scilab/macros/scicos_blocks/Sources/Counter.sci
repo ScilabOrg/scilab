@@ -55,7 +55,7 @@ case 'define' then
   model.dep_ut=[%f %f]
 
   exprs=[string(minim);string(maxim);string(rule)]
-  gr_i=['xstringb(orig(1),orig(2),[''Counter'';+from+'' ---> ''+to],sz(1),sz(2),''fill'');']
+  gr_i=['xstringb(orig(1),orig(2),[''Counter'';+from+'' --> ''+to],sz(1),sz(2),''fill'');']
   x=standard_define([3 2],model,exprs,gr_i)
 end
 endfunction
