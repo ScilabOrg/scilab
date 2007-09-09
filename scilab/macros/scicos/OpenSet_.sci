@@ -8,6 +8,8 @@ function OpenSet_()
 
   global inactive_windows
 
+  if or(curwin==winsid()) then gh_current_window=gcf(curwin);end
+
   if ~%diagram_open then
     %kk=Select(1)
     if size(scs_m.objs)<%kk then
@@ -26,11 +28,6 @@ function OpenSet_()
     end
     
     inactive_windows(1)($+1)=super_path;inactive_windows(2)($+1)=curwin
-      if or(curwin==winsid()) then  // in case the current window is open and
-                            // remains open by becoming inactive
-//	ha=gcf()
-//	ha.user_data=scs_m;
-      end	
 
     super_path = [super_path, %kk] ; 
     
@@ -50,6 +47,7 @@ function OpenSet_()
       nc_save    = needcompile ; //** and its state 
       needcompile = max(needcompile, needcompileb)
       %Path = list('objs',%kk)
+      if or(curwin==winsid()) then gh_current_window=gcf(curwin);end
       scs_m = update_redraw_obj(scs_m, %Path,o) ;//scs_m.objs(%kk)=o
     end
     
@@ -58,9 +56,8 @@ function OpenSet_()
     end
     return
   end
-  
-  
-//  disablemenus() ; //** disable the "interrupts" from dynamic menu :)
+   
+//////////////////////////////////////////////////////////////////////
   
   %xc = %pt(1); %yc = %pt(2); //** last mouse position
   
@@ -84,8 +81,9 @@ function OpenSet_()
 	scs_m(%Path) );
 
     indx=find(curwin==inactive_windows(2))
-    inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
-
+    if indx <> [] then
+      inactive_windows(1)(indx)=null();inactive_windows(2)(indx)=[]
+    end
     
     //** BEWARE : "clickin can modify the "Cmenu" 
     //to force the creation of a Link  
@@ -108,7 +106,7 @@ function OpenSet_()
       if ~pal_mode then
 	needcompile = max(needcompile, needcompileb)
       end
-      
+      if or(curwin==winsid()) then gh_current_window=gcf(curwin);end
       scs_m = update_redraw_obj(scs_m, %Path,o) ; //** DANGER DANGER DANGER
       
     end

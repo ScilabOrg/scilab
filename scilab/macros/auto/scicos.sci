@@ -478,8 +478,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     else
       xselect()
     end
-    exec(restore_menu,-1)
   end 
+  exec(restore_menu,-1)
   
 //** --- End of initialization ----------------------------------------------------------- 
   
@@ -500,7 +500,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     
     if %scicos_navig==[] then 
       if Scicos_commands<>[] then
-	//    disp(Scicos_commands(1))
+//	    disp(Scicos_commands(1))
 	execstr(Scicos_commands(1))
 	Scicos_commands(1)=[]
       end
@@ -517,16 +517,15 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  if Cmenu=="OpenSet" then
 	    ierr=0
 	    execstr('ierr=exec(OpenSet_,''errcatch'',-1)')
-	    //execstr('exec(OpenSet_,-1)')
+            //execstr('exec(OpenSet_,-1)')
 	    //**---------------------------------------------------
 	    if ierr<>0 then message(lasterror()),end
 	    if isequal(%diagram_path_objective,super_path) then
 	      if ~or(curwin==winsid()) then 
 		gh_current_window = scf(curwin);
-		restore(gh_current_window);
-		exec(restore_menu,-1)
+                restore(gh_current_window)
+                execstr('drawobjs(scs_m)', 'errcatch') ; 
 		%scicos_navig=[];
-		Cmenu="Replot";
 		Select_back=[];Select=[]
 	      else
 		gh_current_window = scf(curwin);
@@ -549,10 +548,9 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       %diagram_open=%t
       if ~or(curwin==winsid()) then 
 	gh_current_window = scf(curwin);
-	restore(gh_current_window)
-	exec(restore_menu,-1)
+        restore(gh_current_window)
+        execstr('drawobjs(scs_m)', 'errcatch') ; 
 	Select_back=[];Select=[]
-	Cmenu='Replot';
       else
         gh_current_window = scf(curwin);
       end
@@ -608,6 +606,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  
 	  Select_back = Select; //** save the selected object list 
 	  
+
 	  ierr=0
 	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 	  //execstr('exec('+%cor_item_exec(%koko,2)+',-1)')
