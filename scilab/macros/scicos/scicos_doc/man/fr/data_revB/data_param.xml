@@ -5796,7 +5796,7 @@
 	la sortie. Ce bloc fonctionne uniquement avec des types
 	de donnée réels(1) et complexes(2). Si un autre type que
 	1 et 2 est indiqué, alors Scicos retourne le message d'erreur
-        "Datatype is not supported".
+        "Datatype is not supported". \\
 	Propriétés : Type 'vec' de taille 1
 
   %number of inputs   2
