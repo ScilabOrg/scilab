@@ -85,24 +85,12 @@ Description</A>
 </font></H3>
 
 <P>
-Ce bloc redirige l'une de ses entrées régulières sur l'unique
-sortie régulière.
-Le choix qui est fait pour savoir quel est le port d'entrée redirigé
-est initalement fait par le paramètre <B>initial connected input</B>.
-Pendant la simulation, à chaque fois que ce bloc est activé par son
-entrée événementielle <SPAN CLASS="MATH"><IMG
- WIDTH="10" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/SELECT_m_img2_fr.gif"
- ALT="$ i$"></SPAN>
-, alors la valeur présente sur le
- <!-- MATH
- $i^{\rm\grave{e}me}$
- -->
-<SPAN CLASS="MATH"><IMG
- WIDTH="35" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/SELECT_m_img3_fr.gif"
- ALT="$ i^{\rm\grave{e}me}$"></SPAN>
- port régulier est recopiée sur la sortie.
+Un bloc selecteur accepte sur son entrée aussi bien un vecteur qu'une matrice.
+Vous pouvez définir le paramètre <B>Input Type</B> au type de signal que vous
+utilisez dans votre modèle (matrice ou vecteur).
+Les paramètres de la boîte de dialogue et l'aspect du bloc changent en accord
+avec le type de l'entrée, ainsi que la manière dont il détermine les éléments 
+à sélectionner.
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -126,8 +114,9 @@ une scalaire. Ce paramètre indique le type de donnée de
 	la sortie. Ce bloc fonctionne uniquement avec des types
 	de donnée réels(1) et complexes(2). Si un autre type que
 	1 et 2 est indiqué, alors Scicos retourne le message d'erreur
-        "Datatype is not supported".
-	Propriétés : Type 'vec' de taille 1
+        "Datatype is not supported". 
+<BR>
+Propriétés : Type 'vec' de taille 1
 
 <P>
 </LI>

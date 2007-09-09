@@ -85,11 +85,12 @@ Description</A>
 </font></H3>
 
 <P>
-This block routes one of the regular inputs to the unique regular
-output. The choice of which input is to be routed is done, initially
-by the <B>initial connected input</B> parameter. Then, every time the block
-is activated through its i-th input activation port, the i-th regular
-input value port is put to the regular output.
+A Selector block accepts either vector or matrix signals as input. Set
+the Input Type parameter to the type of signal (vector or matrix) that
+the block should accept in your model. The parameter dialog box and
+the block's appearance change to reflect the type of input that you
+select. The way the block determines the elements to select differs
+slightly, depending on the type of input.
 
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>
