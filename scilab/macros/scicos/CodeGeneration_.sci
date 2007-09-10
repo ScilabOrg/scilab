@@ -1,72 +1,73 @@
+function CodeGeneration_()
 //Input editor function of Scicos code generator
 //
 //@l@n, 22/08/07
 //
-function CodeGeneration_()
+//
+//** 10 Set 2007 : cleaner startup code by Simone Mannori  
 
-  //**----------- Old Working code ----------------------------------
-  Cmenu='Open/Set'
-  xinfo('Click on a Superblock (without activation output)'+..
-        ' to obtain a coded block ! ')
-    k=[]
-    while %t
-      if %pt==[] then
-        [btn,%pt,win,Cmenu]=cosclick()
-        if Cmenu<>[] then
-          [%win,Cmenu]=resume(win,Cmenu)
-        end
-      else
-        win=%win
-      end
+    k = [] ; //** index of the CodeGen source superbloc candidate
 
-      xc=%pt(1);yc=%pt(2);%pt=[]
-      k=getobj(scs_m,[xc;yc])
-      if k<>[] then break,end
-    end
+    xc = %pt(1); //** last valid click position 
+    yc = %pt(2); 
+    
+    %pt = []   ;
+    Cmenu = [] ;
+
+    k  = getobj(scs_m,[xc;yc]) ; //** look for a block 
+
+//** If the clicked/selected block is really a superblock 
+//**             <k>
     if scs_m.objs(k).model.sim(1)=='super' then
+      
       disablemenus()
-
-      XX=scs_m.objs(k);
-      [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(XX,scs_m,k,alreadyran)
+        XX = scs_m.objs(k);
+        [ok, XX, alreadyran, flgcdgen, szclkINTemp, freof] = ...
+                        do_compile_superblock42(XX, scs_m, k, alreadyran);
       enablemenus()
 
       if ok then
         scs_m = changeports(scs_m,list('objs',k), XX);  //scs_m.objs(k)=XX
         if flgcdgen <> szclkINTemp then
            // XX.graphics.pein($)=size(scs_m.objs)+2
-            XX.graphics.pein=[XX.graphics.pein;size(scs_m.objs)+2]
-            scs_m.objs(k)=XX
-            bk=SampleCLK('define');
-            [posx,posy]=getinputports(XX)
-             posx=posx($);posy=posy($);
-             teta=XX.graphics.theta
-             pos=rotate([posx;posy],teta*%pi/180,[XX.graphics.orig(1)+XX.graphics.sz(1)/2,XX.graphics.orig(2)+XX.graphics.sz(2)/2]) 
-             posx=pos(1);posy=pos(2);
-             bk.graphics.orig=[posx posy]+[-30 20]
-             bk.graphics.sz=[60 40]
-             bk.graphics.exprs=[sci2exp(freof(1));sci2exp(freof(2))]
-             bk.model.rpar=freof;
-             bk.graphics.peout=size(scs_m.objs)+2
-            scs_m.objs($+1)=bk;
-            [posx2,posy2]=getoutputports(bk);
-            lnk=scicos_link();
-            lnk.xx=[posx2;posx];
-            lnk.yy=[posy2;posy];
-            lnk.ct=[5 -1]
-            lnk.from=[size(scs_m.objs) 1 0]
-            lnk.to=[k flgcdgen 1]
-            scs_m.objs($+1)=lnk;
+            XX.graphics.pein = [XX.graphics.pein ; size(scs_m.objs)+2]
+            scs_m.objs(k) = XX
+            bk = SampleCLK('define');
+            [posx,posy] = getinputports(XX)
+             posx = posx($); posy = posy($);
+             teta = XX.graphics.theta
+             pos  = rotate([posx;posy],teta*%pi/180, ...
+                           [XX.graphics.orig(1)+XX.graphics.sz(1)/2,...
+                            XX.graphics.orig(2)+XX.graphics.sz(2)/2]) ; 
+             posx = pos(1); posy = pos(2);
+             bk.graphics.orig = [posx posy]+[-30 20]
+             bk.graphics.sz = [60 40]
+             bk.graphics.exprs = [sci2exp(freof(1));sci2exp(freof(2))]
+             bk.model.rpar = freof;
+             bk.graphics.peout = size(scs_m.objs)+2
+             scs_m.objs($+1) = bk;
+             [posx2,posy2] = getoutputports(bk);
+             lnk    = scicos_link();
+             lnk.xx = [posx2;posx];
+             lnk.yy = [posy2;posy];
+             lnk.ct = [5 -1]
+             lnk.from = [size(scs_m.objs) 1 0]
+             lnk.to = [k flgcdgen 1]
+             scs_m.objs($+1) = lnk;
         end
-        edited=%t;
-        needcompile=4
-        Cmenu='Replot';
+        edited      = %t ;
+        needcompile = 4  ;
+        Cmenu = "Replot" ;
       else
-        Cmenu='Open/Set'
+        Cmenu = "Open/Set"
       end
+    
     else
-      message('Generation Code only work for a Superblock ! ')
+      //** the clicked/selected block is NOT a superblock 
+      message("Generation Code only work for a Superblock ! ")
     end
 endfunction
+//**---------------------------------------------------------------------------------------------------------------------------------
 //
 //16/06/07 Author : ?, A. Layec
 //
@@ -1205,7 +1206,10 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
   end
 
   Code_gene_run=[];
-  %windo=xget('window')
+
+  //** OLD GRAPHICS 
+  //** %windo=xget('window')
+
   cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv)
 
   if cpr==list() then ok=%f,return, end
@@ -1238,7 +1242,8 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
   cpr.sim.funs=funs_save;
   cpr.sim.funtyp=funtyp_save;
 
-  xset('window',%windo)
+  //** OLD GRAPHICS 
+  //** xset('window',%windo)
 
   ///////////////////
   //les pointeurs de cpr :
@@ -1782,7 +1787,7 @@ function Code=make_actuator(standalone)
   end
 
   // pour fprintf
-  nc=size(act,'*') // Alan : d'où viens act ?????
+  nc=size(act,'*') // Alan : d'oï¿½ viens act ?????
                    // reponse : de do_compile_superblock!
   typ=['""%f ']; //time
   for i=1:nc
@@ -3137,7 +3142,7 @@ endfunction
 //
 //Copyright INRIA
 //
-// rmq : La fonction zdoit n'est pas utilisée pour le moment
+// rmq : La fonction zdoit n'est pas utilisï¿½e pour le moment
 function Code=make_standalone42()
   x=cpr.state.x;
   modptr=cpr.sim.modptr;
