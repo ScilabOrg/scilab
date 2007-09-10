@@ -40,7 +40,7 @@ understand.
 
 <FILE name='ANDLOG_f' type='LATEX'>
 This block, with two event inputs and a regular output, outputs +1 or
--1 on its regular ouput depending on input events.     
+-1 on its regular output depending on input events.     
 \begin{enumerate}
 \item[+1]: When events are synchronously (present on both event input ports),
 
@@ -53,7 +53,7 @@ The Backlash block implements a system in which a change in input
 causes an equal change in output. However, when the input changes
 direction, an initial change in input has no effect on the output.
 The amount of side-to-side play in the system is referred to as the
-{\em deadband or gap}.
+{\em dead-band or gap}.
 </FILE>
 
 <FILE name='BIGSOM_f' type='LATEX'>
@@ -98,9 +98,9 @@ scalar or vector inputs.
 </FILE>
 
 <FILE name='Bache' type='LATEX'>
-The {\bf Bache} block represents a thermo-hydraulic tank or reservoir.
+The {\bf Bache} block represents a thermal-hydraulic tank or reservoir.
 This block has two inlets and two outlets whose altitudes can be
-changed by the user.  Conventionnally, for input ports (black ports)
+changed by the user.  Conventionally, for input ports (black ports)
 flow direction is positive when fluid flows into the tank.  On the
 other hand, for output ports (white ports) flow direction is positive
 when fluid flows out of the tank. The user can set the surface area of
@@ -466,7 +466,16 @@ the amount of time and the range of input values displayed.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+
+This block allows the user to create signals and use them as a signal
+source block. The signals can be created either graphically by the
+user or be defined by specifying two vectors, i.e., a vector for time
+and a vector for amplitude. These vectors define the mesh points and
+the signal value at intermediate points are obtained by interpolating
+the points. Several interpolation methods are available. This block
+can also generate the signal periodically. It is also possible to read
+data from Excel data-sheets and from formatted C data files.
+
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -490,14 +499,14 @@ I = C\frac{dV}{dt}
 \]
 Capacitors can also be used to differentiate between high-frequency
 and low-frequency signals and this makes them useful in electronic
-filters. A capacitor has a hight impedence when a signal is low frequency
+filters. A capacitor has a high impedance when a signal is low frequency
 signals.
 </FILE>
 
 <FILE name='ConstantVoltage' type='LATEX'>
 This component is a model for any device or system that produces a
 constant electromotive force between its port. The output voltage of
-this DC volatge source is defined by the user. The black port
+this DC voltage source is defined by the user. The black port
 indicates the positive voltage. The ohmic resistance of this DC
 voltage source is zero.
 </FILE>
@@ -517,9 +526,9 @@ voltage source is zero.
 
 <FILE name='CurrentSensor' type='LATEX'>
 This block is inserted in series in an electrical circuit to measure
-the current passing through the coponent. The measure is given to the
+the current passing through the component. The measure is given to the
 explicit part of the model via an explicit pout. Conventionally,
-current flowing into the black port is consiered positive. The ohmic
+current flowing into the black port is considered positive. The ohmic
 resistance of this block is zero.
 </FILE>
 
@@ -548,10 +557,10 @@ Add here a paragraph of the function description
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This compiled super-block implements a discretised delay
+	  This compiled super-block implements a discretized delay
 	  It is build with a shift register and a clock.
           The value of the delay is given by
-          the discretisation time step multiplied by the
+          the discretization time step multiplied by the
           number-1 of state of the register.
 	</P>
       </DESCRIPTION_ITEM>
@@ -632,7 +641,7 @@ Add here a paragraph of the function description
 <FILE name='DLATCH' type='LATEX'>
 This block outputs the input state when the input gate is high.
 The input is D the enable is C. Q and !Q are the outputs of 
-this block. This block is almostly used with digital number, 
+this block. This block is almost used with digital number, 
 the input data type is int8.\\
 
 The truth table of this block is
@@ -734,7 +743,7 @@ all elements of the vector are delayed by the same sample period.
         period.
         </P>
 	<P>
-         This block can support all data types supported by scicos.
+         This block can support all data types supported by Scicos.
          The output will inherit its datatype from the
          "initial condition".
 	</P>
@@ -744,7 +753,7 @@ all elements of the vector are delayed by the same sample period.
 </FILE>
 
 <FILE name='DemoBlocks_pal' type='LATEX'>
-The Blocks of that palette are used in some scicos
+The Blocks of that palette are used in some Scicos
 diagrams of demonstration.
 </FILE>
 
@@ -757,7 +766,7 @@ defined as a function of the voltage across the ports, {\it i.e.},
 
 where $I_{ds}$ and $V_t$ are the saturation current and the voltage
 equivalent of temperature, respectively. If the exponent $v/V_t$
-reaches a certain limit ($Maxexp$), the diode characterisic becomes
+reaches a certain limit ($Maxexp$), the diode characteristic becomes
 linear to avoid overflow.
 </FILE>
 
@@ -896,7 +905,7 @@ The Expression block applies the specified Scilab functions to its input.
 </FILE>
 
 <FILE name='EXTRACTOR' type='LATEX'>
-Extracts or select a regular input from a muliple regular input.
+Extracts or select a regular input from a multiple regular input.
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
@@ -954,7 +963,7 @@ blocks to gather events in a single link.
 	The main role of the GOTO/FROM blocks is to transport signals
         from a block to another block without connecting them physically.
         The FROM block transports its received data (from the
-        correponding GOTO) to its output. Multiples FROM blocks can
+        corresponding GOTO) to its output. Multiples FROM blocks can
         receive data from one GOTO, although a GOTO can send data to
         multiple FROM.
         </P>
@@ -978,7 +987,7 @@ blocks to gather events in a single link.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block is used to connect modelica's blocks. For more
+	  This block is used to connect Modelica blocks. For more
           information on how it works please refer to the documentation
           of the FROM block by clicking on the link in the "See also"
           field.
@@ -1073,7 +1082,7 @@ switches from  -M  to  M , or  M  to  -M .
         </P>
 	<P>
         The "Tag Visibility" parameter indicates if the location of
-        the FROM block is limitted:
+        the FROM block is limited:
         </P>
 	  <P>
           - Local: means that the corresponding FROM of that GOTO must
@@ -1101,7 +1110,7 @@ switches from  -M  to  M , or  M  to  -M .
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block is used to connect modelica's blocks. For more
+	  This block is used to connect Modelica blocks. For more
           information on how it works please refer to the documentation
           of the GOTO block by clicking on the link in the "See also"
           field.
@@ -1132,7 +1141,7 @@ switches from  -M  to  M , or  M  to  -M .
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block is used in case of modelica's connection.
+	  This block is used in case of Modelica connection.
           For more information on how it works please refer to the
           GotoTagVisibility block by clicking on the link in the
           "See also" field.
@@ -1168,7 +1177,7 @@ one input and generates one output.
 One event is generated on one of the output event ports when an input
 event arrives. Depending on the sign of the regular input, the event
 is generated on the first or second output.  
-This is a synchro block, {\em i.e.}, input and output event are synchronized. 
+This is a Synchro block, {\em i.e.}, input and output event are synchronized. 
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
@@ -1275,7 +1284,7 @@ through it is given by:
 
 Inductors can also be used to differentiate between high-frequency and
 low-frequency signals and this makes them useful in electronic
-filters. An inductor shows a hight impedence for hight frequency
+filters. An inductor shows a high impedance for high frequency
 signals.
 </FILE>
 
@@ -1283,12 +1292,12 @@ signals.
 That palette is dedicated to handle integer numbers.
 Various basic operators for the management of bit fields and
 for logic are implemented as well as common gates encountered
-in digital ciruits.
+in digital circuits.
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='LATEX'>
 The JK flip flop is the most versatile of the basic flip-flops.
-It has two inputs traditionaly labeled J and K. When J and K are
+It has two inputs traditionally labeled J and K. When J and K are
 different, the output takes the value of J at the next falling edge.
 When J and K are both low, no change occurs in the output state,
 when they are both high the output will toggle from one state to other.
@@ -1296,7 +1305,7 @@ It can perform the functions of the set/reset flip-flop and has the
 advantage that there are no ambiguous states. It can also act as a
 T flip-flop to accomplish toggling action if J and K are tied together.
 This toggle application finds extensive use in binary counters. 
-This block is almostly used with digital number, the input data type
+This block is almost used with digital number, the input data type
 is int8.\\
 
 The truth table of this block is
@@ -1362,12 +1371,12 @@ sizes are determined by the context.
         </P>
 	<P>
           This block support only the int8 data type. When the input
-          is positif, the input is considered as logical 1, When it is
-          negatif or zero it is considered as logical 0.
+          is positive, the input is considered as logical 1, When it is
+          negative or zero it is considered as logical 0.
         </P>
 	<P>
           This block can be activated by an implicit input event or it
-          can herit the clock from the regular input.
+          can inherit the clock from the regular input.
         </P>
 	<P>
           This block is used to implement SR and JK flip-flops.
@@ -1631,7 +1640,7 @@ That palette contains basic linear operators and sub-systems.
         The pseudoinverse x of A is given by:
         </P>
 	 <P>X=VS"U' where S"(i,j)=1/S(i,j) (if S(i,j)~=0),
-	    U' and V are respectivly the transpose of U and V'.
+	    U' and V are respectively the transpose of U and V'.
          </P>
 	<P>
         and we have A*X*A=A and X*A*X=X. Both A*X and X*A
@@ -1640,7 +1649,7 @@ That palette contains basic linear operators and sub-systems.
         </P>
 	<P>
         When the input is a M-by-N matrix the output is a
-        N-by-M matrix. The eqivalent function of this block
+        N-by-M matrix. The equivalent function of this block
         in Scilab is "pinv".
 	</P>
       </DESCRIPTION_ITEM>
@@ -1699,10 +1708,10 @@ That palette contains basic linear operators and sub-systems.
           matrix/vector. When the Sum along is set to all the block
           outputs the sum of all the elements of the matrix. The
           output is then a scalar. When the Sum along is set to lines
-          the block is a rowwise sum. The output is a row vector.
-	  When the Sum along is set to Columns the block is a columnwise
+          the block is a row-wise sum. The output is a row vector.
+	  When the Sum along is set to Columns the block is a column-wise
           sum. The output is a column vector.
-	  The equivalent function of this block in scilab is: "sum".
+	  The equivalent function of this block in Scilab is: "sum".
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -1740,9 +1749,9 @@ That palette contains basic linear operators and sub-systems.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This block decomposes a complex number by seperating the real
-          and imaginary parts or compose a comples number by joining the
-          two parts. The user can select even to seperate or to join real
+	  This block decomposes a complex number by separating the real
+          and imaginary parts or compose a complex number by joining the
+          two parts. The user can select even to separate or to join real
           and imaginary part by setting the decomposition type to 1 or 2.
           When it is set to 1, the input is a complex matrix and the
           outputs are the real and imaginary parts of the input. When it
@@ -1770,7 +1779,15 @@ That block find the max value in the elements of its input vector.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Add here a paragraph of the function description
+    The block "MBlock" provides an easy way to build a Scicos block
+    whose behavior is specified by a Modelica program.  Using this
+    block, the user will be able to write and compile Modelica
+    programs in Scicos without creating any interfacing function.  The
+    associated Modelica program of this block can be either given in a
+    file or written in the window opened by the block. In order to
+    link this block to other Scicos blocks that may be other Modelica
+    blocks, the types of block ports' as well as their associated variables
+    should be specified.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -1859,7 +1876,7 @@ determines which data input is passed through to the output port.
         simulation time. The sample time is given in the "Sample Time"
         field and the offset is given in the "Offset" field. This
         block has one event input, the number of event outputs depends
-        on the number of different sample time. For exemple if the vector
+        on the number of different sample time. For example if the vector
         of sample time is [1 1 2] and the vector of offset is [0 .5 0]
         then the block has 7 outputs.
         </P>
@@ -1889,7 +1906,7 @@ determines which data input is passed through to the output port.
         </P>
 	<P> etc...</P>
 	<P>
-        So the number of outputs is equal to 2**number of differents
+        So the number of outputs is equal to 2**number of different
         time values. Each of these time values is represented by a
         binary number associated to the output's number in decimal.
         </P>
@@ -1924,7 +1941,7 @@ positive slope.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This model is a simple model of a bipolar NPN junction transistor according to Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1996,7 +2013,8 @@ Add here a paragraph of the function description
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This model is a simple model of a bipolar PNP junction transistor
+according to Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2024,7 +2042,7 @@ operations to be performed on the inputs.
 </FILE>
 
 <FILE name='PROD_f' type='LATEX'>
-The output is the element wize product of the inputs.   
+The output is the element wise product of the inputs.   
 </FILE>
 
 <FILE name='PerteDP' type='LATEX'>
@@ -2035,18 +2053,18 @@ Conventionally, the flow direction is the positive when fluid flows
 from the black port to the white port.  The pressure loss is obtained
 with {\[P_{loss}=P_{black}-P_{white}\].  The key parameters of this
 block are the pipes' length, the pipe's diameter, inlet and outlet
-altitudes, and some other thermo-hydraulic coefficients.
+altitudes, and some other thermal-hydraulic coefficients.
 </FILE>
 
 <FILE name='PotentialSensor' type='LATEX'>
 This block is used to measure the voltage with respect to the
-reference voltage ({\bf Ground} block) in an electircal circuit. The
+reference voltage ({\bf Ground} block) in an electrical circuit. The
 voltage is given to the explicit part of the model via an explicit
 output port.
 </FILE>
 
 <FILE name='PuitsP' type='LATEX'>
-This thermohydraulic component represents a thermo-hydraulic
+This thermal-hydraulic component represents a thermal-hydraulic
 constant pressure drain (well). This block is specified with
 its pressure and temperature.  Conventionally, the flow
 direction is positive when fluid flows into the block.
@@ -2110,7 +2128,7 @@ limit.
 </FILE>
 
 <FILE name='READAU_f' type='LATEX'>
- Loads a sound file specified by the string aufile, returning the
+ Loads a sound file specified by the string *.au file, returning the
  sampled data in y. The .au extension is appended if no extension is
  given. Amplitude values are in the range [-1,+1]. auread supports
  multichannel data in the following formats: 
@@ -2122,7 +2140,7 @@ limit.
 </FILE>
 
 <FILE name='READC_f' type='LATEX'>
-This block allows user to read datas in a C file. {\bf Output record
+This block allows user to read data in a C file. {\bf Output record
 selection} and {\bf Time record Selection} allows the user to select data
 among file records. Each call to the block advance one record in the
 file.    
@@ -2151,7 +2169,7 @@ port is routed to the regular output.
 </FILE>
 
 <FILE name='RFILE' type='LATEX'>
-This block allows user to read datas in a file, in formatted or binary
+This block allows user to read data in a file, in formatted or binary
 mode. {\bf Output record selection} and {\bf Time record selection} 
 allows the user to select data among file records. Each call to the
  block advance one record in the file.\\
@@ -2159,7 +2177,7 @@ The pair block is \htmladdnormallink{WFILE}{WFILE.htm}.
 </FILE>
 
 <FILE name='RFILE_f' type='LATEX'>
-This block allows user to read datas in a file, in formatted or binary
+This block allows user to read data in a file, in formatted or binary
 mode. {\bf Output record selection} and {\bf Time record selection}
 allows the user to select data among file records. Each call to the
 block advance one record in the file.\\
@@ -2171,16 +2189,16 @@ The pair block is \htmladdnormallink{WFILE\_f}{WFILE_f.htm}.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	This block computes the solution of riccati equation using
+	This block computes the solution of Riccati equation using
         different method and for both case continuous and discrete.
         </P>
-	<P> The riccati equation in continuous time is:</P>
+	<P> The Riccati equation in continuous time is:</P>
 	<P>     A*X+X*A+C-X*D*X=0 </P>
-	<P> The riccati equation in discrete time is:</P>
+	<P> The Riccati equation in discrete time is:</P>
 	<P>     A*X*(inv(In-D))*A-X+C=0</P>
 	<P>
          where A is an NxN matrix, it is the first input of the block,
-         C and D are two NxN symetrics matrices and are respectivly the
+         C and D are two NxN symetrics matrices and are respectively the
          second and third input of the RICC block. X represent the
          output of the block, it is also a NxN matrix.
         </P>
@@ -2363,8 +2381,8 @@ output is forced high, and stays high when S returns low; similarly,
 if R (Reset) is pulsed high while S is held low, then the Q output
 is forced low, and stays low when R returns low. When both are low,
 Q(t) takes the same state as Q(t-1). When they are both high, both Q
-and !Q take the low values we are in an unstable state. Practicaly we
-have to avoid this case.This block is almostly used with digital
+and !Q take the low values we are in an unstable state. Practically we
+have to avoid this case.This block is almost used with digital
 number, the input data type is int8.\\
 
 The truth table of this block is
@@ -2438,10 +2456,10 @@ output is the Final value parameter value.
         </P>
 	<P>
         The number of inputs is given by the second parameter. This
-        parameter can be a vector of +1 and -1 or it can be a positif
+        parameter can be a vector of +1 and -1 or it can be a positive
         value. In the first case the size of the vector indicates the
         number of inputs and the signs indicates whether it is a
-        summation or a substraction. In the second case, the block is
+        summation or a subtraction. In the second case, the block is
         a summation block and the value indicates the number of inputs.
         </P>
 	<P>On overflow, the result can take different forms:</P>
@@ -2473,7 +2491,7 @@ designated by special (input or output) blocks.
 Regular input blocks
 must be numbered from 1 to the number of regular input ports. Regular
 input ports of the super block are numbered from the top of the block
-shape to the bottom.  Regular output portss must be numbered from 1 to
+shape to the bottom.  Regular output ports must be numbered from 1 to
 the number of regular output ports. Regular output ports of the super
 block are numbered from the top of the block shape to the bottom.
 Event input blocks must be numbered from 1 to the number of event
@@ -2523,7 +2541,7 @@ while the unselected inputs are discarded.
 	<P>
 	The difference between the SampleCLK and the CLOCK_c is that
         all the SampleCLK blocks in our diagram are synchronous. The
-        synchronism is done due to two differents methods of computation
+        synchronism is done due to two different methods of computation
         in the compilation phase.
         </P>
 	<P>
@@ -2538,12 +2556,12 @@ while the unselected inputs are discarded.
         clock is equal to the offset.
         </P>
 	<P>
-        If the offsets are differents, then the frequency of the clock
+        If the offsets are different, then the frequency of the clock
         is the gcd of the sample time and the offset, and the offset of
         the clock is equal to 0.
         </P>
 	<P>
-        The Counter counts from one to the least commun multiple of the
+        The Counter counts from one to the least common multiple of the
         sample time (lcm).
         </P>
 	<P>
@@ -2552,7 +2570,7 @@ while the unselected inputs are discarded.
 	<P>
         The second method uses the Multifrequency block it generates
         events only for specific time. Events in this method are not
-        periodicly generated as in the first one.
+        periodically generated as in the first one.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -2564,19 +2582,29 @@ while the unselected inputs are discarded.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+The Signal Builder block is a superblock containing a
+\htmladdnormallink{CURVE\_c}{CURVE_c.htm} block whose output event
+port is connected to its input event port. This event feedback gives
+the possibility to generate events at discontinuous point of the
+signal. The generated events automatically restart the numerical
+solver and avoids numerical problems. The generated event is also made
+available to the user for possible use. Remind that if higher
+interpolation methods are used, the events are generated only at the
+beginning and at the end of the signal.
+
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
 </DESCRIPTION>
 </FILE>
-
+ 
 <FILE name='SineVoltage' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Add here a paragraph of the function description
+This Modelica block a general sine voltage source. The internal ohmic
+resistance is zero.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2586,19 +2614,19 @@ Add here a paragraph of the function description
 <FILE name='Sinks_pal' type='LATEX'>
 In Sinks palette, you can find a variety of blocks used
 to display (Scope) and write data during simulation and also
-somes output ports used in superblocks.\\
+some output ports used in superblocks.\\
 The blocks of that palette doesn't have regular output ports.
 </FILE>
 
 <FILE name='SourceP' type='LATEX'>
-This thermohydraulic component represents a thermo-hydraulic constant
+This thermal-hydraulic component represents a thermal-hydraulic constant
 pressure supply. This block is specified with its output pressure and
 temperature.  Conventionally, the flow direction is positive when the
 fluid flows out of the block.
 </FILE>
 
 <FILE name='Sources_pal' type='LATEX'>
-Most of blocks of te Source palette can be viewed as data generators.
+Most of blocks of the Source palette can be viewed as data generators.
 That palette also contains blocks to read data from files and input
 ports used in superblocks.\\
 The blocks of that palette doesn't have regular input ports.
@@ -2645,7 +2673,7 @@ time. It can be used to simulate a time delay. At the start of the
 simulation, the block outputs the Initial input parameter until the
 simulation time exceeds the Time delay parameter, when the block
 begins generating the delayed input. \\
-The Time delay parameter must be nonnegative. 
+The Time delay parameter must be non-negative. 
 </FILE>
 
 <FILE name='TIME_f' type='LATEX'>
@@ -2666,8 +2694,8 @@ The unique regular output is the current time.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='ThermoHydraulics_pal' type='LATEX'>
-ThermoHydraulics toolbox contains some basic thermohydraulic
+<FILE name='Thermal-Hydraulics_pal' type='LATEX'>
+Thermal-Hydraulics toolbox contains some basic thermal-hydraulic
 components such as pressure source, pipe, control valves, etc.
 </FILE>
 
@@ -2695,7 +2723,7 @@ through the block; the second input is the time delay.
 
 <FILE name='VVsourceAC' type='LATEX'>
 The variable voltage source block is a model for a controlled AC
-voltage source. This component provides a sinosoid voltage across its
+voltage source. This component provides a sinusoid voltage across its
 ports. The amplitude of the output voltage is governed by the explicit
 input and the frequency is defined by the user. The ohmic resistance
 of the block is zero.
@@ -2727,7 +2755,7 @@ mass density of fluid.
 
 <FILE name='VoltageSensor' type='LATEX'>
 This component is used to measure the voltage difference between two
-nodes in an electircal circuit. The output signal is the difference
+nodes in an electrical circuit. The output signal is the difference
 between the voltages of the black port and the white port, {\it i.e.},
 
 \[V_{output}=V_{black}-V_{white}\]
@@ -2736,7 +2764,7 @@ The ohmic conductance of this block is zero.
 </FILE>
 
 <FILE name='VsourceAC' type='LATEX'>
-This component is an AC voltage source with sinosoid output
+This component is an AC voltage source with sinusoid output
 voltage. The amplitude and the frequency of the output voltage is set
 by the user. The ohmic resistance of this block is zero.
 </FILE>
@@ -2758,7 +2786,7 @@ The pair block is \htmladdnormallink{RFILE\_f}{RFILE_f.htm}.
 </FILE>
 
 <FILE name='WRITEAU_f' type='LATEX'>
-This block  writes a sound file specified by the string aufile. The
+This block  writes a sound file specified by the string *.au file. The
 data should  be arranged with one channel per column. Amplitude
 values outside the   range [-1,+1] are clipped prior to
 writing. auwrite supports  multichannel data for 8-bit mu-law and 8-
@@ -2766,7 +2794,7 @@ and 16-bit linear formats.
 </FILE>
 
 <FILE name='WRITEC_f' type='LATEX'>
-This block allows user to write datas in a C binary file.  
+This block allows user to write data in a C binary file.  
 </FILE>
 
 <FILE name='ZCROSS_f' type='LATEX'>
@@ -2796,7 +2824,7 @@ creates library file and object files.
 </FILE>
 
 <FILE name='fortran_block' type='LATEX'>
-This block creates skeleton of the fortran computing function. Also it
+This block creates skeleton of the FORTRAN computing function. Also it
 creates library file and object files.  
 </FILE>
 
@@ -2827,7 +2855,7 @@ computational function needs to be defined separately, either as a
 Scilab function or  a Fortran or a C function. Besides the name of the
 function, user should specify information such as the type, whether or
 not the block contains a direct feed-through term. The function
-realising computational functions of generic blocks of a scicos
+realising computational functions of generic blocks of a Scicos
 diagram must be saved along with the diagram and loaded or dynamically
 linked before simulation. 
 </FILE>
@@ -2838,7 +2866,7 @@ computational function needs to be defined separately, either as a
 Scilab function or  a Fortran or a C function. Besides the name of the
 function, user should specify information such as the type, whether or
 not the block contains a direct feed-through term. The function
-realising computational functions of generic blocks of a scicos
+realising computational functions of generic blocks of a Scicos
 diagram must be saved along with the diagram and loaded or dynamically
 linked before simulation. 
 </FILE>
@@ -2853,10 +2881,10 @@ linked before simulation.
   <DESCRIPTION>
     <P>
      That utility function is used to retrieve working arrays
-     of scicos simulator and compilator during simulation.
+     of Scicos simulator and compiler during simulation.
     </P>
     <P>
-     It can be used inside a scilab block to get information of
+     It can be used inside a Scilab block to get information of
      all type of blocks. That function is very useful to debug
      diagrams and to do prototypes of simulations.
     </P>
@@ -2887,7 +2915,7 @@ linked before simulation.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  That function says if the scicos simulator is realizing
+	  That function says if the Scicos simulator is realizing
           the time domain integration.
 	</P>
       </DESCRIPTION_ITEM>
@@ -2935,12 +2963,12 @@ linked before simulation.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  This scilab function is used to set the debug level
-          of a sicos simulation.
+	  This Scilab function is used to set the debug level
+          of a Scicos simulation.
 	</P>
 	<P>
-	  One can used it in the "Calc" mode of the scicos editor
-          or as an instruction in a scilab block or in an
+	  One can used it in the "Calc" mode of the Scicos editor
+          or as an instruction in a Scilab block or in an
           interfacing function.
 	</P>
       </DESCRIPTION_ITEM>
@@ -3059,7 +3087,7 @@ linked before simulation.
 <FILE name='scicos_simulate' type='XML'>
   <DESCRIPTION>
     <P>
-      This function is used to simulate scicos diagrams in batch
+      This function is used to simulate Scicos diagrams in batch
       mode. It requires the scs_m structure which can be obtained by
       loading in Scilab the .cos file (e.g. load
       mydiagram.cos).
@@ -3103,7 +3131,7 @@ linked before simulation.
 	  Simulator for Scicos compiled diagram.
 	</P>
 	<P>
-	  Usually scicosim is called by scicos to perform simulation of
+	  Usually scicosim is called by Scicos to perform simulation of
 	  a diagram.
 	</P>
 	<P>
@@ -3141,7 +3169,7 @@ linked before simulation.
 	       simulation from 0 to tf.
 	  </P>
 	  <P>
-	    Many successives such calls may be
+	    Many successive such calls may be
 	    performed changing initial and final time.
 	  </P>
 	  <P>
@@ -3209,8 +3237,8 @@ is slower. For more information see Scicos reference manual.
       <DESCRIPTION_ITEM>
 	<P>
 	  var2vec / vec2var functions are used inside the interfacing
-          functions of scilab blocks to give the possibility to the
-          user to handle scilab objects with the real parameter (rpar)
+          functions of Scilab blocks to give the possibility to the
+          user to handle Scilab objects with the real parameter (rpar)
           and with the discrete state register (z).
 	</P>
       </DESCRIPTION_ITEM>
@@ -3224,8 +3252,8 @@ is slower. For more information see Scicos reference manual.
       <DESCRIPTION_ITEM>
 	<P>
 	  var2vec / vec2var functions are used inside the interfacing
-          functions of scilab blocks to give the possibility to the
-          user to handle scilab objects with the register of real
+          functions of Scilab blocks to give the possibility to the
+          user to handle Scilab objects with the register of real
           parameters (rpar) and with the discrete states register (z).
 	</P>
       </DESCRIPTION_ITEM>
