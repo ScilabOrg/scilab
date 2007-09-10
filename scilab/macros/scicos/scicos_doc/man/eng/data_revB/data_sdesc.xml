@@ -397,7 +397,7 @@
 </FILE>
 
 <FILE name='CURVE_c' type='XML'>
-<SHORT_DESCRIPTION name="CURVE_c">CURVE_c title</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CURVE_c">Signal creator/generator</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CURVE_c_intfunc' type='XML'>
@@ -1221,7 +1221,7 @@
 </FILE>
 
 <FILE name='MBLOCK' type='XML'>
-  <SHORT_DESCRIPTION name="MBLOCK">Generic modelica block</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="MBLOCK">Modelica generic block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MBLOCK_intfunc' type='XML'>
@@ -1801,7 +1801,7 @@
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
-<SHORT_DESCRIPTION name="Sigbuilder">Signal builder</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Sigbuilder">Signal creator/generator </SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sigbuilder_intfunc' type='XML'>
