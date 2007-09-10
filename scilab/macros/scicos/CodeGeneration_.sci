@@ -1228,6 +1228,11 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
        cpr.sim.funtyp(i) = 1
     end
   end
+
+  //**
+  //** retrieve all open scilab windows with winsid
+  //**
+
   ierr=execstr('[state,t]=scicosim(cpr.state,0,0,cpr.sim,'+..
                '''start'',scs_m.props.tol)','errcatch')
   if ierr==0 then
@@ -1239,6 +1244,13 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
     ierr=execstr('[state,t]=scicosim(state,0,0,cpr.sim,'+..
                  '''finish'',scs_m.props.tol)','errcatch')
   end
+
+
+  //**
+  //** retrieve all open scilab windows with winsid
+  //** and close the additional windows open since first
+  //** 
+
   cpr.sim.funs=funs_save;
   cpr.sim.funtyp=funtyp_save;
 
