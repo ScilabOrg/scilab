@@ -13,11 +13,11 @@ genlib('scselectricallib','SCI/macros/scicos_blocks/Electrical');
 //  unix("ls *.mo >models");
 //end
 if with_ocaml() then 
-  models=['Capacitor.mo'; 'NPN.mo';   'Resistor.mo';  'VsourceAC.mo';
+  models=['Capacitor.mo'; 'NPN.mo';'PNP.mo';   'Resistor.mo';  'VsourceAC.mo';
           'ConstantVoltage.mo';  'ExternFunction.mo'; 'OutPort.mo'; 'VsourceDC.mo';
           'Ground.mo'; 'OutPutPort.mo';   'VVsourceAC.mo'; 'CurrentSensor.mo';
           'Inductor.mo'; 'Pin.mo'; 'VariableResistor.mo'; 'Diode.mo'; 'InPutPort.mo';
-	  'PotentialSensor.mo';'VoltageSensor.mo'];
+	  'PotentialSensor.mo';'VoltageSensor.mo';'SineVoltage.mo'];
   exec("../../../util/genmoc.sce");
 end;
 //------------------------------------
