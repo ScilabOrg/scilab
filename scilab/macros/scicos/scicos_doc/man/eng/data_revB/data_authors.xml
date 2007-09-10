@@ -397,7 +397,7 @@ INRIA
 
 <FILE name='CURVE_c' type='XML'>
 <AUTHORS>
-
+Masoud Najafi, INRIA
 </AUTHORS>
 </FILE>
 
@@ -1270,7 +1270,7 @@ INRIA
 
 <FILE name='NPN' type='XML'>
 <AUTHORS>
-
+www.modelica.org
 </AUTHORS>
 </FILE>
 
@@ -1330,7 +1330,7 @@ INRIA
 
 <FILE name='PNP' type='XML'>
 <AUTHORS>
-
+www.modelica.org
 </AUTHORS>
 </FILE>
 
@@ -1724,13 +1724,13 @@ INRIA
 
 <FILE name='Sigbuilder' type='XML'>
 <AUTHORS>
-
+Masoud Najafi, INRIA
 </AUTHORS>
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
 <AUTHORS>
-
+ www.modelica.org
 </AUTHORS>
 </FILE>
 
