@@ -4,7 +4,7 @@ function Calc_()
 
     Cmenu = [] ;
     
-    xinfo("You may enter any Scilab instruction. Enter ''return'' keyword to came back to Scicos")
+    xinfo("You may enter any Scilab instruction. Enter ''return'' keyword to come back to Scicos")
     
     xinfo_flag = 1 ; //** keep the message  
     disablemenus(xinfo_flag);
