@@ -248,11 +248,13 @@ function [h,immediate_drawing] = load_graphichandle(fd)
 	set(a,"rotation_angles"   , rotation_angles)
       end
     end
+    
     if is_higher_than([3 0 0 0]) then // log_flags
-      set(a,"log_flags"            , ascii(mget(3,'c',fd)));
+      log_flags= ascii(mget(3,'c',fd));
     else
-      set(a,"log_flags"            , ascii(mget(2,'c',fd)));
+      log_flags= ascii(mget(2,'c',fd));
     end
+   
     
     set(a,"tight_limits"         , toggle(mget(1,'c',fd))) // tight_limits
     data_bounds = matrix(mget(mget(1,'c',fd),'dl',fd),2,-1) // data_bounds
@@ -273,6 +275,7 @@ function [h,immediate_drawing] = load_graphichandle(fd)
 	end
       end
     end
+    
     if is_higher_than([3 0 0 0]) then
       if mget(1,'c',fd)<>0 then
 	set(a,"zoom_box"          , mget(4,'dl',fd))  // zoom_box
@@ -323,8 +326,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     //next lines because tools used to rebuild children change the
     //data_bounds an axes_visible properties
     set(a,"data_bounds"          , data_bounds) ; 
+    set(a,"log_flags"            , log_flags);
+
     set(a,"axes_visible"          , axes_visible) ;  
-    
     h=a;
     load_user_data(fd) ; // user_data
     
