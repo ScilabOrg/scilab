@@ -135,7 +135,7 @@
 
   %gap   1
   \item {\bf gap}\\
-         The width of the deadband. \\
+         The width of the dead-band. \\
 	 Properties : Type 'vec' of size 1
 
   %use zero-crossing (0:no, 1:yes)   1
@@ -183,14 +183,14 @@
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
       <PARAM_ITEM>
-	<PARAM_NAME>index of bit (0 is leat significant)</PARAM_NAME>
+	<PARAM_NAME>index of bit (0 is least significant)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    It indicate the index of the bit to clear.
-	    When the type is int32 or uint32 the number must be positif
+	    When the type is int32 or uint32 the number must be positive
 	    and less than 32. When the type is int16 or uint16 the number
-	    must be positif and less than 16. When the type is int8 or
-	    uint8 the number must be positif and less than 8.
+	    must be positive and less than 16. When the type is int8 or
+	    uint8 the number must be positive and less than 8.
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -222,10 +222,10 @@
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    It indicate the index of the bit to clear. When the type
-	    is int32 or uint32 the number must be positif and less
+	    is int32 or uint32 the number must be positive and less
 	    than 32. When the type is int16 or uint16 the number must
-	    be positif and less than 16. When the type is int8 or uint8
-	    the number must be positif and less than 8.
+	    be positive and less than 16. When the type is int8 or uint8
+	    the number must be positive and less than 8.
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -1098,13 +1098,13 @@
 \begin{itemize}
   %Numerator (s)   1
   \item {\bf Numerator} \\
-        This parameter sets the numerator of the transfert function.\\
+        This parameter sets the numerator of the transfer function.\\
         This must be a polynomial in s.\\
         Properties : Type 'pol' of size 1.
 
   %Denominator (s)   1+s
   \item {\bf Denominator} \\
-        This parameter sets the denominator of the transfert function.\\
+        This parameter sets the denominator of the transfer function.\\
         This must be a polynomial in s.\\
         Properties : Type 'pol' of size 1.
 
@@ -1116,13 +1116,13 @@
 \begin{itemize}
   %Numerator (s)   1
   \item {\bf Numerator} \\
-        This parameter sets the numerator of the transfert function.\\
+        This parameter sets the numerator of the transfer function.\\
         This must be a polynomial in s.\\
         Properties : Type 'pol' of size 1.
 
   %Denominator (s)   1+s
   \item {\bf Denominator} \\
-        This parameter sets the denominator of the transfert function.\\
+        This parameter sets the denominator of the transfer function.\\
         This must be a polynomial in s.\\
         Properties : Type 'pol' of size 1.
 
@@ -1407,7 +1407,7 @@
 
   %Set number of constraints   1
   \item {\bf Set number of constraints}\\
-        no of algebric relations to be defined. \\
+        no of algebraic relations to be defined. \\
 	Properties : Type 'vec' of size 1
 \end{itemize}
 </FILE>
@@ -1442,7 +1442,7 @@
            output port.
 	  </SP>
 	  <SP>
-	    From this value the block herits its data type.
+	    From this value the block inherits its data type.
 	  </SP>
 	  <SP>
 	    Properties : Type 'mat' of size [-1,-2].
@@ -1733,7 +1733,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message "Datatype is not
+	    in this label Scicos will print the message "Datatype is not
 	    supported".
 	  </SP>
 	  <SP>
@@ -1757,72 +1757,133 @@
   </PARAM>
 </FILE>
 
-<FILE name='CURVE_c' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
+<FILE name='CURVE_c' type='LATEX'>
+\begin{itemize}
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Spline Method (0..7)</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 1.
-      </SP>
-      <SP>
-      Properties : Type 'vec' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf Spline Method (0..7):} accepted values $0, 1, 2, 3, 4, 5, 6, 7$.
+    This parameter defines the spline method for interpolating the
+    points. The Signal builder block computes a linear or a cubic
+    spline or sub-spline $S$ which interpolates the $(x_i,y_i)$
+    points, i.e., we have $S(x_i)=y_i$ for all $i=1,..,n$.  Several
+    kind of splines may be computed by selecting the appropriate
+    spline method:
 
-    <PARAM_ITEM>
-    <PARAM_NAME>x</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 2.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\begin{itemize}
 
-    <PARAM_ITEM>
-    <PARAM_NAME>y</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 3.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf 0: "Zero order method"}. This method generates a piecewise
+    constant signal. i.e., for $t_i \le t \lt t_{i+1}$, $y(t)=y_i$
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Periodic signal(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 4.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf 1: "Linear method"}. This method generates a piecewise
+    linear signal. i.e., for $t_i \le t \lt t_{i+1}$,
+    y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Launch graphic window(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 5.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf 2: "Order 2 method"}. The interpolation is done by passing
+    2-order polynomials between $(x_i,y_i)$ and
+    $(x_{i+1},y_{i+1})$. The Derivative at $(x_i,y_i)$ is identical
+    for two adjacent polynomials. The derivative at $(x_1,y_1)$
+    can be selected arbitrary, so it is selected such that the sum of
+    derivatives at all points be minimum. This condition provides a
+    less fluctuated signal.
 
-  </PARAM_INDENT>
-  </PARAM>
+\item {\bf 3:"not_a_knot"}. The cubic spline is computed by using the
+    following conditions (considering $n$ points $x_1,...,x_n$):
+    $$S^{(3)}(x_2^-) = S^{(3)}(x_2^+)$$ $$S^{(3)}(x_{n-1}^-) =
+    S^{(3)}(x_{n-1}^+)$$
+
+\item {\bf 4:"periodic"}. A periodic cubic spline is computed ($y$
+    must verify $y_1=y_n$) by using the conditions:  \\$$S^{'}(x_1) =
+    S^{'}(x_n)$$ \\$$S^{''}(x_1) = S^{''}(x_n)$$.\\ In this case the value
+    of $y_n$ is ignored and $y_1$ is used instead. Note that in order
+    to generate a periodic signal, {\it Periodic} flag should be
+    activated.
+
+\item {\bf 5:"monotone"}. In this case a sub-spline ($S$ is only one
+    continuously differentiable) is computed such that $S$ is monotone
+    on each interval: \\ if $y_i \le y_{i+1}$, $S$ is increasing on
+    $[x_i, x_{i+1}]$. \\ if $y_i \gt y_{i+1}$, $S$ is decreasing on
+    $[x_i, x_{i+1}]$.
+
+\item {\bf 6:"clamped"}. In this case the cubic spline is computed by
+    using the end points derivatives which are set to zero, i.e.,
+    $$S^{'}(x_1) = S^{'}(x_n)=0$$
+
+\item {\bf 7:"fast"}. In this case a sub-spline is computed by using a
+    simple local scheme for the derivative at $x_i$ of the
+    interpolation polynomial of $(x_{i-1},y_{i-1})$, $(x_{i},y_{i})$,
+    $(x_{i+1},y_{i+1})$, except for the end points (derivative at
+    these points are computed from the 3 left most points and the 3
+    right most points).
+\end{itemize}
+
+\item {\bf x:} Abscissa data vector (X-axis). This vector can be
+   either a row or a column vector of double data.  This vector can
+   be also defined in the Scicos context. The data vector can be
+   specified by mathematical formula.
+
+\item {\bf y:} Ordinate data vector (Y-axis). This vector can be
+   either a row or a column vector of double data. Not that the size
+   of X and Y vector should be the same. This vector can be also
+   defined in the Scicos context. The data vector can also be
+   specified by formula.
+
+\item {\bf Periodic signal(y/n)}. If {\bf y} is selected, the created
+   signal will be periodic with the period of $t_n$. Note that if the
+   {\it Periodic} spline method is selected, the output signal will be
+   a continuous signal, otherwise the signal will be discontinuous at
+   endpoints.
+
+\item {\bf Launch graphical window (y/n)}. If {\bf y} is selected, by
+   clicking on {\bf OK} button, a graphical window is launched. In
+   this 2D graphical window, the user can edit data points: 
+
+\begin{itemize}
+    \item: Mouse left click on the window: adding a new data point
+
+    \item: Mouse right click on the window: remove a data point
+
+    \item: Mouse left double-click on a data point: edit a point's
+         coordinates
+
+    \item: Mouse left button press/drag/release: move a data point
+
+    \item  {\it Autoscale menu}: Rescaling the window to show all data
+         points properly.
+   
+    \item  {\it Spline/Method menu}: Selecting the spline interpolation method.
+
+    \item {\it Data/Clear menu} removing all data points
+
+    \item {\it Data/Data\_Bounds menu} Change the window size
+
+    \item {\it Data/Load\_from\_text\_file menu} reading data points
+          from a text data file (using C data format)
+
+    \item {\it Data/save\_to\_text\_file menu} saving the data points
+          to a text data file (using C data format)
+
+    \item {\it Data/Load\_from\_excel menu}: Reading data from an
+         excel file.
+  
+    \item {\it Data/Periodic\_signal menu}: Specifying weather the created
+        signal is periodic or not. If the signal is not periodic, the
+        signal stays constant beyond $t_n$, otherwise it is clamped
+        to $y_1$ at $t_n$.
+ 
+    \item {\it Standards/Functions menu}: Specifying Sine, Sawtooth,
+         Pulse, and random signals.
+
+    \item {\it Exit/Help menu}: a short help on the graphic window commands
+
+    \item {\it Exit/Exit\_without_save menu}: closing the graphical
+          window, discarding all modifications in data. 
+
+    \item {\it Exit/Exit_with_save menu}: closing the graphical window
+    and saving data points.
+
+\end{itemize}
+
+
+\end{itemize}
 </FILE>
 
 <FILE name='CURV_f' type='XML'>
@@ -2008,7 +2069,7 @@
   <PARAM>
     <PARAM_INDENT>
       <PARAM_ITEM>
-	<PARAM_NAME>Discretisation time step</PARAM_NAME>
+	<PARAM_NAME>Discretization time step</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    Set the time period of the integrated clock.
@@ -2107,12 +2168,12 @@
 <FILE name='DLR' type='LATEX'>
 \begin{itemize}
   \item {\bf Numerator (z)} \\
-        This parameter sets the numerator of the transfert function.\\
+        This parameter sets the numerator of the transfer function.\\
         This must be a polynomial in {\bf z}.\\
         Properties : Type 'pol' of size 1.
 
   \item {\bf Denominator (z)} \\
-        This parameter sets the denominator of the transfert function.\\
+        This parameter sets the denominator of the transfer function.\\
         This must be a polynomial in {\bf z}.\\
         Properties : Type 'pol' of size 1.
 \end{itemize}
@@ -2194,12 +2255,12 @@
 <FILE name='DLR_f' type='LATEX'>
 \begin{itemize}
   \item {\bf Numerator (z)} \\
-        This parameter sets the numerator of the transfert function.\\
+        This parameter sets the numerator of the transfer function.\\
         This must be a polynomial in {\bf z}.\\
         Properties : Type 'pol' of size 1.
 
   \item {\bf Denominator (z)} \\
-        This parameter sets the denominator of the transfert function.\\
+        This parameter sets the denominator of the transfer function.\\
         This must be a polynomial in {\bf z}.\\
         Properties : Type 'pol' of size 1.
 \end{itemize}
@@ -2364,7 +2425,7 @@
   <PARAM>
     <PARAM_INDENT>
       <PARAM_ITEM>
-	<PARAM_NAME>Saturation cuurent (A)</PARAM_NAME>
+	<PARAM_NAME>Saturation current (A)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    Saturation current
@@ -2576,7 +2637,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the
 	    two types double (1) and complex (2). If we input another
-	    entry in this label scicos will print the message
+	    entry in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -2639,7 +2700,7 @@
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
       <PARAM_ITEM>
-	<PARAM_NAME>number of bits or index of bit (case range of bits:[start,end],0 is leat significant bit)</PARAM_NAME>
+	<PARAM_NAME>number of bits or index of bit (case range of bits:[start,end],0 is least significant bit)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    When the "Bits to extract" field is set to 3 or 4, this
@@ -2692,7 +2753,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the
 	    two types double (1) and complex (2). If we input another
-	    entry in this label scicos will print the message
+	    entry in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -2956,7 +3017,7 @@
 	<PARAM_NAME>Tag Visibility(1=Local 2=scoped 3= global)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    This parameter idetifies the visibility of the block.
+	    This parameter identifies the visibility of the block.
 	    It can be local(1), scoped(2) or global(3).
 	  </SP>
 	  <SP>
@@ -3105,8 +3166,8 @@
         A vector/scalar initial conditions.\\
         Properties : Type 'vec' of size -1.
 
-  %With re-intialization (1:yes, 0:no)   0
-  \item {\bf With re-intialization} \\
+  %With re-initialization (1:yes, 0:no)   0
+  \item {\bf With re-initialization} \\
         To reset its state to the  specified
         initial condition based on an external signal select {\bf 1}.\\
         Properties : Type 'vec' of size 1.
@@ -3149,8 +3210,8 @@
          the input/output. It can be a real or a complex type.\\
          Properties : Type 'mat' of size [-1,-1].
 
-  %With re-intialization (1:yes, 0:no)   0
-  \item {\bf With re-intialization} \\
+  %With re-initialization (1:yes, 0:no)   0
+  \item {\bf With re-initialization} \\
         To reset its state to the  specified
         initial condition based on an external signal select {\bf 1}.\\
         Properties : Type 'vec' of size 1.
@@ -3305,7 +3366,7 @@
   \item {\bf Datatype(1= real double  2=Complex)}\\
         It indicates the type of the output. It support only the two
 	types double (1) and complex (2). If we input another entry
-	in this label scicos will print the message
+	in this label Scicos will print the message
 	"Datatype is not supported".\\
 	Properties : Type 'vec' of size 1
 
@@ -3430,7 +3491,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3451,7 +3512,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3483,7 +3544,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3515,7 +3576,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3536,7 +3597,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3557,7 +3618,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3578,7 +3639,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3610,7 +3671,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3631,7 +3692,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3652,7 +3713,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3691,7 +3752,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3723,7 +3784,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3744,7 +3805,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3787,7 +3848,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3821,7 +3882,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3854,7 +3915,7 @@
 	  <SP>
 	    It indicates the data type of the output. It support only
 	    the two types double (1) and complex (2). If we input
-	    another entry in this label scicos will print the message
+	    another entry in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -3931,10 +3992,16 @@
     <PARAM_NAME>Input variables</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 1.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+
+In this filed, the ports connected to the left hand side of the block are
+defined. If the port is an explicit port, it will be an input port. In
+this case, the variable should be declared in the Modelica program as
+Real. If the port is an implicit port, the variable desinating this
+port should be a "connector". Remind that for implicit port, the
+notion of input and output does not exist and specifying an implicit
+variable in this filed is just placing the port at the left hend side
+of the block.
+
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -3942,10 +4009,9 @@
     <PARAM_NAME>Input variables types </PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 2.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+In this filed, the type of ports are specified, i.e., 'I' for implicit
+ports and 'E' for explicit ports. The size of the vector of "input
+variables" and the vector of "input_vector_type" should be equal.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -3953,10 +4019,9 @@
     <PARAM_NAME>Output variables</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 3.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+Similar to the input variables vector, the explicit
+output variables and implicit variables which are displayed at the right
+hand side of the block are specified in this filed.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -3964,10 +4029,9 @@
     <PARAM_NAME>Output variables types</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 4.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+The type of variables given in the Output
+variable vector are specified, i.e., 'I' for implicit ports and 'E'
+for explicit ports.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -3975,10 +4039,10 @@
     <PARAM_NAME>Parameters in Modelica</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 5.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+The values of parameters declared in the Modelica program can be
+overloaded. To overload a parameter value, the name of parameters are given in
+this field and their corresponding values are given in the "parameter
+values" field.  
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -3986,21 +4050,49 @@
     <PARAM_NAME>Parameter  values</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 6.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
-      </SP>
+The value of parameters given in the "Parameters in Modelica" field,
+are specified in this filed. These values can also be defined in the
+Scicos context. In order to access the Scicos context, click on the
+"Diagram" menu then click on the "Context" submenu.
+For instance, here is an example of overloading of parameters in a Modelica program.
+</SP>      <SP>
+Class Example
+</SP>      <SP>
+  parameter Real Speed=12.0;
+</SP>      <SP>
+  parameter Real Position=0.0;
+</SP>      <SP>
+  parameter Real Length=13.0;
+</SP>      <SP>
+   ...
+</SP>      <SP>
+equation
+</SP>     <SP>
+  ...
+</SP>      <SP>
+end Example;
+</SP>      <SP>
+Parameters vector  = ['Speed';'Position']
+</SP>      <SP>
+Parameter value   =  [23.0;POS]
+</SP>      
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
     <PARAM_ITEM>
     <PARAM_NAME>Function name</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      The parameter description 7.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size -1.
+The Modelica class name is specified in this filed.  If the Modelica
+class name is specified without any path or extension, an interactive
+window is opened and the user can write or edit the Modelica
+program. This window is opened each time the user clicks on the
+block. If the Modelica class name is specified with path and '.mo'
+extension, the compiler looks for the file and if it is found, the
+file will be compiled, otherwise a window is opened and the user can
+write the Modelica program. This Modelica file will be saved with the
+given filename in the specified path. The next time, only input/output
+characteristics of the block can be changed, and the Modelica file
+should be edited with another text editor.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -4200,7 +4292,7 @@
   \item {\bf initial state} \\
          A scalar initial discrete state. \\
          Properties : Type 'vec' of size 1
-
+ 
   %Modulo what number ($>$0)   3
   \item {\bf Modulo what number} \\
          Number of required discrete signals.\\
@@ -4217,216 +4309,33 @@
 </PARAM>
 </FILE>
 
-<FILE name='NPN' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Forward beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 1.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Reverse beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 2.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Transport saturation current</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 3.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Early voltage (inverse), 1/Volt</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 4.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal forward transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 5.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal reverse transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 6.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Collector-substrat(ground) cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 7.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 8.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-coll. zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 9.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 10.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 11.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 12.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 13.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 14.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 15.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Voltage equivalent of temperature</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 16.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>if x&gt; EMinMax, the exp(x) function is linearized</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 17.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-    </PARAM_INDENT>
-  </PARAM>
+<FILE name='NPN' type='LATEX'>
+\begin{table}[h!b!p!]
+\begin{tabular}{lll}
+\hline
+Parameter & Default value & Description \\
+\hline
+Bf	& 50	  & Forward beta \\
+Br	& 0.1	  & Reverse beta\\
+Is	& 1.e-16  & Transport saturation current [A]\\
+Vak	& 0.02    & Early voltage (inverse), 1/Volt [1/V]\\
+Tauf	& 0.12e-9 & Ideal forward transit time [s]\\
+Taur	& 5e-9	  & Ideal reverse transit time [s]\\
+Ccs	& 1e-12	  & Collector-substrat(ground) cap. [F]\\
+Cje	& 0.4e-12 & Base-emitter zero bias depletion cap. [F]\\
+Cjc	& 0.5e-12 & Base-coll. zero bias depletion cap. [F]\\
+Phie	& 0.8	  & Base-emitter diffusion voltage [V]\\
+Me	& 0.4	  & Base-emitter gradation exponent\\
+Phic	& 0.8	  & Base-collector diffusion voltage [V]\\
+Mc	& 0.333	  & Base-collector gradation exponent\\
+Gbc	& 1e-15	  & Base-collector conductance [S]\\
+Gbe	& 1e-15	  & Base-emitter conductance [S]\\
+Vt	& 0.02585 & Voltage equivalent of temperature [V]\\
+EMin	& -100	  & if x < EMin, the exp(x) function is linearized\\
+EMax	& 40	  & if x > EMax, the exp(x) function is linearized\\
+\hline
+\end{tabular}
+\end{table}
 </FILE>
 
 <FILE name='NRMSOM_f' type='LATEX'>
@@ -4531,216 +4440,33 @@
   </PARAM>
 </FILE>
 
-<FILE name='PNP' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Forward beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 1.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Reverse beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 2.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Transport saturation current</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 3.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Early voltage (inverse), 1/Volt</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 4.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal forward transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 5.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal reverse transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 6.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Collector-substrat(ground) cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 7.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 8.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-coll. zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 9.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 10.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 11.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 12.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 13.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 14.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 15.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Voltage equivalent of temperature</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 16.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>if x&gt; EMinMax, the exp(x) function is linearized</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    The parameter description 17.
-	  </SP>
-	  <SP>
-	    Properties : Type 'vec' of size -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-    </PARAM_INDENT>
-  </PARAM>
+<FILE name='PNP' type='LATEX'>
+\begin{table}[h!b!p!]
+\begin{tabular}{lll}
+\hline
+Parameter & Default value & Description \\
+\hline
+Bf      & 50      & Forward beta\\
+Br      & 0.1     & Reverse beta\\
+Is	& 1.e-16  & Transport saturation current [A]\\
+Vak     & 0.02    & Early voltage (inverse), 1/Volt [1/V]\\
+Tauf	& 0.12e-9 & Ideal forward transit time [s]\\
+Taur	& 5e-9    & Ideal reverse transit time [s]\\
+Ccs	& 1e-12	  & Collector-substrat(ground) cap. [F]\\
+Cje	& 0.4e-12 & Base-emitter zero bias depletion cap. [F]\\
+Cjc	& 0.5e-12 & Base-coll. zero bias depletion cap. [F]\\
+Phie	& 0.8     & Base-emitter diffusion voltage [V]\\
+Me	& 0.4     & Base-emitter gradation exponent\\
+Phic	& 0.8	  & Base-collector diffusion voltage [V]\\
+Mc	& 0.333	  & Base-collector gradation exponent\\
+Gbc	& 1e-15	  & Base-collector conductance [S]\\
+Gbe	& 1e-15   & Base-emitter conductance [S]\\
+Vt	& 0.02585 & Voltage equivalent of temperature [V]\\
+EMin    &-100	  & if x < EMin, the exp(x) function is linearized\\
+EMax	& 40	  & if x > EMax, the exp(x) function is linearized\\
+\hline
+\end{tabular}
+\end{table}
 </FILE>
 
 <FILE name='POSTONEG_f' type='XML'>
@@ -4989,7 +4715,7 @@
   \item {\bf Datatype(1=real double  2=complex)} \\
         It indicates the type of the output. It support only the two
 	types double (1) and complex (2). If we input another entry
-	in this label scicos will print the message
+	in this label Scicos will print the message
 	"Datatype is not supported". \\
         Properties : Type 'vec' of size 1.
 
@@ -5508,7 +5234,7 @@
   \item {\bf Datatype(1= real double  2=Complex)}\\
         It indicates the type of the output. It support only the two
 	types double (1) and complex (2). If we input another entry
-	in this label scicos will print the message
+	in this label Scicos will print the message
 	"Datatype is not supported".
 	Properties : Type 'vec' of size 1
 
@@ -5542,11 +5268,11 @@
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
       <PARAM_ITEM>
-	<PARAM_NAME>Number of bits to shift left (use negatif number to shift right)</PARAM_NAME>
+	<PARAM_NAME>Number of bits to shift left (use negative number to shift right)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
 	    It indicates the number of bits the input signal is shifted.
-	    A positif value indicates a shift left, negatif values
+	    A positive value indicates a shift left, negative values
 	    indicates shift right.
 	  </SP>
 	  <SP>
@@ -5670,7 +5396,7 @@
 	  <SP>
 	    It indicates the type of the output. It support only the two
 	    types double (1) and complex (2). If we input another entry
-	    in this label scicos will print the message
+	    in this label Scicos will print the message
 	    "Datatype is not supported".
 	  </SP>
 	  <SP>
@@ -5982,69 +5708,9 @@
 <FILE name='Sigbuilder' type='XML'>
   <PARAM>
     <PARAM_INDENT>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Spline Method (0..7)</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 1.
-      </SP>
-      <SP>
-      Properties : Type 'vec' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>x</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 2.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>y</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 3.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Periodic signal(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 4.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Launch graphic window(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      The parameter description 5.
-      </SP>
-      <SP>
-      Properties : Type 'str' of size 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-  </PARAM_INDENT>
-  </PARAM>
+    The parameters of  Sigbuilder block is the same as that of \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block.
+    </PARAM_INDENT> 
+  </PARAM> 
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -6055,7 +5721,7 @@
 	<PARAM_NAME>Amplitude (Volt)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    The parameter description 1.
+	  Sine voltage amplitude
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -6067,7 +5733,7 @@
 	<PARAM_NAME>phase (rad)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    The parameter description 2.
+           phase shift of the sine voltage
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -6079,7 +5745,7 @@
 	<PARAM_NAME>Frequency (Hz)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    The parameter description 3.
+	  Sine voltage frequency
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -6091,7 +5757,7 @@
 	<PARAM_NAME>Voltageoffset (V)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    The parameter description 4.
+	    Offset Voltage of the sine voltage
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -6103,7 +5769,8 @@
 	<PARAM_NAME>Timeoffset (s)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    The parameter description 5.
+	    Start time. During the start time, the signal value is
+	equal to the voltage offset.
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size 1.
@@ -6403,7 +6070,7 @@
 	<PARAM_NAME>Amplitude (Volt)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Amplitude of the  output sinosoid voltage
+	    Amplitude of the  output sinusoid voltage
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size -1.
@@ -6414,7 +6081,7 @@
 	<PARAM_NAME>Frequency (Hz)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Frequency of the output sinosoid voltage
+	    Frequency of the output sinusoid voltage
 	  </SP>
 	  <SP>
 	    Properties : Type 'vec' of size -1.
@@ -6549,7 +6216,7 @@
   %Input size   1
   \item {\bf Input size}\\
         a positive integer. \\
-        Propertie : Type 'vec' of size 1.
+        Property : Type 'vec' of size 1.
 \end{itemize}
 </FILE>
 
@@ -6568,7 +6235,7 @@
 	<PARAM_NAME>lnksz</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    That parameter gives the size of scilab object in outtb.
+	    That parameter gives the size of Scilab object in outtb.
 	  </SP>
 	  <SP>
 	    This matrix of integer or real numbers can have a
@@ -6580,7 +6247,7 @@
 	<PARAM_NAME>lnktyp</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    That parameters gives the type of scilab object in outtb :
+	    That parameters gives the type of Scilab object in outtb :
 	  </SP>
 	  <SP>
 	    1 : double
@@ -6724,7 +6391,7 @@
   %function type (0,1,2,..)   1
   \item {\bf function type }\\
         Type of the computational function supported
-	by  scicos.\\
+	by  Scicos.\\
 	Properties : Type 'vec' of size 1
 
   %input ports sizes   1
@@ -6809,7 +6476,7 @@
   %function type (0,1,2,..)   1
   \item {\bf function type }\\
         Type of the computational function supported
-	by  scicos.\\
+	by  Scicos.\\
 	Properties : Type 'vec' of size 1
 
   %input ports sizes   1
@@ -6905,7 +6572,7 @@
   %function type (0,1,2,..)   1
   \item {\bf Function type }\\
         Type of the computational function supported
-	by  scicos.\\
+	by  Scicos.\\
 	Properties : Type 'vec' of size 1
 
   %input ports sizes   1
@@ -6955,7 +6622,7 @@
 
   %initial object state list()
   \item {\bf Initial object state}\\
-        A scilab list that defined the initial object state (oz).\\
+        A Scilab list that defined the initial object state (oz).\\
 	Properties : Type 'lis' of size -1
 
   %Real parameters vector   []
@@ -6973,7 +6640,7 @@
 
   %object parameters list  list()
   \item {\bf Object parameters list  }\\
-        A scilab list that defined the list of 
+        A Scilab list that defined the list of 
         the Object parameters (opar).\\
 	Properties : Type 'lis' of size -1
 
@@ -7390,7 +7057,7 @@
       <PARAM_NAME>level</PARAM_NAME>
       <PARAM_DESCRIPTION>
 	<SP>
-	  set/get the current level of the scicos simulation debugging.
+	  set/get the current level of the Scicos simulation debugging.
 	</SP>
 	<PARAM_INDENT>
 	  <PARAM_ITEM>
@@ -8504,9 +8171,9 @@
 	<PARAM_NAME>scs_m</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	  scicos diagram (obtained by "load file.cos"). Note that the
+	  Scicos diagram (obtained by "load file.cos"). Note that the
 	  version of file.cos must be the current version. If not,
-	  load into scicos and save.
+	  load into Scicos and save.
 	  </SP>
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
@@ -8525,7 +8192,7 @@
 	<PARAM_NAME>%scicos_context</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	  a scilab struct containing values of symbolic variables used
+	  a Scilab struct containing values of symbolic variables used
 	  in the context and Scicos blocks. This is often used to change a
 	  parameter in the diagram context. In that case, make sure that in
 	  the diagram context the variable is defined such that it can be
@@ -9059,7 +8726,7 @@
 	<PARAM_NAME>var</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Input parameter. Can be any types of scilab objects.
+	    Input parameter. Can be any types of Scilab objects.
 	  </SP>
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
@@ -9090,7 +8757,7 @@
 	<PARAM_NAME>var</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    Output parameter. Can be any types of scilab objects.
+	    Output parameter. Can be any types of Scilab objects.
 	  </SP>
 	</PARAM_DESCRIPTION>
       </PARAM_ITEM>
