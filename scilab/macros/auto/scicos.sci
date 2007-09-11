@@ -300,7 +300,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 		      'Popup'       , 'Popup_'        ;
 		      'PlaceinDiagram' , 'PlaceinDiagram_'   ;
 		      'TkPopup'     , 'TkPopup_'  ;
-		      'BrowseTo'    , 'BrowseTo_'    
+		      'BrowseTo'    , 'BrowseTo_'    ;
+		      'Place in Browser'    , 'PlaceinBrowser_'    
 		     ];
 
     menus = tlist('xxx')
