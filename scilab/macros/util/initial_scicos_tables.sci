@@ -1007,6 +1007,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : 6";
                   " Type : column vector or real."])
+
 //  %scs_help_params=scicos_help(%scs_help_params,...
 //                 'wpar',...
 //                  [" Ce vecteur n''est actuellement pas utilisé.";
@@ -1025,7 +1026,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " the file name.";
                   " ";
                   " Size : 2";
-                  " Type : line vector of strings."])
+                  " Type : row vector of strings."])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'title',...
 //                  [" Vecteur de chaîne de caractères, où la première contient";
@@ -1106,6 +1108,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : 1";
                   " Type : real."])
+
 //    %scs_help_params=scicos_help(%scs_help_params,...
 //                   'tf',...
 //                  [" Le temps final de simulation. La simulation s''arrête";
@@ -1123,6 +1126,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : number of lines of the context";
                   " Type : column vector of strings."])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'context',...
 //                  [" Un vecteur de chaînes de caractères contenant des";
@@ -1141,6 +1145,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : -";
                   " Type : -"])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'void1',...
 //                  [" Champ inutilisé.";
@@ -1183,6 +1188,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : 6";
                   " Type : scilab tlist of type {scsopt}"])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'options',...
 //                  [" Liste Scilab de type {scsopt} définissant les";
@@ -1227,6 +1233,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : -";
                   " Type : -"])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'void2',...
 //                  [" Champ inutilisé.";
@@ -1240,6 +1247,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : -";
                   " Type : -"])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'void3',...
 //                  [" Champ inutilisé.";
@@ -1253,6 +1261,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Size : 1";
                   " Type : Strings."])
+
 //   %scs_help_params=scicos_help(%scs_help_params,...
 //                  'doc',...
 //                  [" Structure utilisateur pour la documentation des diagrammes.";
@@ -1296,6 +1305,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " dimension of regular input ports indexed from top to";
                   " bottom of the block. If no input port exist in==[].";
                   " ";
+                  " The size can be negative, equal to zero or positive :";
+                  " ";
+                  "   - If a size is less than zero, the compilator will";
+                  "     try to find the appropriate size.";
+                  " ";
+                  "   - If a size is equal to zero, the compilator will";
+                  "     affect this dimension by added all positive size";
+                  "     found in that vector";
+                  " ";
+                  "   - If a size is greater than zero, then the size is"
+                  "     explicitly given.";
+                  " ";
                   " Size : number of regular input ports.";
                   " Type : column vector of integer numbers."])
 //   %scs_help_model=scicos_help(%scs_help_model,...
@@ -1305,6 +1326,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " indéxés du haut vers le bas.";
 //                   " Si il n''existe pas de port d''entrées, alors";
 //                   " in=[].";
+//                   ""
+//                   " Les dimensions peuvent être négatives, égales à zéro"
+//                   " ou positives : "
+//                   ""
+//                   "   - Lorsqu'une dimension négative est utilisée, "
+//                   "     alors le compilateur essaiera de déterminer "
+//                   "     quelle est la dimension appropriée."
+//                   ""
+//                   "   - Lorsqu'une dimension égale à zéro est utilisée, "
+//                   "     alors le compilateur déterminera la valeur de "
+//                   "     cette dimension en sommant toutes les tailles "
+//                   "     positives trouvées dans ce vecteur de dimensions."
+//                   ""
+//                   "   - Si les dimensions sont positives, elles sont"
+//                   "     alors explicitement renseignées."
 //                   ""
 //                   " Taille : nombre de ports réguliers d''entrée.";
 //                   " Type : vecteur colonne de nombres entiers."])
@@ -1317,8 +1353,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " For compatibility, this dimension can stay empty ([]). That";
                   " means that the dimensions of input ports will be in,1";
                   " ";
+                  " The size can be negative, equal to zero or positive :";
+                  " ";
+                  "   - If a size is less than zero, the compilator will";
+                  "     try to find the appropriate size.";
+                  " ";
+                  "   - If a size is equal to zero, the compilator will";
+                  "     affect this dimension by added all positive size";
+                  "     found in that vector";
+                  " ";
+                  "   - If a size is greater than zero, then the size is"
+                  "     explicitly given.";
+                  " ";
                   " Size : number of regular input ports.";
                   " Type : column vector of integer numbers."])
+
 //   %scs_help_model=scicos_help(%scs_help_model,...
 //                  'in2',...
 //                  [" Un vecteur spécifiant la deuxième dimension";
@@ -1329,6 +1378,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " Pour des raisons de compatibilité, cette dimension"
 //                   " peut rester non renseignée ([]), ce qui signifiera"
 //                   " que les dimensions des ports seront in,1."
+//                   ""
+//                   " Les dimensions peuvent être négatives, égales à zéro"
+//                   " ou positives : "
+//                   ""
+//                   "   - Lorsqu'une dimension négative est utilisée, "
+//                   "     alors le compilateur essaiera de déterminer "
+//                   "     quelle est la dimension appropriée."
+//                   ""
+//                   "   - Lorsqu'une dimension égale à zéro est utilisée, "
+//                   "     alors le compilateur déterminera la valeur de "
+//                   "     cette dimension en sommant toutes les tailles "
+//                   "     positives trouvées dans ce vecteur de dimensions."
+//                   ""
+//                   "   - Si les dimensions sont positives, elles sont"
+//                   "     alors explicitement renseignées."
 //                   ""
 //                   " Taille : nombre de ports réguliers d''entrée.";
 //                   " Type : vecteur colonne de nombres entiers."])
@@ -1373,6 +1437,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " dimension of regular output ports indexed from top to";
                   " bottom of the block. If no output port exist out==[].";
                   " ";
+                  " The size can be negative, equal to zero or positive :";
+                  " ";
+                  "   - If a size is less than zero, the compilator will";
+                  "     try to find the appropriate size.";
+                  " ";
+                  "   - If a size is equal to zero, the compilator will";
+                  "     affect this dimension by added all positive size";
+                  "     found in that vector";
+                  " ";
+                  "   - If a size is greater than zero, then the size is"
+                  "     explicitly given.";
+                  " ";
                   " Size : number of regular output ports.";
                   " Type : column vector of integer numbers."])
 //   %scs_help_model=scicos_help(%scs_help_model,...
@@ -1382,6 +1458,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " indéxés du haut vers le bas.";
 //                   " Si il n''existe pas de port de sorties, alors";
 //                   " out=[].";
+//                   ""
+//                   " Les dimensions peuvent être négatives, égales à zéro"
+//                   " ou positives : "
+//                   ""
+//                   "   - Lorsqu'une dimension négative est utilisée, "
+//                   "     alors le compilateur essaiera de déterminer "
+//                   "     quelle est la dimension appropriée."
+//                   ""
+//                   "   - Lorsqu'une dimension égale à zéro est utilisée, "
+//                   "     alors le compilateur déterminera la valeur de "
+//                   "     cette dimension en sommant toutes les tailles "
+//                   "     positives trouvées dans ce vecteur de dimensions."
+//                   ""
+//                   "   - Si les dimensions sont positives, elles sont"
+//                   "     alors explicitement renseignées."
 //                   ""
 //                   " Taille : nombre de ports réguliers de sortie.";
 //                   " Type : vecteur colonne de nombres entiers."])
@@ -1393,6 +1484,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " {out} with {out2} formed then the regular output sizes matrix.";
                   " For compatibility, this dimension can stay empty ([]). That";
                   " means that the dimensions of output ports will be out,1";
+                  " ";
+                  " That dimension can be negative, equal to zero or positive :";
+                  " ";
+                  "   - If a size is less than zero, the compilator will";
+                  "     try to find the appropriate size.";
+                  " ";
+                  "   - If a size is equal to zero, the compilator will";
+                  "     affect this dimension by added all positive size";
+                  "     found in that vector.";
+                  " ";
+                  "   - If a size is greater than zero, then the size is"
+                  "     explicitly given.";
                   " ";
                   " Size : number of regular output ports.";
                   " Type : column vector of integer numbers."])
@@ -1406,6 +1509,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " Pour des raisons de compatibilité, cette dimension"
 //                   " peut rester non renseignée ([]), ce qui signifiera"
 //                   " que les dimensions des ports seront out,1."
+//                   ""
+//                   " Les dimensions peuvent être négatives, égales à zéro"
+//                   " ou positives : "
+//                   ""
+//                   "   - Lorsqu'une dimension négative est utilisée, "
+//                   "     alors le compilateur essaiera de déterminer "
+//                   "     quelle est la dimension appropriée."
+//                   ""
+//                   "   - Lorsqu'une dimension égale à zéro est utilisée, "
+//                   "     alors le compilateur déterminera la valeur de "
+//                   "     cette dimension en sommant toutes les tailles "
+//                   "     positives trouvées dans ce vecteur de dimensions."
+//                   ""
+//                   "   - Si les dimensions sont positives, elles sont"
+//                   "     alors explicitement renseignées."
 //                   ""
 //                   " Taille : nombre de ports réguliers de sortie.";
 //                   " Type : vecteur colonne de nombres entiers."])
@@ -1526,7 +1644,13 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" List containing initial values of objects state.";
                   " Must be list() if no objects state.";
                   " ";
-                  " Size : number of objetcs state.";
+                  " Objects state can be any types of scilab variable.";
+                  " In the computational function case of type 4 (C blocks)";
+                  " only elements containig matrix of real, complex,";
+                  " int32, int16 ,int8 ,uint32, uit16 and uint8 will be correctly";
+                  " provided for read/write.";
+                  " ";
+                  " Size : number of objects state.";
                   " Type : scilab list of scilab objects."])
 //   %scs_help_model=scicos_help(%scs_help_model,...
 //                  'state',...
@@ -1535,342 +1659,642 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " Ce vecteur doit être égal à [] si le bloc ne possède";
 //                   " pas d''état discrets";
 //                   " ";
+//                   " Les états objets acceptent tous les types de variables";
+//                   " Scilab.";
+//                   " Dans le cas des fonctions de calcul de type 4 (bloc C),";
+//                   " seul les éléments contenant des matrices de nombres réels,";
+//                   " complexes, int32, int16 ,int8 ,uint32, uit16 et uint8 seront";
+//                   " correctement fournis pour la lecture/écriture.";
+//                   " ";
 //                   " Taille : nombre d''états objets.";
-//                   " Type : list scilab ."])
+//                   " Type : liste scilab."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'rpar',...
-                 ["";
+                 [" The vector of floating point block parameters. "
+                  " Must be [] if no floating point parameters.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of real parameters.";
+                  " Type : column vector of real numbers."])
+
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'rpar',...
+//                  [" Le vecteur des parametres à virgule flotante.";
+//                   " Doit être [] si le bloc ne possède pas de";
+//                   " paramètres réels.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de paramètres réels.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'ipar',...
-                 ["";
+                 [" The vector of integer block parameters. "
+                  " Must be [] if no integer parameters.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of integer parameters.";
+                  " Type : column vector of integer numbers."]) 
+//  %scs_help_model=scicos_help(%scs_help_model,...
+//                  'ipar',...
+//                  [" Le vecteur des parametres entiers.";
+//                   " Doit être [] si le bloc ne possède pas de";
+//                   " paramètres entiers.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de paramètres entiers.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'opar',...
-                 ["";
+                 [" List of objects block parameters. "
+                  " Must be list() if no objects parameters.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Objects parameters can be any types of scilab variable.";
+                  " In the computational function case of type 4 (C blocks)";
+                  " only elements containig matrix of real, complex,";
+                  " int32, int16 ,int8 ,uint32, uit16 and uint8 will be correctly";
+                  " provided for read.";
+                  " ";
+                  " Size : number of objetcs parameters.";
+                  " Type : list of scilab object."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'opar',...
+//                  [" La liste des parametres objets.";
+//                   " Doit être list() si le bloc ne possède pas de";
+//                   " paramètres objets.";
+//                   " Les paramètres objets acceptent tous les types"
+//                   " de variables Scilab.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Dans le cas des fonctions de calcul de type 4 (bloc C),";
+//                   " seul les éléments contenant des matrices de nombres réels,";
+//                   " complexes, int32, int16 ,int8 ,uint32, uit16 et uint8 seront";
+//                   " correctement fournis pour la lecture.";
+//                   " ";
+//                   " Taille : nombre de paramètres objets.";
+//                   " Type : liste d'objets scilab."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'blocktype',...
-                 ["";
+                 [" Character that can be set to ''c'' or ''d''"
+                  " indifferently for standard blocks. ''x'' is used"
+                  " if we want to force the computational function to"
+                  " be called during the simulation phase even if"
+                  " the block does not contribute to computation of" 
+                  " the state derivative.";
+                  " ''l'', ''m'' and ''s'' are reserved. Not to be used."
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : Character."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'blocktype',...
+//                  [" Un caractère qui peut être mis indifféremment à";
+//                   " ''c'' ou ''d'' pour les blocs standards. ''x'' est";
+//                   " utilisé pour forcer l'appel à la fonction de calcul";
+//                   " d'un bloc lors des calculs des états continu, même ";
+//                   " si le bloc ne possède pas de tels états.";
+//                   " ''l'', ''m'' et ''s'' sont réservés et ne doivent pas";
+//                   " être utilisé.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : caractère."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'firing',...
-                 ["";
-                  " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                 [" Vector of initial event firing times of size "
+                  " equal to the number of activation output ports";
+                  " (see {evout}). It contains output initial event dates";
+                  " (Events generated before any input event arises). "
+                  " Negative values stands for no initial event on the "
+                  " corresponding port. ";
+                  ""
+                  " Size : number of output event ports.";
+                  " Type : column vector of real numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'firing',...
+//                  [" Un vecteur des temps initiaux de taille";
+//                   " égale au nombre de ports événementiels de";
+//                   " sortie. Celui ci contient les dates initiales";
+//                   " (événements générés avant tout autre événements)";
+//                   " Des valeurs négatives indiquent qu'aucun";
+//                   " événement inital ne sera généré.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de ports événementiel de sortie.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'dep_ut',...
-                 ["";
+                 ["Boolean vector [dep_u, dep_t]."
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " - dep_u: true if block is always active."
+                  "          (output depends continuously of the time)";
+                  " ";
+                  " - dep_t: true if block has direct feed-through,"
+                  "          i.e., at least one of the outputs depends"
+                  "          directly (not through the states) on one"
+                  "          of the inputs.   "
+                  "          In other words, when the computational"
+                  "          function is called with flag 1, the value "
+                  "          of an input is used to compute the output."
+                  " ";
+                  " Size : 2";
+                  " Type : Boolean vector."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'dep_ut',...
+//                  [" Un vecteur de booléen. [dep_u, dep_t].";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " - dep_u: vrai si le bloc est toujours actif."
+//                   "          (la sortie dépend continuellement du temps)";
+//                   " ";
+//                   " - dep_t: vrai si le bloc à une relation directe entre"
+//                   "          une entrée régulière et une sortie régulière."
+//                   "          En d'autre termes, lorsque la fonction de calcul"
+//                   "          est appelée avec flag 1, la valeur d'une entrée"
+//                   "          est utilisée pour calculer la sortie."
+//                   " ";
+//                   " Taille 2: ";
+//                   " Type : vecteur de boléens."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'label',...
-                 ["";
+                 [" String that defines a label. "
+                  " It can be used to identify a block "
+                  " in order to access or modify its "
+                  " parameters during simulation.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : string"])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'label',...
+//                  [" Chaîne de caractères qui définit un label.";
+//                   " Le label peut être utilisé pour identifier";
+//                   " un bloc pour avoir accès ou modifier ses "
+//                   " paramètres pendant la simulation.
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : chaine de caractère"])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nzcross',...
-                 ["";
+                 [" Number of zero-crossing surfaces.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : Number of zero-crossing surfaces.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'nzcross',...
+//                  [" Nombre de détection de surfaces.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de détection de surfaces.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nmode',...
-                 ["";
+                 [" Length of the mode register. Note that this gives the size of"
+                  " the vector mode and not the total number of modes"
+                  " in which a block can operate in. Suppose a block "
+                  " has 3 modes and each mode can take two values, then"
+                  " the block can have up to 2^3=8 modes. ";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : Number of modes.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'nmode',...
+//                  [" La longeur du registre des modes. Notez que cela donne la taille";
+//                   " du vecteur des modes mais pas le nombre total de";
+//                   " modes utilisés par le bloc.";
+//                   " En supposant qu'un bloc a 3 modes et que chaque";
+//                   " mode peut prendre deux valeurs, alors le bloc";
+//                   " peut avoir jusqu'à 2^3=8 modes.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : longueur du registre des modes.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'equations',...
-                 ["";
+                 [" Used in case of implicit blocks.";
+                  " Data structure of type {modelica} which contains modelica"
+                  " code description if any. That list contains four entries :";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  "   - model : a string given the name of the file that contains"
+                  "             the modelica function.";
+                  " ";
+                  "   - inputs : a colunm vector of strings that contains the names of";
+                  "              the modelica variables used as inputs.";
+                  ""
+                  "   - outputs : a colunm vector of strings that contains the names of";
+                  "               the modelica variables used as outputs.";
+                  " ";
+                  "   - parameters : a list with two entries. The first is a vector of strings"
+                  "                  for the name of modelica variable names used as parameters";
+                  "                  and the second entries is a list that contains the value of"
+                  "                  parameters.";
+                  "                  Names of modelica states can also be informed with"
+                  "                  {parameters}. In that case a third entry is used to do the"
+                  "                  difference between parameters and states."
+                  "                  For i,e :";
+                  "                    mo.parameters=list([''C'',''v''],list(C,v),[0,1])"
+                  "                  means that ''C'' is a parameter(0) of value C, and ''v''";
+                  "                  is a state(1) with initial value v.";
+                  " ";
+                  " Size : 5";
+                  " Type : scilab list."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'equations',...
+//                  [" Utilisé dans les cas des blocs implicites.";
+//                   " Structure de données de type {modelica} qui";
+//                   " contient des descriptions relatives au code modelica.";
+//                   " Cette liste contient quatre entrées :";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   "  - model : une chaîne de caractères donnant le nom du fichier";
+//                   "            de la fonction modelica.";
+//                   " ";
+//                   "  - inputs : un vecteur colonne de chaînes de caractères donnant";
+//                   "             les noms des variables utilisées comme entrées.";
+//                   " ";
+//                   "  - outputs : un vecteur colonne de chaînes de caractères donnant";
+//                   "              les noms des variables utilisées comme sorties.";
+//                   " ";
+//                   "  - parameters : une liste à deux entrées. La première est un vecteur";
+//                   "                 de chaînes de caractères contenant les noms des variables";
+//                   "                 modelica utilisées en tant que paramètres et la deuxième";
+//                   "                 une liste contenant les valeurs de ces paramètres.";
+//                   "                 Les noms des états modelica peuvent aussi être informés";
+//                   "                 via {parameters}. Dans ce cas une troisième entrée est";
+//                   "                 utilisée pour différencier les paramètres des états.";
+//                   "                 Par exemple :";
+//                   "                    mo.parameters=list(['C','v'],list(C,v),[0,1])"
+//                   "                 signifie que ''C'' est un paramètre(0) de valeur C, et";
+//                   "                 que ''v'' est une variable d'état(1) avec une valeur";
+//                   "                 initiale v.";
+//                   " ";
+//                   " Taille : 5";
+//                   " Type : liste scilab."])
 
   //****** scicos_graphics ******/
   //*****************************/
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'orig',...
-                 ["";
+                 [" Vector [xo,yo], where xo is the x coordinate"
+                  " of the  block origin and yo is the y coordinate"
+                  " of the  block origin.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " [xo,yo] is the coordinate of down-left point of"
+                  " the block shape.";
+                  " ";
+                  " Size : 2";
+                  " Type : row vector of real."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'orig',...
+//                  [" Un vecteur [xo,yo], où xo est la coordonnée sur";
+//                   " l'axe des abscisses de l'origine du bloc et yo est";
+//                   " la coordonnée sur l'axe des ordonnées.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " [xo,yo] sont les coordonnées en bas à gauche du";
+//                   " contours du bloc.";
+//                   " ";
+//                   " Taille : 2";
+//                   " Type : vecteur ligne de nombres réels."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'sz',...
-                 ["";
+                 [" Vector [w,h], where w is the block width and"
+                  " h the block height.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 2";
+                  " Type : row vector of real."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'sz',...
+//                  [" Un vecteur [w,h], où w est la largeur et";
+//                   " h la hauteur du bloc.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 2";
+//                   " Type : vecteur ligne de nombres réels."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'flip',...
-                 ["";
+                 [" Set the block orientation. If true the input ports"
+                  " are on the left of the box and output ports are on the right."
+                  " If false the input ports are on the right of the box and "
+                  " output ports are on the left.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : boolean."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'flip',...
+//                  [" Définit l'orientation du bloc. Si vrai alors les ports";
+//                   " d'entrée sont sur la gauche du bloc et les ports de sortie";
+//                   " sur la droite. Si faux alors les ports d'entrée sont sur "
+//                   " la droite et ceux de sortie sur la gauche.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : booléen."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'theta',...
-                 ["";
+                 [" Set the angle of the Scicos object."
+                  " This value is in degree and is "
+                  " included in [-360,360].";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : real."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'theta',...
+//                  [" Définit l'angle de l'objet Scicos.";
+//                   " Cette valeur est en degrés et est inclut";
+//                   " dans [-360,360]"
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " ";
+//                   " Taille : 1";
+//                   " Type : nombre réel."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'exprs',...
-                 ["";
+                 [" Strings including formal expressions"
+                  " used in the dialog box of the block.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of formal expressions.";
+                  " Type : column vector of strings."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'exprs',...
+//                  [" Des chaînes de caractères incluant des expressions";
+//                   " formelles utilisées dans la boîte de dialogue.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : Nombre d'expressions formelles.";
+//                   " Type : Vecteur colonne de chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pin',...
-                 ["";
+                 [" Vector. pin(i) is the number  of the link"
+                  " connected to the ith regular input port "
+                  " (counting from one), or 0 if this port is"
+                  " not connected.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of regular input ports.";
+                  " Type : column vector of integers."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'pin',...
+//                  [" Un vecteur. pin(i) est le numéro du lien";
+//                   " connecté à l'entrée régulière i, ou 0 si";
+//                   " le port est connecté à aucun lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " ";
+//                   " Taille : nombres de ports réguliers d'entrée.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pout',...
-                 ["";
+                 [" Vector. pout(i) is the number of the link"
+                  " connected to the ith regular output port "
+                  " (counting from one), or 0 if this port is"
+                  " not connected.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of regular output ports.";
+                  " Type : column vector of integers."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'pout',...
+//                  [" Un vecteur. pout(i) est le numéro du lien";
+//                   " connecté à la sortie régulière i, ou 0 si";
+//                   " le port est connecté à aucun lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " ";
+//                   " Taille : nombres de ports réguliers de sortie.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'pein',...
-                 ["";
+                 [" Vector. pein(i) is the number of the link"
+                  " connected to the ith event input port "
+                  " (counting from one), or 0 if this port is"
+                  " not connected.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of events input ports.";
+                  " Type : column vector of integers."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'pein',...
+//                  [" Un vecteur. pein(i) est le numéro du lien";
+//                   " connecté à l'entrée événementielle i, ou 0 si";
+//                   " le port est connecté à aucun lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " ";
+//                   " Taille : nombres de ports événementiel d'entrée.";
+//                   " Type : vecteur colonne de nombre entiers."])
+
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'peout',...
-                 ["";
+                 [" Vector. peout(i) is the number of the link"
+                  " connected to the ith event output port "
+                  " (counting from one), or 0 if this port is"
+                  " not connected.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of events output ports.";
+                  " Type : column vector of integers."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'peout',...
+//                  [" Un vecteur. peout(i) est le numéro du lien";
+//                   " connecté à la sortie événementielle i, ou 0 si";
+//                   " le port est connecté à aucun lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " ";
+//                   " Taille : nombres de ports événementiel de sortie.";
+//                   " Type : vecteur colonne de nombre entiers."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'gr_i',...
-                 ["";
+                 [" Strings including Scilab graphics"
+                  " expressions for customizing the block graphical"
+                  " aspect. This field may be set with {Icon} sub_menu."
                   " ";
                   " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Type : column vector of strings."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'gr_i',...
+//                  [" Chaînes de caractère qui contiennent les expression";
+//                   " graphiques pour personnaliser l'aspect graphique des";
+//                   " blocs. Ce champ peut être renseigné par le sous-menu";
+//                   " {Icon}.";
 //                   " ";
 //                   " Taille : ";
-//                   " Type : "])
+//                   " Type : Vecteur colonne de chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'id',...
-                 ["";
+                 [" A string including an identification for the"
+                  " block. The string is displayed under the"
+                  " block in the diagram.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : string."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'id',...
+//                  [" Une chaîne qui contient un identifiant pour";
+//                   " le bloc. Celui ci est affichéé en dessous du";
+//                   " bloc dans le diagramme.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'in_implicit',...
-                 ["";
+                 [" A vector of strings including ''E'' or ''I''."
+                  " ''E'' and ''I'' stand respectively for explicit and"
+                  " implicit port, and this vector indicates the nature"
+                  " of each input port. For regular blocks (not implicit),"
+                  " this vector is empty or contains only ""E"" ";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : nul or number of regular input ports.";
+                  " Type : column vector of strings."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'in_implicit',...
+//                  [" Un vecteur de chaînes de caractères contenant ''E'' ou ''I''.";
+//                   " ''E'' et ''I'' correspondent respectivement à explicite ou";
+//                   " implicite. Ce vecteur indique donc la nature de chaque ports.";
+//                   " Pour les blocs classiques, celui ci est soit vide ou bien égal";
+//                   " à ''E''.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : vide ou bien le nombre de ports réguliers d'entrée.";
+//                   " Type : vecteur colonne de chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'out_implicit',...
-                 ["";
+                 [" A vector of strings including ''E'' or ''I''."
+                  " ''E'' and ''I'' stand respectively for explicit and"
+                  " implicit port, and this vector indicates the nature"
+                  " of each output port. For regular blocks (not implicit),"
+                  " this vector is empty or contains only ""E"" ";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : nul or number of regular output ports.";
+                  " Type : column vector of strings."])
+//   %scs_help_graphics=scicos_help(%scs_help_graphics,...
+//                  'out_implicit',...
+//                  [" Un vecteur de chaînes de caractères contenant ''E'' ou ''I''.";
+//                   " ''E'' et ''I'' correspondent respectivement à explicite ou";
+//                   " implicite. Ce vecteur indique donc la nature de chaque ports.";
+//                   " Pour les blocs classiques, celui ci est soit vide ou bien égal";
+//                   " à ''E''.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : vide ou bien le nombre de ports réguliers de sorties.";
+//                   " Type : vecteur colonne de chaînes de caractères."])
 
   //****** scicos_link ******/
   //*************************/
   %scs_help_link=scicos_help(%scs_help_link,...
                  'xx',...
-                 ["";
+                 [" Vector of x coordinates of the link path.";
+                  " A link is defined as a polyline line.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of points of the link.";
+                  " Type : column vector of real numbers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'xx',...
+//                  [" Un vecteur de coordonnées des abscisses x ";
+//                   " d''un lien. Un lien est définit comme "
+//                   " une polyline.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre total de points du liens.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'yy',...
-                 ["";
+                 [" Vector of y coordinates of the link path.";
+                  " A link is defined as a polyline line.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of points of the link.";
+                  " Type : column vector of real numbers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'yy',...
+//                  [" Un vecteur de coordonnées des ordonnées y";
+//                   " d''un lien. Un lien est définit comme";
+//                   " une polyline.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre total de points du liens.";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'id',...
-                 ["";
+                 [" Character string, the link identification.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : string."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'id',...
+//                  [" Une chaîne de caractères définissant";
+//                   " l''identification du lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : chaîne de caractères."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'thick',...
-                 ["";
+                 [" Vector of size two defining line thickness.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 2";
+                  " Type : row vector of integers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'thick',...
+//                  [" Un vecteur de taille deux définissant"
+//                   " l'épaisseur du lien.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 2";
+//                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'ct',...
-                 ["";
+                 [" The first entry of this vector designates the color,"
+                  " and the second, the nature of the link. The second"
+                  " entry is 1 for a regular link, -1 for an activation"
+                  " link, and 2 for an implicit link.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 2";
+                  " Type : row vector of integers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'ct',...
+//                  [" La première entrée de ce vecteur désigne la couleur";
+//                   " et la deuxième la nature du lien. La valeur de cette";
+//                   " dernière entrée est 1 pour un lien régulier, -1 pour";
+//                   " un lien d'activation et 2 pour un lien implicite.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 2";
+//                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'from',...
-                 ["";
+                 [" Vector of size three including the block number,"
+                  " port number, and port type (0 for output, 1 for"
+                  " input) at the origin of the link. Note that the "
+                  " third entry may be 1 if the link is implicit;  "
+                  " otherwise it is zero.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 3";
+                  " Type : row vector of integers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'from',...
+//                  [" Un vecteur de taille 3 qui designe un numéro de";
+//                   " bloc, un numéro de port et un type de port (0 pour";
+//                   " une sortie et 1 pour une entrée) concernant l'origine";
+//                   " du lien. Notez que la troisième entrée peut être 1 si";
+//                   " le lien est implicite. Sinon il est zéro.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 3";
+//                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'to',...
-                 ["";
+                 [" Vector of size three including the block number,"
+                  " port number, and port type (0  for output, 1 for"
+                  " input) at the destination of the link. Note that the "
+                  " third entry may be 1 if the link is implicit;  "
+                  " otherwise it is zero.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 3";
+                  " Type : row vector of integers."])
+//   %scs_help_link=scicos_help(%scs_help_link,...
+//                  'to',...
+//                  [" Un vecteur de taille 3 qui designe un numéro de";
+//                   " bloc, un numéro de port et un type de port (0 pour";
+//                   " une sortie et 1 pour une entrée) concernant la destination";
+//                   " du lien. Notez que la troisième entrée peut être 1 si";
+//                   " le lien est implicite. Sinon il est zéro.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 3";
+//                   " Type : vecteur ligne de nombre entiers."])
 
   //****** scicos_state ******/
   //**************************/
@@ -1883,8 +2307,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " state contains {x}, {z}, {oz}, {iz}, "
                   " {tevts}, {evtspt}, {pointi} and {outtb}."
                   " ";
-                  " Size : 9.";
-                  " Type : scilab tlist"])
+                  " Size : 9";
+                  " Type : scilab tlist."])
 
 //  %scs_help_state=scicos_help(%scs_help_state,...
 //                 'state',...
@@ -1895,7 +2319,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 //                   " state contient {x}, {z}, {oz}, {iz}, "
 //                   " {tevts}, {evtspt}, {pointi} et {outtb}."
 //                   " ";
-//                   " Taille : 9.";
+//                   " Taille : 9";
 //                   " Type : tlist scilab."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
@@ -1997,7 +2421,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scs_help_state=scicos_help(%scs_help_state,...
                  'evtspt',...
                  [" Vector of size equal to the number of activation"
-                  " sources. It is an event scheduler. ";
+                  " sources. It is an event scheduler.";
                   " ";
                   " Size : number of activation sources.";
                   " Type : column vector of integers."])
@@ -2053,7 +2477,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " during the simulation."
                   " ";
                   " Size : 33";
-                  " Type : scilab tlist"])
+                  " Type : scilab tlist."])
 
 //   %scs_help_sim=scicos_help(%scs_help_sim,...
 //                  'sim',...
@@ -2229,7 +2653,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " is the index of the link connected to "
                   " the jth output port of the ith block where "
                   " j goes from 1 to "
-                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i)). ";
+                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i)).";
                   " ";
                   " Size : total number of regular output port.";
                   " Type : column vector of integers."])
