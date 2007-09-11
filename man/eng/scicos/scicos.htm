@@ -306,13 +306,13 @@ File content</A>
   [lhs, rhs] = argn(0) ; //** recover the arguments of "scicos(&lt;rhs&gt;)" 
   
   if rhs&gt;=1 then //** scicos_new(...) is called with some arguments
-
+    
     if type(scs_m)==10 then //diagram is given by its filename
       %fil=scs_m
       alreadyran=%f
       [ok,scs_m,%cpr,edited] = do_load(%fil,'diagram')
       if ~ok then return,end
-
+      
       if size(%cpr)==0 then
 	needcompile=4
 	%state0=list()
@@ -320,22 +320,27 @@ File content</A>
 	%state0=%cpr.state;
 	needcompile=0
       end
-
+      
     else //diagram is given by its data structure
-
+      
       if ~super_block then 
 	%cpr=list(); needcompile=4 ; alreadyran=%f , %state0=list()
       end
-
+      
     end
-
+    
   else //** scicos_new() is called without arguments (AND - implicitly - is NOT a superblock)
     
-    //** ------------- NORMAL OPENING OF A BRAND NEW GRAPHICS WINDOW--------------------------------
-    gh_Main_Scicos_window = scf(Main_Scicos_window); //** new way to open a brand new graphics windows  
-    scs_m = scicos_diagram(version=get_scicos_version()) ;
-    %cpr = list(); needcompile = 4; alreadyran = %f; %state0 = list() ;
-
+   
+    gh_Main_Scicos_window = scf(Main_Scicos_window); 
+    // In case a back up file exists
+    ierr=execstr('load(TMPDIR+''/BackupSave.cos'')','errcatch')
+    if ierr&lt;&gt;0 then
+      scs_m = scicos_diagram(version=get_scicos_version()) ;
+      %cpr = list(); needcompile = 4; alreadyran = %f; %state0 = list()
+    else
+      load(TMPDIR+'/BackupInfo')
+    end
   end
 
   //
@@ -551,9 +556,11 @@ File content</A>
     if ~isequalbitwise(gh_current_window.user_data,scs_m) then
       restore(gh_current_window)
       execstr('drawobjs(scs_m)', 'errcatch') ; 
+    else
+      xselect()
     end
-    exec(restore_menu,-1)
   end 
+  exec(restore_menu,-1)
   
 //** --- End of initialization ----------------------------------------------------------- 
   
@@ -563,7 +570,7 @@ File content</A>
   
   //** --------- Command Interpreter / State Machine / Main Loop ------------
   
-  while ( Cmenu &lt;&gt; "Quit" ) //** Cmenu -&gt; exit from Scicos
+  while ( Cmenu &lt;&gt; "Quit" &amp; Cmenu &lt;&gt; "Leave"  ) //** Cmenu -&gt; exit from Scicos
     
     //** Dynamic stacksize for very big diagram           //
     [%stack] = stacksize()                                //
@@ -574,7 +581,7 @@ File content</A>
     
     if %scicos_navig==[] then 
       if Scicos_commands&lt;&gt;[] then
-	//    disp(Scicos_commands(1))
+//	    disp(Scicos_commands(1))
 	execstr(Scicos_commands(1))
 	Scicos_commands(1)=[]
       end
@@ -591,22 +598,22 @@ File content</A>
 	  if Cmenu=="OpenSet" then
 	    ierr=0
 	    execstr('ierr=exec(OpenSet_,''errcatch'',-1)')
-	    //execstr('exec(OpenSet_,-1)')
+            //execstr('exec(OpenSet_,-1)')
 	    //**---------------------------------------------------
 	    if ierr&lt;&gt;0 then message(lasterror()),end
 	    if isequal(%diagram_path_objective,super_path) then
 	      if ~or(curwin==winsid()) then 
 		gh_current_window = scf(curwin);
-		restore(gh_current_window);
-		exec(restore_menu,-1)
+                restore(gh_current_window)
+                execstr('drawobjs(scs_m)', 'errcatch') ; 
 		%scicos_navig=[];
-		Cmenu="Replot";
 		Select_back=[];Select=[]
-              else
-        	if ~isequal(Select,Select_back) then
-	          selecthilite(Select_back, "off") ; // unHilite previous objects
-	          selecthilite([], "on") ;       // Hilite the actual selected object
-	        end
+	      else
+		gh_current_window = scf(curwin);
+		if ~isequal(Select,Select_back) then
+		  selecthilite(Select_back, "off") ; // unHilite previous objects
+		  selecthilite([], "on") ;       // Hilite the actual selected object
+		end
 	      end  
 	    end
 	  elseif Cmenu=="Quit" then
@@ -619,11 +626,18 @@ File content</A>
 	end
       end 
     else
-      
-      
-      
       %diagram_open=%t
-      
+      if ~or(curwin==winsid()) then 
+	gh_current_window = scf(curwin);
+        restore(gh_current_window)
+        execstr('drawobjs(scs_m)', 'errcatch') ; 
+	Select_back=[];Select=[]
+      else
+        gh_current_window = scf(curwin);
+      end
+
+
+
       if Select&lt;&gt;[] then
 	if ~or(Select(1,2) == winsid()) then
 	  Select = [] ; //** imply a full Reset 
@@ -642,7 +656,7 @@ File content</A>
       
       //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
       if ( Cmenu&lt;&gt; [] &amp; CmenuType==0) then %pt=[]; end
-      
+      	gh_current_window = scf(curwin);
       //** if 'Cmenu' is NOT empty and 'CmenuType' is "1" and there is at least one object selected 
       if (Cmenu&lt;&gt;[] &amp; CmenuType==1 &amp; %pt==[] &amp; Select&lt;&gt;[]) then
 	[%pt,%win] = get_selection(Select) //** recover the %pt and %win from 'Select'
@@ -656,6 +670,7 @@ File content</A>
 	
 	//** I'm not ready to exec a command: I need more information using cosclik()
 	[btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ;
+
 	if (Cmenu_n=='SelectLink' | Cmenu_n=='MoveLink') &amp; Cmenu&lt;&gt;[] &amp; CmenuType==1 &amp; %pt==[] then
 	  if %pt_n&lt;&gt;[] then %pt = %pt_n; end
 	else
@@ -672,36 +687,31 @@ File content</A>
 	  
 	  Select_back = Select; //** save the selected object list 
 	  
-	  
+
 	  ierr=0
-	  
 	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 	  //execstr('exec('+%cor_item_exec(%koko,2)+',-1)')
-	  
+
 	  // in case window has disappeared
-	  if ~or(curwin==winsid()) then 
-	    gh_current_window = scf(curwin);
-	    restore(gh_current_window)
-	    exec(restore_menu,-1)
+	  if ierr &gt; 0 then
+	    Cmenu='Replot'
 	    Select_back=[];Select=[]
-	    Cmenu='Replot';
-	  elseif ierr &gt; 0 then
-	    Select_back=[];Select=[]
-	    Cmenu='Replot';
-	    disp(['I recovered from the following error:';
+	    terr=['I recovered from the following error:';
 		  lasterror();
-		  'in '+%cor_item_exec(%koko,2)'+' action.'])
-	  end
-	  
-	  
-	  if ~isequal(Select,Select_back) then
-	    selecthilite(Select_back, "off") ; // unHilite previous objects
-	    selecthilite(Select, "on") ;       // Hilite the actual selected object
+		  'in '+%cor_item_exec(%koko,2)'+' action.']
+	    mprintf('%s\n',terr)
+	    
+	  elseif or(curwin==winsid()) then
+	    gh_current_window = scf(curwin);
+	    if ~isequal(Select,Select_back) then
+	      selecthilite(Select_back, "off") ; // unHilite previous objects
+	      selecthilite(Select, "on") ;       // Hilite the actual selected object
+	    end
 	  end
 	  
 	else
 	  //** if the command is not valid clear the state variable 
-				       Cmenu=[]; %pt=[]
+	  Cmenu=[]; %pt=[]
 	end //** a valid/invalid command to exec
 	
       end //** not_ready / ready ... to exec a command 
@@ -709,29 +719,71 @@ File content</A>
     end // test %diagram
     
   end //**---&gt;  end of the while loop: the only way to exit is with the 'Quit' command 
-  
-  do_exit() ; //** this function is executed in case of 'Quit' command
-  
-  if ~super_block then
-    //close TCL windows
-    TCL_EvalStr('catch {destroy .palettes}')
-    TCL_EvalStr('catch {destroy .ss}')
-    TCL_EvalStr('catch {destroy .scsTree}')
-    // clear all globals defore leaving
-    clearglobal Clipboard  
-    clearglobal Scicos_commands 
-    clearglobal %tableau
-    clearglobal %scicos_navig
-    clearglobal %diagram_path_objective
-    close_inactive_windows(inactive_windows,[])
-    clearglobal inactive_windows
+
+  if Cmenu=='Quit' then
+    do_exit() ; //** this function is executed in case of 'Quit'
+    if ~super_block then
+      mdelete(TMPDIR+'/BackupSave.cos') // no backup needed
+      mdelete(TMPDIR+'/BackupInfo')
+      //close TCL windows
+      TCL_EvalStr('catch {destroy .palettes}')
+      TCL_EvalStr('catch {destroy .ss}')
+      TCL_EvalStr('catch {destroy .scsTree}')
+      // clear all globals defore leaving
+      clearglobal Clipboard  
+      clearglobal Scicos_commands 
+      clearglobal %tableau
+      clearglobal %scicos_navig
+      clearglobal %diagram_path_objective
+      close_inactive_windows(inactive_windows,[])
+      clearglobal inactive_windows
+    end
+  elseif Cmenu=="Leave" then
+    ok=do_save(scs_m,TMPDIR+'/BackupSave.cos') 
+    if ok then  //need to save %cpr because the one in .cos cannot be
+                //used to continue simulation
+      if ~exists('%tcur') then %tcur=[];end
+      if ~exists('%scicos_solver') then %scicos_solver=0;end
+      save(TMPDIR+'/BackupInfo', needcompile,alreadyran, %cpr,%state0,%tcur,..
+                                            %scicos_solver,inactive_windows)
+    end
+    if ~ok then
+      message(['Problem saving a backup; I cannot activate Scilab.';
+	       'Save your diagram scs_m manually.'])
+      pause
+    end
+    AllWindows=unique([windows(:,2);inactive_windows(2)])
+    for win_i= AllWindows'
+      scf(win_i)
+      seteventhandler('Illbeback')
+    end	
+    save(TMPDIR+'/AllWindows',AllWindows)
+    scf(0)  // to protect scicos windows when in Scilab
+    mprintf('%s\n','To reactivate Scicos, click on a diagram or type '"scicos();'"')
+    if edited then
+      mprintf('%s\n','Your diagram is not saved. Do not quit Scilab or o"+...
+	      "pen a new Scicos diagram before returning to Scicos.')
+    end
   end
+
 
 endfunction //** scicos() end here :) : had a good day
 
 	    
 	    
-	    
+function Illbeback(win,x,y,ibut)
+  if ibut==-1000|ibut==-1 then return,end
+  ierr=execstr('load(TMPDIR+''/AllWindows'')','errcatch')
+  if ierr==0 then
+    for win_i= AllWindows'
+      scf(win_i)
+      seteventhandler('')
+    end
+  end
+  scicos();
+endfunction
+
+  
 
 function [itype, mess] = CmType(Cmenu)
 //** look inside "%CmenuTypeOneVector" if the command is type 1 (need both Cmenu and %pt)

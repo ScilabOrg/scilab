@@ -77,7 +77,7 @@ Palette</A>
 
 <UL>
 <LI><A NAME="tex2html3"
-  HREF="Sources_pal.htm">Sources - Sources palette</A>
+  HREF="Events_pal.htm">Events - Events palette</A>
 </LI>
 </UL>
 <H3><font color="blue"><A NAME="SECTION00022000000000000000">
@@ -85,7 +85,7 @@ Description</A>
 </font></H3>
 
 <P>
-The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK blocks in our diagram are synchronous. The synchronism is done due to two differents methods of computation in the compilation phase.  
+The difference between the SampleCLK and the CLOCK_c is that all the SampleCLK blocks in our diagram are synchronous. The synchronism is done due to two different methods of computation in the compilation phase.  
 <BR>
 The first method consists of computing a clock that is faster than all the SampleCLK connected to a counter which activate the event select block.  
 <BR>
@@ -93,13 +93,13 @@ The clock is calculated due to the following rule.
 <BR>
 If all the blocks have the same offset then the frequency of the clock is the gcd of the sample time, and the offset of the clock is equal to the offset.  
 <BR>
-If the offsets are differents, then the frequency of the clock is the gcd of the sample time and the offset, and the offset of the clock is equal to 0.  
+If the offsets are different, then the frequency of the clock is the gcd of the sample time and the offset, and the offset of the clock is equal to 0.  
 <BR>
-The Counter counts from one to the least commun multiple of the sample time (lcm).  
+The Counter counts from one to the least common multiple of the sample time (lcm).  
 <BR>
 The number of outputs of the ESELECT_f block is equal to the lcm.  
 <BR>
-The second method uses the Multifrequency block it generates events only for specific time. Events in this method are not periodicly generated as in the first one.  
+The second method uses the Multifrequency block it generates events only for specific time. Events in this method are not periodically generated as in the first one.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Dialog box</A>

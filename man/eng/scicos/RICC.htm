@@ -87,17 +87,17 @@ Description</A>
 </font></H3>
 
 <P>
-This block computes the solution of riccati equation using different method and for both case continuous and discrete.  
+This block computes the solution of Riccati equation using different method and for both case continuous and discrete.  
 <BR>
-The riccati equation in continuous time is: 
+The Riccati equation in continuous time is: 
 <BR>
 A*X+X*A+C-X*D*X=0  
 <BR>
-The riccati equation in discrete time is: 
+The Riccati equation in discrete time is: 
 <BR>
 A*X*(inv(In-D))*A-X+C=0 
 <BR>
-where A is an NxN matrix, it is the first input of the block, C and D are two NxN symetrics matrices and are respectivly the second and third input of the RICC block. X represent the output of the block, it is also a NxN matrix.  
+where A is an NxN matrix, it is the first input of the block, C and D are two NxN symetrics matrices and are respectively the second and third input of the RICC block. X represent the output of the block, it is also a NxN matrix.  
 <BR>
 The user can choose between two methods of computation. For the continuous time he can use even the Schur method or the matrix sign function approach method, by setting the Model parameter to 1 or 2. For the discrete time, the models are the Schur method and the inverse free spectral decomposition method.  
 <BR>
