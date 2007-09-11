@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DATA flag="sdesc">
 
 <FILE name='ABCD_Blocks' type='XML'>
@@ -1396,6 +1397,10 @@
   <SHORT_DESCRIPTION name="PNP">PNP</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='PNP_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="PNP">PNP</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='POSTONEG_f' type='XML'>
 <SHORT_DESCRIPTION name="POSTONEG_f">Détection de front descendant</SHORT_DESCRIPTION>
 </FILE>
@@ -1813,6 +1818,10 @@
 </FILE>
 
 <FILE name='SineVoltage_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="SineVoltage">SineVoltage</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='SineVoltage_routcos' type='XML'>
   <SHORT_DESCRIPTION name="SineVoltage">SineVoltage</SHORT_DESCRIPTION>
 </FILE>
 

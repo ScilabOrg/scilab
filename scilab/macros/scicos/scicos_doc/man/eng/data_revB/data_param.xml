@@ -1771,11 +1771,11 @@
 \begin{itemize}
 
 \item {\bf 0: "Zero order method"}. This method generates a piecewise
-    constant signal. i.e., for $t_i \le t \lt t_{i+1}$, $y(t)=y_i$
+    constant signal. i.e., for $t_{i} \leq t < t_{i+1}$, $y(t)=y_{i}$
 
 \item {\bf 1: "Linear method"}. This method generates a piecewise
-    linear signal. i.e., for $t_i \le t \lt t_{i+1}$,
-    y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).
+    linear signal. i.e., for $t_i \leq t < t_{i+1}$,
+    $y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).$
 
 \item {\bf 2: "Order 2 method"}. The interpolation is done by passing
     2-order polynomials between $(x_i,y_i)$ and
@@ -1785,7 +1785,7 @@
     derivatives at all points be minimum. This condition provides a
     less fluctuated signal.
 
-\item {\bf 3:"not_a_knot"}. The cubic spline is computed by using the
+\item {\bf 3:"not\_a\_knot"}. The cubic spline is computed by using the
     following conditions (considering $n$ points $x_1,...,x_n$):
     $$S^{(3)}(x_2^-) = S^{(3)}(x_2^+)$$ $$S^{(3)}(x_{n-1}^-) =
     S^{(3)}(x_{n-1}^+)$$
@@ -1800,7 +1800,7 @@
 \item {\bf 5:"monotone"}. In this case a sub-spline ($S$ is only one
     continuously differentiable) is computed such that $S$ is monotone
     on each interval: \\ if $y_i \le y_{i+1}$, $S$ is increasing on
-    $[x_i, x_{i+1}]$. \\ if $y_i \gt y_{i+1}$, $S$ is decreasing on
+    $[x_i, x_{i+1}]$. \\ if $y_i \> y_{i+1}$, $S$ is decreasing on
     $[x_i, x_{i+1}]$.
 
 \item {\bf 6:"clamped"}. In this case the cubic spline is computed by
@@ -1874,10 +1874,10 @@
 
     \item {\it Exit/Help menu}: a short help on the graphic window commands
 
-    \item {\it Exit/Exit\_without_save menu}: closing the graphical
+    \item {\it Exit/Exit\_without\_save menu}: closing the graphical
           window, discarding all modifications in data. 
 
-    \item {\it Exit/Exit_with_save menu}: closing the graphical window
+    \item {\it Exit/Exit\_with\_save menu}: closing the graphical window
     and saving data points.
 
 \end{itemize}
@@ -4042,7 +4042,7 @@ for explicit ports.
 The values of parameters declared in the Modelica program can be
 overloaded. To overload a parameter value, the name of parameters are given in
 this field and their corresponding values are given in the "parameter
-values" field.  
+values" field.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -4075,7 +4075,7 @@ end Example;
 Parameters vector  = ['Speed';'Position']
 </SP>      <SP>
 Parameter value   =  [23.0;POS]
-</SP>      
+</SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
     <PARAM_ITEM>
@@ -5705,12 +5705,9 @@ EMax	& 40	  & if x > EMax, the exp(x) function is linearized\\
   </PARAM>
 </FILE>
 
-<FILE name='Sigbuilder' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-    The parameters of  Sigbuilder block is the same as that of \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block.
-    </PARAM_INDENT> 
-  </PARAM> 
+<FILE name='Sigbuilder' type='LATEX'>
+The parameters of  Sigbuilder block is the same as
+that of \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block.
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>

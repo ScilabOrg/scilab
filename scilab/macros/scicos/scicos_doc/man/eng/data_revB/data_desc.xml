@@ -2577,11 +2577,7 @@ while the unselected inputs are discarded.
   </DESCRIPTION>
 </FILE>
 
-<FILE name='Sigbuilder' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
+<FILE name='Sigbuilder' type='LATEX'>
 The Signal Builder block is a superblock containing a
 \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block whose output event
 port is connected to its input event port. This event feedback gives
@@ -2591,13 +2587,8 @@ solver and avoids numerical problems. The generated event is also made
 available to the user for possible use. Remind that if higher
 interpolation methods are used, the events are generated only at the
 beginning and at the end of the signal.
-
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
 </FILE>
- 
+
 <FILE name='SineVoltage' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
@@ -2694,7 +2685,7 @@ The unique regular output is the current time.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='Thermal-Hydraulics_pal' type='LATEX'>
+<FILE name='ThermoHydraulics_pal' type='LATEX'>
 Thermal-Hydraulics toolbox contains some basic thermal-hydraulic
 components such as pressure source, pipe, control valves, etc.
 </FILE>
