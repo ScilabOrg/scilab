@@ -190,6 +190,104 @@ function [txt] = gen_void_list_doc(typdoc,lang,list_t)
        '\end{itemize}'];
 endfunction
 
+//gen_tex_scilst : do a general pre treatment
+//                 for scilst data
+function txt_out=gen_pre_tex(txt_in)
+  for i=1:size(txt_in,1)
+    if length(txt_in(i)) <>0 then
+      pp = part(txt_in(i),length(txt_in(i)))
+    else
+      pp=[]
+    end
+    if pp=='.' then
+      txt_out(i)=txt_in(i)+'\\'
+    else
+      txt_out(i)=txt_in(i)
+    end
+  end
+endfunction
+
+//gen_tex_scilst : generate body tex for a scicos
+//                 scilst doc
+function txt_tex=gen_tex_scilst(%scicos_help,ttype)
+
+  execstr('ttl=%scicos_help.scilst.'+ttype);
+  txt_tex=['\subsection{'+ttype+'}';
+           ttl(2)
+           ''
+           '  \begin{itemize}'];
+
+  for i=3:size(ttl(1),2)
+    disp(ttl(1)(i))
+    txt_tex=[txt_tex;
+             '    \item{\bf '+ttl(1)(i)+'}\\'];
+    txt_tex=[txt_tex;
+             '         '+gen_pre_tex(ttl(i))
+             ''];
+  end
+
+  txt_tex=[txt_tex;
+           '  \end{itemize}'];
+endfunction
+
+//gen_scs_editor_help : main generator for scitexgendoc of tex files
+//for the scicos scilst
+function gen_scs_scilst_help(typdoc,%gd)
+
+   for i=1:size(%gd.lang,1)
+      //**-----set language-----**//
+      LANGUAGE=%gd.lang(i)
+      //**---load %scicos_help---**//
+     [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
+         %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
+          %scicos_lhb_list, %CmenuTypeOneVector ] = initial_scicos_tables();
+
+      //**---loop on number of scilst---**//
+      for j=1:size(list_of_scistruc,1)
+        //**------ entries ------**//
+        //** generate body of the tex file
+        ttype=strsubst(basename(list_of_scistruc(j,2)),'scicos_','')
+        tt=gen_tex_scilst(%scicos_help,ttype)
+        //** generate tex head
+        head_tex=get_head_tex(list_of_scistruc(j,:),typdoc,i,%gd)
+        //** change title of html head
+        if %gd.lang(i)=='fr' then
+           head_tex=strsubst(head_tex,'Fonction Scilab','Liste Scicos')
+        elseif %gd.lang(i)=='eng' then
+           head_tex=strsubst(head_tex,'Scilab Function','Scicos list')
+        end
+
+        //** generate txt of tex file
+        txt_scilst=[head_tex;
+                     latexsubst(tt)
+                     '\htmlinfo*'
+                     '\end{document}']
+        //**---------------------**//
+
+        //create lang directory
+        if fileinfo(%gd.lang(i)+'/')==[] then
+         mkdir(%gd.lang(i))
+        end
+
+        name=get_extname(list_of_scistruc(j,:),%gd)
+
+        //create object directory for
+        //tex compilation
+        if fileinfo(%gd.lang(i)+'/'+...
+                     name)==[] then
+          mkdir(%gd.lang(i)+'/'+name)
+        end
+
+        mputl(txt_scilst,%gd.lang(i)+...
+              '/'+name+...
+              '/'+name+'.tex');
+
+        //disp('ici');pause
+
+      end
+   end
+endfunction
+
 //gen_entries : generate tex file of entries of editor menu from
 //initial_scicos_tables
 function [txt_en] = gen_entries (typdoc,lang)
