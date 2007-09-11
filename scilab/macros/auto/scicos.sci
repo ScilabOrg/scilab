@@ -627,6 +627,11 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	      selecthilite(Select_back, "off") ; // unHilite previous objects
 	      selecthilite(Select, "on") ;       // Hilite the actual selected object
 	    end
+	  else
+	    if %scicos_navig==[] then // in case window is not open
+	      %scicos_navig=1
+	      %diagram_path_objective=[]
+	    end
 	  end
 	  
 	else
