@@ -398,7 +398,7 @@
 </FILE>
 
 <FILE name='CURVE_c' type='XML'>
-<SHORT_DESCRIPTION name="CURVE_c">CURVE_c titre</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CURVE_c">Construction de signal</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CURVE_c_intfunc' type='XML'>
@@ -1222,7 +1222,7 @@
 </FILE>
 
 <FILE name='MBLOCK' type='XML'>
-  <SHORT_DESCRIPTION name="MBLOCK">Bloc modélica générique</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="MBLOCK">Bloc Modelica générique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MBLOCK_intfunc' type='XML'>
@@ -1326,7 +1326,7 @@
 </FILE>
 
 <FILE name='NPN' type='XML'>
-<SHORT_DESCRIPTION name="NPN">NPN transitor</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="NPN">Transitor NPN </SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='NPN_intfunc' type='XML'>
@@ -1806,7 +1806,7 @@
 </FILE>
 
 <FILE name='Sigbuilder' type='XML'>
-<SHORT_DESCRIPTION name="Sigbuilder">Construction de signaux</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Sigbuilder">Construction de signal</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Sigbuilder_intfunc' type='XML'>
