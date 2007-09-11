@@ -926,283 +926,617 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   //****************************/
   %scs_help_diagr=scicos_help(%scs_help_diagr,...
                  'props',...
-                 ["";
+                 [" Diagram properties.";
+                  " This entry contains various informations such";
+                  " some main diagram initials values.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " This variable is a tlist of type {params} and";
+                  " contains {wpar}, {title}, {tol}, {tf}, {context},";
+                  " {options} and {doc}";
+                  " ";
+                  " Size : 11";
+                  " Type : Scilab tlist of type {params}."])
+
+//   %scs_help_diagr=scicos_help(%scs_help_diagr,...
+//                  'props',...
+//                  [" Propriétés du diagramme.";
+//                   " Cette entrée contient des informations diverses";
+//                   " telles que des valeurs initiales du diagramme";
+//                   " principal.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Cette variable est une tlist de type {params} et";
+//                   " contient {wpar}, {title}, {tol}, {tf}, {context},";
+//                   " {options} and {doc}";
+//                   " ";
+//                   " ";
+//                   " Taille 11: ";
+//                   " Type : tlist scilab de type {params}."])
 
   %scs_help_diagr=scicos_help(%scs_help_diagr,...
                  'objs',...
-                 ["";
+                 [" List of objects included in the Scicos diagram.";
+                  " The objects used in scicos are {block}, {link} and Text.";
+                  " The objects can also be deleted object data structure.";
+                  " Deleted object data structure is marked list(''Deleted'').";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : total number of objects in the diagram.";
+                  " Type : Scilab tlist of type {block}, {link} or Text."])
+
+//   %scs_help_diagr=scicos_help(%scs_help_diagr,...
+//                  'objs',...
+//                  [" Une liste d''objets inclus dans le diagramme Scicos.";
+//                   " Les objets utilisés dans Scicos sont {block}, {link} et";
+//                   " Text.";
+//                   " Les objets peuvent aussi être des strucutures de donnée";
+//                   " effacées. Les objets effacés sont marqués par list(''Deleted'').";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre total d''objets dans le diagramme.";
+//                   " Type : tlist scilab de type {block}, {link} ou Text."])
 
   %scs_help_diagr=scicos_help(%scs_help_diagr,...
                  'version',...
-                 ["";
-                  " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                 [" A string that gives the version of the Scicos diagram.";
+                  " This is used to provide compatibility with old diagram."
+                  " Note that you can get the current version of Scicos by";
+                  " using the entry ''About scicos'' in the help menu"
+                  " or by using the function get_scicos_version()."
+                  ""
+                  " Size : 1";
+                  " Type : String"])
+
+//   %scs_help_diagr=scicos_help(%scs_help_diagr,...
+//                  'version',...
+//                  [" Une chaîne de caractères qui donne le numéro de version";
+//                   " du diagramme Scicos. Cela est utilisé pour fournir une";
+//                   " compatibilité avec les anciens diagrammes."
+//                   " Notez que vous pouvez retrouver la version courante de"
+//                   " Scicos en utilisant l''entrée ''About scicos'' dans le"
+//                   " menu help ou en utilisant la fonction get_scicos_version()."
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : chaîne de caractères."])
 
 
   //****** scicos_params ******/
   //***************************/
   %scs_help_params=scicos_help(%scs_help_params,...
                  'wpar',...
-                 ["";
+                 [" This vector is not currently used. "
+                  " It may be used in the future to code "
+                  " window sizes of the editor.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 6";
+                  " Type : column vector or real."])
+//  %scs_help_params=scicos_help(%scs_help_params,...
+//                 'wpar',...
+//                  [" Ce vecteur n''est actuellement pas utilisé.";
+//                   " Il devrait être utilisé dans le futur";
+//                   " pour enregistrer les paramètres de la"
+//                   " fenêtre tels que la position et la taille.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 6";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'title',...
-                 ["";
+                 [" Vector of character strings, where the first one is the"
+                  " diagram title and default name of save file name, "
+                  " and the second one is the path of the directory of "
+                  " the file name.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 2";
+                  " Type : line vector of strings."])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'title',...
+//                  [" Vecteur de chaîne de caractères, où la première contient";
+//                   " le titre du diagramme (le nom par défaut du ficher de";
+//                   " sauvegarde) et la deuxième est le chemim du répertoire.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 2";
+//                   " Type : vecteur line de chaîne de caractères."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tol',...
                  ["";
+                  " A vector containing simulation parameters including "
+                  " various tolerances used by the solver: ";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  "  - {atol}   : Integrator absolute tolerance for the numerical solver";
+                  " ";
+                  "  - {rtol}   : Integrator relative tolerance for the numerical solver.";
+                  " ";
+                  "  - {ttol}   : Tolerance on time. If an integration period is less";
+                  "               than {ttol}, the numerical solver is not called."
+                  " ";
+                  "  - {deltat} : Maximum integration time interval. If an integration";
+                  "               period is larger than {deltat}, the numerical solver"
+                  "               is called more than once in such a way that for each call"
+                  "               the integration period remains below {deltat}";
+                  " ";
+                  "  - {scale}  : Real-time scaling; the value 0 corresponds to no"
+                  "               real-time scaling. It associates a Scicos simulation";
+                  "               time to the real time in seconds. A value of 1 means "
+                  "               that each Scicos unit of time corresponds to one second.";
+                  " ";
+                  "  - {solver} : Choice of numerical solver. The value 0 implies";
+                  "               an ODE solver and 100 implies a DAE solver."
+                  " ";
+                  "  - {hmax}   : Maximum step size for the numerical solver.";
+                  "               0 means no limit.";
+                  " ";
+                  " Size : 7";
+                  " Type : column vector of real."])
+
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'tol',...
+//                  [" Un vecteur contenant les paramètres de la simulation qui";
+//                   " inclue les tolérances utilisées par le solveur: ";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   "  - {atol}   : tolérance absolue pour l''intégration";
+//                   " ";
+//                   "  - {rtol}   : tolérance relative pour l''intégration.";
+//                   " ";
+//                   "  - {ttol}   : tolérance sur le temps. Si une période d''intégration est";
+//                   "               inférieure à {ttol}, le solveur n''est pas appellé."
+//                   " ";
+//                   "  - {deltat} : Interval temporel maximal entre deux points d''intégration."
+//                   "               Si une période d''intégration est plus grande que {deltat}, ";
+//                   "               le solveur est appelé plus d''une fois de manière à maintenir"
+//                   "               le pas au niveau de {deltat}";
+//                   " ";
+//                   "  - {scale}  : Facteur d''échelle temps-réel (Real-time scaling);"
+//                   "               la valeur 0 correspond à un facteur d''échelle nul."
+//                   "               Ce facteur associe le temps de la simulation au temps réel en"
+//                   "               seconde. Une valeur égale à 1, signifie que chaque untité de temps"
+//                   "               Scicos correspond à une seconde."
+//                   " ";
+//                   "  - {solver} : Choix du solveur numérique. Une valeur 0 signifie qu''un solveur ODE"
+//                   "               sera utilisé et 100 signifie qu''un solveur DAE sera utilisé."
+//                   " ";
+//                   "  - {hmax}   : Pas maximal d''intégration pour le solveur.";
+//                   "               0 signifie pas de limites.";
+//                   " ";
+//                   " Taille : 7";
+//                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tf',...
-                 ["";
+                 [" Final time simulation. The simulation stops at this";
+                  " time. The default value is 100000!";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : real."])
+//    %scs_help_params=scicos_help(%scs_help_params,...
+//                   'tf',...
+//                  [" Le temps final de simulation. La simulation s''arrête";
+//                   " a ce temps. La valeur par défaut est 100000!";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : réel."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'context',...
-                 ["";
+                 [" A vector of strings containing Scilab instructions"
+                  " defining Scilab variables to be used inside block GUIs"
+                  " as symbolic parameters. All valid Scilab instructions"
+                  " can be used and also comments.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of lines of the context";
+                  " Type : column vector of strings."])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'context',...
+//                  [" Un vecteur de chaînes de caractères contenant des";
+//                   " instructions Scilab définissant des variables";
+//                   " Scilab à utiliser dans les boîtes de dialogues ";
+//                   " des blocs (comme paramètres symboliques).";
+//                   " Toutes instructions valides Scilab peuvent être";
+//                   " utilisées ainsi que des commentaires.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de lignes du contexte.";
+//                   " Type : Vecteur colonne de chaînes de caractères."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void1',...
-                 ["";
+                 [" unused field.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : -";
+                  " Type : -"])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'void1',...
+//                  [" Champ inutilisé.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : -";
+//                   " Type : -"])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'options',...
-                 ["";
+                 [" Scilab object of type {scsopt} defining"
+                  " graphical properties of the editor such"
+                  " as background color and link color."
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " The fields are the following:";
+                  " ";
+                  "  - {3D}         : A list with two entries. The first one is a boolean"
+                  "                   indicating whether or not blocks should have 3D aspect."
+                  "                   The second entry indicates the color in the current colormap"
+                  "                   to be used to create the 3D effect. The default is 33"
+                  "                   which corresponds to gray added by Scicos to the standard"
+                  "                   colormap, which contains 32 colors. The default value is"
+                  "                   list(%t,33)."
+                  " ";
+                  "  - {Background} : Vector with two entries: background and"
+                  "                   foreground colors. The default value is"
+                  "                   [8,1]."
+                  " ";
+                  "  - {Link}       : Default link colors for regular and activation"
+                  "                   links. These colors are used only at link construction."
+                  "                   Changing them does not affect already constructed links."
+                  "                   The default value is [1,5], which corresponds to black and"
+                  "                   red if the standard Scilab colormap is used."
+                  " ";
+                  "  - {ID}         : A list of two vectors including font number and"
+                  "                   sizes. The default value is [5,1],[4,1]."
+                  " ";
+                  "  - {Cmap}       : An $n\times 3$ matrix containing RGB values of colors"
+                  "                   to be added to the colormap. The default value is [0.8,0.8,0.8],"
+                  "                   i.e., the color gray."
+                  " ";
+                  " Size : 6";
+                  " Type : scilab tlist of type {scsopt}"])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'options',...
+//                  [" Liste Scilab de type {scsopt} définissant les";
+//                   " propriétés graphiques de l''éditeur telles que";
+//                   " la couleur de fond et la couleur des liens.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Les champs sont les suivant:";
+//                   " ";
+//                   "  - {3D}         : Une liste à deux entrées. La première est un booléen"
+//                   "                   indiquant si les blocs doivent avoir un aspect 3D.";
+//                   "                   La seconde entrée indique la couleur dans la palette de"
+//                   "                   couleur courante (colormap) qui doit être utilisée pour"
+//                   "                   créer l''effet 3D. Par défault celle ci est 33 ce qui"
+//                   "                   correspond à gris, couleur ajoutée par Scicos à la palette"
+//                   "                   standard qui contients 32 couleurs."
+//                   " ";
+//                   "                   La valeur par défault de cette list est donc list(%t,33)."
+//                   "  - {Background} : Un vecteur avec deux entrées : la couleur d''arrière plan et"
+//                   "                   la couleur d''avant plan. La valeur par défaut est [8,1].";
+//                   " ";
+//                   "  - {Link}       : Les couleurs par défauts pour les liens réguleurs et les"
+//                   "                   liens d''activations. Ces couleurs sont utilisées uniquement";
+//                   "                   pour de nouvelles constructions. Ces choix n''affectent pas";
+//                   "                   les liens déjà présent sur le diagramme.";
+//                   " ";
+//                   "                   Les valeurs par défaut sont [1,5] ce qui correspond à noir";
+//                   "                   et rouge pour la palette de couleurs standard de Scilab.";
+//                   "  - {ID}         : Une liste de deux vecteurs qui définit le type de la police"
+//                   "                   et la taille de la police. Les valeurs par défaut sont";
+//                   "                   [5,1],[4,1].";
+//                   " ";
+//                   "  - {Cmap}       : Une matrice de taille 3,n contenant les valeurs RGB des"
+//                   "                   couleurs à ajouter à la palette de couleur. La valeur par";
+//                   "                   défaut est [0.8,0.8,0.8] (couleur grise).";
+//                   " ";
+//                   " Taille : 6";
+//                   " Type : tlist scilab de type {scsopt}"])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void2',...
-                 ["";
+                 [" unused field.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : -";
+                  " Type : -"])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'void2',...
+//                  [" Champ inutilisé.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : -";
+//                   " Type : -"])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void3',...
-                 ["";
+                 [" unused field.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : -";
+                  " Type : -"])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'void3',...
+//                  [" Champ inutilisé.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : -";
+//                   " Type : -"])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'doc',...
-                 ["";
+                 [" User defined diagram documentation structure.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 1";
+                  " Type : Strings."])
+//   %scs_help_params=scicos_help(%scs_help_params,...
+//                  'doc',...
+//                  [" Structure utilisateur pour la documentation des diagrammes.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 1";
+//                   " Type : Chaînes de caractères."])
 
   //****** scicos_model ******/
   //**************************/
   %scs_help_model=scicos_help(%scs_help_model,...
                  'sim',...
-                 ["";
+                 ["A list containing two elements. The first element is"
+                  "a string containing the name of the computational function"
+                  "(C, Fortran,or Scilab). The second element is an integer"
+                  "specifying the type of the computational function. Currently"
+                  "type 4 and 5 are used, but older types continue to work to "
+                  "ensure backward compatibility.";
+                  "For some older case, {sim} can be a single string and that"
+                  "means that the type is supposed to be 0."
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : 2";
+                  " Type : Scilab list."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'sim',...
+//                  [" Une liste Scilab contenant deux éléments. Le premier élément";
+//                   " est une chaîne de caractères contenant le nom de la fonction";
+//                   " de calcul (C, Fortran ou Scilab). Le deuxième élément est un";
+//                   " entier spécifiant le type de la fonction de calcul. Les types";
+//                   " courant sont 4 et 5, mais les anciens types sont toujours";
+//                   " compatibles.";
+//                   " Pour des anciens blocs, {sim} peut être une simple liste, ce";
+//                   " qui signifie que le type est supposé être 0.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : 2";
+//                   " Type : liste Scilab."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'in',...
                  ["";
+                  " A vector specifying the number and size of the first"
+                  " dimension of regular input ports indexed from top to";
+                  " bottom of the block. If no input port exist in==[].";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
-//                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+                  " Size : number of regular input ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'in',...
+//                  [" Un vecteur spécifiant le nombre et la première";
+//                   " dimension des ports d''entrée réguliers du bloc";
+//                   " indéxés du haut vers le bas.";
+//                   " Si il n''existe pas de port d''entrées, alors";
+//                   " in=[].";
+//                   ""
+//                   " Taille : nombre de ports réguliers d''entrée.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'in2',...
-                 ["";
+                 [" A vector specifying the second dimension of regular"
+                  " input ports indexed from top to bottom of the block."
+                  " {in} with {in2} formed then the regular input sizes matrix.";
+                  " For compatibility, this dimension can stay empty ([]). That";
+                  " means that the dimensions of input ports will be in,1";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
-//                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+                  " Size : number of regular input ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'in2',...
+//                  [" Un vecteur spécifiant la deuxième dimension";
+//                   " des ports réguliers d''entrées du bloc (indéxé";
+//                   " du haut vers le bas)."
+//                   " {in} avec {in2} forment alors les tailles des matrices"
+//                   " d''entrée."
+//                   " Pour des raisons de compatibilité, cette dimension"
+//                   " peut rester non renseignée ([]), ce qui signifiera"
+//                   " que les dimensions des ports seront in,1."
+//                   ""
+//                   " Taille : nombre de ports réguliers d''entrée.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'intyp',...
-                 ["";
+                 [" A vector specifying the types of regular input ports."
+                  " Its sizes is equal to the sizes of {in}.";
+                  " The types of regular input ports can be :";
+                  "  - 1 : real matrix";
+                  "  - 2 : complex matrix";
+                  "  - 3 : int32 matrix";
+                  "  - 4 : int16 matrix";
+                  "  - 5 : int8 matrix";
+                  "  - 6 : uint32 matrix";
+                  "  - 7 : uint16 matrix";
+                  "  - 8 : uint8 matrix";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of regular input ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'intyp',...
+//                  [" Un vecteur spécifiant les types des ports d''entrée réguliers.";
+//                   " Sa taille est égale à {in}. ";
+//                   " Les types des ports d''entrée peuvent être :";
+//                   "  - 1 : matrice de nombres réels";
+//                   "  - 2 : matrice de nombres complexes";
+//                   "  - 3 : matrice de int32";
+//                   "  - 4 : matrice de int16";
+//                   "  - 5 : matrice de int8";
+//                   "  - 6 : matrice de uint32";
+//                   "  - 7 : matrice de uint16";
+//                   "  - 8 : matrice de uint8";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de ports réguliers d''entrée.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'out',...
                  ["";
+                  " A vector specifying the number and size of the first"
+                  " dimension of regular output ports indexed from top to";
+                  " bottom of the block. If no output port exist out==[].";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
-//                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+                  " Size : number of regular output ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'out',...
+//                  [" Un vecteur spécifiant le nombre et la première";
+//                   " dimension des ports de sortie réguliers du bloc";
+//                   " indéxés du haut vers le bas.";
+//                   " Si il n''existe pas de port de sorties, alors";
+//                   " out=[].";
+//                   ""
+//                   " Taille : nombre de ports réguliers de sortie.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'out2',...
-                 ["";
+                 [" A vector specifying the second dimension of regular"
+                  " output ports indexed from top to bottom of the block."
+                  " {out} with {out2} formed then the regular output sizes matrix.";
+                  " For compatibility, this dimension can stay empty ([]). That";
+                  " means that the dimensions of output ports will be out,1";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
-//                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+                  " Size : number of regular output ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'out2',...
+//                  [" Un vecteur spécifiant la deuxième dimension";
+//                   " des ports réguliers de sortie du bloc (indéxé";
+//                   " du haut vers le bas)."
+//                   " {out} avec {out2} forment alors les tailles des matrices"
+//                   " de sorties."
+//                   " Pour des raisons de compatibilité, cette dimension"
+//                   " peut rester non renseignée ([]), ce qui signifiera"
+//                   " que les dimensions des ports seront out,1."
+//                   ""
+//                   " Taille : nombre de ports réguliers de sortie.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'outtyp',...
-                 ["";
+                 [" A vector specifying the types of regular output ports."
+                  " Its sizes is equal to the sizes of {out}.";
+                  " The types of regular output ports can be :";
+                  "  - 1 : real matrix";
+                  "  - 2 : complex matrix";
+                  "  - 3 : int32 matrix";
+                  "  - 4 : int16 matrix";
+                  "  - 5 : int8 matrix";
+                  "  - 6 : uint32 matrix";
+                  "  - 7 : uint16 matrix";
+                  "  - 8 : uint8 matrix";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of regular output ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'outtyp',...
+//                  [" Un vecteur spécifiant les types des ports de sortie réguliers.";
+//                   " Sa taille est égale à {out}. ";
+//                   " Les types des ports de sortie peuvent être :";
+//                   "  - 1 : matrice de nombres réels";
+//                   "  - 2 : matrice de nombres complexes";
+//                   "  - 3 : matrice de int32";
+//                   "  - 4 : matrice de int16";
+//                   "  - 5 : matrice de int8";
+//                   "  - 6 : matrice de uint32";
+//                   "  - 7 : matrice de uint16";
+//                   "  - 8 : matrice de uint8";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de ports réguliers de sortie.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'evtin',...
-                 ["";
+                 [" A vector specifying the number and sizes of"
+                  " activation inputs. Currently activation ports"
+                  " can be only of size one.";
+                  " If no event input port exists evtin must be "
+                  " equal to [].";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of input event ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'evtin',...
+//                  [" Un vecteur indiquant la taille et le nombre";
+//                   " de ports événementiels d''entrée. Actuellement";
+//                   " les ports peuvent seulement avoir une taille";
+//                   " égale à 1.";
+//                   " Si aucun ports événementiels existe alors";
+//                   " evtin est égal à 1.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de ports événementiel d''entrée.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'evtout',...
-                 ["";
+                 [" A vector specifying the number and sizes of"
+                  " activation outputs. Currently activation ports"
+                  " can be only of size one.";
+                  " If no event output port exists evtout must be "
+                  " equal to [].";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of output event ports.";
+                  " Type : column vector of integer numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'evtout',...
+//                  [" Un vecteur indiquant la taille et le nombre";
+//                   " de ports événementiels de sorties. Actuellement";
+//                   " les ports peuvent seulement avoir une taille";
+//                   " égale à 1.";
+//                   " Si aucun ports événementiels existe alors";
+//                   " evtout est égal à 1.";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre de ports événementiel de sortie.";
+//                   " Type : vecteur colonne de nombres entiers."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'state',...
-                 ["";
+                 [" Vector containing initial values of continuous-time state.";
+                  " Must be [] if no continuous state.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of continuous-time state.";
+                  " Type : column vector of real numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'state',...
+//                  [" Un vecteur contenant les valeurs initiales des états";
+//                   " continus.";
+//                   " Ce vecteur doit être égal à [] sie le bloc ne possède";
+//                   " pas d''état continus";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre d''états continus";
+//                   " Type : vecteur colonne de nombres réels"])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'dstate',...
-                 ["";
+                 [" Vector containing initial values of discrete-time state.";
+                  " Must be [] if no discrete state.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of discrete-time state.";
+                  " Type : column vector of real numbers."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'state',...
+//                  [" Un vecteur contenant les valeurs initiales des états";
+//                   " discrets.";
+//                   " Ce vecteur doit être égal à [] si le bloc ne possède";
+//                   " pas d''état discrets";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre d''états discrets.";
+//                   " Type : vecteur colonne de nombres discrets."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'odstate',...
-                 ["";
+                 [" List containing initial values of objects state.";
+                  " Must be list() if no objects state.";
                   " ";
-                  " Size : ";
-                  " Type : "])
-//                  ["";
+                  " Size : number of objetcs state.";
+                  " Type : scilab list of scilab objects."])
+//   %scs_help_model=scicos_help(%scs_help_model,...
+//                  'state',...
+//                  [" Une liste contenant les valeurs initiales des états";
+//                   " objets.";
+//                   " Ce vecteur doit être égal à [] si le bloc ne possède";
+//                   " pas d''état discrets";
 //                   " ";
-//                   " Taille : ";
-//                   " Type : "])
+//                   " Taille : nombre d''états objets.";
+//                   " Type : list scilab ."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'rpar',...
