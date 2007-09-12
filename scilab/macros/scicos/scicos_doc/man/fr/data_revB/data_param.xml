@@ -1787,72 +1787,133 @@
   </PARAM>
 </FILE>
 
-<FILE name='CURVE_c' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Spline Method (0..7)</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 1.
-      </SP>
-      <SP>
-      Propriétés : Type 'vec' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+<FILE name='CURVE_c' type='LATEX'>
+\begin{itemize}
 
-    <PARAM_ITEM>
-    <PARAM_NAME>x</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 2.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf Spline Method (0..7):} accepted values $0, 1, 2, 3, 4, 5, 6, 7$.
+    This parameter defines the spline method for interpolating the
+    points. The Signal builder block computes a linear or a cubic
+    spline or sub-spline $S$ which interpolates the $(x_i,y_i)$
+    points, i.e., we have $S(x_i)=y_i$ for all $i=1,..,n$.  Several
+    kind of splines may be computed by selecting the appropriate
+    spline method:
 
-    <PARAM_ITEM>
-    <PARAM_NAME>y</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 3.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\begin{itemize}
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Periodic signal(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 4.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf 0: "Zero order method"}. This method generates a piecewise
+    constant signal. i.e., for $t_{i} \leq t < t_{i+1}$, $y(t)=y_{i}$
 
-    <PARAM_ITEM>
-    <PARAM_NAME>Launch graphic window(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 5.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
+\item {\bf 1: "Linear method"}. This method generates a piecewise
+    linear signal. i.e., for $t_i \leq t < t_{i+1}$,
+    $y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).$
 
-  </PARAM_INDENT>
-  </PARAM>
+\item {\bf 2: "Order 2 method"}. The interpolation is done by passing
+    2-order polynomials between $(x_i,y_i)$ and
+    $(x_{i+1},y_{i+1})$. The Derivative at $(x_i,y_i)$ is identical
+    for two adjacent polynomials. The derivative at $(x_1,y_1)$
+    can be selected arbitrary, so it is selected such that the sum of
+    derivatives at all points be minimum. This condition provides a
+    less fluctuated signal.
+
+\item {\bf 3:"not\_a\_knot"}. The cubic spline is computed by using the
+    following conditions (considering $n$ points $x_1,...,x_n$):
+    $$S^{(3)}(x_2^-) = S^{(3)}(x_2^+)$$ $$S^{(3)}(x_{n-1}^-) =
+    S^{(3)}(x_{n-1}^+)$$
+
+\item {\bf 4:"periodic"}. A periodic cubic spline is computed ($y$
+    must verify $y_1=y_n$) by using the conditions:  \\$$S^{'}(x_1) =
+    S^{'}(x_n)$$ \\$$S^{''}(x_1) = S^{''}(x_n)$$.\\ In this case the value
+    of $y_n$ is ignored and $y_1$ is used instead. Note that in order
+    to generate a periodic signal, {\it Periodic} flag should be
+    activated.
+
+\item {\bf 5:"monotone"}. In this case a sub-spline ($S$ is only one
+    continuously differentiable) is computed such that $S$ is monotone
+    on each interval: \\ if $y_i \le y_{i+1}$, $S$ is increasing on
+    $[x_i, x_{i+1}]$. \\ if $y_i \> y_{i+1}$, $S$ is decreasing on
+    $[x_i, x_{i+1}]$.
+
+\item {\bf 6:"clamped"}. In this case the cubic spline is computed by
+    using the end points derivatives which are set to zero, i.e.,
+    $$S^{'}(x_1) = S^{'}(x_n)=0$$
+
+\item {\bf 7:"fast"}. In this case a sub-spline is computed by using a
+    simple local scheme for the derivative at $x_i$ of the
+    interpolation polynomial of $(x_{i-1},y_{i-1})$, $(x_{i},y_{i})$,
+    $(x_{i+1},y_{i+1})$, except for the end points (derivative at
+    these points are computed from the 3 left most points and the 3
+    right most points).
+\end{itemize}
+
+\item {\bf x:} Abscissa data vector (X-axis). This vector can be
+   either a row or a column vector of double data.  This vector can
+   be also defined in the Scicos context. The data vector can be
+   specified by mathematical formula.
+
+\item {\bf y:} Ordinate data vector (Y-axis). This vector can be
+   either a row or a column vector of double data. Not that the size
+   of X and Y vector should be the same. This vector can be also
+   defined in the Scicos context. The data vector can also be
+   specified by formula.
+
+\item {\bf Periodic signal(y/n)}. If {\bf y} is selected, the created
+   signal will be periodic with the period of $t_n$. Note that if the
+   {\it Periodic} spline method is selected, the output signal will be
+   a continuous signal, otherwise the signal will be discontinuous at
+   endpoints.
+
+\item {\bf Launch graphical window (y/n)}. If {\bf y} is selected, by
+   clicking on {\bf OK} button, a graphical window is launched. In
+   this 2D graphical window, the user can edit data points: 
+
+\begin{itemize}
+    \item: Mouse left click on the window: adding a new data point
+
+    \item: Mouse right click on the window: remove a data point
+
+    \item: Mouse left double-click on a data point: edit a point's
+         coordinates
+
+    \item: Mouse left button press/drag/release: move a data point
+
+    \item  {\it Autoscale menu}: Rescaling the window to show all data
+         points properly.
+   
+    \item  {\it Spline/Method menu}: Selecting the spline interpolation method.
+
+    \item {\it Data/Clear menu} removing all data points
+
+    \item {\it Data/Data\_Bounds menu} Change the window size
+
+    \item {\it Data/Load\_from\_text\_file menu} reading data points
+          from a text data file (using C data format)
+
+    \item {\it Data/save\_to\_text\_file menu} saving the data points
+          to a text data file (using C data format)
+
+    \item {\it Data/Load\_from\_excel menu}: Reading data from an
+         excel file.
+  
+    \item {\it Data/Periodic\_signal menu}: Specifying weather the created
+        signal is periodic or not. If the signal is not periodic, the
+        signal stays constant beyond $t_n$, otherwise it is clamped
+        to $y_1$ at $t_n$.
+ 
+    \item {\it Standards/Functions menu}: Specifying Sine, Sawtooth,
+         Pulse, and random signals.
+
+    \item {\it Exit/Help menu}: a short help on the graphic window commands
+
+    \item {\it Exit/Exit\_without\_save menu}: closing the graphical
+          window, discarding all modifications in data. 
+
+    \item {\it Exit/Exit\_with\_save menu}: closing the graphical window
+    and saving data points.
+
+\end{itemize}
+
+\end{itemize}
 </FILE>
 
 <FILE name='CURV_f' type='XML'>
@@ -4195,7 +4256,14 @@
     <PARAM_NAME>Input variables</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 1.
+In this filed, the ports connected to the left hand side of the block are
+defined. If the port is an explicit port, it will be an input port. In
+this case, the variable should be declared in the Modelica program as
+Real. If the port is an implicit port, the variable desinating this
+port should be a "connector". Remind that for implicit port, the
+notion of input and output does not exist and specifying an implicit
+variable in this filed is just placing the port at the left hend side
+of the block.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4207,7 +4275,9 @@
     <PARAM_NAME>Input variables types</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 2.
+In this filed, the type of ports are specified, i.e., 'I' for implicit
+ports and 'E' for explicit ports. The size of the vector of "input
+variables" and the vector of "input_vector_type" should be equal.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4219,7 +4289,9 @@
     <PARAM_NAME>Output variables</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 3.
+Similar to the input variables vector, the explicit
+output variables and implicit variables which are displayed at the right
+hand side of the block are specified in this filed.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4231,7 +4303,9 @@
     <PARAM_NAME>Output variables types</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 4.
+The type of variables given in the Output
+variable vector are specified, i.e., 'I' for implicit ports and 'E'
+for explicit ports.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4243,7 +4317,10 @@
     <PARAM_NAME>Parameters in Modelica</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 5.
+The values of parameters declared in the Modelica program can be
+overloaded. To overload a parameter value, the name of parameters are given in
+this field and their corresponding values are given in the "parameter
+values" field.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4255,10 +4332,35 @@
     <PARAM_NAME>Parameter values</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 6.
+The value of parameters given in the "Parameters in Modelica" field,
+are specified in this filed. These values can also be defined in the
+Scicos context. In order to access the Scicos context, click on the
+"Diagram" menu then click on the "Context" submenu.
+For instance, here is an example of overloading of parameters in a Modelica program.
+</SP>      <SP>
+Class Example
+</SP>      <SP>
+  parameter Real Speed=12.0;
+</SP>      <SP>
+  parameter Real Position=0.0;
+</SP>      <SP>
+  parameter Real Length=13.0;
+</SP>      <SP>
+   ...
+</SP>      <SP>
+equation
+</SP>     <SP>
+  ...
+</SP>      <SP>
+end Example;
+</SP>      <SP>
+Parameters vector  = ['Speed';'Position']
+</SP>      <SP>
+Parameter value   =  [23.0;POS]
+</SP>
       </SP>
       <SP>
-      Propriétés : Type 'str' de taille -1.
+      Propriétés : Type 'vec' de taille -1.
       </SP>
     </PARAM_DESCRIPTION>
     </PARAM_ITEM>
@@ -4267,7 +4369,17 @@
     <PARAM_NAME>Function name</PARAM_NAME>
     <PARAM_DESCRIPTION>
       <SP>
-      La description du paramètre 7.
+The Modelica class name is specified in this filed.  If the Modelica
+class name is specified without any path or extension, an interactive
+window is opened and the user can write or edit the Modelica
+program. This window is opened each time the user clicks on the
+block. If the Modelica class name is specified with path and '.mo'
+extension, the compiler looks for the file and if it is found, the
+file will be compiled, otherwise a window is opened and the user can
+write the Modelica program. This Modelica file will be saved with the
+given filename in the specified path. The next time, only input/output
+characteristics of the block can be changed, and the Modelica file
+should be edited with another text editor.
       </SP>
       <SP>
       Propriétés : Type 'str' de taille -1.
@@ -4492,217 +4604,35 @@
 </PARAM>
 </FILE>
 
-<FILE name='NPN' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Forward beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 1.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Reverse beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 2.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Transport saturation current</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 3.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Early voltage (inverse), 1/Volt</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 4.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal forward transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 5.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal reverse transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 6.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Collector-substrat(ground) cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 7.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 8.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-coll. zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 9.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 10.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 11.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 12.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 13.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 14.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 15.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Voltage equivalent of temperature</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 16.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>if x&gt; EMinMax, the exp(x) function is linearized</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 17.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-    </PARAM_INDENT>
-  </PARAM>
+<FILE name='NPN' type='LATEX'>
+\begin{table}[h!b!p!]
+\begin{tabular}{lll}
+\hline
+Paramètre & Valeur par d\'efaut & Description \\
+\hline
+Bf	& 50	  & Forward beta \\
+Br	& 0.1	  & Reverse beta\\
+Is	& 1.e-16  & Transport saturation current [A]\\
+Vak	& 0.02    & Early voltage (inverse), 1/Volt [1/V]\\
+Tauf	& 0.12e-9 & Ideal forward transit time [s]\\
+Taur	& 5e-9	  & Ideal reverse transit time [s]\\
+Ccs	& 1e-12	  & Collector-substrat(ground) cap. [F]\\
+Cje	& 0.4e-12 & Base-emitter zero bias depletion cap. [F]\\
+Cjc	& 0.5e-12 & Base-coll. zero bias depletion cap. [F]\\
+Phie	& 0.8	  & Base-emitter diffusion voltage [V]\\
+Me	& 0.4	  & Base-emitter gradation exponent\\
+Phic	& 0.8	  & Base-collector diffusion voltage [V]\\
+Mc	& 0.333	  & Base-collector gradation exponent\\
+Gbc	& 1e-15	  & Base-collector conductance [S]\\
+Gbe	& 1e-15	  & Base-emitter conductance [S]\\
+Vt	& 0.02585 & Voltage equivalent of temperature [V]\\
+EMin	& -100	  & if x < EMin, the exp(x) function is linearized\\
+EMax	& 40	  & if x > EMax, the exp(x) function is linearized\\
+\hline
+\end{tabular}
+\end{table}
 </FILE>
+
 
 <FILE name='NRMSOM_f' type='LATEX'>
 %automatically generated, please edit
@@ -4809,216 +4739,33 @@
   </PARAM>
 </FILE>
 
-<FILE name='PNP' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Forward beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 1.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Reverse beta</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 2.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Transport saturation current</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 3.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Early voltage (inverse), 1/Volt</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 4.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal forward transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 5.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Ideal reverse transit time</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 6.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Collector-substrat(ground) cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 7.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 8.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-coll. zero bias depletion cap.</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 9.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 10.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 11.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector diffusion voltage</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 12.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector gradation exponent</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 13.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-collector conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 14.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Base-emitter conductance</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 15.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>Voltage equivalent of temperature</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 16.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-      <PARAM_ITEM>
-	<PARAM_NAME>if x&gt; EMinMax, the exp(x) function is linearized</PARAM_NAME>
-	<PARAM_DESCRIPTION>
-	  <SP>
-	    La description du paramètre 17.
-	  </SP>
-	  <SP>
-	    Propriétés : Type 'vec' de taille -1.
-	  </SP>
-	</PARAM_DESCRIPTION>
-      </PARAM_ITEM>
-
-    </PARAM_INDENT>
-  </PARAM>
+<FILE name='PNP' type='LATEX'>
+\begin{table}[h!b!p!]
+\begin{tabular}{lll}
+\hline
+Paramètre & Valeur pas d\'efaut & Description \\
+\hline
+Bf      & 50      & Forward beta\\
+Br      & 0.1     & Reverse beta\\
+Is	& 1.e-16  & Transport saturation current [A]\\
+Vak     & 0.02    & Early voltage (inverse), 1/Volt [1/V]\\
+Tauf	& 0.12e-9 & Ideal forward transit time [s]\\
+Taur	& 5e-9    & Ideal reverse transit time [s]\\
+Ccs	& 1e-12	  & Collector-substrat(ground) cap. [F]\\
+Cje	& 0.4e-12 & Base-emitter zero bias depletion cap. [F]\\
+Cjc	& 0.5e-12 & Base-coll. zero bias depletion cap. [F]\\
+Phie	& 0.8     & Base-emitter diffusion voltage [V]\\
+Me	& 0.4     & Base-emitter gradation exponent\\
+Phic	& 0.8	  & Base-collector diffusion voltage [V]\\
+Mc	& 0.333	  & Base-collector gradation exponent\\
+Gbc	& 1e-15	  & Base-collector conductance [S]\\
+Gbe	& 1e-15   & Base-emitter conductance [S]\\
+Vt	& 0.02585 & Voltage equivalent of temperature [V]\\
+EMin    &-100	  & if x < EMin, the exp(x) function is linearized\\
+EMax	& 40	  & if x > EMax, the exp(x) function is linearized\\
+\hline
+\end{tabular}
+\end{table}
 </FILE>
 
 <FILE name='POSTONEG_f' type='XML'>
@@ -6283,72 +6030,8 @@
   </PARAM>
 </FILE>
 
-<FILE name='Sigbuilder' type='XML'>
-  <PARAM>
-    <PARAM_INDENT>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Spline Method (0..7)</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 1.
-      </SP>
-      <SP>
-      Propriétés : Type 'vec' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>x</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 2.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>y</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 3.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Periodic signal(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 4.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-    <PARAM_ITEM>
-    <PARAM_NAME>Launch graphic window(y/n)?</PARAM_NAME>
-    <PARAM_DESCRIPTION>
-      <SP>
-      La description du paramètre 5.
-      </SP>
-      <SP>
-      Propriétés : Type 'str' de taille 1.
-      </SP>
-    </PARAM_DESCRIPTION>
-    </PARAM_ITEM>
-
-  </PARAM_INDENT>
-  </PARAM>
+<FILE name='Sigbuilder' type='LATEX'>
+Les paramètres du bloc Sigbuilder sont identiques à ceux du bloc \htmladdnormallink{CURVE\_c}{CURVE_c.htm}.
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -6359,7 +6042,7 @@
 	<PARAM_NAME>Amplitude (Volt)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    La description du paramètre 1.
+	    Amplitude du signal sinosoïde.
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'vec' de taille 1.
@@ -6371,7 +6054,7 @@
 	<PARAM_NAME>phase (rad)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    La description du paramètre 2.
+	    Phase du signal sinosoïde
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'vec' de taille 1.
@@ -6383,7 +6066,7 @@
 	<PARAM_NAME>Frequency (Hz)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    La description du paramètre 3.
+	    Fréquence du signal sinosoïde
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'vec' de taille 1.
@@ -6395,7 +6078,7 @@
 	<PARAM_NAME>Voltageoffset (V)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    La description du paramètre 4.
+	    Voltage offset du signal sinosoïde
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'vec' de taille 1.
@@ -6407,7 +6090,8 @@
 	<PARAM_NAME>Timeoffset (s)</PARAM_NAME>
 	<PARAM_DESCRIPTION>
 	  <SP>
-	    La description du paramètre 5.
+	    Décalage de temps. Durant ce temps, le signal de sortie
+	reste constant égal au voltage offset.
 	  </SP>
 	  <SP>
 	    Propriétés : Type 'vec' de taille 1.
