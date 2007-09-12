@@ -44,7 +44,14 @@ function OpenSet_()
     
     if editedb then
       scs_m_save = scs_m       ; //** save the old diagram 
-      nc_save    = needcompile ; //** and its state 
+      nc_save    = needcompile ; //** and its state
+
+      if typeof(o)=="Block" & o.model.sim=="super" then
+         enable_undo = 2  //special code in case the content of SB has been changed
+      else
+         enable_undo = %t
+      end
+
       needcompile = max(needcompile, needcompileb)
       %Path = list('objs',%kk)
       if or(curwin==winsid()) then gh_current_window=gcf(curwin);end
@@ -102,7 +109,13 @@ function OpenSet_()
     if editedb then
       scs_m_save = scs_m       ; //** save the old diagram 
       nc_save    = needcompile ; //** and its state 
-      
+
+      if typeof(o)=="Block" & o.model.sim=="super" then
+         enable_undo = 2  //special code in case the content of SB has been changed
+      else
+         enable_undo = %t
+      end
+
       if ~pal_mode then
 	needcompile = max(needcompile, needcompileb)
       end

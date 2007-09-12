@@ -44,6 +44,7 @@ function Context_()
       if ierr <>0 then
 	message(['Error occur when evaluating context:'
 		 lasterror() ]);
+
       else //** if the first check is ok 
 	scs_m.props.context = context;
 	disablemenus();
@@ -52,6 +53,10 @@ function Context_()
 	  if needcompile<>4 & size(%cpr)>0 then %state0=%cpr.state, end
 	  edited = %t ;
 	  alreadyran = %f ;
+
+          enable_undo=%f  // to avoid undoing the context change which may affect SB contents 
+                         // in particular if a variable used in the SB disappears
+
 	enablemenus() ;
 	break ; //** EXIT Point from the while()
       end

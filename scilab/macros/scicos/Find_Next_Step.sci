@@ -8,7 +8,7 @@ if k==[] then
     Cmenu='Quit'
   elseif j<i then
     Cmenu='OpenSet'
-    Select=[path_objective(j+1),0]
+    Select=[path_objective(j+1),curwin]
   else
     disp('pas possible'),pause
   end

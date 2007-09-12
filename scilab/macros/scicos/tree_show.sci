@@ -9,8 +9,8 @@ function tree_show(x,titletop)
 tt = ["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
       "if {[lsearch $auto_path $BWpath]==-1} { set auto_path [linsert $auto_path 0 $BWpath] }" 
       "package require BWidget 1.7.0"
-      'proc ppx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''1'''"}'
-      'proc qqx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''3'''"}'
+//      'proc ppx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''1'''"}'
+//      'proc qqx {label} {global xmind; set xmind $label;ScilabEval '"%tcl_par=''3'''"}'
       'catch {destroy .ss}'
       'toplevel .ss'
       'scrollbar .ss.ysb -command {.ss.t yview}'
@@ -27,20 +27,22 @@ for i=1:size(tt,1)
   TCL_EvalStr(tt(i))
 end
 
-v = getfield(1,x);
 
 if argn(2)>1 then
    tt = 'wm title .ss {'+titletop+'}';
-else
+elseif type(x)<>15 then
+   v = getfield(1,x);
    tt = 'wm title .ss '+v(1);
+else
+   tt = 'wm title .ss list';
 end
 
 TCL_EvalStr(tt)
 Path = 'root'
 crlist3(x,Path);
 
-TCL_EvalStr(' .ss.t bindText <Double-1> {ppx}')
-TCL_EvalStr(' .ss.t bindText <3> {qqx}')
+//TCL_EvalStr(' .ss.t bindText <Double-1> {ppx}')
+//TCL_EvalStr(' .ss.t bindText <3> {qqx}')
 endfunction
 
 

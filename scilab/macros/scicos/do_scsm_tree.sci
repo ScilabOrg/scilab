@@ -14,17 +14,17 @@ tt=["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
     "    set auto_path [linsert $auto_path 0 $BWpath]"
     "}" 
     "package require BWidget 1.7.0"
-    'set w .palettes'
+    'set wyy .palettes'
     'proc ppxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''PlaceinDiagram'''"}'
     'proc qqxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''TkPopup'''"}'
     'catch {destroy $w}'
     'toplevel $w'
-    'Tree $w.t -xscrollcommand {$w.xsb set} -yscrollcommand {$w.ysb set} "+...
+    'Tree $wyy.t -xscrollcommand {$wyy.xsb set} -yscrollcommand {$wyy.ysb set} "+...
     "-deltax 10 -deltay 10 -width 30 -bg white'
-    'scrollbar $w.ysb -command {$w.t yview}'
-    'scrollbar $w.xsb -command {$w.t xview} -orient horizontal'
-    'grid $w.t $w.ysb -sticky nsew'
-    ' grid $w.xsb -sticky ew'
+    'scrollbar $wyy.ysb -command {$wyy.t yview}'
+    'scrollbar $wyy.xsb -command {$wyy.t xview} -orient horizontal'
+    'grid $wyy.t $wyy.ysb -sticky nsew'
+    ' grid $wyy.xsb -sticky ew'
     ' grid rowconfig    $w 0 -weight 1'
     ' grid columnconfig $w 0 -weight 1'
    ];
@@ -34,11 +34,11 @@ tt=[tt;'wm title $w '"Navigator:'" '+scs_m.props.title(1)];
 Path='root'
 tt=crlist2(scs_m,Path,tt);
 
-tt=[tt;' $w.t bindText <Double-1> {ppxs}'];
-tt=[tt;' $w.t bindText <3> {qqxs}'];
+tt=[tt;' $wyy.t bindText <Double-1> {ppxs}'];
+tt=[tt;' $wyy.t bindText <3> {qqxs}'];
 endfunction
  
-//TCL_EvalStr('$w.t opentree node1')
+//TCL_EvalStr('$wyy.t opentree node1')
 //   pa=TCL_GetVar('x');pa=part(pa,6:length(pa));
 //   execstr('pa=list('+pa+')');       o=scs_m(scs_full_path(pa))
 
@@ -49,18 +49,18 @@ function tt=crlist2(scs_m,Path,tt)
     path=Path+','+string(i)
     if typeof(o)=='Link' then
       titre2='link'
-      tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+      tt=[tt;'$wyy.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     elseif typeof(o)=='Deleted' then
       titre2='Deleted'
-      tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+      tt=[tt;'$wyy.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     else
       if o.model.sim=='super' then
 	titre2=o.model.rpar.props.title(1);
-	tt=[tt;'$w.t insert end '+Path+' '+path+' -image [Bitmap::get folder] -text '"'+titre2+''"']
+	tt=[tt;'$wyy.t insert end '+Path+' '+path+' -image [Bitmap::get folder] -text '"'+titre2+''"']
 	tt=crlist2(o.model.rpar,path,tt)
       else
 	titre2=o.gui;
-	  tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+	  tt=[tt;'$wyy.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
       end
     end
   end

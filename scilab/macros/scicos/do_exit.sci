@@ -61,7 +61,11 @@ if %scicos_navig<>[] then
     	ww=gcf()
 	scf(winkeep)
 	ha=gcf()
-	ha.user_data=scs_m;
+        if enable_undo then
+	    ha.user_data=list(scs_m,Select,enable_undo,scs_m_save,nc_save);
+        else
+	    ha.user_data=list(scs_m,Select,enable_undo,[],[]);  // no undo information
+        end
 	scf(ww)
   end	   
 else

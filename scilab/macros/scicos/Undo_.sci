@@ -3,30 +3,38 @@ function Undo_()
 //**     
     Cmenu = [] ;
     %pt = [];
-    
-    if enable_undo then
-       disablemenus()
+
+    if enable_undo==2 then  // open SB's may have been affected
+      %r=2
+      %r=message(['Undo operation undoes changes in subdiagram(s)';
+                  'Thes changes will be lost for ever'],['Proceed'; ...
+		    'Cancel'])
+      if %r==2 then 
+         return,
+      else
+         disablemenus()
          scs_m = scs_m_save ; //** recover the previous diagram
 	 Select = [] ; //** unselect object  
          needcompile = nc_save ;
-         %wdm = scs_m.props.wpar ;
-
-         //** It is NOT possible to modify [gh_current_window] directly outside [scicos_new]
-         gh_curwin = gh_current_window ; //** get the handle of the current graphics window
-	 scf(gh_curwin);
-	 //** Get the current postion of the visible part of graphics in the panner. 
-	 viewport  = xget("viewport"); //** [x,y] = xget("viewport")
-         clf(gh_curwin) ;  //** clear the current graphic window  
-         window_set_size(gh_curwin, viewport) ; //** OK
-         set_background()  ; //** OK
-         drawlater() ;
-           //    disp("Start Timer ...."); timer(); 
-           drawobjs(scs_m)   ;  //** OK
-           //    disp ("End DrawObjs...."); disp(timer());  
-         drawnow(); show_pixmap() ;
-      
+         supers=findopenchildren(scs_m,super_path,list(super_path))
+         Scicos_commands=[]
+         for i=1:size(supers)
+            Scicos_commands=[Scicos_commands;
+         	 '%diagram_path_objective='+sci2exp(supers(i))+';%scicos_navig=1';
+                 'Cmenu='"Replot'"']
+         end
          enable_undo = %f ; //** "Undo" is a single level function 
-      enablemenus()
+         enablemenus()
+      end
+    
+    elseif enable_undo then
+         scs_m = scs_m_save ; //** recover the previous diagram
+	 Select = [] ; //** unselect object  
+         needcompile = nc_save ;
+         Cmenu='Replot'     
+         enable_undo = %f ; //** "Undo" is a single level function 
+    else
+      message('No more undo available.')
     end
     
 endfunction

@@ -41,17 +41,17 @@ tt=[ "set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
      "}" 
      "package require BWidget 1.7.0"
      'namespace inscope :: package require BWidget'
-     'set w .palettes'
+     'set wxx .palettes'
      'proc pp {label} {global blko; set blko $label;ScilabEval '"Cmenu=''PlaceinDiagram'''"}'
      'proc qq {label} {global blko; set blko $label;ScilabEval '"Cmenu=''TkPopup'''"}'
      'catch {destroy $w}'
      'toplevel $w'
-     'Tree $w.t -xscrollcommand {$w.xsb set} -yscrollcommand {$w.ysb set} "+...
+     'Tree $wxx.t -xscrollcommand {$wxx.xsb set} -yscrollcommand {$wxx.ysb set} "+...
         "-deltay 45 -deltax 30 -width 30 -bg white'
-     'scrollbar $w.ysb -command {$w.t yview}'
-     'scrollbar $w.xsb -command {$w.t xview} -orient horizontal'
-     'grid $w.t $w.ysb -sticky nsew'
-     ' grid $w.xsb -sticky ew'
+     'scrollbar $wxx.ysb -command {$wxx.t yview}'
+     'scrollbar $wxx.xsb -command {$wxx.t xview} -orient horizontal'
+     'grid $wxx.t $wxx.ysb -sticky nsew'
+     ' grid $wxx.xsb -sticky ew'
      ' grid rowconfig    $w 0 -weight 1'
      ' grid columnconfig $w 0 -weight 1'
    ];
@@ -68,14 +68,14 @@ end
 
 Path = 'root'
 tt = crlist(scs_m, Path, tt);
-tt = [tt;' $w.t bindImage <B1-Motion> {pp}']; 
-tt = [tt;' $w.t bindImage <Double-1> {pp}'];
-tt = [tt;' $w.t bindImage <3> {qq}'];
+tt = [tt;' $wxx.t bindImage <B1-Motion> {pp}']; 
+tt = [tt;' $wxx.t bindImage <Double-1> {pp}'];
+tt = [tt;' $wxx.t bindImage <3> {qq}'];
 endfunction
 //**-----------------------------------------------------------------------------
  
 //**================================================================
-//TCL_EvalStr('$w.t opentree node1')
+//TCL_EvalStr('$wxx.t opentree node1')
 //   pa=TCL_GetVar('x');pa=part(pa,6:length(pa));
 //   execstr('pa=list('+pa+')');       o=scs_m(scs_full_path(pa))
 //**================================================================
@@ -87,29 +87,29 @@ function tt = crlist(scs_m,Path,tt)
     
     if typeof(o)=="Link" then
       titre2='link'
-      tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+      tt=[tt;'$wxx.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     
     elseif typeof(o)=="Deleted" then
       titre2='Deleted'
-      tt=[tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+      tt=[tt;'$wxx.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
     
     else //** Blocks and Super Blocks :)
       
       if o.model.sim=='super'&(o.model.rpar.props.title(1)<>'Super Block') then
         //** Super Blocks  
 	titre2 = o.model.rpar.props.title(1);
-	tt = [tt;'$w.t insert end '+Path+' '+path+' -image [Bitmap::get folder] -text '"'+titre2+''"']
+	tt = [tt;'$wxx.t insert end '+Path+' '+path+' -image [Bitmap::get folder] -text '"'+titre2+''"']
 	tt = crlist(o.model.rpar,path,tt)
       else 
         //** Standard Blocks 
 	titre2 = o.gui;
 	if find(titre2==GIF)<>[] then
 	   //** a valid icon (GIF) is found 
-           tt = [tt;'$w.t insert end '+Path+' '+path+' -"+...
+           tt = [tt;'$wxx.t insert end '+Path+' '+path+' -"+...
 	        "helptext '"'+titre2+''" -image [image create photo -file '"'+Pgif+titre2+'.gif'"]']
 	else
            //** NO icon is found: use the block's name   
-	  tt = [tt;'$w.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
+	  tt = [tt;'$wxx.t insert end '+Path+' '+path+' -text '"'+titre2+''"']
 	end
       
       end //**... Blocks ans Super Blocks  
