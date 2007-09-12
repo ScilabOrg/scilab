@@ -32,7 +32,7 @@ Bloc Scicos
 </DIV>
 <H2><A NAME="SECTION00010000000000000000"></A><A NAME="MBLOCK"></A>
 <BR>
-Bloc modélica générique
+Bloc Modelica générique
 </H2>
 <DIV ALIGN="CENTER">
 <!-- MATH
@@ -53,7 +53,7 @@ Contenu</A>
 
 <UL CLASS="TofC">
 <LI><A NAME="tex2html5"
-  HREF="MBLOCK.htm#SECTION00010000000000000000">Bloc modélica générique</A>
+  HREF="MBLOCK.htm#SECTION00010000000000000000">Bloc Modelica générique</A>
 <UL>
 <LI><A NAME="tex2html6"
   HREF="MBLOCK.htm#SECTION00021000000000000000">Palette</A>
@@ -83,7 +83,7 @@ Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+The block "MBlock" provides an easy way to build a Scicos block whose behavior is specified by a Modelica program.  Using this block, the user will be able to write and compile Modelica programs in Scicos without creating any interfacing function.  The associated Modelica program of this block can be either given in a file or written in the window opened by the block. In order to link this block to other Scicos blocks that may be other Modelica blocks, the types of block ports' as well as their associated variables should be specified.  
 <BR>
 <H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
@@ -103,7 +103,7 @@ Boîte de dialogue</A>
 <UL>
 <LI><b>Input variables</b>
 <BR>
-La description du paramètre 1.
+In this filed, the ports connected to the left hand side of the block are defined. If the port is an explicit port, it will be an input port. In this case, the variable should be declared in the Modelica program as Real. If the port is an implicit port, the variable desinating this port should be a "connector". Remind that for implicit port, the notion of input and output does not exist and specifying an implicit variable in this filed is just placing the port at the left hend side of the block.
 <BR>
 Propriétés : Type 'str' de taille -1.
 
@@ -111,7 +111,7 @@ Propriétés : Type 'str' de taille -1.
 </LI>
 <LI><b>Input variables types</b>
 <BR>
-La description du paramètre 2.
+In this filed, the type of ports are specified, i.e., 'I' for implicit ports and 'E' for explicit ports. The size of the vector of "input variables" and the vector of "input_vector_type" should be equal.
 <BR>
 Propriétés : Type 'str' de taille -1.
 
@@ -119,7 +119,7 @@ Propriétés : Type 'str' de taille -1.
 </LI>
 <LI><b>Output variables</b>
 <BR>
-La description du paramètre 3.
+Similar to the input variables vector, the explicit output variables and implicit variables which are displayed at the right hand side of the block are specified in this filed.
 <BR>
 Propriétés : Type 'str' de taille -1.
 
@@ -127,7 +127,7 @@ Propriétés : Type 'str' de taille -1.
 </LI>
 <LI><b>Output variables types</b>
 <BR>
-La description du paramètre 4.
+The type of variables given in the Output variable vector are specified, i.e., 'I' for implicit ports and 'E' for explicit ports.
 <BR>
 Propriétés : Type 'str' de taille -1.
 
@@ -135,23 +135,33 @@ Propriétés : Type 'str' de taille -1.
 </LI>
 <LI><b>Parameters in Modelica</b>
 <BR>
-La description du paramètre 5.
+The values of parameters declared in the Modelica program can be overloaded. To overload a parameter value, the name of parameters are given in this field and their corresponding values are given in the "parameter values" field.
 <BR>
 Propriétés : Type 'str' de taille -1.
 
 <P>
 </LI>
 <LI><b>Parameter values</b>
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
+<BR>   
 <BR>
-La description du paramètre 6.
+Parameter value   =  [23.0;POS]
 <BR>
-Propriétés : Type 'str' de taille -1.
+Propriétés : Type 'vec' de taille -1.
 
 <P>
 </LI>
 <LI><b>Function name</b>
 <BR>
-La description du paramètre 7.
+The Modelica class name is specified in this filed. If the Modelica class name is specified without any path or extension, an interactive window is opened and the user can write or edit the Modelica program. This window is opened each time the user clicks on the block. If the Modelica class name is specified with path and '.mo' extension, the compiler looks for the file and if it is found, the file will be compiled, otherwise a window is opened and the user can write the Modelica program. This Modelica file will be saved with the given filename in the specified path. The next time, only input/output characteristics of the block can be changed, and the Modelica file should be edited with another text editor.
 <BR>
 Propriétés : Type 'str' de taille -1.
 </LI>

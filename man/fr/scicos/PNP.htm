@@ -52,29 +52,42 @@ Contenu</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html5"
+<LI><A NAME="tex2html6"
   HREF="PNP.htm#SECTION00010000000000000000">Transitor PNP</A>
 <UL>
-<LI><A NAME="tex2html6"
-  HREF="PNP.htm#SECTION00021000000000000000">Description</A>
 <LI><A NAME="tex2html7"
-  HREF="PNP.htm#SECTION00022000000000000000">Boîte de dialogue</A>
+  HREF="PNP.htm#SECTION00021000000000000000">Palette</A>
 <LI><A NAME="tex2html8"
-  HREF="PNP.htm#SECTION00023000000000000000">Propriétés par défaut</A>
+  HREF="PNP.htm#SECTION00022000000000000000">Description</A>
 <LI><A NAME="tex2html9"
-  HREF="PNP.htm#SECTION00024000000000000000">Fonction d'interface</A>
+  HREF="PNP.htm#SECTION00023000000000000000">Boîte de dialogue</A>
 <LI><A NAME="tex2html10"
-  HREF="PNP.htm#SECTION00025000000000000000">Modèle Modelica</A>
+  HREF="PNP.htm#SECTION00024000000000000000">Propriétés par défaut</A>
+<LI><A NAME="tex2html11"
+  HREF="PNP.htm#SECTION00025000000000000000">Fonction d'interface</A>
+<LI><A NAME="tex2html12"
+  HREF="PNP.htm#SECTION00026000000000000000">Modèle Modelica</A>
+<LI><A NAME="tex2html13"
+  HREF="PNP.htm#SECTION00027000000000000000">Auteurs</A>
 </UL></UL>
 <!--End of Table of Contents-->
 <H3><font color="blue"><A NAME="SECTION00021000000000000000">
+Palette</A>
+</font></H3>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="Electrical_pal.htm">Electrical.cosf - Boîte à outils  des composants électriques</A>
+</LI>
+</UL>
+<H3><font color="blue"><A NAME="SECTION00022000000000000000">
 Description</A>
 </font></H3>
 
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction  
+Ce bloc est un modèle simple pour le transistor bipolaire PNP basé sur le modèle  Ebers-Moll.  
 <BR>
-<H3><font color="blue"><A NAME="SECTION00022000000000000000">
+<H3><font color="blue"><A NAME="SECTION00023000000000000000">
 Boîte de dialogue</A>
 </font></H3>
 
@@ -88,149 +101,90 @@ Boîte de dialogue</A>
 </DIV>
 
 <P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Paramètre</TD>
+<TD ALIGN="LEFT">Valeur pas d&#233;faut</TD>
+<TD ALIGN="LEFT">Description</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Bf</TD>
+<TD ALIGN="LEFT">50</TD>
+<TD ALIGN="LEFT">Forward beta</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Br</TD>
+<TD ALIGN="LEFT">0.1</TD>
+<TD ALIGN="LEFT">Reverse beta</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Is</TD>
+<TD ALIGN="LEFT">1.e-16</TD>
+<TD ALIGN="LEFT">Transport saturation current [A]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Vak</TD>
+<TD ALIGN="LEFT">0.02</TD>
+<TD ALIGN="LEFT">Early voltage (inverse), 1/Volt [1/V]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Tauf</TD>
+<TD ALIGN="LEFT">0.12e-9</TD>
+<TD ALIGN="LEFT">Ideal forward transit time [s]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Taur</TD>
+<TD ALIGN="LEFT">5e-9</TD>
+<TD ALIGN="LEFT">Ideal reverse transit time [s]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Ccs</TD>
+<TD ALIGN="LEFT">1e-12</TD>
+<TD ALIGN="LEFT">Collector-substrat(ground) cap. [F]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cje</TD>
+<TD ALIGN="LEFT">0.4e-12</TD>
+<TD ALIGN="LEFT">Base-emitter zero bias depletion cap. [F]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Cjc</TD>
+<TD ALIGN="LEFT">0.5e-12</TD>
+<TD ALIGN="LEFT">Base-coll. zero bias depletion cap. [F]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Phie</TD>
+<TD ALIGN="LEFT">0.8</TD>
+<TD ALIGN="LEFT">Base-emitter diffusion voltage [V]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Me</TD>
+<TD ALIGN="LEFT">0.4</TD>
+<TD ALIGN="LEFT">Base-emitter gradation exponent</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Phic</TD>
+<TD ALIGN="LEFT">0.8</TD>
+<TD ALIGN="LEFT">Base-collector diffusion voltage [V]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Mc</TD>
+<TD ALIGN="LEFT">0.333</TD>
+<TD ALIGN="LEFT">Base-collector gradation exponent</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Gbc</TD>
+<TD ALIGN="LEFT">1e-15</TD>
+<TD ALIGN="LEFT">Base-collector conductance [S]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Gbe</TD>
+<TD ALIGN="LEFT">1e-15</TD>
+<TD ALIGN="LEFT">Base-emitter conductance [S]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Vt</TD>
+<TD ALIGN="LEFT">0.02585</TD>
+<TD ALIGN="LEFT">Voltage equivalent of temperature [V]</TD>
+</TR>
+<TR><TD ALIGN="LEFT">EMin</TD>
+<TD ALIGN="LEFT">-100</TD>
+<TD ALIGN="LEFT">if x &lt; EMin, the exp(x) function is linearized</TD>
+</TR>
+<TR><TD ALIGN="LEFT">EMax</TD>
+<TD ALIGN="LEFT">40</TD>
+<TD ALIGN="LEFT">if x &gt; EMax, the exp(x) function is linearized</TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
 
-<UL>
-<LI><b>Forward beta</b>
-<BR>
-La description du paramètre 1.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Reverse beta</b>
-<BR>
-La description du paramètre 2.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Transport saturation current</b>
-<BR>
-La description du paramètre 3.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Early voltage (inverse), 1/Volt</b>
-<BR>
-La description du paramètre 4.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Ideal forward transit time</b>
-<BR>
-La description du paramètre 5.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Ideal reverse transit time</b>
-<BR>
-La description du paramètre 6.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Collector-substrat(ground) cap.</b>
-<BR>
-La description du paramètre 7.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-emitter zero bias depletion cap.</b>
-<BR>
-La description du paramètre 8.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-coll. zero bias depletion cap.</b>
-<BR>
-La description du paramètre 9.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-emitter diffusion voltage</b>
-<BR>
-La description du paramètre 10.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-emitter gradation exponent</b>
-<BR>
-La description du paramètre 11.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-collector diffusion voltage</b>
-<BR>
-La description du paramètre 12.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-collector gradation exponent</b>
-<BR>
-La description du paramètre 13.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-collector conductance</b>
-<BR>
-La description du paramètre 14.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Base-emitter conductance</b>
-<BR>
-La description du paramètre 15.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>Voltage equivalent of temperature</b>
-<BR>
-La description du paramètre 16.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-
-<P>
-</LI>
-<LI><b>if x<SPAN CLASS="MATH"><IMG
- WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/PNP_img3_fr.gif"
- ALT="$ &gt;$"></SPAN>
- EMinMax, the exp(x) function is linearized</b>
-<BR>
-La description du paramètre 17.
-<BR>
-Propriétés : Type 'vec' de taille -1.
-</LI>
-</UL>
-
-<H3><font color="blue"><A NAME="SECTION00023000000000000000">
+<H3><font color="blue"><A NAME="SECTION00024000000000000000">
 Propriétés par défaut</A>
 </font></H3>
 
@@ -261,25 +215,30 @@ Propriétés par défaut</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00024000000000000000">
+<H3><font color="blue"><A NAME="SECTION00025000000000000000">
 Fonction d'interface</A>
 </font></H3>
 
 <UL>
-<LI>SCI/macros/scicos_blocks/Electrical/PNP.sci <A NAME="tex2html3"
+<LI>SCI/macros/scicos_blocks/Electrical/PNP.sci <A NAME="tex2html4"
   HREF="PNP_intfunc.htm">[voir code]</A>
 </LI>
 </UL>
 
-<H3><font color="blue"><A NAME="SECTION00025000000000000000">
+<H3><font color="blue"><A NAME="SECTION00026000000000000000">
 Modèle Modelica</A>
 </font></H3>
 
 <UL>
-<LI>SCI/macros/scicos_blocks/Electrical/PNP.mo <A NAME="tex2html4"
+<LI>SCI/macros/scicos_blocks/Electrical/PNP.mo <A NAME="tex2html5"
   HREF="PNP_routcos.htm">[voir code]</A>
 </LI>
 </UL>
+
+<H3><font color="blue"><A NAME="SECTION00027000000000000000">
+Auteurs</A>
+</font></H3>
+www.modelica.org
 
 <BR>
 
