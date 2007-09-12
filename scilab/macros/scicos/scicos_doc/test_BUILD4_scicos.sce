@@ -136,6 +136,7 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""opath2(1)"" name=""scicos_params""></SCI>"
                "   </SECTION>";
                "   <SECTION eng=""Blocks"" fr=""Blocs"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_block""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_model""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_graphics""></SCI>"
                "   </SECTION>";
@@ -143,6 +144,7 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""opath2(1)"" name=""scicos_link""></SCI>"
                "   </SECTION>";
                "   <SECTION eng=""Compilation/Simulation"" fr=""Compilation/Simulation"">";
+               "    <SCI varpath=""opath2(1)"" name=""scicos_cpr""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_state""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_sim""></SCI>"
                "   </SECTION>";
@@ -190,19 +192,98 @@ function [txt] = gen_void_list_doc(typdoc,lang,list_t)
        '\end{itemize}'];
 endfunction
 
+//gen_hyper_tex : do a hyperlink for scilst doc
+function txt=gen_hyper_tex(txt)
+
+   txt = strsubst(txt,'{scicos_diagram}',...
+                       '\htmladdnormallink{scicos_diagram}{scicos_diagram.htm}')
+   txt = strsubst(txt,'{scicos_scs_m}',...
+                       '\htmladdnormallink{scs_m}{scicos_diagram.htm}')
+   txt = strsubst(txt,'{scicos_params}',...
+                       '\htmladdnormallink{params}{scicos_params.htm}')
+   txt = strsubst(txt,'{scicos_block}',...
+                       '\htmladdnormallink{block}{scicos_block.htm}')
+   txt = strsubst(txt,'{scicos_model}',...
+                       '\htmladdnormallink{model}{scicos_model.htm}')
+   txt = strsubst(txt,'{scicos_graphics}',...
+                       '\htmladdnormallink{graphics}{scicos_graphics.htm}')
+   txt = strsubst(txt,'{scicos_link}',...
+                       '\htmladdnormallink{link}{scicos_link.htm}')
+   txt = strsubst(txt,'{scicos_cpr}',...
+                       '\htmladdnormallink{cpr}{scicos_cpr.htm}')
+   txt = strsubst(txt,'{scicos_state}',...
+                    '\htmladdnormallink{state}{scicos_state.htm}')
+   txt = strsubst(txt,'{scicos_sim}',...
+                       '\htmladdnormallink{sim}{scicos_sim.htm}')
+endfunction
 //gen_tex_scilst : do a general pre treatment
 //                 for scilst data
-function txt_out=gen_pre_tex(txt_in)
+function txt_out=gen_pre_tex(txt_in,ind)
+  item_tsz=[];
+  txt_out=[];
+  ind_itt=[]
+
+  txt_in=gen_hyper_tex(txt_in);
+
   for i=1:size(txt_in,1)
-    if length(txt_in(i)) <>0 then
+
+    if length(txt_in(i))<>0 then
       pp = part(txt_in(i),length(txt_in(i)))
     else
       pp=[]
     end
+
+    if strindex(txt_in(i),'  -- ')<>[] then
+      if ind_itt==[] then
+        txt_out($+1)='  \begin{itemize} '
+      end
+      ind_itt=size(txt_out,1)+1;
+      if strindex(txt_in(i),' : ')<>[] then
+        txt_in(i)=strsubst(txt_in(i),'  -- ','  \item{\bf ');
+        txt_in(i)=strsubst(txt_in(i),' : ','}\\ ');
+      else
+        txt_in(i)=strsubst(txt_in(i),'  -- ','  \item ');
+      end
+    end
+
+    if strindex(txt_in(i),'Size :')<>[] then
+      if item_tsz<>[] then
+          //if ind<>3 then
+            txt_out(item_tsz)=txt_out(item_tsz)+' \null \\ '
+          //end
+          item_tsz = [];
+      end
+      //txt_in(i)=' \null \\ '+txt_in(i);
+    end
+    if strindex(txt_in(i),'Taille :')<>[] then
+      if item_tsz<>[] then
+//          if ind<>3 then
+            txt_out(item_tsz)=txt_out(item_tsz)+' \null \\ '
+//          end
+          item_tsz = [];
+      end
+      //txt_in(i)=' \null \\ '+txt_in(i);
+    end
+    if strindex(txt_in(i),'Type :')<>[] then
+      txt_in(i)=txt_in(i);
+    end
+
     if pp=='.' then
-      txt_out(i)=txt_in(i)+'\\'
+      txt_out($+1)=txt_in(i)+'\\ '
+      item_tsz=size(txt_out,1);
     else
-      txt_out(i)=txt_in(i)
+      txt_out($+1)=txt_in(i)
+    end
+  end
+
+  if ind_itt<>[] then
+    for i=ind_itt:size(txt_out,1)
+      if txt_out(i)==" " then
+        txt_out=[txt_out(1:i-1);
+                 '  \end{itemize}'
+                 txt_out(i:$)]
+        break
+      end
     end
   end
 endfunction
@@ -213,16 +294,16 @@ function txt_tex=gen_tex_scilst(%scicos_help,ttype)
 
   execstr('ttl=%scicos_help.scilst.'+ttype);
   txt_tex=['\subsection{'+ttype+'}';
-           ttl(2)
+           gen_pre_tex(ttl(2),0)
            ''
            '  \begin{itemize}'];
 
   for i=3:size(ttl(1),2)
-    disp(ttl(1)(i))
+    //disp(ttl(1)(i))
     txt_tex=[txt_tex;
              '    \item{\bf '+ttl(1)(i)+'}\\'];
     txt_tex=[txt_tex;
-             '         '+gen_pre_tex(ttl(i))
+             '         '+gen_pre_tex(ttl(i),i)
              ''];
   end
 
@@ -259,9 +340,13 @@ function gen_scs_scilst_help(typdoc,%gd)
 
         //** generate txt of tex file
         txt_scilst=[head_tex;
-                     latexsubst(tt)
-                     '\htmlinfo*'
-                     '\end{document}']
+                   '\subsection{Module}'
+                   '\begin{itemize}'
+                   ' \item{\htmladdnormallink{Scicos}{whatis.htm}}'
+                   '\end{itemize}'
+                   latexsubst(tt)
+                   '\htmlinfo*'
+                   '\end{document}']
         //**---------------------**//
 
         //create lang directory
@@ -730,6 +815,8 @@ list_of_scistruc = [opath2(1),"scicos_diagram.sci","sci";
                     opath2(1),"scicos_model.sci","sci";
                     opath2(1),"scicos_graphics.sci","sci";
                     opath2(1),"scicos_state.sci","sci";
+                    opath2(1),"scicos_block.sci","sci";
+                    opath2(1),"scicos_cpr.sci","sci";
                     opath2(1),"scicos_sim.sci","sci";];
 //**------------*/
 

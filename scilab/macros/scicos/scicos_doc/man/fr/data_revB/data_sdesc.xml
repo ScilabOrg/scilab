@@ -3137,32 +3137,40 @@
 <SHORT_DESCRIPTION name="scicos">Editeur de schéma bloc et interface graphique pour le simulateur hybride</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+<SHORT_DESCRIPTION name="scicos_block">Définit une structure bloc</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+<SHORT_DESCRIPTION name="scicos_cpr">Structure compilée Scicos</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
 <SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_diagram' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_diagram">scicos_diagram titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_diagram">Définit une structure scs_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_graphics' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_graphics">scicos_graphics titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_graphics">Définit une structure graphics</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_link' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_link">scicos_link titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_link">Définit une structure link</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_model' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_model">scicos_model titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_model">Définit une structure model</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_params' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_params">scicos_params titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_params">Définit une structure params</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_sim' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_sim">scicos_sim titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_sim">Définit une structure sim</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
@@ -3170,7 +3178,7 @@
 </FILE>
 
 <FILE name='scicos_state' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_state">scicos_state titre</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_state">Définit une structure state</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>

@@ -911,7 +911,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   //Enter here Scilab list Help definitions=========================
   %scs_help_scilst=tlist(['scilst',...
                           'diagram','params','model',...
-                          'graphics','link','state','sim']);
+                          'graphics','link','state',...
+                          'sim','cpr','block']);
 
   //** define scs_help_scilst lists
   %scs_help_diagram=tlist(['lst']);    //** diagr
@@ -921,13 +922,112 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scs_help_link=tlist(['lst']);     //** link
   %scs_help_state=tlist(['lst']);    //** state
   %scs_help_sim=tlist(['lst']);      //** sim
+  %scs_help_cpr=tlist(['lst']);      //** cpr
+  %scs_help_block=tlist(['lst']);      //** block
+
+  //******* cpr *******/
+  //*******************/
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'cpr',...
+                 [" The Scilab object {scicos_cpr} contains "
+                  " the result of the compilation."
+                  " That structure includes fields {scicos_state}, {scicos_sim},"
+                  " {cor} and {corinv}."
+                  ""
+                  " Size : 5.";
+                  " Type : scilab list."])
+
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'state',...
+                 [" Scilab typed list of type {xcs}. It contains all"
+                  " the states of the model, that is, everything than"
+                  " can evolve during the simulation.";
+                  " state contains {x}, {z}, {oz}, {iz}, "
+                  " {tevts}, {evtspt}, {pointi} and {outtb}."
+                  " ";
+                  " Size : 9.";
+                  " Type : scilab tlist."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'sim',...
+                 [" Scilab typed list of type {scs}. It contains "
+                  " static arrays coming from the result of the"
+                  " compilation. That arrays does not evolve"
+                  " during the simulation."
+                  " ";
+                  " Size : 33.";
+                  " Type : scilab tlist."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'cor',...
+                 [" It is a list with same recursive structure"
+                  " as scs_m. Each leaf contains the index of "
+                  " associated block in sim data structure. "
+                  " ";
+                  " Size : number of objects in scs_m.";
+                  " Type : scilab list."])
+
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'corinv',...
+                 [" corinv(i) is the path of i th block"
+                  " defined in sim data structure in the"
+                  " scs_m data structure."
+                  " ";
+                  " Size : number of blocks in the compiled structre.";
+                  " Type : scilab list."])
+
+  //******* scicos_block *******/
+  //****************************/
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'block',...
+                 [" Basic  structure that define a Scicos block.";
+                  " That structure includes fields {scicos_graphics}, {scicos_model},"
+                  " {gui} and {doc}."
+                  ""
+                  " Size : 5.";
+                  " Type : scilab list."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'graphics',...
+                 [" Scilab object including"
+                  " graphical information concerning"
+                  " the features of the block.";
+                  " "
+                  " Size : 14.";
+                  " Type : scilab list."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'model',...
+                 [" Scilab list that contains the features";
+                  " of the block used for the compilation.";
+                  " ";
+                  " Size : 23.";
+                  " Type : Scilab list."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'gui',...
+                 [" The name of the Scilab GUI function associated"
+                  " with the block"
+                  " ";
+                  " Size : 1.";
+                  " Type : string."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'doc',...
+                 [" Field used for documentation"
+                  " of the block"
+                  " ";
+                  " Size : 1.";
+                  " Type : string."])
 
   //****** scicos_diagram ******/
   //****************************/
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'diagram',...
                  [" ";
-                  " Size : 4";
+                  " Size : 4.";
                   " Type : scilab list."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
@@ -936,22 +1036,23 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " This entry contains various informations such";
                   " some main diagram initials values.";
                   " ";
-                  " This variable is a tlist of type {params} and";
+                  " This variable is a tlist of type {scicos_params} and";
                   " contains {wpar}, {title}, {tol}, {tf}, {context},";
-                  " {options} and {doc}";
+                  " {options} and {doc}.";
                   " ";
-                  " Size : 11";
-                  " Type : Scilab tlist of type {params}."])
+                  " Size : 11.";
+                  " Type : Scilab tlist of type {scicos_params}."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'objs',...
                  [" List of objects included in the Scicos diagram.";
-                  " The objects used in scicos are {block}, {link} and Text.";
+                  " The objects used in scicos are {scicos_block}, {scicos_link} and Text.";
                   " The objects can also be deleted object data structure.";
                   " Deleted object data structure is marked list(''Deleted'').";
                   " ";
+                  " ";
                   " Size : total number of objects in the diagram.";
-                  " Type : Scilab tlist of type {block}, {link} or Text."])
+                  " Type : Scilab tlist of type {scicos_block}, {scicos_link} or Text."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'version',...
@@ -961,24 +1062,24 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " using the entry ''About scicos'' in the help menu"
                   " or by using the function get_scicos_version()."
                   ""
-                  " Size : 1";
-                  " Type : String"])
+                  " Size : 1.";
+                  " Type : String."])
 
   //****** scicos_params ******/
   //***************************/
   %scs_help_params=scicos_help(%scs_help_params,...
                  'params',...
                  [" ";
-                  " Size : 11";
-                  " Type : liste scilab."])
+                  " Size : 11.";
+                  " Type : scilab list."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'wpar',...
-                 [" This vector is not currently used. "
+                 [" This vector is not currently used."
                   " It may be used in the future to code "
                   " window sizes of the editor.";
                   " ";
-                  " Size : 6";
+                  " Size : 6.";
                   " Type : column vector or real."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
@@ -988,65 +1089,72 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " and the second one is the path of the directory of "
                   " the file name.";
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : row vector of strings."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tol',...
                  ["";
-                  " A vector containing simulation parameters including "
+                  " A vector containing simulation parameters including"
                   " various tolerances used by the solver: ";
                   " ";
-                  "  - {atol}   : Integrator absolute tolerance for the numerical solver";
+                  "  -- {atol}   : Integrator absolute tolerance for the numerical solver.";
                   " ";
-                  "  - {rtol}   : Integrator relative tolerance for the numerical solver.";
+                  "  -- {rtol}   : Integrator relative tolerance for the numerical solver.";
                   " ";
-                  "  - {ttol}   : Tolerance on time. If an integration period is less";
-                  "               than {ttol}, the numerical solver is not called."
+                  "  -- {ttol}   : Tolerance on time."
+                  "                If an integration period is less";
+                  "                than {ttol}, the numerical solver is not called."
                   " ";
-                  "  - {deltat} : Maximum integration time interval. If an integration";
-                  "               period is larger than {deltat}, the numerical solver"
-                  "               is called more than once in such a way that for each call"
-                  "               the integration period remains below {deltat}";
+                  "  -- {deltat} : Maximum integration time interval."
+                  "                If an integration period is larger than"
+                  "                {deltat}, the numerical solver is called more than"
+                  "                once in such a way that for each call the integration"
+                  "                period remains below {deltat}";
                   " ";
-                  "  - {scale}  : Real-time scaling; the value 0 corresponds to no"
-                  "               real-time scaling. It associates a Scicos simulation";
-                  "               time to the real time in seconds. A value of 1 means "
-                  "               that each Scicos unit of time corresponds to one second.";
+                  "  -- {scale}  : Real-time scaling; the value 0 corresponds to no"
+                  "                real-time scaling."
+                  "                It associates a Scicos simulation time to the real"
+                  "                time in seconds."
+                  "                A value of 1 means that each Scicos unit of time"
+                  "                corresponds to one second.";
                   " ";
-                  "  - {solver} : Choice of numerical solver. The value 0 implies";
-                  "               an ODE solver and 100 implies a DAE solver."
+                  "  -- {solver} : Choice of numerical solver."
+                  "                The value 0 implies an ODE solver and 100"
+                  "                implies a DAE solver."
                   " ";
-                  "  - {hmax}   : Maximum step size for the numerical solver.";
-                  "               0 means no limit.";
+                  "  -- {hmax}   : Maximum step size for the numerical solver.";
+                  "                0 means no limit.";
                   " ";
-                  " Size : 7";
+                  " Size : 7.";
                   " Type : column vector of real."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tf',...
-                 [" Final time simulation. The simulation stops at this";
-                  " time. The default value is 100000!";
+                 [" Final time simulation."
+                  " The simulation stops at this time."
+                  " The default value is 100000.";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : real."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'context',...
                  [" A vector of strings containing Scilab instructions"
                   " defining Scilab variables to be used inside block GUIs"
-                  " as symbolic parameters. All valid Scilab instructions"
-                  " can be used and also comments.";
+                  " as symbolic parameters."
+                  " All valid Scilab instructions can be used and "
+                  " also comments.";
                   " ";
-                  " Size : number of lines of the context";
+                  " Size : number of lines of the context.";
                   " Type : column vector of strings."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void1',...
                  [" unused field.";
                   " ";
-                  " Size : -";
-                  " Type : -"])
+                  " Size : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'options',...
@@ -1056,60 +1164,62 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " The fields are the following:";
                   " ";
-                  "  - {3D}         : A list with two entries. The first one is a boolean"
-                  "                   indicating whether or not blocks should have 3D aspect."
-                  "                   The second entry indicates the color in the current colormap"
-                  "                   to be used to create the 3D effect. The default is 33"
-                  "                   which corresponds to gray added by Scicos to the standard"
-                  "                   colormap, which contains 32 colors. The default value is"
-                  "                   list(%t,33)."
+                  "  -- {3D}         : A list with two entries. The first one is a boolean"
+                  "                    indicating whether or not blocks should have 3D aspect."
+                  "                    The second entry indicates the color in the current colormap"
+                  "                    to be used to create the 3D effect."
+                  "                    The default is 33 which corresponds to gray added by"
+                  "                    Scicos to the standard colormap, which contains 32 colors."
+                  "                    The default value is list(%t,33)."
                   " ";
-                  "  - {Background} : Vector with two entries: background and"
-                  "                   foreground colors. The default value is"
-                  "                   [8,1]."
+                  "  -- {Background} : Vector with two entries: background and"
+                  "                    foreground colors."
+                  "                    The default value is [8,1]."
                   " ";
-                  "  - {Link}       : Default link colors for regular and activation"
-                  "                   links. These colors are used only at link construction."
-                  "                   Changing them does not affect already constructed links."
-                  "                   The default value is [1,5], which corresponds to black and"
-                  "                   red if the standard Scilab colormap is used."
+                  "  -- {scicos_link}       : Default link colors for regular and activation links."
+                  "                    These colors are used only at link construction."
+                  "                    Changing them does not affect already constructed links."
+                  "                    The default value is [1,5], which corresponds to black and"
+                  "                    red if the standard Scilab colormap is used."
                   " ";
-                  "  - {ID}         : A list of two vectors including font number and"
-                  "                   sizes. The default value is [5,1],[4,1]."
+                  "  -- {ID}         : A list of two vectors including font number and sizes."
+                  "                    The default value is [5,1],[4,1]."
                   " ";
-                  "  - {Cmap}       : An $n\times 3$ matrix containing RGB values of colors"
-                  "                   to be added to the colormap. The default value is,"
-                  "                    [0.8,0.8,0.8] i.e., the color gray."
+                  "  -- {Cmap}       : An n,3 matrix containing RGB values of colors"
+                  "                    to be added to the colormap."
+                  "                    The default value is, [0.8,0.8,0.8] i.e., the color gray."
                   " ";
-                  " Size : 6";
-                  " Type : scilab tlist of type {scsopt}"])
+                  " Size : 6.";
+                  " Type : scilab tlist of type {scsopt}."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void2',...
                  [" unused field.";
                   " ";
-                  " Size : -";
-                  " Type : -"])
+                  " Size : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void3',...
                  [" unused field.";
                   " ";
-                  " Size : -";
-                  " Type : -"])
+                  " Size : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'doc',...
                  [" User defined diagram documentation structure.";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : Strings."])
 
   //****** scicos_model ******/
   //**************************/
   %scs_help_model=scicos_help(%scs_help_model,...
                  'model',...
-                 [" ";
+                 [" Scilab list that contains the features";
+                  " of the block used for the compilation.";
+                  " ";
                   " Size : 23.";
                   " Type : Scilab list."])
 
@@ -1129,21 +1239,20 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'in',...
-                 ["";
-                  " A vector specifying the number and size of the first"
+                 [" A vector specifying the number and size of the first"
                   " dimension of regular input ports indexed from top to";
                   " bottom of the block. If no input port exist in==[].";
                   " ";
                   " The size can be negative, equal to zero or positive :";
                   " ";
-                  "   - If a size is less than zero, the compilator will";
+                  "  -- If a size is less than zero, the compilator will";
                   "     try to find the appropriate size.";
                   " ";
-                  "   - If a size is equal to zero, the compilator will";
+                  "  -- If a size is equal to zero, the compilator will";
                   "     affect this dimension by added all positive size";
                   "     found in that vector";
                   " ";
-                  "   - If a size is greater than zero, then the size is"
+                  "  -- If a size is greater than zero, then the size is"
                   "     explicitly given.";
                   " ";
                   " Size : number of regular input ports.";
@@ -1159,14 +1268,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " The size can be negative, equal to zero or positive :";
                   " ";
-                  "   - If a size is less than zero, the compilator will";
+                  "  -- If a size is less than zero, the compilator will";
                   "     try to find the appropriate size.";
                   " ";
-                  "   - If a size is equal to zero, the compilator will";
+                  "  -- If a size is equal to zero, the compilator will";
                   "     affect this dimension by added all positive size";
-                  "     found in that vector";
+                  "     found in that vector.";
                   " ";
-                  "   - If a size is greater than zero, then the size is"
+                  "  -- If a size is greater than zero, then the size is"
                   "     explicitly given.";
                   " ";
                   " Size : number of regular input ports.";
@@ -1178,14 +1287,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Its sizes is equal to the sizes of {in}.";
                   " The types of regular input ports can be :";
                   ""
-                  "  - 1 : real matrix.";
-                  "  - 2 : complex matrix.";
-                  "  - 3 : int32 matrix.";
-                  "  - 4 : int16 matrix.";
-                  "  - 5 : int8 matrix.";
-                  "  - 6 : uint32 matrix.";
-                  "  - 7 : uint16 matrix.";
-                  "  - 8 : uint8 matrix.";
+                  "  -- 1  real matrix,";
+                  "  -- 2  complex matrix,";
+                  "  -- 3  int32 matrix,";
+                  "  -- 4  int16 matrix,";
+                  "  -- 5  int8 matrix,";
+                  "  -- 6  uint32 matrix,";
+                  "  -- 7  uint16 matrix,";
+                  "  -- 8  uint8 matrix.";
                   " ";
                   " Size : number of regular input ports.";
                   " Type : column vector of integer numbers."])
@@ -1199,14 +1308,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " The size can be negative, equal to zero or positive :";
                   " ";
-                  "   - If a size is less than zero, the compilator will";
+                  "  -- If a size is less than zero, the compilator will";
                   "     try to find the appropriate size.";
                   " ";
-                  "   - If a size is equal to zero, the compilator will";
+                  "  -- If a size is equal to zero, the compilator will";
                   "     affect this dimension by added all positive size";
                   "     found in that vector";
                   " ";
-                  "   - If a size is greater than zero, then the size is"
+                  "  -- If a size is greater than zero, then the size is"
                   "     explicitly given.";
                   " ";
                   " Size : number of regular output ports.";
@@ -1222,14 +1331,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " That dimension can be negative, equal to zero or positive :";
                   " ";
-                  "   - If a size is less than zero, the compilator will";
+                  "  -- If a size is less than zero, the compilator will";
                   "     try to find the appropriate size.";
                   " ";
-                  "   - If a size is equal to zero, the compilator will";
+                  "  -- If a size is equal to zero, the compilator will";
                   "     affect this dimension by added all positive size";
                   "     found in that vector.";
                   " ";
-                  "   - If a size is greater than zero, then the size is"
+                  "  -- If a size is greater than zero, then the size is"
                   "     explicitly given.";
                   " ";
                   " Size : number of regular output ports.";
@@ -1241,14 +1350,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Its sizes is equal to the sizes of {out}.";
                   " The types of regular output ports can be :";
                   ""
-                  "  - 1 : real matrix.";
-                  "  - 2 : complex matrix.";
-                  "  - 3 : int32 matrix.";
-                  "  - 4 : int16 matrix.";
-                  "  - 5 : int8 matrix.";
-                  "  - 6 : uint32 matrix.";
-                  "  - 7 : uint16 matrix.";
-                  "  - 8 : uint8 matrix.";
+                  "  -- 1  real matrix,";
+                  "  -- 2  complex matrix,";
+                  "  -- 3  int32 matrix,";
+                  "  -- 4  int16 matrix,";
+                  "  -- 5  int8 matrix,";
+                  "  -- 6  uint32 matrix,";
+                  "  -- 7  uint16 matrix,";
+                  "  -- 8  uint8 matrix.";
                   " ";
                   " Size : number of regular output ports.";
                   " Type : column vector of integer numbers."])
@@ -1301,7 +1410,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " In the computational function case of type 4 (C blocks)";
                   " only elements containig matrix of real, complex,";
                   " int32, int16 ,int8 ,uint32, uit16 and uint8 will be correctly";
-                  " provided for read/write.";
+                  " provided for readind/writing.";
                   " ";
                   " Size : number of objects state.";
                   " Type : scilab list of scilab objects."])
@@ -1331,7 +1440,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " In the computational function case of type 4 (C blocks)";
                   " only elements containig matrix of real, complex,";
                   " int32, int16 ,int8 ,uint32, uit16 and uint8 will be correctly";
-                  " provided for read.";
+                  " provided for reading.";
                   " ";
                   " Size : number of objetcs parameters.";
                   " Type : list of scilab object."])
@@ -1365,10 +1474,10 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'dep_ut',...
                  ["Boolean vector [dep_u, dep_t]."
                   " ";
-                  " - dep_u : true if block is always active."
+                  "  -- dep_u : true if block is always active."
                   "          (output depends continuously of the time)";
                   " ";
-                  " - dep_t : true if block has direct feed-through,"
+                  "  -- dep_t : true if block has direct feed-through,"
                   "          i.e., at least one of the outputs depends"
                   "          directly (not through the states) on one"
                   "          of the inputs.   "
@@ -1376,7 +1485,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   "          function is called with flag 1, the value "
                   "          of an input is used to compute the output."
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : Boolean vector."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
@@ -1386,8 +1495,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " in order to access or modify its "
                   " parameters during simulation.";
                   " ";
-                  " Size : 1";
-                  " Type : string"])
+                  " Size : 1.";
+                  " Type : string."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nzcross',...
@@ -1402,7 +1511,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " the vector mode and not the total number of modes"
                   " in which a block can operate in. Suppose a block "
                   " has 3 modes and each mode can take two values, then"
-                  " the block can have up to 2^3=8 modes. ";
+                  " the block can have up to 2^3=8 modes.";
                   " ";
                   " Size : Number of modes.";
                   " Type : column vector of integer numbers."])
@@ -1413,16 +1522,16 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Data structure of type {modelica} which contains modelica"
                   " code description if any. That list contains four entries :";
                   " ";
-                  "   - model : a string given the name of the file that contains"
+                  "  -- model : a string given the name of the file that contains"
                   "             the modelica function.";
                   " ";
-                  "   - inputs : a colunm vector of strings that contains the names of";
+                  "  -- inputs : a colunm vector of strings that contains the names of";
                   "              the modelica variables used as inputs.";
                   ""
-                  "   - outputs : a colunm vector of strings that contains the names of";
+                  "  -- outputs : a colunm vector of strings that contains the names of";
                   "               the modelica variables used as outputs.";
                   " ";
-                  "   - parameters : a list with two entries. The first is a vector of strings"
+                  "  -- parameters : a list with two entries. The first is a vector of strings"
                   "                  for the name of modelica variable names used as parameters";
                   "                  and the second entries is a list that contains the value of"
                   "                  parameters.";
@@ -1434,15 +1543,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   "                  means that ''C'' is a parameter(0) of value C, and ''v''";
                   "                  is a state(1) with initial value v.";
                   " ";
-                  " Size : 5";
+                  " Size : 5.";
                   " Type : scilab list."])
 
   //****** scicos_graphics ******/
   //*****************************/
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'graphics',...
-                 [" ";
-                  " Size : 14";
+                 [" Scilab object including"
+                  " graphical information concerning"
+                  " the features of the block.";
+                  " "
+                  " Size : 14.";
                   " Type : scilab list."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1454,7 +1566,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " [xo,yo] is the coordinate of down-left point of"
                   " the block shape.";
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : row vector of real."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1462,7 +1574,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Vector [w,h], where w is the block width and"
                   " h the block height.";
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : row vector of real."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1472,7 +1584,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " If false the input ports are on the right of the box and "
                   " output ports are on the left.";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : boolean."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1481,7 +1593,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " This value is in degree and is "
                   " included in [-360,360].";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : real."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1538,7 +1650,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " expressions for customizing the block graphical"
                   " aspect. This field may be set with {Icon} sub_menu."
                   " ";
-                  " Size : ";
+                  " Size : -.";
                   " Type : column vector of strings."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1547,7 +1659,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " block. The string is displayed under the"
                   " block in the diagram.";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : string."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -1556,7 +1668,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ''E'' and ''I'' stand respectively for explicit and"
                   " implicit port, and this vector indicates the nature"
                   " of each input port. For regular blocks (not implicit),"
-                  " this vector is empty or contains only ""E"" ";
+                  " this vector is empty or contains only ""E"".";
                   " ";
                   " Size : nul or number of regular input ports.";
                   " Type : column vector of strings."])
@@ -1567,7 +1679,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ''E'' and ''I'' stand respectively for explicit and"
                   " implicit port, and this vector indicates the nature"
                   " of each output port. For regular blocks (not implicit),"
-                  " this vector is empty or contains only ""E"" ";
+                  " this vector is empty or contains only ""E"".";
                   " ";
                   " Size : nul or number of regular output ports.";
                   " Type : column vector of strings."])
@@ -1577,7 +1689,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scs_help_link=scicos_help(%scs_help_link,...
                  'link',...
                  [" ";
-                  " Size : 8";
+                  " Size : 8.";
                   " Type : scilab list."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -1600,14 +1712,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'id',...
                  [" Character string, the link identification.";
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : string."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
                  'thick',...
                  [" Vector of size two defining line thickness.";
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : row vector of integers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -1617,7 +1729,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " entry is 1 for a regular link, -1 for an activation"
                   " link, and 2 for an implicit link.";
                   " ";
-                  " Size : 2";
+                  " Size : 2.";
                   " Type : row vector of integers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -1628,7 +1740,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " third entry may be 1 if the link is implicit;  "
                   " otherwise it is zero.";
                   " ";
-                  " Size : 3";
+                  " Size : 3.";
                   " Type : row vector of integers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -1639,7 +1751,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " third entry may be 1 if the link is implicit;  "
                   " otherwise it is zero.";
                   " ";
-                  " Size : 3";
+                  " Size : 3.";
                   " Type : row vector of integers."])
 
   //****** scicos_state ******/
@@ -1649,11 +1761,10 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Scilab typed list of type {xcs}. It contains all"
                   " the states of the model, that is, everything than"
                   " can evolve during the simulation.";
-                  " ";
                   " state contains {x}, {z}, {oz}, {iz}, "
                   " {tevts}, {evtspt}, {pointi} and {outtb}."
                   " ";
-                  " Size : 9";
+                  " Size : 9.";
                   " Type : scilab tlist."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
@@ -1736,7 +1847,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " compilation. That arrays does not evolve"
                   " during the simulation."
                   " ";
-                  " Size : 33";
+                  " Size : 33.";
                   " Type : scilab tlist."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
@@ -1812,7 +1923,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " is the index of the link connected to "
                   " the jth input port of the ith block where "
                   " j goes from 1 to "
-                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i)). ";
+                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i)).";
                   " ";
                   " Size : total number of regular input port.";
                   " Type : column vector of integers."])
@@ -1940,7 +2051,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'oord',...
                  [" Subset of {cord}. Blocks of that matrix "
                   " have outputs which affect computation of"
-                  " continuous state derivatives"
+                  " continuous state derivatives."
                   " ";
                   " Size : noord.";
                   " Type : matrix of integers."])
@@ -1973,7 +2084,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " of blocks in the diagram because {c_pass2}"
                   " may duplicate some conditional blocks."
                   " ";
-                  " Size : 1";
+                  " Size : 1.";
                   " Type : integer."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
@@ -1982,7 +2093,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " A 1 entry indicates that the block may have "
                   " zero-crossings, even if it doesn''t in the "
                   " context of the diagram.  Usually not used by "
-                  " the simulator. ";
+                  " the simulator.";
                   " ";
                   " Size : number of blocks.";
                   " Type : column vector of integers."])
@@ -2053,12 +2164,107 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   if ~exists('LANGUAGE') then global LANGUAGE, end
 
   if LANGUAGE=='fr' then
+
+  //******* cpr *******/
+  //*******************/
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'cpr',...
+                 [" La liste scilab {scicos_cpr} contient "
+                  " le résultat de la compilation."
+                  " Cette structure est composée des champs"
+                  " {scicos_state}, {scicos_sim}, {cor} et {corinv}."
+                  ""
+                  " Taille : 5.";
+                  " Type : tlist scilab."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'state',...
+                  [" Une liste typée scilab de type {xcs}. Cette";
+                   " liste contient tous les états du diagramme qui";
+                   " vont évoluer pendant la simulation.";
+                   " state contient {x}, {z}, {oz}, {iz}, "
+                   " {tevts}, {evtspt}, {pointi} et {outtb}."
+                   " ";
+                   " Taille : 9.";
+                   " Type : tlist scilab."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'sim',...
+                 [" Une liste typée scilab de type {scs}. Cette";
+                  " liste contient des tableaux statiques issus"
+                  " du résultat de la compilation. Ces tableaux"
+                  " n''évoluent pas pendant la simulation."
+                  " ";
+                  " Taille : 33.";
+                  " Type : tlist scilab."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'cor',...
+                 [" C''est une liste avec la même structure récursive"
+                  " que la liste scs_m. Chaque feuille contient l''indice "
+                  " d''un bloc associé à la structure compilée sim."
+                  " ";
+                  " Taille : nombre d''objets dans scs_m.";
+                  " Type : scilab list."])
+
+  %scs_help_cpr=scicos_help(%scs_help_cpr,...
+                 'corinv',...
+                 [" corinv(i) est le chemin du bloc i"
+                  " définit dans la structure compilée sim"
+                  " dans la structure scs_m."
+                  " ";
+                  " Taille : nombre de blocs dans la structure compilée.";
+                  " Type : scilab list."])
+
+  //******* scicos_block *******/
+  //****************************/
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'block',...
+                 [" Une structure de base qui définit un bloc Scicos.";
+                  " Cette structure inclut les champs {scicos_graphics}, {scicos_model},"
+                  " {gui} et {doc}."
+                  ""
+                  " Size : 5.";
+                  " Type : scilab list."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'graphics',...
+                 [" Liste Scilab contenant les informations"
+                  " sur les données graphiques du bloc."
+                  " "
+                  " Taille : 14.";
+                  " Type : scilab list."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'model',...
+                 [" Liste Scilab qui contient les informations";
+                  " du bloc utilisées pour la compilation.";
+                  " ";
+                  " Taille : 23.";
+                  " Type : liste scilab."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'gui',...
+                 [" Le nom de la fonction d''interface Scilab";
+                  " associée au bloc.";
+                  " ";
+                  " Taille : 1.";
+                  " Type : chaîne de caratères."])
+
+  %scs_help_block=scicos_help(%scs_help_block,...
+                 'doc',...
+                 [" Un champ utilisé pour la documentation";
+                  " du bloc.";
+                  " ";
+                  " Taille : 1.";
+                  " Type : chaîne de caratères."])
+
   //****** scicos_diagram ******/
   //****************************/
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'diagram',...
                  [" ";
-                  " Size : 4";
+                  " Taille : 4.";
                   " Type : liste scilab."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
@@ -2068,24 +2274,23 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " telles que des valeurs initiales du diagramme";
                   " principal.";
                   " ";
-                  " Cette variable est une tlist de type {params} et";
+                  " Cette variable est une tlist de type {scicos_params} et";
                   " contient {wpar}, {title}, {tol}, {tf}, {context},";
-                  " {options} and {doc}";
+                  " {options} et {doc}.";
                   " ";
-                  " ";
-                  " Taille 11: ";
-                  " Type : tlist scilab de type {params}."])
+                  " Taille : 11.";
+                  " Type : tlist scilab de type {scicos_params}."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'objs',...
                  [" Une liste d''objets inclus dans le diagramme Scicos.";
-                  " Les objets utilisés dans Scicos sont {block}, {link} et";
+                  " Les objets utilisés dans Scicos sont {scicos_block}, {scicos_link} et";
                   " Text.";
                   " Les objets peuvent aussi être des strucutures de donnée";
                   " effacées. Les objets effacés sont marqués par list(''Deleted'').";
                   " ";
                   " Taille : nombre total d''objets dans le diagramme.";
-                  " Type : tlist scilab de type {block}, {link} ou Text."])
+                  " Type : tlist scilab de type {scicos_block}, {scicos_link} ou Text."])
 
   %scs_help_diagram=scicos_help(%scs_help_diagram,...
                  'version',...
@@ -2096,7 +2301,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Scicos en utilisant l''entrée ''About scicos'' dans le"
                   " menu help ou en utilisant la fonction get_scicos_version()."
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : chaîne de caractères."])
 
   //****** scicos_params ******/
@@ -2104,7 +2309,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scs_help_params=scicos_help(%scs_help_params,...
                  'params',...
                  [" ";
-                  " Size : 11";
+                  " Size : 11.";
                   " Type : liste scilab."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
@@ -2114,7 +2319,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                    " pour enregistrer les paramètres de la"
                    " fenêtre tels que la position et la taille.";
                    " ";
-                   " Taille : 6";
+                   " Taille : 6.";
                    " Type : vecteur colonne de nombre réels."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
@@ -2123,7 +2328,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " le titre du diagramme (le nom par défaut du ficher de";
                   " sauvegarde) et la deuxième est le chemim du répertoire.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : vecteur line de chaîne de caractères."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
@@ -2131,40 +2336,41 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur contenant les paramètres de la simulation qui";
                   " inclue les tolérances utilisées par le solveur: ";
                   " ";
-                  "  - {atol}   : tolérance absolue pour l''intégration";
+                  "  -- {atol}   : tolérance absolue pour l''intégration";
                   " ";
-                  "  - {rtol}   : tolérance relative pour l''intégration.";
+                  "  -- {rtol}   : tolérance relative pour l''intégration.";
                   " ";
-                  "  - {ttol}   : tolérance sur le temps. Si une période d''intégration est";
+                  "  -- {ttol}   : tolérance sur le temps. Si une période d''intégration est";
                   "               inférieure à {ttol}, le solveur n''est pas appellé."
                   " ";
-                  "  - {deltat} : Interval temporel maximal entre deux points d''intégration."
+                  "  -- {deltat} : Interval temporel maximal entre deux points d''intégration."
                   "               Si une période d''intégration est plus grande que {deltat}, ";
                   "               le solveur est appelé plus d''une fois de manière à maintenir"
                   "               le pas au niveau de {deltat}";
                   " ";
-                  "  - {scale}  : Facteur d''échelle temps-réel (Real-time scaling);"
+                  "  -- {scale}  : Facteur d''échelle temps-réel (Real-time scaling);"
                   "               la valeur 0 correspond à un facteur d''échelle nul."
                   "               Ce facteur associe le temps de la simulation au temps"
                   "               réel en seconde. Une valeur égale à 1, signifie que "
                   "               chaque untité de temps Scicos correspond à une seconde."
                   " ";
-                  "  - {solver} : Choix du solveur numérique. Une valeur 0 signifie qu''un"
+                  "  -- {solver} : Choix du solveur numérique. Une valeur 0 signifie qu''un"
                   "               solveur ODE sera utilisé et 100 signifie qu''un solveur"
                   "               DAE sera utilisé.";
                   " ";
-                  "  - {hmax}   : Pas maximal d''intégration pour le solveur.";
+                  "  -- {hmax}   : Pas maximal d''intégration pour le solveur.";
                   "               0 signifie pas de limites.";
                   " ";
-                  " Taille : 7";
+                  " Taille : 7.";
                   " Type : vecteur colonne de nombre réels."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'tf',...
-                [" Le temps final de simulation. La simulation s''arrête";
-                 " a ce temps. La valeur par défaut est 100000!";
+                [" Le temps final de simulation."
+                 " La simulation s''arrête a ce temps."
+                 " La valeur par défaut est 100000.";
                  " ";
-                 " Taille : 1";
+                 " Taille : 1.";
                  " Type : réel."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
@@ -2183,8 +2389,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'void1',...
                  [" Champ inutilisé.";
                   " ";
-                  " Taille : -";
-                  " Type : -"])
+                  " Taille : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'options',...
@@ -2194,7 +2400,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " ";
                   " Les champs sont les suivant:";
                   " ";
-                  "  - {3D}         : Une liste à deux entrées. La première est un booléen"
+                  "  -- {3D}         : Une liste à deux entrées. La première est un booléen"
                   "                   indiquant si les blocs doivent avoir un aspect 3D.";
                   "                   La seconde entrée indique la couleur dans la palette de"
                   "                   couleur courante (colormap) qui doit être utilisée pour"
@@ -2203,54 +2409,56 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   "                   standard qui contients 32 couleurs."
                   " ";
                   "                   La valeur par défault de cette list est donc list(%t,33)."
-                  "  - {Background} : Un vecteur avec deux entrées : la couleur d''arrière plan et"
+                  "  -- {Background} : Un vecteur avec deux entrées: la couleur d''arrière plan et"
                   "                   la couleur d''avant plan. La valeur par défaut est [8,1].";
                   " ";
-                  "  - {Link}       : Les couleurs par défauts pour les liens réguleurs et les"
+                  "  -- {scicos_link}       : Les couleurs par défauts pour les liens réguleurs et les"
                   "                   liens d''activations. Ces couleurs sont utilisées uniquement";
                   "                   pour de nouvelles constructions. Ces choix n''affectent pas";
                   "                   les liens déjà présent sur le diagramme.";
                   " ";
                   "                   Les valeurs par défaut sont [1,5] ce qui correspond à noir";
                   "                   et rouge pour la palette de couleurs standard de Scilab.";
-                  "  - {ID}         : Une liste de deux vecteurs qui définit le type de la police"
+                  "  -- {ID}         : Une liste de deux vecteurs qui définit le type de la police"
                   "                   et la taille de la police. Les valeurs par défaut sont";
                   "                   [5,1],[4,1].";
                   " ";
-                  "  - {Cmap}       : Une matrice de taille 3,n contenant les valeurs RGB des"
+                  "  -- {Cmap}       : Une matrice de taille 3,n contenant les valeurs RGB des"
                   "                   couleurs à ajouter à la palette de couleur. La valeur par";
                   "                   défaut est [0.8,0.8,0.8] (couleur grise).";
                   " ";
-                  " Taille : 6";
-                  " Type : tlist scilab de type {scsopt}"])
+                  " Taille : 6.";
+                  " Type : tlist scilab de type {scsopt}."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void2',...
                  [" Champ inutilisé.";
                   " ";
-                  " Taille : -";
-                  " Type : -"])
+                  " Taille : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'void3',...
                  [" Champ inutilisé.";
                   " ";
-                  " Taille : -";
-                  " Type : -"])
+                  " Taille : -.";
+                  " Type : -."])
 
   %scs_help_params=scicos_help(%scs_help_params,...
                  'doc',...
                  [" Structure utilisateur pour la documentation des diagrammes.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : Chaînes de caractères."])
 
   //****** scicos_model ******/
   //**************************/
   %scs_help_model=scicos_help(%scs_help_model,...
                  'model',...
-                 [" ";
-                  " Size : 23";
+                 [" Liste Scilab qui contient les informations";
+                  " du bloc utilisées pour la compilation.";
+                  " ";
+                  " Taille : 23.";
                   " Type : liste scilab."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
@@ -2264,7 +2472,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Pour des anciens blocs, {sim} peut être une simple liste, ce";
                   " qui signifie que le type est supposé être 0.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : liste Scilab."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
@@ -2278,18 +2486,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Les dimensions peuvent être négatives, égales à zéro"
                   " ou positives : "
                   ""
-                  "   - Lorsqu''une dimension négative est utilisée, "
+                  "  -- Lorsqu''une dimension négative est utilisée, "
                   "     alors le compilateur essaiera de déterminer "
                   "     quelle est la dimension appropriée."
                   ""
-                  "   - Lorsqu''une dimension égale à zéro est utilisée, "
+                  "  -- Lorsqu''une dimension égale à zéro est utilisée, "
                   "     alors le compilateur déterminera la valeur de "
                   "     cette dimension en sommant toutes les tailles "
                   "     positives trouvées dans ce vecteur de dimensions."
                   ""
-                  "   - Si les dimensions sont positives, elles sont"
+                  "  -- Si les dimensions sont positives, elles sont"
                   "     alors explicitement renseignées."
-                  ""
+                  " "
                   " Taille : nombre de ports réguliers d''entrée.";
                   " Type : vecteur colonne de nombres entiers."])
 
@@ -2307,18 +2515,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Les dimensions peuvent être négatives, égales à zéro"
                   " ou positives : "
                   ""
-                  "   - Lorsqu''une dimension négative est utilisée, "
+                  "  -- Lorsqu''une dimension négative est utilisée, "
                   "     alors le compilateur essaiera de déterminer "
                   "     quelle est la dimension appropriée."
                   ""
-                  "   - Lorsqu''une dimension égale à zéro est utilisée, "
+                  "  -- Lorsqu''une dimension égale à zéro est utilisée, "
                   "     alors le compilateur déterminera la valeur de "
                   "     cette dimension en sommant toutes les tailles "
                   "     positives trouvées dans ce vecteur de dimensions."
                   ""
-                  "   - Si les dimensions sont positives, elles sont"
+                  "  -- Si les dimensions sont positives, elles sont"
                   "     alors explicitement renseignées."
-                  ""
+                  " "
                   " Taille : nombre de ports réguliers d''entrée.";
                   " Type : vecteur colonne de nombres entiers."])
 
@@ -2327,14 +2535,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur spécifiant les types des ports d''entrée réguliers.";
                   " Sa taille est égale à {in}. ";
                   " Les types des ports d''entrée peuvent être :";
-                  "  - 1 : matrice de nombres réels";
-                  "  - 2 : matrice de nombres complexes";
-                  "  - 3 : matrice de int32";
-                  "  - 4 : matrice de int16";
-                  "  - 5 : matrice de int8";
-                  "  - 6 : matrice de uint32";
-                  "  - 7 : matrice de uint16";
-                  "  - 8 : matrice de uint8";
+                  "  -- 1 matrice de nombres réels,";
+                  "  -- 2 matrice de nombres complexes,";
+                  "  -- 3 matrice de int32,";
+                  "  -- 4 matrice de int16,";
+                  "  -- 5 matrice de int8,";
+                  "  -- 6 matrice de uint32,";
+                  "  -- 7 matrice de uint16,";
+                  "  -- 8 matrice de uint8.";
                   " ";
                   " Taille : nombre de ports réguliers d''entrée.";
                   " Type : vecteur colonne de nombres entiers."])
@@ -2350,18 +2558,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Les dimensions peuvent être négatives, égales à zéro"
                   " ou positives : "
                   ""
-                  "   - Lorsqu''une dimension négative est utilisée, "
+                  "  -- Lorsqu''une dimension négative est utilisée, "
                   "     alors le compilateur essaiera de déterminer "
                   "     quelle est la dimension appropriée."
                   ""
-                  "   - Lorsqu''une dimension égale à zéro est utilisée, "
+                  "  -- Lorsqu''une dimension égale à zéro est utilisée, "
                   "     alors le compilateur déterminera la valeur de "
                   "     cette dimension en sommant toutes les tailles "
                   "     positives trouvées dans ce vecteur de dimensions."
                   ""
-                  "   - Si les dimensions sont positives, elles sont"
+                  "  -- Si les dimensions sont positives, elles sont"
                   "     alors explicitement renseignées."
-                  ""
+                  " "
                   " Taille : nombre de ports réguliers de sortie.";
                   " Type : vecteur colonne de nombres entiers."])
 
@@ -2379,18 +2587,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " Les dimensions peuvent être négatives, égales à zéro"
                   " ou positives : "
                   ""
-                  "   - Lorsqu''une dimension négative est utilisée, "
+                  "  -- Lorsqu''une dimension négative est utilisée, "
                   "     alors le compilateur essaiera de déterminer "
                   "     quelle est la dimension appropriée."
                   ""
-                  "   - Lorsqu''une dimension égale à zéro est utilisée, "
+                  "  -- Lorsqu''une dimension égale à zéro est utilisée, "
                   "     alors le compilateur déterminera la valeur de "
                   "     cette dimension en sommant toutes les tailles "
                   "     positives trouvées dans ce vecteur de dimensions."
                   ""
-                  "   - Si les dimensions sont positives, elles sont"
+                  "  -- Si les dimensions sont positives, elles sont"
                   "     alors explicitement renseignées."
-                  ""
+                  " "
                   " Taille : nombre de ports réguliers de sortie.";
                   " Type : vecteur colonne de nombres entiers."])
 
@@ -2399,14 +2607,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur spécifiant les types des ports de sortie réguliers.";
                   " Sa taille est égale à {out}. ";
                   " Les types des ports de sortie peuvent être :";
-                  "  - 1 : matrice de nombres réels";
-                  "  - 2 : matrice de nombres complexes";
-                  "  - 3 : matrice de int32";
-                  "  - 4 : matrice de int16";
-                  "  - 5 : matrice de int8";
-                  "  - 6 : matrice de uint32";
-                  "  - 7 : matrice de uint16";
-                  "  - 8 : matrice de uint8";
+                  "  -- 1  matrice de nombres réels,";
+                  "  -- 2  matrice de nombres complexes,";
+                  "  -- 3  matrice de int32,";
+                  "  -- 4  matrice de int16,";
+                  "  -- 5  matrice de int8,";
+                  "  -- 6  matrice de uint32,";
+                  "  -- 7  matrice de uint16,";
+                  "  -- 8  matrice de uint8.";
                   " ";
                   " Taille : nombre de ports réguliers de sortie.";
                   " Type : vecteur colonne de nombres entiers."])
@@ -2440,17 +2648,17 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur contenant les valeurs initiales des états";
                   " continus.";
                   " Ce vecteur doit être égal à [] sie le bloc ne possède";
-                  " pas d''état continus";
+                  " pas d''état continus.";
                   " ";
-                  " Taille : nombre d''états continus";
-                  " Type : vecteur colonne de nombres réels"])
+                  " Taille : nombre d''états continus.";
+                  " Type : vecteur colonne de nombres réels."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'dstate',...
                  [" Un vecteur contenant les valeurs initiales des états";
                   " discrets.";
                   " Ce vecteur doit être égal à [] si le bloc ne possède";
-                  " pas d''état discrets";
+                  " pas d''état discrets.";
                   " ";
                   " Taille : nombre d''états discrets.";
                   " Type : vecteur colonne de nombres discrets."])
@@ -2514,9 +2722,9 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " d''un bloc lors des calculs des états continu, même ";
                   " si le bloc ne possède pas de tels états.";
                   " ''l'', ''m'' et ''s'' sont réservés et ne doivent pas";
-                  " être utilisé.";
+                  " être utilisés.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : caractère."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
@@ -2535,16 +2743,16 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'dep_ut',...
                  [" Un vecteur de booléen. [dep_u, dep_t].";
                   " ";
-                  " - dep_u: vrai si le bloc est toujours actif."
+                  "  -- dep_u : vrai si le bloc est toujours actif."
                   "          (la sortie dépend continuellement du temps)";
                   " ";
-                  " - dep_t: vrai si le bloc à une relation directe entre"
+                  "  -- dep_t : vrai si le bloc à une relation directe entre"
                   "          une entrée régulière et une sortie régulière."
                   "          En d''autres termes, lorsque la fonction de calcul"
                   "          est appelée avec flag 1, la valeur d''une entrée"
                   "          est utilisée pour calculer la sortie."
                   " ";
-                  " Taille 2: ";
+                  " Taille : 2.";
                   " Type : vecteur de boléens."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
@@ -2554,8 +2762,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " un bloc pour avoir accès ou modifier ses "
                   " paramètres pendant la simulation."
                   " ";
-                  " Taille : 1";
-                  " Type : chaine de caractère"])
+                  " Taille : 1.";
+                  " Type : chaine de caractères."])
 
   %scs_help_model=scicos_help(%scs_help_model,...
                  'nzcross',...
@@ -2583,16 +2791,16 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " contient des descriptions relatives au code modelica.";
                   " Cette liste contient quatre entrées :";
                   " ";
-                  "  - model : une chaîne de caractères donnant le nom du fichier";
+                  "  -- model : une chaîne de caractères donnant le nom du fichier";
                   "            de la fonction modelica.";
                   " ";
-                  "  - inputs : un vecteur colonne de chaînes de caractères donnant";
+                  "  -- inputs : un vecteur colonne de chaînes de caractères donnant";
                   "             les noms des variables utilisées comme entrées.";
                   " ";
-                  "  - outputs : un vecteur colonne de chaînes de caractères donnant";
+                  "  -- outputs : un vecteur colonne de chaînes de caractères donnant";
                   "              les noms des variables utilisées comme sorties.";
                   " ";
-                  "  - parameters : une liste à deux entrées. La première est un vecteur";
+                  "  -- parameters : une liste à deux entrées. La première est un vecteur";
                   "                 de chaînes de caractères contenant les noms des variables";
                   "                 modelica utilisées en tant que paramètres et la deuxième";
                   "                 une liste contenant les valeurs de ces paramètres.";
@@ -2605,16 +2813,18 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   "                 que ''v'' est une variable d''état(1) avec une valeur";
                   "                 initiale v.";
                   " ";
-                  " Taille : 5";
+                  " Taille : 5.";
                   " Type : liste scilab."])
 
   //****** scicos_graphics ******/
   //*****************************/
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'graphics',...
-                 [" ";
-                  " Size : 14";
-                  " Type : liste scilab."])
+                 [" Liste Scilab contenant les informations"
+                  " sur les données graphiques du bloc."
+                  " "
+                  " Size : 14.";
+                  " Type : scilab list."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'orig',...
@@ -2625,7 +2835,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " [xo,yo] sont les coordonnées en bas à gauche du";
                   " contours du bloc.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : vecteur ligne de nombres réels."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -2633,7 +2843,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur [w,h], où w est la largeur et";
                   " h la hauteur du bloc.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : vecteur ligne de nombres réels."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -2643,17 +2853,17 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " sur la droite. Si faux alors les ports d''entrée sont sur "
                   " la droite et ceux de sortie sur la gauche.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : booléen."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
                  'theta',...
                  [" Définit l''angle de l''objet Scicos.";
                   " Cette valeur est en degrés et est inclut";
-                  " dans [-360,360]"
+                  " dans [-360,360]."
                   " ";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : nombre réel."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -2711,7 +2921,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " blocs. Ce champ peut être renseigné par le sous-menu";
                   " {Icon}.";
                   " ";
-                  " Taille : ";
+                  " Taille : -.";
                   " Type : Vecteur colonne de chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -2720,7 +2930,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " le bloc. Celui ci est affichéé en dessous du";
                   " bloc dans le diagramme.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : chaînes de caractères."])
 
   %scs_help_graphics=scicos_help(%scs_help_graphics,...
@@ -2750,7 +2960,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   %scs_help_link=scicos_help(%scs_help_link,...
                  'link',...
                  [" ";
-                  " Size : 8";
+                  " Size : 8.";
                   " Type : liste scilab."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -2776,7 +2986,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Une chaîne de caractères définissant";
                   " l''identification du lien.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : chaîne de caractères."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -2784,7 +2994,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Un vecteur de taille deux définissant"
                   " l''épaisseur du lien.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -2794,7 +3004,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " dernière entrée est 1 pour un lien régulier, -1 pour";
                   " un lien d''activation et 2 pour un lien implicite.";
                   " ";
-                  " Taille : 2";
+                  " Taille : 2.";
                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -2805,7 +3015,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " du lien. Notez que la troisième entrée peut être 1 si";
                   " le lien est implicite. Sinon il est zéro.";
                   " ";
-                  " Taille : 3";
+                  " Taille : 3.";
                   " Type : vecteur ligne de nombre entiers."])
 
   %scs_help_link=scicos_help(%scs_help_link,...
@@ -2816,7 +3026,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " du lien. Notez que la troisième entrée peut être 1 si";
                   " le lien est implicite. Sinon il est zéro.";
                   " ";
-                  " Taille : 3";
+                  " Taille : 3.";
                   " Type : vecteur ligne de nombre entiers."])
 
   //****** scicos_state ******/
@@ -2826,7 +3036,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   [" Une liste typée scilab de type {xcs}. Cette";
                    " liste contient tous les états du diagramme qui";
                    " vont évoluer pendant la simulation.";
-                   " ";
                    " state contient {x}, {z}, {oz}, {iz}, "
                    " {tevts}, {evtspt}, {pointi} et {outtb}."
                    " ";
@@ -2876,7 +3085,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'tevts',...
                  [" Un vecteur de taille égale au nombre";
                   " de sources d''activation. C''est une table"
-                  " contenant les dates des événements "
+                  " contenant les dates des événements"
                   " programmés dans {evtspt}."
                   " ";
                   " Taille : nombre de sources d''activation.";
@@ -2893,9 +3102,9 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   %scs_help_state=scicos_help(%scs_help_state,...
                  'pointi',...
-                 [" Le numéro du prochain événement";
+                 [" Le numéro du prochain événement.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : entier."])
 
   %scs_help_state=scicos_help(%scs_help_state,...
@@ -2916,14 +3125,14 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " du résultat de la compilation. Ces tableaux"
                   " n''évoluent pas pendant la simulation."
                   " ";
-                  " Taille : 33";
+                  " Taille : 33.";
                   " Type : tlist scilab."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'funs',...
                  [" Une liste qui contient les noms des";
                   " fonctions de calculs ou des fonctions";
-                  " scilab";
+                  " scilab.";
                   " ";
                   " Taille : nombre de blocs.";
                   " Type : liste scilab."])
@@ -2994,7 +3203,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" (cpr.sim.inplnk(cpr.sim.inpptr(i)-1+j))";
                   " est l''index du lien connecté à l''entrée j";
                   " du bloc i, où j va de 1 jusqu''à";
-                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i))";
+                  " (cpr.sim.inpptr(i+1)-cpr.sim.inpptr(i)).";
                   " ";
                   " Taille : nombre total de port réguliers d''entrée.";
                   " Type : vecteur colonne de nombre entier."])
@@ -3004,7 +3213,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" (cpr.sim.outlnk(cpr.sim.outptr(i)-1+j))";
                   " est l''index du lien connecté à la sortie j";
                   " du bloc i, où j va de 1 jusqu''à";
-                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i))";
+                  " (cpr.sim.outptr(i+1)-cpr.sim.outptr(i)).";
                   " ";
                   " Taille : nombre total de port réguliers de sortie.";
                   " Type : vecteur colonne de nombre entiers."])
@@ -3101,7 +3310,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " événements. La première colonne contient";
                   " les numéros des blocs et la deuxième le"
                   " code de l''événement par lequel le bloc"
-                  " sera appelé pendant la simulation"
+                  " sera appelé pendant la simulation."
                   " ";
                   " Taille : nombre total de bloc sommé par source d''activations.";
                   " Type : matrice de nombre entiers."])
@@ -3112,7 +3321,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " permanence. La première colonne contient";
                   " les numéros des blocs et la deuxième le"
                   " code de l''événement par lequel le bloc"
-                  " sera appelé pendant la simulation"
+                  " sera appelé pendant la simulation."
                   " ";
                   " Taille : ncord.";
                   " Type : matrice de nombres entiers."])
@@ -3154,7 +3363,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                   " car la fonction {c_pass2} du compilateur";
                   " peut dupliquer des blocs synchrones.";
                   " "
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
@@ -3170,21 +3379,21 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  'nblk',...
                  ["Pas utilisé. Mis à {nb}.";
                   " ";
-                  " Taille : 1";
+                  " Taille : 1.";
                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'ndcblk',...
                  ["Pas utilisé.";
                   " ";
-                  " Taille : -";
+                  " Taille : -.";
                   " Type : entier."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'subscr',...
                  ["Pas utilisé.";
                   " ";
-                  " Taille : 0";
+                  " Taille : 0.";
                   " Type : vide."])
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
@@ -3220,7 +3429,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   %scs_help_sim=scicos_help(%scs_help_sim,...
                  'modptr',...
-                 [" Un vecteur pointant sur les modes des blocs";
+                 [" Un vecteur pointant sur les modes des blocs.";
                   " ";
                   " Taille : nombre de blocs + 1.";
                   " Type : vecteur colonne de nombre entiers."])
@@ -3230,13 +3439,15 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   //Build final Scicos Help list =============================
 
   //** update scs_help_scilst lists
-  %scs_help_scilst.diagram=%scs_help_diagram;       //** diagr
+  %scs_help_scilst.diagram=%scs_help_diagram;   //** diagr
   %scs_help_scilst.params=%scs_help_params;     //** params
   %scs_help_scilst.model=%scs_help_model;       //** model
   %scs_help_scilst.graphics=%scs_help_graphics; //** graphics
   %scs_help_scilst.link=%scs_help_link;         //** link
   %scs_help_scilst.state=%scs_help_state;       //** state
   %scs_help_scilst.sim=%scs_help_sim;           //** sim
+  %scs_help_scilst.block=%scs_help_block;       //** block
+  %scs_help_scilst.cpr=%scs_help_cpr;       //** cpr
 
   %scicos_help=tlist(['sch','menu','scilst'],..
                       %scs_help_menu,%scs_help_scilst);
