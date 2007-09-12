@@ -2637,6 +2637,10 @@
 <SHORT_DESCRIPTION name="lincos">Construit par linéarisation un modèle linéaire d'équations d'état à partir d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='lincos_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="lincos">lincos</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='logblk_routcos' type='XML'>
   <SHORT_DESCRIPTION name="logblk">logblk</SHORT_DESCRIPTION>
 </FILE>
@@ -3141,8 +3145,16 @@
 <SHORT_DESCRIPTION name="scicos_block">Définit une structure bloc</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_block_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_block">scicos_block</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_cpr' type='XML'>
 <SHORT_DESCRIPTION name="scicos_cpr">Structure compilée Scicos</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_cpr_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_cpr">scicos_cpr</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
@@ -3153,32 +3165,68 @@
   <SHORT_DESCRIPTION name="scicos_diagram">Définit une structure scs_m</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_diagram_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_diagram">scicos_diagram</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_graphics' type='XML'>
   <SHORT_DESCRIPTION name="scicos_graphics">Définit une structure graphics</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_graphics_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_graphics">scicos_graphics</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_link' type='XML'>
   <SHORT_DESCRIPTION name="scicos_link">Définit une structure link</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_link_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_link">scicos_link</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_model' type='XML'>
   <SHORT_DESCRIPTION name="scicos_model">Définit une structure model</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_model_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_model">scicos_model</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_params' type='XML'>
   <SHORT_DESCRIPTION name="scicos_params">Définit une structure params</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_params_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_params">scicos_params</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos">scicos</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_sim' type='XML'>
   <SHORT_DESCRIPTION name="scicos_sim">Définit une structure sim</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_sim_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_sim">scicos_sim</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
 <SHORT_DESCRIPTION name="scicos_simulate">Fonction pour éxécuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_simulate_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_simulate">scicos_simulate</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_state' type='XML'>
   <SHORT_DESCRIPTION name="scicos_state">Définit une structure state</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_state_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="scicos_state">scicos_state</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
@@ -3299,6 +3347,10 @@
 
 <FILE name='steadycos' type='XML'>
 <SHORT_DESCRIPTION name="steadycos">Trouve un régime établi d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='steadycos_scifunc' type='XML'>
+  <SHORT_DESCRIPTION name="steadycos">steadycos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='step_func_routcos' type='XML'>

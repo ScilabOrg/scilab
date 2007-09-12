@@ -1047,8 +1047,6 @@
 <FILE name='Modulo_Count' type='XML'>
 <BIBLIO>
 
-
-
 </BIBLIO>
 </FILE>
 
@@ -1767,6 +1765,18 @@
 <BIBLIO>
 
 </BIBLIO>
+</FILE>
+
+<FILE name='scicos_block' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <BIBLIO>
+
+  </BIBLIO>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>

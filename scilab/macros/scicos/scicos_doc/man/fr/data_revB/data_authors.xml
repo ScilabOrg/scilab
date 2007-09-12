@@ -1,9 +1,9 @@
 <DATA flag="auth">
 
 <FILE name='ABCD_Blocks' type='XML'>
-<AUTHORS>
+  <AUTHORS>
 
-</AUTHORS>
+  </AUTHORS>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
@@ -1730,7 +1730,7 @@ Masoud Najafi, INRIA
 
 <FILE name='SineVoltage' type='XML'>
 <AUTHORS>
-www.modelica.org
+ www.modelica.org
 </AUTHORS>
 </FILE>
 
@@ -2010,6 +2010,18 @@ INRIA
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
+</FILE>
+
+<FILE name='scicos_block' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>

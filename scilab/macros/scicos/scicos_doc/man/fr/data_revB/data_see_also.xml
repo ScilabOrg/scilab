@@ -15,13 +15,11 @@
 <FILE name='ABS_VALUE' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='AFFICH_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -35,20 +33,17 @@
 <FILE name='ANDBLK' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='ANDLOG_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='BACKLASH' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -86,14 +81,11 @@
 <FILE name='Bache' type='XML'>
 <SEE_ALSO>
 
-
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='Branching_pal' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -113,7 +105,6 @@
 <FILE name='CBLOCK' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -131,7 +122,6 @@
 
 <FILE name='CLINDUMMY_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -157,7 +147,6 @@
 <FILE name='CLKINV_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -170,7 +159,6 @@
 <FILE name='CLKOUTV_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -182,7 +170,6 @@
 
 <FILE name='CLKSOMV_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -208,7 +195,6 @@
 <FILE name='CLOCK_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -221,7 +207,6 @@
 <FILE name='CLR_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -233,7 +218,6 @@
 
 <FILE name='CLSS_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -253,7 +237,6 @@
 <FILE name='CMSCOPE' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -266,13 +249,11 @@
 <FILE name='CONSTRAINT_f' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
 <FILE name='CONST_f' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -340,7 +321,6 @@
 <FILE name='ConstantVoltage' type='XML'>
 <SEE_ALSO>
 
-
 </SEE_ALSO>
 </FILE>
 
@@ -352,7 +332,6 @@
 
 <FILE name='CurrentSensor' type='XML'>
 <SEE_ALSO>
-
 
 </SEE_ALSO>
 </FILE>
@@ -1069,6 +1048,8 @@
 
 <FILE name='M_SWITCH' type='XML'>
 <SEE_ALSO>
+
+
 
 </SEE_ALSO>
 </FILE>
@@ -1823,6 +1804,18 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <SEE_ALSO>
+
+  </SEE_ALSO>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <SEE_ALSO>
+
+  </SEE_ALSO>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
   <SEE_ALSO>
     <SEE_ALSO_ITEM><LINK>DEBUG_SCICOS</LINK></SEE_ALSO_ITEM>
@@ -1875,13 +1868,14 @@
 </FILE>
 
 <FILE name='scicos_state' type='XML'>
-  <SEE_ALSO>
+<SEE_ALSO>
 
-  </SEE_ALSO>
+</SEE_ALSO>
 </FILE>
 
 <FILE name='scicos_time' type='XML'>
 <SEE_ALSO>
+
 </SEE_ALSO>
 </FILE>
 
@@ -1894,6 +1888,7 @@
 
 <FILE name='scifunc_block' type='XML'>
 <SEE_ALSO>
+
 </SEE_ALSO>
 </FILE>
 

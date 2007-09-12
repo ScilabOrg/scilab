@@ -2671,7 +2671,6 @@ Les entrées non sélectionnées ne sont donc pas propagées.
   </DESCRIPTION>
 </FILE>
 
-
 <FILE name='Sigbuilder' type='LATEX'>
 The Signal Builder block is a superblock containing a
 \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block whose output event
@@ -3044,6 +3043,18 @@ linked before simulation.
   </DESCRIPTION>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <DESCRIPTION>
+
+  </DESCRIPTION>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <DESCRIPTION>
+
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
   <DESCRIPTION>
     <DESCRIPTION_INDENT>
@@ -3063,109 +3074,37 @@ linked before simulation.
 
 <FILE name='scicos_diagram' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_graphics' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_link' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_model' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_params' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_sim' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 
@@ -3186,19 +3125,7 @@ linked before simulation.
 
 <FILE name='scicos_state' type='XML'>
   <DESCRIPTION>
-     <DESCRIPTION_INDENT>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction.
-      Des autres paragraphes peuvent être ajoutés
-     </P>
-     </DESCRIPTION_ITEM>
-     <DESCRIPTION_ITEM>
-     <P>
-      Ajoutez ici un paragraphe pour la description de la fonction
-     </P>
-     </DESCRIPTION_ITEM>
-     </DESCRIPTION_INDENT>
+
   </DESCRIPTION>
 </FILE>
 

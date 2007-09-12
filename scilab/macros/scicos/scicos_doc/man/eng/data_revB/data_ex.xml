@@ -1591,6 +1591,16 @@ When t=2 we loop back to 0.
 </EXAMPLE>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <EXAMPLE>
+  </EXAMPLE>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <EXAMPLE>
+  </EXAMPLE>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
 <EXAMPLE>
 </EXAMPLE>

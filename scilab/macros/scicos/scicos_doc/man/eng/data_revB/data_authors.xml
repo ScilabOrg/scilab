@@ -2012,6 +2012,18 @@ INRIA
 </AUTHORS>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <AUTHORS>
+
+  </AUTHORS>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
   <AUTHORS>
     <AUTHORS_ITEM label='Alan Layec' to='alan.layec@inria.fr?subject=scicos_debug_doc'>

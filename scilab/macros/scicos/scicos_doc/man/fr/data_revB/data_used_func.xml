@@ -926,8 +926,6 @@ For this block we have two differents functions:
 <FILE name='LOGBLK_f' type='XML'>
 <USED_FUNCTIONS>
 
-
-
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1223,9 +1221,7 @@ for this block we have four differents functions:
 
 <FILE name='M_freq' type='XML'>
 <USED_FUNCTIONS>
-<SP>
 
-</SP>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1886,6 +1882,18 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
 <USED_FUNCTIONS>
 </USED_FUNCTIONS>
@@ -1929,6 +1937,7 @@ for this block we have four differents functions:
 
 <FILE name='scicos_simulate' type='XML'>
 <USED_FUNCTIONS>
+
 </USED_FUNCTIONS>
 </FILE>
 

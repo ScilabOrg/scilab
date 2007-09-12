@@ -1676,6 +1676,16 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <EXAMPLE>
+  </EXAMPLE>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <EXAMPLE>
+  </EXAMPLE>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
 <EXAMPLE>
 </EXAMPLE>

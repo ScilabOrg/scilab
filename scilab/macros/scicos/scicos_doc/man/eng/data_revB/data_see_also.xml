@@ -1804,6 +1804,18 @@
 </SEE_ALSO>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+  <SEE_ALSO>
+
+  </SEE_ALSO>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+  <SEE_ALSO>
+
+  </SEE_ALSO>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
   <SEE_ALSO>
     <SEE_ALSO_ITEM><LINK>DEBUG_SCICOS</LINK></SEE_ALSO_ITEM>

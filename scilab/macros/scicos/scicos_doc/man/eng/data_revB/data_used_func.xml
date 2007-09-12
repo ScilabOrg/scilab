@@ -1882,6 +1882,18 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='scicos_block' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
+<FILE name='scicos_cpr' type='XML'>
+<USED_FUNCTIONS>
+
+</USED_FUNCTIONS>
+</FILE>
+
 <FILE name='scicos_debug' type='XML'>
 <USED_FUNCTIONS>
 </USED_FUNCTIONS>
