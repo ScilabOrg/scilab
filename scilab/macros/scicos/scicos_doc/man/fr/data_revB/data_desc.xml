@@ -499,7 +499,14 @@ Ce bloc ne possède qu'une seule échelle temporelle.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction
+This block allows the user to create signals and use them as a signal
+source block. The signals can be created either graphically by the
+user or be defined by specifying two vectors, i.e., a vector for time
+and a vector for amplitude. These vectors define the mesh points and
+the signal value at intermediate points are obtained by interpolating
+the points. Several interpolation methods are available. This block
+can also generate the signal periodically. It is also possible to read
+data from Excel data-sheets and from formatted C data files.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -1831,7 +1838,15 @@ de son vecteur d'entrée.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Ajoutez ici un paragraphe pour la description de la fonction
+    The block "MBlock" provides an easy way to build a Scicos block
+    whose behavior is specified by a Modelica program.  Using this
+    block, the user will be able to write and compile Modelica
+    programs in Scicos without creating any interfacing function.  The
+    associated Modelica program of this block can be either given in a
+    file or written in the window opened by the block. In order to
+    link this block to other Scicos blocks that may be other Modelica
+    blocks, the types of block ports' as well as their associated variables
+    should be specified.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -1994,7 +2009,8 @@ la valeur zéro lors d'un front montant.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction
+Ce bloc est un modèle simple pour le transistor bipolaire NPN basé sur
+le modèle  Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2065,7 +2081,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction
+Ce bloc est un modèle simple pour le transistor bipolaire PNP basé sur
+le modèle  Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2654,16 +2671,17 @@ Les entrées non sélectionnées ne sont donc pas propagées.
   </DESCRIPTION>
 </FILE>
 
-<FILE name='Sigbuilder' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Ajoutez ici un paragraphe pour la description de la fonction
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+
+<FILE name='Sigbuilder' type='LATEX'>
+The Signal Builder block is a superblock containing a
+\htmladdnormallink{CURVE\_c}{CURVE_c.htm} block whose output event
+port is connected to its input event port. This event feedback gives
+the possibility to generate events at discontinuous point of the
+signal. The generated events automatically restart the numerical
+solver and avoids numerical problems. The generated event is also made
+available to the user for possible use. Remind that if higher
+interpolation methods are used, the events are generated only at the
+beginning and at the end of the signal.
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
@@ -2671,7 +2689,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ajoutez ici un paragraphe pour la description de la fonction
+Ce bloc est un bloc Modelica pour une source de tension sinusoïdale.
+La résistance ohmique interne de ce bloc est zéro.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
