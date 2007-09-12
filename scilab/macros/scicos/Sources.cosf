@@ -150,7 +150,7 @@ scs_m.objs(4)=scicos_block(..
                        sz=[60,40],..
                        flip=%t,..
                        theta=0,..
-                       exprs=["1";"0";"0";"1";"[2113248,7560437]"],..
+                       exprs=["1";"0";"0";"1";"[2256303,6274092]"],..
                        pin=[],..
                        pout=0,..
                        pein=0,..
@@ -172,7 +172,7 @@ scs_m.objs(4)=scicos_block(..
                        evtin=1,..
                        evtout=[],..
                        state=[],..
-                       dstate=[2113248;0],..
+                       dstate=[2256303;0],..
                        odstate=list(),..
                        rpar=[0,1],..
                        ipar=0,..
@@ -1323,7 +1323,7 @@ scs_m.objs(19)=scicos_block(..
                         pein=0,..
                         peout=[],..
                         gr_i=list(..
-                        "xstringb(orig(1),orig(2),[''Counter'';+from+'' ---> ''+to],sz(1),sz(2),''fill'');",..
+                        "xstringb(orig(1),orig(2),[''Counter'';+from+'' --> ''+to],sz(1),sz(2),''fill'');",..
                         8),..
                         id="",..
                         in_implicit=[],..
