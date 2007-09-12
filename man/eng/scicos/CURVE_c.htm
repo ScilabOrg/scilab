@@ -131,30 +131,40 @@ Dialog box</A>
 <UL>
 <LI><B>0: "Zero order method"</B>. This method generates a piecewise
     constant signal. i.e., for <!-- MATH
- $t_i \le t \lt t_{i+1}$
+ $t_{i} \leq t < t_{i+1}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="75" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ WIDTH="98" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CURVE_c_img8_eng.gif"
- ALT="$ t_i \le t \lt t_{i+1}$"></SPAN>
-, <SPAN CLASS="MATH"><IMG
+ ALT="$ t_{i} \leq t &lt; t_{i+1}$"></SPAN>
+, <!-- MATH
+ $y(t)=y_{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
  WIDTH="71" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
  SRC="../../images/scicos/CURVE_c_img9_eng.gif"
- ALT="$ y(t)=y_i$"></SPAN>
+ ALT="$ y(t)=y_{i}$"></SPAN>
 
 
 <P>
 </LI>
 <LI><B>1: "Linear method"</B>. This method generates a piecewise
     linear signal. i.e., for <!-- MATH
- $t_i \le t \lt t_{i+1}$
+ $t_i \leq t < t_{i+1}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="75" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img8_eng.gif"
- ALT="$ t_i \le t \lt t_{i+1}$"></SPAN>
+ WIDTH="98" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CURVE_c_img10_eng.gif"
+ ALT="$ t_i \leq t &lt; t_{i+1}$"></SPAN>
 ,
-    y(t)=y_i+(t-t_i)(y_i+1-y_i)/(t_i+1-t_i).
+    <!-- MATH
+ $y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="314" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CURVE_c_img11_eng.gif"
+ ALT="$ y(t)=y_i+(t-t_i)(y_{i+1}-y_i)/(t_{i+1}-t_i).$"></SPAN>
+
 
 <P>
 </LI>
@@ -169,7 +179,7 @@ Dialog box</A>
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="90" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img10_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img12_eng.gif"
  ALT="$ (x_{i+1},y_{i+1})$"></SPAN>
 . The Derivative at <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
@@ -178,7 +188,7 @@ Dialog box</A>
  is identical
     for two adjacent polynomials. The derivative at <SPAN CLASS="MATH"><IMG
  WIDTH="59" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img11_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img13_eng.gif"
  ALT="$ (x_1,y_1)$"></SPAN>
 
     can be selected arbitrary, so it is selected such that the sum of
@@ -190,14 +200,14 @@ Dialog box</A>
 <LI><B>3:"not_a_knot"</B>. The cubic spline is computed by using the
     following conditions (considering <SPAN CLASS="MATH"><IMG
  WIDTH="15" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img12_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img14_eng.gif"
  ALT="$ n$"></SPAN>
  points <!-- MATH
  $x_1,...,x_n$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="71" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img13_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img15_eng.gif"
  ALT="$ x_1,...,x_n$"></SPAN>
 ):
     <P><!-- MATH
@@ -209,7 +219,7 @@ S^{(3)}(x_2^-) = S^{(3)}(x_2^+)
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <IMG
  WIDTH="157" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img14_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img16_eng.gif"
  ALT="$\displaystyle S^{(3)}(x_2^-) = S^{(3)}(x_2^+)$">
 </DIV><P>
 </P> <P><!-- MATH
@@ -222,7 +232,7 @@ S^{(3)}(x_{n-1}^+)
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <IMG
  WIDTH="187" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img15_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img17_eng.gif"
  ALT="$\displaystyle S^{(3)}(x_{n-1}^-) =
 S^{(3)}(x_{n-1}^+)$">
 </DIV><P>
@@ -232,12 +242,12 @@ S^{(3)}(x_{n-1}^+)$">
 </LI>
 <LI><B>4:"periodic"</B>. A periodic cubic spline is computed (<SPAN CLASS="MATH"><IMG
  WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img16_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img18_eng.gif"
  ALT="$ y$"></SPAN>
 
     must verify <SPAN CLASS="MATH"><IMG
  WIDTH="61" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img17_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img19_eng.gif"
  ALT="$ y_1=y_n$"></SPAN>
 ) by using the conditions:  
 <BR><P><!-- MATH
@@ -250,7 +260,7 @@ S^{'}(x_n)
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <IMG
  WIDTH="125" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img18_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img20_eng.gif"
  ALT="$\displaystyle S^{'}(x_1) =
 S^{'}(x_n)$">
 </DIV><P>
@@ -264,7 +274,7 @@ S^{''}(x_1) = S^{''}(x_n)
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <IMG
  WIDTH="132" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img19_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img21_eng.gif"
  ALT="$\displaystyle S^{''}(x_1) = S^{''}(x_n)$">
 </DIV><P>
 </P>.
@@ -272,11 +282,11 @@ S^{''}(x_1) = S^{''}(x_n)
 In this case the value
     of <SPAN CLASS="MATH"><IMG
  WIDTH="22" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img20_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img22_eng.gif"
  ALT="$ y_n$"></SPAN>
  is ignored and <SPAN CLASS="MATH"><IMG
  WIDTH="21" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img21_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img23_eng.gif"
  ALT="$ y_1$"></SPAN>
  is used instead. Note that in order
     to generate a periodic signal, <I>Periodic</I> flag should be
@@ -301,7 +311,7 @@ if <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="73" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img22_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img24_eng.gif"
  ALT="$ y_i \le y_{i+1}$"></SPAN>
 , <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
@@ -313,17 +323,17 @@ if <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="70" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img23_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img25_eng.gif"
  ALT="$ [x_i, x_{i+1}]$"></SPAN>
 . 
 <BR>
 if <!-- MATH
- $y_i \gt y_{i+1}$
+ $y_i \> y_{i+1}$
  -->
 <SPAN CLASS="MATH"><IMG
- WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img24_eng.gif"
- ALT="$ y_i \gt y_{i+1}$"></SPAN>
+ WIDTH="53" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="../../images/scicos/CURVE_c_img26_eng.gif"
+ ALT="$ y_i \&gt; y_{i+1}$"></SPAN>
 , <SPAN CLASS="MATH"><IMG
  WIDTH="16" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
  SRC="../../images/scicos/CURVE_c_img4_eng.gif"
@@ -334,7 +344,7 @@ if <!-- MATH
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="70" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img23_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img25_eng.gif"
  ALT="$ [x_i, x_{i+1}]$"></SPAN>
 .
 
@@ -351,7 +361,7 @@ S^{'}(x_1) = S^{'}(x_n)=0
 <DIV ALIGN="CENTER" CLASS="mathdisplay">
 <IMG
  WIDTH="157" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img25_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img27_eng.gif"
  ALT="$\displaystyle S^{'}(x_1) = S^{'}(x_n)=0$">
 </DIV><P>
 </P>
@@ -361,7 +371,7 @@ S^{'}(x_1) = S^{'}(x_n)=0
 <LI><B>7:"fast"</B>. In this case a sub-spline is computed by using a
     simple local scheme for the derivative at <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img26_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img28_eng.gif"
  ALT="$ x_i$"></SPAN>
  of the
     interpolation polynomial of <!-- MATH
@@ -369,14 +379,14 @@ S^{'}(x_1) = S^{'}(x_n)=0
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="90" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img27_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img29_eng.gif"
  ALT="$ (x_{i-1},y_{i-1})$"></SPAN>
 , <!-- MATH
  $(x_{i},y_{i})$
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="55" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img28_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img30_eng.gif"
  ALT="$ (x_{i},y_{i})$"></SPAN>
 ,
     <!-- MATH
@@ -384,7 +394,7 @@ S^{'}(x_1) = S^{'}(x_n)=0
  -->
 <SPAN CLASS="MATH"><IMG
  WIDTH="90" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img10_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img12_eng.gif"
  ALT="$ (x_{i+1},y_{i+1})$"></SPAN>
 , except for the end points (derivative at
     these points are computed from the 3 left most points and the 3
@@ -412,7 +422,7 @@ S^{'}(x_1) = S^{'}(x_n)=0
 <LI><B>Periodic signal(y/n)</B>. If <B>y</B> is selected, the created
    signal will be periodic with the period of <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img29_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img31_eng.gif"
  ALT="$ t_n$"></SPAN>
 . Note that if the
    <I>Periodic</I> spline method is selected, the output signal will be
@@ -481,16 +491,16 @@ S^{'}(x_1) = S^{'}(x_n)=0
         signal is periodic or not. If the signal is not periodic, the
         signal stays constant beyond <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img29_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img31_eng.gif"
  ALT="$ t_n$"></SPAN>
 , otherwise it is clamped
         to <SPAN CLASS="MATH"><IMG
  WIDTH="21" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img21_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img23_eng.gif"
  ALT="$ y_1$"></SPAN>
  at <SPAN CLASS="MATH"><IMG
  WIDTH="20" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
- SRC="../../images/scicos/CURVE_c_img29_eng.gif"
+ SRC="../../images/scicos/CURVE_c_img31_eng.gif"
  ALT="$ t_n$"></SPAN>
 .
 
