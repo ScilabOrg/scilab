@@ -130,7 +130,7 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""steadycos.sci""></SCI>"
                "  </CHAPTER>"
                ""
-               "  <CHAPTER eng=""Scilab Data Structure"" fr=""Structure de donnée scilab"">"
+               "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnée scilab"">"
                "   <SECTION eng=""Diagram"" fr=""Diagramme"">";
                "    <SCI varpath=""opath2(1)"" name=""scicos_diagram""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_params""></SCI>"
@@ -338,6 +338,31 @@ function gen_scs_scilst_help(typdoc,%gd)
            head_tex=strsubst(head_tex,'Scilab Function','Scicos list')
         end
 
+        name=get_extname(list_of_scistruc(j,:),%gd)
+
+        if fileinfo(%gd.lang(i)+'/'+name+'/'+name+'_scifunc.tex')<>[] then
+           if %gd.lang(i)=='fr' then
+             txt_scifunc = ['\subsection{Contenu du ficher}']
+           else
+             txt_scifunc = ['\subsection{File content}']
+           end
+           txt_scifunc = [txt_scifunc;
+                          '\input{'+name+'_scifunc}']
+        else
+           txt_scifunc = []
+        end
+
+        if fileinfo(%gd.lang(i)+'/'+name+'/'+name+'_see_also.tex')<>[] then
+           if %gd.lang(i)=='fr' then
+             txt_salso = ['\subsection{Voir aussi}']
+           else
+             txt_salso = ['\subsection{See also}']
+           end
+           txt_salso = [txt_salso;
+                          '\input{'+name+'_see_also}']
+        else
+           txt_salso = []
+        end
         //** generate txt of tex file
         txt_scilst=[head_tex;
                    '\subsection{Module}'
@@ -345,6 +370,8 @@ function gen_scs_scilst_help(typdoc,%gd)
                    ' \item{\htmladdnormallink{Scicos}{whatis.htm}}'
                    '\end{itemize}'
                    latexsubst(tt)
+                   txt_scifunc
+                   txt_salso
                    '\htmlinfo*'
                    '\end{document}']
         //**---------------------**//
@@ -353,8 +380,6 @@ function gen_scs_scilst_help(typdoc,%gd)
         if fileinfo(%gd.lang(i)+'/')==[] then
          mkdir(%gd.lang(i))
         end
-
-        name=get_extname(list_of_scistruc(j,:),%gd)
 
         //create object directory for
         //tex compilation
@@ -549,6 +574,7 @@ function gen_scicos_doc(my_list,typdoc,%gd)
   import_data_to_file('all',%gd);
   generate_aux_tex_file(my_list,typdoc,%gd);
   gen_scs_editor_help(typdoc,%gd);
+  gen_scs_scilst_help(typdoc,%gd);
   generate_html_file(my_list,%gd);
   gen_scicos_whatis(%gd)
 endfunction
