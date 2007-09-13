@@ -7,6 +7,7 @@ function SaveAs_()
 	         ['Save content of the Super Block or'
 		  'the complete diagram?'],'Cancel')
     if r==0 then 
+      enablemenus()
       return
     end
     if r==1 then
@@ -14,6 +15,7 @@ function SaveAs_()
 		       'Cmenu='"Save As'";%scicos_navig=[]';
 		       '%diagram_path_objective='+sci2exp(super_path)+';%scicos_navig=1';
 		      ]
+      enablemenus()
       return
     end
   end
