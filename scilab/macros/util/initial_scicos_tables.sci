@@ -2286,8 +2286,8 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                  [" Une liste d''objets inclus dans le diagramme Scicos.";
                   " Les objets utilisés dans Scicos sont {scicos_block}, {scicos_link} et";
                   " Text.";
-                  " Les objets peuvent aussi être des strucutures de donnée";
-                  " effacées. Les objets effacés sont marqués par list(''Deleted'').";
+                  " Les objets peuvent aussi être des structures de donnée effacées."
+                  " Les objets effacés sont marqués par list(''Deleted'').";
                   " ";
                   " Taille : nombre total d''objets dans le diagramme.";
                   " Type : tlist scilab de type {scicos_block}, {scicos_link} ou Text."])
