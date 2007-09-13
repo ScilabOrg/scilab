@@ -35,7 +35,7 @@ case 'define' then
   model=scicos_model()
   model.sim='inimpl'
   model.out=[-1]
-  model.out=[1]
+  model.out2=[1]
   model.ipar=[1]
   model.dep_ut=[%f %f]
   model.blocktype='c'
