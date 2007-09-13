@@ -46,16 +46,22 @@ function Context_()
 		 lasterror() ]);
 
       else //** if the first check is ok 
+	scs_m_save = scs_m       ; 
+	nc_save    = needcompile ;
 	scs_m.props.context = context;
 	disablemenus();
 	  do_terminate(); 
 	  [scs_m,%cpr,needcompile,ok] = do_eval(scs_m, %cpr)
-	  if needcompile<>4 & size(%cpr)>0 then %state0=%cpr.state, end
-	  edited = %t ;
-	  alreadyran = %f ;
-
-          enable_undo=%f  // to avoid undoing the context change which may affect SB contents 
-                         // in particular if a variable used in the SB disappears
+	  if ok then
+	    if needcompile<>4 & size(%cpr)>0 then %state0=%cpr.state, end
+	    edited = %t ;
+	    alreadyran = %f ;
+	    enable_undo=%t  
+	  else
+	    scs_m=scs_m_save
+	    needcompile=nc_save
+	    enable_undo=%f
+	  end
 
 	enablemenus() ;
 	break ; //** EXIT Point from the while()

@@ -17,19 +17,19 @@ tt=["set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
     'set wyy .palettes'
     'proc ppxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''PlaceinDiagram'''"}'
     'proc qqxs {label} {global blko; set blko $label;ScilabEval '"Cmenu=''TkPopup'''"}'
-    'catch {destroy $w}'
-    'toplevel $w'
+    'catch {destroy $wyy}'
+    'toplevel $wyy'
     'Tree $wyy.t -xscrollcommand {$wyy.xsb set} -yscrollcommand {$wyy.ysb set} "+...
     "-deltax 10 -deltay 10 -width 30 -bg white'
     'scrollbar $wyy.ysb -command {$wyy.t yview}'
     'scrollbar $wyy.xsb -command {$wyy.t xview} -orient horizontal'
     'grid $wyy.t $wyy.ysb -sticky nsew'
     ' grid $wyy.xsb -sticky ew'
-    ' grid rowconfig    $w 0 -weight 1'
-    ' grid columnconfig $w 0 -weight 1'
+    ' grid rowconfig    $wyy 0 -weight 1'
+    ' grid columnconfig $wyy 0 -weight 1'
    ];
 
-tt=[tt;'wm title $w '"Navigator:'" '+scs_m.props.title(1)];
+tt=[tt;'wm title $wyy '"Navigator:'" '+scs_m.props.title(1)];
 
 Path='root'
 tt=crlist2(scs_m,Path,tt);

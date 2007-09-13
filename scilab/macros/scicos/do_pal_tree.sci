@@ -44,19 +44,19 @@ tt=[ "set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
      'set wxx .palettes'
      'proc pp {label} {global blko; set blko $label;ScilabEval '"Cmenu=''PlaceinDiagram'''"}'
      'proc qq {label} {global blko; set blko $label;ScilabEval '"Cmenu=''TkPopup'''"}'
-     'catch {destroy $w}'
-     'toplevel $w'
+     'catch {destroy $wxx}'
+     'toplevel $wxx'
      'Tree $wxx.t -xscrollcommand {$wxx.xsb set} -yscrollcommand {$wxx.ysb set} "+...
         "-deltay 45 -deltax 30 -width 30 -bg white'
      'scrollbar $wxx.ysb -command {$wxx.t yview}'
      'scrollbar $wxx.xsb -command {$wxx.t xview} -orient horizontal'
      'grid $wxx.t $wxx.ysb -sticky nsew'
      ' grid $wxx.xsb -sticky ew'
-     ' grid rowconfig    $w 0 -weight 1'
-     ' grid columnconfig $w 0 -weight 1'
+     ' grid rowconfig    $wxx 0 -weight 1'
+     ' grid columnconfig $wxx 0 -weight 1'
    ];
 
-tt = [tt; 'wm title $w '+scs_m.props.title(1) ];
+tt = [tt; 'wm title $wxx '+scs_m.props.title(1) ];
 Pgif = SCI+"/macros/scicos/scicos_doc/man/gif_icons/";
 GIFT = listfiles(Pgif+'*.gif');
 GIF  = [];

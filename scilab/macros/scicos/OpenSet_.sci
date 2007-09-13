@@ -21,7 +21,7 @@ function OpenSet_()
       if xxx<>'super' then ierr=1;end
     end
     if ierr<>0 then
-      message(['This super block is not active anymore or';
+      message(['This window is not active anymore or';
 	       'the browser is not up-to-date.'])
       %scicos_navig=[]  // stop navigation
       return
