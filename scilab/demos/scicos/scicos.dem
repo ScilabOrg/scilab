@@ -27,6 +27,7 @@ demos_name=[
 //if ~MSDOS then demos_name=[demos_name;'sound demo'];end
 if with_modelica_compiler() then
   demos_name=[demos_name;
+              'Colpitts oscillator'
 	      'Electrical circuit: RLC'
 	      'Electrical circuit: Rectifier'
               'Regulated Thermo Hydraulic plant'];
@@ -87,6 +88,12 @@ while %t do
     scicos('SCI/demos/scicos/sound.cosf');
   case 'Synchro Block demo' then  
     scicos('SCI/demos/scicos/Ifsub.cosf');
+  case 'Colpitts oscillator' then
+    if ~(haveacompiler()) then
+      x_message(['Scilab doesn''t find a C compiler','This demo is disabled'])
+    else
+      scicos('SCI/demos/scicos/Colpitts.cosf');
+    end
   case 'Electrical circuit: RLC' then  
     if ~(haveacompiler()) then
       x_message(['Scilab doesn''t find a C compiler','This demo is disabled'])
