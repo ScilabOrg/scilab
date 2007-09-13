@@ -93,17 +93,18 @@ OBJSF=intcos.o coselm.o sciblk.o  \
 	list2vars.o dtosci.o itosci.o scitoi.o scitod.o vvtosci.o \
 	scitovv.o  $(BLOCKS_CODE)
 
+SUNDIALS=sundials/cvode.o sundials/cvode_io.o sundials/cvode_dense.o \
+	sundials/nvector_serial.o sundials/ida.o sundials/ida_dense.o \
+	sundials/ida_io.o sundials/ida_ic.o \
+	sundials/sundials_nvector.o sundials/sundials_math.o \
+	sundials/sundials_dense.o sundials/sundials_smalldense.o
+
 OBJSC=scicos.o intcscicos.o import.o realtime.o \
 	intrealtime.o matscicos.o blocks.o scicosclip.o \
 	sciblk2.o sciblk2i.o sciblk4.o str2sci.o scicos_malloc.o \
 	scicos_free.o tree.o \
 	scoGetProperty.o scoSetProperty.o scoMisc.o \
-	scoMemoryScope.o scoWindowScope.o $(BLOCKSC)\
-	sundials/cvode.o sundials/cvode_io.o sundials/cvode_dense.o\
-	sundials/nvector_serial.o sundials/ida.o sundials/ida_dense.o\
-	sundials/ida_io.o sundials/ida_ic.o \
-	sundials/sundials_nvector.o sundials/sundials_math.o\
-	sundials/sundials_dense.o sundials/sundials_smalldense.o
+	scoMemoryScope.o scoWindowScope.o $(BLOCKSC) $(SUNDIALS)
 
 BLOCKS=$(BLOCKSF) $(BLOCKSC)
 
@@ -235,3 +236,28 @@ readf4.o: readf4.c ../machine.h scicos_block.h
 tree.o: tree.c ../machine.h ../sci_mem_alloc.h
 matmul_m.o: matmul_m.c scicos_block4.h
 mattram_m.o: mattran_m.c scicos_block4.h
+
+sundials/cvode.o: sundials/cvode.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/cvode_io.o: sundials/cvode_io.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/cvode_dense.o: sundials/cvode_dense.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/nvector_serial.o: sundials/nvector_serial.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/ida.o: sundials/ida.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/ida_dense.o: sundials/ida_dense.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/ida_io.o: sundials/ida_io.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/ida_ic.o: sundials/ida_ic.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/sundials_nvector.o: sundials/sundials_nvector.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/sundials_math.o: sundials/sundials_math.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/sundials_dense.o: sundials/sundials_dense.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+sundials/sundials_smalldense.o: sundials/sundials_smalldense.c
+	$(CC) $(CFLAGS) -o $@ -c $<
