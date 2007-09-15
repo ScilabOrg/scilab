@@ -520,7 +520,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  %diagram_open  = %f
           Select_back=Select
 	  [Cmenu,Select] = Find_Next_Step(%diagram_path_objective,super_path)
-	  if ~isequal(Select,Select_back) then
+	  if or(curwin==winsid()) & ~isequal(Select,Select_back) then
 	     selecthilite(Select_back, "off") ; // unHilite previous objects
 	     selecthilite(Select, "on") ;       // Hilite the actual selected object
           end
@@ -703,6 +703,8 @@ endfunction //** scicos() end here :) : had a good day
 	    
 function Illbeback(win,x,y,ibut)
   if ibut==-1000|ibut==-1 then return,end
+    pause
+    
   ierr=execstr('load(TMPDIR+''/AllWindows'')','errcatch')
   if ierr==0 then
     for win_i= AllWindows'
