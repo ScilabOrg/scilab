@@ -685,35 +685,29 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     AllWindows=unique([windows(:,2);inactive_windows(2)])
     for win_i= AllWindows'
       scf(win_i)
-      seteventhandler('Illbeback')
+      seteventhandler('scilab2scicos')
     end	
     save(TMPDIR+'/AllWindows',AllWindows)
-    scf(0)  // to protect scicos windows when in Scilab
+ //   scf(0)  // to protect scicos windows when in Scilab
     mprintf('%s\n','To reactivate Scicos, click on a diagram or type '"scicos();'"')
+    
+    %ws=intersect(winsid(),inactive_windows(2)')
+    men=menus(1)
+    for %w=%ws
+      for k=2:size(men,'*')
+       unsetmenu(%w,men(k))
+      end  // Suppose here all windows have similar menus
+    end
+    
+
     if edited then
-      mprintf('%s\n','Your diagram is not saved. Do not quit Scilab or o"+...
-	      "pen a new Scicos diagram before returning to Scicos.')
+      mprintf('%s\n','Your diagram is not saved. Do not quit Scilab or "+...
+	      "open a new Scicos diagram before returning to Scicos.')
     end
   end
 
 
 endfunction //** scicos() end here :) : had a good day
-
-	    
-	    
-function Illbeback(win,x,y,ibut)
-  if ibut==-1000|ibut==-1 then return,end
-    pause
-    
-  ierr=execstr('load(TMPDIR+''/AllWindows'')','errcatch')
-  if ierr==0 then
-    for win_i= AllWindows'
-      scf(win_i)
-      seteventhandler('')
-    end
-  end
-  scicos();
-endfunction
 
   
 

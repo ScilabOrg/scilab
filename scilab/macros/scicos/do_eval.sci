@@ -44,7 +44,7 @@ for %kk=1:%nx
   o=scs_m.objs(%kk)
   if typeof(o)=='Block' then
     model=o.model
-    if model.sim=='super'|model.sim=='csuper' then
+    if model.sim=='super'| (model.sim=='csuper'&model.ipar<>1) then  //exclude mask
       sblock=model.rpar
       context=sblock.props.context
 

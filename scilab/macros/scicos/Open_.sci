@@ -17,7 +17,7 @@ function Open_()
     if num==2 then return;end
     if alreadyran then do_terminate(),end  //terminate current
                                            //simulation
-    clear(%scicos_solver)  // avoids forcing implicit compilation in
+    clear('%scicos_solver')  // avoids forcing implicit compilation in
                            // some situations    
     alreadyran = %f ;
   end

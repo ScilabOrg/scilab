@@ -111,6 +111,9 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 	      'Icon Editor'];
 
   Tools    = ['Tools',..
+              'Create Mask',..
+              'Remove Mask',..
+              'Customize Mask',..
               'Get Info',..
               'Details',..
               'Browser',..
@@ -162,6 +165,10 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			           'Identification',..
 			           'Block Documentation'),..
 			     'Code Generation',..
+                             list( 'Mask',..
+                                   'Create Mask',..
+                                   'Remove Mask',..
+                                   'Customize Mask'),..
 			     'Help');
 
   //** state_var = 2 : right click in the void of the CURRENT Scicos Window

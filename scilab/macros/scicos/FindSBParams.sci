@@ -4,10 +4,10 @@ function params=FindSBParams(scs_m,params)
     o=scs_m.objs(i)
     if typeof(o)=='Block' then
       model=o.model
-      if model.sim=='super'|(type(model.sim)==10&model.sim=='csuper') then
+      if model.sim=='super'|model.sim=='csuper' then
 	Fun=[Fun;'['+FindSBParams(model.rpar,params)+']']
       else
-	Fun=[Fun;'['+o.graphics.exprs+']']
+	Fun=[Fun;'['+o.graphics.exprs(:)+']']
       end
     end
   end

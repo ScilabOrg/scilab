@@ -6,8 +6,8 @@ function Undo_()
 
     if enable_undo==2 then  // open SB's may have been affected
       %r=2
-      %r=message(['Undo operation undoes changes in subdiagram(s)';
-                  'Thes changes will be lost for ever'],['Proceed'; ...
+      %r=message(['Undo operation undoes changes in a subdiagram';
+                  'These changes will be lost for ever'],['Proceed'; ...
 		    'Cancel'])
       if %r==2 then 
          return,

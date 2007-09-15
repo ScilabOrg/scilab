@@ -43,15 +43,8 @@ function OpenSet_()
     super_path($-size(%kk,2)+1:$) = [] ;
     
     if editedb then
-      scs_m_save = scs_m       ; //** save the old diagram 
-      nc_save    = needcompile ; //** and its state
-
-      if typeof(o)=="Block" & o.model.sim=="super" then
-         enable_undo = 2  //special code in case the content of SB has been changed
-      else
-         enable_undo = %t
-      end
-
+      enable_undo = %f  //undo is disabled if super block not explicitely open
+                        //otherwise the undo returns to an unpredictable past
       needcompile = max(needcompile, needcompileb)
       %Path = list('objs',%kk)
       if or(curwin==winsid()) then gh_current_window=gcf(curwin);end

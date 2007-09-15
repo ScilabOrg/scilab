@@ -105,14 +105,27 @@ if typeof(o)=="Block" then
     
     gh_curwin = scf(curwin); 
   
+
+  //**-------------------- Mask C superblock  -----------------------------  
+  elseif o.model.sim=="csuper"& o.model.ipar==1 then
+    execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)')
+    modified = prod(size(newparameters))>0 // never used because if there is a change
+                                           // needcompile>=2 and newparams not used 
+    edited = ~isequalbitwise(o,o_n) 
+    if edited then
+      o = o_n
+    end
+
   //**-------------------- C superblock ??? -----------------------------  
   elseif o.model.sim=="csuper" then
     execstr('[o_n,needcompile,newparameters]='+o.gui+'(''set'',o)')
     modified = prod(size(newparameters))>0
-    edited = modified
+    edited = modified  // Not sure it is correct. 
     if edited then
       o = o_n
     end
+
+
   
   //**--------------------- Standard block -------------------------------  
   else
