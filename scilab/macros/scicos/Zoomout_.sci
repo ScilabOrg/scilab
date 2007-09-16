@@ -12,7 +12,7 @@ function Zoomout_()
     %zoom = %zoom / zoomfactor ;
 
     drawlater()
-    disablemenus();
+
     //** Get the current postion of the visible part of graphics in the panner. 
     viewport  = xget("viewport"); //** [x,y] = xget("viewport")
     //** geometrical correction: zoom in the center  
@@ -27,6 +27,5 @@ function Zoomout_()
     drawnow();
     show_pixmap();
 
-    enablemenus();
     xinfo(' ');
 endfunction

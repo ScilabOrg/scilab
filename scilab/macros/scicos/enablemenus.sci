@@ -1,4 +1,6 @@
 function enablemenus(men)
+//EnableAllMenus()
+return
 // Copyright INRIA
 
 [lhs,rhs] = argn()

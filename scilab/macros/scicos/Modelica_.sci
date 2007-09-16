@@ -19,14 +19,12 @@ function Modelica_()
     k=getobj(scs_m,[xc;yc])
     if k<>[] then
       if scs_m.objs(k).model.sim(1)=='super' then
-	disablemenus()
 	all_scs_m=scs_m;
 	XX=scs_m.objs(k).model.rpar;
 	name=XX.props.title(1)
 	txt=gen_modelica(XX,name)
 	mputl(txt,scs_m.props.title(2)+name+'.mo')
 	compile_modelica(scs_m.props.title(2)+name+'.mo')
-	enablemenus()
 	Cmenu=[] 
       else
 	message('Generation Code only work for a Superblock ! ')

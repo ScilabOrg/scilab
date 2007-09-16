@@ -8,13 +8,12 @@ function SelectRegion_()
   Cmenu =[]; %ppt=[]; Select=[] ;
   gh_winback = gcf(); //** save the current figure 
   gh_percentwin = scf(%win);
-  disablemenus()
 
   drawnow()
   //[ox,oy,w,h,ok] = get_rectangle(%xc,%yc)
   [rect,button] = rubberbox([%pt(1); %pt(2); 0; 0], %t) ;
   if or(button == [2 5 12 -100]) then // right button exit OR active window has been closed
-    enablemenus()
+
     return ; //** ---> Exit point
   end
   ox=rect(1),oy=rect(2),w=rect(3),h=rect(4);
@@ -25,7 +24,6 @@ function SelectRegion_()
 
   if kc==[] then
     message('This window is not an active palette');
-    enablemenus()
     return ; //** Exit point
 
   elseif windows(kc,1)<0 then //click inside a palette window
@@ -44,7 +42,7 @@ function SelectRegion_()
 
   clear ox,clear oy,clear w, clear h;
   Select=[in',%win*ones(in')]
-  enablemenus()
+
 endfunction
 
 //**---------------------------------------------------------------------------

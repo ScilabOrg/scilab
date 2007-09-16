@@ -12,7 +12,6 @@ function Undo_()
       if %r==2 then 
          return,
       else
-         disablemenus()
          scs_m = scs_m_save ; //** recover the previous diagram
 	 Select = [] ; //** unselect object  
          needcompile = nc_save ;
@@ -24,7 +23,6 @@ function Undo_()
                  'Cmenu='"Replot'"']
          end
          enable_undo = %f ; //** "Undo" is a single level function 
-         enablemenus()
       end
     
     elseif enable_undo then

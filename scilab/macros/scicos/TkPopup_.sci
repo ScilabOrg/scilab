@@ -1,6 +1,6 @@
 function TkPopup_()
   Select=[]
-  disablemenus()
+
   Cmenu = mpopup(list('Place in Diagram','Help','Details')) 
   if Cmenu=='Place in Diagram' then  
     Cmenu='PlaceinDiagram',
@@ -16,5 +16,5 @@ function TkPopup_()
     %pa_=TCL_GetVar('blko');%pa_=part(%pa_,6:length(%pa_));execstr('%pa_=list('+%pa_+')');
     do_details(scs_m_palettes(scs_full_path(%pa_)));
   end
-  enablemenus() ;
+
 endfunction

@@ -3,7 +3,5 @@ function Details_()
 //** Comments by Simone Mannori
 
   Cmenu = [] ; 
-  disablemenus()
-    do_details(Select);
-  enablemenus() ;
+  do_details(Select);
 endfunction

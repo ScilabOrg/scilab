@@ -17,9 +17,7 @@ function [alreadyran,%cpr] = do_terminate(scs_m,%cpr)
     
     gh_win = gcf(); 
     
-    disablemenus() ;
       ierr = execstr('[state,t]=scicosim(%cpr.state,par.tf,par.tf,'+'%cpr.sim,''finish'',par.tol)','errcatch')
-    enablemenus()
     
     //** xset('window',win)
     scf(gh_win);

@@ -89,11 +89,9 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
     [xout,yout,typout]=getoutputports(o1)
 
     if xout==[] then
-      disablemenus()
         hilite_obj(kfrom)
         message('This block has no output port')
         unhilite_obj(kfrom)
-      enablemenus()
       return
     end
 
@@ -112,22 +110,18 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
     if typo==1  then //regular output port
       port_number=k
       if op(port_number)<>0 then
-        disablemenus()
           hilite_obj(kfrom)
           message('Selected port is already connected.')
           unhilite_obj(kfrom)
-        enablemenus()
         return
       end
       typpfrom='out'
     elseif (typo==2 & k<=size(op,'*')) then //implicit  output port
       port_number=k
       if op(port_number)<>0 then
-        disablemenus()
           hilite_obj(kfrom)
           message('Selected port is already connected.')
           unhilite_obj(kfrom)
-        enablemenus()
         return
       end
       typpfrom='out'
@@ -136,22 +130,18 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
       k=k-size(op,'*')
       port_number=k,//out port
       if impi(port_number)<>0 then
-        disablemenus()
           hilite_obj(kfrom)
           message('Selected port is already connected.')
           unhilite_obj(kfrom)
-        enablemenus()
         return
       end
       typpfrom='in'
     else //event output port
       port_number=k-prod(size(find(typout==1)))
       if cop(port_number)<>0 then
-        disablemenus()
           hilite_obj(kfrom)
           message('Selected port is already connected.')
           unhilite_obj(kfrom)
-        enablemenus()
         return
       end
       typpfrom='evtout'
@@ -261,7 +251,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
 
       //check connection
       if xin==[] then
-         disablemenus()
          hilite_obj(kto)
          message('This block has no input port.');
          p_size = size(gh_curwin.children.children);
@@ -274,7 +263,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
            disp("d2");   //** Debug
          end
          unhilite_obj(kto)
-         enablemenus()
          return;      //** EXIT point from the function
       end
 
@@ -291,7 +279,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
       xc2 = xin(k); yc2 = yin(k); typi = typin(k);
 
       if typo<>typi
-        disablemenus()
         hilite_obj(kto)
         message(['Selected ports don''t have the same type'
                  'The port at the origin of the link has type '+string(typo);
@@ -306,7 +293,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
              disp("d3"); //** Debug
           end
           unhilite_obj(kto)
-          enablemenus()
           return; //** EXIT point from the function
       end
 
@@ -315,7 +301,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
      if typi==1  then // regular input port
         port_number = k ;
         if ip(port_number)<>0 then
-           disablemenus()
              hilite_obj(kto)
              message('Selected port is already connected.'),
              p_size = size(gh_curwin.children.children)
@@ -328,7 +313,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
                disp("d4");//** Debug
              end
              unhilite_obj(kto)
-           enablemenus()
            return
         end
 
@@ -359,14 +343,12 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
         end
 
         if need_warning then
-          disablemenus()
             hilite_obj(kto)
             message(['Warning :';
                      'Selected ports don''t have the same size';
                      'The port at the origin of the link has size '+sci2exp(szout);
                      'the port at the end has size '+sci2exp(szin)+'.'])
             unhilite_obj(kto)
-          enablemenus()
         end
 
         //get port data type
@@ -377,7 +359,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
             tt_typ=['double';'complex';'int32';'int16';
                     'int8';'uint32';'uint16';'uint8']
 
-            disablemenus()
             hilite_obj(kto)
             message(['Warning :';
                      'Selected ports don''t have the same data type';
@@ -386,7 +367,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
                      'the port at the end has datatype '+...
                       tt_typ(szintyp)+' ('+sci2exp(szintyp)+')'+'.'])
             unhilite_obj(kto)
-            enablemenus()
           end
         end
 
@@ -453,7 +433,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
         port_number=k-prod(size(find(typin==1)))
 
         if cip(port_number)<>0 then
-            disablemenus()
             hilite_obj(kto)
             message('Selected port is already connected.'),
             p_size = size(gh_curwin.children.children)
@@ -466,7 +445,6 @@ function [scs_m,needcompile] = getlink(%pt,scs_m,needcompile)
               disp("d7");//** Debug
             end
             unhilite_obj(kto)
-            enablemenus()
             return; //** Exit point
         end
 

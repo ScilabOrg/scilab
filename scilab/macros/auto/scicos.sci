@@ -301,7 +301,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 		      'PlaceinDiagram' , 'PlaceinDiagram_'   ;
 		      'TkPopup'     , 'TkPopup_'  ;
 		      'BrowseTo'    , 'BrowseTo_'    ;
-		      'Place in Browser'    , 'PlaceinBrowser_'    
+		      'Place in Browser'    , 'PlaceinBrowser_';
+		      'Select All'    , 'SelectAll_'     
 		     ];
 
     menus = tlist('xxx')
@@ -430,9 +431,9 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       //perform eval only if context contains functions which may give
       //different results from one execution to next
       if or(%outfun(4)=='rand')|or(%outfun(4)=='exec')|or(%outfun(4)=='load') then
-	disablemenus() ;
+	DisableAllMenus()
 	[scs_m, %cpr, needcompile, ok] = do_eval(scs_m, %cpr);
-	enablemenus() ;
+	EnableAllMenus()
       end
     end
 
@@ -594,7 +595,9 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       if ( Cmenu==[] | (CmenuType==1 & %pt==[] & Select==[]) ) then
 	
 	//** I'm not ready to exec a command: I need more information using cosclik()
+        EnableAllMenus()
 	[btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ;
+        DisableAllMenus()
 
 	if (Cmenu_n=='SelectLink' | Cmenu_n=='MoveLink') & Cmenu<>[] & CmenuType==1 & %pt==[] then
 	  if %pt_n<>[] then %pt = %pt_n; end
@@ -690,15 +693,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     save(TMPDIR+'/AllWindows',AllWindows)
  //   scf(0)  // to protect scicos windows when in Scilab
     mprintf('%s\n','To reactivate Scicos, click on a diagram or type '"scicos();'"')
-    
-    %ws=intersect(winsid(),inactive_windows(2)')
-    men=menus(1)
-    for %w=%ws
-      for k=2:size(men,'*')
-       unsetmenu(%w,men(k))
-      end  // Suppose here all windows have similar menus
-    end
-    
+
 
     if edited then
       mprintf('%s\n','Your diagram is not saved. Do not quit Scilab or "+...
@@ -749,4 +744,26 @@ function restore_menu()
 endfunction
 
 //**---------------------------------------------------------------------------------------------------------------------
+
+function DisableAllMenus()
+  %ws=intersect(winsid(),[inactive_windows(2);curwin]')
+  %men=menus(1)
+  for %w=%ws
+    for k=2:size(%men,'*')
+     unsetmenu(%w,%men(k))
+    end  // Suppose here all windows have similar menus
+  end
+endfunction
+
+function EnableAllMenus()
+  %ws=intersect(winsid(),[inactive_windows(2);curwin]')
+  %men=menus(1)
+  for %w=%ws
+    for k=2:size(%men,'*')
+     if ~super_block | %men(k)<>'Simulate' then
+       setmenu(%w,%men(k))
+     end
+    end  // Suppose here all windows have similar menus
+  end
+endfunction
 

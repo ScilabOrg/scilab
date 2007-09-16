@@ -15,8 +15,6 @@ function Replot_()
     
     gh_curwin = gh_current_window ; //** get the handle of the current graphics window
         
-    disablemenus() ; //** disable dynamical menu (just to be safe)
-     
      drawlater();
        clf(gh_curwin) ; //** clear the current graphic window
        %wdm = scs_m.props.wpar
@@ -25,5 +23,4 @@ function Replot_()
        drawobjs(scs_m)   ;  //** Redraw all
      drawnow(); show_pixmap();
     
-    enablemenus() ;
 endfunction

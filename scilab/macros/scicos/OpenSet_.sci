@@ -126,8 +126,6 @@ function OpenSet_()
   
   Cmenu = []; %pt = [] ;
   
-//  enablemenus()      ; 
-  
 endfunction
 
 

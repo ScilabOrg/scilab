@@ -148,7 +148,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			     'Smart Move',..
 			     'Move',..
 			     'Duplicate',..
-			     'Delete',..
 			     'Link',..
 			     'Align',..
 			     'Flip',..
@@ -181,7 +180,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			     'Replot',..
 			     'Save',..
 			     'Save As',..
-			     'Load',..
 			     'Export',..
 			     'Quit',..
 			     'Background color',..

@@ -23,7 +23,6 @@ function Context_()
 	%scicos_context = struct() ;
       end
       
-      disablemenus(); //** during the script prefiltering is better disable the menu  
         //** context eval here
 	[%scicos_context, ierr] = script2var(context, %scicos_context)
         
@@ -39,8 +38,6 @@ function Context_()
         end
         //end of for backward compatibility for scifunc
       
-      enablemenus(); //** 
-      
       if ierr <>0 then
 	message(['Error occur when evaluating context:'
 		 lasterror() ]);
@@ -49,7 +46,6 @@ function Context_()
 	scs_m_save = scs_m       ; 
 	nc_save    = needcompile ;
 	scs_m.props.context = context;
-	disablemenus();
 	  do_terminate(); 
 	  [scs_m,%cpr,needcompile,ok] = do_eval(scs_m, %cpr)
 	  if ok then
@@ -63,7 +59,6 @@ function Context_()
 	    enable_undo=%f
 	  end
 
-	enablemenus() ;
 	break ; //** EXIT Point from the while()
       end
     

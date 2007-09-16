@@ -20,11 +20,9 @@ function CodeGeneration_()
 //**             <k>
     if scs_m.objs(k).model.sim(1)=='super' then
       
-      disablemenus()
         XX = scs_m.objs(k);
         [ok, XX, alreadyran, flgcdgen, szclkINTemp, freof] = ...
                         do_compile_superblock42(XX, scs_m, k, alreadyran);
-      enablemenus()
 
       if ok then
         scs_m = changeports(scs_m,list('objs',k), XX);  //scs_m.objs(k)=XX

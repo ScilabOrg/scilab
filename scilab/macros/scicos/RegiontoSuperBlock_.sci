@@ -9,8 +9,6 @@ function RegiontoSuperBlock_()
 //** In all the cases the the situation is restored by the final "Replot" operation.
 //
   
-disablemenus() ;
-
   %win = curwin // only in main window
  
   if Select==[] then 
@@ -29,8 +27,6 @@ disablemenus() ;
     //** with the last bugfix the 'Text' object are correctly handled, but this routine is
     //** much slower that the "old" standard mode.     
   end
-  
-enablemenus() ; 
   
   Cmenu='Replot'; %pt=[];
 

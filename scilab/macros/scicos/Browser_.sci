@@ -5,9 +5,7 @@ function Browser_()
 Cmenu = [] ; 
 
 if super_path==[] then
-  disablemenus();
    do_browser(scs_m);
-  enablemenus();  
 else        
       Scicos_commands=['%diagram_path_objective=[];%scicos_navig=1';
 		       'Cmenu='"Browser'";%scicos_navig=[]';

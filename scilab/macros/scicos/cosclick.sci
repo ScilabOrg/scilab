@@ -174,6 +174,10 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     
     elseif (btn==1115) then                //** [CRTL]+[s] --> Save the diagram 
       Cmenu="Save";
+
+    elseif (btn==1097) then                //** [CRTL]+[a] --> Select all 
+      Cmenu="Select All";
+
     
     //**-------------------------------------------------------
     else

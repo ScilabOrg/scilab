@@ -1,4 +1,6 @@
 function disablemenus(xinfo_flag)
+//DisableAllMenus()
+return
 // Copyright INRIA
 //** Comments by Simone Mannori
 

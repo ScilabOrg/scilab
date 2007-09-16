@@ -25,8 +25,6 @@ function Open_()
 
   xselect();
 
-  disablemenus(); 
-
   [ok,scs_m,%cpr,edited] = do_load();
 
   if super_block then edited = %t;end
@@ -75,9 +73,9 @@ function Open_()
 	//perform eval only if context contains functions which may give
 	//different results from one execution to next
 	if or(%outfun(4)=='rand')|or(%outfun(4)=='exec')|or(%outfun(4)=='load') then
-	  //** disablemenus() ; //** the menu are already disabled 
+
 	  [scs_m, %cpr, needcompile, ok] = do_eval(scs_m, %cpr) ;
-	  //** enablemenus()  ;
+
 	end
       end
       
@@ -103,8 +101,6 @@ function Open_()
     end
     
   end
-  
-  enablemenus();
   
 endfunction
 

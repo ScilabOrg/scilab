@@ -26,7 +26,6 @@ function Fitdiagramtofigure_()
 
    gh_window = gcf();             //*get handle of current window
 
-   disablemenus();
    window_set_size(gh_window);
    if exists('%scicos_with_grid') then
      drawgrid();
@@ -36,6 +35,5 @@ function Fitdiagramtofigure_()
    end
    drawnow();
    show_pixmap();
-   enablemenus();
    xinfo(' ');
 endfunction

@@ -69,14 +69,12 @@ function [scs_m, edited] = do_SaveAs()
     save(u,scs_m,%cpr)
   else
   
-    //  disablemenus()
     ierr = cos2cosf(u,do_purge(scs_m));
     if ierr<>0 then
       message("Directory write access denied")
       file('close',u) ;
       return 
     end
-    //  enablemenus()
   end
   
   file('close',u)
