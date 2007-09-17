@@ -125,7 +125,8 @@ function gh_blk = drawobj(o, gh_window)
     end
 
     if ierr<>0 then 
-      message(['Problem loading block '+o.gui'; lasterror()]) ;
+      message(['Problem loading block '+o.gui'; lasterror();
+	       'Use Activate_Scilab_Window and redefine it in Scilab.'] ) ;
       gh_blk = [];
     end
 
