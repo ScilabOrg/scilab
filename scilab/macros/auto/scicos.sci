@@ -686,7 +686,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       pause
     end
     AllWindows=unique([windows(:,2);inactive_windows(2)])
-    for win_i= AllWindows'
+    AllWindows=intersect(AllWindows',winsid())
+    for win_i= AllWindows
       scf(win_i)
       seteventhandler('scilab2scicos')
     end	
