@@ -56,8 +56,10 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
   
   if (win==-1)& (btn==-2) then
     from=max(strindex(str,'_'))+1;
-    to=max(strindex(str,'('))-1
-    win=evstr(part(str,from:to))
+    if from<>1 then  // this is a non scicos menu 'help or ged)
+      to=max(strindex(str,'('))-1
+      win=evstr(part(str,from:to))
+    end
   end
   // If the event is a TCL event then win=[]
   if win<>[] & find(win==inactive_windows(2))<>[] then
