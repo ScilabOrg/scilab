@@ -53,7 +53,14 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
     
     return  //** --> EXIT  
   end
-  
+
+  //**-----------------------------------------------------------
+  if (btn==30) then //** This code is produced ONLY on Windows and is used
+                        //** to signal the switch of the focus to a new, not yet active,
+			//** Scilab window. This code is produced ONLY ONE time, then
+			//** the xclick return back to the usual behavior.
+     btn=3  // assimilated with single click, better than nothing!
+  end
   if (win==-1)& (btn==-2)&part(str,1:7)=='execstr' then
     from=max(strindex(str,'_'))+1;
     to=max(strindex(str,'('))-1
@@ -74,15 +81,6 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
 
     return
   
-  //**-----------------------------------------------------------
-  elseif (btn==30) then //** This code is produced ONLY on Windows and is used
-                        //** to signal the switch of the focus to a new, not yet active,
-			//** Scilab window. This code is produced ONLY ONE time, then
-			//** the xclick return back to the usual behavior.
-			//** For the moment this event is just ignored.  
-      //** Cmenu = []    ;
-      //** %pt   = []    ; 
-      return  //** --> EXIT 
   //** -----------------------------------------------------------
   elseif (btn==3) then //** Single click : Left Mouse Button : no window check         
     Cmenu = "SelectLink" ; 
