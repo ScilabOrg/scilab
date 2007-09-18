@@ -25,7 +25,7 @@ void dollar4_m(scicos_block *block,int flag)
   if (flag==4)
       {*(block->work)=(dol_struct*) scicos_malloc(sizeof(dol_struct));
         ptr=*(block->work);
-	ptr->s=(int) scicos_malloc(sizeof(int));
+/*	ptr->s=(int) scicos_malloc(sizeof(int));*/
         ptr->s=GetSizeOfOz(block,1);}
   if (flag ==1 || flag ==6)
       {ptr=*(block->work);
@@ -33,4 +33,11 @@ void dollar4_m(scicos_block *block,int flag)
   if (flag == 2)
       {ptr=*(block->work);
        memcpy(oz,u,m*n*ptr->s);}
+  if (flag == 5)
+      {ptr=*(block->work);
+       if(ptr!=NULL) {
+          scicos_free(ptr);
+       }
+      }
+
 }
