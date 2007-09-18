@@ -14,7 +14,14 @@ function CodeGeneration_()
     %pt = []   ;
     Cmenu = [] ;
 
-    k  = getobj(scs_m,[xc;yc]) ; //** look for a block 
+    k  = getobj(scs_m,[xc;yc]) ; //** look for a block
+    //** check if we have clicked near an object
+    if k==[] then
+      return
+    //** check if we have clicked near a block
+    elseif typeof(scs_m.objs(k))<>'Block' then
+      return
+    end
 
 //** If the clicked/selected block is really a superblock 
 //**             <k>
@@ -23,6 +30,8 @@ function CodeGeneration_()
         XX = scs_m.objs(k);
         [ok, XX, alreadyran, flgcdgen, szclkINTemp, freof] = ...
                         do_compile_superblock42(XX, scs_m, k, alreadyran);
+        //**quick fix for sblock that contains scope
+        gh_curwin=scf(curwin)
 
       if ok then
         scs_m = changeports(scs_m,list('objs',k), XX);  //scs_m.objs(k)=XX
