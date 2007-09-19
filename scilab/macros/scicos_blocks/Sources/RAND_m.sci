@@ -30,15 +30,15 @@ case 'set' then
     else
       out=size(a)
       if typ==1 then
-      junction_name='rndblk_m';
-      model.rpar=[real(a(:));real(b(:))]
-      model.dstate=[seed_c(1);0*real(a(:))]
-      ot=1
+        junction_name='rndblk_m';
+        model.rpar=[real(a(:));real(b(:))]
+        model.dstate=[seed_c(1);0*real(a(:))]
+        ot=1
       elseif typ==2 then
-      junction_name='rndblkz_m';
-      ot=2
-      model.rpar=[real(a(:));imag(a(:));real(b(:));imag(b(:))]
-      model.dstate=[seed_c(:);0*[real(a(:));imag(a(:))]]
+        junction_name='rndblkz_m';
+        ot=2
+        model.rpar=[real(a(:));imag(a(:));real(b(:));imag(b(:))]
+        model.dstate=[seed_c(:);0*[real(a(:));imag(a(:))]]
       else message("Datatype is not supported");ok=%f;end
       if ok then
          [model,graphics,ok]=set_io(model,graphics,list([],[]),list(out,ot),1,[])

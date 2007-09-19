@@ -353,6 +353,7 @@ extern void curve_c __PARAMS((ARGS_scicos));
 extern void counter __PARAMS((ARGS_scicos));
 extern void m_frequ __PARAMS((ARGS_scicos));
 extern void towork_c __PARAMS((ARGS_scicos));
+extern void rndblkz_m __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -628,6 +629,7 @@ OpTab tabsim[] ={
 {"ricc_m",(ScicosF) ricc_m},
 {"rndblk_m",(ScicosF) rndblk_m},
 {"rndblk",(ScicosF) F2C(rndblk)},
+{"rndblkz_m",(ScicosF) rndblkz_m},
 {"root_coef",(ScicosF) root_coef},
 {"rootz_coef",(ScicosF) rootz_coef},
 {"samphold4_m",(ScicosF) samphold4_m},
@@ -708,6 +710,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 351 ;
+int ntabsim= 352 ;
 #endif 
 /***********************************/
