@@ -100,7 +100,7 @@ void fromws_c(scicos_block *block,int flag)
    /* retrieve path of TMPDIR/workspace */
    strcpy(env,getenv("TMPDIR"));
    strcat(env,sep);
-   strcat(env,"workspace");
+   strcat(env,"Workspace");
    strcat(env,sep);
    strcat(env,str);
 
