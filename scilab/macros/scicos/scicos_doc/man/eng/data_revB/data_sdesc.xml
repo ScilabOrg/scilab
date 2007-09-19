@@ -1597,7 +1597,7 @@
 </FILE>
 
 <FILE name='Resistor_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="Resistor">Resistor title</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Resistor">Resistor</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAMPHOLD' type='XML'>
@@ -3114,6 +3114,10 @@
 
 <FILE name='rndblk_routcos' type='XML'>
   <SHORT_DESCRIPTION name="rndblk">rndblk</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='rndblkz_m_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="rndblkz_m">rndblkz_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='root_coef_routcos' type='XML'>
