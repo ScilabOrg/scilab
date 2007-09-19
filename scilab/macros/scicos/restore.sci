@@ -10,9 +10,14 @@ function restore(gh_curwin)
   end
   
   set_background(gh_curwin)   ;
-  pwindow_set_size(gh_curwin) ;
-  window_set_size(gh_curwin)  ;
   
+  if size(scs_m.props.wpar,'*')==12 then
+    pwindow_read_size(gh_curwin) ;
+    window_read_size(gh_curwin)  ;
+  else
+    pwindow_set_size(gh_curwin) ;
+    window_set_size(gh_curwin)  ;
+  end
   
   menu_stuff() ;
   

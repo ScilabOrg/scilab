@@ -37,13 +37,15 @@ function Open_()
     options = scs_m.props.options ; 
 
     clf() ; 
-    
     set_background();
     
-    pwindow_set_size();
-    
-    window_set_size();
-    
+    if size(scs_m.props.wpar,'*')==12 then
+      pwindow_read_size() ;
+      window_read_size()  ;
+    else
+      pwindow_set_size();
+      window_set_size();
+    end
     //** ----------------- 
     if type(scs_m.props.context)==10 then
       
