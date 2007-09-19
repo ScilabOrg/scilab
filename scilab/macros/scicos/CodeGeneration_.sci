@@ -1334,8 +1334,9 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
   rpat=getcwd();
   libs='';
   label1=[hname;getcwd()+'/'+hname;''];
-
+ 
   while %t do
+    ok=%t  // to avoid infinite loop
     [okk,..
      rdnom,..
      rpat,..
