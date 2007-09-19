@@ -8,24 +8,27 @@ function RegiontoSuperBlock_()
 //** with the options %f that disable the graphics update.
 //** In all the cases the the situation is restored by the final "Replot" operation.
 //
-  
-  %win = curwin // only in main window
- 
+  Cmenu=[]
+   
   if Select==[] then 
-      //** if nothing is selected -> call a region selection function 
-      [%pt, scs_m] = do_region2block(%pt,scs_m); //** see file: "do_region2block.sci"
-      //** this type of operations is OK (old Scicos code here :)                                  
+    if (%win <> curwin) then
+      return// only in main window
+    end
+    
+    //** if nothing is selected -> call a region selection function 
+    [%pt, scs_m] = do_region2block(%pt,scs_m); //** see file: "do_region2block.sci"
+	      //** this type of operations is OK (old Scicos code here :)                                  
   else
     
     if Select(1,2)<>curwin then
-         //** if the selected object are not in the current window ... exit  
-	 return ; //** --> Exit point 
+      //** if the selected object are not in the current window ... exit  
+      return ; //** --> Exit point 
     end
     
     //** if the selected object are in the current window use the function below in this file 
     [%pt, scs_m] = do_select2block(%pt, scs_m);  //** ---> see below in this file :)
-    //** with the last bugfix the 'Text' object are correctly handled, but this routine is
-    //** much slower that the "old" standard mode.     
+	//** with the last bugfix the 'Text' object are correctly handled, but this routine is
+	//** much slower that the "old" standard mode.     
   end
   
   Cmenu='Replot'; %pt=[];
