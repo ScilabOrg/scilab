@@ -124,6 +124,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   Help     = ['?',..
               'Help',..
+              'Scicos Documentation',..
 	      'Demos',..
 	      'About Scicos'];
 
@@ -807,6 +808,11 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                [" To get help on an object or menu buttons,";
                 " select first Help menu item and then on ";
                 " the selected object or menu item."])
+
+  %scs_help_menu=scicos_help(%scs_help_menu,...
+               'Scicos Documentation',...
+               [" That item opens the html ";
+                " browser."])
 
   %scs_help_menu=scicos_help(%scs_help_menu,...
                'Demos',...
