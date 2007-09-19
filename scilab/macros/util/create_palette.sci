@@ -103,7 +103,8 @@ function [routines,IntFunc]=create_palette(Path)
 	lisf=['DLR.sci';'TCLSS.sci';'DOLLAR_m.sci';
 	      'CLINDUMMY_f.sci';'DLSS.sci';'REGISTER.sci';'TIME_DELAY.sci';
 	      'CLR.sci';'GAINBLK.sci';'SAMPHOLD_m.sci';'VARIABLE_DELAY.sci';
-	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';'DERIV.sci']
+	      'CLSS.sci';'SUMMATION.sci';'INTEGRAL_m.sci';'SUM_f.sci';
+              'DERIV.sci';'PID.sci']
 	
       elseif txt=='OldBlocks' then
 	lisf=['CLOCK_f.sci';'ABSBLK_f.sci';    
