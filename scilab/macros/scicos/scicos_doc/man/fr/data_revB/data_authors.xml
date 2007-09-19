@@ -1318,7 +1318,9 @@ INRIA
 
 <FILE name='PDE' type='XML'>
 <AUTHORS>
-
+<AUTHORS_ITEM label=''>
+EADS 2005-01-16
+</AUTHORS_ITEM>
 </AUTHORS>
 </FILE>
 

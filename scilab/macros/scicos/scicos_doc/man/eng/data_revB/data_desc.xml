@@ -1984,28 +1984,14 @@ that use old blocks.
 </DESCRIPTION>
 </FILE>
 
-<FILE name='PDE' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
-</FILE>
-
-<FILE name='PID' type='XML'>
-<DESCRIPTION>
-<DESCRIPTION_INDENT>
-<DESCRIPTION_ITEM>
-<P>
-Add here a paragraph of the function description
-</P>
-</DESCRIPTION_ITEM>
-</DESCRIPTION_INDENT>
-</DESCRIPTION>
+<FILE name='PDE' type='LATEX'>
+This block is an implementation of several numerical schemes (Finite Elements (1st and 2nd order),
+Finite Differences (1st and 2nd order), Finite Volumes (1st order)) to solve mono dimensional 
+PDE (Partial Differential Equation) within SCICOS.
+The mathematical framwork was restricts in PDEs linear scalars with maximum order 2 in time and space.
+The goal is to provide engineers and physicists with an easy to use toolbox in SCICOS that will let them
+graphically describe the PDE to be solved. A decision system selects the most efficient numerical scheme
+depending on the type of the PDE and runs the solvers.
 </FILE>
 
 <FILE name='PNP' type='XML'>
