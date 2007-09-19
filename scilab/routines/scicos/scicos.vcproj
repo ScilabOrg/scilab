@@ -1018,6 +1018,9 @@ cd .. &gt;nul
 				RelativePath=".\exttriuz.c">
 			</File>
 			<File
+				RelativePath=".\fromws_c.c">
+			</File>
+			<File
 				RelativePath=".\gainblk.c">
 			</File>
 			<File
@@ -1417,6 +1420,9 @@ cd .. &gt;nul
 				RelativePath=".\rndblk_m.c">
 			</File>
 			<File
+				RelativePath=".\rndblkz_m.c">
+			</File>
+			<File
 				RelativePath=".\root_coef.c">
 			</File>
 			<File
@@ -1658,6 +1664,9 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\time_delay.c">
+			</File>
+			<File
+				RelativePath=".\tows_c.c">
 			</File>
 			<File
 				RelativePath=".\tree.c">
