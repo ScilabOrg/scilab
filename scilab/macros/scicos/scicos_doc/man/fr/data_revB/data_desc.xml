@@ -2770,6 +2770,13 @@ La seule sortie régulière de ce bloc donne le temps courant de la
 simulation.
 </FILE>
 
+<FILE name='TOWORK_c' type='LATEX'>
+Ce bloc est utilisé pour transférer des données simulées dans
+l'environnement Scilab.\\
+A chaque instants d'échantillonnage, aussi bien les dates que les valeurs
+de l'entrée sont enregistrées.
+</FILE>
+
 <FILE name='TRASH_f' type='XML'>
 <DESCRIPTION>
  <DESCRIPTION_INDENT>

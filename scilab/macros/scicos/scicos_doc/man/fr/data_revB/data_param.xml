@@ -6275,6 +6275,61 @@ Les paramètres du bloc Sigbuilder sont identiques à ceux du bloc \htmladdnormall
 </PARAM>
 </FILE>
 
+<FILE name='TOWORK_c' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Size of buffer</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      Définit la taille du buffer. Cela donne le nombre total
+      d'échantillons qui seront enregistrés pendant la simulation.
+      </SP>
+      <SP>
+      Ce buffer est circulaire.
+      </SP>
+      <SP>
+      Propriétés : Type 'vec' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Scilab variable name</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      Définit le nom de la variable Scilab.
+      Ce nom doit être un nom de variable valide.
+      </SP>
+      <SP>
+      La simulation doit être achevée pour pouvoir
+      récupérer la variable dans Scilab.
+      </SP>
+      <SP>
+      Propriétés : Type 'str' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+       Option pour choisir l'activation par héritage d'événement
+       via le port d'entrée régulier ou explicitement par le port d'entrée
+       événementiel. \\
+      </SP>
+      <SP>
+      Propriétés : Type 'vec' de taille 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
 <FILE name='TRASH_f' type='XML'>
 <PARAM>
 <PARAM_INDENT>

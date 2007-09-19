@@ -238,7 +238,7 @@ INRIA
 
 <FILE name='CLOCK_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=clock_doc'>
+<AUTHORS_ITEM label='Alan Layec'>
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
@@ -337,7 +337,7 @@ INRIA
   <AUTHORS_ITEM label='Fady NASSIF'>
     INRIA
   </AUTHORS_ITEM>
-  <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=CONST_doc'>
+  <AUTHORS_ITEM label='Alan Layec'>
     INRIA
   </AUTHORS_ITEM>
 </AUTHORS>
@@ -595,7 +595,7 @@ INRIA
 
 <FILE name='EVTDLY_c' type='XML'>
 <AUTHORS>
-<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=evtdly_doc'>
+<AUTHORS_ITEM label='Alan Layec'>
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>
@@ -721,7 +721,7 @@ INRIA
 
 <FILE name='GAINBLK' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=GAINBLK_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -861,7 +861,7 @@ INRIA
 
 <FILE name='INTEGRAL_m' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=INTEGRAL_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -1090,7 +1090,7 @@ INRIA
 
 <FILE name='MATMUL' type='XML'>
 <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=MATMUL_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -1133,7 +1133,7 @@ INRIA
 
 <FILE name='MATTRAN' type='XML'>
 <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=MATTRAN_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -1659,7 +1659,7 @@ INRIA
 
 <FILE name='SUMMATION' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Fady NASSIF' mailto='fady.nassif@inria.fr?subject=SUMMATION_doc'>
+    <AUTHORS_ITEM label='Fady NASSIF'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Alan Layec'>
@@ -1796,6 +1796,14 @@ INRIA
 </AUTHORS>
 </FILE>
 
+<FILE name='TOWORK_c' type='XML'>
+  <AUTHORS>
+   <AUTHORS_ITEM label='Alan Layec'>
+    INRIA
+   </AUTHORS_ITEM>
+  </AUTHORS>
+</FILE>
+
 <FILE name='TRASH_f' type='XML'>
 <AUTHORS>
 
@@ -1898,7 +1906,7 @@ INRIA
 
 <FILE name='buildouttb' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=buildouttb_doc'>
+    <AUTHORS_ITEM label='Alan Layec'>
       INRIA
     </AUTHORS_ITEM>
   </AUTHORS>
@@ -1975,7 +1983,7 @@ INRIA
 
 <FILE name='getscicosvars' type='XML'>
   <AUTHORS>
-    <AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=getscicosvars_doc'>
+    <AUTHORS_ITEM label='Alan Layec'>
       INRIA
     </AUTHORS_ITEM>
     <AUTHORS_ITEM label='Ramine Nikoukhah'>
@@ -2096,7 +2104,7 @@ INRIA
 <AUTHORS_ITEM label='Ramine Nikoukhah'>
 INRIA
 </AUTHORS_ITEM>
-<AUTHORS_ITEM label='Alan Layec' mailto='alan.layec@inria.fr?subject=scicosim_doc'>
+<AUTHORS_ITEM label='Alan Layec'>
 INRIA
 </AUTHORS_ITEM>
 </AUTHORS>

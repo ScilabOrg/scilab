@@ -872,7 +872,7 @@ clear i;clear listf;
 listf_of_misc=[palpath,"Others.cosf","pal"];
 listf = basename(listfiles(opath2(7)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'m_sin.sci' then //!!!!!!! YAUNBÈGICI
+  if listf(i)<>'m_sin.sci' & listf(i)<>'DSUPER.sci' then //!!!!!!! YAUNBÈGICI
     listf_of_misc=[listf_of_misc;
                    opath2(7),listf(i),"block"];
   end

@@ -1596,6 +1596,10 @@
   <SHORT_DESCRIPTION name="Resistor">Resistor</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='Resistor_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="Resistor">Resistor title</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='SAMPHOLD' type='XML'>
 <SHORT_DESCRIPTION name="SAMPHOLD">Sample and hold (Old block)</SHORT_DESCRIPTION>
 </FILE>
@@ -1890,6 +1894,14 @@
 
 <FILE name='TIME_f_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="TIME_f">TIME_f</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TOWORK_c' type='XML'>
+  <SHORT_DESCRIPTION name="TOWORK_c">Data to Scilab worspace</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='TOWORK_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TOWORK_c">TOWORK_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -3478,6 +3490,10 @@
 
 <FILE name='time_delay_routcos' type='XML'>
   <SHORT_DESCRIPTION name="time_delay">time_delay</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='towork_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="towork_c">towork_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='trash_routcos' type='XML'>

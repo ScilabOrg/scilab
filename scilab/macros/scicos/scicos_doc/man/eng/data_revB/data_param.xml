@@ -5955,6 +5955,61 @@ that of \htmladdnormallink{CURVE\_c}{CURVE_c.htm} block.
 </PARAM>
 </FILE>
 
+<FILE name='TOWORK_c' type='XML'>
+  <PARAM>
+    <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Size of buffer</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+        Set the size of the input buffer. That gives
+	the total number of samples recorded during the
+	simulation.
+      </SP>
+      <SP>
+	That buffer is a circultae buffer.
+      </SP>
+      <SP>
+      Properties : Type 'vec' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Scilab variable name</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+      Set the name of the Scilab variable.
+      This must be a valid variable name.
+      </SP>
+      <SP>
+      The simulation must be finished to retrieve
+      that variable in the Scilab workspace.
+      </SP>
+      <SP>
+      Properties : Type 'str' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Inherit (no:0, yes:1)</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+      <SP>
+       Options to choose event inheritance from
+       regular input or from explicit event input (0).
+      </SP>
+      <SP>
+      Properties : Type 'vec' of size 1.
+      </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+  </PARAM_INDENT>
+  </PARAM>
+</FILE>
+
 <FILE name='TRASH_f' type='XML'>
 <PARAM>
 <PARAM_INDENT>
