@@ -567,6 +567,18 @@ B=[1 0 0;4 5 0;7 8 9;10 11 12]
 </EXAMPLE>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <EXAMPLE>
+
+  </EXAMPLE>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <EXAMPLE>
+
+  </EXAMPLE>
+</FILE>
+
 <FILE name='FSV_f' type='XML'>
 <EXAMPLE>
 
@@ -1418,7 +1430,7 @@ When t=2 we loop back to 0.
 </EXAMPLE>
 </FILE>
 
-<FILE name='TOWORK_c' type='XML'>
+<FILE name='TOWS_c' type='XML'>
   <EXAMPLE>
 
   </EXAMPLE>

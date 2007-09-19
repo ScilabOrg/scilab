@@ -1050,6 +1050,30 @@ pour regrouper/combiner les événements sur un seul lien.
   </DESCRIPTION>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='FSV_f' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
@@ -2062,6 +2086,18 @@ graphically describe the PDE to be solved. A decision system selects the most ef
 depending on the type of the PDE and runs the solvers.
 </FILE>
 
+<FILE name='PID' type='XML'>
+  <DESCRIPTION>
+    <DESCRIPTION_INDENT>
+    <DESCRIPTION_ITEM>
+    <P>
+    Ajoutez ici un paragraphe pour la description de la fonction
+    </P>
+    </DESCRIPTION_ITEM>
+    </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+</FILE>
+
 <FILE name='PNP' type='XML'>
 <DESCRIPTION>
 <DESCRIPTION_INDENT>
@@ -2756,7 +2792,7 @@ La seule sortie régulière de ce bloc donne le temps courant de la
 simulation.
 </FILE>
 
-<FILE name='TOWORK_c' type='LATEX'>
+<FILE name='TOWS_c' type='LATEX'>
 Ce bloc est utilisé pour transférer des données simulées dans
 l'environnement Scilab.\\
 A chaque instants d'échantillonnage, aussi bien les dates que les valeurs

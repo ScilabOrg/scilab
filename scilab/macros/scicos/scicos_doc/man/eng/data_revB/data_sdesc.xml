@@ -756,6 +756,22 @@
   <SHORT_DESCRIPTION name="FROMMO">FROMMO</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <SHORT_DESCRIPTION name="FROMWSB">FROMWSB</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMWSB_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="FROMWSB">FROMWSB</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <SHORT_DESCRIPTION name="FROMWS_c">FROMWS_c</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='FROMWS_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="FROMWS_c">FROMWS_c</SHORT_DESCRIPTION>
+</FILE>
+
 <FILE name='FROM_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="FROM">FROM</SHORT_DESCRIPTION>
 </FILE>
@@ -1896,12 +1912,12 @@
   <SHORT_DESCRIPTION name="TIME_f">TIME_f</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='TOWORK_c' type='XML'>
-  <SHORT_DESCRIPTION name="TOWORK_c">Data to Scilab worspace</SHORT_DESCRIPTION>
+<FILE name='TOWS_c' type='XML'>
+<SHORT_DESCRIPTION name="TOWORK_c">Data to Scilab worspace</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='TOWORK_c_intfunc' type='XML'>
-  <SHORT_DESCRIPTION name="TOWORK_c">TOWORK_c</SHORT_DESCRIPTION>
+<FILE name='TOWS_c_intfunc' type='XML'>
+  <SHORT_DESCRIPTION name="TOWS_c">TOWS_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -2474,6 +2490,10 @@
 
 <FILE name='freq_div_intfunc' type='XML'>
   <SHORT_DESCRIPTION name="freq_div">freq_div</SHORT_DESCRIPTION>
+</FILE>
+
+<FILE name='fromws_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="fromws_c">fromws_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='fsv_routcos' type='XML'>
@@ -3496,8 +3516,8 @@
   <SHORT_DESCRIPTION name="time_delay">time_delay</SHORT_DESCRIPTION>
 </FILE>
 
-<FILE name='towork_c_routcos' type='XML'>
-  <SHORT_DESCRIPTION name="towork_c">towork_c</SHORT_DESCRIPTION>
+<FILE name='tows_c_routcos' type='XML'>
+  <SHORT_DESCRIPTION name="tows_c">tows_c</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='trash_routcos' type='XML'>

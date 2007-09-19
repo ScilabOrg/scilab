@@ -713,6 +713,22 @@ INRIA
 </AUTHORS>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Masoud Najafi'>
+    INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <AUTHORS>
+    <AUTHORS_ITEM label='Masoud Najafi'>
+    INRIA
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</FILE>
+
 <FILE name='FSV_f' type='XML'>
 <AUTHORS>
 
@@ -1798,11 +1814,11 @@ INRIA
 </AUTHORS>
 </FILE>
 
-<FILE name='TOWORK_c' type='XML'>
+<FILE name='TOWS_c' type='XML'>
   <AUTHORS>
-   <AUTHORS_ITEM label='Alan Layec'>
+    <AUTHORS_ITEM label='Alan Layec'>
     INRIA
-   </AUTHORS_ITEM>
+    </AUTHORS_ITEM>
   </AUTHORS>
 </FILE>
 

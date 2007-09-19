@@ -549,6 +549,18 @@
 </EXAMPLE>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <EXAMPLE>
+
+  </EXAMPLE>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <EXAMPLE>
+
+  </EXAMPLE>
+</FILE>
+
 <FILE name='FSV_f' type='XML'>
 <EXAMPLE>
 
@@ -1473,20 +1485,16 @@
 <FILE name='TIME_DELAY' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
 <FILE name='TIME_f' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
-<FILE name='TOWORK_c' type='XML'>
+<FILE name='TOWS_c' type='XML'>
   <EXAMPLE>
 
   </EXAMPLE>
@@ -1501,15 +1509,11 @@
 <FILE name='TrigFun' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
 <FILE name='VARIABLE_DELAY' type='XML'>
 <EXAMPLE>
-
-
 
 </EXAMPLE>
 </FILE>
@@ -1517,23 +1521,17 @@
 <FILE name='VVsourceAC' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
 <FILE name='VanneReglante' type='XML'>
 <EXAMPLE>
 
-
-
 </EXAMPLE>
 </FILE>
 
 <FILE name='VariableResistor' type='XML'>
 <EXAMPLE>
-
-
 
 </EXAMPLE>
 </FILE>

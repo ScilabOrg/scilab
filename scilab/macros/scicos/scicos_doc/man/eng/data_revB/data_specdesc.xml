@@ -423,10 +423,6 @@
 	dial_width_html=220pt
 </FILE>
 
-<FILE name='TOWORK_c' type='SPECIALDESC'>
-	dial_width_html=260pt
-</FILE>
-
 <FILE name='Threshold_pal' type='SPECIALDESC'>
 	scs_diagr_height_pal_html=50pt
 </FILE>

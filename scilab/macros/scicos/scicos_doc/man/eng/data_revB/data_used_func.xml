@@ -667,6 +667,18 @@ For this block we have two differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
+<FILE name='FROMWSB' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
+<FILE name='FROMWS_c' type='XML'>
+  <USED_FUNCTIONS>
+
+  </USED_FUNCTIONS>
+</FILE>
+
 <FILE name='FSV_f' type='XML'>
 <USED_FUNCTIONS>
 
@@ -1351,8 +1363,8 @@ for this block we have four differents functions:
 
 <FILE name='RAND_m' type='XML'>
 <USED_FUNCTIONS>
-	<LINK>rndblk_m</LINK>
-	<LINK>rndblkz_m</LINK>
+<LINK>rndblk_m</LINK>
+<LINK>rndblkz_m</LINK>
 </USED_FUNCTIONS>
 </FILE>
 
@@ -1703,7 +1715,7 @@ for this block we have four differents functions:
 </USED_FUNCTIONS>
 </FILE>
 
-<FILE name='TOWORK_c' type='XML'>
+<FILE name='TOWS_c' type='XML'>
   <USED_FUNCTIONS>
 
   </USED_FUNCTIONS>
