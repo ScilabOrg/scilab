@@ -1,5 +1,5 @@
-function Applydefaultwindowparameters_()
-
+function Defaultwindowparameters_()
+Cmenu=[]
   pwindow_set_size();
   window_set_size();
   

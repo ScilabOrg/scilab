@@ -59,6 +59,29 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 
 
   if ~super_block then
+    //prepare from and to workspace stuff
+    curdir=getcwd()
+    chdir(TMPDIR)
+    mkdir('Workspace')
+    chdir('Workspace')
+    %a=who('get');
+    %a=%a(1:$-predef()+1);  // exclude protected variables
+    for %ij=1:size(%a,1) 
+      var=%a(%ij)
+      if var<>'ans' & typeof(evstr(var))=='st' then
+	ierr=execstr('x='+var+'.x','errcatch')
+        if ierr==0 then
+	   ierr=execstr('t='+var+'.t','errcatch')
+        end
+        if ierr==0 then
+	  execstr('save('"'+var+''",x,t)')
+        end
+      end
+    end
+    chdir(curdir)
+    // end of /prepare from and to workspace stuff
+    
+    //set up navigation
     super_path=[] // path to the currently opened superblock
     %scicos_navig=[]
     inactive_windows=list(list(),[])
@@ -502,7 +525,17 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     if %stack(2)/%stack(1)> 0.3 then                      //
       stacksize(2*%stack(1))                              //
       disp("Stacksize increased to "+string(2*%stack(1))) //
-    end        
+    end    
+    
+    if edited then
+      // store win dims, it should only be in do_exit but not possible
+      // now
+      data_bounds=gh_current_window.children.data_bounds
+      scs_m.props.wpar=[data_bounds(:)',gh_current_window.axes_size,..
+			xget('viewport'),gh_current_window.figure_size,..
+		       gh_current_window.figure_position]
+    end    
+    
     
     if %scicos_navig==[] then 
       if Scicos_commands<>[] then
@@ -672,6 +705,9 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       clearglobal inactive_windows
     end
   elseif Cmenu=="Leave" then
+    
+  
+    
     ok=do_save(scs_m,TMPDIR+'/BackupSave.cos') 
     if ok then  //need to save %cpr because the one in .cos cannot be
                 //used to continue simulation
@@ -700,6 +736,20 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       mprintf('%s\n','Your diagram is not saved. Do not quit Scilab or "+...
 	      "open a new Scicos diagram before returning to Scicos.')
     end
+    //prepare from and to workspace stuff
+
+    if find(%mac=='scilab2scicos') ==[] then
+      [txt,files]=returntoscilab()
+      n=size(files,1)
+      for i=1:n
+	load(TMPDIR+'/Workspace/'+files(i))
+	execstr(files(i)+'=struct('"x'",x,'"t'",t)')
+      end
+      execstr(txt)
+    end
+    
+    //
+    
   end
 
 

@@ -9,5 +9,12 @@ function scilab2scicos(win,x,y,ibut)
     end
   end
   scicos();
+  [txt,files]=returntoscilab()
+  n=size(files,1)
+  for i=1:n
+    load(TMPDIR+'/Workspace/'+files(i))
+    execstr(files(i)+'=struct('"x'",x,'"t'",t)')
+  end
+  execstr(txt)  
 endfunction
 

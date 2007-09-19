@@ -87,6 +87,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
               'Zoom in',..
 	      'Zoom out',..
               'Fit diagram to figure',..
+	      'Default window parameters',..
               'Available Parameters',..
               'Grid'];
 
