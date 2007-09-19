@@ -1237,8 +1237,10 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
   end
 
   //**
-  //** retrieve all open scilab windows with winsid
+  //** retrieve all open Scilab windows with winsid()
   //**
+
+  BeforeCG_WinList = winsid(); 
 
   ierr=execstr('[state,t]=scicosim(cpr.state,0,0,cpr.sim,'+..
                '''start'',scs_m.props.tol)','errcatch')
@@ -1252,11 +1254,38 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
                  '''finish'',scs_m.props.tol)','errcatch')
   end
 
-
   //**
-  //** retrieve all open scilab windows with winsid
+  //** retrieve all open Scilab windows with winsid
   //** and close the additional windows open since first
   //** 
+  //** Alan Layec and Simone Mannori
+ 
+  //** This code does not cover 100% of the possible situations because the user can 
+  //** destroy one or more Scicos wins manually during this intermediate phase
+  //** This code is 100% functional if the the user does not close manually any win.
+  //** TO BE updated in Scilab 5.0
+
+  AfterCG_WinList = winsid();
+  
+  AfterCG_size = size(AfterCG_WinList); //** matrix
+  AfterCG_size = AfterCG_size(2) ; //** vector lenght 
+
+  BeforeCG_size = size(BeforeCG_WinList); //** matrix
+  BeforeCG_size = BeforeCG_size(2) ; //** vector lenght
+
+  if (or(AfterCG_WinList<>BeforeCG_WinList)) & (AfterCG_size>BeforeCG_size) then
+     //** means that a scope or other scicos object has created some
+     //** output window
+
+     DiffCG_Winlist = AfterCG_WinList<>BeforeCG_WinList ; //** T/F mismatch 
+     DiffCG_Index = find(DiffCG_Winlist); //** recover the mismatched indexes only 
+
+     for win_idx = DiffCG_Index
+         delete( scf( AfterCG_WinList(win_idx) ) ) ; //** clear the spurious windows   
+     end 
+     
+  end  
+  //**------------- end of windows cleaning ----------------------------------------
 
   cpr.sim.funs=funs_save;
   cpr.sim.funtyp=funtyp_save;
