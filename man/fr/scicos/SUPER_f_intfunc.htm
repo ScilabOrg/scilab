@@ -67,7 +67,7 @@ case 'getorigin' then
     else
       %r=2
       %r=message(['SUPER BLOCK needs to be edited;';
-		  'Edit or exit by removing all edition'],['Edit'; ...
+		  'Edit or exit by removing all recent changes'],['Edit'; ...
 		    'Exit'])
       if %r==2 then 
 	xdel(curwin)

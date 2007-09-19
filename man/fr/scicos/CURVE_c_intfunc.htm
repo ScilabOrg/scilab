@@ -63,14 +63,12 @@ case 'getorigin' then
   SaveExit=%f
   while %t do
     Ask_again=%f
-    [ok,Method,Stxx,Styy,PeriodicOption,graf,exprs]=getvalue('Spline data',['Spline"+...
+    [ok,Method,xx,yy,PeriodicOption,graf,exprs]=getvalue('Spline data',['Spline"+...
 		    " Method (0..7)';'x';'y';'Periodic signal(y/n)?';'Launch"+...
-		    " graphic window(y/n)?'],list('vec',1,'str',1, ...
-						  'str',1,'str',1,'str',1),exprs)
+		    " graphic window(y/n)?'],list('vec',1,'vec',-1, ...
+						  'vec',-1,'str',1,'str',1),exprs)
     if  ~ok then break;end    
-    er=execstr('xx='+Stxx,'errcatch');   if er&lt;&gt;0 then, x_message('error in x'),  Ask_again=%t, end
-    er=execstr('yy='+Styy,'errcatch');   if er&lt;&gt;0 then, x_message('error in y'),  Ask_again=%t, end
-    if PeriodicOption=='y' | PeriodicOption=='Y' then,PO=1;else,PO=0;end
+    if PeriodicOption=='y' | PeriodicOption=='Y' then,PO=1;else,exprs(4)='n';PO=0;end
     mtd=int(Method); if mtd&lt;0 then mtd=0;end; if mtd&gt;7 then mtd=7;end;    
     METHOD=getmethod(mtd);
 
@@ -84,8 +82,8 @@ case 'getorigin' then
       xy=[xx,yy];
       [xy]=cleandata(xy);// just for sorting to be able to compare data before and after poke_point(.)
       N= size(xy,'r');
+      exprs(5)='n';// exprs.graf='n'
       if graf=='y' | graf=='Y' then //_______Graphic editor___________
-	exprs(5)='n';// exprs.graf='n'
 	ipar=[N;mtd;PO];
 	rpar=[];
         if ~exists('curwin') then
