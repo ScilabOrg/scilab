@@ -17,6 +17,46 @@
 
 //**--------------definition of some functions----------------**//
 //gen_outline_block
+function txt=gen_outline_all(list_of_scistruc,list_of_scifunc,listfABCD)
+  txt = ["<WHATIS>";
+         "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
+         "  <DATE>19 Septembre 2007</DATE>";
+         "";]
+
+  txt=[txt;
+       "  <CHAPTER eng=""Scicos Documentation by categories : "" fr=""Documentation Scicos par catégories : "">"
+       "  </CHAPTER>"]
+
+  txt=[txt;
+       "  <CHAPTER eng=""Batch / built_in functions"" fr=""Fonctions ligne de commande / utilitaires"">"]
+  for i=1:size(list_of_scifunc,1)
+     txt=[txt;
+          "   <SCI varpath="""" name="""+basename(list_of_scifunc(i,2))+"""></SCI>"]
+  end
+  txt=[txt;
+       "  </CHAPTER>"]
+
+  txt=[txt;
+       "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnée scilab"">"]
+  for i=1:size(list_of_scistruc,1)
+     txt=[txt;
+          "   <SCI varpath="""" name="""+basename(list_of_scistruc(i,2))+"""></SCI>"]
+  end
+  txt=[txt;
+       "  </CHAPTER>"]
+
+  txt=[txt;
+       "  <CHAPTER eng=""Blocks"" fr=""Blocs"">";]
+  for i=1:size(listfABCD,1)
+     txt=[txt;
+          "   <BLK varpath="""" name="""+basename(listfABCD(i,2))+"""></BLK>"]
+  end
+  txt = [txt;
+         "  </CHAPTER>"
+         "</WHATIS>"];
+endfunction
+
+//gen_outline_block
 function txt=gen_outline_block(listf)
   txt = ["<WHATIS>";
          "  <TITLE eng=""Scicos Documentation"" fr=""Documentation Scicos""></TITLE>";
@@ -566,6 +606,23 @@ function gen_scicos_whatis(%gd)
             'whatis.htm '+%gd.mpath.html(i)+'ABCD_Blocks.htm');
   end
   gen_whatis(%gd.mpath.data(1)+'/outline.xml',%gd);
+  for i=1:size(%gd.mpath.html,1)
+    unix_g(%gd.cmd.mv+%gd.mpath.html(i)+...
+            'whatis.htm '+%gd.mpath.html(i)+'whatis_scicos.htm');
+  end
+  gen_whatis(%gd.mpath.data(1)+'/whatis.xml',%gd);
+  for i=1:size(%gd.mpath.html,1)
+    tt=mgetl(%gd.mpath.html(i)+'whatis.htm');
+    tt=strsubst(tt,...
+                '<b><LI>Scicos Documentation by categories : </b>',...
+                '<b><LI>Scicos Documentation by categories : </b> <A HREF=""whatis_scicos.htm"">whatis_scicos</A> ');
+
+    tt=strsubst(tt,...
+                '<b><LI>Documentation Scicos par catégories : </b>',...
+                '<b><LI>Documentation Scicos par catégories : </b> <A HREF=""whatis_scicos.htm"">whatis_scicos</A> ');
+
+    mputl(tt,%gd.mpath.html(i)+'whatis.htm');
+  end
 endfunction
 
 //gen_scicos_doc : generate all the scicos doc
@@ -894,6 +951,23 @@ list_of_ABCDblocks=[my_list(find(my_list(:,3)=='block'),:);
 list_of_ABCDblocks=list_of_ABCDblocks(k,:);
 outline_txt=gen_outline_block(list_of_ABCDblocks);
 mputl(outline_txt,%gendoc.mpath.data(1)+'/ABCDblocks.xml');
+//**----------------------------------------------------------**//
+
+//**------------------whatis.xml generation------------------**//
+list_of_ABCDblocks=[my_list(find(my_list(:,3)=='block'),:);
+                    my_list(find(my_list(:,3)=='mblock'),:)];
+[s,k]=gsort(convstr(list_of_ABCDblocks(:,2)),'r','i');
+list_of_ABCDblocks=list_of_ABCDblocks(k,:);
+
+list_of_scifunc=[listf_of_autosci;listf_of_interf];
+[s,k]=gsort(convstr(list_of_scifunc(:,2)),'r','i');
+list_of_scifunc = list_of_scifunc(k,:);
+
+[s,k]=gsort(convstr(list_of_scistruc(:,2)),'r','i');
+list_of_scistruc = list_of_scistruc(k,:);
+
+outline_txt=gen_outline_all(list_of_scistruc,list_of_scifunc,list_of_ABCDblocks);
+mputl(outline_txt,%gendoc.mpath.data(1)+'/whatis.xml');
 //**----------------------------------------------------------**//
 
 //STEP_1 : Get the current set of xml/tex files of B4_scicos doc.
