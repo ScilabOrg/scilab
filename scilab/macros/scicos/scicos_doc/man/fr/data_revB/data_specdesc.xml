@@ -284,7 +284,8 @@
 </FILE>
 
 <FILE name='PDE' type='SPECIALDESC'>
-	dial_width_html=240pt
+	scale_blk_html=1.2
+	dial_width_html=290pt
 </FILE>
 
 <FILE name='PID' type='SPECIALDESC'>

@@ -1373,7 +1373,7 @@
 </FILE>
 
 <FILE name='PDE' type='XML'>
-<SHORT_DESCRIPTION name="PDE">PDE block</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="PDE">1D PDE block</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='PDE_intfunc' type='XML'>
