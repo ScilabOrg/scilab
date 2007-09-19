@@ -1913,6 +1913,7 @@
   <SHORT_DESCRIPTION name="TIME_f">TIME_f</SHORT_DESCRIPTION>
 </FILE>
 
+<FILE name='TOWS_c' type='XML'>
 <SHORT_DESCRIPTION name="TOWS_c">Données vers l'environnement Scilab</SHORT_DESCRIPTION>
 </FILE>
 
