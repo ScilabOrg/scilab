@@ -150,12 +150,12 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 1;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 0;
       ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
-       ptr_d[i]=1.1;
+       ptr_d[i]=0.;
       }
       break;
 
@@ -168,8 +168,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 1;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 1;
       ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
       for (i=0;i<2*nu*nz;i++) {
@@ -186,8 +186,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 1;
       ptr_c = (SCSINT8_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -204,8 +204,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 2;
       ptr_s = (SCSINT16_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -222,8 +222,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 4;
       ptr_l = (SCSINT32_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -240,8 +240,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 11;
       ptr_uc = (SCSUINT8_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -258,8 +258,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 12;
       ptr_us = (SCSUINT16_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -276,8 +276,8 @@ void towork_c(scicos_block *block,int flag)
       }
       ptr_i = (int*) ptr->work;
       ptr_i[6] = 8;
-      ptr_i[7] = nu*nz;
-      ptr_i[8] = 1;
+      ptr_i[7] = nz;
+      ptr_i[8] = nu;
       ptr_i[9] = 14;
       ptr_ul = (SCSUINT32_COP *) &(ptr_i[10]);
       for (i=0;i<nu*nz;i++) {
@@ -394,7 +394,7 @@ void towork_c(scicos_block *block,int flag)
    ptr_i = (int*) ptr->work;
 
    /* check */
-   if((nu*nz)!=ptr_i[7]) {
+   if ((nz!=ptr_i[7]) || (nu!=ptr_i[8])) {
       sciprint("Size of buffer or input size have changed!\n");
       set_block_error(-1);
       /* free */
@@ -420,7 +420,7 @@ void towork_c(scicos_block *block,int flag)
       u_d = GetRealInPortPtrs(block,1);
       ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_d[(ptr->cnt*nu)+i]=u_d[i];
+       ptr_d[ptr->cnt+i*nz]=u_d[i];
       }
       break;
 
@@ -429,8 +429,8 @@ void towork_c(scicos_block *block,int flag)
       u_cd = GetImagInPortPtrs(block,1);
       ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_d[(ptr->cnt*nu)+i]=u_d[i];
-       ptr_d[nz*nu+(ptr->cnt*nu)+i]=u_cd[i];
+       ptr_d[ptr->cnt+i*nz]=u_d[i];
+       ptr_d[nz*nu+ptr->cnt+i*nz]=u_cd[i];
       }
       break;
 
@@ -438,7 +438,7 @@ void towork_c(scicos_block *block,int flag)
       u_c = Getint8InPortPtrs(block,1);
       ptr_c = (SCSINT8_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_c[(ptr->cnt*nu)+i]=u_c[i];
+       ptr_c[ptr->cnt+i*nz]=u_c[i];
       }
       break;
 
@@ -446,7 +446,7 @@ void towork_c(scicos_block *block,int flag)
       u_s = Getint16InPortPtrs(block,1);
       ptr_s = (SCSINT16_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_s[(ptr->cnt*nu)+i]=u_s[i];
+       ptr_s[ptr->cnt*nu+i*nz]=u_s[i];
       }
       break;
 
@@ -454,7 +454,7 @@ void towork_c(scicos_block *block,int flag)
       u_l = Getint32InPortPtrs(block,1);
       ptr_l = (SCSINT32_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_l[(ptr->cnt*nu)+i]=u_l[i];
+       ptr_l[ptr->cnt+i*nz]=u_l[i];
       }
       break;
 
@@ -462,7 +462,7 @@ void towork_c(scicos_block *block,int flag)
       u_uc = Getuint8InPortPtrs(block,1);
       ptr_uc = (SCSUINT8_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_uc[(ptr->cnt*nu)+i]=u_uc[i];
+       ptr_uc[ptr->cnt+i*nz]=u_uc[i];
       }
       break;
 
@@ -470,7 +470,7 @@ void towork_c(scicos_block *block,int flag)
       u_us = Getuint16InPortPtrs(block,1);
       ptr_us = (SCSUINT16_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_us[(ptr->cnt*nu)+i]=u_us[i];
+       ptr_us[ptr->cnt+i*nz]=u_us[i];
       }
       break;
 
@@ -478,7 +478,7 @@ void towork_c(scicos_block *block,int flag)
       u_ul = Getuint32InPortPtrs(block,1);
       ptr_ul = (SCSUINT32_COP *) &(ptr_i[10]);
       for (i=0;i<nu;i++) {
-       ptr_ul[(ptr->cnt*nu)+i]=u_ul[i];
+       ptr_ul[ptr->cnt+i*nz]=u_ul[i];
       }
       break;
 
