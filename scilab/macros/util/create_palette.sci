@@ -46,7 +46,7 @@ function [routines,IntFunc]=create_palette(Path)
 	      'SAWTOOTH_f.sci'; 'STEP_FUNCTION.sci';
 	      'CLOCK_c.sci'; 'GENSIN_f.sci'; 'IN_f.sci';   'READC_f.sci';
 	      'TIME_f.sci'; 'Modulo_Count.sci';'Sigbuilder.sci';'Counter.sci';
-              'SampleCLK.sci']
+              'SampleCLK.sci';'FROMWS_c.sci']
 
       elseif txt=='Sinks' then
 	lisf=['AFFICH_m.sci';   'CMSCOPE.sci';
@@ -58,7 +58,7 @@ function [routines,IntFunc]=create_palette(Path)
 	      'CFSCOPE.sci';   'WRITEAU_f.sci';
 	      'CSCOPXY3D.sci';   'CANIMXY3D.sci';
 	      'CMATVIEW.sci';	'CMAT3D.sci'; 
-              'TOWORK_c.sci']
+              'TOWS_c.sci']
 	
       elseif txt=='Branching' then
 	lisf=['DEMUX.sci';

@@ -66,7 +66,7 @@ case 'define' then
  OutEnd=0;
  
  model=scicos_model();
- model.sim=list('fromws',4);
+ model.sim=list('fromws_c',4);
  model.out=-1;
  model.out2=1
  model.outtyp=-1
@@ -79,7 +79,7 @@ case 'define' then
  gr_i=['txt=[''From workspace''];'..
        ;'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'')']   
  exprs=[string(varnam),string(order),string(ZC),string(OutEnd)];
- x=standard_define([3 1.5],model,exprs,gr_i)
+ x=standard_define([3.5 2],model,exprs,gr_i)
 end
 endfunction
 

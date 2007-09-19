@@ -1,5 +1,5 @@
 //19 sept 2007 - INRIA - Author : A.Layec
-function [x,y,typ]=TOWORK_c(job,arg1,arg2)
+function [x,y,typ]=TOWS_c(job,arg1,arg2)
 x=[];y=[];typ=[]
 select job
 case 'plot' then
@@ -64,7 +64,7 @@ case 'define' then
   herit=0
 
   model=scicos_model();
-  model.sim=list('towork_c',4);
+  model.sim=list('tows_c',4);
   model.in=[nu];
   model.in2=1;
   model.intyp=-1;
@@ -80,6 +80,6 @@ case 'define' then
   gr_i=['txt=[''To workspace''];';
     'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');']
   exprs=[string(nz),string(varnam),string(herit)]
-  x=standard_define([3 2],model,exprs,gr_i)
+  x=standard_define([3.5 2],model,exprs,gr_i)
 end
 endfunction

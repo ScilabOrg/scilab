@@ -352,8 +352,9 @@ extern void relational_op __PARAMS((ARGS_scicos));
 extern void curve_c __PARAMS((ARGS_scicos));
 extern void counter __PARAMS((ARGS_scicos));
 extern void m_frequ __PARAMS((ARGS_scicos));
-extern void towork_c __PARAMS((ARGS_scicos));
+extern void tows_c __PARAMS((ARGS_scicos));
 extern void rndblkz_m __PARAMS((ARGS_scicos));
+extern void fromws_c __PARAMS((ARGS_scicos));
  
 OpTab tabsim[] ={
 {"absblk",(ScicosF) F2C(absblk)},
@@ -477,6 +478,7 @@ OpTab tabsim[] ={
 {"exttriu",(ScicosF) exttriu},
 {"exttriuz",(ScicosF) exttriuz},
 {"forblk",(ScicosF) F2C(forblk)},
+{"fromws_c",(ScicosF) fromws_c},
 {"fsv",(ScicosF) F2C(fsv)},
 {"gainblk_i16e",(ScicosF) gainblk_i16e},
 {"gainblk_i16n",(ScicosF) gainblk_i16n},
@@ -700,7 +702,7 @@ OpTab tabsim[] ={
 {"tcsltj",(ScicosF) F2C(tcsltj)},
 {"timblk",(ScicosF) F2C(timblk)},
 {"time_delay",(ScicosF) time_delay},
-{"towork_c",(ScicosF) towork_c},
+{"tows_c",(ScicosF) tows_c},
 {"trash",(ScicosF) F2C(trash)},
 {"variable_delay",(ScicosF) variable_delay},
 {"writeau",(ScicosF) writeau},
@@ -710,6 +712,6 @@ OpTab tabsim[] ={
 {"zcross",(ScicosF) F2C(zcross)},
 {(char *) 0, (ScicosF) 0}};
  
-int ntabsim= 352 ;
+int ntabsim= 353 ;
 #endif 
 /***********************************/

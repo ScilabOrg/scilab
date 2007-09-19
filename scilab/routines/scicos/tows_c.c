@@ -39,7 +39,7 @@ typedef struct {
   void *workt;
 } towork_struct ;
 
-void towork_c(scicos_block *block,int flag)
+void tows_c(scicos_block *block,int flag)
 /* Copyright INRIA */
 /* Put a typed vector in a scilab file.
  * Independant platform.
@@ -307,6 +307,7 @@ void towork_c(scicos_block *block,int flag)
  }
 
  else if (flag==5) { /* finish */
+
    ptr = *(block->work);
    /* */
    C2F(cvstr)(&(block->ipar[1]),&(block->ipar[2]),str,(j=1,&j), \
@@ -335,28 +336,28 @@ void towork_c(scicos_block *block,int flag)
    /* write data */
    switch (ut) {
     case SCSREAL_N    :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtd, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
       break;
     case SCSCOMPLEX_N :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=2*nz*nu,&j), fmtd, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=2*ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
       break;
     case SCSINT8_N    :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtc, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtc, &ierr);
       break;
     case SCSINT16_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmts, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmts, &ierr);
       break;
     case SCSINT32_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtl, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtl, &ierr);
       break;
     case SCSUINT8_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtuc, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtuc, &ierr);
       break;
     case SCSUINT16_N  :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtus, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtus, &ierr);
       break;
     case SCSUINT32_N  :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=nz*nu,&j), fmtul, &ierr);
+       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtul, &ierr);
       break;
     default  : /* Add a message here */
                break;
@@ -368,7 +369,7 @@ void towork_c(scicos_block *block,int flag)
    C2F(mputnc) (&fd, &ptr_i[0], (j=nsiz,&j), fmti, &ierr);
    C2F(mputnc) (&fd, &ptr_i[6], (j=1,&j), fmti, &ierr);
    C2F(mputnc) (&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);
-   C2F(mputnc) (&fd, &ptr_i[10], (j=nz,&j), fmtd, &ierr);
+   C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7],&j), fmtd, &ierr);
    /* a check must be done here on ierr */
 
    /* close tmp file */
@@ -397,16 +398,6 @@ void towork_c(scicos_block *block,int flag)
    if ((nz!=ptr_i[7]) || (nu!=ptr_i[8])) {
       sciprint("Size of buffer or input size have changed!\n");
       set_block_error(-1);
-      /* free */
-      if (ptr!=NULL) {
-        if (ptr->work!=NULL) {
-          scicos_free(ptr->work);
-        }
-        if (ptr->workt!=NULL) {
-          scicos_free(ptr->workt);
-        }
-        scicos_free(ptr);
-      }
    }
 
    /*
