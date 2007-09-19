@@ -169,6 +169,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                                    'Create Mask',..
                                    'Remove Mask',..
                                    'Customize Mask'),..
+			     'Region to Super Block',..
 			     'Help');
 
   //** state_var = 2 : right click in the void of the CURRENT Scicos Window
@@ -177,7 +178,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			     'Palettes',..
 			     'Context',..
 			     'Add new block',..
-			     'Region to Super Block',..
 			     'Replot',..
 			     'Save',..
 			     'Save As',..
@@ -188,6 +188,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 			     'Zoom in' ,..
 			     'Zoom out',..
                              'Pal Tree',..
+			     'Region to Super Block',..
                              'Browser',..
                              'Details',..
 			     'Help');
