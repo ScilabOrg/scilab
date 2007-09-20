@@ -55,9 +55,26 @@ void tows_c(scicos_block *block,int flag)
  int out_n;
  long int lout;
  char filename[FILENAME_MAX];
-
  /* for name of file */
  char str[100];
+ /* generic pointer */
+ SCSREAL_COP *u_d,*u_cd,*ptr_d;
+ SCSINT8_COP *u_c,*ptr_c;
+ SCSUINT8_COP *u_uc, *ptr_uc;
+ SCSINT16_COP *u_s,*ptr_s;
+ SCSUINT16_COP *u_us,*ptr_us;
+ SCSINT_COP *ptr_i;
+ SCSINT32_COP *u_l,*ptr_l;
+ SCSUINT32_COP *u_ul,*ptr_ul;
+ /* the struct ptr of that block */
+ towork_struct *ptr;
+ /* */
+ int nu,ut;
+ int nz;
+ double t;
+ /* local */
+ int i,j,k;
+ int ierr;
 
  /* for path of TMPDIR/workspace */
  char env[256];
@@ -68,28 +85,6 @@ void tows_c(scicos_block *block,int flag)
   sep[0]='/';
 #endif
   sep[1]='\0';
-
- /* generic pointer */
- SCSREAL_COP *u_d,*u_cd,*ptr_d;
- SCSINT8_COP *u_c,*ptr_c;
- SCSUINT8_COP *u_uc, *ptr_uc;
- SCSINT16_COP *u_s,*ptr_s;
- SCSUINT16_COP *u_us,*ptr_us;
- SCSINT_COP *ptr_i;
- SCSINT32_COP *u_l,*ptr_l;
- SCSUINT32_COP *u_ul,*ptr_ul;
-
- /* the struct ptr of that block */
- towork_struct *ptr;
-
- /* */
- int nu,ut;
- int nz;
- double t;
-
- /* local */
- int i,j,k;
- int ierr;
 
  /* retrieve param of that block */
  nu=GetInPortRows(block,1); /* number of rows of inputs*/

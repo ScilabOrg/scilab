@@ -18,6 +18,14 @@
 #define ZC        block->ipar[2+Fnlength]
 #define OutEnd    block->ipar[3+Fnlength]
 
+extern int C2F(cvstr) __PARAMS((integer *,integer *,char *,integer *,unsigned long int));
+extern int C2F(mgetnc)();
+extern void C2F(mopen)();
+extern int C2F(cluni0) __PARAMS((char *name, char *nams, integer *ln, long int name_len,
+                                long int nams_len));
+extern void C2F(mclose) __PARAMS((integer *fd, double *res));
+extern void sciprint __PARAMS((char *fmt,...));
+
 //int Myevalhermite(double *t, double *xa, double *xb, double *ya, double *yb, double *da, double *db, double *h, double *dh, double *ddh, double *dddh, int *i);
 
 static int id[nsiz];
@@ -66,6 +74,17 @@ void fromws_c(scicos_block *block,int flag)
   int Ytype, nPoints, mY, YsubType, my, ytype,j;
   int Ydim[10];
   int cnt1, cnt2, EVindex, EVcnt;
+  /* generic pointer */
+  SCSREAL_COP *y_d,*y_cd,*ptr_d;
+  SCSINT8_COP *y_c,*ptr_c;
+  SCSUINT8_COP *y_uc, *ptr_uc;
+  SCSINT16_COP *y_s,*ptr_s;
+  SCSUINT16_COP *y_us,*ptr_us;
+  SCSINT32_COP *y_l,*ptr_l;
+  SCSUINT32_COP *y_ul,*ptr_ul;
+ /* the struct ptr of that block */
+  fromwork_struct *ptr;
+
  /* for path of TMPDIR/workspace */
   char env[256];
   char sep[2];
@@ -75,17 +94,6 @@ void fromws_c(scicos_block *block,int flag)
   sep[0]='/';
 #endif
   sep[1]='\0';
-
- /* generic pointer */
- SCSREAL_COP *y_d,*y_cd,*ptr_d;
- SCSINT8_COP *y_c,*ptr_c;
- SCSUINT8_COP *y_uc, *ptr_uc;
- SCSINT16_COP *y_s,*ptr_s;
- SCSUINT16_COP *y_us,*ptr_us;
- SCSINT_COP *ptr_i;
- SCSINT32_COP *y_l,*ptr_l;
- SCSUINT32_COP *y_ul,*ptr_ul;
- fromwork_struct *ptr;
 
  my=GetOutPortRows(block,1); /* number of rows of Outputs*/
 
