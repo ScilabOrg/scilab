@@ -49,12 +49,20 @@ void  hystheresis(scicos_block *block,int flag)
 	block-&gt;outptr[0][0]=block-&gt;rpar[2];
       }else if (*block-&gt;inptr[0]&lt;=block-&gt;rpar[1]){
 	block-&gt;outptr[0][0]=block-&gt;rpar[3];
+      }else if ((block-&gt;outptr[0][0]!=block-&gt;rpar[3])&amp;&amp;(block-&gt;outptr[0][0]!=block-&gt;rpar[2])){
+	block-&gt;outptr[0][0]=block-&gt;rpar[3];
+	/* Handling sitauations where all zero-crossings are
+	   suppressed in discrete models. In this case, initial state
+	   is initialised to OFF*/
       }
     }else{
-      if (block-&gt;mode[0]&lt;2){
-	block-&gt;outptr[0][0]=block-&gt;rpar[3];
-      }else{
+      /* compatibility with simulink: when input value is located
+	   between two margines the OFF state is selected. Initial
+	   Mode is OFF (mode==0)*/
+      if (block-&gt;mode[0]==2){
 	block-&gt;outptr[0][0]=block-&gt;rpar[2];
+      }else{
+	block-&gt;outptr[0][0]=block-&gt;rpar[3];
       }
     } 
   } else if (flag==9){
