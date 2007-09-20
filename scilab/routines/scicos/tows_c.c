@@ -108,6 +108,7 @@ void tows_c(scicos_block *block,int flag)
                                           nz*sizeof(double)))==NULL) {
     set_block_error(-16);
     scicos_free(ptr);
+    *(block->work) = NULL;
     return;
    }
    ptr_i = (int*) ptr->workt;
@@ -140,7 +141,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(double)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -158,7 +161,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             2*nz*nu*sizeof(double)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -176,7 +181,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(char)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -194,7 +201,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(short)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -212,7 +221,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(long)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -230,7 +241,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(unsigned char)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -248,7 +261,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(unsigned short)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -266,7 +281,9 @@ void tows_c(scicos_block *block,int flag)
       if((ptr->work=(void *) scicos_malloc(6*sizeof(int)+4*sizeof(int)+ \
                                             nz*nu*sizeof(unsigned long)))==NULL) {
        set_block_error(-16);
+       scicos_free(ptr->workt);
        scicos_free(ptr);
+       *(block->work) = NULL;
        return;
       }
       ptr_i = (int*) ptr->work;
@@ -304,80 +321,77 @@ void tows_c(scicos_block *block,int flag)
  else if (flag==5) { /* finish */
 
    ptr = *(block->work);
-   /* */
-   C2F(cvstr)(&(block->ipar[1]),&(block->ipar[2]),str,(j=1,&j), \
-               (unsigned long)strlen(str));
-   str[block->ipar[1]] = '\0';
 
-   /* retrieve path of TMPDIR/workspace */
-   strcpy(env,getenv("TMPDIR"));
-   strcat(env,sep);
-   strcat(env,"Workspace");
-   strcat(env,sep);
-   strcat(env,str);
-
-   /* open tmp file */
-   status = "w";
-   lout=FILENAME_MAX;
-   C2F(cluni0)(env, filename, &out_n,1,lout);
-   C2F(mopen)(&fd,env,status,&swap,&res,&ierr);
-   /* a check must be done here on ierr */
-
-   /* write x */
-   ptr_i = (int*) ptr->work;
-   C2F(mputnc) (&fd, &ptr_i[0], (j=nsiz,&j), fmti, &ierr);  /* write sci id */
-   C2F(mputnc) (&fd, &ptr_i[6], (j=1,&j), fmti, &ierr);  /* write sci type */
-   C2F(mputnc) (&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);  /* write sci header */
-   /* write data */
-   switch (ut) {
-    case SCSREAL_N    :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
-      break;
-    case SCSCOMPLEX_N :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=2*ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
-      break;
-    case SCSINT8_N    :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtc, &ierr);
-      break;
-    case SCSINT16_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmts, &ierr);
-      break;
-    case SCSINT32_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtl, &ierr);
-      break;
-    case SCSUINT8_N   :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtuc, &ierr);
-      break;
-    case SCSUINT16_N  :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtus, &ierr);
-      break;
-    case SCSUINT32_N  :
-       C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtul, &ierr);
-      break;
-    default  : /* Add a message here */
-               break;
-   }
-   /* a check must be done here */
-
-   /* write t */
-   ptr_i = (int*) ptr->workt;
-   C2F(mputnc) (&fd, &ptr_i[0], (j=nsiz,&j), fmti, &ierr);
-   C2F(mputnc) (&fd, &ptr_i[6], (j=1,&j), fmti, &ierr);
-   C2F(mputnc) (&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);
-   C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7],&j), fmtd, &ierr);
-   /* a check must be done here on ierr */
-
-   /* close tmp file */
-   C2F(mclose)(&fd,&res);
-
-   /* free */
    if (ptr!=NULL) {
-     if (ptr->work!=NULL) {
-       scicos_free(ptr->work);
+     /* */
+     C2F(cvstr)(&(block->ipar[1]),&(block->ipar[2]),str,(j=1,&j), \
+                 (unsigned long)strlen(str));
+     str[block->ipar[1]] = '\0';
+
+     /* retrieve path of TMPDIR/workspace */
+     strcpy(env,getenv("TMPDIR"));
+     strcat(env,sep);
+     strcat(env,"Workspace");
+     strcat(env,sep);
+     strcat(env,str);
+
+     /* open tmp file */
+     status = "w";
+     lout=FILENAME_MAX;
+     C2F(cluni0)(env, filename, &out_n,1,lout);
+     C2F(mopen)(&fd,env,status,&swap,&res,&ierr);
+     /* a check must be done here on ierr */
+
+     /* write x */
+     ptr_i = (int*) ptr->work;
+     C2F(mputnc) (&fd, &ptr_i[0], (j=nsiz,&j), fmti, &ierr);  /* write sci id */
+     C2F(mputnc) (&fd, &ptr_i[6], (j=1,&j), fmti, &ierr);  /* write sci type */
+     C2F(mputnc) (&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);  /* write sci header */
+     /* write data */
+     switch (ut) {
+      case SCSREAL_N    :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
+        break;
+      case SCSCOMPLEX_N :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=2*ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
+        break;
+      case SCSINT8_N    :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtc, &ierr);
+        break;
+      case SCSINT16_N   :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmts, &ierr);
+        break;
+      case SCSINT32_N   :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtl, &ierr);
+        break;
+      case SCSUINT8_N   :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtuc, &ierr);
+        break;
+      case SCSUINT16_N  :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtus, &ierr);
+        break;
+      case SCSUINT32_N  :
+         C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtul, &ierr);
+        break;
+      default  : /* Add a message here */
+                 break;
      }
-     if (ptr->workt!=NULL) {
-       scicos_free(ptr->workt);
-     }
+     /* a check must be done here */
+
+     /* write t */
+     ptr_i = (int*) ptr->workt;
+     C2F(mputnc) (&fd, &ptr_i[0], (j=nsiz,&j), fmti, &ierr);
+     C2F(mputnc) (&fd, &ptr_i[6], (j=1,&j), fmti, &ierr);
+     C2F(mputnc) (&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);
+     C2F(mputnc) (&fd, &ptr_i[10], (j=ptr_i[7],&j), fmtd, &ierr);
+     /* a check must be done here on ierr */
+
+     /* close tmp file */
+     C2F(mclose)(&fd,&res);
+
+     /* free */
+     scicos_free(ptr->work);
+     scicos_free(ptr->workt);
      scicos_free(ptr);
    }
 
