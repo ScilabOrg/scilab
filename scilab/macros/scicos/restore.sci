@@ -1,4 +1,4 @@
-function restore(gh_curwin)
+function %zoom=restore(gh_curwin)
 //gh_curwin = scf(curwin);
   gh_current_window = gh_curwin ; 
   
@@ -11,7 +11,8 @@ function restore(gh_curwin)
   
   set_background(gh_curwin)   ;
   
-  if size(scs_m.props.wpar,'*')==12 then
+  if size(scs_m.props.wpar,'*')>12 then
+    %zoom=scs_m.props.wpar(13)
     pwindow_read_size(gh_curwin) ;
     window_read_size(gh_curwin)  ;
   else

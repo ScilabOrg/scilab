@@ -498,7 +498,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
   if %diagram_open then
     gh_current_window = gcf() ; //** get the current graphics window
      if (gh_current_window.user_data==[])| (~isequalbitwise(gh_current_window.user_data(1),scs_m)) then
-      restore(gh_current_window)
+      %zoom=restore(gh_current_window)
       execstr('drawobjs(scs_m)', 'errcatch') ; 
      else
       Select=gh_current_window.user_data(2)
@@ -527,13 +527,13 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       disp("Stacksize increased to "+string(2*%stack(1))) //
     end    
     
-    if edited then
+    if edited&or(winsid()==curwin) then
       // store win dims, it should only be in do_exit but not possible
       // now
       data_bounds=gh_current_window.children.data_bounds
       scs_m.props.wpar=[data_bounds(:)',gh_current_window.axes_size,..
 			xget('viewport'),gh_current_window.figure_size,..
-		       gh_current_window.figure_position]
+		       gh_current_window.figure_position,%zoom]
     end    
     
     
@@ -567,7 +567,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	    if isequal(%diagram_path_objective,super_path) then
 	      if ~or(curwin==winsid()) then 
 		gh_current_window = scf(curwin);
-                restore(gh_current_window)
+                %zoom=restore(gh_current_window)
                 execstr('drawobjs(scs_m)', 'errcatch') ; 
 		%scicos_navig=[];
 		Select_back=[];Select=[]
@@ -588,7 +588,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       %diagram_open=%t
       if ~or(curwin==winsid()) then 
 	gh_current_window = scf(curwin);
-        restore(gh_current_window)
+        %zoom=restore(gh_current_window)
         execstr('drawobjs(scs_m)', 'errcatch') ; 
 	Select_back=[];Select=[]
       else

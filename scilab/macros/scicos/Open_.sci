@@ -39,7 +39,8 @@ function Open_()
     clf() ; 
     set_background();
     
-    if size(scs_m.props.wpar,'*')==12 then
+    if size(scs_m.props.wpar,'*')>12 then
+      %zoom=scs_m.props.wpar(13)
       pwindow_read_size() ;
       window_read_size()  ;
     else
