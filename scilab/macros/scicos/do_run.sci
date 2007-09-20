@@ -155,7 +155,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
   tf=scs_m.props.tf;
 
   setmenu(curwin,'stop')
-  timer()
+//  timer()
   needreplay=%t
 
   ierr=execstr('[state,t]=scicosim(%cpr.state,%tcur,tf,%cpr.sim,'+..
@@ -184,7 +184,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
     ok=%f
   end
   xset('window',curwin)
-  disp(timer())
+  //disp(timer())
   unsetmenu(curwin,'stop')
 
   needreplay=resume(needreplay)
