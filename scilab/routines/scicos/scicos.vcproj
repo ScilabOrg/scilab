@@ -1498,6 +1498,9 @@ cd .. &gt;nul
 				RelativePath=".\shift_32_LA.c">
 			</File>
 			<File
+				RelativePath=".\shift_32_LC.c">
+			</File>
+			<File
 				RelativePath=".\shift_32_RA.c">
 			</File>
 			<File
@@ -1514,9 +1517,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\shift_8_RC.c">
-			</File>
-			<File
-				RelativePath=".\shift_i32.c">
 			</File>
 			<File
 				RelativePath=".\shift_u16_RA.c">
