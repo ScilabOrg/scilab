@@ -25,7 +25,13 @@ if typeof(o)=='Block' then
       needcompile=4  // this is perhaps too conservative
       enable_undo = %t
       edited=%t
-      Cmenu='Replot'
+      o_size = size(gh_current_window.children.children);
+      gh_k=get_gri(i,o_size(1))
+      drawlater();
+      update_gr(gh_k,o)
+      draw(gh_current_window.children);
+      show_pixmap() ;
+      //Cmenu='Replot'
    else
       message('Mask can only be created for Super Blocks.')
    end
