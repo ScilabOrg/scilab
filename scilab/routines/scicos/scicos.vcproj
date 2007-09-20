@@ -1483,9 +1483,6 @@ cd .. &gt;nul
 				RelativePath=".\selector_m.c">
 			</File>
 			<File
-				RelativePath=".\selector_zm.c">
-			</File>
-			<File
 				RelativePath=".\shift_16_LA.c">
 			</File>
 			<File
@@ -1499,9 +1496,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\shift_32_LA.c">
-			</File>
-			<File
-				RelativePath=".\shift_32_LC.c">
 			</File>
 			<File
 				RelativePath=".\shift_32_RA.c">
@@ -1522,13 +1516,7 @@ cd .. &gt;nul
 				RelativePath=".\shift_8_RC.c">
 			</File>
 			<File
-				RelativePath=".\shift_i16.c">
-			</File>
-			<File
 				RelativePath=".\shift_i32.c">
-			</File>
-			<File
-				RelativePath=".\shift_i8.c">
 			</File>
 			<File
 				RelativePath=".\shift_u16_RA.c">
@@ -1643,9 +1631,6 @@ cd .. &gt;nul
 			</File>
 			<File
 				RelativePath=".\switch2_m.c">
-			</File>
-			<File
-				RelativePath=".\switch2_zm.c">
 			</File>
 			<File
 				RelativePath=".\switchn.c">
