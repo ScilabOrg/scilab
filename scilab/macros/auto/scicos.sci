@@ -69,9 +69,9 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     for %ij=1:size(%a,1) 
       var=%a(%ij)
       if var<>'ans' & typeof(evstr(var))=='st' then
-	ierr=execstr('x='+var+'.x','errcatch')
+	ierr=execstr('x='+var+'.values','errcatch')
         if ierr==0 then
-	   ierr=execstr('t='+var+'.t','errcatch')
+	   ierr=execstr('t='+var+'.time','errcatch')
         end
         if ierr==0 then
 	  execstr('save('"'+var+''",x,t)')
@@ -743,7 +743,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       n=size(files,1)
       for i=1:n
 	load(TMPDIR+'/Workspace/'+files(i))
-	execstr(files(i)+'=struct('"x'",x,'"t'",t)')
+	execstr(files(i)+'=struct('"values'",x,'"time'",t)')
       end
       execstr(txt)
     end
