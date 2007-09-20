@@ -48,7 +48,6 @@ case 'set' then
                                    ones(1-herit,1),[])
 
         model.ipar=[nz;length(varnam);str2code(varnam)]
-        model.sim=list('towork_c',4)
         graphics.id=string(varnam)
         graphics.exprs=exprs
         x.graphics=graphics;

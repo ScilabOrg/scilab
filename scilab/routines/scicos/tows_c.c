@@ -393,6 +393,7 @@ void tows_c(scicos_block *block,int flag)
    if ((nz!=ptr_i[7]) || (nu!=ptr_i[8])) {
       sciprint("Size of buffer or input size have changed!\n");
       set_block_error(-1);
+      return;
    }
 
    /*

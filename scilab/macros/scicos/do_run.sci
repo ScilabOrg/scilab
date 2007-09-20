@@ -171,6 +171,7 @@ function [ok,%tcur,%cpr,alreadyran,needcompile,%state0,solver]=do_run(%cpr)
       %tcur=t
     end
   else
+    alreadyran=%f
     kfun=curblock()
     corinv=%cpr.corinv
     if kfun<>0 then
