@@ -19,7 +19,7 @@ function []=xdemo1(filen)
 
 	[lhs,rhs]=argn(0)
 	if rhs==1,driver("Pos"),xinit(filen);deff('[]=xshow(str)','1');end
-	xbasc();
+	clf();
 	plot2d([-100,500],[-100,600],[-1,-1],"022");
 	a=gca(); t=a.title;
 	t.text="rectangles, arcs, polylines, segments and numbers"; t.font_size=3;
@@ -32,7 +32,7 @@ function []=xdemo1(filen)
 	expr=['x=0:40:240;';
 	'boxes=[x;10*ones(x);30*ones(x);30*ones(x)];';
 	'xrects(boxes)'];
-	x_message("[I.1] function xrects : plot rectangles",expr);
+	x_message(["[I.1] function xrects : plot rectangles";expr]);
   execstr(expr);		
 
 	// Demo I.2
@@ -40,7 +40,7 @@ function []=xdemo1(filen)
 	'boxes=[x;45*ones(x);30*ones(x);30*ones(x)];';
 	'pats=[0,4,8,12,15,xget(''white''),0];';
 	'xrects(boxes,pats);'];
-	x_message("[I.2] fonction xrects : filling rectangles",expr);
+	x_message(["[I.2] fonction xrects : filling rectangles";expr]);
 	execstr(expr);
 	
 	// Demo I.3
@@ -49,7 +49,7 @@ function []=xdemo1(filen)
 	'arcs=[boxes; 0*ones(x);64*180*ones(x)];';
 	'pats=[0,4,8,12,15,xget(''white''),0];';
 	'xarcs(arcs,pats);'];
-	x_message("[I.3] xarcs(arcs,patterns)",expr);
+	x_message(["[I.3] xarcs(arcs,patterns)";expr]);
 	execstr(expr);
 	
 	// Demo I.4
@@ -57,7 +57,7 @@ function []=xdemo1(filen)
 	'boxes=[x;135*ones(x);30*ones(x);30*ones(x)];';
 	'arcs=[boxes; 0*ones(x);64*360*ones(x)];';
 	'xarcs(arcs);']
-	x_message("[I.4] xarcs(arcs)",expr);
+	x_message(["[I.4] xarcs(arcs)";expr]);
 	execstr(expr);
 	
 	// Demo I.5
@@ -67,51 +67,51 @@ function []=xdemo1(filen)
 	+ ';transl(x1,160);transl(x1,200);transl(x1,240)];';
 	'ypols=[y1;y1;y1;y1;y1;y1;y1];';
 	'xfpolys(xpols'',ypols'');'];
-	x_message("[I.5] xfpolys(x,y)",expr0);
-	execstr(expr);
+	x_message(["[I.5] xfpolys(x,y)";expr0]);
+	execstr(expr0);
 	
 	// Demo I.6
 	expr=[ expr0;
 	'ypols=transl(ypols,60);';
 	'pats=[0,4,8,12,15,xget(''white''),0];';
 	'xfpolys(xpols'',ypols'',pats);'];
-	x_message("[I.6] xfpolys(x,y,pattern)",expr);
+	x_message(["[I.6] xfpolys(x,y,pattern)";expr]);
   execstr(expr);
 
 	// Demo I.7
 	expr=[ expr0;
 	'ypols=transl(ypols,120);';
 	'xpolys(xpols'',ypols'',1:7);'];
-	x_message("[I.7] xpolys(x,y,line-style)",expr);
+	x_message(["[I.7] xpolys(x,y,line-style)";expr]);
   execstr(expr);
 
 	// Demo I.8
 	expr=[ expr0;
 	'ypols=transl(ypols,180);';
 	'xpolys(xpols'',ypols'',-(1:7));'];
-	x_message("[I.8] xpolys(x,y,line-style)",expr);
+	x_message(["[I.8] xpolys(x,y,line-style)";expr]);
   execstr(expr);
 
 	// Demo I.9
 	expr=['x=0:40:240;';
 	'xsegs([x;x+30*ones(x)],[(360+40)*ones(x);(360+70)*ones(x)]);']
-	x_message("[I.9] xsegs(x,y)",expr);
+	x_message(["[I.9] xsegs(x,y)";expr]);
   execstr(expr);
 
 	// Demo I.10
 	expr=['x=0:40:240;';
 	'xarrows([x;x+30*ones(x)],[(360+70)*ones(x);(360+100)*ones(x)]);'];
-	x_message(["[I.10] xarrows(x,y)"],expr);
+	x_message(["[I.10] xarrows(x,y)";expr]);
   execstr(expr);
 
 	// Demo I.11
 	expr=['x=0:100:200;';
 	'xnumb(x,500*ones(x),[10,20,35],1);';
 	'xnumb(x,550*ones(x),[10,20,35],0);';];
-	x_message(["[I.10] xnumb()"],expr);
+	x_message(["[I.10] xnumb()";expr]);
   execstr(expr);
   
-	xset("default");xclip();
+	curFig=gcf();defFig=gdf();curFig=defFig;xclip();
 	if rhs==1,xend();end
 endfunction
 
@@ -127,8 +127,8 @@ function []=xdemo2(filen)
 	
 	[lhs,rhs]=argn(0)
 	if rhs==1,driver("Pos"),xinit(filen);deff('[]=xshow(str)','1');end
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	plot2d([-100,500],[-100,600],[-1,-1],"022");
 	a=gca(); t=a.title;
 	t.text="rectangles, arcs, polylines and strings"; t.font_size=3;
@@ -139,21 +139,21 @@ function []=xdemo2(filen)
 
 	// Demo II.1
 	expr="xrect(20,120,60,60);"
-	x_message(["[II.1] xrect : draw one rectangle with current line style"],expr);
+	x_message(["[II.1] xrect : draw one rectangle with current line style";expr]);
   execstr(expr);
 
 	// Demo II.2
 	expr="xfrect(100,120,60,60);"
-	x_message(["[II.1] xfrect : fill one rectangle with current pattern"],expr);
+	x_message(["[II.1] xfrect : fill one rectangle with current pattern";expr]);
   execstr(expr);
 	// Demo II.3
 	expr="xarc(20,200,50,70,0,64*(225));"
-  x_message(["[II.2] xarc : draw part of an elipsis"],expr);
+  x_message(["[II.2] xarc : draw part of an elipsis";expr]);
   execstr(expr);
 
 	// Demo II.4
 	expr="xfarc(100,200,50,70,0,64*225);"
-	x_message(["[II.2] xfarc : fill part of an elipsis"],expr);
+	x_message(["[II.2] xfarc : fill part of an elipsis";expr]);
   execstr(expr);
 
 	// Demo II.5
@@ -168,25 +168,25 @@ function []=xdemo2(filen)
 	"xset(''mark'',4,6);";
 	"x1=transl(x1,80);";
 	"xpoly(x1,y1,''marks'',0);"]
-	x_message(["[II.3] xpoly(x,y,""marks"",0)"],expr);
+	x_message(["[II.3] xpoly(x,y,""marks"",0)";expr]);
   execstr(expr);
 
 	// Demo II.6
 	expr=[expr0;"x1=transl(x1,160);";
 	"xpoly(x1,y1,''lines'',0);"];
-	x_message(["[II.3] xpoly(x,y,""lines"",0)"],expr);
+	x_message(["[II.3] xpoly(x,y,""lines"",0)";expr]);
   execstr(expr);
 
 	// Demo II.7
 	expr=[expr0;"x1=transl(x1,240);";
 	"xpoly(x1,y1,''lines'',1);"]
-	x_message(["[II.3] xpoly(x,y,""lines"",1)"],expr);
+	x_message(["[II.3] xpoly(x,y,""lines"",1)";expr]);
   execstr(expr);
 
 	// Demo II.8
 	expr=[expr0;"x1=transl(x1,320);";
 	"xfpoly(x1,y1,1);"]
-	x_message(["[II.4] xfpoly(x,y,1)"],expr);
+	x_message(["[II.4] xfpoly(x,y,1)";expr]);
   execstr(expr);
 
 	// Demo II.9
@@ -194,17 +194,17 @@ function []=xdemo2(filen)
 	"xstring(200,200,''Character string'',0,0);";
 	"xstring(200,250,''Character string'',0,1);";
 	"xstring(400,300,''Chaine '',45,0);"];
-	x_message(["[II.5] xstring"],expr);
+	x_message(["[II.5] xstring";expr]);
   execstr(expr);
 
 	// Demo II.10
 	expr=["rect=xstringl(350,200,''Character string'');";
 	"xrect(rect(1),rect(2),rect(3),rect(4));"]
-	x_message(["[II.6] xstringl";],expr);
+	x_message(["[II.6] xstringl";expr]);
   execstr(expr);
 
 	if rhs==1,xend();end
-	xset("default");xclip();
+	curFig=gcf();defFig=gdf();curFig=defFig;xclip();
 
 endfunction
 
@@ -218,9 +218,9 @@ endfunction
 
 function []=xdemo3()
 
-	xbasc();
+	clf();
 	dr=driver();
-	xset("default");driver(dr)
+	curFig=gcf();defFig=gdf();curFig=defFig;driver(dr)
 	plot2d([-100,500],[-100,600],[-1,-1],"022");
 	a=gca(); t=a.title;
 	t.text="setting proporties"; t.font_size=3;
@@ -234,7 +234,7 @@ function []=xdemo3()
 	"x1=[sin(x);10*sin(x)];";
 	"y1=[cos(x);10*cos(x)];";
 	"xsegs(10*x1+200*ones(x1),10*y1+200*ones(y1));"];
-	x_message(["[III.1] segments"],expr);
+	x_message(["[III.1] segments";expr]);
   execstr(expr);
 
 	// Demo III.2
@@ -246,14 +246,14 @@ function []=xdemo3()
 	"y1=transl(y1,20);";
 	"xsegs(10*x1+200*ones(x1),10*y1+200*ones(y1));";
 	"xset(''clipgrf'');";];
-	x_message(["[III.2] segments+clipping zone"],expr);
+	x_message(["[III.2] segments+clipping zone";expr]);
   execstr(expr);
 
 	// Demo III.3
 	expr=["xset(''dashes'',1,2,2);";
 	"xget(''dashes'',1);";
 	"xrect(140,470,120,170);"];
-	x_message(["[III.3] Setting a dash style"],expr);
+	x_message(["[III.3] Setting a dash style";expr]);
   execstr(expr);
 
 	// Demo III.4
@@ -273,7 +273,7 @@ function []=xdemo3()
 	"xstring(0,310,''Scilab'');";
 	"xset(''font'',4,5);";
 	"xstring(0,350,''Scilab'');"]
-	x_message(["[III.4] Setting font style and size"],expr);
+	x_message(["[III.4] Setting font style and size";expr]);
   execstr(expr);
 
 	// Demo III.5
@@ -281,7 +281,7 @@ function []=xdemo3()
 	"xlfont(''-*-helvetica-bold-r-normal--*-%s0-*-*-p-*-*-1'',6);";
 	"xset(''font'',6,3);";
 	"xstring(100,260,''helVB'',0,1);"];
-	x_message(["[III.5] Loading a new font hlevB is now font 6"],expr);
+	x_message(["[III.5] Loading a new font hlevB is now font 6";expr]);
   execstr(expr);
 
 	// Demo III.6
@@ -291,7 +291,7 @@ function []=xdemo3()
 	expr=[expr0;
 	"xset(''mark'',6,2);";
 	"xpoly(x1,y1,''marks'',0);"];
-	x_message(["[III.6] changing current mark"],expr);
+	x_message(["[III.6] changing current mark";expr]);
 	execstr(expr);
 	
 	// Demo III.7
@@ -300,22 +300,22 @@ function []=xdemo3()
 	"xpoly(x1,y1+50*ones(x1),''marks'',0);";
 	"xset(''mark'',8,3);";
 	"xpoly(x1,y1+100*ones(x1),''marks'',0);"];
-	x_message(["[III.7] changing current mark"],expr);
+	x_message(["[III.7] changing current mark";expr]);
   execstr(expr);
 
 	// Demo III.8
 	expr=["xset(''thickness'',5);";
 	"xrect(400,200,50,100);";];
-	x_message(["[III.8] Thickness)"],expr);
+	x_message(["[III.8] Thickness)";expr]);
   execstr(expr);
 
 	// Demo III.9
 	expr=["xfrect(400,50,50,100);";
 	"xclea(410,50,10,100);"];
-	x_message(["[III.9] Clear a rectangle"],expr);
+	x_message(["[III.9] Clear a rectangle";expr]);
   execstr(expr);
 
-	xset("default");
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	xclip();
 
 endfunction
@@ -330,8 +330,8 @@ function []=xdemo4(display)
 	
 	[lhs,rhs]=argn(0)
 	if rhs==0,display="unix:0.0",end
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	plot2d([-100,500],[-100,600],[-1,-1],"022");
 	a=gca(); t=a.title;
 	t.text="window proporties"; t.font_size=3;
@@ -344,17 +344,17 @@ function []=xdemo4(display)
 	"plot2d()";
 	"a=gca(); t=a.title;"
 	"t.text=""window proporties""; t.font_size=3;"];
-	x_message(["[IV.1] Creating a new window"],expr);
+	x_message(["[IV.1] Creating a new window";expr]);
   execstr(expr);
 
 	// Demo IV.2
 	expr=["xset(''window'',0);";
 	"xselect();";]
-	x_message("[IV.2] Selecting and raising window 0]",expr);
+	x_message(["[IV.2] Selecting and raising window 0]";expr]);
   execstr(expr);
 
 	if rhs==1,xend();end
-	xset("default");
+	curFig=gcf();defFig=gdf();curFig=defFig;
 
 endfunction
 
@@ -368,8 +368,8 @@ endfunction
 function xdemo5()
 	
 	// xfpolys
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 
 	// Demo V
 	expr=[
@@ -386,7 +386,7 @@ function xdemo5()
 	"end;"
 	"c=0:(n-1);"
 	"xfpolys(xx,yy,c);xclip();"];
-	x_message("[V]",expr);
+	x_message(["[V]";expr]);
   execstr(expr);
 
 endfunction
@@ -399,8 +399,8 @@ endfunction
 
 function xdemo6()
 
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	expr=[
 	"rect=[0,0,100,100];"
 	"plot2d(0,0,[0],''012'',''leg'',rect);"
@@ -416,7 +416,7 @@ function xdemo6()
 	"  end"
 	"end"
 	"xfpolys(xx,yy,(1:16));xclip();"];
-	x_message("[VI]",expr);
+	x_message(["[VI]";expr]);
   execstr(expr);
 
 endfunction
@@ -430,8 +430,8 @@ endfunction
 
 function xdemo7()
 
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	expr=[
 	"plot2d(0,0,[0],''012'',''leg'',[0,0,30,20]);"
 	"a=gca(); t=a.title;	"
@@ -443,7 +443,7 @@ function xdemo7()
 	"xx=[x,x+d,x+2*d,x+3*d,x+4*d,x+5*d];"
 	"yy=[y,5*y,2*y,10*y,8*y,6*y];"
 	"xfpolys(xx,yy,2*[1 2 3 4 5 6]);xclip();"];
-	x_message("[VII Colored histogram]",expr);
+	x_message(["[VII Colored histogram]";expr]);
   execstr(expr);
 
 endfunction
@@ -457,8 +457,8 @@ endfunction
 
 function xdemo8()
 
-	xbasc();
-	xset("default");
+	clf();
+	curFig=gcf();defFig=gdf();curFig=defFig;
 	expr=[
 	"plot2d(0,0,[0],''032'',''leg'',[-1.5,-1.5 ,1.5,1.5]);"
 	"a=gca(); t=a.title;	"
@@ -469,7 +469,7 @@ function xdemo8()
 	"    -1,1,2,2,64*(120),64*(70);"
 	"    -1,1,2,2,64*(190),64*(360-190)];"
 	"xfarcs(alls'',[1,3,5,7]);xclip();"];
-	x_message("[VIII  Colored histogram]",expr);
+	x_message(["[VIII  Colored histogram]";expr]);
   execstr(expr);
 
 endfunction
