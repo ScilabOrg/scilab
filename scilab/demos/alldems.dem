@@ -6,6 +6,6 @@ lines(0)
 global demolist
 // Demos list is defined in scilab.star
 
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice('SCI/demos/','root');
 
