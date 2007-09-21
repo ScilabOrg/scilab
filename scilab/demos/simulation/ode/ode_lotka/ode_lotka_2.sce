@@ -20,10 +20,10 @@ xmin=0; xmax=4; ymin=0; ymax=4;
 fx=xmin:0.5:xmax; fy=ymin:0.5:ymax;
 
 toolbar(0,'off');
-fchamp(f,1,fx,fy)
+fchamp(f,1,fx,fy);
 a=gca();
-a.x_label.text="y1",a.x_label.font_size=3;
-a.y_label.text="y2",a.y_label.font_size=3;
+a.x_label.text="y1";a.x_label.font_size=3;
+a.y_label.text="y2";a.y_label.font_size=3;
 
 t0=0; tmax=10;
 t=t0:0.05:tmax;

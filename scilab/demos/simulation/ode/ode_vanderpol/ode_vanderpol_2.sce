@@ -19,10 +19,10 @@ xr=xmin:0.5:xmax; yr=ymin:1:ymax;
 
 clf();
 toolbar(0,'off');
-fchamp(f,1,xr,yr)
+fchamp(f,1,xr,yr);
 a=gca();
-a.x_label.text="y1",a.x_label.font_size=3;
-a.y_label.text="y2",a.y_label.font_size=3;
+a.x_label.text="y1";a.x_label.font_size=3;
+a.y_label.text="y2";a.y_label.font_size=3;
 
 fig=gcf();fig.pixmap='on';
 show_pixmap();
