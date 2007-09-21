@@ -1,10 +1,10 @@
 function demo_car()
-  demo_help demo_car
+//  demo_help demo_car
   initial=[3;3;0;0]
   final=[0;0;0;0]
   f = gcf() ;
   f.pixmap = 'on' ;
-  toolbar(0,'off');
+  toolbar(f.figure_id,'off');
   state=car_solve(initial,final);
   display_car_trajectory(state)
 endfunction
@@ -85,7 +85,7 @@ endfunction
 
 function display_car_trajectory(state)
   bigL=1
-  set figure_style new;xbasc();xselect()
+  set figure_style new;clf();xselect()
   a=gca()
   drawlater()
   a.isoview="on"
@@ -173,3 +173,4 @@ function h=polyline(xy)
   xpoly(xy(:,1),xy(:,2),'lines')
   h=gce()
 endfunction
+

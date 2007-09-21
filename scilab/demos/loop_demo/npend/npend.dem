@@ -1,12 +1,13 @@
 mode(-1);
 // Copyright ENPC
 
-path="SCI/demos/npend";
+path="SCI/demos/loop_demo/npend";
 
-getf(path+'/macros.sci');
+getf(path+'/macros_old.sci');
 getf(path+'/dessin.sci');
 
-xbasc();set("figure_style","old")
+clf();
+set("figure_style","new")
 flag1=x_choose(['Read a precomputed trajectory';
         'Simulation with ode (needs f77 and link. may fail. see help link)'],...
          'Simulation or Visualisation ? (click below)');
@@ -21,7 +22,7 @@ case 2 then
   tt=0:0.05:10;
   yt=ode(y0,0,tt,'npend');
   xselect();
-  xbasc();
+  clf();
   chaina(yt);
   flag=2 ; 
   y=[]; for i=1:n;y=[y;'theta'+string(i)];end
@@ -36,7 +37,7 @@ case 2 then
       yt=ode(y0,0,tt,'npend');
       met=x_choose(['With last point trajectory';'Without'],...
 	  'Graphic Option');
-      xbasc();
+      clf();
       if met==1; chainb(yt);else;chaina(yt);end
     end
   end

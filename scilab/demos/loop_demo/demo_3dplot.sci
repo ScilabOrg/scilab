@@ -1,5 +1,5 @@
 function demo_3dplot()
-demo_help demo_3dplot
+//demo_help demo_3dplot
 
 // exemple of colorbar
 x = linspace(0,1,41);
@@ -7,11 +7,12 @@ z = cos(2*%pi*x)'*sin(2*%pi*x);
 zm = min(z); zM = max(z);
 zz = abs(0.5*cos(2*%pi*x)'*cos(2*%pi*x));
 zzm = min(zz); zzM = max(zz);
-xbasc();
-xset("colormap",jetcolormap(64))
-set("figure_style",'new');
-new_styl = get("figure_style") == "new";
-if new_styl then, drawlater(), end
+clf();
+curFig = gcf();
+curFig.color_map = jetcolormap(64);
+curFig.figure_style = "new";
+
+drawlater();
 
 SetPosition() ;
 subplot(2,2,1)
@@ -32,14 +33,14 @@ subplot(2,2,4)
    xtitle("a Sgrayplot with a colorbar")
    
 SetPosition();
-if new_styl then, drawnow(), end
+drawnow()
 
 realtimeinit(1.0)
 for i=1:10, 
   realtime(i);
 end
 
-xdel() ;
+delete(gcf()) ;
 
 
 //example of spline2d
@@ -59,19 +60,18 @@ zp1 = interp2d(XP, YP, x, x, splin2d(x,x,z));
 zp2 = interp2d(XP, YP, x, x, splin2d(x,x,z,"monotone"));
 // plot
 drawlater()
-xbasc()
+clf()
 SetPosition() ;
-xset("colormap",jetcolormap(128))
+curFig = gcf();
+curFig.color_map = jetcolormap(128);
 subplot(1,2,1)
    plot3d1(xp, xp, zp1, flag=[-2 6 4])
-   //xtitle("spline (not_a_knot)")
    a = gca() ;
    t = a.title ;
    t.text = "spline (not_a_knot)" ;
    t.font_size = 3 ;
 subplot(1,2,2)
    plot3d1(xp, xp, zp2, flag=[-2 6 4])
-   //xtitle("subspline (monotone)")
    f= gcf();
    f.color_map = jetcolormap(512) ;
    a = gca() ;
@@ -86,6 +86,6 @@ for i=1:10,
  realtime(i);
 end
 
-xdel() ;
+delete(gcf()) ;
 
 endfunction

@@ -1,5 +1,5 @@
 function demo_pendulum()
-  demo_help demo_pendulum
+//  demo_help demo_pendulum
   npend_build_and_load() ;
   n=np();
   r=ones(1,n);
@@ -75,11 +75,13 @@ function draw_chain_from_coordinates(x,y,job)
   [n1,n2]=size(x);
  
   //set the frame
-  xbasc();
+  clf();
   f = gcf() ;
+  toolbar(f.figure_id,"off");
   f.pixmap = 'on' ;
-  SetPosition() ;
-  set figure_style new;a=gca()
+  SetPosition() ;//////////////////////////////////////////Comment this line when test alone./////////////////
+  set figure_style new;
+  a=gca()
   a.data_bounds=2*[-n1,-n1;n1,0];
   a.isoview = 'on' ;
   
@@ -109,4 +111,3 @@ function draw_chain_from_coordinates(x,y,job)
     show_pixmap() ;
   end
 endfunction
-

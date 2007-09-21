@@ -1,16 +1,19 @@
 function demo_signal()
-  demo_help demo_signal
+  //demo_help demo_signal
+   
+  clf();
+  curFig = gcf();
+  curFig.figure_style = "new";
+  xselect();
   SetPosition();
-  
-  set figure_style old; //xselect();xbasc();
-    //xset("wpos",500,16);xset("wdim",500*0.9,350*0.9);
-  //xset('wpos',620,16);xset('wdim',600,540);
+
   subplot(221)
   hz=iir(3,'bp','ellip',[0.15 0.25],[0.08 0.035]);
   [hzm,fr]=frmag(hz,256);
   plot2d(fr',hzm')
-  xset("font size",3) ;
-  xtitle('Discrete  elliptic IIR filter',' ',' ');
+  curAxe = gca();
+  curAxe.font_size = 3;
+  curAxe.title.text = "Discrete  elliptic IIR filter";
 
   subplot(222)
   hn=eqfir(33,[0 .23;.27 .5],[1 0],[1 .1]);
@@ -35,6 +38,7 @@ function demo_signal()
    [hm,fr]=frmag(hn,maxi(size(ds)));
    plot2d(fr',hm'),
    xtitle('Remez Triangular filter','frequency','magnitude');
+   
   subplot(224)
 
    [wft,wfm,fr]=wfir('lp',33,[.2 0],'kr',[5.6 0]);
@@ -44,5 +48,6 @@ function demo_signal()
           'Kaiser window,cut-off:0.2';...
           'length 33'])
 realtimeinit(0.1),for k=1:60,realtime(k),end
-xdel()
+delete(gcf())
 endfunction
+

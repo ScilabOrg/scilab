@@ -7,23 +7,32 @@ function demo_datafit()
   for x=0:.1:3, Y=[Y,FF(x)+100*(rand()-.5)];X=[X,x];end
   Z=[Y;X];
   //show the data points
-  xbasc();
-  fs = get('figure_style');
-  set figure_style old;
-  xset("wpos",600,16);
-  xset("wdim",600*0.9,400*0.9);
+  clf();
+  curFig = gcf();
+  fs = curFig.figure_style;
+  curFig.figure_style = "new";
+  curFig.figure_position = [600,16];  
+  curFig.figure_size = [600*0.9,400*0.9];
+  pix = curFig.pixmap;
+  curFig.pixmap = "on";
   xselect();
+  curAxe = gca();
+  curAxe.title.font_size = 3;
+  curAxe.title.text ="non linear data fitting";
   plot2d(X',Y',style=-1,leg='Experimental data');
-  xtitle('non linear data fitting');
-  //xset("fontsize",3);    //doesn't work
+  show_pixmap();
+  
   realtimeinit(0.1);for k=1:20,realtime(k),end
   // solve the non linear data fitting
   [p,err]=datafit(G,Z,[3;5;10])
   // show the fitting curve
   plot2d(X',FF(X)',[5,2],'002','Fitting function');
-  ;;
+  show_pixmap();
  realtimeinit(0.1);for k=1:30,realtime(k),end
   set('old_style','off')
+  
+  curFig.pixmap = pix;
+  curFig.figure_style = fs;
 endfunction
 
 function y=FF(x)

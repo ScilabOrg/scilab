@@ -1,45 +1,49 @@
 function demo_riemann()
-  set('old_style','on');
-  demo_help demo_riemann
-  xbasc();
+
+  //demo_help demo_riemann
+  clf();
+  curFig = gcf();
   xselect();
-  C=hotcolormap(200);C=C(1:$-40,:); 
-  //xset("wpos",1,1);
-  //xset('wdim',700 ,900);
-  SetPosition_old() ;
-  //
-  w=xget('window');
-  //SetPosition();
-  //toolbar(0,'off');
-  xset('colormap',C);xset('color',30);//fond();
+  curFig.figure_style = "new";
+  toolbar(curFig.figure_id,"off");
+  kp = curFig.pixmap;
+  curFig.pixmap = 'on';
   
-  [z,s]=cplxroot(4,25) //compute
-  xset('pixmap',1)
+  C=hotcolormap(200);C=C(1:$-40,:); 
+  curFig.figure_size = [700,900];
+
+  curFig.color_map = C;
+  curAxe = gca();
+  n=size(C,1)
+  curFig.background = n+1;
+  curAxe.background = n+1; 
+  curAxe.foreground = n+2;
+  
+  curAxe.font_color = n+2;
+  curAxe.x_label.foreground = n+2;
+  curAxe.y_label.foreground = n+2;
+  curAxe.z_label.foreground = n+2;
+  
+  [z,s]=cplxroot(3,20) //compute
+  curFig.pixmap = 'on';
   cplxmap(z,s,163,69)  //draw
-  xset('wshow')
-  realtimeinit(0.001)
-  for i=1:100,
-    k = 2 * i ;
+
+  realtimeinit(0.1)
+  for i=1:10,
+    k = i ;
     realtime(k),
-    //if modulo(k,10)==0 then
-      xset('wwpc')
-      
-      cplxmap(z,s,163+k/10,69+k/20)  //draw
-      
-
-      xset('wshow')
-    //end
-
+    drawlater();
+    curAxe.rotation_angles = [69+k/2,163+k];
+    drawnow();
+    show_pixmap();
   end
-  xdel(xget('window'))
-  set('old_style','off');
+
+  curFig.pixmap = kp;
+  
+  realtimeinit(0.1),for k=1:60,realtime(k),end
+  delete(gcf());
 endfunction
 
-function fond()
-  n=size(xget('colormap'),1) ;
-  xset('background',n+1) ; 
-  xset('foreground',n+2);
-endfunction
 
 
 
@@ -51,7 +55,8 @@ function cplxmap(z,w,varargin)
 x = real(z);
 y = imag(z);
 u = real(w);v = imag(w);
-ncols=size(xget('colormap'),1)
+//ncols=size(xget('colormap'),1)
+ncols=size(curFig.color_map,1)
 [X,Y,U]=nf3d(x,y,u);
 [X,Y,V]=nf3d(x,y,v);
 Colors = sum(V,'r');

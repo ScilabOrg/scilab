@@ -1,7 +1,7 @@
 // Copyright INRIA
 // Simple Example
 
- xbasc()
+ clf()
 // ODE definition
  deff('[xd]=lin(t,x,a)','xd=a*x')
  a=[1 1;0 2];

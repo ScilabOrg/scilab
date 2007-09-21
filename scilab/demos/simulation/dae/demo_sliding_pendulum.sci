@@ -40,7 +40,7 @@ function demo_sliding_pendulum()
     realtime(i)
     draw_sliding_pendulum(H,sol(2:4,i))
   end
-  //xdel()
+  xdel()
 endfunction
 
 
@@ -69,7 +69,7 @@ endfunction
 function  H=build_sliding_pendulum ()
 //build the sliding pendulum figure and graphic objects, 
 //return the handle on moving parts
-  xbasc();
+  clf();
   //set the figure
   set figure_style new;xselect()
   f=gcf();a=gca();f.pixmap='on';drawlater()
@@ -108,8 +108,5 @@ function  draw_sliding_pendulum (H,state)
   b = H.children(1); b.data=[xp-r,yp+r,2*r,2*r,0,360*64];
   drawnow();
   show_pixmap()
-  a=gca();
-  a.title.text='sliding pendulum, ""upside down camel""';
-  a.title.font_size=3;
 endfunction
 

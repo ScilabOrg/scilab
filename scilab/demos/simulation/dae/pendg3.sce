@@ -32,8 +32,9 @@ r=0.05;
 xp=x+l*sin(teta); yp=y-l*cos(teta);
 xp1=x+(l-r)*sin(teta); yp1=y-(l-r)*cos(teta);
 
-xbasc()
-xset("pixmap",1)
+clf()
+curFig = gcf();
+curFig.pixmap = "on";
 
 xmin=-1.5; xmax=1.5; ymin=-1.1; ymax=0.9;
 vx=[xmin:0.01:xmax]';

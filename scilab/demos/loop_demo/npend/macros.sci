@@ -93,10 +93,10 @@ function []=npend_build_and_load()
   if ~c_link('npend') then
     cd = getcwd(); 
     chdir(TMPDIR); 
-    fcode=mgetl(SCI+'/demos/npend/Maple/dlslv.f');mputl(fcode,'dlslv.f')
-    fcode=mgetl(SCI+'/demos/npend/Maple/ener.f');mputl(fcode,'ener.f')
-    fcode=mgetl(SCI+'/demos/npend/Maple/np.f');mputl(fcode,'np.f')
-    fcode=mgetl(SCI+'/demos/npend/Maple/npend.f');mputl(fcode,'npend.f')
+    fcode=mgetl(path+'/Maple/dlslv.f');mputl(fcode,'dlslv.f')
+    fcode=mgetl(path+'/Maple/ener.f');mputl(fcode,'ener.f')
+    fcode=mgetl(path+'/Maple/np.f');mputl(fcode,'np.f')
+    fcode=mgetl(path+'/Maple/npend.f');mputl(fcode,'npend.f')
     files = ['npend.o','np.o','ener.o','dlslv.o' ];
     ilib_for_link(['npend';'np';'ener'],files,[],"f");
     exec loader.sce 

@@ -1,8 +1,9 @@
 // Copyright ENPC
 
-xbasc();
-fs = get('figure_style');
-set("figure_style","old");
+clf();
+curFig = gcf();
+curFig.figure_style = "new";
+toolbar(curFig.figure_id, "off");
 
 select num,
  case 0
@@ -29,7 +30,7 @@ select num,
 	  //               SIMULATION
 	  x=ode(x0,tmin,times,'wheel');
 	  xselect();
-	  xbasc();
+	  clf();
 	  show(x);
 	  ystr=[ 'phi';'theta';'psi';'Dpsi';'Dtheta';'Dpsi';'x';'y'];
         flag=2;
@@ -38,16 +39,18 @@ select num,
                 if flag==2,x0=evstr(x_mdialog(['Initial conditions'],...
                       ystr,string(x(:,n2))));
   		x=ode(x0,tmin,times,'wheel');
-  		xbasc();show(x)
+  		clf();show(x)
 		end;
 	 end
 	end
  case 1 then // A precomputed value for 
 	     //x0=[0;%pi/2+0.1;0;5.0;0.0;4.0;0;0];
-	x=read(path+'/x.wrt',8,301);
+	x=read('SCI/demos/simulation/wheel2/x.wrt',8,301);
 	wheelg=wheelgs;
 	show(x);
+	
+	toolbar(curFig.figure_id, "on");
 end
 
-set('figure_style',fs);
+//set('figure_style',fs);
 

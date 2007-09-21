@@ -25,12 +25,12 @@ deff('[ut]=uu(t)','ut=[sin(3*t);cos(0.5*t)]');
 dt=0.05;tmax=60;
 instants=0:dt:tmax;
 totrack=flts(uu(instants),dscr(Model,dt));    //Signal
-xbasc();
+clf();
 plot2d(instants',totrack');
 
 demo_message('SCI/demos/control/tracking/track_2.sce')
 
-xbasc()
+clf()
 //
 [L,M,T]=gfrancis(Plant,Model);
 

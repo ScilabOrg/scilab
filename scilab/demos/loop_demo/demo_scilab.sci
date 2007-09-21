@@ -1,6 +1,6 @@
 function demo_scilab()
-  demo_help demo_scilab
-  // Définition des variables
+//  demo_help demo_scilab
+  // Definition des variables
 
 x=[1 2 3 4 5 6 7 8 9 10 11 12];
 y=[ 0 0 0 ; ..

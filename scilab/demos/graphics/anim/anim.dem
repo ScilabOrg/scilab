@@ -1,6 +1,7 @@
-// Copyright Enpc
-
-getf('SCI/demos/demos_lib/demo_begin.sci');
+exec('SCI/demos/demos_lib/demo_begin.sci');
+exec('SCI/demos/demos_lib/demo_message.sci');
+exec('SCI/demos/demos_lib/demo_run.sci');
+exec('SCI/demos/demos_lib/demo_end.sci');
 
 demolist=['Rotation of a 3D Surface (plot3d1)','anim1/anim1_gateway.sce';
 	'3D curve (param3d)','anim2/anim2_gateway.sce';
@@ -8,8 +9,7 @@ demolist=['Rotation of a 3D Surface (plot3d1)','anim1/anim1_gateway.sce';
 	'Rotation of a 3D contour','anim4/anim4_gateway.sce';
 	'Evolution of a 3D surface (plot3d)','anim5/anim5_gateway.sce';
 	'N link pendulum movement','anim6/anim6_gateway.sce';
-	'Riemann surface','anim7/anim7_gateway.sce';
-	'Shell','anim8/anim8_gateway.sce'];
+	'Shell','anim7/anim7_gateway.sce'];
 
 getf('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice('SCI/demos/graphics/anim/','anim');

@@ -1,5 +1,5 @@
 function demo_isoSurf()
-demo_help demo_isoSurf
+//demo_help demo_isoSurf
 
 
 //display an isosurface with Gouraud shaded triangles
@@ -9,6 +9,7 @@ demo_help demo_isoSurf
 //cd ../
 
 f = gcf() ;
+toolbar(f.figure_id,"off");
 SetPosition();
 f.color_map = graycolormap(1024);
 drawlater();
@@ -24,7 +25,7 @@ end;
 [xx,yy,zz]=isosurf3d(x,y,z,-s,-.18);
 c= shadecomp(xx,yy,zz,[1,0,1],3,2);
 
-xbasc();
+clf();
 //xtitle('Isosurface resulting of the attraction of two spheres');
 plot3d(xx,yy,list(zz,c*(xget('lastpattern')-1)+1))
 e = gce();
@@ -63,7 +64,7 @@ c3=shadecomp(xx3,yy3,zz3,l,2,2);
 
 // group them and plot them (each in a different shade)
 data=list(xx1,yy1,zz1,c1,2,xx2,yy2,zz2,c2,6,xx3,yy3,zz3,c3,3);
-xbasc();
+clf();
 //xtitle('Shaded 3d objects of different colors') ;
 oplot3d(data,nc*ones(1,5),45,80)
 
@@ -77,8 +78,9 @@ t.text = 'Shaded 3D objects of different colors' ;
 t.font_size = 5 ;
 drawnow();
 for i=1:180
+  drawlater();
   a.rotation_angles(2) = a.rotation_angles(2) + 2 ;
-  show_pixmap() ;
+  drawnow();show_pixmap() ;
 end;
 
 
@@ -101,9 +103,9 @@ function [xx,yy,zz]=isosurf3d(x,y,z,s,s0)
 // example: see the demo below.
 //
 // Plot with:
-//    xbasc(); plot3d1({xx;xx(1,:)},{yy;yy(1,:)},{zz;zz(1,:)})
+//    clf(); plot3d1({xx;xx(1,:)},{yy;yy(1,:)},{zz;zz(1,:)})
 // or
-//    xbasc(); shadesurf(xx,yy,zz)
+//    clf(); shadesurf(xx,yy,zz)
 //
 // note: this implementation is rather slow, surely due to the
 //       nested loops and hypermat operations, which I don't know
@@ -132,8 +134,8 @@ if rhs==0 then
 // the -0.2 surface gives a good example of the saddle point hole, btw
     aa=string(size(xx,2))+" triangles, "+string(t)+" sec --> "+..
        string(size(xx,2)/t)+" triang./sec"
-    disp "  xbasc(); shadesurf(xx,yy,zz,1,0,60,60,''x@y@z'',[1 6 4])"
-    xbasc();  shadesurf(xx,yy,zz,1,0,60,60,'x@y@z',[1 6 4])
+    disp "  clf(); shadesurf(xx,yy,zz,1,0,60,60,''x@y@z'',[1 6 4])"
+    clf();  shadesurf(xx,yy,zz,1,0,60,60,'x@y@z',[1 6 4])
     xx=aa;
     return
 end;
@@ -948,7 +950,7 @@ if rhs==0 then
      '   phi=alpha(i);';..
      '   x(:,i)=s*cos(phi); y(:,i)=h; z(:,i)=s*sin(phi);';..
      'end';..
-  'xbasc(); [xx,yy,zz]=spaghetti(x,y,z,0.08); shadesurf(xx,yy,zz,10);']
+  'clf(); [xx,yy,zz]=spaghetti(x,y,z,0.08); shadesurf(xx,yy,zz,10);']
   write(%io(2),comm)
   execstr(comm)
   xtitle('demo for spaghetti()')
@@ -1258,8 +1260,10 @@ cname(k)='BlackBands'; execstr(cname(k)+"=...
 
 if lhs==0 then
 // demo - interactive choice of colormaps
-  currwin=xget('window')
-  a=winsid(); xset('window',a($)+1); // note that if a=[], a+1=1
+  curFig = gcf();
+  currwin = curFig.figure_id;
+  a=winsid(); 
+  scf(a($)+1); // note that if a=[], a+1=1
   for j=-k:k;
     setcmap(j,nc);
     subwind(j+k+1,2*k+1,1);
@@ -1273,12 +1277,12 @@ if lhs==0 then
     i=x_choose(string((-k:k)')+' '+..
      [cname(k:-1:1);'Scilab''s default';cname],..
              'Choose one colormap!','Forget!')-k-1
-    xdel(a($)+1); xset('window',currwin); setcmap(i,nc,1)
+    xdel(a($)+1); scf(currwin); setcmap(i,nc,1)
     return
 end
 
 
-if i==0 then xset("default"); end
+if i==0 then sdf(); end
 if abs(i)>k then 
   write(%io(2)," ")
   write(%io(2),"0 default graphic context")
@@ -1294,7 +1298,8 @@ if abs(i)>=1 & abs(i)<=k then
     execstr("ccol=[ccol;(sign(-i(j))+1)/2-sign(-i(j))*"+..
              cname(abs(i(j)))+"]"); 
   end
-  xset('colormap',ccol)
+  curFig = gcf();
+  curFig.color_map = ccol;
   if r<>0 then write(%io(2),'redrawing...'); xbasr(xget("window")); end
 end
 
@@ -1302,4 +1307,3 @@ nc=xget("lastpattern")
 // reset and returned, just for consistency check
 
 endfunction
-

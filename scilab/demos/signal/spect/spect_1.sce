@@ -4,7 +4,7 @@
 mode(1)
 clc;
 // Copyright INRIA
-xselect();xbasc(); 
+xselect();clf(); 
  
 //generate white data
    rand('normal');
@@ -39,7 +39,7 @@ xselect();xbasc();
    a.y_label.text="magnitude";
    a.title.font_size=3;
    x_message('Click OK to continue.');
-   ;xbasc(); 
+   ;clf(); 
  
 //pspect example
    [sm1]=pspect(100,200,'tr',y);
@@ -52,7 +52,7 @@ xselect();xbasc();
    a.y_label.text="spectral power";
    a.title.font_size=3;
    x_message('Click OK to continue.');
-   xbasc(); 
+   clf(); 
  
 //cspect example
    [sm2]=cspect(100,200,'tr',y);

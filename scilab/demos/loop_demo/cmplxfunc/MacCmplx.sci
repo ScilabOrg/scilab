@@ -2,10 +2,10 @@ function []=TitleWithSelectedFont(titre,ftype,fsize)
    // To draw a title with a selected font without
    // change the current font
    // Bruno (10/10/2001): macros for the complex function dem
-   savefont = xget("font")
-   xset("font",ftype,fsize)
-   xtitle(titre)
-   xset("font",savefont(1),savefont(2))
+   curAxe = gca();
+   curAxe.title.text = titre;
+   curAxe.title.font_style = ftype;
+   curAxe.title.font_size = fsize;
 endfunction
 
 function [xr,yr,zr,xi,yi,zi] = CmplxFacets(R,e,TypeDomain,TypeCut,n,StrFunc)
@@ -78,7 +78,10 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
   [xr,yr,zr,xi,yi,zi] = CmplxFacets(R,e,TypeDomain,TypeCut,n,StrFunc)
 
   // draw
-  xbasc()
+  clf();
+  curFig = gcf();
+  curFig.pixmap = "on";
+  toolbar(curFig.figure_id,"off");
   xsetech([0,0,1,1],[0,0,1,1])
    
   Rs = string(R);
@@ -113,4 +116,5 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
      param3d1(xx,yy,list(zz,32),theta,alpha,flag=[0,0])
   end
   xselect()
+  show_pixmap();
 endfunction

@@ -210,7 +210,7 @@ endfunction
 
 function display_truck_trajectory(state)
    bigL = 1 ; d1 = 1.5 ; d2 = 1;
-  set figure_style new;xbasc(),xselect()
+  set figure_style new;clf(),xselect()
   a=gca()
   drawlater()
   a.isoview="on"

@@ -1,7 +1,7 @@
 function []=show(xx,t,p,f_name)
 //[]=show(xx,t,p,[f_name])
 // Just show the bike evolution
-// t ans p are the spherical angles of the observation point
+// t and p are the spherical angles of the observation point
 // given in radian
 // f_name is the function name to use for display 
 // f_name can be velo1 or velo2 or velo3

@@ -3,7 +3,8 @@ getf('SCI/demos/demos_lib/demo_file_choice.sci');
 
 demolist=['n-pendulum','npend/npend_gateway.sce';
 	  'Wheel simulation','wheel2/wheel_gateway.sce';
-	  'Bike Simulation','bike/bike_gateway.sce';
+	  'Bike simulation','bike/bike_gateway.sce';
+	  'Flow simulation','flow/flow_gateway.sce';
 	  'ODE''S','ode/ode.dem';
 	  'DAE''S','dae/dae.dem']
 

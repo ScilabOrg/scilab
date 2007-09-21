@@ -1,5 +1,5 @@
 function demo_optloc()
-  demo_help demo_optloc
+//  demo_help demo_optloc
   stacksize(1D7)
   n=20; //le nombre de points
 
@@ -7,17 +7,24 @@ function demo_optloc()
   Alpha=round(99*rand(n,1))+1;
   Beta=round(99*rand(n,1))+1;
   
-  xbasc();
-  SetPosition ;
-  set figure_style old;
-  //xset("wpos",500,16);xset("wdim",600*0.9,400*0.9);
+  clf();
+  SetPosition() ;
+  curFig = gcf();
+  curFig.figure_style = "new";
+  toolbar(curFig.figure_id, "off");
   xselect();
-  xset('mark size',4)
-  plot2d(Alpha,Beta,style=-10,rect=[1 1 100 100])
-  xset("font size", 5 ) ;
-  xtitle('Position des consommateurs et des services potentiels')
-  realtimeinit(0.1);for k=1:10,realtime(k),end
-  xset("font size", 1 ) 
+  curAxe = gca();
+  curAxe.mark_size = 4;
+  plot2d(Alpha,Beta,style=-9,rect=[1 1 100 100])
+  e = gce();
+  e.children.mark_style = 9; 
+  e.children.mark_size_unit = "point";
+  
+  curAxe.font_size = 1;
+  curAxe.title.text = "Position des consommateurs et des services potentiels";
+  curAxe.title.font_size = 5;
+
+  realtimeinit(0.1);for k=1:10,realtime(k),end 
 
   //Choix des cout de contruction cj
   C=100*ones(n,1); // cout tous egaux
@@ -25,11 +32,17 @@ function demo_optloc()
   [X1,Y1]=optloc(Alpha,Beta,C);
 
   kf=find(Y1>0);
-  xset('color',5)
-  plot2d(Alpha(kf),Beta(kf),style=[-10,1],leg='Ressources 1')
-  xset('color',1)
+  plot2d(Alpha(kf),Beta(kf),style = [-9,2],leg='Ressources 1')
+  e = gce();
+  e.children.mark_style = 9; 
+  e.children.mark_size_unit = "point";
+  e.children.mark_foreground = 5;
+
+
   [ic,jc]=find(X1>0);
   xsegs([Alpha(ic) Alpha(jc)]',[Beta(ic),Beta(jc)]',12)
+
+
 
 
   C=800*ones(n,1); // cout tous egaux
@@ -37,11 +50,15 @@ function demo_optloc()
   [X1,Y1]=optloc(Alpha,Beta,C);
   disp(timer())
   kf=find(Y1>0);
-  xset('color',9)
-  plot2d(Alpha(kf),Beta(kf),style=[-10,2],leg='Ressources 2')
-  xset('color',1)
+
+  plot2d(Alpha(kf),Beta(kf),style=[-9,2],leg='Ressources 2');
+  e = gce();
+  e.children.mark_style = 9; 
+  e.children.mark_size_unit = "point";
+  e.children.mark_foreground = 9;
+
   [ic,jc]=find(X1>0);
-  xsegs([Alpha(ic) Alpha(jc)]',[Beta(ic),Beta(jc)]',15)
+  xsegs([Alpha(ic) Alpha(jc)]',[Beta(ic),Beta(jc)]',15);
   realtimeinit(0.1);for k=1:30,realtime(k),end
   xdel() ;
 endfunction
@@ -116,3 +133,4 @@ function [X,Y]=optloc(Alpha,Beta,C)
   printf("4\n");
 
 endfunction
+

@@ -5,7 +5,7 @@
 
 function demo_geneal()
 
-demo_help demo_geneal
+//demo_help demo_geneal
 
 
 //SetPosition();
@@ -539,3 +539,4 @@ mprintf ("\nFin normale d''exécution du programme / Correct end of running\n");
 xdel() ;
 
 endfunction
+

@@ -28,7 +28,7 @@ for x=fr,res1=[ res1, gxx(x)];end;
 //
 leg="log(p) :using macro mese @ theoriqal value@log(p) : arma identifcation"
 halt();
-xbasc();
+clf();
 xtitle('Spectral power','frequency','spectral estimate')
 plot2d([fr;fr;fr]',[20*log(sm/sm(1))/log(10);...
   20*log(res/res(1))/log(10);...

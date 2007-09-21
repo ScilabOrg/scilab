@@ -1,13 +1,15 @@
 function demo_truck()
-  demo_help demo_truck
+//  demo_help demo_truck
   initial = [-2;3;0.5235988;0;0;1]
   final   = [0;0;0;0;0;0]
   state = truck_solve(initial,final);
   f = gcf() ;
   f.pixmap = 'on' ;
-  toolbar(0,'off') ;
+  toolbar(f.figure_id,'off') ;
   display_truck_trajectory(state)
 endfunction
+
+
 function titlepage(str,win)
 //titlepage(str) genere une page de titres graphiques contenant la ma-
 //trice de chaines de caracteres str ecrite centree dans  la page avec
@@ -16,15 +18,17 @@ function titlepage(str,win)
 //origine S Steer INRIA 1989
 // Copyright INRIA
 [lhs,rhs]=argn(0)
-old=xget('window')
-if rhs==2 then xset('window',win);end
-set figure_style new 
+curFig = gcf();
+old = curFig.figure_id;
+if rhs==2 then scf(win);end
+curFig.figure_style = "new"; 
 xrect(0,1,1,1)
-xset('font',1,5)
-a.font_size=5;
+curAxe = gca();
+curAxe.font_style = 1;
+curAxe.font_size=5;
 
 xstringb(0,0,str,1,1,'fill');
-xset('window',old)
+scf(old)
 endfunction
 
 
@@ -228,7 +232,10 @@ endfunction
 
 function display_truck_trajectory(state)
    bigL = 1 ; d1 = 1.5 ; d2 = 1;
-  set figure_style new;xbasc(),xselect()
+  clf();xselect();
+  f = gcf();
+  f.figure_style = "new";
+  toolbar(f.figure_id,"off");
   a=gca()
   drawlater()
   a.isoview="on"
@@ -377,3 +384,4 @@ function h=polyline(xy)
   xpoly(xy(:,1),xy(:,2),'lines')
   h=gce()
 endfunction
+

@@ -92,7 +92,7 @@ while %t do
     break
   case 1
     mode(1)
-    xbasc(1);xset("window",1);xselect();bode(Tpid);
+    clf(1);scf(1);xselect();bode(Tpid);
     mode(-1)
   case 2
     if Plant(4)=='c' then
@@ -113,14 +113,14 @@ while %t do
 	warning('Demo stops!');return;
       end
       if n1==1 then 
-	xbasc(1);xset("window",1);xselect();
+	clf(1);scf(1);xselect();
 	plot2d([t',t'],[(csim('step',t,Tpid))',ones(t')])
   a=gca();
   a.title.text='PID, step response'
   a.title.font_size=3;
       end
       if n1==2 then
-	xbasc(1);xset("window",1);xselect();
+	clf(1);scf(1);xselect();
 	plot2d([t',t'],[(csim('impul',t,Tpid))',0*t'])
 	a=gca();
   a.title.text='PID, impulse response'
@@ -148,7 +148,7 @@ while %t do
 	case 1 then
 	  mode(1)
 	  u=ones(1,Tmax);u(1)=0;
-	  xbasc(1);xset("window",1);xselect();
+	  clf(1);scf(1);xselect();
 	  plot2d([(1:Tmax)',(1:Tmax)'],[(dsimul(Tpid,u))',(ones(1:Tmax)')])
 	  a=gca();
     a.title.text='PID, step response'
@@ -158,7 +158,7 @@ while %t do
 	case 2 then
 	  mode(1)
 	  u=zeros(1,Tmax);u(1)=1;
-	  xbasc(1);xset("window",1);xselect();
+	  clf(1);scf(1);xselect();
 	  plot2d((1:Tmax)',(dsimul(Tpid,u))')
 	  a=gca();
     a.title.text='PID, impulse response'

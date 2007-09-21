@@ -1,9 +1,12 @@
 function demo_multiflow(gfile)
 //              The Graph
   //demo_help demo_multiflot
-  grs=get('old_style');set('old_style','on')
+ 
   win=edit_graph(editgraph_diagram(),1,[700,616])
-  xset("wpos",600,16);xset("wdim",600*0.9,400*0.9);
+  curFig = gcf();
+  curFig.figure_style = "new";
+  curFig.figure_position = [600,16];
+  curFig.figure_size = [600*0.9,400*0.9];
   ge_set_nodes_id('Label')
   ge_set_arcs_id('Label')
   
@@ -121,6 +124,5 @@ function demo_multiflow(gfile)
   realtimeinit(0.1);for k=1:30,realtime(k),end // wait a little
   ge_do_quit(%f)
  
-  set('old_style',stripblanks(grs))
 endfunction
 	

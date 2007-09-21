@@ -9,7 +9,15 @@ function []=show(xx,t,p)
 // xx= [theta,phi,psi,teta,phi,psi,x,y]
 // !
 // Copyright ENPC
-  curFont = xget("font");
+
+  curFig = gcf();
+  toolbar(curFig.figure_id,"off");
+  xselect();
+  curFig.pixmap = "on";
+  curAxe = gca();
+  curFont(1) = curAxe.font_style;
+  curFont(2) = curAxe.font_size;
+  
   [lhs,rhs]=argn(0)
   if rhs <= 2 , p=%pi/3;end
   if rhs <= 2 , t=%pi/3;end
@@ -50,40 +58,51 @@ function []=show(xx,t,p)
   //[4] plotting frame
   t=t*180/%pi,p=p*180/%pi,
   plot3d([xmin,xmax],[ymin,ymax],zmin*ones(2,2),t,p," ",[0,1,0],rect);
-  xset("font",curFont(1),3);
-  xtitle('wheel simulation');
-  //[4'] I want to plot the rays with xpoly so i first use geom3d
-  [xr,yr]=geom3d(xr,yr,zr);
 
-  //[4''] Same to use xpoly so i first use geom3d
-  [xu,yu]=geom3d(xu,yu,zu);
-
-  //[5] animation 
-  xset("alufunction",6)
+  
+  curAxe = gca();
+  curAxe.font_style = curFont(1);
+  curAxe.font_size = 3;
+  
+  
+    deff('[]=traj(i)',['j=i+1;';
+		     'param3d(xu(1,i:j),yu(1,i:j),zu(1,i:j),t,p,'" "',[0,0])';
+		     ]);
+  
   [n1,n2]=size(xu);
   get_wheel_rti(%t);
   if ~isdef('wheel_rti') then wheel_rti=0.03;end 
+  
   realtimeinit(wheel_rti);
   realtime(0)
-  for i=1:1:n2-1,
-    wheeld(i);
+  plot3d(xu(:,1),yu(:,1),zu(:,1),t,p,flag=[1,0,0])
+  e = gce();  
+  e.hiddencolor = -1;
+  
+  param3d(xu(1,1:2),yu(1,1:2),zu(1,1:2),t,p," ",[0,0]);
+  e1 = gce();
+  
+  
+  for i=2:1:n2-1,
+
+    drawlater();
     realtime(i);
-    wheeld(i);
-    ww=i:i+1;
-    xpoly(xu(1,ww)',yu(1,ww)',"lines");
+
+    e.data.x=xu(:,i);
+    e.data.y=yu(:,i);
+    e.data.z=zu(:,i);
+    trajdata = e1.data;
+    trajdata = [trajdata; xu(1,i),yu(1,i),zu(1,i)];
+    e1.data = trajdata;
+    drawnow();
+    show_pixmap();
+
   end
-  wheeld(n2-1);
-  xset("alufunction",3);
   [wheel_rti]=resume(wheel_rti);
-  xset("font",curFont(1),curFont(2));
+  toolbar(curFig.figure_id,"on");
+  curAxe.font_style = curFont(1);
+  curAxe.font_size = curFont(2);
 endfunction 
-
-function []=wheeld(i)
-// Copyright ENPC
-  xpoly(xu(:,i),yu(:,i),"lines");
-  xpoly(matrix(xr(:,i),2,4),matrix(yr(:,i),2,4),"lines");
-endfunction 
-
 
 function []=wheeld(i)
 // Copyright ENPC

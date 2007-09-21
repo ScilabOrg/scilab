@@ -149,7 +149,7 @@ function demo_sliding_pendulum()
 // Claude Gomez
 // Copyright INRIA
 
-  demo_help  demo_sliding_pendulum
+//  demo_help  demo_sliding_pendulum
 // données
 g=10; M=1; k=0.35; l1bar=1; m1=1; k1=40; l2bar=1; m2=1; k2=40;
 // conditions initiales données

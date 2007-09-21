@@ -123,8 +123,8 @@ function [pk]=snapshot(pt,view,frames,pmode)
          pk=pt(k:pc:pr,:);
       end,
       if pmode=='3d' then,
-         plotdb(pk,'agc',[0,%pi/4],'x'),pause,xbasc();
+         plotdb(pk,'agc',[0,%pi/4],'x'),pause,clf();
       else,
-         contour(1:pc,1:pc,pk,10),pause,xbasc();
+         contour(1:pc,1:pc,pk,10),pause,clf();
       end,
     end;

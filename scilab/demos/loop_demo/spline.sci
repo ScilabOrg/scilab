@@ -1,10 +1,11 @@
 function demo_spline()
 clear;lines(0);
-demo_help demo_scilab
-set('old_style','off');
-set("figure_style","new");
-//xset("wpos",600,16);xset("wdim",600*0.9,400*0.9);
-SetPosition() ;
+//demo_help demo_scilab
+curFig = gcf();
+curFig.figure_style = "new";
+toolbar(curFig.figure_id,"off");
+xselect();
+//SetPosition() ;
 
 
 // example 4 : trilinear interpolation (see splin3d help
@@ -37,24 +38,24 @@ drawlater();
 nb_col = 128;
 vmin = min(VF); vmax = max(VF);
 color = dsearch(VF,linspace(vmin,vmax,nb_col+1));
-xset("colormap",jetcolormap(nb_col));
-xbasc();
-xset("hidden3d",xget("background"));
+clf();
+curFig = gcf();
+curFig.color_map = jetcolormap(nb_col);
+a = gca();
+a.hiddencolor = curFig.background;
 colorbar(vmin,vmax);
 plot3d(XF, YF, list(ZF,color), flag=[-1 6 4]);
-//xtitle("tri-linear interpolation of "+func);
 a = gca() ;
 t = a.title ;
 t.text = "tri-linear interpolation of "+func ;
 t.font_size = 3 ;
-//xselect();
 drawnow();
  realtimeinit(1.0) ;
  for i=1:20
    realtime(i);
  end
-
-//realtimeinit(0.1);for k=1:10,realtime(k),end;
-xdel(winsid());
+realtimeinit(0.1);for k=1:10,realtime(k),end;
+delete(gcf());
 
 endfunction
+

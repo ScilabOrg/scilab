@@ -11,7 +11,7 @@ s=sin(440*t)+sin(220*t)/2+sin(880*t)/2;
 s(nc/2:nc)=sin(330*t(nc/2:nc));
 
 // We can easily make a Fourier analysis of it.
-xbasc();analyze(s);
+clf();analyze(s);
 a=gca();
 a.title.text='sound'
 a.title.font_size=3;
@@ -24,13 +24,13 @@ savewave(TMPDIR+"/test.wav",s);
 s1=loadwave(TMPDIR+"/test.wav");
 if maxi(abs(s1-s)) < 1.e-4;end 
 // Now we can make a complete picture of the sound.
-xbasc();mapsound(s);
+clf();mapsound(s);
 a=gca();
 a.title.text='sound'
 a.title.font_size=3;
 x_message('Clock Ok to continue.');
 // Or a Fourier analysis.
-xbasc();analyze(s);
+clf();analyze(s);
 a=gca();
 a.title.text='sound'
 a.title.font_size=3;

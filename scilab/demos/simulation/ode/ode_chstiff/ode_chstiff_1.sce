@@ -1,7 +1,7 @@
 // Copyright INRIA
 //chemical process (stiff)
 
-xbasc();
+clf();
 // Equations definition
 deff('[yd]=chem(t,y)',[
     'yd(1)=-0.04*y(1) + 1d4*y(2)*y(3);';
@@ -17,7 +17,7 @@ rtol=1.d-4;atol=[1.d-6;1.d-10;1.d-6];
 y=ode([1;0;0],0,t,rtol,atol,chem);
 // Visualisation
 x_message('Click Ok to continue.');
-xbasc();
+clf();
 rect=[1.d-5,-0.1,1d11,1.1];
 plot2d1("oln",t',(diag([1 10000 1])*y)',(1:3),"111",' y1@10000 y2@y3',rect)
 a=gca();

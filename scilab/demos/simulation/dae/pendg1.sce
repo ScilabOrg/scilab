@@ -31,4 +31,5 @@ for i=1:size(sol,2)
   realtime(i)
   draw_sliding_pendulum(H,sol(2:4,i))
 end
+xdel()
 

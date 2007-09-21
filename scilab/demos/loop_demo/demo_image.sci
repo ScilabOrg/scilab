@@ -1,7 +1,7 @@
 function demo_image()
 
-demo_help demo_image
-xdel() ;
+//demo_help demo_image
+delete(gcf()) ;
 
 // read image
 [mat,h] = readppm('./scilab_logo.ppm');
@@ -104,7 +104,7 @@ mat = rgb2col(res,res,res) ;
 
 // dislay the result image
 [RGB,mat] = ppm2sci(mat,'p') ;
-xdel();
+delete(gcf());
 drawlater();
 imageview(RGB,mat);
 SetPosition_Small();
@@ -116,15 +116,16 @@ for i=1:10,
   realtime(i);
 end
 
-xdel() ;
+delete(gcf());
 
 endfunction
 
 function imageview(RGB,m)
 [M,N]=size(m)
-xset('colormap',RGB)
+curFig = gcf();
+curFig.color_map = RGB;
 xsetech([-0.16 -0.16 1.32 1.32])
-xset('wdim',M,N)
+curFig.figure_size =[M,N];
 Matplot(m','020')
 endfunction
 

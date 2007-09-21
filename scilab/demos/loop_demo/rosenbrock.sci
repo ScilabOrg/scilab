@@ -27,7 +27,7 @@ global traj;traj=[]
  x=-35:0.3:35;
  y=-50:0.3:50;
  p=100
- xbasc();
+ clf();
  SetPosition();
  set figure_style new;xselect()
  xset('colormap',hotcolormap(512))

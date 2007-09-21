@@ -1,7 +1,8 @@
 
 // Copyright INRIA
 clc;
-xbasc();
+clf();
+curFig = gcf();
 drawlater();
 mode(1);
 ncolor=228;
@@ -11,7 +12,7 @@ ncolor=228;
 subplot(2,2,1);
 
 h=hotcolormap(ncolor);
-xset('colormap',h);
+curFig.color_map = h;
 grayplot();
 
 
@@ -19,14 +20,14 @@ grayplot();
 
 subplot(2,2,2);
 h1=((1:ncolor)'/ncolor)*[1 0 0];
-xset('colormap',h1);
+curFig.color_map = h1;
 plot3d1();
 
 // Third plot
 
 subplot(2,2,3);
 h2=graycolormap(ncolor);
-xset('colormap',h2);
+curFig.color_map = h2;
 grayplot();
 
 // Fourth plot
@@ -43,7 +44,7 @@ kk1=[1:size(zz,2)];
 
 ncolor=60;
 hh=hotcolormap(ncolor);
-xset('colormap',hh) ;
+curFig.color_map = hh;
 kk1=modulo(kk1,60);kk2=kk1;
 KKK=list(ZZZ,[kk1 kk2]);
 plot3d(XXX,YYY,KKK,35,70," @ @ ",[2,1,4],[-6,6,-6,6,-6,6]);
@@ -52,16 +53,14 @@ drawnow();
 
 // Change the window colormap
 xpause(2.d6);
-xset('colormap',h);
+curFig.color_map = h;
 xbasr(xget('window'));
 xpause(2d6);
-xset('colormap',h1);
+curFig.color_map = h1;
 xbasr(xget('window'));
 xpause(2d6);
-xset('colormap',h2);
+curFig.color_map = h2;
 xbasr(xget('window'));
 xpause(2d6);
-xset('colormap',hh) ;
-//xbasr(xget('window'));
-//xset('default');
-//xsetech([0 0 1 1]);
+curFig.color_map = hh;
+

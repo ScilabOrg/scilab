@@ -80,7 +80,9 @@ function draw_chain_from_coordinates(x,y,job)
   [n1,n2]=size(x);
  
   //set the frame
-  xbasc();set figure_style new;a=gca()
+  clf();
+  curFig = gcf();
+  toolbar(curFig.figure_id, "off");a=gca()
   a.data_bounds=2*[-n1,-n1;n1,0];
   
   //create one polyline and one polymark with the initial position
@@ -110,5 +112,6 @@ function draw_chain_from_coordinates(x,y,job)
     a.title.font_size=3;
     drawnow()
   end
+  toolbar(curFig.figure_id, "on");
 endfunction
 

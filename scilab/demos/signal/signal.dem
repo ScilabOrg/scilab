@@ -1,6 +1,7 @@
 // Copyright INRIA
 
 demolist=['Spectral Estimation',                'spect/spect_gateway.sce'
+
           'IIR filter design ',                 'iir/iir_gateway.sce'
           'Minimax FIR filter design',          'minimax/remezfilt_gateway.sce'
 	  'Wiener filter',                     'wiener/wiener_gateway.sce'

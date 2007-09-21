@@ -1,6 +1,7 @@
 function []=velodp(i)
 //------------ generation of the rear wheel
 // Copyright INRIA
+  curFig.pixmap = "on";
   nnn=12
   i1=(i-1)*nstep+1
   ang=xx(6,i1)*i1/n2
@@ -28,10 +29,10 @@ function []=velodp(i)
   [nn2,nn1]=size(xnr);
   xx1=[xnf(1:nn2/2)';xnf((nn2/2+1):nn2)'];
   yy1=[ynf(1:nn2/2)';ynf((nn2/2+1):nn2)'];
-  xsegs(xx1,yy1);
+  xsegs(xx1,yy1);show_pixmap();
   xx1=[xnr(1:nn2/2)';xnr((nn2/2+1):nn2)'];
   yy1=[ynr(1:nn2/2)';ynr((nn2/2+1):nn2)'];
-  xsegs(xx1,yy1);
+  xsegs(xx1,yy1);show_pixmap();
 endfunction
 
 

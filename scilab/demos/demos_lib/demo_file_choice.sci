@@ -10,9 +10,9 @@ if ch=='anim' then
       lines(oldln(1));
       return
     else
-       set('figure_style','old');
-       xdel();
-       xbasc();  
+       set('figure_style','new');
+       delete(gcf());//new style
+       clf();  
        demoexc(num);
     end,
   end
@@ -39,7 +39,7 @@ else if ch=='root' then
         return
       else
         xdel(0);
-        xbasc();
+        clf();
         demoex(num);
       end,
     end

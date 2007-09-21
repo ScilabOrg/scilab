@@ -10,7 +10,7 @@ demolist=['2D and 3D plots','plots/dessin_gateway.sce',
 		'Complex elementary functions','cmplxfunc/cmplxfunc_gateway.sce',
 		'bar histogram','bar/bar_gateway.sce']
 
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice('SCI/demos/graphics/','no');
 clear
 

@@ -10,7 +10,7 @@ if w<>[] then
   mode(1)	
   hz=iir(evstr(w(2)),w(1),w(3),evstr(w(4)),evstr(w(5)));
   [hzm,fr]=frmag(hz,256);
-  xselect();xbasc();
+  xselect();clf();
   plot2d(fr',hzm')
   a=gca();
   a.title.text='Discrete IIR filter '+'( '+ w(3)+' ) '

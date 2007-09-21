@@ -77,7 +77,7 @@ while %t do
 			disp("LQG demo stops!");break;
 		case 1 then
 			mode(1)
-			xbasc(0);xset("window",0);xselect();bode(Tlqg);xend()
+			clf(0);scf(0);xselect();bode(Tlqg);xend()
 			mode(-1)
 		case 2
 			if Plant(4)=='c' then

@@ -58,7 +58,7 @@ while %t
   [num]=x_choose(items,Title);
   if num == 0 then , xdel(my_win) , break , end
   
-  xbasc()
+  clf()
   select items(num)
     
   // PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)

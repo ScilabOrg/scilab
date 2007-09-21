@@ -13,5 +13,4 @@ num=x_message([' ';
 if num==1 then
   demo_message('SCI/demos/metanet/metro.sci');
   metro()
-  set('old_style','off')
 end

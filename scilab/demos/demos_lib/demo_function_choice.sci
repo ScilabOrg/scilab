@@ -7,7 +7,7 @@ function []=demo_function_choice()
       return;
     else
     xdel(0);
-	  xbasc();
+	  clf();
       execstr(demolist(num,2));
     end,
   end

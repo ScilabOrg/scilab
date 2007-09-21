@@ -69,7 +69,7 @@ endfunction
 function  H=build_sliding_pendulum ()
 //build the sliding pendulum figure and graphic objects, 
 //return the handle on moving parts
-  xbasc();
+  clf();
   //set the figure
   set figure_style new;xselect()
   f=gcf();a=gca();f.pixmap='on';drawlater()

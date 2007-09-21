@@ -30,8 +30,5 @@ x1=y1(2:4,:);
 
 norm(x1(:,$),2)
 
-xbasc()
+clf()
 param3d(x1(1,:),x1(2,:),x1(3,:))
-a=gca();
-a.title.text='spherical pendulum, index 1';
-a.title.font_size=3;

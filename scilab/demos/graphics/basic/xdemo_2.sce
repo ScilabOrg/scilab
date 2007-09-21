@@ -7,3 +7,5 @@ demolist=[
     'Colored matrix','xdemo6()';
     'Colored histogram','xdemo7()';
     'Pie Chart','xdemo8()' ]
+    
+demo_function_choice();

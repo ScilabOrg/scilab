@@ -13,7 +13,7 @@ wSize = [850,920];
 // window size for the image demo
 wSize_Small = [850,492] ;
 
-// set firefox has help viewer
+// set firefox as help viewer
 global %browsehelp
 %browsehelp = 'firefox'
 
@@ -36,20 +36,20 @@ demos=['demo_scilab();','demo_geneal();',..
        'demo_riemann();','demo_3dplot()',..
        'demo_image()','demo_cmplxfun();', ..
        'demo_signal();','demo_car();', ..
-       'demo_truck();','demo_pendulum();', ..
+       'demo_truck();', ..
        'demo_sliding_pendulum();', ..
        'demo_optloc();', ..
-       'demo_datafit();','demo_spline();'];
+       'demo_datafit();','demo_spline();','demo_pendulum();'];
 
 filesdemos=['demo_scilab.sci','Geneal.sci', ..
 	    'demo_isoSurf.sci',..
 	    'riemann.sci','demo_3dplot.sci',..
             'demo_image.sci','cmplxfun.sci', ..
             'demo_signal.sci','car.sci', ..
-            'truck.sci','n_pendulum.sci', ..
+            'truck.sci', ..
 	    'sliding_pendulum.sci', ..
 	    'optloc.sci', ..
-            'datafit.sci','spline.sci'];
+            'datafit.sci','spline.sci','n_pendulum.sci'];
 
 nbDemos = size(filesdemos);
 nbDemos = nbDemos(2) ;
@@ -57,8 +57,8 @@ nbDemos = nbDemos(2) ;
 //------------------------------------------------------------
 function demo_help(key)
   browsehelp=browsehelp;
-  global lang;
-  lang=lang;
+//  global lang;
+//  lang=lang;
   //if MSDOS then
     browsehelp(gethelpfile(key+'_'+lang),key)
   //else
@@ -93,15 +93,8 @@ endfunction
 function SetPosition
   f=gcf();
   f.figure_position = [0,0];
-  //f.figure_size=[400,350]*0.9;
   f.figure_size = wSize ; //[850,950] ;
   toolbar(f.figure_id,'off') ;
-endfunction
-//------------------------------------------------------------
-function SetPosition_old
-  xset("wpos",0,0);
-  xset('wdim', wSize(1), wSize(2) ) ;
-  toolbar(0,'off') ;
 endfunction
 //------------------------------------------------------------
 function SetPosition_Small
@@ -133,9 +126,9 @@ end
 %helps=[%helps;path "Demos"];
 
 
-Maxfiles=size(filesdemos);
+Maxfiles=max(size(filesdemos));
 
- for i=1:1:Maxfiles(2) do
+ for i=1:1:Maxfiles do
    exec(filesdemos(i));
  end
 
