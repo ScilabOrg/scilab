@@ -32,11 +32,9 @@ demolist=['plot2d','str_1()';
 	'contour (3d) 2','str_24()';
 	'contour (3d) 3','str_25()';
 	'contour (3d) 4','str_26()';
-	'plot2d+gr_menu','str_27()';
-	'plot3d+gr_menu','str_28()';
-	'subplot','str_29()';
-	'fac3d','str_30()';
-	'fac3d1','str_31()'];
+	'subplot','str_27()';
+	'fac3d','str_28()';
+	'fac3d1','str_29()'];
 
 demo_function_choice;
 

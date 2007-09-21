@@ -276,26 +276,6 @@ expr=['t=%pi*(-10:10)/10;';
 endfunction
 
 function []=str_27()
-expr=['exec(''SCI/demos/graphics/sd.sav'');';
-          'set figure_style old';
-          'plot2d();gr_menu(sd_1,1,1);';
-          'Title=[''plot2d and gr_menu''];';
-          'xtitle(Title,'' '','' '');'];
-           x_message(expr);
- 	        execstr(expr);
-endfunction
-
-function []=str_28()
-expr=['exec(''SCI/demos/graphics/sd.sav'');';
-          'set figure_style old';
-          'plot3d();gr_menu(sd_2,1,1);';
-          'Title=[''plot3d and gr_menu''];';   
-          'xtitle(Title,'' '','' '');'];
-           x_message(expr);
- 	         execstr(expr);
-endfunction
-
-function []=str_29()
 expr=['subplot(2,2,1);';
 	'plot3d();';
 	'subplot(2,2,2);';
@@ -311,7 +291,7 @@ expr=['subplot(2,2,1);';
  	execstr(expr);
 endfunction
 
-function []=str_30()
+function []=str_28()
 expr=['fac3d();'
       'a=gca();'
       'a.title.text=""fac 3d"";'
@@ -320,7 +300,7 @@ expr=['fac3d();'
  	    execstr(expr);
 endfunction
 
-function []=str_31()
+function []=str_29()
 expr=['fac3d1();'
       'a=gca();'
       'a.title.text=""fac 3d1"";'
