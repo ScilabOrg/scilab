@@ -17,7 +17,7 @@ velpic_build_and_load()
 
 // Copyright INRIA
 
-getf('SCI/demos/velpic/velpic.sci')
+exec('SCI/demos/velpic/velpic.sci')
 
 xselect()
 x=velpic(20,20);

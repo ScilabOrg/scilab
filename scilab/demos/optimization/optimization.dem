@@ -1,7 +1,7 @@
 // Copyright INRIA
 
-getf('SCI/demos/demos_lib/demo_begin.sci');
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_begin.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 
 demolist=['LMITOOL',                    'lmitool/lmi_gateway.sce'
 	  'Multiflow problem',          'multiflow/multiflow_gateway.sce'

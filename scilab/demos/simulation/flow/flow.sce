@@ -1,21 +1,21 @@
 function choose_sphere()
     fin=%t;
-    getf(path+'sphere_interface.sci');   
-    getf(path+'sphere.sci'); 
+    exec(path+'sphere_interface.sci');   
+    exec(path+'sphere.sci'); 
     exesphere();
 endfunction
 
 function choose_cylinder()
     fin=%t;
-    getf(path+'cylinder_interface.sci');
-    getf(path+'cylinder.sci');
+    exec(path+'cylinder_interface.sci');
+    exec(path+'cylinder.sci');
     execylinder();
 endfunction
 
 function choose_blackhole()
     fin=%t;
-    getf(path+'blackhole_interface.sci');
-    getf(path+'blackhole.sci');
+    exec(path+'blackhole_interface.sci');
+    exec(path+'blackhole.sci');
     exeblackhole();
 endfunction
 

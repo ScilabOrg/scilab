@@ -11,7 +11,7 @@ demolist=['Spectral Estimation',                'spect/spect_gateway.sce'
 	  'Arma, Spectral power estimation',    'arma_spect/arma3_gateway.sce' 
 	  'Sound',                              'sound/sound_gateway.sce'];
 
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice('SCI/demos/signal/','no');
 
 

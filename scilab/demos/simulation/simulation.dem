@@ -1,5 +1,5 @@
-getf('SCI/demos/demos_lib/demo_begin.sci');
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_begin.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 
 demolist=['n-pendulum','npend/npend_gateway.sce';
 	  'Wheel simulation','wheel2/wheel_gateway.sce';

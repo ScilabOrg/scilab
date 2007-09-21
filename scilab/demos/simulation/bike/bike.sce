@@ -25,7 +25,7 @@ while go_on then
 	else
 		select num
 		case 1 then //unstable		  
-			getf('SCI/demos/simulation/bike/macros/'+'velo2.sci');
+			exec('SCI/demos/simulation/bike/macros/'+'velo2.sci');
 			x=read('SCI/demos/simulation/bike/data/'+'x1.dat',46,368,"(e10.4)");
 			clf();
 			xselect();
@@ -39,8 +39,8 @@ while go_on then
 			show(x(:,300:368),1,1,velo4p);
 			toolbar(curFig.figure_id,"on");
 		case 2 then //stable
-		  getf('SCI/demos/simulation/bike/macros/'+'velod.sci');
-			getf('SCI/demos/simulation/bike/macros/'+'velo1.sci');
+		 exec('SCI/demos/simulation/bike/macros/'+'velod.sci');
+			exec('SCI/demos/simulation/bike/macros/'+'velo1.sci');
 			x=read('SCI/demos/simulation/bike/data/'+'xdemo.dat',46,401,"(e10.4)");
 			clf();
 			xselect();

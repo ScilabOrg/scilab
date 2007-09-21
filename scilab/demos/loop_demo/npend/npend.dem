@@ -3,8 +3,8 @@ mode(-1);
 
 path="SCI/demos/loop_demo/npend";
 
-getf(path+'/macros_old.sci');
-getf(path+'/dessin.sci');
+exec(path+'/macros_old.sci');
+exec(path+'/dessin.sci');
 
 clf();
 set("figure_style","new")

@@ -58,7 +58,7 @@ while %t do
   case 	'bouncing balls' then
     scicos('SCI/demos/scicos/bounce.cosf');
   case 'Live demo' then
-    getf('SCI/demos/scicos/scicos_play.sci','n')
+    exec('SCI/demos/scicos/scicos_play.sci','n')
     scicos_play('SCI/demos/scicos/live.dat')
   case 'sound demo' then  
     scicos('SCI/demos/scicos/sound.cosf');
@@ -95,14 +95,14 @@ while %t do
       if n ==0 then break,end
       dirr=pwd()
       chdir(TMPDIR)
-      if n>4 then err=execstr('getf(''toto.sci'')','errcatch'),
+      if n>4 then err=execstr('exec(''toto.sci'')','errcatch'),
 	if err<>0 then 
 	  x_message('tutorials must be played in order!'),
 	  break
 	end
       end
       str='SCI/demos/scicos/tut'+string(n)
-      getf('SCI/demos/scicos/scicos_play.sci')
+      exec('SCI/demos/scicos/scicos_play.sci')
       scicos_play(str)
       chdir(dirr)
     end

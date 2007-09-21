@@ -11,6 +11,6 @@ demolist=['Rotation of a 3D Surface (plot3d1)','anim1/anim1_gateway.sce';
 	'N link pendulum movement','anim6/anim6_gateway.sce';
 	'Shell','anim7/anim7_gateway.sce'];
 
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
 demo_file_choice('SCI/demos/graphics/anim/','anim');
 

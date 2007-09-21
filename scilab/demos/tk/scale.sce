@@ -1,4 +1,4 @@
-getf(tkpath+'demredraw.sci')
+exec(tkpath+'demredraw.sci')
 
 clf();set figure_style new;plot3d();done=%t
 TCL_EvalFile(tkpath+'vscale')

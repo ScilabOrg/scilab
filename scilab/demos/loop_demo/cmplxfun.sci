@@ -1,7 +1,7 @@
 function demo_cmplxfun()
  // demo_help demo_cmplxfun
   pathcur=pwd();
-  getf(pathcur+"/cmplxfunc/MacCmplx.sci")
+  exec(pathcur+"/cmplxfunc/MacCmplx.sci")
   SetPosition();
   R = 4;  e = 0.001; theta = 30; alpha = 60;
   PlotCmplxFunc(R,e,"Disk","Ox",[40 20],"log",theta,alpha,[e,R])

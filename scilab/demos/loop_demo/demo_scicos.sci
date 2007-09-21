@@ -15,7 +15,7 @@ function demo_scicos()
   deff('mode(x)','x=x')
   deff('halt()',' ')
   deff('x=lines(x)','x=0')
-  getf('SCI/tests/demos/dialogs.sci')
+  exec('SCI/tests/demos/dialogs.sci')
   message=x_message
   dialog=x_dialog
 
@@ -30,7 +30,7 @@ function demo_scicos()
   for f=tobe_recompiled'
     w=whereis(f)
     w=string(evstr(w));w=w(1)
-    getf(w+f+'.sci')
+    exec(w+f+'.sci')
   end
 
 

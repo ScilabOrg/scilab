@@ -1,6 +1,6 @@
 mode(-1)
 // Copyright INRIA
-getf('SCI/demos/sci2for/printspecs.sci','c')
+exec('SCI/demos/sci2for/printspecs.sci','c')
 deff('[]=message(txt)','write(%io(2),txt,''(a)'')')
 path='SCI/demos/sci2for/'
 deff('[]=demoexc(fil)','exec(path+fil,-1)')

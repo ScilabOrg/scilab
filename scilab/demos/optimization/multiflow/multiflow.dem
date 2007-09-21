@@ -1,5 +1,0 @@
-mode(-1)
-path=get_absolute_file_path('multiflow.dem');
-exec(path+'demo_multiflow.sci')
-demo_multiflow(path+'ex3.graph')
-

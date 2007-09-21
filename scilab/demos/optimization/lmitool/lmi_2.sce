@@ -10,7 +10,7 @@ while %t
   case 1
     clc;
     mode(1)
-    lmidem('SCI/demos/optimization/lmitool/normopt.sci');getf('SCI/demos/optimization/lmitool/normopt.sci');
+    lmidem('SCI/demos/optimization/lmitool/normopt.sci');exec('SCI/demos/optimization/lmitool/normopt.sci');
     
     demo_message(path+'lmi_3.sce');
 
@@ -27,7 +27,7 @@ while %t
   case 2
     clc;
     mode(1)
-   lmidem('SCI/demos/optimization/lmitool/of.sci');getf('SCI/demos/optimization/lmitool/of.sci');
+   lmidem('SCI/demos/optimization/lmitool/of.sci');exec('SCI/demos/optimization/lmitool/of.sci');
    
    demo_message(path+'lmi_4.sce');
     
@@ -42,7 +42,7 @@ while %t
   case 3
     clc;
     mode(1)
-    lmidem('SCI/demos/optimization/lmitool/sylvester.sci');getf('SCI/demos/optimization/lmitool/sylvester.sci');
+    lmidem('SCI/demos/optimization/lmitool/sylvester.sci');exec('SCI/demos/optimization/lmitool/sylvester.sci');
   
     demo_message(path+'lmi_4.sce');
     

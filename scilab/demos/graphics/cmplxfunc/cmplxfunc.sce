@@ -3,7 +3,7 @@
 
 // Adapted for new graphic by Pierre MARECHAL ( 16/12/2005 )
 
-getf('SCI/demos/demos_lib/demo_mdialog.sci');
+exec('SCI/demos/demos_lib/demo_mdialog.sci');
 
 demolist = [
 	"log","func1()";
