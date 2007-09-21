@@ -22,7 +22,7 @@ y1=dassl([y0,yd0],t0,T,rtol,atol,index1,info);
 
 x1=y1(2:4,:);
 
-norm(x1(:,$),2)
+norm(x1(:,$),2);
 
 clf()
 param3d(x1(1,:),x1(2,:),x1(3,:))
