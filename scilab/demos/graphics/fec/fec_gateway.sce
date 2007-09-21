@@ -5,10 +5,10 @@
 //
 // ==========================================
 
-getf('SCI/demos/demos_lib/demo_begin.sci');
-getf('SCI/demos/demos_lib/demo_file_choice.sci');
-getf('SCI/demos/demos_lib/demo_message.sci');
-getf('SCI/demos/demos_lib/demo_end.sci');
+exec('SCI/demos/demos_lib/demo_begin.sci');
+exec('SCI/demos/demos_lib/demo_file_choice.sci');
+exec('SCI/demos/demos_lib/demo_message.sci');
+exec('SCI/demos/demos_lib/demo_end.sci');
 
 demo_begin;
 
