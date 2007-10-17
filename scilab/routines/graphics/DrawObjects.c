@@ -6395,7 +6395,7 @@ void retrieveFacetVertices( sciPointObj *  pobj       ,
     verticesZ[i] = pSURFACE_FEATURE(pobj)->pvecz[facetIndex * nbFacets + i] ;
   }
   
-  ReverseDataFor3D( pobj, verticesX, verticesY, verticesZ, nbFacets ) ;
+  ReverseDataFor3D( sciGetParentSubwin(pobj), verticesX, verticesY, verticesZ, nbFacets ) ;
 
   *zOriginal = &(pSURFACE_FEATURE(pobj)->pvecz[facetIndex * nbFacets]) ;
 }
