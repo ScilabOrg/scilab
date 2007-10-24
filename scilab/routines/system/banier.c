@@ -11,20 +11,26 @@ extern int sci_show_banner ;
 void banner(void)
 {
 	#ifdef WIN32
-	  sciprint("        ___________________________________________\r\n");
+		sciprint("        ___________________________________________\r\n");
 	#else
-    sciprint("        -------------------------------------------\r\n");
+		sciprint("        -------------------------------------------\r\n");
 	#endif
 
-    sciprint("                         %s\r\n\n",VERSION);
-    sciprint("                  Copyright (c) 1989-2007          \r\n");
-    sciprint("              Consortium Scilab (INRIA, ENPC)      \r\n");
+	sciprint("                         %s\r\n\n",VERSION);
+	sciprint("                  Copyright (c) 1989-2007          \r\n");
+	sciprint("              Consortium Scilab (INRIA, ENPC)      \r\n");
 
-  #ifdef WIN32
-	  sciprint("        ___________________________________________\r\n");
+	#ifdef WIN32
+		sciprint("        ___________________________________________\r\n");
 	#else
-    sciprint("        -------------------------------------------\r\n");
+		sciprint("        -------------------------------------------\r\n");
 	#endif
+
+	sciprint("\n\n");
+	sciprint("!!! WARNING !!!\n");
+	sciprint("This software is being provided \"as is\", without any express or\nimplied warranty.\n");
+	sciprint("This is a development and not at all a final or stable version.\n");
+	sciprint("In no event will the authors be held liable for any damages arising from,\nout of or in connection with the software or the use or other dealings\nin the software.\n");
 
 	#if ( defined(WITH_GTK) )
               sciprint("\r\n\r\n");
