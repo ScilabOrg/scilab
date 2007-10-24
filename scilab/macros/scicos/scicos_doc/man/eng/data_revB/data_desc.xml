@@ -16,12 +16,12 @@ The Abs block outputs the absolute value of the input.
 
 <FILE name='AFFICH_f' type='LATEX'>
 This block displays the value of its unique input inside the block (in
-the diagram) during simulation. 
+the diagram) during simulation.
 </FILE>
 
 <FILE name='AFFICH_m' type='LATEX'>
 This block displays the value of its unique input inside the block (in
-the diagram) during simulation.  
+the diagram) during simulation.
 </FILE>
 
 <FILE name='ANDBLK' type='LATEX'>
@@ -29,17 +29,17 @@ The Bus Creator block combines a set of signals, i.e., a
 group of signals represented by a single line in a block diagram. It
 allows you to reduce the number of lines required to route signals
 from one part of a diagram to another. This makes your easier to
-understand.  
+understand.
 </FILE>
 
 <FILE name='ANDLOG_f' type='LATEX'>
-This block, with two event inputs and a regular output, outputs +1 or
--1 on its regular output depending on input events.     
-\begin{enumerate}
-\item[+1]: When events are synchronously (present on both event input ports),
+This block, with two event inputs and a regular output, outputs {\bf +1} or
+{\bf -1} on its regular output depending on input events.
+\begin{itemize}
+  \item{\bf +1 :} When events are synchronously (present on both event input ports),
 
-\item[-1]: When only one event is present.
- \end{enumerate}
+  \item{\bf -1 :} When only one event is present.
+\end{itemize}
 </FILE>
 
 <FILE name='AUTOMAT' type='LATEX'>
@@ -134,7 +134,7 @@ Multi-conference on Systems and Control, Singapore.
   Scicos 4.2 have been developed in the Metalau Project-Team very close
   to the Scilab consortium at INRIA unit of Rocquencourt.
 
-  The main contributes of that version are :
+  The main contributers of that version are :
 
   {\bf Designers :} \\
   \begin{itemize}
