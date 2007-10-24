@@ -2078,7 +2078,7 @@
 </FILE>
 
 <FILE name='TOWS_c' type='XML'>
-<SHORT_DESCRIPTION name="TOWORK_c">Data to Scilab worspace</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TOWS_c">Data to Scilab worspace</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TOWS_c_intfunc' type='XML'>
