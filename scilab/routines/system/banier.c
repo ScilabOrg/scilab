@@ -26,48 +26,6 @@ void banner(void)
 		sciprint("        -------------------------------------------\r\n");
 	#endif
 
-	sciprint("\n\n");
-	sciprint("!!! WARNING !!!\n");
-	sciprint("This software is being provided \"as is\", without any express or\nimplied warranty.\n");
-	sciprint("This is a development and not at all a final or stable version.\n");
-	sciprint("In no event will the authors be held liable for any damages arising from,\nout of or in connection with the software or the use or other dealings\nin the software.\n");
-
-	#if ( defined(WITH_GTK) )
-              sciprint("\r\n\r\n");
-              sciprint("Warning: the operational team of the Scilab Consortium\r\n");
-              sciprint("   does not directly provide nor officially support this\r\n");
-              sciprint("   version of Scilab built with the GTK widget\r\n\r\n");
-	#endif
-
-	#if ( defined(__CYGWIN32__) )
-              sciprint("\r\n\r\n");
-              sciprint("Warning: the operational team of the Scilab Consortium\r\n");
-              sciprint("   does not directly provide nor officially support this\r\n");
-              sciprint("   version of Scilab built with Cygwin\r\n\r\n");
-	#endif
-
-	#if ( defined(__MINGW32__) )
-              sciprint("\r\n\r\n");
-              sciprint("Warning: the operational team of the Scilab Consortium\r\n");
-              sciprint("   does not directly provide nor officially support this\r\n");
-              sciprint("   version of Scilab built with MinGW\r\n\r\n");
-	#endif
-
-	#if defined(__MSC__) && ( (_MSC_VER >= 1200) && (_MSC_VER < 1300) ) 
-        /* Visual Studio C++ 6.0 */
-              sciprint("\r\n\r\n");
-              sciprint("Warning: the operational team of the Scilab Consortium\r\n");
-              sciprint("   does not directly provide nor officially support the\r\n");
-              sciprint("   version of Scilab compiled with Microsoft Visual C++ 6.0\r\n\r\n");
-	#endif
-
-	#if defined(__APPLE__)
-              sciprint("\r\n\r\n");
-              sciprint("Warning: the operational team of the Scilab Consortium\r\n");
-              sciprint("   does not directly provide nor officially support the\r\n");
-              sciprint("   port of Scilab to MacOS\r\n\r\n");
-	#endif
-
 }
 /*-----------------------------------------------------------------------------------*/
 int C2F(banier)(integer *flag)
