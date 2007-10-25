@@ -36,6 +36,7 @@ understand.
 <FILE name='ANDLOG_f' type='LATEX'>
 Ce bloc possédant deux entrées événementielles et une sortie régulière,
 délivre {\bf +1} ou {\bf -1} sur sa sortie régulière suivant ses entrées événementielles.
+
 \begin{itemize}
   \item{\bf +1 :} Lorsque les événements sont synchrones (même événement présent sur
                   les deux ports événementiels simultanément),

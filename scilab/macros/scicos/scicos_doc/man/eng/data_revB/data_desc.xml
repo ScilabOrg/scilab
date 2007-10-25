@@ -35,6 +35,7 @@ understand.
 <FILE name='ANDLOG_f' type='LATEX'>
 This block, with two event inputs and a regular output, outputs {\bf +1} or
 {\bf -1} on its regular output depending on input events.
+
 \begin{itemize}
   \item{\bf +1 :} When events are synchronously (present on both event input ports),
 
