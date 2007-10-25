@@ -91,9 +91,9 @@
 #define MSG_SCIMSG85 "Are you sure to quit ?"
 #define MSG_SCIMSG86 "Quit"
 #define MSG_SCIMSG87 "Remarque Importante"
-#define MSG_SCIMSG88 "Les versions Scilab 4.x seront les dernières à fonctionner avec l'ancien mode graphique.\n\nVeuillez lire le fichier release_notes pour plus de détails."
+#define MSG_SCIMSG88 "This software is being provided \"as is\", without any express or implied warranty. This is a development and not at all a final or stable version. In no event will the authors be held liable for any damages arising from, out of or in connection with the software or the use or other dealings in the software.\n\nLes versions Scilab 4.x seront les dernières à fonctionner avec l'ancien mode graphique.\n\nVeuillez lire le fichier release_notes pour plus de détails."
 #define MSG_SCIMSG89 "Ne plus afficher ce message"
-#define MSG_SCIMSG90 "Scilab 4.x versions family will be the last versions working with the old graphics mode.\n\nPlease read the release_notes file for more details."
+#define MSG_SCIMSG90 "This software is being provided \"as is\", without any express or implied warranty. This is a development and not at all a final or stable version. In no event will the authors be held liable for any damages arising from, out of or in connection with the software or the use or other dealings in the software.\n\nScilab 4.x versions family will be the last versions working with the old graphics mode.\n\nPlease read the release_notes file for more details."
 #define MSG_SCIMSG91 "Don't show this screen at startup"
 
 #define MSG_SCIMSG92 "Black and white"

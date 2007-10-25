@@ -11,8 +11,14 @@ function show_startupinfo()
   global LANGUAGE
   if  LANGUAGE=='fr' then
     DialogNewGraphic=["Attention:"
-          " "
-		      "Les versions Scilab 4.x seront les dernières à fonctionner"
+              " "
+              "This software is being provided ""as is"", without any express"
+              "or implied warranty. This is a development and not at all a"
+              "final or stable version. In no event will the authors be held"
+              "liable for any damages arising from, out of or in connection"
+              "with the software or the use or other dealings in the software."
+              " "
+              "Les versions Scilab 4.x seront les dernières à fonctionner"
 		      "avec l''ancien mode graphique."
 		      " "
 		      "Veuillez lire le fichier release_notes pour plus de détails."
@@ -21,7 +27,13 @@ function show_startupinfo()
     Buttons=['Oui','Non']
   else
     DialogNewGraphic=["Warning:"
- 		      " "
+              " "
+              "This software is being provided ""as is"", without any express"
+              "or implied warranty. This is a development and not at all a"
+              "final or stable version. In no event will the authors be held"
+              "liable for any damages arising from, out of or in connection"
+              "with the software or the use or other dealings in the software."
+              " "
 		      "Scilab 4.x versions family will be the last versions working"
 		      "with the old graphics mode."
 		      " "
