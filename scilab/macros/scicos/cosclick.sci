@@ -34,7 +34,6 @@ function [btn, %pt, win, Cmenu ] = cosclick(flag)
       btn=10;xc=scicos_dblclk(1);yc=scicos_dblclk(2);win=scicos_dblclk(3);str=''
       scicos_dblclk=[]
     end
-    disp([btn, xc ,yc])
   else
   
     if rhs==1 then
