@@ -60,7 +60,7 @@ if no>0 then
     end
   end
 else
-  txt1=[]
+  txt1=' '
 end
 
 //flag = 2
@@ -208,6 +208,7 @@ if nx>0|nz>0|no>0 then
   depp=strcat(dep([2:4,6]))
 
   while %t do
+    if txt6==[] then txt6=' ',end
     txt6=dialog(['You may define here functions imposing contraints';
 	'on initial inputs, states and outputs';
 	'Note: these functions may be called more than once';
@@ -228,7 +229,7 @@ if nx>0|nz>0|no>0 then
     end
   end
 else
-  txt6=[]
+  txt6=' '
 end
 
 ok=%t
