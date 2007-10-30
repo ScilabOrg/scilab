@@ -21,7 +21,7 @@ while %t do
       'Integrator relative tolerance';
       'Tolerance on time';
       'max integration time interval'
-      'solver 0(lsodar)/100(dasrt)'
+      'solver 0 (CVODE)/100 (IDA)'
       'maximum step size (0 means no limit)'],..
       list('vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1,'vec',1),..
       [string([tf;scale;atol;rtol;ttol;deltat;solver;hmax])])

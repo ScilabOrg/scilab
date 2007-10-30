@@ -41,20 +41,48 @@ function [rect,btn]=rubberbox(rect,edit_mode)
   xrect(ox,oy,w,h)
   r=gce();r.foreground=-1;
   draw_rect(r,w,h)  //draw(r);if pix=='on' then show_pixmap();end
-  while rep(3)==-1 do
-    //** Alan, Ramine patch to disable rubberbox 12/10/07
-    //if 1 then rep=xgetmouse(0,opt);else rep=xgetmouse(0,opt),end
-    rep=xgetmouse(0,opt);
-    if rep(3)==-100 then  btn=rep(3);return;end//window has been closed
-    draw_rect(r,w,h) //draw(r);if pix=='on' then show_pixmap();end//erase;
-    xc1=rep(1);yc1=rep(2)
-    ox=mini(xc,xc1)
-    oy=maxi(yc,yc1)
-    w=abs(xc-xc1);h=abs(yc-yc1)
-    r.data=[ox,oy,w,h]
-     draw_rect(r,w,h)  //draw(r);if pix=='on' then show_pixmap();end //draw 
-    first=%f
-  end 
+  
+  if ~with_gtk() then
+    
+    
+    while rep(3)==-1 do
+      //** Alan, Ramine patch to disable rubberbox 12/10/07
+      //if 1 then rep=xgetmouse(0,opt);else rep=xgetmouse(0,opt),end
+      rep=xgetmouse(0,opt);
+      disp(rep)
+      
+      if rep(3)==-100 then  btn=rep(3);return;end//window has been closed
+      draw_rect(r,w,h) //draw(r);if pix=='on' then show_pixmap();end//erase;
+      xc1=rep(1);yc1=rep(2)
+      ox=mini(xc,xc1)
+      oy=maxi(yc,yc1)
+      w=abs(xc-xc1);h=abs(yc-yc1)
+      r.data=[ox,oy,w,h]
+      draw_rect(r,w,h)  //draw(r);if pix=='on' then show_pixmap();end //draw 
+      first=%f
+    end 
+  else
+     while rep(3)<>-5 do  // make sure to eat up the double click (10)
+      //** Alan, Ramine patch to disable rubberbox 12/10/07
+      //if 1 then rep=xgetmouse(0,opt);else rep=xgetmouse(0,opt),end
+      rep=xgetmouse(0,opt);
+      if rep(3)==-100 then  btn=rep(3);return;end//window has been closed
+      draw_rect(r,w,h) //draw(r);if pix=='on' then show_pixmap();end//erase;
+      xc1=rep(1);yc1=rep(2)
+      ox=mini(xc,xc1)
+      oy=maxi(yc,yc1)
+      w=abs(xc-xc1);h=abs(yc-yc1)
+      r.data=[ox,oy,w,h]
+      draw_rect(r,w,h)  //draw(r);if pix=='on' then show_pixmap();end //draw 
+      first=%f
+    end    
+    
+    
+  end
+    
+    
+    
+    
   draw_rect(r,w,h)  //draw(r);if pix=='on' then show_pixmap();end//erase
   delete(r)
   rect=[ox,oy,w,h]

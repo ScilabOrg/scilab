@@ -250,12 +250,11 @@ function [scs_m,have_moved] = stupid_MultiMoveObject(scs_m, Select, xc, yc)
       //** left button release, right button (press, click) 
       if with_gtk() then   // GTK case
 	queue_state=1,
-	if or(rep(3)==[-5, 2, 3, 5, 10]) then //** put the end exit from the loop condition here 
-	  if rep(3)==10 then
-	    global scicos_dblclk
-	    scicos_dblclk=[rep(1),rep(2),curwin]
-	  end
-	  
+	if rep(3)==10 then
+	  global scicos_dblclk
+	  scicos_dblclk=[rep(1),rep(2),curwin]
+	end
+	if or(rep(3)==[-5, 2, 3, 5]) then //** put the end exit from the loop condition here 
 	  break ; //** ---> EXIT point of the while
 	end
       else  // Normal case

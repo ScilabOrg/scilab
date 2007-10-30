@@ -37,7 +37,7 @@ function MoveLink_()
   
   //** The PRESS is in the CURRENT window -----------------------------------    
   else //** ... the press is in the current window 
-    
+
     //** look for an object 
     %kk = getobj(scs_m,%pt)
     
@@ -45,7 +45,7 @@ function MoveLink_()
     if %kk<>[] then
       ObjSel = size (Select) ; //** [row, col]
       ObjSel = ObjSel(1) ; //**  row 
-      //**--------------------------------------------------------------
+			   //**--------------------------------------------------------------
       if ObjSel<=1 then //** with zero or one object already selected 
         
 	Cmenu = check_edge(scs_m.objs(%kk),"Move",%pt);
@@ -56,7 +56,7 @@ function MoveLink_()
 	else 
 	  Select = [%kk, %win]; //** Execute "Move" with the object selected 
 	end 
-		
+	
       else //** more than one object is selected 
         SelectedObjs = Select(:,1)'; //** isolate the object column and put in a row 
 	if or(%kk==SelectedObjs) then //** check if the user want to move the aggregate
@@ -66,16 +66,17 @@ function MoveLink_()
 	  Cmenu  = "Move";
 	  Select = [%kk, %win]; //** user want to move only the object in the focus
 	end 
-      
+	
       end    
       //**---------------------------------------------------------------
       
     else //** if the press is in the void of the current window 
-       Cmenu = "SelectRegion" ; //** "SelectRegion" will be called later 
-       %ppt = []; Select = [] ; //** NB: the %pt information is
-                                //preserved for "SelectRegion"
+
+      Cmenu = "SelectRegion" ; //** "SelectRegion" will be called later 
+      %ppt = []; Select = [] ; //** NB: the %pt information is
+			       //preserved for "SelectRegion"
                                 //operation 
-       if with_gtk()|MSDOS then %ppt=%pt; end	// first click under windows treated as
+      if with_gtk()|MSDOS then %ppt=%pt; end	// first click under windows treated as
 						// press move (always the case under gtk)		
     end
   

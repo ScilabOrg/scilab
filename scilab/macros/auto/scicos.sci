@@ -555,7 +555,6 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     
     if %scicos_navig==[] then 
       if Scicos_commands<>[] then
-	//	    disp(Scicos_commands(1))
 	execstr(Scicos_commands(1))
 	Scicos_commands(1)=[]
       end
@@ -675,7 +674,6 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  ierr=0
 	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 	  //execstr('exec('+%cor_item_exec(%koko,2)+',-1)')
-
 	  // in case window has disappeared
 	  if ierr > 0 then
 	    Cmenu='Replot'

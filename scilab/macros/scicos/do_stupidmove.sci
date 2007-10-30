@@ -140,11 +140,11 @@ function scs_m = stupid_movecorner(scs_m, k, xc, yc, wh)
   drawlater();
   while 1 do
     if with_gtk() then
-      if or(rep(3)==[0,2,3,5,-5,10,-100]) then
-	if rep(3)==10 then
-	  global scicos_dblclk
-	  scicos_dblclk=[rep(1),rep(2),curwin]
-	end
+      if rep(3)==10 then
+	global scicos_dblclk
+	scicos_dblclk=[rep(1),rep(2),curwin]
+      end
+      if or(rep(3)==[0,2,3,5,-5,-100]) then
 	break
       end
     else
