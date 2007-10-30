@@ -46,7 +46,6 @@ function MoveLink_()
       ObjSel = size (Select) ; //** [row, col]
       ObjSel = ObjSel(1) ; //**  row 
       //**--------------------------------------------------------------
-      pause
       if ObjSel<=1 then //** with zero or one object already selected 
         
 	Cmenu = check_edge(scs_m.objs(%kk),"Move",%pt);
