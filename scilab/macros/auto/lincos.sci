@@ -59,6 +59,12 @@ for i=1:size(scs_m.objs)
     elseif scs_m.objs(i).gui=='OUT_f' then
       scs_m.objs(i).gui='OUTPUTPORT';
       OUT=[OUT  scs_m.objs(i).model.ipar]
+    elseif or(scs_m.objs(i).gui==['CLKIN_f','CLKINV_f']) then
+      scs_m.objs(i).gui='INPUTPORTEVTS';
+      scs_m.objs(i).model.sim(1)='bidon'
+    elseif  or(scs_m.objs(i).gui==['CLKOUT_f','CLKOUTV_f']) then
+      scs_m.objs(i).gui='OUTPUTPORTEVTS';
+      scs_m.objs(i).model.sim(1)='bidon'
     end
   end
 end
@@ -78,6 +84,7 @@ if ~ok then
   error('Diagram does not compile in pass 1');
 end
 %cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv);
+
 if %cpr==list() then 
   ok=%f,
 end
