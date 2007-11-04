@@ -551,10 +551,12 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	end
       end    
     end
-    
+ 
+//pause   
     
     if %scicos_navig==[] then 
       if Scicos_commands<>[] then
+	//	    disp(Scicos_commands(1))
 	execstr(Scicos_commands(1))
 	Scicos_commands(1)=[]
       end
@@ -630,9 +632,11 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       [CmenuType, mess] = CmType(Cmenu); //** local function: see below in this file
       xinfo(mess); //** show the message associated to the command 
       
-      //** ----------------- State variable filtering -----------------------------------------
+      //** ----------------- State variable filtering ----------------
       //** clear the %pt information for backward compatibility
       //** if 'Cmenu' is empty (no command) but '%pt' is not , it is better to clear '%pt'
+
+
       if ( Cmenu == [] & %pt <> []  ) then %pt=[]; end
       
       //** if 'Cmenu' is NOT empty and 'CmenuType' is "0" I don't' need '%pt' then clear '%pt'
@@ -674,6 +678,7 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	  ierr=0
 	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 	  //execstr('exec('+%cor_item_exec(%koko,2)+',-1)')
+
 	  // in case window has disappeared
 	  if ierr > 0 then
 	    Cmenu='Replot'
@@ -717,6 +722,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	n=size(files,1)
 	for i=1:n
 	  load(TMPDIR+'/Workspace/'+files(i))
+          Ii=find(t>=0);t=t(Ii);x=x(Ii);
+          [t,Ii]=sort(-t);t=-t;x=x(Ii)
 	  execstr(files(i)+'=struct('"values'",x,'"time'",t)')
 	end
 	execstr(txt)
@@ -784,6 +791,8 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       n=size(files,1)
       for i=1:n
 	load(TMPDIR+'/Workspace/'+files(i))
+        Ii=find(t>=0);t=t(Ii);x=x(Ii);
+        [t,Ii]=sort(-t);t=-t;x=x(Ii)
 	execstr(files(i)+'=struct('"values'",x,'"time'",t)')
       end
       execstr(txt)
