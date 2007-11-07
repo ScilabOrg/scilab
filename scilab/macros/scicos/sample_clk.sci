@@ -1,4 +1,4 @@
-function [Ts,bllst,corinv,ind,ok,scs_m,flgcdgen,freof]=sample_clk(MAT,Ts,bllst,corinv,scs_m,ind,flgcdgen)
+function [Ts,bllst,corinv,indout,ok,scs_m,flgcdgen,freof]=sample_clk(MAT,Ts,bllst,corinv,scs_m,indout,flgcdgen)
 // Copyright INRIA
 //   [num]=x_choose(['event select';'multiple frequency'],..
 //                    ["You have to choose a method for the sample time computation:";..
@@ -11,11 +11,11 @@ function [Ts,bllst,corinv,ind,ok,scs_m,flgcdgen,freof]=sample_clk(MAT,Ts,bllst,c
   //num=scs_m.props.tol(8)
   //num=2; // no choice to be done.For the next version the choice will be done in adding a new field in "Simulate/Setup"
   if flgcdgen==-1 then
-  [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
+  [Ts,bllst,corinv,indout,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,indout)
   else
   [frequ,offset,freqdiv,den,flg,ok]=clock_major(MAT)
   if ok then 
-    [Ts,corinv,bllst,ind,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind,flgcdgen)
+    [Ts,corinv,bllst,indout,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,indout,flgcdgen)
   end
   end
 endfunction
@@ -37,7 +37,7 @@ if size(unique(offset1),'*')==1 then
   min_v=min(v);max_v=max(v);
   if (max_v/min_v)>1e5 then message(['The difference between the frequencies is very large';..
 	  'the clocks could not be synchronized']);
-    ok=%f;Ts=[];bllst=[];corinv=list();ind=[];
+    ok=%f;Ts=[];bllst=[];corinv=list();indout=[];
     return; 
   end
   [frequ,den]=fixedpointgcd(v);
@@ -48,7 +48,7 @@ else
   min_v=min(v);max_v=max(v);
   if (max_v/min_v)>1e5 then message(['The difference between the frequencies is very large';..
 	  'the clocks could not be synchronized']);
-    ok=%f;Ts=[];bllst=[];corinv=list();ind=[];
+    ok=%f;Ts=[];bllst=[];corinv=list();indout=[];
     return; 
   end
   [frequ,den]=fixedpointgcd(v);
@@ -64,7 +64,7 @@ if (offset > frequ) then
 end
 endfunction
 
-function [Ts,corinv,bllst,ind,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,ind,flgcdgen)
+function [Ts,corinv,bllst,indout,ok,scs_m,flgcdgen,freof]=update_diag(scs_m,corinv,Ts,frequ,offset,freqdiv,bllst,den,flg,indout,flgcdgen)
 //modification to support double
 ok=%t
 
@@ -97,7 +97,7 @@ end
 corinv($+1)=n+1
 nb=size(corinv)
 nc=size(bllst);
-ind($+1)=nc;
+indout($+1)=nc;
 if flgcdgen==-1 then
    Ts($+1:$+2,:)=[nb 1 -1 -1;..
 		  nb 1 1  -1]
@@ -123,8 +123,8 @@ if flg then
     scs_m.objs(n+3).model.firing=-ones(nn,1);
     nc=size(bllst)
     nb=size(corinv)
-    ind($+1)=nc-1;
-    ind($+1)=nc;
+    indout($+1)=nc-1;
+    indout($+1)=nc;
     Ts($+1:$+4,:)=[nb-2 1 -1 -1;..
 	 	    nb-1,1,1,-1;..
 		    nb-1,1,-1,1;..
@@ -168,7 +168,7 @@ else denom_com=double(denom_com)*10^(-f);
 end
 endfunction
 
-function [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
+function [Ts,bllst,corinv,indout,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,indout)
   ok=%t
   index=find(MAT(:,5)==string(4))
   MAT1=MAT(index,:);
@@ -180,7 +180,7 @@ function [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
   min_v=min(v);max_v=max(v);
   if (max_v/min_v)>1e5 then message(['The difference between the frequencies is very large';..
 	  'the clocks could not be synchronized']);
-     ok=%f;Ts=[];bllst=[];corinv=list();ind=[];
+     ok=%f;Ts=[];bllst=[];corinv=list();indout=[];
      return; 
    end
    [pgcd,den]=fixedpointgcd(v);
@@ -232,7 +232,7 @@ function [Ts,bllst,corinv,ind,ok]=s_clk2(MAT,Ts,bllst,corinv,scs_m,ind)
    corinv($+1)=n+1;
    nb=size(corinv);
    nc=size(bllst);
-   ind($+1)=nc;
+   indout($+1)=nc;
 
    k=1:mn;
    Ts($+1:2:$+2*mn,:)=[nb*ones(mn,1) k' -ones(mn,2)]
