@@ -504,7 +504,7 @@ function [ordclk,ordptr,cord,typ_l,clkconnect,connectmat,bllst,dep_t,dep_u,..
   zz=get_clocks(clkconnect,clkptr)  
   //testing event algebraic loops
   ok=is_alg_event_loop(typ_l,clkconnect)
-  if ~ok then message('Algebraic loop on events.'),end
+  if ~ok then message('Algebraic loop on events.');return ,end
   
 
   ok=%t
