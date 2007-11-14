@@ -13,10 +13,8 @@ function scilab2scicos(win,x,y,ibut)
   n=size(files,1)
   for i=1:n
     load(TMPDIR+'/Workspace/'+files(i))
-    Ii=find(t>=0);t=t(Ii);x=x(Ii);
-    [t,Ii]=sort(-t);t=-t;x=x(Ii);
     execstr(files(i)+'=struct('"values'",x,'"time'",t)')
   end
-  execstr(txt)  
+  execstr(txt)
 endfunction
 

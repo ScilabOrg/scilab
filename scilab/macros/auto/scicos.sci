@@ -722,8 +722,6 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	n=size(files,1)
 	for i=1:n
 	  load(TMPDIR+'/Workspace/'+files(i))
-          Ii=find(t>=0);t=t(Ii);x=x(Ii);
-          [t,Ii]=sort(-t);t=-t;x=x(Ii)
 	  execstr(files(i)+'=struct('"values'",x,'"time'",t)')
 	end
 	execstr(txt)
@@ -791,8 +789,6 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
       n=size(files,1)
       for i=1:n
 	load(TMPDIR+'/Workspace/'+files(i))
-        Ii=find(t>=0);t=t(Ii);x=x(Ii);
-        [t,Ii]=sort(-t);t=-t;x=x(Ii)
 	execstr(files(i)+'=struct('"values'",x,'"time'",t)')
       end
       execstr(txt)
