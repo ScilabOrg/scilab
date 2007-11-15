@@ -12,13 +12,13 @@ select needcompile
     if ~ok then
       alreadyran=do_terminate();
       disp("Partial compilation failed. Attempting a full compilation.");
-      needcompile=2
+      needcompile=4
       [%cpr,ok]=do_compile(scs_m)
       if ok then
 	%state0=%cpr.state
 	needcompile=0
-	return;
       end
+      return;
     end
     %cpr.state=state,%cpr.sim=sim
   end
@@ -27,16 +27,16 @@ select needcompile
     // update parameters or states
     cor=%cpr.cor
     [%state0,state,sim,ok]=modipar(newparameters,%state0,%cpr.state,%cpr.sim)
-    if ~ok then
+    if (~ok| findinlistcmd(%cpr.corinv,size(cor),'>')<>list() ) then
       alreadyran=do_terminate()
       disp("Partial compilation failed. Attempting a full compilation.");
-      needcompile=2
+      needcompile=4
       [%cpr,ok]=do_compile(scs_m)
       if ok then
 	%state0=%cpr.state
 	needcompile=0
-	return;
       end
+      return;
     end
     %cpr.state=state,%cpr.sim=sim
   end
