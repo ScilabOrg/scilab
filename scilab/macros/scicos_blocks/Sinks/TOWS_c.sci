@@ -40,7 +40,7 @@ case 'set' then
 
       if ok then
         [model,graphics,ok]=set_io(model,graphics,...
-                                   list([-1,1],-1),list(),...
+                                   list([-1,-2],-1),list(),...
                                    ones(1-herit,1),[])
 
         model.ipar=[nz;length(varnam);str2code(varnam)]
@@ -53,27 +53,27 @@ case 'set' then
    end
 
 case 'define' then
-  nu=-1
-  nz=128
-  varnam='A'
-  herit=0
+  nu     = -1
+  nz     = 128
+  varnam = 'A'
+  herit  = 0
 
-  model=scicos_model();
-  model.sim=list('tows_c',4);
-  model.in=[nu];
-  model.in2=1;
-  model.intyp=-1;
-  model.out=[];
-  model.evtin=[1];
-  model.evtout=[];
-  model.rpar=[];
-  model.ipar=[nz;length(varnam);str2code(varnam)];
-  model.blocktype='d';
-  model.firing=[];
-  model.dep_ut=[%f %f];
+  model           = scicos_model();
+  model.sim       = list('tows_c',4);
+  model.in        = [nu];
+  model.in2       = -2;
+  model.intyp     = -1;
+  model.out       = [];
+  model.evtin     = [1];
+  model.evtout    = [];
+  model.rpar      = [];
+  model.ipar      = [nz;length(varnam);str2code(varnam)];
+  model.blocktype = 'd';
+  model.firing    = [];
+  model.dep_ut    = [%f %f];
 
   gr_i=['txt=[''To workspace''];';
-    'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');']
+        'xstringb(orig(1),orig(2),txt,sz(1),sz(2),''fill'');']
   exprs=[string(nz),string(varnam),string(herit)]
   x=standard_define([3.5 2],model,exprs,gr_i)
 end
