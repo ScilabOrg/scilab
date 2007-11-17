@@ -42,7 +42,6 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
   File     = ['File',..
               'New',..
 	      'Open',..
-	      'Rename',..
 	      'Save',..
 	      'Save As',..
 	      'Save as Interf Func',..
@@ -53,6 +52,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
 
   Diagram  = ['Diagram',..
               'Replot',..
+	      'Rename',..
 	      'Purge',..
 	      'Set Diagram Info',..
 	      'Region to Super Block',..
