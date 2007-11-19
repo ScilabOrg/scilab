@@ -198,11 +198,12 @@ void call_ctor_dtor(handle,loading)
 #define MAXARGV 128
 
 
-
-#ifndef hppa
-#define SHARED_SUF ".so"
-#else
+#if defined hppa
 #define SHARED_SUF ".sl"
+#elif defined __APPLE__
+#define SHARED_SUF ".dylib"
+#else
+#define SHARED_SUF ".so"
 #endif
 
 #ifndef RTLD_GLOBAL
