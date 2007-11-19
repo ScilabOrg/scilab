@@ -623,6 +623,18 @@ void tows_c(scicos_block *block,int flag)
      /* we don't are at the end of the buffer :
       * only first records will be saved
       */
+     if ((ptr->cnt==0)&&(ptr->loop==0)) {
+       ptr_i = (int*) ptr->workt;
+       ptr_i[6] = 1;
+       ptr_i[7] = 0;
+       ptr_i[8] = 0;
+       ptr_i[9] = 0;
+       ptr_i = (int*) ptr->work;
+       ptr_i[6] = 1;
+       ptr_i[7] = 0;
+       ptr_i[8] = 0;
+       ptr_i[9] = 0;
+     }
      if ((ptr->cnt!=0)&&(ptr->cnt!=nz)&&(ptr->loop==0)) {
        ptr_i = (int*) ptr->workt;
        ptr_i[7]=ptr->cnt;
@@ -1011,88 +1023,16 @@ void tows_c(scicos_block *block,int flag)
        set_block_error(-3);
        return;
      }
-     if (ismat) {
-       C2F(mputnc)(&fd, &ptr_i[7], (j=37,&j), fmti, &ierr);    /* write sci header */
-     }
-     else {
+     if ((ptr->cnt==0)&&(ptr->loop==0)) {
        C2F(mputnc)(&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);    /* write sci header */
      }
-     if (ierr != 0) {
-       sciprint("Write error in file '%s'.\n",str);
-       scicos_free(ptr->workt);
-       scicos_free(ptr);
-       *(block->work) = NULL;
-       set_block_error(-3);
-       return;
-     }
-     /* write data */
-     switch (ut) {
-       case SCSREAL_N    :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtd, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
-         }
-         break;
-       case SCSCOMPLEX_N :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=2*ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtd, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=2*ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
-         }
-         break;
-       case SCSINT8_N    :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtc, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtc, &ierr);
-         }
-         break;
-       case SCSINT16_N   :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmts, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmts, &ierr);
-         }
-         break;
-       case SCSINT32_N   :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtl, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtl, &ierr);
-         }
-         break;
-       case SCSUINT8_N   :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtuc, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtuc, &ierr);
-         }
-         break;
-       case SCSUINT16_N  :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtus, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtus, &ierr);
-         }
-         break;
-       case SCSUINT32_N  :
-         if (ismat) {
-           C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtul, &ierr);
-         }
-         else {
-           C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtul, &ierr);
-         }
-         break;
-       default  : /* Add a message here */
-                 break;
+     else {
+       if (ismat) {
+         C2F(mputnc)(&fd, &ptr_i[7], (j=37,&j), fmti, &ierr);    /* write sci header */
+       }
+       else {
+         C2F(mputnc)(&fd, &ptr_i[7], (j=3,&j), fmti, &ierr);    /* write sci header */
+       }
      }
      if (ierr != 0) {
        sciprint("Write error in file '%s'.\n",str);
@@ -1101,6 +1041,85 @@ void tows_c(scicos_block *block,int flag)
        *(block->work) = NULL;
        set_block_error(-3);
        return;
+     }
+     if ((ptr->cnt!=0)||(ptr->loop!=0)) {
+       /* write data */
+       switch (ut) {
+         case SCSREAL_N    :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtd, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
+           }
+           break;
+         case SCSCOMPLEX_N :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=2*ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtd, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=2*ptr_i[7]*ptr_i[8],&j), fmtd, &ierr);
+           }
+           break;
+         case SCSINT8_N    :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtc, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtc, &ierr);
+           }
+           break;
+         case SCSINT16_N   :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmts, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmts, &ierr);
+           }
+           break;
+         case SCSINT32_N   :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtl, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtl, &ierr);
+           }
+           break;
+         case SCSUINT8_N   :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtuc, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtuc, &ierr);
+           }
+           break;
+         case SCSUINT16_N  :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtus, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtus, &ierr);
+           }
+           break;
+         case SCSUINT32_N  :
+           if (ismat) {
+             C2F(mputnc)(&fd, &ptr_i[44], (j=ptr_i[37]*ptr_i[38]*ptr_i[39],&j), fmtul, &ierr);
+           }
+           else {
+             C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7]*ptr_i[8],&j), fmtul, &ierr);
+           }
+           break;
+         default  : /* Add a message here */
+                   break;
+       }
+       if (ierr != 0) {
+         sciprint("Write error in file '%s'.\n",str);
+         scicos_free(ptr->workt);
+         scicos_free(ptr);
+         *(block->work) = NULL;
+         set_block_error(-3);
+         return;
+       }
      }
 
      /* write t */
@@ -1132,14 +1151,16 @@ void tows_c(scicos_block *block,int flag)
        set_block_error(-3);
        return;
      }
-     C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7],&j), fmtd, &ierr);
-     if (ierr != 0) {
-       sciprint("Write error in file '%s'.\n",str);
-       scicos_free(ptr->workt);
-       scicos_free(ptr);
-       *(block->work) = NULL;
-       set_block_error(-3);
-       return;
+     if ((ptr->cnt!=0)||(ptr->loop!=0)) {
+       C2F(mputnc)(&fd, &ptr_i[10], (j=ptr_i[7],&j), fmtd, &ierr);
+       if (ierr != 0) {
+         sciprint("Write error in file '%s'.\n",str);
+         scicos_free(ptr->workt);
+         scicos_free(ptr);
+         *(block->work) = NULL;
+         set_block_error(-3);
+         return;
+       }
      }
 
      /* close tmp file */
