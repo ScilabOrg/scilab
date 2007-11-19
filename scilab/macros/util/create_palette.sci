@@ -31,7 +31,8 @@ function [routines,IntFunc]=create_palette(Path)
     routines=build_palette(lisf,Path,PalName);IntFunc=lisf
   else
     [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ..
-     %scicos_display_mode, modelica_libs,scicos_pal_libs] = initial_scicos_tables()
+     %scicos_display_mode, modelica_libs,scicos_pal_libs,..
+     %scicos_gif,%scicos_contrib] = initial_scicos_tables()
     clear %scicos_menu  %scicos_short %scicos_help %scicos_display_mode modelica_libs
     exec(loadpallibs,-1) 
     path='SCI/macros/scicos/'
