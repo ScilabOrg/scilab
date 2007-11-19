@@ -19,7 +19,7 @@
 // Copyright INRIA
 function rotate_compound(sel_x, sel_y, sel_w, sel_h, blk, theta)
 
-  gh_curwin=gcf(curwin)
+  gh_curwin=gh_curwin;
   o_size = size(gh_curwin.children.children);
 
   unglue(gh_curwin.children.children(blk))
