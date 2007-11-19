@@ -47,11 +47,13 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
   if (~isdef("scicos_pal") | ~isdef("%scicos_menu") | ..
       ~isdef("%scicos_short") | ~isdef("%scicos_help") | ..
       ~isdef("%scicos_display_mode") | ~isdef("modelica_libs") | ..
-      ~isdef("scicos_pal_libs") ) then
+      ~isdef("scicos_pal_libs") | ~isdef("%scicos_gif") | ..
+      ~isdef("%scicos_contrib") ) then
          [scicos_pal,%scicos_menu,...
           %scicos_short,%scicos_help,..
           %scicos_display_mode,modelica_libs,...
-          scicos_pal_libs]=initial_scicos_tables()
+          scicos_pal_libs,%scicos_gif,..
+          %scicos_contrib]=initial_scicos_tables()
          clear initial_scicos_tables
   end
 

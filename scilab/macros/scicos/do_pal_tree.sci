@@ -57,8 +57,9 @@ tt=[ "set BWpath [file dirname '"$env(SCIPATH)/tcl/BWidget-1.7.0'"] "
    ];
 
 tt = [tt; 'wm title $wxx '+scs_m.props.title(1) ];
-Pgif = SCI+"/macros/scicos/scicos_doc/man/gif_icons/";
+Pgif = %scicos_gif;
 GIFT = listfiles(Pgif+'*.gif');
+GIFT = strsubst(GIFT,'\','/');
 GIF  = [];
 
 for i=1:size(GIFT,1)
@@ -105,10 +106,11 @@ function tt = crlist(scs_m,Path,tt)
       else 
         //** Standard Blocks 
 	titre2 = o.gui;
-	if find(titre2==GIF)<>[] then
+	ind = find(titre2==GIF);
+	if ind<>[] then
 	   //** a valid icon (GIF) is found 
            tt = [tt;'$wxx.t insert end '+Path+' '+path+' -"+...
-	        "helptext '"'+titre2+''" -image [image create photo -file '"'+Pgif+titre2+'.gif'"]']
+	        "helptext '"'+titre2+''" -image [image create photo -file '"'+GIFT(ind)+''"]']
 	else
            //** NO icon is found: use the block's name   
 	  tt = [tt;'$wxx.t insert end '+Path+' '+path+' -text '"'+titre2+''"']

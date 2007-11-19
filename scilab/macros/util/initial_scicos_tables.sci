@@ -1,6 +1,8 @@
 function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
-	  %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
-	  %scicos_lhb_list, %CmenuTypeOneVector ] = initial_scicos_tables()
+          %scicos_display_mode, modelica_libs,scicos_pal_libs, ...
+          %scicos_lhb_list, %CmenuTypeOneVector,%scicos_gif, ...
+          %scicos_contrib] = initial_scicos_tables()
+
 //**
 //** INRIA
 //** Comments by Simone Mannori
@@ -29,6 +31,10 @@ function [scicos_pal, %scicos_menu, %scicos_short, %scicos_help, ...
                'OldBlocks'  ;'DemoBlocks'];
 
   scicos_pal= [pal_names  'SCI/macros/scicos/'+pal_names+'.cosf']
+
+  %scicos_gif= SCI+"/macros/scicos/scicos_doc/man/gif_icons/";
+
+  %scicos_contrib= [];
 
   //Scicos palettes libs list ========================================================
   //**

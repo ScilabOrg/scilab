@@ -8,7 +8,7 @@ function create_gif(TXT,path)
 // SCI+'/macros/scicos/scicos_doc/man/gif_icons'
   if argn(2)==0 then 
     [j,TXT]=create_palette(%f);
-    path=SCI+'/macros/scicos/scicos_doc/man/gif_icons'
+    path=%scicos_gif(1)
   end
   load SCI/macros/scicos/lib;
   exec(loadpallibs,-1) 
@@ -43,5 +43,6 @@ function create_gif(TXT,path)
     unix('convert -transparent '"rgb(76,102,127)'" '+path+'/'+name+'.gif ...
 	 '+path+'/'+name+'.gif');
   end
+  delete(a)
 endfunction
 

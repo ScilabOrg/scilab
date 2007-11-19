@@ -94,11 +94,13 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
     // Check and define SCICOS palette , menu , shortcut , display mode , palette libraries
     if exists('scicos_pal')==0 | exists('%scicos_menu')==0 | exists('%scicos_short')==0 | ...
 	  exists('%scicos_display_mode')==0 | exists('scicos_pal_libs')==0 | ...
-	  exists('%scicos_lhb_list')==0 | exists('%CmenuTypeOneVector')==0   then
+	  exists('%scicos_lhb_list')==0 | exists('%CmenuTypeOneVector')==0 | ...
+          exists('%scicos_gif')==0 | exists('%scicos_contrib')==0  then
 
       [scicos_pal_d, %scicos_menu_d, %scicos_short_d, %scicos_help_d,...
        %scicos_display_mode_d, modelica_libs_d, scicos_pal_libs_d,...
-       %scicos_lhb_list_d, %CmenuTypeOneVector_d ] = initial_scicos_tables() ;
+       %scicos_lhb_list_d, %CmenuTypeOneVector_d, %scicos_gif_d,...
+       %scicos_contrib_d ] = initial_scicos_tables() ;
 
       if exists('scicos_pal')==0 then
 	message(["scicos_pal not defined"; "using default values"])
@@ -145,6 +147,15 @@ function [scs_m,newparameters,needcompile,edited] = scicos(scs_m,menus)
 	%CmenuTypeOneVector = %CmenuTypeOneVector_d ;
       end
       
+      if exists('%scicos_gif')==0 then
+        message(["%scicos_gif not defined"; "using default values"])
+        %scicos_gif = %scicos_gif_d ;
+      end
+
+      if exists('%scicos_contrib')==0 then
+        message(["%scicos_contrib not defined"; "using default values"])
+        %scicos_contrib = %scicos_contrib_d ;
+      end
     end //** ... of the initialization variable
 	//**--------------------------------------------------------------
 
