@@ -51,7 +51,7 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
       ~isdef("%scicos_contrib") ) then
          [scicos_pal,%scicos_menu,...
           %scicos_short,%scicos_help,..
-          %scicos_display_mode,modelica_libs,...
+          %scicos_display_mode,modelica_libs,..
           scicos_pal_libs,%scicos_gif,..
           %scicos_contrib]=initial_scicos_tables()
          clear initial_scicos_tables
@@ -165,6 +165,28 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
     end
   end
 
+  //prepare from and to workspace stuff
+  curdir=getcwd()
+  chdir(TMPDIR)
+  mkdir('Workspace')
+  chdir('Workspace')
+  %a=who('get');
+  %a=%a(1:$-predef()+1);  // exclude protected variables
+  for %ij=1:size(%a,1) 
+    var=%a(%ij)
+    if var<>'ans' & typeof(evstr(var))=='st' then
+      ierr=execstr('x='+var+'.values','errcatch')
+      if ierr==0 then
+        ierr=execstr('t='+var+'.time','errcatch')
+      end
+      if ierr==0 then
+        execstr('save('"'+var+''",x,t)')
+      end
+    end
+  end
+  chdir(curdir)
+  // end of /prepare from and to workspace stuff
+
   Ignore=[]
 
   if flag=='nw' then
@@ -268,7 +290,16 @@ function Info=scicos_simulate(scs_m,Info,%scicos_context,flag,Ignb)
   else
     error(['Simulation problem:';lasterror()])
   end
+
   Info=list(%tcur,%cpr,alreadyran,needstart,needcompile,%state0)
+
+  [txt,files]=returntoscilab()
+  n=size(files,1)
+  for i=1:n
+    load(TMPDIR+'/Workspace/'+files(i))
+    execstr(files(i)+'=struct('"values'",x,'"time'",t)')
+  end
+  execstr(txt)
 endfunction
 
 function [alreadyran,%cpr]=do_terminate1(scs_m,%cpr)
