@@ -200,10 +200,19 @@ function ilib_link_gen_Make_win32(names,files,libs,Makename,libname,ldflags, ...
   if cc<>"" then 
     mfprintf(fd,"CC="+cc+ "\n");
   end
-  mfprintf(fd,"CFLAGS = $(CC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
+  
+  if findmsvccompiler() <>'msvc90express' then
+    mfprintf(fd,"CFLAGS = $(CC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
 	   " -Dmexfunction_=mex$*_  -DmexFunction=mex_$* "+ cflags +" \n"); 
-  mfprintf(fd,"FFLAGS = $(FC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
-	   " -Dmexfunction=mex$* "+ fflags +"\n"); 
+    mfprintf(fd,"FFLAGS = $(FC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
+	   " -Dmexfunction=mex$* "+ fflags +"\n"); 	   
+  else	   
+    mfprintf(fd,"CFLAGS = $(CC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
+	   " "+ cflags +" \n"); 
+	  mfprintf(fd,"FFLAGS = $(FC_OPTIONS) -DFORDLL -I\""$(SCIDIR)/routines\"""+...
+	   " "+ fflags +"\n"); 
+  end
+  
   mfprintf(fd,"EXTRA_LDFLAGS = "+ ldflags+"\n");
   mfprintf(fd,"!include $(SCIDIR1)\\config\\Makedll.incl \n");
   mclose(fd);
@@ -263,7 +272,7 @@ function ilib_link_gen_Make_lcc(names,files,libs,Makename,libname,ldflags,cflags
   mfprintf(fd,"\n# added libraries \n");
   mfprintf(fd,"OTHERLIBS =");
   for x=libs(:)' ;
-  	mfprintf(fd," ""%s.ilib"" ",x);
+  	mfprintf(fd," ""%s.ilib""",x);
   end
   mfprintf(fd,"\n");
   

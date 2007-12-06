@@ -12,18 +12,7 @@ function R=legend(varargin)
   opt=1
   with_box=%t
 
-  //  if type(varargin(1))==9 then //a handle
-  //    H=varargin(1)
-  //    if H.type=='Axes' then 
-  //      A=H,
-  //      //set("current_axes",A)
-  //      k0=k0+1
-  //      if k0<=narg&type(varargin(k0))==9 then //a handle
-  //	H=varargin(k0);k0=k0+1
-  //      end
-  //    end
-  //  end
-
+  
   while type(varargin(k0))==9 then //a handle that could be an Axes, Agreg. or Polyline handle.
     tmpH=varargin(k0)
     if tmpH.type=='Axes' then
@@ -127,8 +116,7 @@ function R=legend(varargin)
   x=pos(1)+drx/5
   y=pos(2)-dy/60
 
-
-  drawlater()
+  f.immediate_drawing = "off",
   R=[]
   if with_box then 
     // a new modif (bruno 25 april 05): draw a filled rectangle
@@ -209,10 +197,9 @@ function R=legend(varargin)
     y=y-bbx(k,2)-dh
   end
   glue(R)
-  R=gce()
-  draw(R)
   set('current_axes',Acur),
-  //  drawnow()
+
+  // if immediate_drawing was "on", then the figure will redraw itself.
   f.immediate_drawing=vis;
 endfunction
 
