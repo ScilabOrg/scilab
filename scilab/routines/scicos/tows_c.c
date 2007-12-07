@@ -106,7 +106,8 @@ void tows_c(scicos_block *block,int flag)
  /* */
  int nu,nu2,ut;
  int nz;
- double t;
+ int cur_ind;
+ double t,t_old;
  /* local */
  int i,j,k,l;
  int ierr;
@@ -623,7 +624,7 @@ void tows_c(scicos_block *block,int flag)
      /* we don't are at the end of the buffer :
       * only first records will be saved
       */
-     if ((ptr->cnt==0)&&(ptr->loop==0)) {
+     if ((ptr->cnt==0)&&(ptr->loop==0)) { /* nothing have been stored */
        ptr_i = (int*) ptr->workt;
        ptr_i[6] = 1;
        ptr_i[7] = 0;
@@ -635,16 +636,101 @@ void tows_c(scicos_block *block,int flag)
        ptr_i[8] = 0;
        ptr_i[9] = 0;
      }
-     if ((ptr->cnt!=0)&&(ptr->cnt!=nz)&&(ptr->loop==0)) {
-       ptr_i = (int*) ptr->workt;
-       ptr_i[7]=ptr->cnt;
-       ptr_i = (int*) ptr->work;
+     if ((ptr->cnt!=0)&&(ptr->cnt!=nz)&&(ptr->loop==0)) { /* something stored */
+                                                          /* but we don't are at the end */
+       ptr_i    = (int*) ptr->workt;
+       ptr_i[7] = ptr->cnt;
+       ptr_i    = (int*) ptr->work;
+       /* hmat */
        if (ismat) {
-         ptr_i[39]=ptr->cnt;
-         ptr_i[41]=ptr->cnt*nu*nu2;
+         ptr_i[39] = ptr->cnt;
+         ptr_i[41] = ptr->cnt*nu*nu2;
        }
+       /* vector or matrix */
        else {
-         ptr_i[7]=ptr->cnt;
+         /* matrix case */
+         if (ptr_i[8] != 1) {
+           /* */
+           k=nz-ptr->cnt;
+           /* */
+           switch (ut) {
+             case SCSREAL_N    :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((double *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((double *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSCOMPLEX_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((double *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((double *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                    *((double *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)+nz*nu) = \
+                         *((double *)(&ptr_i[10]) + (((i+1)*nz)+j)+nz*nu);
+                  }
+                }
+               break;
+
+             case SCSINT8_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((char *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((char *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSINT16_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((short *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((short *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSINT32_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((long *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((long *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSUINT8_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((unsigned char *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((unsigned char *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSUINT16_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((unsigned short *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((unsigned short *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+             case SCSUINT32_N :
+                for(i=0;i<ptr_i[8]-1;i++) {
+                  for(j=0;j<ptr->cnt;j++) {
+                    *((unsigned long *)(&ptr_i[10]) + (((i+1)*nz)+j-(i+1)*k)) = \
+                         *((unsigned long *)(&ptr_i[10]) + (((i+1)*nz)+j));
+                  }
+                }
+               break;
+
+           }
+         }
+         ptr_i[7] = ptr->cnt;
        }
      }
      /* sort data */
@@ -1174,13 +1260,13 @@ void tows_c(scicos_block *block,int flag)
 
  }
 
- else if (flag==2) { /* update state */
+ else if ((flag==2)||(flag==0)) { /* update state */
 
    ptr = *(block->work);
 
    ptr_i = (int*) ptr->work;
 
-   /* check */
+   /* check data dimension */
    if (ismat) {
      if ((nz!=ptr_i[39]) || (nu!=ptr_i[37]) || (nu2!=ptr_i[38])) {
        sciprint("Size of buffer or input size have changed!\n");
@@ -1197,8 +1283,49 @@ void tows_c(scicos_block *block,int flag)
    }
 
    /*
+    * test on time
+    */
+
+   ptr_i = (int*) ptr->workt;
+   ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
+
+   /* get current time */
+   t     = get_scicos_time();
+
+   /* get old time */
+   if ((ptr->cnt==0)&&(ptr->loop==0)) { /* nothing have been stored */
+    t_old = 0;
+   }
+   else {
+     if (ptr->cnt==0) {
+       t_old = ptr_d[nz-1];
+     }
+     else {
+       t_old = ptr_d[ptr->cnt-1];
+     }
+   }
+
+   /* get current index of cnt */
+   if (t_old==0) {
+     cur_ind = ptr->cnt;
+   }
+   else if (t_old>=t) {
+     if (ptr->cnt == 0) {
+       cur_ind = nz-1;
+     }
+     else {
+       cur_ind = ptr->cnt - 1;
+     }
+   }
+   else {
+    cur_ind = ptr->cnt;
+   }
+
+   /*
     *store
     */
+
+   ptr_i = (int*) ptr->work;
 
    /* x */
    switch (ut)
@@ -1208,13 +1335,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_d = (SCSREAL_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[ptr->cnt*(nu*nu2)+i] = u_d[i];
+          ptr_d[cur_ind*(nu*nu2)+i] = u_d[i];
         }
       }
       else {
         ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[ptr->cnt+i*nz] = u_d[i];
+          ptr_d[cur_ind+i*nz] = u_d[i];
         }
       }
       break;
@@ -1225,15 +1352,15 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_d = (SCSREAL_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[ptr->cnt*(nu*nu2)+i] = u_d[i];
-          ptr_d[nz*nu*nu2+ptr->cnt*(nu*nu2)+i] = u_cd[i];
+          ptr_d[cur_ind*(nu*nu2)+i] = u_d[i];
+          ptr_d[nz*nu*nu2+cur_ind*(nu*nu2)+i] = u_cd[i];
         }
       }
       else {
         ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_d[ptr->cnt+i*nz]       = u_d[i];
-          ptr_d[nz*nu+ptr->cnt+i*nz] = u_cd[i];
+          ptr_d[cur_ind+i*nz]       = u_d[i];
+          ptr_d[nz*nu+cur_ind+i*nz] = u_cd[i];
         }
       }
       break;
@@ -1243,13 +1370,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_c = (SCSINT8_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_c[ptr->cnt*(nu*nu2)+i] = u_c[i];
+          ptr_c[cur_ind*(nu*nu2)+i] = u_c[i];
         }
       }
       else {
         ptr_c = (SCSINT8_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_c[ptr->cnt+i*nz] = u_c[i];
+          ptr_c[cur_ind+i*nz] = u_c[i];
         }
       }
       break;
@@ -1259,13 +1386,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_s = (SCSINT16_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_s[ptr->cnt*(nu*nu2)+i] = u_s[i];
+          ptr_s[cur_ind*(nu*nu2)+i] = u_s[i];
         }
       }
       else {
         ptr_s = (SCSINT16_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_s[ptr->cnt*nu+i*nz] = u_s[i];
+          ptr_s[cur_ind*nu+i*nz] = u_s[i];
         }
       }
       break;
@@ -1275,13 +1402,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_l = (SCSINT32_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_l[ptr->cnt*(nu*nu2)+i] = u_l[i];
+          ptr_l[cur_ind*(nu*nu2)+i] = u_l[i];
         }
       }
       else {
         ptr_l = (SCSINT32_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_l[ptr->cnt+i*nz] = u_l[i];
+          ptr_l[cur_ind+i*nz] = u_l[i];
         }
       }
       break;
@@ -1291,13 +1418,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_uc = (SCSUINT8_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_uc[ptr->cnt*(nu*nu2)+i] = u_uc[i];
+          ptr_uc[cur_ind*(nu*nu2)+i] = u_uc[i];
         }
       }
       else {
         ptr_uc = (SCSUINT8_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_uc[ptr->cnt+i*nz] = u_uc[i];
+          ptr_uc[cur_ind+i*nz] = u_uc[i];
         }
       }
       break;
@@ -1307,13 +1434,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_us = (SCSUINT16_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_us[ptr->cnt*(nu*nu2)+i] = u_us[i];
+          ptr_us[cur_ind*(nu*nu2)+i] = u_us[i];
         }
       }
       else {
         ptr_us = (SCSUINT16_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_us[ptr->cnt+i*nz] = u_us[i];
+          ptr_us[cur_ind+i*nz] = u_us[i];
         }
       }
       break;
@@ -1323,13 +1450,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_ul = (SCSUINT32_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_ul[ptr->cnt*(nu*nu2)+i] = u_ul[i];
+          ptr_ul[cur_ind*(nu*nu2)+i] = u_ul[i];
         }
       }
       else {
         ptr_ul = (SCSUINT32_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_ul[ptr->cnt+i*nz]=u_ul[i];
+          ptr_ul[cur_ind+i*nz]=u_ul[i];
         }
       }
       break;
@@ -1340,13 +1467,13 @@ void tows_c(scicos_block *block,int flag)
 
    /* t */
    ptr_i           = (int*) ptr->workt;
-   t               = get_scicos_time();
    ptr_d           = (SCSREAL_COP *) &(ptr_i[10]);
-   ptr_d[ptr->cnt] = t;
+   ptr_d[cur_ind]  = t;
 
    /*
     * update cnt
     */
+   ptr->cnt = cur_ind;
    ptr->cnt++;
    if (ptr->cnt==nz) {
      ptr->cnt = 0;

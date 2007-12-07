@@ -42,7 +42,11 @@ case 'set' then
         [model,graphics,ok]=set_io(model,graphics,...
                                    list([-1,-2],-1),list(),...
                                    ones(1-herit,1),[])
-
+        if herit == 1 then
+          model.blocktype='x'
+        else
+          model.blocktype = 'd';
+        end
         model.ipar=[nz;length(varnam);str2code(varnam)]
         graphics.id=string(varnam)
         graphics.exprs=exprs
