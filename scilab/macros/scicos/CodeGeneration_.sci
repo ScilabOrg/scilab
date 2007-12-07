@@ -192,7 +192,7 @@ function txt=call_block42(bk,pt,flag)
     txt = [txt;
            'nport = '+string(ind)+';']
     txt = [txt;
-           rdnom+'_sensor(&local_flag, &nport, &block_'+rdnom+'['+string(i-1)+'].nevprt, \'
+           rdnom+'_sensor(&local_flag, &nport, &block_'+rdnom+'['+string(bk-1)+'].nevprt, \'
            get_blank(rdnom+'_sensor')+' &t, ('+mat2scs_c_ptr(outtb(yk))+' *)'+rdnom+'_block_outtbptr['+string(yk-1)+'], \'
            get_blank(rdnom+'_sensor')+' &nrd_'+string(nyk_1)+', &nrd_'+string(nyk_2)+', &nrd_'+string(yk_t)+',aaa);']
     txt = [txt;
