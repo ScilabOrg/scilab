@@ -1232,7 +1232,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   N_Vector y;
   void *cvode_mem;
   int flag, flagr;
-
+  int cnt=0;
 
   jroot=NULL;
   if (ng!=0) {
@@ -1369,6 +1369,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       /*     .     sxevents can modify halt */
     }
     if (C2F(coshlt).halt != 0) {
+      if (C2F(coshlt).halt ==2) *told=*tf; /* end simulation */
       C2F(coshlt).halt = 0;
       freeall;
       return;
@@ -1474,6 +1475,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	if (Discrete_Jump==0){/* if there was a dzero, its event should be activated*/
 	  phase=2;
 	  flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+	  if (*ierr != 0) {freeall;return;}
 	  phase=1;
 	}else{
 	  flag = CV_ROOT_RETURN; /* in order to handle discrete jumps */
@@ -1492,11 +1494,18 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
 	    sciprint("****SUNDIALS.Cvode reached: %f\r\n",*told);
 	  hot = 1;
+          cnt = 0;
 	} else if ( flag==CV_TOO_MUCH_WORK ||  flag == CV_CONV_FAILURE || flag==CV_ERR_FAILURE) {  
 	  sciprint("**** SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and ATOL)\r\n",*told);	  
 	  hot = 0;
+          cnt++;
+          if (cnt>5) {
+           *ierr=300+(-flag);
+            freeall;
+            return;
+          }
 	}else{
-	  if (flag<0) *ierr=200+(-flag);    /* raising errors due to internal errors, other wise erros due to flagr*/
+	  if (flag<0) *ierr=300+(-flag);    /* raising errors due to internal errors, other wise erros due to flagr*/
 	  freeall;
 	  return;
 	};
@@ -1663,6 +1672,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
   /*-------------------- Analytical Jacobian memory allocation ----------*/
   int  Jn, Jnx, Jno, Jni, Jactaille;
   double uround;
+  int cnt=0;
   maxord = 5;
 
 
@@ -1951,6 +1961,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
       /*     .     sxevents can modify halt */
     }
     if (C2F(coshlt).halt != 0) {
+      if (C2F(coshlt).halt ==2) *told=*tf; /* end simulation */
       C2F(coshlt).halt = 0;
       freeallx;
       return;
@@ -2159,6 +2170,7 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  phase=2;
 	  flagr = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL_TSTOP);
 	  phase=1;
+	  if (*ierr != 0) {freeallx;return;}
 	}else{
 	  flagr = IDA_ROOT_RETURN; /* in order to handle discrete jumps */
 	}
@@ -2166,9 +2178,16 @@ static int check_flag(void *flagvalue, char *funcname, int opt)
 	  if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
 	    sciprint("****SUNDIALS.Ida reached: %f\r\n",*told);
 	  hot = 1;
+          cnt = 0;
 	} else if ( flagr==IDA_TOO_MUCH_WORK ||  flagr == IDA_CONV_FAIL || flagr==IDA_ERR_FAIL) {  
 	  sciprint("**** SUNDIALS.Ida: too much work at time=%g (stiff region, change RTOL and ATOL)\r\n",*told);	  
 	  hot = 0;
+          cnt++;
+          if (cnt>5) {
+            *ierr=200+(-flagr);
+	    freeallx;
+	    return;
+          }
 	}else{
 	  if (flagr<0) *ierr=200+(-flagr);    /* raising errors due to internal errors, other wise erros due to flagr*/
 	  freeallx;
@@ -4722,7 +4741,7 @@ void set_block_error(int err)
 void end_scicos_sim()
 
 {
-   *t0=*tf;
+  C2F(coshlt).halt =2;
    return;
 }
 
