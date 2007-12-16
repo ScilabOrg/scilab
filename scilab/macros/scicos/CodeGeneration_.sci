@@ -2003,6 +2003,15 @@ function Code=make_computational42()
         '#include '"'+SCI+'/routines/scicos/scicos.h'"'
         '']
 
+  if MSDOS then
+   Code=[Code;
+         ' '
+         '#define max(a,b) ((a) >= (b) ? (a) : (b))'
+         '#define min(a,b) ((a) <= (b) ? (a) : (b))'
+         ' '
+        ]
+  end
+
   Code=[Code;
         Protos
         '']
