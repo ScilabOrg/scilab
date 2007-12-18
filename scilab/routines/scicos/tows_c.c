@@ -106,7 +106,6 @@ void tows_c(scicos_block *block,int flag)
  /* */
  int nu,nu2,ut;
  int nz;
- int cur_ind;
  double t,t_old;
  /* local */
  int i,j,k,l;
@@ -1293,10 +1292,23 @@ void tows_c(scicos_block *block,int flag)
    t     = get_scicos_time();
 
    /* get old time */
-   if ((ptr->cnt==0)&&(ptr->loop==0)) { /* nothing have been stored */
-    t_old = 0;
+   if (ptr->cnt==0) {
+     t_old = ptr_d[nz-1];
    }
    else {
+     t_old = ptr_d[ptr->cnt-1];
+   }
+
+   /* get current index of cnt */
+   while (t_old>=t) { /*decrease*/
+     if (ptr->cnt == 0) {
+       ptr->cnt = nz-1;
+     }
+     else {
+       ptr->cnt = ptr->cnt - 1;
+     }
+
+     /* get old time */
      if (ptr->cnt==0) {
        t_old = ptr_d[nz-1];
      }
@@ -1304,22 +1316,7 @@ void tows_c(scicos_block *block,int flag)
        t_old = ptr_d[ptr->cnt-1];
      }
    }
-
-   /* get current index of cnt */
-   if (t_old==0) {
-     cur_ind = ptr->cnt;
-   }
-   else if (t_old>=t) {
-     if (ptr->cnt == 0) {
-       cur_ind = nz-1;
-     }
-     else {
-       cur_ind = ptr->cnt - 1;
-     }
-   }
-   else {
-    cur_ind = ptr->cnt;
-   }
+   /*fprintf(stderr,"flag=%d, ptr->cnt=%d, t=%20.18f, t_old=%20.18f, t_old>=t=%d\n",flag,ptr->cnt,t,t_old,t_old>=t);*/
 
    /*
     *store
@@ -1335,13 +1332,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_d = (SCSREAL_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[cur_ind*(nu*nu2)+i] = u_d[i];
+          ptr_d[ptr->cnt*(nu*nu2)+i] = u_d[i];
         }
       }
       else {
         ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[cur_ind+i*nz] = u_d[i];
+          ptr_d[ptr->cnt+i*nz] = u_d[i];
         }
       }
       break;
@@ -1352,15 +1349,15 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_d = (SCSREAL_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_d[cur_ind*(nu*nu2)+i] = u_d[i];
-          ptr_d[nz*nu*nu2+cur_ind*(nu*nu2)+i] = u_cd[i];
+          ptr_d[ptr->cnt*(nu*nu2)+i] = u_d[i];
+          ptr_d[nz*nu*nu2+ptr->cnt*(nu*nu2)+i] = u_cd[i];
         }
       }
       else {
         ptr_d = (SCSREAL_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_d[cur_ind+i*nz]       = u_d[i];
-          ptr_d[nz*nu+cur_ind+i*nz] = u_cd[i];
+          ptr_d[ptr->cnt+i*nz]       = u_d[i];
+          ptr_d[nz*nu+ptr->cnt+i*nz] = u_cd[i];
         }
       }
       break;
@@ -1370,13 +1367,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_c = (SCSINT8_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_c[cur_ind*(nu*nu2)+i] = u_c[i];
+          ptr_c[ptr->cnt*(nu*nu2)+i] = u_c[i];
         }
       }
       else {
         ptr_c = (SCSINT8_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_c[cur_ind+i*nz] = u_c[i];
+          ptr_c[ptr->cnt+i*nz] = u_c[i];
         }
       }
       break;
@@ -1386,13 +1383,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_s = (SCSINT16_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_s[cur_ind*(nu*nu2)+i] = u_s[i];
+          ptr_s[ptr->cnt*(nu*nu2)+i] = u_s[i];
         }
       }
       else {
         ptr_s = (SCSINT16_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_s[cur_ind*nu+i*nz] = u_s[i];
+          ptr_s[ptr->cnt*nu+i*nz] = u_s[i];
         }
       }
       break;
@@ -1402,13 +1399,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_l = (SCSINT32_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_l[cur_ind*(nu*nu2)+i] = u_l[i];
+          ptr_l[ptr->cnt*(nu*nu2)+i] = u_l[i];
         }
       }
       else {
         ptr_l = (SCSINT32_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_l[cur_ind+i*nz] = u_l[i];
+          ptr_l[ptr->cnt+i*nz] = u_l[i];
         }
       }
       break;
@@ -1418,13 +1415,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_uc = (SCSUINT8_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_uc[cur_ind*(nu*nu2)+i] = u_uc[i];
+          ptr_uc[ptr->cnt*(nu*nu2)+i] = u_uc[i];
         }
       }
       else {
         ptr_uc = (SCSUINT8_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_uc[cur_ind+i*nz] = u_uc[i];
+          ptr_uc[ptr->cnt+i*nz] = u_uc[i];
         }
       }
       break;
@@ -1434,13 +1431,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_us = (SCSUINT16_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_us[cur_ind*(nu*nu2)+i] = u_us[i];
+          ptr_us[ptr->cnt*(nu*nu2)+i] = u_us[i];
         }
       }
       else {
         ptr_us = (SCSUINT16_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_us[cur_ind+i*nz] = u_us[i];
+          ptr_us[ptr->cnt+i*nz] = u_us[i];
         }
       }
       break;
@@ -1450,13 +1447,13 @@ void tows_c(scicos_block *block,int flag)
       if (ismat) {
         ptr_ul = (SCSUINT32_COP *) &(ptr_i[44]);
         for (i=0;i<nu*nu2;i++) {
-          ptr_ul[cur_ind*(nu*nu2)+i] = u_ul[i];
+          ptr_ul[ptr->cnt*(nu*nu2)+i] = u_ul[i];
         }
       }
       else {
         ptr_ul = (SCSUINT32_COP *) &(ptr_i[10]);
         for (i=0;i<nu;i++) {
-          ptr_ul[cur_ind+i*nz]=u_ul[i];
+          ptr_ul[ptr->cnt+i*nz]=u_ul[i];
         }
       }
       break;
@@ -1468,12 +1465,11 @@ void tows_c(scicos_block *block,int flag)
    /* t */
    ptr_i           = (int*) ptr->workt;
    ptr_d           = (SCSREAL_COP *) &(ptr_i[10]);
-   ptr_d[cur_ind]  = t;
+   ptr_d[ptr->cnt]  = t;
 
    /*
     * update cnt
     */
-   ptr->cnt = cur_ind;
    ptr->cnt++;
    if (ptr->cnt==nz) {
      ptr->cnt = 0;
