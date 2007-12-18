@@ -17,7 +17,7 @@ case 'set' then
   x0=model.state
   rpar=model.rpar
   ns=prod(size(x0));nin=1;nout=1
-  s=poly(0,'s');z=poly(0,'s')
+  %scicos_context.s=%s
   while %t do
     [ok,num,den,exprs]=getvalue('Set continuous SISO transfer parameters',..
 	['Numerator (s)';

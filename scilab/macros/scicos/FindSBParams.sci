@@ -48,6 +48,17 @@ function [params,param_types]=FindSBParams(scs_m,params)
   deff('%Font3()',Fun)
   xx=macrovar(%Font3);
   params=xx(3)
+
+  %vaar=["%s" "%z" "%e" "%i" "%pi"]
+  [%junk,%ind]=intersect(params,%vaar)  
+  params(%ind)=[]
+
+  Del=[]
+  for ii=1:size(params,1)
+   if ~exists(params(ii)) then Del=[Del,ii],end
+  end
+  params(Del)=[]
+
   param_types=list()
   for X=params'
     select evstr('type('+X+')')

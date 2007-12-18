@@ -15,7 +15,7 @@ case 'set' then
   graphics=arg1.graphics;exprs=graphics.exprs
   model=arg1.model;
   x0=model.dstate;ns=prod(size(x0));
-  z=poly(0,'z')
+    %scicos_context.z=%z
   while %t do
     [ok,num,den,exprs]=getvalue('Set discrete SISO transfer parameters',..
 	['Numerator (z)';
