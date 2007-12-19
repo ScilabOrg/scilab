@@ -48,7 +48,7 @@ case 'set' then
 
     if ok then
       model.ipar=[length(varnam);str2code(varnam);Method;ZC;OutEnd;];
-      [model,graphics,ok]=set_io(model,graphics,list(),list([-1,1],-1),1,1);
+      [model,graphics,ok]=set_io(model,graphics,list(),list([-1,-2],-1),1,1);
       if ok then
         graphics.exprs=exprs;
         x.graphics=graphics;x.model=model
@@ -65,8 +65,8 @@ case 'define' then
 
   model=scicos_model();
   model.sim=list('fromws_c',4);
-  model.out=-1;
-  model.out2=1
+  model.out=-1
+  model.out2=-2
   model.outtyp=-1
   model.ipar=[length(varnam);str2code(varnam);Method;ZC;OutEnd;];
   model.evtin=[1];
