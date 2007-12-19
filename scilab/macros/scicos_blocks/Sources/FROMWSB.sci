@@ -84,6 +84,9 @@ case 'set' then
   end
   x=arg1
   typ=newpar
+  //## modif made by hand
+  varnam=arg1.model.rpar.objs(1).graphics.exprs(1)
+  x.graphics.id=string(varnam)
 case 'define' then
 scs_m_1=scicos_diagram(..
         version="scicos4.2",..
@@ -222,5 +225,8 @@ model=scicos_model(..
          equations=list())
   gr_i='xstringb(orig(1),orig(2),''From workspace'',sz(1),sz(2),''fill'')';
   x=standard_define([3.5 2],model,[],gr_i)
+  //## modif made by hand
+  varnam=scs_m_1.objs(1).graphics.exprs(1)
+  x.graphics.id=string(varnam)
 end
 endfunction
