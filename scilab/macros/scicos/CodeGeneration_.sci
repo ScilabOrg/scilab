@@ -1334,8 +1334,8 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(
     //elseif (zcptr(i+1)-zcptr(i))<>0 then
 //
       //msg=[msg;'Active zero crossing block''s not allowed']
-     elseif (clkptr(i+1)-clkptr(i))<>0 &funtyp(i)>-1 &funs(i)~='bidon' then
-//Alan      //msg=[msg;'Regular block generating activation not allowed yet']
+    elseif (clkptr(i+1)-clkptr(i))<>0 &funtyp(i)>-1 &funs(i)~='bidon' then
+      msg=[msg;'Regular block generating activation not allowed yet']
     end
     if msg<>[] then message(msg),ok=%f,return,end
   end
