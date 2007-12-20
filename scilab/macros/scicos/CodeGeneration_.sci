@@ -3522,9 +3522,7 @@ function Code=make_standalone42()
   if Code_outtb<>[] then
     Code=[Code
           ''
-          '  /* outtbptr declaration */'
-          '  '+rdnom+'_block_outtbptr = (void **)(z+'+string(nztotal)+');'
-          ''
+          '  /* outtb declaration */'
           Code_outtb
           '']
   end
@@ -3536,17 +3534,30 @@ function Code=make_standalone42()
                     string(i-1)+'] = (void *) outtb_'+string(i)+';'];
   end
 
+  //** declaration of work
+  Code=[Code
+        '  /* work ptr declaration */'
+        '  void **work;'
+        '']
+
+  //## affectation of work
+  Code=[Code
+        '  /* Get work ptr of blocks */'
+        '  work = (void **)(z+'+string(size(z,'*')+lstsize(outtb))+');'
+        '']
+
+  //## affection of outtbptr
+  if Code_outtb<>[] then
+    Code=[Code
+          '  /* Get outtbptr ptr of blocks */'
+          '  '+rdnom+'_block_outtbptr = (void **)(z+'+string(nztotal)+');'
+          '']
+  end
   if Code_outtbptr<>[] then
     Code=[Code;
           Code_outtbptr
           '']
   end
-
-  //** declaration of work
-  Code=[Code
-        '  /* Get work ptr of blocks */'
-        '  void **work;'
-        '  work = (void **)(z+'+string(size(z,'*')+lstsize(outtb))+');']
 
   for kf=1:nblk
     nx=xptr(kf+1)-xptr(kf);       //** number of continuous state
