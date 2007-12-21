@@ -134,7 +134,7 @@ if flg then
          num=-evstr(MAT(i,1))
     	 Ts(find(Ts(:,1)==num),1)=-num
     	 K=0:nn-1;
-    	 M=find(modulo(K,(evstr(MAT(i,3))*double(den)))==0)';
+    	 M=find(modulo(K*frequ*den,(evstr(MAT(i,3))*double(den)))==0)';
     	 ON=ones(size(M,'*'),1)
     	 Ts($+1:2:$+2*size(M,'*'),:)=[nb*ON M+ON*(evstr(MAT(i,4))-offset)*double(den) -ON -ON]
     	 N=[1:size(M,'*')]';
