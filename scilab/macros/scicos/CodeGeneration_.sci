@@ -3257,6 +3257,16 @@ function Code=make_standalone42()
         'int '+rdnom+'_sim(double, double, double, int);'
         Protostalone
         '']
+  
+  if MSDOS then
+   Code=[Code;
+         ' '
+         '#define max(a,b) ((a) >= (b) ? (a) : (b))'
+         '#define min(a,b) ((a) <= (b) ? (a) : (b))'
+         ' '
+        ]
+  end
+  
 
   if x<>[] then
     Code=[Code
