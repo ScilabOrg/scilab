@@ -58,7 +58,7 @@ else
     mdet=*(block->work);
     for (i=0;i<(nu*nu);i++)   mdet->wrk[i]=u[i];
      C2F(dgetrf)(&nu,&nu,mdet->wrk,&nu,mdet->ipiv,&info);
-    if (info !=0)
+    if (info <0)
        {if (flag!=6)
     	{set_block_error(-7);
         return;}}
