@@ -79,11 +79,10 @@ case 'set' then
       if or(model.rpar(:)<>[frequ;offset]) then needcompile=4;y=needcompile,end
       model.opar=list(m,double(den),off,count)
       mn=(2**size(m1,'*'))-1;
+      [model,graphics,ok]=set_io(model,graphics,list(),list(),1,ones(mn,1))
       if mn>3 then graphics.sz=[40+(mn-3)*10 40]
       else graphics.sz=[50 40]
       end
-      model.evtin=1
-      model.evtout=ones(mn,1);
       model.firing=fir;
       graphics.exprs=exprs
       x.graphics=graphics
