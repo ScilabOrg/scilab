@@ -56,11 +56,20 @@ if ~ok then return; end
 xptr=1;zptr=1;ozptr=1;rpptr=1;ipptr=1;opptr=1;
 xc0=[];xcd0=[];xd0=[];oxd0=list();
 rpar=[];ipar=[];opar=list();initexe=[];funtyp=[];labels=[];
+funs=list();
 //
 for i=1:length(bllst)
   ll=bllst(i)
   labels=[labels;ll.label];
-  if type(ll.sim)==15 then funtyp(i,1)=ll.sim(2); else funtyp(i,1)=0;end
+
+  //fun and funtype
+  if type(ll.sim)==15 then
+    funs(i)=ll.sim(1)
+    funtyp(i,1)=ll.sim(2);
+  else
+    funs(i)=ll.sim;
+    funtyp(i,1)=0;
+  end
 
   //state
   X0=ll.state(:)
@@ -166,6 +175,9 @@ for i=1:length(bllst)
 end
 //initialize agenda
 [tevts,evtspt,pointi]=init_agenda(initexe,clkptr)
+
+sim.funtyp=funtyp
+sim.funs=funs
 
 sim.xptr=xptr
 sim.zptr=zptr
