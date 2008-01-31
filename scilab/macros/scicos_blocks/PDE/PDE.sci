@@ -1,6 +1,25 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - Author : EADS-CCR
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function [x,y,typ]=PDE(job,arg1,arg2)
-// Copyright INRIA
-// développé par EADS-CCR
 // fonction graphic du bloc, elle permet le dessin et l'initialisation du bloc                //
 // Reference: "Scicos user guid", http://www.scicos.org                                       //
 //--------------------------------------------------------------------------------------------//
@@ -87,7 +106,7 @@ case 'set' then
       if (delta==[]) then, delta=0; end        
       type_meth=arbre_decision(delta); 
     end
-    // a voir si c'est à rajouter pour ne pas regenerer dans le cas d'eval
+    // a voir si c'est ï¿½ rajouter pour ne pas regenerer dans le cas d'eval
     //if ~ok then
 	     [flag_type,rdnom,DF_type,tt]=translate(CI,CI1,CLa_type,CLa_exp,CLb_type,CLb_exp,oper,type_meth,degre,a_domaine,..
 	      b_domaine,Nbr_maillage,a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,rdnom,mesures);

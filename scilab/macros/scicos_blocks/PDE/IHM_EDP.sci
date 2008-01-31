@@ -1,8 +1,27 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - Author : EADS-CCR
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,..
           CI,CI1,CLa_type,CLa_exp,CLb_type,CLb_exp,oper,a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,..
-          a6,b6,a7,b7,k,mesures,params_pde]=IHM_EDP(params_pde) 
-   // Copyright INRIA
-   // développé par EADS-CCR
+          a6,b6,a7,b7,k,mesures,params_pde]=IHM_EDP(params_pde)
    // Cette fonction permet de dessiner l'IHM, on utilisant la commande uicontrol (voir le help Scilab)  //
    // Entree :                                                                                           //
    //    - params_pde (tlist) : rajouter a la list exprs du bloc EDP afin de sauvegarder les             //
@@ -12,7 +31,7 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
    //    - a_domaine et b_domaine (Entiers) : sont les bords du domaine [a b]                            //
    //    - discr (Entier) : renvoi le type du disciminant (0: consatnt ou 1: non constant)               //
    //    - signe (Entier) : renvoi le signe du discriminant dans les cas non constant                    //
-   //              (1: positif, 2: négatif, 3: nul )                                                     //
+   //              (1: positif, 2: nï¿½gatif, 3: nul )                                                     //
    //    - choix (Entier) : renvoi le choix entre le mode manuel et le mode automatique (systeme expert) //
    //              (0 : Automatique, 1 : Manuel)                                                         //
    //    - type_meth (Entier) : renvoi le type de la methode de discretisation dans le cas manuel        //
@@ -34,13 +53,13 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   // create a figure
   ok=%f;
   fin=%t;
-  // On desactive les volumes finis pour le moment car il y a un bug dans l'implémentation des conditions 
-  // aux limites, mais sera réglé dans la prochaine version.
+  // On desactive les volumes finis pour le moment car il y a un bug dans l'implï¿½mentation des conditions 
+  // aux limites, mais sera rï¿½glï¿½ dans la prochaine version.
   //list_methode = ["Diff finies"  "Elts finis"  "Vols finis"];
   list_methode = ["Diff finies"  "Elts finis"];
   methode=strcat(list_methode,'|');
   
-  list_discrimant = ["positif" "négatif" "nul"];
+  list_discrimant = ["positif" "nï¿½gatif" "nul"];
   discrimant=strcat(list_discrimant,'|');
   
   list_points = params_pde.points;
@@ -50,7 +69,7 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   //m=uimenu(f,'label', 'Model EDP');
   // create an item on the menu bar
   //m1=uimenu(f,'label', 'Methode');
-  //m2=uimenu(f,'label', 'Système Expert');
+  //m2=uimenu(f,'label', 'Systï¿½me Expert');
   //m3=uimenu(f,'label', 'Generation', 'callback', "do_pdeode()");
   m4=uimenu(f,'label', 'Documentation', 'callback', "help()");
   m5=uimenu(f,'label', 'Quitter', 'callback', "do_quitter()");
@@ -76,7 +95,7 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   		 
   // Infos EDP		 
   frame2= uicontrol(f, "Position",[5 240 450 300],"Style","frame","BackgroundColor",[0.9 0.9 0.9]);
-  txt4 = uicontrol(f, "Position",[20 530 120 10],"Style","text","String","Spécification de l''EDP",...
+  txt4 = uicontrol(f, "Position",[20 530 120 10],"Style","text","String","Spï¿½cification de l''EDP",...
      "fontsize",10,"BackgroundColor",[0.9 0.9 0.9]);
   		
   //*********************
@@ -220,7 +239,7 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   //la methode
   // Choix
   frame5= uicontrol(f, "Position",[5 130 450 100],"Style","frame","BackgroundColor",[0.9 0.9 0.9]);
-  txt81 = uicontrol(f, "Position",[25 220 180 10],"Style","text","String","Méthode de discrétisation spatiale",...
+  txt81 = uicontrol(f, "Position",[25 220 180 10],"Style","text","String","Mï¿½thode de discrï¿½tisation spatiale",...
      "fontsize",10,"BackgroundColor",[0.9 0.9 0.9]);
   txt811 = uicontrol(f, "Position",[15 200 40 15],"Style","text","String","Choix :","fontsize",10,...
   		 "BackgroundColor",[0.9 0.9 0.9]);	
@@ -252,7 +271,7 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   editordre3 = uicontrol(f, "Position"  , [270 157.5 15 15],"Style","edit","String",params_pde.ord3,...
   		 "BackgroundColor",[1 1 1]);		
   // Degre		 
-  txt84 = uicontrol(f, "Position",[320 200 80 15],"Style","text","String","degré :","fontsize",10,...
+  txt84 = uicontrol(f, "Position",[320 200 80 15],"Style","text","String","degrï¿½ :","fontsize",10,...
   		 "BackgroundColor",[0.9 0.9 0.9]);
   editdegre = uicontrol(f, "Position"  , [400 200 15 15],"Style","edit","String",params_pde.degre,...
   		 "BackgroundColor",[1 1 1]);				
@@ -366,9 +385,8 @@ function [ok,a_domaine,b_domaine,discr,signe,choix,type_meth,degre,Nbr_maillage,
   
 endfunction
 
-// Copyright INRIA
-// développé par EADS-CCR
-// ce  script est pour initialiser quelque paramètres de l'IHM et contient //
+// dï¿½veloppï¿½ par EADS-CCR
+// ce  script est pour initialiser quelque paramï¿½tres de l'IHM et contient //
 // des fonctions utiles pour l'IHM
 // ------------------------------------------------------------------------//
 function do_pdeode()
@@ -497,8 +515,7 @@ function do_valider()
 endfunction
 
 function add_list_points()
-  // Copyright INRIA
-  // développé par EADS-CCR
+  // dï¿½veloppï¿½ par EADS-CCR
   // cette fonction gere l'ajout //
   // d'un poit de mesure         //
   // ----------------------------//
@@ -519,9 +536,8 @@ function add_list_points()
 endfunction
 
 function del_list_points()
-  // Copyright INRIA
-  // développé par EADS-CCR
-  // cette fonction gère la supprission //
+  // dï¿½veloppï¿½ par EADS-CCR
+  // cette fonction gï¿½re la supprission //
   // d'un poit de mesure         //
   // ----------------------------//
   if edit_pt<>0&liste_pts<>0 then
@@ -536,10 +552,9 @@ function del_list_points()
 endfunction
   
 function visualiser()
-  // Copyright INRIA
-  // développé par EADS-CCR
+  // dï¿½veloppï¿½ par EADS-CCR
   // Cette fonction est pour l'affichage de l'EDP dans l'IHM //
-  // selon les opérateurs choisis                            //
+  // selon les opï¿½rateurs choisis                            //
   // --------------------------------------------------------//
   
   expression=[];
@@ -606,11 +621,10 @@ endfunction
 
 // Ces fonctions sont les callback des //
 // differents rad_buttom pour assurer  //
-// l'exlusivité du choix               //
+// l'exlusivitï¿½ du choix               //
 // ----------------------------------- //
 function []=execlusif_check1()
-  // Copyright INRIA
-  // développé par EADS-CCR
+  // dï¿½veloppï¿½ par EADS-CCR
   if ( check2) then
     if (get(check2,'Value') == 1) then
       set(check2,'Value','O');
@@ -618,16 +632,14 @@ function []=execlusif_check1()
   end
   endfunction
 function []=execlusif_check2()  
-    // Copyright INRIA
-    // développé par EADS-CCR
+    // dï¿½veloppï¿½ par EADS-CCR
     if (get(check1,'Value') == 1) then
       set(check1,'Value','O');
     end
 endfunction
 
 function []=execlusif_radaut()
-  // Copyright INRIA
-  // développé par EADS-CCR
+  // dï¿½veloppï¿½ par EADS-CCR
   if ( rad_manuel) then
     if (get(rad_manuel,'Value') == 1) then
       set(rad_manuel,'Value','O');
@@ -635,16 +647,14 @@ function []=execlusif_radaut()
   end
   endfunction
 function []=execlusif_radman()
-    // Copyright INRIA
-    // développé par EADS-CCR
+    // dï¿½veloppï¿½ par EADS-CCR
     if (get(rad_automatique,'Value') == 1) then
       set(rad_automatique,'Value','O');
     end
 endfunction
 
 function afficher()
-  // Copyright INRIA
-  // développé par EADS-CCR
+  // dï¿½veloppï¿½ par EADS-CCR
   // Cette fonction est pour l'affichage de le pas de maillage //
   // --------------------------------------------------------//
   
