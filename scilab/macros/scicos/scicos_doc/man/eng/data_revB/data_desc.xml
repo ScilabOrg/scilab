@@ -1,3 +1,24 @@
+<!--  Scicos
+
+   Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+  See the file ../license.txt
+-->
+
 <DATA flag="desc">
 
 <FILE name='ABCD_Blocks' type='XML'>
@@ -1511,7 +1532,7 @@ typedef struct {
                      double *A; \\
                      double *B; \\
                      double cumsum;\\
-                     int i; \\
+                     int i;ï¿½\\
                      ...\\
                      void mycomputfunc(scicos\_block *block,int flag)\\
                      \{\\
@@ -1687,7 +1708,7 @@ typedef struct {
                      columns and the second is a vector of complex numbers that can be understand as a matrix
                      of size 1,3.\\
                      At the C computational function level, the instructions {\tt block->oparsz[0]},
-                     {\tt block->oparsz[1]}, {\tt block->oparsz[2]}, {\tt block->oparsz[3]} will respectively return the
+                     {\tt block->oparsz[1]},ï¿½{\tt block->oparsz[2]}, {\tt block->oparsz[3]} will respectively return the
                      values 2,1,2,3 and the instructions {\tt block->opartyp[0]}, {\tt block->opartyp[1]} the values 11 and
                      84.\\
                      {\tt block->oparptr} will contain then two pointers, and should be viewed as arrays contained data of
@@ -2021,7 +2042,7 @@ typedef struct {
                      columns and the second is a vector of complex numbers that can be understand as a matrix
                      of size 1,3.\\
                      At the C computational function level, the instructions {\tt block->ozsz[0]},
-                     {\tt block->ozsz[1]}, {\tt block->ozsz[2]}, {\tt block->ozsz[3]} will respectively return the
+                     {\tt block->ozsz[1]},ï¿½{\tt block->ozsz[2]}, {\tt block->ozsz[3]} will respectively return the
                      values 2,1,2,3 and the instructions {\tt block->oztyp[0]}, {\tt block->oztyp[1]} the values 11 and
                      84.\\
                      {\tt block->ozptr} will contain then two pointers, and should be viewed as arrays contained data of
@@ -4022,7 +4043,7 @@ resistance is included (to avoid numerical difficulties).
 
 \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
- W [m] & L [m] &  Beta [1/V²]& Vt [V] &  K2 & K5 & DW [m]& DL[m] & \\
+ W [m] & L [m] &  Beta [1/Vï¿½]& Vt [V] &  K2 & K5 & DW [m]& DL[m] & \\
 \hline
   12.e-6&  4.e-6&  .062    &   -4.5   &   .24 &     .61  &   -1.2e-6 &    -.9e-6 & depletion\\
   60.e-6&  3.e-6&  .048    &     .1   &  .08  &    .68   &  -1.2e-6  &   -.9e-6  & enhancement\\
@@ -4150,7 +4171,7 @@ Some typical parameter sets are:
 
 \begin{tabular}{ |c|c|c|c|c|c|c|c|}
 \hline
- W [m]&L[m]&Beta [1/V²]& Vt [V]& K2 & K5&  DW [m]& DL [m] \\
+ W [m]&L[m]&Beta [1/Vï¿½]& Vt [V]& K2 & K5&  DW [m]& DL [m] \\
 \hline
   50.e-6 &8.e-6 &.0085    &-.15 &   .41  &   .839  & -3.8e-6  & -4.0e-6  \\
   20.e-6 &6.e-6 &.0105    &-1.0 &    .41 &    .839 &  -2.5e-6 &  -2.1e-6 \\

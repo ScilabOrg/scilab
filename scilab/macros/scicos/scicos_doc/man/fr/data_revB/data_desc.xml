@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!--  Scicos
+
+   Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+  See the file ../license.txt
+-->
+
 <DATA flag="desc">
 
 <FILE name='ABCD_Blocks' type='XML'>
@@ -8,21 +30,21 @@
 </FILE>
 
 <FILE name='ABSBLK_f' type='LATEX'>
-Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
+Le bloc Abs calcule ï¿½ la sortie, la valeur absolue de l'entrï¿½e.
 </FILE>
 
 <FILE name='ABS_VALUE' type='LATEX'>
-Le bloc Abs calcule à la sortie, la valeur absolue de l'entrée.
+Le bloc Abs calcule ï¿½ la sortie, la valeur absolue de l'entrï¿½e.
 </FILE>
 
 <FILE name='AFFICH_f' type='LATEX'>
 Pendant la simulation, ce bloc affiche sur le diagramme
-la valeur lue sur son unique port d'entrée.
+la valeur lue sur son unique port d'entrï¿½e.
 </FILE>
 
 <FILE name='AFFICH_m' type='LATEX'>
 Pendant la simulation, ce bloc affiche sur le diagramme
-la valeur lue sur son unique port d'entrée.
+la valeur lue sur son unique port d'entrï¿½e.
 </FILE>
 
 <FILE name='ANDBLK' type='LATEX'>
@@ -34,14 +56,14 @@ understand.
 </FILE>
 
 <FILE name='ANDLOG_f' type='LATEX'>
-Ce bloc possédant deux entrées événementielles et une sortie régulière,
-délivre {\bf +1} ou {\bf -1} sur sa sortie régulière suivant ses entrées événementielles.
+Ce bloc possï¿½dant deux entrï¿½es ï¿½vï¿½nementielles et une sortie rï¿½guliï¿½re,
+dï¿½livre {\bf +1} ou {\bf -1} sur sa sortie rï¿½guliï¿½re suivant ses entrï¿½es ï¿½vï¿½nementielles.
 
 \begin{itemize}
-  \item{\bf +1 :} Lorsque les événements sont synchrones (même événement présent sur
-                  les deux ports événementiels simultanément),
+  \item{\bf +1 :} Lorsque les ï¿½vï¿½nements sont synchrones (mï¿½me ï¿½vï¿½nement prï¿½sent sur
+                  les deux ports ï¿½vï¿½nementiels simultanï¿½ment),
 
-  \item{\bf -1 :} Lorsqu'un seul événement est présent.
+  \item{\bf -1 :} Lorsqu'un seul ï¿½vï¿½nement est prï¿½sent.
 \end{itemize}
 </FILE>
 
@@ -134,8 +156,8 @@ Multi-conference on Systems and Control, Singapore.
 <FILE name='About_scicos' type='LATEX'>
  \subsection{Au sujet de Scicos...}
 
-  Scicos version 4.2 a été développé dans l'équipe-projet 'Metalau', de
-  manière très proche au consortium Scilab, à l'unité de Rocquencourt de
+  Scicos version 4.2 a ï¿½tï¿½ dï¿½veloppï¿½ dans l'ï¿½quipe-projet 'Metalau', de
+  maniï¿½re trï¿½s proche au consortium Scilab, ï¿½ l'unitï¿½ de Rocquencourt de
   l'INRIA.
 
   Les principaux contributeurs de cette version sont :
@@ -147,19 +169,19 @@ Multi-conference on Systems and Control, Singapore.
           Comportement simulink (blocs SampleClk/Goto-from).
 
        \item {\bf Masoud Najafi} (INRIA) \\
-          Intégration Modelica.\\
-          Intégration 'Sundials' dans le simulateur.
+          Intï¿½gration Modelica.\\
+          Intï¿½gration 'Sundials' dans le simulateur.
 
        \item {\bf Simone Mannori} (INRIA) \\
-          Conception de l'éditeur nouveau graphique.
+          Conception de l'ï¿½diteur nouveau graphique.
 
        \item {\bf Alan Layec} (INRIA) \\
-          Intégration des données matricielles typées.\\
-          Coeur du générateur de code C.\\
+          Intï¿½gration des donnï¿½es matricielles typï¿½es.\\
+          Coeur du gï¿½nï¿½rateur de code C.\\
           Documentation Html.
 
        \item {\bf Benoit Bayol} (Etudiant) \\
-          Jeu de blocs pour l'affichage des données (nouveau graphique)
+          Jeu de blocs pour l'affichage des donnï¿½es (nouveau graphique)
 
  \end{itemize}
 
@@ -177,8 +199,8 @@ The amount of side-to-side play in the system is referred to as the
 </FILE>
 
 <FILE name='BIGSOM_f' type='LATEX'>
-Le bloc somme réalise l'addition de ses entrées.
-Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
+Le bloc somme rï¿½alise l'addition de ses entrï¿½es.
+Ce bloc peut additionner des scalaires ou des vecteurs d'entrï¿½e.
 </FILE>
 
 <FILE name='BITCLEAR' type='XML'>
@@ -228,20 +250,20 @@ Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
 </FILE>
 
 <FILE name='Bache' type='LATEX'>
-Ce composant représente une bache thermo-hydraulique qui consiste en
-deux ports d'entrée et deux ports de sortie.  Conventionnellement, la
-direction positive pour la rentrée est quand le fluide {\bf entre}
+Ce composant reprï¿½sente une bache thermo-hydraulique qui consiste en
+deux ports d'entrï¿½e et deux ports de sortie.  Conventionnellement, la
+direction positive pour la rentrï¿½e est quand le fluide {\bf entre}
 dans le port d'entree (ports noirs) et la direction positive pour les
 ports de sortie est quand le fluide {\bf sort} des port de sortie
-(ports blancs).  La surface de la bache, la température initiale et
-l'altitude initiale du fluide peuvent être definies par l'utilisateur.
-Si un port reste non-utilisé, il doit être bouché par le bloc {\bf
+(ports blancs).  La surface de la bache, la tempï¿½rature initiale et
+l'altitude initiale du fluide peuvent ï¿½tre definies par l'utilisateur.
+Si un port reste non-utilisï¿½, il doit ï¿½tre bouchï¿½ par le bloc {\bf
 Bouchon}.
 </FILE>
 
 <FILE name='Branching_pal' type='LATEX'>
 Dans la palette Branching, vous pouvez trouver divers blocs
-pour la gestion des données véhiculées par les liens réguliers.
+pour la gestion des donnï¿½es vï¿½hiculï¿½es par les liens rï¿½guliers.
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
@@ -279,8 +301,8 @@ pour la gestion des données véhiculées par les liens réguliers.
 </FILE>
 
 <FILE name='CBLOCK' type='LATEX'>
-Ce bloc crée une fonction de calcul squelette en C.
-Il crée aussi une librairie et un fichier objet à la compilation.
+Ce bloc crï¿½e une fonction de calcul squelette en C.
+Il crï¿½e aussi une librairie et un fichier objet ï¿½ la compilation.
 </FILE>
 
 <FILE name='CCS' type='XML'>
@@ -326,10 +348,10 @@ Il crée aussi une librairie et un fichier objet à la compilation.
 </FILE>
 
 <FILE name='CLINDUMMY_f' type='LATEX'>
-Ce bloc peut être placé dans tous diagrammes qui contient un ou
+Ce bloc peut ï¿½tre placï¿½ dans tous diagrammes qui contient un ou
 des blocs 'zero-crossing' et qui ne dispose pas de blocs contenant
-des états continus (x) temps dépendant (dep\_t=\%t).
-Grâce à cela, le simulateur utilisera le solveur ode pour la détection
+des ï¿½tats continus (x) temps dï¿½pendant (dep\_t=\%t).
+Grï¿½ce ï¿½ cela, le simulateur utilisera le solveur ode pour la dï¿½tection
 de surfaces des blocs 'zero-crossing'.
 </FILE>
 
@@ -379,47 +401,47 @@ de surfaces des blocs 'zero-crossing'.
 </FILE>
 
 <FILE name='CLKINV_f' type='LATEX'>
-Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
-Il est utilisé pour représenter un port d'entrée événementiel.
-Dans un superbloc, les ports doivent être numérotés à partir de 1
+Ce bloc doit seulement ï¿½tre utilisï¿½ ï¿½ l'intï¿½rieur des superblocs.
+Il est utilisï¿½ pour reprï¿½senter un port d'entrï¿½e ï¿½vï¿½nementiel.
+Dans un superbloc, les ports doivent ï¿½tre numï¿½rotï¿½s ï¿½ partir de 1
 jusqu'au nombre de ports.  
 </FILE>
 
 <FILE name='CLKIN_f' type='LATEX'>
-Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
-Il est utilisé pour représenter un port d'entrée événementiel.
-Dans un superbloc, les ports doivent être numérotés à partir de 1
+Ce bloc doit seulement ï¿½tre utilisï¿½ ï¿½ l'intï¿½rieur des superblocs.
+Il est utilisï¿½ pour reprï¿½senter un port d'entrï¿½e ï¿½vï¿½nementiel.
+Dans un superbloc, les ports doivent ï¿½tre numï¿½rotï¿½s ï¿½ partir de 1
 jusqu'au nombre de ports.  
 </FILE>
 
 <FILE name='CLKOUTV_f' type='LATEX'>
-Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
-Il est utilisé pour représenter un port de sortie événementiel.
-Dans un superbloc, les ports doivent être numérotés à partir de 1
+Ce bloc doit seulement ï¿½tre utilisï¿½ ï¿½ l'intï¿½rieur des superblocs.
+Il est utilisï¿½ pour reprï¿½senter un port de sortie ï¿½vï¿½nementiel.
+Dans un superbloc, les ports doivent ï¿½tre numï¿½rotï¿½s ï¿½ partir de 1
 jusqu'au nombre de ports.  
 </FILE>
 
 <FILE name='CLKOUT_f' type='LATEX'>
-Ce bloc doit seulement être utilisé à l'intérieur des superblocs.
-Il est utilisé pour représenter un port de sortie événementiel.
-Dans un superbloc, les ports doivent être numérotés à partir de 1
+Ce bloc doit seulement ï¿½tre utilisï¿½ ï¿½ l'intï¿½rieur des superblocs.
+Il est utilisï¿½ pour reprï¿½senter un port de sortie ï¿½vï¿½nementiel.
+Dans un superbloc, les ports doivent ï¿½tre numï¿½rotï¿½s ï¿½ partir de 1
 jusqu'au nombre de ports.
 </FILE>
 
 <FILE name='CLKSOMV_f' type='LATEX'>
-Ce bloc est un bloc d'addition d'événement à trois entrées.
-La sortie reproduit les événements de tous les ports d'entrées.
+Ce bloc est un bloc d'addition d'ï¿½vï¿½nement ï¿½ trois entrï¿½es.
+La sortie reproduit les ï¿½vï¿½nements de tous les ports d'entrï¿½es.
 A proprement parler, CLKSOMV n'est pas un vrai bloc scicos, car
-il est ignoré pendant la phase de compilation.\\
-Les sorties et les entrées de ce bloc sont synchronisées.
+il est ignorï¿½ pendant la phase de compilation.\\
+Les sorties et les entrï¿½es de ce bloc sont synchronisï¿½es.
 </FILE>
 
 <FILE name='CLKSOM_f' type='LATEX'>
-Ce bloc est un bloc d'addition d'événement à trois entrées.
-La sortie reproduit les événements de tous les ports d'entrées.
+Ce bloc est un bloc d'addition d'ï¿½vï¿½nement ï¿½ trois entrï¿½es.
+La sortie reproduit les ï¿½vï¿½nements de tous les ports d'entrï¿½es.
 A proprement parler, CLKSOM\_f n'est pas un vrai bloc scicos, car
-il est ignoré pendant la phase de compilation.\\
-Les sorties et les entrées de ce bloc sont synchronisées.
+il est ignorï¿½ pendant la phase de compilation.\\
+Les sorties et les entrï¿½es de ce bloc sont synchronisï¿½es.
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
@@ -429,55 +451,55 @@ Les sorties et les entrées de ce bloc sont synchronisées.
 </FILE>
 
 <FILE name='CLOCK_c' type='LATEX'>
-Ce bloc est un super-bloc construit grâce au bloc
+Ce bloc est un super-bloc construit grï¿½ce au bloc
 \htmladdnormallink{EVTDLY\_c}{EVTDLY_c.htm} qui 
-est rebouclé sur lui-même.\\
-L'unique sortie de ce bloc génère des événements
-à des dates précises, qui sont déterminées par le
-paramètre {\bf Period} de la boîte de dialogue.
+est rebouclï¿½ sur lui-mï¿½me.\\
+L'unique sortie de ce bloc gï¿½nï¿½re des ï¿½vï¿½nements
+ï¿½ des dates prï¿½cises, qui sont dï¿½terminï¿½es par le
+paramï¿½tre {\bf Period} de la boï¿½te de dialogue.
 </FILE>
 
 <FILE name='CLOCK_f' type='LATEX'>
-Ce bloc est un super-bloc construit grâce au bloc
+Ce bloc est un super-bloc construit grï¿½ce au bloc
 \htmladdnormallink{EVTDLY\_f}{EVTDLY_f.htm} qui
-est rebouclé sur lui-même.\\
-L'unique sortie de ce bloc génère des événements
-à des dates précises, qui sont déterminées par le
-paramètre {\bf Period} de la boîte de dialogue.
+est rebouclï¿½ sur lui-mï¿½me.\\
+L'unique sortie de ce bloc gï¿½nï¿½re des ï¿½vï¿½nements
+ï¿½ des dates prï¿½cises, qui sont dï¿½terminï¿½es par le
+paramï¿½tre {\bf Period} de la boï¿½te de dialogue.
 </FILE>
 
 <FILE name='CLR' type='LATEX'>
-Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
-représenté par une fonction de transfert rationnelle.
-La fonction rationnelle doit être une fonction propre.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire SISO (Single Input Single Output) 
+reprï¿½sentï¿½ par une fonction de transfert rationnelle.
+La fonction rationnelle doit ï¿½tre une fonction propre.
 </FILE>
 
 <FILE name='CLR_f' type='LATEX'>
-Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
-représenté par une fonction de transfert rationnelle.
-La fonction rationnelle doit être une fonction propre.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire SISO (Single Input Single Output) 
+reprï¿½sentï¿½ par une fonction de transfert rationnelle.
+La fonction rationnelle doit ï¿½tre une fonction propre.
 </FILE>
 
 <FILE name='CLSS' type='LATEX'>
-Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire d'ï¿½quations d'ï¿½tat en temporel continu.
 \begin{eqnarray}
 \dot x&=&Ax+Bu\\
   y   &=&C*x+D*u
 \end{eqnarray}
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
 </FILE>
 
 <FILE name='CLSS_f' type='LATEX'>
-Ce bloc réalise un système linéaire d'équations d'état en temporel continu.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire d'ï¿½quations d'ï¿½tat en temporel continu.
 \begin{eqnarray}
 \dot x&=&Ax+Bu\\
   y   &=&C*x+D*u
 \end{eqnarray}
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
 </FILE>
 
 <FILE name='CMAT3D' type='XML'>
@@ -507,29 +529,29 @@ Les dimensions des matrices et de l'état initial doivent être appropriées.
 </FILE>
 
 <FILE name='CMSCOPE' type='LATEX'>
-Au début de la simulation, ce bloc ouvre une fenêtre  pour afficher
-l'évolution temporelle des données qui seront lues sur les ports
-d'entrées réguliers.
-Ce bloc est donc similaire à un oscilloscope.
-Il permet l'affichage de multiple abscisses (une par entrée).
-Ces abscisses peuvent avoir des échelles temporelles différentes
-qui seront définies par le paramètre {\bf Refresh period}.
+Au dï¿½but de la simulation, ce bloc ouvre une fenï¿½tre  pour afficher
+l'ï¿½volution temporelle des donnï¿½es qui seront lues sur les ports
+d'entrï¿½es rï¿½guliers.
+Ce bloc est donc similaire ï¿½ un oscilloscope.
+Il permet l'affichage de multiple abscisses (une par entrï¿½e).
+Ces abscisses peuvent avoir des ï¿½chelles temporelles diffï¿½rentes
+qui seront dï¿½finies par le paramï¿½tre {\bf Refresh period}.
 </FILE>
 
 <FILE name='CONST' type='LATEX'>
-Ce bloc est un générateur de valeurs constantes.
+Ce bloc est un gï¿½nï¿½rateur de valeurs constantes.
 </FILE>
 
 <FILE name='CONSTRAINT_f' type='LATEX'>
-Ce bloc définit des relations algébriques implicites.
+Ce bloc dï¿½finit des relations algï¿½briques implicites.
 </FILE>
 
 <FILE name='CONST_f' type='LATEX'>
-Ce bloc est un générateur de valeurs constantes.
+Ce bloc est un gï¿½nï¿½rateur de valeurs constantes.
 </FILE>
 
 <FILE name='CONST_m' type='LATEX'>
-Ce bloc est un générateur de valeurs constantes.
+Ce bloc est un gï¿½nï¿½rateur de valeurs constantes.
 </FILE>
 
 <FILE name='CONVERT' type='XML'>
@@ -559,13 +581,13 @@ $$y=\cos(u)$$
 </FILE>
 
 <FILE name='CSCOPE' type='LATEX'>
-Au début de la simulation, ce bloc ouvre une fenêtre  pour afficher
-l'évolution temporelle des données qui seront lues sur le port
-d'entrée régulier.
-Ce bloc est donc similaire à un oscilloscope.
-Il permet d'afficher sur une même figure l'évolution des
-éléments d'un vecteur.
-Ce bloc ne possède qu'une seule échelle temporelle.
+Au dï¿½but de la simulation, ce bloc ouvre une fenï¿½tre  pour afficher
+l'ï¿½volution temporelle des donnï¿½es qui seront lues sur le port
+d'entrï¿½e rï¿½gulier.
+Ce bloc est donc similaire ï¿½ un oscilloscope.
+Il permet d'afficher sur une mï¿½me figure l'ï¿½volution des
+ï¿½lï¿½ments d'un vecteur.
+Ce bloc ne possï¿½de qu'une seule ï¿½chelle temporelle.
 </FILE>
 
 <FILE name='CSCOPXY' type='XML'>
@@ -647,11 +669,11 @@ data from Excel data-sheets and from formatted C data files.
 </FILE>
 
 <FILE name='CURV_f' type='LATEX'>
-Ce bloc définit une fonction tabulée en fonction du temps.
-Entre chaque point des mailles, ce bloc réalise une interpolation
-linéaire. En dehors des points tabulés, il fournit les derniers
-points rencontrés. L'utilisateur peut définir les différents points
-en utilisant un éditeur graphique de courbes.
+Ce bloc dï¿½finit une fonction tabulï¿½e en fonction du temps.
+Entre chaque point des mailles, ce bloc rï¿½alise une interpolation
+linï¿½aire. En dehors des points tabulï¿½s, il fournit les derniers
+points rencontrï¿½s. L'utilisateur peut dï¿½finir les diffï¿½rents points
+en utilisant un ï¿½diteur graphique de courbes.
 </FILE>
 
 <FILE name='CVS' type='XML'>
@@ -1534,7 +1556,7 @@ typedef struct {
                      double *A; \\
                      double *B; \\
                      double cumsum;\\
-                     int i; \\
+                     int i;ï¿½\\
                      ...\\
                      void mycomputfunc(scicos\_block *block,int flag)\\
                      \{\\
@@ -1710,7 +1732,7 @@ typedef struct {
                      columns and the second is a vector of complex numbers that can be understand as a matrix
                      of size 1,3.\\
                      At the C computational function level, the instructions {\tt block->oparsz[0]},
-                     {\tt block->oparsz[1]}, {\tt block->oparsz[2]}, {\tt block->oparsz[3]} will respectively return the
+                     {\tt block->oparsz[1]},ï¿½{\tt block->oparsz[2]}, {\tt block->oparsz[3]} will respectively return the
                      values 2,1,2,3 and the instructions {\tt block->opartyp[0]}, {\tt block->opartyp[1]} the values 11 and
                      84.\\
                      {\tt block->oparptr} will contain then two pointers, and should be viewed as arrays contained data of
@@ -2044,7 +2066,7 @@ typedef struct {
                      columns and the second is a vector of complex numbers that can be understand as a matrix
                      of size 1,3.\\
                      At the C computational function level, the instructions {\tt block->ozsz[0]},
-                     {\tt block->ozsz[1]}, {\tt block->ozsz[2]}, {\tt block->ozsz[3]} will respectively return the
+                     {\tt block->ozsz[1]},ï¿½{\tt block->ozsz[2]}, {\tt block->ozsz[3]} will respectively return the
                      values 2,1,2,3 and the instructions {\tt block->oztyp[0]}, {\tt block->oztyp[1]} the values 11 and
                      84.\\
                      {\tt block->ozptr} will contain then two pointers, and should be viewed as arrays contained data of
@@ -2258,29 +2280,29 @@ functions to interact with the simulator in the C computational functions.
 </FILE>
 
 <FILE name='Capacitor' type='LATEX'>
-Un condensateur est un composant électrique ou électronique dont
-l'intérêt de base est d'avoir une capacité électrique. Son
-comportement électrique idéal est:
+Un condensateur est un composant ï¿½lectrique ou ï¿½lectronique dont
+l'intï¿½rï¿½t de base est d'avoir une capacitï¿½ ï¿½lectrique. Son
+comportement ï¿½lectrique idï¿½al est:
       \[  I = C{dV\over dt}\]
-où:
+oï¿½:
 \begin{itemize}
 \item $I$ est le courant qui traverse le composant.
 \item $V$ est la tension aux bornes du composant.
-\item $C$ est la capacité électrique du condensateur.
+\item $C$ est la capacitï¿½ ï¿½lectrique du condensateur.
 \item $\textstyle{{dV\over dt}}$ est la variation de tension avec le temps.
 \end{itemize}
 
-Le condensateur peut être utilisé pour distinguer les signaux
-haute-fréquences et basse-fréquence. Cette faculté est très utile
+Le condensateur peut ï¿½tre utilisï¿½ pour distinguer les signaux
+haute-frï¿½quences et basse-frï¿½quence. Cette facultï¿½ est trï¿½s utile
 dans la conception des filtres.
 </FILE>
 
 <FILE name='ConstantVoltage' type='LATEX'>
-Ce composant est un modèle pour n'importe quel dispositif ou système
-qui produit une force électromotrice constante entre ses terminaux. La
-tension aux bornes de cette source est C. C est définie par
-l'utilisateur. Le port noir indique la tension positive. La résistance
-ohmique de ce composant est zéro.
+Ce composant est un modï¿½le pour n'importe quel dispositif ou systï¿½me
+qui produit une force ï¿½lectromotrice constante entre ses terminaux. La
+tension aux bornes de cette source est C. C est dï¿½finie par
+l'utilisateur. Le port noir indique la tension positive. La rï¿½sistance
+ohmique de ce composant est zï¿½ro.
 </FILE>
 
 <FILE name='Context' type='LATEX'>
@@ -2386,7 +2408,7 @@ constructing custom blocks. The dialog box associated with the block can also be
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	Ce bloc, suivant la loi choisie, compte à partir d'un minimum vers un maximum ou d'un maximum vers un minimun.
+	Ce bloc, suivant la loi choisie, compte ï¿½ partir d'un minimum vers un maximum ou d'un maximum vers un minimun.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -2394,14 +2416,14 @@ constructing custom blocks. The dialog box associated with the block can also be
 </FILE>
 
 <FILE name='CurrentSensor' type='LATEX'>
-Ce bloc est inséré en série dans un circuit électrique pour mesurer le
-courant qui passe à travers. Si le courant positif {\bf entre} par le
-port noir, il est consideré positif. La résistance ohmique de ce
-composant est zéro.
+Ce bloc est insï¿½rï¿½ en sï¿½rie dans un circuit ï¿½lectrique pour mesurer le
+courant qui passe ï¿½ travers. Si le courant positif {\bf entre} par le
+port noir, il est considerï¿½ positif. La rï¿½sistance ohmique de ce
+composant est zï¿½ro.
 </FILE>
 
 <FILE name='DEADBAND' type='LATEX'>
-Fournit une zone où la sortie est égale à zéro.
+Fournit une zone oï¿½ la sortie est ï¿½gale ï¿½ zï¿½ro.
 </FILE>
 
 <FILE name='DEBUG_SCICOS' type='LATEX'>
@@ -2457,10 +2479,10 @@ Ajoutez ici un paragraphe pour la description de la fonction
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-          Ce super-bloc compilé réalise un retard discret.
-          Il est construit avec un registre à décalage et une horloge.
-          La valeur du retard est donnée par la pas temporel discret multiplié
-          par le nombre-1 d'état du registre.
+          Ce super-bloc compilï¿½ rï¿½alise un retard discret.
+          Il est construit avec un registre ï¿½ dï¿½calage et une horloge.
+          La valeur du retard est donnï¿½e par la pas temporel discret multipliï¿½
+          par le nombre-1 d'ï¿½tat du registre.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -2468,12 +2490,12 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='DEMUX' type='LATEX'>
-En fournissant un vecteur sur le port d'entrée régulier, ce bloc
-peut séparer les éléments de l'entrée par des vecteurs sur les ports
+En fournissant un vecteur sur le port d'entrï¿½e rï¿½gulier, ce bloc
+peut sï¿½parer les ï¿½lï¿½ments de l'entrï¿½e par des vecteurs sur les ports
 de sortie.
-L'entrée est donc définie $u=[y_1;y_2,\cdots;y_n]$, où  $y_i$ sont
-numérotés dans un ordre décroissant.
-Les tailles des ports d'entrée et de sortie sont déterminées par le contexte.
+L'entrï¿½e est donc dï¿½finie $u=[y_1;y_2,\cdots;y_n]$, oï¿½  $y_i$ sont
+numï¿½rotï¿½s dans un ordre dï¿½croissant.
+Les tailles des ports d'entrï¿½e et de sortie sont dï¿½terminï¿½es par le contexte.
 </FILE>
 
 <FILE name='DEMUX_f' type='LATEX'>
@@ -2484,7 +2506,7 @@ determined by the context.
 </FILE>
 
 <FILE name='DERIV' type='LATEX'>
-Le bloc dérivée fait l'approximation de la dérivée de son entrée en calculant:
+Le bloc dï¿½rivï¿½e fait l'approximation de la dï¿½rivï¿½e de son entrï¿½e en calculant:
 $$\frac{\Delta u}{\Delta t}$$.
 </FILE>
 
@@ -2577,10 +2599,10 @@ Q&
 </FILE>
 
 <FILE name='DLR' type='LATEX'>
-Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
-représenté par une fonction de transfert rationnelle
-dans l'espace de la transformée en z.
-La fonction rationnelle doit être une fonction propre.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire SISO (Single Input Single Output) 
+reprï¿½sentï¿½ par une fonction de transfert rationnelle
+dans l'espace de la transformï¿½e en z.
+La fonction rationnelle doit ï¿½tre une fonction propre.
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -2596,48 +2618,48 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='DLR_f' type='LATEX'>
-Ce bloc réalise un système linéaire SISO (Single Input Single Output) 
-représenté par une fonction de transfert rationnelle
-dans l'espace de la transformée en z.
-La fonction rationnelle doit être une fonction propre.
+Ce bloc rï¿½alise un systï¿½me linï¿½aire SISO (Single Input Single Output) 
+reprï¿½sentï¿½ par une fonction de transfert rationnelle
+dans l'espace de la transformï¿½e en z.
+La fonction rationnelle doit ï¿½tre une fonction propre.
 </FILE>
 
 <FILE name='DLSS' type='LATEX'>
-Ce bloc réalise un système d'équations d'état temporel discret.
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
-Lorsque qu'un événement active le bloc (par son unique port événementiel)
-l'état est alors mis à jour.
+Ce bloc rï¿½alise un systï¿½me d'ï¿½quations d'ï¿½tat temporel discret.
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
+Lorsque qu'un ï¿½vï¿½nement active le bloc (par son unique port ï¿½vï¿½nementiel)
+l'ï¿½tat est alors mis ï¿½ jour.
 </FILE>
 
 <FILE name='DLSS_f' type='LATEX'>
-Ce bloc réalise un système d'équations d'état temporel discret.
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
-Lorsque qu'un événement active le bloc (par son unique port événementiel)
-l'état est alors mis à jour.
+Ce bloc rï¿½alise un systï¿½me d'ï¿½quations d'ï¿½tat temporel discret.
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
+Lorsque qu'un ï¿½vï¿½nement active le bloc (par son unique port ï¿½vï¿½nementiel)
+l'ï¿½tat est alors mis ï¿½ jour.
 </FILE>
 
 <FILE name='DOLLAR' type='LATEX'>
-Le bloc retard retarde ses entrées de la période spécifiée au niveau du port
-d'entrée événementiel.
-Ce bloc est équivalent à l'opérateur discret $z^{-1}$.
-Il accepte une seule entrée et génére une seule sortie qui peuvent être
+Le bloc retard retarde ses entrï¿½es de la pï¿½riode spï¿½cifiï¿½e au niveau du port
+d'entrï¿½e ï¿½vï¿½nementiel.
+Ce bloc est ï¿½quivalent ï¿½ l'opï¿½rateur discret $z^{-1}$.
+Il accepte une seule entrï¿½e et gï¿½nï¿½re une seule sortie qui peuvent ï¿½tre
 aussi bien un scalaire qu'un vecteur.
-Si l'entrée est un vecteur alors tous les éléments du vecteur sont
-retardés par la même période.
+Si l'entrï¿½e est un vecteur alors tous les ï¿½lï¿½ments du vecteur sont
+retardï¿½s par la mï¿½me pï¿½riode.
 </FILE>
 
 <FILE name='DOLLAR_f' type='LATEX'>
-Le bloc retard retarde ses entrées de la période spécifiée au niveau du port
-d'entrée événementiel.
-Ce bloc est équivalent à l'opérateur discret $z^{-1}$.
-Il accepte une seule entrée et génére une seule sortie qui peuvent être
+Le bloc retard retarde ses entrï¿½es de la pï¿½riode spï¿½cifiï¿½e au niveau du port
+d'entrï¿½e ï¿½vï¿½nementiel.
+Ce bloc est ï¿½quivalent ï¿½ l'opï¿½rateur discret $z^{-1}$.
+Il accepte une seule entrï¿½e et gï¿½nï¿½re une seule sortie qui peuvent ï¿½tre
 aussi bien un scalaire qu'un vecteur.
-Si l'entrée est un vecteur alors tous les éléments du vecteur sont
-retardés par la même période.
+Si l'entrï¿½e est un vecteur alors tous les ï¿½lï¿½ments du vecteur sont
+retardï¿½s par la mï¿½me pï¿½riode.
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
@@ -2645,17 +2667,17 @@ retardés par la même période.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-        Le bloc retard retarde ses entrées de la période spécifiée au niveau
-        du port d'entrée événementiel. Ce bloc est équivalent à l'opérateur
+        Le bloc retard retarde ses entrï¿½es de la pï¿½riode spï¿½cifiï¿½e au niveau
+        du port d'entrï¿½e ï¿½vï¿½nementiel. Ce bloc est ï¿½quivalent ï¿½ l'opï¿½rateur
         discret z-1.
-	Il accepte une seule entrée et génére une seule sortie qui peuvent
-        être aussi bien un scalaire qu'un vecteur.
-	Si l'entrée est un vecteur alors tous les éléments du vecteur sont
-        retardés par la même période.
+	Il accepte une seule entrï¿½e et gï¿½nï¿½re une seule sortie qui peuvent
+        ï¿½tre aussi bien un scalaire qu'un vecteur.
+	Si l'entrï¿½e est un vecteur alors tous les ï¿½lï¿½ments du vecteur sont
+        retardï¿½s par la mï¿½me pï¿½riode.
 	</P>
 	<P>
-        Ce bloc supporte tous les types de données de scicos.
-        Les types de données en entrée/sortie sont hérités du paramètre
+        Ce bloc supporte tous les types de donnï¿½es de scicos.
+        Les types de donnï¿½es en entrï¿½e/sortie sont hï¿½ritï¿½s du paramï¿½tre
         "initial condition".
 	</P>
       </DESCRIPTION_ITEM>
@@ -2664,21 +2686,21 @@ retardés par la même période.
 </FILE>
 
 <FILE name='DemoBlocks_pal' type='LATEX'>
-Les blocs de cette palette sont utilisés pour faire des
-diagrammes de démonstration.
+Les blocs de cette palette sont utilisï¿½s pour faire des
+diagrammes de dï¿½monstration.
 </FILE>
 
 <FILE name='Diode' type='LATEX'>
-Ce composant consiste en une diode simple mise en parallèle avec une résistance
-ohmique $R$. Le courant qui passe dans la diode est défini en
-fonction de la tension aux bornes de le diode, {\it c.-à-d.},
+Ce composant consiste en une diode simple mise en parallï¿½le avec une rï¿½sistance
+ohmique $R$. Le courant qui passe dans la diode est dï¿½fini en
+fonction de la tension aux bornes de le diode, {\it c.-ï¿½-d.},
 
 \[I = I_{ds} (\exp^{v/V_t} - 1) + \frac {v} {R} \]
 
-où $I_{ds}$ et $V_t$ sont le courant de saturation et la tension
-équivalente de la température, respectivement. Si la valeur de $v/V_t$
-atteint une certaine limite ($Maxexp$), la courbe caractéristique de
-la diode devient linéaire pour éviter un dépassement numérique.
+oï¿½ $I_{ds}$ et $V_t$ sont le courant de saturation et la tension
+ï¿½quivalente de la tempï¿½rature, respectivement. Si la valeur de $v/V_t$
+atteint une certaine limite ($Maxexp$), la courbe caractï¿½ristique de
+la diode devient linï¿½aire pour ï¿½viter un dï¿½passement numï¿½rique.
 </FILE>
 
 <FILE name='EDGETRIGGER' type='XML'>
@@ -2686,7 +2708,7 @@ la diode devient linéaire pour éviter un dépassement numérique.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ce bloc est utilisé seulement dans le super bloc EDGE_TRIGGER.
+Ce bloc est utilisï¿½ seulement dans le super bloc EDGE_TRIGGER.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2698,14 +2720,14 @@ Ce bloc est utilisé seulement dans le super bloc EDGE_TRIGGER.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ce bloc génère un événement sur le front montant, descendant ou
-les deux (en fonction du paramètre du bloc). Un front montant correspond
-à un changement de valeur négative vers positive ou nulle, ou zéro
+Ce bloc gï¿½nï¿½re un ï¿½vï¿½nement sur le front montant, descendant ou
+les deux (en fonction du paramï¿½tre du bloc). Un front montant correspond
+ï¿½ un changement de valeur nï¿½gative vers positive ou nulle, ou zï¿½ro
 vers positive. Le front descendant est l'inverse. A noter que ce bloc
-génère un événement si l'entrée saute à cause d'une
-activation par événement. L'événement généré est synchrone
-avec l'événement d'origine. Ce bloc ne détecte pas les traversés de
-zéro des signaux continus.
+gï¿½nï¿½re un ï¿½vï¿½nement si l'entrï¿½e saute ï¿½ cause d'une
+activation par ï¿½vï¿½nement. L'ï¿½vï¿½nement gï¿½nï¿½rï¿½ est synchrone
+avec l'ï¿½vï¿½nement d'origine. Ce bloc ne dï¿½tecte pas les traversï¿½s de
+zï¿½ro des signaux continus.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -2713,78 +2735,78 @@ zéro des signaux continus.
 </FILE>
 
 <FILE name='ENDBLK' type='LATEX'>
-Ce bloc peut être utiliser pour paramètrer le temps final de la simulation.
-Lorsque ce bloc est correctement paramétré alors le simulateur fera avancer le
-temps au temps final définit par le paramètre 'final integration time' de l'entrée
-Setup du menu Simulate à la date définie par le paramètre de la boîte de dialogue
+Ce bloc peut ï¿½tre utiliser pour paramï¿½trer le temps final de la simulation.
+Lorsque ce bloc est correctement paramï¿½trï¿½ alors le simulateur fera avancer le
+temps au temps final dï¿½finit par le paramï¿½tre 'final integration time' de l'entrï¿½e
+Setup du menu Simulate ï¿½ la date dï¿½finie par le paramï¿½tre de la boï¿½te de dialogue
 'Final simulation time'.
-L'unique entrée de la boîte de dialogue peut être une valeur numérique
-ou bien une variable symbolique définit dans le contexte.
+L'unique entrï¿½e de la boï¿½te de dialogue peut ï¿½tre une valeur numï¿½rique
+ou bien une variable symbolique dï¿½finit dans le contexte.
 </FILE>
 
 <FILE name='END_c' type='LATEX'>
-Ce bloc fait avancer le temps courant au temps final d'intégration lorsque celui-ci
-est activé la première fois :
+Ce bloc fait avancer le temps courant au temps final d'intï¿½gration lorsque celui-ci
+est activï¿½ la premiï¿½re fois :
 \begin{eqnarray}
   {\rm T_{f}} & = & {\rm T_{cur}}
 \end{eqnarray}
-avec {\bf Tcur} la date d'activation de ce bloc et {\bf Tf} le temps final d'intégration
-définit via l'entrée Setup du menu Simulate (scs\_m.props.tf).
+avec {\bf Tcur} la date d'activation de ce bloc et {\bf Tf} le temps final d'intï¿½gration
+dï¿½finit via l'entrï¿½e Setup du menu Simulate (scs\_m.props.tf).
 </FILE>
 
 <FILE name='ESELECT_f' type='LATEX'>
-Bloc spécial similaire au bloc If-Then-Else. Les entrées/sorties
-événementielles sont synchronisées. L'événement entrant est redirigé
-sur l'un des ports de sortie événementiels suivant le valeur de
-l'entrée régulière.
+Bloc spï¿½cial similaire au bloc If-Then-Else. Les entrï¿½es/sorties
+ï¿½vï¿½nementielles sont synchronisï¿½es. L'ï¿½vï¿½nement entrant est redirigï¿½
+sur l'un des ports de sortie ï¿½vï¿½nementiels suivant le valeur de
+l'entrï¿½e rï¿½guliï¿½re.
 </FILE>
 
 <FILE name='EVTDLY_c' type='LATEX'>
-Chaque événement de sortie est réalisé après l'événement 
-d'entrée par un laps de temps {\bf Delay}.\\
-La date de l'événement de sortie est donc déterminée par la formule :
+Chaque ï¿½vï¿½nement de sortie est rï¿½alisï¿½ aprï¿½s l'ï¿½vï¿½nement 
+d'entrï¿½e par un laps de temps {\bf Delay}.\\
+La date de l'ï¿½vï¿½nement de sortie est donc dï¿½terminï¿½e par la formule :
 \begin{eqnarray}
  t_{i}&=&t_{\rm{init}} + i * T_{\rm{delay}},
 \end{eqnarray}
 </FILE>
 
 <FILE name='EVTDLY_f' type='LATEX'>
-Ce bloc génére à la sortie des événements retardés par rapport aux
-événements qui arrivent à l'entrée.
-Le retard est définit par la valeur du paramètre {\bf Delay}.
-Ce bloc peut aussi généré un événement à une date initiale.
+Ce bloc gï¿½nï¿½re ï¿½ la sortie des ï¿½vï¿½nements retardï¿½s par rapport aux
+ï¿½vï¿½nements qui arrivent ï¿½ l'entrï¿½e.
+Le retard est dï¿½finit par la valeur du paramï¿½tre {\bf Delay}.
+Ce bloc peut aussi gï¿½nï¿½rï¿½ un ï¿½vï¿½nement ï¿½ une date initiale.
 </FILE>
 
 <FILE name='EVTGEN_f' type='LATEX'>
-Un événement est généré sur le port unique de sortie événementiel
-si la valeur du paramètre {\bf Event time} est plus grand ou égal à
-zéro.
-Si cette valeur est négative alors aucun événement ne sera généré.
+Un ï¿½vï¿½nement est gï¿½nï¿½rï¿½ sur le port unique de sortie ï¿½vï¿½nementiel
+si la valeur du paramï¿½tre {\bf Event time} est plus grand ou ï¿½gal ï¿½
+zï¿½ro.
+Si cette valeur est nï¿½gative alors aucun ï¿½vï¿½nement ne sera gï¿½nï¿½rï¿½.
 </FILE>
 
 <FILE name='EVTVARDLY' type='LATEX'>
-Ce bloc génére à la sortie des événements retardés par rapport aux
-événements qui arrivent à l'entrée.
-Le retard est définit par la valeur qui est lu sur le port d'entrée
-régulier.
-Ce bloc peut aussi généré un événement à une date initiale.
+Ce bloc gï¿½nï¿½re ï¿½ la sortie des ï¿½vï¿½nements retardï¿½s par rapport aux
+ï¿½vï¿½nements qui arrivent ï¿½ l'entrï¿½e.
+Le retard est dï¿½finit par la valeur qui est lu sur le port d'entrï¿½e
+rï¿½gulier.
+Ce bloc peut aussi gï¿½nï¿½rï¿½ un ï¿½vï¿½nement ï¿½ une date initiale.
 </FILE>
 
 <FILE name='EXPBLK_f' type='LATEX'>
 Ce bloc calcule $y(i)=a^u(i)$. 
-Les tailles des ports d'entrée et de sortie sont déterminées par
+Les tailles des ports d'entrï¿½e et de sortie sont dï¿½terminï¿½es par
 le compilateur.
 </FILE>
 
 <FILE name='EXPBLK_m' type='LATEX'>
 Ce bloc calcule $y(i)=a^u(i)$. \\
-Les tailles des ports d'entrée et de sortie sont déterminées par
+Les tailles des ports d'entrï¿½e et de sortie sont dï¿½terminï¿½es par
 le compilateur.
 </FILE>
 
 <FILE name='EXPRESSION' type='LATEX'>
-Le bloc EXPRESSION applique à son entrée les fonctions Scilab spécifiées
-en paramètre.
+Le bloc EXPRESSION applique ï¿½ son entrï¿½e les fonctions Scilab spï¿½cifiï¿½es
+en paramï¿½tre.
 </FILE>
 
 <FILE name='EXTRACT' type='XML'>
@@ -2854,7 +2876,7 @@ en paramètre.
 </FILE>
 
 <FILE name='EXTRACTOR' type='LATEX'>
-Extrait ou sélectionne une entrée régulière parmi plusieurs entrées régulières.
+Extrait ou sï¿½lectionne une entrï¿½e rï¿½guliï¿½re parmi plusieurs entrï¿½es rï¿½guliï¿½res.
 </FILE>
 
 <FILE name='EXTTRI' type='XML'>
@@ -2888,16 +2910,16 @@ Extrait ou sélectionne une entrée régulière parmi plusieurs entrées régulières.
 </FILE>
 
 <FILE name='Electrical_pal' type='LATEX'>
-La boîte à outils électrique contient les composants basiques
-électriques tels que la source de tension, la diode, le condensateur,
+La boï¿½te ï¿½ outils ï¿½lectrique contient les composants basiques
+ï¿½lectriques tels que la source de tension, la diode, le condensateur,
 etc.
 </FILE>
 
 <FILE name='Events_pal' type='LATEX'>
-La palette 'Events' (événements) est utilisée pour manipuler les
-événements sur le diagramme. Elle contient entre autre plusieurs
+La palette 'Events' (ï¿½vï¿½nements) est utilisï¿½e pour manipuler les
+ï¿½vï¿½nements sur le diagramme. Elle contient entre autre plusieurs
 sources d'activation, des blocs synchrones ainsi que des blocs
-pour regrouper/combiner les événements sur un seul lien.
+pour regrouper/combiner les ï¿½vï¿½nements sur un seul lien.
 </FILE>
 
 <FILE name='Extract_Activation' type='XML'>
@@ -2990,17 +3012,17 @@ Ajoutez ici un paragraphe pour la description de la fonction
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice
-          d'entrée U, où le nombre de lignes/colonnes de A est égal au nombre de lignes
-          de U. Les types de données des entrées/sorties sont définis par le type de
-          donnée de la matrice gain A.
+	  Le bloc GAINBLK calcule le produit d'une matrice carrï¿½ A par une matrice
+          d'entrï¿½e U, oï¿½ le nombre de lignes/colonnes de A est ï¿½gal au nombre de lignes
+          de U. Les types de donnï¿½es des entrï¿½es/sorties sont dï¿½finis par le type de
+          donnï¿½e de la matrice gain A.
 	  <P>
-          Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs
-          différentes suivant le paramètre "DO ON OVERFLOW":
+          Lorsqu'un dï¿½passement intervient, le rï¿½sulat peut prendre des valeurs
+          diffï¿½rentes suivant le paramï¿½tre "DO ON OVERFLOW":
           </P>
-	  <P>1- Un résulat non saturé.</P>
-	  <P>2- Un résultat saturé.</P>
-	  <P>3- Un message d'erreur est signalé lorsqu'un dépassement intervient.</P>
+	  <P>1- Un rï¿½sulat non saturï¿½.</P>
+	  <P>2- Un rï¿½sultat saturï¿½.</P>
+	  <P>3- Un message d'erreur est signalï¿½ lorsqu'un dï¿½passement intervient.</P>
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -3008,13 +3030,13 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='GAINBLK_f' type='LATEX'>
-Le bloc GAINBLK calcule le produit d'une matrice carré A par une matrice d'entrée U,
-où le nombre de lignes/colonnes de A est égal au nombre de lignes de U.
+Le bloc GAINBLK calcule le produit d'une matrice carrï¿½ A par une matrice d'entrï¿½e U,
+oï¿½ le nombre de lignes/colonnes de A est ï¿½gal au nombre de lignes de U.
 </FILE>
 
 <FILE name='GAIN_f' type='LATEX'>
-Ce bloc calcule le produit d'une matrice carré A par une matrice d'entrée U, où le
-nombre de lignes/colonnes de A est égal au nombre de lignes de U.
+Ce bloc calcule le produit d'une matrice carrï¿½ A par une matrice d'entrï¿½e U, oï¿½ le
+nombre de lignes/colonnes de A est ï¿½gal au nombre de lignes de U.
 </FILE>
 
 <FILE name='GENERAL_f' type='XML'>
@@ -3030,14 +3052,14 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='GENSIN_f' type='LATEX'>
-Ce bloc est un générateur de sinusoïde : $M*\sin(F*t+P)$
+Ce bloc est un gï¿½nï¿½rateur de sinusoï¿½de : $M*\sin(F*t+P)$
 </FILE>
 
 <FILE name='GENSQR_f' type='LATEX'>
-Ce bloc est un générateur de signal carré : la sortie prend des valeurs
+Ce bloc est un gï¿½nï¿½rateur de signal carrï¿½ : la sortie prend des valeurs
 entre -M et M.
-Pour chaque événement reçu, la sortie saute d'une valeur -M à M 
-ou de M à -M.
+Pour chaque ï¿½vï¿½nement reï¿½u, la sortie saute d'une valeur -M ï¿½ M 
+ou de M ï¿½ -M.
 </FILE>
 
 <FILE name='GOTO' type='XML'>
@@ -3126,10 +3148,10 @@ ou de M à -M.
 </FILE>
 
 <FILE name='Ground' type='LATEX'>
-Cet élément est un composant électrique simple fournissant une tension
-de référence dans des circuits électriques. Le potentiel au noeud de
-Terre est zéro. Chaque circuit électrique doit contenir au moins un
-élément Terre.
+Cet ï¿½lï¿½ment est un composant ï¿½lectrique simple fournissant une tension
+de rï¿½fï¿½rence dans des circuits ï¿½lectriques. Le potentiel au noeud de
+Terre est zï¿½ro. Chaque circuit ï¿½lectrique doit contenir au moins un
+ï¿½lï¿½ment Terre.
 </FILE>
 
 <FILE name='Gyrator' type='XML'>
@@ -3152,10 +3174,10 @@ where the constants G1, G2 are called the gyration conductance.
 </FILE>
 
 <FILE name='HALT_f' type='LATEX'>
-Ce bloc a un unique port d'entrée événementiel.
-Lorsqu'un événement se présente sur ce port, alors la simulation
-est arrêtée et la main est rendue à la fenêtre principale de Scicos.
-La simulation peut être redémarrée ou continuée grâce au bouton Run.
+Ce bloc a un unique port d'entrï¿½e ï¿½vï¿½nementiel.
+Lorsqu'un ï¿½vï¿½nement se prï¿½sente sur ce port, alors la simulation
+est arrï¿½tï¿½e et la main est rendue ï¿½ la fenï¿½tre principale de Scicos.
+La simulation peut ï¿½tre redï¿½marrï¿½e ou continuï¿½e grï¿½ce au bouton Run.
 </FILE>
 
 <FILE name='HYSTHERESIS' type='LATEX'>
@@ -3164,13 +3186,13 @@ TODO
 </FILE>
 
 <FILE name='IFTHEL_f' type='LATEX'>
-Ce bloc génére un événement sur l'une ses deux sorties événementielles
-lorsqu'un événement en entrée active celui-ci.
-Suivant le signe de la valeur lue sur le port d'entrée régulier,
-l'événement est généré soit sur la branche 'then' ou bien sur la branche
+Ce bloc gï¿½nï¿½re un ï¿½vï¿½nement sur l'une ses deux sorties ï¿½vï¿½nementielles
+lorsqu'un ï¿½vï¿½nement en entrï¿½e active celui-ci.
+Suivant le signe de la valeur lue sur le port d'entrï¿½e rï¿½gulier,
+l'ï¿½vï¿½nement est gï¿½nï¿½rï¿½ soit sur la branche 'then' ou bien sur la branche
 'else'.
-Ce bloc est un bloc synchrone, ce qui signifie que les événements en entrée
-et en sortie sont générés exactement à la même date et simultanément.
+Ce bloc est un bloc synchrone, ce qui signifie que les ï¿½vï¿½nements en entrï¿½e
+et en sortie sont gï¿½nï¿½rï¿½s exactement ï¿½ la mï¿½me date et simultanï¿½ment.
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
@@ -3180,20 +3202,20 @@ et en sortie sont générés exactement à la même date et simultanément.
 </FILE>
 
 <FILE name='INIMPL_f' type='LATEX'>
-Les ports d'entrée INIMPL\_f sont des liens qui permettent de connecter
-l'intérieur d'un système vers l'extérieur.
+Les ports d'entrï¿½e INIMPL\_f sont des liens qui permettent de connecter
+l'intï¿½rieur d'un systï¿½me vers l'extï¿½rieur.
 </FILE>
 
 <FILE name='INTEGRAL' type='LATEX'>
-Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
+Ce bloc est un intï¿½grateur. La sortie est l'intï¿½grale de l'entrï¿½e.
 </FILE>
 
 <FILE name='INTEGRAL_f' type='LATEX'>
-Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
+Ce bloc est un intï¿½grateur. La sortie est l'intï¿½grale de l'entrï¿½e.
 </FILE>
 
 <FILE name='INTEGRAL_m' type='LATEX'>
-Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
+Ce bloc est un intï¿½grateur. La sortie est l'intï¿½grale de l'entrï¿½e.
 </FILE>
 
 <FILE name='INTMUL' type='XML'>
@@ -3226,48 +3248,48 @@ Ce bloc est un intégrateur. La sortie est l'intégrale de l'entrée.
 </FILE>
 
 <FILE name='INTRP2BLK_f' type='LATEX'>
-La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
-bilinéaire.
-Ce bloc a deux entrées scalaires et une seule sortie scalaire.
-Les grandeurs $X(i)$ et $Y(i)$ donnent respectivement les coordonnées
-$X,Y$ du $i^{\rm \grave{e}me}$ point de donnée et $Z(Y(i),X(i))$
+La sortie de ce bloc est fonction de l'entrï¿½e obtenue par interpolation
+bilinï¿½aire.
+Ce bloc a deux entrï¿½es scalaires et une seule sortie scalaire.
+Les grandeurs $X(i)$ et $Y(i)$ donnent respectivement les coordonnï¿½es
+$X,Y$ du $i^{\rm \grave{e}me}$ point de donnï¿½e et $Z(Y(i),X(i))$
 sa valeur.
 </FILE>
 
 <FILE name='INTRPLBLK_f' type='LATEX'>
-La sortie de ce bloc est fonction de l'entrée obtenue par interpolation
-linéaire.
-Ce bloc a une seule entrée scalaire et une seule sortie scalaire.
-Les grandeurs $X$ et $Y$ donnent respectivement les coordonnées
-$X,Y$ des points de données qui seront interpolés.
-$X$ doit être strictement croissant.
+La sortie de ce bloc est fonction de l'entrï¿½e obtenue par interpolation
+linï¿½aire.
+Ce bloc a une seule entrï¿½e scalaire et une seule sortie scalaire.
+Les grandeurs $X$ et $Y$ donnent respectivement les coordonnï¿½es
+$X,Y$ des points de donnï¿½es qui seront interpolï¿½s.
+$X$ doit ï¿½tre strictement croissant.
 </FILE>
 
 <FILE name='INVBLK' type='LATEX'>
 Ce bloc calcule $y(i)=1/u(i)$.
-La taille de l'entrée/sortie est déterminée par le contexte.
+La taille de l'entrï¿½e/sortie est dï¿½terminï¿½e par le contexte.
 </FILE>
 
 <FILE name='INVBLK_f' type='LATEX'>
 Ce bloc calcule $y(i)=1/u(i)$.
-La taille de l'entrée/sortie est déterminée par le contexte.
+La taille de l'entrï¿½e/sortie est dï¿½terminï¿½e par le contexte.
 </FILE>
 
 <FILE name='IN_f' type='LATEX'>
-Ce bloc doit être utilisé dans un superbloc pour représenter un port
-d'entrée régulier. La taille de ce port est automatiquement ajustée.
-Dans un superbloc, les ports d'entrée réguliers doivent être numérotés
-de 1 jusqu'au nombre de ports d'entrée réguliers composant le superbloc.
+Ce bloc doit ï¿½tre utilisï¿½ dans un superbloc pour reprï¿½senter un port
+d'entrï¿½e rï¿½gulier. La taille de ce port est automatiquement ajustï¿½e.
+Dans un superbloc, les ports d'entrï¿½e rï¿½guliers doivent ï¿½tre numï¿½rotï¿½s
+de 1 jusqu'au nombre de ports d'entrï¿½e rï¿½guliers composant le superbloc.
 </FILE>
 
 <FILE name='ISELECT_f' type='LATEX'>
-Sélectionne des signaux suivant les événements d'entrée.
-Ce bloc a un seul port régulier d'entrée.
+Sï¿½lectionne des signaux suivant les ï¿½vï¿½nements d'entrï¿½e.
+Ce bloc a un seul port rï¿½gulier d'entrï¿½e.
 </FILE>
 
 <FILE name='ISELECT_m' type='LATEX'>
-Sélectionne des signaux suivant les événements d'entrée.
-Ce bloc a un seul port régulier d'entrée.
+Sï¿½lectionne des signaux suivant les ï¿½vï¿½nements d'entrï¿½e.
+Ce bloc a un seul port rï¿½gulier d'entrï¿½e.
 </FILE>
 
 <FILE name='IdealTransformer' type='XML'>
@@ -3291,25 +3313,25 @@ where n is a real number called the turns ratio.
 </FILE>
 
 <FILE name='Inductor' type='LATEX'>
-Une bobine est un composant électrique qui peut stocker l'énergie
-dans des circuits électriques.  Le rapport entre la tension $v$ aux
-borne d'une bobine d'inductance $L$ et le courant $I$ passant à
-travers le composant est donné par :
+Une bobine est un composant ï¿½lectrique qui peut stocker l'ï¿½nergie
+dans des circuits ï¿½lectriques.  Le rapport entre la tension $v$ aux
+borne d'une bobine d'inductance $L$ et le courant $I$ passant ï¿½
+travers le composant est donnï¿½ par :
 
 \[v = L \frac{dI}{dt}\]
 
- Des inductances peuvent également être utilisées pour distinguer les
- signaux haute fréquence des signaux de basse fréquence et ceci
+ Des inductances peuvent ï¿½galement ï¿½tre utilisï¿½es pour distinguer les
+ signaux haute frï¿½quence des signaux de basse frï¿½quence et ceci
  rend les inductances utiles dans la conception des filtres. Une
- inductance présente une forte impédance pour les signaux haute
- fréquence et est passante pour les signaux DC.
+ inductance prï¿½sente une forte impï¿½dance pour les signaux haute
+ frï¿½quence et est passante pour les signaux DC.
 </FILE>
 
 <FILE name='Integer_pal' type='LATEX'>
-Cette palette est dédicacée aux nombres entiers.
-Des opérateurs variés sont ici implémentés pour la logique
+Cette palette est dï¿½dicacï¿½e aux nombres entiers.
+Des opï¿½rateurs variï¿½s sont ici implï¿½mentï¿½s pour la logique
 et la manipulation des champs de bits ainsi que des portes
-logiques qui sont fréquemment utilisées dans les circuits numériques.
+logiques qui sont frï¿½quemment utilisï¿½es dans les circuits numï¿½riques.
 </FILE>
 
 <FILE name='JKFLIPFLOP' type='LATEX'>
@@ -3365,7 +3387,7 @@ Q(t-1)\\
 
 <FILE name='LOGBLK_f' type='LATEX'>
 Ce bloc calcule $y(i)=log(u(i))/log(a)$. 
-Les tailles des ports d'entrée/sortie sont déterminés par le contexte.
+Les tailles des ports d'entrï¿½e/sortie sont dï¿½terminï¿½s par le contexte.
 </FILE>
 
 <FILE name='LOGIC' type='XML'>
@@ -3404,33 +3426,33 @@ Les tailles des ports d'entrée/sortie sont déterminés par le contexte.
 </FILE>
 
 <FILE name='LOGICAL_OP' type='LATEX'>
-Le bloc Opérateur Logique réalise une opération logique
-sur ses entrées qui est spécifiée en paramètre.
-Une valeur d'entrée est VRAI (1), si elle est différente de zéro, et
-elle est FAUSSE (0) si elle est égale zéro.
+Le bloc Opï¿½rateur Logique rï¿½alise une opï¿½ration logique
+sur ses entrï¿½es qui est spï¿½cifiï¿½e en paramï¿½tre.
+Une valeur d'entrï¿½e est VRAI (1), si elle est diffï¿½rente de zï¿½ro, et
+elle est FAUSSE (0) si elle est ï¿½gale zï¿½ro.
 </FILE>
 
 <FILE name='LOOKUP_f' type='LATEX'>
-Ce bloc réalise une fonction non-linéaire qui est défini grâce à un
-éditeur graphique.
+Ce bloc rï¿½alise une fonction non-linï¿½aire qui est dï¿½fini grï¿½ce ï¿½ un
+ï¿½diteur graphique.
 </FILE>
 
 <FILE name='Linear_pal' type='LATEX'>
-Cette palette contient des opérateurs basiques et des sous-systèmes
-linéaires.
+Cette palette contient des opï¿½rateurs basiques et des sous-systï¿½mes
+linï¿½aires.
 </FILE>
 
 <FILE name='Lorentz_diagr' type='LATEX'>
-Le système de Lorentz est défini par le système continu
-d'équations non-linéaires différentielles suivant :
+Le systï¿½me de Lorentz est dï¿½fini par le systï¿½me continu
+d'ï¿½quations non-linï¿½aires diffï¿½rentielles suivant :
 \begin{eqnarray}
 \frac{dx(t)}{dt}&=&a\left(-x(t)+y(t)\right)\\
 \frac{dy(t)}{dt}&=&bx(t)-y(t)-x(t)y(t)\\
 \frac{dz(t)}{dt}&=&-cx(t)+x(t)y(t)
 \end{eqnarray}
-Les variables d'états $x(t)$, $y(t)$ et $z(t)$ sont respectivement la température de
-l'air, la vitesse du vent et une troisième variable qui représente la variation de la
-température en fonction de l'altitude.
+Les variables d'ï¿½tats $x(t)$, $y(t)$ et $z(t)$ sont respectivement la tempï¿½rature de
+l'air, la vitesse du vent et une troisiï¿½me variable qui reprï¿½sente la variation de la
+tempï¿½rature en fonction de l'altitude.
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
@@ -3646,11 +3668,11 @@ température en fonction de l'altitude.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Le bloc MATMUL fait la multiplication matricielle de ses deux entrées. Le
-          nombre de lignes de la seconde matrice doit être égal au nombre de colonnes
-          de la première. La sortie est une matrice où le nombre de lignes est égal à
-          celui de la première matrice d'entrée et où le nombre de colonnes est égal à
-          celui de la deuxième matrice d'entrée.
+	  Le bloc MATMUL fait la multiplication matricielle de ses deux entrï¿½es. Le
+          nombre de lignes de la seconde matrice doit ï¿½tre ï¿½gal au nombre de colonnes
+          de la premiï¿½re. La sortie est une matrice oï¿½ le nombre de lignes est ï¿½gal ï¿½
+          celui de la premiï¿½re matrice d'entrï¿½e et oï¿½ le nombre de colonnes est ï¿½gal ï¿½
+          celui de la deuxiï¿½me matrice d'entrï¿½e.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -3755,8 +3777,8 @@ température en fonction de l'altitude.
       <DESCRIPTION_ITEM>
 	<P>
 	  Ce bloc fait la transposition d'une matrice de taille MxN en matrice de
-          taille NxM. Pour les données de type complexe, celui-ci utilise une
-          transposition Hermitienne. L'instruction scilab équivalente de ce bloc est
+          taille NxM. Pour les donnï¿½es de type complexe, celui-ci utilise une
+          transposition Hermitienne. L'instruction scilab ï¿½quivalente de ce bloc est
           y=u'.
 	</P>
       </DESCRIPTION_ITEM>
@@ -3798,14 +3820,14 @@ température en fonction de l'altitude.
 
 <FILE name='MAXMIN' type='LATEX'>
 Ce bloc peut trouver aussi bien le maximum que le minimum dans les
-éléments de ses entrées.
-La fonction min ou max peut être choisie dans les paramètres de la
-boîte de dialogue.
+ï¿½lï¿½ments de ses entrï¿½es.
+La fonction min ou max peut ï¿½tre choisie dans les paramï¿½tres de la
+boï¿½te de dialogue.
 </FILE>
 
 <FILE name='MAX_f' type='LATEX'>
-Ce bloc trouve la valeur maximale dans les éléments
-de son vecteur d'entrée.
+Ce bloc trouve la valeur maximale dans les ï¿½lï¿½ments
+de son vecteur d'entrï¿½e.
 </FILE>
 
 <FILE name='MBLOCK' type='XML'>
@@ -3865,8 +3887,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='MIN_f' type='LATEX'>
-Ce bloc trouve la valeur minimale dans les éléments
-de son vecteur d'entrée.
+Ce bloc trouve la valeur minimale dans les ï¿½lï¿½ments
+de son vecteur d'entrï¿½e.
 </FILE>
 
 <FILE name='MOTOR' type='XML'>
@@ -3882,22 +3904,22 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='MUX' type='LATEX'>
-Ce bloc regroupe $n$ vecteurs d'entrée en un seul vecteur à la sortie.
-La sortie est $y=[u_1;u_2;\cdots;u_n]$ , où les $u_i$ numérotées dans
-un ordre croissant correspondent aux ports réguliers d'entrée du haut
+Ce bloc regroupe $n$ vecteurs d'entrï¿½e en un seul vecteur ï¿½ la sortie.
+La sortie est $y=[u_1;u_2;\cdots;u_n]$ , oï¿½ les $u_i$ numï¿½rotï¿½es dans
+un ordre croissant correspondent aux ports rï¿½guliers d'entrï¿½e du haut
 vers le bas.
-Les tailles d'entrée/sortie sont soit déterminées automatiquement
-à la compilation ou alors déterminées par le paramètre
+Les tailles d'entrï¿½e/sortie sont soit dï¿½terminï¿½es automatiquement
+ï¿½ la compilation ou alors dï¿½terminï¿½es par le paramï¿½tre
 {\bf number of input ports or vector of sizes}.
 </FILE>
 
 <FILE name='MUX_f' type='LATEX'>
-Ce bloc regroupe $n$ vecteurs d'entrée en un seul vecteur à la sortie.
-La sortie est $y=[u_1;u_2;\cdots;u_n]$ , où les $u_i$ numérotées dans
-un ordre croissant correspondent aux ports réguliers d'entrée du haut
+Ce bloc regroupe $n$ vecteurs d'entrï¿½e en un seul vecteur ï¿½ la sortie.
+La sortie est $y=[u_1;u_2;\cdots;u_n]$ , oï¿½ les $u_i$ numï¿½rotï¿½es dans
+un ordre croissant correspondent aux ports rï¿½guliers d'entrï¿½e du haut
 vers le bas.
-Les tailles d'entrée/sortie sont soit déterminées automatiquement
-à la compilation ou alors déterminées par le paramètre
+Les tailles d'entrï¿½e/sortie sont soit dï¿½terminï¿½es automatiquement
+ï¿½ la compilation ou alors dï¿½terminï¿½es par le paramï¿½tre
 {\bf number of input ports or vector of sizes}.
 </FILE>
 
@@ -3958,7 +3980,7 @@ determines which data input is passed through to the output port.
 
 <FILE name='Matrix_pal' type='LATEX'>
 Cette palette contient tous les blocs dont vous avez
-besoin pour réaliser des opérations matricielles 
+besoin pour rï¿½aliser des opï¿½rations matricielles 
 simples et complexes.
 </FILE>
 
@@ -3970,7 +3992,7 @@ simples et complexes.
 
 <FILE name='Modulo_Count' type='LATEX'>
 Ce bloc est un bloc discret.
-Il délivre un signal scalaire périodique qui a une forme déterminée
+Il dï¿½livre un signal scalaire pï¿½riodique qui a une forme dï¿½terminï¿½e
 par les choix de l'utilisateur.
 </FILE>
 
@@ -4066,8 +4088,8 @@ replaces the Calc operation.
 </FILE>
 
 <FILE name='NEGTOPOS_f' type='LATEX'>
-Un événement est généré lorsque l'unique entrée de ce bloc traverse
-la valeur zéro lors d'un front montant.
+Un ï¿½vï¿½nement est gï¿½nï¿½rï¿½ lorsque l'unique entrï¿½e de ce bloc traverse
+la valeur zï¿½ro lors d'un front montant.
 </FILE>
 
 <FILE name='NMOS' type='LATEX'>
@@ -4081,7 +4103,7 @@ resistance is included (to avoid numerical difficulties).
 
 \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{3.5cm}|}
 \hline
-W [m] & L [m] &  Beta [1/V²]& Vt [V] &  K2 & K5 & DW [m]& DL[m] & \\
+W [m] & L [m] &  Beta [1/Vï¿½]& Vt [V] &  K2 & K5 & DW [m]& DL[m] & \\
 \hline
 12.e-6&  4.e-6&  .062    &   -4.5   &   .24 &     .61  &   -1.2e-6 &    -.9e-6 & depletion\\
 60.e-6&  3.e-6&  .048    &     .1   &  .08  &    .68   &  -1.2e-6  &   -.9e-6  & enhancement\\
@@ -4111,8 +4133,8 @@ W [m] & L [m] &  Beta [1/V²]& Vt [V] &  K2 & K5 & DW [m]& DL[m] & \\
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ce bloc est un modèle simple pour le transistor bipolaire NPN basé sur
-le modèle  Ebers-Moll.
+Ce bloc est un modï¿½le simple pour le transistor bipolaire NPN basï¿½ sur
+le modï¿½le  Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -4127,24 +4149,24 @@ block's Number of inputs parameter.
 </FILE>
 
 <FILE name='Non_linear_pal' type='LATEX'>
-Cette palette contient des fonctions non-linéaires.
+Cette palette contient des fonctions non-linï¿½aires.
 </FILE>
 
 <FILE name='OUTIMPL_f' type='LATEX'>
 Les ports de sortie OUTIMPL\_f sont des liens qui permettent de connecter
-l'extérieur d'un système vers l'intérieur.
+l'extï¿½rieur d'un systï¿½me vers l'intï¿½rieur.
 </FILE>
 
 <FILE name='OUT_f' type='LATEX'>
-Ce bloc doit être utilisé dans un superbloc pour représenter un port
-de sortie régulier. La taille de ce port est ajustée automatiquement.
-Dans un superbloc, les ports de sortie réguliers doivent être numérotés
-de 1 jusqu'au nombre de ports de sortie réguliers composant le superbloc.
+Ce bloc doit ï¿½tre utilisï¿½ dans un superbloc pour reprï¿½senter un port
+de sortie rï¿½gulier. La taille de ce port est ajustï¿½e automatiquement.
+Dans un superbloc, les ports de sortie rï¿½guliers doivent ï¿½tre numï¿½rotï¿½s
+de 1 jusqu'au nombre de ports de sortie rï¿½guliers composant le superbloc.
 </FILE>
 
 <FILE name='OldBlocks_pal' type='LATEX'>
 Cette palette contient des anciens blocs Scicos.
-Elle est fournie pour pouvoir assurer la compatibilité
+Elle est fournie pour pouvoir assurer la compatibilitï¿½
 avec des anciens diagrammes contenant ces anciens blocs.
 </FILE>
 
@@ -4183,10 +4205,10 @@ depending on the type of the PDE and runs the solvers.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Ce bloc implémente un régulateur PID. Un régulateur Proportionnel Intégral
-Dérivé (PID) est un organe de contrôle permettant d'effectuer une régulation en
-boucle fermée d'un système industriel. C'est le régulateur le plus utilisé dans l'industrie et permet de contrôler la grande majorité des
-procédés.
+    Ce bloc implï¿½mente un rï¿½gulateur PID. Un rï¿½gulateur Proportionnel Intï¿½gral
+Dï¿½rivï¿½ (PID) est un organe de contrï¿½le permettant d'effectuer une rï¿½gulation en
+boucle fermï¿½e d'un systï¿½me industriel. C'est le rï¿½gulateur le plus utilisï¿½ dans l'industrie et permet de contrï¿½ler la grande majoritï¿½ des
+procï¿½dï¿½s.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -4206,7 +4228,7 @@ Some typical parameter sets are:
 
 \begin{tabular}{ |c|c|c|c|c|c|c|c|}
 \hline
-W [m]&L[m]&Beta [1/V²]& Vt [V]& K2 & K5&  DW [m]& DL [m] \\
+W [m]&L[m]&Beta [1/Vï¿½]& Vt [V]& K2 & K5&  DW [m]& DL [m] \\
 \hline
 50.e-6 &8.e-6 &.0085    &-.15 &   .41  &   .839  & -3.8e-6  & -4.0e-6  \\
 20.e-6 &6.e-6 &.0105    &-1.0 &    .41 &    .839 &  -2.5e-6 &  -2.1e-6 \\
@@ -4225,8 +4247,8 @@ W [m]&L[m]&Beta [1/V²]& Vt [V]& K2 & K5&  DW [m]& DL [m] \\
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ce bloc est un modèle simple pour le transistor bipolaire PNP basé sur
-le modèle  Ebers-Moll.
+Ce bloc est un modï¿½le simple pour le transistor bipolaire PNP basï¿½ sur
+le modï¿½le  Ebers-Moll.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -4234,13 +4256,13 @@ le modèle  Ebers-Moll.
 </FILE>
 
 <FILE name='POSTONEG_f' type='LATEX'>
-Un événement est généré lorsque l'unique entrée de ce bloc traverse
-la valeur zéro lors d'un front descendant.
+Un ï¿½vï¿½nement est gï¿½nï¿½rï¿½ lorsque l'unique entrï¿½e de ce bloc traverse
+la valeur zï¿½ro lors d'un front descendant.
 </FILE>
 
 <FILE name='POWBLK_f' type='LATEX'>
-Ce bloc réalise $y(i)=u(i)^a$.
-Les tailles des ports d'entrée/sortie sont déterminées par le
+Ce bloc rï¿½alise $y(i)=u(i)^a$.
+Les tailles des ports d'entrï¿½e/sortie sont dï¿½terminï¿½es par le
 compilateur.
 </FILE>
 
@@ -4254,26 +4276,26 @@ operations to be performed on the inputs.
 </FILE>
 
 <FILE name='PROD_f' type='LATEX'>
-La sortie de ce bloc est le produit élément par élément des entrées.
+La sortie de ce bloc est le produit ï¿½lï¿½ment par ï¿½lï¿½ment des entrï¿½es.
 </FILE>
 
 <FILE name='PerteDP' type='LATEX'>
-Un bloc de PertDP représente un tuyau hydraulique avec des pertes de
-charge. Ce composant représente une perte de charge hydraulique où la
-perte de pression est directement proportionnelle au débit, état
-laminaire.  Ce bloc a une direction; c.-à-d. la direction positive est
-quand le fluide entre par le port d'entrée (le noir). Ceci signifie
-que ce bloc suppose que le débit est positif si le fluide découle du
-port noir vers le port blanc.  Les paramètres importants de ce composant
-sont la longueur, le diamètre du tuyau, les altitudes des ports
-d'entrée et de sortie, et quelques autres coefficients
+Un bloc de PertDP reprï¿½sente un tuyau hydraulique avec des pertes de
+charge. Ce composant reprï¿½sente une perte de charge hydraulique oï¿½ la
+perte de pression est directement proportionnelle au dï¿½bit, ï¿½tat
+laminaire.  Ce bloc a une direction; c.-ï¿½-d. la direction positive est
+quand le fluide entre par le port d'entrï¿½e (le noir). Ceci signifie
+que ce bloc suppose que le dï¿½bit est positif si le fluide dï¿½coule du
+port noir vers le port blanc.  Les paramï¿½tres importants de ce composant
+sont la longueur, le diamï¿½tre du tuyau, les altitudes des ports
+d'entrï¿½e et de sortie, et quelques autres coefficients
 thermo-hydrauliques.
 </FILE>
 
 <FILE name='PotentialSensor' type='LATEX'>
-Ce bloc est employé pour mesurer la tension d'un noeud par rapport à
-celle de terre (zero) dans un circuit électrique. La tension est
-donnée à la partie explicite du modèle par un port explicite.
+Ce bloc est employï¿½ pour mesurer la tension d'un noeud par rapport ï¿½
+celle de terre (zero) dans un circuit ï¿½lectrique. La tension est
+donnï¿½e ï¿½ la partie explicite du modï¿½le par un port explicite.
 </FILE>
 
 <FILE name='PuitsP' type='XML'>
@@ -4281,9 +4303,9 @@ donnée à la partie explicite du modèle par un port explicite.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Ce composant représente un puit thermo-hydraulique de
-	  pression constante. Ce bloc est défini avec sa pression
-          et sa température. La direction positive est quand le
+	  Ce composant reprï¿½sente un puit thermo-hydraulique de
+	  pression constante. Ce bloc est dï¿½fini avec sa pression
+          et sa tempï¿½rature. La direction positive est quand le
           fluide coule dans le bloc.
 	</P>
       </DESCRIPTION_ITEM>
@@ -4292,23 +4314,23 @@ donnée à la partie explicite du modèle par un port explicite.
 </FILE>
 
 <FILE name='QUANT_f' type='LATEX'>
-Ce bloc quantifie le signal d'entrée suivant les méthodes choisies :
+Ce bloc quantifie le signal d'entrï¿½e suivant les mï¿½thodes choisies :
 \begin{enumerate}
-\item méthode 'Round' :
+\item mï¿½thode 'Round' :
 \begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)-0.5) &\texttt{si} \; u(i)<0 .\\
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)+0.5) &\texttt{si} \; u(i)>=0 .
 \end{eqnarray}
-\item méthode 'Truncation' :
+\item mï¿½thode 'Truncation' :
 \begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5)) &\texttt{si} \; u(i)<0 .  \\
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5)) &\texttt{si} \; u(i)>=0 .
 \end{eqnarray}
-\item méthode 'Floor' :
+\item mï¿½thode 'Floor' :
 \begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}+0.5))  .
 \end{eqnarray}
-\item  méthode 'Ceil' :
+\item  mï¿½thode 'Ceil' :
 \begin{eqnarray}
  y(i)&={\rm Step}*({\rm int}(u(i)/{\rm Step}-0.5))
 \end{eqnarray}
@@ -4316,25 +4338,25 @@ Ce bloc quantifie le signal d'entrée suivant les méthodes choisies :
 </FILE>
 
 <FILE name='RAMP' type='LATEX'>
-Le bloc RAMP génére un signal qui commence à une date et à une valeur
-spécifiées et évolue suivant une pente donnée.
-Les paramètres {\bf Slope , Start time} et {\bf Initial output} déterminent
-les caractéristiques du signal de sortie.
-Ces paramètres doivent avoir des dimensions identiques.
+Le bloc RAMP gï¿½nï¿½re un signal qui commence ï¿½ une date et ï¿½ une valeur
+spï¿½cifiï¿½es et ï¿½volue suivant une pente donnï¿½e.
+Les paramï¿½tres {\bf Slope , Start time} et {\bf Initial output} dï¿½terminent
+les caractï¿½ristiques du signal de sortie.
+Ces paramï¿½tres doivent avoir des dimensions identiques.
 </FILE>
 
 <FILE name='RAND_f' type='LATEX'>
-Ce bloc est un générateur de nombres aléatoires : chaque composante de sortie
-prend des valeurs constantes aléatoires par morceaux. Pour chaque événement les
-sorties prennent des nouvelles valeurs indépendantes.\\
-La taille du port de sortie est déterminée par la taille des vecteurs {\bf A} et {\bf B}.
+Ce bloc est un gï¿½nï¿½rateur de nombres alï¿½atoires : chaque composante de sortie
+prend des valeurs constantes alï¿½atoires par morceaux. Pour chaque ï¿½vï¿½nement les
+sorties prennent des nouvelles valeurs indï¿½pendantes.\\
+La taille du port de sortie est dï¿½terminï¿½e par la taille des vecteurs {\bf A} et {\bf B}.
 </FILE>
 
 <FILE name='RAND_m' type='LATEX'>
-Ce bloc est un générateur de nombres aléatoires : chaque composante de sortie
-prend des valeurs constantes aléatoires par morceaux. Pour chaque événement les
-sorties prennent des nouvelles valeurs indépendantes.\\
-La taille du port de sortie est déterminée par la taille des matrices {\bf A} et {\bf B}.
+Ce bloc est un gï¿½nï¿½rateur de nombres alï¿½atoires : chaque composante de sortie
+prend des valeurs constantes alï¿½atoires par morceaux. Pour chaque ï¿½vï¿½nement les
+sorties prennent des nouvelles valeurs indï¿½pendantes.\\
+La taille du port de sortie est dï¿½terminï¿½e par la taille des matrices {\bf A} et {\bf B}.
 </FILE>
 
 <FILE name='RATELIMITER' type='LATEX'>
@@ -4344,12 +4366,12 @@ limit.
 </FILE>
 
 <FILE name='READAU_f' type='LATEX'>
-Charge un son enregistré dans un fichier 'au'.
-Les données échantillonnées seront écrites sur la sortie y du bloc.
-Si l'extension du fichier n'est pas spécifiée alors l'extension '.au' est
-automatiquement ajoutée.
+Charge un son enregistrï¿½ dans un fichier 'au'.
+Les donnï¿½es ï¿½chantillonnï¿½es seront ï¿½crites sur la sortie y du bloc.
+Si l'extension du fichier n'est pas spï¿½cifiï¿½e alors l'extension '.au' est
+automatiquement ajoutï¿½e.
 Les valeurs d'amplitude sont comprises entre [-1,+1].
-La lecture 'au' supporte les données multi-canaux sous les formats suivants :
+La lecture 'au' supporte les donnï¿½es multi-canaux sous les formats suivants :
 \begin{itemize}
    \item 8-bit mu-law 
    \item 8-, 16-, and 32-bit linear
@@ -4358,20 +4380,20 @@ La lecture 'au' supporte les données multi-canaux sous les formats suivants :
 </FILE>
 
 <FILE name='READC_f' type='LATEX'>
-Ce bloc permet de lire des données dans un fichier C.
-Les paramètres {\bf Output record selection] et {\bf Time record Selection}
-permettent de sélectionner des données dans les enregistrements du fichier.
+Ce bloc permet de lire des donnï¿½es dans un fichier C.
+Les paramï¿½tres {\bf Output record selection] et {\bf Time record Selection}
+permettent de sï¿½lectionner des donnï¿½es dans les enregistrements du fichier.
 Chaque appel au bloc, fait avancer d'un enregistrement dans le fichier.
 </FILE>
 
 <FILE name='REGISTER' type='LATEX'>
-Ce bloc réalise un registre à décalage.
-Pour chaque événement d'entrée, le registre est décalé d'un élément.
+Ce bloc rï¿½alise un registre ï¿½ dï¿½calage.
+Pour chaque ï¿½vï¿½nement d'entrï¿½e, le registre est dï¿½calï¿½ d'un ï¿½lï¿½ment.
 </FILE>
 
 <FILE name='REGISTER_f' type='LATEX'>
-Ce bloc réalise un registre à décalage.
-Pour chaque événement d'entrée, le registre est décalé d'un élément.
+Ce bloc rï¿½alise un registre ï¿½ dï¿½calage.
+Pour chaque ï¿½vï¿½nement d'entrï¿½e, le registre est dï¿½calï¿½ d'un ï¿½lï¿½ment.
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
@@ -4395,19 +4417,19 @@ port is routed to the regular output.
 </FILE>
 
 <FILE name='RFILE' type='LATEX'>
-Ce bloc permet à l'utilisateur de lire des données dans un fichier.
-Ces données peuvent être formatées ou binaires.
-Les paramètres {\bf  Output record selection} et {\bf Time record selection}
-permettent de selectionner des données parmi les enregistrements du fichier.
+Ce bloc permet ï¿½ l'utilisateur de lire des donnï¿½es dans un fichier.
+Ces donnï¿½es peuvent ï¿½tre formatï¿½es ou binaires.
+Les paramï¿½tres {\bf  Output record selection} et {\bf Time record selection}
+permettent de selectionner des donnï¿½es parmi les enregistrements du fichier.
 Chaque appel au bloc avance d'un enregistrement.\\
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE}{WFILE.htm}.
 </FILE>
 
 <FILE name='RFILE_f' type='LATEX'>
-Ce bloc permet à l'utilisateur de lire des données dans un fichier.
-Ces données peuvent être formatées ou binaires.
-Les paramètres {\bf  Output record selection} et {\bf Time record selection}
-permettent de selectionner des données parmi les enregistrements du fichier.
+Ce bloc permet ï¿½ l'utilisateur de lire des donnï¿½es dans un fichier.
+Ces donnï¿½es peuvent ï¿½tre formatï¿½es ou binaires.
+Les paramï¿½tres {\bf  Output record selection} et {\bf Time record selection}
+permettent de selectionner des donnï¿½es parmi les enregistrements du fichier.
 Chaque appel au bloc avance d'un enregistrement.\\
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE\_f}{WFILE_f.htm}
 </FILE>
@@ -4443,104 +4465,104 @@ Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{WFILE\_f}{WFILE_f.ht
 </FILE>
 
 <FILE name='ROOTCOEF' type='LATEX'>
-Ce bloc calcule les coefficients d'un polynôme grâce aux valeurs
+Ce bloc calcule les coefficients d'un polynï¿½me grï¿½ce aux valeurs
 des racines.
 </FILE>
 
 <FILE name='Resistor' type='LATEX'>
-Une résistance est un composant électrique à deux ports qui résiste à
-un courant électrique en produisant une chute de tension ($V$) : la loi
+Une rï¿½sistance est un composant ï¿½lectrique ï¿½ deux ports qui rï¿½siste ï¿½
+un courant ï¿½lectrique en produisant une chute de tension ($V$) : la loi
 d'Ohm.
 
  \[ R = \frac {V}{I}\] 
 
-  La résistance électrique ($R$) est égale à la chute de tension entre
-les ports de la résistance divisée par le courant qui passe au travers
+  La rï¿½sistance ï¿½lectrique ($R$) est ï¿½gale ï¿½ la chute de tension entre
+les ports de la rï¿½sistance divisï¿½e par le courant qui passe au travers
 ($I$).
 </FILE>
 
 <FILE name='SAMPHOLD' type='LATEX'>
-A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
-entrée sur sa sortie et maintient cette valeur jusqu'au prochain
-événement.
-Pour réaliser un échantillonneur bloqueur périodique, l'entrée
-événementielle doit être connectée à une horloge {\bf Clock}.
+A chaque fois qu'un ï¿½vï¿½nement est reï¿½u, ce bloc copie la valeur de son
+entrï¿½e sur sa sortie et maintient cette valeur jusqu'au prochain
+ï¿½vï¿½nement.
+Pour rï¿½aliser un ï¿½chantillonneur bloqueur pï¿½riodique, l'entrï¿½e
+ï¿½vï¿½nementielle doit ï¿½tre connectï¿½e ï¿½ une horloge {\bf Clock}.
 </FILE>
 
 <FILE name='SAMPHOLD_m' type='LATEX'>
-A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
-entrée sur sa sortie et maintient cette valeur jusqu'au prochain
-événement.
-Pour réaliser un échantillonneur bloqueur périodique, l'entrée
-événementielle doit être connectée à une horloge {\bf Clock}.
+A chaque fois qu'un ï¿½vï¿½nement est reï¿½u, ce bloc copie la valeur de son
+entrï¿½e sur sa sortie et maintient cette valeur jusqu'au prochain
+ï¿½vï¿½nement.
+Pour rï¿½aliser un ï¿½chantillonneur bloqueur pï¿½riodique, l'entrï¿½e
+ï¿½vï¿½nementielle doit ï¿½tre connectï¿½e ï¿½ une horloge {\bf Clock}.
 </FILE>
 
 <FILE name='SAMPLEHOLD_f' type='LATEX'>
-A chaque fois qu'un événement est reçu, ce bloc copie la valeur de son
-entrée sur sa sortie et maintient cette valeur jusqu'au prochain
-événement.
-Pour réaliser un échantillonneur bloqueur périodique, l'entrée
-événementielle doit être connectée à une horloge {\bf Clock}.
+A chaque fois qu'un ï¿½vï¿½nement est reï¿½u, ce bloc copie la valeur de son
+entrï¿½e sur sa sortie et maintient cette valeur jusqu'au prochain
+ï¿½vï¿½nement.
+Pour rï¿½aliser un ï¿½chantillonneur bloqueur pï¿½riodique, l'entrï¿½e
+ï¿½vï¿½nementielle doit ï¿½tre connectï¿½e ï¿½ une horloge {\bf Clock}.
 </FILE>
 
 <FILE name='SATURATION' type='LATEX'>
 Le bloc saturation impose des limites maximale et minimale sur un signal.
-Lorsque le signal est compris dans l'échelle définie par les paramètres
-{\bf Upper limit} et {\bf Lower limit}, celui ci est reporté à la sortie
+Lorsque le signal est compris dans l'ï¿½chelle dï¿½finie par les paramï¿½tres
+{\bf Upper limit} et {\bf Lower limit}, celui ci est reportï¿½ ï¿½ la sortie
 sans modifications.
-Lorsque le signal sort de ces limites, alors le signal sature à la sortie
+Lorsque le signal sort de ces limites, alors le signal sature ï¿½ la sortie
 du bloc.
 </FILE>
 
 <FILE name='SAT_f' type='LATEX'>
 Le bloc saturation impose des limites maximale et minimale sur un signal.
-Lorsque le signal est compris dans l'échelle définie par les paramètres
-{\bf Upper limit} et {\bf Lower limit}, celui ci est reporté à la sortie
+Lorsque le signal est compris dans l'ï¿½chelle dï¿½finie par les paramï¿½tres
+{\bf Upper limit} et {\bf Lower limit}, celui ci est reportï¿½ ï¿½ la sortie
 sans modifications.
-Lorsque le signal sort de ces limites, alors le signal sature à la sortie
+Lorsque le signal sort de ces limites, alors le signal sature ï¿½ la sortie
 du bloc.
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='LATEX'>
-Ce bloc est un générateur de dents de scie : 
-la sortie de ce bloc est calculée par $(t-t_i)$ de $t_i$ jusqu'à $t_{i+1}$
-où $t_i$ et $t_{i+1}$ sont les instants de deux événements d'entrée successifs.
+Ce bloc est un gï¿½nï¿½rateur de dents de scie : 
+la sortie de ce bloc est calculï¿½e par $(t-t_i)$ de $t_i$ jusqu'ï¿½ $t_{i+1}$
+oï¿½ $t_i$ et $t_{i+1}$ sont les instants de deux ï¿½vï¿½nements d'entrï¿½e successifs.
 </FILE>
 
 <FILE name='SCALAR2VECTOR' type='LATEX'>
 Ce bloc convertit une valeur scalaire en un vecteur.
-Lorsque des blocs avec plus d'un port régulier son utilisés (comme Somme
-ou le bloc Relational Operator), vous pouvez mixer des entrées scalaires
+Lorsque des blocs avec plus d'un port rï¿½gulier son utilisï¿½s (comme Somme
+ou le bloc Relational Operator), vous pouvez mixer des entrï¿½es scalaires
 et vectorielles.
-Lorsque vous faites cela, les entrées scalaires sont étendues à des vecteurs
-dont les tailles sont égales aux tailles des vecteurs d'entrée.
-Si plus d'un port d'entrée est vectoriel, alors ils doivent avoir la même taille.
+Lorsque vous faites cela, les entrï¿½es scalaires sont ï¿½tendues ï¿½ des vecteurs
+dont les tailles sont ï¿½gales aux tailles des vecteurs d'entrï¿½e.
+Si plus d'un port d'entrï¿½e est vectoriel, alors ils doivent avoir la mï¿½me taille.
 </FILE>
 
 <FILE name='SELECT_f' type='LATEX'>
-Ce bloc redirige l'une de ses entrées régulières sur l'unique
-sortie régulière.
-Le choix qui est fait pour savoir quel est le port d'entrée redirigé
-est initalement fait par le paramètre {\bf initial connected input}.
-Pendant la simulation, à chaque fois que ce bloc est activé par son
-entrée événementielle $i$, alors la valeur présente sur le
- $i^{\rm \grave{e}me}$ port régulier est recopiée sur la sortie. 
+Ce bloc redirige l'une de ses entrï¿½es rï¿½guliï¿½res sur l'unique
+sortie rï¿½guliï¿½re.
+Le choix qui est fait pour savoir quel est le port d'entrï¿½e redirigï¿½
+est initalement fait par le paramï¿½tre {\bf initial connected input}.
+Pendant la simulation, ï¿½ chaque fois que ce bloc est activï¿½ par son
+entrï¿½e ï¿½vï¿½nementielle $i$, alors la valeur prï¿½sente sur le
+ $i^{\rm \grave{e}me}$ port rï¿½gulier est recopiï¿½e sur la sortie. 
 </FILE>
 
 <FILE name='SELECT_m' type='LATEX'>
-Un bloc selecteur accepte sur son entrée aussi bien un vecteur qu'une matrice.
-Vous pouvez définir le paramètre {\bf Input Type} au type de signal que vous
-utilisez dans votre modèle (matrice ou vecteur).
-Les paramètres de la boîte de dialogue et l'aspect du bloc changent en accord
-avec le type de l'entrée, ainsi que la manière dont il détermine les éléments 
-à sélectionner.
-%Ce bloc redirige l'une de ses entrées régulières sur l'unique
-%sortie régulière.
-%Le choix qui est fait pour savoir quel est le port d'entrée redirigé
-%est initalement fait par le paramètre {\bf initial connected input}.
-%Pendant la simulation, à chaque fois que ce bloc est activé par son
-%entrée événementielle $i$, alors la valeur présente sur le
-% $i^{\rm \grave{e}me}$ port régulier est recopiée sur la sortie.
+Un bloc selecteur accepte sur son entrï¿½e aussi bien un vecteur qu'une matrice.
+Vous pouvez dï¿½finir le paramï¿½tre {\bf Input Type} au type de signal que vous
+utilisez dans votre modï¿½le (matrice ou vecteur).
+Les paramï¿½tres de la boï¿½te de dialogue et l'aspect du bloc changent en accord
+avec le type de l'entrï¿½e, ainsi que la maniï¿½re dont il dï¿½termine les ï¿½lï¿½ments 
+ï¿½ sï¿½lectionner.
+%Ce bloc redirige l'une de ses entrï¿½es rï¿½guliï¿½res sur l'unique
+%sortie rï¿½guliï¿½re.
+%Le choix qui est fait pour savoir quel est le port d'entrï¿½e redirigï¿½
+%est initalement fait par le paramï¿½tre {\bf initial connected input}.
+%Pendant la simulation, ï¿½ chaque fois que ce bloc est activï¿½ par son
+%entrï¿½e ï¿½vï¿½nementielle $i$, alors la valeur prï¿½sente sur le
+% $i^{\rm \grave{e}me}$ port rï¿½gulier est recopiï¿½e sur la sortie.
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
@@ -4608,8 +4630,8 @@ Ajoutez ici un paragraphe pour la description de la fonction
 </FILE>
 
 <FILE name='SQRT' type='LATEX'>
-Ce bloc calcule les racines carré de cahque élément de la matrice d'entrée.
-Il supporte les types de donnée réels et complexes.
+Ce bloc calcule les racines carrï¿½ de cahque ï¿½lï¿½ment de la matrice d'entrï¿½e.
+Il supporte les types de donnï¿½e rï¿½els et complexes.
 </FILE>
 
 <FILE name='SRFLIPFLOP' type='LATEX'>
@@ -4663,12 +4685,12 @@ Q(t-1)&
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='LATEX'>
-Le bloc 'Step' réalise un saut entre deux niveaux définis à un temps
-spécifié.
-Si le temps de simulation est inférieur au paramètre {\bf Step time}, la 
-sortie est égale à la valeur du paramètre {\bf Initial value}.
-Pour les temps de simulation supérieurs, la sortie est égale à la valeur
-du paramètre {\bf Final value}.
+Le bloc 'Step' rï¿½alise un saut entre deux niveaux dï¿½finis ï¿½ un temps
+spï¿½cifiï¿½.
+Si le temps de simulation est infï¿½rieur au paramï¿½tre {\bf Step time}, la 
+sortie est ï¿½gale ï¿½ la valeur du paramï¿½tre {\bf Initial value}.
+Pour les temps de simulation supï¿½rieurs, la sortie est ï¿½gale ï¿½ la valeur
+du paramï¿½tre {\bf Final value}.
 </FILE>
 
 <FILE name='SUBMAT' type='XML'>
@@ -4689,33 +4711,33 @@ du paramètre {\bf Final value}.
   <DESCRIPTION>
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
-	<P> Ce bloc fait l'addition ou la soustraction de ses entrées. Ce bloc
+	<P> Ce bloc fait l'addition ou la soustraction de ses entrï¿½es. Ce bloc
 	peut additioner et soustraire des grandeurs scalaires, vectorielles et
-	matricielles. Il peut aussi faire la somme cumulative d'une seule entrée
+	matricielles. Il peut aussi faire la somme cumulative d'une seule entrï¿½e
 	vectorielle.</P>
 	<P>
-        Le nombre d'entrée est donné par le second paramètre de la boite de dialogue.
-        Ce paramètre peut être un vecteur de nombre +1 et -1 ou bien
-	il peut être une seule valeur positive. Dans le premier cas le vecteur donne le
-        nombre d'entrée et le signe indique si c'est une addition ou une soustraction.
-        Pour le second choix, ce bloc est un additionneur dont le nombre d'entrée est
-        déterminée par la valeur de ce paramètre.
+        Le nombre d'entrï¿½e est donnï¿½ par le second paramï¿½tre de la boite de dialogue.
+        Ce paramï¿½tre peut ï¿½tre un vecteur de nombre +1 et -1 ou bien
+	il peut ï¿½tre une seule valeur positive. Dans le premier cas le vecteur donne le
+        nombre d'entrï¿½e et le signe indique si c'est une addition ou une soustraction.
+        Pour le second choix, ce bloc est un additionneur dont le nombre d'entrï¿½e est
+        dï¿½terminï¿½e par la valeur de ce paramï¿½tre.
         </P>
 	<P>
-        Lorsqu'un dépassement intervient, le résulat peut prendre des valeurs
-        différentes suivant le troisième paramètre "DO ON OVERFLOW":
+        Lorsqu'un dï¿½passement intervient, le rï¿½sulat peut prendre des valeurs
+        diffï¿½rentes suivant le troisiï¿½me paramï¿½tre "DO ON OVERFLOW":
        </P>
-	<P>1- Un résulat non saturé.</P>
-	<P>2- Un résultat saturé.</P>
-	<P>3- Un message d'erreur est signalé lorsqu'un dépassement intervient.</P>
+	<P>1- Un rï¿½sulat non saturï¿½.</P>
+	<P>2- Un rï¿½sultat saturï¿½.</P>
+	<P>3- Un message d'erreur est signalï¿½ lorsqu'un dï¿½passement intervient.</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
   </DESCRIPTION>
 </FILE>
 
 <FILE name='SUM_f' type='LATEX'>
-Le bloc somme réalise l'addition de ses entrées.
-Ce bloc peut additionner des scalaires ou des vecteurs d'entrée.
+Le bloc somme rï¿½alise l'addition de ses entrï¿½es.
+Ce bloc peut additionner des scalaires ou des vecteurs d'entrï¿½e.
 </FILE>
 
 <FILE name='SUPER_f' type='LATEX'>
@@ -4768,8 +4790,8 @@ input is passed. Otherwise, the third input is passed.
 
 <FILE name='SWITCH_f' type='LATEX'>
 Ce bloc est un 'interrupteur' manuel.
-Il sélectionne une de ses entrées pour la rédigirer vers sa sortie.
-Les entrées non sélectionnées ne sont donc pas propagées.
+Il sï¿½lectionne une de ses entrï¿½es pour la rï¿½digirer vers sa sortie.
+Les entrï¿½es non sï¿½lectionnï¿½es ne sont donc pas propagï¿½es.
 </FILE>
 
 <FILE name='SampleCLK' type='XML'>
@@ -4832,8 +4854,8 @@ beginning and at the end of the signal.
 <DESCRIPTION_INDENT>
 <DESCRIPTION_ITEM>
 <P>
-Ce bloc est un bloc Modelica pour une source de tension sinusoïdale.
-La résistance ohmique interne de ce bloc est zéro.
+Ce bloc est un bloc Modelica pour une source de tension sinusoï¿½dale.
+La rï¿½sistance ohmique interne de ce bloc est zï¿½ro.
 </P>
 </DESCRIPTION_ITEM>
 </DESCRIPTION_INDENT>
@@ -4841,26 +4863,26 @@ La résistance ohmique interne de ce bloc est zéro.
 </FILE>
 
 <FILE name='Sinks_pal' type='LATEX'>
-Dans la palette Sinks, vous pouvez trouver une variété de
-blocs utilisés pour afficher (Scope) et écrire les données
+Dans la palette Sinks, vous pouvez trouver une variï¿½tï¿½ de
+blocs utilisï¿½s pour afficher (Scope) et ï¿½crire les donnï¿½es
 dans des fichiers pendant la simulation ainsi que des ports
-de sortie utilisés dans les superblocs.\\
-Les blocs de cette palette ne possèdent pas de ports réguliers
+de sortie utilisï¿½s dans les superblocs.\\
+Les blocs de cette palette ne possï¿½dent pas de ports rï¿½guliers
 de sortie.
 </FILE>
 
 <FILE name='SourceP' type='LATEX'>
-Ce composant représente une source thermohydraulique de pression
-constante. Ce bloc est défini avec sa pression et sa température.  La
+Ce composant reprï¿½sente une source thermohydraulique de pression
+constante. Ce bloc est dï¿½fini avec sa pression et sa tempï¿½rature.  La
 direction positive conventionnelle est quand le fluide sort du bloc.
 </FILE>
 
 <FILE name='Sources_pal' type='LATEX'>
-La plupart des blocs de la palette source peuvent être compris comme
-des générateurs de données.
-Cette palette contient aussi des blocs pour lire des données dans des
-fichers, ainsi que des ports d'entrée utilisés dans les superblocs.\\
-Les blocs de cette palette ne possèdent pas de ports réguliers d'entrée.
+La plupart des blocs de la palette source peuvent ï¿½tre compris comme
+des gï¿½nï¿½rateurs de donnï¿½es.
+Cette palette contient aussi des blocs pour lire des donnï¿½es dans des
+fichers, ainsi que des ports d'entrï¿½e utilisï¿½s dans les superblocs.\\
+Les blocs de cette palette ne possï¿½dent pas de ports rï¿½guliers d'entrï¿½e.
 </FILE>
 
 <FILE name='Switch' type='XML'>
@@ -4885,49 +4907,49 @@ $$y={\rm tan}(u)$$
 </FILE>
 
 <FILE name='TCLSS' type='LATEX'>
-Ce bloc réalise un système d'équations d'etat en temporel continu avec
-la possibilités de réaliser des sauts dans l'état.
-Le nombre d'entrées de ce bloc est deux.
-La première entrée est l'entrée régulière du système linéaire.
-La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée événementiel.
-Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
-Les tailles des entrées et des sorties sont ajustées automatiquement.
+Ce bloc rï¿½alise un systï¿½me d'ï¿½quations d'etat en temporel continu avec
+la possibilitï¿½s de rï¿½aliser des sauts dans l'ï¿½tat.
+Le nombre d'entrï¿½es de ce bloc est deux.
+La premiï¿½re entrï¿½e est l'entrï¿½e rï¿½guliï¿½re du systï¿½me linï¿½aire.
+La seconde fournie la valeur du nouvel ï¿½tat qui est copiï¿½ dans l'ï¿½tat du systï¿½me lorsque le bloc est activï¿½ par un ï¿½vï¿½nement sur son unique port d'entrï¿½e ï¿½vï¿½nementiel.
+Cela signifique que l'ï¿½tat du systï¿½me saute ï¿½ la valeur prï¿½sente sur le deuxiï¿½me port d'entrï¿½e (de taille ï¿½gale ï¿½ l'ï¿½tat du systï¿½me).
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
+Les tailles des entrï¿½es et des sorties sont ajustï¿½es automatiquement.
 </FILE>
 
 <FILE name='TCLSS_f' type='LATEX'>
-Ce bloc réalise un système d'équations d'etat en temporel continu avec
-la possibilités de réaliser des sauts dans l'état.
-Le nombre d'entrées de ce bloc est deux.
-La première entrée est l'entrée régulière du système linéaire.
-La seconde fournie la valeur du nouvel état qui est copié dans l'état du système lorsque le bloc est activé par un événement sur son unique port d'entrée événementiel.
-Cela signifique que l'état du système saute à la valeur présente sur le deuxième port d'entrée (de taille égale à l'état du système).
-Le système est défini par les matrices $(A,B,C,D)$
-et par l'état initial $x_0$.
-Les dimensions des matrices et de l'état initial doivent être appropriées.
-Les tailles des entrées et des sorties sont ajustées automatiquement.
+Ce bloc rï¿½alise un systï¿½me d'ï¿½quations d'etat en temporel continu avec
+la possibilitï¿½s de rï¿½aliser des sauts dans l'ï¿½tat.
+Le nombre d'entrï¿½es de ce bloc est deux.
+La premiï¿½re entrï¿½e est l'entrï¿½e rï¿½guliï¿½re du systï¿½me linï¿½aire.
+La seconde fournie la valeur du nouvel ï¿½tat qui est copiï¿½ dans l'ï¿½tat du systï¿½me lorsque le bloc est activï¿½ par un ï¿½vï¿½nement sur son unique port d'entrï¿½e ï¿½vï¿½nementiel.
+Cela signifique que l'ï¿½tat du systï¿½me saute ï¿½ la valeur prï¿½sente sur le deuxiï¿½me port d'entrï¿½e (de taille ï¿½gale ï¿½ l'ï¿½tat du systï¿½me).
+Le systï¿½me est dï¿½fini par les matrices $(A,B,C,D)$
+et par l'ï¿½tat initial $x_0$.
+Les dimensions des matrices et de l'ï¿½tat initial doivent ï¿½tre appropriï¿½es.
+Les tailles des entrï¿½es et des sorties sont ajustï¿½es automatiquement.
 </FILE>
 
 <FILE name='TEXT_f' type='LATEX'>
-Ce bloc spécial est utilisé pour ajouter du texte dans un diagramme scicos.
+Ce bloc spï¿½cial est utilisï¿½ pour ajouter du texte dans un diagramme scicos.
 Il n'affecte pas la simulation.
 </FILE>
 
 <FILE name='TIME_DELAY' type='LATEX'>
-Ce bloc retarde l'entrée par un laps de temps spécifié.
-Il peut être utilisé pour la simulation d'un retad temporel.
-Au début de la simulation, le bloc délivre la valeur du paramètre
-{\bf Initial input} jusqu'à ce que le temps de la simulation dépasse
-le paramètre {\bf Time delay}, auquel cas, le bloc commence à réaliser
+Ce bloc retarde l'entrï¿½e par un laps de temps spï¿½cifiï¿½.
+Il peut ï¿½tre utilisï¿½ pour la simulation d'un retad temporel.
+Au dï¿½but de la simulation, le bloc dï¿½livre la valeur du paramï¿½tre
+{\bf Initial input} jusqu'ï¿½ ce que le temps de la simulation dï¿½passe
+le paramï¿½tre {\bf Time delay}, auquel cas, le bloc commence ï¿½ rï¿½aliser
 le retard.\\
-La valeur du paramètre {\bf Time delay} doit être non-négative.
+La valeur du paramï¿½tre {\bf Time delay} doit ï¿½tre non-nï¿½gative.
 </FILE>
 
 <FILE name='TIME_f' type='LATEX'>
-Ce bloc est un générateur de temps.\\
-La seule sortie régulière de ce bloc donne le temps courant de la
+Ce bloc est un gï¿½nï¿½rateur de temps.\\
+La seule sortie rï¿½guliï¿½re de ce bloc donne le temps courant de la
 simulation.
 </FILE>
 
@@ -4936,12 +4958,12 @@ simulation.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Ce bloc génère une sortie constante par morceaux dont la valeur est
-définie interactivement par un widget TK au cours de la simulation. La
-valeur de sortie est égale à la valeure entière affichée sur le
-widget divisée par le paramètre de normalisation. On peut augmenter la
-précisition de la sortie en augmentant proportionnellement tous les
-parmètres du bloc.
+    Ce bloc gï¿½nï¿½re une sortie constante par morceaux dont la valeur est
+dï¿½finie interactivement par un widget TK au cours de la simulation. La
+valeur de sortie est ï¿½gale ï¿½ la valeure entiï¿½re affichï¿½e sur le
+widget divisï¿½e par le paramï¿½tre de normalisation. On peut augmenter la
+prï¿½cisition de la sortie en augmentant proportionnellement tous les
+parmï¿½tres du bloc.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -4949,10 +4971,10 @@ parmètres du bloc.
 </FILE>
 
 <FILE name='TOWS_c' type='LATEX'>
-Ce bloc est utilisé pour transférer des données simulées dans
+Ce bloc est utilisï¿½ pour transfï¿½rer des donnï¿½es simulï¿½es dans
 l'environnement Scilab.\\
-A chaque instants d'échantillonnage, aussi bien les dates que les valeurs
-de l'entrée sont enregistrées.
+A chaque instants d'ï¿½chantillonnage, aussi bien les dates que les valeurs
+de l'entrï¿½e sont enregistrï¿½es.
 </FILE>
 
 <FILE name='TRASH_f' type='XML'>
@@ -4969,16 +4991,16 @@ de l'entrée sont enregistrées.
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='LATEX'>
-La boîte à outils de thermohydraulique contient certains composants
+La boï¿½te ï¿½ outils de thermohydraulique contient certains composants
 thermohydrauliques tels que la source de pression, le tuyau, les vannes
-réglantes, etc.
+rï¿½glantes, etc.
 </FILE>
 
 <FILE name='Threshold_pal' type='LATEX'>
-Les blocs de cette palette sont utilisés pour détecter des passages à
-certaines valeurs des variables d'état pendant la simulation.
-Ces blocs utilisent les solveurs (EDO ou EAD) pour réaliser cette
-opération.
+Les blocs de cette palette sont utilisï¿½s pour dï¿½tecter des passages ï¿½
+certaines valeurs des variables d'ï¿½tat pendant la simulation.
+Ces blocs utilisent les solveurs (EDO ou EAD) pour rï¿½aliser cette
+opï¿½ration.
 </FILE>
 
 <FILE name='TrigFun' type='LATEX'>
@@ -4998,79 +5020,79 @@ through the block; the second input is the time delay.
 </FILE>
 
 <FILE name='VVsourceAC' type='LATEX'>
-Ce bloc est un modèle pour une source de tension CA contrôlable. Ce
+Ce bloc est un modï¿½le pour une source de tension CA contrï¿½lable. Ce
 composant fournit une tension sinusoidale entre ses
-ports. L'amplitude de la tension de sortie est définie par une entrée
-explicite et la fréquence est définie par l'utilisateur. La résistance
-ohmique de ce bloc est zéro.
+ports. L'amplitude de la tension de sortie est dï¿½finie par une entrï¿½e
+explicite et la frï¿½quence est dï¿½finie par l'utilisateur. La rï¿½sistance
+ohmique de ce bloc est zï¿½ro.
 </FILE>
 
 <FILE name='VanneReglante' type='LATEX'>
-Le bloc de VanneReglante représente une Vanne Reglante ou une vanne à
-orifice variable. Le débit du fluide passe par la vanne et est
-proportionnel à l'ouverture de vanne, {\it c.-à-d.},
+Le bloc de VanneReglante reprï¿½sente une Vanne Reglante ou une vanne ï¿½
+orifice variable. Le dï¿½bit du fluide passe par la vanne et est
+proportionnel ï¿½ l'ouverture de vanne, {\it c.-ï¿½-d.},
 
 \[
   \Delta P \times h\times\left| h \right| = k\times Q\times \left|Q\right|
 \]
 
-là où $h$ est l'ouverture de vanne, $\delta P$ est la différence de
-pression, et $Q$ est le débit. Ce modèle est seulement employé pour
-les régimes laminaires d'écoulement. $k$ est une constante qui dépend
-de la géométrie de la vanne et de la masse volumique de fluide.
+lï¿½ oï¿½ $h$ est l'ouverture de vanne, $\delta P$ est la diffï¿½rence de
+pression, et $Q$ est le dï¿½bit. Ce modï¿½le est seulement employï¿½ pour
+les rï¿½gimes laminaires d'ï¿½coulement. $k$ est une constante qui dï¿½pend
+de la gï¿½omï¿½trie de la vanne et de la masse volumique de fluide.
 </FILE>
 
 <FILE name='VariableResistor' type='LATEX'>
-Ce composant représente une résistance ohmique variable. La résistance
-est commandée par le port d'entrée explicite.  \[ R_x = \frac {V}{I}
+Ce composant reprï¿½sente une rï¿½sistance ohmique variable. La rï¿½sistance
+est commandï¿½e par le port d'entrï¿½e explicite.  \[ R_x = \frac {V}{I}
 \]
 </FILE>
 
 <FILE name='VoltageSensor' type='LATEX'>
-Ce composant est employé pour mesurer la différence de tension entre
-deux noeuds dans un circuit électrique. Le signal de sortie est la
-différence entre la tension du port noir et celle du port blanc.
-La conductance ohmique de ce bloc est zéro.
+Ce composant est employï¿½ pour mesurer la diffï¿½rence de tension entre
+deux noeuds dans un circuit ï¿½lectrique. Le signal de sortie est la
+diffï¿½rence entre la tension du port noir et celle du port blanc.
+La conductance ohmique de ce bloc est zï¿½ro.
 </FILE>
 
 <FILE name='VsourceAC' type='LATEX'>
 Ce composant est une source de tension CA avec une tension de sortie
-sinusoidale. L'amplitude et la fréquence de la tension de sortie
-sont définies par l'utilisateur. La résistance ohmique de ce bloc est
-zéro.
+sinusoidale. L'amplitude et la frï¿½quence de la tension de sortie
+sont dï¿½finies par l'utilisateur. La rï¿½sistance ohmique de ce bloc est
+zï¿½ro.
 </FILE>
 
 <FILE name='WFILE' type='LATEX'>
-Ce bloc permet à l'utilisateur de sauvegarder des données dans un fichier.
-Ces données peuvent être formatées ou binaires.
-Chaque appel au bloc correspond à un enregistrement.
-Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeur du temps lorsque le bloc est appelé et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrée.
+Ce bloc permet ï¿½ l'utilisateur de sauvegarder des donnï¿½es dans un fichier.
+Ces donnï¿½es peuvent ï¿½tre formatï¿½es ou binaires.
+Chaque appel au bloc correspond ï¿½ un enregistrement.
+Chaque enregistrement ï¿½ la forme suivante :  $[t,V1,...,Vn]$ oï¿½ $t$ est la valeur du temps lorsque le bloc est appelï¿½ et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrï¿½e.
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE}{RFILE.htm}.
 </FILE>
 
 <FILE name='WFILE_f' type='LATEX'>
-Ce bloc permet à l'utilisateur de sauvegarder des données dans un fichier.
-Ces données peuvent être formatées ou binaires.
-Chaque appel au bloc correspond à un enregistrement.
-Chaque enregistrement à la forme suivante :  $[t,V1,...,Vn]$ où $t$ est la valeur du temps lorsque le bloc est appelé et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrée.\\
+Ce bloc permet ï¿½ l'utilisateur de sauvegarder des donnï¿½es dans un fichier.
+Ces donnï¿½es peuvent ï¿½tre formatï¿½es ou binaires.
+Chaque appel au bloc correspond ï¿½ un enregistrement.
+Chaque enregistrement ï¿½ la forme suivante :  $[t,V1,...,Vn]$ oï¿½ $t$ est la valeur du temps lorsque le bloc est appelï¿½ et $V_i$ est la $i^{\rm\grave{e}me}$ valeur d'entrï¿½e.\\
 Ce bloc fonctionne de paire avec le bloc \htmladdnormallink{RFILE\_f}{RFILE_f.htm}.
 </FILE>
 
 <FILE name='WRITEAU_f' type='LATEX'>
-Ce bloc écrit un fichier son de type 'au'.
-Les données doivent être rangées avec un canal par colonne.
-Les valeurs en dehors de l'échelle [-1 +1] seront coupées à l'écriture.
-L'écriture 'au' supporte les données multi-canaux pour les formats
+Ce bloc ï¿½crit un fichier son de type 'au'.
+Les donnï¿½es doivent ï¿½tre rangï¿½es avec un canal par colonne.
+Les valeurs en dehors de l'ï¿½chelle [-1 +1] seront coupï¿½es ï¿½ l'ï¿½criture.
+L'ï¿½criture 'au' supporte les donnï¿½es multi-canaux pour les formats
 '8-bit mu-law' et '8-,16-bit linear'.
 </FILE>
 
 <FILE name='WRITEC_f' type='LATEX'>
-Ce bloc permet d'écrire des données dans un fichier C au format binaire.
+Ce bloc permet d'ï¿½crire des donnï¿½es dans un fichier C au format binaire.
 </FILE>
 
 <FILE name='ZCROSS_f' type='LATEX'>
-Un événement est généré lorsque toutes les entrées traverse la valeur
-zéro simultanément.
+Un ï¿½vï¿½nement est gï¿½nï¿½rï¿½ lorsque toutes les entrï¿½es traverse la valeur
+zï¿½ro simultanï¿½ment.
 </FILE>
 
 <FILE name='block_type' type='XML'>
@@ -5086,12 +5108,12 @@ zéro simultanément.
 </FILE>
 
 <FILE name='buildouttb' type='LATEX'>
-Construit une liste "outtb" initialisée.
+Construit une liste "outtb" initialisï¿½e.
 </FILE>
 
 <FILE name='c_block' type='LATEX'>
-Ce bloc crée une fonction de calcul squelette en C.
-Il crée aussi une librairie et un fichier objet à la compilation.
+Ce bloc crï¿½e une fonction de calcul squelette en C.
+Il crï¿½e aussi une librairie et un fichier objet ï¿½ la compilation.
 </FILE>
 
 <FILE name='create_palette' type='XML'>
@@ -5099,13 +5121,13 @@ Il crée aussi une librairie et un fichier objet à la compilation.
      <DESCRIPTION_INDENT>
      <DESCRIPTION_ITEM>
      <P>
-      Cette fonction génére une palette si Path est une chaîne de caractères
-      indiquant un répertoire où se trouvent des fonctions d'interfaçages de
+      Cette fonction gï¿½nï¿½re une palette si Path est une chaï¿½ne de caractï¿½res
+      indiquant un rï¿½pertoire oï¿½ se trouvent des fonctions d'interfaï¿½ages de
       blocs scicos.
-      Si Path est absent ou bien si celui est égal à %t, les palettes
+      Si Path est absent ou bien si celui est ï¿½gal ï¿½ %t, les palettes
       standards de Scicos sont construites.
-      Si Path est égal à %f, alors seul le paramètre IntFunc est retourné
-      (le paramètre routines est vide dans ce cas).
+      Si Path est ï¿½gal ï¿½ %f, alors seul le paramï¿½tre IntFunc est retournï¿½
+      (le paramï¿½tre routines est vide dans ce cas).
      </P>
      </DESCRIPTION_ITEM>
      </DESCRIPTION_INDENT>
@@ -5131,13 +5153,13 @@ Il crée aussi une librairie et un fichier objet à la compilation.
 </FILE>
 
 <FILE name='fortran_block' type='LATEX'>
-Ce bloc crée une fonction de calcul squelette en fortran.
-Il crée aussi une librairie et un fichier objet à la compilation.
+Ce bloc crï¿½e une fonction de calcul squelette en fortran.
+Il crï¿½e aussi une librairie et un fichier objet ï¿½ la compilation.
 </FILE>
 
 <FILE name='freq_div' type='LATEX'>
 Ce bloc est un superbloc.
-L'entrée événementielle est redirigée une fois parmi n à la sortie.
+L'entrï¿½e ï¿½vï¿½nementielle est redirigï¿½e une fois parmi n ï¿½ la sortie.
 </FILE>
 
 <FILE name='func_block' type='XML'>
@@ -5183,7 +5205,7 @@ linked before simulation.
      <DESCRIPTION_INDENT>
      <DESCRIPTION_ITEM>
      <P>
-     Cette fonction retourne le numéro de version courant de Scicos.
+     Cette fonction retourne le numï¿½ro de version courant de Scicos.
      </P>
      </DESCRIPTION_ITEM>
      </DESCRIPTION_INDENT>
@@ -5199,12 +5221,12 @@ linked before simulation.
 <FILE name='getscicosvars' type='XML'>
   <DESCRIPTION>
     <P>
-    Cette fonction utilitaire est utilisée pour retrouver les tableaux de travail du
+    Cette fonction utilitaire est utilisï¿½e pour retrouver les tableaux de travail du
     compilateur et du simulateur scicos pendant la simulation.
     </P>
     <P>
-      Elle peut-être utilisée dans un bloc scilab pour retourner des informations de
-      tous types de blocs. Cette fonction est très utile pour débugger les diagrammes
+      Elle peut-ï¿½tre utilisï¿½e dans un bloc scilab pour retourner des informations de
+      tous types de blocs. Cette fonction est trï¿½s utile pour dï¿½bugger les diagrammes
       et pour prototyper des simulations.
     </P>
   </DESCRIPTION>
@@ -5235,7 +5257,7 @@ linked before simulation.
       <DESCRIPTION_ITEM>
 	<P>
 	  Cette fonction permet de savoir si le simulateur scicos est dans sa phase
-          d'intégration temporelle.
+          d'intï¿½gration temporelle.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5247,8 +5269,8 @@ linked before simulation.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Cette fonction retourne un vecteur indiquant le type (algébrique ou différentiel)
-    des variables d'états continues utilisées dans un bloc.
+    Cette fonction retourne un vecteur indiquant le type (algï¿½brique ou diffï¿½rentiel)
+    des variables d'ï¿½tats continues utilisï¿½es dans un bloc.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5476,16 +5498,16 @@ Each fields are then accessible inside the scilab computational function by the 
 </FILE>
 
 <FILE name='scicos' type='LATEX'>
-Scicos est un éditeur graphique pour construire des modèles
-de systèmes dynamiques hybrides.\\
-L'appel à Scicos sans argument ouvre une fenêtre vierge de l'éditeur.
-Les modèles peuvent alors être assemblés, chargés, sauvegardés,
-compilés, simulés en utilisant les différentes interfaces utilisateur
-graphiques (GUI) de l'éditeur.
+Scicos est un ï¿½diteur graphique pour construire des modï¿½les
+de systï¿½mes dynamiques hybrides.\\
+L'appel ï¿½ Scicos sans argument ouvre une fenï¿½tre vierge de l'ï¿½diteur.
+Les modï¿½les peuvent alors ï¿½tre assemblï¿½s, chargï¿½s, sauvegardï¿½s,
+compilï¿½s, simulï¿½s en utilisant les diffï¿½rentes interfaces utilisateur
+graphiques (GUI) de l'ï¿½diteur.
 Scicos est en fait une interface pour la compilation et le
 simulateur 'scicosim'.
-Des arguments en entrée et en sortie de la commande scicos peuvent
-aussi être utilisées pour réaliser des opérations de débogage.
+Des arguments en entrï¿½e et en sortie de la commande scicos peuvent
+aussi ï¿½tre utilisï¿½es pour rï¿½aliser des opï¿½rations de dï¿½bogage.
 </FILE>
 
 <FILE name='scicos_block' type='XML'>
@@ -5511,12 +5533,12 @@ aussi être utilisées pour réaliser des opérations de débogage.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Cette fonction sert à paramétrer le niveau de débogage de la simulation
+	  Cette fonction sert ï¿½ paramï¿½trer le niveau de dï¿½bogage de la simulation
           scicos.
 	</P>
 	<P>
-	  Elle peut être utilisée soit en mode "Calc" dans l'éditeur Scicos ou en tant
-          qu'instruction dans un bloc scilab et encore dans une fonction d'interfaçage.
+	  Elle peut ï¿½tre utilisï¿½e soit en mode "Calc" dans l'ï¿½diteur Scicos ou en tant
+          qu'instruction dans un bloc scilab et encore dans une fonction d'interfaï¿½age.
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5671,10 +5693,10 @@ is slower. For more information see Scicos reference manual.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Cette fonction permet de définir une erreur spécifique en cours de simulation pour le
-    bloc courant. Si c'est fonction est utilisée, alors à l'issue de l'éxecution de la fonction
-    de calcul du bloc, le simulateur s'arrêtera et retournera un message d'erreur associé au
-    numéro donné en argument.
+    Cette fonction permet de dï¿½finir une erreur spï¿½cifique en cours de simulation pour le
+    bloc courant. Si c'est fonction est utilisï¿½e, alors ï¿½ l'issue de l'ï¿½xecution de la fonction
+    de calcul du bloc, le simulateur s'arrï¿½tera et retournera un message d'erreur associï¿½ au
+    numï¿½ro donnï¿½ en argument.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5686,8 +5708,8 @@ is slower. For more information see Scicos reference manual.
     <DESCRIPTION_INDENT>
     <DESCRIPTION_ITEM>
     <P>
-    Cette fonction permet de définir un vecteur indiquant le type (algébrique ou différentiel)
-    des variables d'états continues utilisées dans un bloc.
+    Cette fonction permet de dï¿½finir un vecteur indiquant le type (algï¿½brique ou diffï¿½rentiel)
+    des variables d'ï¿½tats continues utilisï¿½es dans un bloc.
     </P>
     </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5726,10 +5748,10 @@ is slower. For more information see Scicos reference manual.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Les fonctions var2vec / vec2var sont utilisées dans les fonctions
-          d'interfaçages des blocs scilab pour donner la possibilité à l'utilisateur de
-          manipuler des objets scilab avec le registre des paramètres réels (rpar) et
-          avec le registre des états discrets (z).
+	  Les fonctions var2vec / vec2var sont utilisï¿½es dans les fonctions
+          d'interfaï¿½ages des blocs scilab pour donner la possibilitï¿½ ï¿½ l'utilisateur de
+          manipuler des objets scilab avec le registre des paramï¿½tres rï¿½els (rpar) et
+          avec le registre des ï¿½tats discrets (z).
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>
@@ -5741,10 +5763,10 @@ is slower. For more information see Scicos reference manual.
     <DESCRIPTION_INDENT>
       <DESCRIPTION_ITEM>
 	<P>
-	  Les fonctions var2vec / vec2var sont utilisées dans les fonctions
-          d'interfaçages des blocs scilab pour donner la possibilité à l'utilisateur de
-          manipuler des objets scilab avec le registre des paramètres réels (rpar) et
-          avec le registre des états discrets (z).
+	  Les fonctions var2vec / vec2var sont utilisï¿½es dans les fonctions
+          d'interfaï¿½ages des blocs scilab pour donner la possibilitï¿½ ï¿½ l'utilisateur de
+          manipuler des objets scilab avec le registre des paramï¿½tres rï¿½els (rpar) et
+          avec le registre des ï¿½tats discrets (z).
 	</P>
       </DESCRIPTION_ITEM>
     </DESCRIPTION_INDENT>

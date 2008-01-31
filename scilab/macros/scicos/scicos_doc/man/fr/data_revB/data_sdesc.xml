@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!--  Scicos
+
+   Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+  See the file ../license.txt
+-->
+
 <DATA flag="sdesc">
 
 <FILE name='ABCD_Blocks' type='XML'>
-  <SHORT_DESCRIPTION name="ABCD_Blocks">Blocs par ordre alphabétique</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="ABCD_Blocks">Blocs par ordre alphabï¿½tique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ABSBLK_f' type='XML'>
@@ -55,7 +77,7 @@
 
 <FILE name='AUTOMAT' type='XML'>
   <SHORT_DESCRIPTION name="AUTOMAT">Bloc pour construire les automates
-  hybrides (les machines à état fini)</SHORT_DESCRIPTION>
+  hybrides (les machines ï¿½ ï¿½tat fini)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='AUTOMAT_intfunc' type='XML'>
@@ -99,7 +121,7 @@
 </FILE>
 
 <FILE name='BOUNCE' type='XML'>
-<SHORT_DESCRIPTION name="BOUNCE">Générateur de coordonnées de balles</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="BOUNCE">Gï¿½nï¿½rateur de coordonnï¿½es de balles</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='BOUNCEXY' type='XML'>
@@ -139,11 +161,11 @@
 </FILE>
 
 <FILE name='CANIMXY' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY">Scope animé y=f(x)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CANIMXY">Scope animï¿½ y=f(x)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY3D' type='XML'>
-<SHORT_DESCRIPTION name="CANIMXY3D">Scope animé z=f(x,y)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CANIMXY3D">Scope animï¿½ z=f(x,y)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CANIMXY3D_intfunc' type='XML'>
@@ -163,7 +185,7 @@
 </FILE>
 
 <FILE name='CCS' type='XML'>
-  <SHORT_DESCRIPTION name="CCS">Source de courant contrôlée</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="CCS">Source de courant contrï¿½lï¿½e</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CCS_intfunc' type='XML'>
@@ -175,7 +197,7 @@
 </FILE>
 
 <FILE name='CEVENTSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CEVENTSCOPE">Scope pour événements</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CEVENTSCOPE">Scope pour ï¿½vï¿½nements</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CEVENTSCOPE_intfunc' type='XML'>
@@ -199,7 +221,7 @@
 </FILE>
 
 <FILE name='CLKFROM' type='XML'>
-<SHORT_DESCRIPTION name="CLKFROM">Récepteur de donnée pour un boc CLKGOTO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKFROM">Rï¿½cepteur de donnï¿½e pour un boc CLKGOTO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKFROM_intfunc' type='XML'>
@@ -207,7 +229,7 @@
 </FILE>
 
 <FILE name='CLKGOTO' type='XML'>
-<SHORT_DESCRIPTION name="CLKGOTO">Transmetteur de donnée pour un bloc CLKFROM</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKGOTO">Transmetteur de donnï¿½e pour un bloc CLKFROM</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKGOTO_intfunc' type='XML'>
@@ -215,7 +237,7 @@
 </FILE>
 
 <FILE name='CLKGotoTagVisibility' type='XML'>
-<SHORT_DESCRIPTION name="CLKGotoTagVisibility">Définit la portée des données d'un bloc CLKGOTO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKGotoTagVisibility">Dï¿½finit la portï¿½e des donnï¿½es d'un bloc CLKGOTO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKGotoTagVisibility_intfunc' type='XML'>
@@ -223,7 +245,7 @@
 </FILE>
 
 <FILE name='CLKINV_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKINV_f">Port d'entrée événementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKINV_f">Port d'entrï¿½e ï¿½vï¿½nementiel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKINV_f_intfunc' type='XML'>
@@ -231,7 +253,7 @@
 </FILE>
 
 <FILE name='CLKIN_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKIN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKIN_f">Port d'entrï¿½e rï¿½gulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKIN_f_intfunc' type='XML'>
@@ -247,7 +269,7 @@
 </FILE>
 
 <FILE name='CLKOUT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKOUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKOUT_f">Port de sortie rï¿½gulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKOUT_f_intfunc' type='XML'>
@@ -271,7 +293,7 @@
 </FILE>
 
 <FILE name='CLKSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="CLKSPLIT_f">Croisement de liens événementiels</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLKSPLIT_f">Croisement de liens ï¿½vï¿½nementiels</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLKSPLIT_f_intfunc' type='XML'>
@@ -311,11 +333,11 @@
 </FILE>
 
 <FILE name='CLSS' type='XML'>
-<SHORT_DESCRIPTION name="CLSS">Système d'équations d'état continu</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS">Systï¿½me d'ï¿½quations d'ï¿½tat continu</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="CLSS_f">Système d'équations d'état continu (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CLSS_f">Systï¿½me d'ï¿½quations d'ï¿½tat continu (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CLSS_f_intfunc' type='XML'>
@@ -335,7 +357,7 @@
 </FILE>
 
 <FILE name='CMATVIEW' type='XML'>
-<SHORT_DESCRIPTION name="CMATVIEW">Scope matriciel coloré</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CMATVIEW">Scope matriciel colorï¿½</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMATVIEW_intfunc' type='XML'>
@@ -343,7 +365,7 @@
 </FILE>
 
 <FILE name='CMSCOPE' type='XML'>
-<SHORT_DESCRIPTION name="CMSCOPE">Scope à affichage multiple</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CMSCOPE">Scope ï¿½ affichage multiple</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CMSCOPE_intfunc' type='XML'>
@@ -383,7 +405,7 @@
 </FILE>
 
 <FILE name='CONVERT' type='XML'>
-<SHORT_DESCRIPTION name="CONVERT">CONVERT Convertion de type de données</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CONVERT">CONVERT Convertion de type de donnï¿½es</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CONVERT_intfunc' type='XML'>
@@ -447,7 +469,7 @@
 </FILE>
 
 <FILE name='CVS' type='XML'>
-  <SHORT_DESCRIPTION name="CVS">Source de tension contrôlée</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="CVS">Source de tension contrï¿½lï¿½e</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CVS_intfunc' type='XML'>
@@ -471,7 +493,7 @@
 </FILE>
 
 <FILE name='Capacitor' type='XML'>
-<SHORT_DESCRIPTION name="Capacitor">Condensateur électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Capacitor">Condensateur ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Capacitor_intfunc' type='XML'>
@@ -483,7 +505,7 @@
 </FILE>
 
 <FILE name='ConstantVoltage' type='XML'>
-<SHORT_DESCRIPTION name="ConstantVoltage">Source de tension électrique constante</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ConstantVoltage">Source de tension ï¿½lectrique constante</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ConstantVoltage_intfunc' type='XML'>
@@ -495,7 +517,7 @@
 </FILE>
 
 <FILE name='Context' type='XML'>
-  <SHORT_DESCRIPTION name="Context">Utilisation des paramètres symboliques, du contexte et de la fonction masking</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Context">Utilisation des paramï¿½tres symboliques, du contexte et de la fonction masking</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Counter' type='XML'>
@@ -507,7 +529,7 @@
 </FILE>
 
 <FILE name='CurrentSensor' type='XML'>
-<SHORT_DESCRIPTION name="CurrentSensor">Capteur de courant électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="CurrentSensor">Capteur de courant ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='CurrentSensor_intfunc' type='XML'>
@@ -551,11 +573,11 @@
 </FILE>
 
 <FILE name='DEMUX' type='XML'>
-<SHORT_DESCRIPTION name="DEMUX">Démultiplexeur</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DEMUX">Dï¿½multiplexeur</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DEMUX_f' type='XML'>
-<SHORT_DESCRIPTION name="DEMUX_f">Démultiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DEMUX_f">Dï¿½multiplexeur (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DEMUX_f_intfunc' type='XML'>
@@ -567,7 +589,7 @@
 </FILE>
 
 <FILE name='DERIV' type='XML'>
-<SHORT_DESCRIPTION name="DERIV">Dérivée</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DERIV">Dï¿½rivï¿½e</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DERIV_intfunc' type='XML'>
@@ -599,7 +621,7 @@
 </FILE>
 
 <FILE name='DLR' type='XML'>
-<SHORT_DESCRIPTION name="DLR">Fonction de transfert discrète</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR">Fonction de transfert discrï¿½te</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLRADAPT_f' type='XML'>
@@ -611,7 +633,7 @@
 </FILE>
 
 <FILE name='DLR_f' type='XML'>
-<SHORT_DESCRIPTION name="DLR_f">Fonction de transfert discrète (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLR_f">Fonction de transfert discrï¿½te (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLR_f_intfunc' type='XML'>
@@ -623,11 +645,11 @@
 </FILE>
 
 <FILE name='DLSS' type='XML'>
-<SHORT_DESCRIPTION name="DLSS">Système d'équations d'état discrètes</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS">Systï¿½me d'ï¿½quations d'ï¿½tat discrï¿½tes</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="DLSS_f">Système d'équations d'état discrètes (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DLSS_f">Systï¿½me d'ï¿½quations d'ï¿½tat discrï¿½tes (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DLSS_f_intfunc' type='XML'>
@@ -639,11 +661,11 @@
 </FILE>
 
 <FILE name='DOLLAR' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR">Opï¿½rateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_f' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR_f">Opérateur retard (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR_f">Opï¿½rateur retard (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_f_intfunc' type='XML'>
@@ -655,7 +677,7 @@
 </FILE>
 
 <FILE name='DOLLAR_m' type='XML'>
-<SHORT_DESCRIPTION name="DOLLAR_m">Opérateur retard</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="DOLLAR_m">Opï¿½rateur retard</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='DOLLAR_m_intfunc' type='XML'>
@@ -667,7 +689,7 @@
 </FILE>
 
 <FILE name='Diode' type='XML'>
-<SHORT_DESCRIPTION name="Diode">Diode électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Diode">Diode ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Diode_intfunc' type='XML'>
@@ -719,7 +741,7 @@
 </FILE>
 
 <FILE name='EVTDLY_c' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_c">Retard événementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_c">Retard ï¿½vï¿½nementiel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTDLY_c_intfunc' type='XML'>
@@ -727,7 +749,7 @@
 </FILE>
 
 <FILE name='EVTDLY_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTDLY_f">Retard événementiel (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTDLY_f">Retard ï¿½vï¿½nementiel (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTDLY_f_intfunc' type='XML'>
@@ -735,7 +757,7 @@
 </FILE>
 
 <FILE name='EVTGEN_f' type='XML'>
-<SHORT_DESCRIPTION name="EVTGEN_f">Générateur d'événement</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTGEN_f">Gï¿½nï¿½rateur d'ï¿½vï¿½nement</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTGEN_f_intfunc' type='XML'>
@@ -743,7 +765,7 @@
 </FILE>
 
 <FILE name='EVTVARDLY' type='XML'>
-<SHORT_DESCRIPTION name="EVTVARDLY">Retard variable événementiel</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EVTVARDLY">Retard variable ï¿½vï¿½nementiel</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EVTVARDLY_intfunc' type='XML'>
@@ -767,7 +789,7 @@
 </FILE>
 
 <FILE name='EXPRESSION' type='XML'>
-<SHORT_DESCRIPTION name="EXPRESSION">Expression mathématique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="EXPRESSION">Expression mathï¿½matique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='EXPRESSION_intfunc' type='XML'>
@@ -807,7 +829,7 @@
 </FILE>
 
 <FILE name='Electrical_pal' type='XML'>
-<SHORT_DESCRIPTION name="Electrical"> Boîte à outils  des composants électriques</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Electrical"> Boï¿½te ï¿½ outils  des composants ï¿½lectriques</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Events_pal' type='XML'>
@@ -823,11 +845,11 @@
 </FILE>
 
 <FILE name='FROM' type='XML'>
-<SHORT_DESCRIPTION name="FROM">FROM Récepteur de données d'un bloc GOTO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="FROM">FROM Rï¿½cepteur de donnï¿½es d'un bloc GOTO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROMMO' type='XML'>
-<SHORT_DESCRIPTION name="FROMMO">FROMMO Récepteur de données d'un bloc GOTOMO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="FROMMO">FROMMO Rï¿½cepteur de donnï¿½es d'un bloc GOTOMO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROMMO_intfunc' type='XML'>
@@ -835,7 +857,7 @@
 </FILE>
 
 <FILE name='FROMWSB' type='XML'>
-  <SHORT_DESCRIPTION name="FROMWSB">Données de l'environnement Scilab vers Scicos</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="FROMWSB">Donnï¿½es de l'environnement Scilab vers Scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROMWSB_intfunc' type='XML'>
@@ -843,7 +865,7 @@
 </FILE>
 
 <FILE name='FROMWS_c' type='XML'>
-  <SHORT_DESCRIPTION name="FROMWS_c">Données de l'environnement Scilab vers Scicos</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="FROMWS_c">Donnï¿½es de l'environnement Scilab vers Scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='FROMWS_c_intfunc' type='XML'>
@@ -895,7 +917,7 @@
 </FILE>
 
 <FILE name='GENSIN_f' type='XML'>
-<SHORT_DESCRIPTION name="GENSIN_f">Générateur sinusoïdal</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GENSIN_f">Gï¿½nï¿½rateur sinusoï¿½dal</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GENSIN_f_intfunc' type='XML'>
@@ -903,7 +925,7 @@
 </FILE>
 
 <FILE name='GENSQR_f' type='XML'>
-<SHORT_DESCRIPTION name="GENSQR_f">Generator de signaux carré</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GENSQR_f">Generator de signaux carrï¿½</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GENSQR_f_intfunc' type='XML'>
@@ -911,11 +933,11 @@
 </FILE>
 
 <FILE name='GOTO' type='XML'>
-<SHORT_DESCRIPTION name="GOTO">GOTO Transmetteur de données vers un bloc FROM</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GOTO">GOTO Transmetteur de donnï¿½es vers un bloc FROM</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GOTOMO' type='XML'>
-<SHORT_DESCRIPTION name="GOTOMO">GOTOMO Transmetteur de données vers un bloc FROMMO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GOTOMO">GOTOMO Transmetteur de donnï¿½es vers un bloc FROMMO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GOTOMO_intfunc' type='XML'>
@@ -927,11 +949,11 @@
 </FILE>
 
 <FILE name='GotoTagVisibility' type='XML'>
-<SHORT_DESCRIPTION name="GotoTagVisibility">Définit la portée des données d'un bloc GOTO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GotoTagVisibility">Dï¿½finit la portï¿½e des donnï¿½es d'un bloc GOTO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GotoTagVisibilityMO' type='XML'>
-<SHORT_DESCRIPTION name="GotoTagVisibilityMO">Définit la portée des données d'un bloc GOTOMO</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="GotoTagVisibilityMO">Dï¿½finit la portï¿½e des donnï¿½es d'un bloc GOTOMO</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='GotoTagVisibilityMO_intfunc' type='XML'>
@@ -991,7 +1013,7 @@
 </FILE>
 
 <FILE name='IMPSPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="IMPSPLIT_f">Croisement de liens réguliers implicites</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IMPSPLIT_f">Croisement de liens rï¿½guliers implicites</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IMPSPLIT_f_intfunc' type='XML'>
@@ -999,7 +1021,7 @@
 </FILE>
 
 <FILE name='INIMPL_f' type='XML'>
-<SHORT_DESCRIPTION name="INIMPL_f">Port implicie d'entrée</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="INIMPL_f">Port implicie d'entrï¿½e</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='INIMPL_f_intfunc' type='XML'>
@@ -1071,7 +1093,7 @@
 </FILE>
 
 <FILE name='IN_f' type='XML'>
-<SHORT_DESCRIPTION name="IN_f">Port d'entrée régulier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="IN_f">Port d'entrï¿½e rï¿½gulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='IN_f_intfunc' type='XML'>
@@ -1107,7 +1129,7 @@
 </FILE>
 
 <FILE name='Inductor' type='XML'>
-<SHORT_DESCRIPTION name="Inductor">Inductance électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Inductor">Inductance ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Inductor_intfunc' type='XML'>
@@ -1147,7 +1169,7 @@
 </FILE>
 
 <FILE name='LOGICAL_OP' type='XML'>
-<SHORT_DESCRIPTION name="LOGICAL_OP">Opération logique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="LOGICAL_OP">Opï¿½ration logique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='LOGICAL_OP_intfunc' type='XML'>
@@ -1175,7 +1197,7 @@
 </FILE>
 
 <FILE name='MATBKSL' type='XML'>
-<SHORT_DESCRIPTION name="MATBKSL">MATBKSL Division matricielle à gauche</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATBKSL">MATBKSL Division matricielle ï¿½ gauche</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATBKSL_intfunc' type='XML'>
@@ -1183,7 +1205,7 @@
 </FILE>
 
 <FILE name='MATCATH' type='XML'>
-<SHORT_DESCRIPTION name="MATCATH">MATCATH Concaténation horizontale</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATCATH">MATCATH Concatï¿½nation horizontale</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATCATH_intfunc' type='XML'>
@@ -1191,7 +1213,7 @@
 </FILE>
 
 <FILE name='MATCATV' type='XML'>
-<SHORT_DESCRIPTION name="MATCATV">MATCATV Concaténation verticale</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATCATV">MATCATV Concatï¿½nation verticale</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATCATV_intfunc' type='XML'>
@@ -1199,7 +1221,7 @@
 </FILE>
 
 <FILE name='MATDET' type='XML'>
-<SHORT_DESCRIPTION name="MATDET">MATDET Déterminant</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATDET">MATDET Dï¿½terminant</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATDET_intfunc' type='XML'>
@@ -1287,7 +1309,7 @@
 </FILE>
 
 <FILE name='MATSING' type='XML'>
-<SHORT_DESCRIPTION name="MATSING">MATSING Décomposition en valeurs singulières</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATSING">MATSING Dï¿½composition en valeurs singuliï¿½res</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATSING_intfunc' type='XML'>
@@ -1311,7 +1333,7 @@
 </FILE>
 
 <FILE name='MATZCONJ' type='XML'>
-<SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ Matrice conjugée</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATZCONJ">MATZCONJ Matrice conjugï¿½e</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATZCONJ_intfunc' type='XML'>
@@ -1319,7 +1341,7 @@
 </FILE>
 
 <FILE name='MATZREIM' type='XML'>
-<SHORT_DESCRIPTION name="MATZREIM">MATZREIM Décomposition matricielle complexe</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="MATZREIM">MATZREIM Dï¿½composition matricielle complexe</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MATZREIM_intfunc' type='XML'>
@@ -1343,7 +1365,7 @@
 </FILE>
 
 <FILE name='MBLOCK' type='XML'>
-  <SHORT_DESCRIPTION name="MBLOCK">Bloc Modelica générique</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="MBLOCK">Bloc Modelica gï¿½nï¿½rique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='MBLOCK_intfunc' type='XML'>
@@ -1407,7 +1429,7 @@
 </FILE>
 
 <FILE name='M_SWITCH' type='XML'>
-<SHORT_DESCRIPTION name="M_SWITCH">Switch à port multiple</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="M_SWITCH">Switch ï¿½ port multiple</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='M_SWITCH_intfunc' type='XML'>
@@ -1415,7 +1437,7 @@
 </FILE>
 
 <FILE name='M_freq' type='XML'>
-<SHORT_DESCRIPTION name="M_freq">Horloge à fréquence multiples</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="M_freq">Horloge ï¿½ frï¿½quence multiples</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='M_freq_intfunc' type='XML'>
@@ -1423,11 +1445,11 @@
 </FILE>
 
 <FILE name='Matrix_pal' type='XML'>
-<SHORT_DESCRIPTION name="Matrix">Palette d'opérations matricielles</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Matrix">Palette d'opï¿½rations matricielles</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Menu_entries' type='XML'>
-  <SHORT_DESCRIPTION name="Menu_entries">Entrées des menus de l'éditeur</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Menu_entries">Entrï¿½es des menus de l'ï¿½diteur</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Modulo_Count' type='XML'>
@@ -1439,11 +1461,11 @@
 </FILE>
 
 <FILE name='Multiwindow' type='XML'>
-  <SHORT_DESCRIPTION name="Multiwindow">Nouvel éditeur Scicos multi-fenêtres</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Multiwindow">Nouvel ï¿½diteur Scicos multi-fenï¿½tres</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='NEGTOPOS_f' type='XML'>
-<SHORT_DESCRIPTION name="NEGTOPOS_f">Détection de front montant</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="NEGTOPOS_f">Dï¿½tection de front montant</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='NEGTOPOS_f_intfunc' type='XML'>
@@ -1483,7 +1505,7 @@
 </FILE>
 
 <FILE name='Non_linear_pal' type='XML'>
-<SHORT_DESCRIPTION name="Non_linear">Palette Non-linéaire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Non_linear">Palette Non-linï¿½aire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='OUTIMPL_f' type='XML'>
@@ -1495,7 +1517,7 @@
 </FILE>
 
 <FILE name='OUT_f' type='XML'>
-<SHORT_DESCRIPTION name="OUT_f">Port de sortie régulier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="OUT_f">Port de sortie rï¿½gulier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='OUT_f_intfunc' type='XML'>
@@ -1507,7 +1529,7 @@
 </FILE>
 
 <FILE name='OpAmp' type='XML'>
-  <SHORT_DESCRIPTION name="OpAmp">Amplificateur opérationnel idéal</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="OpAmp">Amplificateur opï¿½rationnel idï¿½al</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='OpAmp_intfunc' type='XML'>
@@ -1563,7 +1585,7 @@
 </FILE>
 
 <FILE name='POSTONEG_f' type='XML'>
-<SHORT_DESCRIPTION name="POSTONEG_f">Détection de front descendant</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="POSTONEG_f">Dï¿½tection de front descendant</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='POSTONEG_f_intfunc' type='XML'>
@@ -1607,7 +1629,7 @@
 </FILE>
 
 <FILE name='PotentialSensor' type='XML'>
-<SHORT_DESCRIPTION name="PotentialSensor">Capteur de potentiel électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="PotentialSensor">Capteur de potentiel ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='PotentialSensor_intfunc' type='XML'>
@@ -1647,7 +1669,7 @@
 </FILE>
 
 <FILE name='RAND_f' type='XML'>
-<SHORT_DESCRIPTION name="RAND_f">Générateur aléatoire (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_f">Gï¿½nï¿½rateur alï¿½atoire (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RAND_f_intfunc' type='XML'>
@@ -1655,7 +1677,7 @@
 </FILE>
 
 <FILE name='RAND_m' type='XML'>
-<SHORT_DESCRIPTION name="RAND_m">Générateur aléatoire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RAND_m">Gï¿½nï¿½rateur alï¿½atoire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RAND_m_intfunc' type='XML'>
@@ -1679,7 +1701,7 @@
 </FILE>
 
 <FILE name='READC_f' type='XML'>
-<SHORT_DESCRIPTION name="READC_f">Lecture de donée binaire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="READC_f">Lecture de donï¿½e binaire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='READC_f_intfunc' type='XML'>
@@ -1687,11 +1709,11 @@
 </FILE>
 
 <FILE name='REGISTER' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER">Registre à décalage</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="REGISTER">Registre ï¿½ dï¿½calage</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='REGISTER_f' type='XML'>
-<SHORT_DESCRIPTION name="REGISTER_f">Registre à décalage (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="REGISTER_f">Registre ï¿½ dï¿½calage (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='REGISTER_f_intfunc' type='XML'>
@@ -1703,7 +1725,7 @@
 </FILE>
 
 <FILE name='RELATIONALOP' type='XML'>
-<SHORT_DESCRIPTION name="RELATIONALOP">Opération relationnelle</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RELATIONALOP">Opï¿½ration relationnelle</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RELATIONALOP_intfunc' type='XML'>
@@ -1719,11 +1741,11 @@
 </FILE>
 
 <FILE name='RFILE' type='XML'>
-<SHORT_DESCRIPTION name="RFILE">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE">Lecture ï¿½ partir d'un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RFILE_f' type='XML'>
-<SHORT_DESCRIPTION name="RFILE_f">Lecture à partir d'un fichier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="RFILE_f">Lecture ï¿½ partir d'un fichier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='RFILE_f_intfunc' type='XML'>
@@ -1743,7 +1765,7 @@
 </FILE>
 
 <FILE name='ROOTCOEF' type='XML'>
-<SHORT_DESCRIPTION name="ROOTCOEF">Calcul de coefficients de polynômes</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ROOTCOEF">Calcul de coefficients de polynï¿½mes</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ROOTCOEF_intfunc' type='XML'>
@@ -1751,7 +1773,7 @@
 </FILE>
 
 <FILE name='Resistor' type='XML'>
-<SHORT_DESCRIPTION name="Resistor">Résistance électrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Resistor">Rï¿½sistance ï¿½lectrique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Resistor_intfunc' type='XML'>
@@ -1803,7 +1825,7 @@
 </FILE>
 
 <FILE name='SAWTOOTH_f' type='XML'>
-<SHORT_DESCRIPTION name="SAWTOOTH_f">Générateur de dents de scie</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SAWTOOTH_f">Gï¿½nï¿½rateur de dents de scie</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SAWTOOTH_f_intfunc' type='XML'>
@@ -1835,7 +1857,7 @@
 </FILE>
 
 <FILE name='SHIFT' type='XML'>
-<SHORT_DESCRIPTION name="SHIFT">SHIFT Décalage binaire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SHIFT">SHIFT Dï¿½calage binaire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SHIFT_intfunc' type='XML'>
@@ -1867,7 +1889,7 @@
 </FILE>
 
 <FILE name='SPLIT_f' type='XML'>
-<SHORT_DESCRIPTION name="SPLIT_f">Croisement de liens réguliers</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SPLIT_f">Croisement de liens rï¿½guliers</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SPLIT_f_intfunc' type='XML'>
@@ -1875,7 +1897,7 @@
 </FILE>
 
 <FILE name='SQRT' type='XML'>
-<SHORT_DESCRIPTION name="SQRT">SQRT Racine carré</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SQRT">SQRT Racine carrï¿½</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SQRT_intfunc' type='XML'>
@@ -1895,7 +1917,7 @@
 </FILE>
 
 <FILE name='STEP_FUNCTION' type='XML'>
-<SHORT_DESCRIPTION name="STEP_FUNCTION">Générateur de marche d'escalier</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="STEP_FUNCTION">Gï¿½nï¿½rateur de marche d'escalier</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='STEP_FUNCTION_intfunc' type='XML'>
@@ -1979,7 +2001,7 @@
 </FILE>
 
 <FILE name='SineVoltage' type='XML'>
-<SHORT_DESCRIPTION name="SineVoltage">Source de tension sinusoïdale</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="SineVoltage">Source de tension sinusoï¿½dale</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='SineVoltage_intfunc' type='XML'>
@@ -2011,7 +2033,7 @@
 </FILE>
 
 <FILE name='Switch' type='XML'>
-  <SHORT_DESCRIPTION name="Switch">Interrupteur électrique non-idéal</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="Switch">Interrupteur ï¿½lectrique non-idï¿½al</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Switch_intfunc' type='XML'>
@@ -2031,11 +2053,11 @@
 </FILE>
 
 <FILE name='TCLSS' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS">Système linéaire continu avec saut</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS">Systï¿½me linï¿½aire continu avec saut</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TCLSS_f' type='XML'>
-<SHORT_DESCRIPTION name="TCLSS_f">Système linéaire continu avec saut (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TCLSS_f">Systï¿½me linï¿½aire continu avec saut (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TCLSS_f_intfunc' type='XML'>
@@ -2079,7 +2101,7 @@
 </FILE>
 
 <FILE name='TOWS_c' type='XML'>
-<SHORT_DESCRIPTION name="TOWS_c">Données vers l'environnement Scilab</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TOWS_c">Donnï¿½es vers l'environnement Scilab</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TOWS_c_intfunc' type='XML'>
@@ -2095,15 +2117,15 @@
 </FILE>
 
 <FILE name='ThermoHydraulics_pal' type='XML'>
-<SHORT_DESCRIPTION name="ThermoHydraulics"> Boîte à outils  des composants thermohydrauliques</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ThermoHydraulics"> Boï¿½te ï¿½ outils  des composants thermohydrauliques</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='Threshold_pal' type='XML'>
-<SHORT_DESCRIPTION name="Threshold">Palette détection</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="Threshold">Palette dï¿½tection</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TrigFun' type='XML'>
-<SHORT_DESCRIPTION name="TrigFun">Fonction trigonométrique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="TrigFun">Fonction trigonomï¿½trique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='TrigFun_intfunc' type='XML'>
@@ -2119,7 +2141,7 @@
 </FILE>
 
 <FILE name='VVsourceAC' type='XML'>
-<SHORT_DESCRIPTION name="VVsourceAC">Source contrôlable de tension électrique AC</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="VVsourceAC">Source contrï¿½lable de tension ï¿½lectrique AC</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VVsourceAC_intfunc' type='XML'>
@@ -2131,7 +2153,7 @@
 </FILE>
 
 <FILE name='VanneReglante' type='XML'>
-<SHORT_DESCRIPTION name="VanneReglante">Vanne réglante thermohydraulique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="VanneReglante">Vanne rï¿½glante thermohydraulique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VanneReglante_intfunc' type='XML'>
@@ -2143,7 +2165,7 @@
 </FILE>
 
 <FILE name='VariableResistor' type='XML'>
-<SHORT_DESCRIPTION name="VariableResistor">Résistance électrique variable</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="VariableResistor">Rï¿½sistance ï¿½lectrique variable</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VariableResistor_intfunc' type='XML'>
@@ -2155,7 +2177,7 @@
 </FILE>
 
 <FILE name='VoltageSensor' type='XML'>
-<SHORT_DESCRIPTION name="VoltageSensor">Capteur de tension électrique relative</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="VoltageSensor">Capteur de tension ï¿½lectrique relative</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VoltageSensor_intfunc' type='XML'>
@@ -2167,7 +2189,7 @@
 </FILE>
 
 <FILE name='VsourceAC' type='XML'>
-<SHORT_DESCRIPTION name="VsourceAC">Source de tension électrique AC</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="VsourceAC">Source de tension ï¿½lectrique AC</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='VsourceAC_intfunc' type='XML'>
@@ -2203,7 +2225,7 @@
 </FILE>
 
 <FILE name='WRITEC_f' type='XML'>
-<SHORT_DESCRIPTION name="WRITEC_f">Ecriture de donnée binaire</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="WRITEC_f">Ecriture de donnï¿½e binaire</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='WRITEC_f_intfunc' type='XML'>
@@ -2211,7 +2233,7 @@
 </FILE>
 
 <FILE name='ZCROSS_f' type='XML'>
-<SHORT_DESCRIPTION name="ZCROSS_f">Détection des passages à zéro</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="ZCROSS_f">Dï¿½tection des passages ï¿½ zï¿½ro</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='ZCROSS_f_intfunc' type='XML'>
@@ -2327,7 +2349,7 @@
 </FILE>
 
 <FILE name='create_palette' type='XML'>
-  <SHORT_DESCRIPTION name="create_palette">Générateur de palettes</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="create_palette">Gï¿½nï¿½rateur de palettes</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='create_palette_scifunc' type='XML'>
@@ -2387,7 +2409,7 @@
 </FILE>
 
 <FILE name='curblock' type='XML'>
-<SHORT_DESCRIPTION name="curblock">Retourne l'actuel bloc scicos appelé pendant la simulation</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="curblock">Retourne l'actuel bloc scicos appelï¿½ pendant la simulation</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='curve_c_routcos' type='XML'>
@@ -2395,7 +2417,7 @@
 </FILE>
 
 <FILE name='data_type' type='XML'>
-  <SHORT_DESCRIPTION name="data_type">Types de données Scicos</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="data_type">Types de donnï¿½es Scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='deadband_routcos' type='XML'>
@@ -2671,7 +2693,7 @@
 </FILE>
 
 <FILE name='freq_div' type='XML'>
-<SHORT_DESCRIPTION name="freq_div">Diviseur de fréquence</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="freq_div">Diviseur de frï¿½quence</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='freq_div_intfunc' type='XML'>
@@ -2771,11 +2793,11 @@
 </FILE>
 
 <FILE name='generic_block' type='XML'>
-<SHORT_DESCRIPTION name="generic_block">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block">Bloc gï¿½nï¿½rique (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block2' type='XML'>
-<SHORT_DESCRIPTION name="generic_block2">Bloc générique (Ancien bloc)</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block2">Bloc gï¿½nï¿½rique (Ancien bloc)</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block2_intfunc' type='XML'>
@@ -2783,7 +2805,7 @@
 </FILE>
 
 <FILE name='generic_block3' type='XML'>
-<SHORT_DESCRIPTION name="generic_block3">Bloc générique</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="generic_block3">Bloc gï¿½nï¿½rique</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='generic_block3_intfunc' type='XML'>
@@ -2859,7 +2881,7 @@
 </FILE>
 
 <FILE name='lincos' type='XML'>
-<SHORT_DESCRIPTION name="lincos">Construit par linéarisation un modèle linéaire d'équations d'état à partir d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="lincos">Construit par linï¿½arisation un modï¿½le linï¿½aire d'ï¿½quations d'ï¿½tat ï¿½ partir d'un systï¿½me dynamique dï¿½crit par un diagramme scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='lincos_scifunc' type='XML'>
@@ -3231,7 +3253,7 @@
 </FILE>
 
 <FILE name='pointer_xproperty' type='XML'>
-	<SHORT_DESCRIPTION name="pointer_xproperty">Retourne le type d'une variable d'état à temps continu</SHORT_DESCRIPTION>
+	<SHORT_DESCRIPTION name="pointer_xproperty">Retourne le type d'une variable d'ï¿½tat ï¿½ temps continu</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='powblk_routcos' type='XML'>
@@ -3371,15 +3393,15 @@
 </FILE>
 
 <FILE name='scicos' type='XML'>
-<SHORT_DESCRIPTION name="scicos">Editeur de schéma bloc et interface graphique pour le simulateur hybride</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos">Editeur de schï¿½ma bloc et interface graphique pour le simulateur hybride</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_block' type='XML'>
-<SHORT_DESCRIPTION name="scicos_block">Définit une structure bloc</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_block">Dï¿½finit une structure bloc</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_block4_rout' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_block4">En-tête pour fonction C de calcul Scicos</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_block4">En-tï¿½te pour fonction C de calcul Scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_block_scifunc' type='XML'>
@@ -3387,7 +3409,7 @@
 </FILE>
 
 <FILE name='scicos_cpr' type='XML'>
-<SHORT_DESCRIPTION name="scicos_cpr">Structure compilée Scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_cpr">Structure compilï¿½e Scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_cpr_scifunc' type='XML'>
@@ -3395,11 +3417,11 @@
 </FILE>
 
 <FILE name='scicos_debug' type='XML'>
-<SHORT_DESCRIPTION name="scicos_debug">Définit le niveau de débogage de scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_debug">Dï¿½finit le niveau de dï¿½bogage de scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_diagram' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_diagram">Définit une structure scs_m</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_diagram">Dï¿½finit une structure scs_m</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_diagram_scifunc' type='XML'>
@@ -3407,7 +3429,7 @@
 </FILE>
 
 <FILE name='scicos_graphics' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_graphics">Définit une structure graphics</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_graphics">Dï¿½finit une structure graphics</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_graphics_scifunc' type='XML'>
@@ -3415,7 +3437,7 @@
 </FILE>
 
 <FILE name='scicos_link' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_link">Définit une structure link</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_link">Dï¿½finit une structure link</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_link_scifunc' type='XML'>
@@ -3423,7 +3445,7 @@
 </FILE>
 
 <FILE name='scicos_model' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_model">Définit une structure model</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_model">Dï¿½finit une structure model</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_model_scifunc' type='XML'>
@@ -3431,7 +3453,7 @@
 </FILE>
 
 <FILE name='scicos_params' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_params">Définit une structure params</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_params">Dï¿½finit une structure params</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_params_scifunc' type='XML'>
@@ -3443,7 +3465,7 @@
 </FILE>
 
 <FILE name='scicos_sim' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_sim">Définit une structure sim</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_sim">Dï¿½finit une structure sim</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_sim_scifunc' type='XML'>
@@ -3451,7 +3473,7 @@
 </FILE>
 
 <FILE name='scicos_simulate' type='XML'>
-<SHORT_DESCRIPTION name="scicos_simulate">Fonction pour éxécuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="scicos_simulate">Fonction pour ï¿½xï¿½cuter une simulation scicos en ligne de commmande</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_simulate_scifunc' type='XML'>
@@ -3459,7 +3481,7 @@
 </FILE>
 
 <FILE name='scicos_state' type='XML'>
-  <SHORT_DESCRIPTION name="scicos_state">Définit une structure state</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="scicos_state">Dï¿½finit une structure state</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='scicos_state_scifunc' type='XML'>
@@ -3507,11 +3529,11 @@
 </FILE>
 
 <FILE name='set_blockerror' type='XML'>
-  <SHORT_DESCRIPTION name="set_blockerror">Définit le numéro d'erreur de bloc</SHORT_DESCRIPTION>
+  <SHORT_DESCRIPTION name="set_blockerror">Dï¿½finit le numï¿½ro d'erreur de bloc</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='set_xproperty' type='XML'>
-	<SHORT_DESCRIPTION name="set_xproperty">Définit le type d'une variable d'état à temps continu</SHORT_DESCRIPTION>
+	<SHORT_DESCRIPTION name="set_xproperty">Dï¿½finit le type d'une variable d'ï¿½tat ï¿½ temps continu</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='shift_16_LA_routcos' type='XML'>
@@ -3591,7 +3613,7 @@
 </FILE>
 
 <FILE name='steadycos' type='XML'>
-<SHORT_DESCRIPTION name="steadycos">Trouve un régime établi d'un système dynamique décrit par un diagramme scicos</SHORT_DESCRIPTION>
+<SHORT_DESCRIPTION name="steadycos">Trouve un rï¿½gime ï¿½tabli d'un systï¿½me dynamique dï¿½crit par un diagramme scicos</SHORT_DESCRIPTION>
 </FILE>
 
 <FILE name='steadycos_scifunc' type='XML'>
