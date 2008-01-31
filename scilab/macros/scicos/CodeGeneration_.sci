@@ -1,5 +1,28 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//                      - Alan Layec <alan.layec@inria.fr>
+//                      - Ramine Nikoukhah <ramine.nikoukhah@inria.fr>
+//                      - Rachid Djenidi
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function CodeGeneration_()
-// Copyright INRIA
 //Input editor function of Scicos code generator
 //
 //@l@n, 14/10/07
@@ -79,7 +102,6 @@ endfunction
 //
 //16/06/07 Author : ?, A. Layec
 //
-//Copyright INRIA
 function [Code,actt,proto]=call_actuator(i)
   nin=inpptr(i+1)-inpptr(i);  //** number of input ports
   nout=outptr(i+1)-outptr(i); //** number of output ports
@@ -127,7 +149,6 @@ endfunction
 //output : txt  :
 //
 //16/06/07 Authors : Alan Layec
-//Copyright INRIA
 function txt=call_block42(bk,pt,flag)
   txt=[]
   //**
@@ -397,7 +418,6 @@ endfunction
 //output : txt  :
 //
 //16/06/07 Authors : R.Nikoukhah, A.Layec
-//Copyright INRIA
 function txt=call_block4(bk)
 //   if flag==2 & ((zptr(bk+1)-zptr(bk))+(ozptr(bk+1)-ozptr(bk))==0 | pt<=0) then
 //     return // block without discrete state or continuously activated
@@ -617,7 +637,6 @@ endfunction
 //
 //16/06/07 Author : ?, A. Layec
 //
-//Copyright INRIA
 function [Code,capt,proto]=call_sensor(i)
   nin=inpptr(i+1)-inpptr(i); ///* number of input ports */
   nout=outptr(i+1)-outptr(i); ///* number of output ports */
@@ -742,7 +761,6 @@ endfunction
 //** Generates the C code for new block simulation
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function ok=gen_ccode42();
 
   //** Generate code for scicos block
@@ -868,7 +886,6 @@ endfunction
 //20/06/07, A.Layec : update with in2,out2,intyp,outtyp
 //27/06/07, A.Layec : update opar,oz
 //
-//Copyright INRIA
 function ok=gen_gui42();
   clkinput=ones(clkIN)';
   clkoutput=ones(clkOUT)';
@@ -963,7 +980,6 @@ endfunction
 
 function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof]=do_compile_superblock42(XX,all_scs_m,numk,alreadyran)
 // Transforms a given Scicos discrete and continuous SuperBlock into a C defined Block
-// Copyright INRIA
 
   scs_m=XX.model.rpar
   par=scs_m.props;
@@ -1563,7 +1579,6 @@ endfunction
 //output : txt  :
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=BlockProto(bk)
 
   nin=inpptr(bk+1)-inpptr(bk);  //* number of input ports */
@@ -1685,7 +1700,6 @@ endfunction
 
 //Generating the routine for actuators interfacing
 //
-//Copyright INRIA
 //
 //Authors : R. Djenid, R. Nikoukhah, A. Layec
 //
@@ -1836,7 +1850,7 @@ function Code=make_actuator(standalone)
   end
 
   // pour fprintf
-  nc=size(act,'*') // Alan : d'où viens act ?????
+  nc=size(act,'*') // Alan : d'oï¿½ viens act ?????
                    // reponse : de do_compile_superblock!
   typ=['""%f ']; //time
   for i=1:nc
@@ -1945,7 +1959,6 @@ endfunction
 //** Generates the scicos computational function
 //   associated with the block
 //12/07/07 Alan Layec
-//Copyright INRIA
 function Code=make_computational42()
   z=cpr.state.z;
   oz=cpr.state.oz;
@@ -2942,7 +2955,6 @@ endfunction
 
 //Generating the routine for sensors interfacing
 //
-//Copyright INRIA
 //
 //Author : R. Djenidi, R. Nikoukhah, A. Layec
 //
@@ -3198,9 +3210,8 @@ endfunction
 
 //generates code of the standalone simulation procedure
 //
-//Copyright INRIA
 //
-// rmq : La fonction zdoit n'est pas utilisée pour le moment
+// rmq : La fonction zdoit n'est pas utilisï¿½e pour le moment
 function Code=make_standalone42()
   x=cpr.state.x;
   modptr=cpr.sim.modptr;
@@ -4278,7 +4289,6 @@ endfunction
 //generates  static table definitions
 //
 //Author : Rachid Djenidi, Alan Layec
-//Copyright INRIA
 function txt=make_static_standalone42()
   txt=[];
 
@@ -4472,7 +4482,6 @@ endfunction
 //t : a string containing a C instruction
 //l : max line length allowed
 
-// Copyright INRIA
 //Author : Rachid Djenidi
 function t1=cformatline(t ,l)
 
@@ -4534,7 +4543,6 @@ endfunction
 //output : txt : blanks
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt] = get_blank(str)
  txt='';
  for i=1:length(str)
@@ -4551,7 +4559,6 @@ endfunction
 //output : a C comment
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=get_comment(typ,param)
   txt = [];
   select typ
@@ -4629,7 +4636,6 @@ endfunction
 //               of the data of outtb
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=mat2c_typ(outtb)
  select type(outtb)
    //real matrix
@@ -4667,7 +4673,6 @@ endfunction
 //output : c_nb : the scicos C number
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [c_nb]=mat2scs_c_nb(outtb)
  select type(outtb)
    //real matrix
@@ -4706,7 +4711,6 @@ endfunction
 //               of the data of outtb
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=mat2scs_c_ptr(outtb)
  select type(outtb)
    //real matrix
@@ -4745,7 +4749,6 @@ endfunction
 //               of the data of outtb
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=mat2scs_c_typ(outtb)
  select type(outtb)
    //real matrix
@@ -4784,7 +4787,6 @@ endfunction
 //               of the data of outtb
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=scs_c_n2c_fmt(c_nb)
  select c_nb
    //real matrix
@@ -4825,7 +4827,6 @@ endfunction
 //               of the data of outtb
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [txt]=scs_c_n2c_typ(c_nb)
  select c_nb
    //real matrix
@@ -4865,7 +4866,6 @@ endfunction
 //output : scs_nb : the scilab number type
 //
 //16/06/07 Author : A.Layec
-//Copyright INRIA
 function [scs_nb]=scs_c_nb2scs_nb(c_nb)
  scs_nb=zeros(size(c_nb,1),size(c_nb,2));
  for i=1:size(c_nb,1)
@@ -4910,7 +4910,6 @@ endfunction
 //output : txt for cord blocks
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_cdoit(flag)
   txt=[];
 
@@ -5134,7 +5133,6 @@ endfunction
 //output : txt for iord
 //
 //15/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_idoit()
   txt=[];
 
@@ -5247,7 +5245,6 @@ endfunction
 //output : txt for flag 0
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_odoit(flag)
   txt=[];
 
@@ -5365,7 +5362,6 @@ endfunction
 //output : txt for flag 0 or flag 9
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_ozdoit(ev,flag)
   txt=[];
 
@@ -5496,7 +5492,6 @@ endfunction
 //output : txt for flag 9
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_zdoit()
   txt=[];
 
@@ -5756,7 +5751,6 @@ endfunction
 //output : txt for flag 9
 //
 //12/07/07 Alan Layec
-//Copyright INRIA
 function [txt]=write_code_zzdoit(ev,flag)
   txt=[];
 

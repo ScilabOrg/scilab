@@ -1,3 +1,24 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function sim=scicos_sim(v1,v2,v3,v4,v5,..
                         v6,v7,v8,v9,v10,..
                         v11,v12,v13,v14,v15,..
@@ -6,7 +27,6 @@ function sim=scicos_sim(v1,v2,v3,v4,v5,..
                         v26,v27,v28,v29,v30,..
                         v31,v32,v33,v34,v35,..
                         v36,v37,v38,v39,v40)
-// Copyright INRIA
   if exists('funs','local')==0 then funs=[],end
   if exists('xptr','local')==0 then xptr=[],end
   if exists('zptr','local')==0 then zptr=[],end

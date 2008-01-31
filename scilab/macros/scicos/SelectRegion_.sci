@@ -1,5 +1,26 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//                      - Alan Layec <alan.layec@inria.fr>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function SelectRegion_()
-// Copyright INRIA
 //** 10 July 2006: find a
 //** xx/01/07 : Alan - review (introduce rubberbox here)
 //**            Objects must be totally included in
@@ -53,7 +74,6 @@ endfunction
 
 //**---------------------------------------------------------------------------
 function [in,out] = get_objs_in_rect(scs_m,ox,oy,w,h)
-// Copyright INRIA
   in = []; out = [] ; ok = %f;
   for k=1:lstsize(scs_m.objs)
     ok = %f;

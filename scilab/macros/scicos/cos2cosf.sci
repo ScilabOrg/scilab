@@ -1,9 +1,28 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function ierr=cos2cosf(u,scs_m,count)
-// Copyright INRIA
 //write scilab instructions whose evaluation 
 //returns the  value of scicos data structure scs_m.
 //in the opened file associated with logical unit u
-// Copyright INRIA
 [lhs,rhs]=argn(0)
 ierr=0;
 if rhs<3 then 

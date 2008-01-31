@@ -1,8 +1,28 @@
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
 function [%state0,state,sim,ok]=modipar(newparameters,%state0,state,sim,scs_m,cor)
 //store modified parameters in compiled structure state,sim
 //newparameters gives modified blocks numbers in original structure scs_m
 //cor is the correspondance table from original structure to compiled one
-// Copyright INRIA
   xptr=sim.xptr
   zptr=sim.zptr
   ozptr=sim.ozptr

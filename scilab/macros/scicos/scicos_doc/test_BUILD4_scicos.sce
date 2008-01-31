@@ -1,7 +1,30 @@
-//test_BUILD4_scicos.sce
-//This is the scilab script for the parametrization
-//of scitexgendoc and for definition of
-//scicos files to be documented
+//  Scicos
+//
+//  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//                      - Alan Layec <alan.layec@inria.fr>
+//                      - Fady Nassif <fady.nassif@inria.fr>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// See the file ../license.txt
+//
+
+// test_BUILD4_scicos.sce
+// This is the scilab script for the parametrization
+// of scitexgendoc and for definition of
+// scicos files to be documented
 
 // alan,27/04/2007 : change html target directories path with the "trunk" look
 //                   scicos_doc/help
@@ -24,7 +47,7 @@ function txt=gen_outline_all(list_of_scistruc,list_of_scifunc,listfABCD)
          "";]
 
   txt=[txt;
-       "  <CHAPTER eng=""Scicos Documentation by categories : "" fr=""Documentation Scicos par catégories : "">"
+       "  <CHAPTER eng=""Scicos Documentation by categories : "" fr=""Documentation Scicos par catï¿½gories : "">"
        "  </CHAPTER>"]
 
   txt=[txt;
@@ -37,7 +60,7 @@ function txt=gen_outline_all(list_of_scistruc,list_of_scifunc,listfABCD)
        "  </CHAPTER>"]
 
   txt=[txt;
-       "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnée scilab"">"]
+       "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnï¿½e scilab"">"]
   for i=1:size(list_of_scistruc,1)
      txt=[txt;
           "   <SCI varpath="""" name="""+basename(list_of_scistruc(i,2))+"""></SCI>"]
@@ -173,7 +196,7 @@ function tt=generate_scs_outline()
                "  </CHAPTER>"
                ""
                "  <CHAPTER eng=""Programming Scicos blocks"" fr=""Programmation des blocs Scicos"">"
-//               "   <SUBCHAPTER eng=""Basics"" fr=""Eléments de base"">";
+//               "   <SUBCHAPTER eng=""Basics"" fr=""Elï¿½ments de base"">";
 //               "        <SCI varpath="""" name=""block_type""></SCI>"
 //               "        <SCI varpath="""" name=""data_type""></SCI>"
 //               "        <SCI varpath="""" name=""use_flag""></SCI>"
@@ -207,7 +230,7 @@ function tt=generate_scs_outline()
                "    <SCI varpath=""autopath"" name=""vec2var""></SCI>"
                "  </CHAPTER>"
                ""
-               "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnée scilab"">"
+               "  <CHAPTER eng=""Scilab Data Structures"" fr=""Structures de donnï¿½e scilab"">"
                "   <SECTION eng=""Diagram"" fr=""Diagramme"">";
                "    <SCI varpath=""opath2(1)"" name=""scicos_diagram""></SCI>"
                "    <SCI varpath=""opath2(1)"" name=""scicos_params""></SCI>"
@@ -588,11 +611,11 @@ function gen_scs_editor_help(typdoc,%gd)
          tt_perm = ['Raccourcis clavier permanents :'
                     ''
                     '\begin{itemize}'
-                    '   \item {\bf ''Ctrl + c'' :} Copie les objets sélectionnés dans le clipboard scicos'
+                    '   \item {\bf ''Ctrl + c'' :} Copie les objets sï¿½lectionnï¿½s dans le clipboard scicos'
                     '   \item {\bf ''Ctrl + v'' :} Colle les objets du clipboard scicos'
-                    '   \item {\bf ''Ctrl + a'' :} Sélectionne tous les objets de la fenêtre courante'
+                    '   \item {\bf ''Ctrl + a'' :} Sï¿½lectionne tous les objets de la fenï¿½tre courante'
                     '   \item {\bf ''Ctrl + s'' :} Sauvegarde le diagramme courant'
-                    '   \item {\bf ''Ctrl + clic gauche'' :} Ajoute des objets à la selection courante'
+                    '   \item {\bf ''Ctrl + clic gauche'' :} Ajoute des objets ï¿½ la selection courante'
                     '\end{itemize}']
       elseif %gd.lang(i)=='eng' then
          tt_cust = 'Customizable keyboard shortcuts :'
@@ -875,7 +898,7 @@ function gen_scs_prgblk(typdoc,%gd)
          if list_of_prgblk(j,2)=='scicos_block4.h' then
            //** change title of html head
            if %gd.lang(i)=='fr' then
-              head_tex=strsubst(head_tex,'Routine bas-niveau','En-tête bloc scicos C')
+              head_tex=strsubst(head_tex,'Routine bas-niveau','En-tï¿½te bloc scicos C')
               tt=['\subsection{Contenu du fichier}'
                   '{\tiny'
                   '\verbatiminput{'+list_of_prgblk(j,1)+'scicos_block4.h}'
@@ -993,8 +1016,8 @@ function gen_scicos_whatis(%gd)
                 '<b><LI>Scicos Documentation by categories : </b> <A HREF=""whatis_scicos.htm"">whatis_scicos</A> ');
 
     tt=strsubst(tt,...
-                '<b><LI>Documentation Scicos par catégories : </b>',...
-                '<b><LI>Documentation Scicos par catégories : </b> <A HREF=""whatis_scicos.htm"">whatis_scicos</A> ');
+                '<b><LI>Documentation Scicos par catï¿½gories : </b>',...
+                '<b><LI>Documentation Scicos par catï¿½gories : </b> <A HREF=""whatis_scicos.htm"">whatis_scicos</A> ');
 
     mputl(tt,%gd.mpath.html(i)+'whatis.htm');
   end
@@ -1158,7 +1181,7 @@ clear i;clear listf;
 listf_of_linear=[palpath,"Linear.cosf","pal"];
 listf = basename(listfiles(opath2(6)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBéGICI
+  if listf(i)<>'SOM_f.sci' then //!!!!!!! YAUNBï¿½GICI
     listf_of_linear=[listf_of_linear;
                      opath2(6),listf(i),"block"];
   end
@@ -1233,7 +1256,7 @@ clear i;clear listf;
 listf_of_matop=[palpath,"Matrix.cosf","pal"];
 listf = basename(listfiles(opath2(13)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
-  if listf(i)<>'INTGAINBLK.sci' then //!!!!!!! YAUNBéGICI
+  if listf(i)<>'INTGAINBLK.sci' then //!!!!!!! YAUNBï¿½GICI
     listf_of_matop=[listf_of_matop;
                    opath2(13),listf(i),"block"];
   end
@@ -1254,7 +1277,7 @@ listf_of_misc=[palpath,"Others.cosf","pal"];
 listf = basename(listfiles(opath2(7)+"*.sci"))+".sci";
 for i = 1:size(listf,1)
   if listf(i)<>'m_sin.sci' & listf(i)<>'DSUPER.sci' & ...
-        listf(i)<>'bplatform2.sci' then //!!!!!!! YAUNBéGICI
+        listf(i)<>'bplatform2.sci' then //!!!!!!! YAUNBï¿½GICI
     listf_of_misc=[listf_of_misc;
                    opath2(7),listf(i),"block"];
   end
