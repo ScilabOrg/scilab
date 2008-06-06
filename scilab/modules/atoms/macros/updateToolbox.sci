@@ -8,8 +8,10 @@ function result = updateToolbox(nom)
     listLocal = ls()
     [n, m] = size(listLocal)
     for k=1:n
-      if ~updateToolbox(listLocal(k))
-        break
+      if listLocal(i) <> ".svn"
+        if ~updateToolbox(listLocal(k))
+          break
+        end
       end
     end
   else
@@ -23,7 +25,7 @@ function result = updateToolbox(nom)
     // On récupère la version de l'actuelle
     desc = readDescription(nom)
     versionActuelle = extractValue("Version", desc, 1)
-    versionActuelle = decoup(versionActuelle)
+    versionActuelle = decoupVersion(versionActuelle)
     // On recupère la liste de toutes les autres toolboxes disponibles
     listDesc = readDescription("")
     // On prend la version la plus récente
@@ -35,28 +37,30 @@ function result = updateToolbox(nom)
       return result
     end
     versionNew = extractValue("Version", listDesc, position)
-    versionNew = decoup(versionNew)
+    versionNew = decoupVersion(versionNew)
     // On regarde si c'est une mise à jour par rapport au local
     if compareVersion(versionNew, ">=", versionActuelle) & ~compareVersion(versionNew, "=", versionActuelle)
       // On regarde s'il était une dépendance max pour d'autres toolboxes
       listLocal = ls()
       [n, m] = size(listLocal)
       for i=1:n
-        desc = readDescription(listLocal(i))
-        depends = extractValue("Depends", desc, 1)
-        depends = splitValue(depends, ",")
-        [n, m] = size(depends)
-        for j=1:n
-          [depend, version] = separateVersionDep(depends(j))
-          if version <> ""
-            [signe, version] = separateSignVersion(version)
-            if find(depend == nom) <> [] & signe == "<="
-              version = decoup(version)
-              // On regarde si la nouvelle version valide cette dépendance max
-              if ~compareVersion(versionNew, "<=", version)
-                displayMessage("probleme de dependance")
-                result = %f
-                return result
+        if listLocal(i) <> ".svn"
+          desc = readDescription(listLocal(i))
+          depends = extractValue("Depends", desc, 1)
+          depends = splitValue(depends, ",")
+          [n, m] = size(depends)
+          for j=1:n
+            [depend, version] = separateVersionDep(depends(j))
+            if version <> ""
+              [signe, version] = separateSignVersion(version)
+              if find(depend == nom) <> [] & signe == "<="
+                version = decoupVersion(version)
+                // On regarde si la nouvelle version valide cette dépendance max
+                if ~compareVersion(versionNew, "<=", version)
+                  displayMessage("probleme de dependance")
+                  result = %f
+                  return result
+                end
               end
             end
           end
@@ -74,9 +78,9 @@ function result = updateToolbox(nom)
         if versionNew <> ""
           desc = readDescription(listLocal(i))
           v1 = extractValue("Version", desc, 1)
-          v1 = decoup(v1)
+          v1 = decoupVersion(v1)
           [signeNew, versionNew] = separateSignVersion(versionNew)
-          versionNew = decoup(versionNew)
+          versionNew = decoupVersion(versionNew)
           if ~compareVersion(v1, signeNew, versionNew)
             updateToolbox(dependsNew);
           end

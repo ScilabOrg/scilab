@@ -15,6 +15,7 @@ function desc = readDescription(nom)
     // Remplissage du tableau de hash
     desc = hashTable(desc, tab)
     // On rajoute le champs fonction
+    clearglobal numberFunction
     desc("Function") = readDescriptionFunctions(nom)
   // Soit on va voir sur le net
   else
@@ -24,6 +25,9 @@ function desc = readDescription(nom)
 	// Liste des site à parcourir
 	listMirror = toolboxMirror()
 	[n, m] = size(listMirror)
+	clearglobal numberFunction
+	global numberFunction
+	numberFunction = 0
 	for i=1:m
 	  // On récupère le fichier sur le site et on met une copie dans le dossier sous le nom de TOOLBOXES
   	  if dlFile(listMirror(i), "TOOLBOXES")
@@ -43,15 +47,6 @@ function desc = readDescription(nom)
   end
   result = %t
   return result
-endfunction
-
-// Fonction de lecture d'un fichier ligne à ligne
-function tab = readFile(nom)
-  // On a vérifié la présence du fichier avant
-  // Il faudra verifier qu'on a les droits pour lire
-  fd = mopen(nom,"r")
-  [n, tab] = mfscanf(-1, fd, '%80[^\n]\n')
-  mclose(fd)
 endfunction
 
 // Récupération d'un fichier sur le web
@@ -74,19 +69,6 @@ endfunction
 function result = removeFile(fileR)
   result = deletefile(fileR)
   return result
-endfunction
-
-// Création du "tableau de hash" contenant les informations du fichier DESCRIPTION
-function listDesc = listDescription()
-  [listeObl, listeOpt] = constant()
-  [n, m] = size(listeObl)
-  for i=1:m
-    listDesc(listeObl(i))= []
-  end
-  [n, o] = size(listeOpt)
-  for i=1:o
-    listDesc(listeOpt(i))= []
-  end
 endfunction
 
 // Remplissage du tableau de hash simple (fichier DESCRIPTION)
@@ -115,6 +97,7 @@ endfunction
 
 // Remplissage du tableau de hash (fichier TOOLBOXE)
 function listDesc = hashTable2(listDesc, tabDesc)
+  global numberFunction
   [listeObl, listeOpt] = constant()
   [n, m] = size(tabDesc)
   [nbTool, m] = size(listDesc("Toolbox"))
@@ -136,17 +119,18 @@ function listDesc = hashTable2(listDesc, tabDesc)
       listDesc(temp(1))(nbTool+1)= temp(2)
     elseif tabDesc(i) == "--"
       clear tmp
+      nbFunct = 0
     elseif tabDesc(i) <> "--" & inFunct
       ind = strindex(tabDesc(i),'-')
       // Si ind = [] on est dans la n-ième ligne du champs précédent
       if ind == []
-        tmp(temp(1)) = tmp(temp(1)) + tabDesc(i)
+        tmp(string(nbFunct)) = tmp(string(nbFunct)) + tabDesc(i)
       else
-        // ind+1 pour enlever l'espace avant le 2ème champ
-        temp = strsplit(tabDesc(i),ind+1)
-        // On enlève le " - " du nom de la fonction
-        temp(1) = strsubst(temp(1), " - ", "")
-        tmp(temp(1)) = temp(2)
+        nbFunct = nbFunct + 1
+        tmp(string(nbFunct)) = tabDesc(i)
+        if numberFunction < nbFunct
+          numberFunction = nbFunct
+        end
       end
     elseif tabDesc(i) == "//"
       // Au cas ou une des toolbox n'ait pas les fonctions, pour éviter le bug : "Undefined variable: tmp"

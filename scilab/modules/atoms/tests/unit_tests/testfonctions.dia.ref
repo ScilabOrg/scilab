@@ -7,11 +7,12 @@
 //===============================
 // unit tests Toolboxes functions
 //===============================
-funcprot(0)
 // on modifie la position du dossier contenant les toolboxes pour les tests
 function rep = toolboxDirectory()
   rep = "home/dev/scilab5/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
+Warning : redefining function: toolboxDirectory        . Use funcprot(0) to avoid this message
+
 // lecture DESCRIPTION en local (/!\ l'ordre des champs importe pour la comparaison verif <> test)
 verif("Toolbox") = "testA";
 verif("Version") = "1.0.0";
@@ -25,16 +26,18 @@ verif("Date") = "2008-03-31";
 verif("Depends") = "testB, testC, testH";
 verif("URL") = "";
 verif("Entity") = "";
-verif("Function")("Toolbox") = "testA, TestA";
-verif("Function")("mafonction1") = "ma super fonction fait le cafe";
-verif("Function")("mafonction2") = "ma super fonction 2 fait le menage";
-verif("Function")("mafonction3") = "ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
-verif("Function")("mafonction4") = "ne sert a rien";
+verif("Function")("1") = "Toolbox - testA, TestA";
+verif("Function")("2") = "mafonction1 - ma super fonction fait le cafe";
+verif("Function")("3") = "mafonction2 - ma super fonction 2 fait le menage";
+verif("Function")("4") = "mafonction3 - ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
+verif("Function")("5") = "mafonction4 - ne sert a rien";
 test = readDescription("testA"); if verif <> test then bugmes();quit;end;
 // chargement de toutes les toolbox sur un mirror
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"]
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 test = readDescription("")
  test  =
  
@@ -67,6 +70,8 @@ test = readDescription("")
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/bin/linux/contrib"];
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 // chargement de toutes les toolbox sur le web
 test = readDescription(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end;
  
@@ -75,6 +80,8 @@ test = readDescription(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 // installation avec la dernière dependance non présente sur le web ni en local
 if installToolbox("testA") <> %f then bugmes();quit;end;
  
@@ -119,6 +126,8 @@ if updateToolbox("truc") <> %f then bugmes();quit;end;
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"];
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 if installToolbox("updateA") <> %t then bugmes();quit;end;
  
  Va etre installe : updateA   
@@ -127,6 +136,8 @@ if installToolbox("updateA") <> %t then bugmes();quit;end;
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/macosX/contrib"];
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 // Mauvaise version
 if updateToolbox("updateB") <> %f then bugmes();quit;end;
  
@@ -138,6 +149,8 @@ if updateToolbox("updateB") <> %f then bugmes();quit;end;
 function listMirror = toolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
+Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+
 // Bonne version
 if updateToolbox("updateB") <> %t then bugmes();quit;end;
  

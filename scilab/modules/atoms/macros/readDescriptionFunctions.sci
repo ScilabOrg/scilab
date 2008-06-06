@@ -2,6 +2,7 @@
 // mai 2008 by Delphine
 
 function descFunct = readDescriptionFunctions(nom)
+  global numberFunction
   // On va dans le repertoire contenant les toolboxes
   rep = toolboxDirectory()
   d = rep + nom
@@ -10,19 +11,17 @@ function descFunct = readDescriptionFunctions(nom)
     cd (d)
     // Lecture du fichier description qu'on stocke dans un tableau
     tab = readFile("DESCRIPTION-FUNCTIONS")
-    // création d'une liste, dont les valeurs sont les noms de fonction
+    // création d'une liste
     [n, m] = size(tab)
+    numberFunction = 0
     for i=1:n
       ind = strindex(tab(i),'-')
       // Si ind = [] on est dans la n-ième ligne du champs précédent
       if ind == []
-        descFunct(temp(1)) = descFunct(temp(1)) + tab(i)
+        descFunct(string(numberFunction)) = descFunct(string(numberFunction)) + tab(i)
       else
-        // ind+1 pour enlever l'espace avant le 2ème champ
-        temp = strsplit(tab(i),ind+1)
-        // On enlève le " - " du nom de la fonction
-        temp(1) = strsubst(temp(1), " - ", "")
-        descFunct(temp(1))= temp(2)
+        descFunct(string(numberFunction+1)) = tab(i)
+        numberFunction = numberFunction + 1
       end
     end
   else

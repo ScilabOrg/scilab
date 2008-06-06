@@ -9,17 +9,6 @@
 // unit tests Toolboxes functions
 //===============================
 
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/recupInfo.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/displayMessage.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/readDescription.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/readDescriptionFunctions.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/checkDependencies.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/installToolbox.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/removeToolbox.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/infoToolbox.sce");
-exec("/home/gasc/dev/scilab5/modules/atoms/macros/updateToolbox.sce");
-funcprot(0)
-
 // on modifie la position du dossier contenant les toolboxes pour les tests
 function rep = toolboxDirectory()
   rep = "home/dev/scilab5/modules/atoms/tests/unit_tests/toolboxes/"
@@ -38,11 +27,11 @@ verif("Date") = "2008-03-31";
 verif("Depends") = "testB, testC, testH";
 verif("URL") = "";
 verif("Entity") = "";
-verif("Function")("Toolbox") = "testA, TestA";
-verif("Function")("mafonction1") = "ma super fonction fait le cafe";
-verif("Function")("mafonction2") = "ma super fonction 2 fait le menage";
-verif("Function")("mafonction3") = "ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
-verif("Function")("mafonction4") = "ne sert a rien";
+verif("Function")("1") = "Toolbox - testA, TestA";
+verif("Function")("2") = "mafonction1 - ma super fonction fait le cafe";
+verif("Function")("3") = "mafonction2 - ma super fonction 2 fait le menage";
+verif("Function")("4") = "mafonction3 - ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
+verif("Function")("5") = "mafonction4 - ne sert a rien";
 test = readDescription("testA"); if verif <> test then pause, end;
 // chargement de toutes les toolbox sur un mirror
 function listMirror = toolboxMirror()

@@ -20,18 +20,20 @@ function result = removeToolbox(nom)
     listLocal = ls()
     [n, m] = size(listLocal)
     for i=1:n
-      desc = readDescription(listLocal(i))
-      depends = extractValue("Depends", desc, 1)
-      depends = splitValue(depends, ",")
-      [n, m] = size(depends)
-      for j=1:n
-        [depend, version] = separateVersionDep(depends(j))
-        if find(depend == nom) <> []
-          displayMessage("La Toolbox " + nom + " est une dependance de " + listLocal(i))
-          reponse = input("Continuer? [""y""/""n""]")
-          if (reponse <> "y" & reponse <> "Y")
-            result = %f
-            return result
+      if listLocal(i) <> ".svn"
+        desc = readDescription(listLocal(i))
+        depends = extractValue("Depends", desc, 1)
+        depends = splitValue(depends, ",")
+        [n, m] = size(depends)
+        for j=1:n
+          [depend, version] = separateVersionDep(depends(j))
+          if find(depend == nom) <> []
+            displayMessage("La Toolbox " + nom + " est une dependance de " + listLocal(i))
+            reponse = input("Continuer? [""y""/""n""]")
+            if (reponse <> "y" & reponse <> "Y")
+              result = %f
+              return result
+            end
           end
         end
       end

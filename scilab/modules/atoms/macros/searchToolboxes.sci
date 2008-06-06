@@ -12,6 +12,7 @@ function result = searchToolboxes(keyWord, typeSearch)
   keyWord = splitWord(keyWord)
   typeSearch = convstr(typeSearch,"l")
   [a, b] = size(keyWord)
+  global numberFunction
   listDesc = readDescription("")
   [n, m] = size(listDesc("Toolbox"))
   // On regarde les Toolboxes une à une
@@ -24,12 +25,20 @@ function result = searchToolboxes(keyWord, typeSearch)
       nameTool = convstr(listDesc("Toolbox")(i),"l")
       catTool = convstr(listDesc("Category")(i),"l")
       authorTool = convstr(listDesc("Author")(i),"l")
+      functionTool = listDesc("Function")(i)
       // Comparaison mot-clé et mots (on recherche la position du mot-clé dans le mot, si c'est == [] c'est qu'il n'a pas été trouvé; auquel cas, inutile de comparer les autres mot-clés)
       toolFind = %t
       for j=1:a
         if strindex(titleTool, keyWord(j)) == [] & strindex(descTool, keyWord(j)) == [] & strindex(nameTool, keyWord(j)) == [] & strindex(catTool, keyWord(j)) == [] & strindex(authorTool, keyWord(j)) == []
           toolFind = %f
-          break
+          for k=1:numberFunction
+            if strindex(convstr(functionTool(string(k)), "l"), keyWord(j)) <> []
+              toolFind = %t
+            end
+          end
+          if ~toolFind
+            break
+          end
         end
       end
     elseif typeSearch == "author"
@@ -52,6 +61,21 @@ function result = searchToolboxes(keyWord, typeSearch)
         if strindex(entityTool, keyWord(j)) == []
           toolFind = %f
           break
+        end
+      end 
+    elseif typeSearch == "function"
+      // Recherche dans Function
+      functionTool = listDesc("Function")(i)
+      // Lecture ligne à ligne des fonctions
+      // Comparaison mot-clé et mots
+      toolFind = %t
+      for j=1:a
+        for k=1:numberFunction
+          toolFind = %f
+          if strindex(convstr(functionTool(string(k)), "l"), keyWord(j)) <> []
+            toolFind = %t
+            break
+          end
         end
       end 
     else

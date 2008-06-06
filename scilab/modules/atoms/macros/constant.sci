@@ -8,13 +8,3 @@ function [listeObl, listeOpt] = constant()
   // Champs optionnels
   listeOpt = ["Date","Depends", "URL", "Entity"]
 endfunction
-
-// Fonction de récupération du repertoire contenant les toolboxes
-function rep = toolboxDirectory()
-  rep = "home/dev/toolboxes/"
-endfunction
-
-// Fonction de récupération de la liste des Mirror
-function listMirror = toolboxMirror()
-  listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"]
-endfunction
