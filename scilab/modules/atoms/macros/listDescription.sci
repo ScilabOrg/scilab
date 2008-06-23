@@ -1,4 +1,4 @@
-// Création d'une contenant les informations du fichier DESCRIPTION
+// Création d'une liste contenant les informations du fichier DESCRIPTION
 // avril 2008 by Delphine
 
 function listDesc = listDescription()

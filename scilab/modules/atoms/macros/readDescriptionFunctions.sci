@@ -20,8 +20,8 @@ function descFunct = readDescriptionFunctions(nom)
       if ind == []
         descFunct(string(numberFunction)) = descFunct(string(numberFunction)) + tab(i)
       else
-        descFunct(string(numberFunction+1)) = tab(i)
         numberFunction = numberFunction + 1
+        descFunct(string(numberFunction)) = tab(i)
       end
     end
   else

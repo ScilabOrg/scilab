@@ -6,7 +6,7 @@ function listToolboxes()
   cd(rep)
   listLocal = ls()
   [n, m] = size(listLocal)
-  displayMessage("Les toolboxes isntallees localement sont :")
+  displayMessage("Les toolboxes installees localement sont :")
   for i=1:n
     if listLocal(i) <> ".svn"
       desc = readDescription(listLocal(i))

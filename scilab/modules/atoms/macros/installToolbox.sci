@@ -6,6 +6,8 @@ function result = installToolbox(nom)
   global conflictLocal
   global nomconflictLocal
   global conflictVersion
+  // On enlève les charactères spéciaux
+  nom = substituteString(nom)
   // On va dans le repertoire dédié
   rep = toolboxDirectory()
   cd (rep)

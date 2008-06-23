@@ -2,6 +2,8 @@
 // avril 2008 by Delphine
 
 function result = checkToolbox(nom)
+  // On enlève les charactères spéciaux
+  nom = substituteString(nom)
   // On va dans le repertoire contenant les toolboxes
   rep = toolboxDirectory()
   d = rep + nom
@@ -14,6 +16,11 @@ function result = checkToolbox(nom)
   cd (d)
   if ~checkDescription()
     displayMessage("Le fichier DESCRIPTION n''est pas valide")
+    result = %f
+    return result
+  end
+    if ~checkDescriptionFunctions()
+    displayMessage("Le fichier DESCRIPTION-FUNCTIONS n''est pas valide")
     result = %f
     return result
   end
@@ -90,6 +97,69 @@ function result = checkDescription()
   end
   result = %t
   return result
+endfunction
+
+function result = checkDescriptionFunctions()
+  result = %t
+  // Si le fichier DESCRIPTION-FUNCTIONS est présent
+  if ls("DESCRIPTION-FUNCTIONS") <> []
+    // Lecture du fichier description qu'on stocke dans un tableau
+    tab = readFile("DESCRIPTION-FUNCTIONS")
+    // création d'une liste
+    [n, m] = size(tab)
+    numberFunction = 0
+    for i=1:n
+      ind = strindex(tab(i),'-')
+      // Si ind = [] on est dans la n-ième ligne du champs précédent
+      if ind == []
+        descFunct(string(numberFunction)) = descFunct(string(numberFunction)) + tab(i)
+      else
+        descFunct(string(numberFunction + 1)) = tab(i)
+        numberFunction = numberFunction + 1
+      end
+    end
+    // Vérification qu'aucune fonction ne porte le nom d'une fonction de scilab
+    // recupération des fonctions scilab
+    scilabFunction = listPrimitives()
+    // Récupération de chacun des noms de fonction
+    for i=1:numberFunction
+      ind = strindex(descFunct(string(i)),'-')
+      funct = strsplit(descFunct(string(i)), ind)
+      funct = funct(1)
+      funct = strsubst(funct, "-", "")
+      funct = strsubst(funct, " ", "")
+      // On cherche le nom de la fonction dans la liste des fonctions de scilab
+      if strindex(scilabFunction, " " + funct + " ") <> []
+        displayMessage("La fonction " + funct + " existe deja dans scilab. Merci de changer de nom.")
+        result = %f
+      end
+    end
+  // Soit le fichier DESCRIPTION-FUNCTIONS n'existe pas
+  else
+    displayMessage("Le fichier DESCRIPTION-FUNCTIONS n''existe pas ou n''est pas a la bonne place")
+    result = %f
+  end
+  return result
+endfunction
+
+function var = listPrimitives()
+  // recupération des fonctions scilab
+  [primitives,commandes] = what();
+  listLib = librarieslist();
+  [n, m] = size(listLib);
+  for i=1:n
+    [o, m] = size(primitives);
+    temp = libraryinfo(listLib(i));
+    [p, m] = size(temp);
+    for j=1:p
+      primitives(o + j) = temp(j);
+    end
+  end
+  [o, m] = size(primitives);
+  var = " "
+  for i=1:o
+    var = var + primitives(i) + " ";
+  end
 endfunction
 
 function result = checkLoader()

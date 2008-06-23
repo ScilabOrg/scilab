@@ -2,8 +2,10 @@
 // avril 2008 by Delphine
 
 function infoToolbox(nom)
-  rep = toolboxDirectory()
+  // On enlève les charactères spéciaux
+  nom = substituteString(nom)
   // On va dans le repertoire contenant les toolboxes
+  rep = toolboxDirectory()
   d = rep + nom
   // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
   if (isdir(d) & ls(d + "/DESCRIPTION") <> [])

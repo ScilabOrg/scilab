@@ -14,6 +14,8 @@ function desc = readDescription(nom)
     desc = listDescription()
     // Remplissage du tableau de hash
     desc = hashTable(desc, tab)
+    // Traitement du nom de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès. 
+    desc("Toolbox") = substituteString(desc("Toolbox"))
     // On rajoute le champs fonction
     clearglobal numberFunction
     desc("Function") = readDescriptionFunctions(nom)
@@ -39,6 +41,11 @@ function desc = readDescription(nom)
 	    end
         // On rempli le tableau avec les différentes toolboxes
         desc = hashTable2(desc, tab)
+        // Traitement des noms de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès.
+        [a, b] = size(desc("Toolbox"))
+        for j=1:a
+          desc("Toolbox")(j) = substituteString(desc("Toolbox")(j))
+        end
       else
         result = %f
         return result

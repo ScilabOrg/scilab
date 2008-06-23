@@ -2,7 +2,8 @@
 // avril 2008 by Delphine
 
 function result = updateToolbox(nom)
-  rep = toolboxDirectory()
+  // On enlève les charactères spéciaux
+  nom = substituteString(nom)
   // Si nom = "all" on update toutes les Toolboxes
   if nom == "all"
     listLocal = ls()
@@ -16,6 +17,7 @@ function result = updateToolbox(nom)
     end
   else
     // On vérifie que la Toolboxe existe bien en local
+    rep = toolboxDirectory()
     d = rep + nom
     if ~isdir(d)
       displayMessage("La toolbox " + nom + " n''est pas installee")
