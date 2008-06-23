@@ -1041,7 +1041,7 @@ uninstall-am: uninstall-libjavasci_la_etcDATA \
 @JAVASCI_TRUE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @JAVASCI_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @JAVASCI_TRUE@		if test -d $(srcdir)/$$dir/; then \
-@JAVASCI_TRUE@		  for file in `ls -1 $(srcdir)/$$dir/* 2>/dev/null`; do \
+@JAVASCI_TRUE@		  for file in `ls -1 $(srcdir)/$$dir 2>/dev/null`; do \
 @JAVASCI_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgmacrosdir)/$$dir" ; \
 @JAVASCI_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgmacrosdir)/$$dir ; \
 @JAVASCI_TRUE@		  done; \

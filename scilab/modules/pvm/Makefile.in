@@ -1474,7 +1474,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_TRUE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @PVM_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @PVM_TRUE@		if test -d $(srcdir)/$$dir/; then \
-@PVM_TRUE@		  for file in `ls -1 $(srcdir)/$$dir/* 2>/dev/null`; do \
+@PVM_TRUE@		  for file in `ls -1 $(srcdir)/$$dir 2>/dev/null`; do \
 @PVM_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgmacrosdir)/$$dir" ; \
 @PVM_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgmacrosdir)/$$dir ; \
 @PVM_TRUE@		  done; \
@@ -1639,7 +1639,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_FALSE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @PVM_FALSE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @PVM_FALSE@		if test -d $(srcdir)/$$dir/; then \
-@PVM_FALSE@		  for file in `ls -1 $(srcdir)/$$dir/* 2>/dev/null`; do \
+@PVM_FALSE@		  for file in `ls -1 $(srcdir)/$$dir 2>/dev/null`; do \
 @PVM_FALSE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgmacrosdir)/$$dir" ; \
 @PVM_FALSE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgmacrosdir)/$$dir ; \
 @PVM_FALSE@		  done; \

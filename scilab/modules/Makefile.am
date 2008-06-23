@@ -10,6 +10,7 @@
 SUBDIRS = core
 
 SUBDIRS += \
+atoms \
 output_stream \
 action_binding \
 arnoldi \
