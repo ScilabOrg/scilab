@@ -15,21 +15,21 @@ function position = selectPosition(listDesc, nomToolbox, versionToolbox)
         if listDesc("Toolbox")(j) == nomToolbox
           vi = decoupVersion(listDesc("Version")(position))
           vj = decoupVersion(listDesc("Version")(j))
-		  if compareVersion(vj, ">=", vi)
+		  if compareVersion(vj, vi) == 1
 		    position = j
 		  end
         end
       end      
       return position
     elseif listDesc("Toolbox")(i) == nomToolbox
-      if compareVersion(decoupVersion(listDesc("Version")(i)), signeToolbox, versionToolbox)
+      if (signeToolbox == "<=" | signeToolbox == "=") & (compareVersion(decoupVersion(listDesc("Version")(i)), versionToolbox) == -1) | ((signeToolbox == ">=" | signeToolbox == "=") & compareVersion(decoupVersion(listDesc("Version")(i)), versionToolbox) == 1)
         position = i
         // Recherche de version plus récente
         for j=i+1:n
-          if listDesc("Toolbox")(j) == nomToolbox & compareVersion(decoupVersion(listDesc("Version")(j)), signeToolbox, versionToolbox)
+          if listDesc("Toolbox")(j) == nomToolbox & ((signeToolbox == "<=" | signeToolbox == "=") & (compareVersion(decoupVersion(listDesc("Version")(j)), versionToolbox) == -1) | ((signeToolbox == ">=" | signeToolbox == "=") & compareVersion(decoupVersion(listDesc("Version")(j)), versionToolbox) == 1))
             vi = decoupVersion(listDesc("Version")(position))
             vj = decoupVersion(listDesc("Version")(j))
-		    if compareVersion(vj, ">=", vi)
+		    if compareVersion(vj, vi) == 0 | compareVersion(vj, vi) == 1
 		      position = j
 		    end
           end

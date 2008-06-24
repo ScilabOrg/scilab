@@ -23,7 +23,7 @@ function listeDep = checkConflict(nom, version)
       // on l'installe en local, et si le tag conflictLocal est à 1 il y a conflit version, sinon, c'est ok
       v1 = decoupVersion(version1)
       v2 = decoupVersion(version2)
-      if compareVersion(v1, ">=", v2)
+      if compareVersion(v1, v2) == 1 | compareVersion(v1, v2) == 0
         dlInstall(nom1, version2)
       else
         dlInstall(nom1, version1)

@@ -11,7 +11,7 @@
 
 // on modifie la position du dossier contenant les toolboxes pour les tests
 function rep = toolboxDirectory()
-  rep = "home/dev/scilab5/modules/atoms/tests/unit_tests/toolboxes/"
+  rep = "home/dev/package_manager/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
 
 // lecture DESCRIPTION en local (/!\ l'ordre des champs importe pour la comparaison verif <> test)

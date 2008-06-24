@@ -9,7 +9,7 @@
 //===============================
 // on modifie la position du dossier contenant les toolboxes pour les tests
 function rep = toolboxDirectory()
-  rep = "home/dev/scilab5/modules/atoms/tests/unit_tests/toolboxes/"
+  rep = "home/dev/package_manager/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
 Warning : redefining function: toolboxDirectory        . Use funcprot(0) to avoid this message
 
@@ -93,18 +93,10 @@ if installToolbox("testA") <> %f then bugmes();quit;end;
 // installation avec conflit versions
 if installToolbox("conflitA") <> %f then bugmes();quit;end;
  
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox conflitB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox conflitB est manquant   
- 
  La version de la Toolbox conflitB presente localement n'est pas la bon 
       ne. Updatez la.                                                   
 // installation avec la dépendance locale ne vérifiant pas la condition
 if installToolbox("local1") <> %f then bugmes();quit;end;
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local1 est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local2 est manquant   
  
  La version de la Toolbox local2 presente localement n'est pas la bonne 
       . Updatez la.                                                     
@@ -118,8 +110,6 @@ if updateToolbox("non") <> %f then bugmes();quit;end;
  La toolbox non n'est pas installee   
 // update d'une toolbox non présente sur le net
 if updateToolbox("truc") <> %f then bugmes();quit;end;
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox truc est manquant   
  
  Toolbox non disponible sur le net   
 // update d'une toolbox dependance d'une autre
@@ -158,15 +148,7 @@ if updateToolbox("updateB") <> %t then bugmes();quit;end;
  
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateA est manquant   
  
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox truc est manquant   
- 
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox conflitB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local2 est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local1 est manquant   
  
  La toolbox updateB va etre update en version 1.2.2   
  
@@ -176,27 +158,11 @@ if removeToolbox("updateA") <> %t then bugmes();quit;end;
  
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateA est manquant   
  
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox truc est manquant   
- 
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox conflitB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local2 est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local1 est manquant   
  
  updateA supprime   
 if removeToolbox("updateB") <> %t then bugmes();quit;end;
  
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox truc est manquant   
- 
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox conflitB est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local2 est manquant   
- 
- Le fichier DESCRIPTION-FUNCTIONS de la toolbox local1 est manquant   
  
  updateB supprime   
