@@ -3,5 +3,5 @@
 
 // Fonction de récupération du repertoire contenant les toolboxes
 function rep = toolboxDirectory()
-  rep = "home/dev/toolboxes/"
+  rep = SCIHOME + "/atoms"
 endfunction

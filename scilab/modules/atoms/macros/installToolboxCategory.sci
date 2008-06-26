@@ -2,7 +2,11 @@
 // avril 2008 by Delphine
 
 // Category : cat1 (sscat1, sscat2); cat2 (sscat3, sscat4)
-function result = installToolboxCategory(cat, sscat)
+function result = installToolboxCategory(cat, sscat, checkVersionScilab)
+  global checkVersionScilab
+  if argn(2) == 2
+    checkVersionScilab = "oui"
+  end
   result = %f
   // On charge la liste de toutes les toolboxes dispo sur le net
   desc = readDescription("")
@@ -11,8 +15,8 @@ function result = installToolboxCategory(cat, sscat)
     catTool = desc("Category")(i)
     // On regarde si cette toolbox appartient à la cat/sscat demandée
     regularExpression = "/" + cat + " \((\w*, )*" + sscat + "(, \w*)*\)/"
-    // Si oui on l'installe
-    if regexp(catTool, regularExpression) <> []
+    // Si oui on l'installe si elle convient à la version de scilab
+    if regexp(catTool, regularExpression) <> [] & ((verifVersionScilab(desc("ScilabVersion")(i)) & checkVersionScilab == "oui") | checkVersionScilab == "non")
       // On ne peut pas prendre result = installToolbox() car s'il y a une erreur d'install, result = %f
       installToolbox(desc("Toolbox")(i));
       result = %t
@@ -20,7 +24,7 @@ function result = installToolboxCategory(cat, sscat)
   end
   // Si on n'a rien installé
   if ~result
-    displayMessage ("Aucune Toolbox ne correspond a cet ensemble categorie/sous categorie")
+    displayMessage ("Aucune Toolbox ne correspond a cet ensemble categorie/sous categorie pour votre version")
   end
   return result
 endfunction

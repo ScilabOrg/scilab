@@ -85,7 +85,12 @@ function result = searchToolboxes(keyWord, typeSearch)
     // Si on a trouvé tous les mots
     if toolFind
       [n, m] = size(listTool)
-      listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i)
+      // On regarde si la Toolbox concorde avec la version du scilab
+      if verifVersionScilab(listDesc("ScilabVersion")(i))
+        listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i)
+      else
+        listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i) + " - Attention cette Toolbox (Version " + listDesc("Version")(i) + ") n''est pas compatible avec votre version de Scilab"
+      end
       result = %t
     end
   end

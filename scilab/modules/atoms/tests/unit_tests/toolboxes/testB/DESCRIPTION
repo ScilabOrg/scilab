@@ -8,3 +8,4 @@ Description: Test de code scilab pour lire les DESCRIPTION.
 Depends: testD
 License: Aucune
 Category: essai
+ScilabVersion: >= 5.0

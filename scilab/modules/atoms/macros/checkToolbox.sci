@@ -77,13 +77,13 @@ function result = checkDescription()
       end
     end
     // Verification que le nom correspond bien
-    if desc("Toolbox: ") <> nom
+    if desc("Toolbox") <> nom
       displayMessage("Le nom de la toolbox present dans le fichier DESCRIPTION n''est pas le bon")
       result = %f
       return result
     end
     // Verification que la version est au bon format
-    v = desc("Version: ")
+    v = desc("Version")
     if regexp(v, '/[0-9]+\.[0-9]+\.?[0-9]*$/') <> 1
       disp("The version is a sequence of at least two (and usually three) non-negative integers separated by single ''.'' characters.")
       result = %f
@@ -140,6 +140,30 @@ function result = checkDescriptionFunctions()
     result = %f
   end
   return result
+endfunction
+
+// Remplissage d'une liste à partir du fichier DESCRIPTION
+function listDesc = hashTable(listDesc, tabDesc)
+  [listeObl, listeOpt] = constant()
+  // On crée toutes les "cases" pour que même si un champs optionnel n'est pas présent dans le tableau, la case existe.
+  [o, p] = size(listeOpt)
+  for i=1:p
+    listDesc(listeOpt(i))= ""
+  end
+  [n, m] = size(tabDesc)
+  for i=1:n
+    ind = strindex(tabDesc(i),':')
+    // Si ind = [] on est dans la n-ième ligne du champs précédent
+    if ind == []
+      listDesc(temp(1)) = listDesc(temp(1)) + tabDesc(i)
+    else
+      // ind+1 pour enlever l'espace avant le 2ème champ
+      temp = strsplit(tabDesc(i),ind+1)
+      // On retire le ": "
+      temp(1) = strsubst(temp(1), ": ", "")
+      listDesc(temp(1))= temp(2)
+    end
+  end
 endfunction
 
 function var = listPrimitives()

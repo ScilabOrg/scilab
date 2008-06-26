@@ -4,7 +4,7 @@
 // Champs présents dans le fichier DESCRIPTION
 function [listeObl, listeOpt] = constant()
   // Champs obligatoires
-  listeObl = ["Toolbox","Version","Title","Author","Maintainer","Description","License", "Category"]
+  listeObl = ["Toolbox","Version","Title","Author","Maintainer","Description","License","Category","ScilabVersion"]
   // Champs optionnels
-  listeOpt = ["Date","Depends", "URL", "Entity"]
+  listeOpt = ["Date","Depends","ExternalDepends","URL","Entity"]
 endfunction

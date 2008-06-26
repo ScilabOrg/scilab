@@ -1,11 +1,16 @@
 // Installation d'une toolbox
 // avril 2008 by Delphine
 
-function result = installToolbox(nom)
+function result = installToolbox(nom, checkVersionScilab)
   global conflictingList
   global conflictLocal
   global nomconflictLocal
   global conflictVersion
+  global checkVersionScilab
+  // On regarde si le 2eme argument existe
+  if argn(2) == 1
+    checkVersionScilab = "oui"
+  end
   // On enlève les charactères spéciaux
   nom = substituteString(nom)
   // On va dans le repertoire dédié

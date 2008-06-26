@@ -8,3 +8,4 @@ Description: Test de code scilab pour lire les DESCRIPTION. Avec une ligne de de
 Depends: testB, testC, testH
 License: Aucune
 Category: essai
+ScilabVersion: >= 5.0

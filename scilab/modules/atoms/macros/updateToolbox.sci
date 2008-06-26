@@ -1,7 +1,12 @@
 // update d'une toolbox
 // avril 2008 by Delphine
 
-function result = updateToolbox(nom)
+function result = updateToolbox(nom, checkVersionScilab)
+  global checkVersionScilab
+  // On regarde si le 2eme argument existe
+  if argn(2) == 1
+    checkVersionScilab = "oui"
+  end
   // On enlève les charactères spéciaux
   nom = substituteString(nom)
   // Si nom = "all" on update toutes les Toolboxes

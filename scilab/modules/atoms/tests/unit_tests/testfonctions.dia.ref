@@ -22,8 +22,10 @@ verif("Maintainer") = "Delphine";
 verif("Description") = "Test de code scilab pour lire les DESCRIPTION. Avec une ligne de description qui est plus longue que la longueur d''une ligne, pour tester les lignes multiples.";
 verif("License") = "Aucune";
 verif("Category") = "essai";
+verif("ScilabVersion") = ">= 5.0";
 verif("Date") = "2008-03-31";
 verif("Depends") = "testB, testC, testH";
+verif("ExternalDepends") = "";
 verif("URL") = "";
 verif("Entity") = "";
 verif("Function")("1") = "Toolbox - testA, TestA";
@@ -38,22 +40,7 @@ function listMirror = toolboxMirror()
 endfunction
 Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
 
-test = readDescription("")
- test  =
- 
-   Toolbox: [20x1 string]
-   Version: [20x1 string]
-   Title: [20x1 string]
-   Author: [20x1 string]
-   Maintainer: [20x1 string]
-   Description: [20x1 string]
-   License: [20x1 string]
-   Category: [20x1 string]
-   Date: [20x1 string]
-   Depends: [20x1 string]
-   URL: [20x1 string]
-   Entity: [20x1 string]
-   Function: [20x1 struct]
+test = readDescription("");
 [n, m] = size(test("Toolbox")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Version")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Title")); if n <> 20 then bugmes();quit;end;
@@ -61,8 +48,11 @@ test = readDescription("")
 [n, m] = size(test("Maintainer")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Description")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("License")); if n <> 20 then bugmes();quit;end;
+[n, m] = size(test("Category")); if n <> 20 then bugmes();quit;end;
+[n, m] = size(test("ScilabVersion")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Date")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Depends")); if n <> 20 then bugmes();quit;end;
+[n, m] = size(test("ExternalDepends")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("URL")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Entity")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Function")); if n <> 20 then bugmes();quit;end;
@@ -85,11 +75,10 @@ Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoi
 // installation avec la dernière dependance non présente sur le web ni en local
 if installToolbox("testA") <> %f then bugmes();quit;end;
  
- Toolbox testG non trouvee   
- 
  Toolbox testH non trouvee   
  
- Impossible d'installer toutes les dependances   
+ La version de la Toolbox testC presente localement n'est pas la bonne. 
+       Updatez la.                                                      
 // installation avec conflit versions
 if installToolbox("conflitA") <> %f then bugmes();quit;end;
  
@@ -98,7 +87,7 @@ if installToolbox("conflitA") <> %f then bugmes();quit;end;
 // installation avec la dépendance locale ne vérifiant pas la condition
 if installToolbox("local1") <> %f then bugmes();quit;end;
  
- La version de la Toolbox local2 presente localement n'est pas la bonne 
+ La version de la Toolbox local1 presente localement n'est pas la bonne 
       . Updatez la.                                                     
 // supression de toolbox non présente
 if removeToolbox("non") <> %f then bugmes();quit;end;
