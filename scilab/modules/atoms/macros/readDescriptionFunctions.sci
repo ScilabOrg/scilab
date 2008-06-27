@@ -6,8 +6,14 @@ function descFunct = readDescriptionFunctions(nom)
   // On va dans le repertoire contenant les toolboxes
   rep = toolboxDirectory()
   d = rep + nom
+  // Gestion des OS differents
+  if getos() == "Windows"
+    directory = d + "\DESCRIPTION-FUNCTIONS"
+  else // linux et mac
+    directory = d + "/DESCRIPTION-FUNCTIONS"
+  end
   // Soit on trouve le dossier en local et le fichier DESCRIPTION-FUNCTIONS est présent
-  if (isdir(d) & ls(d + "/DESCRIPTION-FUNCTIONS") <> [])
+  if (isdir(d) & ls(directory) <> [])
     cd (d)
     // Lecture du fichier description qu'on stocke dans un tableau
     tab = readFile("DESCRIPTION-FUNCTIONS")

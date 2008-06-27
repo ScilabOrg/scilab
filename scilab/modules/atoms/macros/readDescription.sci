@@ -5,8 +5,14 @@ function desc = readDescription(nom)
   // On va dans le repertoire contenant les toolboxes
   rep = toolboxDirectory()
   d = rep + nom
+  // Gestion des OS differents
+  if getos() == "Windows"
+    directory = d + "\DESCRIPTION"
+  else // linux et mac
+    directory = d + "/DESCRIPTION"
+  end
   // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
-  if (isdir(d) & ls(d + "/DESCRIPTION") <> [])
+  if (isdir(d) & ls(directory) <> [])
     cd (d)
     // Lecture du fichier description qu'on stocke dans un tableau
     tab = readFile("DESCRIPTION")
@@ -58,12 +64,12 @@ endfunction
 
 // Récupération d'un fichier sur le web
 function result = dlFile(web, fileWeb)
-	temp = unix("wget " + web + "/TOOLBOXES" + " -O " + fileWeb + " 2>&1 > /dev/null")
+	temp = unix_s("wget " + web + "/TOOLBOXES" + " -O " + fileWeb + " 2>&1 > /dev/null")
 	// Si le fichier n'est pas present
 	if temp <> 0
 	  displayMessage("Verifiez la validite du repository")
-	  if ~removeFile("TOOLBOXES")
-	    disp("Veuillez supprimer le fichier TOOLBOXES dans le repertoire courant")
+	  if ~removeFile(fileWeb)
+	    disp("Veuillez supprimer le fichier " + fileWeb + " dans le repertoire courant")
 	  end
 	  result = %f
 	  return result

@@ -7,8 +7,14 @@ function infoToolbox(nom)
   // On va dans le repertoire contenant les toolboxes
   rep = toolboxDirectory()
   d = rep + nom
+  // Gestion des OS differents
+  if getos() == "Windows"
+    directory = d + "\DESCRIPTION"
+  else // linux et mac
+    directory = d + "/DESCRIPTION"
+  end
   // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
-  if (isdir(d) & ls(d + "/DESCRIPTION") <> [])
+  if (isdir(d) & ls(directory) <> [])
     desc = readDescription(nom)
     functionTool = desc("Function")
     displayMessage("La Toolbox est presente localement")

@@ -67,7 +67,7 @@ function result = checkDescription()
       end
     // Remplissage du tableau de hash
     desc = hashTable(desc, tab)
-    // Verification que tous les champs obligatoires sont remplis (Toolbox, Version, License, Description, Title, Author and Maintainer)
+    // Verification que tous les champs obligatoires sont remplis
     [listeObl, listeOpt] = constant()
     for i=1:7
       if desc(listeObl(i)) == []
