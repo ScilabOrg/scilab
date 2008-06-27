@@ -65,6 +65,8 @@ Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoi
 // chargement de toutes les toolbox sur le web
 test = readDescription(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end;
  
+     []
+ 
  Verifiez la validite du repository   
 // on remet les bon Mirrors
 function listMirror = toolboxMirror()
@@ -142,6 +144,8 @@ if updateToolbox("updateB") <> %t then bugmes();quit;end;
  La toolbox updateB va etre update en version 1.2.2   
  
  Va etre installe : updateB   
+ 
+     []
 // Suppression des toolboxes
 if removeToolbox("updateA") <> %t then bugmes();quit;end;
  

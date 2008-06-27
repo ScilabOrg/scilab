@@ -30,9 +30,9 @@ endfunction
 
 // Récupération d'une archive sur le web
 function result = dlArchive(listWeb, position, name)
-  temp = unix_s("wget " + listWeb(position) + "/" + name + " 2>&1 > /dev/null")
+  temp = unix_g("wget " + listWeb(position) + "/" + name + " 2>&1 > /dev/null")
   // Si le fichier n'est pas present
-  if temp <> 0
+  if temp == ""
     [n, m] = size(listWeb)
     // Si on dépasse la taille de la liste
     if (position + 1) > m
@@ -51,11 +51,11 @@ endfunction
 // Dezippage
 function result = dezipp(fileD)
   if getos() == "Windows"
-    temp = unix_s("zcat " + fileD + " | tar -xv")
+    temp = unix_g("zcat " + fileD + " | tar -xv")
   else // linux et mac
-    temp = unix("tar -zxvf " + fileD)
+    temp = unix_g("tar -zxvf " + fileD)
   end
-  if temp <> 0
+  if temp == ""
     result = %f
     return result
   else
