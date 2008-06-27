@@ -30,7 +30,7 @@ endfunction
 
 // Récupération d'une archive sur le web
 function result = dlArchive(listWeb, position, name)
-  temp = unix_g("wget " + listWeb(position) + "/" + name + " 2>&1 > /dev/null")
+  temp = unix_g("wget " + listWeb(position) + "/" + name)
   // Si le fichier n'est pas present
   if temp == ""
     [n, m] = size(listWeb)

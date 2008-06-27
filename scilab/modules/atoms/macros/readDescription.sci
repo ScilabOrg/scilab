@@ -64,7 +64,7 @@ endfunction
 
 // Récupération d'un fichier sur le web
 function result = dlFile(web, fileWeb)
-	temp = unix_g("wget " + web + "/TOOLBOXES" + " -O " + fileWeb + " 2>&1 > /dev/null")
+	temp = unix_g("wget " + web + "/TOOLBOXES" + " -O " + fileWeb)
 	// Si le fichier n'est pas present
 	if temp == ""
 	  displayMessage("Verifiez la validite du repository")
