@@ -1,7 +1,7 @@
 // Selection des toolboxes correspondant à la bonne version de scilab
 // juin 2008 by Delphine
 
-function result = verifVersionScilab(scilabVersion)
+function result = atomsVerifVersionScilab(scilabVersion)
   // On récupère la version du logiciel
   currentVersion = getversion()
   index = strindex(currentVersion, "-")
@@ -15,7 +15,7 @@ function result = verifVersionScilab(scilabVersion)
   currentVersion = strsubst(currentVersion, "-", "")
   // On met en forme la version de scilab de la toolbox
   scilabVersion = strsubst(scilabVersion, " ", "")
-  [signeScilab, versionScilab] = separateSignVersion(scilabVersion)
+  [signeScilab, versionScilab] = atomsSeparateSignVersion(scilabVersion)
   // On regarde si la aussi on n'a pas affaire a une alpha/beta/rc
   index = strindex(versionScilab, "-")
   if index <> []
@@ -32,7 +32,7 @@ function result = verifVersionScilab(scilabVersion)
       result = %F
     end
   else
-    if compareVersion(decoupVersion(versionScilab), decoupVersion(currentVersion)) == 0
+    if atomsCompareVersion(atomsDecoupVersion(versionScilab), atomsDecoupVersion(currentVersion)) == 0
       // On regarde si on a des modificateurs de version
       if isdef("modifCurrentVersion") & isdef("modifVersionScilab")
         if verifVersionModif(modifCurrentVersion, modifVersionScilab) == 0
@@ -51,9 +51,9 @@ function result = verifVersionScilab(scilabVersion)
       else
         result = %F
       end
-    elseif signeScilab == "<=" & compareVersion(decoupVersion(versionScilab), decoupVersion(currentVersion)) == 1
+    elseif signeScilab == "<=" & atomsCompareVersion(atomsDecoupVersion(versionScilab), atomsDecoupVersion(currentVersion)) == 1
       result = %T
-    elseif signeScilab == ">=" & compareVersion(decoupVersion(versionScilab), decoupVersion(currentVersion)) == -1
+    elseif signeScilab == ">=" & atomsCompareVersion(atomsDecoupVersion(versionScilab), atomsDecoupVersion(currentVersion)) == -1
       result = %T
     else
       result = %F

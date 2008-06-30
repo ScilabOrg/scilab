@@ -1,7 +1,7 @@
 // Comparaison de deux versions
 // juin 2008 by Delphine
 
-function result = compareVersion(v1, v2)
+function result = atomsCompareVersion(v1, v2)
   // On converti les string en double
   v1 = strtod(v1)
   v2 = strtod(v2)

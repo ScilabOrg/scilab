@@ -8,10 +8,10 @@
 // unit tests Toolboxes functions
 //===============================
 // on modifie la position du dossier contenant les toolboxes pour les tests
-function rep = toolboxDirectory()
+function rep = atomsToolboxDirectory()
   rep = "home/dev/package_manager/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
-Warning : redefining function: toolboxDirectory        . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxDirectory   . Use funcprot(0) to avoid this message
 
 // lecture DESCRIPTION en local (/!\ l'ordre des champs importe pour la comparaison verif <> test)
 verif("Toolbox") = "testA";
@@ -33,14 +33,14 @@ verif("Function")("2") = "mafonction1 - ma super fonction fait le cafe";
 verif("Function")("3") = "mafonction2 - ma super fonction 2 fait le menage";
 verif("Function")("4") = "mafonction3 - ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
 verif("Function")("5") = "mafonction4 - ne sert a rien";
-test = readDescription("testA"); if verif <> test then bugmes();quit;end;
+test = atomsReadDesc("testA"); if verif <> test then bugmes();quit;end;
 // chargement de toutes les toolbox sur un mirror
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"]
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
-test = readDescription("");
+test = atomsReadDesc("");
 [n, m] = size(test("Toolbox")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Version")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Title")); if n <> 20 then bugmes();quit;end;
@@ -57,20 +57,20 @@ test = readDescription("");
 [n, m] = size(test("Entity")); if n <> 20 then bugmes();quit;end;
 [n, m] = size(test("Function")); if n <> 20 then bugmes();quit;end;
 // on choisi un Mirror non conforme
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/bin/linux/contrib"];
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
 // chargement de toutes les toolbox sur le web
-test = readDescription(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end;
+test = atomsReadDesc(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end;
  
  Verifiez la validite du repository   
 // on remet les bon Mirrors
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
 // installation avec la dernière dependance non présente sur le web ni en local
 if installToolbox("testA") <> %f then bugmes();quit;end;
@@ -102,20 +102,20 @@ if updateToolbox("truc") <> %f then bugmes();quit;end;
  
  Toolbox non disponible sur le net   
 // update d'une toolbox dependance d'une autre
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"];
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
 if installToolbox("updateA") <> %t then bugmes();quit;end;
  
  Va etre installe : updateA   
  
  Va etre installe : updateB   
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/macosX/contrib"];
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
 // Mauvaise version
 if updateToolbox("updateB") <> %f then bugmes();quit;end;
@@ -125,10 +125,10 @@ if updateToolbox("updateB") <> %f then bugmes();quit;end;
  Le fichier DESCRIPTION-FUNCTIONS de la toolbox updateA est manquant   
  
  probleme de dependance   
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
-Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoid this message
+Warning : redefining function: atomsToolboxMirror      . Use funcprot(0) to avoid this message
 
 // Bonne version
 if updateToolbox("updateB") <> %t then bugmes();quit;end;

@@ -2,7 +2,7 @@
 // avril 2008 by Delphine
 
 // Fonction de récupération de la liste des Mirror
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   if getos() == "Windows"
     listMirror = ["http://128.93.23.238/scilab/bin/windows/contrib"]
   else // linux et mac

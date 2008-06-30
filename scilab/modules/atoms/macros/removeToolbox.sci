@@ -2,7 +2,7 @@
 // avril 2008 by Delphine
 
 function result = removeToolbox(nom)
-  rep = toolboxDirectory()
+  rep = atomsToolboxDirectory()
   // Si nom = "all" on supprime toutes les Toolboxes
   if nom == "all"  
     rmdir(rep, "s")
@@ -11,7 +11,7 @@ function result = removeToolbox(nom)
     // On vérifie que la toolbox existe
     d = rep + nom
     if ~isdir(d)
-      displayMessage("La toolbox " + nom + " n''est pas installee")
+      atomsDisplayMessage("La toolbox " + nom + " n''est pas installee")
       result = %f
       return result
     end
@@ -21,14 +21,14 @@ function result = removeToolbox(nom)
     [n, m] = size(listLocal)
     for i=1:n
       if listLocal(i) <> ".svn"
-        desc = readDescription(listLocal(i))
-        depends = extractValue("Depends", desc, 1)
-        depends = splitValue(depends, ",")
+        desc = atomsReadDesc(listLocal(i))
+        depends = atomsExtractValue("Depends", desc, 1)
+        depends = atomsSplitValue(depends, ",")
         [n, m] = size(depends)
         for j=1:n
-          [depend, version] = separateVersionDep(depends(j))
+          [depend, version] = atomsSeparateVersionDep(depends(j))
           if find(depend == nom) <> []
-            displayMessage("La Toolbox " + nom + " est une dependance de " + listLocal(i))
+            atomsDisplayMessage("La Toolbox " + nom + " est une dependance de " + listLocal(i))
             reponse = input("Continuer? [""y""/""n""]")
             if (reponse <> "y" & reponse <> "Y")
               result = %f
@@ -39,7 +39,7 @@ function result = removeToolbox(nom)
       end
     end
     rmdir(rep + nom, "s")
-    displayMessage(nom + " supprime")
+    atomsDisplayMessage(nom + " supprime")
     result = %t
     return result
   end

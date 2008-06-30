@@ -1,8 +1,8 @@
 // Création d'une liste contenant les informations du fichier DESCRIPTION
 // avril 2008 by Delphine
 
-function listDesc = listDescription()
-  [listeObl, listeOpt] = constant()
+function listDesc = atomsListDescription()
+  [listeObl, listeOpt] = atomsConstant()
   [n, m] = size(listeObl)
   for i=1:m
     listDesc(listeObl(i))= []

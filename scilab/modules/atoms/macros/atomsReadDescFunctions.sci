@@ -1,10 +1,10 @@
 // Parsing of the Description-Function file
 // mai 2008 by Delphine
 
-function descFunct = readDescriptionFunctions(nom)
+function descFunct = atomsReadDescFunctions(nom)
   global numberFunction
   // On va dans le repertoire contenant les toolboxes
-  rep = toolboxDirectory()
+  rep = atomsToolboxDirectory()
   d = rep + nom
   // Gestion des OS differents
   if getos() == "Windows"
@@ -16,7 +16,7 @@ function descFunct = readDescriptionFunctions(nom)
   if (isdir(d) & ls(directory) <> [])
     cd (d)
     // Lecture du fichier description qu'on stocke dans un tableau
-    tab = readFile("DESCRIPTION-FUNCTIONS")
+    tab = atomsReadFile("DESCRIPTION-FUNCTIONS")
     // création d'une liste
     [n, m] = size(tab)
     numberFunction = 0
@@ -31,7 +31,7 @@ function descFunct = readDescriptionFunctions(nom)
       end
     end
   else
-    displayMessage("Le fichier DESCRIPTION-FUNCTIONS de la toolbox " + nom + " est manquant")
+    atomsDisplayMessage("Le fichier DESCRIPTION-FUNCTIONS de la toolbox " + nom + " est manquant")
     descFunct = ""
   end
   return descFunct

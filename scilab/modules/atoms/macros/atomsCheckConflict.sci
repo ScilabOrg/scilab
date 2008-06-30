@@ -1,7 +1,7 @@
 // Construction de la liste des dépendances
 // avril 2008 by Delphine
 
-function listeDep = checkConflict(nom, version)
+function listeDep = atomsCheckConflict(nom, version)
   global conflictLocal
   global conflictingList
   global nomconflictLocal
@@ -15,18 +15,18 @@ function listeDep = checkConflict(nom, version)
   [n, m] = size(listeDep)
   for i=1:n-1
     // On compare les nom
-    [nom1, version1] = separateVersionDep(listeDep(i))
-    [nom2, version2] = separateVersionDep(listeDep(i+1))
+    [nom1, version1] = atomsSeparateVersionDep(listeDep(i))
+    [nom2, version2] = atomsSeparateVersionDep(listeDep(i+1))
     if nom1 == nom2
       // s'il y a 2 versions possible c'est que forcément il y a une dep <=
       // Si c'est le cas, il faut que cette version max concorde avec les autres dép
       // on l'installe en local, et si le tag conflictLocal est à 1 il y a conflit version, sinon, c'est ok
-      v1 = decoupVersion(version1)
-      v2 = decoupVersion(version2)
-      if compareVersion(v1, v2) == 1 | compareVersion(v1, v2) == 0
-        dlInstall(nom1, version2)
+      v1 = atomsDecoupVersion(version1)
+      v2 = atomsDecoupVersion(version2)
+      if atomsCompareVersion(v1, v2) == 1 | atomsCompareVersion(v1, v2) == 0
+        atomsDlInstall(nom1, version2)
       else
-        dlInstall(nom1, version1)
+        atomsDlInstall(nom1, version1)
       end
       clearglobal conflictLocal
       clearglobal conflictingList
@@ -35,7 +35,7 @@ function listeDep = checkConflict(nom, version)
       listeDep2 = checkDependencies(nom, version)
       if conflictLocal == 1
         conflictVersion = 1
-        rep = toolboxDirectory()
+        rep = atomsToolboxDirectory()
         rmdir(rep + nom1, "s")
       end
     end
@@ -53,12 +53,12 @@ function listeDep = checkDependencies(nom, version)
     version = ""
   end
   // Lecture du fichier description
-  desc = readDescription(nom)
+  desc = atomsReadDesc(nom)
   // Selection de la position de la toolbox dans la liste des toolboxes disponibles.
-  position = selectPosition(desc, nom, version)
+  position = atomsSelectPosition(desc, nom, version)
   // Cas ou la toolboxe n'est pas présente
   if position == 0
-    displayMessage("Toolbox " + nom + " non trouvee")
+    atomsDisplayMessage("Toolbox " + nom + " non trouvee")
     listeDep = ""
     return listeDep
   elseif position == 0.1
@@ -75,19 +75,19 @@ function listeDep = checkDependencies(nom, version)
   [a, b] = size(conflictingList)
   conflictingList(a+1) = desc("Toolbox")(position) + " (" + desc("Version")(position) + ")"
   // Récuperation des dependances
-  depends = extractValue("Depends", desc, position)
+  depends = atomsExtractValue("Depends", desc, position)
   // S'il n'y a pas de dépendance
   if depends == " " | depends == ""
   	return listeDep
   end
   // S'il y a plusieurs dépendances on split en plusieurs string
-  depends = splitValue(depends, ',')
+  depends = atomsSplitValue(depends, ',')
   // Ajout dans la liste des toolboxes à installer
   [n, m] = size(depends)
   for i=1:n
 	[nb, x] = size(listeDep)
 	// Separation de la version et de la dependance
-	[depend, version] = separateVersionDep(depends(i))
+	[depend, version] = atomsSeparateVersionDep(depends(i))
 	// Recherche des dépendances
 	deps = checkDependencies(depend, version)
 	[o, p] = size(deps)

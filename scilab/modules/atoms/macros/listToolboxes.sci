@@ -2,15 +2,15 @@
 // juin 2008 by Delphine
 
 function listToolboxes()
-  rep = toolboxDirectory()
+  rep = atomsToolboxDirectory()
   cd(rep)
   listLocal = ls()
   [n, m] = size(listLocal)
-  displayMessage("Les toolboxes installees localement sont :")
+  atomsDisplayMessage("Les toolboxes installees localement sont :")
   for i=1:n
     if listLocal(i) <> ".svn"
-      desc = readDescription(listLocal(i))
-      displayMessage(desc("Toolbox") + " - version " + desc("Version"))
+      desc = atomsReadDesc(listLocal(i))
+      atomsDisplayMessage(desc("Toolbox") + " - version " + desc("Version"))
     end
   end
 endfunction

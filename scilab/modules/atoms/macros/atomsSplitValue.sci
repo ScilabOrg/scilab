@@ -1,7 +1,7 @@
 // S'il y a plusieurs valeurs on split en plusieurs string
 // avril 2008 by Delphine
 
-function fieldValue = splitValue(fieldValue, separate)
+function fieldValue = atomsSplitValue(fieldValue, separate)
   index = strindex(fieldValue, separate)
   if length(index) > 0
     fieldValue = strsplit(fieldValue,index)

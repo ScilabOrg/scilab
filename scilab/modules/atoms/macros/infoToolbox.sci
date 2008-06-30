@@ -3,9 +3,9 @@
 
 function infoToolbox(nom)
   // On enlève les charactères spéciaux
-  nom = substituteString(nom)
+  nom = atomsSubstituteString(nom)
   // On va dans le repertoire contenant les toolboxes
-  rep = toolboxDirectory()
+  rep = atomsToolboxDirectory()
   d = rep + nom
   // Gestion des OS differents
   if getos() == "Windows"
@@ -15,15 +15,15 @@ function infoToolbox(nom)
   end
   // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
   if (isdir(d) & ls(directory) <> [])
-    desc = readDescription(nom)
+    desc = atomsReadDesc(nom)
     functionTool = desc("Function")
-    displayMessage("La Toolbox est presente localement")
-    displayMessage(desc)
-    displayMessage(functionTool)
+    atomsDisplayMessage("La Toolbox est presente localement")
+    atomsDisplayMessage(desc)
+    atomsDisplayMessage(functionTool)
   // Soit on regarde si des versions sont disponibles sur le net
   else
-    displayMessage("Versions de la Toolbox presentes sur le web")
-    listDesc = readDescription("")
+    atomsDisplayMessage("Versions de la Toolbox presentes sur le web")
+    listDesc = atomsReadDesc("")
     versions = ""
     [n, m] = size(listDesc("Toolbox"))
     for i=1:n
@@ -34,7 +34,7 @@ function infoToolbox(nom)
           continue
         else
           versions(a+1) = listDesc("Version")(i)
-          desc = listDescription()
+          desc = atomsListDescription()
           [listeObl, listeOpt] = constant()
           [o, p] = size(listeOpt)
           [n, m] = size(listeObl)
@@ -44,14 +44,14 @@ function infoToolbox(nom)
           for j=1:p
             desc(listeOpt(j)) = listDesc(listeOpt(j))(i)
           end
-          displayMessage(desc)
+          atomsDisplayMessage(desc)
         end
       end
     end
     // Si aucune version n'a été trouvée
     [a, b] = size(versions)
     if a == 1
-     displayMessage("Aucune")
+     atomsDisplayMessage("Aucune")
     end
   end
 endfunction

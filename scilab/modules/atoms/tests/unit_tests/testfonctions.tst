@@ -10,7 +10,7 @@
 //===============================
 
 // on modifie la position du dossier contenant les toolboxes pour les tests
-function rep = toolboxDirectory()
+function rep = atomsToolboxDirectory()
   rep = "home/dev/package_manager/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
 
@@ -34,12 +34,12 @@ verif("Function")("2") = "mafonction1 - ma super fonction fait le cafe";
 verif("Function")("3") = "mafonction2 - ma super fonction 2 fait le menage";
 verif("Function")("4") = "mafonction3 - ma super fonction 3 fait la vaisselle, lave le linge, repasse, lave la cuisine et la salle de bain, il ne lui manque rien de rien.";
 verif("Function")("5") = "mafonction4 - ne sert a rien";
-test = readDescription("testA"); if verif <> test then pause, end;
+test = atomsReadDesc("testA"); if verif <> test then pause, end;
 // chargement de toutes les toolbox sur un mirror
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"]
 endfunction
-test = readDescription("");
+test = atomsReadDesc("");
 [n, m] = size(test("Toolbox")); if n <> 20 then pause, end;
 [n, m] = size(test("Version")); if n <> 20 then pause, end;
 [n, m] = size(test("Title")); if n <> 20 then pause, end;
@@ -57,13 +57,13 @@ test = readDescription("");
 [n, m] = size(test("Function")); if n <> 20 then pause, end;
 
 // on choisi un Mirror non conforme
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/bin/linux/contrib"];
 endfunction
 // chargement de toutes les toolbox sur le web
-test = readDescription(""); if size(test("Toolbox")) <> 0 then pause, end;
+test = atomsReadDesc(""); if size(test("Toolbox")) <> 0 then pause, end;
 // on remet les bon Mirrors
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
 
@@ -82,16 +82,16 @@ if updateToolbox("non") <> %f then pause, end;
 // update d'une toolbox non présente sur le net
 if updateToolbox("truc") <> %f then pause, end;
 // update d'une toolbox dependance d'une autre
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"];
 endfunction
 if installToolbox("updateA") <> %t then pause, end;
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/macosX/contrib"];
 endfunction
 // Mauvaise version
 if updateToolbox("updateB") <> %f then pause, end;
-function listMirror = toolboxMirror()
+function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib", "http://128.93.23.238/scilab/bin/windows/contrib"];
 endfunction
 // Bonne version

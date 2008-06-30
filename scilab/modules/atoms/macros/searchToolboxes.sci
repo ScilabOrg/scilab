@@ -13,7 +13,7 @@ function result = searchToolboxes(keyWord, typeSearch)
   typeSearch = convstr(typeSearch,"l")
   [a, b] = size(keyWord)
   global numberFunction
-  listDesc = readDescription("")
+  listDesc = atomsReadDesc("")
   [n, m] = size(listDesc("Toolbox"))
   // On regarde les Toolboxes une à une
   for i=1:n
@@ -79,14 +79,14 @@ function result = searchToolboxes(keyWord, typeSearch)
         end
       end 
     else
-      displayMessage("Le champs de recherche " + typeSearch + " n''existe pas")
+      atomsDisplayMessage("Le champs de recherche " + typeSearch + " n''existe pas")
       return result
     end
     // Si on a trouvé tous les mots
     if toolFind
       [n, m] = size(listTool)
       // On regarde si la Toolbox concorde avec la version du scilab
-      if verifVersionScilab(listDesc("ScilabVersion")(i))
+      if atomsVerifVersionScilab(listDesc("ScilabVersion")(i))
         listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i)
       else
         listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i) + " - Attention cette Toolbox (Version " + listDesc("Version")(i) + ") n''est pas compatible avec votre version de Scilab"
@@ -95,17 +95,17 @@ function result = searchToolboxes(keyWord, typeSearch)
     end
   end
   if ~result
-    displayMessage("Aucune Toolbox ne correspond a la recherche")
+    atomsDisplayMessage("Aucune Toolbox ne correspond a la recherche")
   else
     listTool = unique(listTool)
     [n, m] = size(listTool)
     if n == 1
-      displayMessage("La Toolbox suivante correspond a la recherche :")
-      displayMessage(listTool)
+      atomsDisplayMessage("La Toolbox suivante correspond a la recherche :")
+      atomsDisplayMessage(listTool)
     else
-      displayMessage("Les Toolboxes suivantes correspondent a la recherche :")
+      atomsDisplayMessage("Les Toolboxes suivantes correspondent a la recherche :")
       for i=1:n
-        displayMessage("- " + listTool(i))
+        atomsDisplayMessage("- " + listTool(i))
       end
     end
   end
@@ -117,5 +117,5 @@ function var = splitWord(var)
   // On passe tout en minuscule
   var = convstr(var,"l")
   // On split (erreur si le dernier caractère est un " ")
-  var = splitValue(var, " ")
+  var = atomsSplitValue(var, " ")
 endfunction

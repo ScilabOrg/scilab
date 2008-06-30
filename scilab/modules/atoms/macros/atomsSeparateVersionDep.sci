@@ -1,7 +1,7 @@
 // Séparation de la dépendance et de la version
 // avril 2008 by Delphine
 
-function [depend, version] = separateVersionDep(depend)
+function [depend, version] = atomsSeparateVersionDep(depend)
   version = ""
   index = strindex(depend, "(")
   if index > 0

@@ -1,9 +1,9 @@
 // Parsing of the Description file
 // avril 2008 by Delphine
 
-function desc = readDescription(nom)
+function desc = atomsReadDesc(nom)
   // On va dans le repertoire contenant les toolboxes
-  rep = toolboxDirectory()
+  rep = atomsToolboxDirectory()
   d = rep + nom
   // Gestion des OS differents
   if getos() == "Windows"
@@ -15,23 +15,23 @@ function desc = readDescription(nom)
   if (isdir(d) & ls(directory) <> [])
     cd (d)
     // Lecture du fichier description qu'on stocke dans un tableau
-    tab = readFile("DESCRIPTION")
+    tab = atomsReadFile("DESCRIPTION")
     // Création d'un "tableau de hash"
-    desc = listDescription()
+    desc = atomsListDescription()
     // Remplissage du tableau de hash
     desc = hashTable(desc, tab)
     // Traitement du nom de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès. 
-    desc("Toolbox") = substituteString(desc("Toolbox"))
+    desc("Toolbox") = atomsSubstituteString(desc("Toolbox"))
     // On rajoute le champs fonction
     clearglobal numberFunction
-    desc("Function") = readDescriptionFunctions(nom)
+    desc("Function") = atomsReadDescFunctions(nom)
   // Soit on va voir sur le net
   else
   	cd (rep)
   	// Création d'un "tableau de hash"
-	desc = listDescription()
+	desc = atomsListDescription()
 	// Liste des site à parcourir
-	listMirror = toolboxMirror()
+	listMirror = atomsToolboxMirror()
 	[n, m] = size(listMirror)
 	clearglobal numberFunction
 	global numberFunction
@@ -40,7 +40,7 @@ function desc = readDescription(nom)
 	  // On récupère le fichier sur le site et on met une copie dans le dossier sous le nom de TOOLBOXES
   	  if dlFile(listMirror(i), "TOOLBOXES")
         // Lecture du fichier TOOLBOXES qu'on stocke dans un tableau
-        tab = readFile("TOOLBOXES")
+        tab = atomsReadFile("TOOLBOXES")
         // On supprime le fichier temporaire créé
         if ~removeFile("TOOLBOXES")
 	      disp("Veuillez supprimer le fichier TOOLBOXES dans le repertoire courant")
@@ -50,7 +50,7 @@ function desc = readDescription(nom)
         // Traitement des noms de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès.
         [a, b] = size(desc("Toolbox"))
         for j=1:a
-          desc("Toolbox")(j) = substituteString(desc("Toolbox")(j))
+          desc("Toolbox")(j) = atomsSubstituteString(desc("Toolbox")(j))
         end
       else
         result = %f
@@ -67,7 +67,7 @@ function result = dlFile(web, fileWeb)
 	[rep,stat,err] = unix_g("wget " + web + "/TOOLBOXES" + " -O " + fileWeb)
 	// Si le fichier n'est pas present
 	if stat <> 0
-	  displayMessage("Verifiez la validite du repository")
+	  atomsDisplayMessage("Verifiez la validite du repository")
 	  if ~removeFile(fileWeb)
 	    disp("Veuillez supprimer le fichier " + fileWeb + " dans le repertoire courant")
 	  end
@@ -86,7 +86,7 @@ endfunction
 
 // Remplissage du tableau de hash simple (fichier DESCRIPTION)
 function listDesc = hashTable(listDesc, tabDesc)
-  [listeObl, listeOpt] = constant()
+  [listeObl, listeOpt] = atomsConstant()
   // On crée toutes les "cases" pour que même si un champs optionnel n'est pas présent dans le tableau, la case existe.
   [o, p] = size(listeOpt)
   for i=1:p
@@ -111,7 +111,7 @@ endfunction
 // Remplissage du tableau de hash (fichier TOOLBOXE)
 function listDesc = hashTable2(listDesc, tabDesc)
   global numberFunction
-  [listeObl, listeOpt] = constant()
+  [listeObl, listeOpt] = atomsConstant()
   [n, m] = size(tabDesc)
   [nbTool, m] = size(listDesc("Toolbox"))
   [o, p] = size(listeOpt)

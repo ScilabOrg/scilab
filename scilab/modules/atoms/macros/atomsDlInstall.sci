@@ -1,12 +1,12 @@
 // DL et install
 // avril 2008 by Delphine
 
-function result = dlInstall(nom, version)
-  rep = toolboxDirectory()
+function result = atomsDlInstall(nom, version)
+  rep = atomsToolboxDirectory()
   arch = nom + "." + version + ".tar.gz"
   // Téléchargement de l'archive
   cd (rep)
-  listMirror = toolboxMirror()
+  listMirror = atomsToolboxMirror()
   if dlArchive(listMirror, 1, arch)
     // Dezippage
     if dezipp(arch)
@@ -36,7 +36,7 @@ function result = dlArchive(listWeb, position, name)
     [n, m] = size(listWeb)
     // Si on dépasse la taille de la liste
     if (position + 1) > m
-      displayMessage("Verifiez la validite du repository")
+      atomsDisplayMessage("Verifiez la validite du repository")
       result = %f
       return result
     else

@@ -2,7 +2,7 @@
 // avril 2008 by Delphine
 
 // Champs présents dans le fichier DESCRIPTION
-function [listeObl, listeOpt] = constant()
+function [listeObl, listeOpt] = atomsConstant()
   // Champs obligatoires
   listeObl = ["Toolbox","Version","Title","Author","Maintainer","Description","License","Category","ScilabVersion"]
   // Champs optionnels

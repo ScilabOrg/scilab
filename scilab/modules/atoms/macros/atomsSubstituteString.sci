@@ -1,7 +1,7 @@
 // Substitution of special characters in the toolbox's name
 // avril 2008 by Delphine
 
-function str = substituteString(str)
+function str = atomsSubstituteString(str)
     str = strsubst(str, " ", "_")
     str = strsubst(str, "é", "e")
     str = strsubst(str, "è", "e")
