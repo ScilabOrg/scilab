@@ -15,3 +15,5 @@ load('SCI/modules/atoms/macros/lib');
 //add help chapter
 add_module_help_chapter('atoms');
 // ====================================================================
+// Create user's toolboxes directory
+mkdir(toolboxDirectory());
