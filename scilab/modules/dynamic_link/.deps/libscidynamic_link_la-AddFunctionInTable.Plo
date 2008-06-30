@@ -1,0 +1,80 @@
+libscidynamic_link_la-AddFunctionInTable.lo: src/c/AddFunctionInTable.c \
+  /usr/include/string.h /usr/include/features.h /usr/include/sys/cdefs.h \
+  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+  /usr/include/gnu/stubs-32.h \
+  /usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include/stddef.h \
+  /usr/include/bits/string.h /usr/include/bits/string2.h \
+  /usr/include/endian.h /usr/include/bits/endian.h \
+  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+  /usr/include/stdlib.h includes/AddFunctionInTable.h \
+  ../../modules/core/includes/machine.h \
+  ../../modules/core/includes/PATH_MAX.h \
+  /usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include-fixed/limits.h \
+  /usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include-fixed/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h ../../modules/core/includes/BOOL.h \
+  ../../modules/core/includes/PARAMS.h includes/dynamic_link.h \
+  ../../libs/MALLOC/includes/MALLOC.h \
+  ../../libs/MALLOC/includes/sci_mem_alloc.h \
+  ../../libs/MALLOC/includes/ExportImport.h
+
+/usr/include/string.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-32.h:
+
+/usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include/stddef.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/stdlib.h:
+
+includes/AddFunctionInTable.h:
+
+../../modules/core/includes/machine.h:
+
+../../modules/core/includes/PATH_MAX.h:
+
+/usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include-fixed/limits.h:
+
+/usr/lib/gcc/i686-pc-linux-gnu/4.3.1/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+../../modules/core/includes/BOOL.h:
+
+../../modules/core/includes/PARAMS.h:
+
+includes/dynamic_link.h:
+
+../../libs/MALLOC/includes/MALLOC.h:
+
+../../libs/MALLOC/includes/sci_mem_alloc.h:
+
+../../libs/MALLOC/includes/ExportImport.h:
