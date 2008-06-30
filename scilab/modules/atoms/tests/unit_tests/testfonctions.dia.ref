@@ -65,8 +65,6 @@ Warning : redefining function: toolboxMirror           . Use funcprot(0) to avoi
 // chargement de toutes les toolbox sur le web
 test = readDescription(""); if size(test("Toolbox")) <> 0 then bugmes();quit;end;
  
- --17:05:36--  http://128.93.23.238/scilab/bin/linux/contrib/TOOLBOXES  
- 
  Verifiez la validite du repository   
 // on remet les bon Mirrors
 function listMirror = toolboxMirror()
@@ -144,9 +142,6 @@ if updateToolbox("updateB") <> %t then bugmes();quit;end;
  La toolbox updateB va etre update en version 1.2.2   
  
  Va etre installe : updateB   
- 
- --17:05:38--  http://128.93.23.238/scilab/src/contrib/updateB.1.2.2.ta 
-      r.gz                                                              
 // Suppression des toolboxes
 if removeToolbox("updateA") <> %t then bugmes();quit;end;
  
