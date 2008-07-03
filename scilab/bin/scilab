@@ -414,7 +414,7 @@ do_scilex()
     export XAPPLRESDIR
 
 #    tty -s && stty kill '^U' intr '^C' erase '^H' quit '^\' eof '^D' susp '^Z'
-    "$SCILABBIN" $*
+    "$SCILABBIN" "$@"
 }
 
 do_scilex_now()
@@ -425,7 +425,7 @@ do_scilex_now()
     XAPPLRESDIR=$SCI/X11_defaults
     export XAPPLRESDIR
 
-    "$SCILABBIN" $*
+    "$SCILABBIN" "$@"
 }
 
 do_help()
@@ -652,7 +652,7 @@ if test "$rest" = "yes"; then
   prevarg=
   language=
   fontname=
-  for sciarg
+  for sciarg in "$@"
   do
     # If the previous argument needs an argument, assign it.
     if test -n "$prevarg"; then
@@ -759,10 +759,10 @@ if test "$rest" = "yes"; then
 			else
 				if test -n "$now"; then
 					sci_exe="do_scilex_now"
-					$sci_exe $sci_args
+					$sci_exe "$@"
 				else
 					sci_exe="do_scilex"
-					$sci_exe $sci_args
+					$sci_exe "$@"
 				fi # now
 			fi # Not electric fense
 		fi # not profiling visu
