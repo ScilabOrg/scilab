@@ -51,7 +51,7 @@ endfunction
 // Dezippage
 function result = dezipp(fileD)
   if getos() == "Windows"
-    [rep,stat,err] = unix_g("zcat " + fileD + " | tar -xv")
+    [rep,stat,err] = unix_g("zcat " + fileD + " | tar -xvf -")
   else // linux et mac
     [rep,stat,err] = unix_g("tar -zxvf " + fileD)
   end
