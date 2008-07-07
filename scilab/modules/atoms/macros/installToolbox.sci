@@ -9,7 +9,7 @@ function result = installToolbox(nom, checkVersionScilab)
   global checkVersionScilab
   // On regarde si le 2eme argument existe
   if argn(2) == 1
-    checkVersionScilab = "oui"
+    checkVersionScilab = %t
   end
   // On enlève les charactères spéciaux
   nom = atomsSubstituteString(nom)

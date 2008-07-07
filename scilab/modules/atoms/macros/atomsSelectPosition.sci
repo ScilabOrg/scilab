@@ -8,12 +8,12 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox)
     versionToolbox = atomsDecoupVersion(versionToolbox)
   end
   for i=1:n
-    if (atomsVerifVersionScilab(listDesc("ScilabVersion")(i)) & checkVersionScilab == "oui") | checkVersionScilab == "non"
+    if (atomsVerifVersionScilab(listDesc("ScilabVersion")(i)) & checkVersionScilab) | ~checkVersionScilab
       if versionToolbox == "" & listDesc("Toolbox")(i) == nomToolbox
         position = i
         // Recherche de version plus récente
         for j=i+1:n
-          if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab == "oui") | checkVersionScilab == "non"
+          if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab) | ~checkVersionScilab
             if listDesc("Toolbox")(j) == nomToolbox
               vi = atomsDecoupVersion(listDesc("Version")(position))
               vj = atomsDecoupVersion(listDesc("Version")(j))
@@ -29,7 +29,7 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox)
         position = i
           // Recherche de version plus récente
           for j=i+1:n
-            if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab == "oui") | checkVersionScilab == "non"
+            if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab) | ~checkVersionScilab
               if listDesc("Toolbox")(j) == nomToolbox & ((signeToolbox == "<=" | signeToolbox == "=") & (atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox) == -1) | ((signeToolbox == ">=" | signeToolbox == "=") & atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox) == 1))
                 vi = atomsDecoupVersion(listDesc("Version")(position))
                 vj = atomsDecoupVersion(listDesc("Version")(j))

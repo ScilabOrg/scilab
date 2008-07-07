@@ -5,7 +5,7 @@
 function result = installToolboxCategory(cat, sscat, checkVersionScilab)
   global checkVersionScilab
   if argn(2) == 2
-    checkVersionScilab = "oui"
+    checkVersionScilab = %t
   end
   result = %f
   // On charge la liste de toutes les toolboxes dispo sur le net
@@ -16,7 +16,7 @@ function result = installToolboxCategory(cat, sscat, checkVersionScilab)
     // On regarde si cette toolbox appartient à la cat/sscat demandée
     regularExpression = "/" + cat + " \((\w*, )*" + sscat + "(, \w*)*\)/"
     // Si oui on l'installe si elle convient à la version de scilab
-    if regexp(catTool, regularExpression) <> [] & ((atomsVerifVersionScilab(desc("ScilabVersion")(i)) & checkVersionScilab == "oui") | checkVersionScilab == "non")
+    if regexp(catTool, regularExpression) <> [] & ((atomsVerifVersionScilab(desc("ScilabVersion")(i)) & checkVersionScilab) | ~checkVersionScilab)
       // On ne peut pas prendre result = installToolbox() car s'il y a une erreur d'install, result = %f
       installToolbox(desc("Toolbox")(i));
       result = %t
