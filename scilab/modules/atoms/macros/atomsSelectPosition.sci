@@ -23,17 +23,19 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, ch
             end
           end      
         end
-      return position
+        return position
       elseif listDesc("Toolbox")(i) == nomToolbox
-        if (signeToolbox == "<=" | signeToolbox == "=") & (atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(i)), versionToolbox) == -1) | ((signeToolbox == ">=" | signeToolbox == "=") & atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(i)), versionToolbox) == 1)
-        position = i
+        cmp = atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(i)), versionToolbox);
+        if (signeToolbox == "<=" & cmp <= 0) | (signeToolbox == ">=" & cmp >= 0) | (signeToolbox == "=" & cmp == 0)
+          position = i
           // Recherche de version plus récente
           for j=i+1:n
             if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab) | ~checkVersionScilab
-              if listDesc("Toolbox")(j) == nomToolbox & ((signeToolbox == "<=" | signeToolbox == "=") & (atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox) == -1) | ((signeToolbox == ">=" | signeToolbox == "=") & atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox) == 1))
+              cmp = atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox);
+              if listDesc("Toolbox")(j) == nomToolbox & ((signeToolbox == "<=" & cmp <= 0) | (signeToolbox == ">=" & cmp >= 0) | (signeToolbox == "=" & cmp == 0))
                 vi = atomsDecoupVersion(listDesc("Version")(position))
                 vj = atomsDecoupVersion(listDesc("Version")(j))
-	  	        if atomsCompareVersion(vj, vi) == 0 | atomsCompareVersion(vj, vi) == 1
+	  	        if atomsCompareVersion(vj, vi) >= 0
 		          position = j
 		        end
               end
