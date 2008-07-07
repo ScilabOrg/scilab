@@ -9,9 +9,12 @@
 // unit tests Toolboxes functions
 //===============================
 
+predef(0);
+funcprot(0);
+
 // on modifie la position du dossier contenant les toolboxes pour les tests
 function rep = atomsToolboxDirectory()
-  rep = "home/dev/package_manager/modules/atoms/tests/unit_tests/toolboxes/"
+  rep = "SCI/modules/atoms/tests/unit_tests/toolboxes/"
 endfunction
 
 // lecture DESCRIPTION en local (/!\ l'ordre des champs importe pour la comparaison verif <> test)
