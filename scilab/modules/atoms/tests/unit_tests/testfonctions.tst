@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2108 - INRIA -
+// Copyright (C) 2008 - INRIA -
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,7 +27,7 @@ verif("Description") = "Test de code scilab pour lire les DESCRIPTION. Avec une 
 verif("License") = "Aucune";
 verif("Category") = "essai";
 verif("ScilabVersion") = ">= 5.0";
-verif("Date") = "2108-03-31";
+verif("Date") = "2008-03-31";
 verif("Depends") = "testB, testC, testH";
 verif("ExternalDepends") = "";
 verif("URL") = "";

@@ -41,21 +41,21 @@ function listMirror = atomsToolboxMirror()
 endfunction
 
 test = atomsReadDesc("");
-[n, m] = size(test("Toolbox")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Version")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Title")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Author")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Maintainer")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Description")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("License")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Category")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("ScilabVersion")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Date")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Depends")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("ExternalDepends")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("URL")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Entity")); if n <> 20 then bugmes();quit;end;
-[n, m] = size(test("Function")); if n <> 20 then bugmes();quit;end;
+[n, m] = size(test("Toolbox")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Version")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Title")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Author")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Maintainer")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Description")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("License")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Category")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("ScilabVersion")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Date")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Depends")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("ExternalDepends")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("URL")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Entity")); if n <> 21 then bugmes();quit;end;
+[n, m] = size(test("Function")); if n <> 21 then bugmes();quit;end;
 // on choisi un Mirror non conforme
 function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/bin/linux/contrib"];
