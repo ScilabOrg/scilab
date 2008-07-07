@@ -1,15 +1,17 @@
 // Installation d'une toolbox
 // avril 2008 by Delphine
 
-function result = installToolbox(nom, checkVersionScilab)
+function result = installToolbox(nom, checkVersionScilab, version)
   global conflictingList
   global conflictLocal
   global nomconflictLocal
   global conflictVersion
-  global checkVersionScilab
-  // On regarde si le 2eme argument existe
+  // On regarde si les arguments existent
   if argn(2) == 1
     checkVersionScilab = %t
+  end
+  if argn(2) <= 2
+    version = ""
   end
   // On enlève les charactères spéciaux
   nom = atomsSubstituteString(nom)
@@ -22,7 +24,7 @@ function result = installToolbox(nom, checkVersionScilab)
   clearglobal nomconflictLocal
   clearglobal conflictVersion
   // Récupération de la liste des toolboxes à installer
-  listTool = atomsCheckConflict(nom)
+  listTool = atomsCheckConflict(nom, version, checkVersionScilab)
   // S'il existe une ligne vide, c'est qu'il manque une dépendance
   if find(listTool == "") <> []
     if conflictLocal == 1

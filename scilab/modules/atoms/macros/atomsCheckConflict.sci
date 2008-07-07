@@ -1,7 +1,7 @@
 // Construction de la liste des dépendances
 // avril 2008 by Delphine
 
-function listeDep = atomsCheckConflict(nom, version)
+function listeDep = atomsCheckConflict(nom, version, checkVersionScilab)
   global conflictLocal
   global conflictingList
   global nomconflictLocal
@@ -55,7 +55,7 @@ function listeDep = checkDependencies(nom, version)
   // Lecture du fichier description
   desc = atomsReadDesc(nom)
   // Selection de la position de la toolbox dans la liste des toolboxes disponibles.
-  position = atomsSelectPosition(desc, nom, version)
+  position = atomsSelectPosition(desc, nom, version, checkVersionScilab)
   // Cas ou la toolboxe n'est pas présente
   if position == 0
     atomsDisplayMessage("Toolbox " + nom + " non trouvee")

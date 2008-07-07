@@ -3,7 +3,6 @@
 
 // Category : cat1 (sscat1, sscat2); cat2 (sscat3, sscat4)
 function result = installToolboxCategory(cat, sscat, checkVersionScilab)
-  global checkVersionScilab
   if argn(2) == 2
     checkVersionScilab = %t
   end

@@ -2,7 +2,6 @@
 // avril 2008 by Delphine
 
 function result = updateToolbox(nom, checkVersionScilab)
-  global checkVersionScilab
   // On regarde si le 2eme argument existe
   if argn(2) == 1
     checkVersionScilab = %t
@@ -36,7 +35,7 @@ function result = updateToolbox(nom, checkVersionScilab)
     // On recupère la liste de toutes les autres toolboxes disponibles
     listDesc = atomsReadDesc("")
     // On prend la version la plus récente
-    position = atomsSelectPosition(listDesc, nom, "")
+    position = atomsSelectPosition(listDesc, nom, "", checkVersionScilab)
     // Si la toolbox n'est pas disponible en ligne
     if position == 0
       atomsDisplayMessage("Toolbox non disponible sur le net")

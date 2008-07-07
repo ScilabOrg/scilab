@@ -1,7 +1,7 @@
 // Selection de la position d'un toolbox dans la liste des toolboxes disponibles.
 // avril 2008 by Delphine
 
-function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox)
+function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, checkVersionScilab)
   [n, m] = size(listDesc("Toolbox"))
   if versionToolbox <> ""
     [signeToolbox, versionToolbox] = atomsSeparateSignVersion(versionToolbox)
