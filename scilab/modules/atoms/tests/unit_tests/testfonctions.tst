@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA -
+// Copyright (C) 2108 - INRIA -
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -27,7 +27,7 @@ verif("Description") = "Test de code scilab pour lire les DESCRIPTION. Avec une 
 verif("License") = "Aucune";
 verif("Category") = "essai";
 verif("ScilabVersion") = ">= 5.0";
-verif("Date") = "2008-03-31";
+verif("Date") = "2108-03-31";
 verif("Depends") = "testB, testC, testH";
 verif("ExternalDepends") = "";
 verif("URL") = "";
@@ -43,21 +43,21 @@ function listMirror = atomsToolboxMirror()
   listMirror = ["http://128.93.23.238/scilab/src/contrib"]
 endfunction
 test = atomsReadDesc("");
-[n, m] = size(test("Toolbox")); if n <> 20 then pause, end;
-[n, m] = size(test("Version")); if n <> 20 then pause, end;
-[n, m] = size(test("Title")); if n <> 20 then pause, end;
-[n, m] = size(test("Author")); if n <> 20 then pause, end;
-[n, m] = size(test("Maintainer")); if n <> 20 then pause, end;
-[n, m] = size(test("Description")); if n <> 20 then pause, end;
-[n, m] = size(test("License")); if n <> 20 then pause, end;
-[n, m] = size(test("Category")); if n <> 20 then pause, end;
-[n, m] = size(test("ScilabVersion")); if n <> 20 then pause, end;
-[n, m] = size(test("Date")); if n <> 20 then pause, end;
-[n, m] = size(test("Depends")); if n <> 20 then pause, end;
-[n, m] = size(test("ExternalDepends")); if n <> 20 then pause, end;
-[n, m] = size(test("URL")); if n <> 20 then pause, end;
-[n, m] = size(test("Entity")); if n <> 20 then pause, end;
-[n, m] = size(test("Function")); if n <> 20 then pause, end;
+[n, m] = size(test("Toolbox")); if n <> 21 then pause, end;
+[n, m] = size(test("Version")); if n <> 21 then pause, end;
+[n, m] = size(test("Title")); if n <> 21 then pause, end;
+[n, m] = size(test("Author")); if n <> 21 then pause, end;
+[n, m] = size(test("Maintainer")); if n <> 21 then pause, end;
+[n, m] = size(test("Description")); if n <> 21 then pause, end;
+[n, m] = size(test("License")); if n <> 21 then pause, end;
+[n, m] = size(test("Category")); if n <> 21 then pause, end;
+[n, m] = size(test("ScilabVersion")); if n <> 21 then pause, end;
+[n, m] = size(test("Date")); if n <> 21 then pause, end;
+[n, m] = size(test("Depends")); if n <> 21 then pause, end;
+[n, m] = size(test("ExternalDepends")); if n <> 21 then pause, end;
+[n, m] = size(test("URL")); if n <> 21 then pause, end;
+[n, m] = size(test("Entity")); if n <> 21 then pause, end;
+[n, m] = size(test("Function")); if n <> 21 then pause, end;
 
 // on choisi un Mirror non conforme
 function listMirror = atomsToolboxMirror()
