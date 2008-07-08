@@ -165,6 +165,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BATIK = @BATIK@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -192,6 +193,7 @@ FFTW3_LIB = @FFTW3_LIB@
 FFTW_ENABLE = @FFTW_ENABLE@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
+FOP = @FOP@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
 GREP = @GREP@
@@ -209,6 +211,7 @@ JAVA_HOME = @JAVA_HOME@
 JAVA_JNI_INCLUDE = @JAVA_JNI_INCLUDE@
 JAVA_JNI_LIBS = @JAVA_JNI_LIBS@
 JDB = @JDB@
+JEUCLID_CORE = @JEUCLID_CORE@
 JHALL = @JHALL@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
@@ -257,6 +260,8 @@ PVM_LIB = @PVM_LIB@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
+RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SED = @SED@
@@ -402,6 +407,7 @@ src/scripts/configure \
 src/scripts/depcomp \
 src/scripts/install-sh \
 src/scripts/missing \
+src/scripts/libtool \
 src/scripts/scicompile.sh
 
 
@@ -1098,18 +1104,13 @@ install-data-local:
 # Install the tests
 	@echo "-- Install tests (if any) --"; \
 	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
-	  if test -d $(srcdir)/$$dir/; then \
-	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
-		  for file in `find $(srcdir)/$$dir | grep -v '\.svn' | sed "s#^$(srcdir)/$$dir##" 2>/dev/null`; do \
-		    if test -d "$(srcdir)/$$dir/$$file"; then \
-			  echo $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir/$$file; \
-			  $(mkinstalldirs) "$(DESTDIR)$(pkgmacrosdir)/$$dir/$$file"; \
-		    else \
-		      echo "$(INSTALL_DATA) $(srcdir)/$$dir/$$file $(DESTDIR)$(pkgmacrosdir)/`dirname $$dir/$$file`" ; \
-	    	  $(INSTALL_DATA) "$(srcdir)/$$dir/$$file" "$(DESTDIR)$(pkgmacrosdir)/`dirname $$dir/$$file`" ; \
-		    fi \
+	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
+		if test -d $(srcdir)/$$dir/; then \
+		  for file in `ls -1 $(srcdir)/$$dir/* 2>/dev/null`; do \
+		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgmacrosdir)/$$dir" ; \
+	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgmacrosdir)/$$dir ; \
 		  done; \
-	  fi; \
+		fi; \
 	done
 # Install the macros
 	@echo "-- Install macros (if any) --"; \
