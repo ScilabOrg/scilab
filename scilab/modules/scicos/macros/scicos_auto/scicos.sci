@@ -275,8 +275,11 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
     //** palette relatives to the local directory
     if execstr('load(''.scicos_pal'')','errcatch')==0 then
       //** if the load has been positive
-      scicos_pal = gunique(scicos_pal,scicos_paltmp); //** remove the duplicate item(s)
-    end                                               //** in the palette
+      scicos_pal = gunique(scicos_pal,scicos_paltmp); //** remove the duplicate item(s) in the palette
+      //** check is given palettes paths are still valid
+      scicos_pal = check_palettes_paths(scicos_pal)
+     
+    end                                               
 
     //** load - if present - the used defined local shortcut
     execstr('load(''.scicos_short'')','errcatch')  // keyboard shortcuts
@@ -431,23 +434,26 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
       getcolor = tk_getcolor; //** Tk    "        "
 
       //** --------- Popup OS dependent definition -----------------
-      getfile = xgetfile;
-      savefile = getfile;
+      getfile  = xgetfile; //** using Java most of these aliases 
+      savefile = getfile;  //** are _obsolete_
+      
       mpopup = createpopup;
       mdialog = x_mdialog;
-      getvalue = x_getvalue;
+      
+      //** In Scilab 4.1.2 "getvalue  = tk_getvalue ;"
+      //** In scilab 5 we use "modules/scicos/macros/scicos_util/getvalue.sci"
+      //** by Alan Layec, modified in order to accept string, etc. 
 
       if MSDOS then
 	//** Windows 
-	choose    = tk_scicos_choose   ;
+	choose    = tk_scicos_choose ; //** please check with Allan Cornet 
        else
         //** Linux 
  	deff('x = choose(varargin)', 'x = x_choose(varargin(1:$))');
       end
 
       funcprot(prot);
-      //** -------- ... end of popup --------------------------------
-
+      
     else
       //** Scicos works in "text mode"
       deff('x=getfile(varargin)','x=xgetfile(varargin(1:$))');
@@ -757,11 +763,11 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
 	  //** execstr('exec('+%cor_item_exec(%koko,2)+',1)')
 
           //** Used for standard DEBUG ONLY -->
-          //**     disp(%cor_item_exec(%koko,2)); //** disp the current exec 
+          //** disp(%cor_item_exec(%koko,2)); //** disp the current exec 
           //** execstr('exec('+%cor_item_exec(%koko,2)+',-1)'); //** nothing is printed 
 	  
           //** RELEASE --> Please reactivate the error catcher before final release 
-	  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
+		  execstr('ierr=exec('+%cor_item_exec(%koko,2)+',''errcatch'',-1)')
 
 	  if ierr > 0 then
 	    Cmenu = "Replot"
@@ -935,3 +941,20 @@ endfunction
 
 //**---------------------------------------------------------------------------------------------------------------------
 
+function scicos_pal = check_palettes_paths(scicos_pal)
+  toremove=[]
+  for k=1:size(scicos_pal,1)
+    if fileinfo(scicos_pal(k,2))==[] then toremove=[toremove k],end
+  end
+  //remove invalid ones out of scicos_pal
+  if toremove<>[] then
+    rmpal=scicos_pal(toremove,:)
+    rmpal(:,1)=part(rmpal(:,1),1:max(length(rmpal(:,1))))
+    message(['Following palette(s) ignored (associated file(s) no more exist):';
+	     ' '
+	     rmpal(:,1)+':  '+rmpal(:,2)
+	     ' '
+	     ' To avoid this message, please update the ""'+pwd()+filesep()+'.scicos_pal"" file'])
+    scicos_pal(toremove,:)=[];
+  end
+endfunction

@@ -36,10 +36,10 @@ int GetUicontrolPosition(sciPointObj* sciObj)
         }
           
       tmp = new double[4];
-      tmp[0] = returnValues[0] + 1;
-      tmp[1] = sciGetHeight(sciGetParent(sciObj)) - returnValues[1] + 1;
-      tmp[2] = returnValues[2] + 1;
-      tmp[3] = returnValues[3] + 1;
+      tmp[0] = returnValues[0];
+      tmp[1] = returnValues[1];
+      tmp[2] = returnValues[2];
+      tmp[3] = returnValues[3];
      
       returnFlag =  sciReturnRowVector(tmp, 4);
       
@@ -49,7 +49,7 @@ int GetUicontrolPosition(sciPointObj* sciObj)
     }
   else
     {
-      sciprint(_("No %s property for this object.\n"), "Position");
+      sciprint(_("No '%s' property for this object.\n"), "Position");
       return FALSE;
     }
 }

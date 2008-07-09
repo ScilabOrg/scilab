@@ -13,7 +13,6 @@
 
 
 package org.scilab.modules.renderer;
-import javax.media.opengl.GL;
 
 import org.scilab.modules.renderer.utils.glTools.MovableClipPlane3D;
 
@@ -23,6 +22,9 @@ import org.scilab.modules.renderer.utils.glTools.MovableClipPlane3D;
  */
 public abstract class DrawableClippedObjectGL extends DrawableObjectGL {
 
+	/** Experimental value to avoid to strict clipping */
+	private static final double EPSILON = 1.0e-6;
+	
 	private MovableClipPlane3D planeXmin;
 	private MovableClipPlane3D planeXmax;
 	private MovableClipPlane3D planeYmin;
@@ -36,16 +38,17 @@ public abstract class DrawableClippedObjectGL extends DrawableObjectGL {
 	 * @param xMax maximum shown value on X axis
 	 */
 	public void clipX(double xMin, double xMax) {
-		GL gl = getGL();
-		// drawn points (x,y,z) are the one verifying a.x + b.y + c.z + d >= 0.
-		double[] equationXmin = {1.0, 0.0, 0.0, -xMin}; // x >= xMin
-		planeXmin = new MovableClipPlane3D(equationXmin);
-		planeXmin.clip(gl);
-
-		double[] equationXmax = {-1.0, 0.0, 0.0, xMax}; // x <= xMax
-		planeXmax = new MovableClipPlane3D(equationXmax);
-		planeXmax.clip(gl);
+		// add a little offset to avoid being to strict on clipping
+		double offset = (xMax - xMin) * EPSILON;
 		
+		// drawn points (x,y,z) are the one verifying a.x + b.y + c.z + d >= 0.
+		double[] equationXmin = {1.0, 0.0, 0.0, -xMin + offset}; // x >= xMin - offset
+		planeXmin = new MovableClipPlane3D(equationXmin);
+		clipPlane(planeXmin);
+
+		double[] equationXmax = {-1.0, 0.0, 0.0, xMax + offset}; // x <= xMax + offset
+		planeXmax = new MovableClipPlane3D(equationXmax);
+		clipPlane(planeXmax);
 	}
 	
 	/**
@@ -54,14 +57,15 @@ public abstract class DrawableClippedObjectGL extends DrawableObjectGL {
 	 * @param yMax maximum shown value on Y axis
 	 */
 	public void clipY(double yMin, double yMax) {
-		GL gl = getGL();
-		double[] equationYmin = {0.0, 1.0, 0.0, -yMin};
+		double offset = (yMax - yMin) * EPSILON;
+		
+		double[] equationYmin = {0.0, 1.0, 0.0, -yMin + offset};
 		planeYmin = new MovableClipPlane3D(equationYmin);
-		planeYmin.clip(gl);
+		clipPlane(planeYmin);
 
-		double[] equationYmax = {0.0, -1.0, 0.0, yMax};
+		double[] equationYmax = {0.0, -1.0, 0.0, yMax + offset};
 		planeYmax = new MovableClipPlane3D(equationYmax);
-		planeYmax.clip(gl);
+		clipPlane(planeYmax);
 	}
 	
 	/**
@@ -70,14 +74,15 @@ public abstract class DrawableClippedObjectGL extends DrawableObjectGL {
 	 * @param zMax maximum shown value on Z axis
 	 */
 	public void clipZ(double zMin, double zMax) {
-		GL gl = getGL();
-		double[] equationZmin = {0.0, 0.0, 1.0, -zMin};
+		double offset = (zMax - zMin) * EPSILON;
+		
+		double[] equationZmin = {0.0, 0.0, 1.0, -zMin + offset};
 		planeZmin = new MovableClipPlane3D(equationZmin);
-		planeZmin.clip(gl);
+		clipPlane(planeZmin);
 
-		double[] equationZmax = {0.0, 0.0, -1.0, zMax};
+		double[] equationZmax = {0.0, 0.0, -1.0, zMax + offset};
 		planeZmax = new MovableClipPlane3D(equationZmax);
-		planeZmax.clip(gl);
+		clipPlane(planeZmax);
 	}
 	
 	
@@ -85,14 +90,31 @@ public abstract class DrawableClippedObjectGL extends DrawableObjectGL {
 	 * Disable clipping after a call to clip
 	 */
 	public void unClip() {
-		GL gl = getGL();
-		if (planeXmin != null) { planeXmin.unClip(gl); planeXmin = null; }
-		if (planeXmax != null) { planeXmax.unClip(gl); planeXmax = null; }
-		if (planeYmin != null) { planeYmin.unClip(gl); planeYmin = null; }
-		if (planeYmax != null) { planeYmax.unClip(gl); planeYmax = null; }
-		if (planeZmin != null) { planeZmin.unClip(gl); planeZmin = null; }
-		if (planeZmax != null) { planeZmax.unClip(gl); planeZmax = null; }
+		if (planeXmin != null) { unClipPlane(planeXmin); planeXmin = null; }
+		if (planeXmax != null) { unClipPlane(planeXmax); planeXmax = null; }
+		if (planeYmin != null) { unClipPlane(planeYmin); planeYmin = null; }
+		if (planeYmax != null) { unClipPlane(planeYmax); planeYmax = null; }
+		if (planeZmin != null) { unClipPlane(planeZmin); planeZmin = null; }
+		if (planeZmax != null) { unClipPlane(planeZmax); planeZmax = null; }
 
+	}
+	
+	/**
+	 * Unclip a plane and remove it from the clipping manager
+	 * @param plane one of the 6 planes
+	 */
+	private void unClipPlane(MovableClipPlane3D plane) {
+		plane.unClip(getGL());
+		getParentFigureGL().getClipPlaneManager().removeClippedPlane(plane);
+	}
+	
+	/**
+	 * Clip a plane an insert it into the clipping manager
+	 * @param plane one of the 6 planes
+	 */
+	private void clipPlane(MovableClipPlane3D plane) {
+		plane.clip(getGL());
+		getParentFigureGL().getClipPlaneManager().addClippedPlane(plane);
 	}
 
 }

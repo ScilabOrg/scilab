@@ -16,7 +16,7 @@ package org.scilab.modules.gui.graphicWindow;
 
 import org.scilab.modules.gui.canvas.Canvas;
 import org.scilab.modules.gui.canvas.ScilabCanvas;
-import org.scilab.modules.gui.events.callback.CallBack;
+import org.scilab.modules.gui.events.callback.ScilabCloseCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.tab.ScilabTab;
 import org.scilab.modules.gui.tab.Tab;
@@ -65,19 +65,19 @@ public final class ScilabGraphicWindow extends ScilabWindow {
 		
 		Tab graphicTab = ScilabTab.createTab(FIGURE_TITLE + figureIndex);
 		/* Destroy the graphic figure when the tab is closed */
-		graphicTab.setCallback(CallBack.createCallback(getClosingWindowCommand(figureIndex), CallBack.SCILAB_INSTRUCTION));
+		graphicTab.setCallback(ScilabCloseCallBack.create(figureIndex, getClosingWindowCommand(figureIndex)));
 		Canvas graphicCanvas = ScilabCanvas.createCanvas(figureIndex);
 		graphicTab.addMenuBar(menuBar);
 		graphicTab.addToolBar(toolBar);
 		graphicTab.addInfoBar(infoBar);
 		graphicTab.addMember(graphicCanvas);
 		this.addTab(graphicTab);
-		// don't draw for now
 		
 		// link the tab and canvas with their figure
 		DrawableFigureGL associatedFigure = FigureMapper.getCorrespondingFigure(figureIndex);
 		associatedFigure.setRendererProperties(new ScilabRendererProperties(graphicTab, graphicCanvas));
-		this.draw();
+		
+		// don't draw now, figure will show itself when all its parameters will be set
 	}
 
 	/**
@@ -94,7 +94,10 @@ public final class ScilabGraphicWindow extends ScilabWindow {
 	 * @return Scilab command used to close a window.
 	 */
 	private String getClosingWindowCommand(int figureIndex) {
-		return "delete(get_figure_handle(" + figureIndex + "));";
+		return "if ( (get_figure_handle(" + figureIndex + ") <> []) & get(get_figure_handle(" + figureIndex + "), 'event_handler_enable') == 'on' ) then"
+		+ "  execstr(get(get_figure_handle(" + figureIndex + "), 'event_handler')+'(" + figureIndex + ", -1, -1, -1000)');"
+		+ "end;"
+		+ "delete(get_figure_handle(" + figureIndex + "));";
 	}
 	
 }

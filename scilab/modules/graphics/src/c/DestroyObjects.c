@@ -189,7 +189,7 @@ int destroyGraphicHierarchy(sciPointObj * pthis)
       sciDestroyScreen(pthis) ;
       return 0 ;
     default:
-      sciprint (_("Entity with type %d cannot be destroyed\n"),sciGetEntityType (pthis));
+      sciprint (_("Entity with type %d cannot be destroyed.\n"),sciGetEntityType (pthis));
       return -1;
       break;
     }
@@ -438,7 +438,6 @@ DestroyLegend (sciPointObj * pthis)
 {
   sciLegend * ppLegend = pLEGEND_FEATURE (pthis) ;
   FREE ( ppLegend->pptabofpointobj );
-  FREE ( ppLegend->pstyle ) ;
   deleteMatrix( ppLegend->text.pStrings ) ;
 
   FREE ((sciGetFontContext(pthis))->pfontname);

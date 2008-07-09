@@ -65,7 +65,6 @@ src/c/scilabmode.c \
 src/c/GetXmlFileEncoding.c \
 src/c/GetenvB.c \
 src/c/islittleendian.c \
-src/c/filesmanagement.c \
 src/c/terme.c \
 src/c/ifexpr.c \
 src/c/expr.c \
@@ -291,7 +290,6 @@ sci_gateway/fortran/sci_iserror.f \
 sci_gateway/fortran/sci_type.f \
 sci_gateway/fortran/sci_mode.f \
 sci_gateway/fortran/sci_debug.f \
-sci_gateway/fortran/sci_error.f \
 sci_gateway/fortran/sci_isglobal.f
 
 libscicore_la_CFLAGS=  	-Iincludes/ \
@@ -358,7 +356,6 @@ includes/commandwords.h \
 includes/core_math.h \
 includes/ExceptionMessage.h \
 includes/existfunction.h \
-includes/filesmanagement.h \
 includes/freeArrayOfString.h \
 includes/fromjava.h \
 includes/Funtab.h \

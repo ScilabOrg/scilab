@@ -18,11 +18,13 @@
 #include "ComputeTicksStrategy.hxx"
 #include "DrawableSubwin.h"
 #include "GridDrawer.hxx"
+#include "AxisPositioner.hxx"
+#include "TicksDrawerBridge.hxx"
 
 namespace sciGraphics
 {
 
-class TicksDrawer : public virtual DrawableObjectBridge
+class TicksDrawer
 {
 public:
   
@@ -34,6 +36,20 @@ public:
 
   void setGridDrawer(GridDrawer * gridDrawer);
 
+  void setAxisPositioner(AxisPositioner * positioner);
+
+  void setTicksDrawer(TicksDrawerBridge * drawer);
+
+  /**
+   * To be called before any draw
+   */
+  void initializeDrawing(void);
+
+  /**
+   * To be called after any draw
+   */
+  void endDrawing(void);
+
   /**
    * Main function which draw ticks.
    */
@@ -42,7 +58,23 @@ public:
   /**
    * Redefined show since we can not use display lists.
    */
-  virtual double showTicks(void) = 0;
+  double show(void);
+
+  /**
+   * Get the initial number of ticks (with no reduction) that will be drawn
+   */
+  int getInitNbTicks(void);
+
+  /**
+   * Get the initial ticks positions and labels (with no reduction) that will be drawn.
+   * To be used to know the positions and labels from outside the rendering process
+   */
+  void getInitTicksPos(double ticksPositions[], char ** ticksLabels);
+
+  /**
+   * Compute bounds of the axis and direction of ticks
+   */
+  void getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]);
 
 protected:
 
@@ -52,17 +84,18 @@ protected:
    */
   double drawTicks(void);
 
-  /**
-   * Draw the ticks on the right axis on computed positions.
-   * @return distance from ticks to the axis in pixels
+   /**
+   * Redefined show since we can not use display lists.
    */
-  virtual double drawTicks(double ticksPositions[], char * ticksLabels[], char * labelsExponents[],
-                           int nbTicks, double subticksPositions[], int nbSubtics) = 0;
-
+  double showTicks(void);
   /*----------------------------------------------------------------------*/
   ComputeTicksStrategy * m_pTicksComputer;
 
+  AxisPositioner * m_pPositioner;
+
   GridDrawer * m_pGridDrawer;
+
+  TicksDrawerBridge * m_pTicksDrawer;
   /*----------------------------------------------------------------------*/
 };
 

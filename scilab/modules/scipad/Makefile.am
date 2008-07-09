@@ -10,7 +10,7 @@ modulename=scipad
 
 #### scipad : Conf files ####
 libsciscipad_la_rootdir = $(mydatadir)
-libsciscipad_la_root_DATA = changelog.txt license.txt readme.txt version.xml
+libsciscipad_la_root_DATA = changelog.txt license.txt readme.txt version.xml BUGS
 
 MACROSDIRSEXT = macros/scipad_internals
 
@@ -109,7 +109,8 @@ tcl/icons/prompt_busy_48x24.gif \
 tcl/icons/prompt_ready_48x24.gif \
 tcl/icons/removeallbp.gif \
 tcl/icons/setbp.gif \
-tcl/icons/stepstep.gif
+tcl/icons/stepstep.gif \
+tcl/icons/scipad-editor.gif
 
 include $(top_srcdir)/Makefile.incl.am
 
@@ -120,7 +121,7 @@ modulename=scipad
 
 #### scipad : Conf files ####
 libsciscipad_la_rootdir = $(mydatadir)
-libsciscipad_la_root_DATA = changelog.txt license.txt readme.txt version.xml
+libsciscipad_la_root_DATA = changelog.txt license.txt readme.txt version.xml BUGS
 
 MACROSDIRSEXT = macros/scipad_internals
 

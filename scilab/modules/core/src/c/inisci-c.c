@@ -175,17 +175,14 @@ int C2F(gettmpdir)(char *buf,int *nbuf,long int lbuf)
 /*--------------------------------------------------------------------------*/
 BOOL ExistModelicac(void)
 {
-	BOOL bOK=FALSE;
-	char *SCIPATH = (char*)getSCIpath();
-	char *fullpathModelicac=NULL;
-	
-	fullpathModelicac=(char*)MALLOC((strlen(SCIPATH)+strlen(ModelicacName)+1)*sizeof(char));
-	sprintf(fullpathModelicac,"%s%s",SCIPATH,ModelicacName);
-
-	bOK=FileExist(fullpathModelicac);
-	if (fullpathModelicac) FREE(fullpathModelicac);
-	if (SCIPATH) FREE(SCIPATH);
-	return bOK;
+	char *fullpathModelicac = searchEnv( ModelicacName,"PATH");
+	if (fullpathModelicac)
+	{
+		FREE(fullpathModelicac);
+		fullpathModelicac = NULL;
+		return TRUE;
+	}
+	return FALSE;
 }
 /*--------------------------------------------------------------------------*/
 int C2F(withgui)(int *rep)

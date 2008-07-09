@@ -16,7 +16,9 @@ rhs=argn(2);
 
 if rhs < 1 then
   // No handle given so destroy current figure
-  delete(gcf());
+  if ~isempty(winsid()) then
+    delete(gcf());
+  end
 else 
   if type(h) == 9 then // Graphics handle
     delete(h);
@@ -27,7 +29,7 @@ else
     end
   else
     // Do not know what to do
-    error(msprintf(gettext("Do not know how to delete an object of type: %d.\n"), type(h)));
+    error(msprintf(gettext("%s: Wrong type for input argument #%d: A graphic handle or a real expected.\n"), "close", 1));
   end
 end
 endfunction

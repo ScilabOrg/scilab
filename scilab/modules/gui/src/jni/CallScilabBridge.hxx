@@ -153,6 +153,10 @@ jmethodID voidsetRootMenuEnabledjstringjbooleanID; // cache method id
 jmethodID voidsetRootSubMenuEnabledjstringjintjbooleanID; // cache method id
 jmethodID voidsetFigureMenuEnabledjintjstringjbooleanID; // cache method id
 jmethodID voidsetFigureSubMenuEnabledjintjstringjintjbooleanID; // cache method id
+jmethodID voidsetWidgetEnablejintjbooleanID; // cache method id
+jmethodID voidsetFrameEnablejintjbooleanID; // cache method id
+jmethodID jbooleanisWidgetEnablejintID; // cache method id
+jmethodID jbooleanisFrameEnablejintID; // cache method id
 jmethodID voidremoveRootMenujstringID; // cache method id
 jmethodID voidremoveFigureMenujintjstringID; // cache method id
 jmethodID jstringdisplayAndWaitContextMenujintID; // cache method id
@@ -196,6 +200,7 @@ jmethodID voidsetWaitBarIndeterminateModejintjbooleanID; // cache method id
 jmethodID voidlaunchHelpBrowserjobjectArrayjstringID; // cache method id
 jmethodID voidsearchKeywordjobjectArrayjstringjstringjbooleanID; // cache method id
 jmethodID voidsaveMainWindowSettingsID; // cache method id
+jmethodID jintnewExportFileChooserjintID; // cache method id
 jmethodID jintnewFontChooserID; // cache method id
 jmethodID voidfontChooserDisplayAndWaitjintID; // cache method id
 jmethodID voidsetFontChooserFontNamejintjstringID; // cache method id
@@ -468,6 +473,14 @@ static void setFigureMenuEnabled(JavaVM * jvm_, long figureID, char * menuName, 
 
 static void setFigureSubMenuEnabled(JavaVM * jvm_, long figureID, char * menuName, long position, bool status);
 
+static void setWidgetEnable(JavaVM * jvm_, long objID, bool status);
+
+static void setFrameEnable(JavaVM * jvm_, long objID, bool status);
+
+static bool isWidgetEnable(JavaVM * jvm_, long objID);
+
+static bool isFrameEnable(JavaVM * jvm_, long objID);
+
 static void removeRootMenu(JavaVM * jvm_, char * menuName);
 
 static void removeFigureMenu(JavaVM * jvm_, long figureID, char * menuName);
@@ -553,6 +566,8 @@ static void launchHelpBrowser(JavaVM * jvm_, char ** helps, int helpsSize, char 
 static void searchKeyword(JavaVM * jvm_, char ** helps, int helpsSize, char * keyword, char * language, bool fullText);
 
 static void saveMainWindowSettings(JavaVM * jvm_);
+
+static long newExportFileChooser(JavaVM * jvm_, long figureId);
 
 static long newFontChooser(JavaVM * jvm_);
 

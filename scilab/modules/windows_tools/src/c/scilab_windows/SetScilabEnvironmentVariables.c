@@ -225,7 +225,7 @@ BOOL Set_SOME_ENVIRONMENTS_VARIABLES_FOR_SCILAB(void)
 	#ifdef _MSC_VER
 		putenv ("COMPILER=VC++");
 	#endif
-	
+
 	/* WIN32 variable Environment */
     #ifdef _WIN32
 		putenv ("WIN32=OK");

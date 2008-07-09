@@ -68,7 +68,7 @@ jmethodID jdoubleArraygetColorMapDataID; // cache method id
 jmethodID jintgetColorMapSizeID; // cache method id
 jmethodID jintgetCanvasWidthID; // cache method id
 jmethodID jintgetCanvasHeightID; // cache method id
-jmethodID voidsetCanvasSizejintjintID; // cache method id
+jmethodID jbooleansetCanvasSizejintjintID; // cache method id
 jmethodID jintgetWindowPosXID; // cache method id
 jmethodID jintgetWindowPosYID; // cache method id
 jmethodID voidsetWindowPositionjintjintID; // cache method id
@@ -78,13 +78,13 @@ jmethodID voidsetWindowSizejintjintID; // cache method id
 jmethodID voidsetInfoMessagejstringID; // cache method id
 jmethodID voidsetAutoResizeModejbooleanID; // cache method id
 jmethodID jbooleangetAutoResizeModeID; // cache method id
-jmethodID voidsetIsRenderingEnablejbooleanID; // cache method id
 jmethodID jintArraygetViewportID; // cache method id
 jmethodID voidsetViewportjintjintjintjintID; // cache method id
 jmethodID jintArrayrubberBoxjbooleanjbooleanjintArrayID; // cache method id
 jmethodID voidsetTitlejstringID; // cache method id
 jmethodID jintArraygetRotationDisplacementID; // cache method id
 jmethodID voidstopRotationRecordingID; // cache method id
+jmethodID voidshowWindowID; // cache method id
 
 
 /**
@@ -158,7 +158,7 @@ long getCanvasWidth();
 
 long getCanvasHeight();
 
-void setCanvasSize(long width, long height);
+bool setCanvasSize(long width, long height);
 
 long getWindowPosX();
 
@@ -178,8 +178,6 @@ void setAutoResizeMode(bool onOrOff);
 
 bool getAutoResizeMode();
 
-void setIsRenderingEnable(bool isEnable);
-
 long * getViewport();
 
 void setViewport(long posX, long posY, long width, long height);
@@ -191,6 +189,8 @@ void setTitle(char * title);
 long * getRotationDisplacement();
 
 void stopRotationRecording();
+
+void showWindow();
 
 
                         /**

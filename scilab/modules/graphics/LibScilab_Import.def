@@ -38,6 +38,7 @@ sciReturnRowVector
 sciReturnInt
 sciReturnColHandleVector
 sciReturnRowStringVector
+sciReturnRowHandleVector
 sciReturnEmptyMatrix
 sciReturnMatrix
 sciReturnHandle
@@ -63,3 +64,5 @@ IsAScalar
 GetData
 GetDataSize
 freeArrayOfString
+sciGetLegendPlace
+getmatdims_

@@ -59,7 +59,7 @@ public:
 
   virtual int getCanvasWidth(void);
   virtual int getCanvasHeight(void);
-  virtual void setCanvasSize(int width, int height);
+  virtual bool setCanvasSize(int width, int height);
 
   virtual int getWindowPosX(void);
   virtual int getWindowPosY(void);
@@ -70,8 +70,6 @@ public:
   virtual void setWindowSize(int width, int height);
 
   virtual void setInfoMessage(char * infoMessage);
-
-  virtual void setRenderingEnable(bool isEnable);
 
   virtual void setAutoResizeMode(bool onOrOff);
   virtual bool getAutoResizeMode(void);
@@ -87,6 +85,7 @@ public:
 
   virtual bool getRotationDisplacement(int displacement[2]);
   virtual void stopRotationRecording(void);
+  virtual void showWindow(void);
 
   /*----------------------------------------------------------------------*/
 

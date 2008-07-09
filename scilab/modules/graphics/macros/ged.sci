@@ -6,6 +6,29 @@ function ged(k,win)
    return
   end
 
+  // Check number of arguments
+  if argn(2) ==1 then
+    win=get(gcf(),'figure_id')
+  elseif argn(2)<>2 then
+    error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "ged", 2));
+  end
+  
+  // Check argument #1
+  if typeof(k) <> "constant" then
+    error(msprintf(gettext("%s: Wrong type for input argument #%d: A Real expected.\n"), "ged", 1));
+  end
+  if size(k, "*") <> 1 then
+    error(msprintf(gettext("%s: Wrong size for input argument #%d: A Real expected.\n"), "ged", 1));
+  end
+  
+  // Check argument #2
+  if typeof(win) <> "constant" then
+    error(msprintf(gettext("%s: Wrong type for input argument #%d: A Real expected.\n"), "ged", 2));
+  end
+  if size(win, "*") <> 1 then
+    error(msprintf(gettext("%s: Wrong size for input argument #%d: A Real expected.\n"), "ged", 2));
+  end
+  
   global ged_current_figure
   global ged_cur_fig_handle
   
@@ -1253,7 +1276,7 @@ function h=ged_loop(a,pt)
 endfunction
   
 function r=is_in_text(h,xy)
-    if h.text_box_mode=='filled' then 
+    if h.Type == "Text" & h.text_box_mode=='filled' then 
     r=(xy(1)>h.data(1)&xy(1)<h.data(1)+h.text_box(1))&(xy(2)>h.data(2)&xy(2)<h.data(2)+h.text_box(2))
   else
     r = stringbox(h);
@@ -2303,7 +2326,7 @@ endfunction
 function DestroyGlobals()
 global ged_current_figure
 
-if find(ged_current_figure==winsid()) then
+if ~isempty(winsid()) & ~isempty(find(ged_current_figure==winsid())) then
   xset('window',ged_current_figure)
 end 
 

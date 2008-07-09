@@ -37,6 +37,7 @@
 
 #include "MALLOC.h" /* MALLOC */
 #include "DrawingBridge.h"
+#include "scitokenize.h"
 #include "localization.h"
 
 /* @TODO : remove that stuff */
@@ -222,7 +223,7 @@ int plot2dn(integer ptype,char *logflags,double *x,double *y,integer *n1,integer
   
   /*---- Drawing the curves and the legends ----*/
   if ( *n1 != 0 ) {
-	  if ((hdltab = MALLOC ((*n1+2) * sizeof (long))) == NULL) {
+	  if ((hdltab = MALLOC ((*n1+1) * sizeof (long))) == NULL) {
 		  sciprint(_("%s: No more memory.\n"),"plot2d");
 		  return 0;
     }
@@ -239,10 +240,13 @@ int plot2dn(integer ptype,char *logflags,double *x,double *y,integer *n1,integer
     for (jj = 0;jj < *n1; jj++) {/*A.Djalel 3D axes*/
       sciPointObj * pobj = NULL;
       if (style[jj] > 0) { 
+	BOOL isline = TRUE;
+	if (ptype==3) isline=FALSE;
 	sciSetCurrentObj (ConstructPolyline
 			  (sciGetCurrentSubWin(),&(x[jj*(*n2)]),
 			   &(y[jj*(*n2)]),PD0,closeflag,*n2,ptype,
-			   &style[jj],NULL,NULL,NULL,NULL,TRUE,FALSE,FALSE,FALSE));
+			   &style[jj],NULL,NULL,NULL,NULL, 
+			   isline,FALSE,FALSE,FALSE));
       }
       else {
 	int minusstyle = -style[jj];
@@ -266,13 +270,35 @@ int plot2dn(integer ptype,char *logflags,double *x,double *y,integer *n1,integer
     
     /*---- Drawing the Legends ----*/
     startFigureDataWriting(curFigure);
+
     if (with_leg) {
-      sciSetCurrentObj (ConstructLegend
-                        (sciGetCurrentSubWin(),
-			 legend,  (int)strlen(legend), *n1, style, pptabofpointobj)); 
-      hdl=sciGetHandle(sciGetCurrentObj ());   
-      hdltab[cmpt]=hdl;
-      cmpt++;
+      char ** Str;
+      int nleg;
+      sciPointObj * Leg;
+      if (scitokenize(legend, &Str, &nleg)) {
+	FREE(pptabofpointobj);
+	FREE(hdltab);
+	sciprint(_("%s: No more memory.\n"),"plot2d");
+        endFigureDataWriting(curFigure);
+	return 0;
+      }
+      if (nleg != *n1) {
+	FREE(pptabofpointobj);
+	FREE(hdltab);
+	for (jj = 0; jj < *n1; jj++) FREE(Str[jj]);
+	FREE(Str);
+	sciprint(_("%s: Invalid legend.\n"),"plot2d");
+        endFigureDataWriting(curFigure);
+	return 0;
+      }
+      Leg = ConstructLegend(sciGetCurrentSubWin(),Str,pptabofpointobj,*n1);
+      pLEGEND_FEATURE(Leg)->place = SCI_LEGEND_LOWER_CAPTION;
+      sciSetIsFilled (Leg, FALSE);
+      sciSetIsLine (Leg, FALSE);
+
+      sciSetCurrentObj (Leg); 
+      for (jj = 0; jj < *n1; jj++) FREE(Str[jj]);
+      FREE(Str);
       FREE(pptabofpointobj);
     }
 

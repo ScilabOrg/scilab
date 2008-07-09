@@ -11,23 +11,19 @@
 
 mode(0)
 
-curFig = gcf();clf();  // erase window
+curFig             = scf(100001);
+clf(curFig,"reset");
+demo_viewCode("anim3.sce");
+
 xselect(); //raise the graphic window
 
 //turn off toolbar
 //----------------
 id=curFig.figure_id;
-tb=toolbar(id); //preserve setting
-toolbar(id,"off");
-
-// set double buffer mode to avoid blinking animation
-//---------------------------------------------------
-pix = curFig.pixmap; //preserve old setting
-curFig.pixmap = "on";
 
 //compute lorenz differential eqn solution
 //---------------------------------------------------
-  
+
 y=ode(1.e-8*[1;1;1],0,0:0.005:50,'loren');
 [n1,n2]=size(y);
 wid = size(curFig.color_map,1); //number of colors
@@ -53,7 +49,7 @@ drawnow()
 
 //Set the evolution of the view angle  Alpha
 //---------------------------------------------------
-A=35:5:160;
+A=35:2:160;
 
 //animation loop
 //--------------
@@ -62,11 +58,4 @@ realtimeinit(0.1);//set time step (0.1 seconds)  and date reference
 for i=1:max(size(A))
   realtime(i); //wait till date 0.1*i seconds
   curAxe.rotation_angles = [45,A(i)];
-  show_pixmap();  //send  buffer to screen
 end
-
-// Reset initial properties
-//--------------------------------
-toolbar(id,tb);
-curFig.pixmap = pix;
-

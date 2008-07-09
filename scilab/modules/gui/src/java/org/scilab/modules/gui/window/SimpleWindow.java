@@ -98,6 +98,11 @@ public interface SimpleWindow {
 	void draw();
 	
 	/**
+	 * Deiconify the window and put it in front of other window
+	 */
+	void raise();
+	
+	/**
 	 * Sets a MenuBar to a window
 	 * @param newMenuBar the MenuBar to add to the window
 	 */
@@ -108,6 +113,11 @@ public interface SimpleWindow {
 	 * @param newToolBar the ToolBar to set to the window
 	 */
 	void addToolBar(ToolBar newToolBar);
+	
+	/**
+	 * @return number of objects (tabs) docked in this window
+	 */
+	int getNbDockedObjects();
 	
 	/**
 	 * Set the element id for this window
@@ -125,5 +135,11 @@ public interface SimpleWindow {
 	 * Close this window
 	 */
 	void close();
+	
+	/**
+	 * Update the dimension of the window and its component.
+	 * Only useful when the window is not yet visible
+	 */
+	void updateDimensions();
 
 }

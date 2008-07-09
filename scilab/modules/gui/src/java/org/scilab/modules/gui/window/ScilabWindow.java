@@ -67,6 +67,13 @@ public class ScilabWindow extends ScilabUIElement implements Window {
 	public void draw() {
 		ScilabBridge.draw(this);
 	}
+	
+	/**
+	 * Deiconify the window and put it in front of other window
+	 */
+	public void raise() {
+		ScilabBridge.raise(this);
+	}
 
 	/**
 	 * Gets the dimensions (width and height) of a Scilab window
@@ -187,4 +194,20 @@ public class ScilabWindow extends ScilabUIElement implements Window {
 		super.addInfoBar(newInfoBar);
 		ScilabBridge.addInfoBar(this, newInfoBar);
 	}
+	
+	/**
+	 * @return number of objects (tabs) docked in this window
+	 */
+	public int getNbDockedObjects() {
+		return ScilabBridge.getNbDockedObjects(this);
+	}
+	
+	/**
+	 * Update the dimension of the window and its component.
+	 * Only useful when the window is not yet visible
+	 */
+	public void updateDimensions() {
+		ScilabBridge.updateDimensions(this);
+	}
+	
 }

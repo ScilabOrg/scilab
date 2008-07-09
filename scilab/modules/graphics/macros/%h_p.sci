@@ -199,26 +199,34 @@ function %h_p(h)
                 "arc_drawing_method = " + sci2exp(h.arc_drawing_method)
                 "clip_state = "+sci2exp(h.clip_state)
                 "clip_box = "+sci2exp(h.clip_box,0)
-                "user_data = "+fmtuser_data(u)
+                "user_data = "+fmtuser_data(h.user_data)
             ]
         
         // Legend
         // =====================================================================
         
         case "Legend"
-            t=[t;
-            "parent: "+h.parent.type
-            "children: "+fmtchildren(h.children)
-            "line_mode = "+sci2exp(h.line_mode)
-            "mark_mode = "+sci2exp(h.mark_mode)
-            "mark_foreground = "+string(h.mark_foreground)
-            "mark_background = "+string(h.mark_background)
-            "foreground = "+string(h.foreground)
-            "visible = "+sci2exp(h.visible)
-            "text = "+sci2exp(h.text)
-            "font_style = "+string(h.font_style)
-            "font_size = "+string(h.font_size)]
-            "fractional_font = " + sci2exp(h.fractional_font)
+	  t=[t;
+	     "parent: "+h.parent.type
+	     "children: "+fmtchildren(h.children)
+	     "visible = "+sci2exp(h.visible)
+	     "text = "+sci2exp(h.text)
+	     "font_style = "+string(h.font_style)
+	     "font_size = "+string(h.font_size)
+	     "font_color = "+string(h.font_color)
+	     "fractional_font = " + sci2exp(h.fractional_font)
+	     "links = " +  fmtchildren(h.links) 
+	     "legend_location = " + sci2exp(h.legend_location)
+	     "position = " + sci2exp(h.position)
+	     "line_mode = "+sci2exp(h.line_mode)
+	     "thickness = "+string(h.thickness)
+	     "foreground = "+string(h.foreground)
+	     "fill_mode = "+sci2exp(h.fill_mode)
+	     "background = "+string(h.background)
+	     "clip_state = "+sci2exp(h.clip_state)
+	     "clip_box = "+sci2exp(h.clip_box,0)
+	     "user_data = "+fmtuser_data(h.user_data)
+	      ]
         
         // Rectangle
         // =====================================================================
@@ -276,8 +284,6 @@ function %h_p(h)
             u=h.user_data
             t=[t;
                 "children: "+fmtchildren(h.children)
-                
-                "figure_style = "+sci2exp(h.figure_style,0)
                 "figure_position = "+sci2exp(h.figure_position,0)
                 "figure_size = "+sci2exp(h.figure_size,0)
                 "axes_size = "+sci2exp(h.axes_size,0)
@@ -334,6 +340,8 @@ function %h_p(h)
                 "data.y = "+dy
                 "data.z = "+dz
                 "data_mapping = "+sci2exp(h.data_mapping)
+                "clip_state = "+sci2exp(h.clip_state)
+                "clip_box = "+sci2exp(h.clip_box,0)
                 "user_data = "+fmtuser_data(u)
             ]
         
@@ -354,6 +362,8 @@ function %h_p(h)
                 "children: "+fmtchildren(h.children)
                 "visible = "+sci2exp(h.visible)
                 "data = "+d
+                "clip_state = "+sci2exp(h.clip_state)
+                "clip_box = "+sci2exp(h.clip_box,0)
                 "user_data = "+fmtuser_data(u)
             ]
         
@@ -382,6 +392,8 @@ function %h_p(h)
                 "data = "+d
                 "triangles = "+f
                 "z_bounds = "+sci2exp(h.z_bounds,0)
+                "clip_state = "+sci2exp(h.clip_state)
+                "clip_box = "+sci2exp(h.clip_box,0)
                 "user_data = "+fmtuser_data(u)
             ]
 
@@ -603,6 +615,8 @@ function %h_p(h)
                     "color_mode = "+string(h.color_mode)
                     "color_flag = "+sci2exp(h.color_flag,0)
                     "hiddencolor = "+string(h.hiddencolor)
+                    "clip_state = "+sci2exp(h.clip_state)
+                    "clip_box = "+sci2exp(h.clip_box,0)
                     "user_data = "+fmtuser_data(u)
                 ]
             else
@@ -625,6 +639,8 @@ function %h_p(h)
                     "color_mode = "+string(h.color_mode)
                     "color_flag = "+sci2exp(h.color_flag,0)
                     "hiddencolor = "+string(h.hiddencolor)
+                    "clip_state = "+sci2exp(h.clip_state)
+                    "clip_box = "+sci2exp(h.clip_box,0)
                     "user_data = "+fmtuser_data(u)
                 ]
             end
@@ -686,6 +702,8 @@ function %h_p(h)
                     "color_flag = "+sci2exp(h.color_flag,0)
                     "cdata_mapping = "+sci2exp(h.cdata_mapping)
                     "hiddencolor = "+string(h.hiddencolor)
+                    "clip_state = "+sci2exp(h.clip_state)
+                    "clip_box = "+sci2exp(h.clip_box,0)
                     "user_data = "+fmtuser_data(u)
                 ]
             else
@@ -708,6 +726,8 @@ function %h_p(h)
                     "color_mode = "+string(h.color_mode)
                     "color_flag = "+sci2exp(h.color_flag,0)
                     "hiddencolor = "+string(h.hiddencolor)
+                    "clip_state = "+sci2exp(h.clip_state)
+                    "clip_box = "+sci2exp(h.clip_box,0)
                     "user_data = "+fmtuser_data(u)
                 ]
             end
@@ -783,17 +803,16 @@ function %h_p(h)
         
         case "uimenu"
             t=[t;
-                "parent: "+h.parent.type
-                "children: "+fmtchildren(h.children)
-                "visible = "+sci2exp(h.visible)
-                "label = "+h.label 
-                "callback = "+h.callback
-                "callback type = "+sci2exp(h.callback_type,0)
-                "handle_visible = "+sci2exp(h.handle_visible)
-                "position = "+sci2exp(h.position,0)
-                "menu_enable = "+sci2exp(h.menu_enable)
-                "foregroundcolor = "+sci2exp(h.foregroundcolor,0)
+                "Parent: "+h.parent.type
+                "Children: "+fmtchildren(h.children)
+		"Enable = "+sci2exp(h.enable)
+                "Foregroundcolor = "+sci2exp(h.foregroundcolor,0)
+                "Label = "+h.label 
+                //"Handle_visible = "+sci2exp(h.handle_visible)
+                //"Position = "+sci2exp(h.position,0)
                 "Visible = "+sci2exp(h.visible)
+                "Callback = "+h.callback
+                "CallbackType = "+sci2exp(h.callback_type,0)
                 "Tag = "+h.tag
             ]
         
@@ -806,7 +825,7 @@ function %h_p(h)
             "Parent: "+h.parent.type
             "Children: "+fmtchildren(h.children)
             "BackgroundColor = "+sci2exp(h.backgroundcolor,0)
-            //"Enable = "+sci2exp(h.menu_enable)
+            "Enable = "+sci2exp(h.enable)
             "FontAngle = "+h.fontangle
             "FontName = "+h.fontname
             "FontSize = "+sci2exp(h.fontsize)
@@ -828,7 +847,7 @@ function %h_p(h)
             "Visible = "+sci2exp(h.visible)
             "Callback = "+h.callback
             "CallbackType = "+sci2exp(h.callback_type,0)
-            //"handle_visible = "+sci2exp(h.handle_visible)
+            //"Handle_visible = "+sci2exp(h.handle_visible)
             "Userdata = "+fmtuser_data(u)
             "Tag = "+h.tag
             ]

@@ -11,4 +11,4 @@
 Pop_init = init_ga_default(10,[]);
 
 if length(Pop_init)~=10 then pause,end;
-if max(size(Pop_init(1))~=2 then pause,end;
+if max(size(Pop_init(1)))~=2 then pause,end;

@@ -203,6 +203,15 @@ public class ScilabSliderBridge {
 	}
 
 	/**
+	 * Gets the enable status of an Slider
+	 * @param slider the Slider we want to get the status of
+	 * @return the enable status of the Slider (true if the Slider is enabled, false if not)
+	 */
+	public static boolean isEnabled(Slider slider) {
+		return slider.getAsSimpleSlider().isEnabled();
+	}
+	
+	/**
 	 * Set the horizontal alignment for the Slider text
 	 * @param slider the Slider we want to set the alignment of
 	 * @param alignment the value for the alignment (See ScilabAlignment.java)
@@ -270,8 +279,8 @@ public class ScilabSliderBridge {
 	 * @param slider the Slider we want to set the value of
 	 * @param value the new value
 	 */
-	public static void setValue(Slider slider, int value) {
-		slider.getAsSimpleSlider().setValue(value);	
+	public static void setUserValue(Slider slider, int value) {
+		slider.getAsSimpleSlider().setUserValue(value);	
 	}
 
 	/**

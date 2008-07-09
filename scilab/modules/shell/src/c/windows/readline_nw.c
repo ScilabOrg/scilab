@@ -30,11 +30,12 @@
 #include "HistoryManager.h"
 #include "scilabmode.h"
 #include "sigbas.h"
-#include "completion.h"
 #include "freeArrayOfString.h"
 #include "scilines.h"
 #include "strdup_windows.h"
 #include "charEncoding.h"
+#include "completion.h"
+#include "preparsecompletion_nw.h"
 /*--------------------------------------------------------------------------*/
 #define MAXBUF	512
 #define BACKSPACE 0x08		/* ^H */
@@ -669,27 +670,16 @@ static char msdos_getch (void)
 /*--------------------------------------------------------------------------*/
 static void doCompletion(const char *current_line,const char *prompt)
 {
+	const char *wordToFind = NULL;
 	char *backup_line = NULL;
-	char *wordToFind = NULL;
 	char **completionDictionary = NULL;
 	int sizeCompletionDictionary = 0;
-	char *pch = NULL;
 
-	pch = strrchr (cur_line,' ');
-
-	if (pch)
-	{
-		if ( (pch-cur_line) > 0 )
-		{
-			pch++;
-			wordToFind = pch;
-		}
-	}
-	else wordToFind = cur_line;
+	wordToFind = preparse_line_for_completion_nw(current_line);
 
 	if (wordToFind) 
 	{
-		completionDictionary = completion(wordToFind,&sizeCompletionDictionary);
+		completionDictionary = completion((char*)wordToFind,&sizeCompletionDictionary);
 		if (sizeCompletionDictionary)
 		{
 			if (sizeCompletionDictionary == 1)
@@ -737,9 +727,20 @@ static void doCompletion(const char *current_line,const char *prompt)
 				}
 				fputs ("\n", stdout);
 				lenCurrentLine = 0;
-
 				redraw_line((char*)prompt);
 				strcpy(cur_line,backup_line);
+
+				if ( strncmp(completionDictionary[0],completionDictionary[1],strlen(completionDictionary[0])) == 0 )
+				{
+					int lenwordToFind = (int)strlen(wordToFind);
+					int lencompletionDictionary0 = (int)strlen(completionDictionary[0]);
+
+					if (lencompletionDictionary0 > lenwordToFind)
+					{
+						strcat(cur_line,&completionDictionary[0][lenwordToFind]);
+					}
+					
+				}
 				fputs (cur_line, stdout);
 				cur_pos = (int)strlen(cur_line);
 				max_pos = (int)strlen(cur_line);

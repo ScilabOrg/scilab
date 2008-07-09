@@ -44,6 +44,14 @@ public class ScilabWindowBridge {
 	public static void draw(Window window) {
 		window.getAsSimpleWindow().draw();
 	}
+	
+	/**
+	 * Deiconify the window and put it in front of other window
+	 * @param window the window to raise
+	 */
+	public static void raise(Window window) {
+		window.getAsSimpleWindow().raise();
+	}
 
 	/**
 	 * Creates a Scilab window
@@ -174,4 +182,22 @@ public class ScilabWindowBridge {
 	public static void addInfoBar(Window window, TextBox newInfoBar) {
 		window.getAsSimpleWindow().addInfoBar(newInfoBar);
 	}
+	
+	/**
+	 * @param window window from which we want the information
+	 * @return number of objects (tabs) docked in this window
+	 */
+	public static int getNbDockedObjects(Window window) {
+		return window.getAsSimpleWindow().getNbDockedObjects();
+	}
+	
+	/**
+	 * Update the dimension of the window and its component.
+	 * Only useful when the window is not yet visible
+	 * @param window window to update
+	 */
+	public static void updateDimensions(Window window) {
+		window.getAsSimpleWindow().updateDimensions();
+	}
+	
 }

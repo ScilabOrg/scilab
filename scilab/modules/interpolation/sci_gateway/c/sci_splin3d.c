@@ -33,29 +33,34 @@ int intsplin3d(char * fname,unsigned long fname_len)
   CheckLhs(minlhs,maxlhs);
 
   GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &mx, &nx, &lx);
-  CheckVector(1, mx, nx); x = stk(lx);
+  CheckVector(1, mx, nx); 
+  x = stk(lx);
   GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE, &my, &ny, &ly);
-  CheckVector(2, my, ny); y = stk(ly);
+  CheckVector(2, my, ny); 
+  y = stk(ly);
   GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE, &mz, &nz, &lz);
-  CheckVector(2, mz, nz); z = stk(lz);
+  CheckVector(2, mz, nz); 
+  z = stk(lz);
 
-  nx = mx*nx; ny = my*ny; nz = mz*nz;
+  nx = mx*nx; 
+  ny = my*ny; 
+  nz = mz*nz;
 
   if ( nx < 3  ||  ny < 3  ||  nz < 3 )
     {
-      Scierror(999,_("%s: the x, y and z grids must have at least 3 points\n"), fname);
+      Scierror(999,_("%s: Wrong size for input arguments: x, y and z grids must have at least %d points.\n"), fname, 3);
       return 0;
     }
 
   GetRhsRealHMat(4, &V);
   if ( V.dimsize != 3 )
-    {
-      Scierror(999,_("%s: 4 th argument must be a real 3-dim hypermatrix \n"), fname);
-      return 0;
-    }
+  {
+	Scierror(999,_("%s: Wrong size for input argument #%d: A real 3-dimension hypermatrix expected.\n"),fname,4);
+    return 0;
+  }
   if ( V.dims[0] != nx  ||  V.dims[1] != ny  ||  V.dims[2] != nz  )
     {
-      Scierror(999,"%s: size incompatibility between grid points and grid values\n", fname);
+      Scierror(999,"%s: Wrong value for input argument: Size incompatibility between grid points and grid values.\n", fname);
       return 0;
     }
 
@@ -64,13 +69,15 @@ int intsplin3d(char * fname,unsigned long fname_len)
       GetRhsVar(5,MATRIX_OF_DOUBLE_DATATYPE, &mo, &no, &lo);
       if ( (mo != 1 && no != 1)  ||  mo*no != 3 )
 	{
-	  Scierror(999,_("%s: the 4 th arg must be a vector with 3 components\n"), fname);
+	  Scierror(999,_("%s: Wrong value for input argument #%d: Vector with %d components expected.\n"),fname,4,3);
 	  return 0;
 	}
-      kx = (int)*stk(lo); ky = (int)*stk(lo+1); kz = (int)*stk(lo+2);
+      kx = (int)*stk(lo); 
+	  ky = (int)*stk(lo+1); 
+	  kz = (int)*stk(lo+2);
       if ( kx < 2  ||  kx >= nx  ||  ky < 2  ||  ky >= ny  ||  kz < 2  ||  kz >= nz )
 	{
-	  Scierror(999,"%s: bad 5 th arg [kx ky kz]\n", fname);
+	  Scierror(999,_("%s: Wrong values for input argument #%d.\n"), fname, 5);
 	  return 0;
 	}
     }
@@ -110,7 +117,7 @@ int intsplin3d(char * fname,unsigned long fname_len)
 
   if ( flag != 1 )
     {
-      Scierror(999,_("%s: problem : flag = %d\n"), fname, flag);
+      Scierror(999,_("%s: Problem with 'flag' = %d\n"), fname, flag);
       return 0;
     }
 

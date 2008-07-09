@@ -155,6 +155,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BATIK = @BATIK@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -182,6 +183,7 @@ FFTW3_LIB = @FFTW3_LIB@
 FFTW_ENABLE = @FFTW_ENABLE@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
+FOP = @FOP@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
 GREP = @GREP@
@@ -199,6 +201,7 @@ JAVA_HOME = @JAVA_HOME@
 JAVA_JNI_INCLUDE = @JAVA_JNI_INCLUDE@
 JAVA_JNI_LIBS = @JAVA_JNI_LIBS@
 JDB = @JDB@
+JEUCLID_CORE = @JEUCLID_CORE@
 JHALL = @JHALL@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
@@ -247,6 +250,8 @@ PVM_LIB = @PVM_LIB@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
+RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SED = @SED@
@@ -397,9 +402,16 @@ includes/gw_randlib.h
 
 #### randlib : demos files ####
 libscirandlib_la_demosdir = $(mydatadir)/demos/
-libscirandlib_la_demos_DATA = demos/randomT.sci \
-demos/random.dem \
-demos/random.sci
+libscirandlib_la_demos_DATA = demos/binomial.dem.sce \
+demos/discrete.dem.sce \
+demos/discrete_uni.dem.sce \
+demos/erlang.dem.sce \
+demos/exp.dem.sce \
+demos/geometric.dem.sce \
+demos/hypergeom.dem.sce \
+demos/poisson.dem.sce \
+demos/random.dem.gateway.sce \
+demos/weibull.dem.sce
 
 
 # Where all the Scilab stuff is installed (macros, help, ...)

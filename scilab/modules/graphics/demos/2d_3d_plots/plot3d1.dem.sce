@@ -5,10 +5,16 @@
 // This file is distributed under the same license as the Scilab package.
 //
 
-my_plot_desc          = "plot3d1 : z=sin(x)*cos(y)";
-
 my_handle             = scf(100001);
+clf(my_handle,"reset");
+demo_viewCode("plot3d1.dem.sce");
+
+// DEMO START
+
+my_plot_desc          = "plot3d1 : z=sin(x)*cos(y)";
 my_handle.figure_name = my_plot_desc;
 
 plot3d1();
 xtitle(my_plot_desc," "," "," ");
+
+// DEMO END

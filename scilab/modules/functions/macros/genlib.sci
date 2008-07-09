@@ -75,7 +75,7 @@ function genlib(nam,path,force,verbose,names)
 		end
 		
 		if files==[] | files== "" then
-		warning(msprintf(gettext("I cannot find any sci files in %s"),path));
+		warning(msprintf(gettext("Cannot find any sci files in %s.\n"),path));
 		return ;
 		end
 		names = basename(files,%f);
@@ -97,7 +97,7 @@ function genlib(nam,path,force,verbose,names)
 		for i=1:size(files,'*')  // loop on .sci files
 			scif = files(i);
 			if verbose then
-				write(%io(2),msprintf(gettext(" %s.sci compilation forced'),names(i)));
+				write(%io(2),msprintf(gettext(" %s.sci compilation forced"),names(i)));
 			end
 			// getf sci file and save functions it defines as a .bin file
 			getsave(scif);
@@ -121,7 +121,7 @@ function genlib(nam,path,force,verbose,names)
 			if recompile == %t then
 				
 				if verbose then
-					write(%io(2),msprintf(gettext("Processing file %s.sci'),names(i)));
+					write(%io(2),msprintf(gettext("Processing file %s.sci"),names(i)));
 				end
 				
 				// getf sci file and save functions it defines as a .bin file

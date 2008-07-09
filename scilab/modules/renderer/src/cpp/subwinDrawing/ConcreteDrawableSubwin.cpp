@@ -164,6 +164,9 @@ void ConcreteDrawableSubwin::computeRealDataBounds(void)
   double userBounds[6];
   sciGetDisplayedDataBounds(m_pDrawed, userBounds);
 
+  // check wether the subwin is zoomed or not
+  bool isZoomed = (sciGetZooming(m_pDrawed) == TRUE);
+
   double bestBounds[6]; // output bounds
 
   // take sub arrays
@@ -180,20 +183,23 @@ void ConcreteDrawableSubwin::computeRealDataBounds(void)
   m_pYBoundsStrategy->applyScaleModification(userYBounds, bestYBounds);
   m_pZBoundsStrategy->applyScaleModification(userZBounds, bestZBounds);
 
-    // if the X or Y axis are middle then we need to add 0
-  if (pSUBWIN_FEATURE(m_pDrawed)->axes.xdir == 'c')
+  // if the X or Y axis are middle then we need to add 0
+  // and only if not in zoom mode
+  if (pSUBWIN_FEATURE(m_pDrawed)->axes.xdir == 'c' && !isZoomed)
   {
     addZeroInRange(bestYBounds);
   }
 
   // same for Y axis
-  if (pSUBWIN_FEATURE(m_pDrawed)->axes.ydir == 'c')
+  if (pSUBWIN_FEATURE(m_pDrawed)->axes.ydir == 'c' && !isZoomed)
   {
     addZeroInRange(bestXBounds);
   }
 
   // fit them if needed
-  if (!sciGetTightLimitsOn(m_pDrawed))
+  // for a more accurate zoom, tigth limits are enable if the zoom
+  // is enable
+  if (!sciGetTightLimitsOn(m_pDrawed) && !isZoomed)
   {
     m_pXBoundsStrategy->applyBestFitting(bestXBounds, bestXBounds);
     m_pYBoundsStrategy->applyBestFitting(bestYBounds, bestYBounds);
@@ -224,6 +230,114 @@ void ConcreteDrawableSubwin::updateScale(void)
   sciSetXorMode(parentFigure, pixelMode);
 }
 /*------------------------------------------------------------------------------------------*/
+int ConcreteDrawableSubwin::getNbXTicks(void)
+{
+  if (m_pXTicksDrawer != NULL)
+  {
+    return m_pXTicksDrawer->getInitNbTicks();
+  }
+  else
+  {
+    return 0;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::getXTicksPos(double ticksPositions[], char ** ticksLabels)
+{
+  if (m_pXTicksDrawer != NULL)
+  {
+    m_pXTicksDrawer->getInitTicksPos(ticksPositions, ticksLabels);
+
+    // revert log scale if needed
+    m_pXBoundsStrategy->inversePointScale(ticksPositions, getNbXTicks());
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+int ConcreteDrawableSubwin::getNbYTicks(void)
+{
+  if (m_pYTicksDrawer != NULL)
+  {
+    return m_pYTicksDrawer->getInitNbTicks();
+  }
+  else
+  {
+    return 0;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::getYTicksPos(double ticksPositions[], char ** ticksLabels)
+{
+  if (m_pYTicksDrawer != NULL)
+  {
+    m_pYTicksDrawer->getInitTicksPos(ticksPositions, ticksLabels);
+
+    // revert log scale if needed
+    m_pYBoundsStrategy->inversePointScale(ticksPositions, getNbYTicks());
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+int ConcreteDrawableSubwin::getNbZTicks(void)
+{
+  if (m_pZTicksDrawer != NULL)
+  {
+    return m_pZTicksDrawer->getInitNbTicks();
+  }
+  else
+  {
+    return 0;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::getZTicksPos(double ticksPositions[], char ** ticksLabels)
+{
+  if (m_pZTicksDrawer != NULL)
+  {
+    m_pZTicksDrawer->getInitTicksPos(ticksPositions, ticksLabels);
+
+    // revert log scale if needed
+    m_pZBoundsStrategy->inversePointScale(ticksPositions, getNbZTicks());
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+bool ConcreteDrawableSubwin::getXAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3])
+{
+  if (m_pXTicksDrawer != NULL)
+  {
+    m_pXTicksDrawer->getAxisPosition(axisStart, axisEnd, ticksDirection);
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+bool ConcreteDrawableSubwin::getYAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3])
+{
+  if (m_pYTicksDrawer != NULL)
+  {
+    m_pYTicksDrawer->getAxisPosition(axisStart, axisEnd, ticksDirection);
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+bool ConcreteDrawableSubwin::getZAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3])
+{
+  if (m_pZTicksDrawer != NULL)
+  {
+    m_pZTicksDrawer->getAxisPosition(axisStart, axisEnd, ticksDirection);
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::drawBox(void)
 {
   // If axes is not displayed m_pAxesbox is not drawn.
@@ -238,17 +352,19 @@ void ConcreteDrawableSubwin::drawTicks(void)
   double distToXaxis = 0.0;
   double distToYaxis = 0.0;
   double distToZaxis = 0.0;
-  if (m_pXTicksDrawer != NULL)
+  
+  // Z ticks are deeper qo draw them before
+  if (m_pZTicksDrawer != NULL)
   {
-    distToXaxis = m_pXTicksDrawer->draw();
+    distToZaxis = m_pZTicksDrawer->draw();
   }
   if (m_pYTicksDrawer != NULL)
   {
     distToYaxis = m_pYTicksDrawer->draw();
   }
-  if (m_pZTicksDrawer != NULL)
+  if (m_pXTicksDrawer != NULL)
   {
-    distToZaxis = m_pZTicksDrawer->draw();
+    distToXaxis = m_pXTicksDrawer->draw();
   }
 
   /* for title there is no displayable ticks */
@@ -271,15 +387,15 @@ void ConcreteDrawableSubwin::showTicks(void)
   double distToZaxis = 0.0;
   if (m_pXTicksDrawer != NULL)
   {
-    distToXaxis = m_pXTicksDrawer->showTicks();
+    distToXaxis = m_pXTicksDrawer->show();
   }
   if (m_pYTicksDrawer != NULL)
   {
-    distToYaxis = m_pYTicksDrawer->showTicks();
+    distToYaxis = m_pYTicksDrawer->show();
   }
   if (m_pZTicksDrawer != NULL)
   {
-    distToZaxis = m_pZTicksDrawer->showTicks();
+    distToZaxis = m_pZTicksDrawer->show();
   }
 
   /* for title there is no displayable ticks */

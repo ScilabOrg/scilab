@@ -14,6 +14,7 @@
 package org.scilab.modules.gui.console;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import org.scilab.modules.gui.bridge.ScilabBridge;
@@ -288,4 +289,21 @@ public class ScilabConsole extends ScilabDockable implements Console {
 	public void setBackground(Color color) {
 		ScilabBridge.setBackground(this, color);
 	}
+
+	/**
+	 * Set the maximum number of lines stored in the Output
+	 * @param nbLines the number of lines 
+	 */
+	public void setMaxOutputSize(int nbLines) {
+		ScilabBridge.setMaxOutputSize(this, nbLines);
+	}
+	
+	/**
+	 * Set the cursor pointer over the Console
+	 * @param cursor the Cursor to set
+	 */
+	public void setCursor(Cursor cursor) {
+		ScilabBridge.setCursor(this, cursor);
+	}
+
 }

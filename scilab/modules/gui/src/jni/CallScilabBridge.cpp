@@ -202,6 +202,10 @@ voidsetRootMenuEnabledjstringjbooleanID=NULL;
 voidsetRootSubMenuEnabledjstringjintjbooleanID=NULL; 
 voidsetFigureMenuEnabledjintjstringjbooleanID=NULL; 
 voidsetFigureSubMenuEnabledjintjstringjintjbooleanID=NULL; 
+voidsetWidgetEnablejintjbooleanID=NULL; 
+voidsetFrameEnablejintjbooleanID=NULL; 
+jbooleanisWidgetEnablejintID=NULL; 
+jbooleanisFrameEnablejintID=NULL; 
 voidremoveRootMenujstringID=NULL; 
 voidremoveFigureMenujintjstringID=NULL; 
 jstringdisplayAndWaitContextMenujintID=NULL; 
@@ -245,6 +249,7 @@ voidsetWaitBarIndeterminateModejintjbooleanID=NULL;
 voidlaunchHelpBrowserjobjectArrayjstringID=NULL; 
 voidsearchKeywordjobjectArrayjstringjstringjbooleanID=NULL; 
 voidsaveMainWindowSettingsID=NULL; 
+jintnewExportFileChooserjintID=NULL; 
 jintnewFontChooserID=NULL; 
 voidfontChooserDisplayAndWaitjintID=NULL; 
 voidsetFontChooserFontNamejintjstringID=NULL; 
@@ -401,6 +406,10 @@ voidsetRootMenuEnabledjstringjbooleanID=NULL;
 voidsetRootSubMenuEnabledjstringjintjbooleanID=NULL; 
 voidsetFigureMenuEnabledjintjstringjbooleanID=NULL; 
 voidsetFigureSubMenuEnabledjintjstringjintjbooleanID=NULL; 
+voidsetWidgetEnablejintjbooleanID=NULL; 
+voidsetFrameEnablejintjbooleanID=NULL; 
+jbooleanisWidgetEnablejintID=NULL; 
+jbooleanisFrameEnablejintID=NULL; 
 voidremoveRootMenujstringID=NULL; 
 voidremoveFigureMenujintjstringID=NULL; 
 jstringdisplayAndWaitContextMenujintID=NULL; 
@@ -444,6 +453,7 @@ voidsetWaitBarIndeterminateModejintjbooleanID=NULL;
 voidlaunchHelpBrowserjobjectArrayjstringID=NULL; 
 voidsearchKeywordjobjectArrayjstringjstringjbooleanID=NULL; 
 voidsaveMainWindowSettingsID=NULL; 
+jintnewExportFileChooserjintID=NULL; 
 jintnewFontChooserID=NULL; 
 voidfontChooserDisplayAndWaitjintID=NULL; 
 voidsetFontChooserFontNamejintjstringID=NULL; 
@@ -2948,6 +2958,98 @@ curEnv->ExceptionDescribe() ;
                         
 }
 
+void CallScilabBridge::setWidgetEnable (JavaVM * jvm_, long objID, bool status){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread((void **) &curEnv, NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidsetWidgetEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWidgetEnable", "(IZ)V" ) ;
+if (voidsetWidgetEnablejintjbooleanID == NULL) {
+std::cerr << "Could not access to the method " << "setWidgetEnable" << std::endl;
+exit(EXIT_FAILURE);
+}
+
+jboolean status_ = ((bool) status ? JNI_TRUE : JNI_FALSE);
+
+                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetEnablejintjbooleanID ,objID, status_);
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+}
+
+void CallScilabBridge::setFrameEnable (JavaVM * jvm_, long objID, bool status){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread((void **) &curEnv, NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidsetFrameEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setFrameEnable", "(IZ)V" ) ;
+if (voidsetFrameEnablejintjbooleanID == NULL) {
+std::cerr << "Could not access to the method " << "setFrameEnable" << std::endl;
+exit(EXIT_FAILURE);
+}
+
+jboolean status_ = ((bool) status ? JNI_TRUE : JNI_FALSE);
+
+                         curEnv->CallStaticVoidMethod(cls, voidsetFrameEnablejintjbooleanID ,objID, status_);
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+}
+
+bool CallScilabBridge::isWidgetEnable (JavaVM * jvm_, long objID){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread((void **) &curEnv, NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID jbooleanisWidgetEnablejintID = curEnv->GetStaticMethodID(cls, "isWidgetEnable", "(I)Z" ) ;
+if (jbooleanisWidgetEnablejintID == NULL) {
+std::cerr << "Could not access to the method " << "isWidgetEnable" << std::endl;
+exit(EXIT_FAILURE);
+}
+
+                        jboolean res =  (jboolean) curEnv->CallStaticBooleanMethod(cls, jbooleanisWidgetEnablejintID ,objID);
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+return (res == JNI_TRUE);
+
+}
+
+bool CallScilabBridge::isFrameEnable (JavaVM * jvm_, long objID){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread((void **) &curEnv, NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID jbooleanisFrameEnablejintID = curEnv->GetStaticMethodID(cls, "isFrameEnable", "(I)Z" ) ;
+if (jbooleanisFrameEnablejintID == NULL) {
+std::cerr << "Could not access to the method " << "isFrameEnable" << std::endl;
+exit(EXIT_FAILURE);
+}
+
+                        jboolean res =  (jboolean) curEnv->CallStaticBooleanMethod(cls, jbooleanisFrameEnablejintID ,objID);
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+return (res == JNI_TRUE);
+
+}
+
 void CallScilabBridge::removeRootMenu (JavaVM * jvm_, char * menuName){
 
 JNIEnv * curEnv = NULL;
@@ -4212,6 +4314,29 @@ curEnv->ExceptionDescribe() ;
 }
 
                         
+}
+
+long CallScilabBridge::newExportFileChooser (JavaVM * jvm_, long figureId){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread((void **) &curEnv, NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID jintnewExportFileChooserjintID = curEnv->GetStaticMethodID(cls, "newExportFileChooser", "(I)I" ) ;
+if (jintnewExportFileChooserjintID == NULL) {
+std::cerr << "Could not access to the method " << "newExportFileChooser" << std::endl;
+exit(EXIT_FAILURE);
+}
+
+                        jint res =  (jint) curEnv->CallIntMethod(cls, jintnewExportFileChooserjintID ,figureId);
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+return res;
+
 }
 
 long CallScilabBridge::newFontChooser (JavaVM * jvm_){

@@ -34,8 +34,9 @@ void sciSetJavaColormap( sciPointObj * pFigure, const double rgbMat[], int nbCol
 
 /**
  * Set the size of a figure object
+ * @return indicates if the size could be successfully modified
  */
-void sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] ) ;
+BOOL sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] ) ;
 
 /**
  * Set the size of a window enclosing a figure.
@@ -51,11 +52,6 @@ void sciSetJavaWindowPosition( sciPointObj * pFigure, const int pos[2] ) ;
  * Set the message displayed by a figure.
  */
 void sciSetJavaInfoMessage( sciPointObj * pFigure, const char * infoMessage ) ;
-
-/**
- * Specify if the figure can be renderered now
- */
-void sciSetJavaRenderingEnable(sciPointObj * pFigure, BOOL isEnable);
 
 /**
  * Zoom a subwin object with the specified rectangle in pixels

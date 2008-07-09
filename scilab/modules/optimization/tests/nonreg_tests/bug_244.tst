@@ -18,17 +18,17 @@
 
 // parameters
 //C0=2.39e-4
-C0=2e-4
-C02=0.02
-na0=2e-7
-v0=0.01
+C0=2e-4;
+C02=0.02;
+na0=2e-7;
+v0=0.01;
 
-pK1=6.9
-pK2=6.9
+pK1=6.9;
+pK2=6.9;
 
 // function to get the calculated pH
-deff('[x]=f0(pH)','x=(10^(-pH-pK1)+2*10^(-2*pH))/(10^(-pK1-pK2)+10^(-pH-pK1)+10^(-2*pH))+((v0+v)*(10^(-pH)-10^(pH-14))+na0-C02*v)/(C0*v0)')
-deff('[pH]=fpH(p)','v=p;pH=fsolve(7,f0)')
+deff('[x]=f0(pH)','x=(10^(-pH-pK1)+2*10^(-2*pH))/(10^(-pK1-pK2)+10^(-pH-pK1)+10^(-2*pH))+((v0+v)*(10^(-pH)-10^(pH-14))+na0-C02*v)/(C0*v0)');
+deff('[pH]=fpH(p)','v=p;pH=fsolve(7,f0)');
 
 // data
 
@@ -94,7 +94,7 @@ X=[
 0.000345	
 0.000395	
 0.000445	
-]
+];
 
 Y=[
 //8.21	
@@ -156,17 +156,17 @@ Y=[
 3.60	
 3.47	
 3.36	
-]
+];
 
 // fitting
 Z=[Y;X];
-deff('e=G(p,z)','pK1=p(1),pK2=p(2),v=z(2),pHexp=z(1),e=pHexp-fpH(v)')
-[p,err]=fit_dat(G,[6;7],Z)
+deff('e=G(p,z)','pK1=p(1),pK2=p(2),v=z(2),pHexp=z(1),e=pHexp-fpH(v)');
+[p,err]=fit_dat(G,[6;7],Z);
 
 
 // graphic part
 xbasc()
 //v=[0:1e-5:4.5e-4]
-v=X
-fplot2d(v,fpH)
-plot2d(X,Y,[-2])
+v=X;
+fplot2d(v,fpH);
+plot2d(X,Y,[-2]);

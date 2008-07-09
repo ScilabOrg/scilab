@@ -9,21 +9,16 @@
 // Demonstrate animation based on the evolution of a 3D surface
 // ============================================================================
 
-curFig = gcf();clf();  // erase window
+curFig             = scf(100001);
+clf(curFig,"reset");
+demo_viewCode("anim5.sce");
+
+drawlater();
+
 xselect(); //raise the graphic window
 
-//turn off toolbar
-//----------------
-id=curFig.figure_id;
-tb=toolbar(id); //preserve setting
-toolbar(id,"off");
 
-// set double buffer mode to avoid blinking animation
-//---------------------------------------------------
-pix = curFig.pixmap; //preserve old setting
-curFig.pixmap = "on";
-
-// set a new colormap 
+// set a new colormap
 //-------------------
 cmap= curFig.color_map; //preserve old setting
 curFig.color_map = jetcolormap(64);
@@ -43,15 +38,11 @@ title("evolution of a 3d surface","fontsize",3)
 
 I=20:-1:1;
 realtimeinit(0.1);;//set time step (0.1 seconds)  and date reference
+
+
+drawnow();
+
 for i=1:max(size(I))
   realtime(i); //wait till date 0.1*i seconds
   s.data.z = (sin((I(i)/10)*x)'*cos((I(i)/10)*y))';
-  show_pixmap();//send  buffer to screen
 end
-	
-
-// Reset initial properties
-//--------------------------------
-toolbar(id,tb);
-curFig.pixmap = pix;
-

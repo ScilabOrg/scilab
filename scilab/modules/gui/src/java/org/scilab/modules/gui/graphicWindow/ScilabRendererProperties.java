@@ -21,6 +21,7 @@ import org.scilab.modules.gui.canvas.Canvas;
 import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
+import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.renderer.figureDrawing.RendererProperties;
 
 
@@ -36,7 +37,7 @@ public class ScilabRendererProperties implements RendererProperties {
 	
 	/**
 	 * Default constructor
-	 * @param parentTab the parent tab of this renderer
+	 * @param parentTab the parent tab of this renderer 
 	 * @param parentCanvas the parent canvas of this renderer
 	 */
 	public ScilabRendererProperties(Tab parentTab, Canvas parentCanvas) {
@@ -49,7 +50,8 @@ public class ScilabRendererProperties implements RendererProperties {
 	 * @see org.scilab.modules.renderer.figureDrawing.RendererProperties#forceDisplay()
 	 */
 	public void forceDisplay() {
-		parentCanvas.display();
+		parentTab.draw();
+		//parentCanvas.display();
 	}
 
 	/**
@@ -128,10 +130,44 @@ public class ScilabRendererProperties implements RendererProperties {
 	 * Set the size of the parent canvas
 	 * @param width the width to set to the parent
 	 * @param height the height to set to the parent
+	 * @return indicates if the size could be successfully modified
 	 * @see org.scilab.modules.renderer.figureDrawing.RendererProperties#setCanvasSize(int, int)
 	 */
-	public void setCanvasSize(int width, int height) {
-		parentCanvas.setDims(new Size(width, height));
+	public boolean setCanvasSize(int width, int height) {
+		if (!getAutoResizeMode()) {
+			// autore size off, just resize the canvas
+			parentCanvas.setDims(new Size(width, height));
+			return true;
+		} else if (parentTab.getParentWindow().getNbDockedObjects() == 1) {
+			// canvas tab is the only one in its window
+			// so resize window (tab and canvas will follow)
+			
+			Window parentWindow = parentTab.getParentWindow();
+			
+			// to be sure that window and children dimensions are up to date.
+			parentWindow.updateDimensions();
+
+			
+			Size currentSize = parentCanvas.getDims();
+			// compute the requested size modifications
+			int deltaX = width - currentSize.getWidth();
+			int deltaY = height - currentSize.getHeight();
+			
+			
+			// apply them to the parent window
+			Size windowSize = parentWindow.getDims();
+			windowSize.setWidth(windowSize.getWidth() + deltaX);
+			windowSize.setHeight(windowSize.getHeight() + deltaY);
+			parentWindow.setDims(windowSize);
+			
+			// also apply on canvas otherwise the canvas is resized twice by Swing
+			parentCanvas.setDims(new Size(width, height));
+			return true;
+		}
+		// if there are several docked objects, don't allow to resize canvas
+		// if it must changed either the tab or window size
+		
+		return false;
 	}
 
 	/**
@@ -203,6 +239,9 @@ public class ScilabRendererProperties implements RendererProperties {
      * Close the rendering canvas
      */
    public void closeCanvas() {
+	   // hide tab before to avoid unwanted display
+	   parentTab.setVisible(false);
+	   
 	   parentTab.close();
    }
    
@@ -296,6 +335,13 @@ public class ScilabRendererProperties implements RendererProperties {
 	 */
 	public void stopRotationRecording() {
 		parentCanvas.stopRotationRecording();
+	}
+	
+	/**
+	 * Put the figure in top of other windows
+	 */
+	public void showWindow() {
+		parentTab.getParentWindow().raise();
 	}
 
 }

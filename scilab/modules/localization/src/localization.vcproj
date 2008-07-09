@@ -395,55 +395,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
-			>
-			<File
-				RelativePath=".\c\DllmainLocalization.c"
-				>
-			</File>
-			<File
-				RelativePath=".\c\getLocaleInfo_Windows.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\gw_localization.c"
-				>
-			</File>
-			<File
-				RelativePath=".\c\InitializeLocalization.c"
-				>
-			</File>
-			<File
-				RelativePath=".\c\loadsavelanguage.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\sci_dgettext.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\sci_getdefaultlanguage.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\sci_getlanguage.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\sci_gettext.c"
-				>
-			</File>
-			<File
-				RelativePath="..\sci_gateway\c\sci_setlanguage.c"
-				>
-			</File>
-			<File
-				RelativePath=".\c\setgetlanguage.c"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
@@ -543,6 +494,59 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			>
+			<File
+				RelativePath=".\c\DllmainLocalization.c"
+				>
+			</File>
+			<File
+				RelativePath=".\c\getLocaleInfo_Windows.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\gw_localization.c"
+				>
+			</File>
+			<File
+				RelativePath=".\c\InitializeLocalization.c"
+				>
+			</File>
+			<File
+				RelativePath=".\c\loadsavelanguage.c"
+				>
+			</File>
+			<File
+				RelativePath=".\c\localetoutf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\sci_dgettext.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\sci_getdefaultlanguage.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\sci_getlanguage.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\sci_gettext.c"
+				>
+			</File>
+			<File
+				RelativePath="..\sci_gateway\c\sci_setlanguage.c"
+				>
+			</File>
+			<File
+				RelativePath=".\c\setgetlanguage.c"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\localization.iss"

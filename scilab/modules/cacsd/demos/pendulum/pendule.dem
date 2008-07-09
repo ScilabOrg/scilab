@@ -7,14 +7,21 @@
 
 mode(-1)
 path=get_absolute_file_path('pendule.dem');
-//
+
 getf(path+'simulation.sci')
 getf(path+'graphics.sci')
-//
-xselect();wdim=xget('wdim')
+
+//disable displayed lines control
+display_props=lines(); lines(0)
+my_handle             = scf(100001);
+clf(my_handle,"reset");
+
+xselect();
+wdim=xget('wdim')
 //mode(1)
 
  dpnd()
+
 //
 // equations 
 //----------
@@ -36,7 +43,6 @@ x_message(['Open loop simulation'
 
  P=initialize_display(y0(1),y0(3));
  for k=1:size(y,2), set_pendulum(P,y(1,k),y(3,k));end
-
 //
 x_message(['Linearization'
 	   ' '
@@ -166,6 +172,7 @@ mode(1)
  clf()
  black(pr,0.01,100,['position','theta'])
  g_margin(pr(1,1))
+ show_pixmap()
  mode(-1)
  
  
@@ -219,4 +226,5 @@ mode(1)
  yd=ode(x0,t0,t1,regu);
  draw2()
 mode(-1) 
- x_message('The end')
+lines(display_props(2))
+x_message('The end')

@@ -705,7 +705,7 @@ static int moveObj(sciPointObj * pobj, double displacement[], int displacementSi
     {
       double pos[3];
       sciGetTextPos(pobj, pos) ;
-      sciSetTextPos(pobj, pos[0] + x, pos[1] + y, pos[2]) ;
+      sciSetTextPos(pobj, pos[0] + x, pos[1] + y, pos[2] + z) ;
       pLABEL_FEATURE(pobj)->auto_position = FALSE;
       break;
     }
@@ -908,6 +908,8 @@ void interactiveRotation(sciPointObj * pFigure)
   sciSetInfoMessage(pFigure,curInfoMessageCopy);
   endFigureDataWriting(pFigure);
 
+  FREE(curInfoMessageCopy);
+
 }
 /*---------------------------------------------------------------------------------*/
 void interactiveSubwinRotation(sciPointObj * pSubiwn)
@@ -952,5 +954,10 @@ void trackSubwinRotation(sciPointObj * pSubwin)
 
   /* Perhaps we should think of restoring figure info message after the call */
 
+}
+/*---------------------------------------------------------------------------------*/
+void showWindow(sciPointObj * pFigure)
+{
+  javaShowWindow(pFigure);
 }
 /*---------------------------------------------------------------------------------*/

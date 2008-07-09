@@ -1,12 +1,4 @@
-function demo_truck()
-  initial = [-2;3;0.5235988;0;0;1]
-  final   = [0;0;0;0;0;0]
-  state = truck_solve(initial,final);
-  f = gcf() ;
-  f.pixmap = 'on' ;
-  toolbar(0,'off') ;
-  display_truck_trajectory(state)
-endfunction
+
 
 function state=truck_solve(initial,final)
 //
@@ -207,10 +199,9 @@ dk0 = dg1*k1 + g1*dk1 ....
 endfunction
 
 function display_truck_trajectory(state)
-   bigL = 1 ; d1 = 1.5 ; d2 = 1;
-  set figure_style new;xbasc(),xselect()
-  a=gca()
-  drawlater()
+  bigL = 1 ; d1 = 1.5 ; d2 = 1;
+  a=gca();
+  drawlater();
   a.isoview="on"
   a.data_bounds=[mini(state(:,1))-1.5*(d1+d2), mini(state(:,2))-bigL
 		 maxi(state(:,1))+1.5*bigL, maxi(state(:,2))+bigL]

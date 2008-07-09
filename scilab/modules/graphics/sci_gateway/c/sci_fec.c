@@ -59,8 +59,8 @@ int sci_fec(char *fname,unsigned long fname_len)
 
   if (Rhs <= 0)
   {
-    int one = 1 ;
-    sci_demo (fname," exec(\"SCI/modules/graphics/demos/fec/fec.ex1\");",&one);
+    int zero=0;
+    sci_demo (fname," exec(\"SCI/modules/graphics/demos/fec/fec.ex1\");",&zero);
     return 0;
   }
 
@@ -68,8 +68,8 @@ int sci_fec(char *fname,unsigned long fname_len)
 
   if ( get_optionals(fname,opts) == 0) return 0;
   if ( FirstOpt() < 5) {
-    sciprint(_("%s: Misplaced optional argument, first must be at position %d.\n"),
-      fname,5);
+    sciprint(_("%s: Misplaced optional argument: #%d must be at position %d.\n"),
+      fname,1, 5);
     Error(999); 
     return(0);
   }
@@ -79,7 +79,7 @@ int sci_fec(char *fname,unsigned long fname_len)
 
   GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE,&m3,&n3,&l3);
   if (n3 != 5) {
-    Scierror(999,_("%s: Wrong number of columns for third input argument: %d expected.\n"),fname,n3,5);
+    Scierror(999,_("%s: Wrong number of columns for input argument #%d: %d expected.\n"),fname,3,5);
     return 0;
   }
 

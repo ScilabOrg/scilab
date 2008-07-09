@@ -8,7 +8,9 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function [tf]=typeof(object)
-
+if exists("object","local")==0 then
+  error(msprintf(_("%s: Wrong value for input argument #%d: Defined variable expected.\n"),"typeof", 1))
+end
 select type(object)
 case 1 then tf='constant';
 case 2 then tf='polynomial';

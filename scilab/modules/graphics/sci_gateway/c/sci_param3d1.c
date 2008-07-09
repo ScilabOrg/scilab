@@ -53,8 +53,8 @@ int sci_param3d1( char *fname, unsigned long fname_len )
 
   if (Rhs <= 0)
   {
-    int one = 1 ;
-    sci_demo(fname,  "t=0:0.1:5*%pi;param3d1(sin(t),cos(t),t/10,35,45,'X@Y@Z',[2,4]);", &one);
+    int zero=0;
+    sci_demo(fname,  "t=0:0.1:5*%pi;param3d1(sin(t),cos(t),t/10,35,45,'X@Y@Z',[2,4]);", &zero);
     return 0;
   }
 
@@ -62,9 +62,8 @@ int sci_param3d1( char *fname, unsigned long fname_len )
 
   if ( get_optionals(fname,opts) == 0) return 0;
   if ( FirstOpt() < 4) {
-    sciprint(_("%s: Misplaced optional argument, first must be at position %d.\n"),
-      fname,4);
-    Error(999); 
+    Scierror(999,_("%s: Misplaced optional argument: #%d must be at position %d.\n"),
+      fname,1,4);
     return(0);
   }
   GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);/* x */
@@ -88,8 +87,8 @@ int sci_param3d1( char *fname, unsigned long fname_len )
     GetRhsVar(3,LIST_DATATYPE,&m3l,&n3l,&l3l);
     if ( m3l != 2 ) 
     {
-      Scierror(999,_("%s: Wrong size for second input argument: List of size %d expected.\n"),
-        fname,m3l,2);
+      Scierror(999,_("%s: Wrong size for input argument #%d: List of size %d expected.\n"),
+        fname,2,m3l,2);
       return 0;
     }
     GetListRhsVar(3,1,MATRIX_OF_DOUBLE_DATATYPE,&m3,&n3,&l3); /* z*/ 
@@ -97,7 +96,7 @@ int sci_param3d1( char *fname, unsigned long fname_len )
     zcol  = stk(l3n);
     if (m3n * n3n != n3) 
     {
-      Scierror(999,_("%s: Wrong size for third input argument: %d expected.\n"),fname,n3);
+      Scierror(999,_("%s: Wrong size for input argument #%d: %d expected.\n"),fname,3,n3);
       return 0;
     }
     break ;

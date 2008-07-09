@@ -118,7 +118,7 @@ jdoubleArraygetColorMapDataID=NULL;
 jintgetColorMapSizeID=NULL; 
 jintgetCanvasWidthID=NULL; 
 jintgetCanvasHeightID=NULL; 
-voidsetCanvasSizejintjintID=NULL; 
+jbooleansetCanvasSizejintjintID=NULL; 
 jintgetWindowPosXID=NULL; 
 jintgetWindowPosYID=NULL; 
 voidsetWindowPositionjintjintID=NULL; 
@@ -128,13 +128,13 @@ voidsetWindowSizejintjintID=NULL;
 voidsetInfoMessagejstringID=NULL; 
 voidsetAutoResizeModejbooleanID=NULL; 
 jbooleangetAutoResizeModeID=NULL; 
-voidsetIsRenderingEnablejbooleanID=NULL; 
 jintArraygetViewportID=NULL; 
 voidsetViewportjintjintjintjintID=NULL; 
 jintArrayrubberBoxjbooleanjbooleanjintArrayID=NULL; 
 voidsetTitlejstringID=NULL; 
 jintArraygetRotationDisplacementID=NULL; 
 voidstopRotationRecordingID=NULL; 
+voidshowWindowID=NULL; 
 
 
 }
@@ -176,7 +176,7 @@ jdoubleArraygetColorMapDataID=NULL;
 jintgetColorMapSizeID=NULL; 
 jintgetCanvasWidthID=NULL; 
 jintgetCanvasHeightID=NULL; 
-voidsetCanvasSizejintjintID=NULL; 
+jbooleansetCanvasSizejintjintID=NULL; 
 jintgetWindowPosXID=NULL; 
 jintgetWindowPosYID=NULL; 
 voidsetWindowPositionjintjintID=NULL; 
@@ -186,13 +186,13 @@ voidsetWindowSizejintjintID=NULL;
 voidsetInfoMessagejstringID=NULL; 
 voidsetAutoResizeModejbooleanID=NULL; 
 jbooleangetAutoResizeModeID=NULL; 
-voidsetIsRenderingEnablejbooleanID=NULL; 
 jintArraygetViewportID=NULL; 
 voidsetViewportjintjintjintjintID=NULL; 
 jintArrayrubberBoxjbooleanjbooleanjintArrayID=NULL; 
 voidsetTitlejstringID=NULL; 
 jintArraygetRotationDisplacementID=NULL; 
 voidstopRotationRecordingID=NULL; 
+voidshowWindowID=NULL; 
 
 
 }
@@ -547,23 +547,25 @@ return res;
 
 }
 
-void DrawableFigureGL::setCanvasSize (long width, long height){
+bool DrawableFigureGL::setCanvasSize (long width, long height){
 
 JNIEnv * curEnv = getCurrentEnv();
 
-if (voidsetCanvasSizejintjintID==NULL) { /* Use the cache Luke */ voidsetCanvasSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setCanvasSize", "(II)V" ) ;
-if (voidsetCanvasSizejintjintID == NULL) {
+if (jbooleansetCanvasSizejintjintID==NULL) { /* Use the cache Luke */ jbooleansetCanvasSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setCanvasSize", "(II)Z" ) ;
+if (jbooleansetCanvasSizejintjintID == NULL) {
 std::cerr << "Could not access to the method " << "setCanvasSize" << std::endl;
 exit(EXIT_FAILURE);
 }
 }
-                         curEnv->CallVoidMethod( this->instance, voidsetCanvasSizejintjintID ,width, height);
+                        jboolean res =  (jboolean) curEnv->CallBooleanMethod( this->instance, jbooleansetCanvasSizejintjintID ,width, height);
                         
 if (curEnv->ExceptionOccurred()) {
 curEnv->ExceptionDescribe() ;
 }
 
                         
+return (res == JNI_TRUE);
+
 }
 
 long DrawableFigureGL::getWindowPosX (){
@@ -751,27 +753,6 @@ return (res == JNI_TRUE);
 
 }
 
-void DrawableFigureGL::setIsRenderingEnable (bool isEnable){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (voidsetIsRenderingEnablejbooleanID==NULL) { /* Use the cache Luke */ voidsetIsRenderingEnablejbooleanID = curEnv->GetMethodID(this->instanceClass, "setIsRenderingEnable", "(Z)V" ) ;
-if (voidsetIsRenderingEnablejbooleanID == NULL) {
-std::cerr << "Could not access to the method " << "setIsRenderingEnable" << std::endl;
-exit(EXIT_FAILURE);
-}
-}
-jboolean isEnable_ = ((bool) isEnable ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallVoidMethod( this->instance, voidsetIsRenderingEnablejbooleanID ,isEnable_);
-                        
-if (curEnv->ExceptionOccurred()) {
-curEnv->ExceptionDescribe() ;
-}
-
-                        
-}
-
 long * DrawableFigureGL::getViewport (){
 
 JNIEnv * curEnv = getCurrentEnv();
@@ -936,6 +917,25 @@ exit(EXIT_FAILURE);
 }
 }
                          curEnv->CallVoidMethod( this->instance, voidstopRotationRecordingID );
+                        
+if (curEnv->ExceptionOccurred()) {
+curEnv->ExceptionDescribe() ;
+}
+
+                        
+}
+
+void DrawableFigureGL::showWindow (){
+
+JNIEnv * curEnv = getCurrentEnv();
+
+if (voidshowWindowID==NULL) { /* Use the cache Luke */ voidshowWindowID = curEnv->GetMethodID(this->instanceClass, "showWindow", "()V" ) ;
+if (voidshowWindowID == NULL) {
+std::cerr << "Could not access to the method " << "showWindow" << std::endl;
+exit(EXIT_FAILURE);
+}
+}
+                         curEnv->CallVoidMethod( this->instance, voidshowWindowID );
                         
 if (curEnv->ExceptionOccurred()) {
 curEnv->ExceptionDescribe() ;

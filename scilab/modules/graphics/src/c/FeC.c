@@ -77,7 +77,7 @@ int C2F(fec)(double *x, double *y, double *triangles, double *func, integer *Nno
   
 
   long hdltab[2];
-  int cmpt=0,styl[2];
+  int cmpt=0;
   sciPointObj *pptabofpointobj;
   sciPointObj  *psubwin;
   double drect[6];
@@ -165,7 +165,7 @@ int C2F(fec)(double *x, double *y, double *triangles, double *func, integer *Nno
       CreatePrettyGradsFromNax(psubwin,aaint);
     }
     else{
-      sciprint(_("Warning : Nax does not work with logarithmic scaling\n"));
+      sciprint(_("Warning: Nax does not work with logarithmic scaling.\n"));
 	}
   }
 
@@ -187,6 +187,7 @@ int C2F(fec)(double *x, double *y, double *triangles, double *func, integer *Nno
   sciDrawObj(sciGetCurrentObj ());
   DrawAxesIfRequired(sciGetCurrentObj ()); /* force axes redrawing */
   /** Drawing the Legends **/
+  /*
   if ((int)strlen(strflag) >=1  && strflag[0] == '1')
   {
     n1=1; styl[0]=1;styl[1]=0;
@@ -196,10 +197,11 @@ int C2F(fec)(double *x, double *y, double *triangles, double *func, integer *Nno
     
     
     sciDrawObj(sciGetCurrentObj ()); 
-    DrawAxesIfRequired(sciGetCurrentObj ()); /* force axes redrawing */
+    DrawAxesIfRequired(sciGetCurrentObj ()); 
     hdltab[cmpt]=sciGetHandle(sciGetCurrentObj ()); 
     cmpt++;
   }
+  */
   sciSetCurrentObj(ConstructCompound (hdltab, cmpt));  /** construct Compound **/
 
    

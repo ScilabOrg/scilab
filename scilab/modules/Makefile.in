@@ -127,14 +127,14 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = core atoms output_stream action_binding arnoldi \
 	elementary_functions string dynamic_link history_manager \
-	fileio spreadsheet tclsci renderer shell completion console \
-	localization gui jvm graphics graphic_export optimization \
-	symbolic randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	fileio spreadsheet tclsci renderer shell completion \
+	localization console gui jvm graphics graphic_export \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci metanet signal_processing sound time sparse \
-	windows_tools functions others overloading maple2scilab m2sci \
-	texmacs scipad scilab2fortran development_tools \
+	windows_tools functions overloading maple2scilab m2sci texmacs \
+	scipad scilab2fortran development_tools \
 	compatibility_functions helptools fftw umfpack demo_tools \
 	genetic_algorithms simulated_annealing parameters matio \
 	scicos_blocks scicos . javasci
@@ -148,6 +148,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BATIK = @BATIK@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -175,6 +176,7 @@ FFTW3_LIB = @FFTW3_LIB@
 FFTW_ENABLE = @FFTW_ENABLE@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
+FOP = @FOP@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
 GREP = @GREP@
@@ -192,6 +194,7 @@ JAVA_HOME = @JAVA_HOME@
 JAVA_JNI_INCLUDE = @JAVA_JNI_INCLUDE@
 JAVA_JNI_LIBS = @JAVA_JNI_LIBS@
 JDB = @JDB@
+JEUCLID_CORE = @JEUCLID_CORE@
 JHALL = @JHALL@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
@@ -240,6 +243,8 @@ PVM_LIB = @PVM_LIB@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
+RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SED = @SED@
@@ -326,13 +331,13 @@ top_srcdir = @top_srcdir@
 # since it already linked almost the whole world
 SUBDIRS = core atoms output_stream action_binding arnoldi \
 	elementary_functions string dynamic_link history_manager \
-	fileio spreadsheet tclsci renderer shell completion console \
-	localization gui jvm graphics graphic_export optimization \
-	symbolic randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	fileio spreadsheet tclsci renderer shell completion \
+	localization console gui jvm graphics graphic_export \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci metanet signal_processing core interpolation sound \
-	time randlib sparse windows_tools functions others overloading \
+	time randlib sparse windows_tools functions overloading \
 	maple2scilab m2sci texmacs scipad scilab2fortran \
 	development_tools compatibility_functions helptools fftw \
 	umfpack demo_tools genetic_algorithms simulated_annealing \
@@ -388,8 +393,10 @@ $(top_builddir)/modules/mexlib/libmex.la \
 	$(top_builddir)/modules/action_binding/libsciaction_binding.la \
 	$(top_builddir)/modules/dynamic_link/libscidynamic_link.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
-	$(top_builddir)/modules/matio/libscimatio.la
+	$(top_builddir)/modules/matio/libscimatio.la 
 
+#
+#	$(top_builddir)/modules/helptools/libscihelptools.la
 
 # Core modules
 

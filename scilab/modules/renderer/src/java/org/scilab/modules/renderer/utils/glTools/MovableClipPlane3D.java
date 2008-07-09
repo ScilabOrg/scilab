@@ -108,7 +108,6 @@ public class MovableClipPlane3D extends ClipPlane3D {
 	@Override
 	public void clip(GL gl) {
 		super.clip(gl);
-		ClipPlane3DManager.addClippedPlane(this);
 	}
 	
 	/**
@@ -118,21 +117,20 @@ public class MovableClipPlane3D extends ClipPlane3D {
 	@Override
 	public void unClip(GL gl) {
 		super.unClip(gl);
-		ClipPlane3DManager.removeClippedPlane(this);
 	}
 	
 	/**
 	 * Save the current plane equation before a coordinate transformation.
 	 * @param gl current OpenGL pipeline
+	 * @param transform current transfomrations between 3D, 2D a, dpixel coordinates
 	 */
-	public void pushPlane(GL gl) {
+	public void pushPlane(GL gl, CoordinateTransformation transform) {
 
 		Plane3D copyPlane = new Plane3D(this);
 		pushedPlanes.addFirst(copyPlane);
 		
 		normal = getNormal();
 		getThreePointsOnPlane(point1, point2, point3);
-		CoordinateTransformation transform = CoordinateTransformation.getTransformation(gl);
 		
 		// normal is a direction not a position
 		normal = transform.getCanvasCoordinates3D(gl, normal);

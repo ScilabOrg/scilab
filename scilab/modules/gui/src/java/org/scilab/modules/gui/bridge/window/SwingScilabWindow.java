@@ -117,6 +117,20 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 		this.setVisible(true);
 		this.doLayout();
 	}
+	
+	/**
+	 * Deiconify the window and put it in front of other window
+	 */
+	public void raise() {
+		// force visibility
+		this.setVisible(true);
+		
+		// deiconify the window if needed
+		this.setState(NORMAL);
+		
+		// put it in front of others
+		this.toFront();
+	}
 
 	/**
 	 * Gets the dimensions (width and height) of a swing Scilab window
@@ -284,4 +298,22 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 	public void close() {
 		dispose();
 	}
+	
+	/**
+	 * @return number of objects (tabs) docked in this window
+	 */
+	public int getNbDockedObjects() {
+		return sciDockingListener.getNbDockedObjects();
+	}
+	
+	/**
+	 * Update the dimension of the window and its component.
+	 * Only useful when the window is not yet visible
+	 */
+	public void updateDimensions() {
+		if (!isVisible()) {
+			this.pack();
+		}
+	}
+	
 }

@@ -22,6 +22,7 @@
 #include "hmops.h"
 #include "Scierror.h"
 #include "core_math.h"
+#include "localization.h"
 
 #define sign(a) ((a) < 0 ? -1 : 1)
 
@@ -254,7 +255,7 @@ static int cre_hmat(int pos, HyperMat *H)
 {
   /*  dans cette version, seuls les champs dimsize, size et it sont definis
    *  et on alloue alors la memoire des champs dims, R (et I si it=1) dans
-   *  la pile scilab (juste à la place occupee par la variable).
+   *  la pile scilab (juste ï¿½ la place occupee par la variable).
    */
   static char *Str[]= { "hm","dims","entries"}; int m1=1,n1=3;
   int mL=3,nL=1,lL, one=1, lr, lc, lar, lac;
@@ -393,7 +394,7 @@ static int create_index_vector(int pos, int pos_ind, int *mn,
    *      nmax    : utilise pour les descriptions implicites, aussi ind_max ne
    *                doit pas lui etre superieur
    */
-      /* code based on SCI/routines/interf/indxg.f */
+      /* code based on SCI/modules/core/src/fortran/indxg.f */
 
   int m, n, l, li, one=1, trois=3, *ti,/* val,*/ il, k, i, j, ideb, ipas, ifin, *P;
   double *td, px[3], x;
@@ -470,7 +471,6 @@ static int create_index_vector(int pos, int pos_ind, int *mn,
       x = (double) nmax;
       C2F(ddmpev)( stk(l), istk(il+8), &one, &x, px, &one, &one, &trois);
       ideb = (int) px[0]; ipas = (int) px[1]; ifin = (int) px[2];
-
       if ( ipas == 0  ||  (ifin-ideb)*sign(ipas) < 0 )   /* index is finaly [] */
 	{
 	  *mn = 0; *ind_max = -1;
@@ -482,8 +482,19 @@ static int create_index_vector(int pos, int pos_ind, int *mn,
 	}
       else
 	{
-	  *mn = (abs(ifin-ideb)+1)/abs(ipas);
-	  *ind_max = Max(ideb, ifin);
+	  int ind_min;
+	  *mn = (abs(ifin-ideb))/abs(ipas)+1;
+	  if ( ipas > 0 )
+            {
+              ind_min = ideb; *ind_max = ideb + (*mn-1)*ipas;
+            }
+          else /* ipas < 0 (the case ipas==0 is treated before) */
+            {
+              *ind_max = ifin; ind_min = ifin  + (*mn-1)*ipas;
+            }
+	  if ( ind_min <= 0 )
+            return 0;    /* at least one index is <= 0 => error */
+
 	  li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
 	  ti[0] = ideb-1;  /* -1 to get 0-based indices */
 	  for ( k = 1 ; k < *mn ; k++ ) ti[k] = ti[k-1] + ipas;
@@ -643,13 +654,13 @@ int C2F(intehm)()
 
   if ( Rhs < 2 )
     {
-      Scierror(999," an hypermat extraction must have at least 2 args ");
+      Scierror(999,_(" An hypermatrix extraction must have at least 2 arguments. "));
       return(0);
     };
 
   if ( ! get_hmat(Rhs, &H) )
     {
-      Scierror(999," argument is not an hypermatrix ");
+      Scierror(999,_(" Argument is not an hypermatrix. "));
       return 0;
     }
   else if ( H.type == NOT_REAL_or_CMPLX_or_BOOL_or_INT  || H.type == OLD_HYPERMAT )
@@ -662,7 +673,7 @@ int C2F(intehm)()
   nb_index_vectors = Rhs-1;
   if ( H.dimsize <  nb_index_vectors )
     {
-      Scierror(999," incompatible hypermat extraction ");
+      Scierror(999,_(" Incompatible hypermatrix extraction. "));
       return 0;
     }
   else if ( H.dimsize > nb_index_vectors )  /* reshape H */
@@ -688,7 +699,7 @@ int C2F(intehm)()
       ier = create_index_vector(i, dec+i, &mn, H.dims[i-1], &ind_max);
       if ( ier == 0  ||  ind_max > H.dims[i-1] )
 	{
-	  Scierror(999,"bad (%d th) index in hypermat extraction ",i); return 0;
+	  Scierror(999,_("Bad (%d th) index in hypermatrix extraction. "),i); return 0;
 	}
       if ( mn == 0 )   /* the vector index is [] => we return an empty matrix */
 	{
@@ -817,14 +828,14 @@ int C2F(intihm)()
 
   if ( Rhs < 3 )
     {
-      Scierror(999," an hypermat insertion must have at least 3 args ");
+      Scierror(999,_(" An hypermatrix insertion must have at least 3 arguments "));
       return 0;
     };
   nb_index_vectors = Rhs - 2;
 
   if ( ! get_hmat(Rhs, &A) )
     {
-      Scierror(999," argument is not an hypermatrix ");
+      Scierror(999,_(" Argument is not an hypermatrix "));
       return 0;
     }
   else if ( A.type == NOT_REAL_or_CMPLX_or_BOOL_or_INT  || A.type == OLD_HYPERMAT )
@@ -880,7 +891,7 @@ int C2F(intihm)()
 	    goto the_end;
 	  else   /* B have at least 2 elts */
 	    {
-	      Scierror(999," bad hypermat insertion "); return 0;
+	      Scierror(999,_(" Bad hypermatrix insertion. ")); return 0;
 	    }
 	}
       else if ( ind_max > A.dims[i-1] )
@@ -895,7 +906,7 @@ int C2F(intihm)()
 	    iconf++;
 	  if ( iconf >= B.dimsize  ||  B.dims[iconf] != mn )
 	    {
-	      Scierror(999," bad hypermat insertion ");
+	      Scierror(999,_(" Bad hypermatrix insertion. "));
 	      return 0;
 	    }
 	  iconf++;
@@ -905,7 +916,7 @@ int C2F(intihm)()
   /* to finish the conformity test */
   if ( !B_is_scalar &&  ntot != B.size )
     {
-      Scierror(999," bad hypermat insertion ");
+      Scierror(999,_(" Bad hypermatrix insertion. "));
       return 0;
     }
 
@@ -973,7 +984,7 @@ int C2F(intihm)()
  *  le code se base sur  setref (SCI/system/createref.f)
  *  on met une variable speciale "en Top" (le nouveau
  *  Top = Top-Rhs+1) qui indique en fait que l'on a
- *  modifié "en place" la variable topk.
+ *  modifiï¿½ "en place" la variable topk.
  *  Les instructions  LhsVar(1) = 0; et Nbvars = 0;
  *  permettent a priori de sortir "convenablement"
  *  de putlhsvar.

@@ -122,7 +122,6 @@ src/c/getHandleProperty/get_grid_property.c \
 src/c/getHandleProperty/get_box_property.c \
 src/c/getHandleProperty/get_hidden_color_property.c \
 src/c/getHandleProperty/get_handle_visible_property.c \
-src/c/getHandleProperty/get_menu_enable_property.c \
 src/c/getHandleProperty/get_labels_font_color_property.c \
 src/c/getHandleProperty/get_surface_color_property.c \
 src/c/getHandleProperty/get_tics_label_property.c \
@@ -147,6 +146,8 @@ src/c/getHandleProperty/get_event_handler_property.c \
 src/c/getHandleProperty/get_event_handler_enable_property.c \
 src/c/getHandleProperty/get_arc_drawing_method_property.c \
 src/c/getHandleProperty/get_fractional_font_property.c \
+src/c/getHandleProperty/get_links_property.c \
+src/c/getHandleProperty/get_legend_location_property.c \
 src/c/getHandleProperty/GetHashTable.c \
 src/c/graphicModuleLoad.c \
 src/c/getHandleProperty/set_old_style_property.c \
@@ -232,7 +233,6 @@ src/c/getHandleProperty/set_axes_bounds_property.c \
 src/c/getHandleProperty/set_tics_style_property.c \
 src/c/getHandleProperty/SetHashTable.c \
 src/c/getHandleProperty/set_handle_visible_property.c \
-src/c/getHandleProperty/set_menu_enable_property.c \
 src/c/getHandleProperty/set_labels_font_color_property.c \
 src/c/getHandleProperty/set_parent_property.c \
 src/c/getHandleProperty/set_axes_visible_property.c \
@@ -279,6 +279,8 @@ src/c/getHandleProperty/set_event_handler_property.c \
 src/c/getHandleProperty/set_event_handler_enable_property.c \
 src/c/getHandleProperty/set_arc_drawing_method_property.c \
 src/c/getHandleProperty/set_fractional_font_property.c \
+src/c/getHandleProperty/set_links_property.c \
+src/c/getHandleProperty/set_legend_location_property.c \
 src/c/DefaultCommandArg.c \
 src/c/graphicSession.c \
 src/c/Axes.c \
@@ -320,7 +322,8 @@ src/c/fill_grid_rectangles.c \
 src/c/get_rgb.c \
 src/c/getcolordef.c \
 src/c/getwindowdim.c \
-src/c/periEmpty.c
+src/c/periEmpty.c\
+src/c/scitokenize.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_swap_handles.c \
 sci_gateway/c/sci_grayplot.c \
@@ -391,7 +394,8 @@ sci_gateway/c/sci_fec.c \
 sci_gateway/c/sci_rubberbox.c \
 sci_gateway/c/sci_rotate_axes.c \
 sci_gateway/c/sci_is_handle_valid.c \
-sci_gateway/c/sci_show_pixmap.c
+sci_gateway/c/sci_show_pixmap.c \
+sci_gateway/c/sci_Legend.c
 
 libscigraphics_la_CFLAGS +=	$(JAVA_JNI_INCLUDE) \
 				-Isrc/cpp \
@@ -547,7 +551,8 @@ includes/TerminateGraphics.h \
 includes/sci_rubberbox.h \
 includes/sci_rotate_axes.h \
 includes/sci_is_handle_valid.h \
-includes/sci_show_pixmap.h
+includes/sci_show_pixmap.h \
+includes/sci_Legend.h
 
 ### graphics : ged files ###
 libscigraphics_la_geddir = $(mydatadir)/tcl/ged
@@ -637,7 +642,9 @@ demos/anim/anim6/anim6_gateway.sce \
 demos/anim/anim6/yt.wrt \
 demos/anim/anim7/anim7.sce \
 demos/anim/anim7/anim7_gateway.sce \
-demos/bar/bar.dem \
+demos/anim/anim8/anim8.sci \
+demos/anim/anim8/anim8_gateway.sce \
+demos/bar/bar.dem.sce \
 demos/basic_functions/basic_functions.dem.gateway.sce \
 demos/basic_functions/basic_functions_1.dem.sce \
 demos/basic_functions/basic_functions_2.dem.sce \
@@ -660,10 +667,28 @@ demos/cmplxfunc/cmplxfunc.dem.gateway.sce \
 demos/cmplxfunc/cmplxfunc.sce \
 demos/cmplxfunc/cmplxfunc.sci \
 demos/cmplxfunc/cmplxfunc_dial.sce \
+demos/cmplxfunc/demo_acos.dem.sce \
+demos/cmplxfunc/demo_acosh.dem.sce \
+demos/cmplxfunc/demo_asin.dem.sce \
+demos/cmplxfunc/demo_asinh.dem.sce \
+demos/cmplxfunc/demo_atan.dem.sce \
+demos/cmplxfunc/demo_atanh.dem.sce \
+demos/cmplxfunc/demo_cos.dem.sce \
+demos/cmplxfunc/demo_cosh.dem.sce \
+demos/cmplxfunc/demo_custom.dem.sce \
+demos/cmplxfunc/demo_exp.dem.sce \
+demos/cmplxfunc/demo_log.dem.sce \
+demos/cmplxfunc/demo_sin.dem.sce \
+demos/cmplxfunc/demo_sinh.dem.sce \
+demos/cmplxfunc/demo_tan.dem.sce \
+demos/cmplxfunc/demo_tanh.dem.sce \
 demos/cmplxfunc/MacCmplx.sci \
+demos/cmplxfunc/warning.png \
+demos/colormap.dem.sce \
+demos/colormap.dem.sci \
 demos/contourf.dem \
-demos/fec/fec.ex1 \
 demos/fec/fec.dem.gateway.sce \
+demos/fec/fec.ex1 \
 demos/fec/fec.ex2 \
 demos/fec/fec.ex2.dem.gateway.sce \
 demos/fec/fec.ex3 \
@@ -676,10 +701,13 @@ demos/fec/MESH \
 demos/fec/MESH.VAL \
 demos/graphics.dem.gateway.sce \
 demos/misc/misc.dem \
+demos/misc/misc.dem.sce \
+demos/misc/misc.dem.sci \
 demos/misc/numerique.dem \
 demos/misc/oscil.dem \
 demos/misc/oscil.sci \
 demos/misc/point.dem \
+demos/misc.dem.sci \
 demos/misc_new/misc.dem.gateway.sce \
 demos/misc_new/misc.sce \
 demos/misc_new/numerique.dem \

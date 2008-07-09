@@ -49,7 +49,8 @@ static gw_generic_table Tab[]=
 	{sci_uigetfont,"uigetfont"},
 	{sci_uigetcolor,"uigetcolor"},
         {sci_getcallbackobject, "getcallbackobject"},
-        {sci_printfigure, "printfigure"}
+        {sci_printfigure, "printfigure"},
+        {sci_exportUI, "exportUI"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_gui(void)
@@ -58,7 +59,7 @@ int gw_gui(void)
 
 	if ( getScilabMode() == SCILAB_NWNI)
 	{
-		Scierror(999,_("Scilab graphic module disabled -nogui or -nwni mode."));
+		Scierror(999,_("Scilab '%s' module disabled in -nogui or -nwni mode."), "GUI");
 		return 0;
 	}
 

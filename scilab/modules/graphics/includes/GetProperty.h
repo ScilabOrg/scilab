@@ -53,6 +53,8 @@ BOOL sciGetIsLine (sciPointObj * pobj); /* GET */
 int sciGetLineStyle (sciPointObj * pobj); /* GET */
 BOOL sciGetIsMark (sciPointObj * pobj); /* GET */
 BOOL sciGetIsFilled (sciPointObj * pobj); /* GET */
+double sciGetArrowSize (sciPointObj * pobj); /* GET */
+
 EAxesBoxType sciGetBoxType( sciPointObj * pobj ) ; /* GET */
 BOOL sciGetIsBoxed (sciPointObj * pobj); /* GET */
 int sciGetMarkStyle (sciPointObj * pobj); /* GET */
@@ -87,7 +89,7 @@ sciTitlePlace sciGetTitlePlace (sciPointObj * pobj); /* GET */
 
 /* Legend */
 sciLegendPlace sciGetLegendPlace (sciPointObj * pobj);
-POINT2D sciGetLegendPos (sciPointObj * pobj);
+void sciGetLegendPos (sciPointObj * pobj , double position[]);
 
 /* Figure / Subwin main functions */
 sciPointObj *sciGetParentFigure (sciPointObj * pobj); /* GET */
@@ -144,6 +146,9 @@ sciPointObj *CheckClickedSubwin(integer x, integer y); /* GET */
 
 /* BOOL GetIsAxes(sciPointObj *psubwin); /\* GET *\/ */
 BOOL GetIsAxes2D(sciPointObj *psubwin); /* GET */
+char sciGetxLocation(sciPointObj * pObj);
+char sciGetyLocation(sciPointObj * pObj);
+
 
 int CheckForCompound (long *tabpointobj, int number); /* GET */
 
@@ -267,6 +272,13 @@ void sciGetAABoundingBox(sciPointObj * pObj, double bounds[6]); /* GET */
 BOOL sciGetUseNurbs(sciPointObj * pObj); /* GET */
 
 BOOL sciGetIsUsingFractionalMetrics(sciPointObj * pObj); /* GET */
+
+int sciGetNbXTicks(sciPointObj * pSubwin);
+void sciGetXTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels);
+int sciGetNbYTicks(sciPointObj * pSubwin);
+void sciGetYTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels);
+int sciGetNbZTicks(sciPointObj * pSubwin);
+void sciGetZTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels);
 
 void printSetGetErrorMessage(const char * propertyName);
 

@@ -271,6 +271,16 @@ public class CallScilabBridge {
 		FileChooser fileChooser = ScilabFileChooser.createFileChooser();
 		return UIElementMapper.add(fileChooser);
 	}
+		
+	/**
+	 * Create a new Graphic Export File Chooser in Scilab GUIs
+	 * @param figureId id of the figure to export
+	 * @return the ID of the File Chooser in the UIElementMapper
+	 */	
+	public static int newExportFileChooser(int figureId) {
+		FileChooser fileChooser = ScilabFileChooser.createExportFileChooser(figureId);
+		return UIElementMapper.add(fileChooser);
+	}
 	
 	/**
 	 * Create a new Font Chooser in Scilab GUIs
@@ -428,7 +438,7 @@ public class CallScilabBridge {
 		slider.setText(""); /* Because Name property is null at creation */
 		slider.setMinimumValue(0);
 		slider.setMaximumValue(1);
-		slider.setValue(0);
+		slider.setUserValue(0);
 		
 		return id;
 	}
@@ -1060,6 +1070,7 @@ public class CallScilabBridge {
 		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setFileSelectionOnly();
 	}
 	
+	
 	/**********************/
 	/*                    */
 	/* MESSAGE BOX BRIDGE */
@@ -1534,8 +1545,9 @@ public class CallScilabBridge {
 	 * @param height the height of the Widget
 	 */
 	public static void setWidgetPosition(int id, int x, int y, int width, int height) {
-		UIElementMapper.getCorrespondingUIElement(id).setPosition(new Position(x, y));
+		/* Dimensions must be set before position beacause of PositionConverter */
 		UIElementMapper.getCorrespondingUIElement(id).setDims(new Size(width, height));
+		UIElementMapper.getCorrespondingUIElement(id).setPosition(new Position(x, y));
 	}
 	
 	/**
@@ -1563,8 +1575,9 @@ public class CallScilabBridge {
 	 * @param height the height of the Frame
 	 */
 	public static void setFramePosition(int id, int x, int y, int width, int height) {
-		UIElementMapper.getCorrespondingUIElement(id).setPosition(new Position(x, y));
+		/* Dimensions must be set before position beacause of PositionConverter */
 		UIElementMapper.getCorrespondingUIElement(id).setDims(new Size(width, height));
+		UIElementMapper.getCorrespondingUIElement(id).setPosition(new Position(x, y));
 	}
 	
 	/**
@@ -1824,7 +1837,7 @@ public class CallScilabBridge {
 	 * @param value the new value
 	 */
 	public static void setSliderValue(int id, int value) {
-		((Slider) UIElementMapper.getCorrespondingUIElement(id)).setValue(value);		
+		((Slider) UIElementMapper.getCorrespondingUIElement(id)).setUserValue(value);		
 	}
 
 	/**
@@ -2426,6 +2439,48 @@ public class CallScilabBridge {
 	 */
 	public static boolean isFrameVisible(int id) {
 		return ((Frame) UIElementMapper.getCorrespondingUIElement(id)).isVisible();
+	}
+	
+	/*****************/
+	/*               */
+	/* WIDGET ENABLE */
+	/*               */
+	/*****************/
+	
+	/**
+	 * Set the enable of the Widget
+	 * @param id the id of the Widget
+	 * @param status the new status
+	 */
+	public static void setWidgetEnable(int id, boolean status) {
+		((Widget) UIElementMapper.getCorrespondingUIElement(id)).setEnabled(status);
+	}
+	
+	/**
+	 * Set the enable of the Frame
+	 * @param id the id of the Frame
+	 * @param status the new status
+	 */
+	public static void setFrameEnable(int id, boolean status) {
+		((Frame) UIElementMapper.getCorrespondingUIElement(id)).setEnabled(status);
+	}
+	
+	/**
+	 * Get the enable of the Widget
+	 * @param id the id of the Widget
+	 * @return the status
+	 */
+	public static boolean isWidgetEnable(int id) {
+		return ((Widget) UIElementMapper.getCorrespondingUIElement(id)).isEnabled();
+	}
+	
+	/**
+	 * Get the visibility of the Frame
+	 * @param id the id of the Frame
+	 * @return the status
+	 */
+	public static boolean isFrameEnable(int id) {
+		return ((Frame) UIElementMapper.getCorrespondingUIElement(id)).isEnabled();
 	}
 	
 	/************************/

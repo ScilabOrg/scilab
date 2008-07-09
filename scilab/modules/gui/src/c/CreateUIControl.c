@@ -54,7 +54,7 @@ sciPointObj * CreateUIControl(char *style)
   pUICONTROL_FEATURE (pobj)->callback = NULL;
   pUICONTROL_FEATURE (pobj)->callbackType = -1; /* Disabled */
 
-  pUICONTROL_FEATURE (pobj)->Enable = TRUE;
+  pUICONTROL_FEATURE (pobj)->handle_visible=TRUE;
 
   /* Tag is set to NULL as default */
   /* The getter for tag returns "" is tag is NULL */
@@ -157,7 +157,7 @@ sciPointObj * CreateUIControl(char *style)
     }
   else
     {
-      sciprint(_("Could not create uicontrol of type %s."), style);
+      sciprint(_("%s: Could not create uicontrol of type %s."), "CreateUIControl", style);
       FREE(pobj);
       return (sciPointObj *) NULL;
     }

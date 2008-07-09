@@ -61,8 +61,26 @@ public interface Window extends UIElement {
 	void addInfoBar(TextBox newInfoBar);
 	
 	/**
+	 * @return number of objects (tabs) docked in this window
+	 */
+	int getNbDockedObjects();
+	
+	/**
 	 * Get a InfoBar from this window
 	 * @return this window InfoBar
 	 */
 	TextBox getInfoBar();
+	
+	/**
+	 * Deiconify the window and put it in front of other window
+	 */
+	void raise();
+	
+	/**
+	 * Update the dimension of the window and its component.
+	 * Only useful when the window is not yet visible.
+	 */
+	void updateDimensions();
+	
+	
 }

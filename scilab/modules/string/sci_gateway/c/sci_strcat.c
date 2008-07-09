@@ -38,6 +38,7 @@ static int sci_strcat_three_rhs(char *fname);
 static int sci_strcat_two_rhs(char *fname);
 static int sci_strcat_one_rhs(char *fname);
 static int sci_strcat_rhs_one_is_a_matrix(char *fname);
+static int sumlengthstring(int rhspos);
 /*-------------------------------------------------------------------------------------*/
 int C2F(sci_strcat)(char *fname,unsigned long fname_len)
 {
@@ -275,20 +276,14 @@ static int sci_strcat_two_rhs(char *fname)
 				}
 				else
 				{
-					int i = 0;
-					for (i = 0; i < Number_Inputs_One; i++)
+					if (Number_Inputs_One == 1)
 					{
-						if (Input_String_One[i])
-						{
-							if (i < (Number_Inputs_One - 1)) 
-								{
-									length_output += (int)strlen(Input_String_One[i])+(int)strlen(Input_String_Two[0]);
-								} 
-							else 
-								{
-									length_output += (int)strlen(Input_String_One[i]);
-								}
-						}
+						length_output = (int)strlen(Input_String_One[0]);
+					}
+					else
+					{
+						int lengthInput_String_Two = (int)strlen(Input_String_Two[0]);
+						length_output = sumlengthstring(1) + (int)(Number_Inputs_One)*lengthInput_String_Two - lengthInput_String_Two;
 					}
 				}
 			}
@@ -299,25 +294,24 @@ static int sci_strcat_two_rhs(char *fname)
 				int outIndex = 0 ;
 				char *Output_String = NULL;
 				int i = 0;
+				int Number_Inputs_OneLessOne = Number_Inputs_One - 1;
 
 				m1 = length_output;
 				n1 = 1;
 
 				CreateVar( Rhs+1,STRING_DATATYPE,&m1,&n1,&outIndex);
 				Output_String = cstk(outIndex);
-				for (i = 0; i < Number_Inputs_One; i++)
+
+				/* strcpy + strcat faster than sprintf */
+				strcpy(Output_String,Input_String_One[0]);
+				( 0 < Number_Inputs_OneLessOne )? strcat(Output_String,Input_String_Two[0]):0;
+
+				for (i = 1; i < Number_Inputs_One; i++)
 				{
-					if ( i == 0)
-					{
-						strcpy(Output_String,Input_String_One[i]);
-						if (i < (Number_Inputs_One - 1)) strcat(Output_String,Input_String_Two[0]);
-					}
-					else
-					{
-						strcat(Output_String,Input_String_One[i]);
-						if (i<Number_Inputs_One - 1) strcat(Output_String,Input_String_Two[0]);
-					}
+					strcat(Output_String,Input_String_One[i]);
+					( i < Number_Inputs_OneLessOne )? strcat(Output_String,Input_String_Two[0]):0;
 				}
+
 				LhsVar(1) = Rhs+1;
 				C2F(putlhsvar)();
 				freeArrayOfString(Input_String_One,Row_One*Col_One);
@@ -363,37 +357,26 @@ static int sci_strcat_one_rhs(char *fname)
 	{
 		if (Type_One == sci_strings)
 		{
-			char **Input_String_One = NULL;
-			int Row_One = 0,Col_One = 0;
-			int Number_Inputs = 0;
-			int length_output = 0;
+			int lenstrcat =  sumlengthstring(1);
 
-			GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&Row_One,&Col_One,&Input_String_One);
-			Number_Inputs = Row_One * Col_One;
-			if (Input_String_One)
+			if (lenstrcat >= 0)
 			{
-				int i = 0;
-				for (i = 0; i < Number_Inputs; i++)
-				{
-					if (Input_String_One[i])
-					{
-						length_output += (int)strlen(Input_String_One[i]);
-					}
-				}
-			}
-
-			if (length_output >= 0)
-			{
-				static int n1 = 0, m1 = 0;
+				char **Input_String_One = NULL;
+				int m = 0, n = 0; /* matrix size */
+				int mn = 0; /* m*n */
+				int n1 = 1, m1 = lenstrcat;
 				int outIndex = 0 ;
+
 				char *Output_String = NULL;
 				int i = 0;
-				m1= length_output;
-				n1=1;
+
+				GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m,&n,&Input_String_One);
+				mn = m * n;
 
 				CreateVar( Rhs+1,STRING_DATATYPE,&m1,&n1,&outIndex);
 				Output_String = cstk(outIndex);
-				for (i = 0; i < Number_Inputs; i++)
+
+				for (i = 0; i < mn; i++)
 				{
 					if ( i == 0)
 					{
@@ -406,7 +389,7 @@ static int sci_strcat_one_rhs(char *fname)
 				}
 				LhsVar(1) = Rhs+1;
 				C2F(putlhsvar)();
-				if (Input_String_One) freeArrayOfString(Input_String_One,Number_Inputs);
+				if (Input_String_One) freeArrayOfString(Input_String_One,mn);
 			}
 			else
 			{
@@ -446,5 +429,44 @@ static int sci_strcat_rhs_one_is_a_matrix(char *fname)
 		Scierror(999,_("%s: Wrong type for input argument #%d: Matrix of strings or empty real matrix expected.\n"),fname,1);
 	}
 	return 0;
+}
+/*-------------------------------------------------------------------------------------*/
+static int sumlengthstring(int rhspos)
+{
+	int sumlength = -1; /* error */
+	if (VarType(1) == sci_strings)
+	{
+		int m = 0, n = 0; /* matrix size */
+		int mn = 0; /* m*n */
+
+		int il = 0; int ilrd = 0;
+		int l1 = 0;
+		
+		int x = 0;
+	
+		int lw = rhspos + Top - Rhs;
+		int lenstrcat = 0;
+	
+		l1 = *Lstk(lw);
+		il = iadr(l1);
+
+		if (*istk(il ) < 0) il = iadr(*istk(il + 1));
+
+		/* get dimensions */
+		m = getNumberOfLines(il); /* row */
+		n = getNumberOfColumns(il); /* col */
+		mn = m * n ;
+	
+		ilrd = il + 4;
+
+		for  ( x = 0; x < mn; x++ )
+		{
+			#define STK_POS_STRING ((integer *)&C2F(stack))
+			lenstrcat +=  (int) (STK_POS_STRING[ilrd + x ] - STK_POS_STRING[ilrd + x - 1]);
+			#undef STK_POS_STRING
+		}
+		sumlength = lenstrcat;
+	}
+	return sumlength;
 }
 /*-------------------------------------------------------------------------------------*/

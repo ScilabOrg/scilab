@@ -21,7 +21,7 @@ function [y]=interpln(xyd,x)
 
 [md,nd]=size(xyd);
 if md<>2 then
-  error('interpln:xyd must have two rows!')
+  error(msprintf(gettext("%s: Wrong size for input argument #%d: Two rows expected.\n"),'interpln',1));
 end
 //
 

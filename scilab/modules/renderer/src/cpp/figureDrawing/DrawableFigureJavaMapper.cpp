@@ -117,9 +117,9 @@ int DrawableFigureJavaMapper::getCanvasHeight(void)
   return m_pJavaObject->getCanvasHeight();
 }
 /*---------------------------------------------------------------------------------*/
-void DrawableFigureJavaMapper::setCanvasSize(int width, int height)
+bool DrawableFigureJavaMapper::setCanvasSize(int width, int height)
 {
-  m_pJavaObject->setCanvasSize(width, height);
+  return m_pJavaObject->setCanvasSize(width, height);
 }
 /*---------------------------------------------------------------------------------*/
 int DrawableFigureJavaMapper::getWindowPosX(void)
@@ -155,11 +155,6 @@ void DrawableFigureJavaMapper::setWindowSize(int width, int height)
 void DrawableFigureJavaMapper::setInfoMessage(char * infoMessage)
 {
   m_pJavaObject->setInfoMessage(infoMessage);
-}
-/*---------------------------------------------------------------------------------*/
-void DrawableFigureJavaMapper::setRenderingEnable(bool isEnable)
-{
-  m_pJavaObject->setIsRenderingEnable(isEnable);
 }
 /*---------------------------------------------------------------------------------*/
 void DrawableFigureJavaMapper::setAutoResizeMode(bool onOrOff)
@@ -247,6 +242,11 @@ bool DrawableFigureJavaMapper::getRotationDisplacement(int displacement[2])
 void DrawableFigureJavaMapper::stopRotationRecording(void)
 {
   m_pJavaObject->stopRotationRecording();
+}
+/*---------------------------------------------------------------------------------*/
+void DrawableFigureJavaMapper::showWindow(void)
+{
+  m_pJavaObject->showWindow();
 }
 /*---------------------------------------------------------------------------------*/
 }

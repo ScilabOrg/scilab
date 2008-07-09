@@ -557,9 +557,6 @@ sciText;
 typedef enum
   {
     /** */
-    SCI_LEGEND_OUTSIDE = -1,
-    /** */
-    SCI_LEGEND_IN_INSIDE = 0,
     /** */
     SCI_LEGEND_IN_UPPER_LEFT = 1,
     /** */
@@ -569,7 +566,19 @@ typedef enum
     /** */
     SCI_LEGEND_IN_LOWER_RIGHT = 4,
     /** */
-    SCI_LEGEND_IN_SPECIFIED = 5
+    SCI_LEGEND_BY_COORDINATES = 5,
+    /** */
+    SCI_LEGEND_OUT_UPPER_LEFT = -1,
+    /** */
+    SCI_LEGEND_OUT_UPPER_RIGHT = -2,
+    /** */
+    SCI_LEGEND_OUT_LOWER_LEFT = -3,
+    /** */
+    SCI_LEGEND_OUT_LOWER_RIGHT = -4,
+    /** */
+    SCI_LEGEND_UPPER_CAPTION = -5,
+   /** */
+    SCI_LEGEND_LOWER_CAPTION = -6
   }  /** */
 sciLegendPlace;
 
@@ -597,7 +606,7 @@ typedef struct
   BOOL isselected;
   /** specifies if the legend is surrounded */
   BOOL issurround;	     
-  /* void    *associetedentity;  get the associeted entity by asking parents.relation.sons */
+  /* void    *associetedentity;  get the associated entity by asking parents.relation.sons */
   /* the subwindow dimension is get by asking relation     */
   sciLegendPlace place;
   /** pointer on the labelled objects */
@@ -671,8 +680,6 @@ sciLabel ;
 typedef struct
 {
   sciRelationShip relationship;
-  /* Label property */
-  char *label;
 
   /* Color property */
   double *foregroundcolor;
@@ -681,25 +688,19 @@ typedef struct
   char *callback;
   int callbackType;
 
-  /** specifies if this object is visible             */
-  BOOL visible;
+  /* Specifies if this object is visible in its parent children */
   BOOL handle_visible;
-  BOOL Enable;
 
   int MenuPosition;
 
-  #ifdef _MSC_VER
-	HMENU hMenu;
-	int IDM_this;
-  #endif
-
-  /* Vincent */
+  /* Userdata property */
   int * user_data;
   int size_of_user_data;
 
+  /* Index in the java UIElementMapper */
   int hashMapIndex;
-  /* Vincent */
 
+  /* Tag property */
   char * tag;
 
 }/** */
@@ -730,10 +731,8 @@ typedef struct
 {
   sciRelationShip relationship;
 
-  /** specifies if this object is visible             */
-  BOOL visible;
+  /* Specifies if this object is visible in its parent children */
   BOOL handle_visible;
-  BOOL Enable;
 
   /* Colors property */
   double *backgroundcolor;
@@ -1175,6 +1174,10 @@ typedef struct
   int flag_x; /* 1 if the vector is increasing, -1 if decreasing. */
               /* The vector should be either increasing or decreasing. */
   int flag_y;
+
+  int isclip; /**< Clipping state of the object */
+  double clip_region[4]; /**< Clipping region */
+  int clip_region_set; /**< To know if the clippign region is set */
   
   int * user_data; /* adding 27.06.05 */
   int size_of_user_data;
@@ -1358,6 +1361,11 @@ typedef struct
   int callbackevent;
   /** specifies if this object is visble             */
   BOOL visible;
+
+  int isclip; /**< Clipping state of the object */
+  double clip_region[4]; /**< Clipping region */
+  int clip_region_set; /**< To know if the clippign region is set */
+
   int * user_data; /* adding 27.06.05 */
   int size_of_user_data;
 }
@@ -1394,6 +1402,11 @@ typedef struct
   int callbackevent;
   /** specifies if this object is visble             */
   BOOL visible;
+
+  int isclip; /**< Clipping state of the object */
+  double clip_region[4]; /**< Clipping region */
+  int clip_region_set; /**< To know if the clippign region is set */
+
   int * user_data; /* adding 27.06.05 */
   int size_of_user_data;
 }

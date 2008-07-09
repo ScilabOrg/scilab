@@ -112,26 +112,28 @@ LTLIBRARIES = $(pkglib_LTLIBRARIES)
 @SCICOS_TRUE@	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
 @SCICOS_TRUE@	$(am__append_4) $(am__append_5)
 am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absolute_value.c \
-	src/c/acos_blk.c src/c/acosh_blk.c src/c/asin_blk.c \
-	src/c/asinh_blk.c src/c/atan_blk.c src/c/atanh_blk.c \
-	src/c/automat.c src/c/backlash.c src/c/bidon.c \
-	src/c/bit_clear_16.c src/c/bit_clear_32.c src/c/bit_clear_8.c \
-	src/c/bit_set_16.c src/c/bit_set_32.c src/c/bit_set_8.c \
-	src/c/bounce_ball.c src/c/bouncexy.c src/c/canimxy3d.c \
-	src/c/canimxy.c src/c/cdummy.c src/c/cevscpe.c src/c/cfscope.c \
-	src/c/cmat3d.c src/c/cmatview.c src/c/cmscope.c \
-	src/c/convert.c src/c/cos_blk.c src/c/cosh_blk.c \
-	src/c/counter.c src/c/cscope.c src/c/cscopxy3d.c \
-	src/c/cscopxy.c src/c/csslti4.c src/c/cstblk4.c \
-	src/c/cstblk4_m.c src/c/cumsum_c.c src/c/cumsum_m.c \
-	src/c/cumsum_r.c src/c/cumsumz_c.c src/c/cumsumz_m.c \
-	src/c/cumsumz_r.c src/c/curve_c.c src/c/deadband.c \
-	src/c/delay4.c src/c/delay4_i16.c src/c/delay4_i32.c \
-	src/c/delay4_i8.c src/c/delay4_ui16.c src/c/delay4_ui32.c \
-	src/c/delay4_ui8.c src/c/deriv.c src/c/dmmul1.c src/c/dmmul.c \
-	src/c/dollar4.c src/c/dollar4_m.c src/c/dsslti4.c \
-	src/c/edgetrig.c src/c/evaluate_expr.c src/c/evtdly4.c \
-	src/c/evtvardly.c src/c/expblk_m.c src/c/extdiag.c \
+	src/c/absblk.c src/c/andlog.c src/c/gain.c src/c/dband.c \
+	src/c/cosblk.c src/c/acos_blk.c src/c/acosh_blk.c \
+	src/c/asin_blk.c src/c/asinh_blk.c src/c/atan_blk.c \
+	src/c/atanh_blk.c src/c/automat.c src/c/backlash.c \
+	src/c/bidon.c src/c/bit_clear_16.c src/c/bit_clear_32.c \
+	src/c/bit_clear_8.c src/c/bit_set_16.c src/c/bit_set_32.c \
+	src/c/bit_set_8.c src/c/bounce_ball.c src/c/bouncexy.c \
+	src/c/canimxy3d.c src/c/canimxy.c src/c/cdummy.c \
+	src/c/cevscpe.c src/c/cfscope.c src/c/cmat3d.c \
+	src/c/cmatview.c src/c/cmscope.c src/c/convert.c \
+	src/c/cos_blk.c src/c/cosh_blk.c src/c/counter.c \
+	src/c/cscope.c src/c/cscopxy3d.c src/c/cscopxy.c \
+	src/c/csslti4.c src/c/cstblk4.c src/c/cstblk4_m.c \
+	src/c/cumsum_c.c src/c/cumsum_m.c src/c/cumsum_r.c \
+	src/c/cumsumz_c.c src/c/cumsumz_m.c src/c/cumsumz_r.c \
+	src/c/curve_c.c src/c/deadband.c src/c/delay4.c \
+	src/c/delay4_i16.c src/c/delay4_i32.c src/c/delay4_i8.c \
+	src/c/delay4_ui16.c src/c/delay4_ui32.c src/c/delay4_ui8.c \
+	src/c/deriv.c src/c/dmmul1.c src/c/dmmul.c src/c/dollar4.c \
+	src/c/dollar4_m.c src/c/dsslti4.c src/c/edgetrig.c \
+	src/c/evaluate_expr.c src/c/evtdly4.c src/c/evtvardly.c \
+	src/c/scicosexit.c src/c/expblk_m.c src/c/extdiag.c \
 	src/c/extdiagz.c src/c/extract_bit_16_LH.c \
 	src/c/extract_bit_16_LSB.c src/c/extract_bit_16_MSB0.c \
 	src/c/extract_bit_16_MSB1.c src/c/extract_bit_16_RB0.c \
@@ -242,9 +244,14 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absolute_value.c \
 	src/fortran/sum3.f src/fortran/tanblk.f src/fortran/tcslti.f \
 	src/fortran/tcsltj.f src/fortran/timblk.f src/fortran/trash.f \
 	src/fortran/writef.f src/fortran/zcross.f \
-	src/c/scoGetProperty.c src/c/scoSetProperty.c src/c/blocks.c \
-	src/c/scoMisc.c src/c/scoMemoryScope.c src/c/scoWindowScope.c
+	src/c/scoGetProperty.c src/c/scoSetProperty.c src/c/scoMisc.c \
+	src/c/scoMemoryScope.c src/c/scoWindowScope.c
 @SCICOS_TRUE@am__objects_1 = libsciscicos_blocks_la-absolute_value.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-absblk.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-andlog.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-gain.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-dband.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-cosblk.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-acos_blk.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-acosh_blk.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-asin_blk.lo \
@@ -305,6 +312,7 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absolute_value.c \
 @SCICOS_TRUE@	libsciscicos_blocks_la-evaluate_expr.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-evtdly4.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-evtvardly.lo \
+@SCICOS_TRUE@	libsciscicos_blocks_la-scicosexit.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-expblk_m.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-extdiag.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-extdiagz.lo \
@@ -551,7 +559,6 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absolute_value.c \
 @SCICOS_TRUE@	trash.lo writef.lo zcross.lo
 @SCICOS_TRUE@am__objects_3 = libsciscicos_blocks_la-scoGetProperty.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-scoSetProperty.lo \
-@SCICOS_TRUE@	libsciscicos_blocks_la-blocks.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-scoMisc.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-scoMemoryScope.lo \
 @SCICOS_TRUE@	libsciscicos_blocks_la-scoWindowScope.lo
@@ -606,6 +613,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BATIK = @BATIK@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -633,6 +641,7 @@ FFTW3_LIB = @FFTW3_LIB@
 FFTW_ENABLE = @FFTW_ENABLE@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
+FOP = @FOP@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
 GREP = @GREP@
@@ -650,6 +659,7 @@ JAVA_HOME = @JAVA_HOME@
 JAVA_JNI_INCLUDE = @JAVA_JNI_INCLUDE@
 JAVA_JNI_LIBS = @JAVA_JNI_LIBS@
 JDB = @JDB@
+JEUCLID_CORE = @JEUCLID_CORE@
 JHALL = @JHALL@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
@@ -698,6 +708,8 @@ PVM_LIB = @PVM_LIB@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
+RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SED = @SED@
@@ -780,7 +792,7 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 pkglib_LTLIBRARIES = libsciscicos_blocks.la
-libsciscicos_blocks_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
+libsciscicos_blocks_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(RT_LIB) 
 
 #### Target ######
 modulename = scicos_blocks
@@ -850,6 +862,11 @@ JARMASK = *.jar
 # The filename must be the same as the function name
 # since they are used by genblocks.sh to generate the blocks.h
 @SCICOS_TRUE@SCICOS_BLOCKS_C_SOURCES = src/c/absolute_value.c \
+@SCICOS_TRUE@src/c/absblk.c \
+@SCICOS_TRUE@src/c/andlog.c \
+@SCICOS_TRUE@src/c/gain.c \
+@SCICOS_TRUE@src/c/dband.c \
+@SCICOS_TRUE@src/c/cosblk.c \
 @SCICOS_TRUE@src/c/acos_blk.c \
 @SCICOS_TRUE@src/c/acosh_blk.c \
 @SCICOS_TRUE@src/c/asin_blk.c \
@@ -910,6 +927,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@src/c/evaluate_expr.c \
 @SCICOS_TRUE@src/c/evtdly4.c \
 @SCICOS_TRUE@src/c/evtvardly.c \
+@SCICOS_TRUE@src/c/scicosexit.c \
 @SCICOS_TRUE@src/c/expblk_m.c \
 @SCICOS_TRUE@src/c/extdiag.c \
 @SCICOS_TRUE@src/c/extdiagz.c \
@@ -1144,10 +1162,9 @@ JARMASK = *.jar
 
 @SCICOS_TRUE@NON_BLOCK_C_SOURCES = src/c/scoGetProperty.c \
 @SCICOS_TRUE@src/c/scoSetProperty.c \
-@SCICOS_TRUE@src/c/blocks.c \
 @SCICOS_TRUE@src/c/scoMisc.c \
 @SCICOS_TRUE@src/c/scoMemoryScope.c\
-@SCICOS_TRUE@src/c/scoWindowScope.c 
+@SCICOS_TRUE@src/c/scoWindowScope.c
 
 @SCICOS_TRUE@SCICOS_BLOCKS_FORTRAN_SOURCES = src/fortran/affich2.f \
 @SCICOS_TRUE@src/fortran/affich.f \
@@ -1358,9 +1375,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-absblk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-absolute_value.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-acos_blk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-acosh_blk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-andlog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-asin_blk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-asinh_blk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-atan_blk.Plo@am__quote@
@@ -1374,7 +1393,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_16.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_8.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-blocks.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bounce_ball.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bouncexy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-canimxy.Plo@am__quote@
@@ -1387,6 +1405,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cmscope.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-convert.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cos_blk.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cosblk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cosh_blk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-counter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cscope.Plo@am__quote@
@@ -1402,6 +1421,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cumsumz_m.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-cumsumz_r.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-curve_c.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-dband.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-deadband.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-delay4.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-delay4_i16.Plo@am__quote@
@@ -1464,6 +1484,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-exttriu.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-exttriuz.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-fromws_c.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-gain.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-gainblk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-gainblk_i16e.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-gainblk_i16n.Plo@am__quote@
@@ -1594,6 +1615,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-samphold4_m.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-satur.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scalar2vector.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scicosexit.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoGetProperty.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoMemoryScope.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoMisc.Plo@am__quote@
@@ -1684,6 +1706,41 @@ libsciscicos_blocks_la-absolute_value.lo: src/c/absolute_value.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/absolute_value.c' object='libsciscicos_blocks_la-absolute_value.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-absolute_value.lo `test -f 'src/c/absolute_value.c' || echo '$(srcdir)/'`src/c/absolute_value.c
+
+libsciscicos_blocks_la-absblk.lo: src/c/absblk.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-absblk.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-absblk.Tpo -c -o libsciscicos_blocks_la-absblk.lo `test -f 'src/c/absblk.c' || echo '$(srcdir)/'`src/c/absblk.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-absblk.Tpo $(DEPDIR)/libsciscicos_blocks_la-absblk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/absblk.c' object='libsciscicos_blocks_la-absblk.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-absblk.lo `test -f 'src/c/absblk.c' || echo '$(srcdir)/'`src/c/absblk.c
+
+libsciscicos_blocks_la-andlog.lo: src/c/andlog.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-andlog.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-andlog.Tpo -c -o libsciscicos_blocks_la-andlog.lo `test -f 'src/c/andlog.c' || echo '$(srcdir)/'`src/c/andlog.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-andlog.Tpo $(DEPDIR)/libsciscicos_blocks_la-andlog.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/andlog.c' object='libsciscicos_blocks_la-andlog.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-andlog.lo `test -f 'src/c/andlog.c' || echo '$(srcdir)/'`src/c/andlog.c
+
+libsciscicos_blocks_la-gain.lo: src/c/gain.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-gain.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-gain.Tpo -c -o libsciscicos_blocks_la-gain.lo `test -f 'src/c/gain.c' || echo '$(srcdir)/'`src/c/gain.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-gain.Tpo $(DEPDIR)/libsciscicos_blocks_la-gain.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/gain.c' object='libsciscicos_blocks_la-gain.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-gain.lo `test -f 'src/c/gain.c' || echo '$(srcdir)/'`src/c/gain.c
+
+libsciscicos_blocks_la-dband.lo: src/c/dband.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-dband.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-dband.Tpo -c -o libsciscicos_blocks_la-dband.lo `test -f 'src/c/dband.c' || echo '$(srcdir)/'`src/c/dband.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-dband.Tpo $(DEPDIR)/libsciscicos_blocks_la-dband.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/dband.c' object='libsciscicos_blocks_la-dband.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-dband.lo `test -f 'src/c/dband.c' || echo '$(srcdir)/'`src/c/dband.c
+
+libsciscicos_blocks_la-cosblk.lo: src/c/cosblk.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-cosblk.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-cosblk.Tpo -c -o libsciscicos_blocks_la-cosblk.lo `test -f 'src/c/cosblk.c' || echo '$(srcdir)/'`src/c/cosblk.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-cosblk.Tpo $(DEPDIR)/libsciscicos_blocks_la-cosblk.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/cosblk.c' object='libsciscicos_blocks_la-cosblk.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-cosblk.lo `test -f 'src/c/cosblk.c' || echo '$(srcdir)/'`src/c/cosblk.c
 
 libsciscicos_blocks_la-acos_blk.lo: src/c/acos_blk.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-acos_blk.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-acos_blk.Tpo -c -o libsciscicos_blocks_la-acos_blk.lo `test -f 'src/c/acos_blk.c' || echo '$(srcdir)/'`src/c/acos_blk.c
@@ -2104,6 +2161,13 @@ libsciscicos_blocks_la-evtvardly.lo: src/c/evtvardly.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/evtvardly.c' object='libsciscicos_blocks_la-evtvardly.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-evtvardly.lo `test -f 'src/c/evtvardly.c' || echo '$(srcdir)/'`src/c/evtvardly.c
+
+libsciscicos_blocks_la-scicosexit.lo: src/c/scicosexit.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-scicosexit.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-scicosexit.Tpo -c -o libsciscicos_blocks_la-scicosexit.lo `test -f 'src/c/scicosexit.c' || echo '$(srcdir)/'`src/c/scicosexit.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-scicosexit.Tpo $(DEPDIR)/libsciscicos_blocks_la-scicosexit.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scicosexit.c' object='libsciscicos_blocks_la-scicosexit.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-scicosexit.lo `test -f 'src/c/scicosexit.c' || echo '$(srcdir)/'`src/c/scicosexit.c
 
 libsciscicos_blocks_la-expblk_m.lo: src/c/expblk_m.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-expblk_m.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-expblk_m.Tpo -c -o libsciscicos_blocks_la-expblk_m.lo `test -f 'src/c/expblk_m.c' || echo '$(srcdir)/'`src/c/expblk_m.c
@@ -3735,13 +3799,6 @@ libsciscicos_blocks_la-scoSetProperty.lo: src/c/scoSetProperty.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scoSetProperty.c' object='libsciscicos_blocks_la-scoSetProperty.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-scoSetProperty.lo `test -f 'src/c/scoSetProperty.c' || echo '$(srcdir)/'`src/c/scoSetProperty.c
-
-libsciscicos_blocks_la-blocks.lo: src/c/blocks.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-blocks.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-blocks.Tpo -c -o libsciscicos_blocks_la-blocks.lo `test -f 'src/c/blocks.c' || echo '$(srcdir)/'`src/c/blocks.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libsciscicos_blocks_la-blocks.Tpo $(DEPDIR)/libsciscicos_blocks_la-blocks.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/blocks.c' object='libsciscicos_blocks_la-blocks.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-blocks.lo `test -f 'src/c/blocks.c' || echo '$(srcdir)/'`src/c/blocks.c
 
 libsciscicos_blocks_la-scoMisc.lo: src/c/scoMisc.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-scoMisc.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-scoMisc.Tpo -c -o libsciscicos_blocks_la-scoMisc.lo `test -f 'src/c/scoMisc.c' || echo '$(srcdir)/'`src/c/scoMisc.c

@@ -1,8 +1,9 @@
 package org.scilab.modules.gui.events;
 
 import java.awt.MouseInfo;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
 
 import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
 import org.scilab.modules.gui.utils.SciTranslator;
@@ -56,7 +57,6 @@ public class GlobalEventFilter {
 	/**
 	 * Update ClickInfos structure when some callback is about to be called.
 	 * 
-	 * @param event : the event caught.
 	 * @param command : the callback that was supposed to be called.
 	 */
 	public static void filterCallback(String command) {
@@ -69,7 +69,24 @@ public class GlobalEventFilter {
 			ClickInfos.getInstance().notify();
 		}
 	}	
-	
+
+	/**
+	 * Update ClickInfos structure when some callback is about to be called.
+	 * 
+	 * @param command : the callback that was supposed to be called.
+	 * @param returnCode : used for closing windows.
+	 * @param figureIndex : the figure ID where callback occured.
+	 */
+	public static void filterCallback(String command, int returnCode, int figureIndex) {
+		synchronized (ClickInfos.getInstance()) {
+			ClickInfos.getInstance().setMouseButtonNumber(returnCode);
+			ClickInfos.getInstance().setMenuCallback(command);
+			ClickInfos.getInstance().setWindowID(figureIndex);
+			ClickInfos.getInstance().setXCoordinate(-1);
+			ClickInfos.getInstance().setYCoordinate(-1);
+			ClickInfos.getInstance().notify();
+		}
+	}		
 	/**
 	 * Update ClickInfos structure when a mouse event occurs on a Canvas.
 	 * 
@@ -80,9 +97,15 @@ public class GlobalEventFilter {
 	 */
 	public static void filterMouse(MouseEvent mouseEvent, SwingScilabCanvas source, int buttonAction, boolean isControlDown) {
 		synchronized (ClickInfos.getInstance()) {
-			ClickInfos.getInstance().setXCoordinate(mouseEvent.getPoint().getX());
-			ClickInfos.getInstance().setYCoordinate(mouseEvent.getPoint().getY());
-			ClickInfos.getInstance().setMouseButtonNumber(SciTranslator.javaButton2Scilab(mouseEvent.getButton(), buttonAction, isControlDown));
+			ClickInfos.getInstance().setXCoordinate(mouseEvent.getX() 
+						+ ((JComponent) mouseEvent.getSource()).getLocationOnScreen().getX() 
+								- ((JComponent) source).getLocationOnScreen().getX());
+			ClickInfos.getInstance().setYCoordinate(mouseEvent.getY() 
+						+ ((JComponent) mouseEvent.getSource()).getLocationOnScreen().getY() 
+							- ((JComponent) source).getLocationOnScreen().getY());
+			ClickInfos.getInstance().setMouseButtonNumber(
+					SciTranslator.javaButton2Scilab(mouseEvent.getButton(), buttonAction, isControlDown)
+					);
 			ClickInfos.getInstance().setWindowID(source.getFigureIndex());
 			ClickInfos.getInstance().notify();
 		}

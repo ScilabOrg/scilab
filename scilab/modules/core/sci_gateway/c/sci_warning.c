@@ -75,7 +75,7 @@ int C2F(sci_warning)(char *fname,unsigned long fname_len)
 				}
 				else if ( getWarningMode() )
 				{
-					sciprint(_("WARNING : %s"),Input_Strings[0]);
+					sciprint(_("WARNING: %s"),Input_Strings[0]);
 					sciprint("\n");
 					freeArrayOfString(Input_Strings,n1);
 				}
@@ -88,7 +88,7 @@ int C2F(sci_warning)(char *fname,unsigned long fname_len)
 			{
 				for (i = 0;i < m1*n1;i++)
 				{
-					sciprint(_("WARNING : %s\n"),Input_Strings[i]);
+					sciprint(_("WARNING: %s\n"),Input_Strings[i]);
 				}
 				sciprint("\n");
 			}
@@ -97,7 +97,7 @@ int C2F(sci_warning)(char *fname,unsigned long fname_len)
 	}
 	else
 	{
-		Scierror(999,_("%s: Wrong type for first input argument: String expected.\n"), fname);
+		Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"), fname,1);
 		return 0;
 	}
 	LhsVar(1)=0;

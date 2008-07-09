@@ -71,9 +71,9 @@ void DrawableFigure::getSize( int size[2] )
   getFigureImp()->getSize(size) ;
 }
 /*---------------------------------------------------------------------------------*/
-void DrawableFigure::setSize( const int size[2] )
+bool DrawableFigure::setSize( const int size[2] )
 {
-  getFigureImp()->setSize(size) ;
+  return getFigureImp()->setSize(size) ;
 }
 /*---------------------------------------------------------------------------------*/
 void DrawableFigure::getWindowSize( int size[2] )
@@ -124,6 +124,14 @@ void DrawableFigure::drawInContext( void )
       displayChildren() ;
       endDrawing() ;
     }
+  }
+  else
+  {
+    // clear figure, just draw background
+    initializeDrawing() ;
+    drawBackground();
+    endDrawing() ;
+
   }
   //clock_gettime(0, &t_t3);
 
@@ -219,11 +227,6 @@ void DrawableFigure::setWindowPosition( const int pos[2] )
   getFigureImp()->setWindowPosition(pos) ;
 }
 /*---------------------------------------------------------------------------------*/
-void DrawableFigure::setRenderingEnable(bool isEnable)
-{
-  getFigureImp()->setRenderingEnable(isEnable);
-}
-/*---------------------------------------------------------------------------------*/
 void DrawableFigure::setAutoResizeMode(bool onOrOff)
 {
   getFigureImp()->setAutoResizeMode(onOrOff);
@@ -267,6 +270,11 @@ bool DrawableFigure::getRotationDisplacement(int displacement[2])
 void DrawableFigure::stopRotationRecording(void)
 {
   return getFigureImp()->stopRotationRecording();
+}
+/*---------------------------------------------------------------------------------*/
+void DrawableFigure::showWindow(void)
+{
+  return getFigureImp()->showWindow();
 }
 /*---------------------------------------------------------------------------------*/
 }

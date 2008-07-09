@@ -26,7 +26,9 @@ import org.scilab.modules.renderer.arcDrawing.ArcRendererFactory;
 import org.scilab.modules.renderer.arcDrawing.NurbsArcRendererFactory;
 import org.scilab.modules.renderer.polylineDrawing.JOGLShadeFacetDrawer;
 import org.scilab.modules.renderer.polylineDrawing.ShadeFacetDrawer;
+import org.scilab.modules.renderer.utils.CoordinateTransformation;
 import org.scilab.modules.renderer.utils.TexturedColorMap;
+import org.scilab.modules.renderer.utils.glTools.ClipPlane3DManager;
 import org.scilab.modules.renderer.utils.selection.RubberBox;
 import org.scilab.modules.renderer.utils.textRendering.JOGLTextRendererFactory;
 import org.scilab.modules.renderer.utils.textRendering.TextRendererFactory;
@@ -67,9 +69,6 @@ public class DrawableFigureGL extends ObjectGL {
 	/** To get all the objects which needs to be destroyed */
 	private ObjectGLCleaner destroyedObjects;
 	
-	/** To know if the figure can be displayed */
-	private boolean isReadyForRendering;
-	
 	/** Keep a pointer on the OpenGL rendering target (Canvas, pBuffer, ...). */
 	private GLAutoDrawable renderingTarget;
 
@@ -87,6 +86,14 @@ public class DrawableFigureGL extends ObjectGL {
 	
 	private TextRendererManager textRendererCreator;
 	
+	private ClipPlane3DManager clipPlaneManager;
+	
+	/** To know if the rendering is requested by Scilab or not */
+	private boolean renderRequested;
+	
+	/** Coordinate transfomrations used to draw this figure */
+	private CoordinateTransformation transform;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -96,7 +103,6 @@ public class DrawableFigureGL extends ObjectGL {
       	setColorMap(TexturedColorMap.create());
       	figureId = -1; // figure ids should be greater than 0.
       	destroyedObjects = new ObjectGLCleaner();
-      	isReadyForRendering = false;
       	renderingTarget = null;
       	textRendererCreator = new TextRendererManager();
       	setDefaultTextRenderer();
@@ -104,6 +110,9 @@ public class DrawableFigureGL extends ObjectGL {
       	setDefaultShadeFacetDrawer();
       	backGroundColorIndex = 0;
       	rubberBox = null;
+      	renderRequested = false;
+      	transform = new CoordinateTransformation();
+      	clipPlaneManager = new ClipPlane3DManager();
     }
 	
 	/**
@@ -128,18 +137,17 @@ public class DrawableFigureGL extends ObjectGL {
 	}
 	
 	/**
-	 * Specify a new state for the rendering enable mode
-	 * @param isEnalbe if true figure can no be rendered
+	 * @return current coordinate transformation
 	 */
-	public synchronized void setIsRenderingEnable(boolean isEnalbe) {
-		isReadyForRendering = isEnalbe;
+	public CoordinateTransformation getCoordinateTransformation() {
+		return transform;
 	}
 	
 	/**
-	 * @return true if the figure can be rendered, false otherwise
+	 * @return Object use to manage clip planes
 	 */
-	public synchronized boolean getIsRenderingEnable() {
-		return isReadyForRendering;
+	public ClipPlane3DManager getClipPlaneManager() {
+		return clipPlaneManager;
 	}
 	
 	/**
@@ -229,7 +237,24 @@ public class DrawableFigureGL extends ObjectGL {
 	 * Called from C to be sure to be in the right context
 	 */
 	public void drawCanvas() {
+		setRenderingRequested(true);
 		guiProperties.forceDisplay();
+	}
+	
+	/**
+	 * @return true if Scilab requested a redraw, false otherwise
+	 */
+	public synchronized boolean getRenderingRequested() {
+		return renderRequested;
+	}
+	
+	/**
+	 * Specify that scilab has performed some modifications and
+	 * A redraw of the graphic window must be performed
+	 * @param requested if true, next call to the display function will redraw the scene
+	 */
+	public synchronized void setRenderingRequested(boolean requested) {
+		this.renderRequested = requested;
 	}
 
   	/**
@@ -334,8 +359,9 @@ public class DrawableFigureGL extends ObjectGL {
 	 */
   	@Override
 	public void destroy(int parentFigureIndex) {
-  		setIsRenderingEnable(false);
+  		setRenderingRequested(false);
   		FigureMapper.removeMapping(figureId);
+ 
   		
 
   		// then destroy canvas
@@ -388,9 +414,10 @@ public class DrawableFigureGL extends ObjectGL {
 	 * Set the rendering canvas size.
 	 * @param width new width in pixels
 	 * @param height new height in pixels
+	 * @return indicates if the size could be successfully modified
 	 */
-	public void setCanvasSize(int width, int height) {
-		guiProperties.setCanvasSize(width, height);
+	public boolean setCanvasSize(int width, int height) {
+		return guiProperties.setCanvasSize(width, height);
 	}
 	
 	/**
@@ -637,6 +664,13 @@ public class DrawableFigureGL extends ObjectGL {
 	 */
 	public TextRendererManager getTextRendererCreator() {
 		return textRendererCreator;
+	}
+	
+	/**
+	 * Put the figure in top of other windows
+	 */
+	public void showWindow() {
+		getRendererProperties().showWindow();
 	}
 	
 }

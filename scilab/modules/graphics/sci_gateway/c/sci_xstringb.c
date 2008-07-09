@@ -44,9 +44,9 @@ int sci_xstringb(char *fname,unsigned long fname_len)
   if ( Rhs <= 0 )
   {
     /* demo */
-    int one = 1 ;
+    int zero = 1 ;
     char demo[] = "scf(); axes = gca() ; axes.axes_visible = 'on' ; str = ['Scilab','is';'not','Esilab']; xstringb(0.1,0.1,str,0.5,0.5,'fill') ; txt = gce() ; txt.box = 'on' ;" ;
-    sci_demo( fname, demo, &one ) ;
+    sci_demo( fname, demo, &zero ) ;
     return 0 ;
   }
 
@@ -69,8 +69,7 @@ int sci_xstringb(char *fname,unsigned long fname_len)
     } 
     else
     {
-      Scierror(999,_("%s: Wrong value for input argument: '%s' expected.\n"),
-        fname,"fill");
+      Scierror(999,_("%s: Wrong value for input argument #%d: '%s' expected.\n"), fname, 6, "fill");
       return 0;
     }
   }

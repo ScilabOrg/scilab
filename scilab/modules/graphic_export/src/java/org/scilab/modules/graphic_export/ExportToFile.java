@@ -12,6 +12,7 @@
  
  package org.scilab.modules.graphic_export;
 
+
 /**
  * Abstract Class allows to export screen-shots in format Bitmap (BMP, GIF, JPG, PNG and PPM)
  * @author Sylvestre Koumar
@@ -121,4 +122,5 @@ public abstract class ExportToFile {
 		}
 		return null;		
 	}
+
 }

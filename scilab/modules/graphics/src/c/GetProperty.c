@@ -530,9 +530,8 @@ sciGetMarkBackground (sciPointObj * pobj)
     return -1;
   }
   
-  colorindex = sciGetGoodIndex(pobj, colorindex);
+  return sciGetGoodIndex(pobj, colorindex);
   
-  return colorindex;
 }
 
 
@@ -679,6 +678,8 @@ sciGetIsFilled (sciPointObj * pobj)
   }
   return FALSE;
 }
+
+
 
 /**sciGetFontContext
  * Returns the structure of the Font Context. Do not use this in the Consturctor Functions !
@@ -1230,9 +1231,9 @@ sciGetLegendPlace (sciPointObj * pobj)
   else
   {
     sciprint (_("You are not using a legend object.\n"));
-    return SCI_LEGEND_OUTSIDE ;
+    return SCI_LEGEND_OUT_LOWER_LEFT;
   }
-  return SCI_LEGEND_OUTSIDE ;
+  return SCI_LEGEND_OUT_LOWER_LEFT;
 }
 
 
@@ -1240,18 +1241,22 @@ sciGetLegendPlace (sciPointObj * pobj)
 /**sciGetLegendPos
  * Returns the Title Position
  */
-POINT2D
-sciGetLegendPos (sciPointObj * pobj)
+
+void sciGetLegendPos (sciPointObj * pobj, double position[2])
 {
   POINT2D tmppoint;
-  if (sciGetEntityType (pobj) == SCI_LEGEND)
-    return pLEGEND_FEATURE (pobj)->pos;
+  if (sciGetEntityType (pobj) == SCI_LEGEND) {
+    tmppoint= pLEGEND_FEATURE (pobj)->pos;
+    position[0] = tmppoint.x;
+    position[1] = tmppoint.y;
+  }
+
   else
     {
-      tmppoint.x = -1;
-      tmppoint.y = -1;
+      position[0] = -1;
+      position[1] = -1;
       sciprint (_("You are not using a legend object.\n"));
-      return tmppoint;
+      return;
     }
 }
 
@@ -1468,12 +1473,18 @@ sciGetIsClipRegionValuated (sciPointObj * pobj)
       return pAXES_FEATURE (pobj)->clip_region_set;
       break;
     case SCI_SURFACE:
+      return pSURFACE_FEATURE (pobj)->clip_region_set;
+      break;
+    case SCI_FEC:
+      return pFEC_FEATURE (pobj)->clip_region_set;
+      break;
+    case SCI_GRAYPLOT:
+      return pGRAYPLOT_FEATURE (pobj)->clip_region_set;
+      break;
     case SCI_LEGEND: 
     case SCI_TITLE:    
     case SCI_AGREG: 
     case SCI_FIGURE: 
-    case SCI_FEC: 
-    case SCI_GRAYPLOT:
     case SCI_SBH:   
     case SCI_PANNER:
     case SCI_SBV:
@@ -1520,12 +1531,18 @@ sciGetIsClipping (sciPointObj * pobj)
       return pAXES_FEATURE (pobj)->isclip;
       break;
     case SCI_SURFACE:
+      return pSURFACE_FEATURE(pobj)->isclip;
+      break;
+    case SCI_FEC:
+      return pFEC_FEATURE(pobj)->isclip;
+      break;
+    case SCI_GRAYPLOT:
+      return pGRAYPLOT_FEATURE(pobj)->isclip;
+      break;
     case SCI_LEGEND: 
     case SCI_TITLE:    
     case SCI_AGREG: 
     case SCI_FIGURE: 
-    case SCI_FEC: 
-    case SCI_GRAYPLOT:
     case SCI_SBH:   
     case SCI_PANNER:
     case SCI_SBV:
@@ -1580,12 +1597,18 @@ sciGetClipping (sciPointObj * pobj)
     case SCI_LEGEND:
       return pLEGEND_FEATURE (pobj)->clip_region;
       break;
-    case SCI_UIMENU:
     case SCI_SURFACE:
+      return pSURFACE_FEATURE (pobj)->clip_region;
+      break;
+    case SCI_FEC:
+      return pFEC_FEATURE (pobj)->clip_region;
+      break;
+    case SCI_GRAYPLOT:
+      return pGRAYPLOT_FEATURE (pobj)->clip_region;
+      break;
+    case SCI_UIMENU:
     case SCI_TITLE:    
     case SCI_AGREG:
-    case SCI_FEC: 
-    case SCI_GRAYPLOT:
     case SCI_FIGURE: 
     default:
       printSetGetErrorMessage("clip_box");
@@ -1880,9 +1903,6 @@ sciGetVisibility (sciPointObj * pobj)
     case SCI_LABEL: /* F.Leray 28.05.04 */
       return sciGetVisibility ( pLABEL_FEATURE (pobj)->text ) ;
       break;
-    case SCI_UIMENU:
-      return pUIMENU_FEATURE (pobj)->visible;
-      break;
     case SCI_CONSOLE:
       return pCONSOLE_FEATURE(pobj)->visible ;
       break ;
@@ -1898,6 +1918,7 @@ sciGetVisibility (sciPointObj * pobj)
     case SCI_SCREEN:
       return pSCREEN_FEATURE(pobj)->visible ;
       break ;
+    case SCI_UIMENU:
     case SCI_SBH:   
     case SCI_PANNER:
     case SCI_SBV:
@@ -3096,7 +3117,7 @@ int sciType (char *marker,sciPointObj * pobj)
   else if (strcmp(marker,"axes_reverse"       ) == 0) {return sci_strings;}
   else if (strcmp(marker,"immediate_drawing"  ) == 0) {return sci_strings;}
   else if (strcmp(marker,"handle_visible"     ) == 0) {return sci_strings;}
-  else if (strcmp(marker,"menu_enable"        ) == 0) {return sci_strings;}
+  else if (strcmp(marker,"enable"             ) == 0) {return sci_strings;}
   else if (strcmp(marker,"callback_type"      ) == 0) {return sci_strings;}
   else if (strcmp(marker,"bounding_rect"      ) == 0) {return sci_matrix;} /*JBS 16/11/05 */
   else if (strcmp(marker,"hidden_axis_color"  ) == 0) {return sci_matrix;} /*       03/06 */
@@ -3187,7 +3208,6 @@ int CheckForCompound(long *handelsvalue, int number)
 	case SCI_POLYLINE:
 	case SCI_TEXT:
 	case SCI_TITLE:
-	case SCI_LEGEND:
 	case SCI_SURFACE:
 	case SCI_AXES:
 	case SCI_LIGHT:
@@ -3225,6 +3245,7 @@ int CheckForCompound(long *handelsvalue, int number)
 	case SCI_SBH:
 	case SCI_LABEL: /* F.Leray 28.05.04 A REVOIR...*/
 	case SCI_UIMENU:
+	case SCI_LEGEND:
 	default:
 	  return -(i+1); /* not a basic entity*/
 	}
@@ -3631,16 +3652,15 @@ int sciGetHiddenColor( sciPointObj * pObj )
   switch( sciGetEntityType( pObj ) )
   {
   case SCI_SUBWIN:
-    colorIndex = pSUBWIN_FEATURE(pObj)->hiddencolor + 1 ;
+    colorIndex = pSUBWIN_FEATURE(pObj)->hiddencolor;
     break;
   case SCI_SURFACE:
-    colorIndex = pSURFACE_FEATURE(pObj)->hiddencolor + 1 ;
+    colorIndex = pSURFACE_FEATURE(pObj)->hiddencolor;
     break;
   default:
     printSetGetErrorMessage("hidden_color");
     return -10 ;
   }
-  colorIndex = sciGetGoodIndex(pObj, colorIndex);
   return colorIndex ;
 }
 /*----------------------------------------------------------------------------------*/
@@ -4290,6 +4310,7 @@ void sciGetTextBoundingBox(sciPointObj * pObj, double corner1[3], double corner2
   case SCI_LABEL:
     sciGetTextBoundingBox(pLABEL_FEATURE(pObj)->text, corner1, corner2, corner3, corner4);
     break;
+
   default:
     printSetGetErrorMessage("bounding box");
     break;
@@ -4392,6 +4413,38 @@ void sciGetAABoundingBox(sciPointObj * pObj, double bounds[6])
 }
 /*----------------------------------------------------------------------------------*/
 /**
+ * Get the x_position value
+ * @param bounds [xmin, xmax, ymin, ymax, zmin, zmax] bounds.
+ */
+char sciGetxLocation(sciPointObj * pObj)
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_SUBWIN:
+    return pSUBWIN_FEATURE(pObj)->axes.xdir;
+    break;
+  default:
+    sciprint(_("Unable to compute x_location for this kind of object."));
+    break;
+  }
+  return NULL;
+}
+/*----------------------------------------------------------------------------------*/
+char sciGetyLocation(sciPointObj * pObj)
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_SUBWIN:
+    return pSUBWIN_FEATURE(pObj)->axes.ydir;
+    break;
+  default:
+    sciprint(_("Unable to compute x_location for this kind of object."));
+    break;
+  }
+  return NULL;
+}
+/*----------------------------------------------------------------------------------*/
+/**
  * Check wether an object is using nurbs for display or not
  */
 BOOL sciGetUseNurbs(sciPointObj * pObj)
@@ -4419,6 +4472,57 @@ BOOL sciGetIsUsingFractionalMetrics(sciPointObj * pObj)
   }
   printSetGetErrorMessage("fractional_font");
   return FALSE;
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get number of ticks along X axis of a subwindow.
+ */
+int sciGetNbXTicks(sciPointObj * pSubwin)
+{
+  return sciGetJavaNbXTicks(pSubwin);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the labels and positions of ticks along X axis.
+ * String composing ticksLabels are allocated with MALLOC.
+ */
+void sciGetXTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels)
+{
+  sciGetJavaXTicksPos(pSubwin, ticksPos, ticksLabels);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get number of ticks along Y axis of a subwindow.
+ */
+int sciGetNbYTicks(sciPointObj * pSubwin)
+{
+  return sciGetJavaNbYTicks(pSubwin);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the labels and positions of ticks along Y axis.
+ * String composing ticksLabels are allocated with C++ new.
+ */
+void sciGetYTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels)
+{
+  sciGetJavaYTicksPos(pSubwin, ticksPos, ticksLabels);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get number of ticks along Z axis of a subwindow.
+ */
+int sciGetNbZTicks(sciPointObj * pSubwin)
+{
+  return sciGetJavaNbZTicks(pSubwin);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the labels and positions of ticks along Z axis.
+ * String composing ticksLabels are allocated with C++ new.
+ */
+void sciGetZTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels)
+{
+  sciGetJavaZTicksPos(pSubwin, ticksPos, ticksLabels);
 }
 /*----------------------------------------------------------------------------------*/
 /**

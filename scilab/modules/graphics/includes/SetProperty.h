@@ -68,6 +68,9 @@ int sciSetIsMark (sciPointObj * pobj, BOOL ismark);  /* SET */
 int sciInitIsFilled(sciPointObj * pobj, BOOL isfilled);
 int sciSetIsFilled (sciPointObj * pobj, BOOL isfilled);  /* SET */
 
+int sciInitPolylineStyle( sciPointObj * pobj, int plot );
+int sciInitArrowSize( sciPointObj * pobj, double size );
+
 int sciInitMarkStyle(sciPointObj * pobj, int markstyle);
 int sciSetMarkStyle (sciPointObj * pobj, int markstyle); /* SET */
 
@@ -118,8 +121,8 @@ int sciSetTitlePlace (sciPointObj * pobj, sciTitlePlace place); /* SET */
 int sciInitLegendPlace(sciPointObj * pobj, sciLegendPlace place);
 int sciSetLegendPlace (sciPointObj * pobj, sciLegendPlace place); /* SET */
 
-int sciInitLegendPos(sciPointObj * pobj, int x, int y);
-int sciSetLegendPos (sciPointObj * pobj, int x, int y); /* SET */
+int sciInitLegendPos(sciPointObj * pobj, double position[]);
+int sciSetLegendPos (sciPointObj * pobj, double position[]); /* SET */
 
 /* GMODE */
 int sciInitIsClipping(sciPointObj * pobj, int value) ;
@@ -258,8 +261,6 @@ int sciSetLogFlags(sciPointObj * pObj, char logFlags[3]) ; /* SET */
 
 int sciInitAutoTicks(sciPointObj * pObj, BOOL autoTicksX, BOOL autoTicksY, BOOL autoTicksZ);
 int sciSetAutoTicks(sciPointObj * pObj, BOOL autoTicksX, BOOL autoTicksY, BOOL autoTicksZ); /* SET */
-
-int sciSetRenderingEnable(sciPointObj * pObj, BOOL enable); /* SET */
 
 int sciSetZoomBox(sciPointObj * pObj, const double zoomBox[6]); /* SET */
 

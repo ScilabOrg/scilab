@@ -14,6 +14,23 @@
 #include "machine.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
+#ifdef _MSC_VER
+/* bug 3161 (F2C)*/
+/* common need to be defined and exported from C */
+__declspec (dllexport) struct {
+    char nomsub[80];
+} C2F(optim);
+
+__declspec (dllexport) struct {
+    integer nizs, nrzs, ndzs;
+} C2F(nird);
+
+__declspec (dllexport) struct {
+    double u1;
+    integer nc;
+} C2F(fprf2c);
+#endif
+/*--------------------------------------------------------------------------*/
 int C2F(sci_optim)(char *fname,unsigned long fname_len)
 {
 	C2F(scioptim)(fname,fname_len);

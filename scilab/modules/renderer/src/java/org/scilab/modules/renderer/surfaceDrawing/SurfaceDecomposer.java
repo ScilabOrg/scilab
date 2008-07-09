@@ -14,6 +14,8 @@
 
 package org.scilab.modules.renderer.surfaceDrawing;
 
+import org.scilab.modules.renderer.utils.geom3D.Vector3D;
+
 /**
  * Class used to get the list of facet to draw for a surface object
  * @author Jean-Baptiste Silvy
@@ -130,17 +132,33 @@ public abstract class SurfaceDecomposer implements FacetDecomposer, ColoredFacet
 	 * @return array [min, max]
 	 */
 	protected double[] getZminAndMax() {
-		double[] minMax = {zCoords[0], zCoords[0]};
+		// some value might not be finite and then should not be taken into account
+		double[] minMax = {Double.MAX_VALUE, -Double.MAX_VALUE};
 		
-		for (int i = 1; i < zCoords.length; i++) {
-			if (zCoords[i] < minMax[0]) {
-				minMax[0] = zCoords[i];
-			} else if (zCoords[i] > minMax[1]) {
-				minMax[1] = zCoords[i];
+		for (int i = 0; i < zCoords.length; i++) {
+			if (!Double.isInfinite(zCoords[i])) {
+				if (zCoords[i] < minMax[0]) {
+					minMax[0] = zCoords[i];
+				} else if (zCoords[i] > minMax[1]) {
+					minMax[1] = zCoords[i];
+				}
 			}
 		}
 		return minMax;
 		
+	}
+	
+	/**
+	 * @param facet coordinates of the fect vertices
+	 * @return true if the facet is displayable, false otherwise
+	 */
+	protected boolean isFacetDisplayable(Vector3D[] facet) {
+		for (int i = 0; i < facet.length; i++) {
+			if (!facet[i].isFinite()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**

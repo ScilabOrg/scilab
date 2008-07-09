@@ -23,6 +23,7 @@ import org.scilab.modules.gui.popupmenu.SimplePopupMenu;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.Position;
+import org.scilab.modules.gui.utils.PositionConverter;
 import org.scilab.modules.gui.utils.ScilabRelief;
 import org.scilab.modules.gui.utils.Size;
 
@@ -67,7 +68,7 @@ public class SwingScilabPopupMenu extends JComboBox implements SimplePopupMenu {
 	 * @see org.scilab.modules.gui.uielement.UIElement#getPosition()
 	 */
 	public Position getPosition() {
-		return new Position(getX(), getY());
+		return PositionConverter.javaToScilab(getLocation(), getSize(), getParent());
 	}
 
 	/**
@@ -86,7 +87,8 @@ public class SwingScilabPopupMenu extends JComboBox implements SimplePopupMenu {
 	 * @see org.scilab.modules.gui.uielement.UIElement#setPosition(org.scilab.modules.gui.utils.Position)
 	 */
 	public void setPosition(Position newPosition) {
-		setLocation(newPosition.getX(), newPosition.getY());
+		Position javaPosition = PositionConverter.scilabToJava(newPosition, getDims(), getParent());
+		setLocation(javaPosition.getX(), javaPosition.getY());
 	}
 
 	/**
@@ -184,7 +186,17 @@ public class SwingScilabPopupMenu extends JComboBox implements SimplePopupMenu {
 		for (int i = 0; i < getItemCount(); i++) {
 			// Scilab indices in Value begin at 1 and Java indices begin at 0
 			if (i == (index - 1)) {
+				/* Remove the listener to avoid the callback to be executed */
+				if (this.callback != null) {
+					removeActionListener(this.callback);
+				}
+				
 				getModel().setSelectedItem(getItemAt(i));
+				
+				/* Put back the listener */
+				if (this.callback != null) {
+					addActionListener(this.callback);
+				}
 			}
 		}
 	}

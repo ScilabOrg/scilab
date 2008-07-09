@@ -20,6 +20,7 @@
 #    => will install Scilab into /my/dir/ and split files to
 #    /my/dir/bin/, /my/dir/share/scilab/, /my/dir/lib/scilab/
 #    /my/dir/include/scilab/
+#    Scilab official binary uses this arch
 # * ./configure; make install prefix=$(DESTDIR)/usr \
 #				   bindir=$(DESTDIR)/usr/bin \
 #				   datadir=$(DESTDIR)/usr/share/scilab ...
@@ -59,11 +60,21 @@ start_electric_fence() {
 
 start_debug() {
 	  if test -n "$DEVENV"; then
-		  echo "Running debug of Scilab  : " $SCI/libtool --mode=execute gdb --args $SCILABBIN $sci_args
+		  echo "Running debug of Scilab [gdb]  : " $SCI/libtool --mode=execute gdb --args $SCILABBIN $sci_args
 		  "$SCI"/libtool --mode=execute gdb --args "$SCILABBIN" $sci_args
 	  else
-		  echo "Running debug of Scilab  : " gdb --args "$SCILABBIN" $sci_args
+		  echo "Running debug of Scilab [gdb]  : " gdb --args "$SCILABBIN" $sci_args
 		  gdb --args $SCILABBIN $sci_args
+	  fi
+}
+
+start_debug_kdbg() {
+	  if test -n "$DEVENV"; then
+		  echo "Running debug of Scilab [kdbg]  : " $SCI/libtool --mode=execute kdbg $SCILABBIN $sci_args
+		  "$SCI"/libtool --mode=execute kdbg "$SCILABBIN" $sci_args
+	  else
+		  echo "Running debug of Scilab [kdbg]  : " kdbg "$SCILABBIN" $sci_args
+		  kdbg $SCILABBIN $sci_args
 	  fi
 }
 
@@ -101,6 +112,7 @@ OLDPWD=`pwd`
 found=0
 progname="$0"
 curdir=`dirname "$progname"`
+PATH="$curdir:$PATH"
 
 progbase=`basename "$progname"`
 run_sci="$curdir/$SCILABBIN"
@@ -163,16 +175,19 @@ else
 		# dev env
 		SCILABBIN=$SCI/$SCILABBIN
 		DEVENV=1
+		# add modelica in the path
+		PATH="$PATH:$SCI/modules/scicos/"
 	else
 		echo "Cannot find $SCILABBIN ..."
 		exit 1
 	fi
 fi
-# should be removed
+
 export SCI
+PATH="$SCI:$PATH"
 
 ############# JAVA DETECTION ##############
-# Basic inspiration from Eclipse
+#ï¿½Basic inspiration from Eclipse
 #
 # Scilab is looking for Java in various places with different ways :
 # * if JAVA_HOME is specificed, use it
@@ -213,17 +228,16 @@ if test -z "$JAVA_HOME"; then
             case $OS in
                 *darwin* | *Darwin*)
                     # Seems to be always that under Mac OS X. Don't hesitate to submit a bug report if it is not the case.
-		    JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
+					JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
                     LD_LIBRARY_PATH="/System/Library/Frameworks/JavaVM.framework/Libraries:$LD_LIBRARY_PATH"
-		    if test $SCIVERBOSE -ne 0; then
-			echo "Using default Mac OS X vm: $JAVA_HOME"
-			echo "And LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
-		    fi
-
-                    ;;
+					if test $SCIVERBOSE -ne 0; then
+						echo "Using default Mac OS X vm: $JAVA_HOME"
+						echo "And LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+					fi
+					;;
                 *)
-		    ;;
-		esac
+					;;
+			esac
 fi
 
 # Browse "default directory" (if it means anything under Unix/Linux) of Java
@@ -376,14 +390,16 @@ if test $SCIVERBOSE -ne 0; then
 	echo "SCI : $SCI"
 	echo "SCIBIN : $SCIBIN"
 	echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
+	echo "PATH : $PATH"
 fi
 
 # Returns to the original path
 cd "$OLDPWD"
-if test "$DISPLAY" = ""; then
-  DISPLAY="unix:0.0"
-fi
-export DISPLAY
+
+#if test "$DISPLAY" = ""; then
+#  DISPLAY="unix:0.0"
+#fi
+#export DISPLAY
 
 #if test "$PVM_ROOT" = ""; then
 #  PVM_ROOT="@PVMROOTR@"
@@ -404,62 +420,47 @@ if test $SCIVERBOSE -ne 0; then
 	echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
 fi
 export LD_LIBRARY_PATH
+export PATH
 
 do_scilex()
 {
-    PATH=$PATH:$SCI:$SCI/util
-    export PATH
-
-    XAPPLRESDIR=$SCI/X11_defaults
-    export XAPPLRESDIR
-
-#    tty -s && stty kill '^U' intr '^C' erase '^H' quit '^\' eof '^D' susp '^Z'
     "$SCILABBIN" "$@"
-}
 
-do_scilex_now()
-{
-    PATH=$PATH:$SCI:$SCI/util
-    export PATH
-
-    XAPPLRESDIR=$SCI/X11_defaults
-    export XAPPLRESDIR
-
-    "$SCILABBIN" "$@"
 }
 
 do_help()
 {
-echo "Usage:"
-echo     "scilab <options>"
-echo     " "
-echo     "      Possible options are:"
-echo     "      -args Arguments : passes Arguments to Scilab, This Arguments can be retreived"
-echo     "                        by the Scilab function sciargs."
-echo     "      -display Display: for use under Xwindow systems to set a specific X server display."
-echo     "      -d Display      : equivalent to display Display."
-echo     "      -debug          : Start Scilab under gdb (Unix/linux only)."
-echo     "      -profiling      : Start Scilab under valgrind (Unix/linux only)."
-echo     "      -profiling-visu : Start Scilab under callgrind (Unix/linux only)."
-echo     "      -electric-fence : Start Scilab with the Electric Fence (Unix/linux only)."
-echo     "      -e Instruction  : execute the scilab instruction given in Instruction argument."
-echo     "                        -e and -f options are mutually exclusive."
-echo     "      -f File         : execute the scilab script given in File argument."
-echo     "                        -e and -f options are mutually exclusive."
-echo     "      -l Lang         : set the current language. Lang can be equal to fr or en."
-echo     "      -link <objects> : Is used under Unix/linux to produce a local executable code of Scilab"
-echo     "                        linked with the additional files given by the user in  <objects>."
-echo     "                        the -link option should be used without any other option."
-echo     "      -mem N          : set the initial stacksize, for use with -ns option."
-echo     "      -nb             : do not display the Scilab banner at starting time."
-echo     "      -ns             : do not execute scilab.start startup file."
-echo     "      -nouserstartup  : do not execute the user startup files SCIHOME/.scilab or SCIHOME/scilab.ini."
-echo     "      -nw             : start Scilab without specialized Scilab Window."
-echo     "      -nwni           : start Scilab without user interaction (batch mode)."
-echo     "      -nogui          : start Scilab without user GUI (batch mode)."
-echo     "      -version        : print product version and exit."
-echo     "      --texmacs       : reserved for TeXMacs."
-exit
+	echo "Usage:"
+	echo     "scilab <options>"
+	echo     " "
+	echo     "      Possible options are:"
+	echo     "      -args Arguments : passes Arguments to Scilab, This Arguments can be retreived"
+	echo     "                        by the Scilab function sciargs."
+	echo     "      -display Display: for use under Xwindow systems to set a specific X server display."
+	echo     "      -d Display      : equivalent to display Display."
+	echo     "      -debug          : Start Scilab under gdb (Unix/linux only)."
+	echo     "      -debug-kdbg     : Start Scilab under kdbg (Unix/linux only)."
+	echo     "      -profiling      : Start Scilab under valgrind (Unix/linux only)."
+	echo     "      -profiling-visu : Start Scilab under callgrind (Unix/linux only)."
+	echo     "      -electric-fence : Start Scilab with the Electric Fence (Unix/linux only)."
+	echo     "      -e Instruction  : execute the scilab instruction given in Instruction argument."
+	echo     "                        -e and -f options are mutually exclusive."
+	echo     "      -f File         : execute the scilab script given in File argument."
+	echo     "                        -e and -f options are mutually exclusive."
+	echo     "      -l Lang         : set the current language. Lang can be equal to fr or en."
+	echo     "      -link <objects> : Is used under Unix/linux to produce a local executable code of Scilab"
+	echo     "                        linked with the additional files given by the user in  <objects>."
+	echo     "                        the -link option should be used without any other option."
+	echo     "      -mem N          : set the initial stacksize, for use with -ns option."
+	echo     "      -nb             : do not display the Scilab banner at starting time."
+	echo     "      -ns             : do not execute scilab.start startup file."
+	echo     "      -nouserstartup  : do not execute the user startup files SCIHOME/.scilab or SCIHOME/scilab.ini."
+	echo     "      -nw             : start Scilab without specialized Scilab Window."
+	echo     "      -nwni           : start Scilab without user interaction (batch mode)."
+	echo     "      -nogui          : start Scilab without user GUI (batch mode)."
+	echo     "      -version        : print product version and exit."
+	echo     "      --texmacs       : reserved for TeXMacs."
+	exit
 }
 
 do_compile()
@@ -577,30 +578,30 @@ do_save()
 # calling Scilab with no argument or special cases of calling Scilab
 rest="no"
 case $# in
-    0)
-	do_scilex &
+    0) # No arg, run Scilab
+		do_scilex &
         ;;
-    2)
+    2) # Only two arg
         case $1 in
             -comp)
-		do_compile $2
+				do_compile $2
                 ;;
             -link)
                 shift
-		$SCI/bin/scilink $SCI $*
+				$SCI/bin/scilink $SCI $*
                 ;;
             -function)
-		$SCI/bin/minfopr $SCI $2
-		;;
+				$SCI/bin/minfopr $SCI $2
+				;;
             *)
-		rest="yes"
+				rest="yes"
                 ;;
         esac
         ;;
     3)
         case $1 in
             -lib)
-		do_lib $2 $3
+				do_lib $2 $3
                 ;;
             -print_l)
                 do_print -landscape $2 $3
@@ -616,10 +617,10 @@ case $# in
                 ;;
             -link)
                 shift
-		$SCI/bin/scilink $SCI $*
+				$SCI/bin/scilink $SCI $*
                 ;;
             *)
-		rest="yes"
+				rest="yes"
                 ;;
         esac
         ;;
@@ -627,10 +628,10 @@ case $# in
         case $1 in
             -link)
                 shift
-		$SCI/bin/scilink $SCI $*
+				$SCI/bin/scilink $SCI $*
                 ;;
             *)
-		rest="yes"
+				rest="yes"
                 ;;
         esac
         ;;
@@ -643,6 +644,7 @@ sci_args=
 if test "$rest" = "yes"; then
 
   debug=
+  debug_kdbg=
   profiling=
   profiling_visu=
   electric_fence=
@@ -652,14 +654,16 @@ if test "$rest" = "yes"; then
   prevarg=
   language=
   fontname=
-  for sciarg in "$@"
+  for sciarg in $*
   do
+
     # If the previous argument needs an argument, assign it.
     if test -n "$prevarg"; then
       eval "$prevarg=\$sciarg"
       prevarg=
       continue
     fi
+
     case $sciarg in
       -nogui)
 	  sci_args="$sci_args -nogui"
@@ -675,6 +679,9 @@ if test "$rest" = "yes"; then
           ;;
       -debug)
           DEBUG="-debug"
+          ;;
+      -debug-kdbg)
+          DEBUG_KDBG="-debug-kdbg"
           ;;
       -profiling)
           PROFILING="-profiling"
@@ -695,7 +702,7 @@ if test "$rest" = "yes"; then
           ;;
       -nwni)
           now="-nwni"
-	  sci_args="$sci_args -nwni"
+		  sci_args="$sci_args -nwni"
           ;;
       -display|-d)
           prevarg="display"
@@ -732,6 +739,7 @@ if test "$rest" = "yes"; then
   fi
 
   if test -n "$start_exp"; then
+	  echo "'$start_exp'"
     sci_args="$sci_args -e $start_exp"
   fi
 
@@ -740,13 +748,16 @@ if test "$rest" = "yes"; then
   fi
 
   if test -n "$arguments"; then
-    sci_args="$sci_args  $arguments"
+    sci_args="$sci_args $arguments"
   fi
   if test -n "$mem"; then
-    sci_args="$sci_args -mem  $mem"
+    sci_args="$sci_args -mem $mem"
   fi
   if test -n "$DEBUG"; then
 	  start_debug
+  else
+  if test -n "$DEBUG_KDBG"; then
+	  start_debug_kdbg
   else
 	if test -n "$PROFILING"; then
 		start_profiling
@@ -758,14 +769,13 @@ if test "$rest" = "yes"; then
 				start_electric_fence
 			else
 				if test -n "$now"; then
-					sci_exe="do_scilex_now"
-					$sci_exe "$@"
+					do_scilex "$@"
 				else
-					sci_exe="do_scilex"
-					$sci_exe "$@"
+					do_scilex "$@"
 				fi # now
-			fi # Not electric fense
+			fi # not electric fense
 		fi # not profiling visu
 	fi # not profiling
-  fi #not debug
-fi # if rest
+  fi # not debug kdbg
+  fi # not debug
+fi # if rest

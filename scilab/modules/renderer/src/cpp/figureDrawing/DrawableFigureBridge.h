@@ -77,8 +77,9 @@ public:
 
   /**
   * Set the size (width, height) of the figure.
+  * @return indicates if the size could be successfully modified
   */
-  virtual void setSize( const int size[2] ) = 0 ;
+  virtual bool setSize( const int size[2] ) = 0 ;
 
   /**
   * Get the size of the window enclosing the figure.
@@ -104,11 +105,6 @@ public:
    * Set the displayed the info message of the window
    */
   virtual void setInfoMessage( const char * infoMessage ) = 0 ;
-
-  /**
-   * Specify if the figure can be render or not.
-   */
-  virtual void setRenderingEnable(bool isEnable) = 0;
 
   /**
    * Set the auto_resize status (on or off).
@@ -164,6 +160,11 @@ public:
    * If a rotation displacement is recording, cancel it.
    */
   virtual void stopRotationRecording(void) = 0;
+
+  /**
+   * Put the figure in top of other windows.
+   */
+  virtual void showWindow(void) = 0;
 
   /**
    * Return the drawed object

@@ -60,7 +60,7 @@ else
 	save_LIBS="$LIBS"
 	LIBS="$ZLIB -lm"
 	AC_CHECK_LIB([matio], [Mat_Open],
-			[MATIO_LIB="-lmatio   $ZLIB"],
+			[MATIO_LIB="-lmatio  -lm $ZLIB"],
             [AC_MSG_ERROR([libmatio : library missing. (Cannot Mat_Open). Check if libmatio is installed and if the version is correct])]
 			)
 	LIBS="$save_LIBS"

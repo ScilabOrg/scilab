@@ -30,7 +30,7 @@ import org.scilab.modules.renderer.jni.FigureScilabCall;
 public class SciRenderer
   implements GLEventListener {
 	
-	/** index of the figure to render */
+	/** index of the figure to render */ 
 	private int renderedFigure;
 	
 	
@@ -57,10 +57,19 @@ public class SciRenderer
 		// nothing to render
 		return;
 	}
-    // should call the draw function of the corresponding figure
-	if (curFigure.getIsRenderingEnable()) {
-		
-		
+	
+	GL gl = gLDrawable.getGL();
+	
+	if (!curFigure.getRenderingRequested()) {
+		// figure rendering not requested by Scilab
+		// This is a swing event so just keep the buffer
+		// keep previous buffer
+		gl.glLogicOp(GL.GL_NOOP);
+		gl.glEnable(GL.GL_COLOR_LOGIC_OP);
+	} else {
+		// the requested display has been done, next one won't chnage display unless
+		// it is also requested
+		curFigure.setRenderingRequested(false);
 		if (curFigure.isRubberBoxModeOn()) {
 			curFigure.getRubberBox().drawInContext();
 		} else {
@@ -115,12 +124,13 @@ public class SciRenderer
       gl.glEnable(GL.GL_COLOR_LOGIC_OP); // to use pixel drawing mode
       gl.glLogicOp(GL.GL_COPY);
       
-	  if (curFigure.getIsRenderingEnable()) {
-		  curFigure.getColorMap().clearTexture();
-		  // free all the text renderers
-		  curFigure.getTextRendererCreator().clear();
-		  FigureScilabCall.redrawFigure(renderedFigure);
-      }
+      curFigure.getColorMap().clearTexture();
+      // free all the text renderers
+      curFigure.getTextRendererCreator().clear();
+      FigureScilabCall.redrawFigure(renderedFigure);
+		  
+	  // we need to redraw the figure so request one
+	  curFigure.setRenderingRequested(true);
 
     }
     
@@ -141,12 +151,15 @@ public class SciRenderer
   public void reshape(GLAutoDrawable gLDrawable, int x, int y, int width, int height)	{
 	  DrawableFigureGL curFigure = FigureMapper.getCorrespondingFigure(renderedFigure);
 	  
-	  if (curFigure == null || !curFigure.getIsRenderingEnable()) {
+	  if (curFigure == null) {
 		  return;
 	  }
 	  
 	  // Axes ticks may change with new shape so redraw all subwins
 	  FigureScilabCall.redrawSubwins(renderedFigure);
+	  
+	  // we need to redraw the figure so request one
+	  curFigure.setRenderingRequested(true);
 	  
 	  if (curFigure.isRubberBoxModeOn()) {
 		// in rubber box mode we don't automatically redraw the figure

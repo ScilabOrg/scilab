@@ -39,7 +39,7 @@
     </method>
     <method name="getCanvasHeight" returnType="int">
     </method>
-    <method name="setCanvasSize" returnType="void">
+    <method name="setCanvasSize" returnType="boolean">
       <param type="int" name="width" />
       <param type="int" name="height" />
     </method>
@@ -67,9 +67,6 @@
     </method>
     <method name="getAutoResizeMode" returnType="boolean">
     </method>
-    <method name="setIsRenderingEnable" returnType="void">
-      <param type="boolean" name="isEnable" />
-    </method>
     <method name="getViewport" returnType="int[]">
     </method>
     <method name="setViewport" returnType="void">
@@ -89,6 +86,8 @@
     <method name="getRotationDisplacement" returnType="int[]">
     </method>
     <method name="stopRotationRecording" returnType="void">
+    </method>
+    <method name="showWindow" returnType="void">
     </method>
   </object>
 </package>

@@ -199,6 +199,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BATIK = @BATIK@
 BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -226,6 +227,7 @@ FFTW3_LIB = @FFTW3_LIB@
 FFTW_ENABLE = @FFTW_ENABLE@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
+FOP = @FOP@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
 GREP = @GREP@
@@ -243,6 +245,7 @@ JAVA_HOME = @JAVA_HOME@
 JAVA_JNI_INCLUDE = @JAVA_JNI_INCLUDE@
 JAVA_JNI_LIBS = @JAVA_JNI_LIBS@
 JDB = @JDB@
+JEUCLID_CORE = @JEUCLID_CORE@
 JHALL = @JHALL@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
@@ -291,6 +294,8 @@ PVM_LIB = @PVM_LIB@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
+RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SED = @SED@
@@ -464,24 +469,14 @@ top_srcdir = @top_srcdir@
 @TCLTK_TRUE@tcl/sciGUI/local_extra/combobox-2.3/README.txt \
 @TCLTK_TRUE@tcl/sciGUI/local_extra/combobox-2.3/combobox.html \
 @TCLTK_TRUE@tcl/sciGUI/local_extra/combobox-2.3/example.tcl \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/gpl.txt \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/license.txt \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/help_2htm.tcl \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/help.tcl \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/help_tbl.tcl \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/readme.txt \
-@TCLTK_TRUE@tcl/sciGUI/local_extra/HelpSystem-1.5/help_chk.tcl \
 @TCLTK_TRUE@tcl/sciGUI/local_extra/balloonhelp.tcl \
 @TCLTK_TRUE@tcl/sciGUI/local_extra/rnotebook.tcl \
 @TCLTK_TRUE@tcl/sciGUI/local_extra/spinbutton.tcl \
 @TCLTK_TRUE@tcl/sciGUI/license.txt \
-@TCLTK_TRUE@tcl/sciGUI/sciBar.tcl \
 @TCLTK_TRUE@tcl/sciGUI/sciGUI.tcl \
 @TCLTK_TRUE@tcl/sciGUI/sciConfig.tcl \
 @TCLTK_TRUE@tcl/sciGUI/sciBrowseVar.tcl \
-@TCLTK_TRUE@tcl/sciGUI/sciDemoPlay.tcl \
 @TCLTK_TRUE@tcl/sciGUI/sciEditVar.tcl \
-@TCLTK_TRUE@tcl/sciGUI/sciBrowseHelp.tcl \
 @TCLTK_TRUE@tcl/BWidget-1.8.0/demo/select.tcl \
 @TCLTK_TRUE@tcl/BWidget-1.8.0/demo/tree.tcl \
 @TCLTK_TRUE@tcl/BWidget-1.8.0/demo/basic.tcl \
@@ -609,7 +604,6 @@ top_srcdir = @top_srcdir@
 @TCLTK_TRUE@tcl/BWidget-1.8.0/labelframe.tcl \
 @TCLTK_TRUE@tcl/BWidget-1.8.0/README.txt \
 @TCLTK_TRUE@tcl/BWidget-1.8.0/titleframe.tcl \
-@TCLTK_TRUE@tcl/html_library.tcl \
 @TCLTK_TRUE@tcl/TK_Scilab.tcl
 
 
@@ -642,20 +636,18 @@ top_srcdir = @top_srcdir@
 #### tclsci : demos files tk ####
 @TCLTK_TRUE@libscitclsci_la_demostkdir = $(mydatadir)/demos/tk/
 @TCLTK_TRUE@libscitclsci_la_demostk_DATA = demos/tk/timer \
-@TCLTK_TRUE@demos/tk/tk.dem \
+@TCLTK_TRUE@demos/tk/tcltk.dem.gateway.sce \
 @TCLTK_TRUE@demos/tk/rolodex.sce \
 @TCLTK_TRUE@demos/tk/demredraw.sci \
 @TCLTK_TRUE@demos/tk/rgb.txt \
 @TCLTK_TRUE@demos/tk/timer.sce \
 @TCLTK_TRUE@demos/tk/puzzle \
-@TCLTK_TRUE@demos/tk/uicontrol.sci \
-@TCLTK_TRUE@demos/tk/scale.sce \
+@TCLTK_TRUE@demos/tk/scale.dem.sce \
 @TCLTK_TRUE@demos/tk/cscroll \
 @TCLTK_TRUE@demos/tk/tcolor \
-@TCLTK_TRUE@demos/tk/puzzle.sce \
-@TCLTK_TRUE@demos/tk/scroll.sce \
-@TCLTK_TRUE@demos/tk/uicontrol1.sce \
-@TCLTK_TRUE@demos/tk/tcolor.sce \
+@TCLTK_TRUE@demos/tk/puzzle.dem.sce \
+@TCLTK_TRUE@demos/tk/scroll.dem.sce \
+@TCLTK_TRUE@demos/tk/color.dem.sce \
 @TCLTK_TRUE@demos/tk/rolodex \
 @TCLTK_TRUE@demos/tk/vscale
 

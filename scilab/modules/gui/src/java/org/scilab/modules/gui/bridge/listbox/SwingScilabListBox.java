@@ -15,14 +15,14 @@ package org.scilab.modules.gui.bridge.listbox;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.StringTokenizer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.listbox.SimpleListBox;
@@ -30,6 +30,7 @@ import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.Position;
+import org.scilab.modules.gui.utils.PositionConverter;
 import org.scilab.modules.gui.utils.ScilabRelief;
 import org.scilab.modules.gui.utils.Size;
 
@@ -44,7 +45,7 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 
 	private CallBack callback;
 	
-	private ListSelectionListener listSelectionListener;
+	private MouseListener mouseListener;
 	
 	/**
 	 * the JList we use
@@ -131,7 +132,7 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 * @see org.scilab.modules.gui.uielement.UIElement#getPosition()
 	 */
 	public Position getPosition() {
-		return new Position(getX(), getY() + getDims().getHeight() - (int) getHorizontalScrollBar().getPreferredSize().getHeight());
+		return PositionConverter.javaToScilab(getLocation(), getSize(), getParent());
 	}
 
 	/**
@@ -140,9 +141,7 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 * @see org.scilab.modules.gui.uielement.UIElement#setDims(org.scilab.modules.gui.utils.Size)
 	 */
 	public void setDims(Size newSize) {
-		int absoluteY = getPosition().getY();
 		setSize(newSize.getWidth(), newSize.getHeight());
-		setPosition(new Position(getPosition().getX(), absoluteY));
 	}
 
 	/**
@@ -151,8 +150,8 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 * @see org.scilab.modules.gui.uielement.UIElement#setPosition(org.scilab.modules.gui.utils.Position)
 	 */
 	public void setPosition(Position newPosition) {
-		setLocation(newPosition.getX(), newPosition.getY() - getSize().height 
-				+ (int) getHorizontalScrollBar().getPreferredSize().getHeight());
+		Position javaPosition = PositionConverter.scilabToJava(newPosition, getDims(), getParent());
+		setLocation(javaPosition.getX(), javaPosition.getY());
 	}
 
 	/**
@@ -170,20 +169,26 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 * @param cb the callback to set.
 	 */
 	public void setCallback(CallBack cb) {
-		if (listSelectionListener != null) {
-			getList().removeListSelectionListener(listSelectionListener);
+		if (mouseListener != null) {
+			getList().removeMouseListener(mouseListener);
 		}
 		this.callback = cb;
 		
-		listSelectionListener = new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				if (!arg0.getValueIsAdjusting()) {
-					callback.actionPerformed(null);	
+		mouseListener = new MouseListener() {
+
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					callback.actionPerformed(null);
 				}
 			}
+
+			public void mouseEntered(MouseEvent arg0) { }
+			public void mouseExited(MouseEvent arg0) { }
+			public void mousePressed(MouseEvent arg0) { }
+			public void mouseReleased(MouseEvent arg0) { }
 		};
 		
-		getList().addListSelectionListener(listSelectionListener);
+		getList().addMouseListener(mouseListener);
 	}
 
 	/**
@@ -324,7 +329,18 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 		for (int i = 0; i < javaIndices.length; i++) {
 			javaIndices[i] = javaIndices[i] - 1;
 		}
+		
+		/* Remove the listener to avoid the callback to be executed */
+		if (mouseListener != null) {
+			getList().removeMouseListener(mouseListener);
+		}
+		
 		getList().setSelectedIndices(javaIndices);
+		
+		/* Put back the listener */
+		if (mouseListener != null) {
+			getList().addMouseListener(mouseListener);
+		}
 	}
 	
 	/**

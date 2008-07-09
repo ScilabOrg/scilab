@@ -28,19 +28,19 @@ import org.scilab.modules.gui.utils.SciFileFilter;
 public class SwingScilabFileChooser extends JFileChooser implements SimpleFileChooser {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	private int elementId;
 
 	private String[] selection; 
 	
-	private int selectionSize; 
+	private int selectionSize; 		
 
 	/**
 	 * Default constructor
 	 */
 	public SwingScilabFileChooser() {
 		super();
-	}
+	}	
 
 	/**
 	 * Set the title of the file chooser

@@ -33,6 +33,9 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 	/** Size of a arrow head compared to the axis size if specified size is 1 */
 	private static final double REDUCTION_RATIO = 0.02;
 	
+	/** Size of arrow head compared to arrow length if specified size is - */
+	private static final double REDUCTION_RATIO_DEPENDING = 0.15;
+	
 	private int defaultColorIndex;
 	
 	private double defaultArrowSize;
@@ -74,10 +77,10 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 		GL gl = getGL();
 		
 		// switch to pixel coordinates
-		GLTools.usePixelCoordinates(gl);
+		GLTools.usePixelCoordinates(gl, getParentFigureGL());
 		displayDL();
 		
-		GLTools.endPixelCoordinates(gl);
+		GLTools.endPixelCoordinates(gl, getParentFigureGL());
 	}
 	
 	/**
@@ -162,7 +165,7 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 								  new Vector3D(xMax, yMax, zMax)};
 		
 		// transform axesCorners in pixels
-		CoordinateTransformation transform = CoordinateTransformation.getTransformation(gl);
+		CoordinateTransformation transform = getCoordinateTransformation();
 		axesCorners = transform.getCanvasCoordinates(gl, axesCorners);
 		
 		// Extrems corner along each axis
@@ -193,16 +196,44 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 	
 	/**
 	 * Update the value of arrowPixelSize
+	 * @param startPixCoords pixel coordinates of segment starts
+	 * @param endPixCoords pixel coordinates of segment ends
 	 */
-	public void updateArrowPixelSize() {
+	public void updateArrowPixelSize(Vector3D[] startPixCoords, Vector3D[] endPixCoords) {
 		// we use the min between width and height to avoid to large arrows when one of the dimension is very small.
-		arrowPixelSize = defaultArrowSize * Math.min(axesPixelWidth, axesPixelHeight) * REDUCTION_RATIO;
+		if (defaultArrowSize < 0) {
+			arrowPixelSize = computeLengthDependingArrowSize(startPixCoords, endPixCoords);
+		} else {
+			arrowPixelSize = defaultArrowSize * Math.min(axesPixelWidth, axesPixelHeight) * REDUCTION_RATIO;
+		}
 		
 		if (defaultArrowSizes != null) {
 			for (int i = 0; i < defaultArrowSizes.length; i++) {
 				arrowPixelSizes[i] = defaultArrowSizes[i] * Math.min(axesPixelWidth, axesPixelHeight) * REDUCTION_RATIO;
 			}
 		}
+	}
+	
+	/**
+	 * For negative values, size of the arrow depends on the length of segements
+	 * @param startPixCoords pixel coordinates of segment starts
+	 * @param endPixCoords pixel coordinates of segment ends
+	 * @return actual arrow size to use
+	 */
+	public double computeLengthDependingArrowSize(Vector3D[] startPixCoords, Vector3D[] endPixCoords) {
+		int nbSegs = arrowStarts.length;
+		
+		// compute the mean of arrow sizes in pixels
+		double meanArrowPixelLength = 0.0;
+		for (int i = 0; i < nbSegs; i++) {
+			// get length in pixel of the segment
+			double dx = endPixCoords[i].getX() - startPixCoords[i].getX();
+			double dy = endPixCoords[i].getY() - startPixCoords[i].getY(); 
+			meanArrowPixelLength += Math.sqrt(dx * dx + dy * dy);
+		}
+		meanArrowPixelLength /= nbSegs;
+		
+		return -defaultArrowSize * meanArrowPixelLength * REDUCTION_RATIO_DEPENDING;
 	}
 	
 	/**
@@ -221,16 +252,17 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 	 */
 	public void redrawArrowHeads() {
 		GL gl = getGL();
-		updateArrowPixelSize();
 		
-		CoordinateTransformation transform = CoordinateTransformation.getTransformation(gl);
+		CoordinateTransformation transform = getCoordinateTransformation();
 		
 		// need to perform this befaore swithching to pixel coordinates
 		Vector3D[] startPixCoords = transform.getCanvasCoordinates(gl, arrowStarts);
 		Vector3D[] endPixCoords = transform.getCanvasCoordinates(gl, arrowEnds);
 		
+		updateArrowPixelSize(startPixCoords, endPixCoords);
+		
 		// switch to pixel coordinates
-		GLTools.usePixelCoordinates(gl);
+		GLTools.usePixelCoordinates(gl, getParentFigureGL());
 		
 		// begin to record display list
 		startRecordDL();
@@ -275,7 +307,7 @@ public abstract class ArrowHeadDrawerGL extends DrawableObjectGL {
 		
 		endRecordDL();
 		
-		GLTools.endPixelCoordinates(gl);
+		GLTools.endPixelCoordinates(gl, getParentFigureGL());
 	}
 	
 	/**

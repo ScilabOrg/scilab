@@ -18,6 +18,15 @@ Graphical User Interface:
  - Dialogs are now Java objects (x_message, x_dialog...)
  - Completion on variable and function names avaible using TAB key or CTRL-SPACE
 
+Event Handling Functions:
+=========================
+ - All the event hadling functions "xclick", "xgetmouse" and the "envent_handler"
+       * they have been rewritten in Java   
+       * they use the same "-1000" code to signal the "window close" actions 
+         (previously "xclick" and "xgetmouse" used "-100" code) 
+ - Obsolete functions:
+       * Using xgetmouse with a flag to avoid the event queue to be cleared is now obsolete. This functionnality will be removed in Scilab 5.1.
+
 Graphics:
 =========
  - New rendering engine based on JOGL (Java Binding for the OpenGL API):
@@ -35,9 +44,7 @@ Graphics:
 	* rotate_axes - Interactive rotation of an Axes handle.
 	* is_handle_valid - Check wether a set of graphic handles is still valid.
  - Obsolete functions:
-  * Using xgetmouse with a flag to avoid the event queue to be cleared is now obsolete. This functionnality will be removed in Scilab 5.1.
-  * xclea, xaxis and xtape functions has been removed because of their imcompatibility with new graphic syntax.
-
+    * xclea, xaxis and xtape functions has been removed because of their imcompatibility with new graphic syntax.
 
 Graphic file export:
 ====================
@@ -78,8 +85,10 @@ Sparse LU factorization:
 
 Optimization:
 =============
-  + qpsolve       — Linear quadratic programming solver
+  + qpsolve       - Linear quadratic programming solver
   + qp_solve      - Linear quadratic programming solver builtin
+  - quapro        - This function has been moved in a toolbox (due to license restrictions from the Universidad de Cantabria)
+  - linpro        - This function has been moved in a toolbox (due to license restrictions from the Universidad de Cantabria)
 
 Genetic Algorithms:
 ===================
@@ -282,7 +291,7 @@ Online Help management:
 Metanet : graph and network toolbox
 ===================================
  - Data structures have been reorganized and made more flexible (user
-   can define and handle its own datya fields for nodes and edges)
+   can define and handle its own data fields for nodes and edges)
  - New functions:
 	+ hilite_edges   - highlights a set of edges
 	+ unhilite_edges - unhighlights a set of edges
@@ -335,12 +344,12 @@ History manager:
 
 Consoles:
 =========
- - Based on a joint project Artenum - INRIA/Scilab called Jrosetta
+ - Based on a joint project Artenum ( http://www.artenum.com ) - INRIA/Scilab called Jrosetta
  - Completion
 	+ Functions
 	+ Variables
 	+ Paths
-
+ - Advanced completion also available in NW & NWNI modes
 
 Modules/toolboxes template:
 ===========================
@@ -411,10 +420,13 @@ Dynamic/incremental link:
 =========================
  - Module renamed to dynamic link
  - Visual Studio 2008 support
+ - Intel Fortran 10 support on Windows
  - Under Linux/Unix, now based on basic autotools for the detection of compiler
 	and compilation.
  - New functions:
   + getdynlibext - get the extension of dynamic libraries on your operating system.
+ - Function improved:
+  + ilib_for_link - now accept the actual filename (not only filename.o but also filename.c or filename.f)
 
 
 TCL/TK:
@@ -424,6 +436,8 @@ TCL/TK:
  - Provided with version 8.5 of TCL/TK
  - Removed Functions:
 	+ tcl_?
+	+ demoplay is obsolete
+	+ sciGUIhelp is obsolete 
 
 
 Java/Scilab API:
@@ -475,6 +489,23 @@ Scicos:
   + Non-regression tests (vs. Scicos 4.2 in Scilab 4.1.2) (95% done)
   + Benchmarks (0% done)
 
+
+Known incompatibilty
+--------------------
+
+  - The Metanet graph data structure has been completely redesigned
+    see update_graph for translation, Graph saving is not more
+    possible in a formatted way.
+
+  - due to a bug fix the xstringb x and y arguments meaning had
+    changed "lower" and "left" are now relative to user coordinates
+    order.
+
+  - the xgetmouse flag option has been removed 
+
+  - For licence reasons, The quapro and linpro functions are no more
+    available in the Scilab distribution, but as an external free
+    toolbox.
 
                      Main Changes Scilab 3.0 -> 4.0
                      ==============================

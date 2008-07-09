@@ -33,6 +33,7 @@ import javax.swing.text.StyledDocument;
 import org.scilab.modules.console.OneCharKeyEventListener;
 import org.scilab.modules.console.SciConsole;
 import org.scilab.modules.console.SciHistoryManager;
+import org.scilab.modules.console.SciOutputView;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.bridge.menuitem.SwingScilabMenuItem;
 import org.scilab.modules.gui.console.SimpleConsole;
@@ -175,16 +176,17 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
 		});	
 		
 		// Remove last line returned given by Scilab (carriage return)
-//		try {
-//			StyledDocument outputStyledDoc = this.getConfiguration().getOutputViewStyledDocument();			
-//			int lastEOL = outputStyledDoc.getText(0, outputStyledDoc.getLength()).lastIndexOf(StringConstants.NEW_LINE);
-//
-//			if (lastEOL > 1) { // To avoid a "javax.swing.text.BadLocationException: Invalid remove" exception
-//				outputStyledDoc.remove(lastEOL, outputStyledDoc.getLength() - lastEOL);
-//			}
-//		} catch (BadLocationException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			StyledDocument outputStyledDoc = this.getConfiguration().getOutputViewStyledDocument();			
+			int lastEOL = outputStyledDoc.getText(0, outputStyledDoc.getLength()).lastIndexOf(StringConstants.NEW_LINE);
+
+			// Condition added to avoid a "javax.swing.text.BadLocationException: Invalid remove" exception
+			if (lastEOL > 1 && (outputStyledDoc.getLength() - lastEOL) == 1) { 
+				outputStyledDoc.remove(lastEOL, outputStyledDoc.getLength() - lastEOL);
+			}
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
 		
 		updateScrollPosition();
 	}
@@ -421,4 +423,13 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
 			}
 		}
 	}
+	
+	/**
+	 * Set the maximum number of lines stored in the Output
+	 * @param nbLines the number of lines 
+	 */
+	public void setMaxOutputSize(int nbLines) {
+		((SciOutputView) this.getConfiguration().getOutputView()).setMaxSize(nbLines);
+	}
+
 }

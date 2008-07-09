@@ -83,6 +83,8 @@ src/cpp/SetUiobjectCallback.cpp \
 src/cpp/GetUiobjectCallback.cpp \
 src/cpp/SetUiobjectTag.cpp \
 src/cpp/GetUiobjectTag.cpp \
+src/cpp/SetUiobjectEnable.cpp \
+src/cpp/GetUiobjectEnable.cpp \
 src/cpp/SetUicontrolMin.cpp \
 src/cpp/GetUicontrolMin.cpp \
 src/cpp/SetUicontrolMax.cpp \
@@ -105,7 +107,8 @@ src/cpp/SetUiobjectVisible.cpp \
 src/cpp/GetUiobjectVisible.cpp \
 src/cpp/UnitsConversion.cpp \
 src/cpp/GetScreenProperty.cpp \
-src/cpp/CallClipboard.cpp
+src/cpp/CallClipboard.cpp \
+src/cpp/exportUserInterface.cpp
 
 GIWS_WRAPPERS = \
 src/jni/CallScilabBridge.giws.xml \
@@ -144,7 +147,8 @@ sci_gateway/c/sci_helpbrowser.c \
 sci_gateway/c/sci_uigetfont.c \
 sci_gateway/c/sci_uigetcolor.c \
 sci_gateway/c/sci_getcallbackobject.c \
-sci_gateway/c/sci_printfigure.c
+sci_gateway/c/sci_printfigure.c \
+sci_gateway/c/sci_exportUI.c
 
 libscigui_la_CFLAGS=	-Isrc/c/ \
 			-Isrc/c/xsci/ \
@@ -264,6 +268,7 @@ includes/GetUiobjectCallback.h \
 includes/GetUiobjectForegroundColor.h \
 includes/GetUiobjectTag.h \
 includes/GetUiobjectVisible.h \
+includes/GetUiobjectEnable.h \
 includes/InitUIMenu.h \
 includes/Label.h \
 includes/ListBox.h \
@@ -298,6 +303,7 @@ includes/SetUiobjectCallback.h \
 includes/SetUiobjectForegroundColor.h \
 includes/SetUiobjectTag.h \
 includes/SetUiobjectVisible.h \
+includes/SetUiobjectEnable.h \
 includes/Slider.h \
 includes/TerminateGui.h \
 includes/write_scilab.h \
@@ -306,11 +312,17 @@ includes/DestroyUicontrol.h \
 includes/DestroyUimenu.h \
 includes/CallClipboard.h \
 includes/PrinterManagement.h \
-includes/Widget.h
+includes/Widget.h \
+includes/sci_exportUI.h \
+includes/exportUserInterface.hxx
 
 #### gui : demos files ####
 libscigui_la_demosdir=$(mydatadir)/demos/
-libscigui_la_demos_DATA = demos/dialog.dem
+libscigui_la_demos_DATA = demos/cb_uicontrol_plot3d.dem.sci \
+demos/dialog.dem.sce \
+demos/gui.dem.gateway.sce \
+demos/uicontrol.dem.sce \
+demos/uicontrol_plot3d.dem.sce
 
 
 #### graphics : icons files ####

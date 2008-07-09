@@ -50,16 +50,16 @@ int sci_grayplot( char *fname, unsigned long fname_len )
 
   if (Rhs <= 0)
   {
-    int one = 1 ;
-    sci_demo(fname, "t=-%pi:0.1:%pi;m=sin(t)'*cos(t);grayplot(t,t,m);",&one);
+    int zero=0;
+    sci_demo(fname, "t=-%pi:0.1:%pi;m=sin(t)'*cos(t);grayplot(t,t,m);",&zero);
     return 0;
   }
   CheckRhs(3,7);
 
   if ( get_optionals(fname,opts) == 0) { return 0 ; }
   if ( FirstOpt() < 4) {
-    sciprint(_("%s: Misplaced optional argument, first must be at position %d.\n"),
-      fname,4);
+    sciprint(_("%s: Misplaced optional argument: #%d must be at position %d.\n"),
+      fname,1, 4);
     Error(999); 
     return(0);
   }
@@ -102,9 +102,6 @@ int sci_grayplot( char *fname, unsigned long fname_len )
       strfl[2] = (char)(*axes+48);
     }
   }
-
-
-
 
   Objgrayplot (stk(l1), stk(l2), stk(l3), &m3, &n3, strf, rect, nax, flagNax);
 

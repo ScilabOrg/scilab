@@ -1,13 +1,3 @@
-function demo_car()
-  initial=[3;3;0;0]
-  final=[0;0;0;0]
-  f = gcf() ;
-  f.pixmap = 'on' ;
-  toolbar(0,'off');
-  state=car_solve(initial,final);
-  display_car_trajectory(state)
-endfunction
-
 function state=car_solve(initial,final)
 //
 //  CAR PACKING VIA FLATNESS AND FRENET FORMULAS

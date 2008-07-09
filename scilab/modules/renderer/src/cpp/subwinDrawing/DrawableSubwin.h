@@ -64,6 +64,55 @@ public:
    */
   virtual void updateScale(void) = 0;
 
+  /**
+   * Get the initial number of ticks (with no reduction) that will be drawn.
+   */
+  virtual int getNbXTicks(void) = 0;
+
+  /**
+   * Get the initial ticks positions and labels (with no reduction) that will be drawn.
+   * To be used to know the positions and labels from outside the rendering process
+   */
+  virtual void getXTicksPos(double ticksPositions[], char ** ticksLabels) = 0;
+
+  /**
+   * Get the initial number of ticks (with no reduction) that will be drawn.
+   */
+  virtual int getNbYTicks(void) = 0;
+
+  /**
+   * Get the initial ticks positions and labels (with no reduction) that will be drawn.
+   * To be used to know the positions and labels from outside the rendering process
+   */
+  virtual void getYTicksPos(double ticksPositions[], char ** ticksLabels) = 0;
+
+  /**
+   * Get the initial number of ticks (with no reduction) that will be drawn.
+   */
+  virtual int getNbZTicks(void) = 0;
+
+  /**
+   * Get the initial ticks positions and labels (with no reduction) that will be drawn.
+   * To be used to know the positions and labels from outside the rendering process
+   */
+  virtual void getZTicksPos(double ticksPositions[], char ** ticksLabels) = 0;
+
+  /**
+   * Compute bounds of X axis and direction of ticks
+   */
+  virtual bool getXAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]) = 0;
+
+  /**
+   * Compute bounds of Y axis and direction of ticks
+   */
+  virtual bool getYAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]) = 0;
+
+  /**
+   * Compute bounds of Z axis and direction of ticks
+   */
+  virtual bool getZAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]) = 0;
+
+
 protected:
 
   /**

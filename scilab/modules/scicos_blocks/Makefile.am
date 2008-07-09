@@ -9,7 +9,7 @@
 
 pkglib_LTLIBRARIES = libsciscicos_blocks.la
 
-libsciscicos_blocks_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
+libsciscicos_blocks_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(RT_LIB) 
 
 #### Target ######
 modulename=scicos_blocks
@@ -22,6 +22,11 @@ if SCICOS
 # The filename must be the same as the function name
 # since they are used by genblocks.sh to generate the blocks.h
 SCICOS_BLOCKS_C_SOURCES = src/c/absolute_value.c \
+src/c/absblk.c \
+src/c/andlog.c \
+src/c/gain.c \
+src/c/dband.c \
+src/c/cosblk.c \
 src/c/acos_blk.c \
 src/c/acosh_blk.c \
 src/c/asin_blk.c \
@@ -82,6 +87,7 @@ src/c/edgetrig.c \
 src/c/evaluate_expr.c \
 src/c/evtdly4.c \
 src/c/evtvardly.c \
+src/c/scicosexit.c \
 src/c/expblk_m.c \
 src/c/extdiag.c \
 src/c/extdiagz.c \
@@ -316,10 +322,9 @@ src/c/zcross2.c
 
 NON_BLOCK_C_SOURCES =  src/c/scoGetProperty.c \
 src/c/scoSetProperty.c \
-src/c/blocks.c \
 src/c/scoMisc.c \
 src/c/scoMemoryScope.c\
-src/c/scoWindowScope.c 
+src/c/scoWindowScope.c
 
 SCICOS_BLOCKS_FORTRAN_SOURCES = src/fortran/affich2.f \
 src/fortran/affich.f \
@@ -432,7 +437,7 @@ includes/blocks.h: build/Cblocknames build/Fblocknames
 CLEANFILES=$(top_srcdir)/modules/scicos_blocks/includes/blocks.h $(top_srcdir)/modules/scicos_blocks/build/Cblocknames $(top_srcdir)/modules/scicos_blocks/build/Fblocknames
 
 # cyclic deps $(top_builddir)/modules/scicos/libsciscicos.la
-libsciscicos_blocks_la_LIBADD =  $(top_builddir)/modules/core/libscicore.la $(top_builddir)/modules/cacsd/libscicacsd.la  $(top_builddir)/modules/graphics/libscigraphics.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/renderer/libscirenderer.la $(top_builddir)/modules/polynomials/libscipolynomials.la $(top_builddir)/modules/fileio/libscifileio.la  $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/string/libscistring.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la 
+libsciscicos_blocks_la_LIBADD =  $(top_builddir)/modules/core/libscicore.la $(top_builddir)/modules/cacsd/libscicacsd.la  $(top_builddir)/modules/graphics/libscigraphics.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/renderer/libscirenderer.la $(top_builddir)/modules/polynomials/libscipolynomials.la $(top_builddir)/modules/fileio/libscifileio.la  $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/string/libscistring.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 
 if USE_EMBEDDED_LAPACK
