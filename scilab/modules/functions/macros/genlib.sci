@@ -9,7 +9,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verbose,names)
+function genlib(nam,path,force,verbose,names)
 	
 	// get all .sci files in the specified directory
 	
@@ -19,11 +19,6 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 	W          = who('get');
 	np         = predef();
 	predefined = or(W($-np+1:$)==nam);
-	
-	success       = %t;
-	funcs         = [];
-	success_files = [];
-	failed_files  = [];
 	
 	if verbose then
 		write(%io(2),msprintf(gettext("-- Creation of [%s] (Macros) --"),nam));
@@ -80,9 +75,8 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 		end
 		
 		if files==[] | files== "" then
-			warning(msprintf(gettext("Cannot find any sci files in %s.\n"),path));
-			success = %f;
-			return ;
+		warning(msprintf(gettext("Cannot find any sci files in %s.\n"),path));
+		return ;
 		end
 		names = basename(files,%f);
 	else
@@ -98,15 +92,19 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 	
 	modified=%f
 	
-	for i=1:size(files,'*')  // loop on .sci files
-		scif = files(i);
-		
-		if force == %t then
-			recompile = %t
+	if force == %t then
+		modified = %t;
+		for i=1:size(files,'*')  // loop on .sci files
+			scif = files(i);
 			if verbose then
 				write(%io(2),msprintf(gettext(" %s.sci compilation forced"),names(i)));
 			end
-		else
+			// getf sci file and save functions it defines as a .bin file
+			getsave(scif);
+		end
+	else
+		for i=1:size(files,'*')  // loop on .sci files
+			scif      = files(i);
 			binf      = strsubst(scif,'.sci','.bin')
 			binf_info = fileinfo(binf);
 			recompile = %f;
@@ -120,21 +118,15 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 				end
 			end
 			
-			if recompile & verbose then
-				write(%io(2),msprintf(gettext("Processing file %s.sci"),names(i)));
-			end
-		end
-		
-		if recompile == %t then
-			// getf sci file and save functions it defines as a .bin file
-			result = getsave(scif);
-			modified = %t;
-			if result <> [] then
-				success_files($+1) = scif
-				funcs = [funcs result]
-			else
-				failed_files($+1) = scif
-				success = %f
+			if recompile == %t then
+				
+				if verbose then
+					write(%io(2),msprintf(gettext("Processing file %s.sci"),names(i)));
+				end
+				
+				// getf sci file and save functions it defines as a .bin file
+				getsave(scif);
+				modified = %t;
 			end
 		end
 	end
@@ -154,7 +146,6 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 		//save it
 		
 		if execstr('save('''+path1+'lib'''+','+nam+')','errcatch')<>0 then
-			success = %f
 			error(path+gettext("lib file cannot be created"))
 		end
 	else
@@ -175,7 +166,7 @@ function result = getsave(fl)
 	
 	// utility function
 	// performs a getf on file fl
-	result = [];
+	result = %f;
 	prot   = funcprot();
 	nold   = size(who('get'),'*');
 	
@@ -186,6 +177,7 @@ function result = getsave(fl)
 	if ierr<> 0 then
 		clear ierr;
 		mprintf(gettext("   Warning: Error in file %s :\n            ""%s""\n            file ignored\n"),fl,lasterror(%t));
+		result = %f;
 	else
 		clear ierr;
 		
@@ -209,10 +201,10 @@ function result = getsave(fl)
 		clear ierr
 		
 		if new<>[] then
-			result = new($:-1:1)'
 			execstr('save(u,'+strcat(new($:-1:1),',')+')');
 		else
 			mprintf(gettext("   Warning: File ''%s'' does not contain any functions\n"),fl);
+			result = %f;
 		end
 		
 		mclose(u);
