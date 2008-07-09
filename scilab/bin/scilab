@@ -654,7 +654,7 @@ if test "$rest" = "yes"; then
   prevarg=
   language=
   fontname=
-  for sciarg in $*
+  for sciarg in "$@"
   do
 
     # If the previous argument needs an argument, assign it.
