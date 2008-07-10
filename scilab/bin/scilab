@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # Copyright INRIA
-# Updated : Sylvestre Ledru 2006/2007
+# Updated : Sylvestre Ledru 2006/2007/2008
+# Updated : Simon Lipp 2008  - clean up (get rid of unnecessary sci_args)
+#                            - accept arguments with spaces, e.g.
+#                               -e "disp(1); disp(2)" (fix bug #2606)
 
 #############################################################################
 #                                                                           #
