@@ -598,18 +598,38 @@ sub stage_build {
 	common_log("Running ccbuilder.sce");
 	my $fd = common_exec_scilab("chdir('$TOOLBOXNAME'); exec('../ccbuilder.sce')");
 	
-	# Check result
-	common_log("Checking build result");
+	# Check libraries
+	common_log("Checking built libraries");
 	my $done = 0;
 	
 	while(<$fd>) {
 		$done = 1 if(/^atoms_cc_builder:done\r?$/);
 		if(/^atoms_cc_ilib_compile:\s*(.+?)\s*$/) {
+			common_log("Found built library $1");
 			common_die("Generated library \"$1\" is invalid") unless($1 && ! -d $1 && (-x $1 || $^O =~ /win/i));
 		}
 	}
 	
-	# fixme: need to check if everything was OK in macros/help generation
+	# Check macros
+	common_log("Checking built macros");
+	open my $fd_fundesc, "$TOOLBOXNAME/DESCRIPTION-FUNCTIONS";
+	my %allowed_funcs = read_description_functions($fd_fundesc);
+	close $fd_fundesc;
+	
+	seek($fd, 0, 0);
+	while(<$fd>) {
+		common_die("Error while building macros") if(/^atoms_cc_genlib:0\s*$/);
+		if(/^atoms_cc_genlib_funcs:(.+?)\s*$/) {
+			foreach my $func (split(/,/, $1)) {
+				common_log("Found macro function $func");
+				common_die("Generated function \"$func\" (from macros) not described in ".
+				           "DESCRIPTION-FUNCTIONS file.")
+					unless grep { $_ eq $func } keys %allowed_funcs;
+			}
+		}
+	}
+	
+	# TODO: check doc
 	
 	common_die("builder.sce script didn't terminate normally") unless($done);
 	common_leave_stage();
@@ -688,6 +708,24 @@ old_ilib_compile = ilib_compile;
 function libn = ilib_compile(lib_name,makename,files,ldflags,cflags,fflags)
     libn = old_ilib_compile(lib_name,makename,files,ldflags,cflags,fflags);
     mprintf("\natoms_cc_ilib_compile:%s/%s\n", pwd(), libn);
+endfunction
+
+old_genlib = genlib;
+function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verbose,names)
+	if exists('names', 'local') then
+		[success,funcs,success_files,failed_files] = old_genlib(nam,path,force,verbose,names)
+	elseif exists('verbose', 'local') then
+		[success,funcs,success_files,failed_files] = old_genlib(nam,path,force,verbose)
+	elseif exists('force', 'local') then
+		[success,funcs,success_files,failed_files] = old_genlib(nam,path,force)
+	elseif exists('path', 'local') then
+		[success,funcs,success_files,failed_files] = old_genlib(nam,path)
+	else
+		[success,funcs,success_files,failed_files] = old_genlib(nam)
+	end	
+	
+	mprintf("\natoms_cc_genlib:%i\n", int32(success));
+	mprintf("atoms_cc_genlib_funcs:%s\n", strcat(funcs,","));
 endfunction
 
 exec("builder.sce");
