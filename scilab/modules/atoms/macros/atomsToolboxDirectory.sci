@@ -3,9 +3,5 @@
 
 // Fonction de récupération du repertoire contenant les toolboxes en fonction de l'OS
 function rep = atomsToolboxDirectory()
-  if getos() == "Windows"
-    rep = SCIHOME + "\atoms"
-  else // linux et mac
-    rep = SCIHOME + "/atoms"
-  end
+  rep = pathconvert([SCIHOME+"/atoms"; "SCI/contrib"]);
 endfunction
