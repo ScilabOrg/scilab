@@ -144,6 +144,18 @@ if sciargs()<>'-nouserstartup' then
 end
 clear startup ierr
 
+// Load toolboxes installed in user home ===============================
+// Made after user initialization since user may want to override
+// atomsToolboxDirectory
+tboxes = listfiles(atomsToolboxDirectory())
+for i=1:size(tboxes, 1)
+  loader = atomsToolboxDirectory() + "/" + tboxes(i) + "/loader.sce"
+  if listfiles(loader) <> [] then
+    exec(loader);
+  end
+end
+clear tboxes i loader
+
 // Menus/toolbar can now be enabled ====================================
 if ( getscilabmode() == 'STD') then
         setmenu(gettext("&File"));
