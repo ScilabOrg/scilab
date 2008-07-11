@@ -65,8 +65,9 @@ sub common_die {
 # common_exec(command, args..., [opts]):
 #    Execute given command, places its outputs to log files. If last argument
 #    is a reference to a hash, it's considered as options for the function.
-#    Right now, only one option is available, "stderr_to_stdout", which do the
-#    same as 2>&1 in shell.
+#    Available options:
+#     - "stderr_to_stdout": same as 2>&1 in shell.
+#     - "working_dir": set the working directory of the suprocess
 #    Returns a file handle on STDOUT.
 #    Die if return code is non-zero or if standard error is non-empty.
 sub common_exec {
@@ -110,8 +111,15 @@ sub common_exec {
 	
 	close STDIN;
 	
+	# Change working directory if needed
+	my $pwd = cwd();
+	chdir $opts{"working_dir"} if defined($opts{"working_dir"});
+	
 	# Exec suprocess
 	system { $_[0] } @_;
+	
+	# Restore working directory
+	chdir $pwd;
 	
 	# Restore I/O
 	open STDIN, "<&OLD_STDIN";
@@ -150,7 +158,7 @@ sub is_zip {
 sub get_tree_from_tgz {
 	my %files;
 	
-	my $fd = common_exec("tar", "-tf", $TOOLBOXFILE);
+	my $fd = common_exec("tar", "-tzf", $TOOLBOXFILE);
 	
 	while(<$fd>) {
 		chomp;
@@ -198,7 +206,7 @@ sub get_tree {
 #    Extract given file from the .zip archive
 sub read_file_from_tgz {
 	my $filename = shift;
-	return common_exec("tar", "-xOf", $TOOLBOXFILE, "$TOOLBOXNAME/$filename");
+	return common_exec("tar", "-xzOf", $TOOLBOXFILE, "$TOOLBOXNAME/$filename");
 }
 
 # read_file_from_tgz(filename):
@@ -396,6 +404,39 @@ sub check_tree {
 	}
 }
 
+# get_toolboxes_directory:
+#   Get path where Scilab toolboxes are installed
+sub get_toolboxes_directory {
+	my $fd = common_exec_scilab("printf('path: %s\\n', cd(atomsToolboxDirectory()))");
+	my $tbpath;
+	
+	while(<$fd>) {
+		if(/^path: (.+?)\r?$/) {
+			$tbpath = $1;
+			last;
+		}
+	}
+	
+	close $fd;
+	
+	if(!defined($tbpath)) {
+		common_die("Can't find toolboxes directory");
+	}
+	
+	common_log("Toolboxes directory: $tbpath\n");
+	
+	return $tbpath;
+}
+
+# get_output_filename:
+#     Get output filename, without the extension
+sub get_output_filename {
+	my $output = $TOOLBOXFILE;
+	$output =~ s/(\.zip|\.tar.gz)$//;
+	$output .= "-bin";
+	return $output;
+}
+
 # stage_check:
 #   Perform basic checks
 sub stage_check {
@@ -457,7 +498,7 @@ sub stage_unpack {
 		common_exec("unzip", "-o", $TOOLBOXFILE);
 	}
 	else {
-		common_exec("tar", "-xvf", $TOOLBOXFILE,
+		common_exec("tar", "-xzvf", $TOOLBOXFILE,
 			{'stderr_to_stdout' => 1});
 	}
 	
@@ -523,24 +564,8 @@ sub stage_tbdeps {
 	# Install dependencies
 	close(common_exec_scilab("installToolbox('$_',1,'$deps{$_}')")) foreach(keys %deps);
 	
-	# Find toolboxes directory
-	$fd = common_exec_scilab("printf('path: %s\\n', cd(atomsToolboxDirectory()))");
-	
-	my $tbpath;
-	while(<$fd>) {
-		if(/^path: (.+?)\r?$/) {
-			$tbpath = $1;
-			last;
-		}
-	}
-	
-	if(!defined($tbpath)) {
-		common_die("Can't find toolboxes directory");
-	}
-	
-	common_log("Toolboxes directory: $tbpath\n");
-	
 	# Check if required toolboxes are installed
+	my $tbpath = get_toolboxes_directory();
 	foreach my $dep (keys %deps) {
 		common_log("Checking $dep");
 		if(! -r "$tbpath/$dep/DESCRIPTION") {
@@ -645,12 +670,10 @@ sub stage_pack {
 	push(@files, "etc/$TOOLBOXNAME.start");
 	push(@files, "etc/$TOOLBOXNAME.quit");
 	
-	my $output = $TOOLBOXFILE;
-	$output =~ s/(\.zip|\.tar.gz)$//;
-	$output .= "-bin";
+	my $output = get_output_filename();
 	
 	common_log("Making binary .tar.gz archive ($output.tar.gz)");
-	common_exec("tar", "-cvf", "$output.tar.gz", (map { "$TOOLBOXNAME/$_" } @files),
+	common_exec("tar", "-czvf", "$output.tar.gz", (map { "$TOOLBOXNAME/$_" } @files),
 		{"stderr_to_stdout" => 1});
 	common_log("Making binary .zip archive ($output.zip)");
 	common_exec("zip", "-r", "$output.zip", map { "$TOOLBOXNAME/$_" } @files);
@@ -662,6 +685,58 @@ sub stage_pack {
 #     Clean up the environment
 sub stage_cleanenv {
 	common_enter_stage("cleanenv");
+	# TODO
+	common_leave_stage();
+}
+
+# stage_test_makeenv
+#     Build up the testing environment
+sub stage_test_makeenv {
+	common_enter_stage("test_makeenv");
+	# TODO
+	common_leave_stage();
+}
+
+# stage_test_tbdeps
+#     Install toolbox dependencies in the testing environment
+sub stage_test_tbdeps {
+	common_enter_stage("test_tbdeps");
+	# TODO ; since cleanenv is not implemented there's no need to re-install dependencies
+	common_leave_stage();
+}
+
+# stage_test_sysdeps
+#     Install system dependencies in the testing environment
+sub stage_test_sysdeps {
+	common_enter_stage("test_sysdeps");
+	# TODO ; since cleanenv is not implemented there's no need to re-install dependencies
+	common_leave_stage();
+}
+
+# stage_test_setuptb
+#     Install toolbox in the testing environment
+sub stage_test_setuptb {
+	common_enter_stage("test_setuptb");
+	
+	common_exec("tar", "-xzvf", cwd() . "/" . get_output_filename() . ".tar.gz",
+		{"working_dir" => get_toolboxes_directory(),
+		 "stderr_to_stdout" => 1});
+	
+	common_leave_stage();
+}
+
+# stage_test_runtests
+#     Run the tests
+sub stage_test_runtests {
+	common_enter_stage("test_runtests");
+	# TODO
+	common_leave_stage();
+}
+
+# stage_test_cleanenv
+#     Clean up the testing environment
+sub stage_test_cleanenv {
+	common_enter_stage("test_cleanenv");
 	# TODO
 	common_leave_stage();
 }
@@ -693,6 +768,12 @@ stage_sysdeps;
 stage_build;
 stage_pack;
 stage_cleanenv;
+stage_test_makeenv;
+stage_test_tbdeps;
+stage_test_sysdeps;
+stage_test_setuptb;
+stage_test_runtests;
+stage_test_cleanenv;
 
 close LOGFILE;
 close OLD_STDERR;
