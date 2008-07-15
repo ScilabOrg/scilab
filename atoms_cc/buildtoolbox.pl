@@ -5,10 +5,12 @@
 
 use strict;
 use Cwd;
+use Config::IniFiles;
 
 my ($TOOLBOXFILE, # Toolbox archive to compile
     $TOOLBOXNAME, # Name of the toolbox
-    $STAGE); # Current stage
+    $STAGE, # Current stage
+    $CONFIG); # Configuration (see Config::IniFiles)
 
 # Save standard I/O for common_exec
 open OLD_STDOUT, ">&STDOUT";
@@ -42,23 +44,29 @@ sub common_log {
 sub common_enter_stage {
 	$STAGE = shift;
 	common_log($STAGE, ">");
+	common_hook("startstage");
 }
 
 # common_leave_stage:
-#    Common stuff while ending new stage
+#    Common stuff while ending a stage
 sub common_leave_stage {
 	common_log($STAGE, "<");
+	common_hook("endstage");
 }
 
 # common_die(message):
-#    Called when a problem happens
+#    Called when a problem happens.
 sub common_die {
 	my $message = shift;
+	
 	common_log($message, "!");
-	common_leave_stage();
+	common_hook("error");
 	
 	while(wait() > 0) { };
 	close LOGFILE;
+	close OLD_STDERR;
+	close OLD_STDOUT;
+	close OLD_STDIN;
 	exit(1);
 }
 
@@ -131,7 +139,6 @@ sub common_exec {
 	common_die("\"$cmd\" failed (non-empty error output)") if(-s $stderr);
 	
 	open my ($fd), $stdout;
-	
 	return $fd;
 }
 
@@ -145,6 +152,39 @@ sub common_exec_scilab {
 	   $scilab = "scilab" unless(defined($scilab));
 	
 	return common_exec($scilab, "-nwni", "-nb", "-e", $script);
+}
+
+# common_hook(hook):
+#     Call a hook if defined in configuration file
+sub common_hook {
+	my $hook = shift;
+	my $file = $CONFIG->val("compilation", "hook-". $hook);
+	
+	# Since we are using common_exec, which can call common_die, which can call
+	# common_hook("error"), we may encounter an infinite loop if the "error" hook
+	# fails. To avoid this, a re-entrance into common_hook("error") is logged as
+	# an error but without effectively calling the error hook.
+	# Detection of such a re-entrance is done by a dynamically-scoped variable,
+	# see "temporary values via local()" section of perlsub(1perl)
+	our $in_error_hook;
+	if($hook eq "error" && defined($in_error_hook)) {
+		common_log("Error while executing error hook", "!");
+		return;
+	}
+	local $in_error_hook = 1 if $hook eq "error";
+	
+	# We can run the hook without fearing an infinite loop
+	if(defined($file)) {
+		my $fd;
+		
+		common_log("Running hook $hook ($file)");
+		
+		close common_exec($file,
+		               "--stage=$STAGE",
+		               "--source=$TOOLBOXFILE",
+		               "--toolbox=$TOOLBOXNAME",
+		               "--config=".$CONFIG->GetFileName());
+	}
 }
 
 # is_zip:
@@ -495,10 +535,10 @@ sub stage_unpack {
 	common_enter_stage("unpack");
 	
 	if(is_zip()) {
-		common_exec("unzip", "-o", $TOOLBOXFILE);
+		close common_exec("unzip", "-o", $TOOLBOXFILE);
 	}
 	else {
-		common_exec("tar", "-xzvf", $TOOLBOXFILE,
+		close common_exec("tar", "-xzvf", $TOOLBOXFILE,
 			{'stderr_to_stdout' => 1});
 	}
 	
@@ -656,6 +696,8 @@ sub stage_build {
 	
 	# TODO: check doc
 	
+	close $fd;
+	
 	common_die("builder.sce script didn't terminate normally") unless($done);
 	common_leave_stage();
 }
@@ -673,10 +715,10 @@ sub stage_pack {
 	my $output = get_output_filename();
 	
 	common_log("Making binary .tar.gz archive ($output.tar.gz)");
-	common_exec("tar", "-czvf", "$output.tar.gz", (map { "$TOOLBOXNAME/$_" } @files),
+	close common_exec("tar", "-czvf", "$output.tar.gz", (map { "$TOOLBOXNAME/$_" } @files),
 		{"stderr_to_stdout" => 1});
 	common_log("Making binary .zip archive ($output.zip)");
-	common_exec("zip", "-r", "$output.zip", map { "$TOOLBOXNAME/$_" } @files);
+	close common_exec("zip", "-r", "$output.zip", map { "$TOOLBOXNAME/$_" } @files);
 	
 	common_leave_stage();
 }
@@ -718,7 +760,7 @@ sub stage_test_sysdeps {
 sub stage_test_setuptb {
 	common_enter_stage("test_setuptb");
 	
-	common_exec("tar", "-xzvf", cwd() . "/" . get_output_filename() . ".tar.gz",
+	close common_exec("tar", "-xzvf", cwd() . "/" . get_output_filename() . ".tar.gz",
 		{"working_dir" => get_toolboxes_directory(),
 		 "stderr_to_stdout" => 1});
 	
@@ -744,7 +786,7 @@ sub stage_test_cleanenv {
 # Init global vars, check arguments
 open LOGFILE, ">build.log";
 
-$STAGE = "";
+$STAGE = "pre";
 
 $TOOLBOXFILE = shift;
 if(!defined($TOOLBOXFILE)) {
@@ -757,9 +799,12 @@ if(! -r $TOOLBOXFILE) {
 
 $TOOLBOXNAME = $1 if ($TOOLBOXFILE =~ /^([^.]+)/);
 
+$CONFIG = Config::IniFiles->new(-file => shift);
+
 common_log "Toolbox: $TOOLBOXNAME";
 common_log "Source file: $TOOLBOXFILE";
 
+common_hook("start");
 stage_check;
 stage_unpack;
 stage_makeenv;
@@ -775,10 +820,14 @@ stage_test_setuptb;
 stage_test_runtests;
 stage_test_cleanenv;
 
+$STAGE = "post";
+common_hook("end");
+
 close LOGFILE;
 close OLD_STDERR;
 close OLD_STDOUT;
 close OLD_STDIN;
+while(wait() > 0) { }
 
 # Overwrite some scilab functions to get its return value and extra infos
 __DATA__
