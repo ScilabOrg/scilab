@@ -23,11 +23,13 @@
 #include "GetProperty.h"
 #include "sciprint.h"
 #include "localization.h"
+#include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
 int set_viewport_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
 {
   int values[4];
+  int status;
 
   if ( !isParameterDoubleMatrix( valueType ) )
   {
@@ -55,6 +57,12 @@ int set_viewport_property( sciPointObj * pobj, int stackPointer, int valueType, 
   values[3] = 0;
 
   /* force auto_resize. With auto_resize disable, resize does not work */
-  return sciSetViewport(pobj, values);
+
+  /* disable protection since this function will call Java */
+  endFigureDataWriting(pobj);
+  status = sciSetViewport(pobj, values);
+  startFigureDataWriting(pobj);
+
+  return status;
 }
 /*------------------------------------------------------------------------*/

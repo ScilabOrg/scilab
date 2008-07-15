@@ -38,7 +38,8 @@ Args=list(..
 	  list(frq,db,phi),..
 	  list(frq,db,phi,['h';'h1']),..
 	  list([frq;frq],db,phi,['h';'h1']));
-	  
+
+warning('off');	  
 for p=plots
   mprintf("-------- %s ---------------\n",p)
   for args=Args
@@ -46,3 +47,4 @@ for p=plots
     if execstr(p+'(args(:))','errcatch')<>0 then pause,end
   end
 end
+warning('on');	  

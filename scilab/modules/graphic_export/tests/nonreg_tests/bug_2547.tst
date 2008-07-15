@@ -21,7 +21,7 @@ e.mark_size_unit = "point"
 e.mark_style=0;e.mark_size=1;
 
 fig = gcf();
-xs2eps(fig.figure_id, "test.eps");
+xs2eps(fig.figure_id, TMPDIR+"/test.eps");
 // check that the dots are present in the exported file.
 
 

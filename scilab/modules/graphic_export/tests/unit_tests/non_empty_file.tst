@@ -17,51 +17,51 @@ plot3d;
 // try all kinds of exports
 fig = gcf();
 figIndex =fig.figure_id;
-xs2bmp(figIndex, "textExport.bmp")
-fileSize = fileinfo("textExport.bmp");
+xs2bmp(figIndex, TMPDIR+"/textExport.bmp")
+fileSize = fileinfo(TMPDIR+"/textExport.bmp");
 
 // check that file size is greater than 10K
-minimumSize = 10000
+minimumSize = 10000;
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.bmp");
+mdelete(TMPDIR+"/textExport.bmp");
 
 // same for other formats
-xs2gif(figIndex, "textExport.gif")
-fileSize = fileinfo("textExport.gif");
+xs2gif(figIndex, TMPDIR+"/textExport.gif")
+fileSize = fileinfo(TMPDIR+"/textExport.gif");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.gif");
+mdelete(TMPDIR+"/textExport.gif");
 
-xs2jpg(figIndex, "textExport.jpg")
-fileSize = fileinfo("textExport.jpg");
+xs2jpg(figIndex, TMPDIR+"/textExport.jpg")
+fileSize = fileinfo(TMPDIR+"/textExport.jpg");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.jpg");
+mdelete(TMPDIR+"/textExport.jpg");
 
-xs2png(figIndex, "textExport.png")
-fileSize = fileinfo("textExport.png");
+xs2png(figIndex, TMPDIR+"/textExport.png")
+fileSize = fileinfo(TMPDIR+"/textExport.png");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.png");
+mdelete(TMPDIR+"/textExport.png");
 
 // vectorial export
 // increase minimum size
-minimumSize = 10000
+minimumSize = 10000;
 
-xs2ps(figIndex, "textExport.ps")
-fileSize = fileinfo("textExport.ps");
+xs2ps(figIndex, TMPDIR+"/textExport.ps")
+fileSize = fileinfo(TMPDIR+"/textExport.ps");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.ps");
+mdelete(TMPDIR+"/textExport.ps");
 
-xs2eps(figIndex, "textExport.eps")
-fileSize = fileinfo("textExport.eps");
+xs2eps(figIndex, TMPDIR+"/textExport.eps")
+fileSize = fileinfo(TMPDIR+"/textExport.eps");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.eps");
+mdelete(TMPDIR+"/textExport.eps");
 
-xs2svg(figIndex, "textExport.svg")
-fileSize = fileinfo("textExport.svg");
+xs2svg(figIndex, TMPDIR+"/textExport.svg")
+fileSize = fileinfo(TMPDIR+"/textExport.svg");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.svg");
+mdelete(TMPDIR+"/textExport.svg");
 
-xs2pdf(figIndex, "textExport.pdf")
-fileSize = fileinfo("textExport.pdf");
+xs2pdf(figIndex, TMPDIR+"/textExport.pdf")
+fileSize = fileinfo(TMPDIR+"/textExport.pdf");
 if (fileSize(1) < minimumSize) then pause; end;
-mdelete("textExport.pdf");
+mdelete(TMPDIR+"/textExport.pdf");
 

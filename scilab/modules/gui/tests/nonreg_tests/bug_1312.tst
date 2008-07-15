@@ -15,6 +15,8 @@
 // <-- Short Description -->
 //    
 
+// <-- TEST WITH GRAPHIC -->
+
 sx=170;
 sy=450;
 hc=10:30:sy;
@@ -159,3 +161,5 @@ h9=uicontrol(1,"backgroundcolor",rand(1,3),..
     "Units","pixels",..
     "Userdata","a8",..
     "Value",[1 2 3 4]);
+
+delete(scf(1));

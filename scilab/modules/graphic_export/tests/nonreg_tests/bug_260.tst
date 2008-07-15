@@ -20,5 +20,5 @@
 xstring(0, 0, "totoייייאאאאאאחחחח@@@@@@@");
 
 // the exported file should display the above string with accents.
-xs2eps(0, "toto.eps");
+xs2eps(0, TMPDIR+"/toto.eps");
 

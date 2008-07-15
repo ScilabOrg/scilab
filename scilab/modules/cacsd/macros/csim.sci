@@ -43,21 +43,24 @@ function [y,x]=csim(u,dt,sl,x0,tol)
   [lhs,rhs]=argn(0)
   //
   if rhs<3 then error(39),end
-
-  if type(sl)<>16 then error(56,1),end
-  flag=sl(1)
-  select flag(1)
-  case 'lss' then ,
-  case  'r'  then sl=tf2ss(sl)
-  else  error(97,1),
-  end;
-  if sl(7)<>'c' then warning(msprintf(gettext("%s: Time domain not defined: Assumed continuous.\n."),"csim")),end
+  sltyp=typeof(sl)
+  if and(sltyp<>['state-space' 'rational']) then 
+    error(msprintf(_("%s: Wrong type for input argument #%d: %s data structure.\n"),"csim",3,"syslin"))
+  end
+  if sltyp=='rational' then sl=tf2ss(sl),end
+  if sl.dt<>'c' then 
+    warning(msprintf(gettext("%s: Input argument %d is assumed continuous time.\n"),"csim",1));
+  end
   //
   [a,b,c,d]=sl(2:5);
-  if type(d)==2&degree(d)>0 then d=coeff(d,0);warning(msprintf(gettext("csim: %s set to constant.\n"),"csim","D"));end
+  if type(d)==2&degree(d)>0 then 
+    d=coeff(d,0);
+    warning(msprintf(gettext("%s: Direct feedthrough set to its zero degree coefficient.\n"),"csim"));
+  end
   [ma,mb]=size(b);
   //
-  imp=0;text='if t==0 then y=0, else y=1,end'
+  imp=0;step=0
+  text='if t==0 then y=0, else y=1,end'
   //
   select type(u)
   case 10 then //input given by its type (step or impuls)
@@ -66,13 +69,17 @@ function [y,x]=csim(u,dt,sl,x0,tol)
       //impuse response
       imp=1;
       if norm(d,1)<>0 then
-	warning(msprintf(gettext("%s: Direct feedthrough %s <> %d;set to zero.\n"),"csim","(d)",0));
+	warning(msprintf(gettext("%s: Direct feedthrough set to zero.\n"),"csim"));
 	d=0*d;
       end;
     elseif part(u,1)=='s' then
-      //step response
+      step=1
+      if norm(d,1)<>0 then
+	warning(msprintf(gettext("%s: Direct feedthrough set to zero.\n"),"csim"));
+	d=0*d;
+      end;
     else
-      error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"),"csim",1,"step","impuls"))
+      error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"csim",1,"""step"",""impuls"""))
     end;
     deff('[y]=u(t)',text);
   case 11 then //input given by a function of time
@@ -80,7 +87,9 @@ function [y,x]=csim(u,dt,sl,x0,tol)
   case 13 then //input given by a function of time
   case 1 then //input given by a vector of data
     [mbu,ntu]=size(u);
-    if mbu<>mb | ntu<>size(dt,'*') then error(msprintf(gettext("%s: Wrong size for input argument #%d.\n"),"csim",1)), end
+    if mbu<>mb | ntu<>size(dt,'*') then 
+      error(msprintf(gettext("%s: Incompatible input arguments #%d and #%d: Same column dimensions expected.\n"),"csim",1,2))
+    end
   case 15 then  //input given by a list: function of time with parameters
     uu=u(1),
     if type(uu)==11 then 
@@ -91,7 +100,7 @@ function [y,x]=csim(u,dt,sl,x0,tol)
   end;
   //
   if rhs==3 then x0=sl(6),end
-  if imp==1 then x0=0*x0,end
+  if imp==1|step==1 then x0=0*x0,end
   nt=size(dt,'*');x=0*ones(ma,nt)
 
   [a,v]=balanc(a);
@@ -151,6 +160,6 @@ function [y,x]=csim(u,dt,sl,x0,tol)
     end;
     k=k+n
   end;
-  if imp==0 then y=c*x+d*ut,else y=c*x,end
+  if imp==0&step==0 then y=c*x+d*ut,else y=c*x,end
   if lhs==2 then x=v1*v2*x,end
 endfunction

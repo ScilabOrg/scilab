@@ -157,7 +157,6 @@ macros/scicos_scicos/Threshold.cosf
 
 
 #### scicos : demos files ####
-#### Custom Scicos Demos for Scilab 5.0 ALPHA #########
 libsciscicos_la_demosdir=$(mydatadir)
 nobase_libsciscicos_la_demos_DATA = demos/anim_pen.sci \
 demos/basic_controller.dem.sce \
@@ -210,6 +209,7 @@ demos/live.dat \
 demos/live.dem.gateway.sce \
 demos/Lorentz.cosf \
 demos/lorentz.dem.sce \
+demos/mechanical_systems.dem.gateway.sce \
 demos/modelica_demos.dem.gateway.sce \
 demos/old_demos.dem.gateway.sce \
 demos/OldGainTest.cosf \
@@ -234,7 +234,7 @@ demos/standard.dem.gateway.sce \
 demos/System-Observer.cosf \
 demos/Table_Lookup.cosf \
 demos/table_lookup.dem.sce \
-demos/Temp.cosf \
+demos/Temperature_Controller.cosf \
 demos/temp_controller.dem.sce \
 demos/Thermique_bloc.cosf \
 demos/Threshold_ZeroCrossing.cosf \
@@ -252,7 +252,7 @@ demos/tut6 \
 demos/tut6.dem.sce \
 demos/zero_crossing.dem.sce
 
-libsciscicos_la_demosCodeGendir=$(mydatadir)/demos/CodeGen/
+libsciscicos_la_demosCodeGendir=$(mydatadir)
 nobase_libsciscicos_la_demosCodeGen_DATA = demos/CodeGen/controller.cosf \
 demos/CodeGen/data \
 demos/CodeGen/fibo.cosf \
@@ -260,7 +260,7 @@ demos/CodeGen/Fibo_standalone.c \
 demos/CodeGen/Therm.cosf \
 demos/CodeGen/Therm_standalone.c
 
-libsciscicos_la_demosElectricaldir=$(mydatadir)/demos/Electrical/
+libsciscicos_la_demosElectricaldir=$(mydatadir)
 nobase_libsciscicos_la_demosElectrical_DATA = demos/Electrical/AND_Gate.cosf \
 demos/Electrical/boost_conv.dem.sce \
 demos/Electrical/Boost_Converter.cosf \
@@ -285,7 +285,7 @@ demos/Electrical/Transformer.cosf \
 demos/Electrical/transformer.dem.sce
 
 
-libsciscicos_la_demosModelicaBlocksdir=$(mydatadir)/demos/ModelicaBlocks/
+libsciscicos_la_demosModelicaBlocksdir=$(mydatadir)
 nobase_libsciscicos_la_demosModelicaBlocks_DATA = demos/ModelicaBlocks/Ball_Platform.cosf \
 demos/ModelicaBlocks/BouncingBall_Modelica.cosf \
 demos/ModelicaBlocks/Chaos_Modelica.cosf \

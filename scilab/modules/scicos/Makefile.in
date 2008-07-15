@@ -723,7 +723,6 @@ JARMASK = *.jar
 
 
 #### scicos : demos files ####
-#### Custom Scicos Demos for Scilab 5.0 ALPHA #########
 @SCICOS_TRUE@libsciscicos_la_demosdir = $(mydatadir)
 @SCICOS_TRUE@nobase_libsciscicos_la_demos_DATA = demos/anim_pen.sci \
 @SCICOS_TRUE@demos/basic_controller.dem.sce \
@@ -776,6 +775,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@demos/live.dem.gateway.sce \
 @SCICOS_TRUE@demos/Lorentz.cosf \
 @SCICOS_TRUE@demos/lorentz.dem.sce \
+@SCICOS_TRUE@demos/mechanical_systems.dem.gateway.sce \
 @SCICOS_TRUE@demos/modelica_demos.dem.gateway.sce \
 @SCICOS_TRUE@demos/old_demos.dem.gateway.sce \
 @SCICOS_TRUE@demos/OldGainTest.cosf \
@@ -800,7 +800,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@demos/System-Observer.cosf \
 @SCICOS_TRUE@demos/Table_Lookup.cosf \
 @SCICOS_TRUE@demos/table_lookup.dem.sce \
-@SCICOS_TRUE@demos/Temp.cosf \
+@SCICOS_TRUE@demos/Temperature_Controller.cosf \
 @SCICOS_TRUE@demos/temp_controller.dem.sce \
 @SCICOS_TRUE@demos/Thermique_bloc.cosf \
 @SCICOS_TRUE@demos/Threshold_ZeroCrossing.cosf \
@@ -818,7 +818,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@demos/tut6.dem.sce \
 @SCICOS_TRUE@demos/zero_crossing.dem.sce
 
-@SCICOS_TRUE@libsciscicos_la_demosCodeGendir = $(mydatadir)/demos/CodeGen/
+@SCICOS_TRUE@libsciscicos_la_demosCodeGendir = $(mydatadir)
 @SCICOS_TRUE@nobase_libsciscicos_la_demosCodeGen_DATA = demos/CodeGen/controller.cosf \
 @SCICOS_TRUE@demos/CodeGen/data \
 @SCICOS_TRUE@demos/CodeGen/fibo.cosf \
@@ -826,7 +826,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@demos/CodeGen/Therm.cosf \
 @SCICOS_TRUE@demos/CodeGen/Therm_standalone.c
 
-@SCICOS_TRUE@libsciscicos_la_demosElectricaldir = $(mydatadir)/demos/Electrical/
+@SCICOS_TRUE@libsciscicos_la_demosElectricaldir = $(mydatadir)
 @SCICOS_TRUE@nobase_libsciscicos_la_demosElectrical_DATA = demos/Electrical/AND_Gate.cosf \
 @SCICOS_TRUE@demos/Electrical/boost_conv.dem.sce \
 @SCICOS_TRUE@demos/Electrical/Boost_Converter.cosf \
@@ -850,7 +850,7 @@ JARMASK = *.jar
 @SCICOS_TRUE@demos/Electrical/Transformer.cosf \
 @SCICOS_TRUE@demos/Electrical/transformer.dem.sce
 
-@SCICOS_TRUE@libsciscicos_la_demosModelicaBlocksdir = $(mydatadir)/demos/ModelicaBlocks/
+@SCICOS_TRUE@libsciscicos_la_demosModelicaBlocksdir = $(mydatadir)
 @SCICOS_TRUE@nobase_libsciscicos_la_demosModelicaBlocks_DATA = demos/ModelicaBlocks/Ball_Platform.cosf \
 @SCICOS_TRUE@demos/ModelicaBlocks/BouncingBall_Modelica.cosf \
 @SCICOS_TRUE@demos/ModelicaBlocks/Chaos_Modelica.cosf \
@@ -2101,7 +2101,7 @@ install-data-local:
 	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 	  if test -d $(srcdir)/$$dir/; then \
 	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
-		  for file in `find $(srcdir)/$$dir | grep -v '\.svn' | sed "s#^$(srcdir)/$$dir##" 2>/dev/null`; do \
+		  for file in `find $(srcdir)/$$dir | grep -v '\.svn' | sed "s|^$(srcdir)/$$dir||" 2>/dev/null`; do \
 		    if test -d "$(srcdir)/$$dir/$$file"; then \
 			  echo $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir/$$file; \
 			  $(mkinstalldirs) "$(DESTDIR)$(pkgmacrosdir)/$$dir/$$file"; \
@@ -2111,13 +2111,18 @@ install-data-local:
 		    fi \
 		  done; \
 	  fi; \
-	done
+	done 
 # Install the macros
 	@echo "-- Install macros (if any) --"; \
 	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 		if test -d $(srcdir)/$$dir/; then \
-		  for file in `ls -1 $(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib 2>/dev/null`; do \
+			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
+			for specialExt in $(MACROSSPECIALEXT); do \
+				specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
+			done; \
+			FILELIST="$$FILELIST $$specialExtDir"; \
+		  for file in `ls -1 $$FILELIST 2>/dev/null`; do \
 		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgmacrosdir)/$$dir" ; \
 	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgmacrosdir)/$$dir ; \
 		  done; \

@@ -22,36 +22,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 # See the file scipad/license.txt
+#
 
 set winTitle "SciPad"
-
-#############
-# Detect Tcl and Tk versions and set global flags to true if versions are >= 8.5
-#
-# This is used to improve Scipad when used with recent Tcl/Tk without
-# preventing its use with older ladies
-# ex of 8.5 use: a. -strictlimits option in find/replace
-#                b. -stretch always option for panedwindows
-#                c. proc timestamp uses clock milliseconds
-#                d. peer text widgets are used when splitting
-#                e. Tk bug 1169429 (relative to cursor blinking) is fixed, workaround hack removed
-#                f. -topmost option of toplevels used also on Linux
-#                g. string reverse (TIP #272) is used during undo/redo, improving performance drastically
-#                h. the replace cursor is a nice looking block cursor
-if { [package vcompare $tcl_version 8.5] >= 0 } {
-    set Tcl85 1
-} else {
-    set Tcl85 0
-}
-if { [package vcompare $tk_version 8.5] >= 0 } {
-    set Tk85 1
-} else {
-    set Tk85 0
-}
-
-# End of Tcl/Tk versions detection
-#############
-
 
 #############
 # Flags to trim Scipad to the host environment (Scilab version,
@@ -221,7 +194,7 @@ set colorizeuserfuns "yes"
 setdefaultfonts
 
 #############
-# Other non-prefeferences initial settings
+# Other non-preferences initial settings
 
 if { ![info exists lang] } { set lang "eng" }
 
@@ -315,6 +288,10 @@ if { [catch {package require tkdnd}] == 0 } {
 } else {
     set TkDnDloaded "false"
 }
+
+
+# scrolledframe (this is used in the breakpoints properties dialog)
+namespace import ::scrolledframe::scrolledframe
 
 # End of additional packages
 #############
@@ -474,6 +451,10 @@ append sresRE                 {(} $saslRE {(return)|(resume)} $sasrRE {)}
 append sresRE             {)}
 
 ###
+
+# Strictly positive integer number, with no leading zero, or zero itself,
+# reporting
+set strictlypositiveintegerREpat {\A((0)|([1-9][0-9]*))\Z}
 
 # Floating point number, reporting version and non-reporting version
 set floatingpointnumberREpat_rep {((\.\d+)|(\m\d+(\.\d*)?))([deDE][+\-]?\d{1,3})?\M}

@@ -1,7 +1,33 @@
+Francois VOGEL, 13/07/08
+ * More efficient implementation of lreverse and sreverse
+ * Tcl85 and Tk85 variables definition moved back to scipaddebug1.tcl
+   since they are used for sreverse definition and also for the log file
+ * version --> 6.149
+
+Francois VOGEL, 12/07/08
+ * CONDITIONAL BREAKPOINTS
+ * Breakpoints can be enabled and disabled, and have an associated conditional
+   expression that is evaluated when the breakpoint location is reached. An
+   enabled breakpoint is hit only if its expression is true
+ * Added a quick toggle for watching the conditional expression as a generic
+   expression, with sync maintained between the watch window and the
+   breakpoints window
+ * The conditional expression of a breakpoint can be tested against a boolean
+   true or against a change of its own value
+ * The hit count is monitored and displayed in the breakpoints gui, and can be
+   reset to zero through a pushbutton dedicated to each breakpoint
+ * Added the "break if" condition on the hit count
+ * The full conditional breakpoints feature is implemented and seems to work
+   OK, with expressions, expression types, expression watching, hit counts,
+   and break conditions on the hit count
+ * The breakpoints gui remembers its geometry across openings
+ * version --> 6.148
+
 Francois VOGEL, 19/06/08
  * Fixed missing update of peer titles when saving a textarea: a peer <1>
    could be in a non modified state while another peer <2> could still
    display "... <2> (modified)"
+ * changelog file upside down
  * version --> 6.147
 
 Francois VOGEL, 16/06/08
@@ -843,7 +869,7 @@ Francois VOGEL, 05/11/06
 Francois VOGEL, 02/11/06
  * When Options/Backup files depth was set to 1, it saved 2 backups instead
    of one
- * Moved msgdiff.sci in SCI/modules/scipad/macros/scipad_internals/
+ * Moved msgdiff.sci in scipad/macros/scipad_internals
  * Updated AddingTranslations.txt:
      . new directory tree
      . removal of length checks in dialogs (mcmax is now used since 6.45)
@@ -851,7 +877,7 @@ Francois VOGEL, 02/11/06
  * version --> 6.53
 
 Francois VOGEL, 30/10/06
- * Moved dynamickeywords.sce in SCI/modules/scipad/macros/scipad_internals/
+ * Moved dynamickeywords.sce in scipad/macros/scipad_internals
  * Fixed: quitting Scilab during the debug in Scipad produced a strange
    error that was due to missing quotes in a ScilabEval
  * version --> 6.52
@@ -859,7 +885,7 @@ Francois VOGEL, 30/10/06
 Francois VOGEL, 30/10/06
  * Compilation of Scipad's internal macros - Step 2
    . Moved FormatStringsForWatch.sci and FormatWhereForWatch.sci in
-     SCI/modules/scipad/macros/scipad_internals/
+     scipad/macros/scipad_internals
    . Removed proc getdebuggersciancillaries_bp (now useless)
  * TCL_EvalStr("set answ [...]");TCL_GetVar("answ") replaced by the use of
    the evaluation result of TCL_EvalStr (I implemented request 319)
@@ -873,7 +899,7 @@ Francois VOGEL, 30/10/06
      FormatStringsForDebugWatch -> FormatStringsForWatch,
      FormatWhereForDebugWatch -> FormatWhereForWatch
    . Moved ext_exists.sci and LocalizeForScipad.sci in a new directory
-     SCI/modules/scipad/macros/scipad_internals/
+     scipad/macros/scipad_internals
  * version --> 6.50
 
 ES, 30/10/06
@@ -2732,7 +2758,7 @@ ES 15/11/04:
    loaded at startup by defaults.tcl and saved on exit
  * wm geometry in strict pixels (avoids cross-session shrinking due to wm decorations
  * outside of Scipad: removed %scipad_fontsize from SCI/etc/scilab.start and 
-   SCI/modules/scipad/macros/scipad.sci: overridden by the user preferences file
+   SCI/macros/util/scipad.sci: overridden by the user preferences file
  * version --> 3.13
 
 Francois VOGEL, 10/11/04
