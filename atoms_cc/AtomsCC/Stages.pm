@@ -227,13 +227,18 @@ sub stage_pack {
 	push(@files, "etc/$::TOOLBOXNAME.start");
 	push(@files, "etc/$::TOOLBOXNAME.quit");
 	
+	my @realfiles;
+	foreach (@files) {
+		push(@realfiles, "$::TOOLBOXNAME/$_") if -r "$::TOOLBOXNAME/$_";
+	}
+	
 	my $output = get_output_filename();
 	
 	common_log("Making binary .tar.gz archive ($output.tar.gz)");
-	close common_exec("tar", "-czvf", "$output.tar.gz", (map { "$::TOOLBOXNAME/$_" } @files),
+	close common_exec("tar", "-czvf", "$output.tar.gz", @realfiles,
 		{"stderr_to_stdout" => 1});
 	common_log("Making binary .zip archive ($output.zip)");
-	close common_exec("zip", "-r", "$output.zip", map { "$::TOOLBOXNAME/$_" } @files);
+	close common_exec("zip", "-r", "$output.zip", @realfiles);
 	
 	common_leave_stage();
 }

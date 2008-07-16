@@ -16,17 +16,11 @@ BEGIN {
 }
 
 END {
-	# $? is our return code in a END bloc (see $ in perlvar man page). But
-	# wait() modify it, so we have to backup it
-	my $exit_code = $?;
-	
 	close OLD_STDERR;
 	close OLD_STDOUT;
 	close OLD_STDIN;
 	close LOGFILE;
 	while(wait() > 0) { };
-	
-	$? = $exit_code;
 }
 
 # common_log(message, type):
@@ -62,8 +56,8 @@ sub common_enter_stage {
 # common_leave_stage:
 #    Common stuff while ending a stage
 sub common_leave_stage {
-	common_log($::STAGE, "<");
 	common_hook("endstage");
+	common_log($::STAGE, "<");
 }
 
 # common_die(message):
@@ -183,8 +177,6 @@ sub common_hook {
 	# We can run the hook without fearing an infinite loop
 	if(defined($file)) {
 		my $fd;
-		
-		common_log("Running hook $hook ($file)");
 		
 		close common_exec($file,
 		               "--stage=$::STAGE",
