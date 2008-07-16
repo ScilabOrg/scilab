@@ -16,11 +16,17 @@ BEGIN {
 }
 
 END {
+	# $? is our return code in a END bloc (see $ in perlvar man page). But
+	# wait() modify it, so we have to backup it
+	my $exit_code = $?;
+	
 	close OLD_STDERR;
 	close OLD_STDOUT;
 	close OLD_STDIN;
 	close LOGFILE;
 	while(wait() > 0) { };
+	
+	$? = $exit_code;
 }
 
 # common_log(message, type):
