@@ -3,6 +3,7 @@ host=x86-linux-scilab51
 target=x86-linux
 statefile=/tmp/cc_state
 tmpdir=/tmp/ccbuild
+logfile=/tmp/cc.log
 
 [compilation]
 hook-startstage=/home/moonz/dev/atoms_cc/hooks/start-stage
@@ -22,3 +23,10 @@ bindir=bin
 datasource=dbi:mysql:database=atoms;host=petitgaou
 user=atoms
 password=atoms
+
+[smtp]
+host=smtp.inria.fr
+from=Compilation chain <noreply@scilab.org>
+; to=Sylvestre Ledru <sylvestre.ledru@scilab.org>
+to=Simon Lipp <simon.lipp@scilab.org>
+subject=Toolboxes compilation chain error

@@ -7,6 +7,7 @@ use strict;
 use Config::IniFiles;
 use DBI;
 use Net::FTP;
+use Net::SMTP;
 use File::Path; # for rmtree()
 use Time::Local; # for timelocal()
 use sigtrap qw(die normal-signals error-signals);
@@ -56,13 +57,30 @@ SELECT IdSource, SourceFile, UploadTime FROM ToolboxSource WHERE UploadTime > ?
 EOQ
 ;
 
+# rfc822_now;
+#     Returns current datetime in the format described in section 5 of RFC822
+sub rfc822_now {
+	my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
+	my @now = gmtime(time());
+	
+	my $day = $now[3];
+	my $mon = $months[$now[4]];
+	my $yea = $now[5]+1900;
+	my $hou = $now[2];
+	my $min = $now[1];
+	my $sec = $now[0];
+	
+	return sprintf("$day $mon $yea %02d:%02d:%02d GMT", $hou, $min, $sec);
+
+}
+
 # timestamp_to_sql(ts):
 #     Returns a datetime in the YYYY-MM-DD HH:MM:SS format
 sub timestamp_to_sql {
 	my $ts = shift;
 	my @ti = localtime($ts);
 	
-	return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $ti[5]+1900, $ti[4],
+	return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $ti[5]+1900, $ti[4]+1,
 	               $ti[3], $ti[2], $ti[1], $ti[0]);
 }
 
@@ -177,8 +195,20 @@ sub create_command_report {
 	         $stdout, $stderr);
 }
 
-# Load config, init global variables, connect to DB, and so on...
+# Load config
 $config = Config::IniFiles->new(-file => $ARGV[0]);
+
+# Open log file and redirect autput to it ASAP
+open LOGFILE, ">".$config->val('general', 'logfile');
+open STDOUT, ">&LOGFILE";
+open STDERR, ">&LOGFILE";
+
+# Autoflush
+select(LOGFILE); $| = 1;
+select(STDERR);  $| = 1;
+select(STDERR);  $| = 1;
+
+# init global variables, connect to DB, and so on...
 $tmpdir = $config->val("general", "tmpdir");
 $statef = $config->val("general", "statefile");
 $dbh    = DBI->connect($config->val('sql','datasource'),
@@ -332,9 +362,48 @@ END {
 			1 while(wait() > 0);
 		}
 		
-		# TODO: send a mail to the admin
+		# TODO: desactivate compilation chain
+		
+		# Send a mail to the administrator
+		my $smtp = Net::SMTP->new($config->val('smtp', 'host'));
+		$smtp->mail($config->val('smtp', 'from'));
+		$smtp->to($config->val('smtp', 'to'));
+		$smtp->data();
+		$smtp->datasend("Subject: ".$config->val('smtp', 'subject') . "\n");
+		$smtp->datasend("Date: ".rfc822_now()."\n");
+		$smtp->datasend("From: ".$config->val('smtp', 'from')."\n");
+		$smtp->datasend("To: ".$config->val('smtp', 'to')."\n");
+		$smtp->datasend("\n");
+		$smtp->datasend(<<EOF
+An error occured in the compilation chain. In order to avoid more problems,
+this compilation chain will refuse to execute anymore. To reactivate it after
+the problem is solved, you must edit the state file (see configuration below)
+and remove the negative sign (e.g. if the state file contains -123456789 you
+have to change it to 123456789). You should also clean the tmpdir, and check
+that the database is not in an inconsistent state (checking the
+ToolboxCompilation table for this host should be enough).
+
+Configuration:
+EOF
+);
+		$smtp->datasend("\tConfiguration file: $ARGV[0]\n");
+		$smtp->datasend("\tHost: ".$config->val('general', 'host')."\n");
+		$smtp->datasend("\tTarget: ".$config->val('general', 'target')."\n");
+		$smtp->datasend("\tState file: $statef\n");
+		$smtp->datasend("\ttmpdir: $tmpdir\n");
+		$smtp->datasend("\tLog file (included below): ".
+		                $config->val('general', 'logfile')."\n");
+		$smtp->datasend("\nLog:\n");
+		$smtp->datasend(readf($config->val('general', 'logfile')));
+
+		$smtp->dataend();
+		$smtp->quit;
 	}
 	
 	$dbh->disconnect;
 	$ftp->quit;
+	
+	close LOGFILE;
+	close STDOUT;
+	close STDERR;
 }
