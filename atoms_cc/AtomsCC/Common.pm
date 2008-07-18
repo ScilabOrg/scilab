@@ -175,7 +175,7 @@ sub common_hook {
 	local $in_error_hook = 1 if $hook eq "error";
 	
 	# We can run the hook without fearing an infinite loop
-	if(defined($file)) {
+	if(defined($file) && $file) {
 		my $fd;
 		
 		close common_exec($file,
