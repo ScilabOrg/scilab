@@ -237,8 +237,6 @@ while((my $pid = wait()) > 0) {
 		
 		$last_time = $1;
 		
-		print STDERR "=> $1 $2 $3\n";
-		
 		if($2 eq "\$") {
 			@last_cmd_message = ($1, $2, $3);
 		}

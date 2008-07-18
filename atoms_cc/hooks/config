@@ -5,11 +5,11 @@ statefile=/tmp/cc_state
 tmpdir=/tmp/ccbuild
 
 [compilation]
-hook-startstage=
+hook-startstage=/home/moonz/dev/atoms_cc/hooks/start-stage
 hook-endstage=
 hook-start=
-hook-end=
-hook-error=
+hook-end=/home/moonz/dev/atoms_cc/hooks/end
+hook-error=/home/moonz/dev/atoms_cc/hooks/error
 
 [ftp]
 host=petitgaou

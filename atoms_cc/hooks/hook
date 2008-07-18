@@ -1,0 +1,81 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Config::IniFiles;
+use DBI;
+use Env;
+
+my ($dbh, # Database link
+    $hook, # Current hook
+	$config, # Configuration file
+	%opts, # Options passed by builtoolbox
+	%SQL); # SQL queries
+
+# SQL queries
+$SQL{'FindCompilation'} = <<EOQ
+SELECT IdCompilation FROM ToolboxSource, ToolboxCompilation
+WHERE ToolboxSource.IdSource = ToolboxCompilation.IdSource AND
+      SourceFile = ? AND Host = ?
+EOQ
+;
+
+$SQL{'UpdateCompilation'} = <<EOQ
+UPDATE ToolboxCompilation SET Stage = ? WHERE IdCompilation = ?
+EOQ
+;
+
+# mdie(msg):
+#   Print msg and quit.
+sub mdie {
+	print shift() . "\n";
+	exit(1);
+}
+
+# find_compilation(source_file, host)
+#     Find a ToolboxCompilation record from its IdSource and Host fields.
+#     Returns the IdCompilation field, or undef if the record is not found.
+sub find_compilation {
+	my $source = shift;
+	my $host = shift;
+	
+	my $c;
+	$c = $dbh->selectrow_array($SQL{'FindCompilation'}, undef, $source, $host);
+	
+	return $c;
+}
+
+# update_compilation(comp_id, stage)
+#     Modify Stage fields of a ToolboxCompilation record identified by comp_id.
+sub update_compilation {
+	my $comp_id = shift;
+	my $stage = shift;
+	
+	$dbh->do($SQL{'UpdateCompilation'}, undef, $stage, $comp_id);
+}
+
+# Parse arguments
+$hook = shift;
+exit(0) unless $hook eq "start-stage" || $hook eq "error" || $hook eq "end";
+
+foreach (@ARGV) {
+	$opts{$1} = $2 if /^--([^=]+)=(.+)$/
+}
+
+# Open config file & DB
+$config = Config::IniFiles->new(-file => $opts{'config'});
+$dbh = DBI->connect($config->val('sql','datasource'),
+                       $config->val('sql','user'),
+                       $config->val('sql','password'),
+                       { RaiseError => 1 });
+
+# Find the ToolboxCompilation record
+my $comp_id = find_compilation($opts{'source'}, $config->val('general', 'host'));
+mdie("No ToolboxCompilation record found") unless defined($comp_id);
+
+update_compilation($comp_id, $opts{'stage'}) if $hook eq "start-stage";
+update_compilation($comp_id, "post-error") if $hook eq "error";
+update_compilation($comp_id, "post-ok") if $hook eq "end";
+
+END {
+	$dbh->disconnect;
+}
