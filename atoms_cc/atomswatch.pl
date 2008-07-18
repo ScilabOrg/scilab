@@ -7,6 +7,8 @@ use strict;
 use Config::IniFiles;
 use DBI;
 use Net::FTP;
+use File::Path; # for rmtree()
+use Time::Local; # for timelocal()
 use sigtrap qw(die normal-signals error-signals);
 
 my ($config, # Configuration
@@ -50,18 +52,25 @@ VALUES (      ?,         ?,       ?,           ?,          ?,      ?,      ?)
 EOQ
 ;
 $SQL{'FindRecentToolboxes'} = <<EOQ
-SELECT IdSource, SourceFile FROM ToolboxSource WHERE UploadTime > ?
+SELECT IdSource, SourceFile, UploadTime FROM ToolboxSource WHERE UploadTime > ?
 EOQ
 ;
 
 # timestamp_to_sql(ts):
-#     Returns a timestamp in the YYYY-MM-DD HH:MM:SS format
+#     Returns a datetime in the YYYY-MM-DD HH:MM:SS format
 sub timestamp_to_sql {
 	my $ts = shift;
 	my @ti = localtime($ts);
 	
 	return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $ti[5]+1900, $ti[4],
 	               $ti[3], $ti[2], $ti[1], $ti[0]);
+}
+
+# sql_to_timestamp(sql):
+#     Returns a timestamp from a datetime in the YYYY-MM-DD HH:MM:SS format
+sub sql_to_timestamp {
+	my $sql = shift;
+	return timelocal(reverse split(/\D/, $sql));
 }
 
 # readf(filename):
@@ -73,6 +82,15 @@ sub readf {
 	my $res = <$fd>;
 	close $fd;
 	return $res;
+}
+
+# open_ftp:
+#     Connect to the FTP server
+sub open_ftp {
+	$ftp = Net::FTP->new($config->val('ftp', 'host'))
+	          or die("Can't connect to FTP server: $@");
+	$ftp->login($config->val('ftp', 'user'), $config->val('ftp', 'password'))
+              or die("Cannot login to FTP server: ".$ftp->message);
 }
 
 # create_compilation(source_id, host, target, environ)
@@ -124,7 +142,8 @@ sub update_stage {
 	my $end = shift;
 	my $success = shift;
 	
-	$dbh->do($SQL{'UpdateStage'}, undef, $success, $end, $stage_id);
+	$dbh->do($SQL{'UpdateStage'}, undef, $success, timestamp_to_sql($end),
+	         $stage_id);
 }
 
 # create_report_message(stage_id, time, type, msg)
@@ -162,15 +181,12 @@ sub create_command_report {
 $config = Config::IniFiles->new(-file => $ARGV[0]);
 $tmpdir = $config->val("general", "tmpdir");
 $statef = $config->val("general", "statefile");
-$ftp    = Net::FTP->new($config->val('ftp', 'host'))
-			  or die("Can't connect to FTP server: $@");
 $dbh    = DBI->connect($config->val('sql','datasource'),
                        $config->val('sql','user'),
                        $config->val('sql','password'),
                        { RaiseError => 1 });
 
-$ftp->login($config->val('ftp', 'user'), $config->val('ftp', 'password'))
-        or die("Cannot login to FTP server: ".$ftp->message);
+open_ftp;
 
 my $environ  = "Perl $^V running on $^O\n";
    $environ .= "OS: ".`uname -a` unless $^O =~ /win/i;
@@ -188,6 +204,7 @@ my $sth = $dbh->prepare($SQL{'FindRecentToolboxes'});
 $sth->execute(timestamp_to_sql($last_visited));
 
 my %subprocesses;
+my $next_last_visited = $last_visited;
 while(my @recent = $sth->fetchrow_array) {
 	# Are we already compiling this toolbox ? If so, skip it
 	# TODO: check that the process is still alive (and not in an infinite loop)
@@ -214,11 +231,18 @@ while(my @recent = $sth->fetchrow_array) {
 	}
 	$subprocesses{$pid} = [$recent[0], $recent[1], $toolbox, $comp_id, time()];
 	
+	my $upltime = sql_to_timestamp($recent[2]);
+	$next_last_visited = $upltime if $upltime > $next_last_visited;
 }
+
+# Now the toolboxes are compiling. This may take some take, disconnect from FTP
+# before the timeout occurs
+$ftp->quit;
 
 while((my $pid = wait()) > 0) {
 	my $success = ($? == 0);
 	my ($tbid, $tbsrcfile, $toolbox, $comp_id, $st) = @{$subprocesses{$pid}};
+	my $tbdir = "$tmpdir/$toolbox/";
 	
 	# Read build.log
 	my $buildlog = readf("$tmpdir/$toolbox/build.log");
@@ -244,8 +268,8 @@ while((my $pid = wait()) > 0) {
 			my @cmd = split(/\n/, $last_cmd_message[2]);
 			my @stdout = grep { /^stdout=/ } @cmd;
 			my @stderr = grep { /^stderr=/ } @cmd;
-			my $stdout_data = readf("$tmpdir/$toolbox/".substr($stdout[0], 7));
-			my $stderr_data = readf("$tmpdir/$toolbox/".substr($stderr[0], 7));
+			my $stdout_data = readf("$tbdir/".substr($stdout[0], 7));
+			my $stderr_data = readf("$tbdir/".substr($stderr[0], 7));
 			
 			create_command_report($stage_id, $last_cmd_message[0], $1, $cmd[0],
 			                      $3, $stdout_data, $stderr_data);
@@ -273,10 +297,31 @@ while((my $pid = wait()) > 0) {
 	
 	undef $subprocesses{$pid};
 	
-	# TODO: upload resulting files (on success), clean everything
+	# Upload resulting files 
+	if($success) {
+		open_ftp;
+		
+		my $tbprefix =  $tbsrcfile;
+		   $tbprefix =~ s/\.(tar\.gz|zip)$//;
+		my $bindir = $config->val('ftp', 'bindir');
+		
+		$ftp->put("$tbdir/$tbprefix-bin.zip", "$bindir/$tbprefix.zip")
+		   or die("Can't send $tbprefix-bin.zip");
+		$ftp->put("$tbdir/$tbprefix-bin.tar.gz", "$bindir/$tbprefix.tar.gz")
+		   or die("Can't send $tbprefix-bin.tar.gz");
+		
+		$ftp->quit;
+	}
+	
+	# Clean everything
+	rmtree($tbdir);
+	die("Can't delete $tbdir") if -d $tbdir;
 }
 
-# TODO: update state file
+# Update state file
+open my($state_fd), ">$statef";
+print $state_fd $next_last_visited;
+close $state_fd;
 
 END {
 	if($? != 0) {
