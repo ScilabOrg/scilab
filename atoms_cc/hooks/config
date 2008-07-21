@@ -6,11 +6,11 @@ tmpdir=/tmp/ccbuild
 logfile=/tmp/cc.log
 
 [compilation]
-hook-startstage=/home/moonz/dev/atoms_cc/hooks/start-stage
+hook-startstage=/home/moonz/dev/atoms_cc/hooks/start-stage.pl
 hook-endstage=
 hook-start=
-hook-end=/home/moonz/dev/atoms_cc/hooks/end
-hook-error=/home/moonz/dev/atoms_cc/hooks/error
+hook-end=/home/moonz/dev/atoms_cc/hooks/end.pl
+hook-error=/home/moonz/dev/atoms_cc/hooks/error.pl
 
 [ftp]
 host=petitgaou
