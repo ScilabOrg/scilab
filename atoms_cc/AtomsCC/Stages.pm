@@ -199,7 +199,7 @@ sub stage_build {
 	seek($fd, 0, 0);
 	while(<$fd>) {
 		common_die("Error while building macros") if(/^atoms_cc_genlib:0\s*$/);
-		if(/^atoms_cc_genlib_funcs:(.+?)\s*$/) {
+		if(/^atoms_cc_genlib_funcs:(\S+)\s*$/) {
 			foreach my $func (split(/,/, $1)) {
 				common_log("Found macro function $func");
 				common_die("Generated function \"$func\" (from macros) not described in ".
