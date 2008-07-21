@@ -88,7 +88,10 @@ sub timestamp_to_sql {
 #     Returns a timestamp from a datetime in the YYYY-MM-DD HH:MM:SS format
 sub sql_to_timestamp {
 	my $sql = shift;
-	return timelocal(reverse split(/\D/, $sql));
+	my @ts = reverse split(/\D/, $sql);
+	$ts[5] -= 1900;
+	$ts[4] -= 1;
+	return timelocal(@ts);
 }
 
 # readf(filename):
@@ -229,6 +232,8 @@ my $last_visited = <$fd>;
 close $fd;
 chomp $last_visited;
 
+die("Compilation chain desactivated") if $last_visited < 0;
+
 # Search for new toolboxes
 my $sth = $dbh->prepare($SQL{'FindRecentToolboxes'});
 $sth->execute(timestamp_to_sql($last_visited));
@@ -252,9 +257,13 @@ while(my @recent = $sth->fetchrow_array) {
 	          "$tmpdir/$toolbox/$recent[1]")
 	      or die("Can't fetch source: " . $ftp->message);
 	
+	print STDERR "Building $recent[1]...\n";
+	
 	# Run the compilation in a subprocess
 	my $pid = fork();
 	if($pid == 0) {
+		my $dn = $config->val('general', 'devnull', '/dev/null');
+		open STDOUT, ">$dn";
 		chdir "$tmpdir/$toolbox" or die("Can't chdir()");
 		exec("buildtoolbox", $recent[1], $ARGV[0]) or
 		die("Can't run the compilation process");
@@ -273,6 +282,8 @@ while((my $pid = wait()) > 0) {
 	my $success = ($? == 0);
 	my ($tbid, $tbsrcfile, $toolbox, $comp_id, $st) = @{$subprocesses{$pid}};
 	my $tbdir = "$tmpdir/$toolbox/";
+	
+	print STDERR "$tbsrcfile done\n";
 	
 	# Read build.log
 	my $buildlog = readf("$tmpdir/$toolbox/build.log");
@@ -343,6 +354,8 @@ while((my $pid = wait()) > 0) {
 		$ftp->quit;
 	}
 	
+	print STDERR "$tbsrcfile uploaded\n";
+	
 	# Clean everything
 	rmtree($tbdir);
 	die("Can't delete $tbdir") if -d $tbdir;
@@ -354,7 +367,7 @@ print $state_fd $next_last_visited;
 close $state_fd;
 
 END {
-	if($? != 0) {
+	if($? != 0 && $last_visited >= 0) {
 		if(%subprocesses) {
 			kill(2, $_) foreach (keys %subprocesses);
 			sleep(5);
@@ -362,7 +375,10 @@ END {
 			1 while(wait() > 0);
 		}
 		
-		# TODO: desactivate compilation chain
+		# Desactivate compilation chain
+		open my($state_fd), ">$statef";
+		print $state_fd "-$last_visited";
+		close $state_fd;
 		
 		# Send a mail to the administrator
 		my $smtp = Net::SMTP->new($config->val('smtp', 'host'));
