@@ -15,7 +15,10 @@
 //evaluation, or during the evaluation of a decision expression in an  if
 //a while or select called in a compiled function, Scilab loops indefinetely.
 
-errcatch(-1,'continue','nomessage')
+
+// <-- NO TRY CATCH -->
+
+errcatch(-1,'continue','nomessage');
 
 function r=testselect1()
   r=0
@@ -29,6 +32,7 @@ function r=testselect1()
     r=r-5
   end;
 endfunction
+
 if testselect1()<>-3 then pause,end
 [msg,n]=lasterror();
 if n<>4 then pause,end
@@ -45,6 +49,7 @@ function r=testselect2()
     r=r-5
   end;
 endfunction
+
 if testselect2()<>-3 then pause,end
 [msg,n]=lasterror();
 if n<>4 then pause,end
@@ -64,6 +69,7 @@ function r=testif1()
     r=r+2
   end
 endfunction
+
 if testif1()<>2 then pause,end
 [msg,n]=lasterror();
 if n<>4 then pause,end
@@ -84,10 +90,10 @@ function r=testif2()
     r=r+2
   end
 endfunction
+
 if testif1()<>2 then pause,end
 [msg,n]=lasterror();
 if n<>4 then pause,end
-
 
 function r=testfor()
   r=0
@@ -98,9 +104,7 @@ function r=testfor()
     r=r+2
   end
 endfunction
+
 if testfor()<>2 then pause,end
 [msg,n]=lasterror();
 if n<>4 then pause,end
-
-return
-

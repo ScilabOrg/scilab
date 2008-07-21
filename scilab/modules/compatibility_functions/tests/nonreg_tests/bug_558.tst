@@ -18,14 +18,11 @@
 //
 //    the last 'or' looks superfluous to me.
 
-fileName = TMPDIR+"/bug558.txt";
-diary(fileName);
+fileName = TMPDIR+'/bug558.mat';
 x = 20;
-mtlb_save('bug558','x')
-diary(0);
-
+warning('off');
+mtlb_save(fileName,'x');
+warning('on');
 w=fileinfo(fileName);
-if w(1) == 0  then pause,end
-
+if ( (w == []) | (w(1) == 0) )  then pause,end
 mdelete(fileName);
-mdelete('bug558.mat');

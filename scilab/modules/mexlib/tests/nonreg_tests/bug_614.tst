@@ -18,10 +18,11 @@
 //
 //    Also occur in other OS's.
 
-my_current_direcory = pwd();
-
+my_current_directory = pwd();
 cd(TMPDIR);
-mputl('ilib_mex_build(''libmex'',[''mexf16'',''mexfunction16'',''cmex''],[],[],''Makelib'','''','''','''')','builder.sce')
+cd('..');
+TMP_directory = pwd();
+mputl('ilib_mex_build(''libmex'',[''mexf16'',''mexfunction16'',''cmex''],[],[],''Makelib'','''','''','''')','builder.sce');
 
 mputl([
 '#include ""mex.h""'
@@ -34,14 +35,14 @@ mputl([
 '}'
 ],'mexfunction16.c');
 
-exec(TMPDIR+'/builder.sce');
-exec(TMPDIR+'/loader.sce');
+exec('builder.sce');
+exec('loader.sce');
 
 diary('bug614.dia')
 mexf16(rand(2,3,2))
 diary(0)
 
 dia = mgetl('bug614.dia');
-cd(my_current_direcory)
+cd(my_current_directory);
 
 if find(dia == "2 3 2") == [] then pause,end

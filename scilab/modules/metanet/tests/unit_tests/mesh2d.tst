@@ -106,5 +106,5 @@ endfunction
 N=1000;xbasc();X=rand(1,N); Y=rand(1,N);
 xset("wdim",700,700);
 test(X,Y);
- 
+delete(scf()); 
 
