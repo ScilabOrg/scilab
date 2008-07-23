@@ -24,7 +24,7 @@ END {
 	close OLD_STDOUT;
 	close OLD_STDIN;
 	close LOGFILE;
-	while(wait() > 0) { };
+	1 while(wait() != -1);
 	
 	$? = $exit_code;
 }
@@ -165,7 +165,7 @@ sub common_exec_scilab {
 #     Call a hook if defined in configuration file
 sub common_hook {
 	my $hook = shift;
-	my $file = $::CONFIG->val("compilation", "hook-". $hook);
+	my $cmd = $::CONFIG->val("compilation", "hook-". $hook);
 	
 	# Since we are using common_exec, which can call common_die, which can call
 	# common_hook("error"), we may encounter an infinite loop if the "error" hook
@@ -181,10 +181,10 @@ sub common_hook {
 	local $in_error_hook = 1 if $hook eq "error";
 	
 	# We can run the hook without fearing an infinite loop
-	if(defined($file) && $file) {
+	if(defined($cmd) && $cmd) {
 		my $fd;
 		
-		close common_exec($file,
+		close common_exec(split(" ", $cmd),
 		               "--stage=$::STAGE",
 		               "--source=$::TOOLBOXFILE",
 		               "--toolbox=$::TOOLBOXNAME",

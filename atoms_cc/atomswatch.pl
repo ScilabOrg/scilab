@@ -3,6 +3,9 @@
 # atomswatch.pl
 # Usage: atomswatch.pl config-file
 
+# Note: [ap78907] means that this code is here to work around ActiverPerl bug
+# 78907 (http://bugs.activestate.com/show_bug.cgi?id=78907)
+
 use strict;
 use Config::IniFiles;
 use DBI;
@@ -17,7 +20,8 @@ my ($config, # Configuration
     $statef, # File where is saved last time this script was called
 	$dbh,    # Connection to the database
 	$ftp,    # Connection to the FTP server
-	%SQL);   # All SQL queries
+	%SQL,    # All SQL queries
+	$_exec); # [ap78907]
 
 # SQL queries
 $SQL{'CreateCompilation'} = <<EOQ
@@ -112,6 +116,7 @@ sub open_ftp {
 	          or die("Can't connect to FTP server: $@");
 	$ftp->login($config->val('ftp', 'user'), $config->val('ftp', 'password'))
               or die("Cannot login to FTP server: ".$ftp->message);
+	$ftp->binary;
 }
 
 # create_compilation(source_id, host, target, environ)
@@ -262,10 +267,11 @@ while(my @recent = $sth->fetchrow_array) {
 	# Run the compilation in a subprocess
 	my $pid = fork();
 	if($pid == 0) {
+		$_exec = 1; # [ap78907]
 		my $dn = $config->val('general', 'devnull', '/dev/null');
 		open STDOUT, ">$dn";
 		chdir "$tmpdir/$toolbox" or die("Can't chdir()");
-		exec("buildtoolbox", $recent[1], $ARGV[0]) or
+		exec("buildtoolbox.pl \"$recent[1]\" \"$ARGV[0]\"") or
 		die("Can't run the compilation process");
 	}
 	$subprocesses{$pid} = [$recent[0], $recent[1], $toolbox, $comp_id, time()];
@@ -278,7 +284,7 @@ while(my @recent = $sth->fetchrow_array) {
 # before the timeout occurs
 $ftp->quit;
 
-while((my $pid = wait()) > 0) {
+while((my $pid = wait()) != -1) {
 	my $success = ($? == 0);
 	my ($tbid, $tbsrcfile, $toolbox, $comp_id, $st) = @{$subprocesses{$pid}};
 	my $tbdir = "$tmpdir/$toolbox/";
@@ -336,8 +342,6 @@ while((my $pid = wait()) > 0) {
 	
 	update_compilation($comp_id, $status, $last_time);
 	
-	undef $subprocesses{$pid};
-	
 	# Upload resulting files 
 	if($success) {
 		open_ftp;
@@ -352,13 +356,18 @@ while((my $pid = wait()) > 0) {
 		   or die("Can't send $tbprefix-bin.tar.gz");
 		
 		$ftp->quit;
+		
+		print STDERR "$tbsrcfile uploaded\n";
 	}
-	
-	print STDERR "$tbsrcfile uploaded\n";
+	else {
+		print STDERR "not uploading $tbsrcfile\n";
+	}
 	
 	# Clean everything
 	rmtree($tbdir);
 	die("Can't delete $tbdir") if -d $tbdir;
+	
+	undef $subprocesses{$pid};
 }
 
 # Update state file
@@ -367,13 +376,16 @@ print $state_fd $next_last_visited;
 close $state_fd;
 
 END {
+	exit($?) if defined($_exec); # [ap78907]
 	if($? != 0 && $last_visited >= 0) {
+		my $exitcode = $?; # $? is modified by wait()
 		if(%subprocesses) {
 			kill(2, $_) foreach (keys %subprocesses);
 			sleep(5);
 			kill(9, $_) foreach (keys %subprocesses);
-			1 while(wait() > 0);
+			1 while(wait() != -1);
 		}
+		$? = $exitcode;
 		
 		# Desactivate compilation chain
 		open my($state_fd), ">$statef";

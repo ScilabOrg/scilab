@@ -6,4 +6,4 @@ use File::Basename;
 my $hook =  basename($0);
    $hook =~ s/\.pl$//;
 
-exec "perl", "-w", dirname($0)."/hook", $hook, @ARGV;
+exec { "perl" } "perl", "-w", dirname($0)."/hook", $hook, @ARGV;
