@@ -39,6 +39,9 @@ sub stage_check {
 		join("\n", map { "$_: $desc{$_}" } sort keys %desc));
 	
 	# Check toolbox name
+	common_die("Invalid toolbox name") unless
+		$::TOOLBOXNAME =~ /^[a-zA-Z0-9_-]+$/;
+	
 	if($::TOOLBOXNAME ne $desc{"Toolbox"}) {
 		common_die "Detected toolbox name ($::TOOLBOXNAME) different from ".
 		    "DESCRIPTION version ($desc{Toolbox})";
