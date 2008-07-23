@@ -1,0 +1,33 @@
+[general]
+host=x86-linux-scilab51
+target=x86-linux
+statefile=C:\cc\state.txt
+tmpdir=C:\cc\temp
+logfile=C:\cc\log.txt
+devnull=C:\cc\trash.txt
+
+[compilation]
+hook-startstage=perl C:\atomscc\hooks\start-stage.pl
+hook-endstage=
+hook-start=
+hook-end=perl C:\atomscc\hooks\end.pl
+hook-error=perl C:\atomscc\hooks\error.pl
+
+[ftp]
+host=petitgaou.inria.fr
+user=simon
+password=1234
+sourcesdir=sources
+bindir=bin
+
+[sql]
+datasource=dbi:mysql:database=atoms;host=petitgaou
+user=atoms
+password=atoms
+
+[smtp]
+host=smtp.inria.fr
+from=Compilation chain <noreply@scilab.org>
+; to=Sylvestre Ledru <sylvestre.ledru@scilab.org>
+to=Simon Lipp <simon.lipp@scilab.org>
+subject=Toolboxes compilation chain error
