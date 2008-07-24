@@ -22,6 +22,6 @@ builder_gateway(toolbox_dir);
 builder_help(toolbox_dir);
 build_loader(TOOLBOX_NAME, toolbox_dir);
 
+clear builder_macros builder_src builder_gateway builder_help build_loader;
 clear toolbox_dir;
-clear TOOLBOX_NAME;
-clear TOOLBOX_TITLE;
+clear TOOLBOX_NAME TOOLBOX_TITLE;
