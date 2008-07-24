@@ -1,15 +1,9 @@
 // ====================================================================
 // Allan CORNET
 // INRIA 2008
-// Template toolbox_skeleton
 // ====================================================================
-names = ['csum'];
-files = ['csum.o'];
-libs = [];
 
-ilib_for_link(names,files,libs,"c");
-// ====================================================================
-clear names;
-clear files;
-clear libs;
-// ====================================================================
+build_src(['csum'], ['csum.o'], 'c', ..
+	get_absolute_file_path('builder_c.sce'));
+
+clear build_src;

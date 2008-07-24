@@ -1,15 +1,9 @@
 // ====================================================================
 // Allan CORNET
 // INRIA 2008
-// Template toolbox_skeleton
 // ====================================================================
-names = ['fsum'];
-files = ['fsum.o'];
-libs = [];
 
-ilib_for_link(names,files,libs,"f");
-// ====================================================================
-clear names;
-clear files;
-clear libs;
-// ====================================================================
+build_src(['fsum'], ['fsum.o'], 'f', ..
+	get_absolute_file_path('builder_fortran.sce'));
+
+clear build_src;
