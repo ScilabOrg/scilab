@@ -1,9 +1,7 @@
 function builder_help_lang(lang, help_path)
 	oldpath = pwd();
 	
-	if(~exists('help_path', 'local')) then
-		help_path = oldpath;
-	else
+	if(exists('help_path', 'local')) then
 		chdir(help_path);
 	end
 	

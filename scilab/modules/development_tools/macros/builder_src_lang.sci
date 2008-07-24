@@ -1,9 +1,7 @@
 function builder_src_lang(lang, src_path)
 	oldpath = pwd();
 	
-	if(~exists('src_path', 'local')) then
-		src_path = oldpath;
-	else
+	if(exists('src_path', 'local')) then
 		chdir(src_path);
 	end
 	

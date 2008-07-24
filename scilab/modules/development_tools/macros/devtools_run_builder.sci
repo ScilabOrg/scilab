@@ -1,9 +1,7 @@
 function devtools_run_builder(path, subdir, builder)
 	oldpath = pwd();
 	
-	if(~exists('path', 'local')) then
-		path = oldpath;
-	else
+	if(exists('path', 'local')) then
 		chdir(path);
 	end
 	

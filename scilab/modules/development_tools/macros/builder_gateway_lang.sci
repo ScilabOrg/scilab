@@ -1,9 +1,7 @@
 function builder_gateway_lang(lang, gateway_path)
 	oldpath = pwd();
 	
-	if(~exists('gateway_path', 'local')) then
-		gateway_path = oldpath;
-	else
+	if(exists('gateway_path', 'local')) then
 		chdir(gateway_path);
 	end
 	

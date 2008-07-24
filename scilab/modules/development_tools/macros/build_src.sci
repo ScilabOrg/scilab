@@ -2,9 +2,7 @@ function build_src(names, files, flag, src_path, libs, ldflags, cflags, ..
                    fflags, cc, libname, loadername, makename)
 	oldpath = pwd();
 	
-	if ~exists('src_path', 'local') then
-		src_path = oldpath;
-	else
+	if exists('src_path', 'local') then
 		chdir(src_path);
 	end
 	

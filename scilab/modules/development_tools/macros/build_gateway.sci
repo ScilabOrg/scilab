@@ -2,9 +2,7 @@ function build_gateway(libname, names, files, gateway_path, libs, ldflags, ..
                        cflags, fflags, cc, makename, ismex)
 	oldpath = pwd();
 	
-	if ~exists('gateway_path', 'local') then
-		gateway_path = oldpath;
-	else
+	if exists('gateway_path', 'local') then
 		chdir(gateway_path);
 	end
 	

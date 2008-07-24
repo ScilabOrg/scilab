@@ -1,9 +1,7 @@
 function build_help_loader(toolbox_title, help_lang_path)
 	oldpath = pwd();
 	
-	if(~exists('help_lang_path', 'local')) then
-		help_lang_path = oldpath;
-	else
+	if(exists('help_lang_path', 'local')) then
 		chdir(help_lang_path);
 	end
 	

@@ -1,9 +1,7 @@
 function build_loader(toolbox_name, toolbox_path)
 	oldpath = pwd();
 	
-	if(~exists('toolbox_path', 'local')) then
-		toolbox_path = oldpath;
-	else
+	if(exists('toolbox_path', 'local')) then
 		chdir(toolbox_path);
 	end
 	
