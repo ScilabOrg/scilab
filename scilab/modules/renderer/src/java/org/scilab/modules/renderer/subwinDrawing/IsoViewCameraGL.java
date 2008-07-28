@@ -17,16 +17,13 @@ package org.scilab.modules.renderer.subwinDrawing;
 
 import javax.media.opengl.GL;
 
+
 /**
  * Class containing the driver dependant routines position the
  * camera with an isoview scale
  * @author Jean-Baptiste Silvy
  */
 public class IsoViewCameraGL extends CameraGL {
-
-	
-	private double viewPortHeight;
-	private double viewPortWidth;
 
 	/**
 	 * Default constructor.
@@ -44,24 +41,19 @@ public class IsoViewCameraGL extends CameraGL {
 		double[] screenExtent = getBoxScreenExtent(gl);
 		// apply same factor to preserve isoview.
 		double[] marginSize = getMarginSize();
-		double minScale = Math.min(marginSize[0] / screenExtent[0], Math.min(marginSize[1] / screenExtent[1], 1.0));
-		gl.glScaled(minScale, minScale, minScale);
-	}
-
-	/**
-	 * @return view port height.
-	 */
-	@Override
-	protected double getViewPortHeight() {
-		return viewPortHeight;
-	}
-
-	/**
-	 * @return view port width.
-	 */
-	@Override
-	protected double getViewPortWidth() {
-		return viewPortWidth;
+		
+		if (is2DCamera()) {
+			// don't take Z coordinate into account
+			// otherwise it create issues when zooming, ie the X and Y axis become smaller
+			// and smaller in order to conserve isoview between the 3 axes (Z axis does not change)
+			double minScale = Math.min(marginSize[0] / screenExtent[0], (marginSize[1] / screenExtent[1]));
+			gl.glScaled(minScale, minScale, 1.0);
+		} else {
+			double minScale = Math.min(marginSize[0] / screenExtent[0], Math.min(marginSize[1] / screenExtent[1], 1.0));
+			gl.glScaled(minScale, minScale, minScale);
+		}
+		
+		
 	}
 
 	/**
@@ -69,25 +61,10 @@ public class IsoViewCameraGL extends CameraGL {
 	 */
 	@Override
 	protected void setViewPort() {
-		double[] viewPort = {0.0, 0.0, 0.0, 0.0};
+		double[] viewPortSize = getViewPortSize();
 		
-		GL gl = getGL();
-		// get width ad height of the viewPort
-		gl.glGetDoublev(GL.GL_VIEWPORT, viewPort, 0);
-		viewPortWidth = viewPort[2];
-		viewPortHeight = viewPort[2 + 1];
 		
-		// get minimum value between the two to set a close to 1 viewPort
-		double minDim = Math.min(viewPortWidth, viewPortHeight);
-		viewPortWidth /= minDim;
-		viewPortHeight /= minDim;
-		
-		// set projection
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-	    // for perspective view, we need to use glFrustum, not glOrtho
-		gl.glOrtho(0.0, viewPortWidth, 0.0, viewPortHeight, -FAR_PLANE_DISTANCE, FAR_PLANE_DISTANCE);
-
+		setViewPortSize(viewPortSize[0], viewPortSize[1]);
 	}
 
 }

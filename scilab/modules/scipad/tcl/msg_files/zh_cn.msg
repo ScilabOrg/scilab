@@ -23,6 +23,7 @@
 #
 # See the file scipad/license.txt
 #
+
 # Scipad message for chinese-simplified
 # Scipad 简体中文界面，zh_cn.msg
 # 翻译者：于仕琪 <shiqi.yu@gmail.com> 2008

@@ -386,12 +386,12 @@ top_srcdir = @top_srcdir@
 ### scipad : localization ###
 @TCLTK_TRUE@libsciscipad_la_msgfilesdir = $(mydatadir)/tcl/msg_files
 @TCLTK_TRUE@libsciscipad_la_msgfiles_DATA = tcl/msg_files/AddingTranslations.txt \
-@TCLTK_TRUE@tcl/msg_files/da.msg \
-@TCLTK_TRUE@tcl/msg_files/de.msg \
-@TCLTK_TRUE@tcl/msg_files/eng.msg \
-@TCLTK_TRUE@tcl/msg_files/es.msg \
-@TCLTK_TRUE@tcl/msg_files/fr.msg \
-@TCLTK_TRUE@tcl/msg_files/it.msg \
+@TCLTK_TRUE@tcl/msg_files/da_dk.msg \
+@TCLTK_TRUE@tcl/msg_files/de_de.msg \
+@TCLTK_TRUE@tcl/msg_files/en_us.msg \
+@TCLTK_TRUE@tcl/msg_files/es_es.msg \
+@TCLTK_TRUE@tcl/msg_files/fr_fr.msg \
+@TCLTK_TRUE@tcl/msg_files/it_it.msg \
 @TCLTK_TRUE@tcl/msg_files/localenames.tcl \
 @TCLTK_TRUE@tcl/msg_files/no.msg \
 @TCLTK_TRUE@tcl/msg_files/pl.msg \

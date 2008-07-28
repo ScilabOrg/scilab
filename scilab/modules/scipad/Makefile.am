@@ -74,12 +74,12 @@ tcl/bindings/mac-pc.tcl
 
 libsciscipad_la_msgfilesdir = $(mydatadir)/tcl/msg_files
 libsciscipad_la_msgfiles_DATA = tcl/msg_files/AddingTranslations.txt \
-tcl/msg_files/da.msg \
-tcl/msg_files/de.msg \
-tcl/msg_files/eng.msg \
-tcl/msg_files/es.msg \
-tcl/msg_files/fr.msg \
-tcl/msg_files/it.msg \
+tcl/msg_files/da_dk.msg \
+tcl/msg_files/de_de.msg \
+tcl/msg_files/en_us.msg \
+tcl/msg_files/es_es.msg \
+tcl/msg_files/fr_fr.msg \
+tcl/msg_files/it_it.msg \
 tcl/msg_files/localenames.tcl \
 tcl/msg_files/no.msg \
 tcl/msg_files/pl.msg \

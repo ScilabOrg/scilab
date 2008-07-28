@@ -50,6 +50,7 @@ Graphic file export:
 ====================
   - xs2jpeg, xs2png, xs2svg, xs2pdf functions added to export graphics under JPEG, PNG, SVG and PDF formats.     	
   - Option color in xs2eps and xs2ps has been removed.
+  - Export GUI has been rewritten to match the new Java Swing style.
 
 
 Signal processing:
@@ -159,7 +160,7 @@ Input/Output functions (files):
 	+ filesep             - returns directory separator for current platform
 	+ pathsep             - returns path separator for current platform
 	+ maxfiles            - sets the limit for the number of files a scilab is allowed to have open simultaneously.
-	+ findfiles           - Finding all files with a given filespec
+	+ findfiles           - Finds all files with a given filespec
 
  - Profile changed:
 	+ ls under Linux/Unix has lost his second input argument (unix/linux command line option). It is now based on listfiles. ls in Scilab 5 will always return one file per line (2 per lines before)
@@ -260,6 +261,8 @@ Localization:
 =============
  - All the standard, warning and error messages have been rewritted to uniform output and also to provide more feedbacks to the user.
  - Scilab is coming with the included french localization (basic GUI for the beta version)
+ - Russian localization (by Vorona Aleksey)
+ - Traditionnal chinese localization (by Yung-Jang Lee)
  - New functions:
 	+ gettext(string) / _(string) - get text translated into the current locale
 	                                and domain
@@ -386,7 +389,7 @@ Scilab modes:
 		(loads the Java Virtual Machine)
 	+ NWNI (No window No interactive) mode
 		Run in command line but no help, TCL or rendering
-		(do not load the Java Virtual Machine)
+		(does not load the Java Virtual Machine)
 	+ API mode
 		Scilab as API/computing engine
 
@@ -395,9 +398,10 @@ GNU/Linux - Unix:
 =================
  - New configure (based on autoconf)
  - New compilation process (based on automake and libtool)
- - Dynamic libraries
+ - Switched to dynamic libraries
  - Advanced numerical libraries can be used (Atlas, MKL...)
  - Use librairies when available on the system
+ - Build by default with gfortran
  - Versioned libraries
  - Easier profiling (memory and call graph)
  - Better startup script
@@ -504,7 +508,7 @@ Known incompatibilty
   - the xgetmouse flag option has been removed 
 
   - For licence reasons, The quapro and linpro functions are no more
-    available in the Scilab distribution, but as an external free
+    available in the Scilab distribution, but as an external free (as beer)
     toolbox.
 
                      Main Changes Scilab 3.0 -> 4.0

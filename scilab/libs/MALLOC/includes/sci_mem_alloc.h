@@ -6,7 +6,9 @@
 #undef Top
 
 #ifdef _MSC_VER
-#include <stdlib.h>
+#error This file should not be used on windows
+#else
+#include <stddef.h> /* for size_t */
 #endif
 
 #ifdef MALLOC
@@ -42,7 +44,7 @@
  * @param line Which line is calling the function (used debug)
  * @return <ReturnValue>
  */
- void * MyReAlloc(void * lpAddress,int dwSize,char *file,int line);
+ void * MyReAlloc(void * lpAddress,size_t dwSize,const char *file,int line);
  
  /**
  * Allocate the memory
@@ -53,7 +55,7 @@
  * @param line Which line is calling the function (used debug) 
  * @return <ReturnValue>
  */
- void * MyAlloc(unsigned int dwSize,char *file,int line);
+ void * MyAlloc(size_t dwSize,const char *file,int line);
  
    /**
  * 
@@ -65,7 +67,7 @@
  * @param line Which line is calling the function (used debug) 
  * @return <ReturnValue>
  */
- void * MyCalloc(unsigned  int x, unsigned int y, char *file,int line);
+ void * MyCalloc(size_t x, size_t y, const char *file,int line);
  
   /**
  * Free the memory
@@ -76,16 +78,16 @@
  * @param line Which line is calling the function (used debug) 
  * @return <ReturnValue>
  */
- void MyFree(void *lpAddress,char *file,int line);
+ void MyFree(void *lpAddress,const char *file,int line);
 
-#define MALLOC(x) MyAlloc((unsigned)x,__FILE__,__LINE__)
-#define FREE(x) if (x  != NULL) free((char *) x);
-#define REALLOC(x,y) MyReAlloc((char *)x, y,__FILE__,__LINE__)
-#define CALLOC(x,y) MyCalloc((unsigned) x, (unsigned) y,__FILE__,__LINE__)
+#define MALLOC(x) MyAlloc((size_t)x,__FILE__,__LINE__)
+#define FREE(x) MyFree((void *) x,__FILE__,__LINE__)
+#define REALLOC(x,y) MyReAlloc((void *)x, y,__FILE__,__LINE__)
+#define CALLOC(x,y) MyCalloc((size_t) x, (size_t) y,__FILE__,__LINE__)
 
 /* Only for Scilab Stacksize use VirtualAlloc on Window */
 #define SCISTACKMALLOC(x) MyAlloc((unsigned)x,__FILE__,__LINE__)
-#define SCISTACKFREE(x) if (x  != NULL) MyFree((char *) x,__FILE__,__LINE__);
+#define SCISTACKFREE(x) MyFree((void *) x,__FILE__,__LINE__)
 
 #define Top C2F(vstk).top
 

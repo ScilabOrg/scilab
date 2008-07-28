@@ -13,8 +13,9 @@
 
 extern "C"
 {
+#include "DestroyJavaUiobject.h"
 #include "DestroyUimenu.h"
-#include "sci_mem_alloc.h" /* MALLOC */
+#include "MALLOC.h" /* MALLOC */
 #include "DestroyObjects.h" /* sciStandardDestroyOperations */
 }
 
@@ -26,9 +27,12 @@ extern "C"
  */
 int DestroyUimenu (sciPointObj * pthis)
 {
+  /* Destroy Java object */
+  DestroyJavaUiobject(pthis);
+
   if (pUIMENU_FEATURE (pthis)->foregroundcolor != NULL)
     {
-      FREE (pUIMENU_FEATURE (pthis)->foregroundcolor);
+      delete[] (pUIMENU_FEATURE (pthis)->foregroundcolor);
     }
 
   if (pUIMENU_FEATURE (pthis)->callback != NULL)
@@ -38,7 +42,7 @@ int DestroyUimenu (sciPointObj * pthis)
 
   if (pUIMENU_FEATURE (pthis)->tag != NULL)
     {
-      FREE (pUIMENU_FEATURE (pthis)->tag);
+      delete[] (pUIMENU_FEATURE (pthis)->tag);
     }
 
   if (pUIMENU_FEATURE (pthis)->user_data != NULL)

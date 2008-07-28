@@ -11,7 +11,9 @@ libscijvm_la_CFLAGS=  	$(JAVA_JNI_INCLUDE) \
 			-Isrc/c \
 			$(XML_FLAGS) \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
-			-I$(top_srcdir)/modules/localization/includes/
+			-I$(top_srcdir)/modules/localization/includes/ \
+			-I$(top_srcdir)/modules/string/includes/ \
+			-I$(top_srcdir)/modules/fileio/includes/
 
 pkglib_LTLIBRARIES = libscijvm.la
 
@@ -27,7 +29,7 @@ libscijvm_la_root_DATA = changelog.txt license.txt readme.txt version.xml
 
 #### jvm : init scripts ####
 libscijvm_la_etcdir = $(mydatadir)/etc
-libscijvm_la_etc_DATA = etc/jvm.quit etc/jvm.start
+libscijvm_la_etc_DATA = etc/jvm.quit etc/jvm.start etc/jvm_options.xml
 
 #### jvm : gateway declaration ####
 libscijvm_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -69,7 +71,8 @@ src/c/JVM_commons.c \
 src/c/catchIfJavaException.c \
 src/c/loadLibrarypath.c \
 src/c/getLibrarypath.c \
-src/c/addToLibrarypath.c
+src/c/addToLibrarypath.c \
+src/c/getJvmOptions.c
 
 USEANT=1
 

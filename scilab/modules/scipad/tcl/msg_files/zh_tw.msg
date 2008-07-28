@@ -23,6 +23,7 @@
 #
 # See the file scipad/license.txt
 #
+
 # Scipad message for chinese-traditional
 # Scipad 中文訊息檔，zh_tw.msg 及 zh_cn.msg
 # zh_cn.msg 內容直接由 zh_tw.msg 進行繁體轉簡體
