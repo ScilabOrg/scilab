@@ -24,6 +24,10 @@ my ($config, # Configuration
 	$_exec); # [ap78907]
 
 # SQL queries
+$SQL{'UpdateToolbox'} = <<EOQ
+UPDATE Toolbox SET Activation = 1 WHERE IdToolbox = ?
+EOQ
+;
 $SQL{'CreateCompilation'} = <<EOQ
 INSERT INTO ToolboxCompilation
        (IdSource, Host, Target, Environ, StartTime, Stage)
@@ -57,7 +61,8 @@ VALUES (      ?,         ?,       ?,           ?,          ?,      ?,      ?)
 EOQ
 ;
 $SQL{'FindRecentToolboxes'} = <<EOQ
-SELECT IdSource, SourceFile, UploadTime FROM ToolboxSource WHERE UploadTime > ?
+SELECT IdSource, SourceFile, UploadTime, IdToolbox FROM ToolboxSource
+WHERE UploadTime > ?
 EOQ
 ;
 
@@ -117,6 +122,13 @@ sub open_ftp {
 	$ftp->login($config->val('ftp', 'user'), $config->val('ftp', 'password'))
               or die("Cannot login to FTP server: ".$ftp->message);
 	$ftp->binary;
+}
+
+# update_toolbox(tb_id)
+#     Modify Activation field of Toolbox table (change it to true)
+sub update_toolbox {
+    my $tb_id = shift;
+    $dbh->do($SQL{'UpdateToolbox'}, undef, $tb_id);
 }
 
 # create_compilation(source_id, host, target, environ)
@@ -274,7 +286,8 @@ while(my @recent = $sth->fetchrow_array) {
 		exec("buildtoolbox.pl \"$recent[1]\" \"$ARGV[0]\"") or
 		die("Can't run the compilation process");
 	}
-	$subprocesses{$pid} = [$recent[0], $recent[1], $toolbox, $comp_id, time()];
+	$subprocesses{$pid} = [$recent[0], $recent[1], $toolbox, $comp_id,
+	                       time(), $recent[3]];
 	
 	my $upltime = sql_to_timestamp($recent[2]);
 	$next_last_visited = $upltime if $upltime > $next_last_visited;
@@ -286,7 +299,8 @@ $ftp->quit;
 
 while((my $pid = wait()) != -1) {
 	my $success = ($? == 0);
-	my ($tbid, $tbsrcfile, $toolbox, $comp_id, $st) = @{$subprocesses{$pid}};
+	my ($srcid, $tbsrcfile, $toolbox, $comp_id, $st, $tbid)
+	          = @{$subprocesses{$pid}};
 	my $tbdir = "$tmpdir/$toolbox/";
 	
 	print STDERR "$tbsrcfile done\n";
@@ -362,6 +376,9 @@ while((my $pid = wait()) != -1) {
 	else {
 		print STDERR "not uploading $tbsrcfile\n";
 	}
+	
+	# Update Toolbox table
+	update_toolbox($tbid) if $success;
 	
 	# Clean everything
 	rmtree($tbdir);
