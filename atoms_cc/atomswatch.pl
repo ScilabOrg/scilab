@@ -305,6 +305,10 @@ while((my $pid = wait()) != -1) {
 	
 	print STDERR "$tbsrcfile done\n";
 	
+	# Extract toolbox name & version
+	my $tbname = $1 if $toolbox =~ /^([^.]+)/;
+	my $tbvers = $1 if $toolbox =~ /^\.([^-]+)/;
+	
 	# Read build.log
 	my $buildlog = readf("$tmpdir/$toolbox/build.log");
 	
@@ -369,12 +373,54 @@ while((my $pid = wait()) != -1) {
 		$ftp->put("$tbdir/$tbprefix-bin.tar.gz", "$bindir/$tbprefix.tar.gz")
 		   or die("Can't send $tbprefix-bin.tar.gz");
 		
-		$ftp->quit;
-		
 		print STDERR "$tbsrcfile uploaded\n";
 	}
 	else {
 		print STDERR "not uploading $tbsrcfile\n";
+	}
+	
+	# Update TOOLBOXES files
+	if($success) {
+		my $dist = $config->val('ftp', 'toolboxesfile');
+		my $local = "$tbdir/TOOLBOXES";
+		my $newdata = "";
+		my $curdata = "";
+		my ($curname, $curvers);
+		
+		$ftp->get($dist, $local);
+		open my($fd), $local;
+		
+		# Copy without change other toolboxes (including same toolbox but
+		# different version)
+		while(<$fd>) {
+			$curname  = $1 if /^Toolbox\s*:\s*(.+?)\s*$/;
+			$curvers  = $1 if /^Version\s*:\s*(.+?)\s*$/;
+			$curdata .= $_;
+			if(m#^//$# && ($curname ne $tbname || $curvers ne $tbvers)) {
+				$newdata .= $curdata;
+				$curdata = "";
+			}
+		}
+		close $fd;
+		
+		# Append this toolbox
+		my $desc = readf("$tbdir/$tbname/DESCRIPTION");
+		my $descf = readf("$tbdir/$tbname/DESCRIPTION-FUNCTIONS");
+		chomp($descf);
+		chomp($desc);
+		chomp($newdata);
+		$newdata .= "\n";
+		$newdata .= "$desc\n";
+		$newdata .= "--\n$descf\n" if $descf;
+		$newdata .= "//\n";
+		
+		# Write the result
+		open $fd, ">$local";
+		print $fd $newdata;
+		close $fd;
+		
+		$ftp->put($local, $dist);
+	    $ftp->quit;
 	}
 	
 	# Update Toolbox table
