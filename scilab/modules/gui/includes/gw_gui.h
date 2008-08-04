@@ -28,9 +28,9 @@ int sci_unsetmenu(char *fname,unsigned long fname_len);
 int C2F(sci_xgetfile)(char *fname,unsigned long fname_len);
 int sci_uigetdir(char *fname,unsigned long l);
 int C2F(sci_raise_window)( char * fname, unsigned long fname_len ) ;
-int C2F(sci_getlookandfeel)( char * fname, unsigned long fname_len ) ;
-int C2F(sci_getinstalledlookandfeels)( char * fname, unsigned long fname_len ) ;
-int C2F(sci_setlookandfeel)( char * fname, unsigned long fname_len ) ;
+int sci_getlookandfeel( char * fname, unsigned long fname_len ) ;
+int sci_getinstalledlookandfeels( char * fname, unsigned long fname_len ) ;
+int sci_setlookandfeel( char * fname, unsigned long fname_len ) ;
 int C2F(sci_ClipBoard)(char *fname,unsigned long l);
 int sci_toolbar(char *fname,unsigned long l);
 int sci_uicontrol(char *fname,unsigned long l);
@@ -48,6 +48,8 @@ int sci_getcallbackobject(char *fname,unsigned long fname_len);
 #include "sci_mpopup.h"
 int sci_printfigure(char *fname,unsigned long fname_len);
 #include "sci_exportUI.h"
+int sci_printsetupbox(char *fname,unsigned long l);
+int sci_toprint(char *fname,unsigned long l);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_GUI__ */
 /*--------------------------------------------------------------------------*/

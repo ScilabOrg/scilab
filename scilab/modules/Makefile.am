@@ -26,10 +26,10 @@ shell \
 completion \
 localization \
 console \
+graphic_export \
 gui \
 jvm \
 graphics \
-graphic_export \
 optimization \
 symbolic \
 randlib \
@@ -148,7 +148,8 @@ $(top_builddir)/modules/mexlib/libmex.la \
 	$(top_builddir)/modules/action_binding/libsciaction_binding.la \
 	$(top_builddir)/modules/dynamic_link/libscidynamic_link.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
-	$(top_builddir)/modules/sound/libscisound.la
+	$(top_builddir)/modules/sound/libscisound.la \
+	$(top_builddir)/modules/helptools/libscihelptools.la
 
 # These libs are loaded dynamical by Scilab
 #	$(top_builddir)/modules/matio/libscimatio.la
@@ -160,7 +161,6 @@ $(top_builddir)/modules/mexlib/libmex.la \
 #	$(top_builddir)/modules/spreadsheet/libscispreadsheet.la 
 
 # Dev in progress
-#	$(top_builddir)/modules/helptools/libscihelptools.la
 
 # Core modules
 libscilab_la_LIBADD = $(ALL_LIBS)

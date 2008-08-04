@@ -51,7 +51,7 @@ chdir(path);
 
 try
 	unix_s(intersci+' intsfoo')
-	ilib_build('testlib',['test','intsfoo'],['foo.o','intsfoo.o'],[])
+	ilib_build('buglib',['bug1957','intsfoo'],['foo.o','intsfoo.o'],[])
 	exec loader.sce
 catch
 	if %T then pause,end
@@ -60,14 +60,19 @@ end
 
 chdir(curpath);
 
-res=test(1.2,-2.3);
-if norm(res-[1.2,-2.3,2000,0.001])  >= 1d-10 then pause,end
+res=bug1957(1.2,-2.3);
+VAL = 2000;
+if norm(res-[1.2,-2.3,VAL,0.001])-VAL  >= 2d-1 then pause,end
 
-res=test(1.2,-2.3,ITMAX=33);
-if norm(res-[1.2,-2.3,33,0.001])    >= 1d-10 then pause,end
+ITMAX=33;
+res=bug1957(1.2,-2.3);
+if norm(res-[1.2,-2.3,33,0.001])-ITMAX    >= 2d-1 then pause,end
 
-res=test(1.2,-2.3,eps=1d-7);
-if norm(res-[1.2,-2.3,2000,1d-7])   >= 1d-10 then pause,end
+eps=1d-7;
+res=bug1957(1.2,-2.3);
+VAL = 2000;
+if norm(res-[1.2,-2.3,VAL,1d-7])-VAL   >= 2d-1 then pause,end
 
-res=test(1.2,-2.3,eps=1d-7,ITMAX=33);
-if norm(res-[1.2,-2.3,33,1d-7])     >= 1d-10 then pause,end
+ITMAX=33;
+res=bug1957(1.2,-2.3);
+if norm(res-[1.2,-2.3,ITMAX,1d-7])-ITMAX    >= 2d-1 then pause,end

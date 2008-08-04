@@ -324,7 +324,8 @@ NON_BLOCK_C_SOURCES =  src/c/scoGetProperty.c \
 src/c/scoSetProperty.c \
 src/c/scoMisc.c \
 src/c/scoMemoryScope.c\
-src/c/scoWindowScope.c
+src/c/scoWindowScope.c \
+src/c/affich.c
 
 SCICOS_BLOCKS_FORTRAN_SOURCES = src/fortran/affich2.f \
 src/fortran/affich.f \

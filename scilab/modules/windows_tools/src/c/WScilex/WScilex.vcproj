@@ -367,10 +367,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\scilab_windows\setLC_MESSAGES.c"
-				>
-			</File>
-			<File
 				RelativePath=".\WScilex.c"
 				>
 			</File>
@@ -382,6 +378,10 @@
 			>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\scilab_windows\setDOCBOOK_ROOT.h"
 				>
 			</File>
 			<File

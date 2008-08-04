@@ -28,8 +28,8 @@ function [model, ok] = build_block(o)
 
   if model.sim(1)=='scifunc' then
     if model.ipar==0 then
-      message("A scifunc block has not been defined")
-      ok = %f;
+      x_message(sprintf(gettext("%s: Error: A scifunc block has not been defined."), "build_block"))
+      ok = %f
       return
     end
     model.sim = list(genmac(model.ipar,size(model.in,'*'),size(model.out,'*')),3);
@@ -38,14 +38,14 @@ function [model, ok] = build_block(o)
 
     modsim = modulo(model.sim(2),10000)
 
-    if int(modsim/1000) == 1 then   //Fortran Block
+    if int(modsim/1000) == 1 then   // Fortran Block
       funam = model.sim(1)
       if ~c_link(funam) then
         tt = graphics.exprs(2);
         ok = scicos_block_link(funam, tt, 'f')
       end
 
-    elseif int(modsim/1000) == 2 then   //C Block
+    elseif int(modsim/1000) == 2 then   // C Block
       funam = model.sim(1)
       if ~c_link(funam) then //** if the function is not already linked
         tt = graphics.exprs(2);
@@ -55,7 +55,7 @@ function [model, ok] = build_block(o)
     elseif model.sim(2) == 30004 then //modelica generic file type 30004
 
       //funam = model.sim(1); tt = graphics.exprs(2);
-      if type(graphics.exprs) == 15 then //compatibility
+      if type(graphics.exprs) == 15 then // compatibility
         funam = model.sim(1);
         tt    = graphics.exprs(2);
       else
@@ -69,6 +69,13 @@ function [model, ok] = build_block(o)
         mputl(tt, funam);
       end
 
+      //++ Check that modelica compiler is available
+      //++ Otherwise, give some feedback and quit
+      if ~with_modelica_compiler() then
+        x_message(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable."), "build_block"));
+        ok = %f
+      end
+
       //** OBSOLETE thanks to automatic detection of 'modelicac' location
       //compilerpath = pathconvert(fullfile(SCI,'bin'), %f, %t);
       //if MSDOS then
@@ -79,8 +86,10 @@ function [model, ok] = build_block(o)
 
       compilerpath = 'modelicac' //** thanks to automatic detection
 
-      strCmd = compilerpath + ' -c ' + funam + ' -o ' + tarpath + nameF + '.moc'
+      // build compilation command line, execute it and test for result
+      strCmd = compilerpath + ' -c ' + funam + ' -o ' + fullfile(tarpath, nameF + '.moc')
       if execstr('unix_s(''' + strCmd + ''')', 'errcatch') <> 0 then
+        error(sprintf(gettext("%s: Error : the following command line failed to execute: %s.\n"), "build_block", strCmd))
         ok = %f
       end
     end

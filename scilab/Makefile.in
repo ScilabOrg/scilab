@@ -54,22 +54,24 @@ DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(top_srcdir)/etc/modules.xml.in \
 	$(top_srcdir)/modules/core/includes/machine.h.in \
 	$(top_srcdir)/modules/helptools/macros/xmlfiletohtml.sci.in \
-	$(top_srcdir)/modules/jvm/etc/jvm_options.xml.in COPYING \
-	config/compile config/config.guess config/config.rpath \
-	config/config.sub config/depcomp config/install-sh \
-	config/ltmain.sh config/missing
+	$(top_srcdir)/modules/jvm/etc/jvm_options.xml.in ABOUT-NLS \
+	COPYING config.guess config.sub config/compile \
+	config/config.guess config/config.rpath config/config.sub \
+	config/depcomp config/install-sh config/ltmain.sh \
+	config/missing depcomp install-sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/fftw.m4 \
-	$(top_srcdir)/m4/fortran.m4 $(top_srcdir)/m4/giws.m4 \
-	$(top_srcdir)/m4/intel_compiler.m4 $(top_srcdir)/m4/java.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/libs_by_debian.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
+	$(top_srcdir)/m4/fftw.m4 $(top_srcdir)/m4/fortran.m4 \
+	$(top_srcdir)/m4/giws.m4 $(top_srcdir)/m4/intel_compiler.m4 \
+	$(top_srcdir)/m4/java.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/libs_by_debian.m4 \
 	$(top_srcdir)/m4/libsmath.m4 $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/libxml2.m4 $(top_srcdir)/m4/matio.m4 \
 	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pcre.m4 \
 	$(top_srcdir)/m4/pvm.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/sciman.m4 $(top_srcdir)/m4/swig.m4 \
-	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
-	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
+	$(top_srcdir)/m4/tcltk.m4 $(top_srcdir)/m4/umfpack.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -77,7 +79,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/modules/core/includes/machine.h
 CONFIG_CLEAN_FILES = modules/helptools/macros/xmlfiletohtml.sci \
-	modules/jvm/etc/jvm_options.xml scilab.pc etc/modules.xml \
+	scilab.pc etc/modules.xml modules/jvm/etc/jvm_options.xml \
 	scilab-lib.properties scilab-lib-doc.properties
 @ENABLE_STATIC_TRUE@am__EXEEXT_1 = scilab-static-bin$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" \
@@ -177,6 +179,7 @@ CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DOCBOOK_ROOT = @DOCBOOK_ROOT@
 DSYMUTIL = @DSYMUTIL@
 ECHO = @ECHO@
 ECHO_C = @ECHO_C@
@@ -222,7 +225,6 @@ LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
-MANGENERATOR = @MANGENERATOR@
 MATIO_CFLAGS = @MATIO_CFLAGS@
 MATIO_ENABLE = @MATIO_ENABLE@
 MATIO_LIB = @MATIO_LIB@
@@ -276,7 +278,6 @@ TK_INC_PATH = @TK_INC_PATH@
 UMFPACK_ENABLE = @UMFPACK_ENABLE@
 UMFPACK_LIB = @UMFPACK_LIB@
 VERSION = @VERSION@
-WITH = @WITH@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
@@ -376,6 +377,14 @@ $(top_srcdir)/etc/toolboxes.xml
 profilingdir = $(pkgdatadir)/tools/profiling/
 profiling_DATA = $(top_srcdir)/tools/profiling/valgrind.supp
 
+# Misc variable for the documentation installation
+
+# How help files look like.
+DOCMASK = scilab_*_help.jar
+
+# Path to builded files
+PATHTOHELPFILES = modules/helptools/jar/
+
 # Pkgconfig directory
 pkgconfigdir = $(libdir)/pkgconfig
 
@@ -437,11 +446,11 @@ distclean-hdr:
 	-rm -f modules/core/includes/machine.h modules/core/includes/stamp-h1
 modules/helptools/macros/xmlfiletohtml.sci: $(top_builddir)/config.status $(top_srcdir)/modules/helptools/macros/xmlfiletohtml.sci.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-modules/jvm/etc/jvm_options.xml: $(top_builddir)/config.status $(top_srcdir)/modules/jvm/etc/jvm_options.xml.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 scilab.pc: $(top_builddir)/config.status $(srcdir)/scilab.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 etc/modules.xml: $(top_builddir)/config.status $(top_srcdir)/etc/modules.xml.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+modules/jvm/etc/jvm_options.xml: $(top_builddir)/config.status $(top_srcdir)/modules/jvm/etc/jvm_options.xml.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 scilab-lib.properties: $(top_builddir)/config.status $(srcdir)/scilab-lib.properties.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -1022,7 +1031,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	uninstall-rootDATA
 
 
-@GUI_TRUE@	scilab_bin_LDADD += $(JAVA_JNI_LIBS)
+@NEED_JAVA_TRUE@	scilab_bin_LDADD += $(JAVA_JNI_LIBS)
 
 all-local: $(TARGETS_ALL)
 
@@ -1032,17 +1041,18 @@ macros:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab
 	$(top_builddir)/bin/scilab -ns -nwni -f modules/functions/scripts/buildmacros/buildmacros.sce)
 
 doc:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab
-	-@if test -x $(top_builddir)/scilab-bin; then \
-		cd $(top_builddir);\
-		echo "-- Building documentation (English) --"; \
-		echo "$(top_builddir)/bin/scilab -nb -l en_US -nouserstartup -nw -e \"xmltojar();exit;\"";\
-		$(top_builddir)/bin/scilab -nb -l en_US -nouserstartup -nw -e "xmltojar();exit;";\
-		echo "-- Building documentation (French) --"; \
-		echo "$(top_builddir)/bin/scilab -nb -l fr_FR -nouserstartup -nw -e \"xmltojar();exit;\""; \
-		$(top_builddir)/bin/scilab -nb -l fr_FR -nouserstartup -nw -e "xmltojar();exit;"; \
-	else \
-		echo "Cannot find Scilab binary"; \
-	fi
+@BUILD_HELP_TRUE@	-@if test -x $(top_builddir)/scilab-bin; then \
+@BUILD_HELP_TRUE@		cd $(top_builddir);\
+@BUILD_HELP_TRUE@		echo "-- Building documentation (English) --"; \
+@BUILD_HELP_TRUE@		echo "$(top_builddir)/bin/scilab -nb -l en_US -nouserstartup -nw -e \"xmltojar();exit;\"";\
+@BUILD_HELP_TRUE@		DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab -nb -l en_US -nouserstartup -nw -e "xmltojar();exit;";\
+@BUILD_HELP_TRUE@		echo "-- Building documentation (French) --"; \
+@BUILD_HELP_TRUE@		echo "$(top_builddir)/bin/scilab -nb -l fr_FR -nouserstartup -nw -e \"xmltojar();exit;\""; \
+@BUILD_HELP_TRUE@		DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab -nb -l fr_FR -nouserstartup -nw -e "xmltojar();exit;"; \
+@BUILD_HELP_TRUE@	else \
+@BUILD_HELP_TRUE@		echo "Cannot find Scilab binary"; \
+@BUILD_HELP_TRUE@	fi
+@BUILD_HELP_FALSE@	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
 
 check-help:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab
 	@if test -x $(top_builddir)/scilab-bin; then \
@@ -1128,6 +1138,18 @@ install-data-local:
 		echo $(INSTALL_DATA) locale/$$lang/LC_MESSAGES/$(LANG_DOMAIN).mo $$LANG_PATH_DIST/; \
 		$(INSTALL_DATA) locale/$$lang/LC_MESSAGES/$(LANG_DOMAIN).mo $$LANG_PATH_DIST/; \
 	done
+
+################ INSTALL DOCUMENTATION #################
+# Starting from Scilab 5, documentation file are provided by Docbook
+# In the Scilab application we are generating a JavaHelp file.
+@BUILD_HELP_TRUE@	@$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
+@BUILD_HELP_TRUE@	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
+@BUILD_HELP_TRUE@	if ls -lLd $(top_builddir)/$(PATHTOHELPFILES)/$(DOCMASK) >/dev/null 2>&1; then \
+@BUILD_HELP_TRUE@		for file in $(top_builddir)/$(PATHTOHELPFILES)/$(DOCMASK); do \
+@BUILD_HELP_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)" ; \
+@BUILD_HELP_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES) ; \
+@BUILD_HELP_TRUE@		done; \
+@BUILD_HELP_TRUE@	fi
 
 .PHONY: macros localization doc
 

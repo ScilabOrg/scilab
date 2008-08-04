@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include "GetWindowsVersion.h"
 #include "win_mem_alloc.h" /* MALLOC */
-#include "setLC_MESSAGES.h"
 /*--------------------------------------------------------------------------*/
 #define MSG_DETECT_2K_OR_MORE "Scilab requires Windows 2000 or more."
 #define MSG_WARNING "Warning"
@@ -26,7 +25,7 @@
 #define ARG_NOGUI "-nogui"
 #define LENGTH_BUFFER_SECURITY 64
 /*--------------------------------------------------------------------------*/
-typedef int (*MYPROC2) (HINSTANCE, HINSTANCE ,LPSTR szCmdLine, int iCmdShow);
+typedef int (*MYPROC1) (HINSTANCE, HINSTANCE ,LPSTR szCmdLine, int iCmdShow);
 /*--------------------------------------------------------------------------*/
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR szCmdLine, int iCmdShow)
 {
@@ -39,16 +38,14 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR szCmdLine
 		return -1;
 	}
 
-	setLC_MESSAGES();
-
 	hinstLib = LoadLibrary(TEXT(SCILAB_LIBRARY)); 	
 	if (hinstLib != NULL) 
 	{ 
 		UINT LastErrorMode = 0;
-		MYPROC2 Windows_Main = NULL; 
+		MYPROC1 Windows_Main = NULL; 
 
 		/* launch main */
-		Windows_Main = (MYPROC2) GetProcAddress(hinstLib,MAIN_FUNCTION); 
+		Windows_Main = (MYPROC1) GetProcAddress(hinstLib,MAIN_FUNCTION); 
 		if (NULL != Windows_Main) 
 		{
 			fRunTimeLinkSuccess = TRUE;

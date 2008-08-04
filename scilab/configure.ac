@@ -512,7 +512,7 @@ AC_CHECK_UNDERSCORE_FORTRAN()
 ## test for JAVA compiler
 ###########################
 
-if test "$with_javasci" != no -o "$with_gui" != no; then
+if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no; then
    # See if --with-jdk command line argument is given
      # Try to detect the installed JVM, this could be controlled
 	 # by the above --with options
@@ -596,6 +596,7 @@ if test "$with_javasci" != no -o "$with_gui" != no; then
 		AC_GIWS()
 	fi
 
+	AM_CONDITIONAL(NEED_JAVA, test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no)
 fi
 
 AM_CONDITIONAL(GUI, test "$with_gui" != no)
@@ -990,55 +991,14 @@ AM_CONDITIONAL(MATIO, test "$with_matio" != no)
 AC_ARG_ENABLE(build-help,
 		AC_HELP_STRING([--enable-build-help],[Enable the help build])
 		)
-
+HELP_ENABLE=no
 if test "$enable_build_help" != no -a "$enable_build_help" != ""; then
-
-   dnl check for xsltproc
-   AC_ARG_WITH(sablotron,
-		AC_HELP_STRING([--with-sablotron],[Generates man pages using sablotron]),
-		[with_sablotron=$withval],
-		[with_sablotron='']
-	)
-
-	AC_ARG_WITH(xsltproc,
-		AC_HELP_STRING([--with-xsltproc],[Generates man pages using xsltproc]),
-		[with_xsltproc=$withval],
-		[with_xsltproc='']
-		)
-
-	if test "x$with_xsltproc" != 'x' -a "x$with_sablotron" != 'x'; then
-		AC_MSG_ERROR([Conflicting options : you specified two XSLT processor (sablotron & xsltproc)])
-	fi
-
-	AC_CHECK_MAN_GENERATOR([$with_sablotron],[Sablotron],[sabcmd])
-	if test "x$MANGENERATOR" = 'x' -o "x$with_xsltproc" != 'x'; then
-	   AC_CHECK_MAN_GENERATOR([$with_xsltproc],[xsltproc],[xsltproc])
-	fi
-	AC_SUBST(MANGENERATOR)
-
-	# xml.apache.org SVG Library
-	AC_JAVA_CHECK_PACKAGE([batik],[org.apache.batik.parser.Parser],[Apache SVG Library])
-	BATIK=$PACKAGE_JAR_FILE
-	AC_SUBST(BATIK)
-
-	# Saxon XSLT Processor
-	AC_JAVA_CHECK_PACKAGE([saxon],[com.icl.saxon.Loader],[Saxon XSLT Processor])
-	SAXON=$PACKAGE_JAR_FILE
-	AC_SUBST(SAXON)
-
-	# XML to PDF Translator
-	AC_JAVA_CHECK_PACKAGE([fop],[org.apache.fop.pdf.PDFInfo],[XML to PDF Translator (fop)])
-	FOP=$PACKAGE_JAR_FILE
-	AC_SUBST(FOP)
-
-	# MathML rendering solution
-	AC_JAVA_CHECK_PACKAGE([jeuclid-core],[net.sourceforge.jeuclid.MathBase],[MathML rendering solution])
-	JEUCLID_CORE=$PACKAGE_JAR_FILE
-	AC_SUBST(JEUCLID_CORE)
-
+    AC_DOCBOOK()
+	HELP_ENABLE=yes
 
 fi #build help
- 
+AM_CONDITIONAL(BUILD_HELP, test "$enable_build_help" = "yes")
+
 AC_ARG_WITH(install-help-xml,
 		AC_HELP_STRING([--with-install-help-xml],[make install will install XML files]),
 		[with_install_help_xml=$withval],
@@ -1147,7 +1107,6 @@ modules/shell/Makefile
 modules/completion/Makefile
 modules/history_manager/Makefile
 modules/jvm/Makefile
-modules/jvm/etc/jvm_options.xml
 modules/sound/Makefile
 modules/statistics/Makefile
 modules/mexlib/Makefile
@@ -1206,6 +1165,7 @@ libs/Makefile
 Makefile
 scilab.pc
 etc/modules.xml
+modules/jvm/etc/jvm_options.xml
 scilab-lib.properties
 scilab-lib-doc.properties
 ])
@@ -1354,12 +1314,6 @@ else
    echo "Not using UMFPACK"
 fi
 
-echo ""
-echo "Documentation processor:"
-echo "Sablotron processor (--with-sablotron) ........... = $with_sablotron"
-echo "Xsltproc processor (--with-xsltproc) ............. = $with_xsltproc"
-
-
 
 echo ""
 echo "BLAS/LAPACK/ATLAS Configuration:"
@@ -1410,9 +1364,12 @@ else
 fi
 
 echo ""
-if test ! -z "$MANGENERATOR"; then
-   echo "XSL Processor Configuration:"
-   echo "XSL Processor ...... = $MANGENERATOR"
+if test ! -z "$HELP_ENABLE"; then
+   echo "Docbook XSL path ....... = $DOCBOOK_ROOT"
+   echo "Batik (SVG) ............ = $BATIK"
+   echo "Saxon XSLT ............. = $SAXON"
+   echo "FOP (XML => PDF) ....... = $FOP"
+   echo "Jeuclid (MathML) ....... = $JEUCLID_CORE"
 else
    echo "No documentation generated"
 fi

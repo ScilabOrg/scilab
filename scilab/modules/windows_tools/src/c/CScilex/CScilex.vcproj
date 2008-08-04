@@ -366,10 +366,6 @@
 				RelativePath=".\CScilex.c"
 				>
 			</File>
-			<File
-				RelativePath="..\scilab_windows\setLC_MESSAGES.c"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -378,6 +374,10 @@
 			>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\scilab_windows\setDOCBOOK_ROOT.h"
 				>
 			</File>
 			<File
