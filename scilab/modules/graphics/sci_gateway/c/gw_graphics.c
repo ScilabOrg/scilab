@@ -19,6 +19,10 @@
 #include "callFunctionFromGateway.h"
 #include "localization.h"
 #include "Scierror.h"
+#include "BOOL.h"
+#include "loadOnUseClassPath.h"
+/*--------------------------------------------------------------------------*/ 
+static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/ 
 static gw_generic_table Tab[]={
 	{sci_champ,"champ"},	
@@ -103,15 +107,22 @@ static gw_generic_table Tab[]={
 int gw_graphics(void)
 {  
 	Rhs = Max(0, Rhs);
+
 	if ( getScilabMode() != SCILAB_NWNI )
+	{
+		if (!loadedDep) 
 		{
-			callFunctionFromGateway(Tab);
-			C2F(putlhsvar)();
+			loadOnUseClassPath("graphics");
+			loadedDep = TRUE;
 		}
+
+		callFunctionFromGateway(Tab);
+		C2F(putlhsvar)();
+	}
 	else
-		{
-			Scierror(999,_("Scilab graphic module disabled -nogui or -nwni mode.\n"));
-		}
+	{
+		Scierror(999,_("Scilab graphic module disabled -nogui or -nwni mode.\n"));
+	}
 
 	return 0;
 }

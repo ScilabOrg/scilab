@@ -39,7 +39,7 @@ int SetUicontrolPosition(sciPointObj* sciObj, int stackPointer, int valueType, i
         {
           if(nbCol != 1)
             {
-              sciprint(_("Wrong size for '%s' property: A string or a 1 x 4 real row vector expected.\n"), "Position");
+              sciprint(_("Wrong size for '%s' property: A string or a 1 x %d real row vector expected.\n"), "Position", 4);
               return SET_PROPERTY_ERROR;
             }
           
@@ -47,34 +47,34 @@ int SetUicontrolPosition(sciPointObj* sciObj, int stackPointer, int valueType, i
           
           if (nbvalues != 4)
             {
-              sciprint(_("Wrong value for '%s' property: A string or a 1 x 4 real row vector expected.\n"), "Position");
+              sciprint(_("Wrong value for '%s' property: A string or a 1 x %d real row vector expected.\n"), "Position", 4);
               return SET_PROPERTY_ERROR;
             }
           
-          xInt = ConvertToPixel(xDouble, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          yInt = ConvertToPixel(yDouble, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          widthInt = ConvertToPixel(widthDouble, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          heightInt = ConvertToPixel(heightDouble, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
+          xInt = ConvertToPixel(xDouble, pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          yInt = ConvertToPixel(yDouble, pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          widthInt = ConvertToPixel(widthDouble, pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          heightInt = ConvertToPixel(heightDouble, pUICONTROL_FEATURE(sciObj)->units, sciObj);
           
         }
       else if (valueType == sci_matrix)
         {
           if(nbCol != 4 || nbRow != 1)
             {
-              sciprint(_("Wrong size for '%s' property: A string or a 1 x 4 real row vector expected.\n"), "Position");
+              sciprint(_("Wrong size for '%s' property: A string or a 1 x %d real row vector expected.\n"), "Position", 4);
               return SET_PROPERTY_ERROR;
             }
           
           allValues = getDoubleMatrixFromStack(stackPointer);
-          xInt = ConvertToPixel(allValues[0], pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          yInt = ConvertToPixel(allValues[1], pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          widthInt = ConvertToPixel(allValues[2], pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
-          heightInt = ConvertToPixel(allValues[3], pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
+          xInt = ConvertToPixel(allValues[0], pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          yInt = ConvertToPixel(allValues[1], pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          widthInt = ConvertToPixel(allValues[2], pUICONTROL_FEATURE(sciObj)->units, sciObj);
+          heightInt = ConvertToPixel(allValues[3], pUICONTROL_FEATURE(sciObj)->units, sciObj);
           
         }
       else
         {
-          sciprint(_("Wrong type for '%s' property: A string or a 1 x 4 real row vector expected.\n"), "Position");
+          sciprint(_("Wrong type for '%s' property: A string or a 1 x %d real row vector expected.\n"), "Position", 4);
           return SET_PROPERTY_ERROR;
         }
     }

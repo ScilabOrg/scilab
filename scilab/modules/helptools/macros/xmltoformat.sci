@@ -23,18 +23,6 @@ function xmltoformat(output_format,dirs,titles,directory_language,default_langua
 	global %helps_modules;
 	%HELPS=[%helps_modules;%helps];
 	
-	if MSDOS then
-	 
-	 // set java classpath only when we need
-	 javaclasspath(SCI+'/thirdparty/jeuclid-core.jar');
-	 javaclasspath(SCI+'/thirdparty/commons-logging.jar');
-	 javaclasspath(SCI+'/thirdparty/batik.jar');
-	 javaclasspath(SCI+'/thirdparty/js.jar');
-	 javaclasspath(SCI+'/thirdparty/saxon.jar');
-	 javaclasspath(SCI+'/thirdparty/docbook-xsl-saxon.jar');
-	 
-	end
-	
 	SCI_long = pathconvert(getlongpathname(SCI),%F,%F);
 	
 	//--------------------------------------------------------------------------
@@ -728,6 +716,11 @@ function create_MD(dirs,titles,output_filename)
 			"<!DOCTYPE book [";
 			"<!--Begin Entities-->"];
 	xml_files          = listfiles(dirs+"/*.xml");
+	
+	if MSDOS then
+	  xml_files = "file:///"+xml_files;
+	end
+	
 	master_document    = [master_document; ..
 		"<!ENTITY "+basename(xml_files)+" SYSTEM """+xml_files+""">"];
 	

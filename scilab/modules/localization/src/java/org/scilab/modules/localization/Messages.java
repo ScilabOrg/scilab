@@ -12,17 +12,16 @@
  */
 package org.scilab.modules.localization;
 
+
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.io.File;
 import java.util.Locale;
 
 public class Messages {
 
-	public static final boolean IS_WINDOWS = (File.pathSeparatorChar == ';');
-	
-	private static final String systemLocale = "LC_MESSAGES"; 
-    private static final String defaultLocale = "en_US"; 
+    private static final String systemLocale = "LC_MESSAGES"; 
+    private static final String defaultLocale = "en_US";
+    private static final String UTF8 = "UTF-8"; 
 	private static final String pathToTheClass = "org.scilab.modules.localization.Messages";
     private static ResourceBundle resourceBundle;
     private static boolean failedToLoadBundle;
@@ -34,7 +33,9 @@ public class Messages {
 		try {
 			String locale = System.getenv(systemLocale);
 			if (locale != null && !locale.equals("")) { /* If we haven't been able to get the language from the env */
-				resourceBundle = ResourceBundle.getBundle(pathToTheClass, new Locale(locale));
+				String[] localeLanguageCountry = convertLocale(locale);
+				resourceBundle = ResourceBundle.getBundle(pathToTheClass, 
+						new Locale(localeLanguageCountry[0], localeLanguageCountry[1]));
 			} else {
 				failedToLoadBundle = true;
 			}
@@ -42,12 +43,49 @@ public class Messages {
 			System.err.println("Could not file localization file for " + systemLocale);
 			System.err.println("Switch back to the default language " + defaultLocale);
 			try {
-				resourceBundle = ResourceBundle.getBundle(pathToTheClass, new Locale(defaultLocale));
+				String[] localeLanguageCountry = convertLocale(defaultLocale);
+				resourceBundle = ResourceBundle.getBundle(pathToTheClass, 
+						new Locale(localeLanguageCountry[0], localeLanguageCountry[1]));
 			} catch (java.util.MissingResourceException e2) {
 				failedToLoadBundle = true;
 			}
 		}
 	}
+	
+	/**
+     * converts locale string Language_Country.CodePage to 
+	 * returns language, country, code page
+     * @param localeEnv Language_Country.CodePage
+     * @return String[] language, country, code page
+	 */
+	private static String[] convertLocale(String localeEnv) {
+		final int SIZELOCALESPLIT = 3; 
+		final int CASETHREE = 3;
+		final int CASETWO = 2;
+		String [] localeSplit = new String[SIZELOCALESPLIT];
+		
+		String [] splitString = localeEnv.split("[_.]");
+		switch (splitString.length) {
+			case CASETHREE : localeSplit = splitString;	break;
+			case CASETWO : {
+			localeSplit[0] = splitString[0]; 
+			localeSplit[1] = splitString[1];
+			localeSplit[2] = new String(UTF8);
+		}
+		break;
+		
+		default : {
+			/* error in format localeEnv then we use default language */
+			localeSplit[0] = new String("en");
+			localeSplit[1] = new String("US");
+			localeSplit[2] = new String(UTF8);
+		}
+		break;
+		
+		}
+		return localeSplit;
+	}
+	
 
     /**
      * Returns the translation of a message
@@ -57,9 +95,7 @@ public class Messages {
      * @return The translated string (or the same if the translation is not avaiable)
 	 */
     public static String gettext(String key) {
-		if (IS_WINDOWS){
-		return Localization.getTextC(key);
-		}else /* If the bundle failed to load, just return the key */
+        /* If the bundle failed to load, just return the key */
         if (failedToLoadBundle) {
             return key;
         }
@@ -78,4 +114,5 @@ public class Messages {
             return key;
         }
     }
+
 }

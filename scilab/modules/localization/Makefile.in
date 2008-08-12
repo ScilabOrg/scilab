@@ -211,6 +211,7 @@ LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
+LOOKS = @LOOKS@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
@@ -256,6 +257,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SET_RELOCATABLE = @SET_RELOCATABLE@
 SHELL = @SHELL@
+SKINLF = @SKINLF@
 STRIP = @STRIP@
 SWIG_BIN = @SWIG_BIN@
 SWIG_JAVA = @SWIG_JAVA@
@@ -338,9 +340,6 @@ src/c/LanguagePref.c \
 src/c/saveLanguagePref.c \
 src/c/loadLanguagePref.c
 
-
-#LOCALIZATION_C_SOURCES += src/jni/GetText_wrap.c
-#LOCALIZATION_C_SOURCES += src/c/getTextWarp.c
 GATEWAY_C_SOURCES = sci_gateway/c/gw_localization.c \
 sci_gateway/c/sci_gettext.c \
 sci_gateway/c/sci_dgettext.c \

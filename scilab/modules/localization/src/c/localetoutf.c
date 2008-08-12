@@ -135,10 +135,12 @@ char *getEncoding(char *lang)
 			else
 			{
 				/*default to UTF8*/
+				/* under linux language_countryXX.utf8 */
 				encoding = strdup("UTF-8"); 
 			}
 		}
 	}
+	else encoding = strdup("UTF-8"); 
 	return encoding;
 }
 /*--------------------------------------------------------------------------*/

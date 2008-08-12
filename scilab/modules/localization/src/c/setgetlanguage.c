@@ -48,44 +48,26 @@
 static char CURRENTLANGUAGESTRING[6] = SCILABDEFAULTLANGUAGE;
 /*--------------------------------------------------------------------------*/
 static BOOL exportLocaleToSystem(char *locale);
+static char* addCodePage(char *lang);
 /*--------------------------------------------------------------------------*/
 BOOL setlanguage(char *lang)
 {
 	if (lang)
 	{
 		/* Load the locale from the system */
+		char *ret = NULL;
+
 		#ifndef _MSC_VER
-		/* get current value LC_MESSAGES */
-		char *ret = setlocale(LC_MESSAGES,"");
-		if (strlen(lang) == 5) /* example : en_US */
-		{
-			char *langEncoding = NULL;
-			char *Encoding = getEncoding(lang);
-			if (Encoding)
-			{
-				langEncoding = (char*)MALLOC((strlen(Encoding)+strlen(".")+strlen(lang))*sizeof(char));
-				if (langEncoding) 
-				{
-					sprintf(langEncoding,"%s.%s",lang,Encoding);
-					ret = setlocale(LC_MESSAGES,langEncoding);
-					FREE(langEncoding);
-					langEncoding = NULL;
-				}
-				FREE(Encoding);
-				Encoding = NULL;
-			}
-		}
-		else
-		{
-			ret = setlocale(LC_MESSAGES,lang);
-		}
+		char *LANG = addCodePage(lang);
+		ret = setlocale(LC_MESSAGES,LANG);
+		if (LANG) {FREE(LANG);LANG = NULL;}
 		#else
 		/* Load the user locale from the system */
-		char *ret = getLocaleUserInfo();
+		ret = getLocaleUserInfo();
 		#endif
 
 		/* change language */
-		if (strcmp(lang,"C")==0)
+		if (strcmp(lang,"C") ==0 )
 		{
 			/* The lang is the default one... ie en_US */
 			strcpy(CURRENTLANGUAGESTRING,SCILABDEFAULTLANGUAGE);
@@ -131,11 +113,31 @@ char *getlanguage(void)
 static BOOL exportLocaleToSystem(char *locale)
 {
 	/* It will put in the env something like LC_MESSAGES=fr_FR */
+
+	#ifndef _MSC_VER
+	char *LANG = addCodePage(locale);
+	#endif
+
+	/* on linux , we want to export something like LC_MESSAGES = fr_FR.utf-8 */
+	/* on windows, we want to export something like LC_MESSAGES = fr_FR */
+
+	#ifndef _MSC_VER
+	if ( !setenvc(EXPORTENVLOCALESTR,LANG))
+	#else
 	if ( !setenvc(EXPORTENVLOCALESTR,locale))
+	#endif
 	{
 		fprintf(stderr,"Localization: Failed to declare the system variable %s\n", EXPORTENVLOCALE);
+		#ifndef _MSC_VER
+		if (LANG) { FREE(LANG);LANG = NULL;}
+		#endif
 		return FALSE;
 	}
+
+	#ifndef _MSC_VER
+	if (LANG) { FREE(LANG);LANG = NULL;}
+	#endif
+
 	#ifdef _MSC_VER
 		#ifdef USE_SAFE_GETTEXT_DLL
 	{
@@ -181,9 +183,48 @@ BOOL isValidLanguage(char *lang)
 		if ( strcmp(lang,"en") == 0) return TRUE;
 		if ( strcmp(lang,"fr") == 0) return TRUE;
 		if ( ((int) strlen(lang) == 5) && (lang[2] == '_') ) return TRUE; /* xx_XX */
-		if ( ((int) strlen(lang) > 5) && (lang[5] == '.') ) return TRUE; /* xx_XX.CP */
 	}
 	return FALSE;
 
+}
+/*--------------------------------------------------------------------------*/
+/* On linux (Ubuntu) , we have this message :
+	(<unknown>:25838): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+	because LC_MESSAGES is only defined by Language_Country and not 
+	Language_Country.CodePage (fr_FR.utf8)
+*/
+static char* addCodePage(char *lang)
+{
+	char *languageCountryCodePage = NULL;
+
+	if ( strcmp(lang,"") == 0 ) /* default system */
+	{
+		#ifndef _MSC_VER
+		languageCountryCodePage = strdup(setlocale(LC_MESSAGES,""));
+		#else
+		languageCountryCodePage = getLocaleUserInfo();
+		#endif
+	}
+	else
+	{
+		#ifndef _MSC_VER
+		char *retCTYPE = setlocale(LC_MESSAGES,"");
+		#else
+		char *retCTYPE = setlocale(LC_CTYPE,"");
+		#endif
+		char *encoding = getEncoding(retCTYPE);
+		int sizelanguageCountryCodePage = strlen(lang) + strlen(encoding) + strlen(".") + 1;
+
+		languageCountryCodePage = (char*)MALLOC(sizeof(char) * sizelanguageCountryCodePage);
+		if (languageCountryCodePage)
+		{
+			strcpy(languageCountryCodePage,lang);
+			strcat(languageCountryCodePage,".");
+			strcat(languageCountryCodePage,encoding);
+		}
+		if (encoding) {FREE(encoding); encoding = NULL;}
+	}
+	return languageCountryCodePage;
 }
 /*--------------------------------------------------------------------------*/

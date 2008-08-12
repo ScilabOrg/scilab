@@ -4,7 +4,6 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// <-- NO CHECK REF -->
 //define tools
 function A=testmat1(a,n)
 	//eigen values are given by a dilation of nth roots of 1

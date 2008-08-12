@@ -16,6 +16,7 @@
 #include <libxml/xpath.h>
 #include <libxml/xmlreader.h>
 #include <stdio.h>
+#include <string.h>
 #include "loadClasspath.h"
 #include "GetXmlFileEncoding.h"
 #include "../../fileio/includes/FileExist.h"
@@ -23,9 +24,12 @@
 #include "setgetSCIpath.h"
 #include "MALLOC.h"
 #include "localization.h"
+#include "scilabmode.h"
+#include "stricmp.h"
 #ifdef _MSC_VER
 	#include "strdup_windows.h"
 #endif
+
 /*--------------------------------------------------------------------------*/ 
 BOOL LoadClasspath(char *xmlfilename)
 {
@@ -38,12 +42,21 @@ BOOL LoadClasspath(char *xmlfilename)
 		/* Don't care about line return / empty line */
 		xmlKeepBlanksDefault(0);
 		/* check if the XML file has been encoded with utf8 (unicode) or not */
-		if ( (strcmp("utf-8", encoding)!=0) || (strcmp("UTF-8", encoding)==0) )
+		if ( stricmp("utf-8", encoding)==0 )
 		{
 			xmlDocPtr doc;
 			xmlXPathContextPtr xpathCtxt = NULL;
 			xmlXPathObjectPtr xpathObj = NULL;
 			char *classpath=NULL;
+			char *load="";
+			typeOfLoad eLoad=STARTUP;
+			char *currentMode = getScilabModeString();
+			/* Xpath Query :
+			 * Retrieve all the path which are not disabled in our mode 
+			 */
+			#define XPATH "//classpaths/path[not(@disableUnderMode='%s')]"
+			char * XPath=(char*)MALLOC(sizeof(char)*(strlen(XPATH)+strlen(currentMode)-2+1)); /* -2 = strlen(%s) */
+			sprintf(XPath,XPATH,currentMode);
 
 			doc = xmlParseFile (xmlfilename);
 
@@ -55,7 +68,7 @@ BOOL LoadClasspath(char *xmlfilename)
 			}
 
 			xpathCtxt = xmlXPathNewContext(doc);
-			xpathObj = xmlXPathEval((const xmlChar*)"//classpaths/path", xpathCtxt);
+			xpathObj = xmlXPathEval((const xmlChar*)XPath, xpathCtxt);
 
 			if(xpathObj && xpathObj->nodesetval->nodeMax) 
 			{
@@ -74,23 +87,37 @@ BOOL LoadClasspath(char *xmlfilename)
 							/* we found the tag value */
 							classpath=(char*)attrib->children->content;
 						}
+						if (xmlStrEqual (attrib->name, (const xmlChar*) "load"))
+						{ 
+							/* we found the tag load */
+							load = (char*)attrib->children->content;
+
+							/* By default, it is startup */
+							if (stricmp(load,"background")==0){
+								eLoad=BACKGROUND;
+							} else {
+								if (stricmp(load,"onuse")==0) {
+									eLoad=ONUSE;
+								}
+							}
+						}else{
+							eLoad=STARTUP;
+						}
 						attrib = attrib->next;
 					}
 
-					if ( (classpath) && (strlen(classpath) > 0) )
+					if ( (classpath) && (strlen(classpath) > 0) && (strncmp(classpath,"@",1) != 0) ) /* If it starts by a @ that means it hasn't been able to find it... which is normal... for example with the documentation */
 					{
 						#define KEYWORDSCILAB "$SCILAB" 
-						char *SCIPATH = NULL;
+						char *sciPath = getSCIpath();
 						char *FullClasspath = NULL;
-
-						SCIPATH = getSCIpath();
 						
 						if (strncmp(classpath,KEYWORDSCILAB,strlen(KEYWORDSCILAB))==0)
 						{
-							FullClasspath = (char*)MALLOC(sizeof(char)*(strlen(SCIPATH)+strlen(classpath)+1));
+							FullClasspath = (char*)MALLOC(sizeof(char)*(strlen(sciPath)+strlen(classpath)+1));
 							if (FullClasspath)
 							{
-								strcpy(FullClasspath,SCIPATH);
+								strcpy(FullClasspath,sciPath);
 								strcat(FullClasspath,&classpath[strlen(KEYWORDSCILAB)]);
 							}
 						}
@@ -101,7 +128,7 @@ BOOL LoadClasspath(char *xmlfilename)
   					    
 						if (FullClasspath)
 						{
-							if (!addToClasspath(FullClasspath))
+							if (!addToClasspath(FullClasspath, eLoad))
 							{
 								errorOnLoad=TRUE;
 							}
@@ -109,7 +136,7 @@ BOOL LoadClasspath(char *xmlfilename)
 							FullClasspath = NULL;
 						}
 
-						if (SCIPATH) {FREE(SCIPATH);SCIPATH=NULL;}
+						if (sciPath) {FREE(sciPath);sciPath=NULL;}
 						classpath = NULL;
 					}
 				}
@@ -117,7 +144,7 @@ BOOL LoadClasspath(char *xmlfilename)
 			}
 			else
 			{
-					fprintf(stderr,_("Wrong format for %s.\n"), xmlfilename);
+				fprintf(stderr,_("Wrong format for %s.\n"), xmlfilename);
 			}
 
 			if(xpathObj) xmlXPathFreeObject(xpathObj);
