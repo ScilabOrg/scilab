@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="windows_tools"
 	ProjectGUID="{9594AC02-20EE-4FBF-95B4-BFA5865ED7CA}"
 	RootNamespace="windows_tools"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="0"
+	
 	>
 	<Platforms>
 		<Platform
@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion"
+				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion;./scilab_windows"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;_DEBUG;_WINDOWS;_USRDLL;WINDOWS_TOOLS_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -128,7 +128,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion"
+				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion;./scilab_windows"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;_DEBUG;_WINDOWS;_USRDLL;WINDOWS_TOOLS_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -214,7 +214,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion"
+				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion;./scilab_windows"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;NDEBUG;_WINDOWS;_USRDLL;WINDOWS_TOOLSS_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -303,7 +303,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion"
+				AdditionalIncludeDirectories=".;../../includes;../../../../libs/MALLOC/includes;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../../libs/intl;../../../../libs/GetWindowsVersion;./scilab_windows"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;NDEBUG;_WINDOWS;_USRDLL;WINDOWS_TOOLSS_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="0"

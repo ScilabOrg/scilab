@@ -13,12 +13,9 @@
 
 package org.scilab.modules.gui.bridge.menu;
 
-import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JMenu;
-
 import org.scilab.modules.gui.bridge.menuitem.SwingScilabMenuItem;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.menu.Menu;
@@ -30,6 +27,7 @@ import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.ScilabAlignment;
 import org.scilab.modules.gui.utils.ScilabRelief;
+import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.gui.utils.Size;
 
 /**
@@ -260,9 +258,7 @@ public class SwingScilabMenu extends JMenu implements SimpleMenu {
 	 * @see org.scilab.modules.gui.menuitem.SimpleMenuItem#destroy()
 	 */
 	public void destroy() {
-		Container parent = getParent();
-		parent.remove(this);
-		parent.repaint();
+		ScilabSwingUtilities.removeFromParent(this);
 	}
 
 	/**

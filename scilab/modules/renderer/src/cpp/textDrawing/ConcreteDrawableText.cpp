@@ -130,31 +130,7 @@ void ConcreteDrawableText::showTextContent(void)
 /*---------------------------------------------------------------------------------*/
 bool ConcreteDrawableText::isTextEmpty(void)
 {
-  StringMatrix * text = sciGetText(m_pDrawed);
-  if (text == NULL)
-  {
-    return true;
-  }
-  
-  int nbElements = getMatNbRow(text) * getMatNbCol(text);
-
-  if (nbElements == 0) {return true;}
-
-  if (nbElements == 1)
-  {
-    char * firstElement = getStrMatElement(text, 0, 0);
-    if (firstElement == NULL)
-    {
-      return true;
-    }
-    else if (firstElement[0] == 0)
-    {
-      // empty string
-      return true;
-    }
-  }
-
-  return false;
+  return sciisTextEmpty(m_pDrawed);
 }
 /*---------------------------------------------------------------------------------*/
 void ConcreteDrawableText::updateTextBox(void)
@@ -165,18 +141,10 @@ void ConcreteDrawableText::updateTextBox(void)
     return;
   }
   // just update, no need to draw
-  requestBoundsUpdate();
-  BOOL visibility = sciGetVisibility(m_pDrawed);
-  sciSetVisibility(m_pDrawed, FALSE);
-  sciDrawSingleObj(m_pDrawed);
-  sciSetVisibility(m_pDrawed, visibility);
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::updateTextBoxFromContext(void)
-{
   sciText * ppText = pTEXT_FEATURE(m_pDrawed);
   getBoundingRectangle(ppText->corners[0], ppText->corners[1],
                        ppText->corners[2], ppText->corners[3]);
+  
 }
 /*---------------------------------------------------------------------------------*/
 }

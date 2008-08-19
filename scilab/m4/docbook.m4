@@ -16,7 +16,7 @@ AC_ARG_WITH(docbook,
 		[with_docbook='yes']
 		)
 
-	for dir in $withval /usr/share/sgml/docbook/stylesheet/xsl/nwalsh /usr/share/docbook2X/xslt/man/ /usr/share/xml/docbook/stylesheet/nwalsh/ /sw/share/xml/xsl/docbook-xsl /usr/share/xml/docbook/xsl-stylesheets-*/; do
+	for dir in $with_docbook /usr/share/sgml/docbook/stylesheet/xsl/nwalsh /usr/share/docbook2X/xslt/man/ /usr/share/xml/docbook/stylesheet/nwalsh/ /sw/share/xml/xsl/docbook-xsl /usr/share/xml/docbook/xsl-stylesheets-*/ /usr/share/sgml/docbook/xsl-stylesheets--*/ /usr/share/sgml/docbook/xsl-stylesheets-*/; do
 		if test -d "$dir"; then
 			DOCBOOK_ROOT=$dir
         fi
@@ -34,7 +34,7 @@ AC_ARG_WITH(docbook,
 	SAXON=$PACKAGE_JAR_FILE
 	AC_SUBST(SAXON)
 
-	# XML to PDF Translator
+	# XML to PDF/other Translator
 	AC_JAVA_CHECK_PACKAGE([fop],[org.apache.fop.pdf.PDFInfo],[XML to PDF Translator (fop)])
 	FOP=$PACKAGE_JAR_FILE
 	AC_SUBST(FOP)
@@ -43,6 +43,12 @@ AC_ARG_WITH(docbook,
 	AC_JAVA_CHECK_PACKAGE([jeuclid-core],[net.sourceforge.jeuclid.MathBase],[MathML rendering solution])
 	JEUCLID_CORE=$PACKAGE_JAR_FILE
 	AC_SUBST(JEUCLID_CORE)
+
+	# Commons I/O library
+	AC_JAVA_CHECK_PACKAGE([commons-io],[org.apache.commons.io.output.CountingOutputStream],[Commons I/O library])
+	COMMONS_IO=$PACKAGE_JAR_FILE
+	AC_SUBST(COMMONS_IO)
+
 
 AC_SUBST(DOCBOOK_ROOT)
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="gui"
 	ProjectGUID="{45CA5B12-7601-4968-AE16-16069FD1A152}"
 	RootNamespace="gui"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="0"
+	
 	>
 	<Platforms>
 		<Platform
@@ -585,6 +585,10 @@
 			</File>
 			<File
 				RelativePath="..\cpp\GetUiobjectVisible.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\jni\GiwsException.cpp"
 				>
 			</File>
 			<File
@@ -1274,6 +1278,10 @@
 			</File>
 			<File
 				RelativePath="..\cpp\GetUiobjectVisible.hxx"
+				>
+			</File>
+			<File
+				RelativePath="..\jni\GiwsException.hxx"
 				>
 			</File>
 			<File

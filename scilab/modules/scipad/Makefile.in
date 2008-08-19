@@ -72,11 +72,7 @@ host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@@TCLTK_TRUE@am__append_1 = java
-@SWIG_TRUE@@TCLTK_TRUE@am__append_2 = swig
-@GIWS_TRUE@@TCLTK_TRUE@am__append_3 = giws
-@NEED_JAVA_TRUE@@TCLTK_FALSE@am__append_4 = java
-@SWIG_TRUE@@TCLTK_FALSE@am__append_5 = swig
-@GIWS_TRUE@@TCLTK_FALSE@am__append_6 = giws
+@NEED_JAVA_TRUE@@TCLTK_FALSE@am__append_2 = java
 subdir = modules/scipad
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -134,6 +130,7 @@ BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
@@ -444,17 +441,14 @@ top_srcdir = @top_srcdir@
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@TCLTK_FALSE@TARGETS_ALL = $(am__append_4) $(am__append_5) \
-@TCLTK_FALSE@	$(am__append_6)
+@TCLTK_FALSE@TARGETS_ALL = $(am__append_2)
 
 ########################### JAVA ######################################
 #### We are delegating java compilation to ant... Thanks to that
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@TCLTK_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2) \
-@TCLTK_TRUE@	$(am__append_3) $(am__append_4) $(am__append_5) \
-@TCLTK_TRUE@	$(am__append_6)
+@TCLTK_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -535,6 +529,12 @@ top_srcdir = @top_srcdir@
 @TCLTK_FALSE@JARMASK = *.jar
 # JAR files
 @TCLTK_TRUE@JARMASK = *.jar
+# Chapter file 
+@TCLTK_FALSE@HELP_CHAPTERDIR = help/
+# Chapter file 
+@TCLTK_TRUE@HELP_CHAPTERDIR = help/
+@TCLTK_FALSE@HELP_CHAPTERFILE = addchapter.sce
+@TCLTK_TRUE@HELP_CHAPTERFILE = addchapter.sce
 all: all-am
 
 .SUFFIXES:
@@ -858,6 +858,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -879,7 +880,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @GIWS_TRUE@@TCLTK_TRUE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@TCLTK_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@TCLTK_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@TCLTK_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@@TCLTK_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@TCLTK_TRUE@		done; \
 @GIWS_TRUE@@TCLTK_TRUE@	fi
 
@@ -924,7 +925,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	done
 @TCLTK_TRUE@install-data-local:
 # Install the tests
-@TCLTK_TRUE@	@echo "-- Install tests (if any) --"; \
+@TCLTK_TRUE@	@echo "-------- Install tests (if any) --------"; \
 @TCLTK_TRUE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @TCLTK_TRUE@	  if test -d $(srcdir)/$$dir/; then \
 @TCLTK_TRUE@	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -939,8 +940,19 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @TCLTK_TRUE@		  done; \
 @TCLTK_TRUE@	  fi; \
 @TCLTK_TRUE@	done 
+# Install the help chapter
+@TCLTK_TRUE@	@echo "-------- Install the help chapter (if any) --------"; \
+@TCLTK_TRUE@	for lang in $(ALL_LINGUAS); do \
+@TCLTK_TRUE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@TCLTK_TRUE@		if test -f $$HELPFILE; then \
+@TCLTK_TRUE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_TRUE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_TRUE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_TRUE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_TRUE@		fi; \
+@TCLTK_TRUE@	done
 # Install the macros
-@TCLTK_TRUE@	@echo "-- Install macros (if any) --"; \
+@TCLTK_TRUE@	@echo "-------- Install macros (if any) --------"; \
 @TCLTK_TRUE@	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 @TCLTK_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @TCLTK_TRUE@		if test -d $(srcdir)/$$dir/; then \
@@ -957,7 +969,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @TCLTK_TRUE@	done
 # Install java files (.jar)
 @TCLTK_TRUE@	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-@TCLTK_TRUE@	echo "-- Install jar files --"; \
+@TCLTK_TRUE@	echo "-------- Install jar files --------"; \
 @TCLTK_TRUE@    $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 @TCLTK_TRUE@	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 @TCLTK_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \
@@ -995,6 +1007,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @NEED_JAVA_TRUE@@TCLTK_FALSE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@@TCLTK_FALSE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@@TCLTK_FALSE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -1016,7 +1029,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @GIWS_TRUE@@TCLTK_FALSE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@TCLTK_FALSE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@TCLTK_FALSE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@TCLTK_FALSE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@@TCLTK_FALSE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@TCLTK_FALSE@		done; \
 @GIWS_TRUE@@TCLTK_FALSE@	fi
 
@@ -1061,7 +1074,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @INSTALL_HELP_XML_TRUE@@TCLTK_FALSE@	done
 @TCLTK_FALSE@install-data-local:
 # Install the tests
-@TCLTK_FALSE@	@echo "-- Install tests (if any) --"; \
+@TCLTK_FALSE@	@echo "-------- Install tests (if any) --------"; \
 @TCLTK_FALSE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @TCLTK_FALSE@	  if test -d $(srcdir)/$$dir/; then \
 @TCLTK_FALSE@	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -1076,8 +1089,19 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @TCLTK_FALSE@		  done; \
 @TCLTK_FALSE@	  fi; \
 @TCLTK_FALSE@	done 
+# Install the help chapter
+@TCLTK_FALSE@	@echo "-------- Install the help chapter (if any) --------"; \
+@TCLTK_FALSE@	for lang in $(ALL_LINGUAS); do \
+@TCLTK_FALSE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@TCLTK_FALSE@		if test -f $$HELPFILE; then \
+@TCLTK_FALSE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_FALSE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_FALSE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_FALSE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_FALSE@		fi; \
+@TCLTK_FALSE@	done
 # Install the macros
-@TCLTK_FALSE@	@echo "-- Install macros (if any) --"; \
+@TCLTK_FALSE@	@echo "-------- Install macros (if any) --------"; \
 @TCLTK_FALSE@	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 @TCLTK_FALSE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @TCLTK_FALSE@		if test -d $(srcdir)/$$dir/; then \
@@ -1094,7 +1118,7 @@ uninstall-am: uninstall-libsciscipad_la_bindingsDATA \
 @TCLTK_FALSE@	done
 # Install java files (.jar)
 @TCLTK_FALSE@	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-@TCLTK_FALSE@	echo "-- Install jar files --"; \
+@TCLTK_FALSE@	echo "-------- Install jar files --------"; \
 @TCLTK_FALSE@    $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 @TCLTK_FALSE@	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 @TCLTK_FALSE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \

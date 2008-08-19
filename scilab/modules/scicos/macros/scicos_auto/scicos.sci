@@ -40,7 +40,7 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
   global %scicos_navig
   global %diagram_path_objective
   global inactive_windows
-  global Scicos_commands   // programmed commands
+  global Scicos_commands   // programmed commands 
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -58,7 +58,6 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
 
   clear noguimode
   //**-----------------------------------------------------------------------------------------
-
 
 
   //** -------------------- Check the recurring calling level of scicos ----------------------
@@ -850,6 +849,10 @@ function [scs_m, newparameters, needcompile, edited] = scicos(scs_m, menus)
       //** restore the original Scilab 5 font list before exit 
       xlfont(scilab5fonts(2),1);
 
+      //** TO DO
+      //** For future implementation ..... 
+      //** This is the place of the windows cleaning section 
+      
     end
 
   elseif Cmenu=="Leave" then

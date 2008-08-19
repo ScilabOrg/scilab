@@ -15,6 +15,8 @@
 #ifndef __LOADCLASSPATH_H__
 #define __LOADCLASSPATH_H__
 
+#include <libxml/xmlreader.h>
+
 #include "machine.h" /* BOOL */
 
 /**
@@ -23,6 +25,18 @@
 * @return TRUE or FALSE
 */
 BOOL LoadClasspath(char *xmlfilename);
+
+
+/**
+* returns xmlDocPtr of classpath.xml
+* @return xmlDocPtr
+*/
+xmlDocPtr getClassPathxmlDocPtr(void);
+
+/**
+* free xmlDocPtr of classpath.xml
+*/
+void freeClassPathxmlDocPtr(void);
 
 #endif /* __LOADCLASSPATH_H__ */
 /*--------------------------------------------------------------------------*/ 

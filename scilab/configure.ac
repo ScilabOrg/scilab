@@ -1380,12 +1380,13 @@ else
 fi
 
 echo ""
-if test ! -z "$HELP_ENABLE"; then
+if test ! -z "$HELP_ENABLE" != no; then
    echo "Docbook XSL path ....... = $DOCBOOK_ROOT"
    echo "Batik (SVG) ............ = $BATIK"
    echo "Saxon XSLT ............. = $SAXON"
    echo "FOP (XML => PDF) ....... = $FOP"
    echo "Jeuclid (MathML) ....... = $JEUCLID_CORE"
+   echo "Commons I/O  ........... = $COMMONS_IO"
 else
    echo "No documentation generated"
 fi

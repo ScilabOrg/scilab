@@ -413,6 +413,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\jni\GiwsException.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\cpp\HandleDrawingObserver.cpp"
 				>
 			</File>
@@ -612,7 +616,15 @@
 				Name="SubwinDrawing"
 				>
 				<File
+					RelativePath=".\src\cpp\subwinDrawing\AutoLogSubticksComputer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\subwinDrawing\AutoLogTicksComputer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\AutomaticSubticksComputer.cpp"
 					>
 				</File>
 				<File
@@ -796,7 +808,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\cpp\subwinDrawing\UserDefinedSubticksComputer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\subwinDrawing\UserDefinedTicksComputer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\UserDefLogSubticksComputer.cpp"
 					>
 				</File>
 				<File
@@ -1384,6 +1404,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\cpp\axesDrawing\AxesSubticksComputer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\axesDrawing\AxesTicksComputer.cpp"
 					>
 				</File>
@@ -1476,6 +1500,10 @@
 			</File>
 			<File
 				RelativePath=".\includes\GetJavaProperty.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\jni\GiwsException.hxx"
 				>
 			</File>
 			<File
@@ -1654,7 +1682,15 @@
 				Name="SubwinDrawing"
 				>
 				<File
+					RelativePath=".\src\cpp\subwinDrawing\AutoLogSubticksComputer.hxx"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\subwinDrawing\AutoLogTicksComputer.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\AutomaticSubticksComputer.hxx"
 					>
 				</File>
 				<File
@@ -1707,6 +1743,10 @@
 				</File>
 				<File
 					RelativePath=".\src\cpp\subwinDrawing\ComputeBoundsStrategy.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\ComputeSubticksStrategy.hxx"
 					>
 				</File>
 				<File
@@ -1862,7 +1902,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\cpp\subwinDrawing\UserDefinedSubticksComputer.hxx"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\subwinDrawing\UserDefinedTicksComputer.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\UserDefLogSubticksComputer.hxx"
 					>
 				</File>
 				<File
@@ -2559,6 +2607,10 @@
 				>
 				<File
 					RelativePath=".\src\cpp\axesDrawing\AxesPositioner.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\axesDrawing\AxesSubticksComputer.hxx"
 					>
 				</File>
 				<File

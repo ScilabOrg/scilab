@@ -26,7 +26,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 	failed_files  = [];
 	
 	if verbose then
-		write(%io(2),msprintf(gettext("-- Creation of [%s] (Macros) --"),nam));
+		mprintf(gettext("-- Creation of [%s] (Macros) --\n"),nam);
 	end
 	
 	updatelib=%f //true if updating an already defined library
@@ -80,7 +80,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 		end
 		
 		if files==[] | files== "" then
-			warning(msprintf(gettext("Cannot find any sci files in %s.\n"),path));
+			warning(msprintf(gettext("%s: No files with extension %s found in %s\n"),"genlib",".sci", path));
 			success = %f;
 			return ;
 		end
@@ -121,7 +121,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 			end
 			
 			if recompile & verbose then
-				write(%io(2),msprintf(gettext("Processing file %s.sci"),names(i)));
+				mprintf(gettext("%s: Processing file: %s\n"),"genlib",names(i)+".sci");
 			end
 		end
 		
@@ -142,7 +142,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 	if modified then
 		
 		if verbose then
-			write(%io(2),gettext("Regenerate names and lib"));
+			mprintf(gettext("%s: Regenerate names and lib\n"),"genlib");
 		end
 		
 		if names_changed
@@ -155,7 +155,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 		
 		if execstr('save('''+path1+'lib'''+','+nam+')','errcatch')<>0 then
 			success = %f
-			error(path+gettext("lib file cannot be created"))
+			error(msprintf(gettext("%s: %s file cannot be created\n"),"genlib",path+'lib'));
 		end
 	else
 		execstr(nam+'=lib('''+path1+''')')
@@ -165,7 +165,7 @@ function [success,funcs,success_files,failed_files] = genlib(nam,path,force,verb
 		if ~predefined then
 			execstr(nam+'=resume('+nam+')')
 		else
-			write(%io(2),msprintf(gettext("   Library file %slib has been updated,\n   but cannot be loaded into Scilab,\n   because %s is a protected variable."),path1, nam));
+			mprintf(gettext("Library file %s has been updated,\nbut cannot be loaded into Scilab because %s is a protected variable.\n"),path1+'lib',nam);
 		end
 	end
 	
@@ -185,7 +185,7 @@ function result = getsave(fl)
 	
 	if ierr<> 0 then
 		clear ierr;
-		mprintf(gettext("   Warning: Error in file %s :\n            ""%s""\n            file ignored\n"),fl,lasterror(%t));
+		mprintf(gettext("%s: Warning: Error in file %s : %s. File ignored\n"),"genlib",fl,lasterror())
 	else
 		clear ierr;
 		
@@ -203,7 +203,7 @@ function result = getsave(fl)
 			if nf>40 then
 				fl='...'+part(fl,nf-40:nf);
 			end
-			error(msprintf(gettext("Impossible to open file %s for writing, "),fl))
+			error(msprintf(gettext("%s: Impossible to open file %s for writing\n"),"genlib",fl));
 		end
 		
 		clear ierr
@@ -212,7 +212,7 @@ function result = getsave(fl)
 			result = new($:-1:1)'
 			execstr('save(u,'+strcat(new($:-1:1),',')+')');
 		else
-			mprintf(gettext("   Warning: File ''%s'' does not contain any functions\n"),fl);
+			msprintf(gettext("%s: File %s does not contain any function.\n"),"genlib",fl)
 		end
 		
 		mclose(u);

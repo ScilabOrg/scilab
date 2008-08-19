@@ -5,5 +5,5 @@ EXPORTS
 ; --------------------------------------- 
 ; dynamic_link_f
 ; --------------------------------------- 
-sciislink_
+; force link (f2c)
 intfort_

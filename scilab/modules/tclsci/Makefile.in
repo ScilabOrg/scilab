@@ -59,8 +59,6 @@ DIST_COMMON = $(am__libscitclsci_la_include_HEADERS_DIST) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@@TCLTK_TRUE@am__append_1 = java
-@SWIG_TRUE@@TCLTK_TRUE@am__append_2 = swig
-@GIWS_TRUE@@TCLTK_TRUE@am__append_3 = giws
 subdir = modules/tclsci
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -205,6 +203,7 @@ BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
@@ -662,8 +661,7 @@ top_srcdir = @top_srcdir@
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@TCLTK_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2) \
-@TCLTK_TRUE@	$(am__append_3)
+@TCLTK_TRUE@TARGETS_ALL = $(am__append_1)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -704,6 +702,9 @@ top_srcdir = @top_srcdir@
 @TCLTK_TRUE@JARDIR = jar/
 # JAR files
 @TCLTK_TRUE@JARMASK = *.jar
+# Chapter file 
+@TCLTK_TRUE@HELP_CHAPTERDIR = help/
+@TCLTK_TRUE@HELP_CHAPTERFILE = addchapter.sce
 all: all-am
 
 .SUFFIXES:
@@ -1381,6 +1382,7 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@@TCLTK_TRUE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -1402,7 +1404,7 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 @GIWS_TRUE@@TCLTK_TRUE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@TCLTK_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@TCLTK_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@TCLTK_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@@TCLTK_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@TCLTK_TRUE@		done; \
 @GIWS_TRUE@@TCLTK_TRUE@	fi
 
@@ -1447,7 +1449,7 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 @INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	done
 @TCLTK_TRUE@install-data-local:
 # Install the tests
-@TCLTK_TRUE@	@echo "-- Install tests (if any) --"; \
+@TCLTK_TRUE@	@echo "-------- Install tests (if any) --------"; \
 @TCLTK_TRUE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @TCLTK_TRUE@	  if test -d $(srcdir)/$$dir/; then \
 @TCLTK_TRUE@	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -1462,8 +1464,19 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 @TCLTK_TRUE@		  done; \
 @TCLTK_TRUE@	  fi; \
 @TCLTK_TRUE@	done 
+# Install the help chapter
+@TCLTK_TRUE@	@echo "-------- Install the help chapter (if any) --------"; \
+@TCLTK_TRUE@	for lang in $(ALL_LINGUAS); do \
+@TCLTK_TRUE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@TCLTK_TRUE@		if test -f $$HELPFILE; then \
+@TCLTK_TRUE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_TRUE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_TRUE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_TRUE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@TCLTK_TRUE@		fi; \
+@TCLTK_TRUE@	done
 # Install the macros
-@TCLTK_TRUE@	@echo "-- Install macros (if any) --"; \
+@TCLTK_TRUE@	@echo "-------- Install macros (if any) --------"; \
 @TCLTK_TRUE@	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 @TCLTK_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @TCLTK_TRUE@		if test -d $(srcdir)/$$dir/; then \
@@ -1480,7 +1493,7 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 @TCLTK_TRUE@	done
 # Install java files (.jar)
 @TCLTK_TRUE@	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-@TCLTK_TRUE@	echo "-- Install jar files --"; \
+@TCLTK_TRUE@	echo "-------- Install jar files --------"; \
 @TCLTK_TRUE@    $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 @TCLTK_TRUE@	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 @TCLTK_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \

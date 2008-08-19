@@ -75,11 +75,7 @@ DIST_COMMON = $(am__libscipvm_la_include_HEADERS_DIST) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@@PVM_TRUE@am__append_1 = java
-@PVM_TRUE@@SWIG_TRUE@am__append_2 = swig
-@GIWS_TRUE@@PVM_TRUE@am__append_3 = giws
-@NEED_JAVA_TRUE@@PVM_FALSE@am__append_4 = java
-@PVM_FALSE@@SWIG_TRUE@am__append_5 = swig
-@GIWS_TRUE@@PVM_FALSE@am__append_6 = giws
+@NEED_JAVA_TRUE@@PVM_FALSE@am__append_2 = java
 subdir = modules/pvm
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -232,6 +228,7 @@ BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
@@ -507,17 +504,14 @@ top_srcdir = @top_srcdir@
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@PVM_FALSE@TARGETS_ALL = $(am__append_4) $(am__append_5) \
-@PVM_FALSE@	$(am__append_6)
+@PVM_FALSE@TARGETS_ALL = $(am__append_2)
 
 ########################### JAVA ######################################
 #### We are delegating java compilation to ant... Thanks to that
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@PVM_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2) \
-@PVM_TRUE@	$(am__append_3) $(am__append_4) $(am__append_5) \
-@PVM_TRUE@	$(am__append_6)
+@PVM_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -598,6 +592,12 @@ top_srcdir = @top_srcdir@
 @PVM_FALSE@JARMASK = *.jar
 # JAR files
 @PVM_TRUE@JARMASK = *.jar
+# Chapter file 
+@PVM_FALSE@HELP_CHAPTERDIR = help/
+# Chapter file 
+@PVM_TRUE@HELP_CHAPTERDIR = help/
+@PVM_FALSE@HELP_CHAPTERFILE = addchapter.sce
+@PVM_TRUE@HELP_CHAPTERFILE = addchapter.sce
 all: all-am
 
 .SUFFIXES:
@@ -1358,6 +1358,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @NEED_JAVA_TRUE@@PVM_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@@PVM_TRUE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@@PVM_TRUE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -1379,7 +1380,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @GIWS_TRUE@@PVM_TRUE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@PVM_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@PVM_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@PVM_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@@PVM_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@PVM_TRUE@		done; \
 @GIWS_TRUE@@PVM_TRUE@	fi
 
@@ -1424,7 +1425,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @INSTALL_HELP_XML_TRUE@@PVM_TRUE@	done
 @PVM_TRUE@install-data-local:
 # Install the tests
-@PVM_TRUE@	@echo "-- Install tests (if any) --"; \
+@PVM_TRUE@	@echo "-------- Install tests (if any) --------"; \
 @PVM_TRUE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @PVM_TRUE@	  if test -d $(srcdir)/$$dir/; then \
 @PVM_TRUE@	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -1439,8 +1440,19 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_TRUE@		  done; \
 @PVM_TRUE@	  fi; \
 @PVM_TRUE@	done 
+# Install the help chapter
+@PVM_TRUE@	@echo "-------- Install the help chapter (if any) --------"; \
+@PVM_TRUE@	for lang in $(ALL_LINGUAS); do \
+@PVM_TRUE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@PVM_TRUE@		if test -f $$HELPFILE; then \
+@PVM_TRUE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@PVM_TRUE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@PVM_TRUE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@PVM_TRUE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@PVM_TRUE@		fi; \
+@PVM_TRUE@	done
 # Install the macros
-@PVM_TRUE@	@echo "-- Install macros (if any) --"; \
+@PVM_TRUE@	@echo "-------- Install macros (if any) --------"; \
 @PVM_TRUE@	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 @PVM_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @PVM_TRUE@		if test -d $(srcdir)/$$dir/; then \
@@ -1457,7 +1469,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_TRUE@	done
 # Install java files (.jar)
 @PVM_TRUE@	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-@PVM_TRUE@	echo "-- Install jar files --"; \
+@PVM_TRUE@	echo "-------- Install jar files --------"; \
 @PVM_TRUE@    $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 @PVM_TRUE@	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 @PVM_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \
@@ -1495,6 +1507,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @NEED_JAVA_TRUE@@PVM_FALSE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@@PVM_FALSE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@@PVM_FALSE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -1516,7 +1529,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @GIWS_TRUE@@PVM_FALSE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@PVM_FALSE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@PVM_FALSE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@PVM_FALSE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@@PVM_FALSE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@PVM_FALSE@		done; \
 @GIWS_TRUE@@PVM_FALSE@	fi
 
@@ -1561,7 +1574,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @INSTALL_HELP_XML_TRUE@@PVM_FALSE@	done
 @PVM_FALSE@install-data-local:
 # Install the tests
-@PVM_FALSE@	@echo "-- Install tests (if any) --"; \
+@PVM_FALSE@	@echo "-------- Install tests (if any) --------"; \
 @PVM_FALSE@	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 @PVM_FALSE@	  if test -d $(srcdir)/$$dir/; then \
 @PVM_FALSE@	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -1576,8 +1589,19 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_FALSE@		  done; \
 @PVM_FALSE@	  fi; \
 @PVM_FALSE@	done 
+# Install the help chapter
+@PVM_FALSE@	@echo "-------- Install the help chapter (if any) --------"; \
+@PVM_FALSE@	for lang in $(ALL_LINGUAS); do \
+@PVM_FALSE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@PVM_FALSE@		if test -f $$HELPFILE; then \
+@PVM_FALSE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@PVM_FALSE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@PVM_FALSE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@PVM_FALSE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+@PVM_FALSE@		fi; \
+@PVM_FALSE@	done
 # Install the macros
-@PVM_FALSE@	@echo "-- Install macros (if any) --"; \
+@PVM_FALSE@	@echo "-------- Install macros (if any) --------"; \
 @PVM_FALSE@	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 @PVM_FALSE@	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 @PVM_FALSE@		if test -d $(srcdir)/$$dir/; then \
@@ -1594,7 +1618,7 @@ uninstall-am: uninstall-libscipvm_la_demosDATA \
 @PVM_FALSE@	done
 # Install java files (.jar)
 @PVM_FALSE@	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-@PVM_FALSE@	echo "-- Install jar files --"; \
+@PVM_FALSE@	echo "-------- Install jar files --------"; \
 @PVM_FALSE@    $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 @PVM_FALSE@	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 @PVM_FALSE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \

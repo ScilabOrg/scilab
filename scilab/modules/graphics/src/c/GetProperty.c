@@ -840,6 +840,34 @@ void sciGetTextSize( sciPointObj * pobj, int * nbRow, int * nbCol )
     *nbCol = getMatNbCol( text ) ;
   }
 }
+/**
+ * Checks if a text object is empty #rows*#columns==0 or #rows*#columns==1 and entry is  zero length
+ */
+BOOL sciisTextEmpty( sciPointObj * pobj)
+{
+  int nbElements;
+  StringMatrix * text = sciGetText( pobj ) ;
+  if ( text == NULL )
+  {
+    return TRUE;
+  }
+  nbElements = getMatNbRow(text) * getMatNbCol(text);
+  if (nbElements == 0) {return TRUE;}
+  if (nbElements == 1)
+    {
+    char * firstElement = getStrMatElement(text, 0, 0);
+    if (firstElement == NULL)
+    {
+      return TRUE;
+    }
+    else if (firstElement[0] == 0)
+    {
+      /* empty string */
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
 
 
 /**sciGetFontBackground
@@ -3457,13 +3485,7 @@ BOOL sciGetAutoPosition ( sciPointObj * pObj )
 BOOL sciGetLegendDefined( sciPointObj * pObj )
 {
   sciSubWindow * ppSubWin ;
-  int xlNbRow ;
-  int xlNbCol ;
-  int ylNbRow ;
-  int ylNbCol ;
-  int zlNbRow ;
-  int zlNbCol ;
-
+ 
   if ( pObj == NULL )
   {
     return FALSE ;
@@ -3472,19 +3494,13 @@ BOOL sciGetLegendDefined( sciPointObj * pObj )
   ppSubWin = pSUBWIN_FEATURE( pObj ) ;
 
   /* get the text size of labels */
-  sciGetTextSize( ppSubWin->mon_x_label, &xlNbRow, &xlNbCol ) ;
-  sciGetTextSize( ppSubWin->mon_y_label, &ylNbRow, &ylNbCol ) ;
-  sciGetTextSize( ppSubWin->mon_z_label, &zlNbRow, &zlNbCol ) ;
-
-  
-  if ( xlNbRow <= 0 || ylNbRow <= 0 || zlNbRow <= 0 )
-  {
+  if (sciisTextEmpty(ppSubWin->mon_x_label) && 
+      sciisTextEmpty(ppSubWin->mon_y_label) && 
+      sciisTextEmpty(ppSubWin->mon_z_label))
     return FALSE ;
-  }
   else
-  {
     return TRUE ;
-  }
+ 
 }
 /*-----------------------------------------------------------------------------------*/
 BOOL sciGetAutoSize( sciPointObj * pObj )
@@ -4244,6 +4260,23 @@ void sciGetAutoTicks(sciPointObj * pObj, BOOL autoTicks[3])
 }
 /*----------------------------------------------------------------------------------*/
 /**
+ * Get auto_ticks property for each axis
+ */
+BOOL sciGetAutoSubticks(sciPointObj * pObj)
+{
+  switch(sciGetEntityType(pObj))
+  {
+  case SCI_SUBWIN:
+    return !(pSUBWIN_FEATURE(pObj)->flagNax);
+    break;
+  default:
+    return FALSE;
+    printSetGetErrorMessage("auto_subticks");
+    break;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
  * Get the axes visible property for each axis.
  */
 void sciGetAxesVisible(sciPointObj * pObj, BOOL axesVisible[3])
@@ -4323,18 +4356,7 @@ void sciGetTextBoundingBox(sciPointObj * pObj, double corner1[3], double corner2
 void sciGetPixelBoundingBox(sciPointObj * pObj, int corner1[2], int corner2[2],
                             int corner3[2], int corner4[2])
 {
-
-  double corners3d[4][3];
-  sciPointObj * parentSubwin = sciGetParentSubwin(pObj);
-
-  // get pixel bounding box
-  sciGetTextBoundingBox(pObj, corners3d[0], corners3d[1], corners3d[2], corners3d[3]);
-
-  // convert them to user coordinates
-  sciGetPixelCoordinate(parentSubwin, corners3d[0], corner1);
-  sciGetPixelCoordinate(parentSubwin, corners3d[1], corner2);
-  sciGetPixelCoordinate(parentSubwin, corners3d[2], corner3);
-  sciGetPixelCoordinate(parentSubwin, corners3d[3], corner4);
+  sciGetJavaPixelBoundingBox(pObj, corner1, corner2, corner3, corner4);
 }
 /*----------------------------------------------------------------------------------*/
 /**
@@ -4343,17 +4365,18 @@ void sciGetPixelBoundingBox(sciPointObj * pObj, int corner1[2], int corner2[2],
 void sciGet2dViewBoundingBox(sciPointObj * pObj, double corner1[2], double corner2[2],
                              double corner3[2], double corner4[2])
 {
-  int pixCorners[4][2];
   sciPointObj * parentSubwin = sciGetParentSubwin(pObj);
+  double corners3d[4][3];
 
-  // get pixel bounding box
-  sciGetPixelBoundingBox(pObj, pixCorners[0], pixCorners[1], pixCorners[2], pixCorners[3]);
+  /* get bounding box */
+  sciGetTextBoundingBox(pObj, corners3d[0], corners3d[1], corners3d[2], corners3d[3]);
+  
+  /* convert it to 2d view coordinates */
+  sciGetJava2dViewCoordinates(parentSubwin, corners3d[0], corner1);
+  sciGetJava2dViewCoordinates(parentSubwin, corners3d[1], corner2);
+  sciGetJava2dViewCoordinates(parentSubwin, corners3d[2], corner3);
+  sciGetJava2dViewCoordinates(parentSubwin, corners3d[3], corner4);
 
-  // convert them to user coordinates
-  sciGetJava2dViewCoordFromPixel(parentSubwin, pixCorners[0], corner1);
-  sciGetJava2dViewCoordFromPixel(parentSubwin, pixCorners[1], corner2);
-  sciGetJava2dViewCoordFromPixel(parentSubwin, pixCorners[2], corner3);
-  sciGetJava2dViewCoordFromPixel(parentSubwin, pixCorners[3], corner4);
 }
 /*----------------------------------------------------------------------------------*/
 /**
@@ -4534,7 +4557,27 @@ BOOL sciGetIsAbleToCreateWindow(void)
   return sciGetJavaIsAbleToCreateWindow();
 }
 /*----------------------------------------------------------------------------------*/
+/**
+ * @return index of the subwin between all the subwins lying below its parent figure
+ */
+int sciGetSubwinIndex(sciPointObj * pSubwin)
+{
+  sciPointObj * parentFigure = sciGetParentFigure(pSubwin);
+  int subwinIndex = 0;
+  sciSons * pSons = sciGetSons(parentFigure);
 
+  while (pSons->pointobj != pSubwin)
+  {
+    if (sciGetEntityType(pSons->pointobj) == SCI_SUBWIN)
+    {
+      // subwin found
+      subwinIndex++;
+    }
+    pSons = pSons->pnext;
+  }
+  return subwinIndex;
+}
+/*----------------------------------------------------------------------------------*/
 /**
  * Print the message "This object has no xxx property." in Scilab.
  */

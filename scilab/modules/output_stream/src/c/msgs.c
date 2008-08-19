@@ -139,6 +139,11 @@ static int msg_107(integer *n, integer *ierr);
 static int msg_108(integer *n, integer *ierr);
 static int msg_109(integer *n, integer *ierr);
 static int msg_110(integer *n, integer *ierr);
+static int msg_111(integer *n, integer *ierr);
+static int msg_112(integer *n, integer *ierr);
+static int msg_113(integer *n, integer *ierr);
+static int msg_114(integer *n, integer *ierr);
+
 static int msg_default(integer *n, integer *ierr);
 /*--------------------------------------------------------------------------*/
 int C2F(msgs)(integer *n, integer *ierr)
@@ -477,6 +482,18 @@ int C2F(msgs)(integer *n, integer *ierr)
 		case 110:
 			msg_110(n,ierr);
 			break;
+		case 111:
+			msg_111(n,ierr);
+			break;
+		case 112:
+			msg_112(n,ierr);
+			break;
+		case 113:
+			msg_113(n,ierr);
+			break;
+		case 114:
+			msg_114(n,ierr);
+			break;
 		default:
 			msg_default(n,ierr);
 			break;
@@ -529,7 +546,7 @@ static int msg_4(integer *n, integer *ierr)
 static int msg_5(integer *n, integer *ierr)
 {
 	char localbuf[14];
-	strncpy(localbuf,BUF,13);
+	strncpy(localbuf,BUF,13); // 0>12
 	localbuf[13]='\0';
 	sciprint(_("Warning :\n"));
 	sciprint(_("matrix is close to singular or badly scaled. rcond = %s\n"),localbuf);
@@ -544,7 +561,7 @@ static int msg_5(integer *n, integer *ierr)
 static int msg_6(integer *n, integer *ierr)
 {
 	char localbuf[14];
-	strncpy(localbuf,BUF,13);
+	strncpy(localbuf,BUF,13); // 0>12
 	localbuf[13]='\0';
 	sciprint(_("Warning :\n"));
 	sciprint(_("eigenvectors are badly conditioned.\n"));
@@ -586,17 +603,23 @@ static int msg_11(integer *n, integer *ierr)
 /*--------------------------------------------------------------------------*/
 static int msg_12(integer *n, integer *ierr)
 {
-	char localbuf[16];
-	strncpy(localbuf,BUF,15);
+        // Copy BUF (src, with size 4096) into localbuf (dest, with size 16)
+        // man strncpy :
+        // "Thus, if there is no null byte among the first n bytes of src, the result will not be null-terminated."
+        // Obviously, the src string does not contain \0, since it comes from Fortran.
+        char localbuf[16];// 0>15
+        strncpy(localbuf,BUF,15);// 0>14
+        localbuf[15]='\0';
 	sciprint(_("Norm of projected gradient lower than %s.\n"),localbuf);
 	return 0;
 }
 /*--------------------------------------------------------------------------*/
 static int msg_13(integer *n, integer *ierr)
 {
+        // Same comment as for msg_12
 	char localbuf[16];
 	strncpy(localbuf,BUF,15);
-
+        localbuf[15]='\0';
 	sciprint(_("at last iteration f decreases by less than %s.\n"),localbuf);
 	return 0;
 }
@@ -1307,27 +1330,60 @@ static int msg_106(integer *n, integer *ierr)
 /*--------------------------------------------------------------------------*/
 static int msg_107(integer *n, integer *ierr)
 {
-	sciprint(_("Some data have not been computed they are replaced by NaN.\n"));
-	return 0;
+  sciprint(_("Some data have not been computed they are replaced by NaN.\n"));
+  return 0;
 }
+/*--------------------------------------------------------------------------*/
+/* Messages for lsqrsolve */
 /*--------------------------------------------------------------------------*/
 static int msg_108(integer *n, integer *ierr)
 {
-	sciprint("\n");
-	return 0;
+  sciprint(_("%s: both actual and predicted relative reductions in the criterion at most %s.\n"),"lsqrsolve","ftol");
+  return 0;
 }
 /*--------------------------------------------------------------------------*/
 static int msg_109(integer *n, integer *ierr)
 {
-	sciprint("\n");
-	return 0;
+  sciprint(_("%s: relative error between two consecutive iterates is at most %s.\n"),"lsqrsolve","xtol");
+  return 0;
 }
 /*--------------------------------------------------------------------------*/
 static int msg_110(integer *n, integer *ierr)
 {
-	sciprint("\n");
-	return 0;
+  sciprint(_("%s: the cosine of the angle between %s and any column of the jacobian is at most %s in absolute value.\n"),"lsqrsolve","fvec","gtol");
+  return 0;
 }
+/*--------------------------------------------------------------------------*/
+
+static int msg_111(integer *n, integer *ierr)
+{
+  sciprint(_("%s: Number of calls to %s has reached or exceeded %s.\n"),"lsqrsolve","fct","maxfev");
+  return 0;
+}
+/*--------------------------------------------------------------------------*/
+static int msg_112(integer *n, integer *ierr)
+{
+  sciprint(_("%s: %s is too small. No further reduction in the criterion is possible.\n"),"lsqrsolve","ftol");
+  return 0;
+}
+/*--------------------------------------------------------------------------*/
+
+static int msg_113(integer *n, integer *ierr)
+{
+  sciprint(_("%s: %s is too small. No further reduction in the criterion is possible.\n"),"lsqrsolve","xtol");
+  return 0;
+}
+/*--------------------------------------------------------------------------*/
+
+static int msg_114(integer *n, integer *ierr)
+{
+  sciprint(_("%s: %s is too small. %s is orthogonal to the columns of the jacobian to machine precision.\n"),"lsqrsolve","gtol","fvec");
+  return 0;
+}
+/*--------------------------------------------------------------------------*/
+
+
+
 /*--------------------------------------------------------------------------*/
 static int msg_default(integer *n, integer *ierr)
 {

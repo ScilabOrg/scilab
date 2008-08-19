@@ -67,6 +67,7 @@ double sciGetFontSize(sciPointObj * pobj); /* GET */
 double sciGetFontOrientation (sciPointObj * pobj); /* GET */
 StringMatrix * sciGetText (sciPointObj * pobj); /* GET */
 void sciGetTextSize( sciPointObj * pobj, int * nbRow, int * nbCol ) ; /* GET */
+BOOL sciisTextEmpty( sciPointObj * pobj);
 unsigned int sciGetTextLength (sciPointObj * pobj); /* GET */
 
 int sciGetFontBackground (sciPointObj * pobj); /* GET */
@@ -252,6 +253,8 @@ BOOL sciGetTightLimitsOn(sciPointObj * pObj); /* GET */
 
 void sciGetAutoTicks(sciPointObj * pObj, BOOL autoTicks[3]); /* GET */
 
+BOOL sciGetAutoSubticks(sciPointObj * pObj); /* GET */
+
 void sciGetAxesVisible(sciPointObj * pObj, BOOL axesVisible[3]); /* GET */
 
 void sciGetZoomBox(sciPointObj * pObj, double zoomBox[6]); /* GET */
@@ -281,6 +284,8 @@ int sciGetNbZTicks(sciPointObj * pSubwin);
 void sciGetZTicksPos(sciPointObj * pSubwin, double ticksPos[], char ** ticksLabels);
 
 BOOL sciGetIsAbleToCreateWindow(void);
+
+int sciGetSubwinIndex(sciPointObj * pSubwin); /* GET */
 
 void printSetGetErrorMessage(const char * propertyName);
 

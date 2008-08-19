@@ -59,8 +59,6 @@ DIST_COMMON = $(libscirenderer_la_include_HEADERS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@am__append_1 = java
-@SWIG_TRUE@am__append_2 = swig
-@GIWS_TRUE@am__append_3 = giws
 subdir = modules/renderer
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -326,7 +324,13 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 	src/cpp/subwinDrawing/GridDrawerJavaMapper.cpp \
 	src/jni/TicksDrawerGL.cpp src/jni/GridDrawerGL.cpp \
 	src/jni/RenderingChecker.cpp src/cpp/RendererFontManager.cpp \
-	src/jni/XlFontManager.cpp sci_gateway/c/gw_renderer.c
+	src/jni/XlFontManager.cpp \
+	src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp \
+	src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp \
+	src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp \
+	src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp \
+	src/cpp/axesDrawing/AxesSubticksComputer.cpp \
+	src/jni/GiwsException.cpp sci_gateway/c/gw_renderer.c
 @GUI_TRUE@am__objects_1 = libscirenderer_la-DrawableSubwinFactory.lo \
 @GUI_TRUE@	libscirenderer_la-DrawableSubwin.lo \
 @GUI_TRUE@	libscirenderer_la-DrawableFigureJoGL.lo \
@@ -573,7 +577,13 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 @GUI_TRUE@	libscirenderer_la-GridDrawerGL.lo \
 @GUI_TRUE@	libscirenderer_la-RenderingChecker.lo \
 @GUI_TRUE@	libscirenderer_la-RendererFontManager.lo \
-@GUI_TRUE@	libscirenderer_la-XlFontManager.lo
+@GUI_TRUE@	libscirenderer_la-XlFontManager.lo \
+@GUI_TRUE@	libscirenderer_la-AutoLogSubticksComputer.lo \
+@GUI_TRUE@	libscirenderer_la-AutomaticSubticksComputer.lo \
+@GUI_TRUE@	libscirenderer_la-UserDefLogSubticksComputer.lo \
+@GUI_TRUE@	libscirenderer_la-UserDefinedSubticksComputer.lo \
+@GUI_TRUE@	libscirenderer_la-AxesSubticksComputer.lo \
+@GUI_TRUE@	libscirenderer_la-GiwsException.lo
 @GUI_TRUE@am__objects_2 = libscirenderer_la-gw_renderer.lo
 @GUI_FALSE@am_libscirenderer_la_OBJECTS =  \
 @GUI_FALSE@	libscirenderer_la-norenderer.lo
@@ -628,6 +638,7 @@ BLAS_LIBS = @BLAS_LIBS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
@@ -1051,7 +1062,13 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@src/jni/GridDrawerGL.cpp \
 @GUI_TRUE@src/jni/RenderingChecker.cpp \
 @GUI_TRUE@src/cpp/RendererFontManager.cpp \
-@GUI_TRUE@src/jni/XlFontManager.cpp
+@GUI_TRUE@src/jni/XlFontManager.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp \
+@GUI_TRUE@src/cpp/axesDrawing/AxesSubticksComputer.cpp \
+@GUI_TRUE@src/jni/GiwsException.cpp
 
 
 # List of the gateway c files
@@ -1126,6 +1143,7 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@src/jni/RenderingChecker.giws.xml \
 @GUI_TRUE@src/jni/XlFontManager.giws.xml
 
+@GIWS_TRUE@@GUI_TRUE@BUILT_SOURCES = giws
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
@@ -1171,7 +1189,7 @@ mydatadir = $(pkgdatadir)/modules/$(modulename)
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1) $(am__append_2) $(am__append_3)
+TARGETS_ALL = $(am__append_1)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -1212,7 +1230,11 @@ TESTS_DIR = tests/benchmarks tests/nonreg_tests tests/unit_tests
 JARDIR = jar/
 # JAR files
 JARMASK = *.jar
-all: all-am
+# Chapter file 
+HELP_CHAPTERDIR = help/
+HELP_CHAPTERFILE = addchapter.sce
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .sci .bin .c .cpp .lo .o .obj
@@ -1287,9 +1309,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ArcLineDrawerGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ArcLineDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ArcLineDrawerJoGL.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AutoLogSubticksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AutoLogTicksComputer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AutomaticSubticksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AutomaticTicksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AxesPositioner.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AxesSubticksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AxesTicksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AxesTicksDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-AxisPositioner.Plo@am__quote@
@@ -1416,6 +1441,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-FullBoxDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-FullBoxDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GetJavaProperty.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GiwsException.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GlobalSynchronizer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GraphicSynchronizer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GraphicSynchronizerBridgeFactory.Plo@am__quote@
@@ -1514,7 +1540,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TicksDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TitlePositioner.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TopXAxisPositioner.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-UserDefLogSubticksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-UserDefLogTicksComputer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-UserDefinedSubticksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-UserDefinedTicksComputer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-VerticalBarDecomposition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-XAxisPositioner.Plo@am__quote@
@@ -3316,6 +3344,48 @@ libscirenderer_la-XlFontManager.lo: src/jni/XlFontManager.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-XlFontManager.lo `test -f 'src/jni/XlFontManager.cpp' || echo '$(srcdir)/'`src/jni/XlFontManager.cpp
 
+libscirenderer_la-AutoLogSubticksComputer.lo: src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-AutoLogSubticksComputer.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-AutoLogSubticksComputer.Tpo -c -o libscirenderer_la-AutoLogSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-AutoLogSubticksComputer.Tpo $(DEPDIR)/libscirenderer_la-AutoLogSubticksComputer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp' object='libscirenderer_la-AutoLogSubticksComputer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-AutoLogSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/AutoLogSubticksComputer.cpp
+
+libscirenderer_la-AutomaticSubticksComputer.lo: src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-AutomaticSubticksComputer.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-AutomaticSubticksComputer.Tpo -c -o libscirenderer_la-AutomaticSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-AutomaticSubticksComputer.Tpo $(DEPDIR)/libscirenderer_la-AutomaticSubticksComputer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp' object='libscirenderer_la-AutomaticSubticksComputer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-AutomaticSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp
+
+libscirenderer_la-UserDefLogSubticksComputer.lo: src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-UserDefLogSubticksComputer.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-UserDefLogSubticksComputer.Tpo -c -o libscirenderer_la-UserDefLogSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-UserDefLogSubticksComputer.Tpo $(DEPDIR)/libscirenderer_la-UserDefLogSubticksComputer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp' object='libscirenderer_la-UserDefLogSubticksComputer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-UserDefLogSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp
+
+libscirenderer_la-UserDefinedSubticksComputer.lo: src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-UserDefinedSubticksComputer.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-UserDefinedSubticksComputer.Tpo -c -o libscirenderer_la-UserDefinedSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-UserDefinedSubticksComputer.Tpo $(DEPDIR)/libscirenderer_la-UserDefinedSubticksComputer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp' object='libscirenderer_la-UserDefinedSubticksComputer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-UserDefinedSubticksComputer.lo `test -f 'src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp
+
+libscirenderer_la-AxesSubticksComputer.lo: src/cpp/axesDrawing/AxesSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-AxesSubticksComputer.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-AxesSubticksComputer.Tpo -c -o libscirenderer_la-AxesSubticksComputer.lo `test -f 'src/cpp/axesDrawing/AxesSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/axesDrawing/AxesSubticksComputer.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-AxesSubticksComputer.Tpo $(DEPDIR)/libscirenderer_la-AxesSubticksComputer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/axesDrawing/AxesSubticksComputer.cpp' object='libscirenderer_la-AxesSubticksComputer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-AxesSubticksComputer.lo `test -f 'src/cpp/axesDrawing/AxesSubticksComputer.cpp' || echo '$(srcdir)/'`src/cpp/axesDrawing/AxesSubticksComputer.cpp
+
+libscirenderer_la-GiwsException.lo: src/jni/GiwsException.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-GiwsException.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-GiwsException.Tpo -c -o libscirenderer_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-GiwsException.Tpo $(DEPDIR)/libscirenderer_la-GiwsException.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/GiwsException.cpp' object='libscirenderer_la-GiwsException.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -3448,13 +3518,15 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) check-local
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
 	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscirenderer_la_etcdir)" "$(DESTDIR)$(libscirenderer_la_rootdir)" "$(DESTDIR)$(libscirenderer_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -3478,6 +3550,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
@@ -3591,6 +3664,7 @@ check-local: $(top_builddir)/scilab-bin
 @NEED_JAVA_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
 @NEED_JAVA_TRUE@		$(ANT) clean; \
 @NEED_JAVA_TRUE@	fi;
+
 # If the user request for the SWIG generation of the wrappers Java => C/C++ 
 # We call the target swig-build on the variable SWIG_WRAPPERS
 
@@ -3612,7 +3686,7 @@ check-local: $(top_builddir)/scilab-bin
 @GIWS_TRUE@	if test ! -z "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --description-file $$file; \
+@GIWS_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@		done; \
 @GIWS_TRUE@	fi
 
@@ -3657,7 +3731,7 @@ install-html-local:
 @INSTALL_HELP_XML_TRUE@	done
 install-data-local:
 # Install the tests
-	@echo "-- Install tests (if any) --"; \
+	@echo "-------- Install tests (if any) --------"; \
 	for dir in $(TESTS_DIR) $(TESTS_DIREXT) ; do \
 	  if test -d $(srcdir)/$$dir/; then \
 	    $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
@@ -3672,8 +3746,19 @@ install-data-local:
 		  done; \
 	  fi; \
 	done 
+# Install the help chapter
+	@echo "-------- Install the help chapter (if any) --------"; \
+	for lang in $(ALL_LINGUAS); do \
+		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+		if test -f $$HELPFILE; then \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
+		fi; \
+	done
 # Install the macros
-	@echo "-- Install macros (if any) --"; \
+	@echo "-------- Install macros (if any) --------"; \
 	for dir in $(MACRODIRS) $(MACROSDIRSEXT) ; do \
 	  $(mkinstalldirs) $(DESTDIR)$(pkgmacrosdir)/$$dir && \
 		if test -d $(srcdir)/$$dir/; then \
@@ -3690,7 +3775,7 @@ install-data-local:
 	done
 # Install java files (.jar)
 	@if ls -lLd $(srcdir)/$(JARDIR)$(JARMASK) >/dev/null 2>&1; then \
-	echo "-- Install jar files --"; \
+	echo "-------- Install jar files --------"; \
     $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(JARDIR); \
 	  for file in $(srcdir)/$(JARDIR)$(JARMASK); do\
 		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$(JARDIR)" ; \

@@ -58,8 +58,8 @@ function black(varargin)
       [frq,repf]=repfreq(varargin(1),1d-3,1d3)
     elseif rhs==2 then //sys,frq
       if size(varargin(2),2)<2 then
-	error(msprintf(_("%s: Wrong size for input argument #%d: A 1-by-n array expected with n>%d.\n"),..
-		       fname,1,1))
+	error(msprintf(_("%s: Wrong size for input argument #%d: A row vector with length>%d expected.\n"),..
+		       fname,2,1))
       end
       [frq,repf]=repfreq(varargin(1:rhs))
     elseif or(rhs==(3:4)) then //sys,fmin,fmax [,pas]
@@ -76,7 +76,7 @@ function black(varargin)
     case 2 then //frq,repf
       frq=varargin(1);
       if size(frq,2)<2 then
-	error(msprintf(_("%s : Invalid argument #%d. It must be a row vector with length > %d"),..
+	error(msprintf(_("%s: Wrong size for input argument #%d: A row vector with length>%d expected.\n"),..
 		       fname,1,1))
       end
       if size(frq,2)<>size(varargin(2),2) then
@@ -98,8 +98,7 @@ function black(varargin)
        error(msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),fname,2,4))
     end
   else
-     error(msprintf(_("%s: Wrong type for input argument #%d:  Linear state space, transfer function "+.. 
-		     " or row vector of floats expected.\n"),fname,1))
+    error(msprintf(_("%s: Wrong type for input argument #%d: Linear dynamical system or row vector of floats expected.\n"),fname,1))
   end;
   
   if size(frq,1)==1 then
@@ -176,7 +175,7 @@ function black(varargin)
     kf=kf+ilf
   end
  
-  xtitle(" ",_("Frequency (°)"),_("Magnitude (Db)"));
+  xtitle(" ",_("Frequency (Hz)"),_("Magnitude (Db)"));
   //  2.3 db curve
   mbf=2.3;
   lmda=exp(log(10)/20*mbf);
