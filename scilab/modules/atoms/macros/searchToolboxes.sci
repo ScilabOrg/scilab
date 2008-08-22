@@ -1,32 +1,40 @@
-// Recherche d'une toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Research of a toolbox
 
 function result = searchToolboxes(keyWord, typeSearch)
-  // S'il n'y a pas de type
+  // If there is no type
   if argn(2) == 1
     typeSearch = "all"
   end
   result = %f
   listTool = []
-  // On met en forme
+  // We shape
   keyWord = splitWord(keyWord)
   typeSearch = convstr(typeSearch,"l")
   [a, b] = size(keyWord)
   global numberFunction
   listDesc = atomsReadDesc("")
   [n, m] = size(listDesc("Toolbox"))
-  // On regarde les Toolboxes une à une
+  // We check Toolboxes one to one
   for i=1:n
-    // Différents cas de valeur de typeSearch
+    // Differents value case of typeSearch
     if typeSearch == "all"
-      // Recherche dans Description + Title + Toolbox + Category + Author
+      // Research in Description + Title + Toolbox + Category + Author
       titleTool = convstr(listDesc("Title")(i),"l")
       descTool = convstr(listDesc("Description")(i),"l")
       nameTool = convstr(listDesc("Toolbox")(i),"l")
       catTool = convstr(listDesc("Category")(i),"l")
       authorTool = convstr(listDesc("Author")(i),"l")
       functionTool = listDesc("Function")(i)
-      // Comparaison mot-clé et mots (on recherche la position du mot-clé dans le mot, si c'est == [] c'est qu'il n'a pas été trouvé; auquel cas, inutile de comparer les autres mot-clés)
+      // Comparaison keyword and words (we research the key-word position in the word, if it's == [] the word is not found; in this case, it's useless to compare the other keywords)
       toolFind = %t
       for j=1:a
         if strindex(titleTool, keyWord(j)) == [] & strindex(descTool, keyWord(j)) == [] & strindex(nameTool, keyWord(j)) == [] & strindex(catTool, keyWord(j)) == [] & strindex(authorTool, keyWord(j)) == []
@@ -42,9 +50,9 @@ function result = searchToolboxes(keyWord, typeSearch)
         end
       end
     elseif typeSearch == "author"
-      // Recherche dans Author
+      // Research in Author
       authorTool = convstr(listDesc("Author")(i),"l")
-      // Comparaison mot-clé et mots
+      // Comparaison keyword and words
       toolFind = %t
       for j=1:a
         if strindex(authorTool, keyWord(j)) == []
@@ -53,9 +61,9 @@ function result = searchToolboxes(keyWord, typeSearch)
         end
       end
     elseif typeSearch == "entity"
-      // Recherche dans Entity
+      // Research in Entity
       entityTool = convstr(listDesc("Entity")(i),"l")
-      // Comparaison mot-clé et mots
+      // Comparaison keyword and words
       toolFind = %t
       for j=1:a
         if strindex(entityTool, keyWord(j)) == []
@@ -64,10 +72,10 @@ function result = searchToolboxes(keyWord, typeSearch)
         end
       end 
     elseif typeSearch == "function"
-      // Recherche dans Function
+      // Research in Function
       functionTool = listDesc("Function")(i)
-      // Lecture ligne à ligne des fonctions
-      // Comparaison mot-clé et mots
+      // Reading lines to lines of the functions
+      // Comparaison keyword and words
       toolFind = %t
       for j=1:a
         for k=1:numberFunction
@@ -79,31 +87,31 @@ function result = searchToolboxes(keyWord, typeSearch)
         end
       end 
     else
-      atomsDisplayMessage("Le champs de recherche " + typeSearch + " n''existe pas")
+      atomsDisplayMessage("The research field " + typeSearch + " doesn''t exist")
       return result
     end
-    // Si on a trouvé tous les mots
+    // If we found the words
     if toolFind
       [n, m] = size(listTool)
-      // On regarde si la Toolbox concorde avec la version du scilab
+      // We check if the Toolbox suit to the scilab version
       if atomsVerifVersionScilab(listDesc("ScilabVersion")(i))
         listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i)
       else
-        listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i) + " - Attention cette Toolbox (Version " + listDesc("Version")(i) + ") n''est pas compatible avec votre version de Scilab"
+        listTool(n+1) = listDesc("Toolbox")(i) + " - " + listDesc("Title")(i) + " - Warning this toolbox (Version " + listDesc("Version")(i) + ") isn''t compatible with our scilab version"
       end
       result = %t
     end
   end
   if ~result
-    atomsDisplayMessage("Aucune Toolbox ne correspond a la recherche")
+    atomsDisplayMessage("No Toolbox corresponds at the research")
   else
     listTool = unique(listTool)
     [n, m] = size(listTool)
     if n == 1
-      atomsDisplayMessage("La Toolbox suivante correspond a la recherche :")
+      atomsDisplayMessage("The following Toolbox corresponds at the research :")
       atomsDisplayMessage(listTool)
     else
-      atomsDisplayMessage("Les Toolboxes suivantes correspondent a la recherche :")
+      atomsDisplayMessage("The following Toolboxes corresponds at the research :")
       for i=1:n
         atomsDisplayMessage("- " + listTool(i))
       end
@@ -112,10 +120,10 @@ function result = searchToolboxes(keyWord, typeSearch)
   return result
 endfunction
 
-// On split les phrases en un tableau de mots
+// We split the sentences on a words array
 function var = splitWord(var)
-  // On passe tout en minuscule
+  // We cross everything in small letter
   var = convstr(var,"l")
-  // On split (erreur si le dernier caractère est un " ")
+  // We split (error if the last caracter is a " ")
   var = atomsSplitValue(var, " ")
 endfunction

@@ -1,28 +1,35 @@
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 // Parsing of the Description-Function file
-// mai 2008 by Delphine
 
 function descFunct = atomsReadDescFunctions(nom)
   global numberFunction
-  // On va dans le repertoire contenant les toolboxes
   rep = atomsToolboxDirectory()
   d = rep + nom
-  // Gestion des OS differents
+  // Support of the different OS 
   if getos() == "Windows"
     directory = d + "\DESCRIPTION-FUNCTIONS"
-  else // linux et mac
+  else // linux and mac
     directory = d + "/DESCRIPTION-FUNCTIONS"
   end
-  // Soit on trouve le dossier en local et le fichier DESCRIPTION-FUNCTIONS est présent
+  // If we find the local directory and the DESCRIPTION-FUNCTIONS file is present
   if (isdir(d) & ls(directory) <> [])
     cd (d)
-    // Lecture du fichier description qu'on stocke dans un tableau
+    // Reading of thedescription file which we stock in a array
     tab = atomsReadFile("DESCRIPTION-FUNCTIONS")
-    // création d'une liste
+    // Creation of a liste
     [n, m] = size(tab)
     numberFunction = 0
     for i=1:n
       ind = strindex(tab(i),'-')
-      // Si ind = [] on est dans la n-ième ligne du champs précédent
+      // If ind = [] we are always in the previous field
       if ind == []
         descFunct(string(numberFunction)) = descFunct(string(numberFunction)) + tab(i)
       else
@@ -31,7 +38,7 @@ function descFunct = atomsReadDescFunctions(nom)
       end
     end
   else
-    atomsDisplayMessage("Le fichier DESCRIPTION-FUNCTIONS de la toolbox " + nom + " est manquant")
+    atomsDisplayMessage("The DESCRIPTION-FUNCTIONS file of the toolbox " + nom + " is missing")
     descFunct = ""
   end
   return descFunct

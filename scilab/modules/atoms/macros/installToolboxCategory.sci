@@ -1,29 +1,36 @@
-// Installation d'une sous catégorie de toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-// Category : cat1 (sscat1, sscat2); cat2 (sscat3, sscat4)
+// Installation of a toolbox sub-category  
+
 function result = installToolboxCategory(cat, sscat, checkVersionScilab)
   if argn(2) == 2
     checkVersionScilab = %t
   end
   result = %f
-  // On charge la liste de toutes les toolboxes dispo sur le net
+  // we load the list of all the available toolboxes in the net
   desc = atomsReadDesc("")
   [nbTool, m] = size(desc("Toolbox"))
   for i=1:nbTool
     catTool = desc("Category")(i)
-    // On regarde si cette toolbox appartient à la cat/sscat demandée
+    // We watch if this toolbox belong to the asked cat/sscat
     regularExpression = "/" + cat + " \((\w*, )*" + sscat + "(, \w*)*\)/"
-    // Si oui on l'installe si elle convient à la version de scilab
+    // If yes, we install it if it is convenient for the Scilab version
     if regexp(catTool, regularExpression) <> [] & ((atomsVerifVersionScilab(desc("ScilabVersion")(i)) & checkVersionScilab) | ~checkVersionScilab)
-      // On ne peut pas prendre result = installToolbox() car s'il y a une erreur d'install, result = %f
+      // We can't take result = installToolbox() there is a install error, result = %f
       installToolbox(desc("Toolbox")(i));
       result = %t
     end   
   end
-  // Si on n'a rien installé
+  // If we have installed nothing
   if ~result
-    atomsDisplayMessage ("Aucune Toolbox ne correspond a cet ensemble categorie/sous categorie pour votre version")
+    atomsDisplayMessage ("None of the Toolboxes correspond in this category/sub-category for your version")
   end
   return result
 endfunction

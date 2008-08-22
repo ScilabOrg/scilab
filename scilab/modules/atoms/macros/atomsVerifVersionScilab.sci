@@ -1,22 +1,30 @@
-// Selection des toolboxes correspondant à la bonne version de scilab
-// juin 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Selection of the toolboxes corresponding at the good scilab version
 
 function result = atomsVerifVersionScilab(scilabVersion)
-  // On récupère la version du logiciel
+  // we get back the software version
   currentVersion = getversion()
   index = strindex(currentVersion, "-")
   currentVersion = strsplit(currentVersion,index)
   [a, b]=size(index)
-  // S'il y a plus d'un "-" c'est soit trunk, soit une alpha/beta/rc
+  // If there is more than one "-" it is trunk or a alpha/beta/rc
   if b == 3 
     modifCurrentVersion = currentVersion(3) + currentVersion(4) 
   end
   currentVersion = currentVersion(2)
   currentVersion = strsubst(currentVersion, "-", "")
-  // On met en forme la version de scilab de la toolbox
+  // We shape the toolbox scilab version
   scilabVersion = strsubst(scilabVersion, " ", "")
   [signeScilab, versionScilab] = atomsSeparateSignVersion(scilabVersion)
-  // On regarde si la aussi on n'a pas affaire a une alpha/beta/rc
+  // We check also here if it's a alpha/beta/rc
   index = strindex(versionScilab, "-")
   if index <> []
     versionScilab = strsplit(versionScilab,index)
@@ -24,7 +32,7 @@ function result = atomsVerifVersionScilab(scilabVersion)
     versionScilab = versionScilab(1)
     versionScilab = strsubst(versionScilab, "-", "")
   end
-  // On regarde les différents cas pour savoir si les versions concordent
+  // We check the different versions to know if the versions match
   if currentVersion == "trunk"
     if signeScilab == ">="
       result = %T
@@ -33,7 +41,7 @@ function result = atomsVerifVersionScilab(scilabVersion)
     end
   else
     if atomsCompareVersion(atomsDecoupVersion(versionScilab), atomsDecoupVersion(currentVersion)) == 0
-      // On regarde si on a des modificateurs de version
+      // We check if we have different versions
       if isdef("modifCurrentVersion") & isdef("modifVersionScilab")
         if verifVersionModif(modifCurrentVersion, modifVersionScilab) == 0
           result = %T
@@ -66,7 +74,7 @@ function result = verifVersionModif(vScilab, vTool)
   vScilab = strsplit(vScilab,index)
   index = strindex(vTool, "-")
   vTool = strsplit(vTool,index)
-  // On les compare : 1 si vScilab > vTool; 0 si vScilab = vTool; -1 si vScilab < vTool
+  // We compare versions : 1 if vScilab > vTool; 0 if vScilab = vTool; -1 if vScilab < vTool
   // alpha < beta < rc
   if length(vScilab(1)) > length(vTool(1))
     return -1

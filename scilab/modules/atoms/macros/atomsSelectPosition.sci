@@ -1,5 +1,13 @@
-// Selection de la position d'un toolbox dans la liste des toolboxes disponibles.
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Selection of the toolbox position in the available toolboxes list .
 
 function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, checkVersionScilab)
   [n, m] = size(listDesc("Toolbox"))
@@ -11,7 +19,7 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, ch
     if (atomsVerifVersionScilab(listDesc("ScilabVersion")(i)) & checkVersionScilab) | ~checkVersionScilab
       if versionToolbox == "" & listDesc("Toolbox")(i) == nomToolbox
         position = i
-        // Recherche de version plus récente
+        // Research of a more recent version
         for j=i+1:n
           if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab) | ~checkVersionScilab
             if listDesc("Toolbox")(j) == nomToolbox
@@ -28,7 +36,7 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, ch
         cmp = atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(i)), versionToolbox);
         if (signeToolbox == "<=" & cmp <= 0) | (signeToolbox == ">=" & cmp >= 0) | (signeToolbox == "=" & cmp == 0)
           position = i
-          // Recherche de version plus récente
+          // Research of a more recent version
           for j=i+1:n
             if (atomsVerifVersionScilab(listDesc("ScilabVersion")(j)) & checkVersionScilab) | ~checkVersionScilab
               cmp = atomsCompareVersion(atomsDecoupVersion(listDesc("Version")(j)), versionToolbox);
@@ -46,11 +54,11 @@ function position = atomsSelectPosition(listDesc, nomToolbox, versionToolbox, ch
       end
     end
   end
-  // Toolbox non trouvée
-  // Cas ou on a regardé en local
+  // Toolbox not found
+  // Case where we have searched in local
   if n == 1
     position = 0.1
-  // Cas ou on a regardé sur les repository
+  // Case where we have searched in the repositories
   else
     position = 0
   end

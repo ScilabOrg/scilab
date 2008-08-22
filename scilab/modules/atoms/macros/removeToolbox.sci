@@ -1,22 +1,30 @@
-// suppression d'une toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Remove of a toolbox
 
 function result = removeToolbox(nom)
   rep = atomsToolboxDirectory()
-  // Si nom = "all" on supprime toutes les Toolboxes
+  // If nom = "all" we delete all the Toolboxes
   if nom == "all"  
     rmdir(rep, "s")
     mkdir(rep)
   else
-    // On vérifie que la toolbox existe
+    // we verify the existence of the toolbox
     d = rep + nom
     if ~isdir(d)
-      atomsDisplayMessage("La toolbox " + nom + " n''est pas installee")
+      atomsDisplayMessage("The toolbox " + nom + " is not installed")
       result = %f
       return result
     end
     cd (rep)
-    // On vérifie que la toolbox n'est pas une dépendance d'une autre
+    // We verify if the toolbox is not a dependancie of another toolbox
     listLocal = ls()
     [n, m] = size(listLocal)
     for i=1:n
@@ -28,8 +36,8 @@ function result = removeToolbox(nom)
         for j=1:n
           [depend, version] = atomsSeparateVersionDep(depends(j))
           if find(depend == nom) <> []
-            atomsDisplayMessage("La Toolbox " + nom + " est une dependance de " + listLocal(i))
-            reponse = input("Continuer? [""y""/""n""]")
+            atomsDisplayMessage("The Toolbox " + nom + " is a dependancie of " + listLocal(i))
+            reponse = input("Continue? [""y""/""n""]")
             if (reponse <> "y" & reponse <> "Y")
               result = %f
               return result
@@ -39,7 +47,7 @@ function result = removeToolbox(nom)
       end
     end
     rmdir(rep + nom, "s")
-    atomsDisplayMessage(nom + " supprime")
+    atomsDisplayMessage(nom + " delete")
     result = %t
     return result
   end

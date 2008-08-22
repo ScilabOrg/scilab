@@ -1,14 +1,22 @@
-// update d'une toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// update of a toolbox
 
 function result = updateToolbox(nom, checkVersionScilab)
-  // On regarde si le 2eme argument existe
+  // We check if the second argument exist 
   if argn(2) == 1
     checkVersionScilab = %t
   end
-  // On enlève les charactères spéciaux
+  // We remove special caracters
   nom = atomsSubstituteString(nom)
-  // Si nom = "all" on update toutes les Toolboxes
+  // if nom = "all" we update all the Toolboxes
   if nom == "all"
     listLocal = ls()
     [n, m] = size(listLocal)
@@ -20,33 +28,33 @@ function result = updateToolbox(nom, checkVersionScilab)
       end
     end
   else
-    // On vérifie que la Toolboxe existe bien en local
+    // We check if the Toolboxe locally exist
     rep = atomsToolboxDirectory()
     d = rep + nom
     if ~isdir(d)
-      atomsDisplayMessage("La toolbox " + nom + " n''est pas installee")
+      atomsDisplayMessage("The toolbox " + nom + " is not installed")
       result = %f
       return result
     end
-    // On récupère la version de l'actuelle
+    // We get back the current version 
     desc = atomsReadDesc(nom)
     versionActuelle = atomsExtractValue("Version", desc, 1)
     versionActuelle = atomsDecoupVersion(versionActuelle)
-    // On recupère la liste de toutes les autres toolboxes disponibles
+    // We get back the list of all the other available toolboxes 
     listDesc = atomsReadDesc("")
-    // On prend la version la plus récente
+    // We take the more recent version
     position = atomsSelectPosition(listDesc, nom, "", checkVersionScilab)
-    // Si la toolbox n'est pas disponible en ligne
+    // If the toolbox is not available online
     if position == 0
-      atomsDisplayMessage("Toolbox non disponible sur le net")
+      atomsDisplayMessage("Toolbox not available on the net")
       result = %f
       return result
     end
     versionNew = atomsExtractValue("Version", listDesc, position)
     versionNew = atomsDecoupVersion(versionNew)
-    // On regarde si c'est une mise à jour par rapport au local
+    // We check if it is an update of the local
     if atomsCompareVersion(versionNew, versionActuelle) == 1
-      // On regarde s'il était une dépendance max pour d'autres toolboxes
+      // We check if it was a max dependancie for other toolboxes
       listLocal = ls()
       [n, m] = size(listLocal)
       for i=1:n
@@ -61,9 +69,9 @@ function result = updateToolbox(nom, checkVersionScilab)
               [signe, version] = atomsSeparateSignVersion(version)
               if find(depend == nom) <> [] & signe == "<="
                 version = atomsDecoupVersion(version)
-                // On regarde si la nouvelle version valide cette dépendance max
+                // We check if the new version confirm this max dépendancie 
                 if atomsCompareVersion(versionNew, version) == 1
-                  atomsDisplayMessage("probleme de dependance")
+                  atomsDisplayMessage("Dependancie problem")
                   result = %f
                   return result
                 end
@@ -73,7 +81,7 @@ function result = updateToolbox(nom, checkVersionScilab)
         end
       end
     end
-    // On vérifie s'il y a besoin d'updater des dépendances
+    // We verify if it is necessary to update the dependancies
     dependsNew = atomsExtractValue("Depends", listDesc, position)
     dependsNew = atomsSplitValue(dependsNew, ",")
     [n, m] = size(dependsNew)
@@ -93,10 +101,10 @@ function result = updateToolbox(nom, checkVersionScilab)
         end
       end
     end
-    // On le prévient de ce qu'on va faire
+    // We warm it
     versionNew = atomsExtractValue("Version", listDesc, position)
-    atomsDisplayMessage("La toolbox " + nom + " va etre update en version " + versionNew)
-    // On installe la nouvelle version
+    atomsDisplayMessage("The toolbox " + nom + " is going to be update in version " + versionNew)
+    // We install the new version
     rmdir(rep + nom, "s")
     installToolbox(nom);
   end

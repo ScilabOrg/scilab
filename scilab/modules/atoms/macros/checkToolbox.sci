@@ -1,97 +1,105 @@
-// Vérification de la bonne contruction d'une toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Verification that the toolbox is build correctly
 
 function result = checkToolbox(nom)
-  // On enlève les charactères spéciaux
+  // We remove the special caracters
   nom = atomsSubstituteString(nom)
-  // On va dans le repertoire contenant les toolboxes
+  // We go in the repectory with toolboxes
   rep = atomsToolboxDirectory()
   d = rep + nom
-  // Si le dossier n'existe pas
+  // If the repertory doesn't exist
   if ~(isdir(d))
-    atomsDisplayMessage("Le dossier de la toolbox " + nom + " n''existe pas ou est mal nomme")
+    atomsDisplayMessage("The toolbox directory" + nom + " doesn''t exist or the name is false")
     result = %f
     return result
   end
   cd (d)
   if ~checkDescription()
-    atomsDisplayMessage("Le fichier DESCRIPTION n''est pas valide")
+    atomsDisplayMessage("The DESCRIPTION file isn''t valid")
     result = %f
     return result
   end
     if ~checkDescriptionFunctions()
-    atomsDisplayMessage("Le fichier DESCRIPTION-FUNCTIONS n''est pas valide")
+    atomsDisplayMessage("The DESCRIPTION-FUNCTIONS file isn''t valid")
     result = %f
     return result
   end
   if ~checkLoader()
-    atomsDisplayMessage("Le fichier loader.sce n''est pas present")
+    atomsDisplayMessage("The loader.sce file isn''t present")
     result = %f
     return result
   end
   if ~checkTest()
-    atomsDisplayMessage("Il serait interessant que des test soient disponibles")
+    atomsDisplayMessage("It would be interesting that tests are available")
   end
   if ~checkHelp()
-    atomsDisplayMessage("Il serait interessant qu''une aide soit disponible")
+    atomsDisplayMessage("It would be interesting that a help is available")
   end
   if ~checkDemo()
-    atomsDisplayMessage("Il serait interessant qu''une demonstration soit disponible")
+    atomsDisplayMessage("It would be interesting that a demonstration is available")
   end
   if ~checkReadme()
-    atomsDisplayMessage("Il serait interessant que le fichier readme soit present")
+    atomsDisplayMessage("It would be interesting that the readme file is present")
   end
   if ~checkLicense()
-    atomsDisplayMessage("Il serait interessant que le fichier license soit present")
+    atomsDisplayMessage("It would be interesting that the license file is present")
   end
   result = %t
   return result
 endfunction
 
 function result = checkDescription()
-  // Si le fichier DESCRIPTION est présent
+  // If the DESCRIPTION file is present
   if ls("DESCRIPTION") <> []
-    // Lecture du fichier description qu'on stocke dans un tableau
+    // Reading of the description file which we stock in an array
     tab = atomsReadFile("DESCRIPTION")
-    // Création d'un "tableau de hash"
+    // Creation of a "hash table"
     desc = atomsListDescription()
-    // Vérification de la présence d'un seul espace après les :
+    // Check of the presence of only one space after the :
     [n, m] = size(desc)
       for i=1:n
         ind = strindex(tab(i),':')
         if (part([tab(i)],[ind+1]) <> " " | part([tab(i)],[ind+2])== " ")
-          atomsDisplayMessage("The fields "  + tab(i) + " should have one and only one whitespace after the :")
+          atomsDisplayMessage("The field "  + tab(i) + " should have one and only one whitespace after the :")
           result = %f
           return result
         end
       end
-    // Remplissage du tableau de hash
+    // Filling of the hash table
     desc = hashTable(desc, tab)
-    // Verification que tous les champs obligatoires sont remplis
+    // Check if all the compulsory fields are filled 
     [listeObl, listeOpt] = atomsConstant()
     for i=1:7
       if desc(listeObl(i)) == []
-        atomsDisplayMessage("Le champs " + listeObl(i) + " est absent de la DESCRIPTION")
+        atomsDisplayMessage("The field " + listeObl(i) + " est absent de la DESCRIPTION")
         result = %f
         return result
       end
     end
-    // Verification que le nom correspond bien
+    // Check if the name correspond
     if desc("Toolbox") <> nom
-      atomsDisplayMessage("Le nom de la toolbox present dans le fichier DESCRIPTION n''est pas le bon")
+      atomsDisplayMessage("The toolbox name present in the DESCRIPTION file is false")
       result = %f
       return result
     end
-    // Verification que la version est au bon format
+    // Check if the version has a good format
     v = desc("Version")
     if regexp(v, '/[0-9]+\.[0-9]+\.?[0-9]*$/') <> 1
       disp("The version is a sequence of at least two (and usually three) non-negative integers separated by single ''.'' characters.")
       result = %f
       return result
     end
-  // Soit le fichier DESCRIPTION n'existe pas
+  // If the DESCRIPTION file doesn't exist 
   else
-    atomsDisplayMessage("Le fichier DESCRIPTION n''existe pas ou n''est pas a la bonne place")
+    atomsDisplayMessage("The DESCRIPTION file doesn''t exist or isn''t at the good place")
     result = %f
     return result
   end
@@ -101,16 +109,16 @@ endfunction
 
 function result = checkDescriptionFunctions()
   result = %t
-  // Si le fichier DESCRIPTION-FUNCTIONS est présent
+  // If the DESCRIPTION-FUNCTIONS file is présent
   if ls("DESCRIPTION-FUNCTIONS") <> []
-    // Lecture du fichier description qu'on stocke dans un tableau
+    // Reading of the description file which we stock in an array
     tab = atomsReadFile("DESCRIPTION-FUNCTIONS")
-    // création d'une liste
+    // Creation of a list
     [n, m] = size(tab)
     numberFunction = 0
     for i=1:n
       ind = strindex(tab(i),'-')
-      // Si ind = [] on est dans la n-ième ligne du champs précédent
+      // If ind = [] we are always in the previous field
       if ind == []
         descFunct(string(numberFunction)) = descFunct(string(numberFunction)) + tab(i)
       else
@@ -118,34 +126,34 @@ function result = checkDescriptionFunctions()
         numberFunction = numberFunction + 1
       end
     end
-    // Vérification qu'aucune fonction ne porte le nom d'une fonction de scilab
-    // recupération des fonctions scilab
+    // Check if no function have the name of a Scilab function
+    // Recuperation of the Scilab functions
     scilabFunction = listPrimitives()
-    // Récupération de chacun des noms de fonction
+    // Recuperation of each function name
     for i=1:numberFunction
       ind = strindex(descFunct(string(i)),'-')
       funct = strsplit(descFunct(string(i)), ind)
       funct = funct(1)
       funct = strsubst(funct, "-", "")
       funct = strsubst(funct, " ", "")
-      // On cherche le nom de la fonction dans la liste des fonctions de scilab
+      // We search the name of the function in the Scilab functions list
       if strindex(scilabFunction, " " + funct + " ") <> []
-        atomsDisplayMessage("La fonction " + funct + " existe deja dans scilab. Merci de changer de nom.")
+        atomsDisplayMessage("The function " + funct + " already exist in Scilab. Thanks to change the name.")
         result = %f
       end
     end
-  // Soit le fichier DESCRIPTION-FUNCTIONS n'existe pas
+  // If the DESCRIPTION-FUNCTIONS file doesn't exist
   else
-    atomsDisplayMessage("Le fichier DESCRIPTION-FUNCTIONS n''existe pas ou n''est pas a la bonne place")
+    atomsDisplayMessage("The file DESCRIPTION-FUNCTIONS doesn''t exist or isn''t at the good place")
     result = %f
   end
   return result
 endfunction
 
-// Remplissage d'une liste à partir du fichier DESCRIPTION
+// Filling of a list with the DESCRIPTION file
 function listDesc = hashTable(listDesc, tabDesc)
   [listeObl, listeOpt] = atomsConstant()
-  // On crée toutes les "cases" pour que même si un champs optionnel n'est pas présent dans le tableau, la case existe.
+  // We create all the values for all the keys so that even if one optional field is not present in the array, there is no error.
   [o, p] = size(listeOpt)
   for i=1:p
     listDesc(listeOpt(i))= ""
@@ -153,13 +161,13 @@ function listDesc = hashTable(listDesc, tabDesc)
   [n, m] = size(tabDesc)
   for i=1:n
     ind = strindex(tabDesc(i),':')
-    // Si ind = [] on est dans la n-ième ligne du champs précédent
+    // If ind = [] we are always in the previous field
     if ind == []
       listDesc(temp(1)) = listDesc(temp(1)) + tabDesc(i)
     else
-      // ind+1 pour enlever l'espace avant le 2ème champ
+      // ind+1 to remove the space before the second field
       temp = strsplit(tabDesc(i),ind+1)
-      // On retire le ": "
+      // We remove the ": "
       temp(1) = strsubst(temp(1), ": ", "")
       listDesc(temp(1))= temp(2)
     end
@@ -167,7 +175,7 @@ function listDesc = hashTable(listDesc, tabDesc)
 endfunction
 
 function var = listPrimitives()
-  // recupération des fonctions scilab
+  // Recuperation of the scilab function
   [primitives,commandes] = what();
   listLib = librarieslist();
   [n, m] = size(listLib);

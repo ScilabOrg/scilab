@@ -1,34 +1,42 @@
-// Affichage des infos d'une toolbox
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Display of the toolbox information
 
 function infoToolbox(nom)
-  // On enlève les charactères spéciaux
+  // we remove the special characters
   nom = atomsSubstituteString(nom)
-  // On va dans le repertoire contenant les toolboxes
+  // We go on the toolboxes repertory
   rep = atomsToolboxDirectory()
   d = rep + nom
-  // Gestion des OS differents
+  // Gestion of the different OS
   if getos() == "Windows"
     directory = d + "\DESCRIPTION"
-  else // linux et mac
+  else // linux and mac
     directory = d + "/DESCRIPTION"
   end
-  // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
+  // If we find the repertory in local and the DESCRIPTION file is present
   if (isdir(d) & ls(directory) <> [])
     desc = atomsReadDesc(nom)
     functionTool = desc("Function")
-    atomsDisplayMessage("La Toolbox est presente localement")
+    atomsDisplayMessage("The Toolbox is present in local")
     atomsDisplayMessage(desc)
     atomsDisplayMessage(functionTool)
-  // Soit on regarde si des versions sont disponibles sur le net
+  // Else we search in the net
   else
-    atomsDisplayMessage("Versions de la Toolbox presentes sur le web")
+    atomsDisplayMessage("Toolbox versions present in the web")
     listDesc = atomsReadDesc("")
     versions = ""
     [n, m] = size(listDesc("Toolbox"))
     for i=1:n
       if listDesc("Toolbox")(i) == nom
-        // Pour éviter les redondances de version
+        // To avoid version redundancy
         [a, b] = size(versions)
         if find(versions == listDesc("Version")(i))
           continue
@@ -48,10 +56,10 @@ function infoToolbox(nom)
         end
       end
     end
-    // Si aucune version n'a été trouvée
+    // if no version was found
     [a, b] = size(versions)
     if a == 1
-     atomsDisplayMessage("Aucune")
+     atomsDisplayMessage("none")
     end
   end
 endfunction

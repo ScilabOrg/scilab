@@ -1,12 +1,20 @@
-// Construction de la liste des dépendances
-// avril 2008 by Delphine
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+// Building of the dependancies list 
 
 function listeDep = atomsCheckConflict(nom, version, checkVersionScilab)
   global conflictLocal
   global conflictingList
   global nomconflictLocal
   global conflictVersion
-  // S'il n'y a pas de version
+  // If there is no version
   if argn(2) == 1
     version = ""
   end
@@ -14,13 +22,13 @@ function listeDep = atomsCheckConflict(nom, version, checkVersionScilab)
   listeDep = checkDependencies(nom, version)
   [n, m] = size(listeDep)
   for i=1:n-1
-    // On compare les nom
+    // We compare name
     [nom1, version1] = atomsSeparateVersionDep(listeDep(i))
     [nom2, version2] = atomsSeparateVersionDep(listeDep(i+1))
     if nom1 == nom2
-      // s'il y a 2 versions possible c'est que forcément il y a une dep <=
-      // Si c'est le cas, il faut que cette version max concorde avec les autres dép
-      // on l'installe en local, et si le tag conflictLocal est à 1 il y a conflit version, sinon, c'est ok
+      // If there are 2 versions possible, there is necessary a dependancies <=
+      // If there is, this maximum version must match with the authers dep
+      // We install in local, and if the conflictLocal tag is 1, there is a version conflict, else is ok
       v1 = atomsDecoupVersion(version1)
       v2 = atomsDecoupVersion(version2)
       if atomsCompareVersion(v1, v2) == 1 | atomsCompareVersion(v1, v2) == 0
@@ -43,22 +51,22 @@ function listeDep = atomsCheckConflict(nom, version, checkVersionScilab)
 endfunction
 
 function listeDep = checkDependencies(nom, version)
-  // Pour éviter les redondances et les boucles
+  // To avoid redundancies and loops
   global conflictingList
   global conflictLocal
   global nomconflictLocal
   global conflictVersion
-  // S'il n'y a pas de version
+  // If there is no version
   if argn(2) == 1
     version = ""
   end
-  // Lecture du fichier description
+  // Reading of the description file
   desc = atomsReadDesc(nom)
-  // Selection de la position de la toolbox dans la liste des toolboxes disponibles.
+  // Selection of the position toolbox in the disponible list toolboxes.
   position = atomsSelectPosition(desc, nom, version, checkVersionScilab)
-  // Cas ou la toolboxe n'est pas présente
+  // Case where the the toolbox is not present
   if position == 0
-    atomsDisplayMessage("Toolbox " + nom + " non trouvee")
+    atomsDisplayMessage("Toolbox " + nom + " not find")
     listeDep = ""
     return listeDep
   elseif position == 0.1
@@ -67,28 +75,28 @@ function listeDep = checkDependencies(nom, version)
     listeDep = ""
     return listeDep
   end
-  // Si la toolbox a déjà été rencontrée sous cette version, inutile de refaire l'arbre des dépendances
+  // If the toolbox with this version have been already found, it's useless to build again the dependencies tree
   if find(conflictingList == (desc("Toolbox")(position) + " (" + desc("Version")(position) + ")"))
     resume
   end
   listeDep = desc("Toolbox")(position) + " (" + desc("Version")(position) + ")"
   [a, b] = size(conflictingList)
   conflictingList(a+1) = desc("Toolbox")(position) + " (" + desc("Version")(position) + ")"
-  // Récuperation des dependances
+  // Recuperation of the dependancies
   depends = atomsExtractValue("Depends", desc, position)
-  // S'il n'y a pas de dépendance
+  // If there is no dependancies
   if depends == " " | depends == ""
   	return listeDep
   end
-  // S'il y a plusieurs dépendances on split en plusieurs string
+  // If there is many dependancies, we split it in many string
   depends = atomsSplitValue(depends, ',')
-  // Ajout dans la liste des toolboxes à installer
+  // Addition in the toolboxes list to install
   [n, m] = size(depends)
   for i=1:n
 	[nb, x] = size(listeDep)
-	// Separation de la version et de la dependance
+	// Separation of the version and the dependancie
 	[depend, version] = atomsSeparateVersionDep(depends(i))
-	// Recherche des dépendances
+	// Research of dependancies
 	deps = checkDependencies(depend, version)
 	[o, p] = size(deps)
 	for i=1:o

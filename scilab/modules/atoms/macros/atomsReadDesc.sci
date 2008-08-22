@@ -1,53 +1,61 @@
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA - Delphine GASC <delphine.gasc@scilab.org>
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 // Parsing of the Description file
-// avril 2008 by Delphine
 
 function desc = atomsReadDesc(nom)
-  // On va dans le repertoire contenant les toolboxes
+  // We go to the directory with the toolboxes
   rep = atomsToolboxDirectory()
   d = rep + nom
-  // Gestion des OS differents
+  // Support of the different OS 
   if getos() == "Windows"
     directory = d + "\DESCRIPTION"
-  else // linux et mac
+  else // linux and mac
     directory = d + "/DESCRIPTION"
   end
-  // Soit on trouve le dossier en local et le fichier DESCRIPTION est présent
+  // If we find the repertory in local and the DESCRIPTION file is present
   if (isdir(d) & ls(directory) <> [])
     cd (d)
-    // Lecture du fichier description qu'on stocke dans un tableau
+    // Reading of the DESCRIPTION file which we stock in a array
     tab = atomsReadFile("DESCRIPTION")
-    // Création d'un "tableau de hash"
+    // Creation of a "hash table"
     desc = atomsListDescription()
-    // Remplissage du tableau de hash
+    // Filling of the hash table
     desc = hashTable(desc, tab)
-    // Traitement du nom de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès. 
+    // Treatment of the file name (special characteres) to insure the validity of the name file and the PATH 
     desc("Toolbox") = atomsSubstituteString(desc("Toolbox"))
-    // On rajoute le champs fonction
+    // We add the function field
     clearglobal numberFunction
     desc("Function") = atomsReadDescFunctions(nom)
-  // Soit on va voir sur le net
+  // Else we search in the net
   else
   	cd (rep)
-  	// Création d'un "tableau de hash"
+  	// Creation of a "hash table"
 	desc = atomsListDescription()
-	// Liste des site à parcourir
+	// Sites list to cross
 	listMirror = atomsToolboxMirror()
 	[n, m] = size(listMirror)
 	clearglobal numberFunction
 	global numberFunction
 	numberFunction = 0
 	for i=1:m
-	  // On récupère le fichier sur le site et on met une copie dans le dossier sous le nom de TOOLBOXES
+	  // We recup the file in the net and we put a copy in the directory under the name TOOLBOXES
   	  if dlFile(listMirror(i), "TOOLBOXES")
-        // Lecture du fichier TOOLBOXES qu'on stocke dans un tableau
+        // Reading of the TOOLBOXES file which we stock in a array
         tab = atomsReadFile("TOOLBOXES")
-        // On supprime le fichier temporaire créé
+        // We delete the temporary file created
         if ~removeFile("TOOLBOXES")
-	      disp("Veuillez supprimer le fichier TOOLBOXES dans le repertoire courant")
+	      disp("Please delete the file TOOLBOXES of your courant repertory")
 	    end
-        // On rempli le tableau avec les différentes toolboxes
+        // We fill the array with the different toolboxes
         desc = hashTable2(desc, tab)
-        // Traitement des noms de fichier (caractères spéciaux) pour assurer la validité du nom dossier & chemins d'accès.
+        // Treatment of the file name (special characteres) to insure the validity of the name file and the PATH 
         [a, b] = size(desc("Toolbox"))
         for j=1:a
           desc("Toolbox")(j) = atomsSubstituteString(desc("Toolbox")(j))
@@ -62,14 +70,14 @@ function desc = atomsReadDesc(nom)
   return result
 endfunction
 
-// Récupération d'un fichier sur le web
+// Recuperation of the file in the web
 function result = dlFile(web, fileWeb)
 	[rep,stat,err] = unix_g("wget " + web + "/TOOLBOXES" + " -O " + fileWeb)
-	// Si le fichier n'est pas present
+	// If the file is not present
 	if stat <> 0
-	  atomsDisplayMessage("Verifiez la validite du repository")
+	  atomsDisplayMessage("Please check the validity of the repository")
 	  if ~removeFile(fileWeb)
-	    disp("Veuillez supprimer le fichier " + fileWeb + " dans le repertoire courant")
+	    disp("Please delete the file " + fileWeb + "in your courant repertory ")
 	  end
 	  result = %f
 	  return result
@@ -78,16 +86,16 @@ function result = dlFile(web, fileWeb)
 	return result
 endfunction
 
-// Fonction de suppression d'un fichier
+// Delete function of the file
 function result = removeFile(fileR)
   result = deletefile(fileR)
   return result
 endfunction
 
-// Remplissage du tableau de hash simple (fichier DESCRIPTION)
+// Easy filling of the hash table (DESCRIPTION file)
 function listDesc = hashTable(listDesc, tabDesc)
   [listeObl, listeOpt] = atomsConstant()
-  // On crée toutes les "cases" pour que même si un champs optionnel n'est pas présent dans le tableau, la case existe.
+  // We create all the values for all the keys so that even if one optional field is not present in the array, there is no error.
   [o, p] = size(listeOpt)
   for i=1:p
     listDesc(listeOpt(i))= ""
@@ -95,20 +103,20 @@ function listDesc = hashTable(listDesc, tabDesc)
   [n, m] = size(tabDesc)
   for i=1:n
     ind = strindex(tabDesc(i),':')
-    // Si ind = [] on est dans la n-ième ligne du champs précédent
+    // If ind = [] we are always in the previous field
     if ind == []
       listDesc(temp(1)) = listDesc(temp(1)) + tabDesc(i)
     else
-      // ind+1 pour enlever l'espace avant le 2ème champ
+      // ind+1 to remove the space before the second field
       temp = strsplit(tabDesc(i),ind+1)
-      // On retire le ": "
+      // We remove the ": "
       temp(1) = strsubst(temp(1), ": ", "")
       listDesc(temp(1))= temp(2)
     end
   end
 endfunction
 
-// Remplissage du tableau de hash (fichier TOOLBOXE)
+// Filling of the hash table (TOOLBOX file)
 function listDesc = hashTable2(listDesc, tabDesc)
   global numberFunction
   [listeObl, listeOpt] = atomsConstant()
@@ -117,7 +125,7 @@ function listDesc = hashTable2(listDesc, tabDesc)
   [o, p] = size(listeOpt)
   inFunct = %f
   for i=1:n
-    // On crée un flag pour savoir si on est dans la partie function
+    // We create a flag to know if we are in the function part
     if tabDesc(i) == "--"
       inFunct = %t
     elseif tabDesc(i) == "//"
@@ -125,9 +133,9 @@ function listDesc = hashTable2(listDesc, tabDesc)
     end
     if tabDesc(i) <> "//" & ~inFunct
       ind = strindex(tabDesc(i),':')
-      // ind+1 pour enlever l'espace avant le 2ème champ
+      // ind+1 to remove the space before the second field
       temp = strsplit(tabDesc(i),ind+1)
-      // On retire le ": "
+      // We remove the ": "
       temp(1) = strsubst(temp(1), ": ", "")
       listDesc(temp(1))(nbTool+1)= temp(2)
     elseif tabDesc(i) == "--"
@@ -135,7 +143,7 @@ function listDesc = hashTable2(listDesc, tabDesc)
       nbFunct = 0
     elseif tabDesc(i) <> "--" & inFunct
       ind = strindex(tabDesc(i),'-')
-      // Si ind = [] on est dans la n-ième ligne du champs précédent
+      // If ind = [] we are always in the previous field
       if ind == []
         tmp(string(nbFunct)) = tmp(string(nbFunct)) + tabDesc(i)
       else
@@ -146,12 +154,12 @@ function listDesc = hashTable2(listDesc, tabDesc)
         end
       end
     elseif tabDesc(i) == "//"
-      // Au cas ou une des toolbox n'ait pas les fonctions, pour éviter le bug : "Undefined variable: tmp"
+      // If a toolbox doesn't have functions, to avoid the bug : "Undefined variable: tmp"
       if isdef("tmp")
         listDesc("Function")(nbTool+1)= tmp
       end
-      // On crée les "cases" optionnel pour que même si ce champs n'est pas présent dans le tableau, la case existe.
-      // Mais seulement si le // est suivi d'autre chose
+      // We create all the values for all the keys so that even if one optional field is not present in the array, there is no error
+      // But only if the // is followed by other things
       if i <> n
         for j=1:p
           listDesc(listeOpt(j))(nbTool+2) = ""
