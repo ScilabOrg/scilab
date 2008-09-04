@@ -5,7 +5,8 @@
 // This file is distributed under the same license as the Scilab package.
 //
 
-mode(1)
+mode(1);
+lines(0);
 // An example of arma simulation and identification 
 // form ( K.J. Astrom)
 // The armax process with the following characteristics 
@@ -31,17 +32,19 @@ u=-prbs_a(n,1,int([2.5,5,10,17.5,20,22,27,35]*100/12));
 // simulation 
 zd=narsimul(ar,u);
 
+//visualization
 my_handle = scf(100001);
 clf(my_handle,"reset"); 
-plot2d(1:n,[zd',1000*u'],style=[1,3],leg="Simulated output@Input [scaled]") ;
-comp = gce() ;
-comp.children(2:3).polyline_style = 2 ;
+plot2d(1:n,[zd',1000*u'],style=[1,3]);curves = gce();
+legend(["Simulated output";"Input [scaled]"])
+curves.children(1:2).polyline_style = 2 ;
+
 halt();
 write(%io(2),"Identification ARX (least square):");
 [arc,la,lb,sig,resid]=armax(3,3,zd,u,1,1);
 arc
 halt();
-// using now armax1 : coloured noise idsentification 
+// using now armax1 : coloured noise identification 
 // you can test the same example with 
 // n=1000; u=rand(1,n,'g') zd=narsimul(ar,u);
 [arc1,resid]=armax1(3,3,2,zd(1:n),u,1);

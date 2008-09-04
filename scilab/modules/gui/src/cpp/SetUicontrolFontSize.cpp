@@ -15,11 +15,17 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolFontSize(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolFontSize(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   /* Font weight can be points, normalized, inches, centimeters or pixels */
 
   int fontSizeInt = 0; 
+
+  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    {
+      sciprint(_("No '%s' property for this object.\n"), "FontSize");
+      return SET_PROPERTY_ERROR;
+    }
 
   if (valueType == sci_matrix)
     {
@@ -30,7 +36,7 @@ int SetUicontrolFontSize(sciPointObj* sciObj, int stackPointer, int valueType, i
           return SET_PROPERTY_ERROR;
         }
 
-      fontSizeInt = ConvertToPoint((int) getDoubleFromStack(stackPointer), pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj);
+      fontSizeInt = ConvertToPoint((int) getDoubleFromStack(stackPointer), pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj, FALSE);
       
       /* Send the value to java */
       if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */

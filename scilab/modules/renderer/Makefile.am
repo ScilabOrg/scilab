@@ -138,8 +138,6 @@ src/cpp/textDrawing/CenteredTextDrawerJavaMapper.cpp \
 src/cpp/textDrawing/CenteredTextDrawerJoGL.cpp \
 src/jni/CenteredTextDrawerGL.cpp \
 src/cpp/textDrawing/DrawTextBoxStrategy.cpp \
-src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp \
-src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp \
 src/jni/IsoViewCameraGL.cpp \
 src/jni/IsometricCameraGL.cpp \
 src/cpp/subwinDrawing/IsoViewCameraJavaMapper.cpp \
@@ -258,7 +256,11 @@ src/cpp/subwinDrawing/AutomaticSubticksComputer.cpp \
 src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp \
 src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp \
 src/cpp/axesDrawing/AxesSubticksComputer.cpp \
-src/jni/GiwsException.cpp
+src/jni/GiwsException.cpp \
+src/cpp/rendererBasicAlgos.cpp \
+src/jni/SubwinBackgroundDrawerGL.cpp \
+src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp \
+src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp
 
 # List of the gateway c files
 GATEWAY_C_SOURCES = sci_gateway/c/gw_renderer.c
@@ -273,7 +275,8 @@ libscirenderer_la_CPPFLAGS =  	$(JAVA_JNI_INCLUDE) \
 				-I$(top_srcdir)/modules/graphics/includes/handleDrawing/ \
 				-I$(top_srcdir)/libs/doublylinkedlist/includes \
 				-I$(top_srcdir)/modules/output_stream/includes \
-				-I$(top_srcdir)/modules/graphic_export/includes/
+				-I$(top_srcdir)/modules/graphic_export/includes/ \
+				-I$(top_srcdir)/modules/elementary_functions/includes/
 
 # All the sources needed by libscirenderer.la
 libscirenderer_la_SOURCES = $(RENDERER_CPP_SOURCES) $(GATEWAY_C_SOURCES)
@@ -329,7 +332,13 @@ src/jni/SurfaceMarkDrawerGL.giws.xml \
 src/jni/TicksDrawerGL.giws.xml \
 src/jni/GridDrawerGL.giws.xml \
 src/jni/RenderingChecker.giws.xml \
-src/jni/XlFontManager.giws.xml
+src/jni/XlFontManager.giws.xml \
+src/jni/SubwinBackgroundDrawerGL.giws.xml
+
+# Provides macros compilation, Java compilation, cleaning
+# If you want Makefile to call ant, added USEANT=1
+
+USEANT=1
 
 if GIWS
 BUILT_SOURCES=giws
@@ -374,13 +383,10 @@ includes/GetJavaProperty.h \
 includes/GraphicSynchronizerInterface.h \
 includes/SetJavaProperty.h \
 includes/JavaInteraction.h \
-includes/RendererFontManager.h
+includes/RendererFontManager.h \
+includes/rendererBasicAlgos.h
 
 
 
-# Provides macros compilation, Java compilation, cleaning
-# If you want Makefile to call ant, added USEANT=1
-
-USEANT=1
 
 include $(top_srcdir)/Makefile.incl.am

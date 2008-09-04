@@ -13,6 +13,7 @@
 
 #include "ConcreteDrawableSubwin.hxx"
 #include "getHandleDrawer.h"
+#include "BasicAlgos.hxx"
 
 extern "C"
 {
@@ -20,6 +21,7 @@ extern "C"
 #include "SetProperty.h"
 #include "pixel_mode.h"
 #include "DrawingBridge.h"
+#include "elementary_functions.h"
 }
 
 using namespace std;
@@ -34,10 +36,12 @@ ConcreteDrawableSubwin::ConcreteDrawableSubwin(sciPointObj * pObj)
   m_pXBoundsStrategy = NULL;
   m_pYBoundsStrategy = NULL;
   m_pZBoundsStrategy = NULL;
-  m_pAxesBoxDrawer = NULL;
   m_pXTicksDrawer = NULL;
   m_pYTicksDrawer = NULL;
   m_pZTicksDrawer = NULL;
+
+  m_oAxesBoxDrawers.clear();
+
 }
 /*------------------------------------------------------------------------------------------*/
 ConcreteDrawableSubwin::~ConcreteDrawableSubwin(void)
@@ -47,11 +51,13 @@ ConcreteDrawableSubwin::~ConcreteDrawableSubwin(void)
   setYBoundsStrategy(NULL);
   setZBoundsStrategy(NULL);
 
-  setAxesBoxDrawer(NULL);
-
   setXTicksDrawer(NULL);
   setYTicksDrawer(NULL);
   setZTicksDrawer(NULL);
+
+  removeAxesBoxDrawers();
+
+  m_oDisplayedTexts.clear();
 }
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::setXBoundsStrategy(ComputeBoundsStrategy * strategy)
@@ -108,13 +114,20 @@ void ConcreteDrawableSubwin::setZTicksDrawer(TicksDrawer * zTicksDrawer)
   m_pZTicksDrawer = zTicksDrawer;
 }
 /*------------------------------------------------------------------------------------------*/
-void ConcreteDrawableSubwin::setAxesBoxDrawer(DrawAxesBoxStrategy * strategy)
+void ConcreteDrawableSubwin::addAxesBoxDrawer(DrawAxesBoxStrategy * strategy)
 {
-  if (m_pAxesBoxDrawer != NULL)
+  m_oAxesBoxDrawers.push_back(strategy);
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::removeAxesBoxDrawers(void)
+{
+  list<DrawAxesBoxStrategy *>::iterator it = m_oAxesBoxDrawers.begin();
+  for( ; it != m_oAxesBoxDrawers.end(); it++ )
   {
-    delete m_pAxesBoxDrawer;
+    delete *it;
+    *it = NULL;
   }
-  m_pAxesBoxDrawer = strategy;
+  m_oAxesBoxDrawers.clear();
 }
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::pointScale(double xCoord, double yCoord, double zCoord,
@@ -212,14 +225,16 @@ void ConcreteDrawableSubwin::computeRealDataBounds(void)
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::updateScale(void)
 {
+
+  if (!m_bNeedCoordUpdate) {
+    // no need to update
+    return;
+  }
+
   sciPointObj * parentFigure = sciGetParentFigure(m_pDrawed);
   BOOL visible = sciGetVisibility(m_pDrawed);
   int pixelMode = sciGetXorMode(parentFigure);
 
-  if (!m_bNeedRedraw && !m_bNeedDraw) {
-    // no need to update
-    return;
-  }
 
   // update the data by just calling
   // display on the invisible window
@@ -338,12 +353,46 @@ bool ConcreteDrawableSubwin::getZAxisPosition(double axisStart[3], double axisEn
   }
 }
 /*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::addTextToDraw(sciPointObj * text)
+{
+  m_oDisplayedTexts.push_back(text);
+  m_bTextListChanged = true;
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::removeTextToDraw(sciPointObj * text)
+{
+  BasicAlgos::vectorRemove(m_oDisplayedTexts, text);
+  textChanged();
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::displayChildren(void)
+{
+  // draw the children as usual
+  DrawableObject::displayChildren();
+
+  // draw the text after
+  displayTexts();
+
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::textChanged(void)
+{
+  m_bTextListChanged = true;
+}
+/*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::drawBox(void)
 {
   // If axes is not displayed m_pAxesbox is not drawn.
-  if (m_pAxesBoxDrawer != NULL)
+  if (m_oAxesBoxDrawers.empty())
   {
-    m_pAxesBoxDrawer->drawAxesBox();
+    return ;
+  }
+
+  int concealedCornerIndex = computeConcealedCornerIndex();
+  list<DrawAxesBoxStrategy *>::iterator it = m_oAxesBoxDrawers.begin();
+  for ( ; it != m_oAxesBoxDrawers.end(); it++)
+  {
+    (*it)->drawAxesBox(concealedCornerIndex);
   }
 }
 /*------------------------------------------------------------------------------------------*/
@@ -373,10 +422,10 @@ void ConcreteDrawableSubwin::drawTicks(void)
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::showBox(void)
 {
-  // If axes is not displayed m_pAxesbox is not drawn.
-  if (m_pAxesBoxDrawer != NULL)
+  list<DrawAxesBoxStrategy *>::iterator it = m_oAxesBoxDrawers.begin();
+  for ( ; it != m_oAxesBoxDrawers.end(); it++)
   {
-    m_pAxesBoxDrawer->show(); 
+    (*it)->show();
   }
 }
 /*------------------------------------------------------------------------------------------*/
@@ -401,6 +450,91 @@ void ConcreteDrawableSubwin::showTicks(void)
   /* for title there is no displayable ticks */
   setLabelsDistanceToAxis(distToXaxis, distToYaxis, distToZaxis, 0.0);
 
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::displayLabels(void)
+{
+  sciSons * curSon = sciGetLastSons( m_pDrawed ) ;
+  
+  // there are 4 labels, stored at then end of the list
+  for (int i = 0; i < 4; i++)
+  {
+    getHandleDrawer(curSon->pointobj)->display();
+    curSon = curSon->pprev;
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::displayTexts(void)
+{
+ 
+  // sortDisplayed text if needed
+  if (m_bNeedDraw || m_bNeedRedraw || m_bTextListChanged)
+  {
+    sortDisplayedTexts();
+  }
+
+  // display all the text registered in the list
+  // The list should be sorted
+  vector<sciPointObj *>::iterator it = m_oDisplayedTexts.begin();
+  for ( ; it != m_oDisplayedTexts.end(); it++)
+  {
+    getHandleDrawer(*it)->display();
+  }
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::sortDisplayedTexts(void)
+{
+  int nbDisplayedTexts = (int)m_oDisplayedTexts.size();
+
+  double * textsDepth;
+  try
+  {
+    textsDepth = new double[nbDisplayedTexts];
+  }
+  catch (const std::exception & e)
+  {
+    // allocation failed
+    // just don't sort the text objects
+    return;
+  }
+
+  // first compute depth of each text objects
+  computeEyeDistances(textsDepth, nbDisplayedTexts);
+
+  
+  // sort textDepth and store the order
+  // warning depthOrder refer to fortran index
+  // so -1 should be added to get C index
+  int * depthOrder;
+  try
+  {
+    depthOrder = new int[nbDisplayedTexts];
+  }
+  catch (const std::exception & e)
+  {
+    // allocation failed
+    // just don't sort the text objects
+    delete[] textsDepth;
+    return;
+  }
+  
+  C2F(dsort)(textsDepth, &nbDisplayedTexts, depthOrder);
+  delete[] textsDepth;
+
+  // Rearange texts list to sort it from back to front
+  // The objects must be sorted from back to front.
+  // However dsort sort the array in decreasing order, that's what we wants.
+  vector<sciPointObj *> copyTexts(m_oDisplayedTexts);
+  for (int i = 0; i < nbDisplayedTexts; i++)
+  {
+    m_oDisplayedTexts[i] = copyTexts[depthOrder[i] - 1];
+  }
+
+  delete[] depthOrder;
+
+
+  // text has been sorted successfully
+  m_bTextListChanged = false;
 }
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::setLabelsDistanceToAxis(double xLabelDist, double yLabelDist,
@@ -433,5 +567,59 @@ void ConcreteDrawableSubwin::addZeroInRange(double range[2])
   }
 }
 /*------------------------------------------------------------------------------------------*/
+int ConcreteDrawableSubwin::computeConcealedCornerIndex(void)
+{
+  double bounds[6];
+  sciGetRealDataBounds(m_pDrawed, bounds);
+
+  Camera * cam = getCamera();
+
+  // eight conrners of the axes box
+  double corners[8][3];
+  for (int i = 0; i < 8; i++)
+  {
+    // compute position of corner i
+    corners[i][0] = (i < 4 ? bounds[0] : bounds[1]); // xMin or xMax
+    corners[i][1] = ((i % 4) < 2 ? bounds[2] : bounds[3]); // yMin or yMax
+    corners[i][2] = ((i % 2) == 0 ? bounds[4] : bounds[5]); // zMin or zMax
+
+    // directly convert it to pixel coordinates
+    cam->getPixelCoordinates(corners[i], corners[i]);
+  }
+
+  // fin the index of the deeper corner
+  double eyeDistance = corners[0][2];
+  int farthestCornerIndex = 0;
+  for (int i = 1; i < 8; i++) {
+    if (corners[i][2] > eyeDistance) {
+      eyeDistance = corners[i][2];
+      farthestCornerIndex = i;
+    }
+  }
+  return farthestCornerIndex;
+
+}
+/*------------------------------------------------------------------------------------------*/
+void ConcreteDrawableSubwin::computeEyeDistances(double dists[], int nbTexts)
+{
+  for (int i = 0; i < nbTexts; i++)
+  {
+    dists[i] = getEyeDistance(m_oDisplayedTexts[i]);
+  }
+}
+/*---------------------------------------------------------------------------------*/
+double ConcreteDrawableSubwin::getEyeDistance(sciPointObj * pText)
+{
+  // text is drawn flat so any point of the text has the same distance
+  // with the viewpoint. So let choose the text center.
+  double textPos[3];
+  sciGetTextPos(pText, textPos);
+
+  // convert it to pixel coordinate. Z value correspond to the depth.
+  getCamera()->getPixelCoordinates(textPos, textPos);
+
+  return textPos[2];
+}
+/*---------------------------------------------------------------------------------*/
 
 }

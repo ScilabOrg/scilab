@@ -36,7 +36,7 @@ void sciSetJavaColormap( sciPointObj * pFigure, const double rgbMat[], int nbCol
  * Set the size of a figure object
  * @return indicates if the size could be successfully modified
  */
-BOOL sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] ) ;
+int sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] ) ;
 
 /**
  * Set the size of a window enclosing a figure.
@@ -57,7 +57,17 @@ void sciSetJavaInfoMessage( sciPointObj * pFigure, const char * infoMessage ) ;
  * Zoom a subwin object with the specified rectangle in pixels
  * @return TRUE if the axes box has been zoomed, FALSE otherwise
  */
- BOOL sciJavaZoomRect(sciPointObj * pSubwin, int posX, int posY, int width, int height);
+BOOL sciJavaZoomRect(sciPointObj * pSubwin, int posX, int posY, int width, int height);
+
+/**
+ * Register a text object in order to it after any other object later.
+ */
+void sciJavaAddTextToDraw(sciPointObj * pText, sciPointObj * parentSubwin);
+
+/**
+ * Remove a text object in order to it after any other object later.
+ */
+void sciJavaRemoveTextToDraw(sciPointObj * pText, sciPointObj * parentSubwin);
 
 /**
  * Set the auto_resize mode of a figure

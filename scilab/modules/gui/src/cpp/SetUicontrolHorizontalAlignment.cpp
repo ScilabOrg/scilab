@@ -15,11 +15,17 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolHorizontalAlignment(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolHorizontalAlignment(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   /* HorizontalAlignment can be left, center or right */
   
   char * alignment = NULL;
+
+  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    {
+      sciprint(_("No '%s' property for this object.\n"), "HorizontalAlignment");
+      return SET_PROPERTY_ERROR;
+    }
 
   if (valueType == sci_strings)
     {

@@ -165,9 +165,9 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                     {
                       pParent = getFigureFromIndex((int)(*stk(stkAdr)));
                       
-                      if ( (sciGetEntityType (pParent) != SCI_FIGURE) )
+                      if ( (sciGetEntityType (pParent) != SCI_FIGURE) && !((sciGetEntityType (pParent) == SCI_UICONTROL) && (pUICONTROL_FEATURE(pParent)->style == SCI_UIFRAME)))
                         {
-                          Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"),fname,1,"Figure");
+                          Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"),fname,1,"Figure", "Frame uicontrol");
                           return FALSE;
                         }
                       /* First parameter is the parent */
@@ -181,7 +181,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                 }
               else
                 {
-                  Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"),fname, 1,"Figure");
+                  Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"),fname, 1,"Figure", "Frame uicontrol");
                   return FALSE;
                 }
             }
@@ -191,13 +191,13 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
               if (nbRow*nbCol != 1)
                 {
-                  Scierror(999,_("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"),fname, 1, "Figure");
+                  Scierror(999,_("%s: Wrong size for input argument #%d: A '%s' or a '%s' handle expected.\n"),fname, 1, "Figure", "Frame uicontrol");
                   return FALSE;
                 }
               pParent=sciGetPointerFromHandle((long)*hstk(stkAdr));
-              if ( (sciGetEntityType (pParent) != SCI_FIGURE) )
+              if ( (sciGetEntityType (pParent) != SCI_FIGURE) && !((sciGetEntityType (pParent) == SCI_UICONTROL) && (pUICONTROL_FEATURE(pParent)->style == SCI_UIFRAME)))
                 {
-                  Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"),fname, 1, "Figure");
+                  Scierror(999,_("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"),fname, 1, "Figure", "Frame uicontrol");
                   return FALSE;
                 }
               /* First parameter is the parent */
@@ -361,7 +361,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                       if (inputIndex == 4) /* Index for String property: Can be mon than one character string */
                         {
                           GetRhsVar(propertiesValuesIndices[inputIndex],MATRIX_OF_STRING_DATATYPE,&nbRow,&nbCol,&stkAdrForStrings);
-                          setStatus = callSetProperty((sciPointObj*) GraphicHandle, (int) stkAdrForStrings, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
+                          setStatus = callSetProperty((sciPointObj*) GraphicHandle, (size_t)stkAdrForStrings, sci_strings, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                         }
                       else
                         {

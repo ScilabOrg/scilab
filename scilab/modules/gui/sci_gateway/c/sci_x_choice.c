@@ -29,11 +29,11 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
 
   int messageBoxID = 0;
 
-  int labelsAdr = 0;
-  int lineLabelsAdr = 0;
+  char **labelsAdr = NULL;
+  char **lineLabelsAdr = NULL;
   int defaultValuesAdr = 0;
   double *defaultValues = NULL;
-  long int *defaultValuesInt = NULL;
+  int *defaultValuesInt = NULL;
 
   int userValueSize = 0;
   int *userValue = NULL;
@@ -52,10 +52,10 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
       GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&nbRowDefaultValues,&nbColDefaultValues,&defaultValuesAdr);
       defaultValues = getDoubleMatrixFromStack(defaultValuesAdr);
       
-      defaultValuesInt = (long int *)MALLOC(nbRowDefaultValues*nbColDefaultValues*sizeof(long int));
+      defaultValuesInt = (int *)MALLOC(nbRowDefaultValues*nbColDefaultValues*sizeof(int));
       for (K = 0; K < nbRowDefaultValues*nbColDefaultValues; K++)
         {
-          defaultValuesInt[K] = (long)defaultValues[K];
+          defaultValuesInt[K] = (int)defaultValues[K];
         }
     }
   else 
@@ -82,7 +82,7 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
   setMessageBoxTitle(messageBoxID, _("Scilab Choices Request"));
 
   /* Message */
-  setMessageBoxMultiLineMessage(messageBoxID, getStringMatrixFromStack(labelsAdr), nbCol*nbRow);
+  setMessageBoxMultiLineMessage(messageBoxID, getStringMatrixFromStack((size_t)labelsAdr), nbCol*nbRow);
     
   /* READ THE LABELS */
   if (VarType(3) ==  sci_strings)
@@ -93,7 +93,7 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
         Scierror(999, _("%s: Wrong size for input argument #%d: Vector of strings expected.\n"), fname, 3);
         return FALSE;
       }
-      setMessageBoxLineLabels(messageBoxID, getStringMatrixFromStack(lineLabelsAdr), nbColLineLabels*nbRowLineLabels);
+      setMessageBoxLineLabels(messageBoxID, getStringMatrixFromStack((size_t)lineLabelsAdr), nbColLineLabels*nbRowLineLabels);
     }
   else 
     {
@@ -116,6 +116,7 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
     }
   else
     {
+	  
       userValue = (int*)getMessageBoxUserSelectedButtons(messageBoxID);
   
       userValueDouble = (double *)MALLOC(nbRowDefaultValues*nbColDefaultValues*sizeof(double));
@@ -125,6 +126,7 @@ int C2F(sci_x_choice)(char *fname,unsigned long fname_len)
         }
 
       CreateVarFromPtr(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRowDefaultValues, &nbColDefaultValues, &userValueDouble);
+      /* TO DO : do a delete []  getMessageBoxUserSelectedButton */
     }
 
   FREE(defaultValuesInt);

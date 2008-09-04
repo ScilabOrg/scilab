@@ -15,6 +15,7 @@
 #define _CONCRETE_DRAWABLE_SUBWIN_HXX_
 
 #include <list>
+#include <vector>
 
 #include "DrawableSubwin.h"
 #include "ComputeBoundsStrategy.hxx"
@@ -42,7 +43,8 @@ public:
   void setYTicksDrawer(TicksDrawer * yTicksDrawer);
   void setZTicksDrawer(TicksDrawer * zTicksDrawer);
 
-  void setAxesBoxDrawer(DrawAxesBoxStrategy * strategy);
+  void addAxesBoxDrawer(DrawAxesBoxStrategy * strategy);
+  void removeAxesBoxDrawers(void);
 
   /**
    * For non linear scaling (not supported by OpenGL) we need to modify points.
@@ -137,6 +139,37 @@ public:
    */
   virtual bool getZAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]);
 
+  /**
+   * Specify that a new text has been added under this object.
+   */
+  virtual void addTextToDraw(sciPointObj * text);
+
+  /**
+   * Specify that a text object has been destoyed and should be removed from
+   * the list of drawing texts.
+   */
+  virtual void removeTextToDraw(sciPointObj * text);
+
+  /**
+   * Redefine display children in order to draw the stored text after the other objects.
+   * Actually, text objects use OpenGL blending for their transparency.
+   * Consequentely they must be drawn after all the primitives which are behind them
+   * in order to make the transparency work. To perform that, we draw the text objects
+   * after the others (and consequently after the ones behind them). The previous
+   * method is not enough since the text objects themselves are not sorted from each other.
+   * We then sort them from back to front. Luckily all texts objects are flat and drawn
+   * vertically, so each of their point is as far from the viewpoint. It's then easy to compute
+   * their depth relative to viewpoint and sort them accordingly.
+   * For more informations see: http://www.opengl.org/resources/faq/technical/transparency.htm.
+   */
+  virtual void displayChildren(void);
+
+  /**
+   * To be called when a text object change.
+   * Next display will sort the text objects.
+   */
+  virtual void textChanged(void);
+
 
 protected:
 
@@ -159,8 +192,23 @@ protected:
 
   /**
    * Draw the ticks of the subwin from alraedy computed data.
-  */
+   */
   virtual void showTicks(void);
+
+  /**
+   * Draw the labels after the ticks.
+   */
+  virtual void displayLabels(void);
+
+  /**
+   * Display all the stored text objects
+   */
+  void displayTexts(void);
+
+  /**
+   * Sort the text objects from back to front relatively to view point.
+   */
+  void sortDisplayedTexts(void);
 
   /**
    * Set the distance to use between axis and labels.
@@ -178,16 +226,39 @@ protected:
   TicksDrawer * m_pYTicksDrawer;
   TicksDrawer * m_pZTicksDrawer;
 
-  DrawAxesBoxStrategy * m_pAxesBoxDrawer;
+  std::list<DrawAxesBoxStrategy *> m_oAxesBoxDrawers;
 
+  /** list of text objects to draw at the end, ordered from back to front */
+  std::vector<sciPointObj *> m_oDisplayedTexts;
+
+  /** Specify wether some texts objects has been added or removed since last update */
+  bool m_bTextListChanged;
   /*---------------------------------------------------------------------*/
 
 private:
 
   /**
-   * Modify range si it includes 0
+   * Modify range if it includes 0
    */
   void addZeroInRange(double range[2]);
+
+  /**
+   * Compute concealed corner
+   * @return index of the coner which is concealed
+   */
+  int computeConcealedCornerIndex(void);
+
+  /**
+   * Fill the dists array with the distances of the texts objects to
+   * the viewpoint.
+   */
+  void computeEyeDistances(double dists[], int nbTexts);
+
+  /**
+   * Compute the distance of a text object to the view point.
+   * @param cam camera sed to get the distance.
+   */
+  double getEyeDistance(sciPointObj * pText);
 
   
 };

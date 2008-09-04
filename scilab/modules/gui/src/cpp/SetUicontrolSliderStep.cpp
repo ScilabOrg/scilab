@@ -15,10 +15,16 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolSliderStep(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolSliderStep(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   double *allValues = NULL;
   
+  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    {
+      sciprint(_("No '%s' property for this object.\n"), "SliderStep");
+      return SET_PROPERTY_ERROR;
+    }
+
   if (valueType == sci_matrix)
     {
       if((nbRow > 1) || (nbCol != 2))

@@ -15,7 +15,7 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUiobjectForegroundColor(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUiobjectForegroundColor(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   /* Color can be [R, G, B] or "R|G|B" */
 
@@ -115,7 +115,7 @@ int SetUiobjectForegroundColor(sciPointObj* sciObj, int stackPointer, int valueT
  
   if(sciGetEntityType(sciObj) == SCI_UIMENU)  /* Sets the foreground of an uimenu */
     {
-      CallScilabBridge::setWidgetForegroundColor(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, redInt, greenInt, blueInt);
+      CallScilabBridge::setWidgetForegroundColor(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex, redInt, greenInt, blueInt);
       return SET_PROPERTY_SUCCEED;
     }
   else if(sciGetEntityType(sciObj) == SCI_UICONTROL)  /* Sets the foreground of an uicontrol */

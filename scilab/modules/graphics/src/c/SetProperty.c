@@ -60,6 +60,10 @@
 #include "Scierror.h"
 
 #include "CallFigure.h"
+
+#define MAX_MARK_STYLE 14
+#define MAX_MARK_STYLE_S "14"
+
 /*---------------------------------------------------------------------------*/
 /* setSubWinAngles                                                                    */
 /* Modify the viewing angles of a subwindow                                           */
@@ -789,9 +793,9 @@ sciSetMarkBackground (sciPointObj * pobj, int colorindex)
 
 int sciInitMarkStyle( sciPointObj * pobj, int markstyle )
 {
-  if (markstyle < 0)
+  if (markstyle < 0 || markstyle > MAX_MARK_STYLE )
   {
-    sciprint(_("The mark style must be greater or equal than %d.\n"),0);
+    sciprint(_("Wrong value for %s property: Must be in the interval [%s, %s].\n"),"mark_style","0",MAX_MARK_STYLE_S);
     return -1;
   }
   else
@@ -1495,8 +1499,7 @@ sciSetTitlePlace (sciPointObj * pobj, sciTitlePlace place)
 int sciInitLegendPlace( sciPointObj * pobj, sciLegendPlace place )
 {
   double position[2]={0.0,0.0};
-  int y = 0;
-
+  
   if (sciGetEntityType (pobj) == SCI_LEGEND)
   {
     pLEGEND_FEATURE (pobj)->place = place;
@@ -2308,12 +2311,7 @@ int sciInitDimension( sciPointObj * pobj, int newWidth, int newHeight )
       else
       {
         int size[2] = {newWidth, newHeight} ;
-        BOOL status = sciSetJavaFigureSize(pobj, size) ;
-        if (!status)
-        {
-          /* error modifying size */
-          return -1;
-        }
+        return sciSetJavaFigureSize(pobj, size) ;
       }
       break;
     case SCI_SUBWIN:
@@ -2344,7 +2342,7 @@ int sciInitDimension( sciPointObj * pobj, int newWidth, int newHeight )
  * @param sciPointObj * pobj: the pointer to the entity
  * @param int *pwidth: the width of the window dimension
  * @param int *pheight: the height of the window dimension
- * @return
+ * @return one of the EResizeStatus values.
  */
 int sciSetDimension( sciPointObj * pobj, int newWidth, int newHeight )
 {
@@ -3137,6 +3135,9 @@ int sciInitIsFilled( sciPointObj * pobj, BOOL isfilled )
     sciInitIsBoxed(  pLABEL_FEATURE(pobj)->text, isfilled ) ;
     sciInitIsLine(   pLABEL_FEATURE(pobj)->text, isfilled ) ;
     return sciInitIsFilled( pLABEL_FEATURE(pobj)->text, isfilled ) ;
+  case SCI_SUBWIN:
+    pSUBWIN_FEATURE(pobj)->axes.filled = isfilled;
+    return 0;
   default:
     if(sciGetGraphicContext(pobj) != NULL)
     {
@@ -3577,7 +3578,6 @@ int sciSetIs3d( sciPointObj * pObj, BOOL is3d )
 /*-----------------------------------------------------------------------------------*/
 int sciInitHiddenColor( sciPointObj * pObj, int newColor )
 {
-  int m = sciGetNumColors(pObj);
   if(!sciCheckColorIndex(pObj, newColor)) { return -1;}
 
   switch( sciGetEntityType( pObj ) )

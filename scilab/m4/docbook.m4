@@ -8,7 +8,7 @@ dnl
 AC_DEFUN([AC_DOCBOOK], [
 
 DOCBOOK_OK=no
-DOCBOOK_ROOT=
+DOCBOOK_ROOT=""
 
 AC_ARG_WITH(docbook,
 		AC_HELP_STRING([--with-docbook=DIR],[Set the path to the docbook package]),
@@ -16,8 +16,8 @@ AC_ARG_WITH(docbook,
 		[with_docbook='yes']
 		)
 
-	for dir in $with_docbook /usr/share/sgml/docbook/stylesheet/xsl/nwalsh /usr/share/docbook2X/xslt/man/ /usr/share/xml/docbook/stylesheet/nwalsh/ /sw/share/xml/xsl/docbook-xsl /usr/share/xml/docbook/xsl-stylesheets-*/ /usr/share/sgml/docbook/xsl-stylesheets--*/ /usr/share/sgml/docbook/xsl-stylesheets-*/; do
-		if test -d "$dir"; then
+	for dir in $with_docbook thirdparty/docbook/ /usr/share/sgml/docbook/stylesheet/xsl/nwalsh /usr/share/docbook2X/xslt/man/ /usr/share/xml/docbook/stylesheet/nwalsh/ /usr/share/xml/docbook/stylesheet/nwalsh/current/ /sw/share/xml/xsl/docbook-xsl /usr/share/xml/docbook/xsl-stylesheets-*/ /usr/share/sgml/docbook/xsl-stylesheets-*/; do
+		if test -r "$dir/javahelp/javahelp.xsl" -a "$DOCBOOK_ROOT" == ""; then
 			DOCBOOK_ROOT=$dir
         fi
 	done
@@ -49,6 +49,11 @@ AC_ARG_WITH(docbook,
 	COMMONS_IO=$PACKAGE_JAR_FILE
 	AC_SUBST(COMMONS_IO)
 
+	# XML graphics cmmon
+	AC_JAVA_CHECK_PACKAGE([xmlgraphics-commons],[org.apache.xmlgraphics.util.Service],[Commons graphics library])
+	XMLGRAPHICS_COMMONS=$PACKAGE_JAR_FILE
+	AC_SUBST(XMLGRAPHICS_COMMONS)
+	
 
 AC_SUBST(DOCBOOK_ROOT)
 

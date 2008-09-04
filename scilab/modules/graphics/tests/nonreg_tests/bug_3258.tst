@@ -25,7 +25,3 @@ e = gce();
 if (e.children(1).data <> [3,3]) then pause; end
 if (e.children(2).data <> [2,2]) then pause; end
 if (e.children(3).data <> [1,1]) then pause; end
-
-
-
-

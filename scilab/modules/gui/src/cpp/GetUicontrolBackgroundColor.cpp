@@ -18,7 +18,7 @@ using namespace org_scilab_modules_gui_bridge;
 int GetUicontrolBackgroundColor(sciPointObj* sciObj)
 {
   int returnFlag = FALSE;
-  long int * returnValues = NULL;
+  int * returnValues = NULL;
   double * tmp = NULL;
 
   if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
@@ -33,6 +33,7 @@ int GetUicontrolBackgroundColor(sciPointObj* sciObj)
         {
           returnValues = CallScilabBridge::getWidgetBackgroundColor(getScilabJavaVM(),
                                                                     pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
         }
       tmp = new double[3];
       
@@ -58,7 +59,8 @@ int GetUicontrolBackgroundColor(sciPointObj* sciObj)
 
       returnFlag =  sciReturnRowVector(tmp, 3);
       
-      delete(tmp);
+      delete [] tmp;
+	  delete [] returnValues;
       
       return returnFlag;
     }

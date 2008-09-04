@@ -27,7 +27,7 @@
 #include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
-int set_figure_name_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
+int set_figure_name_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   int status;
   if ( !isParameterStringMatrix( valueType ) )
@@ -36,9 +36,9 @@ int set_figure_name_property( sciPointObj * pobj, int stackPointer, int valueTyp
     return SET_PROPERTY_ERROR ;
   }
   /* disable protection since this function will call Java */
-  endFigureDataWriting(pobj);
+  disableFigureSynchronization(pobj);
   status = sciSetName( pobj, getStringFromStack( stackPointer ), nbCol * nbRow ) ;
-  startFigureDataWriting(pobj);
+  enableFigureSynchronization(pobj);
 
   return status;
 }

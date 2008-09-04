@@ -115,6 +115,7 @@ src/jni/FileChooser.giws.xml \
 src/jni/Jxclick.giws.xml \
 src/jni/Jxgetmouse.giws.xml \
 src/jni/SwingScilabMenu.giws.xml \
+src/jni/LookAndFeelManager.giws.xml \
 src/jni/UIElementMapper.giws.xml
 
 
@@ -351,7 +352,11 @@ images/icons/printer.png \
 images/icons/scilab.png \
 images/icons/rotate.png \
 images/icons/window-new.png \
-images/icons/edit-cut.png
+images/icons/edit-cut.png \
+images/icons/undock_active.png \
+images/icons/undock_default.png \
+images/icons/scilab_close_active.png \
+images/icons/scilab_close_default.png
 
 
 if GUI

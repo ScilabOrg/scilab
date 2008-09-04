@@ -15,7 +15,6 @@ import com.sun.java.help.search.Indexer; /* jhall (Java Help) */
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.FileInputStream;
 import java.util.zip.ZipEntry;
 import java.util.jar.JarOutputStream;
@@ -25,8 +24,26 @@ import java.util.ArrayList;
 /**
  * This class manages the build of the Java Help
  */
-public class BuildJavaHelp {
+public final class BuildJavaHelp {
+	
+	private static final String JAVAHELPSEARCH_DIR = "/JavaHelpSearch/";
+	private static final String COULD_NOT_FIND = "buildDoc: Could not find/access to ";
+	private static final String LEFT_PAR = " ( ";
+	private static final String RIGHT_PAR = " )";
+	private static Indexer indexer = new Indexer();
+	
+	/**
+	 * Default constructor (must no be used)
+	 */
+	private BuildJavaHelp() {
+		throw new UnsupportedOperationException();
+	}
 
+	/**
+	 * Get the list of the files in a directory
+	 * @param directory the directory where files have to be searched
+	 * @return teh list of the files found
+	 */
 	private static ArrayList<File> buildFileList(File directory) {
 		ArrayList<File> listFile = new ArrayList<File>();
 
@@ -35,7 +52,7 @@ public class BuildJavaHelp {
 
 			if (files[i].isDirectory()) {
 				listFile.addAll(buildFileList(files[i]));
-			}else{
+			} else {
 				listFile.add(files[i]);
 			}
 		}
@@ -63,13 +80,13 @@ public class BuildJavaHelp {
 			jarFile = new JarOutputStream(fileOutputStream);
 
 		} catch (java.io.FileNotFoundException e) {
-			System.err.println("buildDoc: Could not find/access to " + fileName + " ( " + e.getLocalizedMessage() + " )");
+			System.err.println(COULD_NOT_FIND + fileName + LEFT_PAR + e.getLocalizedMessage() + RIGHT_PAR);
 		} catch (java.io.IOException e) {
-			System.err.println("buildDoc: Could not find/access to " + fileName + " ( " + e.getLocalizedMessage() + " )");
+			System.err.println(COULD_NOT_FIND + fileName + LEFT_PAR + e.getLocalizedMessage() + RIGHT_PAR);
 		}
 
 		jarFile.setLevel(compressionLevel);
-		ArrayList<File> fileList=BuildJavaHelp.buildFileList(new File(outputDirectory));
+		ArrayList<File> fileList = BuildJavaHelp.buildFileList(new File(outputDirectory));
 		File []allFiles = fileList.toArray(new File [fileList.size()]);
 		for (int i = 0; i < allFiles.length; i++) {			
 			try {
@@ -81,13 +98,13 @@ public class BuildJavaHelp {
 				try {
 					fileInputStream.read(buffer, 0, length);
 				} catch (java.io.IOException e) {
-					System.err.println("buildDoc: Could not find/access to " + workingFile + " ( " + e.getLocalizedMessage() + " )");
+					System.err.println(COULD_NOT_FIND + workingFile + LEFT_PAR + e.getLocalizedMessage() + RIGHT_PAR);
 				}
-				String relativeFileName=null;
+				String relativeFileName = null;
 				if (workingFile.getPath().indexOf("JavaHelpSearch") == -1) {
 					relativeFileName = baseName + "/" + workingFile.getName();
 				} else {
-					relativeFileName = baseName + "/JavaHelpSearch/" + workingFile.getName();
+					relativeFileName = baseName + JAVAHELPSEARCH_DIR + workingFile.getName();
 				}
 				ZipEntry zipEntry = new ZipEntry(relativeFileName);
 				jarFile.putNextEntry(zipEntry);
@@ -96,14 +113,14 @@ public class BuildJavaHelp {
  
 				fileInputStream.close();
 			} catch (java.io.IOException e) {
-				System.err.println("buildDoc: An error occurs while building the JavaHelp ( " + e.getLocalizedMessage() + " )");
+				System.err.println("buildDoc: An error occurs while building the JavaHelp ( " + e.getLocalizedMessage() + RIGHT_PAR);
 			}
 
 		}
 		try {
 			jarFile.close();
 		} catch (java.io.IOException e) {
-			System.err.println("buildDoc: An error occurs while closing the JavaHelp ( " + e.getLocalizedMessage() + " )");
+			System.err.println("buildDoc: An error occurs while closing the JavaHelp ( " + e.getLocalizedMessage() + RIGHT_PAR);
 		}
 		return true;
 	}
@@ -116,12 +133,15 @@ public class BuildJavaHelp {
      * @return The result of the process
 	 */
 	public static boolean buildJavaHelp(String outputDirectory, String language) {
-		Indexer indexer = new Indexer();
-
+		
+		String outputJavaHelp = new String(outputDirectory + JAVAHELPSEARCH_DIR);
 		try {
+			/* Purge the directory before launching the index */
+			/* because the JavaHelp Indexer failed when launched twice on the same directory */
+			Helpers.deleteDirectory(outputJavaHelp); 
 			String[] args = new String[] {
 				"-db",
-				outputDirectory + "/JavaHelpSearch/", /* Where the Java Help Index should be created */
+				outputJavaHelp, /* Where the Java Help Index should be created */
 				outputDirectory
 			};
 			indexer.compile(args);

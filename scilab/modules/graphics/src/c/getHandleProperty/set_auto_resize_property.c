@@ -27,7 +27,7 @@
 #include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
-int set_auto_resize_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
+int set_auto_resize_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   int status = SET_PROPERTY_ERROR;
   if ( !isParameterStringMatrix( valueType ) )
@@ -37,7 +37,7 @@ int set_auto_resize_property( sciPointObj * pobj, int stackPointer, int valueTyp
   }
 
   /* disable protection since this function will call Java */
-  endFigureDataWriting(pobj);
+  disableFigureSynchronization(pobj);
   if ( isStringParamEqual( stackPointer, "on" ) )
   {
     status = sciSetResize( pobj, TRUE );
@@ -51,7 +51,7 @@ int set_auto_resize_property( sciPointObj * pobj, int stackPointer, int valueTyp
     sciprint(_("%s: Wrong input argument: '%s' or '%s' expected.\n"),"set_auto_resize_property","on","off");
     return SET_PROPERTY_ERROR ;
   }
-  startFigureDataWriting(pobj);
+  enableFigureSynchronization(pobj);
   return status;
 }
 /*------------------------------------------------------------------------*/

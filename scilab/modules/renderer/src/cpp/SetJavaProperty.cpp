@@ -25,16 +25,9 @@ void sciSetJavaColormap( sciPointObj * pFigure, const double rgbMat[], int nbCol
   getFigureDrawer(pFigure)->setColorMap( rgbMat, nbColor ) ;
 }
 /*---------------------------------------------------------------------------------*/
-BOOL sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] )
+int sciSetJavaFigureSize( sciPointObj * pFigure, const int size[2] )
 {
-  if (getFigureDrawer(pFigure)->setSize(size))
-  {
-    return TRUE;
-  }
-  else
-  {
-    return FALSE;
-  }
+  return getFigureDrawer(pFigure)->setSize(size);
 }
 /*---------------------------------------------------------------------------------*/
 void sciSetJavaWindowSize( sciPointObj * pFigure, const int size[2] )
@@ -62,6 +55,16 @@ BOOL sciJavaZoomRect(sciPointObj * pSubwin, int posX, int posY, int width, int h
   {
     return FALSE;
   }
+}
+/*---------------------------------------------------------------------------------*/
+void sciJavaAddTextToDraw(sciPointObj * pText, sciPointObj * parentSubwin)
+{
+  getSubwinDrawer(parentSubwin)->addTextToDraw(pText);
+}
+/*---------------------------------------------------------------------------------*/
+void sciJavaRemoveTextToDraw(sciPointObj * pText, sciPointObj * parentSubwin)
+{
+  getSubwinDrawer(parentSubwin)->removeTextToDraw(pText);
 }
 /*---------------------------------------------------------------------------------*/
 void sciSetJavaAutoResizeMode(sciPointObj * pFigure, BOOL resizeMode)

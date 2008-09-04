@@ -218,8 +218,6 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 	src/cpp/textDrawing/CenteredTextDrawerJoGL.cpp \
 	src/jni/CenteredTextDrawerGL.cpp \
 	src/cpp/textDrawing/DrawTextBoxStrategy.cpp \
-	src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp \
-	src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp \
 	src/jni/IsoViewCameraGL.cpp src/jni/IsometricCameraGL.cpp \
 	src/cpp/subwinDrawing/IsoViewCameraJavaMapper.cpp \
 	src/cpp/subwinDrawing/IsometricCameraJavaMapper.cpp \
@@ -330,7 +328,11 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 	src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp \
 	src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp \
 	src/cpp/axesDrawing/AxesSubticksComputer.cpp \
-	src/jni/GiwsException.cpp sci_gateway/c/gw_renderer.c
+	src/jni/GiwsException.cpp src/cpp/rendererBasicAlgos.cpp \
+	src/jni/SubwinBackgroundDrawerGL.cpp \
+	src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp \
+	src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp \
+	sci_gateway/c/gw_renderer.c
 @GUI_TRUE@am__objects_1 = libscirenderer_la-DrawableSubwinFactory.lo \
 @GUI_TRUE@	libscirenderer_la-DrawableSubwin.lo \
 @GUI_TRUE@	libscirenderer_la-DrawableFigureJoGL.lo \
@@ -463,8 +465,6 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 @GUI_TRUE@	libscirenderer_la-CenteredTextDrawerJoGL.lo \
 @GUI_TRUE@	libscirenderer_la-CenteredTextDrawerGL.lo \
 @GUI_TRUE@	libscirenderer_la-DrawTextBoxStrategy.lo \
-@GUI_TRUE@	libscirenderer_la-TextLineBoxDrawerJoGL.lo \
-@GUI_TRUE@	libscirenderer_la-TextFillBoxDrawerJoGL.lo \
 @GUI_TRUE@	libscirenderer_la-IsoViewCameraGL.lo \
 @GUI_TRUE@	libscirenderer_la-IsometricCameraGL.lo \
 @GUI_TRUE@	libscirenderer_la-IsoViewCameraJavaMapper.lo \
@@ -583,7 +583,11 @@ am__libscirenderer_la_SOURCES_DIST = src/norenderer/norenderer.c \
 @GUI_TRUE@	libscirenderer_la-UserDefLogSubticksComputer.lo \
 @GUI_TRUE@	libscirenderer_la-UserDefinedSubticksComputer.lo \
 @GUI_TRUE@	libscirenderer_la-AxesSubticksComputer.lo \
-@GUI_TRUE@	libscirenderer_la-GiwsException.lo
+@GUI_TRUE@	libscirenderer_la-GiwsException.lo \
+@GUI_TRUE@	libscirenderer_la-rendererBasicAlgos.lo \
+@GUI_TRUE@	libscirenderer_la-SubwinBackgroundDrawerGL.lo \
+@GUI_TRUE@	libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo \
+@GUI_TRUE@	libscirenderer_la-SubwinBackgroundDrawerJoGL.lo
 @GUI_TRUE@am__objects_2 = libscirenderer_la-gw_renderer.lo
 @GUI_FALSE@am_libscirenderer_la_OBJECTS =  \
 @GUI_FALSE@	libscirenderer_la-norenderer.lo
@@ -753,6 +757,7 @@ VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
+XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -948,8 +953,6 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@src/cpp/textDrawing/CenteredTextDrawerJoGL.cpp \
 @GUI_TRUE@src/jni/CenteredTextDrawerGL.cpp \
 @GUI_TRUE@src/cpp/textDrawing/DrawTextBoxStrategy.cpp \
-@GUI_TRUE@src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp \
-@GUI_TRUE@src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp \
 @GUI_TRUE@src/jni/IsoViewCameraGL.cpp \
 @GUI_TRUE@src/jni/IsometricCameraGL.cpp \
 @GUI_TRUE@src/cpp/subwinDrawing/IsoViewCameraJavaMapper.cpp \
@@ -1068,7 +1071,11 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@src/cpp/subwinDrawing/UserDefLogSubticksComputer.cpp \
 @GUI_TRUE@src/cpp/subwinDrawing/UserDefinedSubticksComputer.cpp \
 @GUI_TRUE@src/cpp/axesDrawing/AxesSubticksComputer.cpp \
-@GUI_TRUE@src/jni/GiwsException.cpp
+@GUI_TRUE@src/jni/GiwsException.cpp \
+@GUI_TRUE@src/cpp/rendererBasicAlgos.cpp \
+@GUI_TRUE@src/jni/SubwinBackgroundDrawerGL.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp \
+@GUI_TRUE@src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp
 
 
 # List of the gateway c files
@@ -1085,7 +1092,8 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@				-I$(top_srcdir)/modules/graphics/includes/handleDrawing/ \
 @GUI_TRUE@				-I$(top_srcdir)/libs/doublylinkedlist/includes \
 @GUI_TRUE@				-I$(top_srcdir)/modules/output_stream/includes \
-@GUI_TRUE@				-I$(top_srcdir)/modules/graphic_export/includes/
+@GUI_TRUE@				-I$(top_srcdir)/modules/graphic_export/includes/ \
+@GUI_TRUE@				-I$(top_srcdir)/modules/elementary_functions/includes/
 
 
 # All the sources needed by libscirenderer.la
@@ -1141,8 +1149,13 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@src/jni/TicksDrawerGL.giws.xml \
 @GUI_TRUE@src/jni/GridDrawerGL.giws.xml \
 @GUI_TRUE@src/jni/RenderingChecker.giws.xml \
-@GUI_TRUE@src/jni/XlFontManager.giws.xml
+@GUI_TRUE@src/jni/XlFontManager.giws.xml \
+@GUI_TRUE@src/jni/SubwinBackgroundDrawerGL.giws.xml
 
+
+# Provides macros compilation, Java compilation, cleaning
+# If you want Makefile to call ant, added USEANT=1
+@GUI_TRUE@USEANT = 1
 @GIWS_TRUE@@GUI_TRUE@BUILT_SOURCES = giws
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
@@ -1174,12 +1187,9 @@ includes/GetJavaProperty.h \
 includes/GraphicSynchronizerInterface.h \
 includes/SetJavaProperty.h \
 includes/JavaInteraction.h \
-includes/RendererFontManager.h
+includes/RendererFontManager.h \
+includes/rendererBasicAlgos.h
 
-
-# Provides macros compilation, Java compilation, cleaning
-# If you want Makefile to call ant, added USEANT=1
-USEANT = 1
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -1205,9 +1215,6 @@ SUFFIXES = .sci
 
 # Where it should be installed
 pkgdocdir = $(mydatadir)
-
-# Which directories we have to install
-DOCDIRS = help/fr_FR help/en_US
 
 # What is the mask of the help source
 DOCMASKXML = *.xml
@@ -1521,6 +1528,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-StandardTextDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-StandardTextDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SubwinAxisPositioner.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerGL.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJavaMapper.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SurfaceFacetDrawerGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SurfaceFacetDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SurfaceFacetDrawerJoGL.Plo@am__quote@
@@ -1531,8 +1541,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SurfaceMarkDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-SurfaceMarkDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TextContentDrawerJoGL.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TextFillBoxDrawerJoGL.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TextLineBoxDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TicksDrawer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TicksDrawerFactory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-TicksDrawerGL.Plo@am__quote@
@@ -1558,6 +1566,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-getHandleDrawer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-gw_renderer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-norenderer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-rendererBasicAlgos.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -2539,20 +2548,6 @@ libscirenderer_la-DrawTextBoxStrategy.lo: src/cpp/textDrawing/DrawTextBoxStrateg
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-DrawTextBoxStrategy.lo `test -f 'src/cpp/textDrawing/DrawTextBoxStrategy.cpp' || echo '$(srcdir)/'`src/cpp/textDrawing/DrawTextBoxStrategy.cpp
 
-libscirenderer_la-TextLineBoxDrawerJoGL.lo: src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-TextLineBoxDrawerJoGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-TextLineBoxDrawerJoGL.Tpo -c -o libscirenderer_la-TextLineBoxDrawerJoGL.lo `test -f 'src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-TextLineBoxDrawerJoGL.Tpo $(DEPDIR)/libscirenderer_la-TextLineBoxDrawerJoGL.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp' object='libscirenderer_la-TextLineBoxDrawerJoGL.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-TextLineBoxDrawerJoGL.lo `test -f 'src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/textDrawing/TextLineBoxDrawerJoGL.cpp
-
-libscirenderer_la-TextFillBoxDrawerJoGL.lo: src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-TextFillBoxDrawerJoGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-TextFillBoxDrawerJoGL.Tpo -c -o libscirenderer_la-TextFillBoxDrawerJoGL.lo `test -f 'src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp
-@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-TextFillBoxDrawerJoGL.Tpo $(DEPDIR)/libscirenderer_la-TextFillBoxDrawerJoGL.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp' object='libscirenderer_la-TextFillBoxDrawerJoGL.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-TextFillBoxDrawerJoGL.lo `test -f 'src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/textDrawing/TextFillBoxDrawerJoGL.cpp
-
 libscirenderer_la-IsoViewCameraGL.lo: src/jni/IsoViewCameraGL.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-IsoViewCameraGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-IsoViewCameraGL.Tpo -c -o libscirenderer_la-IsoViewCameraGL.lo `test -f 'src/jni/IsoViewCameraGL.cpp' || echo '$(srcdir)/'`src/jni/IsoViewCameraGL.cpp
 @am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-IsoViewCameraGL.Tpo $(DEPDIR)/libscirenderer_la-IsoViewCameraGL.Plo
@@ -3386,6 +3381,34 @@ libscirenderer_la-GiwsException.lo: src/jni/GiwsException.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
 
+libscirenderer_la-rendererBasicAlgos.lo: src/cpp/rendererBasicAlgos.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-rendererBasicAlgos.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-rendererBasicAlgos.Tpo -c -o libscirenderer_la-rendererBasicAlgos.lo `test -f 'src/cpp/rendererBasicAlgos.cpp' || echo '$(srcdir)/'`src/cpp/rendererBasicAlgos.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-rendererBasicAlgos.Tpo $(DEPDIR)/libscirenderer_la-rendererBasicAlgos.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/rendererBasicAlgos.cpp' object='libscirenderer_la-rendererBasicAlgos.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-rendererBasicAlgos.lo `test -f 'src/cpp/rendererBasicAlgos.cpp' || echo '$(srcdir)/'`src/cpp/rendererBasicAlgos.cpp
+
+libscirenderer_la-SubwinBackgroundDrawerGL.lo: src/jni/SubwinBackgroundDrawerGL.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-SubwinBackgroundDrawerGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerGL.Tpo -c -o libscirenderer_la-SubwinBackgroundDrawerGL.lo `test -f 'src/jni/SubwinBackgroundDrawerGL.cpp' || echo '$(srcdir)/'`src/jni/SubwinBackgroundDrawerGL.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerGL.Tpo $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerGL.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/SubwinBackgroundDrawerGL.cpp' object='libscirenderer_la-SubwinBackgroundDrawerGL.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-SubwinBackgroundDrawerGL.lo `test -f 'src/jni/SubwinBackgroundDrawerGL.cpp' || echo '$(srcdir)/'`src/jni/SubwinBackgroundDrawerGL.cpp
+
+libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo: src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJavaMapper.Tpo -c -o libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo `test -f 'src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJavaMapper.Tpo $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJavaMapper.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp' object='libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-SubwinBackgroundDrawerJavaMapper.lo `test -f 'src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/SubwinBackgroundDrawerJavaMapper.cpp
+
+libscirenderer_la-SubwinBackgroundDrawerJoGL.lo: src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-SubwinBackgroundDrawerJoGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJoGL.Tpo -c -o libscirenderer_la-SubwinBackgroundDrawerJoGL.lo `test -f 'src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJoGL.Tpo $(DEPDIR)/libscirenderer_la-SubwinBackgroundDrawerJoGL.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp' object='libscirenderer_la-SubwinBackgroundDrawerJoGL.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-SubwinBackgroundDrawerJoGL.lo `test -f 'src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/SubwinBackgroundDrawerJoGL.cpp
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -3717,14 +3740,14 @@ all-local: $(TARGETS_ALL)
 
 install-html-local:
 # If the user wants the help sources to be installed
-@INSTALL_HELP_XML_TRUE@	@echo "-- Install of XML sources of help files --"; \
-@INSTALL_HELP_XML_TRUE@	for dir in $(DOCDIRS) ; do \
-@INSTALL_HELP_XML_TRUE@	 if test -d $$dir; then \
-@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$$dir && \
-@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/$$dir/$(DOCMASKXML) >/dev/null 2>&1; then \
-@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/$$dir/$(DOCMASKXML) ; do \
-@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$$dir" ; \
-@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/$$dir ; \
+@INSTALL_HELP_XML_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
+@INSTALL_HELP_XML_TRUE@	for lang in $(ALL_LINGUAS); do \
+@INSTALL_HELP_XML_TRUE@	 if test -d $(srcdir)/help/$$lang; then \
+@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/help/$$lang && \
+@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/help/$$lang/$(DOCMASKXML) >/dev/null 2>&1; then \
+@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/help/$$lang/$(DOCMASKXML) ; do \
+@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/help/$$lang" ; \
+@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/help/$$lang ; \
 @INSTALL_HELP_XML_TRUE@		  done ; \
 @INSTALL_HELP_XML_TRUE@		fi; \
 @INSTALL_HELP_XML_TRUE@	 fi; \
@@ -3749,10 +3772,10 @@ install-data-local:
 # Install the help chapter
 	@echo "-------- Install the help chapter (if any) --------"; \
 	for lang in $(ALL_LINGUAS); do \
-		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+		HELPFILE=$(srcdir)/$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
 		if test -f $$HELPFILE; then \
-			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
-			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
 			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 		fi; \

@@ -41,12 +41,12 @@ static char * __CommandLine;
 
 /*--------------------------------------------------------------------------*/
 
-IMPORT_SIGNAL __threadSignal	LaunchScilab;
-IMPORT_SIGNAL __threadLock	LaunchScilabLock;
+IMPORT_SIGNAL __threadSignal		LaunchScilab;
+IMPORT_SIGNAL __threadSignalLock	LaunchScilabLock;
 
 static __threadSignal	TimeToWork;
 
-static __threadLock ReadyForLaunch;
+static __threadSignalLock ReadyForLaunch;
 
 static BOOL WatchStoreCmdThreadAlive = FALSE;
 static __threadId WatchStoreCmdThread;
@@ -97,7 +97,7 @@ static void getCommandLine(void)
 static void initAll(void) {
   initialized = TRUE;
   __InitSignal(&TimeToWork);
-  __InitLock(&ReadyForLaunch);
+  __InitSignalLock(&ReadyForLaunch);
 }
 
 
@@ -107,14 +107,14 @@ static void initAll(void) {
 ** sent when StoreCommand is performed.
 */
 static void *watchStoreCommand(void *in) {
-  __UnLock(&LaunchScilabLock);
+  __LockSignal(&LaunchScilabLock);
   __Wait(&LaunchScilab, &LaunchScilabLock);
+  __UnLockSignal(&LaunchScilabLock);
 
-
-  __Lock(&ReadyForLaunch);
+  __LockSignal(&ReadyForLaunch);
   WatchStoreCmdThreadAlive=FALSE;
   __Signal(&TimeToWork);
-  __UnLock(&ReadyForLaunch);
+  __UnLockSignal(&ReadyForLaunch);
 
   return NULL;
 }
@@ -127,12 +127,13 @@ static void *watchStoreCommand(void *in) {
 */
 static void *watchGetCommandLine(void *in) {
   getCommandLine();
-  __Lock(&ReadyForLaunch);
+
+  __LockSignal(&ReadyForLaunch);
   WatchGetCmdLineThreadAlive = FALSE;
   __Signal(&TimeToWork);
-  __UnLock(&ReadyForLaunch);
+  __UnLockSignal(&ReadyForLaunch);
 
-   return NULL;
+  return NULL;
 
 }
 
@@ -149,31 +150,31 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
       initAll();
     }
 
-  __Lock(&ReadyForLaunch);
+  __LockSignal(&ReadyForLaunch);
   __CommandLine = strdup("");
 
-  if (ismenu() == 0) {
-    if (!WatchGetCmdLineThreadAlive)
-      {
-	if (WatchGetCmdLineThread) {
-	  __WaitThreadDie(WatchGetCmdLineThread);
+  if (ismenu() == 0)
+    {
+      if (!WatchGetCmdLineThreadAlive)
+	{
+	  if (WatchGetCmdLineThread) {
+	    __WaitThreadDie(WatchGetCmdLineThread);
+	  }
+	  __CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
+	  WatchGetCmdLineThreadAlive = TRUE;
 	}
-	__CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
-	WatchGetCmdLineThreadAlive = TRUE;
-      }
-    if (!WatchStoreCmdThreadAlive)
-      {
-	if (WatchStoreCmdThread) {
-	  __WaitThreadDie(WatchStoreCmdThread);
+      if (!WatchStoreCmdThreadAlive)
+	{
+	  if (WatchStoreCmdThread) {
+	    __WaitThreadDie(WatchStoreCmdThread);
+	  }
+	  __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
+	  WatchStoreCmdThreadAlive = TRUE;
 	}
-	__CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
-	WatchStoreCmdThreadAlive = TRUE;
-      }
 
-    __Wait(&TimeToWork, &ReadyForLaunch);
-
-  }
-  __UnLock(&ReadyForLaunch);
+      __Wait(&TimeToWork, &ReadyForLaunch);
+    }
+  __UnLockSignal(&ReadyForLaunch);
 
   /*
   ** WARNING : Old crappy f.... code

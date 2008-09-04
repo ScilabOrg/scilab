@@ -29,6 +29,8 @@ using namespace std;
 DrawableSubwin::DrawableSubwin(sciPointObj * pObj) : DrawableObject(pObj)
 {
   m_pCamera = NULL ;
+  // coordinate transformation not already up to date
+  m_bNeedCoordUpdate = true;
 }
 /*---------------------------------------------------------------------------------*/
 DrawableSubwin::~DrawableSubwin( void )
@@ -54,6 +56,9 @@ void DrawableSubwin::hasChanged( void )
 {
   DrawableObject::hasChanged();
   parentSubwinChanged();
+
+  // subwin has changed and so need coordinates update.
+  m_bNeedCoordUpdate = true;
 }
 /*---------------------------------------------------------------------------------*/
 void DrawableSubwin::displaySingleObjs(std::list<sciPointObj *>& singleObjs)
@@ -90,8 +95,8 @@ DrawableObject::EDisplayStatus DrawableSubwin::draw( void )
   computeRealDataBounds();
 
   // set up camera
-  // so update coordinates transformations
-  m_pCamera->draw();
+  placeCamera();
+
 
   if ( !checkVisibility() )
   {
@@ -102,14 +107,16 @@ DrawableObject::EDisplayStatus DrawableSubwin::draw( void )
     return UNCHANGED;
   }
 
-  drawAxesBox();
 
-  //drawBox();
+  drawBox();
 
   displayChildren() ;
 
   // draw ticks after otherwise there are some transparency issues
-  //drawTicks();
+  drawTicks();
+
+  // labels need ticks display before
+  displayLabels();
 
   // needed
   m_pCamera->replaceCamera();
@@ -124,7 +131,6 @@ DrawableObject::EDisplayStatus DrawableSubwin::show( void )
   initializeDrawing() ;
 
   // set up camera
-  // so update coordinates transformations
   m_pCamera->show();
 
   if ( !checkVisibility() )
@@ -136,13 +142,15 @@ DrawableObject::EDisplayStatus DrawableSubwin::show( void )
     return UNCHANGED;
   }
 
-  showAxesBox();
-  //showBox();
+  showBox();
 
   displayChildren() ;
 
   // draw ticks after otherwise there are some transparency issues
-  //showTicks();
+  showTicks();
+
+  // labels need ticks display before
+  displayLabels();
 
   // needed
   m_pCamera->replaceCamera();
@@ -156,8 +164,7 @@ DrawableObject::EDisplayStatus DrawableSubwin::redraw(void)
   initializeDrawing() ;
 
   // set up camera
-  // so update coordinates transformations
-  m_pCamera->redraw();
+  placeCamera();
 
   if ( !checkVisibility() )
   {
@@ -168,13 +175,15 @@ DrawableObject::EDisplayStatus DrawableSubwin::redraw(void)
     return UNCHANGED;
   }
 
-  drawAxesBox();
-  //drawBox();
+  drawBox();
 
   displayChildren() ;
 
   // draw ticks after otherwise there are some transparency issues
-  //drawTicks();
+  drawTicks();
+
+  // labels need ticks display before
+  displayLabels();
 
   // needed
   m_pCamera->replaceCamera();
@@ -204,7 +213,7 @@ void DrawableSubwin::drawSingleObjs(std::list<sciPointObj *>& singleObjs)
   computeRealDataBounds();
 
   // set up camera
-  m_pCamera->draw();
+  placeCamera();
 
   if ( !checkVisibility() )
   {
@@ -276,6 +285,13 @@ void DrawableSubwin::printSingleObjs(std::list<sciPointObj *>& pObjs)
   {
     getHandleDrawer(*it)->display();
   }
+}
+/*---------------------------------------------------------------------------------*/
+void DrawableSubwin::placeCamera(void)
+{
+  m_pCamera->draw();
+  // coordinate transform have been updated
+  m_bNeedCoordUpdate = false;
 }
 /*---------------------------------------------------------------------------------*/
 DrawableSubwinBridge * DrawableSubwin::getSubwinImp( void )

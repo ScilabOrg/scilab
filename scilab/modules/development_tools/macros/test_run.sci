@@ -454,6 +454,8 @@ function [status_id,status_msg,status_details] = test_run_onetest(module,test,te
 	// Do some modification in tst file
 	txt = strsubst(txt,'pause,end' ,'bugmes();quit;end');
 	txt = strsubst(txt,'pause, end','bugmes();quit;end');
+	txt = strsubst(txt,'pause;end' ,'bugmes();quit;end');
+	txt = strsubst(txt,'pause; end','bugmes();quit;end');
 	txt = strsubst(txt,'-->','@#>'); //to avoid suppression of input --> with prompts
 	txt = strsubst(txt,'halt();','');
 	
@@ -488,8 +490,9 @@ function [status_id,status_msg,status_details] = test_run_onetest(module,test,te
 	if this_use_try_catch then
 		tail = [ tail;                                                          ...
 			"catch";                                                            ...
-			"   errmsg = ""<--""+""Error on the test script file""+""-->""";    ...
-			"   printf(""%s"",errmsg)";                                         ...
+			"   errmsg = ""<--""+""Error on the test script file""+""-->"";";   ...
+			"   printf(""%s\n"",errmsg);";                                      ...
+			"   lasterror()";                                                   ...
 			"end";                                                              ...
 			];
 	end
@@ -621,8 +624,10 @@ function [status_id,status_msg,status_details] = test_run_onetest(module,test,te
 		dia = strsubst(dia,TMPDIR1,"TMPDIR");
 		
 		if MSDOS then
-			strsubst(dia,strsubst(TMPDIR ,"\","/"),"TMPDIR");
-			strsubst(dia,strsubst(TMPDIR1,"\","/"),"TMPDIR");
+			dia = strsubst(dia,strsubst(TMPDIR ,"\","/"),"TMPDIR");
+			dia = strsubst(dia,strsubst(TMPDIR1,"\","/"),"TMPDIR");
+			dia = strsubst(dia,strsubst(TMPDIR ,"/","\"),"TMPDIR");
+			dia = strsubst(dia,strsubst(TMPDIR1,"/","\"),"TMPDIR");
 			dia = strsubst(dia,strsubst(getshortpathname(TMPDIR) ,"\","/"),"TMPDIR");
 			dia = strsubst(dia,strsubst(getshortpathname(TMPDIR1),"\","/"),"TMPDIR");
 			dia = strsubst(dia,getshortpathname(TMPDIR) ,"TMPDIR");
@@ -630,6 +635,13 @@ function [status_id,status_msg,status_details] = test_run_onetest(module,test,te
 		end
 		
 		dia = strsubst(dia,SCI,"SCI");
+	
+		if MSDOS then
+			dia = strsubst(dia,strsubst(SCI ,"\","/"),"SCI");
+			dia = strsubst(dia,strsubst(SCI ,"/","\"),"SCI");
+			dia = strsubst(dia,strsubst(getshortpathname(SCI) ,"\","/"),"SCI");
+			dia = strsubst(dia,getshortpathname(SCI) ,"SCI");
+		end
 		
 		//suppress the prompts
 		dia = strsubst(dia,'-->','');

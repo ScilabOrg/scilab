@@ -36,10 +36,15 @@ sciSetJavaInfoMessage
 sciSetJavaTitle
 endFigureDataWriting
 startFigureDataWriting
+disableFigureSynchronization
+enableFigureSynchronization
 sciGetJava2dViewPixelCoordinates
 sciGetJava2dViewCoordinates
 javaRubberBox
 sciGetJavaIsAbleToCreateWindow
 sciGetJavaBoundingBox
+destroyRendererString
+sciJavaAddTextToDraw
+sciJavaRemoveTextToDraw
 ; --------------------------------------- 
 

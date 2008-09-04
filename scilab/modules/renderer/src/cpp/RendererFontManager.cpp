@@ -1,7 +1,7 @@
 
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - DIGITEO - Allan CORNET
+ * Copyright (C) 2008 - INRIA - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -45,11 +45,9 @@ char **getInstalledFontsName(int *sizeArray)
 			for( i = 0; i < *sizeArray; i++)
 			{
 				returnedinstalledfontsname[i] = strdup(installedfontsname[i]);
-				free(installedfontsname[i]); /* free because giws uses malloc */ 
-				installedfontsname[i] = NULL;
-
+				delete [] installedfontsname[i];
 			}
-			free(installedfontsname);
+			delete [] installedfontsname;
 			installedfontsname = NULL;
 		}
 		delete fntmgr;
@@ -77,11 +75,9 @@ char **getAvailableFontsName(int *sizeArray)
 			for( i = 0; i < *sizeArray; i++)
 			{
 				returnedavailablefontsname[i] = strdup(availablefontsname[i]);
-				free(availablefontsname[i]); /* free because giws uses malloc */ 
-				availablefontsname[i] = NULL;
-
+				delete [] availablefontsname[i];
 			}
-			free(availablefontsname);
+			delete [] availablefontsname;
 			availablefontsname = NULL;
 		}
 		delete fntmgr;
@@ -136,6 +132,40 @@ int changeFontWithProperty(int index, char * fontName, BOOL isBold, BOOL isItali
 	if (fntmgr)
 	{
 		fontID = (int)fntmgr->changeFontWithProperty((long)index,fontName,BOOLtobool(isBold),BOOLtobool(isItalic));
+		delete fntmgr;
+	}
+	return fontID;
+}
+/*--------------------------------------------------------------------------*/
+void resetFontManager(void)
+{
+	org_scilab_modules_renderer_utils_textRendering::XlFontManager *fntmgr = new org_scilab_modules_renderer_utils_textRendering::XlFontManager(getScilabJavaVM());
+	if (fntmgr)
+	{
+		fntmgr->resetXlFontManager();
+		delete fntmgr;
+	}
+}
+/*--------------------------------------------------------------------------*/
+int changeFontFromFilename (int index, char * FontFilename)
+{
+	int fontID = 0;
+	org_scilab_modules_renderer_utils_textRendering::XlFontManager *fntmgr = new org_scilab_modules_renderer_utils_textRendering::XlFontManager(getScilabJavaVM());
+	if (fntmgr)
+	{
+		fontID = (int)fntmgr->changeFontFromFilename((long)index,FontFilename);
+		delete fntmgr;
+	}
+	return fontID;
+}
+/*--------------------------------------------------------------------------*/
+int addFontFromFilename (char * FontFilename)
+{
+	int fontID = 0;
+	org_scilab_modules_renderer_utils_textRendering::XlFontManager *fntmgr = new org_scilab_modules_renderer_utils_textRendering::XlFontManager(getScilabJavaVM());
+	if (fntmgr)
+	{
+		fontID = (int)fntmgr->addFontFromFilename (FontFilename);
 		delete fntmgr;
 	}
 	return fontID;

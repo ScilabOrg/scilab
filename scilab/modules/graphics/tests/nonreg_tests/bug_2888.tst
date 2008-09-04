@@ -41,5 +41,3 @@ e.fractional_font = "on";
 for i=1:360,
   a.rotation_angles(2) = i;
 end
-
-

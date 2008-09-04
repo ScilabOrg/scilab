@@ -15,7 +15,7 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolValue(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolValue(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   double *allValues = NULL;
   int K = 0;
@@ -92,14 +92,14 @@ int SetUicontrolValue(sciPointObj* sciObj, int stackPointer, int valueType, int 
             {
               CallScilabBridge::setListBoxSelectedIndices(getScilabJavaVM(), 
                                                           pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                          (long int*) pUICONTROL_FEATURE(sciObj)->value,
+                                                          (int*) pUICONTROL_FEATURE(sciObj)->value,
                                                           -1); /* No value selected */
             }
           else
             {
               CallScilabBridge::setListBoxSelectedIndices(getScilabJavaVM(), 
                                                           pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                          (long int*) pUICONTROL_FEATURE(sciObj)->value,
+                                                          (int*) pUICONTROL_FEATURE(sciObj)->value,
                                                           pUICONTROL_FEATURE(sciObj)->valueSize);
             }
           return SET_PROPERTY_SUCCEED;

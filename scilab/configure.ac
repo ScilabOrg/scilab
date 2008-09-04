@@ -118,6 +118,9 @@ AC_ARG_ENABLE(build-giws,
 ########## compilator detection
 ##############################
 
+AC_PROG_CPP
+AC_PROG_GREP
+
 #####################################################
 ## check if options are correct (or not)
 #####################################################
@@ -157,12 +160,14 @@ if test -z "$F77"; then
    AC_PROG_F77
 fi
 
+f90compatible=false
 if test -z "$F77"; then
   AC_MSG_ERROR([No fortran compiler found. Cannot compile scilab without a fortran compiler])
 else
 	case "$F77" in
 	 *90*|*95*|gfortran|fort|ifort|ifc|efc|ftn|pghpf)
 	 AC_DEFINE([G95_FORTRAN],[],[uses G95 fortran])
+	 f90compatible=true
 	 ;;
 	esac
 fi
@@ -193,6 +198,8 @@ if test -z "$CC"; then
   AC_MSG_ERROR([No C Compiler found. Cannot compile Scilab without a C compiler])
 fi
 
+AC_CHECK_SIZEOF([int])
+AC_CHECK_SIZEOF([long])
 
 ### C++ ###
 AC_PROG_CXX
@@ -279,7 +286,7 @@ dnl @TODO : il faut peut etre verifier que c'est bien gfortran
    fi
 	  case "$host" in
 		 x86_64-*-linux*)
-			FFLAGS="$FFLAGS -march=athlon64 -mfpmath=sse -msse2 -m3dnow -m64 -fPIC"
+			FFLAGS="$FFLAGS -m64 -fPIC"
 					;;
 		# Dec Alpha OSF 4
 		alpha*-dec-osf4.*)
@@ -355,7 +362,7 @@ if test -z "$CXX"; then
   AC_MSG_ERROR([No C++ compiler found. Cannot compile scilab without a C++ compiler])
 fi
 
-if test "$CXX" = "g++"; then
+if test "$CXX" = "g++" -o "$CXX" = "ccache g++"; then
    ## With GNU C++ Compiler
    if test "$enable_debug_CXX" = yes; then
 	  CXXFLAGS="$CXXFLAGS -pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall "
@@ -377,7 +384,7 @@ fi
 #LDFLAGS="$LIEEE $LDFLAGS"
 #F77_LDFLAGS="$F77_LDFLAGS $LIEEE"
 IS_64_BITS_CPU=false
-if test "$CC" = "gcc"; then
+if test "$CC" = "gcc" -o "$CC" = "ccache gcc"; then
    ## With GNU Compiler
    if test "$enable_debug_C" = yes; then
 	  CFLAGS="$CFLAGS -pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing"
@@ -402,7 +409,7 @@ if test "$CC" = "gcc"; then
 	    CFLAGS="$CFLAGS -Dlinux -fwritable-strings"
 	;;
 	 x86_64-*-linux-gnu)
-		CFLAGS="$CFLAGS -Dlinux -DNARROWPROTO -march=athlon64 -mfpmath=sse -msse2 -m3dnow -m64"
+		CFLAGS="$CFLAGS -Dlinux -DNARROWPROTO -m64"
 		IS_64_BITS_CPU=true
     ;;
 	 i*86-*-linux-gnu | *-pc-linux-gnu | i*86-*-linux )
@@ -498,10 +505,14 @@ CXXFLAGS="$CXXFLAGS "'-I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modu
 FFLAGS="$FFLAGS "'-I$(top_srcdir)/modules/core/includes/'
 
 if test $IS_64_BITS_CPU = true; then
+   if test $f90compatible = false; then
+      AC_MSG_ERROR([64 bits support needs a fortran 90 compiler (try --with-gfortran).])
+   fi
    AC_DEFINE([IS_64_BITS_CPU], [], [If we are building a 64 bits version])
 fi
 
 AM_CONDITIONAL(IS_64_BITS_CPU, test "$IS_64_BITS_CPU" = true)
+AM_CONDITIONAL(USE_DYNAMIC_STACK, test "$IS_64_BITS_CPU" = true)
 
 #######################
 ## test for underscores (name mangling issues between C and fortran)
@@ -512,7 +523,7 @@ AC_CHECK_UNDERSCORE_FORTRAN()
 ## test for JAVA compiler
 ###########################
 
-if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no; then
+if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" = yes; then
    # See if --with-jdk command line argument is given
      # Try to detect the installed JVM, this could be controlled
 	 # by the above --with options
@@ -580,7 +591,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 				COMMONS_LOGGING=$PACKAGE_JAR_FILE
 				AC_SUBST(COMMONS_LOGGING)
 
-				AC_DEFINE([WITH_GUI],[],[With the JAVA stuff (GUI, Console, JOGL...])
+				AC_DEFINE([WITH_GUI],[],[With the JAVA stuff (GUI, Console, JOGL...)])
 		fi
 	else
 		AC_MSG_WARN([Sun javac not found: I will not build the java interface])
@@ -591,6 +602,8 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 	AC_SUBST(JAVA_JNI_INCLUDE)
     AC_SUBST(JAVA_JNI_LIBS)
     AC_SUBST(JAVA_HOME)
+
+
 
 	if test "$enable_build_swig" != no -a "$enable_build_swig" != ""; then
 		SWIG_PROG()
@@ -605,10 +618,9 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 	if test "$enable_build_giws" != no -a "$enable_build_giws" != ""; then
 		AC_GIWS()
 	fi
-
-	AM_CONDITIONAL(NEED_JAVA, test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no)
 fi
 
+AM_CONDITIONAL(NEED_JAVA, test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" = yes)
 AM_CONDITIONAL(GUI, test "$with_gui" != no)
 AM_CONDITIONAL(JAVASCI, test "$with_javasci" != no)
 AM_CONDITIONAL(SWIG, test "$enable_build_swig" != no -a "$enable_build_swig" != "")
@@ -622,7 +634,7 @@ AM_CONDITIONAL(GIWS, test "$enable_build_giws" != no  -a "$enable_build_giws" !=
 AC_CHECK_FUNCS([sleep] [usleep] [dup2] [getcwd] [getpagesize] [getpass])
 AC_CHECK_FUNCS([rmdir])
 
-AC_CHECK_FUNC([getwd],AC_DEFINE([HAVE_GETWD],[1],[Define to 1 if you have the `getwd' function. ]),[AC_DEFINE([getwd(x)],[getcwd(x,1024)],[Don't use getwd but getcwd])])
+AC_CHECK_FUNC([getwd],AC_DEFINE([HAVE_GETWD],[1],[Define to 1 if you have the `getwd' function.]),[AC_DEFINE([getwd(x)],[getcwd(x,1024)],[Don't use getwd but getcwd])])
 
 # Provided by <regex.h>
 AC_CHECK_FUNCS([regcomp])
@@ -845,6 +857,8 @@ AC_LIBXML2()
 ## Test for gettext
 #######################
 
+ALL_LINGUAS="en_US fr_FR zh_CN zh_TW ru_RU"
+
 AC_ARG_ENABLE(build-localization,
 		AC_HELP_STRING([--enable-build-localization],[Enable the localization build]),
 		[with_localization=yes],
@@ -853,7 +867,6 @@ AC_ARG_ENABLE(build-localization,
 
 if test $with_localization != no; then
 
-   ALL_LINGUAS="en_US fr_FR zh_TW ru_RU"
    AC_SUBST(ALL_LINGUAS)
 
    AC_PATH_PROG(MSGCAT, msgcat, no)
@@ -999,9 +1012,9 @@ fi
 AC_SUBST(MATIO_ENABLE)
 AM_CONDITIONAL(MATIO, test "$with_matio" != no)
 
-#################
-## Man management
-#################
+#############################
+## Documentation management #
+#############################
 
 AC_ARG_ENABLE(build-help,
 		AC_HELP_STRING([--enable-build-help],[Enable the help build])
@@ -1011,16 +1024,18 @@ if test "$enable_build_help" != no -a "$enable_build_help" != ""; then
     AC_DOCBOOK()
 	HELP_ENABLE=yes
 
-fi #build help
-AM_CONDITIONAL(BUILD_HELP, test "$enable_build_help" = "yes")
+fi 
+AM_CONDITIONAL(BUILD_HELP, test $HELP_ENABLE = yes)
 
+## Install XML help files ###
 AC_ARG_WITH(install-help-xml,
-		AC_HELP_STRING([--with-install-help-xml],[make install will install XML files]),
-		[with_install_help_xml=$withval],
-		[with_install_help_xml='']
+		AC_HELP_STRING([--with-install-help-xml],[make install will install XML files])
 		)
-
-AM_CONDITIONAL(INSTALL_HELP_XML, test "$with_install_help_xml" = "yes")
+HELP_INSTALL_ENABLE=no
+if test "$with_install_help_xml" != no -a "$with_install_help_xml" != ""; then
+   HELP_INSTALL_ENABLE=yes
+fi 
+AM_CONDITIONAL(INSTALL_HELP_XML, test "$HELP_INSTALL_ENABLE" != "")
 
 
 #########################
@@ -1080,6 +1095,11 @@ AH_BOTTOM([
 
 /* Defines PARAMS type */
 #include "PARAMS.h"
+
+/* Force usage of dynamically located stack on 64 bits */
+#ifdef IS_64_BITS_CPU
+#define USE_DYNAMIC_STACK
+#endif
 
 #endif /* MACHINE_H  */
 ])
@@ -1209,6 +1229,23 @@ AC_CONFIG_COMMANDS_POST([chmod +x $SCI_SRCDIR_FULL/modules/scicos_blocks/src/scr
 #if test "$with_mpi" = yes; then
 #AC_CONFIG_FILES([modules/mpi/Makefile])
 #fi
+
+# Generate stack.h
+if test $IS_64_BITS_CPU = true; then
+   stack_h_cpp_flags=-DUSE_DYNAMIC_STACK
+else
+   stack_h_cpp_flags=
+fi
+
+AC_CONFIG_COMMANDS([modules/core/includes/stack.h],
+  [if ! $CPP $stack_h_cpp_flags - < $srcdir/modules/core/includes/stack.h.in |\
+              $GREP -v '^#' > $srcdir/modules/core/includes/stack.h ; then
+     AC_MSG_ERROR([stack.h generation failed])
+   fi],
+  [CPP="$CPP"
+   GREP="$GREP"
+   stack_h_cpp_flags="$stack_h_cpp_flags"
+  ])
 
 AC_OUTPUT
 
@@ -1380,13 +1417,14 @@ else
 fi
 
 echo ""
-if test ! -z "$HELP_ENABLE" != no; then
+if test $HELP_ENABLE = yes; then
    echo "Docbook XSL path ....... = $DOCBOOK_ROOT"
    echo "Batik (SVG) ............ = $BATIK"
    echo "Saxon XSLT ............. = $SAXON"
    echo "FOP (XML => PDF) ....... = $FOP"
    echo "Jeuclid (MathML) ....... = $JEUCLID_CORE"
-   echo "Commons I/O  ........... = $COMMONS_IO"
+   echo "Commons I/O ............ = $COMMONS_IO"
+   echo "XML graphics commons ... = $XMLGRAPHICS_COMMONS"
 else
    echo "No documentation generated"
 fi

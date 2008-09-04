@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - DIGITEO - Allan CORNET
+ * Copyright (C) 2008 - INRIA - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -64,6 +64,26 @@ int changeFont(int index, char * fontName);
 * @return index of the added font or -1 if an error occured.
 */
 int changeFontWithProperty(int index, char * fontName, BOOL isBold, BOOL isItalic);
+
+/**
+* reset xlfont with initiale values
+*/
+void resetFontManager(void);
+
+/**
+* Replace a font in the font list by a new one loaded by its filename.
+* @param[in] index index of the font to replace
+* @param[in] filename of font
+* @return index of the added font or -1 if an error occured.
+*/
+int changeFontFromFilename (int index, char * FontFilename);
+
+/**
+* Add a new font from its font filename.
+* @param[in] filename of font
+* @return index of the added font or -1 if an error occured.
+*/
+int addFontFromFilename (char * FontFilename);
 
 #ifdef __cplusplus
 }

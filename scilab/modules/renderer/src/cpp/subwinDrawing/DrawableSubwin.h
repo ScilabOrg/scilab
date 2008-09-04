@@ -113,6 +113,23 @@ public:
    */
   virtual bool getZAxisPosition(double axisStart[3], double axisEnd[3], double ticksDirection[3]) = 0;
 
+  /**
+   * Specify that a new text has been added under this object.
+   */
+  virtual void addTextToDraw(sciPointObj * text) = 0;
+
+  /**
+   * Specify that a text object has been destoyed and should be removed from
+   * the list of drawing texts.
+   */
+  virtual void removeTextToDraw(sciPointObj * text) = 0;
+
+  /**
+   * To be called when a text object change.
+   * Next display will sort the text objects.
+   */
+  virtual void textChanged(void) = 0;
+
 
 protected:
 
@@ -164,6 +181,11 @@ protected:
   virtual void showTicks(void) = 0;
 
   /**
+   * Draw the labels after the ticks.
+   */
+  virtual void displayLabels(void) = 0;
+
+  /**
    * draw the subwin by just setting the camera
    * and its children pObj
    */
@@ -186,6 +208,12 @@ protected:
   void printSingleObjs(std::list<sciPointObj *>& pObjs);
 
   /**
+   * Place the camera and update coordinates transformation
+   */
+  void placeCamera(void);
+
+
+  /**
    * Return the real type of implementation object
    */
   DrawableSubwinBridge * getSubwinImp( void ) ;
@@ -194,6 +222,9 @@ protected:
   /*-----------------------------------------------------------------------------*/
   /** Camera used to visualize this axes */
   Camera * m_pCamera;
+
+  /** To know if coordinate transformations should be updated */
+  bool m_bNeedCoordUpdate;
   /*-----------------------------------------------------------------------------*/
 
 

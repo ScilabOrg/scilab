@@ -34,20 +34,20 @@ BackTrihedronDrawerJoGL::~BackTrihedronDrawerJoGL(void)
   
 }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJoGL::drawAxesBox(void)
+void BackTrihedronDrawerJoGL::drawAxesBox(int concealedCornerIndex)
 {
   sciPointObj * pSubwin = m_pDrawer->getDrawedObject();
   initializeDrawing();
 
   getBackTrihedronDrawerJavaMapper()->setBoxParameters(pSUBWIN_FEATURE(pSubwin)->axes.hiddenAxisColor,
-                                                       sciGetGraphicContext(pSubwin)->backgroundcolor,
                                                        (float) sciGetLineWidth(pSubwin));
 
   // get displayed bounds
   double bounds[6];
   sciGetRealDataBounds(pSubwin, bounds);
   getBackTrihedronDrawerJavaMapper()->drawBox(bounds[0], bounds[1], bounds[2],
-                                              bounds[3], bounds[4], bounds[5]);
+                                              bounds[3], bounds[4], bounds[5],
+                                              concealedCornerIndex);
   endDrawing();
 }
 /*--------------------------------------------------------------------------*/

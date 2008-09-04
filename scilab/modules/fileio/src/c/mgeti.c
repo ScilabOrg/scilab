@@ -13,7 +13,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#ifndef _MSC_VER
+#include <stdint.h> 
+#else
+#define int32_t long
+#define uint32_t unsigned long
+#endif
 #include "machine.h"
 #include "mgeti.h"
 #include "sciprint.h"
@@ -50,12 +55,12 @@ void C2F(mgeti) (integer *fd,integer *res,integer *n,char type[],integer *ierr)
   FILE *fa;
   char *RES_c;
   unsigned char *RES_uc;
-  unsigned long *RES_ul;
+  uint32_t *RES_ul;
   unsigned short *RES_us;
 
   RES_c=(char *)res;
   RES_uc=(unsigned char *)res;
-  RES_ul=(unsigned long *)res;
+  RES_ul=(uint32_t *)res;
   RES_us=(unsigned short *)res;
 
   fa = GetFileOpenedInScilab(*fd);
@@ -76,7 +81,7 @@ void C2F(mgeti) (integer *fd,integer *res,integer *n,char type[],integer *ierr)
 	case 'l' : 
 	  swap=SWAP(type,fd);
 	  if(swap<0) {*ierr=1;return;}
-	  MGETI(long,swapl);
+	  MGETI(int32_t,swapl);
 	  break;
 	case 's' : 
 	  swap=SWAP(type,fd); 
@@ -108,7 +113,7 @@ void C2F(mgeti) (integer *fd,integer *res,integer *n,char type[],integer *ierr)
 		     68000/SPARC style. */
 		  for ( i=0; i< *n; i++) 
 		    {
-		      unsigned long val;
+		      uint32_t val;
 		      val = rblong(ft);
 		      if ( feof(fa) != 0)  {items= i;break;}
 		      *RES_ul ++ = val ;
@@ -137,7 +142,7 @@ void C2F(mgeti) (integer *fd,integer *res,integer *n,char type[],integer *ierr)
 		     VAX/386 style.*/
 		  for ( i=0; i< *n; i++) 
 		      {
-			unsigned long val;
+			uint32_t val;
 			val = rllong(ft);
 			if ( feof(fa) != 0)  {items= i;break;}
 			*RES_ul++ = val;
@@ -155,7 +160,7 @@ void C2F(mgeti) (integer *fd,integer *res,integer *n,char type[],integer *ierr)
 		    }
 		  break;
 		default: 
-		  MGETI(unsigned long,swapl);
+		  MGETI(uint32_t,swapl);
 		  break;
 		}
 	      break;

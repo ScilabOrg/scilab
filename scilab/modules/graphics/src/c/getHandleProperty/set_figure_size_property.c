@@ -29,7 +29,7 @@
 #include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
-int set_figure_size_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
+int set_figure_size_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   double * values = getDoubleMatrixFromStack( stackPointer ) ;
   int status;
@@ -52,9 +52,9 @@ int set_figure_size_property( sciPointObj * pobj, int stackPointer, int valueTyp
   }
 
   /* disable protection since this function will call Java */
-  endFigureDataWriting(pobj);
+  disableFigureSynchronization(pobj);
   status = sciSetWindowDim( pobj, (int)values[0], (int)values[1] ) ;
-  startFigureDataWriting(pobj);
+  enableFigureSynchronization(pobj);
 
   return status;
 }

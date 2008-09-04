@@ -40,6 +40,8 @@
 #include "CurrentObjectsManagement.h"
 #include "ObjectSelection.h"
 #include "BuildDrawingObserver.h"
+#include "SetJavaProperty.h"
+#include "DrawingBridge.h"
 
 #include "MALLOC.h" /* MALLOC */
 #include "localization.h"
@@ -376,6 +378,16 @@ sciAddThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
 {
   sciSons * OneSon = NULL ;
   
+  /* Special case for text, it needs to be registered with its parent subwin */
+  if (sciGetEntityType(pthis) == SCI_TEXT)
+  {
+    if (sciGetParent(pthis) != NULL)
+    {
+      sciJavaRemoveTextToDraw(pthis, sciGetParentSubwin(pthis));
+    }
+    sciJavaAddTextToDraw(pthis, sciGetParentSubwin(pparent));
+  }
+
   if ( sciSetParent(pthis, pparent) == -1 )
   {
     return FALSE ;
@@ -387,7 +399,7 @@ sciAddThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
     return TRUE ;
   }
 
-  /* Si c'est null alors il n'y a pas encore de fils d'affecte */
+  /* check if there are already sons */
   if ( sciGetRelationship (pparent)->psons != NULL )
   {			
     /* Il existe au moins un fils d'affecte */
@@ -399,7 +411,7 @@ sciAddThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
   }
   else
   {
-    /* C'est tout neuf alors on cree la variable */
+    /* Frist son to be added! */
     if ( (OneSon = MALLOC( sizeof(sciSons) )) == NULL ) {return FALSE ; }
     OneSon->pnext = NULL ;
     OneSon->pprev = NULL ;
@@ -407,6 +419,66 @@ sciAddThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
   }
   OneSon->pointobj = pthis ;
   sciGetRelationship(pparent)->psons = OneSon ;
+
+  return TRUE;
+}
+
+/**
+ * Same as sciAddThisToItsParent, but add the son at the end of the sons list.
+ * Should be used only in special cases.
+ */
+BOOL sciAddThisToItsParentLastPos(sciPointObj * pthis, sciPointObj * parent)
+{
+  sciSons * newSon = NULL ;
+  
+  /* Special case for text, it needs to be registered with its parent subwin */
+  if (sciGetEntityType(pthis) == SCI_TEXT)
+  {
+    if (sciGetParent(pthis) != NULL)
+    {
+      sciJavaRemoveTextToDraw(pthis, sciGetParentSubwin(pthis));
+    }
+    sciJavaAddTextToDraw(pthis, sciGetParentSubwin(parent));
+  }
+
+  if ( sciSetParent(pthis, parent) == -1 )
+  {
+    return FALSE ;
+  }
+
+  if ( parent == NULL )
+  {
+    /* nothing more to do */
+    return TRUE ;
+  }
+
+  newSon = MALLOC(sizeof(sciSons));
+  if (newSon == NULL)
+  {
+    return FALSE;
+  }
+
+  if (sciGetSons(parent) == NULL)
+  {
+    /* first son to be added */
+    newSon->pnext = NULL;
+    newSon->pprev = NULL;
+
+    /* update psons and last sons */
+    sciGetRelationship(parent)->psons = newSon;
+    sciGetRelationship(parent)->plastsons = newSon;
+  }
+  else
+  {
+    /* There is alredy a son */
+    newSon->pnext = NULL;
+    newSon->pprev = sciGetRelationship(parent)->plastsons;
+
+    /* update psons and last sons */
+    sciGetRelationship(parent)->plastsons->pnext = newSon;
+    sciGetRelationship(parent)->plastsons = newSon;
+  }
+  newSon->pointobj = pthis;
 
   return TRUE;
 }
@@ -420,9 +492,14 @@ sciAddThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
  */
 BOOL sciDelThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
 {
-  int tmp = 0 ;
   sciSons *OneSon     = NULL ;
   sciSons *OneSonprev = NULL ;
+
+  /* Special case for text, it needs to be registered with its parent subwin */
+  if (sciGetEntityType(pthis) == SCI_TEXT)
+  {
+    sciJavaRemoveTextToDraw(pthis, sciGetParentSubwin(pthis));
+  }
 
   if ( pparent == NULL )
   {
@@ -430,7 +507,7 @@ BOOL sciDelThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
     return TRUE ;
   }
 
-  /* recherche de l'objet a effacer*/
+  /* search for the object to remove */
   OneSon = (sciGetRelationship (pparent)->psons);
   OneSonprev = OneSon;
   while ( (OneSon != NULL) &&  (OneSon->pointobj != pthis) )
@@ -439,41 +516,53 @@ BOOL sciDelThisToItsParent (sciPointObj * pthis, sciPointObj * pparent)
     OneSon = OneSon->pnext;
   }
 
+  return sciDelSonFromItsParent(OneSon, pparent);
+}
+
+/**
+ * Remove a son of an object from the sons list.
+ * @param son son to remove, must be in the parent children list.
+ *            param is no longer usable when the function returns.
+ */
+BOOL sciDelSonFromItsParent(sciSons * son, sciPointObj * parent)
+{
+  int tmp = 0;
+
   /* dans quel cas de figure somme nous ? */
-  if ( OneSon == NULL )
+  if ( son == NULL )
   {
     tmp++ ;
   }
   else 
   {
-    if ( OneSon->pprev == NULL ) { tmp += 2 ; }
-    if ( OneSon->pnext == NULL ) { tmp += 4 ; }
+    if ( son->pprev == NULL ) { tmp += 2 ; }
+    if ( son->pnext == NULL ) { tmp += 4 ; }
   }
 
   switch(tmp)
   {
     case 0:/* ok<-OneSon->ok     */
-      (OneSon->pnext)->pprev = (OneSon->pprev);
-      (OneSon->pprev)->pnext = (OneSon->pnext);
-      FREE(OneSon);
+      (son->pnext)->pprev = (son->pprev);
+      (son->pprev)->pnext = (son->pnext);
+      FREE(son);
       return TRUE;
       break;
     case 2:/* ok<-OneSon->NULL   */
-      (sciGetRelationship (pparent)->psons) = OneSon->pnext;
-      (sciGetRelationship (pparent)->psons)->pprev = NULL ;
-      FREE(OneSon);
+      (sciGetRelationship (parent)->psons) = son->pnext;
+      (sciGetRelationship (parent)->psons)->pprev = NULL ;
+      FREE(son);
       return TRUE;
       break;
     case 4:/* NULL<-OneSon->ok   */
-      sciGetRelationship (pparent)->plastsons = OneSon->pprev;
-      (sciGetRelationship (pparent)->plastsons)->pnext = NULL;
-      FREE(OneSon);
+      sciGetRelationship (parent)->plastsons = son->pprev;
+      (sciGetRelationship (parent)->plastsons)->pnext = NULL;
+      FREE(son);
       return TRUE;
       break;
     case 6:/* NULL<-OneSon->NULL */
-      sciGetRelationship (pparent)->plastsons = NULL;
-      sciGetRelationship (pparent)->psons = NULL;
-      FREE(OneSon);
+      sciGetRelationship (parent)->plastsons = NULL;
+      sciGetRelationship (parent)->psons = NULL;
+      FREE(son);
       return TRUE;
       break;
     case 1:/* OneSon == NULL     */
@@ -591,6 +680,9 @@ int sciRelocateObject( sciPointObj * movedObj, sciPointObj * newParent )
       sciInitSelectedSubWin( newSubWin ) ;
     }
   }
+
+  // redraw the object and its children
+  forceHierarchyRedraw(movedObj);
 
   return 0 ;
 }
@@ -777,7 +869,6 @@ int sciSwapObjects( sciPointObj * firstObject, sciPointObj * secondObject )
     return -1 ;
   }
 
-  /* Swap the two pointed values of the handles */
   firstSon->pointobj  = secondObject ;
   secondSon->pointobj = firstObject  ;
 
@@ -785,6 +876,21 @@ int sciSwapObjects( sciPointObj * firstObject, sciPointObj * secondObject )
   sciSetParent( firstObject , secondParent ) ;
   sciSetParent( secondObject, firstParent  ) ;
   
+  /* Special case for texts we need to register them with the new parent */
+  if (sciGetEntityType(firstObject) == SCI_TEXT)
+  {
+    sciJavaRemoveTextToDraw(firstObject, sciGetParentSubwin(firstParent));
+    sciJavaAddTextToDraw(firstObject, sciGetParentSubwin(secondParent));
+  }
+
+  if (sciGetEntityType(secondObject) == SCI_TEXT)
+  {
+    sciJavaRemoveTextToDraw(secondObject, sciGetParentSubwin(secondParent));
+    sciJavaAddTextToDraw(secondObject, sciGetParentSubwin(firstParent));
+  }
+
+  forceHierarchyRedraw(firstObject);
+  forceHierarchyRedraw(secondObject);
 
   return 0 ;
 
@@ -849,11 +955,11 @@ BOOL isHandleValid(long handle)
  * Get a son of an object knowing its position within the children.
  * @return a pointer on the object or NULL if the index is out of bounds
  */
-sciPointObj * sciGetIndexedSon(sciPointObj * pobj, int index)
+sciPointObj * sciGetIndexedSon(sciPointObj * pobj, int position)
 {
   sciSons * curSon = sciGetSons( pobj ) ;
   int curIndex = 0;
-  while (curSon != NULL && curIndex < index)
+  while (curSon != NULL && curIndex < position)
   {
     curSon = curSon->pnext ;
     curIndex++;

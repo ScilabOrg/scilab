@@ -26,10 +26,11 @@
 #include "localization.h"
 #include "InitObjects.h"
 #include "SetPropertyStatus.h"
+#include "Interaction.h"
 #include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
-int set_axes_size_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
+int set_axes_size_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   double * newWindowSize = getDoubleMatrixFromStack( stackPointer ) ;
   int status;
@@ -47,16 +48,22 @@ int set_axes_size_property( sciPointObj * pobj, int stackPointer, int valueType,
   }
 
   /* disable protection since this function will call Java */
-  endFigureDataWriting(pobj);
+  disableFigureSynchronization(pobj);
   status = sciSetDimension(pobj, (int) newWindowSize[0], (int) newWindowSize[1] ) ;
-  startFigureDataWriting(pobj);
+  enableFigureSynchronization(pobj);
 
-  if (status == SET_PROPERTY_ERROR)
+  switch(status)
   {
+  case RESIZE_MEMORY_ERROR:
+    sciprint(_("Wrong value for property '%s': smaller values expected.\n"), "axes_size") ;
+    return SET_PROPERTY_ERROR ;
+  case RESIZE_MULTIPLE_DOCKED_TAB:
     sciprint(_("WARNING: '%s' property can not be modified if the %s is docked with other elements.\n"), "axes_size", "Figure") ;
     return SET_PROPERTY_ERROR ;
-  }
-
-  return status;
+  case RESIZE_UNCHANGED:
+    return SET_PROPERTY_UNCHANGED;
+  default:
+    return SET_PROPERTY_SUCCEED;
+  };
 }
 /*------------------------------------------------------------------------*/

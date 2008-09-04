@@ -34,7 +34,8 @@
 #include "SetPropertyStatus.h"
 
 /*--------------------------------------------------------------------------*/
-sciPointObj * getZoomedObject(const char * fname);
+static sciPointObj * getZoomedObject(const char * fname);
+static BOOL getZoomRect(const char * fname, int attribPos, double rect[4]);
 /*--------------------------------------------------------------------------*/
 /**
  * Get the [xmin, ymin, xmax, ymax] vector specified as input argument
@@ -43,11 +44,11 @@ sciPointObj * getZoomedObject(const char * fname);
  * @param[out] rect retrieved rectangle
  * @return TRUE if the rect could be retrieved, false otherwise
  */
-BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
+static BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
 {
   int nbRow;
   int nbCol;
-  int stackPointer;
+  size_t stackPointer = 0;
   int i;
   double * rectVect;
   GetRhsVar(attribPos, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
@@ -81,11 +82,11 @@ BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
  * @return NULL if the input argument is not correct,
  *              the object to zoom otherwise
  */
-sciPointObj * getZoomedObject(const char * fname)
+static sciPointObj * getZoomedObject(const char * fname)
 {
   int nbRow;
   int nbCol;
-  int stackPointer;
+  size_t stackPointer = 0;
   sciPointObj * res = NULL;
   /* if a handle is specified it must be the first input argument */
   GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);

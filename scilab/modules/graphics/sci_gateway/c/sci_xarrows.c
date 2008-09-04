@@ -24,6 +24,9 @@
 #include "GetProperty.h"
 #include "localization.h"
 #include "Scierror.h"
+#include "DrawObjects.h"
+#include "CurrentObjectsManagement.h"
+#include "DrawingBridge.h"
 /*--------------------------------------------------------------------------*/
 int sci_xarrows(char *fname,unsigned long fname_len)
 {
@@ -63,6 +66,7 @@ int sci_xarrows(char *fname,unsigned long fname_len)
   
   Objsegs (style,flag,mn2,stk(l1),stk(l2),arsize);
   
+  sciDrawObj(sciGetCurrentObj());
 
   LhsVar(1)=0;
   return 0;

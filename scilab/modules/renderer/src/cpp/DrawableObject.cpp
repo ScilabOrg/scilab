@@ -95,8 +95,8 @@ void DrawableObject::parentSubwinChanged( void )
   sciSons * curSon = sciGetLastSons( m_pDrawed ) ;
   while ( curSon != NULL )
   {
-    if (sciGetEntityType(curSon->pointobj) != SCI_UICONTROL
-      && sciGetEntityType(curSon->pointobj) != SCI_UIMENU) 
+    if (   sciGetEntityType(curSon->pointobj) != SCI_UICONTROL
+        && sciGetEntityType(curSon->pointobj) != SCI_UIMENU)
     {
       getHandleDrawer( curSon->pointobj )->parentSubwinChanged();
     }
@@ -109,8 +109,13 @@ void DrawableObject::displayChildren( void )
   sciSons * curSon = sciGetLastSons( m_pDrawed ) ;
   while ( curSon != NULL )
   {
-    if (sciGetEntityType(curSon->pointobj) != SCI_UICONTROL
-        && sciGetEntityType(curSon->pointobj) != SCI_UIMENU)
+    sciEntityType curType = sciGetEntityType(curSon->pointobj);
+    // uicontrol and menus are directly drawn by Java
+    // while text and labels are drawn at the end
+    if (   curType != SCI_UICONTROL
+        && curType != SCI_UIMENU
+        && curType != SCI_TEXT
+        && curType != SCI_LABEL)
       {
         getHandleDrawer( curSon->pointobj )->display() ;
       }

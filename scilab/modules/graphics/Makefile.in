@@ -119,6 +119,7 @@ LTLIBRARIES = $(pkglib_LTLIBRARIES)
 @GUI_TRUE@	$(top_builddir)/modules/core/libscicore.la \
 @GUI_TRUE@	$(top_builddir)/libs/MALLOC/libscimalloc.la \
 @GUI_TRUE@	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
+@GUI_TRUE@	$(top_builddir)/modules/fileio/libscifileio.la \
 @GUI_TRUE@	$(am__append_2) $(am__append_3)
 am__libscigraphics_la_SOURCES_DIST = src/nographics/nographics.c \
 	src/c/GetCommandArg.c src/c/WindowList.c src/c/Events.c \
@@ -253,6 +254,7 @@ am__libscigraphics_la_SOURCES_DIST = src/nographics/nographics.c \
 	src/c/getHandleProperty/get_fractional_font_property.c \
 	src/c/getHandleProperty/get_links_property.c \
 	src/c/getHandleProperty/get_legend_location_property.c \
+	src/c/getHandleProperty/get_filled_property.c \
 	src/c/getHandleProperty/GetHashTable.c \
 	src/c/graphicModuleLoad.c \
 	src/c/getHandleProperty/set_old_style_property.c \
@@ -386,6 +388,7 @@ am__libscigraphics_la_SOURCES_DIST = src/nographics/nographics.c \
 	src/c/getHandleProperty/set_fractional_font_property.c \
 	src/c/getHandleProperty/set_links_property.c \
 	src/c/getHandleProperty/set_legend_location_property.c \
+	src/c/getHandleProperty/set_filled_property.c \
 	src/c/DefaultCommandArg.c src/c/graphicSession.c src/c/Axes.c \
 	src/c/sciMatrix.c src/c/DrawObjects.c src/c/Vect2Matrix.c \
 	src/c/Plo3d.c src/c/GetProperty.c src/c/Contour.c \
@@ -574,6 +577,7 @@ am__libscigraphics_la_SOURCES_DIST = src/nographics/nographics.c \
 @GUI_TRUE@	libscigraphics_la-get_fractional_font_property.lo \
 @GUI_TRUE@	libscigraphics_la-get_links_property.lo \
 @GUI_TRUE@	libscigraphics_la-get_legend_location_property.lo \
+@GUI_TRUE@	libscigraphics_la-get_filled_property.lo \
 @GUI_TRUE@	libscigraphics_la-GetHashTable.lo \
 @GUI_TRUE@	libscigraphics_la-graphicModuleLoad.lo \
 @GUI_TRUE@	libscigraphics_la-set_old_style_property.lo \
@@ -707,6 +711,7 @@ am__libscigraphics_la_SOURCES_DIST = src/nographics/nographics.c \
 @GUI_TRUE@	libscigraphics_la-set_fractional_font_property.lo \
 @GUI_TRUE@	libscigraphics_la-set_links_property.lo \
 @GUI_TRUE@	libscigraphics_la-set_legend_location_property.lo \
+@GUI_TRUE@	libscigraphics_la-set_filled_property.lo \
 @GUI_TRUE@	libscigraphics_la-DefaultCommandArg.lo \
 @GUI_TRUE@	libscigraphics_la-graphicSession.lo \
 @GUI_TRUE@	libscigraphics_la-Axes.lo \
@@ -1038,6 +1043,7 @@ VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
+XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -1105,6 +1111,7 @@ libscigraphics_la_CFLAGS =  \
 	-I$(top_srcdir)/libs/doublylinkedlist/includes -Iincludes/ \
 	-Isrc/c/ -Isrc/c/getHandleProperty/ \
 	-I$(top_srcdir)/modules/gui/includes/ \
+	-I$(top_srcdir)/modules/fileio/includes/ \
 	-I$(top_srcdir)/modules/string/includes/ $(am__append_1) \
 	$(am__append_4)
 @GUI_FALSE@GRAPHICS_C_SOURCES = src/nographics/nographics.c
@@ -1242,6 +1249,7 @@ libscigraphics_la_CFLAGS =  \
 @GUI_TRUE@src/c/getHandleProperty/get_fractional_font_property.c \
 @GUI_TRUE@src/c/getHandleProperty/get_links_property.c \
 @GUI_TRUE@src/c/getHandleProperty/get_legend_location_property.c \
+@GUI_TRUE@src/c/getHandleProperty/get_filled_property.c \
 @GUI_TRUE@src/c/getHandleProperty/GetHashTable.c \
 @GUI_TRUE@src/c/graphicModuleLoad.c \
 @GUI_TRUE@src/c/getHandleProperty/set_old_style_property.c \
@@ -1375,6 +1383,7 @@ libscigraphics_la_CFLAGS =  \
 @GUI_TRUE@src/c/getHandleProperty/set_fractional_font_property.c \
 @GUI_TRUE@src/c/getHandleProperty/set_links_property.c \
 @GUI_TRUE@src/c/getHandleProperty/set_legend_location_property.c \
+@GUI_TRUE@src/c/getHandleProperty/set_filled_property.c \
 @GUI_TRUE@src/c/DefaultCommandArg.c \
 @GUI_TRUE@src/c/graphicSession.c \
 @GUI_TRUE@src/c/Axes.c \
@@ -1508,6 +1517,7 @@ libscigraphics_la_CFLAGS =  \
 @GUI_TRUE@	$(top_builddir)/modules/core/libscicore.la \
 @GUI_TRUE@	$(top_builddir)/libs/MALLOC/libscimalloc.la \
 @GUI_TRUE@	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
+@GUI_TRUE@	$(top_builddir)/modules/fileio/libscifileio.la \
 @GUI_TRUE@	$(am__append_2) $(am__append_3)
 
 #### graphics : Conf files ####
@@ -1772,11 +1782,11 @@ libscigraphics_la_CFLAGS =  \
 @GUI_TRUE@demos/fec/fec.dem.gateway.sce \
 @GUI_TRUE@demos/fec/fec.ex1 \
 @GUI_TRUE@demos/fec/fec.ex2 \
-@GUI_TRUE@demos/fec/fec.ex2.dem.gateway.sce \
+@GUI_TRUE@demos/fec/fec.ex2.dem.sce \
 @GUI_TRUE@demos/fec/fec.ex3 \
-@GUI_TRUE@demos/fec/fec.ex3.dem.gateway.sce \
+@GUI_TRUE@demos/fec/fec.ex3.dem.sce \
 @GUI_TRUE@demos/fec/fec.ex4 \
-@GUI_TRUE@demos/fec/fec.ex4.dem.gateway.sce \
+@GUI_TRUE@demos/fec/fec.ex4.dem.sce \
 @GUI_TRUE@demos/fec/fec.info \
 @GUI_TRUE@demos/fec/fec_demo.sci \
 @GUI_TRUE@demos/fec/MESH \
@@ -1846,9 +1856,6 @@ SUFFIXES = .sci
 
 # Where it should be installed
 pkgdocdir = $(mydatadir)
-
-# Which directories we have to install
-DOCDIRS = help/fr_FR help/en_US
 
 # What is the mask of the help source
 DOCMASKXML = *.xml
@@ -2034,6 +2041,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_figure_style_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_figures_id_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_fill_mode_property.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_filled_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_font_angle_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_font_color_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-get_font_foreground_property.Plo@am__quote@
@@ -2246,6 +2254,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_figure_size_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_figure_style_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_fill_mode_property.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_filled_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_font_angle_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_font_color_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_la-set_font_foreground_property.Plo@am__quote@
@@ -3291,6 +3300,13 @@ libscigraphics_la-get_legend_location_property.lo: src/c/getHandleProperty/get_l
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -c -o libscigraphics_la-get_legend_location_property.lo `test -f 'src/c/getHandleProperty/get_legend_location_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_legend_location_property.c
 
+libscigraphics_la-get_filled_property.lo: src/c/getHandleProperty/get_filled_property.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -MT libscigraphics_la-get_filled_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_la-get_filled_property.Tpo -c -o libscigraphics_la-get_filled_property.lo `test -f 'src/c/getHandleProperty/get_filled_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_filled_property.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscigraphics_la-get_filled_property.Tpo $(DEPDIR)/libscigraphics_la-get_filled_property.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/get_filled_property.c' object='libscigraphics_la-get_filled_property.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -c -o libscigraphics_la-get_filled_property.lo `test -f 'src/c/getHandleProperty/get_filled_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_filled_property.c
+
 libscigraphics_la-GetHashTable.lo: src/c/getHandleProperty/GetHashTable.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -MT libscigraphics_la-GetHashTable.lo -MD -MP -MF $(DEPDIR)/libscigraphics_la-GetHashTable.Tpo -c -o libscigraphics_la-GetHashTable.lo `test -f 'src/c/getHandleProperty/GetHashTable.c' || echo '$(srcdir)/'`src/c/getHandleProperty/GetHashTable.c
 @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscigraphics_la-GetHashTable.Tpo $(DEPDIR)/libscigraphics_la-GetHashTable.Plo
@@ -4221,6 +4237,13 @@ libscigraphics_la-set_legend_location_property.lo: src/c/getHandleProperty/set_l
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/set_legend_location_property.c' object='libscigraphics_la-set_legend_location_property.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -c -o libscigraphics_la-set_legend_location_property.lo `test -f 'src/c/getHandleProperty/set_legend_location_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_legend_location_property.c
+
+libscigraphics_la-set_filled_property.lo: src/c/getHandleProperty/set_filled_property.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -MT libscigraphics_la-set_filled_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_la-set_filled_property.Tpo -c -o libscigraphics_la-set_filled_property.lo `test -f 'src/c/getHandleProperty/set_filled_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_filled_property.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscigraphics_la-set_filled_property.Tpo $(DEPDIR)/libscigraphics_la-set_filled_property.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/set_filled_property.c' object='libscigraphics_la-set_filled_property.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -c -o libscigraphics_la-set_filled_property.lo `test -f 'src/c/getHandleProperty/set_filled_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_filled_property.c
 
 libscigraphics_la-DefaultCommandArg.lo: src/c/DefaultCommandArg.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscigraphics_la_CFLAGS) $(CFLAGS) -MT libscigraphics_la-DefaultCommandArg.lo -MD -MP -MF $(DEPDIR)/libscigraphics_la-DefaultCommandArg.Tpo -c -o libscigraphics_la-DefaultCommandArg.lo `test -f 'src/c/DefaultCommandArg.c' || echo '$(srcdir)/'`src/c/DefaultCommandArg.c
@@ -5406,14 +5429,14 @@ all-local: $(TARGETS_ALL)
 
 install-html-local:
 # If the user wants the help sources to be installed
-@INSTALL_HELP_XML_TRUE@	@echo "-- Install of XML sources of help files --"; \
-@INSTALL_HELP_XML_TRUE@	for dir in $(DOCDIRS) ; do \
-@INSTALL_HELP_XML_TRUE@	 if test -d $$dir; then \
-@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$$dir && \
-@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/$$dir/$(DOCMASKXML) >/dev/null 2>&1; then \
-@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/$$dir/$(DOCMASKXML) ; do \
-@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$$dir" ; \
-@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/$$dir ; \
+@INSTALL_HELP_XML_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
+@INSTALL_HELP_XML_TRUE@	for lang in $(ALL_LINGUAS); do \
+@INSTALL_HELP_XML_TRUE@	 if test -d $(srcdir)/help/$$lang; then \
+@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/help/$$lang && \
+@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/help/$$lang/$(DOCMASKXML) >/dev/null 2>&1; then \
+@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/help/$$lang/$(DOCMASKXML) ; do \
+@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/help/$$lang" ; \
+@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/help/$$lang ; \
 @INSTALL_HELP_XML_TRUE@		  done ; \
 @INSTALL_HELP_XML_TRUE@		fi; \
 @INSTALL_HELP_XML_TRUE@	 fi; \
@@ -5438,10 +5461,10 @@ install-data-local:
 # Install the help chapter
 	@echo "-------- Install the help chapter (if any) --------"; \
 	for lang in $(ALL_LINGUAS); do \
-		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+		HELPFILE=$(srcdir)/$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
 		if test -f $$HELPFILE; then \
-			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
-			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
 			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 		fi; \

@@ -102,9 +102,7 @@ libscilocalization_la_DEPENDENCIES =  \
 am__objects_1 = libscilocalization_la-InitializeLocalization.lo \
 	libscilocalization_la-setgetlanguage.lo \
 	libscilocalization_la-localetoutf.lo \
-	libscilocalization_la-LanguagePref.lo \
-	libscilocalization_la-saveLanguagePref.lo \
-	libscilocalization_la-loadLanguagePref.lo
+	libscilocalization_la-loadsavelanguage.lo
 am__objects_2 = libscilocalization_la-gw_localization.lo \
 	libscilocalization_la-sci_gettext.lo \
 	libscilocalization_la-sci_dgettext.lo \
@@ -271,6 +269,7 @@ VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
+XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -335,9 +334,7 @@ LOCALIZATION_C_SOURCES = \
 src/c/InitializeLocalization.c \
 src/c/setgetlanguage.c \
 src/c/localetoutf.c \
-src/c/LanguagePref.c \
-src/c/saveLanguagePref.c \
-src/c/loadLanguagePref.c
+src/c/loadsavelanguage.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_localization.c \
 sci_gateway/c/sci_gettext.c \
@@ -346,13 +343,17 @@ sci_gateway/c/sci_setlanguage.c \
 sci_gateway/c/sci_getdefaultlanguage.c \
 sci_gateway/c/sci_getlanguage.c
 
+
+#sci_gateway/c/sci_getlanguagealias.c \
+#sci_gateway/c/sci_getlanguagestable.c \
+#sci_gateway/c/sci_addtext.c \
+#sci_gateway/c/sci_removetext.c
 libscilocalization_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
 				-Iincludes/ \
 				-Isrc/c/ \
 				-I$(top_srcdir)/libs/MALLOC/includes/ \
 				-I$(top_srcdir)/modules/string/includes \
 				-I$(top_srcdir)/modules/fileio/includes \
-				-I$(top_srcdir)/modules/io/includes \
 				-I$(top_srcdir)/modules/output_stream/includes
 
 pkglib_LTLIBRARIES = libscilocalization.la
@@ -380,7 +381,8 @@ libscilocalization_la_includedir = $(pkgincludedir)/localization
 libscilocalization_la_include_HEADERS = includes/localization.h \
 includes/gw_localization.h \
 includes/InitializeLocalization.h \
-includes/setgetlanguage.h 
+includes/setgetlanguage.h \
+includes/TerminateLocalization.h
 
 @GUI_TRUE@USEANT = 1
 
@@ -408,9 +410,6 @@ SUFFIXES = .sci
 
 # Where it should be installed
 pkgdocdir = $(mydatadir)
-
-# Which directories we have to install
-DOCDIRS = help/fr_FR help/en_US
 
 # What is the mask of the help source
 DOCMASKXML = *.xml
@@ -506,11 +505,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-InitializeLocalization.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-LanguagePref.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-gw_localization.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-loadLanguagePref.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-loadsavelanguage.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-localetoutf.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-saveLanguagePref.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-sci_dgettext.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-sci_getdefaultlanguage.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscilocalization_la-sci_getlanguage.Plo@am__quote@
@@ -560,26 +557,12 @@ libscilocalization_la-localetoutf.lo: src/c/localetoutf.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -c -o libscilocalization_la-localetoutf.lo `test -f 'src/c/localetoutf.c' || echo '$(srcdir)/'`src/c/localetoutf.c
 
-libscilocalization_la-LanguagePref.lo: src/c/LanguagePref.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -MT libscilocalization_la-LanguagePref.lo -MD -MP -MF $(DEPDIR)/libscilocalization_la-LanguagePref.Tpo -c -o libscilocalization_la-LanguagePref.lo `test -f 'src/c/LanguagePref.c' || echo '$(srcdir)/'`src/c/LanguagePref.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscilocalization_la-LanguagePref.Tpo $(DEPDIR)/libscilocalization_la-LanguagePref.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/LanguagePref.c' object='libscilocalization_la-LanguagePref.lo' libtool=yes @AMDEPBACKSLASH@
+libscilocalization_la-loadsavelanguage.lo: src/c/loadsavelanguage.c
+@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -MT libscilocalization_la-loadsavelanguage.lo -MD -MP -MF $(DEPDIR)/libscilocalization_la-loadsavelanguage.Tpo -c -o libscilocalization_la-loadsavelanguage.lo `test -f 'src/c/loadsavelanguage.c' || echo '$(srcdir)/'`src/c/loadsavelanguage.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscilocalization_la-loadsavelanguage.Tpo $(DEPDIR)/libscilocalization_la-loadsavelanguage.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/loadsavelanguage.c' object='libscilocalization_la-loadsavelanguage.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -c -o libscilocalization_la-LanguagePref.lo `test -f 'src/c/LanguagePref.c' || echo '$(srcdir)/'`src/c/LanguagePref.c
-
-libscilocalization_la-saveLanguagePref.lo: src/c/saveLanguagePref.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -MT libscilocalization_la-saveLanguagePref.lo -MD -MP -MF $(DEPDIR)/libscilocalization_la-saveLanguagePref.Tpo -c -o libscilocalization_la-saveLanguagePref.lo `test -f 'src/c/saveLanguagePref.c' || echo '$(srcdir)/'`src/c/saveLanguagePref.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscilocalization_la-saveLanguagePref.Tpo $(DEPDIR)/libscilocalization_la-saveLanguagePref.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/saveLanguagePref.c' object='libscilocalization_la-saveLanguagePref.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -c -o libscilocalization_la-saveLanguagePref.lo `test -f 'src/c/saveLanguagePref.c' || echo '$(srcdir)/'`src/c/saveLanguagePref.c
-
-libscilocalization_la-loadLanguagePref.lo: src/c/loadLanguagePref.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -MT libscilocalization_la-loadLanguagePref.lo -MD -MP -MF $(DEPDIR)/libscilocalization_la-loadLanguagePref.Tpo -c -o libscilocalization_la-loadLanguagePref.lo `test -f 'src/c/loadLanguagePref.c' || echo '$(srcdir)/'`src/c/loadLanguagePref.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscilocalization_la-loadLanguagePref.Tpo $(DEPDIR)/libscilocalization_la-loadLanguagePref.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/loadLanguagePref.c' object='libscilocalization_la-loadLanguagePref.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -c -o libscilocalization_la-loadLanguagePref.lo `test -f 'src/c/loadLanguagePref.c' || echo '$(srcdir)/'`src/c/loadLanguagePref.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -c -o libscilocalization_la-loadsavelanguage.lo `test -f 'src/c/loadsavelanguage.c' || echo '$(srcdir)/'`src/c/loadsavelanguage.c
 
 libscilocalization_la-gw_localization.lo: sci_gateway/c/gw_localization.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscilocalization_la_CFLAGS) $(CFLAGS) -MT libscilocalization_la-gw_localization.lo -MD -MP -MF $(DEPDIR)/libscilocalization_la-gw_localization.Tpo -c -o libscilocalization_la-gw_localization.lo `test -f 'sci_gateway/c/gw_localization.c' || echo '$(srcdir)/'`sci_gateway/c/gw_localization.c
@@ -974,14 +957,14 @@ all-local: $(TARGETS_ALL)
 
 install-html-local:
 # If the user wants the help sources to be installed
-@INSTALL_HELP_XML_TRUE@	@echo "-- Install of XML sources of help files --"; \
-@INSTALL_HELP_XML_TRUE@	for dir in $(DOCDIRS) ; do \
-@INSTALL_HELP_XML_TRUE@	 if test -d $$dir; then \
-@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$$dir && \
-@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/$$dir/$(DOCMASKXML) >/dev/null 2>&1; then \
-@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/$$dir/$(DOCMASKXML) ; do \
-@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$$dir" ; \
-@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/$$dir ; \
+@INSTALL_HELP_XML_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
+@INSTALL_HELP_XML_TRUE@	for lang in $(ALL_LINGUAS); do \
+@INSTALL_HELP_XML_TRUE@	 if test -d $(srcdir)/help/$$lang; then \
+@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/help/$$lang && \
+@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/help/$$lang/$(DOCMASKXML) >/dev/null 2>&1; then \
+@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/help/$$lang/$(DOCMASKXML) ; do \
+@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/help/$$lang" ; \
+@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/help/$$lang ; \
 @INSTALL_HELP_XML_TRUE@		  done ; \
 @INSTALL_HELP_XML_TRUE@		fi; \
 @INSTALL_HELP_XML_TRUE@	 fi; \
@@ -1006,10 +989,10 @@ install-data-local:
 # Install the help chapter
 	@echo "-------- Install the help chapter (if any) --------"; \
 	for lang in $(ALL_LINGUAS); do \
-		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+		HELPFILE=$(srcdir)/$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
 		if test -f $$HELPFILE; then \
-			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
-			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
 			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 		fi; \

@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl;../elementary_functions/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;_DEBUG;_WINDOWS;_USRDLL;RENDERER_EXPORTS;STATIC_LINKED"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -126,7 +126,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl;../elementary_functions/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;_DEBUG;_WINDOWS;_USRDLL;RENDERER_EXPORTS;STATIC_LINKED"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -210,7 +210,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl;../elementary_functions/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;NDEBUG;_WINDOWS;_USRDLL;RENDERER_EXPORTS;STATIC_LINKED"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -299,7 +299,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../jvm/includes;../localization/includes;../graphics/includes;../graphics/includes/handleDrawing;../graphic_export/includes;src/cpp;../../libs/doublylinkedlist/includes;../../libs/MALLOC/includes;../core/includes;../windows_tools/includes;../output_stream/includes;../../java/jdk/include;../../java/jdk/include/win32;src/jni;../../libs/intl;../elementary_functions/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WITH_TK;FORDLL;NDEBUG;_WINDOWS;_USRDLL;RENDERER_EXPORTS;STATIC_LINKED"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -426,6 +426,10 @@
 			</File>
 			<File
 				RelativePath=".\src\cpp\JavaInteraction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\cpp\rendererBasicAlgos.cpp"
 				>
 			</File>
 			<File
@@ -784,6 +788,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\jni\SubwinBackgroundDrawerGL.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\SubwinBackgroundDrawerJavaMapper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\SubwinBackgroundDrawerJoGL.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\cpp\subwinDrawing\TicksDrawer.cpp"
 					>
 				</File>
@@ -1081,14 +1097,6 @@
 				</File>
 				<File
 					RelativePath=".\src\cpp\textDrawing\TextContentDrawerJoGL.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\textDrawing\TextFillBoxDrawerJoGL.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\textDrawing\TextLineBoxDrawerJoGL.cpp"
 					>
 				</File>
 			</Filter>
@@ -1527,6 +1535,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\rendererBasicAlgos.h"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\RendererFontManager.h"
 				>
 			</File>
@@ -1871,6 +1883,18 @@
 				</File>
 				<File
 					RelativePath=".\src\cpp\subwinDrawing\SubwinAxisPositioner.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\jni\SubwinBackgroundDrawerGL.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\SubwinBackgroundDrawerJavaMapper.hxx"
+					>
+				</File>
+				<File
+					RelativePath=".\src\cpp\subwinDrawing\SubwinBackgroundDrawerJoGL.hxx"
 					>
 				</File>
 				<File
@@ -2255,14 +2279,6 @@
 				</File>
 				<File
 					RelativePath=".\src\cpp\textDrawing\TextContentDrawerJoGL.hxx"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\textDrawing\TextFillBoxDrawerJoGL.hxx"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\textDrawing\TextLineBoxDrawerJoGL.hxx"
 					>
 				</File>
 			</Filter>

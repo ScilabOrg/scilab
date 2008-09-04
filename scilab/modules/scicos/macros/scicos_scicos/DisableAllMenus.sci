@@ -20,11 +20,32 @@
 //
 
 function DisableAllMenus()
-  %ws=intersect(winsid(),[inactive_windows(2);curwin]')
-  %men=menus(1)
-  for %w=%ws
-    for k=2:size(%men,'*')
-     unsetmenu(%w,%men(k))
-    end  // Suppose here all windows have similar menus
+  %ws = intersect(winsid(), [inactive_windows(2);curwin]')
+  %men = menus(1);
+
+  //** This additiona double protection assure the existance
+  //** of the variable (not produce the first time in case of
+  //** Scicos used in batch mode
+  if ~exists("btn_n") then
+       btn_n = []; 
+  end
+  if ~exists("win_n") then
+       win_n = []; 
+  end
+ 
+  for %w = %ws
+  
+    //** this filter out the windows that have been intentionally closed
+    //** ... for more details see macros/scicos_auto/scicos.sci
+    //**         EnableAllMenus()
+    //**           [btn_n, %pt_n, win_n, Cmenu_n] = cosclick() ; 
+    //**         DisableAllMenus(); //** this function is called here 
+    //** 
+    if ~((btn_n==-1000) & (%w==win_n)) 
+      for k=2:size(%men,'*')
+       unsetmenu(%w,%men(k)); // Suppose here all windows have similar menus
+      end  
+    end   
+
   end
 endfunction

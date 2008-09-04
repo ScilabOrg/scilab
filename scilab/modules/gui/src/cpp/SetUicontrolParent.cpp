@@ -16,14 +16,16 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolParent(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
   int parentFigureIndex = 0; 
 
-  long int * returnValues = NULL;
+  int * returnValues = NULL;
 
   sciPointObj *figure = NULL;
+  sciPointObj *parent = NULL;
+  sciPointObj *oldParentFigure = NULL;
 
   if (nbRow*nbCol != 1)
     {
@@ -36,11 +38,23 @@ int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int
       if (valueType == sci_handles)
         {
           figure = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
+
+          parent = figure;
+          
+          /* Set a Frame as parent: we need to get the parent figure */
+          if (sciGetEntityType(figure) != SCI_FIGURE)
+            {
+              while (sciGetEntityType(figure) != SCI_FIGURE)
+                {
+                  figure = sciGetParent(figure);
+                }
+            }
         }
 
       if (valueType == sci_matrix)
         {
           figure = getFigureFromIndex((int)getDoubleMatrixFromStack(stackPointer)[0]);
+          parent = figure;
         }
 
       if (sciGetEntityType(figure) == SCI_FIGURE)
@@ -60,7 +74,15 @@ int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int
           // Remove from previous parent
           if (sciGetParent(sciObj) != NULL)
             {
-              parentFigureIndex = sciGetNum(sciGetParent(sciObj));
+              oldParentFigure = sciGetParent(sciObj);
+              if (sciGetEntityType(oldParentFigure) != SCI_FIGURE)
+                {
+                  while (sciGetEntityType(oldParentFigure) != SCI_FIGURE)
+                    {
+                      oldParentFigure = sciGetParent(oldParentFigure);
+                    }
+                }
+              parentFigureIndex = sciGetNum(oldParentFigure);
 
               sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
 
@@ -95,12 +117,13 @@ int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int
                   break;
                 default:
                   sciprint(_("No '%s' property for uicontrols of style: %s.\n"), "Parent", UicontrolStyleToString(pUICONTROL_FEATURE(sciObj)->style));
+				  delete [] returnValues;
                   return SET_PROPERTY_ERROR;
                 }
             }
           
           // Scilab relationship
-          sciAddThisToItsParent(sciObj, figure);
+          sciAddThisToItsParent(sciObj, parent);
 
           // The parent is a figure
           parentFigureIndex = sciGetNum(figure);
@@ -136,6 +159,7 @@ int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int
               break;
             default:
               sciprint(_("No '%s' property for uicontrols of style: %s.\n"), "Parent", UicontrolStyleToString(pUICONTROL_FEATURE(sciObj)->style));
+			  delete [] returnValues;
               return SET_PROPERTY_ERROR;
             }
 
@@ -144,33 +168,36 @@ int SetUicontrolParent(sciPointObj* sciObj, int stackPointer, int valueType, int
             {
               CallScilabBridge::setFramePosition(getScilabJavaVM(), 
                                                  pUICONTROL_FEATURE(sciObj)->hashMapIndex, 
-                                                 (int) returnValues[0], 
-                                                 (int) returnValues[1], 
-                                                 (int) returnValues[2], 
-                                                 (int) returnValues[3]);
+                                                 returnValues[0], 
+                                                 returnValues[1], 
+                                                 returnValues[2], 
+                                                 returnValues[3]);
             }
           else /* All other uicontrol styles */
             {
               CallScilabBridge::setWidgetPosition(getScilabJavaVM(), 
                                                   pUICONTROL_FEATURE(sciObj)->hashMapIndex, 
-                                                  (int) returnValues[0], 
-                                                  (int) returnValues[1], 
-                                                  (int) returnValues[2], 
-                                                  (int) returnValues[3]);
+                                                  returnValues[0], 
+                                                  returnValues[1], 
+                                                  returnValues[2], 
+                                                  returnValues[3]);
             }
+		  delete [] returnValues;
           return SET_PROPERTY_SUCCEED;
         }
       else
         {
+		  delete [] returnValues;
           // Parent is not a figure
-          sciprint(_("Wrong value for '%s' property: A 'Figure' handle expected.\n"), "Parent");
+          sciprint(_("Wrong value for '%s' property: A '%s' or '%s' handle expected.\n"), "Parent", "Figure", "Frame uicontrol");
           return SET_PROPERTY_ERROR;
         }
     }
   else
     {
+	  delete [] returnValues;
       // Do not know how to set the parent
-      sciprint(_("Wrong value for '%s' property: A 'Figure' handle expected.\n"), "Parent");
+      sciprint(_("Wrong value for '%s' property: A '%s' or '%s' handle expected.\n"), "Parent", "Figure", "Frame uicontrol");
       return SET_PROPERTY_ERROR;
     }
 }

@@ -15,11 +15,17 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolVerticalAlignment(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolVerticalAlignment(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   /* VerticalAlignment can be top, middle or bottom */
   
   char * alignment = NULL;
+
+  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    {
+      sciprint(_("No '%s' property for this object.\n"), "VerticalAlignment");
+      return SET_PROPERTY_ERROR;
+    }
 
   if (valueType == sci_strings)
     {

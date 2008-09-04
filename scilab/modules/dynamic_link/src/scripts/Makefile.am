@@ -3,6 +3,15 @@
 ### INRIA - Scilab 2006
 ##########
 
+# Without this, flags will be overriden
+AM_CFLAGS=@CFLAGS@
+AM_CXXFLAGS=@CXXFLAGS@
+AM_FFLAGS=@FFLAGS@
+AM_LDFLAGS=@LDFLAGS@
+
+# Definitions are already in machine.h, avoid double definition errors
+DEFS=
+
 # The name of the library is not important but must remains the same
 pkglib_LTLIBRARIES = libsciexternal.la
 

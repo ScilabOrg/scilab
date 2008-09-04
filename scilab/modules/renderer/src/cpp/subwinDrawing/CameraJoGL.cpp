@@ -88,11 +88,11 @@ void CameraJoGL::replaceCamera( void )
 {
   getCameraJavaMapper()->replaceCamera();
   // save camera viewing settings
-  getCameraJavaMapper()->getProjectionMatrix(m_aProjMatrix3D);
+  /*getCameraJavaMapper()->getProjectionMatrix(m_aProjMatrix3D);
   getCameraJavaMapper()->getUnprojectMatrix(m_aUnprojMatrix3D);
   getCameraJavaMapper()->get2dViewProjectionMatrix(m_aProjMatrix2D);
   getCameraJavaMapper()->get2dViewUnprojectMatrix(m_aUnprojMatrix2D);
-  getCameraJavaMapper()->getViewPort(m_aViewPort);
+  getCameraJavaMapper()->getViewPort(m_aViewPort);*/
 }
 /*--------------------------------------------------------------------------*/
 void CameraJoGL::project(const double projMatrix[4][4], const double viewPort[4],
@@ -233,7 +233,7 @@ void CameraJoGL::getViewport(int viewport[4])
 {
   for (int i = 0; i < 4; i++)
   {
-    viewport[i] = m_aViewPort[i];
+    viewport[i] = (int)m_aViewPort[i];
   }
 }
 /*--------------------------------------------------------------------------*/

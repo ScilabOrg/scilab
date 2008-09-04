@@ -133,11 +133,11 @@ public class ScilabRendererProperties implements RendererProperties {
 	 * @return indicates if the size could be successfully modified
 	 * @see org.scilab.modules.renderer.figureDrawing.RendererProperties#setCanvasSize(int, int)
 	 */
-	public boolean setCanvasSize(int width, int height) {
+	public int setCanvasSize(int width, int height) {
 		if (!getAutoResizeMode()) {
 			// autore size off, just resize the canvas
 			parentCanvas.setDims(new Size(width, height));
-			return true;
+			return RESIZE_SUCCESS;
 		} else if (parentTab.getParentWindow().getNbDockedObjects() == 1) {
 			// canvas tab is the only one in its window
 			// so resize window (tab and canvas will follow)
@@ -162,12 +162,12 @@ public class ScilabRendererProperties implements RendererProperties {
 			
 			// also apply on canvas otherwise the canvas is resized twice by Swing
 			parentCanvas.setDims(new Size(width, height));
-			return true;
+			return RESIZE_SUCCESS;
 		}
 		// if there are several docked objects, don't allow to resize canvas
 		// if it must changed either the tab or window size
 		
-		return false;
+		return RESIZE_MULTIPLE_DOCKED_TAB;
 	}
 
 	/**

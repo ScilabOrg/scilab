@@ -15,12 +15,18 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolRelief(sciPointObj* sciObj, int stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolRelief(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
   /* Relief can be flat, groove, raised, ridge, solid or sunken */
 
   char * relief = NULL;
   
+  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    {
+      sciprint(_("No '%s' property for this object.\n"), "Relief");
+      return SET_PROPERTY_ERROR;
+    }
+
   if (valueType == sci_strings)
     {
       if(nbCol != 1 || nbRow == 0)

@@ -46,10 +46,10 @@ public:
   virtual void setFigureIndex(int figureIndex);
   /*----------------------------------------------------------------------*/
   // specific for back trihedron
-  virtual void setBoxParameters(int hiddenAxisColor, int backgroundColor,
-                                float thickness);
+  virtual void setBoxParameters(int hiddenAxisColor, float thickness);
   virtual void drawBox(double xMin, double xMax, double yMin,
-                       double yMax, double zMin, double zMax);
+                       double yMax, double zMin, double zMax,
+                       int concealedCornerIndex);
   /*----------------------------------------------------------------------*/
 
 protected:

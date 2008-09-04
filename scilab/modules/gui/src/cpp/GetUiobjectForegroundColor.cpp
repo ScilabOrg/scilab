@@ -18,7 +18,7 @@ using namespace org_scilab_modules_gui_bridge;
 int GetUiobjectForegroundColor(sciPointObj* sciObj)
 {
   int returnFlag = FALSE;
-  long int * returnValues = NULL;
+  int * returnValues = NULL;
   double * tmp = NULL;
 
   if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
@@ -93,7 +93,8 @@ int GetUiobjectForegroundColor(sciPointObj* sciObj)
   
   returnFlag =  sciReturnRowVector(tmp, 3);
   
-  delete(tmp);
+  delete [] tmp;
+  delete [] returnValues;
   
   return returnFlag;
 }

@@ -96,7 +96,7 @@ public class ColorMap {
 	 * @return the red channel of the color corresponding to the colorIndex
 	 */
 	public double getRedChannel(int colorIndex) {
-		return redChannel[colorIndex];
+		return redChannel[clampColorIndex(colorIndex)];
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class ColorMap {
 	 * @return the red channel of the color corresponding to the colorIndex
 	 */
 	public double getGreenChannel(int colorIndex) {
-		return greenChannel[colorIndex];
+		return greenChannel[clampColorIndex(colorIndex)];
 	}
 	
 	/**
@@ -112,7 +112,24 @@ public class ColorMap {
 	 * @return the red channel of the color corresponding to the colorIndex
 	 */
 	public double getBlueChannel(int colorIndex) {
-		return blueChannel[colorIndex];
+		return blueChannel[clampColorIndex(colorIndex)];
+	}
+	
+	/**
+	 * Clamp a colormap index to the valid range of colormap.
+	 * To be used for index which are sent to renderer
+	 * directly in colormap index (and not in Scilab one).
+	 * @param colorIndex imput index we want to use
+	 * @return clamped index betwwen 0 and whiteId
+	 */
+	public int clampColorIndex(int colorIndex) {
+		if (colorIndex <= 0) {
+			return 0;
+		} else if (colorIndex >= colormapSize + 1) {
+			return colormapSize + 1;
+		} else {
+			return colorIndex;
+		}
 	}
 	
 	/**

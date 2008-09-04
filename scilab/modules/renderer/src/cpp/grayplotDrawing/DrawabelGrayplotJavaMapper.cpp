@@ -96,25 +96,7 @@ void DrawableGrayplotJavaMapper::drawGrayplot(const double xGrid[], int nbCol,
                                               const double yGrid[], int nbRow,
                                               double zCoord, const int colors[], int nbColors)
 {
-  long * javaColors = NULL;
-  try
-  {
-    javaColors = new long[nbColors];
-  }
-  catch (const std::exception& e)
-  {
-    // propagate exception
-    throw;
-  }
-
-  for (int i = 0; i < nbColors; i++)
-  {
-    javaColors[i] = colors[i];
-  }
-
-  m_pJavaObject->drawGrayplot((double *)xGrid, nbCol, (double *)yGrid, nbRow, zCoord, javaColors, nbColors);
-
-  delete[] javaColors;
+  m_pJavaObject->drawGrayplot((double *)xGrid, nbCol, (double *)yGrid, nbRow, zCoord, (int *)colors, nbColors);
 }
 /*---------------------------------------------------------------------------------*/
 }

@@ -52,13 +52,14 @@
 #include "GraphicSynchronizerInterface.h"
 #include "Interaction.h"
 #include "GetJavaProperty.h"
+#include "SetJavaProperty.h"
+#include "Interaction.h"
 
 #include "MALLOC.h" /* MALLOC */
 #include "Scierror.h"
 
 extern int LinearScaling2Colormap(sciPointObj* pobj);
 extern double * AllocUserGrads(double * u_xgrads, int nb);
-extern char ** AllocAndSetUserLabelsFromMdl(char ** u_xlabels, char ** u_xlabels_MDL, int u_nxgrads);
 extern int CopyUserGrads(double *u_xgrad_SRC, double *u_xgrad_DEST, int dim);
 
 extern unsigned short defcolors[];
@@ -222,7 +223,13 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
 
   sciInitWindowDim(pobj, sciGetWindowWidth(pfiguremdl), sciGetWindowHeight(pfiguremdl) ) ;
   /* Set axes_size after to be sure to have correct values */
-  sciInitDimension(pobj, sciGetWidth(pfiguremdl), sciGetHeight(pfiguremdl)) ;
+  if (sciInitDimension(pobj, sciGetWidth(pfiguremdl), sciGetHeight(pfiguremdl)) != RESIZE_SUCCESS)
+  {
+    FREE(pobj->pfeatures);
+    FREE(pobj);
+    return (sciPointObj *) NULL;
+  }
+
   sciGetScreenPosition(pfiguremdl, &x[0], &x[1]) ;
   sciInitScreenPosition( pobj, x[0], x[1] );
 
@@ -356,6 +363,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
       ppsubwin->axes.ydir = dir;
 
       ppsubwin->axes.rect  = ppaxesmdl->axes.rect;
+      sciInitIsFilled(pobj, sciGetIsFilled(paxesmdl));
       for (i=0 ; i<7 ; i++)
 	ppsubwin->axes.limits[i]  = ppaxesmdl->axes.limits[i] ;
 
@@ -2449,14 +2457,15 @@ ConstructCompoundSeq (int number)
 
   /* Remove the created objects after the compound and add them */
   /* Under the compound in the same order */
-  for ( i = number ; i > 0 ; i-- )
+  for ( i = 0 ; i < number ; i++ )
   {
-    /* get the first added son, ie the last one of the i - 1 remainings. */
-    sciPointObj * curObj = sciGetIndexedSon(psubwin, i);
+    /* Get the first object to move (the first son in the list is the compound) */
+    sciSons * sonToMove = sciGetSons(psubwin)->pnext;
+    sciPointObj * curObj = sonToMove->pointobj;
     /* remove it from the subwin */
-    sciDelThisToItsParent(curObj, psubwin);
+    sciDelSonFromItsParent(sonToMove, psubwin);
     /* add it to the agreg */
-    sciAddThisToItsParent(curObj, pobj);
+    sciAddThisToItsParentLastPos(curObj, pobj);
   }
 
   sciInitSelectedSons(pobj);
@@ -2768,7 +2777,7 @@ sciPointObj * createFullFigure(int * winNum)
 
   if (newFig == NULL)
   {
-    endGraphicDataWriting();
+    endFigureDataWriting(newFig);
     return NULL;
   }
 

@@ -26,8 +26,8 @@ BackgroundColor = [0.8,0.8,0.8]
 Enable = "on"
 FontAngle = normal
 FontName = helvetica
-FontSize = 9.3333333
-FontUnits = pixels
+FontSize = 10
+FontUnits = points
 FontWeight = normal
 ForegroundColor = [0,0,0]
 HorizontalAlignment = center
@@ -48,4 +48,4 @@ CallbackType = -1
 Userdata = []
 Tag = 
 // Now type something in the entry box
-if execstr("get(h,""string"")", "errcatch")<>0 then pause; end
+if execstr("get(h,""string"")", "errcatch")<>0 then bugmes();quit;end

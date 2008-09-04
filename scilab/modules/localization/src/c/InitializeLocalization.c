@@ -1,7 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Sylvestre LEDRU
- * Copyright (C) 2008 - INRIA - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,7 +12,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "machine.h"
 
 #ifndef _MSC_VER
@@ -40,8 +38,9 @@
 #include "isdir.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
-#endif
 #include "loadLanguagePref.h"
+#endif
+
 /*--------------------------------------------------------------------------*/ 
 
 BOOL InitializeLocalization(void)
@@ -82,21 +81,27 @@ BOOL InitializeLocalization(void)
 	}
 
 	/* set domain for future gettext() calls */
-	ret = textdomain(NAMELOCALIZATIONDOMAIN);
-	if (ret == NULL)
+	ret=textdomain(NAMELOCALIZATIONDOMAIN);
+	if (ret==NULL)
 	{
 		fprintf(stderr, "Localization: Error while declaring the text domain %s\n", NAMELOCALIZATIONDOMAIN);
 		return FALSE;
 	}
 
-	/* We look if a file .language exists in SCIHOME */
+#ifndef _MSC_VER
+	/* Here, the "" means that we will try to use the language of the system
+	 * first. If it doesn't work, we switch back to default (English) */
+	setlanguage("", FALSE, FALSE); /* Booleans are : BOOL updateHelpIndex, BOOL updateMenus */
+#else
+	/* We look if a file language.ini exists in SCIHOME */
 	/* If not exists the "" means that we will try to use the language of the system.*/
 	{
 		char *loadLanguage = loadLanguagePref();
-		setlanguage(loadLanguage);
+		setlanguage(loadLanguage, FALSE, FALSE);
 		if (loadLanguage) {FREE(loadLanguage); loadLanguage = NULL;}
 	}
-	
+#endif
+
 	return TRUE;
 #else
 	fprintf(stderr, "Localization: setlocale didn't exist on the computer used to compile Scilab ! This is abnormal ! No localization will be working for this distribution of Scilab.\n");

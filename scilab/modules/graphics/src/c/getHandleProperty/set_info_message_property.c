@@ -27,7 +27,7 @@
 #include "GraphicSynchronizerInterface.h"
 
 /*------------------------------------------------------------------------*/
-int set_info_message_property( sciPointObj * pobj, int stackPointer, int valueType, int nbRow, int nbCol )
+int set_info_message_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   int status;
   if ( !isParameterStringMatrix( valueType ) )
@@ -37,9 +37,9 @@ int set_info_message_property( sciPointObj * pobj, int stackPointer, int valueTy
   }
 
   /* disable protection since this function will call Java */
-  endFigureDataWriting(pobj);
+  disableFigureSynchronization(pobj);
   status = sciSetInfoMessage( pobj, getStringFromStack( stackPointer ) ) ;
-  startFigureDataWriting(pobj);
+  enableFigureSynchronization(pobj);
 
   return status;
 }

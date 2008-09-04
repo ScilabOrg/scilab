@@ -11,8 +11,6 @@
  *
  */
 
-#include <string.h>
-
 #include "ConcreteDrawableLegend.hxx"
 #include "getHandleDrawer.h"
 
@@ -29,6 +27,7 @@ extern "C"
 
 namespace sciGraphics
 {
+  using namespace std;
 
   /*---------------------------------------------------------------------------------*/
   ConcreteDrawableLegend::ConcreteDrawableLegend(sciPointObj * pLegend)
@@ -95,7 +94,7 @@ namespace sciGraphics
     
     int nblegends = getNbLegend();
     for (int i = 0; i < nblegends; i++) {
-      sciPointObj * legendedObject = sciGetPointerFromHandle(pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i]);
+      sciPointObj * legendedObject = sciGetPointerFromHandle((long)(pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i]));
       if (legendedObject != NULL) {
 	if (i != i1) {
 	  pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i1]= pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i];
@@ -255,7 +254,7 @@ namespace sciGraphics
     for (int i = 0; i < nbLegends; i++)
       {
 	// current object we want to set the legend
-	sciPointObj * legendedObject = sciGetPointerFromHandle(ppLegend->tabofhandles[i]);
+	sciPointObj * legendedObject = sciGetPointerFromHandle((long)(ppLegend->tabofhandles[i]));
 	// set same mark parameters as the polyline
 	sciInitMarkSize(m_aLines[i], sciGetMarkSize(legendedObject));
 	sciInitMarkSizeUnit(m_aLines[i], sciGetMarkSizeUnit(legendedObject));
@@ -316,7 +315,7 @@ namespace sciGraphics
   }
 
   /*---------------------------------------------------------------------------------*/
-  void ConcreteDrawableLegend::getBoxes(char *opt, double upperLeftCorner[3], double lowerLeftCorner[3],
+  void ConcreteDrawableLegend::getBoxes(const string & opt, double upperLeftCorner[3], double lowerLeftCorner[3],
 					double lowerRightCorner[3], double upperRightCorner[3],
 					double upperBoxLeftCorner[3], double lowerBoxLeftCorner[3],
 					double lowerBoxRightCorner[3], double upperBoxRightCorner[3])
@@ -334,10 +333,14 @@ namespace sciGraphics
     int corner2[2];
     int corner3[2];
     int corner4[2];
-    if (strcmp(opt,"draw")==0)
+    if (opt == "draw")
+    {
       getTextDrawer(m_pNames)->getScreenBoundingBox(corner1, corner2, corner3,corner4);
+    }
     else
+    {
       sciGetPixelBoundingBox(m_pNames, corner1, corner2, corner3, corner4);
+      }
     // the height of the box equals the text height
     double textBoxPixelHeight = Abs(corner1[1] - corner3[1]);
     double textBoxPixelWidth  = Abs(corner3[0] - corner1[0]);
@@ -493,7 +496,7 @@ namespace sciGraphics
     // interpolate between top to bottom
     for (int i = 0; i < nblegends; i++)
       {
-	sciPointObj * legendedObject = sciGetPointerFromHandle(pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i]);
+	sciPointObj * legendedObject = sciGetPointerFromHandle((long)(pLEGEND_FEATURE(m_pDrawed)->tabofhandles[i]));
 	
 	// our polylines are composed of at most four points
 	sciPolyline * curPoly = pPOLYLINE_FEATURE(m_aLines[i]);

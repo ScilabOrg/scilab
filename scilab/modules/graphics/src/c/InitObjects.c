@@ -44,6 +44,7 @@
 #include "sciprint.h"
 #include "CurrentObjectsManagement.h"
 #include "ObjectSelection.h"
+#include "Interaction.h"
 
 #include "MALLOC.h" /* MALLOC */
 #include "localization.h"
@@ -475,6 +476,8 @@ void initsubwin()  /* Interesting / F.Leray 05.04.04 */
   (ppSubWin->axes).reverse[2] = FALSE;
 
   ppSubWin->axes.rect = BT_OFF;
+  sciInitIsFilled(psubwin, TRUE);
+
   ppSubWin->axes.ticscolor = -1;
   ppSubWin->axes.subint[0] =  1;
   ppSubWin->axes.subint[1] =  1;
@@ -587,6 +590,7 @@ int InitAxesModel()
   ppaxesmdl->axes.xdir='d';
   ppaxesmdl->axes.ydir='l';
   ppaxesmdl->axes.rect  = BT_OFF;
+  sciInitIsFilled(paxesmdl, TRUE);
 
   ppaxesmdl->user_data = (int *) NULL; /* to be complete */
   ppaxesmdl->size_of_user_data = 0;
@@ -803,7 +807,14 @@ int ResetFigureToDefaultValues(sciPointObj * pobj)
   sciSetName(pobj, sciGetName(pfiguremdl), sciGetNameLength(pfiguremdl));
   sciSetResize((sciPointObj *) pobj,sciGetResize(pobj));
   sciSetWindowDim( pobj, sciGetWindowWidth(pfiguremdl), sciGetWindowHeight(pfiguremdl) ) ;
-  sciSetDimension( pobj, sciGetWidth(pfiguremdl), sciGetHeight(pfiguremdl) ) ;
+  if (sciSetDimension( pobj, sciGetWidth(pfiguremdl), sciGetHeight(pfiguremdl) ) != RESIZE_SUCCESS)
+  {
+    sciDelHandle (pobj);
+    FREE(pobj->pfeatures);
+    FREE(pobj);
+    return -1;
+  }
+
   sciGetScreenPosition(pfiguremdl, &x[0], &x[1]) ;
   sciSetScreenPosition(pobj,x[0],x[1]);
   pFIGURE_FEATURE (pobj)->isiconified = pFIGURE_FEATURE (pfiguremdl)->isiconified;

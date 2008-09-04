@@ -18,7 +18,7 @@ using namespace org_scilab_modules_gui_bridge;
 int GetUicontrolPosition(sciPointObj* sciObj)
 {
   int returnFlag = FALSE;
-  long int * returnValues = NULL;
+  int * returnValues = NULL;
   double * tmp = NULL;
 
   if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
@@ -43,7 +43,8 @@ int GetUicontrolPosition(sciPointObj* sciObj)
      
       returnFlag =  sciReturnRowVector(tmp, 4);
       
-      delete(tmp);
+      delete [] tmp;
+	  delete [] returnValues;
       
       return returnFlag;
     }

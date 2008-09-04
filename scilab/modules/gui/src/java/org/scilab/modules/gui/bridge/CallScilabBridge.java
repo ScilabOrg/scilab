@@ -33,12 +33,15 @@ import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttribute;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
 import org.scilab.modules.console.SciConsole;
+import org.scilab.modules.graphic_export.ExportRenderer;
+import org.scilab.modules.graphic_export.FileExporter;
 import org.scilab.modules.gui.bridge.console.SwingScilabConsole;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.canvas.Canvas;
@@ -84,6 +87,7 @@ import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.utils.ConfigManager;
 import org.scilab.modules.gui.utils.ImageExporter;
 import org.scilab.modules.gui.utils.Position;
+import org.scilab.modules.gui.utils.ScilabPrint;
 import org.scilab.modules.gui.utils.ScilabRelief;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.UIElementMapper;
@@ -93,6 +97,7 @@ import org.scilab.modules.gui.waitbar.WaitBar;
 import org.scilab.modules.gui.widget.Widget;
 import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.gui.window.Window;
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.renderer.FigureMapper;
 
 /**
@@ -937,11 +942,14 @@ public class CallScilabBridge {
 	 * @param status true to set the menu enabled
 	 */
 	public static void setFigureMenuEnabled(int figureID, String menuName, boolean status) {
-		Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getParentTab();
+		if (FigureMapper.getCorrespondingFigure(figureID) != null) { /** Parent figure must exist */
+			Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).
+					getRendererProperties()).getParentTab();
 		
-		MenuBar figureMenuBar = parentTab.getMenuBar();
+			MenuBar figureMenuBar = parentTab.getMenuBar();
 		
-		figureMenuBar.getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+			figureMenuBar.getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+		}
 	}
 
 	/**
@@ -952,11 +960,14 @@ public class CallScilabBridge {
 	 * @param status true to set the menu enabled
 	 */
 	public static void setFigureSubMenuEnabled(int figureID, String parentMenuName, int menuItemPosition, boolean status) {
-		Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getParentTab();
+		if (FigureMapper.getCorrespondingFigure(figureID) != null) { /** Parent figure must exist */
+			Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).
+					getRendererProperties()).getParentTab();
 		
-		MenuBar figureMenuBar = parentTab.getMenuBar();
+			MenuBar figureMenuBar = parentTab.getMenuBar();
 		
-		figureMenuBar.getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+			figureMenuBar.getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+		}
 	}
 
 	/**
@@ -965,7 +976,9 @@ public class CallScilabBridge {
 	 * @param status true to set the menu enabled
 	 */
 	public static void setRootMenuEnabled(String menuName, boolean status) {
-		ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+		if (ScilabConsole.isExistingConsole()) { /** Scilab console must exist */
+			ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+		}
 	}
 	
 	/**
@@ -975,7 +988,9 @@ public class CallScilabBridge {
 	 * @param status true to set the menu enabled
 	 */
 	public static void setRootSubMenuEnabled(String parentMenuName, int menuItemPosition, boolean status) {
-		ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+		if (ScilabConsole.isExistingConsole()) { /** Scilab console must exist */
+			ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+		}
 	}
 	
 	/****************/
@@ -990,11 +1005,14 @@ public class CallScilabBridge {
 	 * @param menuName the name of the menu
 	 */
 	public static void removeFigureMenu(int figureID, String menuName) {
-		Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getParentTab();
+		if (FigureMapper.getCorrespondingFigure(figureID) != null) { /** Parent figure must exist */
+			Tab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).
+					getRendererProperties()).getParentTab();
 		
-		MenuBar figureMenuBar = parentTab.getMenuBar();
+			MenuBar figureMenuBar = parentTab.getMenuBar();
 		
-		figureMenuBar.getAsSimpleMenuBar().removeMenu(menuName);
+			figureMenuBar.getAsSimpleMenuBar().removeMenu(menuName);
+		}
 	}
 
 	/**
@@ -1002,7 +1020,9 @@ public class CallScilabBridge {
 	 * @param menuName the name of the menu
 	 */
 	public static void removeRootMenu(String menuName) {
-		ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().removeMenu(menuName);
+		if (ScilabConsole.isExistingConsole()) { /** Scilab Console must exist */
+			ScilabConsole.getConsole().getMenuBar().getAsSimpleMenuBar().removeMenu(menuName);
+		}
 	}
 	
 	/***********************/
@@ -2159,6 +2179,7 @@ public class CallScilabBridge {
 	 */
 	public static void changeConsoleForeground() {
 		ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getForeground());
+		colorChooser.setTitle(Messages.gettext("Console Font..."));
 		colorChooser.displayAndWait();
 
 		Color selectedColor = colorChooser.getSelectedColor();
@@ -2177,6 +2198,7 @@ public class CallScilabBridge {
 	 */
 	public static void changeConsoleBackground() {
 		ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getBackground());
+		colorChooser.setTitle(Messages.gettext("Console Background..."));
 		colorChooser.displayAndWait();
 		
 		Color selectedColor = colorChooser.getSelectedColor();
@@ -2300,15 +2322,63 @@ public class CallScilabBridge {
 
 		boolean userOK = true;
 		if (displayDialog) {
-			userOK = printerJob.printDialog(scilabPageFormat);
-		}
+			userOK = printerJob.printDialog(scilabPageFormat);		
+		}		
 
-		if (userOK) {					
-			Canvas canvas;		
-			canvas = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getCanvas();
-		    ScilabPrint scilabPrint = new ScilabPrint(canvas.dumpAsBufferedImage()); 		
+		if (userOK) {
+			//If the OS is Windows
+			if (isWindowsPlateform()) {
+				Canvas canvas;		
+				canvas = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getCanvas();
+				ScilabPrint scilabPrint = new ScilabPrint(canvas.dumpAsBufferedImage(), printerJob, scilabPageFormat);
+
+				return false;	
+
+			//If the OS is Linux
+			} else {					
+
+				int exportRendererMode = ExportRenderer.PS_EXPORT;
+				DocFlavor printDocFlavor = DocFlavor.INPUT_STREAM.POSTSCRIPT;
+				String fileExtension = ".ps";
+
+				try {
+					/** Export image to PostScript */
+					if (((PrintRequestAttribute) scilabPageFormat.get(OrientationRequested.class)) == OrientationRequested.PORTRAIT) {
+						FileExporter.fileExport(figureID, 
+								tmpPrinterFile + fileExtension,
+								exportRendererMode, 0);
+					} else {
+						FileExporter.fileExport(figureID, 
+								tmpPrinterFile + fileExtension,
+								exportRendererMode, 1);
+					}
+
+					/** Read file */
+					FileInputStream psStream = null; 
+
+					try { 
+						psStream = new FileInputStream(tmpPrinterFile + fileExtension);						
+					} catch (FileNotFoundException ffne) {
+						ffne.printStackTrace();
+						return false;
+					}
+
+					Doc myDoc = new SimpleDoc(psStream, printDocFlavor, null);
+					DocPrintJob job = printerJob.getPrintService().createPrintJob();	
+
+					// Remove Orientation option from page setup because already managed in FileExporter
+					PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet(scilabPageFormat);			
+					aset.add(OrientationRequested.PORTRAIT);	
+
+					job.print(myDoc, aset);
+					return true;
+				} catch (PrintException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
 		}
-		return false;					
+		return false;
 	}
 
 	/**
@@ -2720,6 +2790,14 @@ public class CallScilabBridge {
 		((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(id).getRendererProperties()).getParentTab().getParentWindow().raise();
 		((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(id).getRendererProperties()).getParentTab().setCurrent();
 		
+	}
+	
+	/**
+	 * @return true if the os is windows, false otherwise
+	 */
+	public static boolean isWindowsPlateform() {
+		// get os name
+		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 
 }

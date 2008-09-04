@@ -229,6 +229,7 @@ VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
+XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -343,9 +344,6 @@ SUFFIXES = .sci
 
 # Where it should be installed
 pkgdocdir = $(mydatadir)
-
-# Which directories we have to install
-DOCDIRS = help/fr_FR help/en_US
 
 # What is the mask of the help source
 DOCMASKXML = *.xml
@@ -706,14 +704,14 @@ all-local: $(TARGETS_ALL)
 
 install-html-local:
 # If the user wants the help sources to be installed
-@INSTALL_HELP_XML_TRUE@	@echo "-- Install of XML sources of help files --"; \
-@INSTALL_HELP_XML_TRUE@	for dir in $(DOCDIRS) ; do \
-@INSTALL_HELP_XML_TRUE@	 if test -d $$dir; then \
-@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$$dir && \
-@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/$$dir/$(DOCMASKXML) >/dev/null 2>&1; then \
-@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/$$dir/$(DOCMASKXML) ; do \
-@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$$dir" ; \
-@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/$$dir ; \
+@INSTALL_HELP_XML_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
+@INSTALL_HELP_XML_TRUE@	for lang in $(ALL_LINGUAS); do \
+@INSTALL_HELP_XML_TRUE@	 if test -d $(srcdir)/help/$$lang; then \
+@INSTALL_HELP_XML_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/help/$$lang && \
+@INSTALL_HELP_XML_TRUE@		if ls -lLd $(srcdir)/help/$$lang/$(DOCMASKXML) >/dev/null 2>&1; then \
+@INSTALL_HELP_XML_TRUE@		  for file in $(srcdir)/help/$$lang/$(DOCMASKXML) ; do \
+@INSTALL_HELP_XML_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/help/$$lang" ; \
+@INSTALL_HELP_XML_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/help/$$lang ; \
 @INSTALL_HELP_XML_TRUE@		  done ; \
 @INSTALL_HELP_XML_TRUE@		fi; \
 @INSTALL_HELP_XML_TRUE@	 fi; \
@@ -738,10 +736,10 @@ install-data-local:
 # Install the help chapter
 	@echo "-------- Install the help chapter (if any) --------"; \
 	for lang in $(ALL_LINGUAS); do \
-		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+		HELPFILE=$(srcdir)/$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
 		if test -f $$HELPFILE; then \
-			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
-			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
 			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 		fi; \

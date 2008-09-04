@@ -11,9 +11,6 @@
 
 function sphere()
 
-	my_handle = scf(100001);
-	clf(my_handle,"reset");
-	
 	u = linspace(-%pi/2,%pi/2,40);
 	v = linspace(0,2*%pi,20);
 	x = cos(u)'*cos(v);
@@ -22,9 +19,10 @@ function sphere()
 	
 	my_handle                   = scf(100001);
 	clf(my_handle,"reset");
+	my_axe                      = my_handle.children;
+	
 	demo_viewCode("sphere.sce");
 	
-	my_axe                      = my_handle.children;
 	my_handle.immediate_drawing = "off";
 	plot3d2(x,y,z);
 	my_plot                     = my_axe.children;

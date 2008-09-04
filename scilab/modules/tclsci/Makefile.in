@@ -105,8 +105,7 @@ am__libscitclsci_la_SOURCES_DIST = src/c/GedManagement.c \
 	src/c/TCL_ArrayDim.c src/c/TCL_ArrayExist.c \
 	src/c/TCL_ArrayGetVar.c src/c/TCL_ArraySize.c \
 	src/c/TCL_Command.c src/c/GlobalTclInterp.c \
-	sci_gateway/c/sci_TCL_CreateSlave.c sci_gateway/c/sci_opentk.c \
-	sci_gateway/c/sci_TCL_SetVar.c \
+	sci_gateway/c/sci_opentk.c sci_gateway/c/sci_TCL_SetVar.c \
 	sci_gateway/c/sci_TCL_ExistVar.c \
 	sci_gateway/c/sci_TCL_DoOneEvent.c \
 	sci_gateway/c/sci_TCL_UnsetVar.c \
@@ -133,8 +132,7 @@ am__libscitclsci_la_SOURCES_DIST = src/c/GedManagement.c \
 @TCLTK_TRUE@	libscitclsci_la-TCL_ArraySize.lo \
 @TCLTK_TRUE@	libscitclsci_la-TCL_Command.lo \
 @TCLTK_TRUE@	libscitclsci_la-GlobalTclInterp.lo
-@TCLTK_TRUE@am__objects_2 = libscitclsci_la-sci_TCL_CreateSlave.lo \
-@TCLTK_TRUE@	libscitclsci_la-sci_opentk.lo \
+@TCLTK_TRUE@am__objects_2 = libscitclsci_la-sci_opentk.lo \
 @TCLTK_TRUE@	libscitclsci_la-sci_TCL_SetVar.lo \
 @TCLTK_TRUE@	libscitclsci_la-sci_TCL_ExistVar.lo \
 @TCLTK_TRUE@	libscitclsci_la-sci_TCL_DoOneEvent.lo \
@@ -318,6 +316,7 @@ VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
+XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -394,8 +393,7 @@ top_srcdir = @top_srcdir@
 @TCLTK_TRUE@src/c/TCL_Command.c \
 @TCLTK_TRUE@src/c/GlobalTclInterp.c
 
-@TCLTK_TRUE@GATEWAY_C_SOURCES = sci_gateway/c/sci_TCL_CreateSlave.c \
-@TCLTK_TRUE@sci_gateway/c/sci_opentk.c \
+@TCLTK_TRUE@GATEWAY_C_SOURCES = sci_gateway/c/sci_opentk.c \
 @TCLTK_TRUE@sci_gateway/c/sci_TCL_SetVar.c \
 @TCLTK_TRUE@sci_gateway/c/sci_TCL_ExistVar.c \
 @TCLTK_TRUE@sci_gateway/c/sci_TCL_DoOneEvent.c \
@@ -678,9 +676,6 @@ top_srcdir = @top_srcdir@
 # Where it should be installed
 @TCLTK_TRUE@pkgdocdir = $(mydatadir)
 
-# Which directories we have to install
-@TCLTK_TRUE@DOCDIRS = help/fr_FR help/en_US
-
 # What is the mask of the help source
 @TCLTK_TRUE@DOCMASKXML = *.xml
 
@@ -787,7 +782,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-TCL_Global.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-TerminateTclTk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-gw_tclsci.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-sci_TCL_CreateSlave.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-sci_TCL_DeleteInterp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-sci_TCL_DoOneEvent.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitclsci_la-sci_TCL_EvalFile.Plo@am__quote@
@@ -930,13 +924,6 @@ libscitclsci_la-GlobalTclInterp.lo: src/c/GlobalTclInterp.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/GlobalTclInterp.c' object='libscitclsci_la-GlobalTclInterp.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscitclsci_la_CFLAGS) $(CFLAGS) -c -o libscitclsci_la-GlobalTclInterp.lo `test -f 'src/c/GlobalTclInterp.c' || echo '$(srcdir)/'`src/c/GlobalTclInterp.c
-
-libscitclsci_la-sci_TCL_CreateSlave.lo: sci_gateway/c/sci_TCL_CreateSlave.c
-@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscitclsci_la_CFLAGS) $(CFLAGS) -MT libscitclsci_la-sci_TCL_CreateSlave.lo -MD -MP -MF $(DEPDIR)/libscitclsci_la-sci_TCL_CreateSlave.Tpo -c -o libscitclsci_la-sci_TCL_CreateSlave.lo `test -f 'sci_gateway/c/sci_TCL_CreateSlave.c' || echo '$(srcdir)/'`sci_gateway/c/sci_TCL_CreateSlave.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libscitclsci_la-sci_TCL_CreateSlave.Tpo $(DEPDIR)/libscitclsci_la-sci_TCL_CreateSlave.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sci_gateway/c/sci_TCL_CreateSlave.c' object='libscitclsci_la-sci_TCL_CreateSlave.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscitclsci_la_CFLAGS) $(CFLAGS) -c -o libscitclsci_la-sci_TCL_CreateSlave.lo `test -f 'sci_gateway/c/sci_TCL_CreateSlave.c' || echo '$(srcdir)/'`sci_gateway/c/sci_TCL_CreateSlave.c
 
 libscitclsci_la-sci_opentk.lo: sci_gateway/c/sci_opentk.c
 @am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscitclsci_la_CFLAGS) $(CFLAGS) -MT libscitclsci_la-sci_opentk.lo -MD -MP -MF $(DEPDIR)/libscitclsci_la-sci_opentk.Tpo -c -o libscitclsci_la-sci_opentk.lo `test -f 'sci_gateway/c/sci_opentk.c' || echo '$(srcdir)/'`sci_gateway/c/sci_opentk.c
@@ -1435,14 +1422,14 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 
 @TCLTK_TRUE@install-html-local:
 # If the user wants the help sources to be installed
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	@echo "-- Install of XML sources of help files --"; \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	for dir in $(DOCDIRS) ; do \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	 if test -d $$dir; then \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$$dir && \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		if ls -lLd $(srcdir)/$$dir/$(DOCMASKXML) >/dev/null 2>&1; then \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		  for file in $(srcdir)/$$dir/$(DOCMASKXML) ; do \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/$$dir" ; \
-@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/$$dir ; \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	for lang in $(ALL_LINGUAS); do \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	 if test -d $(srcdir)/help/$$lang; then \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	  $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/help/$$lang && \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		if ls -lLd $(srcdir)/help/$$lang/$(DOCMASKXML) >/dev/null 2>&1; then \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		  for file in $(srcdir)/help/$$lang/$(DOCMASKXML) ; do \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdocdir)/help/$$lang" ; \
+@INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdocdir)/help/$$lang ; \
 @INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		  done ; \
 @INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@		fi; \
 @INSTALL_HELP_XML_TRUE@@TCLTK_TRUE@	 fi; \
@@ -1467,10 +1454,10 @@ uninstall-am: uninstall-libscitclsci_la_demossciGUIDATA \
 # Install the help chapter
 @TCLTK_TRUE@	@echo "-------- Install the help chapter (if any) --------"; \
 @TCLTK_TRUE@	for lang in $(ALL_LINGUAS); do \
-@TCLTK_TRUE@		HELPFILE=$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
+@TCLTK_TRUE@		HELPFILE=$(srcdir)/$(HELP_CHAPTERDIR)$$lang/$(HELP_CHAPTERFILE); \
 @TCLTK_TRUE@		if test -f $$HELPFILE; then \
-@TCLTK_TRUE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
-@TCLTK_TRUE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR); \
+@TCLTK_TRUE@			echo $(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
+@TCLTK_TRUE@			$(mkinstalldirs) $(DESTDIR)$(pkgdocdir)/$(HELP_CHAPTERDIR)/$$lang/; \
 @TCLTK_TRUE@			echo $(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 @TCLTK_TRUE@			$(INSTALL_DATA) $$HELPFILE $(DESTDIR)$(pkgdocdir)/$$HELPFILE; \
 @TCLTK_TRUE@		fi; \

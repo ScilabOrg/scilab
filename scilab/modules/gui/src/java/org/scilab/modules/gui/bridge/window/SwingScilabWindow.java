@@ -17,6 +17,8 @@ package org.scilab.modules.gui.bridge.window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -84,8 +86,9 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 		
 		/* Create automatically a docking port associated to the window */
 		sciDockingPort = new DefaultDockingPort();
-		DockingManager.setFloatingEnabled(true);
+
 		EffectsManager.setPreview(new GhostPreview());
+		
 		/* The docking port is the center of the Layout of the Window */
 		super.add(sciDockingPort, java.awt.BorderLayout.CENTER);
 		
@@ -252,6 +255,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 			
 			this.removeAll();
 			this.dispose();
+		} else {
+			/* Make sur a Tab is active */
+			Set<SwingScilabTab> docks = sciDockingPort.getDockables();
+			Iterator<SwingScilabTab> it = docks.iterator();
+			((SwingScilabTab) it.next()).setActive(true);
 		}
 	}
 	
