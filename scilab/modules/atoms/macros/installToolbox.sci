@@ -37,7 +37,7 @@ function result = installToolbox(nom, checkVersionScilab, version)
   if find(listTool == "") <> []
     if conflictLocal == 1
       atomsDisplayMessage("The Toolbox version " + nomconflictLocal + " locally present doesn''t match. Update it.")
-    else
+    elseif listTool <> ""
       atomsDisplayMessage("Impossible to install all the dependancies")
     end
     result =  %f

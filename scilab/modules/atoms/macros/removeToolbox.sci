@@ -36,9 +36,8 @@ function result = removeToolbox(nom)
         for j=1:n
           [depend, version] = atomsSeparateVersionDep(depends(j))
           if find(depend == nom) <> []
-            atomsDisplayMessage("The Toolbox " + nom + " is a dependancie of " + listLocal(i))
-            reponse = input("Continue? [""y""/""n""]")
-            if (reponse <> "y" & reponse <> "Y")
+            repQuestion = atomsButtonYesNo("The Toolbox " + nom + " is a dependancie of " + listLocal(i) + ". Continue?")
+            if (repQuestion == "2")
               result = %f
               return result
             end
@@ -51,4 +50,18 @@ function result = removeToolbox(nom)
     result = %t
     return result
   end
+endfunction
+
+function result = atomsButtonYesNo(message)
+	if (getscilabmode() == "STD")
+		result = buttondialog(message,"Yes|No","question")
+	else
+		response = input(message + " [""y""/""n""]")
+		if (response <> "y" & response <> "Y")
+			result = "2"
+		else
+			result = "1"
+		end
+	end
+	return result
 endfunction

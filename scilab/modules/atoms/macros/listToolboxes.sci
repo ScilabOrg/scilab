@@ -14,11 +14,11 @@ function listToolboxes()
   cd(rep)
   listLocal = ls()
   [n, m] = size(listLocal)
-  atomsDisplayMessage("The local installed toolboxes are :")
+  disp("The local installed toolboxes are :")
   for i=1:n
     if listLocal(i) <> ".svn"
       desc = atomsReadDesc(listLocal(i))
-      atomsDisplayMessage(desc("Toolbox") + " - version " + desc("Version"))
+      disp(desc("Toolbox") + " - version " + desc("Version"))
     end
   end
 endfunction

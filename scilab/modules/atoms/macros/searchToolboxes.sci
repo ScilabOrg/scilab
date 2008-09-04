@@ -103,17 +103,17 @@ function result = searchToolboxes(keyWord, typeSearch)
     end
   end
   if ~result
-    atomsDisplayMessage("No Toolbox corresponds at the research")
+    disp("No Toolbox corresponds at the research")
   else
     listTool = unique(listTool)
     [n, m] = size(listTool)
     if n == 1
-      atomsDisplayMessage("The following Toolbox corresponds at the research :")
-      atomsDisplayMessage(listTool)
+      disp("The following Toolbox corresponds at the research :")
+      disp(listTool)
     else
-      atomsDisplayMessage("The following Toolboxes corresponds at the research :")
+      disp("The following Toolboxes corresponds at the research :")
       for i=1:n
-        atomsDisplayMessage("- " + listTool(i))
+        disp("- " + listTool(i))
       end
     end
   end

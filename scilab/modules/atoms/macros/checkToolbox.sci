@@ -79,7 +79,7 @@ function result = checkDescription()
     [listeObl, listeOpt] = atomsConstant()
     for i=1:7
       if desc(listeObl(i)) == []
-        atomsDisplayMessage("The field " + listeObl(i) + " est absent de la DESCRIPTION")
+        atomsDisplayMessage("The field " + listeObl(i) + " is missing in the DESCRIPTION file")
         result = %f
         return result
       end

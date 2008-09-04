@@ -10,6 +10,11 @@
 // april 2008 by Delphine
 
 function atomsDisplayMessage(mess)
-  // In the shell
-  disp(mess)
+	// If Scilab is running in GUI mode
+	if (getscilabmode() == "STD")
+		result = messagebox(mess,"Information","info")
+	else
+		// In the shell
+		disp(mess)
+	end
 endfunction
