@@ -27,7 +27,8 @@ if(! -r $::TOOLBOXFILE) {
 	common_die "$TOOLBOXFILE doesn't exists or can't be read";
 }
 
-$::TOOLBOXNAME = $1 if ($::TOOLBOXFILE =~ /^([^.]+)/);
+$::TOOLBOXNAME = $1 if($::TOOLBOXFILE =~ m#([^/]+)$#); # toolboxname = basename(toolboxfile)
+$::TOOLBOXNAME = $1 if($::TOOLBOXNAME =~ m#^([^.]+)#);
 
 $::CONFIG = Config::IniFiles->new(-file => shift);
 
