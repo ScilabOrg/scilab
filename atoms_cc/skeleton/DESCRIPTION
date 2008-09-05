@@ -1,0 +1,11 @@
+Toolbox: skeleton
+Version: 1.0.0
+Date: 2008-04-21
+Title: Toolbox skeleton
+Author: Allan Cornet
+Maintainer: Allan Cornet
+Description: Basic skeleton on which all toolboxes should be based upon.
+Depends: updateA (>=2.7), updateB, versionB (<=1.5.4)
+License: Aucune
+Category: example
+ScilabVersion: >= 5
