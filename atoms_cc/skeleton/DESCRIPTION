@@ -5,7 +5,7 @@ Title: Toolbox skeleton
 Author: Allan Cornet
 Maintainer: Allan Cornet
 Description: Basic skeleton on which all toolboxes should be based upon.
-Depends: updateA (>=2.7), updateB (=1.2.2), versionB (<=1.5.4)
+Depends: updateA (>=2.7), versionB (<=1.5.4)
 License: Aucune
 Category: example
 ScilabVersion: >= 5
