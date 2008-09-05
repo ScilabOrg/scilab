@@ -5,6 +5,7 @@ statefile=C:\cc\state.txt
 tmpdir=C:\cc\temp
 logfile=C:\cc\log.txt
 devnull=C:\cc\trash.txt
+buildtoolbox=perl C:\atomscc\buildtoolbox.pl
 
 [compilation]
 hook-startstage=perl C:\atomscc\hooks\start-stage.pl

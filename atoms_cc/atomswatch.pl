@@ -281,9 +281,10 @@ while(my @recent = $sth->fetchrow_array) {
 	if($pid == 0) {
 		$_exec = 1; # [ap78907]
 		my $dn = $config->val('general', 'devnull', '/dev/null');
+		my $btbox = $config->val('general', 'buildtoolbox', 'buildtoolbox.pl');
 		open STDOUT, ">$dn";
 		chdir "$tmpdir/$toolbox" or die("Can't chdir()");
-		exec("buildtoolbox.pl \"$recent[1]\" \"$ARGV[0]\"") or
+		exec("$btbox \"$recent[1]\" \"$ARGV[0]\"") or
 		die("Can't run the compilation process");
 	}
 	$subprocesses{$pid} = [$recent[0], $recent[1], $toolbox, $comp_id,
