@@ -264,7 +264,6 @@ sub check_tree {
 	my %constraints = (
 		qr#^help/([a-z][a-z]_[A-Z][A-Z])/[^/]+\.xml$# => sub{ "help/$1/build_help.sce" },
 		qr#^help/([a-z][a-z]_[A-Z][A-Z])/build_help.sce$# => sub{ "help/builder_help.sce" },
-		qr#^sci_gateway/builder_gateway.sce$# => sub{ "sci_gateway/loader_gateway.sce" },
 		qr#^macros/.+\.sc[ie]$# => sub{ "macros/buildmacros.sce" });
 	
 	# Build constraints for allowed languages
