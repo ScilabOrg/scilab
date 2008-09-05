@@ -228,20 +228,9 @@ select(LOGFILE); $| = 1;
 select(STDERR);  $| = 1;
 select(STDERR);  $| = 1;
 
-# init global variables, connect to DB, and so on...
+# init global variables
 $tmpdir = $config->val("general", "tmpdir");
 $statef = $config->val("general", "statefile");
-$dbh    = DBI->connect($config->val('sql','datasource'),
-                       $config->val('sql','user'),
-                       $config->val('sql','password'),
-                       { RaiseError => 1 });
-
-open_ftp;
-
-my $environ  = "Perl $^V running on $^O\n";
-   $environ .= "OS: ".`uname -a` unless $^O =~ /win/i;
-   $environ .= "Environment variables:\n";
-   $environ .= "$_ = $ENV{$_}\n" foreach (keys %ENV);
 
 # Check last time we visited the sources base
 open my ($fd), $statef;
@@ -250,6 +239,19 @@ close $fd;
 chomp $last_visited;
 
 die("Compilation chain desactivated") if $last_visited < 0;
+
+# connect to DB, ftp, and so on...
+my $environ  = "Perl $^V running on $^O\n";
+   $environ .= "OS: ".`uname -a` unless $^O =~ /win/i;
+   $environ .= "Environment variables:\n";
+   $environ .= "$_ = $ENV{$_}\n" foreach (keys %ENV);
+
+$dbh    = DBI->connect($config->val('sql','datasource'),
+                       $config->val('sql','user'),
+                       $config->val('sql','password'),
+                       { RaiseError => 1 });
+
+open_ftp;
 
 # Search for new toolboxes
 my $sth = $dbh->prepare($SQL{'FindRecentToolboxes'});
@@ -441,7 +443,7 @@ close $state_fd;
 
 END {
 	exit($?) if defined($_exec); # [ap78907]
-	if($? != 0 && $last_visited >= 0) {
+	if($? != 0 && (!defined($last_visited) || $last_visited >= 0)) {
 		my $exitcode = $?; # $? is modified by wait()
 		if(%subprocesses) {
 			kill(2, $_) foreach (keys %subprocesses);
