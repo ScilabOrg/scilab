@@ -3,7 +3,7 @@
 // INRIA 2008
 // ====================================================================
 
-build_src(['fsum'], ['fsum.o'], 'f', ..
+tbx_build_src(['fsum'], ['fsum.o'], 'f', ..
 	get_absolute_file_path('builder_fortran.sce'));
 
-clear build_src;
+clear tbx_build_src;

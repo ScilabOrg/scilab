@@ -5,8 +5,8 @@
 
 help_lang_dir = get_absolute_file_path('build_help.sce');
 
-build_help(TOOLBOX_TITLE, help_lang_dir);
-build_help_loader(TOOLBOX_TITLE, help_lang_dir);
+tbx_build_help(TOOLBOX_TITLE, help_lang_dir);
+tbx_build_help_loader(TOOLBOX_TITLE, help_lang_dir);
 
-clear build_help build_loader;
+clear tbx_build_help tbx_build_loader;
 clear help_lang_dir;
