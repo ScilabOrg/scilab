@@ -300,11 +300,14 @@ while(my @recent = $sth->fetchrow_array) {
 # before the timeout occurs
 $ftp->quit;
 
+my @toclean;
+
 while((my $pid = wait()) != -1) {
 	my $success = ($? == 0);
 	my ($srcid, $tbsrcfile, $toolbox, $comp_id, $st, $tbid)
 	          = @{$subprocesses{$pid}};
 	my $tbdir = "$tmpdir/$toolbox/";
+	push(@toclean, $tbdir);
 	
 	print STDERR "$tbsrcfile done\n";
 	
@@ -430,12 +433,11 @@ while((my $pid = wait()) != -1) {
 	# Update Toolbox table
 	update_toolbox($tbid) if $success;
 	
-	# Clean everything
-	rmtree($tbdir);
-	die("Can't delete $tbdir") if -d $tbdir;
-	
 	undef $subprocesses{$pid};
 }
+
+# Clean everything
+rmtree($_) foreach (@toclean);
 
 # Update state file
 open my($state_fd), ">$statef";
