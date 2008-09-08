@@ -368,6 +368,7 @@ while((my $pid = wait()) != -1) {
 		open_ftp;
 		
 		my $tbprefix =  $tbsrcfile;
+		   $tbprefix =~ s/\.tar\.gz|\.zip$//;
 		   $tbprefix =~ s/-.+$//;
 		my $bindir = $config->val('ftp', 'bindir');
 		
