@@ -42,10 +42,6 @@ int sci_fsum(char *fname)
 
   LhsVar(1) = Rhs+1; 
 
-#ifndef _MSC_VER /* See bug 3321 */
-  PutLhsVar();
-#endif
-  
   return 0;
 }
 /* ==================================================================== */
