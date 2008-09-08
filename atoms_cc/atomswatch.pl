@@ -313,7 +313,7 @@ while((my $pid = wait()) != -1) {
 	
 	# Extract toolbox name & version
 	my $tbname = $1 if $toolbox =~ /^([^.]+)/;
-	my $tbvers = $1 if $toolbox =~ /\.([^-]+)\.(tar\.gz|zip)$/;
+	my $tbvers = $1 if $toolbox =~ /\.([^-]+)(-\d+)?$/;
 	
 	# Read build.log
 	my $buildlog = readf("$tmpdir/$toolbox/build.log");
