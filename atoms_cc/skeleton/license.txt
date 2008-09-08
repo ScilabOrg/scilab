@@ -1,0 +1,6 @@
+Licence of the Toolbox_skeleton
+
+Please update this file with the license terms (Copy and paste the license agreement).
+
+Please note that Scilab is released under the terms of the CeCILL license :
+http://www.cecill.info/index.en.html
