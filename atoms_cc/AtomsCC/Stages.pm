@@ -48,7 +48,7 @@ sub stage_check {
 	}
 	
 	# Check version
-	my $version = $1 if ($::TOOLBOXFILE =~ /[^.]+\.([^-]+)/);
+	my $version = $1 if ($::TOOLBOXFILE =~ /[^.]+\.([^-]+)\.(tar\.gz|zip)/);
 	if(!defined($version)) {
 		common_die "Can't detect version from archive name ($::TOOLBOXFILE)";
 	}
