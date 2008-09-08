@@ -1,5 +1,5 @@
 [general]
-host=x86-linux-scilab51
+host=x86-linux-scilab50
 target=linux-x86
 statefile=/tmp/cc_state
 tmpdir=/tmp/ccbuild
@@ -16,9 +16,9 @@ hook-error=/home/moonz/dev/atoms_cc/hooks/error.pl
 host=petitgaou
 user=simon
 password=1234
-sourcesdir=sources
-bindir=bin
-toolboxesfile=TOOLBOXES
+sourcesdir=/home/gasc/Web/atoms/upload
+bindir=/home/gasc/Web/scilab/bin/linux-x86/contrib
+toolboxesfile=/home/gasc/Web/scilab/bin/linux-x86/contrib/TOOLBOXES
 
 [sql]
 datasource=dbi:mysql:database=atoms;host=petitgaou

@@ -1,6 +1,6 @@
 [general]
-host=x86-linux-scilab51
-target=x86-linux
+host=x86-windows-scilab50
+target=windows-x86
 statefile=C:\cc\state.txt
 tmpdir=C:\cc\temp
 logfile=C:\cc\log.txt
@@ -18,8 +18,9 @@ hook-error=perl C:\atomscc\hooks\error.pl
 host=petitgaou.inria.fr
 user=simon
 password=1234
-sourcesdir=sources
-bindir=bin
+sourcesdir=/home/gasc/Web/atoms/upload
+bindir=/home/gasc/Web/scilab/bin/windows-x86/contrib
+toolboxesfile=/home/gasc/Web/scilab/bin/windows-x86/contrib/TOOLBOXES
 
 [sql]
 datasource=dbi:mysql:database=atoms;host=petitgaou
