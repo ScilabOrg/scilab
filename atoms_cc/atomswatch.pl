@@ -349,7 +349,12 @@ while((my $pid = wait()) != -1) {
 			update_stage($stage_id, $1, $stage_success) if $2 eq "<";
 			
 			$stage_id = create_stage($comp_id, $3, $1) if $2 eq ">";
-			create_report_message($stage_id, $1, $2, $3);
+			if($2 eq "<" or $2 eq ">") {
+				create_report_message($global_stage_id, $1, $2, $3);
+			}
+			else {
+				create_report_message($stage_id, $1, $2, $3);
+			}
 			$stage_id = $global_stage_id if $2 eq "<";
 			
 			$stage_success = 0 if $2 eq "!";
