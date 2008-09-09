@@ -13,6 +13,7 @@ use Net::FTP;
 use Net::SMTP;
 use File::Path; # for rmtree()
 use Time::Local; # for timelocal()
+use Time::HiRes; # for gettimeofday()
 use sigtrap qw(die normal-signals error-signals);
 
 my ($config, # Configuration
@@ -30,34 +31,34 @@ EOQ
 ;
 $SQL{'CreateCompilation'} = <<EOQ
 INSERT INTO ToolboxCompilation
-       (IdSource, Host, Target, Environ, StartTime, Stage)
-VALUES (       ?,    ?,      ?,       ?,     NOW(),     ?)
+       (IdSource, Host, Target, Environ, StartTime, StartTimeMsec, Stage)
+VALUES (       ?,    ?,      ?,       ?,     NOW(),             ?,     ?)
 EOQ
 ;
 $SQL{'UpdateCompilation'} = <<EOQ
-UPDATE ToolboxCompilation SET Stage = ?, EndTime = ? WHERE IdCompilation = ?
+UPDATE ToolboxCompilation SET Stage = ?, EndTime = ?, EndTimeMsec = ? WHERE IdCompilation = ?
 EOQ
 ;
 $SQL{'CreateStage'} = <<EOQ
 INSERT INTO Stage
-       (IdCompilation, StageName, StartTime)
-VALUES (            ?,         ?,         ?)
+       (IdCompilation, StageName, StartTime, StartTimeMsec)
+VALUES (            ?,         ?,         ?,             ?)
 EOQ
 ;
 $SQL{'UpdateStage'} = <<EOQ
-UPDATE Stage SET Success = ?, EndTime = ? WHERE IdStage = ?
+UPDATE Stage SET Success = ?, EndTime = ?, EndTimeMsec = ? WHERE IdStage = ?
 EOQ
 ;
 $SQL{'CreateReportMessage'} = <<EOQ
 INSERT INTO ReportMessage
-       (IdStage, Time, Type, Message)
-VALUES (      ?,    ?,    ?,       ?);
+       (IdStage, Time, TimeMsec, Type, Message)
+VALUES (      ?,    ?,        ?,    ?,       ?);
 EOQ
 ;
 $SQL{'CreateCommandReport'} = <<EOQ
 INSERT INTO CommandReport
-       (IdStage, StartTime, EndTime, CommandLine, ReturnCode, stdout, stderr)
-VALUES (      ?,         ?,       ?,           ?,          ?,      ?,      ?)
+       (IdStage, StartTime, StartTimeMsec, EndTime, EndTimeMsec, CommandLine, ReturnCode, stdout, stderr)
+VALUES (      ?,         ?,             ?,       ?,           ?,           ?,          ?,      ?,      ?)
 EOQ
 ;
 $SQL{'FindRecentToolboxes'} = <<EOQ
@@ -66,7 +67,7 @@ WHERE UploadTime > ?
 EOQ
 ;
 
-# rfc822_now;
+# rfc822_now:
 #     Returns current datetime in the format described in section 5 of RFC822
 sub rfc822_now {
 	my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
@@ -83,14 +84,31 @@ sub rfc822_now {
 
 }
 
+# microtime:
+#     Returns the number of microseconds since this second
+sub microtime {
+	my ($sec, $msec) = Time::HiRes::gettimeofday();
+	return $msec;
+}
+
 # timestamp_to_sql(ts):
 #     Returns a datetime in the YYYY-MM-DD HH:MM:SS format
 sub timestamp_to_sql {
 	my $ts = shift;
 	my @ti = localtime($ts);
 	
+	$ts =~ s/\.\d+$//;
+	
 	return sprintf("%04d-%02d-%02d %02d:%02d:%02d", $ti[5]+1900, $ti[4]+1,
 	               $ti[3], $ti[2], $ti[1], $ti[0]);
+}
+
+# timestamp_to_msec(ts)
+#     Returns the .msec part of the timestamp
+sub timestamp_to_msec {
+	my $ts = shift;
+	return $1 if $ts =~ /^\d+\.(\d+)$/;
+	return 0;
 }
 
 # sql_to_timestamp(sql):
@@ -141,7 +159,7 @@ sub create_compilation {
 	my $environ = shift;
 	
 	$dbh->do($SQL{'CreateCompilation'}, undef, $source_id, $host,  $target,
-	         $environ, "pre");
+	         $environ, microtime(), "pre");
 	
 	return $dbh->last_insert_id(undef, undef, "ToolboxCompilation",
 	                                          "IdCompilation");
@@ -156,7 +174,7 @@ sub update_compilation {
 	my $endtime = shift;
 	
 	$dbh->do($SQL{'UpdateCompilation'}, undef, $stage,
-	         timestamp_to_sql($endtime), $comp_id);
+	         timestamp_to_sql($endtime), timestamp_to_msec($endtime), $comp_id);
 }
 
 # create_stage(compilation_id, stage_name, start_time):
@@ -167,7 +185,7 @@ sub create_stage {
 	my $start = shift;
 	
 	$dbh->do($SQL{'CreateStage'}, undef, $comp_id, $stage,
-	         timestamp_to_sql($start));
+	         timestamp_to_sql($start), timestamp_to_msec($start));
 	
 	return $dbh->last_insert_id(undef, undef, "Stage", "IdStage");
 }
@@ -181,7 +199,7 @@ sub update_stage {
 	my $success = shift;
 	
 	$dbh->do($SQL{'UpdateStage'}, undef, $success, timestamp_to_sql($end),
-	         $stage_id);
+	         timestamp_to_msec($end), $stage_id);
 }
 
 # create_report_message(stage_id, time, type, msg)
@@ -193,7 +211,7 @@ sub create_report_message {
 	my $msg = shift;
 	
 	$dbh->do($SQL{'CreateReportMessage'}, undef, $stage_id,
-	         timestamp_to_sql($time), $type, $msg);
+	         timestamp_to_sql($time), timestamp_to_msec($time), $type, $msg);
 }
 
 # create_command_report(stage_id, start_time, end_time, command, exit_code,
@@ -210,8 +228,8 @@ sub create_command_report {
 	
 	# Create the record
 	$dbh->do($SQL{'CreateCommandReport'}, undef,
-	         $stage_id, timestamp_to_sql($start_time),
-	         timestamp_to_sql($end_time), $command, $exit_code,
+	         $stage_id, timestamp_to_sql($start_time), timestamp_to_msec($start_time),
+	         timestamp_to_sql($end_time), timestamp_to_msec($end_time), $command, $exit_code,
 	         $stdout, $stderr);
 }
 
@@ -328,7 +346,7 @@ while((my $pid = wait()) != -1) {
 	my $last_time = 0;
 	foreach (split(/\n+(?!\s)/, $buildlog)) {
 		s/(?<=\n)\s//g; # Delete LWS
-		/^\[(\d+)\](.)(.+)$/s or die("Invalid build.log format");
+		/^\[(\d+\.\d+)\](.)(.+)$/s or die("Invalid build.log format");
 		
 		$last_time = $1;
 		
