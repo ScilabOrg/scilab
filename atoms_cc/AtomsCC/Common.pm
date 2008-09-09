@@ -3,6 +3,7 @@ package AtomsCC::Common;
 use strict;
 use Exporter;
 use Cwd;
+use Time::HiRes;
 
 our @ISA = ('Exporter');
 our @EXPORT = qw(&common_log &common_enter_stage &common_leave_stage &common_die
@@ -41,13 +42,14 @@ END {
 sub common_log {
 	my $message = shift;
 	my $type = shift || " ";
+	my ($sec, $msec) = Time::HiRes::gettimeofday();
 	
 	# Check message format: any newline must start by a space,
 	# no new line at end of message
 	$message =~ s/(?<=\n)(?!\s|$)/ /g;
 	chomp $message;
 	
-	print LOGFILE "[".time()."]${type}${message}\n";
+	print LOGFILE "[$sec.$msec]${type}${message}\n";
 	print "[$type] $message \n";
 }
 
