@@ -1130,6 +1130,7 @@ libs/doublylinkedlist/Makefile
 libs/hashtable/Makefile
 libs/libst/Makefile
 modules/atoms/Makefile
+contrib/Makefile
 modules/helptools/Makefile
 modules/helptools/macros/xmlfiletohtml.sci
 modules/data_structures/Makefile

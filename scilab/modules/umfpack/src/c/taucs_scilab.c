@@ -419,13 +419,24 @@ void taucs_supernodal_factor_free(void* vL)
   FREE(L->sn_up_size);
   FREE(L->sn_blocks_ld);
   FREE(L->up_blocks_ld);
+  if (L->sn_struct)   
+    for (sn=0; sn<L->n_sn; sn++)
+      FREE(L->sn_struct[sn]);
 
+  if (L->sn_blocks)   
+    for (sn=0; sn<L->n_sn; sn++)
+      FREE(L->sn_blocks[sn]);
+
+  if (L->up_blocks)   
+    for (sn=0; sn<L->n_sn; sn++)
+      FREE(L->up_blocks[sn]);
+  /*
   for (sn=0; sn<L->n_sn; sn++) 
   {
     FREE(L->sn_struct[sn]);
     FREE(L->sn_blocks[sn]);
     FREE(L->up_blocks[sn]);
-  }
+	}*/
 
   FREE(L->sn_struct);
   FREE(L->sn_blocks);
@@ -461,9 +472,12 @@ supernodal_frontal_create(int* firstcol_in_supernode,
   tmp->sn_vertices = rowind;
   tmp->up_vertices = rowind + sn_size;
 
-  tmp->f1 = (double*)CALLOC((tmp->sn_size)*(tmp->sn_size),sizeof(double));
-  tmp->f2 = (double*)CALLOC((tmp->up_size)*(tmp->sn_size),sizeof(double));
-  tmp->u  = (double*)CALLOC((tmp->up_size)*(tmp->up_size),sizeof(double));
+  if (tmp->sn_size)
+	  tmp->f1 = (double*)CALLOC((tmp->sn_size)*(tmp->sn_size),sizeof(double));
+  if (tmp->sn_size && tmp->up_size)
+	  tmp->f2 = (double*)CALLOC((tmp->up_size)*(tmp->sn_size),sizeof(double));
+  if (tmp->up_size)
+	  tmp->u  = (double*)CALLOC((tmp->up_size)*(tmp->up_size),sizeof(double));
 
   if(tmp->f1 == NULL || tmp->f2==NULL || tmp->u==NULL) 
   {
@@ -707,8 +721,8 @@ static int ordered_uf_union  (int* uf, int s, int t)
   else
   {
     uf[t] = s;
-	return s; 
   }
+	return s; 
 }
 
 static void 

@@ -118,20 +118,19 @@ Optimization:
 Genetic Algorithms:
 ===================
  - Genetic algorithms have been added into Scilab. Many thanks to Yann Collette
-	+ codage_binary         - Performs conversion between binary and continuous 
-	                          representation
-	+ codage_identity       - "no-operation" conversion function
-	+ crossover_func_binary - Crossover function for binary code
-	+ crossover_func_default- Crossover function for continuous variable functions
-	+ init_func_default     - Initialize a population 
-	+ mutation_func_binary  - Performs binary mutation 
-	+ mutation_func_default - Continuous variable mutation
+	+ coding_ga_binary 	- Performs conversion between binary and continuous representation
+	+ coding_ga_identity	- "no-operation" conversion function
+	+ crossover_ga_binary 	- Crossover function for binary code
+	+ crossover_ga_default	- Crossover function for continuous variable functions
+	+ init_ga_default     	- Initialize a population 
+	+ mutation_ga_binary  	- Performs binary mutation 
+	+ mutation_ga_default 	- Continuous variable mutation
 	+ optim_ga              - Flexible genetic algorithm 
 	+ optim_nsga            - Multi-objective Niched Sharing Genetic Algorithm
 	+ optim_nsga2           - Multi-objective Niched Sharing Genetic Algorithm version 2
 	+ pareto_filter         - Extracts non dominated solution from a set
-	+ selection_func_elitist- 'Elitist' selection function 
-	+ selection_func_random - Random selection of individuals 
+	+ selection_ga_elitist	- 'Elitist' selection function 
+	+ selection_ga_random 	- Random selection of individuals 
 
 
 Param/parameters module:
@@ -431,7 +430,7 @@ GNU/Linux - Unix:
  - New configure (based on autoconf)
  - New compilation process (based on automake and libtool)
  - Parallel build (make -j)
- - LSB/FHS compliant
+ - FHS compliant
  - Switched to dynamic libraries
  - Advanced numerical libraries can be used (Atlas, MKL...)
  - Use librairies when available on the system
@@ -464,7 +463,7 @@ Dynamic/incremental link:
  - New functions:
   + getdynlibext - get the extension of dynamic libraries on your operating system.
  - Function improved:
-  + ilib_for_link - now accept the actual filename (not only filename.o but also filename.c or filename.f)
+  + ilib_for_link & ilib_build - now accept the actual filename (not only filename.o but also filename.c or filename.f)
 
 
 TCL/TK:
@@ -546,8 +545,8 @@ Known incompatibilty
   - the xgetmouse flag option has been removed 
 
   - Due to license restrictions from the Universidad de Cantabria, the quapro 
-	and linpro functions are no more available in the Scilab distribution, but
-	as an external toolbox.
+	and linpro functions are no more available in the Scilab distribution, 
+	but as an external toolbox.
 
                      Main Changes Scilab 3.0 -> 4.0
                      ==============================

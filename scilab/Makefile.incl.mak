@@ -80,13 +80,18 @@ XLIBSBIN="$(SCIDIR1)\bin\MALLOC.lib" "$(SCIDIR1)\bin\blasplus.lib" \
 	@echo ------------- Compile file $< --------------
 	$(CC) $(CFLAGS) $< 
 
+.cxx.obj	:
+	@echo ------------- Compile file $< --------------
+	@$(CC) $(CFLAGS) $*.cxx 
+
 .cpp.obj	:
 	@echo ------------- Compile file $< --------------
-	@$(CC) $(CFLAGS) $< 
+	@$(CC) $(CFLAGS) $*.cpp
 
-# default rule for Fortran Compilation 
+# default rule for Fortran 77 & 90 Compilation 
 
 !IF "$(USE_F2C)" == "YES"
+
 .f.obj	:
 	@echo ----------- Compile file $*.f (using f2c) -------------
 	@"$(SCIDIR1)\bin\f2c.exe" -I"$(SCIDIR1)\modules\core\includes" $(FFLAGS) $*.f 2>NUL
@@ -95,11 +100,28 @@ XLIBSBIN="$(SCIDIR1)\bin\MALLOC.lib" "$(SCIDIR1)\bin\blasplus.lib" \
 	!ELSE
 	-del $*.c 
 	!ENDIF
+	
 !ELSE 
+
 .f.obj	:
 	@echo -----------Compile file $*.f  (using $(FC)) -------------
 	@$(FC) $(FFLAGS) $<
-!ENDIF 
+	
+!ENDIF
+
+!IF "$(USE_F2C)" == "YES"
+
+.f90.obj	:
+	@echo F2C cannot build .f90 file
+	
+!ELSE 
+
+.f90.obj	:
+	@echo -----------Compile file $*.f90  (using $(FC)) -------------
+	@$(FC) $(FFLAGS) $<
+	
+!ENDIF
+
 #==================================================
 # clean 
 RM = del
