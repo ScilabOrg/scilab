@@ -68,10 +68,18 @@ Graphics:
 
 Graphic file export:
 ====================
-  - xs2jpeg, xs2png, xs2svg, xs2pdf functions added to export graphics under JPEG, PNG, SVG and PDF formats.     	
+  - xs2jpeg, xs2png, xs2svg, xs2pdf functions added to export graphics under
+	JPEG, PNG, SVG and PDF formats.
   - Option color in xs2eps and xs2ps has been removed.
   - Export GUI has been rewritten to match the new Java Swing style.
 
+
+Numerical precision:
+====================
+ - Numerical precision of Scilab under Linux 32 bits has been switched to
+	double precision (53 bits). Therefore, the precision on some specific 
+	computations is improved and the consistency between Microsoft Windows &
+	GNU/Linux enhanced.
 
 Signal processing:
 ==================
@@ -165,7 +173,7 @@ Simulated Annealing:
 
 Other Numerical Functions
 =========================
- - new functions 
+ - New functions 
         + filter           - signal filtering 
         + erfinv           - inverse of the erf function
         +                  - support for rational fraction hypermatrices added
@@ -247,7 +255,7 @@ System relative Functions:
 	+ reset_profiling       - reset  profiling data of a function
 
  - Rewrite in native code:
-  + warning
+        + warning
   
  - Profile changed:
 	+ unix_g                - a third output argument (optional) has been added to get standard error output in a variable.
@@ -275,7 +283,7 @@ Binary, octal and hexadecimal representation:
 	+ dec2oct  - return octal representation of integers
 
 
-jvm module:
+Jvm module:
 ===========
 	+ with_embedded_jre        - checks if scilab uses a embedded JRE
 	+ system_getproperty       - gets the system property indicated by a specified key.
@@ -308,17 +316,14 @@ Online Help management:
 	+ del_help_chapter
 	+ add_module_help_chapter
 	+ del_module_help_chapter
-	+ xmltojar
+	+ xmltojar (the documentation provided in Scilab)
 	+ xmltopdf
-	+ xmltops
-	+ xmltochm
- - xmltohtml function is now deprecated
- - loaddefaultbrowser function and %browsehelp global variable have been removed :
+	+ xmltohtml
+ - loaddefaultbrowser function and %browsehelp global variable have been removed:
    The new Java help browser is the only help browser.
  - For more information, have a look to :
-    + http://wiki.scilab.org/howto/scilab_documentation_kit
-    + SCI/modules/helptools/doc directory
-
+        + http://wiki.scilab.org/howto/scilab_documentation_kit
+        + SCI/modules/helptools/doc directory
 
 Metanet : graph and network toolbox
 ===================================
@@ -406,7 +411,7 @@ Source reorganisation:
 
 New Scilab Functions:
 =====================
- - Function rewrited from Fortran to C for better maintenance
+ - Function rewritten from Fortran to C for better maintenance
 
 
 Scilab modes:
@@ -437,6 +442,7 @@ GNU/Linux - Unix:
  - Build by default with gfortran
  - Versioned libraries
  - Easier profiling (memory and call graph)
+ - Better support of 64 bits CPU
  - Better startup script
 	+ Debug
 	+ Profiling (valgrind)
@@ -461,9 +467,9 @@ Dynamic/incremental link:
  - Under Linux/Unix, now based on basic autotools for the detection of compiler
 	and compilation.
  - New functions:
-  + getdynlibext - get the extension of dynamic libraries on your operating system.
+        + getdynlibext - get the extension of dynamic libraries on your operating system.
  - Function improved:
-  + ilib_for_link & ilib_build - now accept the actual filename (not only filename.o but also filename.c or filename.f)
+        + ilib_for_link & ilib_build - now accept the actual filename (not only filename.o but also filename.c or filename.f)
 
 
 TCL/TK:
@@ -473,9 +479,10 @@ TCL/TK:
 
  - Provided with version 8.5 of TCL/TK
  - Removed Functions:
-	+ tcl_? @TODO 
 	+ demoplay is obsolete
 	+ sciGUIhelp is obsolete 
+ - Some TCL/related functions have been tagged as obsolete 
+   (See http://wiki.scilab.org/obsolete_scilab_function )
  - TCL_CreateSlave now allows to create "safe" or "unsafe" slave interpreters (new option added).
    Default switched from safe to unsafe interp.
 
@@ -493,9 +500,9 @@ Tests:
 	+ Non regression
 	+ Benchmarks
  - New functions:
-    + test_run
-    + unitary_test_run
-    + nonreg_test_run
+        + test_run
+        + unitary_test_run
+        + nonreg_test_run
 
 OTHERS IMPROVEMENTS:
 ====================
@@ -528,8 +535,8 @@ Internal API:
 Scicos:
 =======
  - Test framework currently under development:
-  + Unitary tests
-  + Non-regression tests (vs. Scicos 4.2 in Scilab 4.1.2)
+        + Unitary tests
+        + Non-regression tests (vs. Scicos 4.2 in Scilab 4.1.2)
 
 Known incompatibilty
 --------------------
@@ -542,11 +549,14 @@ Known incompatibilty
     changed "lower" and "left" are now relative to user coordinates
     order.
 
-  - the xgetmouse flag option has been removed 
+  - The xgetmouse flag option has been removed 
 
   - Due to license restrictions from the Universidad de Cantabria, the quapro 
 	and linpro functions are no more available in the Scilab distribution, 
 	but as an external toolbox.
+
+  - Some uses of the pow function could cause issues for base ~ 1.0 and large
+	exponent (See http://sources.redhat.com/bugzilla/show_bug.cgi?id=706)
 
                      Main Changes Scilab 3.0 -> 4.0
                      ==============================

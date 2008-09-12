@@ -865,6 +865,7 @@ AMDEPBACKSLASH
 CCDEPMODE
 am__fastdepCC_TRUE
 am__fastdepCC_FALSE
+PKG_CONFIG
 F77
 FFLAGS
 ac_ct_F77
@@ -980,8 +981,8 @@ TCL_INC_PATH
 TK_INC_PATH
 TCLTK_TRUE
 TCLTK_FALSE
-MATIO_LIB
 MATIO_CFLAGS
+MATIO_LIBS
 MATIO_ENABLE
 MATIO_TRUE
 MATIO_FALSE
@@ -1018,12 +1019,15 @@ LDFLAGS
 LIBS
 CPPFLAGS
 CPP
+PKG_CONFIG
 F77
 FFLAGS
 CXX
 CXXFLAGS
 CCC
 XMKMF
+MATIO_CFLAGS
+MATIO_LIBS
 CXXCPP'
 
 
@@ -1703,11 +1707,15 @@ Some influential environment variables:
   CPPFLAGS    C/C++/Objective C preprocessor flags, e.g. -I<include dir> if
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
+  PKG_CONFIG  path to pkg-config utility
   F77         Fortran 77 compiler command
   FFLAGS      Fortran 77 compiler flags
   CXX         C++ compiler command
   CXXFLAGS    C++ compiler flags
   XMKMF       Path to xmkmf, Makefile generator for X Window System
+  MATIO_CFLAGS
+              C compiler flags for MATIO, overriding pkg-config
+  MATIO_LIBS  linker flags for MATIO, overriding pkg-config
   CXXCPP      C++ preprocessor
 
 Use these variables to override the choices made by `configure' or to help
@@ -5593,9 +5601,9 @@ fi
 
 
 
-##############################
-########## compilator detection
-##############################
+################################################
+########## compilator & misc programs detection
+################################################
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -5906,6 +5914,126 @@ echo "${ECHO_T}$ac_cv_path_GREP" >&6; }
  GREP="$ac_cv_path_GREP"
 
 
+
+
+if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
+	if test -n "$ac_tool_prefix"; then
+  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
+set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_path_PKG_CONFIG+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+PKG_CONFIG=$ac_cv_path_PKG_CONFIG
+if test -n "$PKG_CONFIG"; then
+  { echo "$as_me:$LINENO: result: $PKG_CONFIG" >&5
+echo "${ECHO_T}$PKG_CONFIG" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+
+fi
+if test -z "$ac_cv_path_PKG_CONFIG"; then
+  ac_pt_PKG_CONFIG=$PKG_CONFIG
+  # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_path_ac_pt_PKG_CONFIG+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $ac_pt_PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
+if test -n "$ac_pt_PKG_CONFIG"; then
+  { echo "$as_me:$LINENO: result: $ac_pt_PKG_CONFIG" >&5
+echo "${ECHO_T}$ac_pt_PKG_CONFIG" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+  if test "x$ac_pt_PKG_CONFIG" = x; then
+    PKG_CONFIG=""
+  else
+    case $cross_compiling:$ac_tool_warned in
+yes:)
+{ echo "$as_me:$LINENO: WARNING: In the future, Autoconf will not detect cross-tools
+whose name does not start with the host triplet.  If you think this
+configuration is useful to you, please write to autoconf@gnu.org." >&5
+echo "$as_me: WARNING: In the future, Autoconf will not detect cross-tools
+whose name does not start with the host triplet.  If you think this
+configuration is useful to you, please write to autoconf@gnu.org." >&2;}
+ac_tool_warned=yes ;;
+esac
+    PKG_CONFIG=$ac_pt_PKG_CONFIG
+  fi
+else
+  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
+fi
+
+fi
+if test -n "$PKG_CONFIG"; then
+	_pkg_min_version=0.9.0
+	{ echo "$as_me:$LINENO: checking pkg-config is at least version $_pkg_min_version" >&5
+echo $ECHO_N "checking pkg-config is at least version $_pkg_min_version... $ECHO_C" >&6; }
+	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
+		{ echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	else
+		{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+		PKG_CONFIG=""
+	fi
+
+fi
 
 #####################################################
 ## check if options are correct (or not)
@@ -10285,7 +10413,7 @@ fi
 
 if test -n "$F77"; then
    if test "$enable_debug_fortran" = yes; then
-	  FFLAGS="$FFLAGS -g -Wall "
+	  FFLAGS="$FFLAGS -g -Wall -Wimplicit -Wsurprising"
 	  # -D_FORTIFY_SOURCE=2
    else
 	  FFLAGS="$FFLAGS -DNDEBUG"
@@ -10394,7 +10522,7 @@ fi
 if test "$CXX" = "g++" -o "$CXX" = "ccache g++"; then
    ## With GNU C++ Compiler
    if test "$enable_debug_CXX" = yes; then
-	  CXXFLAGS="$CXXFLAGS -pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall "
+	  CXXFLAGS="$CXXFLAGS -pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall -Wold-style-cast -g3 -Weffc++"
           case "$host" in
           *-linux-gnu )
           # Only doing that under Linux
@@ -10404,6 +10532,7 @@ if test "$CXX" = "g++" -o "$CXX" = "ccache g++"; then
    else
 	  CXXFLAGS="$CXXFLAGS -DNDEBUG"
    fi
+   CXXFLAGS="$CXXFLAGS -fno-stack-protector" # bug 3131
 fi
 
 ##########"
@@ -10416,7 +10545,7 @@ IS_64_BITS_CPU=false
 if test "$CC" = "gcc" -o "$CC" = "ccache gcc"; then
    ## With GNU Compiler
    if test "$enable_debug_C" = yes; then
-	  CFLAGS="$CFLAGS -pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing"
+	  CFLAGS="$CFLAGS -pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing  -Wold-style-definition -g3"
 	  # used to be -O
 	  # -D_FORTIFY_SOURCE=2
 	  case "$host" in
@@ -10431,6 +10560,7 @@ if test "$CC" = "gcc" -o "$CC" = "ccache gcc"; then
    else
 	  CFLAGS="$CFLAGS  -DNDEBUG"
    fi
+   CFLAGS="$CFLAGS -fno-stack-protector" # bug 3131
 
    case "$host" in
    # Linux sparc | Linux, old binary format a.out (NO LONGER SUPPORTED)
@@ -11013,7 +11143,7 @@ echo "${ECHO_T}$ac_java_classpath" >&6; }
 echo $ECHO_N "checking to see if the java compiler works... $ECHO_C" >&6; }
 
     cat << \EOF > conftest.java
-// #line 11016 "configure"
+// #line 11146 "configure"
 
 
 public class conftest {
@@ -11063,7 +11193,7 @@ echo $ECHO_N "checking type of jvm... $ECHO_C" >&6; }
     if test "x$ac_java_jvm_name" = "x" ; then
 
     cat << \EOF > conftest.java
-// #line 11066 "configure"
+// #line 11196 "configure"
 import gnu.java.io.EncodingManager;
 
 public class conftest {
@@ -11111,7 +11241,7 @@ echo $ECHO_N "checking java API version... $ECHO_C" >&6; }
 
 
     cat << \EOF > conftest.java
-// #line 11114 "configure"
+// #line 11244 "configure"
 import java.nio.charset.Charset;
 
 public class conftest {
@@ -11138,7 +11268,7 @@ EOF
 
 
     cat << \EOF > conftest.java
-// #line 11141 "configure"
+// #line 11271 "configure"
 import java.lang.StringBuilder;
 
 public class conftest {
@@ -12393,7 +12523,7 @@ echo $ECHO_N "checking flexdock... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12396 "configure"
+// #line 12526 "configure"
 import org.flexdock.docking.DockingManager;
 
 public class conftest {
@@ -12461,7 +12591,7 @@ echo $ECHO_N "checking looks... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12464 "configure"
+// #line 12594 "configure"
 import com.jgoodies.looks.common.RenderingUtils;
 
 public class conftest {
@@ -12529,7 +12659,7 @@ echo $ECHO_N "checking skinlf... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12532 "configure"
+// #line 12662 "configure"
 import com.l2fprod.util.AccessUtils;
 
 public class conftest {
@@ -12597,7 +12727,7 @@ echo $ECHO_N "checking jogl... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12600 "configure"
+// #line 12730 "configure"
 import javax.media.opengl.glu.GLUnurbs;
 
 public class conftest {
@@ -12665,7 +12795,7 @@ echo $ECHO_N "checking jhall... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12668 "configure"
+// #line 12798 "configure"
 import javax.help.JHelp;
 
 public class conftest {
@@ -12733,7 +12863,7 @@ echo $ECHO_N "checking gluegen-rt... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12736 "configure"
+// #line 12866 "configure"
 import com.sun.gluegen.runtime.CPU;
 
 public class conftest {
@@ -12801,7 +12931,7 @@ echo $ECHO_N "checking jrosetta-API... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12804 "configure"
+// #line 12934 "configure"
 import com.artenum.rosetta.interfaces.core.ConsoleConfiguration;
 
 public class conftest {
@@ -12869,7 +12999,7 @@ echo $ECHO_N "checking jrosetta-engine... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12872 "configure"
+// #line 13002 "configure"
 import com.artenum.rosetta.core.action.AbstractConsoleAction;
 
 public class conftest {
@@ -12937,7 +13067,7 @@ echo $ECHO_N "checking commons-logging... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 12940 "configure"
+// #line 13070 "configure"
 import org.apache.commons.logging.LogFactory;
 
 public class conftest {
@@ -24537,7 +24667,7 @@ CPPFLAGS="$CPPFLAGS -I$CHK_TCL_INCLUDE_PATH"
 { echo "$as_me:$LINENO: checking if tcl is version $CHK_TCL_MAJOR.$CHK_TCL_MINOR or later" >&5
 echo $ECHO_N "checking if tcl is version $CHK_TCL_MAJOR.$CHK_TCL_MINOR or later... $ECHO_C" >&6; }
 cat > conftest.$ac_ext <<EOF
-#line 24540 "configure"
+#line 24670 "configure"
 #include "confdefs.h"
 
 #include "$CHK_TCL_INCLUDE_PATH/$CHK_TCL_INC_NAME"
@@ -24921,7 +25051,7 @@ CPPFLAGS="$CPPFLAGS $TCL_INC_PATH -I$CHK_TK_INCLUDE_PATH $X_CFLAGS"
 echo $ECHO_N "checking if tk is version $CHK_TK_MAJOR.$CHK_TK_MINOR or later... $ECHO_C" >&6; }
 
 cat > conftest.$ac_ext <<EOF
-#line 24924 "configure"
+#line 25054 "configure"
 #include "confdefs.h"
 
 #include "$CHK_TK_INCLUDE_PATH/$CHK_TK_INC_NAME"
@@ -25294,118 +25424,146 @@ if test "${with_matio+set}" = set; then
 fi
 
 
-MATIO_ENABLE=no
-
-if test "$with_matio" != no; then
-
-
 
 # Check whether --with-matio_include was given.
 if test "${with_matio_include+set}" = set; then
-  withval=$with_matio_include; with_matio_include=$withval
-else
-  with_matio_include='yes'
-
+  withval=$with_matio_include; with_matio_include="-I$withval"
 fi
 
 
 
 # Check whether --with-matio_library was given.
 if test "${with_matio_library+set}" = set; then
-  withval=$with_matio_library; with_matio_library=$withval
-else
-  with_matio_library='yes'
-
+  withval=$with_matio_library; with_matio_library="-L$withval"
 fi
 
 
-# Check of zlib
-save_LIBS="$LIBS"
-{ echo "$as_me:$LINENO: checking for inflateCopy in -lz" >&5
-echo $ECHO_N "checking for inflateCopy in -lz... $ECHO_C" >&6; }
-if test "${ac_cv_lib_z_inflateCopy+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lz  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
+MATIO_ENABLE=no
 
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char inflateCopy ();
-#ifdef F77_DUMMY_MAIN
+if test "$with_matio" != no; then
+   if test -n "$with_matio_include" -o -n "$with_matio_library" ; then
+      MATIO_CFLAGS="$with_matio_include"
+      MATIO_LIBS="$with_matio_library -lm -lz -lmatio"
+   else
 
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
+pkg_failed=no
+{ echo "$as_me:$LINENO: checking for MATIO" >&5
+echo $ECHO_N "checking for MATIO... $ECHO_C" >&6; }
 
-#endif
-int
-main ()
-{
-return inflateCopy ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_link") 2>conftest.er1
+if test -n "$PKG_CONFIG"; then
+    if test -n "$MATIO_CFLAGS"; then
+        pkg_cv_MATIO_CFLAGS="$MATIO_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"matio >= 1.3.3\"") >&5
+  ($PKG_CONFIG --exists --print-errors "matio >= 1.3.3") 2>&5
   ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext &&
-       $as_test_x conftest$ac_exeext; then
-  ac_cv_lib_z_inflateCopy=yes
+  (exit $ac_status); }; then
+  pkg_cv_MATIO_CFLAGS=`$PKG_CONFIG --cflags "matio >= 1.3.3" 2>/dev/null`
 else
-  echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_z_inflateCopy=no
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$MATIO_LIBS"; then
+        pkg_cv_MATIO_LIBS="$MATIO_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"matio >= 1.3.3\"") >&5
+  ($PKG_CONFIG --exists --print-errors "matio >= 1.3.3") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_MATIO_LIBS=`$PKG_CONFIG --libs "matio >= 1.3.3" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
 fi
 
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ echo "$as_me:$LINENO: result: $ac_cv_lib_z_inflateCopy" >&5
-echo "${ECHO_T}$ac_cv_lib_z_inflateCopy" >&6; }
-if test $ac_cv_lib_z_inflateCopy = yes; then
-  ZLIB="-lz"
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
 else
-  { { echo "$as_me:$LINENO: error: zlib: library missing (Cannot find symbol inflateCopy). Check if zlib is installed and if the version is correct" >&5
-echo "$as_me: error: zlib: library missing (Cannot find symbol inflateCopy). Check if zlib is installed and if the version is correct" >&2;}
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        MATIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "matio >= 1.3.3"`
+        else
+	        MATIO_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "matio >= 1.3.3"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$MATIO_PKG_ERRORS" >&5
+
+	{ { echo "$as_me:$LINENO: error: Package requirements (matio >= 1.3.3) were not met:
+
+$MATIO_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables MATIO_CFLAGS
+and MATIO_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&5
+echo "$as_me: error: Package requirements (matio >= 1.3.3) were not met:
+
+$MATIO_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables MATIO_CFLAGS
+and MATIO_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+" >&2;}
    { (exit 1); exit 1; }; }
+elif test $pkg_failed = untried; then
+	{ { echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
 
+Alternatively, you may set the environment variables MATIO_CFLAGS
+and MATIO_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
+See \`config.log' for more details." >&5
+echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables MATIO_CFLAGS
+and MATIO_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
+See \`config.log' for more details." >&2;}
+   { (exit 1); exit 1; }; }
+else
+	MATIO_CFLAGS=$pkg_cv_MATIO_CFLAGS
+	MATIO_LIBS=$pkg_cv_MATIO_LIBS
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+	:
 fi
+   fi
 
-LIBS="$save_LIBS"
+   save_CFLAGS="$CFLAGS"
+   save_LIBS="$LIBS"
 
+   CFLAGS="$CFLAGS $MATIO_CFLAGS"
+   LIBS="$LIBS $MATIO_LIBS"
 
-# Mat I/O
-if test "x$with_matio_include" != "xyes"; then
-	save_CFLAGS="$CFLAGS"
-	CFLAGS="-I$with_matio_include"
 
 
 for ac_header in matio.h matioConfig.h
@@ -25547,53 +25705,61 @@ if test `eval echo '${'$as_ac_Header'}'` = yes; then
   cat >>confdefs.h <<_ACEOF
 #define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
 _ACEOF
- MATIO_CFLAGS="$CFLAGS"
-else
-  { { echo "$as_me:$LINENO: error: Cannot find headers (matio.h) of the library Matio in $with_matio_include. Please install the dev package (Debian : libmatio-dev)" >&5
-echo "$as_me: error: Cannot find headers (matio.h) of the library Matio in $with_matio_include. Please install the dev package (Debian : libmatio-dev)" >&2;}
-   { (exit 1); exit 1; }; }
 
+else
+  { { echo "$as_me:$LINENO: error: Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS." >&5
+echo "$as_me: error: Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS." >&2;}
+   { (exit 1); exit 1; }; }
 fi
 
 done
 
-	CFLAGS="$save_CFLAGS"
-else
 
-
-for ac_header in matio.h matioConfig.h
-do
-as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
-  { echo "$as_me:$LINENO: checking for $ac_header" >&5
-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6; }
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
+{ echo "$as_me:$LINENO: checking for Mat_Open in -lmatio" >&5
+echo $ECHO_N "checking for Mat_Open in -lmatio... $ECHO_C" >&6; }
+if test "${ac_cv_lib_matio_Mat_Open+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
-fi
-ac_res=`eval echo '${'$as_ac_Header'}'`
-	       { echo "$as_me:$LINENO: result: $ac_res" >&5
-echo "${ECHO_T}$ac_res" >&6; }
 else
-  # Is the header compilable?
-{ echo "$as_me:$LINENO: checking $ac_header usability" >&5
-echo $ECHO_N "checking $ac_header usability... $ECHO_C" >&6; }
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lmatio  $LIBS"
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
 _ACEOF
 cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
-$ac_includes_default
-#include <$ac_header>
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char Mat_Open ();
+#ifdef F77_DUMMY_MAIN
+
+#  ifdef __cplusplus
+     extern "C"
+#  endif
+   int F77_DUMMY_MAIN() { return 1; }
+
+#endif
+int
+main ()
+{
+return Mat_Open ();
+  ;
+  return 0;
+}
 _ACEOF
-rm -f conftest.$ac_objext
-if { (ac_try="$ac_compile"
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
 case "(($ac_try" in
   *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
   *) ac_try_echo=$ac_try;;
 esac
 eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_compile") 2>conftest.er1
+  (eval "$ac_link") 2>conftest.er1
   ac_status=$?
   grep -v '^ *+' conftest.er1 >conftest.err
   rm -f conftest.er1
@@ -25602,291 +25768,43 @@ eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
   (exit $ac_status); } && {
 	 test -z "$ac_c_werror_flag" ||
 	 test ! -s conftest.err
-       } && test -s conftest.$ac_objext; then
-  ac_header_compiler=yes
+       } && test -s conftest$ac_exeext &&
+       $as_test_x conftest$ac_exeext; then
+  ac_cv_lib_matio_Mat_Open=yes
 else
   echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
-	ac_header_compiler=no
+	ac_cv_lib_matio_Mat_Open=no
 fi
 
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-{ echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
-echo "${ECHO_T}$ac_header_compiler" >&6; }
-
-# Is the header present?
-{ echo "$as_me:$LINENO: checking $ac_header presence" >&5
-echo $ECHO_N "checking $ac_header presence... $ECHO_C" >&6; }
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <$ac_header>
-_ACEOF
-if { (ac_try="$ac_cpp conftest.$ac_ext"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } >/dev/null && {
-	 test -z "$ac_c_preproc_warn_flag$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       }; then
-  ac_header_preproc=yes
-else
-  echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-  ac_header_preproc=no
+rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
 fi
-
-rm -f conftest.err conftest.$ac_ext
-{ echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
-echo "${ECHO_T}$ac_header_preproc" >&6; }
-
-# So?  What about this header?
-case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
-  yes:no: )
-    { echo "$as_me:$LINENO: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&5
-echo "$as_me: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the compiler's result" >&5
-echo "$as_me: WARNING: $ac_header: proceeding with the compiler's result" >&2;}
-    ac_header_preproc=yes
-    ;;
-  no:yes:* )
-    { echo "$as_me:$LINENO: WARNING: $ac_header: present but cannot be compiled" >&5
-echo "$as_me: WARNING: $ac_header: present but cannot be compiled" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header:     check for missing prerequisite headers?" >&5
-echo "$as_me: WARNING: $ac_header:     check for missing prerequisite headers?" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: see the Autoconf documentation" >&5
-echo "$as_me: WARNING: $ac_header: see the Autoconf documentation" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header:     section \"Present But Cannot Be Compiled\"" >&5
-echo "$as_me: WARNING: $ac_header:     section \"Present But Cannot Be Compiled\"" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;}
-    { echo "$as_me:$LINENO: WARNING: $ac_header: in the future, the compiler will take precedence" >&5
-echo "$as_me: WARNING: $ac_header: in the future, the compiler will take precedence" >&2;}
-    ( cat <<\_ASBOX
-## ------------------------------------------ ##
-## Report this to http://bugzilla.scilab.org/ ##
-## ------------------------------------------ ##
-_ASBOX
-     ) | sed "s/^/$as_me: WARNING:     /" >&2
-    ;;
-esac
-{ echo "$as_me:$LINENO: checking for $ac_header" >&5
-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6; }
-if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  eval "$as_ac_Header=\$ac_header_preproc"
-fi
-ac_res=`eval echo '${'$as_ac_Header'}'`
-	       { echo "$as_me:$LINENO: result: $ac_res" >&5
-echo "${ECHO_T}$ac_res" >&6; }
-
-fi
-if test `eval echo '${'$as_ac_Header'}'` = yes; then
+{ echo "$as_me:$LINENO: result: $ac_cv_lib_matio_Mat_Open" >&5
+echo "${ECHO_T}$ac_cv_lib_matio_Mat_Open" >&6; }
+if test $ac_cv_lib_matio_Mat_Open = yes; then
   cat >>confdefs.h <<_ACEOF
-#define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
+#define HAVE_LIBMATIO 1
 _ACEOF
- MATIO_CFLAGS=""
+
+  LIBS="-lmatio $LIBS"
+
 else
-  { { echo "$as_me:$LINENO: error: Cannot find headers (matio.h) of the library matio. Please install the dev package (Debian : libmatio-dev)" >&5
-echo "$as_me: error: Cannot find headers (matio.h) of the library matio. Please install the dev package (Debian : libmatio-dev)" >&2;}
+  { { echo "$as_me:$LINENO: error: Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS." >&5
+echo "$as_me: error: Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS." >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-done
 
-fi
-
-
-# --with-matio-library set then check in this dir
-if test "x$with_matio_library" != "xyes"; then
-	save_LIBS="$LIBS"
-	# -lm to allow static linking (floor, which is needed by matio, is in libm)
-	LIBS="-L$with_matio_library -lm -lmatio $ZLIB"
-	{ echo "$as_me:$LINENO: checking for Mat_Open in -lmatio" >&5
-echo $ECHO_N "checking for Mat_Open in -lmatio... $ECHO_C" >&6; }
-if test "${ac_cv_lib_matio_Mat_Open+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lmatio  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char Mat_Open ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return Mat_Open ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext &&
-       $as_test_x conftest$ac_exeext; then
-  ac_cv_lib_matio_Mat_Open=yes
-else
-  echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_matio_Mat_Open=no
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ echo "$as_me:$LINENO: result: $ac_cv_lib_matio_Mat_Open" >&5
-echo "${ECHO_T}$ac_cv_lib_matio_Mat_Open" >&6; }
-if test $ac_cv_lib_matio_Mat_Open = yes; then
-  MATIO_LIB="-L$with_matio_library -lm -lmatio $ZLIB"
-else
-  { { echo "$as_me:$LINENO: error: libmatio : library missing. (Cannot find symbol Mat_Open) in $with_matio_library. Check if libmatio is installed and if the version is correct" >&5
-echo "$as_me: error: libmatio : library missing. (Cannot find symbol Mat_Open) in $with_matio_library. Check if libmatio is installed and if the version is correct" >&2;}
-   { (exit 1); exit 1; }; }
-
-fi
-
-	LIBS="$save_LIBS"
-else
-	save_LIBS="$LIBS"
-	LIBS="$ZLIB -lm"
-	{ echo "$as_me:$LINENO: checking for Mat_Open in -lmatio" >&5
-echo $ECHO_N "checking for Mat_Open in -lmatio... $ECHO_C" >&6; }
-if test "${ac_cv_lib_matio_Mat_Open+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lmatio  $LIBS"
-cat >conftest.$ac_ext <<_ACEOF
-/* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char Mat_Open ();
-#ifdef F77_DUMMY_MAIN
-
-#  ifdef __cplusplus
-     extern "C"
-#  endif
-   int F77_DUMMY_MAIN() { return 1; }
-
-#endif
-int
-main ()
-{
-return Mat_Open ();
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext &&
-       $as_test_x conftest$ac_exeext; then
-  ac_cv_lib_matio_Mat_Open=yes
-else
-  echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_cv_lib_matio_Mat_Open=no
-fi
-
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ echo "$as_me:$LINENO: result: $ac_cv_lib_matio_Mat_Open" >&5
-echo "${ECHO_T}$ac_cv_lib_matio_Mat_Open" >&6; }
-if test $ac_cv_lib_matio_Mat_Open = yes; then
-  MATIO_LIB="-lmatio  -lm $ZLIB"
-else
-  { { echo "$as_me:$LINENO: error: libmatio : library missing. (Cannot Mat_Open). Check if libmatio is installed and if the version is correct" >&5
-echo "$as_me: error: libmatio : library missing. (Cannot Mat_Open). Check if libmatio is installed and if the version is correct" >&2;}
-   { (exit 1); exit 1; }; }
-
-fi
-
-	LIBS="$save_LIBS"
-fi
-
+   LIBS="$save_LIBS"
+   CFLAGS="$save_CFLAGS"
 
 
 cat >>confdefs.h <<\_ACEOF
 #define WITH_MATIO
 _ACEOF
-
-
 
    MATIO_ENABLE=yes
 fi
@@ -25957,7 +25875,7 @@ echo $ECHO_N "checking batik... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 25960 "configure"
+// #line 25878 "configure"
 import org.apache.batik.parser.Parser;
 
 public class conftest {
@@ -26025,7 +25943,7 @@ echo $ECHO_N "checking saxon... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26028 "configure"
+// #line 25946 "configure"
 import com.icl.saxon.Loader;
 
 public class conftest {
@@ -26093,7 +26011,7 @@ echo $ECHO_N "checking fop... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26096 "configure"
+// #line 26014 "configure"
 import org.apache.fop.pdf.PDFInfo;
 
 public class conftest {
@@ -26161,7 +26079,7 @@ echo $ECHO_N "checking jeuclid-core... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26164 "configure"
+// #line 26082 "configure"
 import net.sourceforge.jeuclid.MathBase;
 
 public class conftest {
@@ -26229,7 +26147,7 @@ echo $ECHO_N "checking commons-io... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26232 "configure"
+// #line 26150 "configure"
 import org.apache.commons.io.output.CountingOutputStream;
 
 public class conftest {
@@ -26297,7 +26215,7 @@ echo $ECHO_N "checking xmlgraphics-commons... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26300 "configure"
+// #line 26218 "configure"
 import org.apache.xmlgraphics.util.Service;
 
 public class conftest {
@@ -26366,7 +26284,7 @@ echo $ECHO_N "checking avalon-framework... $ECHO_C" >&6; }
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 26369 "configure"
+// #line 26287 "configure"
 import org.apache.avalon.framework.configuration.ConfigurationException;
 
 public class conftest {
@@ -27006,7 +26924,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 27009 "configure"' > conftest.$ac_ext
+  echo '#line 26927 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -28876,11 +28794,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:28879: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:28797: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:28883: \$? = $ac_status" >&5
+   echo "$as_me:28801: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -29166,11 +29084,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:29169: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:29087: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:29173: \$? = $ac_status" >&5
+   echo "$as_me:29091: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -29270,11 +29188,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:29273: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:29191: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:29277: \$? = $ac_status" >&5
+   echo "$as_me:29195: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -31719,7 +31637,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 31722 "configure"
+#line 31640 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -31819,7 +31737,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 31822 "configure"
+#line 31740 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -34240,11 +34158,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:34243: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:34161: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:34247: \$? = $ac_status" >&5
+   echo "$as_me:34165: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -34344,11 +34262,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:34347: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:34265: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:34351: \$? = $ac_status" >&5
+   echo "$as_me:34269: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -35942,11 +35860,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:35945: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:35863: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:35949: \$? = $ac_status" >&5
+   echo "$as_me:35867: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -36046,11 +35964,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:36049: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:35967: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:36053: \$? = $ac_status" >&5
+   echo "$as_me:35971: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -38270,11 +38188,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:38273: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:38191: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:38277: \$? = $ac_status" >&5
+   echo "$as_me:38195: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -38560,11 +38478,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:38563: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:38481: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:38567: \$? = $ac_status" >&5
+   echo "$as_me:38485: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -38664,11 +38582,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:38667: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:38585: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:38671: \$? = $ac_status" >&5
+   echo "$as_me:38589: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -42663,7 +42581,7 @@ AMDEPBACKSLASH!$AMDEPBACKSLASH$ac_delim
 CCDEPMODE!$CCDEPMODE$ac_delim
 am__fastdepCC_TRUE!$am__fastdepCC_TRUE$ac_delim
 am__fastdepCC_FALSE!$am__fastdepCC_FALSE$ac_delim
-F77!$F77$ac_delim
+PKG_CONFIG!$PKG_CONFIG$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -42705,6 +42623,7 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+F77!$F77$ac_delim
 FFLAGS!$FFLAGS$ac_delim
 ac_ct_F77!$ac_ct_F77$ac_delim
 CXX!$CXX$ac_delim
@@ -42801,7 +42720,6 @@ USE_EMBEDDED_BLAS_FALSE!$USE_EMBEDDED_BLAS_FALSE$ac_delim
 LAPACK_LIBS!$LAPACK_LIBS$ac_delim
 USE_EMBEDDED_LAPACK_TRUE!$USE_EMBEDDED_LAPACK_TRUE$ac_delim
 USE_EMBEDDED_LAPACK_FALSE!$USE_EMBEDDED_LAPACK_FALSE$ac_delim
-UMFPACK_LIB!$UMFPACK_LIB$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -42843,6 +42761,7 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+UMFPACK_LIB!$UMFPACK_LIB$ac_delim
 UMFPACK_ENABLE!$UMFPACK_ENABLE$ac_delim
 UMFPACK_TRUE!$UMFPACK_TRUE$ac_delim
 UMFPACK_FALSE!$UMFPACK_FALSE$ac_delim
@@ -42860,8 +42779,8 @@ TCL_INC_PATH!$TCL_INC_PATH$ac_delim
 TK_INC_PATH!$TK_INC_PATH$ac_delim
 TCLTK_TRUE!$TCLTK_TRUE$ac_delim
 TCLTK_FALSE!$TCLTK_FALSE$ac_delim
-MATIO_LIB!$MATIO_LIB$ac_delim
 MATIO_CFLAGS!$MATIO_CFLAGS$ac_delim
+MATIO_LIBS!$MATIO_LIBS$ac_delim
 MATIO_ENABLE!$MATIO_ENABLE$ac_delim
 MATIO_TRUE!$MATIO_TRUE$ac_delim
 MATIO_FALSE!$MATIO_FALSE$ac_delim
@@ -42890,7 +42809,7 @@ ENABLE_STATIC_FALSE!$ENABLE_STATIC_FALSE$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 45; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 46; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -43595,7 +43514,7 @@ fi
 echo ""
 if test $MATIO_ENABLE = yes;  then
    echo "MATIO Configuration:"
-   echo "MATIO LIBS .......... = $MATIO_LIB"
+   echo "MATIO LIBS .......... = $MATIO_LIBS"
    echo "MATIO CFLAGS ........ = $MATIO_CFLAGS"
 else
    echo "Not using MATIO"

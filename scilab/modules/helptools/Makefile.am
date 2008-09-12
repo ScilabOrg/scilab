@@ -59,12 +59,7 @@ libscihelptools_la_include_HEADERS = includes/gw_helptools.h
 libscihelptools_la_bindir = $(mydatadir)/bin
 libscihelptools_la_bin_DATA = bin/scivalid \
 bin/man2sci \
-bin/sci2pdf \
-bin/sci2jh \
-bin/manrev2sci \
-bin/sci2html \
-bin/sciviewhelp
-
+bin/manrev2sci 
 
 #### helptools : gateway declaration ####
 libscihelptools_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -144,6 +139,16 @@ doc/html/images/callouts/9.png
 #### helptools : doc [html - resources] files ####
 libscihelptools_la_doc_html_resourcesdir = $(mydatadir)/doc/html/resources
 libscihelptools_la_doc_html_resources_DATA = doc/html/resources/addonprefs.png
+
+
+#### helptools : example files ####
+libscihelptools_la_examplesdir=$(mydatadir)
+nobase_libscihelptools_la_examples_DATA = examples/example_1/help/fr_FR/example_1_function_3.xml \
+examples/example_1/help/fr_FR/example_1_function_2.xml \
+examples/example_1/help/fr_FR/example_1_function_1.xml \
+examples/example_1/help/en_US/example_1_function_3.xml \
+examples/example_1/help/en_US/example_1_function_1.xml \
+examples/example_1/help/en_US/example_1_function_2.xml
 
 
 include $(top_srcdir)/Makefile.incl.am

@@ -33,6 +33,7 @@ function [t] = acosh(z)
   if type(z)<>1 then
    error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex matrix expected.\n"),"acosh",1));
   end
+
   if isreal(z) then
     if min(z) < 1 then
       // result is complex
@@ -40,7 +41,8 @@ function [t] = acosh(z)
       t = 2*(0.5 - bool2s(imag(u)>0)).*imult(u)
     else
       // result is real
-      t = imag(acos(z))
+      t = imag(acos(z));
+      t(isnan(z)) = %nan;
     end
   else
     u = acos(z)

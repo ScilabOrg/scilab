@@ -114,12 +114,13 @@ AC_ARG_ENABLE(build-giws,
     AC_HELP_STRING([--enable-build-giws],[Regenerate C/C++ => Java wrappers produces by Giws (A Java Development Kit (JDK) is mandatory for this option)]))
 
 
-##############################
-########## compilator detection
-##############################
+################################################
+########## compilator & misc programs detection
+################################################
 
 AC_PROG_CPP
 AC_PROG_GREP
+PKG_PROG_PKG_CONFIG
 
 #####################################################
 ## check if options are correct (or not)
@@ -279,7 +280,7 @@ fi
 if test -n "$F77"; then
 dnl @TODO : il faut peut etre verifier que c'est bien gfortran
    if test "$enable_debug_fortran" = yes; then
-	  FFLAGS="$FFLAGS -g -Wall "
+	  FFLAGS="$FFLAGS -g -Wall -Wimplicit -Wsurprising"
 	  # -D_FORTIFY_SOURCE=2
    else
 	  FFLAGS="$FFLAGS -DNDEBUG"
@@ -365,7 +366,7 @@ fi
 if test "$CXX" = "g++" -o "$CXX" = "ccache g++"; then
    ## With GNU C++ Compiler
    if test "$enable_debug_CXX" = yes; then
-	  CXXFLAGS="$CXXFLAGS -pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall "
+	  CXXFLAGS="$CXXFLAGS -pipe -Wshadow -Wpointer-arith -Wcast-align -Wreturn-type -Wswitch -Wtrigraphs -Wcomment -W -Wchar-subscripts -Wformat -Wparentheses -Wsign-compare -Wwrite-strings -Wunused -Wno-strict-aliasing -Wextra -Wall -Wold-style-cast -g3 -Weffc++"
           case "$host" in
           *-linux-gnu )
           # Only doing that under Linux
@@ -375,6 +376,7 @@ if test "$CXX" = "g++" -o "$CXX" = "ccache g++"; then
    else
 	  CXXFLAGS="$CXXFLAGS -DNDEBUG"
    fi
+   CXXFLAGS="$CXXFLAGS -fno-stack-protector" # bug 3131
 fi
 
 ##########"
@@ -387,7 +389,7 @@ IS_64_BITS_CPU=false
 if test "$CC" = "gcc" -o "$CC" = "ccache gcc"; then
    ## With GNU Compiler
    if test "$enable_debug_C" = yes; then
-	  CFLAGS="$CFLAGS -pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing"
+	  CFLAGS="$CFLAGS -pipe -Wformat -Wshadow -Wfloat-equal -Wpointer-arith -Wcast-align -Wmissing-prototypes -Wmissing-declarations  -Wstrict-prototypes  -Wmissing-noreturn -Wendif-labels -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wwrite-strings -Winline -Wredundant-decls -Wall -Wchar-subscripts -Wextra  -Wuninitialized -Wno-format-y2k -Wmissing-format-attribute -Wno-missing-field-initializers -Wno-strict-aliasing  -Wold-style-definition -g3"
 	  # used to be -O
 	  # -D_FORTIFY_SOURCE=2
 	  case "$host" in
@@ -402,6 +404,7 @@ if test "$CC" = "gcc" -o "$CC" = "ccache gcc"; then
    else
 	  CFLAGS="$CFLAGS  -DNDEBUG"
    fi
+   CFLAGS="$CFLAGS -fno-stack-protector" # bug 3131
 
    case "$host" in
    # Linux sparc | Linux, old binary format a.out (NO LONGER SUPPORTED)
@@ -1001,10 +1004,39 @@ AM_CONDITIONAL(TCLTK, test "$WITH_TKSCI" = 1)
 AC_ARG_WITH(matio,
     AC_HELP_STRING([--without-matio],[Compile with the MAT File I/O library]))
 
+AC_ARG_WITH(matio_include,
+		AC_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
+		[with_matio_include="-I$withval"], [])
+
+AC_ARG_WITH(matio_library,
+		AC_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
+		[with_matio_library="-L$withval"], [])
+
 MATIO_ENABLE=no
 
 if test "$with_matio" != no; then
-   AC_MATIO()
+   if test -n "$with_matio_include" -o -n "$with_matio_library" ; then
+      MATIO_CFLAGS="$with_matio_include"
+      MATIO_LIBS="$with_matio_library -lm -lz -lmatio"
+   else
+      PKG_CHECK_MODULES(MATIO, [matio >= 1.3.3])
+   fi
+   
+   save_CFLAGS="$CFLAGS"
+   save_LIBS="$LIBS"
+   
+   CFLAGS="$CFLAGS $MATIO_CFLAGS"
+   LIBS="$LIBS $MATIO_LIBS"
+   
+   AC_CHECK_HEADERS([matio.h matioConfig.h], [],
+     [AC_MSG_ERROR(Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS.)])
+   AC_CHECK_LIB([matio], [Mat_Open], [],
+     [AC_MSG_ERROR(Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS.)])
+   
+   LIBS="$save_LIBS"
+   CFLAGS="$save_CFLAGS"
+   
+   AC_DEFINE([WITH_MATIO], [], [With the MATIO library])
    MATIO_ENABLE=yes
 fi
 
@@ -1348,7 +1380,7 @@ fi
 echo ""
 if test $MATIO_ENABLE = yes;  then
    echo "MATIO Configuration:"
-   echo "MATIO LIBS .......... = $MATIO_LIB"
+   echo "MATIO LIBS .......... = $MATIO_LIBS"
    echo "MATIO CFLAGS ........ = $MATIO_CFLAGS"
 else
    echo "Not using MATIO"
