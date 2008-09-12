@@ -1,8 +1,14 @@
 #!/usr/bin/perl -w
 
-# clean.pl
-# Usage: clean.pl config-file
+# purge.pl
+# Usage: purge.pl config-file
 # Delete Compilation, Stage, CommandReport, ReportMessage records associated to this Host
+
+# This script MUST NOT be used in production.
+# It is used for the setting up of a compilation chain: if you messed up the configuration
+# file and want to restart from zeo, use this script.
+# Using this script will remove all links of to files produced by this compilation chain.
+# You're advised :)
 
 use strict;
 use Config::IniFiles;
