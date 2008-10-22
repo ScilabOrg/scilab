@@ -4,7 +4,7 @@
 #  Copyright (C) 2003-2006 - Weizmann Institute of Science, Enrico Segre
 #  Copyright (C) 2004-2008 - Francois Vogel
 #
-#  Localization files ( in tcl/msg_files/) are copyright of the 
+#  Localization files ( in tcl/msg_files/) are copyright of the
 #  individual authors, listed in the header of each file
 #
 # This program is free software; you can redistribute it and/or modify
@@ -135,7 +135,7 @@ set bug2474_fixed true
 # the debugger be unplugged from Scilab 5...
 
 if {$Scilab5 && !$standaloneScipad} {
-    set bug2789_fixed false
+    set bug2789_fixed true
 } else {
     # Scilab 4.x, Scilab-gtk, or stand-alone Scipad
     set bug2789_fixed true
@@ -162,7 +162,7 @@ if {$Scilab5 && !$standaloneScipad} {
 # all one needs in order to add a new retrievable preference is:
 #  - add the variable name to $listofpref below, if it is not a list
 #  - add the variable name to $listofpref_list below, if it is a list
-#  - use the variable when needed in the program, such that 
+#  - use the variable when needed in the program, such that
 #    it is visible at main level (i.e. globalize it)
 #  - if needed, assign an initial fallback value here
 
