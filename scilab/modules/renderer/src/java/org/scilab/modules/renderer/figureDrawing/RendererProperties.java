@@ -214,13 +214,25 @@ public interface RendererProperties {
 	/**
 	 * If the window does not already contains a 3D canvas,
 	 * add one.
-	 * @param figureIndex index of the figure in which the canvas is added
 	 */
-	void openGraphicCanvas(int figureIndex);
+	void openGraphicCanvas();
 	
 	/**
 	 * Destroy the canvas if one already exists
 	 */
 	void closeGraphicCanvas();
+	
+	
+	/**
+	 * Set the event handler of the figure
+	 * @param command the name of the Scilab function to call
+	 */
+	void setEventHandler(String command);
+	
+	/**
+	 * Set the status of the event handler of the figure
+	 * @param status is true to set the event handler active
+	 */
+	void setEventHandlerEnabled(boolean status);
 	
 }

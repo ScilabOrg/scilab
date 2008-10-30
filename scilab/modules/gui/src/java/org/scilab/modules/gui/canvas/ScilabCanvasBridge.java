@@ -12,12 +12,11 @@
 
 package org.scilab.modules.gui.canvas;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.media.opengl.GL;
 
-import org.scilab.modules.gui.bridge.canvas.ScrolledSwingScilabCanvas;
+import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 
@@ -40,7 +39,7 @@ public class ScilabCanvasBridge {
 	 * @return the created canvas
 	 */
 	public static SimpleCanvas createCanvas(int figureIndex) {
-		return ScrolledSwingScilabCanvas.createCanvas(figureIndex);
+		return SwingScilabCanvas.createCanvas(figureIndex);
 	}
 
 	/**
@@ -151,47 +150,6 @@ public class ScilabCanvasBridge {
 	}
 	
 	/**
-	 * Specify wether the canvas should fit the parent tab size
-	 * (and consequently the scrollpane size) or not
-	 * @param onOrOff true to enable autoresize mode
-	 * @param canvas the canvas we want to repaint
-	 */
-	public static void setAutoResizeMode(Canvas canvas, boolean onOrOff) {
-		canvas.getAsSimpleCanvas().setAutoResizeMode(onOrOff);
-	}
-	
-	/**
-	 * @param canvas the canvas we want to repaint
-	 * @return wether the resize mode is on or off
-	 */
-	public static boolean getAutoResizeMode(Canvas canvas) {
-		return canvas.getAsSimpleCanvas().getAutoResizeMode();
-	}
-	
-	/**
-	 * Get the part of the canvas which is currently viewed
-	 * @param canvas the canvas we want to repaint
-	 * @return [x,y,w,h] array
-	 */
-	public static int[] getViewingRegion(Canvas canvas) {
-		return canvas.getAsSimpleCanvas().getViewingRegion();
-	}
-	
-	/**
-	 * Specify a new viewport for the canvas
-	 * For SwingScilabCanvas viewport can not be modified
-	 * since it match the parent tab size
-	 * @param canvas the canvas we want to modify
-	 * @param posX X coordinate of upper left point of the viewport within the canvas
-	 * @param posY Y coordinate of upper left point of the viewport within the canvas
-	 * @param width width of the viewport
-	 * @param height height of the viewport
-	 */
-	public static void setViewingRegion(Canvas canvas, int posX, int posY, int width, int height) {
-		canvas.getAsSimpleCanvas().setViewingRegion(posX, posY, width, height);
-	}
-	
-	/**
 	 * Set the background of the Canvas.
 	 * @param canvas the canvas we want to modify
 	 * @param red red channel
@@ -200,24 +158,6 @@ public class ScilabCanvasBridge {
 	 */
 	public static void setBackgroundColor(Canvas canvas, double red, double green, double blue) {
 		canvas.getAsSimpleCanvas().setBackgroundColor(red, green, blue);
-	}
-	
-	/**
-	 * Set the event handler of the Canvas
-	 * @param canvas the Canvas
-	 * @param command the name of the Scilab function to call
-	 */
-	public static void setEventHandler(Canvas canvas, String command) {
-		canvas.getAsSimpleCanvas().setEventHandler(command);
-	}
-
-	/**
-	 * Set the status of the event handler of the Canvas
-	 * @param canvas the Canvas
-	 * @param status is true to set the event handler active
-	 */
-	public static void setEventHandlerEnabled(Canvas canvas, boolean status) {
-		canvas.getAsSimpleCanvas().setEventHandlerEnabled(status);
 	}
 	
 	/**
