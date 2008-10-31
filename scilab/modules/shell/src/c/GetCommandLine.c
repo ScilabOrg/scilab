@@ -156,24 +156,26 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
   __LockSignal(&ReadyForLaunch);
   __CommandLine = strdup("");
 
-  if (ismenu() == 0)
+  if (ismenu() == 0)  /* there is no callback in the queue */
     {
       if (!WatchGetCmdLineThreadAlive)
-	{
-	  if (WatchGetCmdLineThread) {
-	    __WaitThreadDie(WatchGetCmdLineThread);
-	  }
-	  __CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
-	  WatchGetCmdLineThreadAlive = TRUE;
-	}
+        {
+          if (WatchGetCmdLineThread)
+            {
+              __WaitThreadDie(WatchGetCmdLineThread);
+            }
+            __CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
+            WatchGetCmdLineThreadAlive = TRUE;
+        }
       if (!WatchStoreCmdThreadAlive)
-	{
-	  if (WatchStoreCmdThread) {
-	    __WaitThreadDie(WatchStoreCmdThread);
-	  }
-	  __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
-	  WatchStoreCmdThreadAlive = TRUE;
-	}
+        {
+          if (WatchStoreCmdThread)
+            {
+              __WaitThreadDie(WatchStoreCmdThread);
+            }
+          __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
+          WatchStoreCmdThreadAlive = TRUE;
+        }
 
       __Wait(&TimeToWork, &ReadyForLaunch);
       /*
@@ -181,32 +183,21 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
       ** do not change reference to buffer
       ** or fortran will be lost !!!!
       */
-      strcpy(buffer, __CommandLine);
+      if (__CommandLine)
+        {
+          strcpy(buffer, __CommandLine);
+        }
+      else
+        {
+          strcpy(buffer,"");
+        }
       *len_line = (int)strlen(buffer);
       *eof = FALSE;
     }
-  else
+  else    /* there IS a callback in the queue */
     {
       *len_line = 0;
-      *eof = -1;
+      *eof = -1;  /* eof<0 means interrupted reading (--> callback) */
     }
   __UnLockSignal(&ReadyForLaunch);
-
-  /*
-  ** WARNING : Old crappy f.... code
-  ** do not change reference to buffer
-  ** or fortran will be lost !!!!
-  */
-  if (__CommandLine)
-  {
-	strcpy(buffer, __CommandLine);
-  }
-  else
-  {
-	  strcpy(buffer,"");
-  }
-  *len_line = (int)strlen(buffer);
-
-  *eof = FALSE;
 }
-
