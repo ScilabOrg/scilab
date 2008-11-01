@@ -27,7 +27,7 @@
 /*--------------------------------------------------------------------------*/
 /* what's the max number of commands in the queue ??*/
 #define arbitrary_max_queued_callbacks 20
-#define AddCharacters 4
+
 /*--------------------------------------------------------------------------*/
 /* Used by tksynchro
  * static int c_n1 = -1;
