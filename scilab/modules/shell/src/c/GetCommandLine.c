@@ -94,8 +94,7 @@ static void getCommandLine(void)
 
 /***********************************************************************/
 /*
-** This function is threaded and watch for a signal.
-** sent when StoreCommand is performed.
+** Initialize thread signals for command line
 */
 static void initAll(void) {
   initialized = TRUE;
@@ -124,7 +123,7 @@ static void *watchStoreCommand(void *in) {
 
 /***********************************************************************/
 /*
-** This function is threaded and wait until
+** This function is threaded and waits until
 ** some command has been input by user using
 ** the shell.
 */
@@ -196,6 +195,7 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
     }
   else    /* there IS a callback in the queue */
     {
+      strcpy(buffer,"");
       *len_line = 0;
       *eof = -1;  /* eof<0 means interrupted reading (--> callback) */
     }
