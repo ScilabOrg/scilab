@@ -9,6 +9,8 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 c
       integer function lnblnk(str)
 c
+c return length of string str without its trailing blanks
+c
       character*(*) str
       n=len(str)+1
  10   continue

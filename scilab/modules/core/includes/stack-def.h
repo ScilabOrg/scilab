@@ -53,7 +53,9 @@
 /* intersiz used in interfaces */
 #define intersiz 1024
 
+/* maximum number of breakpointed macros */
 #define maxdb 100
+/* maximum total number of breakpoints */
 #define maxbpt 1000
 
 
@@ -102,7 +104,7 @@ typedef struct
 	int pt;  /**< @TODO : add comment */
 	int niv;  /**< @TODO : add comment */
 	int macr;  /**< @TODO : add comment */
-	int paus;  /**< @TODO : add comment */
+	int paus;  /* pause level, i.e. x in the -x-> prompt */
 	int icall;  /**< @TODO : add comment */
 	int krec; /**< @TODO : add comment */
 } RECU_struct;
@@ -114,7 +116,7 @@ IMPORT RECU_struct C2F(recu);
  */
 typedef struct 
 {
-	int ddt; /**< @TODO : add comment */
+	int ddt; /* Scilab interpreter debug level (see help debug) */
 	int err; /**< @TODO : add comment */
 	int lct[8]; /**< @TODO : add comment */
 	int lin[lsiz]; /**< @TODO : add comment */
@@ -215,10 +217,10 @@ typedef struct
 {
 	int wmac; /**< @TODO : add comment */
 	int lcntr; /**< @TODO : add comment */
-	int nmacs; /**< @TODO : add comment */
-	int macnms[nsiz*maxdb]; /**< @TODO : add comment */
-	int lgptrs[maxdb+1]; /**< @TODO : add comment */
-	int bptlg[maxbpt]; /**< @TODO : add comment */
+	int nmacs; /* number of breakpointed macros */
+	int macnms[nsiz*maxdb]; /* array of names of all macros having at least one breakpoint */
+	int lgptrs[maxdb+1]; /* array of pointers to the first breakpointed line number for each breakpointed macro */
+	int bptlg[maxbpt]; /* array of line numbers in macros (breakpointed lines) */
 } DBG_struct;
 
 IMPORT DBG_struct C2F(dbg);
