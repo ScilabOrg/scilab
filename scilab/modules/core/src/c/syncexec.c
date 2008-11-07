@@ -54,7 +54,7 @@ int syncexec(char *str, int *ns, int *ierr, int *seq, long int str_len)
 	Ids[4 + Pt * nsiz] =  C2F(basbrk).interruptible;
 	C2F(basbrk).interruptible = *seq == 0;
 
-	Rstk[Pt] = 1002;
+	Rstk[Pt] = 1002;  /* tag it as a syncexec */
 	++C2F(recu).niv;
 	C2F(com).fun = 0;
 	C2F(recu).icall = 5;
