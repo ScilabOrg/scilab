@@ -32,6 +32,9 @@
 //     <-- NO CHECK ERROR OUTPUT -->
 //     <-- NO CHECK REF -->
 //       The .dia and the .dia.ref files are not compared.
+//     <-- ENGLISH IMPOSED -->
+//       This test will be executed with the -l en_US option.
+//
 //   Each test is executed in a separated process, created with the "host" command.
 //   That enables the current command to continue, even if the test as
 //   created an unstable environment. It also enables the tests to be 
@@ -534,6 +537,12 @@ function [status_id,status_msg,status_details] = test_run_onetest(module,test,te
 	
 	if grep(txt,"<-- NOT FIXED -->") <> [] then
 		status_msg = "skipped : not yet fixed";
+		status_id  = 10;
+		return;
+	end
+	
+	if grep(txt,"<-- REOPENED -->") <> [] then
+		status_msg = "skipped : Bug reopened";
 		status_id  = 10;
 		return;
 	end
