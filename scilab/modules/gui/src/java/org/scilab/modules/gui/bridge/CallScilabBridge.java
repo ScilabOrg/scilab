@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007-2008 - INRIA - Vincent COUVERT
+ * Copyright (C) 2008 - DIGITEO - Sylvestre KOUMAR
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -38,6 +39,8 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
+import javax.swing.JTextPane;
+
 
 import org.scilab.modules.console.SciConsole;
 import org.scilab.modules.graphic_export.ExportRenderer;
@@ -95,6 +98,7 @@ import org.scilab.modules.gui.utils.ScilabRelief;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.utils.WebBrowser;
+import org.scilab.modules.gui.utils.PrinterHelper;
 import org.scilab.modules.gui.waitbar.ScilabWaitBar;
 import org.scilab.modules.gui.waitbar.WaitBar;
 import org.scilab.modules.gui.widget.Widget;
@@ -279,24 +283,6 @@ public class CallScilabBridge {
 	public static int newColorChooser() {
 		ColorChooser colorChooser = ScilabColorChooser.createColorChooser();
 		return UIElementMapper.add(colorChooser);
-	}
-	/**
-	 * Create a new File Chooser in Scilab GUIs
-	 * @return the ID of the File Chooser in the UIElementMapper
-	 */
-	public static int newFileChooser() {
-		FileChooser fileChooser = ScilabFileChooser.createFileChooser();
-		return UIElementMapper.add(fileChooser);
-	}
-
-	/**
-	 * Create a new Graphic Export File Chooser in Scilab GUIs
-	 * @param figureId id of the figure to export
-	 * @return the ID of the File Chooser in the UIElementMapper
-	 */
-	public static int newExportFileChooser(int figureId) {
-		FileChooser fileChooser = ScilabFileChooser.createExportFileChooser(figureId);
-		return UIElementMapper.add(fileChooser);
 	}
 
 	/**
@@ -1045,74 +1031,7 @@ public class CallScilabBridge {
 	/*                     */
 	/***********************/
 
-	/**
-	 * Set the file chooser title
-	 * @param id the id of the fileChooser
-	 * @param title the title of the fileChooser
-	 */
-	public static void setFileChooserTitle(int id, String title) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setTitle(title);
-	}
 
-	/**
-	 * Set the initial directory used for file search
-	 * @param id the id of the fileChooser
-	 * @param path the default path
-	 */
-	public static void setFileChooserInitialDirectory(int id, String path) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setInitialDirectory(path);
-	}
-
-	/**
-	 * Set the mask for files that can be selected
-	 * @param id the id of the fileChooser
-	 * @param mask the mask to apply
-	 */
-	public static void setFileChooserMask(int id, String mask) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setMask(mask);
-	}
-
-	/**
-	 * Display this chooser and wait for user selection
-	 * @param id the id of the fileChooser
-	 */
-	public static void fileChooserDisplayAndWait(int id) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).displayAndWait();
-	}
-
-	/**
-	 * Get the number of files selected
-	 * @param id the id of the fileChooser
-	 * @return the number of files selected
-	 */
-	public static int getFileChooserSelectionSize(int id) {
-		return ((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).getSelectionSize();
-	}
-
-	/**
-	 * Get the names of selected files
-	 * @param id the id of the fileChooser
-	 * @return the names of selected files
-	 */
-	public static String[] getFileChooserSelection(int id) {
-		return ((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).getSelection();
-	}
-
-	/**
-	 * Set the flag indicating that we want only select directories
-	 * @param id the id of the fileChooser
-	 */
-	public static void setFileChooserDirectorySelectionOnly(int id) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setDirectorySelectionOnly();
-	}
-
-	/**
-	 * Set the flag indicating that we want only select files
-	 * @param id the id of the fileChooser
-	 */
-	public static void setFileChooserFileSelectionOnly(int id) {
-		((FileChooser) UIElementMapper.getCorrespondingUIElement(id)).setFileSelectionOnly();
-	}
 
 
 	/**********************/
@@ -2233,17 +2152,24 @@ public class CallScilabBridge {
 		SciConsole scilabConsole = ((SciConsole) ScilabConsole.getConsole().getAsSimpleConsole());
 		StyledDocument doc = scilabConsole.getConfiguration().getOutputViewStyledDocument();
 		String textToPrint = null;
+		
+		/* Text selected in the input */
+		String strInputSelected = ((JTextPane) scilabConsole.getConfiguration().getInputCommandView()).getSelectedText();
+		/* Text selected in the output */
+		String strOutputSelected = ((JTextPane) scilabConsole.getConfiguration().getOutputView()).getSelectedText();
 			
-			try {
-				textToPrint = doc.getText(0, doc.getLength());
-				if (isWindowsPlateform()) {
-					/* Windows need line feed */
-					textToPrint = textToPrint.replaceAll("\n","\n\r");
-				}
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			}
+		try {
+			textToPrint = doc.getText(0, doc.getLength());
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		if (strInputSelected != null) {
+			printString(strInputSelected, new String("Console"));
+		} else if (strOutputSelected != null) {
+			printString(strOutputSelected, new String("Console"));
+		} else {
 			printString(textToPrint, new String("Console"));
+		}
 	}
 	
 	/**
@@ -2253,30 +2179,8 @@ public class CallScilabBridge {
 	 * @return execution status
 	 */
 	public static boolean printString(String theString, String pageHeader) {
-
 		/* TODO use pageHeader */
-
-		// Get the PrinterJob object
-		PrinterJob printerJob = PrinterJob.getPrinterJob();
-		Doc myDoc = null;
-
-  	if (isWindowsPlateform()) {
-			/* Windows need line feed */
-		  theString = theString.replaceAll("\n","\n\r");
-		  myDoc = new SimpleDoc(theString.getBytes(), DocFlavor.BYTE_ARRAY.AUTOSENSE , null);
-		} else {
-			myDoc = new SimpleDoc(theString, DocFlavor.STRING.TEXT_PLAIN, null);
-		}
-
-		DocPrintJob job = printerJob.getPrintService().createPrintJob();
-
-		try {
-			job.print(myDoc, scilabPageFormat);
-		} catch (PrintException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		return PrinterHelper.printString(theString);
 	}
 	
 	/**
@@ -2285,39 +2189,7 @@ public class CallScilabBridge {
 	 * @return execution status
 	 */
 	public static boolean printFile(String fileName) {
-		// Get the PrinterJob object
-		PrinterJob printerJob = PrinterJob.getPrinterJob();
-
-		try {
-			/** Read file */
-			FileInputStream psStream = null;
-			try {
-				psStream = new FileInputStream(fileName);
-			} catch (FileNotFoundException ffne) {
-				ffne.printStackTrace();
-				return false;
-			}
-
-			Doc myDoc = null;
-			
-			if (isWindowsPlateform()) {
-				myDoc = new SimpleDoc(psStream, DocFlavor.INPUT_STREAM.AUTOSENSE  , null);
-			} else {
-				myDoc = new SimpleDoc(psStream, DocFlavor.STRING.TEXT_PLAIN, null);
-			}
-			
-			DocPrintJob job = printerJob.getPrintService().createPrintJob();
-
-			// Remove Orientation option from page setup because already managed in FileExporter
-			PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet(scilabPageFormat);
-			aset.add(OrientationRequested.PORTRAIT);
-
-			job.print(myDoc, aset);
-			return true;
-		} catch (PrintException e) {
-			e.printStackTrace();
-			return false;
-		}
+		return PrinterHelper.printFile(fileName);
 	}
 
 	/**
