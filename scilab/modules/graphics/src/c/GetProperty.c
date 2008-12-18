@@ -1239,7 +1239,8 @@ sciGetIsClipRegionValuated (sciPointObj * pobj)
     case SCI_GRAYPLOT:
       return pGRAYPLOT_FEATURE (pobj)->clip_region_set;
       break;
-    case SCI_LEGEND:    
+    case SCI_LEGEND:
+			return pLEGEND_FEATURE(pobj)->clip_region_set;
     case SCI_AGREG: 
     case SCI_FIGURE: 
     case SCI_LABEL: /* F.Leray 28.05.04 */
@@ -1289,7 +1290,8 @@ sciGetIsClipping (sciPointObj * pobj)
     case SCI_GRAYPLOT:
       return pGRAYPLOT_FEATURE(pobj)->isclip;
       break;
-    case SCI_LEGEND:    
+    case SCI_LEGEND:
+			return pLEGEND_FEATURE(pobj)->isclip;
     case SCI_AGREG: 
     case SCI_FIGURE: 
     case SCI_LABEL: /* F.Leray 28.05.04 */
@@ -1399,7 +1401,7 @@ sciGetAddPlot (sciPointObj * pobj)
     case SCI_LABEL: /* F.Leray 28.05.04 */
     case SCI_UIMENU:
     default:
-      printSetGetErrorMessage("addplot");
+      printSetGetErrorMessage("auto_clear");
       return FALSE;
       break;
     } 
@@ -1435,7 +1437,7 @@ sciGetAutoScale (sciPointObj * pobj)
     case SCI_LABEL: /* F.Leray 28.05.04 */
     case SCI_UIMENU:
     default:
-      printSetGetErrorMessage("autoscale");
+      printSetGetErrorMessage("auto_scale");
       return FALSE;
       break;
     }

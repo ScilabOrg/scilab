@@ -38,8 +38,6 @@ using namespace org_scilab_modules_gui_filechooser;
 
 int sci_uigetfile(char *fname,unsigned long fname_len) 
 {
-	//std::cerr << "[CALL] uigetfile" << std::endl;
-	//std::cout << "[CALL] uigetfile" << std::endl;
 	int nbRow = 0, nbCol = 0;
 	int nbRow2 = 0, nbCol2 = 0;
 	int nbRow3 = 0, nbCol3 = 0;
@@ -68,7 +66,7 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 
 	char *menuCallback;
 
-	CheckRhs(1,4);
+	CheckRhs(0,4);
 	CheckLhs(1,3);
 
 	if ((optName = (char*)MALLOC(sizeof(char*)*(strlen("title")+1))) == NULL)
@@ -77,17 +75,15 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		return FALSE;
 	}
 
-	//std::cerr << "Malloc test pass" << std::endl;
 
 	/* Wrong number of arg */
-	if ((Rhs < 1) || (Rhs > 4))
+	if ((Rhs < 0) || (Rhs > 4))
 	{
 		Scierror(999, _("%s: Wrong number of input argument(s).\n"));
 		FREE(optName);
 		return FALSE;
 	}
 
-	//std::cerr << "Wrong nb arg test pass" << std::endl;
 
 	//inputs checking
 	/* call uigetfile with 1 arg */
@@ -97,7 +93,7 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{
 			Scierror(999, _("%s: Wrong type for input argument #%d: A string matrix expected.\n"),fname, 1);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}		
 		GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, &mask);
 
@@ -117,12 +113,11 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{
 			Scierror(999, _("%s: Wrong size for input argument #%d: A string matrix expected.\n"),fname, 1);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}
 
 	}
 
-	//std::cerr << "1 arg test pass" << std::endl;
 
 	/* call uigetfile with 2 arg */
 	if (Rhs >= 2){
@@ -131,7 +126,7 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{ 
 			Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"),fname, 2);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}
 
 		GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRow2, &nbCol2, &initialDirectory);
@@ -139,11 +134,10 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{
 			Scierror(999, _("%s: Wrong size for input argument #%d: A string  expected.\n"),fname, 2);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}
 	}
 
-	//std::cerr << "2 arg test pass" << std::endl;
 
 	/* call uigetfile with 3 arg */
 	if (Rhs >= 3){
@@ -152,18 +146,17 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{ 
 			Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"),fname, 3);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}		
 		GetRhsVar(3, MATRIX_OF_STRING_DATATYPE, &nbRow3, &nbCol3, &titleBox);
 		if (nbCol3 != 1 || nbRow3 != 1) 
 		{
 			Scierror(999, _("%s: Wrong size for input argument #%d: A string  expected.\n"),fname, 3);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}
 	}
 
-	//std::cerr << "3 arg test pass" << std::endl;
 
 	/* call uigetfile with 4 arg */
 	if (Rhs == 4){
@@ -172,47 +165,44 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 		{ 
 			Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"),fname, 4);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}				
 		GetRhsVar(4, MATRIX_OF_BOOLEAN_DATATYPE, &nbRow4, &nbCol4, &multipleSelectionAdr);
 		if (nbCol4 != 1 || nbRow4 != 1) 
 		{
 			Scierror(999, _("%s: Wrong size for input argument #%d: A boolean matrix expected.\n"),fname, 4);
 			FREE(optName);
-			return false;
+			return FALSE;
 		}			
 		multipleSelection = istk(multipleSelectionAdr)[0];
 	}
 
-	//std::cerr << "4 arg test pass" << std::endl;
 
 	/* Call Java */
+	if (Rhs == 0)
+	{		
+		CallJuigetfileWithoutInput();
+	}
+
 	if (Rhs == 1)
 	{		
-		//std::cerr << "calling java with 1 arg" << std::endl;
 		CallJuigetfileOnlyWithMask(mask, description, nbRow);
 	}
 
 	if (Rhs == 2)
 	{
-		//std::cerr << "calling java with 2 arg" << std::endl;
 		CallJuigetfileWithMaskAndInitialdirectory(mask, description, nbRow, initialDirectory[0]);
-		//std::cerr << "after calling java with 2 arg" << std::endl;
 	}
 
 	if (Rhs == 3)
 	{
-		//std::cerr << "calling java with 3 arg" << std::endl;
 		CallJuigetfileWithoutMultipleSelection(mask, description, nbRow, initialDirectory[0], titleBox[0]);
 	}
 
 	if (Rhs == 4)
 	{
-		//std::cerr << "calling java with 4 arg" << std::endl;
 		CallJuigetfile(mask, description, nbRow, initialDirectory[0], titleBox[0], BOOLtobool(multipleSelection));
 	} 
-
-	//std::cerr << "After Java call ..." << std::endl;
 
 
 	// Get return values
@@ -224,16 +214,6 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 	menuCallback = getJuigetfileMenuCallback();
 
 
-	//printf("\n");
-	//printf(("selectionRempli: %s \n"),selection);
-	/*for (int __i = 0 ; __i < selectionSize ; ++__i) {
-		std::cerr << "selectionRempli ["<< __i << "] "<< selection[__i] << std::endl; 
-	}*/
-	//printf(("selectionPathNameRempli: %s \n"),selectionPathName);
-	//printf(("selectionSize: %d \n"),selectionSize);
-	//printf(("multipleSelection: %d \n"),multipleSelection);
-	//printf(("C++ filterIndex: %d \n"),filterIndex);
-
 	// nbColOutSelection
 	nbColOutSelection = selectionSize;
 
@@ -244,14 +224,18 @@ int sci_uigetfile(char *fname,unsigned long fname_len)
 
 
 	//if cancel is selected on the filechooser
-	if (selection[0] == "")
+	if (strcmp(selection[0],"") == 0)
 	{
+		nbRowOutSelection = 1; 
+		nbColOutSelection = 1;
+		CreateVarFromPtr(Rhs+1, MATRIX_OF_STRING_DATATYPE, &nbRowOutSelection, &nbColOutSelection, selection);
+		LhsVar(1) = Rhs + 1 ;
+		C2F(putlhsvar)();
 		return 0;
 	}
 
-
 	//uigetfile with single file selection
-	if (multipleSelection == false) 
+	if (multipleSelection == FALSE) 
 	{
 		if (Lhs != 1)
 		{
