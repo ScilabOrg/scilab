@@ -43,7 +43,6 @@ bin_PROGRAMS = scilab-bin$(EXEEXT) $(am__EXEEXT_1)
 
 #-static
 @ENABLE_STATIC_TRUE@am__append_1 = scilab-static-bin
-# doc
 
 #  The user wants to compile the localization files
 @GENERATE_LOCALIZATION_FILES_TRUE@am__append_2 = localization
@@ -397,6 +396,8 @@ $(top_srcdir)/COPYING \
 $(top_srcdir)/COPYING-FR \
 $(top_srcdir)/README_Unix \
 $(top_srcdir)/RELEASE_NOTES \
+$(top_srcdir)/RELEASE_NOTES_5.0.X \
+$(top_srcdir)/RELEASE_NOTES_5.1 \
 $(top_srcdir)/Readme_Visual.txt \
 $(top_srcdir)/README_Windows.txt
 

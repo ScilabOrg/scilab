@@ -55,11 +55,9 @@ scilab_static_bin_LDADD = $(top_builddir)/modules/libscilab.la
 scilab_static_bin_SOURCES = $(scilab_bin_SOURCES)
 endif
 
-
 LANG_DOMAIN=scilab
 
 TARGETS_ALL=macros
-# doc
 
 #  The user wants to compile the localization files
 if GENERATE_LOCALIZATION_FILES
@@ -88,6 +86,8 @@ $(top_srcdir)/COPYING \
 $(top_srcdir)/COPYING-FR \
 $(top_srcdir)/README_Unix \
 $(top_srcdir)/RELEASE_NOTES \
+$(top_srcdir)/RELEASE_NOTES_5.0.X \
+$(top_srcdir)/RELEASE_NOTES_5.1 \
 $(top_srcdir)/Readme_Visual.txt \
 $(top_srcdir)/README_Windows.txt
 
