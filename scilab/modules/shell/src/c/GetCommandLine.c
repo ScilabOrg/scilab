@@ -87,7 +87,52 @@ static void getCommandLine(void)
       __CommandLine = localeToUTF(TermReadAndProcess());
     }
 }
+/***********************************************************************/
+/*
+** used by mscanf to get a line from the Scilab console
+*/
+void getLine(char *buffer,int *buf_size,int *len_line,int * eof)
+{
+  char *line;
+  printf("entree dans getLine\r\n");
 
+  tmpPrompt = GetTemporaryPrompt();
+  GetCurrentPrompt(Sci_Prompt);
+
+  if (getScilabMode() == SCILAB_STD)
+    {
+      /* Send new prompt to Java Console, do not display it */
+      if (tmpPrompt != NULL)
+        {
+          SetConsolePrompt(tmpPrompt);
+          ClearTemporaryPrompt();
+        }
+      else
+        {
+          SetConsolePrompt(Sci_Prompt);
+        }
+      setSearchedTokenInScilabHistory(NULL);
+      /* Call Java Console to get a string */
+      line= ConsoleRead();
+    }
+  else
+    {
+      /* Call Term Management for NW and NWNI to get a string */
+      line = localeToUTF(TermReadAndProcess());
+    }
+
+  if (line)
+    {
+      strcpy(buffer, line);
+    }
+  else
+    {
+      strcpy(buffer,"");
+    }
+  *len_line = (int)strlen(buffer);
+  *eof = FALSE;
+  printf("sortie de getLine buffer=%s,len_line=%d\r\n",buffer,*len_line);
+}
 /***********************************************************************/
 /*
 ** Initialize thread signals for command line
@@ -135,6 +180,7 @@ static void *watchGetCommandLine(void *in) {
 
 }
 
+
 /***********************************************************************/
 /*
 ** Old zzledt... Called by Fortran...
@@ -143,14 +189,14 @@ static void *watchGetCommandLine(void *in) {
 void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
 		 int *menusflag,int * modex,long int dummy1)
 {
+  printf("entree dans zzledt ismenu=%d\r\n",ismenu());
   if(!initialized)
     {
       initAll();
     }
-
   __LockSignal(&ReadyForLaunch);
   __CommandLine = strdup("");
-
+  
   if (ismenu() == 0)  /* there is no callback in the queue */
     {
       if (!WatchGetCmdLineThreadAlive)
@@ -188,12 +234,15 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
         }
       *len_line = (int)strlen(buffer);
       *eof = FALSE;
+      printf("sortie de zzledt buffer=%s, len_line=%d eof=%d\r\n",buffer, *len_line,*eof);
     }
   else    /* there IS a callback in the queue */
     {
       strcpy(buffer,"");
       *len_line = 0;
       *eof = -1;  /* eof<0 means interrupted reading (--> callback) */
+      printf("sortie de zzledt read interrupted\r\n");
     }
   __UnLockSignal(&ReadyForLaunch);
+  printf("fin de zzledt\r\n");
 }
