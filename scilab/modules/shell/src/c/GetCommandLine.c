@@ -87,55 +87,21 @@ static void getCommandLine(void)
       __CommandLine = localeToUTF(TermReadAndProcess());
     }
 }
+
 /***********************************************************************/
 /*
 ** used by mscanf to get a line from the Scilab console
 */
-void getLine(char *buffer,int *buf_size,int *len_line,int * eof)
+char *getConsoleInputLine(void)
 {
-  char *line;
-  printf("entree dans getLine\r\n");
-
-  tmpPrompt = GetTemporaryPrompt();
-  GetCurrentPrompt(Sci_Prompt);
-
-  if (getScilabMode() == SCILAB_STD)
-    {
-      /* Send new prompt to Java Console, do not display it */
-      if (tmpPrompt != NULL)
-        {
-          SetConsolePrompt(tmpPrompt);
-          ClearTemporaryPrompt();
-        }
-      else
-        {
-          SetConsolePrompt(Sci_Prompt);
-        }
-      setSearchedTokenInScilabHistory(NULL);
-      /* Call Java Console to get a string */
-      line= ConsoleRead();
-    }
-  else
-    {
-      /* Call Term Management for NW and NWNI to get a string */
-      line = localeToUTF(TermReadAndProcess());
-    }
-
-  if (line)
-    {
-      strcpy(buffer, line);
-    }
-  else
-    {
-      strcpy(buffer,"");
-    }
-  *len_line = (int)strlen(buffer);
-  *eof = FALSE;
-  printf("sortie de getLine buffer=%s,len_line=%d\r\n",buffer,*len_line);
+  getCommandLine();
+  return strdup(__CommandLine);
 }
+
 /***********************************************************************/
 /*
-** Initialize thread signals for command line
+** This function is threaded and watch for a signal.
+** sent when StoreCommand is performed.
 */
 static void initAll(void) {
   initialized = TRUE;
@@ -196,7 +162,7 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
     }
   __LockSignal(&ReadyForLaunch);
   __CommandLine = strdup("");
-  
+
   if (ismenu() == 0)  /* there is no callback in the queue */
     {
       if (!WatchGetCmdLineThreadAlive)
