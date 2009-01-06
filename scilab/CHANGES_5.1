@@ -22,6 +22,8 @@ See http://lists.scilab.org/cgi-bin/ezmlm-browse?list=dev&cmd=showmsg&msgnum=684
 
 * cc and cc-* are not longer consider as GNU C compiler when detecting the compiler (use gcc & gcc-*) because it was causing some issues under Solaris
 
+* By default, under Linux/Unix/Macosx, static libraries are no longer built.
+
 Enhancement:
 ============
 
@@ -164,4 +166,13 @@ Bug fixes:
 * bug 3578 fixed - the definition of NewSparse and FreeSparse have been added.
 
 * bug 3887 fixed - missing installation of scisparse.h and doublecomplex.h
+
+
+Obsolete functions:
+===================
+
+* TCLSCI module: tk_getfile replaced by uigetfile
+* GUI module: xgetfile replaced by uigetfile
+
+
 
