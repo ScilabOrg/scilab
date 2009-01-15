@@ -102,7 +102,7 @@ libsciscicos_la_CFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/graphics/includes \
 			-I$(top_srcdir)/modules/dynamic_link/includes \
 			-I$(top_srcdir)/modules/string/includes \
-			-I$(top_srcdir)/modules/intersci/src/lib \
+			-I$(top_srcdir)/modules/intersci/includes \
 			-I$(top_srcdir)/modules/scicos_blocks/includes \
 			-I$(top_srcdir)/modules/action_binding/includes
 
@@ -186,10 +186,10 @@ libscisundials_la_SOURCES = $(SUNDIALS_SOURCES)
 #### scicos : help files scripts ####
 
 libsciscicos_la_help_en_USdir = $(mydatadir)/help/en_US
-libsciscicos_la_help_en_US_DATA = help/en_US/scicos_help.jar
+libsciscicos_la_help_en_US_DATA = 
 
 libsciscicos_la_help_fr_FRdir = $(mydatadir)/help/fr_FR
-libsciscicos_la_help_fr_FR_DATA = help/fr_FR/scicos_help.jar
+libsciscicos_la_help_fr_FR_DATA = 
 
 #########�Modelica #############
 

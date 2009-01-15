@@ -392,10 +392,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\cpp\CallFileChooser.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\cpp\CallFontChooser.cpp"
 				>
 			</File>
@@ -477,10 +473,6 @@
 			</File>
 			<File
 				RelativePath="..\cpp\exportUserInterface.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\jni\FileChooser.cpp"
 				>
 			</File>
 			<File
@@ -736,7 +728,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\sci_gateway\c\sci_uigetdir.c"
+				RelativePath="..\..\sci_gateway\cpp\sci_uigetdir.cpp"
 				>
 			</File>
 			<File
@@ -785,10 +777,6 @@
 			</File>
 			<File
 				RelativePath="..\..\sci_gateway\c\sci_x_mdialog.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\sci_gateway\c\sci_xgetfile.c"
 				>
 			</File>
 			<File
@@ -953,14 +941,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\includes\CallFileChooser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\cpp\CallFileChooser.hxx"
-				>
-			</File>
-			<File
 				RelativePath="..\..\includes\CallFontChooser.h"
 				>
 			</File>
@@ -1082,10 +1062,6 @@
 			</File>
 			<File
 				RelativePath="..\..\includes\exportUserInterface.hxx"
-				>
-			</File>
-			<File
-				RelativePath="..\jni\FileChooser.hxx"
 				>
 			</File>
 			<File

@@ -34,7 +34,6 @@ src/cpp/CallJxclick.cpp \
 src/jni/Jxgetmouse.cpp \
 src/cpp/CallJxgetmouse.cpp \
 src/cpp/CallColorChooser.cpp \
-src/cpp/CallFileChooser.cpp \
 src/cpp/CallFontChooser.cpp \
 src/cpp/CallFigure.cpp \
 src/cpp/CallMessageBox.cpp \
@@ -114,7 +113,6 @@ src/cpp/CallJuigetfile.cpp
 
 GIWS_WRAPPERS = \
 src/jni/CallScilabBridge.giws.xml \
-src/jni/FileChooser.giws.xml \
 src/jni/Jxclick.giws.xml \
 src/jni/Jxgetmouse.giws.xml \
 src/jni/SwingScilabMenu.giws.xml \
@@ -134,13 +132,11 @@ sci_gateway/c/sci_x_mdialog.c \
 sci_gateway/c/sci_x_dialog.c \
 sci_gateway/c/sci_x_choose.c \
 sci_gateway/c/sci_x_choose_modeless.c \
-sci_gateway/c/sci_xgetfile.c \
 sci_gateway/c/sci_unsetmenu.c \
 sci_gateway/c/sci_delmenu.c \
 sci_gateway/c/sci_setmenu.c \
 sci_gateway/c/sci_ClipBoard.c \
 sci_gateway/c/sci_toolbar.c \
-sci_gateway/c/sci_uigetdir.c \
 sci_gateway/c/sci_uicontrol.c \
 sci_gateway/c/sci_uicontextmenu.c \
 sci_gateway/c/sci_uimenu.c \
@@ -162,6 +158,7 @@ sci_gateway/cpp/sci_printfigure.cpp \
 sci_gateway/cpp/sci_setlookandfeel.cpp \
 sci_gateway/cpp/sci_getinstalledlookandfeels.cpp \
 sci_gateway/cpp/sci_getlookandfeel.cpp \
+sci_gateway/cpp/sci_uigetdir.cpp \
 sci_gateway/cpp/sci_uigetfile.cpp
 
 libscigui_la_CFLAGS=	-I$(srcdir)/src/c/ \
@@ -261,7 +258,6 @@ includes/sci_raise_window.h \
 includes/GraphicWindow.h \
 includes/InitializeGUI.h \
 includes/CallColorChooser.h \
-includes/CallFileChooser.h \
 includes/CallFontChooser.h \
 includes/CallFigure.h \
 includes/CallJxclick.h \

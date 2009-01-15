@@ -12,11 +12,24 @@
 //
 // <-- Short Description -->
 // dummy =sprintf('%e', 1000) buggy 
-dummy = sprintf('%e', 100)
-if dummy <> "1.000000e+02" then pause, end
-  
-dummy2 =sprintf('%e', 1000)
-if dummy2 <> "1.000000e+03" then pause, end
 
-dummy3 =sprintf('%e', 10000)
-if dummy3 <> "1.000000e+04" then pause, end
+dummy = sprintf('%e', 100);
+if MSDOS then
+ if dummy <> "1.000000e+002" then pause, end
+else
+ if dummy <> "1.000000e+02" then pause, end
+end
+  
+dummy2 =sprintf('%e', 1000);
+if MSDOS then
+  if dummy2 <> "1.000000e+003" then pause, end
+else
+  if dummy2 <> "1.000000e+03" then pause, end
+end  
+
+dummy3 =sprintf('%e', 10000);
+if MSDOS then
+  if dummy3 <> "1.000000e+004" then pause, end
+else
+  if dummy2 <> "1.000000e+04" then pause, end
+end  
