@@ -16,7 +16,7 @@ Compilation:
 * More warnings in C/C++/Fortran during the compilation process.
 See http://lists.scilab.org/cgi-bin/ezmlm-browse?list=dev&cmd=showmsg&msgnum=684
 
-* --enable-build-help is now the default behaviour (--disable-build-help removes the check of the dependencies)
+* --enable-build-help is now the default behaviour (--disable-build-help removes the check of the dependencies). Same for --enable-build-localization.
 
 * interpolation, signal_processing, statistics modules are loaded dynamically by scilab.
 
@@ -63,6 +63,8 @@ Bug fixes:
 * Side effect in the setenvc function.
 
 * In the binary, the path to the fortran include directory was wrong.
+
+* bug 2540 fixed - plot3d hangs scilab when plotting a matrix full with NaN.
 
 * bug 3080 fixed - When we click many times on a button of the Graphic window the instruction will be done as much times we have clicked.
 
@@ -206,11 +208,47 @@ Bug fixes:
 
 * bug 3940 fixed - uigetdir returns a invalid value if you do "cancel".
 
+* bug 3953 fixed - legend only works when the number of strings equals the number of polylines.
+
+* bug 3954 fixed - Graphic demos launched using functions without arguments (such as plot3d()) may modify variables.
+
 * bug 3955 fixed - getlinestyle() just opens an blank graphic window.
 
 * bug 3956 fixed - Changing legend font style is taken into account.
 
+* bug 3963 fixed - Destroying wait bars or progression bars crashes Scilab.
+
+* bug 3964 fixed - uigetfile() crashes Scilab if the description of the mask is specified.
+
+* bug 3009 fixed - Default figure and axes handles "user_data" field is not taken into account when creating a new figure.
+
 * Docking bugs fixed (problems with menubar, toolbar, infobar updates).
+
+* bug 3833 fixed - Problems in cell insertion (loss of data).
+
+* bug 3821 fixed - Problems with uicontrol scrolling when parent figure has property auto_resize set to "off".
+
+* bug 3967 fixed - When called with a tf, pfss should of course return a tf.
+
+* bug 3987 fixed - The relation between the font_size property and the size in point is not clearly given in the help pages.
+
+* bug 3988 fixed - The title help page is not properly formatted.
+
+* bug 3991 fixed - It is not possible to set a font_style greater than 10 even if one has added a new font using xlfont.
+
+* bug 3999 fixed - xbasc() doesn't clear the current graphics window.
+
+* bug 3941 fixed - Error in function minreal when used with state-space linear system.
+
+* bug 4006 fixed - xlfont does not return the right index.
+
+* bug 3664 fixed - an error occurs when a change directory operation implies a directory name with french accent letter ('é' for example).
+
+* bug 3326 fixed - ESC key clears the command line in the console. 
+
+* bug 4014 fixed - Wrong positioning in console after its clearing.
+
+* bug 3989 fixed - xlfont help updated
 
 Obsolete functions removed :
 ============================

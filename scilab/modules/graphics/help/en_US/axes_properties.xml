@@ -291,20 +291,21 @@
             <varlistentry>
               <term>font_style: </term>
               <listitem>
-                <para>Specify the font used for displaying tics labels. Seven
-            differents fonts are available : "Courrier", "Symbol", "Times",
-            "Times Italic", "Times Bold", "User defined". The
-            <literal>font_style</literal> property is an index in [0 6] which is
-            associated to the previous font names.</para>
+                <para>Specifies the font used for displaying tics labels. This is a positive integer referecing one of the loaded fonts.
+				Its value must be between 0, referecing the first font,
+				and the number of loaded fonts minus one, referencing the last font.
+				For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
+				</para>
               </listitem>
             </varlistentry>
             <varlistentry>
               <term>font_size: </term>
               <listitem>
-                <para>An real value specifying the font size used to draw the tics
-			labels.
+                <para>
+				It is a scalar specifying the character size of tics labels.
 			If <literal>fractional_font</literal> property is <literal>"off"</literal>
 		 	only the integer part of the value is used.
+			For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
 		</para>	
               </listitem>
             </varlistentry>
@@ -733,6 +734,7 @@
    delete(a.children(2)); 
    delete(); // delete current object
    
+   a = gca();
    a.labels_font_size=1;
    a.auto_clear= "on";
    x=0:0.1:2.5*%pi;plot2d(10*cos(x),sin(x));
@@ -786,7 +788,6 @@
    x=(0:0.1:2*%pi)';
    plot2d(x,[sin(x),sin(2*x),sin(3*x)],style=[1,2,3],rect=[0,-2,2*%pi,2]);
    sda() // back to default axes model
-
  ]]></programlisting>
   </refsection>
   <refsection>

@@ -32,7 +32,8 @@ scilab_bin_LDADD = $(top_builddir)/modules/libscilab.la \
 $(top_builddir)/modules/shell/libscishell.la \
 $(top_builddir)/modules/core/libscicore.la \
 $(top_builddir)/modules/completion/libscicompletion.la \
-$(top_builddir)/modules/localization/libscilocalization.la
+$(top_builddir)/modules/localization/libscilocalization.la \
+$(top_builddir)/modules/io/libsciio.la
 
 if NEED_JAVA
 	scilab_bin_LDADD += $(JAVA_JNI_LIBS)
@@ -146,11 +147,11 @@ distclean-recursive: clean-recursive
 clean-recursive: clean-doc clean-localization clean-macros
 
 clean-macros:
-	@echo "-- Cleanning macros (*.bin) --"; \
+	@echo "-- Cleaning macros (*.bin) --"; \
 	find $(top_builddir) -name "*.bin" | xargs rm 2> /dev/null; \
-	echo "-- Cleanning names files (names) --"; \
+	echo "-- Cleaning names files (names) --"; \
 	find $(top_builddir)/modules/*/macros -name "names" | xargs rm 2> /dev/null; \
-	echo "-- Cleanning lib files (lib) --"; \
+	echo "-- Cleaning lib files (lib) --"; \
 	find $(top_builddir)/modules/*/macros -name "lib" | xargs rm 2> /dev/null
 
 
