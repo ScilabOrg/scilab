@@ -33,23 +33,31 @@ static void searchenv_others(const char *filename, const char *varname,
 /*--------------------------------------------------------------------------*/
 void C2F(getenvc)(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 {
-	char szTemp[bsiz];
+	char szTemp1[bsiz];
+	char szTemp2[bsiz];
 	char *locale = NULL;
 	#ifdef _MSC_VER
-	if (GetEnvironmentVariable(UTFToLocale(var, szTemp),buf,(DWORD)*buflen) == 0)
+//	if (GetEnvironmentVariable(UTFToLocale(var, szTemp1),buf,(DWORD)*buflen) == 0)
+	if (GetEnvironmentVariable(var, buf,(DWORD)*buflen) == 0)
 	{
 		if ( *iflag == 1 ) sciprint(_("Undefined environment variable %s.\n"),var);
 		*ierr=1;
 	}
 	else
 	{
-		locale = localeToUTF(buf, szTemp);
+/*
+		locale = localeToUTF(buf, szTemp2);
 		*buflen = (int)strlen(locale);
 		strncpy(buf,locale,*buflen);
+*/
+		*buflen = (int)strlen(buf);
 		*ierr=0;
 	}
 	#else
-	if ( (locale=localeToUTF(getenv(UTFToLocale(var, szTemp)), szTemp) ) == 0)
+//	if ( (locale=localeToUTF(getenv(UTFToLocale(var, szTemp)), szTemp) ) == 0)
+
+	locale=getenv(var);
+	if ( locale == NULL )
 	{
 		if ( *iflag == 1 ) sciprint(_("Undefined environment variable %s.\n"),var);
 		*ierr=1;

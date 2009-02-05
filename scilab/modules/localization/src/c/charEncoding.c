@@ -109,12 +109,13 @@ char* localeToUTF(char* _szBufferIn, char* _szBufferOut)
 		return NULL;
 	}
 
-	inbytesleft = strlen(_szBufferIn);
+	inbytesleft = strlen(_szBufferIn) + 1;
 
+	CharToOem(_szBufferIn, _szBufferOut);
 
 	if (iconv (localeToUTFConvert, (const char**)&inPtr,&inbytesleft, &outPtr, &outbytesleft) == (size_t)(-1) && errno != 0)
 	{
-		fprintf(stderr, "Error during call to localeToUTF: %s\n", strerror(errno));
+		fprintf(stderr, "Error(%i) during call to localeToUTF: %s\n", errno, strerror(errno));
 		fprintf(stderr, "String Input: %s\n", inPtr);
 		return _szBufferIn; // return unconverted text
 	}
@@ -130,7 +131,7 @@ char* UTFToLocale(char* _szBufferIn, char* _szBufferOut)
 	char *inPtr = _szBufferIn;
 	char *outPtr= _szBufferOut;
 
-	inbytesleft = strlen(_szBufferIn);
+	inbytesleft = strlen(_szBufferIn) + 1;
 
 	/* no need to convert for unicode subset encoding*/
 	if(unicodeSubset)
@@ -145,7 +146,7 @@ char* UTFToLocale(char* _szBufferIn, char* _szBufferOut)
 
 	if (iconv (UTFToLocaleConvert, (const char**)&inPtr,&inbytesleft, &outPtr, &outbytesleft) == (size_t)(-1) && errno != 0)
 	{
-		fprintf(stderr, "Error during call to UTFToLocale: %s\n", strerror(errno));
+		fprintf(stderr, "Error(%i) during call to UTFToLocale: %s\n", errno, strerror(errno));
 		fprintf(stderr, "String Input: %s\n", inPtr);
 		return _szBufferIn;//return unconverted text
 	}

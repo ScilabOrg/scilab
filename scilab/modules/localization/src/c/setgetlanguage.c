@@ -276,7 +276,7 @@ BOOL exportLocaleToSystem(char *locale){
 	if ( !setenvc(EXPORTENVLOCALESTR,locale))
 	{
 #ifdef _MSC_VER
-		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", "LC_CTYPE");
+		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", EXPORTENVLOCALESTR);
 #else
 		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", EXPORTENVLOCALE);
 #endif

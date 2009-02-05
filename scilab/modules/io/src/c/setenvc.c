@@ -34,13 +34,18 @@ BOOL setenvc(char *stringIn,char *valueIn)
 	/* 2 is = and \0 */
 	char *string = NULL;
 	char *value = NULL;
-	char szTemp1[bsiz];
-	char szTemp2[bsiz];
+	//char szTemp1[bsiz];
+	//char szTemp2[bsiz];
 	char *env;
 
-	string = UTFToLocale(stringIn, szTemp1);
-	value = UTFToLocale(valueIn, szTemp2);
-	env = (char*)MALLOC((strlen(string)+strlen(value)+2)*sizeof(char));
+//	string = UTFToLocale(stringIn, szTemp1);
+//	value = UTFToLocale(valueIn, szTemp2);
+//	env = (char*)MALLOC((strlen(string)+strlen(value)+2)*sizeof(char));
+
+	env = (char*)MALLOC((strlen(stringIn)+strlen(valueIn)+2)*sizeof(char));
+
+		//Test Tonio
+		setenvtcl(string,value);
 
 #ifdef _MSC_VER
 	/*
@@ -50,14 +55,14 @@ BOOL setenvc(char *stringIn,char *valueIn)
 	the value in both locations, so that other software that looks in
 	one place or the other is guaranteed to see the value.
 	*/
-	SetEnvironmentVariableA(string,value);
+	SetEnvironmentVariableA(stringIn,valueIn);
 #endif
 
 #ifdef linux	/* @TODO Check where stands Mac OS X */
-	if ( setenv(string,value,1) ) {
+	if ( setenv(stringIn,valueIn,1) ) {
 #else /* others HP Solaris WIN32*/
-	sprintf(env,"%s=%s",string,value);
-	if ( putenv(env) ) {
+	sprintf(env,"%s=%s",stringIn,valueIn);
+	if (putenv(env)) {
 #endif
 
 		ret = FALSE;
@@ -69,7 +74,7 @@ BOOL setenvc(char *stringIn,char *valueIn)
 	}
 
 	if (ret) {
-		setenvtcl(stringIn,valueIn);
+//		setenvtcl(stringIn,valueIn);
 	}
 
 
