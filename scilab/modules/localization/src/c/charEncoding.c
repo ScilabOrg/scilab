@@ -111,8 +111,6 @@ char* localeToUTF(char* _szBufferIn, char* _szBufferOut)
 
 	inbytesleft = strlen(_szBufferIn) + 1;
 
-	CharToOem(_szBufferIn, _szBufferOut);
-
 	if (iconv (localeToUTFConvert, (const char**)&inPtr,&inbytesleft, &outPtr, &outbytesleft) == (size_t)(-1) && errno != 0)
 	{
 		fprintf(stderr, "Error(%i) during call to localeToUTF: %s\n", errno, strerror(errno));
