@@ -98,7 +98,6 @@ char* localeToUTF(char* _szBufferIn, char* _szBufferOut)
 	char *inPtr = _szBufferIn;
 	char *outPtr = _szBufferOut;
 
-	/*shunt iconv call*/
 	return _szBufferIn;
 
 
@@ -133,7 +132,6 @@ char* UTFToLocale(char* _szBufferIn, char* _szBufferOut)
 	char *inPtr = _szBufferIn;
 	char *outPtr= _szBufferOut;
 
-	/*shunt iconv call*/
 	return _szBufferIn;
 
 
