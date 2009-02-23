@@ -418,7 +418,7 @@
 				LinkIncremental="0"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
-				IgnoreDefaultLibraryNames="libc.lib;msvcrtd.lib;libcmt.lib"
+				IgnoreDefaultLibraryNames=""
 				ModuleDefinitionFile="..\LibScilab.def"
 				ProgramDatabaseFile="$(ConfigurationName)/LibScilab.pdb"
 				SubSystem="2"

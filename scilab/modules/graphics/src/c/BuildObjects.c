@@ -175,13 +175,19 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
   }
 
   sciGetScreenPosition(pfiguremdl, &x[0], &x[1]) ;
-  sciInitScreenPosition( pobj, x[0], x[1] );
+	if (x[0] != -1 || x[1] != -1)
+	{
+		/* If default position is [-1,-1], then let the OS choose the window position. */
+		sciInitScreenPosition( pobj, x[0], x[1] );
+	}
 
 	sciInitInfoMessage( pobj, ppModel->pModelData->infoMessage ) ;
 
   ppFigure->tag = NULL;
 
   sciInitPixmapMode(pobj, sciGetPixmapMode(pfiguremdl));
+
+	sciInitAntialiasingQuality(pobj, sciGetAntialiasingQuality(pfiguremdl));
 
   /* Colormap */
   sciInitNumColors(pobj, 0);
@@ -306,10 +312,17 @@ ConstructSubWin(sciPointObj * pparentfigure)
 		ppsubwin->axes.rect  = ppaxesmdl->axes.rect;
 		sciInitIsFilled(pobj, sciGetIsFilled(paxesmdl));
 		for (i=0 ; i<7 ; i++)
+		{
 			ppsubwin->axes.limits[i]  = ppaxesmdl->axes.limits[i] ;
+		}
 
 		for (i=0 ; i<3 ; i++)
+		{
 			ppsubwin->grid[i]  = ppaxesmdl->grid[i] ;
+		}
+
+		ppsubwin->gridFront = ppaxesmdl->gridFront;
+
 		ppsubwin->alpha  = ppaxesmdl->alpha;
 		ppsubwin->theta  = ppaxesmdl->theta;
 		ppsubwin->alpha_kp  = ppaxesmdl->alpha_kp;
@@ -1011,16 +1024,21 @@ sciPointObj * allocatePolyline(sciPointObj * pparentsubwin, double *pvecx, doubl
   ppPoly->scvector = (int *) NULL;
 
   if(background != NULL){
-    if(isinterpshaded == TRUE){ /* 3 or 4 values to store */
+    if(isinterpshaded == TRUE)
+		{ /* 3 or 4 values to store */
 
       sciSetInterpVector(pobj,n1,background);
     }
     else
+		{
       sciInitBackground(pobj,(*background));
+		}
   }
 
   if(mark_style != NULL)
+	{
     sciInitMarkStyle(pobj,(*mark_style));
+	}
 
   if(mark_foreground != NULL)
   {
@@ -1913,7 +1931,6 @@ ConstructFec (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, double 
 			pfec->colminmax[i] = colminmax[i];
 			pfec->colout[i] = colout[i];
 		}
-		pfec->with_mesh = with_mesh;
 		pfec->Nnode = Nnode;
 		pfec->Ntr = Ntr;
 		if (sciInitGraphicContext (pobj) == -1)
@@ -1927,13 +1944,16 @@ ConstructFec (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, double 
 			FREE(pobj);
 			return (sciPointObj *) NULL;
 		}
-      return pobj;
-    }
-  else
-    {
-      Scierror(999, _("The parent has to be a SUBWIN\n"));
-      return (sciPointObj *) NULL;
-    }
+		/* sline mdoe is set using with_mesh */
+		sciInitIsLine(pobj, with_mesh);
+
+		return pobj;
+	}
+	else
+	{
+		Scierror(999, _("The parent has to be a SUBWIN\n"));
+		return (sciPointObj *) NULL;
+	}
 }
 
 

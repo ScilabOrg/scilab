@@ -297,6 +297,7 @@ typedef struct
   int numColors ;
   BOOL autoResizeMode;
 	char * infoMessage; /**< String displayed in the info bar of the graphic window */
+	int antialiasingQuality;
 }
 FigureModelData ;
 
@@ -691,7 +692,9 @@ typedef struct
   double ZRect[6]; /* reversed for zoom only to avoid using FRect as zoom box AND computed box */ /* F.Leray 09.12.04 */
 
   char logflags[3]; /* Z has a logflag now F.Leray 03.11.04 */
-  int grid[3];
+  int grid[3]; /* Specify color of grid for each axis. If -1, no grid is drawn */
+	BOOL gridFront; /* If TRUE grid is drawn in front, if FALSE it is drawn behind other objects */
+
   /*   BOOL isaxes; */
 
   BOOL is3d;
@@ -1076,9 +1079,8 @@ typedef struct
   int Nnode; /* number of nodes */
   int Ntr;   /* number of triangles */
   double zminmax[2]; /* Array of size 2 containing zmin and zmax */
-  int colminmax[2]; /*  */
-  int colout[2]; /* */
-  BOOL with_mesh;
+  int colminmax[2]; /* subset of the colormap to use */
+  int colout[2]; /* color to use when outside zmin/zmax */
   BOOL isselected;
   char *callback; /** specifies the text scilab code for the callback associated with this entity */
   int callbacklen; /** the length of the callback code */ 

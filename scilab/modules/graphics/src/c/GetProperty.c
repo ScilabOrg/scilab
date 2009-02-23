@@ -1853,7 +1853,7 @@ sciIsExistingSubWin (double WRect[4])
   sciSons *psonstmp;
 
   double WRectTmp[4];
-  int stop = 0,i;
+  int i;
 
 
   /* Initialisation de WRectTmp a 0*/
@@ -3786,6 +3786,100 @@ BOOL sciIsAutomaticallyRedrawn(sciPointObj * pObj)
 		|| (entityType == SCI_UICONTEXTMENU)
 		|| (entityType == SCI_WAITBAR)
 		|| (entityType == SCI_PROGRESSIONBAR);
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the subset of colormap bounds used by a particular object (colminmax).
+ */
+void sciGetColorRange(sciPointObj * pObj, int subset[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		subset[0] = pFEC_FEATURE(pObj)->colminmax[0];
+		subset[1] = pFEC_FEATURE(pObj)->colminmax[1];
+		break;
+  default:
+    printSetGetErrorMessage("color_range");
+		subset[0] = 0;
+		subset[1] = 0;
+		break;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the color to use for an objects when it uses index outside of the colormap (colout).
+ */
+void sciGetOutsideColor(sciPointObj * pObj, int colors[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		colors[0] = pFEC_FEATURE(pObj)->colout[0];
+		colors[1] = pFEC_FEATURE(pObj)->colout[1];
+		break;
+  default:
+    printSetGetErrorMessage("outside_color");
+		colors[0] = 0;
+		colors[1] = 0;
+		break;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the Z range used by a fec object (zminmax).
+ */
+void sciGetZBounds(sciPointObj * pObj, double bounds[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		bounds[0] = pFEC_FEATURE(pObj)->zminmax[0];
+		bounds[1] = pFEC_FEATURE(pObj)->zminmax[1];
+		break;
+  default:
+    printSetGetErrorMessage("z_bounds");
+		bounds[0] = 0;
+		bounds[1] = 0;
+		break;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get whether the grid is drawn in background or foreground.
+ */
+BOOL sciGetGridFront(sciPointObj * pObj)
+{
+  switch (sciGetEntityType(pObj))
+  {
+	case SCI_SUBWIN:
+		return pSUBWIN_FEATURE(pObj)->gridFront;
+  default:
+    printSetGetErrorMessage("grid_position");
+		return FALSE;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * @return the number of pass used for antialiasing or 0 if antialiasing is disable.
+ */
+int sciGetAntialiasingQuality(sciPointObj * pObj)
+{
+  switch (sciGetEntityType(pObj))
+  {
+	case SCI_FIGURE:
+		if (isFigureModel(pObj))
+		{
+			return pFIGURE_FEATURE(pObj)->pModelData->antialiasingQuality;
+		}
+		else
+		{
+			return sciGetJavaAntialiasingQuality(pObj);
+		}
+  default:
+    printSetGetErrorMessage("anti_aliasing");
+		return FALSE;
+  }
 }
 /*----------------------------------------------------------------------------------*/
 /**

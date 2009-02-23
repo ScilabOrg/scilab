@@ -441,6 +441,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\getHandleProperty\get_anti_aliasing_property.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getHandleProperty\get_arc_drawing_method_property.c"
 				>
 			</File>
@@ -554,6 +558,10 @@
 			</File>
 			<File
 				RelativePath=".\src\c\getHandleProperty\get_color_mode_property.c"
+				>
+			</File>
+			<File
+				RelativePath=".\src\c\getHandleProperty\get_color_range_property.c"
 				>
 			</File>
 			<File
@@ -673,6 +681,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\getHandleProperty\get_grid_position_property.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getHandleProperty\get_grid_property.c"
 				>
 			</File>
@@ -770,6 +782,10 @@
 			</File>
 			<File
 				RelativePath=".\src\c\getHandleProperty\get_old_style_property.c"
+				>
+			</File>
+			<File
+				RelativePath=".\src\c\getHandleProperty\get_outside_colors_property.c"
 				>
 			</File>
 			<File
@@ -1317,6 +1333,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\getHandleProperty\set_anti_aliasing_property.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getHandleProperty\set_arc_drawing_method_property.c"
 				>
 			</File>
@@ -1433,6 +1453,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\getHandleProperty\set_color_range_property.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getHandleProperty\set_colored_property.c"
 				>
 			</File>
@@ -1541,6 +1565,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\getHandleProperty\set_grid_position_property.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getHandleProperty\set_grid_property.c"
 				>
 			</File>
@@ -1638,6 +1666,10 @@
 			</File>
 			<File
 				RelativePath=".\src\c\getHandleProperty\set_old_style_property.c"
+				>
+			</File>
+			<File
+				RelativePath=".\src\c\getHandleProperty\set_outside_colors_property.c"
 				>
 			</File>
 			<File
