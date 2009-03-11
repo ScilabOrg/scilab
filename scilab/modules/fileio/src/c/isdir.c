@@ -24,6 +24,7 @@
 #include "isDrive.h"
 #include "isdir.h"
 #include "MALLOC.h"
+#include "charencoding.h"
 /*--------------------------------------------------------------------------*/ 
 BOOL isdir(const char * path)
 {
@@ -37,6 +38,7 @@ BOOL isdir(const char * path)
 	else
 	{
 		char *pathTmp = NULL;
+		wchar_t *pwTemp = NULL;
 		pathTmp = MALLOC(sizeof(char)*((int)strlen(path)+1));
 		if (pathTmp)
 		{
@@ -46,8 +48,12 @@ BOOL isdir(const char * path)
 			{
 				pathTmp[strlen(pathTmp)-1]='\0';
 			}
-			attr = GetFileAttributes(pathTmp);
+
+			pwTemp = to_wide_string(pathTmp);
+			attr = GetFileAttributesW(pwTemp);
 			FREE(pathTmp); pathTmp = NULL;
+			FREE(pwTemp); pathTmp = NULL;
+
 			if (attr == INVALID_FILE_ATTRIBUTES) return FALSE;
 			return ((attr & FILE_ATTRIBUTE_DIRECTORY) != 0) ? TRUE : FALSE;
 		}
