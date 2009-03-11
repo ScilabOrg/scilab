@@ -92,39 +92,6 @@ char *getEncoding(char *lang)
 
 
 
-char* UTFToLocale(char* _szBufferIn, char* _szBufferOut)
-{
-	size_t inbytesleft = 0;
-	size_t outbytesleft = bsiz;
-	char *inPtr = _szBufferIn;
-	char *outPtr= _szBufferOut;
-
-	/*Shunt iconv call*/
-	return _szBufferIn;
-
-
-	inbytesleft = strlen(_szBufferIn) + 1;
-
-	/* no need to convert for unicode subset encoding*/
-	if(unicodeSubset)
-	{
-		return _szBufferIn;
-	}
-
-	if (_szBufferIn == NULL)
-	{
-		return NULL;
-	}
-
-	if (iconv (UTFToLocaleConvert, (const char**)&inPtr,&inbytesleft, &outPtr, &outbytesleft) == (size_t)(-1) && errno != 0)
-	{
-		fprintf(stderr, "Error(%i) during call to UTFToLocale: %s\n", errno, strerror(errno));
-		fprintf(stderr, "String Input: %s\n", inPtr);
-		return _szBufferIn;//return unconverted text
-	}
-	*outPtr='\0';
-	return _szBufferOut;
-}
 /*--------------------------------------------------------------------------*/
 
 
@@ -210,7 +177,7 @@ char * UTFToConsole(char* _szLineIn, char* _szLineOut)
 	}
 	else
 	{
-		return UTFToLocale(_szLineIn, _szLineOut); // Terminal mode
+		return _szLineIn; // Terminal mode
 	}
 }
 

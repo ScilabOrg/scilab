@@ -67,8 +67,7 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
 			} 
 			else 
 			{
-				char szTempUTF[bsiz];
-				retval += (*xxprintf) ((VPTR) target, p, UTFToLocale(sval, szTempUTF));
+				retval += (*xxprintf) ((VPTR) target, p, sval);
 			}
 		FREE(sval);
 		break;
@@ -80,8 +79,7 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
 			}
 			else
 			{
-				char szTempUTF[bsiz];
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], UTFToLocale(sval, szTempUTF));
+				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
 			}	
 		FREE(sval);
 		break;
@@ -93,8 +91,7 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
 			} 
 			else 
 			{
-				char szTempUTF[bsiz];
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], UTFToLocale(sval, szTempUTF));
+				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
 			}
 		FREE(sval);
 		break;

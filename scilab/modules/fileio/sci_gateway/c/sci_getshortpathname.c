@@ -32,11 +32,10 @@ int C2F(sci_getshortpathname)(char *fname,unsigned long l)
 	{
 		char *LongName = NULL;
 		char *ShortName=NULL;
-		char szTemp[bsiz];
 
 		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
 		/* Bug 3089 */
-		LongName = UTFToLocale(cstk(l1), szTemp);
+		LongName = cstk(l1);
 
 		ShortName = getshortpathname(LongName,&bOK);
 
