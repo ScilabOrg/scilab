@@ -20,7 +20,7 @@
 * @param[in] UTF string
 * @return wide char string converted
 */
-wchar_t *to_wide_string(char *_UTFStr)
+wchar_t *to_wide_string(char *_UTFStr);
 
 #endif 
 
