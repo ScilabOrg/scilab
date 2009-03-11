@@ -1853,7 +1853,7 @@ sciIsExistingSubWin (double WRect[4])
   sciSons *psonstmp;
 
   double WRectTmp[4];
-  int stop = 0,i;
+  int i;
 
 
   /* Initialisation de WRectTmp a 0*/
@@ -3857,6 +3857,21 @@ BOOL sciGetGridFront(sciPointObj * pObj)
   default:
     printSetGetErrorMessage("grid_position");
 		return FALSE;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Get the position of a legend object relative to its parent subwin
+ */
+sciLegendPlace sciGetLegendLocation(sciPointObj * pObj)
+{
+  switch (sciGetEntityType(pObj))
+  {
+	case SCI_LEGEND:
+		return pLEGEND_FEATURE(pObj)->place;
+  default:
+    printSetGetErrorMessage("legend_location");
+		return SCI_LEGEND_POSITION_UNSPECIFIED;
   }
 }
 /*----------------------------------------------------------------------------------*/

@@ -307,6 +307,7 @@ WITH_OCAML = @WITH_OCAML@
 XGETTEXT = @XGETTEXT@
 XMKMF = @XMKMF@
 XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
+XML_APIS_EXT = @XML_APIS_EXT@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
 XML_LIBS = @XML_LIBS@
@@ -408,6 +409,7 @@ top_srcdir = @top_srcdir@
 @GUI_TRUE@				-I$(top_srcdir)/modules/graphics/includes/ \
 @GUI_TRUE@				-I$(top_srcdir)/modules/renderer/includes/ \
 @GUI_TRUE@				-I$(top_srcdir)/modules/output_stream/includes \
+@GUI_TRUE@				-I$(top_srcdir)/modules/fileio/includes \
 @GUI_TRUE@				-I$(top_srcdir)/libs/doublylinkedlist/includes
 
 

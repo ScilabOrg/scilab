@@ -17,6 +17,7 @@
 #include "localization.h"
 #include "cluni0.h"
 #include "freeArrayOfString.h"
+#include "PATH_MAX.h"
 /*--------------------------------------------------------------------------*/
 #define INFOSIZE 1024
 /*--------------------------------------------------------------------------*/
@@ -75,8 +76,9 @@ int int_objfscanfMat(char *fname,unsigned long fname_len)
 	/* BUG 3714 */
 	shortcut_path = cstk(l1);
 
-	real_path     = (char*)MALLOC(sizeof(char*)*FILENAME_MAX);
-	lout          = FILENAME_MAX;
+	lout          = PATH_MAX + FILENAME_MAX;
+	real_path     = (char*)MALLOC(sizeof(char*)*lout);
+	
 	C2F(cluni0)( shortcut_path, real_path, &out_n, (long)strlen(shortcut_path), lout);
 
 	if (( f = fopen(real_path,"r")) == (FILE *)0)

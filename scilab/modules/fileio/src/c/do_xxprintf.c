@@ -22,6 +22,7 @@
 #include "localization.h"
 #include "set_xxprintf.h"
 #include "fileio.h"
+#include "charEncoding.h"
 
 #ifdef _MSC_VER
 #include "strdup_windows.h"
@@ -222,9 +223,18 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 					}
 					break;
 				default:
-					(*xxprintf) ((VPTR) target, "%c",currentchar[0]);	
-					currentchar++;;
-					retval++;
+					/* putc */
+					{
+						int  charBytes = 0;
+						char *UTFChar = NULL;
+						char* outStr = NULL; /** locale char at most 2 bytes*/
+
+						UTFChar = readNextUTFChar(currentchar,&charBytes);
+						currentchar += charBytes;
+						outStr = UTFChar;
+						retval += charBytes;
+						(*xxprintf) ((VPTR) target, "%s",outStr);
+					}
 					break;
 				}
 			}
