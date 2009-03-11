@@ -18,7 +18,6 @@
 #include "MALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int C2F(sci_getshortpathname)(char *fname,unsigned long l)
 {

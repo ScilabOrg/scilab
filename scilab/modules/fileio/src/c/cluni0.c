@@ -20,7 +20,6 @@
 #include "setenvc.h"
 #include "cluni0.h"
 #include "GetenvB.h"
-#include "charEncoding.h"
 
 static char *SCI_a[]  = {  "SCI/"   , "sci/"   , "$SCI"   , "SCI\\"    , "sci\\"   , (char *) 0 };
 static char *HOME_a[] = {  "HOME/"  , "home/"  , "~/"     , "HOME\\"   , "home\\"  , "~\\" , "$HOME" , (char *) 0};

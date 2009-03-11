@@ -18,7 +18,6 @@
 #include "FindFileExtension.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int C2F(sci_fileext)(char *fname,unsigned long fname_len)
 {

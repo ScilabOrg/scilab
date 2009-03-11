@@ -20,7 +20,6 @@
 #include "prompt.h"
 #include "HistoryManager.h"
 #include "dynamic_menus.h" /* for ismenu() */
-#include "charEncoding.h"
 #include "zzledt.h"
 #if _MSC_VER
 #include "TermReadAndProcess.h"

@@ -18,7 +18,6 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int int_objfprintfMat(char *fname,unsigned long fname_len)
 {

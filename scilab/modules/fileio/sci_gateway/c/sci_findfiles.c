@@ -21,7 +21,6 @@
 #include "Scierror.h"
 #include "cluni0.h"
 #include "PATH_MAX.h"
-#include "charEncoding.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif

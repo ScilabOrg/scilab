@@ -17,7 +17,6 @@
 #include "Scierror.h"
 #include "deleteafile.h"
 #include "localization.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int C2F(sci_deletefile)(char *fname,unsigned long fname_len)
 {

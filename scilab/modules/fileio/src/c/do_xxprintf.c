@@ -22,7 +22,6 @@
 #include "localization.h"
 #include "set_xxprintf.h"
 #include "fileio.h"
-#include "charEncoding.h"
 
 #ifdef _MSC_VER
 #include "strdup_windows.h"
@@ -61,39 +60,18 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
 	switch (choosetype (asterisk_count, conversion_type))
 	{
 		case choosetype (0, PF_S):
-			if (isOutputInUTF())
-			{
-				retval += (*xxprintf) ((VPTR) target, p, sval);
-			} 
-			else 
-			{
-				retval += (*xxprintf) ((VPTR) target, p, sval);
-			}
-		FREE(sval);
+			retval += (*xxprintf) ((VPTR) target, p, sval);
+			FREE(sval);
 		break;
 
 		case choosetype (1, PF_S):
-			if (isOutputInUTF())
-			{
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
-			}
-			else
-			{
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
-			}	
-		FREE(sval);
+			retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
+			FREE(sval);
 		break;
 
 		case choosetype (2, PF_S):
-			if (isOutputInUTF()) 
-			{
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
-			} 
-			else 
-			{
-				retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
-			}
-		FREE(sval);
+			retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
+			FREE(sval);
 		break;
 
 		case choosetype (0, PF_C):
@@ -244,21 +222,6 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 					}
 					break;
 				default:
-					/* putc */
-					//UTFChar = readNextUTFChar(currentchar,&charBytes);
-					//currentchar += charBytes;
-					//if (isOutputInUTF() ) /** if output in UTF encoding*/
-					//{
-					//	outStr = UTFChar;
-					//	retval += charBytes;
-					//}
-					//else 
-					//{
-					//	char szTemp[bsiz];
-					//	outStr  = UTFToLocale(UTFChar, szTemp);
-					//	retval += (int)strlen(outStr);
-					//}
-					//(*xxprintf) ((VPTR) target, "%s",outStr);	
 					(*xxprintf) ((VPTR) target, "%c",currentchar[0]);	
 					currentchar++;;
 					retval++;

@@ -20,7 +20,6 @@
 #include "MALLOC.h"
 #include "../../../shell/includes/more.h"
 #include "../../../shell/includes/scilines.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/ 
 #define bufferformat "%s\n"
 /*--------------------------------------------------------------------------*/ 

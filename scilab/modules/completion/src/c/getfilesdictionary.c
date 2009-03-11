@@ -21,7 +21,6 @@
 #include "cluni0.h"
 #include "machine.h"
 #include "isdir.h"
-#include "charEncoding.h"
 #include "stack-def.h"
 /*--------------------------------------------------------------------------*/ 
 static void splitpath(char *composite,  char *path,  char *fname);

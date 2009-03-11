@@ -12,44 +12,17 @@
 #ifndef __CHARENCODING_H__
 #define __CHARENCODING_H__
 
-#include "BOOL.h"
+#ifdef _MSC_VER
+#include <wchar.h>
 
 /**
- * Set if the output must be in UTF or not (many used by do_xxprintf.c
- * set_xxorintf.c)
- *
- */
-void setOutputInUTF(BOOL);
+* convert a UTF string to wide char string
+* @param[in] UTF string
+* @return wide char string converted
+*/
+wchar_t *to_wide_string(char *_UTFStr)
 
-/**
- * Return is the output is in UTF 8 or not
- *
- * @return TRUE is UTF FALSE otherwise
- */
-BOOL isOutputInUTF(void);
-
-/**
- * Return the encoding of a specific lang
- *
- * @param lang  the langage
- * @return the encoding
- */
-char *getEncoding(char *lang);
-
-/**
- * @TODO add comment
- *
- * @param buffer
- * @return <ReturnValue>
- */
-char* localeToUTFOrig(char* buffer);
-char* UTFToLocaleOrig(char* buffer);
-
-void openCharEncodingConverter(char *encoding);
-
-void closeCharEncodingConverter(void);
-
-char * UTFToConsole(char* _szLineIn, char* _szLineOut);
+#endif 
 
 char* readNextUTFChar(char* utfstream,int* size);
 

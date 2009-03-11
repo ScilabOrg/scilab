@@ -21,7 +21,6 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "PATH_MAX.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #ifndef _MSC_VER
 #define _fullpath(a,r,l)        realpath(r,a)

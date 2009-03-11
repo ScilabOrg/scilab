@@ -17,7 +17,6 @@
 #include "localization.h"
 #include "cluni0.h"
 #include "freeArrayOfString.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #define INFOSIZE 1024
 /*--------------------------------------------------------------------------*/

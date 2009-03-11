@@ -19,7 +19,6 @@
 #include "stack-def.h"
 extern "C" {
 #include "getScilabJavaVM.h"
-#include "charEncoding.h"
 #include "stack-def.h"
 }
 

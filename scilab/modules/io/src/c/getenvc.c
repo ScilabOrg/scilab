@@ -24,7 +24,7 @@
 #include "sciprint.h"
 #include "PATH_MAX.h"
 #include "FileExist.h"
-#include "charEncoding.h"
+
 /*--------------------------------------------------------------------------*/
 #ifndef _MSC_VER
 static void searchenv_others(const char *filename, const char *varname,
