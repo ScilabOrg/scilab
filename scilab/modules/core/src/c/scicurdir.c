@@ -23,6 +23,7 @@
 #include "scicurdir.h"
 #include "MALLOC.h"
 #include "localization.h"
+#include "charencoding.h"
 #include "warningmode.h"
 #include "PATH_MAX.h"
 static char cur_dir[PATH_MAX];
@@ -43,20 +44,26 @@ int scichdir(char *path,int *err)
 		*err=1;
 	} 
 #else
-	if ( _chdir(path) )
+	/**/
 	{
-		switch (errno)
+		wchar_t *pwTemp = to_wide_string(path);
+
+		if ( _wchdir(pwTemp) )
 		{
-		case ENOENT:
-			if ( getWarningMode() ) sciprint(_("Can't go to directory %s.\n"), path); 
-			break;
-		case EINVAL:
-			if ( getWarningMode() ) sciprint(_("Invalid buffer.\n")); 
-			break;
-		default:
-			if ( getWarningMode() ) sciprint(_("Unknown error.\n")); 
+			switch (errno)
+			{
+			case ENOENT:
+				if ( getWarningMode() ) sciprint(_("Can't go to directory %s.\n"), path); 
+				break;
+			case EINVAL:
+				if ( getWarningMode() ) sciprint(_("Invalid buffer.\n")); 
+				break;
+			default:
+				if ( getWarningMode() ) sciprint(_("Unknown error.\n")); 
+			}
+			*err = 1;
 		}
-		*err = 1;
+		FREE(pwTemp);
 	}
 #endif
 	return 0;
