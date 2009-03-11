@@ -20,7 +20,6 @@
 #include "PATH_MAX.h"
 #include "systemc.h"
 #include "tmpdir.h"
-#include "charEncoding.h"
 #include "stack-def.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
@@ -33,8 +32,7 @@ int C2F(systemc)(char *command, int *stat)
 #ifdef _MSC_VER
 	{
 		BOOL Status=FALSE;
-		char szLocale[bsiz];
-		Status=CallWindowsShell(UTFToLocale(command, szLocale),FALSE);
+		Status=CallWindowsShell(command,FALSE);
 		if (Status)
 		{
 			*stat=(int) 0;
@@ -47,8 +45,7 @@ int C2F(systemc)(char *command, int *stat)
 #else
 	{
 		int status;
-		char szLocale[bsiz];
-		status=system(UTFToLocale(command, szLocale));
+		status=system(command);
 		*stat=(int) status;
 	}
 #endif

@@ -35,7 +35,6 @@
 #include "getLocaleInfo_Windows.h"
 #endif
 
-#include "charEncoding.h"
 
 #include "setgetlanguage.h"
 #include "MALLOC.h"
@@ -107,8 +106,6 @@ BOOL setlanguage(char *lang)
 				#endif
 
 				exportLocaleToSystem(CURRENTLANGUAGESTRING);
-
-				openCharEncodingConverter(getEncoding(ret));/*open a localeToUTF converter if needed*/
 				return TRUE;
 			}
 		#ifndef _MSC_VER

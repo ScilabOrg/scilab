@@ -25,7 +25,7 @@
 #include "findfiles.h"
 #include "MALLOC.h"
 #include "BOOL.h"
-#include "charEncoding.h"
+
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
@@ -55,13 +55,10 @@ char **findfiles(char *path, char *filespec, int *sizeListReturned)
 		{
 			if ( strcmp(FileInformation.cFileName,".") && strcmp(FileInformation.cFileName,"..") )
 			{
-				char szTemp[bsiz];
-				char *utfFileName = NULL;
 				nbElements++;
 				if (ListFiles) ListFiles = (char**)REALLOC(ListFiles,sizeof(char*)*(nbElements));
 				else ListFiles = (char**)MALLOC(sizeof(char*)*(nbElements));
-				utfFileName = localeToUTF(FileInformation.cFileName, szTemp);
-				ListFiles[nbElements-1] = strdup(utfFileName);
+				ListFiles[nbElements-1] = strdup(FileInformation.cFileName);
 			}
 
 		} while(FindNextFile(hFile, &FileInformation) == TRUE);
@@ -91,8 +88,6 @@ char **findfiles(char *path, char *filespec, int *sizeListReturned)
 			{
 				if ( find_spec(read->d_name ,filespec) )
 				{
-					char *utfFileName = NULL;
-					char szTemp[bsiz];
 					nbElements++;
 					if (ListFiles)
 					{
@@ -102,9 +97,7 @@ char **findfiles(char *path, char *filespec, int *sizeListReturned)
 					{
 						ListFiles = (char**)MALLOC(sizeof(char*)*(nbElements));
 					}
-
-					utfFileName = localeToUTF(read->d_name, szTemp);
-					ListFiles[nbElements-1] = strdup(utfFileName);
+					ListFiles[nbElements-1] = strdup(read->d_name);
 				}
 			}
 		}

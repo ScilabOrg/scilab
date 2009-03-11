@@ -21,7 +21,6 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "PATH_MAX.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #ifndef _MSC_VER
 #define _fullpath(a,r,l)        realpath(r,a)
@@ -37,12 +36,11 @@ int C2F(sci_fullpath)(char *fname,unsigned long fname_len)
 	{
 		static int l1,n1,m1;
 		char *relPath = NULL;
-		char szTemp[bsiz];
 		char fullpath[PATH_MAX*4];
 		
 		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
 		/* Bug 3089 */
-		relPath = UTFToLocale(cstk(l1), szTemp);
+		relPath = cstk(l1);
 
 		if( _fullpath( fullpath, relPath, PATH_MAX*4 ) != NULL )
 		{

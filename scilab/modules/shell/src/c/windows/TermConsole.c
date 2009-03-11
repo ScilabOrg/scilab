@@ -451,10 +451,9 @@ char *TerminalGetString(char *prompt)
 			}
 			else
 			{
-				char szTempUTF[bsiz];
 				char *line = getCurrentLine();
 				TerminalPutc('\n');
-				appendLineToScilabHistory(localeToUTF(line, szTempUTF));
+				appendLineToScilabHistory(line);
 				return line;
 			}
 		}

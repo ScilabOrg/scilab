@@ -20,6 +20,8 @@
 #else
 #include <Windows.h>
 #endif
+#include "charEncoding.h"
+#include "MALLOC.h"
 #include "createdirectory.h"
 #include "isdir.h"
 /*--------------------------------------------------------------------------*/
@@ -34,7 +36,12 @@ BOOL createdirectory(const char *path)
 		if (mkdir(path, DIRMODE) == 0) bOK=TRUE;
 	}
 #else
-	if (CreateDirectory(path,NULL)) bOK=TRUE;
+	wchar_t *widePath = to_wide_string((char*)path);
+	if (widePath)
+	{
+		if (CreateDirectoryW(widePath,NULL)) bOK = TRUE;
+		FREE(widePath);
+	}
 #endif
 	return bOK;
 }
