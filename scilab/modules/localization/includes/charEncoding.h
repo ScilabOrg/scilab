@@ -44,8 +44,6 @@ char *getEncoding(char *lang);
  */
 char* UTFToLocale(char* _szBufferIn, char *_szBuffOut);
 
-char* localeToUTF(char* _szBufferIn, char *_szBuffOut);
-
 char* localeToUTFOrig(char* buffer);
 char* UTFToLocaleOrig(char* buffer);
 
