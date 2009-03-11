@@ -22,6 +22,13 @@
 */
 wchar_t *to_wide_string(char *_UTFStr);
 
+/**
+* convert a wide char string to UTF-8
+* @param[in] wide char string
+* @return UTF string converted
+*/
+char *wide_string_to_UTF8(wchar_t *_wide);
+
 #endif 
 
 char* readNextUTFChar(char* utfstream,int* size);

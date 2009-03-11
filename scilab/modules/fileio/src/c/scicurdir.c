@@ -74,20 +74,34 @@ int scigetcwd(char **path,int *lpath,int *err)
 #ifndef _MSC_VER
 	if (GETCWD(cur_dir, PATH_MAX) == (char*) 0)
 #else
-	if ( _getcwd(cur_dir, PATH_MAX) == (char*) 0 )
+	wchar_t wcdir[PATH_MAX]; 
+	if ( _wgetcwd(wcdir, PATH_MAX) == (wchar_t*) 0 )
 #endif
 	{
 		/* get current working dir */
 		if ( getWarningMode() ) sciprint(_("Can't get current directory.\n"));
 		*cur_dir = '\0';
-		*lpath=0;
-		*err=1;
+		*lpath = 0;
+		*err = 1;
 	}
     else 
 	{
-		*path= cur_dir;
-		*lpath=(int)strlen(cur_dir);
-		*err=0;
+		char *tmpcdir = wide_string_to_UTF8(wcdir);
+		if (tmpcdir)
+		{
+			strcpy(cur_dir,tmpcdir);
+			FREE(tmpcdir);
+			tmpcdir = NULL;
+			*path = cur_dir;
+			*lpath =(int)strlen(cur_dir);
+			*err = 0;
+		}
+		else
+		{
+			*cur_dir = '\0';
+			*lpath=0;
+			*err = 1;
+		}
 	}
     return 0;
 }
