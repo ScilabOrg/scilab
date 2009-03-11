@@ -19,6 +19,40 @@
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
+static int wide_string_size(wchar_t *_wide)
+{
+	DWORD size;
+
+	if ((wchar_t *)NULL == _wide) return 0;
+	size = wcslen(_wide)+1;
+	return size*2;
+}
+/*--------------------------------------------------------------------------*/
+char *wide_string_to_UTF8(wchar_t *_wide)
+{
+	DWORD len = 0;
+	DWORD size = 0;
+	char *buf = NULL;
+
+	if ((wchar_t *)NULL == _wide) return (char *)NULL;
+	
+	len = wide_string_size(_wide);
+
+	size = WideCharToMultiByte(CP_UTF8, 0, _wide, len, NULL, 0, NULL, 0);
+	if (size == 0) return (char *)NULL;
+	buf = (char*)MALLOC(sizeof(char)*size);
+	if (buf)
+	{
+		size = WideCharToMultiByte(CP_UTF8, 0, _wide, len, buf, size, NULL, 0);
+		if (size == 0) 
+		{
+			FREE(buf);
+			return (char *)NULL;
+		}
+	}
+	return buf;
+}
+/*--------------------------------------------------------------------------*/
 wchar_t *to_wide_string(char *_UTFStr)
 {
 	int nwide = 0;
