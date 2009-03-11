@@ -9,7 +9,7 @@
 //==============================
 
 if MSDOS then
-	unix_w(jre_path()+"\bin\java.exe "+SCI+"\modules\localization\tests\unit_tests CreateDir");
+	unix_w(jre_path()+"\bin\java.exe -cp "+SCI+"\modules\localization\tests\unit_tests CreateDir");
 else
 	unix_w(jre_path()+"/bin/java -classpath "+SCI+"/modules/localization/tests/unit_tests CreateDir");
 end
