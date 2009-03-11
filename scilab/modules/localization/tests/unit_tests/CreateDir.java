@@ -37,8 +37,7 @@ class CreateDir
                 f.createNewFile();
             }
             
-            FileWriter fstream = new FileWriter(filepath);
-            BufferedWriter out = new BufferedWriter(fstream);
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f) , "UTF-8");
             out.write(filecontent);
             out.close();
         }
