@@ -1,15 +1,15 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2006 - INRIA
- * ...
- * 
- * This file must be used under the terms of the CeCILL.
- * This source file is licensed as described in the file COPYING, which
- * you should have received as part of this distribution.  The terms
- * are also available at    
- * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- *
- */
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2006 - INRIA
+* ...
+* 
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at    
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*/
 /*--------------------------------------------------------------------------*/ 
 #include <stdio.h>
 #include <ctype.h>  
@@ -23,6 +23,7 @@
 #include "set_xxprintf.h"
 #include "fileio.h"
 #include "charEncoding.h"
+
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
@@ -53,77 +54,77 @@ static void error_on_rval(XXPRINTF xxprintf,FLUSH flush,char *target)
 static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *asterisk,int asterisk_count,int conversion_type,double dval )
 {
 	/* for switch on number of '*' and type */
-	#define  choosetype(num,type)  (5*(num)+(type))
+#define  choosetype(num,type)  (5*(num)+(type))
 
 	int retval=-1;
 
 	switch (choosetype (asterisk_count, conversion_type))
 	{
-		case choosetype (0, PF_S):
-			retval += (*xxprintf) ((VPTR) target, p, sval);
-			FREE(sval);
+	case choosetype (0, PF_S):
+		retval += (*xxprintf) ((VPTR) target, p, sval);
+		FREE(sval);
 		break;
 
-		case choosetype (1, PF_S):
-			retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
-			FREE(sval);
+	case choosetype (1, PF_S):
+		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval);
+		FREE(sval);
 		break;
 
-		case choosetype (2, PF_S):
-			retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
-			FREE(sval);
+	case choosetype (2, PF_S):
+		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], sval);
+		FREE(sval);
 		break;
 
-		case choosetype (0, PF_C):
+	case choosetype (0, PF_C):
 		retval += (*xxprintf) ((VPTR) target, p, sval[0]);
 		FREE(sval);
 		break;
 
-		case choosetype (1, PF_C):
+	case choosetype (1, PF_C):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], sval[0]);
 		FREE(sval);
 		break;
 
-		case choosetype (2, PF_C):
+	case choosetype (2, PF_C):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1],sval[0]);
 		FREE(sval);
 		break;
 
-		case choosetype (0, PF_D):
+	case choosetype (0, PF_D):
 		{
 			retval += (*xxprintf) ((VPTR) target, p, (long long)dval);
 		}
 		break;
 
-		case choosetype (1, PF_D):
+	case choosetype (1, PF_D):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], (int) dval);
 		break;
 
-		case choosetype (2, PF_D):
+	case choosetype (2, PF_D):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], (int) dval);
 		break;
 
-		case choosetype (0, PF_LD):
+	case choosetype (0, PF_LD):
 		retval += (*xxprintf) ((VPTR) target, p, (long int) dval);
 		break;
 
-		case choosetype (1, PF_LD):
+	case choosetype (1, PF_LD):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], (long int) dval);
 		break;
 
-		case choosetype (2, PF_LD):
+	case choosetype (2, PF_LD):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], (long int) dval);
 		break;
 
-		case choosetype (0, PF_F):
+	case choosetype (0, PF_F):
 		retval += (*xxprintf) ((VPTR) target, p, dval);
 		break;
 
-		case choosetype (1, PF_F):
+	case choosetype (1, PF_F):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], dval);
 		break;
 
-		case choosetype (2, PF_F):
+	case choosetype (2, PF_F):
 		retval += (*xxprintf) ((VPTR) target, p, asterisk[0], asterisk[1], dval);
 		break;
 	}
@@ -136,7 +137,7 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 	int arg_count = 0;
 	int ccount    = 0;
 	int prev      = 0;
-	
+
 	XXPRINTF xxprintf          = NULL; /* sprintf sciprint2 fprintf */
 	FLUSH flush                = NULL;
 	char *target               = NULL;
@@ -148,17 +149,17 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 
 	set_xxprintf(fp,&xxprintf,&flush,&target);
 	/* Use file handle to set an internal boolean value for output encoding (UTF or system locale)*/
-	
+
 	/* "scan" string format. */
 	while (TRUE)
 	{
 		char *p=NULL;
 		char *sval=NULL;
-		
+
 		int ival      = 0;
 		int low_flag  = 0;
 		int	high_flag = 0;
-		
+
 		int asterisk_count = 0;
 		int asterisk[2];
 		int rval=0;
@@ -166,7 +167,7 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 		int conversion_type           = 0;
 		double dval                   = 0.0;
 		register char *tmpcurrentchar = NULL;
-		
+
 		asterisk[0] = 0;
 		asterisk[1] = 0;
 
@@ -345,8 +346,8 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 		tmpcurrentchar=currentchar;
 		switch (*(currentchar++))
 		{
-			case 's': 
-			case 'c':
+		case 's': 
+		case 'c':
 			{
 				if (low_flag + high_flag)
 				{
@@ -383,9 +384,9 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 				break;
 			}
 
-			case 'd':
-			case 'x':
-			case 'X':
+		case 'd':
+		case 'x':
+		case 'X':
 			rval=GetScalarDouble(fname,&prev,&arg_count,nargs,&ccount,lcount,&dval);
 			if (rval <= 0) 
 			{
@@ -399,8 +400,8 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 			conversion_type = PF_D;
 			break;
 
-			case 'i':
-			case 'u':
+		case 'i':
+		case 'u':
 			rval=GetScalarDouble(fname,&prev,&arg_count,nargs,&ccount,lcount,&dval);
 			if (rval <= 0) 
 			{
@@ -414,11 +415,11 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 			conversion_type = low_flag ? PF_LD : PF_D;
 			break;
 
-			case 'e':
-			case 'g':
-			case 'f':
-			case 'E':
-			case 'G':
+		case 'e':
+		case 'g':
+		case 'f':
+		case 'E':
+		case 'G':
 			if (high_flag + low_flag)
 			{
 				Scierror(998,_("%s: An error occurred: %s\n"),fname,_("Bad conversion."));
@@ -452,9 +453,9 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 			char backupcurrentchar;
 			backupcurrentchar = *currentchar;
 			*currentchar = 0;
-			
-			#define NanString "Nan"
-			#define InfString "Inf"
+
+#define NanString "Nan"
+#define InfString "Inf"
 			/* print is not a string or a char */
 			if ( (conversion_type != PF_S) && (conversion_type != PF_C) )
 			{
@@ -492,7 +493,7 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 			if (fp == (FILE *) 0) while (*target) target++;
 			*currentchar = backupcurrentchar;
 		}
-    }
+	}
 	return (retval);
 }
 /*--------------------------------------------------------------------------*/
@@ -507,16 +508,16 @@ static int GetScalarInt(char *fname, int *prev, int *arg, int narg, int *ic, int
 	}
 
 	GetRhsVar(*arg,MATRIX_OF_INTEGER_DATATYPE,&mx,&nx,&lx);
-	
+
 	if ( (*ic>nx) || (*prev != 1)) 
-		{
-			*arg=*arg+1;
-			if (*arg > narg ) {
-				return NOT_ENOUGH_ARGS;
-			}
-			*ic=1;
-			GetRhsVar(*arg,MATRIX_OF_INTEGER_DATATYPE,&mx,&nx,&lx);
+	{
+		*arg=*arg+1;
+		if (*arg > narg ) {
+			return NOT_ENOUGH_ARGS;
 		}
+		*ic=1;
+		GetRhsVar(*arg,MATRIX_OF_INTEGER_DATATYPE,&mx,&nx,&lx);
+	}
 
 	if (ir>mx) return RET_END;
 	*ival =  *(istk(lx+ir-1+mx*(*ic-1)));
@@ -578,14 +579,14 @@ static int GetScalarDouble(char *fname, int *prev, int *arg, int narg, int *ic, 
 	}
 	GetRhsVar(*arg,MATRIX_OF_DOUBLE_DATATYPE,&mx,&nx,&lx);
 	if ( *ic>nx) 
-		{
-			*arg=*arg+1;
-			if (*arg > narg ) {
-				return NOT_ENOUGH_ARGS;
-			}
-			*ic=1;
-			GetRhsVar(*arg,MATRIX_OF_DOUBLE_DATATYPE,&mx,&nx,&lx);
+	{
+		*arg=*arg+1;
+		if (*arg > narg ) {
+			return NOT_ENOUGH_ARGS;
 		}
+		*ic=1;
+		GetRhsVar(*arg,MATRIX_OF_DOUBLE_DATATYPE,&mx,&nx,&lx);
+	}
 	if (ir>mx) {
 		return RET_END;
 	}
