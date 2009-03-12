@@ -3,11 +3,11 @@
  * Copyright (C) 2007-2008 - INRIA - Sylvestre LEDRU
  * Copyright (C) 2007-2008 - INRIA - Allan CORNET
  * Copyright (C) 2008 - Yung-Jang Lee
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -73,10 +73,10 @@ BOOL setlanguage(char *lang)
 				/* Load the user locale from the system */
 				char *ret = getLocaleUserInfo();
 				#endif
-				
-				//				  This stuff causes pb when locales have been compiled 
+
+				//				  This stuff causes pb when locales have been compiled
 				if (ret==NULL)
-				{ 
+				{
 					#ifndef _MSC_VER
 					fprintf(stderr, "Warning: Localization issue. Doesn't support the locale '%s' %s %s.\n",lang,ret,setlocale(LC_MESSAGES,NULL));
 					#else
@@ -94,9 +94,9 @@ BOOL setlanguage(char *lang)
 				{
 					if (strcmp(lang,"")==0 && ret!=NULL)
 					{
-						/* The requested language is the one of the system ... 
+						/* The requested language is the one of the system ...
 						 * which we don't really know which one is it
-						 * but if setlocale worked, we get it from the return 
+						 * but if setlocale worked, we get it from the return
 						 */
 						strncpy(CURRENTLANGUAGESTRING,ret,5); /* 5 is the number of char in fr_FR for example */
 					}
@@ -152,7 +152,7 @@ BOOL LanguageIsOK(char *lang)
 {
 	int i=0;
 
-	if (strlen(lang)==0){ /* Empty language declaration... it is the default 
+	if (strlen(lang)==0){ /* Empty language declaration... it is the default
 						   * language from the system */
 		return TRUE;
 	}
@@ -263,7 +263,7 @@ char *convertlanguagealias(char *strlanguage)
  */
 BOOL exportLocaleToSystem(char *locale){
 
-	if (locale==NULL) 
+	if (locale==NULL)
 	{
 #ifdef _MSC_VER
 		fprintf(stderr,"Localization: Haven't been able to find a suitable locale. Remains to default %s.\n", "LC_CTYPE");
@@ -279,7 +279,7 @@ BOOL exportLocaleToSystem(char *locale){
 #ifdef _MSC_VER
 		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", "LC_CTYPE");
 #else
-		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", EXPORTENVLOCALE);
+		fprintf(stderr,"Localization: Failed to declare the system variable %d.\n", EXPORTENVLOCALE);
 #endif
 		return FALSE;
 	}
@@ -289,7 +289,7 @@ BOOL exportLocaleToSystem(char *locale){
 	{
 		/* gettext is buggy on Windows */
 		/* We need to set a external environment variable to scilab env. */
-		
+
 		char env[MAX_PATH];
 		sprintf(env,"%s=%s",EXPORTENVLOCALESTR,locale);
 		gettext_putenv(env);
@@ -300,7 +300,7 @@ BOOL exportLocaleToSystem(char *locale){
 	   is using the english notation (Java, Tcl ...) */
 	setenvc("LC_NUMERIC",LCNUMERICVALUE);
 #endif
-	
+
 	return TRUE;
 }
 /*--------------------------------------------------------------------------*/
