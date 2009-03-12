@@ -23,7 +23,7 @@
 #include "scicurdir.h"
 #include "MALLOC.h"
 #include "localization.h"
-#include "charencoding.h"
+#include "charEncoding.h"
 #include "warningmode.h"
 #include "PATH_MAX.h"
 static char cur_dir[PATH_MAX];
