@@ -25,7 +25,7 @@
 #include "findfiles.h"
 #include "MALLOC.h"
 #include "BOOL.h"
-#include "charEncoding.h"
+
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif

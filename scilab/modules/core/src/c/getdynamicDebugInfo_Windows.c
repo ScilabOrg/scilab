@@ -19,7 +19,6 @@
 #include "getDynamicDebugInfo_Windows.h"
 #include "localization.h"
 #include "../../../../libs/GetWindowsVersion/GetWindowsVersion.h"
-#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 static char * GetRegKeyCPUIdentifier(void);
 static char * GetRegKeyVideoCard(void);

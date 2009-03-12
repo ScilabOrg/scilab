@@ -17,7 +17,6 @@
 #include "stack-def.h" /* bsiz */
 #include "scilabmode.h"
 #include "../../console/includes/ConsolePrintf.h"
-#include "charEncoding.h"
 #ifdef _MSC_VER
 #include "TermPrintf.h"
 #endif
