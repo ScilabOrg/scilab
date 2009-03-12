@@ -37,13 +37,11 @@ BOOL isOutputInUTF(void);
 char *getEncoding(char *lang);
 
 /**
-* @TODO add comment
-*
-* @param buffer
-* @return <ReturnValue>
-*/
-char* UTFToLocale(char* _szBufferIn, char *_szBuffOut);
-
+ * @TODO add comment
+ *
+ * @param buffer
+ * @return <ReturnValue>
+ */
 char* localeToUTFOrig(char* buffer);
 char* UTFToLocaleOrig(char* buffer);
 

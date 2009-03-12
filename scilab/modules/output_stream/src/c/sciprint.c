@@ -88,7 +88,6 @@ void printf_scilab(char *buffer,BOOL withDiary)
 {
 	if (buffer)
 	{
-		char szLocale[bsiz];
 		if (getScilabMode() == SCILAB_STD)
 		{
 			ConsolePrintf(buffer);
@@ -96,16 +95,16 @@ void printf_scilab(char *buffer,BOOL withDiary)
 		else
 		{
 			#ifdef _MSC_VER
-			TermPrintf_Windows(UTFToLocale(buffer, szLocale));
+			TermPrintf_Windows(buffer);
 			#else
-			printf("%s",UTFToLocale(buffer, szLocale));
+			printf("%s",buffer);
 			#endif
 		}
 
 		if ( (withDiary) && getdiary() ) 
 		{
-			int lstr = (int)strlen(UTFToLocale(buffer, szLocale));
-			diary_nnl(UTFToLocale(buffer, szLocale),&lstr);
+			int lstr = (int)strlen(buffer);
+			diary_nnl(buffer,&lstr);
 		}
 	}
 }

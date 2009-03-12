@@ -28,11 +28,10 @@ int C2F(sci_deletefile)(char *fname,unsigned long fname_len)
 	{
 		int m1,n1,l1;
 		char *VarName=NULL;
-		char szTemp[bsiz];
 
 		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
 		/* Bug 3089 */
-		VarName = UTFToLocale(cstk(l1), szTemp);
+		VarName = cstk(l1);
 
 		n1=1;
 		if ( deleteafile(VarName) )

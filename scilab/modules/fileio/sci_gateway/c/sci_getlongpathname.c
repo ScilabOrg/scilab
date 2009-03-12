@@ -29,7 +29,6 @@ int C2F(sci_getlongpathname)(char *fname,unsigned long l)
 
 	if (GetType(1) == sci_strings)
 	{
-		char szTemp[bsiz];
 		int bOK=FALSE;
 		char *LongName=NULL;
 		char *ShortName=NULL;
@@ -37,7 +36,7 @@ int C2F(sci_getlongpathname)(char *fname,unsigned long l)
 		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
 
 		/* bug 3089 */
-		ShortName = UTFToLocale(cstk(l1), szTemp);
+		ShortName = cstk(l1);
 
 		LongName = getlongpathname(ShortName,&bOK);
 

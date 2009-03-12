@@ -142,7 +142,7 @@ char *searchEnv(const char *name,const char *env_var)
 	#if _MSC_VER
 		_searchenv((const char*)name,(const char*)env_var,fullpath);
 	#else
-		searchenv_others(UTFToLocale(name, szLocale),env_var,fullpath);
+		searchenv_others(name, env_var,fullpath);
 	#endif
 
 	if (strlen(fullpath) > 0)

@@ -33,11 +33,11 @@ int int_objfprintfMat(char *fname,unsigned long fname_len)
 
 	if (GetType(1) == sci_strings)
 	{
-		char szTemp[bsiz];
+		char *filename2 = NULL;
 		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);/* file name */
 
 		/* BUG 3714 */
-		filename = UTFToLocale(cstk(l1), szTemp);
+		filename = cstk(l1);
 	}
 	else
 	{
@@ -94,8 +94,7 @@ int int_objfprintfMat(char *fname,unsigned long fname_len)
 
 	if ( Rhs >= 4 )
 	{
-		char szTempLocale[bsiz];
-		for ( i=0 ; i < mS*nS ; i++) fprintf(f,"%s\n",UTFToLocale(Str2[i], szTempLocale));
+		for ( i=0 ; i < mS*nS ; i++) fprintf(f,"%s\n",Str2[i]);
 	}
 
 	for (i = 0 ; i < m2 ; i++ )
