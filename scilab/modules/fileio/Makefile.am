@@ -129,6 +129,7 @@ includes/mget.h \
 includes/mput.h \
 includes/mseek.h \
 includes/deleteafile.h \
+includes/getshortpathname.h \
 includes/readline.h
 
 include $(top_srcdir)/Makefile.incl.am
