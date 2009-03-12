@@ -13,9 +13,25 @@ else
 	unix_w(jre_path()+"/bin/java -classpath "+SCI+"/modules/localization/tests/unit_tests CreateDir");
 end
 
-a = chdir("dir_азеазея");
-if(a <> %T) then pause, end
+tab_ref = [
+"世界您好",
+"азеазея",
+"ハロー・ワールド",
+"เฮลโลเวิลด์",
+"حريات وحقوق",
+"프로그램",
+"프로그램",
+"תוכנית"];
 
-b = pwd();
-if(b <> (TMPDIR + filesep() + "dir_азеазея")) then pause, end
-
+for i = 1 : size(tab_ref,'*')
+	sz = "dir_" + tab_ref(i);
+	a = chdir(sz);
+	if(a <> %T) then
+		pause
+	end
+	b = pwd();
+	if(b <> (TMPDIR + filesep() + sz)) then
+		pause
+	end
+	cd(TMPDIR);
+end

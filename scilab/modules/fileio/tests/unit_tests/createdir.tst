@@ -8,9 +8,29 @@
 chdir(TMPDIR);
 
 warning("off");
-a = createdir("dir_азеазея");
-if(a <> %T) then pause, end
 
-b = cd(TMPDIR + filesep() + "dir_азеазея");
-if(b <> (TMPDIR + filesep() + "dir_азеазея")) then pause, end
+tab_ref = [
+"世界您好",
+"азеазея",
+"ハロー・ワールド",
+"เฮลโลเวิลด์",
+"حريات وحقوق",
+"프로그램",
+"프로그램",
+"תוכנית"];
 
+for i = 1 : size(tab_ref,'*')
+	sz = "dir_" + tab_ref(i);
+	
+	a = createdir(sz);
+	if(a <> %T) then 
+		pause
+	end
+
+	b = cd(TMPDIR + filesep() + sz);
+	if(b <> (TMPDIR + filesep() + sz)) then 
+		pause
+	end
+	cd(TMPDIR);
+	removedir(sz);
+end
