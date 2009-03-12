@@ -31,20 +31,37 @@
 #include "MALLOC.h"
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/ 
+#ifdef _MSC_VER
+static int DeleteDirectory(wchar_t *refcstrRootDirectory);
+#else
 static int DeleteDirectory(char *refcstrRootDirectory);
+#endif
 /*--------------------------------------------------------------------------*/ 
 BOOL removedir(char *path)
 {
 	if (isdir(path))
 	{
+#ifdef _MSC_VER
+		{
+			wchar_t *pstPath = to_wide_string(path);
+			if(pstPath != NULL)
+			{
+				DeleteDirectory(pstPath);
+				FREE(pstPath);
+			}
+		}
+#else
 		DeleteDirectory(path);
+#endif
+
 		if (!isdir(path)) return TRUE;
 	}
 	return FALSE;
 }
 /*--------------------------------------------------------------------------*/ 
 #ifdef _MSC_VER
-static int DeleteDirectory(char *refcstrRootDirectory)
+//static int DeleteDirectory(char *refcstrRootDirectory)
+static int DeleteDirectory(wchar_t *refcstrRootDirectory)
 {
 #define DEFAULT_PATTERN L"%s/*.*"
 	BOOL bDeleteSubdirectories = TRUE;
@@ -52,14 +69,11 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 	HANDLE hFile;
 	WIN32_FIND_DATAW FileInformation;
 	DWORD dwError;
-	wchar_t *strFilePath = NULL;
-	wchar_t *strPattern = NULL;
-	wchar_t *wideRootDirectory = to_wide_string(refcstrRootDirectory);
+	wchar_t	*strPattern		= NULL;
+	wchar_t	*strFilePath	= NULL;
 
-	if (wideRootDirectory == NULL) return 0;
-
-	strPattern = (wchar_t*)MALLOC(sizeof(wchar_t)*((int)wcslen(wideRootDirectory) + (int)wcslen(DEFAULT_PATTERN) + 1));
-	swprintf(strPattern,((int)wcslen(wideRootDirectory) + (int)wcslen(DEFAULT_PATTERN) + 1), DEFAULT_PATTERN, wideRootDirectory);
+	strPattern = (wchar_t*)MALLOC(sizeof(wchar_t)*((int)wcslen(refcstrRootDirectory) + (int)wcslen(DEFAULT_PATTERN) + 1));
+	swprintf(strPattern,((int)wcslen(refcstrRootDirectory) + (int)wcslen(DEFAULT_PATTERN) + 1), DEFAULT_PATTERN, refcstrRootDirectory);
 
 	hFile = FindFirstFileW(strPattern, &FileInformation);
 	if (strPattern) { FREE(strPattern);strPattern=NULL;}
@@ -70,27 +84,20 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 		{
 			if(FileInformation.cFileName[0] != '.')
 			{
-				if (strFilePath) {FREE(strFilePath);strFilePath=NULL;}
-				strFilePath = (wchar_t*)MALLOC(sizeof(wchar_t)*(wcslen(wideRootDirectory)+5+wcslen((wchar_t*)(FileInformation.cFileName))));
-				swprintf(strFilePath,wcslen(wideRootDirectory)+5+wcslen((wchar_t*)(FileInformation.cFileName)),L"%s\\%s",wideRootDirectory,FileInformation.cFileName);
+				strFilePath = (wchar_t*)MALLOC(sizeof(wchar_t)*(wcslen(refcstrRootDirectory)+5+wcslen((wchar_t*)(FileInformation.cFileName))));
+				swprintf(strFilePath,wcslen(refcstrRootDirectory)+5+wcslen((wchar_t*)(FileInformation.cFileName)),L"%s\\%s",refcstrRootDirectory,FileInformation.cFileName);
 
 				if(FileInformation.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 				{
 					if(bDeleteSubdirectories)
 					{
-						char *pUTFstrFilePath = wide_string_to_UTF8(strFilePath);
-						if (pUTFstrFilePath)
-						{
-							int iRC = DeleteDirectory(pUTFstrFilePath);
-							FREE(pUTFstrFilePath);pUTFstrFilePath = NULL;
-							if (strFilePath) {FREE(strFilePath); strFilePath = NULL;}
-							if (strPattern) {FREE(strPattern); strPattern = NULL;}
-							if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
+						int iRC = DeleteDirectory(strFilePath);
+						if (strFilePath) {FREE(strFilePath); strFilePath = NULL;}
+						if (strPattern) {FREE(strPattern); strPattern = NULL;}
 
-							if(iRC) 
-							{
-								return iRC;
-							}
+						if(iRC) 
+						{
+							return iRC;
 						}
 					}
 					else bSubdirectory = TRUE;
@@ -101,7 +108,6 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 					{
 						if (strFilePath) {FREE(strFilePath); strFilePath = NULL;}
 						if (strPattern) {FREE(strPattern); strPattern = NULL;}
-						if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 						return GetLastError();
 					}
 
@@ -109,7 +115,6 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 					{
 						if (strFilePath) {FREE(strFilePath); strFilePath = NULL;}
 						if (strPattern) {FREE(strPattern); strPattern = NULL;}
-						if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 						return GetLastError();
 					}
 				}
@@ -123,21 +128,18 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 		dwError = GetLastError();
 		if(dwError != ERROR_NO_MORE_FILES) 
 		{
-			if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 			return dwError;
 		}
 		else
 		{
 			if(!bSubdirectory)
 			{
-				if(SetFileAttributesW(wideRootDirectory,FILE_ATTRIBUTE_NORMAL) == FALSE) 
+				if(SetFileAttributesW(refcstrRootDirectory,FILE_ATTRIBUTE_NORMAL) == FALSE) 
 				{
-					if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 					return GetLastError();
 				}
-				if(RemoveDirectoryW(wideRootDirectory) == FALSE)	
+				if(RemoveDirectoryW(refcstrRootDirectory) == FALSE)	
 				{
-					if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 					return GetLastError();
 				}
 			}
@@ -146,7 +148,6 @@ static int DeleteDirectory(char *refcstrRootDirectory)
 
 	if (strFilePath) {FREE(strFilePath); strFilePath = NULL;}
 	if (strPattern) {FREE(strPattern); strPattern = NULL;}
-	if (wideRootDirectory) {FREE(wideRootDirectory); wideRootDirectory = NULL;}
 	return 0;
 }
 #endif

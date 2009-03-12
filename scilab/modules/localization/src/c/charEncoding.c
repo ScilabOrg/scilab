@@ -21,10 +21,10 @@
 #ifdef _MSC_VER
 static int wide_string_size(wchar_t *_wide)
 {
-	DWORD size;
+	int size;
 
 	if ((wchar_t *)NULL == _wide) return 0;
-	size = wcslen(_wide)+1;
+	size = (int)wcslen(_wide)+1;
 	return size*2;
 }
 /*--------------------------------------------------------------------------*/
@@ -40,6 +40,7 @@ char *wide_string_to_UTF8(wchar_t *_wide)
 
 	size = WideCharToMultiByte(CP_UTF8, 0, _wide, len, NULL, 0, NULL, 0);
 	if (size == 0) return (char *)NULL;
+	size += 1;
 	buf = (char*)MALLOC(sizeof(char)*size);
 	if (buf)
 	{
