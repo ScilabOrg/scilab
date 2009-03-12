@@ -33,23 +33,21 @@ static void searchenv_others(const char *filename, const char *varname,
 /*--------------------------------------------------------------------------*/
 void C2F(getenvc)(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 {
-	char szTemp[bsiz];
 	char *locale = NULL;
-#ifdef _MSC_VER
-	if (GetEnvironmentVariable(UTFToLocale(var, szTemp),buf,(DWORD)*buflen) == 0)
+	#ifdef _MSC_VER
+	if (GetEnvironmentVariable(var, buf,(DWORD)*buflen) == 0)
 	{
 		if ( *iflag == 1 ) sciprint(_("Undefined environment variable %s.\n"),var);
 		*ierr=1;
 	}
 	else
 	{
-		locale = localeToUTF(buf, szTemp);
-		*buflen = (int)strlen(locale);
-		strncpy(buf,locale,*buflen);
+		*buflen = (int)strlen(buf);
 		*ierr=0;
 	}
-#else
-	if ( (locale=localeToUTF(getenv(UTFToLocale(var, szTemp)), szTemp) ) == 0)
+	#else
+	locale=getenv(var);
+	if ( locale == NULL )
 	{
 		if ( *iflag == 1 ) sciprint(_("Undefined environment variable %s.\n"),var);
 		*ierr=1;
@@ -138,19 +136,18 @@ char *searchEnv(const char *name,const char *env_var)
 {
 	char *buffer = NULL;
 	char fullpath[PATH_MAX];
-	char szLocale[bsiz];
 
 	strcpy(fullpath,"");
 
-#if _MSC_VER
-	_searchenv((const char*)UTFToLocale((char*)name, szLocale),(const char*)env_var,fullpath);
-#else
-	searchenv_others(UTFToLocale(name, szLocale),env_var,fullpath);
-#endif
+	#if _MSC_VER
+		_searchenv((const char*)name,(const char*)env_var,fullpath);
+	#else
+		searchenv_others(UTFToLocale(name, szLocale),env_var,fullpath);
+	#endif
 
 	if (strlen(fullpath) > 0)
 	{
-		buffer = strdup(localeToUTF(fullpath, szLocale));
+		buffer = strdup(fullpath);
 	}
 	return buffer;
 }

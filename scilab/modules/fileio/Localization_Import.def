@@ -3,7 +3,6 @@
 
 EXPORTS
 	UTFToLocale
-	localeToUTF
 	isOutputInUTF 
 	readNextUTFChar
 	setOutputInUTF

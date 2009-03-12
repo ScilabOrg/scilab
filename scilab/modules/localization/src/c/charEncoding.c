@@ -91,40 +91,6 @@ char *getEncoding(char *lang)
 }
 
 
-char* localeToUTF(char* _szBufferIn, char* _szBufferOut) 
-{
-	size_t inbytesleft = 0;
-	size_t outbytesleft = bsiz;
-	char *inPtr = _szBufferIn;
-	char *outPtr = _szBufferOut;
-
-	return _szBufferIn;
-
-
-	/* no need to convert for unicode subset encoding*/
-	if(unicodeSubset)
-	{
-		return _szBufferIn;
-	}
-	if (_szBufferIn == NULL)
-	{
-		return NULL;
-	}
-
-	inbytesleft = strlen(_szBufferIn);
-
-
-	if (iconv (localeToUTFConvert, (const char**)&inPtr,&inbytesleft, &outPtr, &outbytesleft) == (size_t)(-1))
-	{
-		fprintf(stderr, "Error during call to localeToUTF: %s\n", strerror(errno));
-		fprintf(stderr, "String Input: %s\n", inPtr);
-		return _szBufferIn; // return unconverted text
-	}
-
-	*outPtr='\0';
-	return _szBufferOut;
-}
-
 char* UTFToLocale(char* _szBufferIn, char* _szBufferOut)
 {
 	size_t inbytesleft = 0;

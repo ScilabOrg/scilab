@@ -40,7 +40,6 @@ int LineRead(FILE *fd,char buf[],int n,int *cnt,int *nr)
   int c,count,info;
   long int offset;
   char *tmpChar = NULL;
-	char szTemp[bsiz];
   count=0;
   *nr=0;
   
@@ -106,10 +105,7 @@ int LineRead(FILE *fd,char buf[],int n,int *cnt,int *nr)
     }
   }
   *cnt=count;
-  /** Convert from system locale encoding to UTF encoding */
-  tmpChar = localeToUTF(buf, szTemp);
-  *cnt = (int)strlen(tmpChar)+1;
-  strcpy(buf,tmpChar);
+  *cnt = (int)strlen(buf)+1;
   return(info);
 }
 /*--------------------------------------------------------------------------*/ 
