@@ -22,7 +22,7 @@
 #include "localization.h"
 #include "set_xxprintf.h"
 #include "fileio.h"
-
+#include "charEncoding.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
@@ -230,19 +230,8 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 
 						UTFChar = readNextUTFChar(currentchar,&charBytes);
 						currentchar += charBytes;
-
-						/* if output in UTF encoding*/
-						if (isOutputInUTF() )
-						{
-							outStr = UTFChar;
-							retval += charBytes;
-						}
-						else 
-						{
-							char szTemp[bsiz];
-							outStr  = UTFToLocale(UTFChar, szTemp);
-							retval += (int)strlen(outStr);
-						}
+						outStr = UTFChar;
+						retval += charBytes;
 						(*xxprintf) ((VPTR) target, "%s",outStr);
 					}
 					break;

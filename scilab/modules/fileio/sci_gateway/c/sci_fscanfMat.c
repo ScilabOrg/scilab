@@ -17,6 +17,7 @@
 #include "localization.h"
 #include "cluni0.h"
 #include "freeArrayOfString.h"
+#include "PATH_MAX.h"
 /*--------------------------------------------------------------------------*/
 #define INFOSIZE 1024
 /*--------------------------------------------------------------------------*/
