@@ -162,8 +162,7 @@ char *searchEnv(const char *name,const char *env_var)
 		FREE(wenv_var);
 	}
 	#else
-		searchenv_others(name, env_var,fullpath);
-
+	searchenv_others(name, env_var,fullpath);
 	if (strlen(fullpath) > 0)
 	{
 		buffer = strdup(fullpath);
