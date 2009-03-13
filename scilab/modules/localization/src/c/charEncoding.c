@@ -44,8 +44,8 @@ char *wide_string_to_UTF8(wchar_t *_wide)
 	buf = (char*)MALLOC(sizeof(char)*size);
 	if (buf)
 	{
-		size = WideCharToMultiByte(CP_UTF8, 0, _wide, len, buf, size, NULL, 0);
-		if (size == 0) 
+		WideCharToMultiByte(CP_UTF8, 0, _wide, len, buf, size, NULL, 0);
+		if (size <= 0)
 		{
 			FREE(buf);
 			return (char *)NULL;

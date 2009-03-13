@@ -38,10 +38,11 @@ BOOL isdir(const char * path)
 	else
 	{
 		char *pathTmp = NULL;
-		wchar_t *pwTemp = NULL;
+		
 		pathTmp = MALLOC(sizeof(char)*((int)strlen(path)+1));
 		if (pathTmp)
 		{
+			wchar_t *pwTemp = NULL;
 			DWORD attr = 0;
 			strcpy(pathTmp,path);
 			if ( (pathTmp[strlen(pathTmp)-1]=='\\') || (pathTmp[strlen(pathTmp)-1]=='/') )

@@ -431,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\fullpath.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\getdrives.c"
 				>
 			</File>
@@ -682,6 +686,10 @@
 			</File>
 			<File
 				RelativePath=".\includes\findfiles.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\c\fullpath.h"
 				>
 			</File>
 			<File

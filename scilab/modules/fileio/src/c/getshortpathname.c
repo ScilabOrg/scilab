@@ -14,6 +14,7 @@
 #include <string.h>
 #include "getshortpathname.h"
 #include "MALLOC.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 	#ifndef MAX_PATH_SHORT
@@ -29,31 +30,37 @@ char *getshortpathname(char *longpathname,BOOL *convertok)
 	{
 		#ifdef _MSC_VER
 		/* first we try to call to know path length */
-		int length = GetShortPathName(longpathname, NULL, 0);
+		wchar_t *ptwlongpathname = to_wide_string(longpathname);
+		wchar_t *ptwShortName = NULL;
+		int length = GetShortPathNameW(ptwlongpathname, NULL, 0);
 
 		if (length <= 0 ) length = MAX_PATH_SHORT;
 
-		ShortName = (char*)MALLOC((length)*sizeof(char));
+		ptwShortName = (wchar_t*)MALLOC((length)*sizeof(wchar_t));
 
-		if (ShortName) 
+		if (ptwShortName) 
 		{
 			/* second converts path */
-			if ( GetShortPathName(longpathname, ShortName, length) )
+			if ( GetShortPathNameW(ptwlongpathname, ptwShortName, length) )
 			{
+				ShortName = wide_string_to_UTF8(ptwShortName);
 				*convertok = TRUE;
 			}
 			else
 			{
 				/* FAILED */
+				ShortName = (char*)MALLOC((length)*sizeof(char));
 				strcpy(ShortName, longpathname);
 				*convertok = FALSE;
 			}
+			if (ptwShortName) {FREE(ptwShortName);ptwShortName = NULL;}
 		}
 		else
 		{
 			/* FAILED */
 			*convertok = FALSE;
 		}
+		if (ptwlongpathname) { FREE(ptwlongpathname); ptwlongpathname = NULL;}
 		#else
 		/* Linux */
 		int length = (int)strlen(longpathname) + 1;
