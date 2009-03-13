@@ -19,10 +19,6 @@
 #include "charEncoding.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-#ifndef _MSC_VER
-#define _fullpath(a,r,l)        realpath(r,a)
-#endif
-/*--------------------------------------------------------------------------*/
 char * get_full_path(char * _FullPath, const char * _Path, size_t _SizeInBytes)
 {
 #ifdef _MSC_VER
