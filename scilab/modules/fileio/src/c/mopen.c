@@ -20,6 +20,9 @@
 #include "sciprint.h"
 #include "localization.h"
 #include "warningmode.h"
+#include "MALLOC.h"
+#include "BOOL.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 extern int swap;
 /*--------------------------------------------------------------------------*/
@@ -50,7 +53,23 @@ void C2F(mopen)(int *fd, char *file, char *status, int *f_swap, double *res, int
 		*error=1; /* Too many opened files */
 		return;
 	}
-	fa=fopen(file,status);
+
+	#ifdef _MSC_VER
+	{
+		wchar_t *wfilename = to_wide_string(file);
+		wchar_t *wstatus = to_wide_string(status);
+
+		if (wfilename && wstatus)
+		{
+			fa = _wfopen(wfilename,wstatus);
+			FREE(wstatus); wstatus = NULL;
+			FREE(wfilename); wfilename = NULL;
+		}
+	}
+	#else
+		fa = fopen(file,status);
+	#endif
+
 	if (! fa )
 	{     
 		*error=2; /* Could not open the file*/
