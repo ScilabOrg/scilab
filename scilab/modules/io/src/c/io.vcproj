@@ -561,11 +561,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\setenvc.h"
+				RelativePath="..\..\includes\setenvc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\includes\setenvc.h"
+				RelativePath=".\setenvc.h"
 				>
 			</File>
 			<File
@@ -597,6 +597,10 @@
 				</File>
 				<File
 					RelativePath=".\LibScilab_Import.def"
+					>
+				</File>
+				<File
+					RelativePath=".\Scilab_Windows_Import.def"
 					>
 				</File>
 			</Filter>
