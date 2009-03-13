@@ -51,7 +51,7 @@ BOOL LoadLibrarypath(char *xmlfilename)
 				if (shortxmlfilename)
 				{
 					doc = xmlParseFile (shortxmlfilename);
-					FREE(shortxmlfilename)
+					FREE(shortxmlfilename);
 					shortxmlfilename = NULL;
 				}
 			}
