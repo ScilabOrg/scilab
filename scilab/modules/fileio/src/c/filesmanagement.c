@@ -231,7 +231,7 @@ BOOL IsAlreadyOpenedInScilab(char *filename)
 		char fullpath[PATH_MAX*4];
 		int i=0;
 
-		if( _fullpath( fullpath, filename, PATH_MAX*4 ) == NULL )
+		if( get_full_path( fullpath, filename, PATH_MAX*4 ) == NULL )
 		{
 			/* if we are a problem */
 			strcpy(fullpath,filename);
