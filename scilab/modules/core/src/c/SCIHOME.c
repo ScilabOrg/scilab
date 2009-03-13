@@ -21,7 +21,7 @@
 #include "../../../io/includes/getenvc.h"
 #include "scilabDefaults.h"
 #ifdef _MSC_VER
-#include "../../../fileio/src/c/getshortpathname.h"
+#include "getshortpathname.h"
 #include "strdup_Windows.h"
 #endif
 /*--------------------------------------------------------------------------*/

@@ -20,6 +20,7 @@
 #include "freeArrayOfString.h"
 #include "cluni0.h"
 #include "PATH_MAX.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int C2F(sci_getmd5) (char *fname,unsigned long fname_len)
 {
@@ -67,8 +68,20 @@ int C2F(sci_getmd5) (char *fname,unsigned long fname_len)
 				real_path = (char*)MALLOC(sizeof(char*)*lout);
 				
 				C2F(cluni0)(Input_Matrix[i], real_path, &out_n, (long)strlen(Input_Matrix[i]), lout);
-				
+
+				#ifdef _MSC_VER
+				{
+					wchar_t *wreal_path = to_wide_string(real_path);
+					if (wreal_path)
+					{
+						fp = _wfopen(wreal_path,L"rb");
+						FREE(wreal_path);
+						wreal_path = NULL;
+					}
+				}
+				#else
 				fp = fopen(real_path,"rb");
+				#endif
 				
 				if (real_path) {FREE(real_path);real_path=NULL;}
 				
