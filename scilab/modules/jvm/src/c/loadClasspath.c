@@ -79,7 +79,7 @@ BOOL LoadClasspath(char *xmlfilename)
 				if (shortxmlfilename)
 				{
 					ClassPathxmlDocPtr = xmlParseFile (shortxmlfilename);
-					FREE(shortxmlfilename)
+					FREE(shortxmlfilename);
 					shortxmlfilename = NULL;
 				}
 			}
