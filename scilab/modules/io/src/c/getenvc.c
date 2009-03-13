@@ -24,6 +24,7 @@
 #include "sciprint.h"
 #include "PATH_MAX.h"
 #include "FileExist.h"
+#include "charEncoding.h"
 
 /*--------------------------------------------------------------------------*/
 #ifndef _MSC_VER
@@ -140,15 +141,44 @@ char *searchEnv(const char *name,const char *env_var)
 	strcpy(fullpath,"");
 
 	#if _MSC_VER
-		_searchenv((const char*)name,(const char*)env_var,fullpath);
+	{
+		wchar_t *wname			= NULL;
+		wchar_t *wenv_var		= NULL;
+		wchar_t *wfullpath	= NULL;
+
+		wname			= to_wide_string((char*)name);
+		wenv_var	= to_wide_string((char*)env_var);
+		wfullpath	= to_wide_string(fullpath);
+		_wsearchenv(wname, wenv_var, wfullpath);
+
+		if (wcslen(wfullpath) > 0)
+		{
+			buffer = wide_string_to_UTF8(wfullpath);
+		}
+
+		FREE(wname);
+		FREE(wenv_var);
+		FREE(wfullpath);
+
+/*
+		_searchenv(name, env_var, fullpath);
+
+		if (strlen(fullpath) > 0)
+		{
+			buffer = strdup(fullpath);
+			//buffer = wide_string_to_UTF8(wbuffer);
+
+			//FREE(wbuffer);
+		}
+*/	}
 	#else
 		searchenv_others(name, env_var,fullpath);
-	#endif
 
 	if (strlen(fullpath) > 0)
 	{
 		buffer = strdup(fullpath);
 	}
+	#endif
 	return buffer;
 }
 /*--------------------------------------------------------------------------*/
