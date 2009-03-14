@@ -2,6 +2,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET
+ * Copyright (C) DIGITEO - 2009 - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -17,6 +18,10 @@
 #include "stringsstrrev.h"
 #include "freeArrayOfString.h"
 #include "MALLOC.h"
+#include "charEncoding.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
 /*----------------------------------------------------------------------------*/
 char **strings_strrev(char **Input_strings,int Dim_Input_strings)
 {
@@ -29,12 +34,8 @@ char **strings_strrev(char **Input_strings,int Dim_Input_strings)
 			int i = 0;	
 			for (i = 0;i < Dim_Input_strings;i++)
 			{
-				Output_strings[i] = (char*)MALLOC(sizeof(char)*(strlen(Input_strings[i])+1));
-				if (Output_strings[i])
-				{
-					strcpy(Output_strings[i],scistrrev(Input_strings[i]));
-				}
-				else
+				Output_strings[i] = scistrrev(Input_strings[i]);
+				if (!Output_strings[i])
 				{
 					freeArrayOfString(Output_strings,i);
 					return Output_strings;
@@ -47,25 +48,38 @@ char **strings_strrev(char **Input_strings,int Dim_Input_strings)
 /*----------------------------------------------------------------------------*/
 char* scistrrev(char* str)
 {
-#if _MSC_VER
-	return _strrev(str);
-#else
-	if ( !str ) return NULL;
-	int i = strlen(str);
-	int t = !(i%2)? 1 : 0;      // check the length of the string .
-	int j = 0,k = 0;
+	char *reversestr = NULL;
 
-	/* copy character by character to reverse string */
-	k = 0;
-	for(j = i-1; j > (i/2 -t) ; j-- ) /* @TODO add comment */
+	if (str == NULL) return NULL;
+
+	reversestr = (char*)MALLOC(sizeof(char)*((int)strlen(str)+1));
+
+	if (reversestr)
 	{
-		/* j starts from end of string */
-		/* k starts from beginning of string */
-		char ch  = str[j]; /* ch temp. character */
-		str[j]   = str[k]; /* end and beginning characters are exchanged */
-		str[k++] = ch;
+		char *currentchar = str;
+		int i = 0;
+		while (*currentchar != 0)
+		{
+			int  charBytes = 0;
+			char *UTFChar = readNextUTFChar(currentchar,&charBytes);
+			currentchar += charBytes;
+
+			if (i == 0)
+			{
+				sprintf(reversestr,"%s",UTFChar);
+				i = 1;
+			}
+			else
+			{
+				char *prevpart = strdup(reversestr);
+				if (prevpart)
+				{
+					sprintf(reversestr,"%s%s",UTFChar,prevpart);
+					FREE(prevpart);
+				}
+			}
+		}
 	}
-	return str;
-#endif
+	return reversestr;
 }
 /*----------------------------------------------------------------------------*/
