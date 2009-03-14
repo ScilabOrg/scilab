@@ -58,6 +58,8 @@ Bug fixes:
 * bug 3643 fixed - Scilab spec function is the equivalent of Matlab function 
                    (mtlb_eig is now obsolete).
 
+* bug 3839 fixed - strrev doesn't work correctly if the string to be reversed includes some accentuated characters.
+
 * bug 3944 fixed - ilib_mex_build() wasn't using the content of the  
 		   variable tables to compile other files
 
