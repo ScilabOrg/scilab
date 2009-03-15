@@ -83,6 +83,8 @@ Bug fixes:
 
 * bug 4134 fixed - In some cases, bad detection of a 64 bit arch was 
                    causing a seg fault during the "make doc" process
+                   
+* bug 4141 fixed - ascii doesn't support extended ascii values in the range of [128-255].
 
 * bug 4150 fixed - user startup executed twice if you change directory to SCIHOME in this file.
 
