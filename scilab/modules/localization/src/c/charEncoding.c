@@ -19,32 +19,19 @@
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-static int wide_string_size(wchar_t *_wide)
-{
-	int size;
-
-	if ((wchar_t *)NULL == _wide) return 0;
-	size = (int)wcslen(_wide)+1;
-	return size*2;
-}
-/*--------------------------------------------------------------------------*/
 char *wide_string_to_UTF8(wchar_t *_wide)
 {
-	DWORD len = 0;
 	DWORD size = 0;
 	char *buf = NULL;
 
 	if ((wchar_t *)NULL == _wide) return (char *)NULL;
-	
-	len = wide_string_size(_wide);
-
-	size = WideCharToMultiByte(CP_UTF8, 0, _wide, len, NULL, 0, NULL, 0);
+	size = WideCharToMultiByte(CP_UTF8, 0, _wide, -1, NULL, 0, NULL, 0);
 	if (size == 0) return (char *)NULL;
 	size += 1;
 	buf = (char*)MALLOC(sizeof(char)*size);
 	if (buf)
 	{
-		WideCharToMultiByte(CP_UTF8, 0, _wide, len, buf, size, NULL, 0);
+		WideCharToMultiByte(CP_UTF8, 0, _wide, -1, buf, size, NULL, 0);
 		if (size <= 0)
 		{
 			FREE(buf);
@@ -62,7 +49,7 @@ wchar_t *to_wide_string(char *_UTFStr)
 	if(_UTFStr == NULL) return NULL;
 	nwide = MultiByteToWideChar(CP_UTF8, 0, _UTFStr, -1, NULL, 0);
 	if(nwide == 0) return NULL;
-	_buf = MALLOC(nwide * sizeof(WCHAR));
+	_buf = MALLOC(nwide * sizeof(wchar_t));
 	if(_buf == NULL) return NULL;
 	if(MultiByteToWideChar(CP_UTF8, 0, _UTFStr, -1, _buf, nwide) == 0) 
 	{
