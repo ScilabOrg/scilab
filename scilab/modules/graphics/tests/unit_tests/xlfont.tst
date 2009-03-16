@@ -31,4 +31,27 @@ xlfont('reset');
 afterresetfonts = xlfont();
 if ~and(initialfonts == afterresetfonts) then pause,end
 
+cd(TMPDIR);
 
+if MSDOS then
+	unix_w(jre_path()+"\bin\java.exe -cp "+SCI+"\modules\localization\tests\unit_tests CreateDir");
+else
+	unix_w(jre_path()+"/bin/java -classpath "+SCI+"/modules/localization/tests/unit_tests CreateDir");
+end
+
+tab_ref = [
+"世界您好",
+"азеазея",
+"ハロー・ワールド",
+"حريات وحقوق",
+"תוכנית"];
+
+for i = 1 : size(tab_ref,'*')
+  pathnam = getshortpathname(TMPDIR + filesep() + 'dir_' + tab_ref(i));
+  filnam = pathnam + filesep() + 'scilabsymbols.ttf';
+  copyfile(SCI+'/thirdparty/fonts/scilabsymbols.ttf',pathnam);
+  ierr = execstr('r = xlfont(filnam);','errcatch');
+  if ierr <> 0 then pause,end
+	if ~isdef('r') then pause,end
+	clear r;
+end
