@@ -17,15 +17,15 @@ tab_ref = [
 "世界您好",
 "азеазея",
 "ハロー・ワールド",
-"เฮลโลเวิลด์",
 "حريات وحقوق",
 "תוכנית"];
 
-cd(SCI);
+ref =1:20;
 
 for i = 1 : size(tab_ref,'*')
   pathnam = TMPDIR + filesep() + 'dir_' + tab_ref(i);
-  filenam = pathnam + filesep() + 'file_' + tab_ref(i);
-  if deletefile(filenam) <> %t then pause,end
-  if ls(pathnam) <> [] then pause,end
+  filenam = pathnam + filesep() + 'file_' + tab_ref(i) + '.mat';
+  fprintfMat(filenam,ref,'%f');
+  r = fscanfMat(filenam);
+  if or (r <> ref) then pause,end
 end
