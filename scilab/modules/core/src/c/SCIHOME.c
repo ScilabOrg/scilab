@@ -18,7 +18,7 @@
 #include "PATH_MAX.h"
 #include "createdirectory.h"
 #include "isdir.h"
-#include "getenvc.h"
+#include "../../../io/includes/getenvc.h"
 #include "scilabDefaults.h"
 #ifdef _MSC_VER
 #include "getshortpathname.h"
@@ -150,6 +150,7 @@ static BOOL defineSCIHOME(void)
 	int buflen = PATH_MAX;
 	int iflag = 0;
 	char USERPATHSCILAB[PATH_MAX];
+	char USERHOMESYSTEM[PATH_MAX];
 	char env[PATH_MAX+1+10]; /* PATH_MAX + strlen '\0' + strlen "SCIHOME=%s" */
 
 	C2F(getenvc)(&ierr,"HOME",USERHOMESYSTEM,&buflen,&iflag);
