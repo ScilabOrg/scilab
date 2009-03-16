@@ -27,6 +27,7 @@ extern "C"
 #include "inffic.h"
 #include "getCommentDateSession.h"
 #include "scilabDefaults.h"
+#include "charEncoding.h"
 };
 /*------------------------------------------------------------------------*/
 HistoryFile::HistoryFile()
@@ -105,7 +106,19 @@ BOOL HistoryFile::writeToFile(std::string filename)
 
 		if (filename.empty())  return bOK;
 
+		#ifdef _MSC_VER
+		{
+			wchar_t * wcFilename = to_wide_string((char*)filename.c_str());
+			if (wcFilename)
+			{
+				pFile = _wfopen (wcFilename,L"wt");
+				FREE(wcFilename);
+				wcFilename = NULL;
+			}
+		}
+		#else
 		pFile = fopen (filename.c_str(),"wt");
+		#endif
 
 		if (pFile)
 		{
@@ -148,7 +161,20 @@ BOOL HistoryFile::loadFromFile(std::string filename)
 
 	if (filename.empty()) return bOK;
 
+#ifdef _MSC_VER
+	{
+		wchar_t * wcFilename = to_wide_string((char*)filename.c_str());
+		if (wcFilename)
+		{
+			pFile = _wfopen (wcFilename,L"rt");
+			FREE(wcFilename);
+			wcFilename = NULL;
+		}
+	}
+#else
 	pFile = fopen (filename.c_str(),"rt");
+#endif
+
 	if (pFile)
 	{
 		while(fgets (line,sizeof(line),pFile) != NULL)
