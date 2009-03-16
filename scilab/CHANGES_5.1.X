@@ -58,8 +58,11 @@ Bug fixes:
 * bug 3643 fixed - Scilab spec function is the equivalent of Matlab function 
                    (mtlb_eig is now obsolete).
 
+* bug 3839 fixed - strrev doesn't work correctly if the string to be reversed includes some accentuated characters.
+
 * bug 3944 fixed - ilib_mex_build() wasn't using the content of the  
 		   variable tables to compile other files
+
 * bug 3945 fixed - Error with the help example of library()
 
 * bug 4052 fixed - A wrong usage of xmlCleanupParser (libxml2) was causing
@@ -80,6 +83,8 @@ Bug fixes:
 
 * bug 4134 fixed - In some cases, bad detection of a 64 bit arch was 
                    causing a seg fault during the "make doc" process
+                   
+* bug 4141 fixed - ascii doesn't support extended ascii values in the range of [128-255].
 
 * bug 4150 fixed - user startup executed twice if you change directory to SCIHOME in this file.
 
@@ -96,13 +101,17 @@ Bug fixes:
 				   
 * bug 4197 fixed - When warning messages are disabled, a blank line is printed out.
 
+* bug 4201 fixed - Confusing error message in datafit
+
 * bug 4228 fixed - mclearerr with a false file descriptor crashs
 
 * bug 4231 fixed - graphics exports functions crash (xs2png, xs2svg, ...)
 
 * bug 4235 fixed - error.h renamed
 
+* bug 4249 fixed - filter dos not work with perfect all pass system
 
+* bug 4250 fixed - The online help of intx function was badly located
 
 
                Changes between version 5.0.X and 5.1 of Scilab

@@ -254,8 +254,15 @@ static int asciiMatrix(char *fname)
 					FirstWarning = FALSE;
 				}
 			}
-			
-			Output_StringMatrix[x] = (char)toascii(Input_IntMatrix[x]);
+
+			if (isascii(Input_IntMatrix[x]))
+			{
+				Output_StringMatrix[x] = (char)toascii(Input_IntMatrix[x]);
+			}
+			else
+			{
+				Output_StringMatrix[x] = (char)Input_IntMatrix[x];
+			}
 		}
 		Output_StringMatrix[len] = '\0';
 	}
