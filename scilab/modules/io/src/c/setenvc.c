@@ -28,6 +28,8 @@ BOOL setenvc(char *stringIn,char *valueIn)
 {
 	BOOL ret = TRUE;
 
+	setenvtcl(stringIn,valueIn);
+
 #ifdef _MSC_VER
 	{
 		int len_env = 0;
@@ -38,6 +40,34 @@ BOOL setenvc(char *stringIn,char *valueIn)
 		the value in both locations, so that other software that looks in
 		one place or the other is guaranteed to see the value.
 		*/
+
+		#define ENV_FORMAT L"%s=%s"
+		wchar_t* wstringIn = to_wide_string(stringIn);
+		wchar_t* wvalueIn = to_wide_string(valueIn);
+
+
+
+		if (SetEnvironmentVariableW(wstringIn,wvalueIn) == 0)
+		{
+			ret = FALSE;
+		}
+
+		len_env = (int) (wcslen(wstringIn) + wcslen(wvalueIn) + wcslen(ENV_FORMAT)) + 1;
+		if (len_env < _MAX_ENV)
+		{
+			wchar_t *env = (wchar_t*) MALLOC(len_env * sizeof(wchar_t));
+			if (env)
+			{
+				swprintf(env, len_env, L"%s=%s", wstringIn, wvalueIn);
+				if(_wputenv(env))
+				{
+					ret = FALSE;
+				}
+
+				FREE(env);env = NULL;
+			}
+		}
+		/*
 		#define ENV_FORMAT "%s=%s"
 		if (SetEnvironmentVariableA(stringIn,valueIn) == 0) return FALSE;
 		len_env = (int) (strlen(stringIn) + strlen(valueIn) + strlen(ENV_FORMAT)) + 1;
@@ -51,6 +81,7 @@ BOOL setenvc(char *stringIn,char *valueIn)
 				FREE(env);env = NULL;
 			}
 		}
+*/
 	}
 #else
 	/* linux and Mac OS X */
@@ -59,10 +90,9 @@ BOOL setenvc(char *stringIn,char *valueIn)
 	if ( setenv(stringIn,valueIn,1) ) ret = FALSE;
 #endif
 
-	if (ret)
+	if(ret)
 	{
-		UpdateEnvVar = 1;
-		setenvtcl(stringIn,valueIn);
+		setUpdateEnvVar(1);
 	}
 
 	return ret;

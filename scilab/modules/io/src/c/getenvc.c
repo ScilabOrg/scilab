@@ -34,8 +34,48 @@ static void searchenv_others(const char *filename, const char *varname,
 /*--------------------------------------------------------------------------*/
 void C2F(getenvc)(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 {
-	char *locale = NULL;
 	#ifdef _MSC_VER
+
+
+	BOOL bMalloc = FALSE;
+	wchar_t *wvar = to_wide_string(var);
+	//wchar_t wbuf[bsiz];
+	
+	wchar_t *wbuf = _wgetenv(wvar);
+
+	*ierr = 0;
+	if(wbuf == NULL)
+	{
+		bMalloc = TRUE;
+		wbuf = (wchar_t*)MALLOC(sizeof(wchar_t) * *buflen);
+		if (GetEnvironmentVariableW(wvar, wbuf,(DWORD)*buflen) == 0)
+		{
+			if( *iflag == 1 )
+			{
+				sciprint(_("Undefined environment variable %s.\n"),var);
+			}
+			*ierr=1;
+		}
+		else
+		{	/*Test Tonio*/
+			MessageBoxW(NULL, wbuf, wvar, 0);
+		}
+	}
+
+	if(*ierr != 1)
+	{
+		char* temp = wide_string_to_UTF8(wbuf);
+		strcpy(buf, temp);
+		*buflen = (int)strlen(buf);
+		*ierr=0;
+	}
+
+	if(bMalloc)
+	{
+		FREE(wbuf);
+	}
+
+/*
 	if (GetEnvironmentVariable(var, buf,(DWORD)*buflen) == 0)
 	{
 		if ( *iflag == 1 ) sciprint(_("Undefined environment variable %s.\n"),var);
@@ -46,7 +86,9 @@ void C2F(getenvc)(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 		*buflen = (int)strlen(buf);
 		*ierr=0;
 	}
-	#else
+*/
+#else
+	char *locale = NULL;
 	locale=getenv(var);
 	if ( locale == NULL )
 	{
