@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA
+ * Copyright (C) DIGITEO - 2009 - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,14 +12,12 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "../../../fileio/includes/removedir.h"
-#include "../../../fileio/includes/createdirectory.h"
-#include <string.h>
-#include "MALLOC.h" /* MALLOC */
 
 #ifdef _MSC_VER
 #include <windows.h>
+#include <process.h>
 #endif
+
 #if defined(__STDC__) || defined(_MSC_VER)
 #include <stdlib.h>
 #ifndef _MSC_VER
@@ -33,12 +32,15 @@ extern  char  *getenv();
 #include <process.h>
 #include "strdup_windows.h"
 #endif
-#include "PATH_MAX.h"
+#include "MALLOC.h" /* MALLOC */
 #include "prompt.h"
 #include "tmpdir.h"
 #include "localization.h"
 #include "charEncoding.h"
 #include "MALLOC.h"
+#include "PATH_MAX.h"
+#include "removedir.h"
+#include "createdirectory.h"
 /*--------------------------------------------------------------------------*/
 static char tmp_dir[PATH_MAX+FILENAME_MAX+1];
 static int first = 0;
@@ -104,7 +106,7 @@ void createScilabTMPDIR(void)
 {
 	if ( first == 0 ) 
 	{
-		static char bufenv[MAX_PATH + 16];
+		static char bufenv[PATH_MAX + 16];
 		first++;
 
 		sprintf(tmp_dir,"/tmp/SD_%d_",(int) getpid());
