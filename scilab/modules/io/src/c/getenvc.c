@@ -56,10 +56,6 @@ void C2F(getenvc)(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 			}
 			*ierr=1;
 		}
-		else
-		{	/*Test Tonio*/
-			MessageBoxW(NULL, wbuf, wvar, 0);
-		}
 	}
 
 	if(*ierr != 1)
