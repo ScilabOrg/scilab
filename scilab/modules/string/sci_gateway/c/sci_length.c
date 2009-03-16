@@ -34,6 +34,7 @@
 #include "localization.h"
 #include "Scierror.h"
 #include "freeArrayOfString.h"
+#include "charEncoding.h"
 /*----------------------------------------------------------------------------*/
 /* get length */
 static int lengthStrings(int RhsPosition);
@@ -111,47 +112,47 @@ int C2F(sci_length)(char *fname,unsigned long fname_len)
 /*--------------------------------------------------------------------------*/
 static int lengthStrings(int RhsPosition)
 {
-	int m = 0, n = 0; /* matrix size */
-	int mn = 0; /* m*n */
+	//int m = 0, n = 0; /* matrix size */
+	//int mn = 0; /* m*n */
 
-	int il = 0; int ilrd = 0;
-	int l1 = 0;
+	//int il = 0; int ilrd = 0;
+	//int l1 = 0;
 
-	int outIndex = 0 ;
-	int x = 0;
-	
-	int lw = RhsPosition + Top - Rhs;
-	
-	l1 = *Lstk(lw);
-	il = iadr(l1);
+	//int outIndex = 0 ;
+	//int x = 0;
+	//
+	//int lw = RhsPosition + Top - Rhs;
+	//
+	//l1 = *Lstk(lw);
+	//il = iadr(l1);
 
-	if (*istk(il ) < 0) il = iadr(*istk(il + 1));
+	//if (*istk(il ) < 0) il = iadr(*istk(il + 1));
 
-	/* get dimensions */
-	m = getNumberOfLines(il); /* row */
-	n = getNumberOfColumns(il); /* col */
-	mn = m * n ;
-	
-	ilrd = il + 4;
-	
-	/* readjust stack before to call createvar */
-	C2F(intersci).ntypes[RhsPosition - 1] = '$';
-	C2F(intersci).iwhere[RhsPosition - 1] = l1;
-	C2F(intersci).lad[RhsPosition - 1] = l1;
+	///* get dimensions */
+	//m = getNumberOfLines(il); /* row */
+	//n = getNumberOfColumns(il); /* col */
+	//mn = m * n ;
+	//
+	//ilrd = il + 4;
+	//
+	///* readjust stack before to call createvar */
+	//C2F(intersci).ntypes[RhsPosition - 1] = '$';
+	//C2F(intersci).iwhere[RhsPosition - 1] = l1;
+	//C2F(intersci).lad[RhsPosition - 1] = l1;
 
-	/* Create Variable on stack */
-	CreateVar( Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &m,&n, &outIndex );
-	for  ( x = 0; x < mn; x++ )
-	{
-		/* put length of strings */
-		/* beginning of string : *istk(ilrd + x + 1) */
-		/* end of string : *istk(ilrd + x) */
-		stk(outIndex)[x] = (double) (*istk(ilrd + x + 1) - *istk(ilrd + x));
-	}
+	///* Create Variable on stack */
+	//CreateVar( Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &m,&n, &outIndex );
+	//for  ( x = 0; x < mn; x++ )
+	//{
+	//	/* put length of strings */
+	//	/* beginning of string : *istk(ilrd + x + 1) */
+	//	/* end of string : *istk(ilrd + x) */
+	//	stk(outIndex)[x] = (double) (*istk(ilrd + x + 1) - *istk(ilrd + x));
+	//}
 
-	LhsVar(1) = Rhs+1 ;
-	C2F(putlhsvar)();
-	return 0;
+	//LhsVar(1) = Rhs+1 ;
+	//C2F(putlhsvar)();
+	//return 0;
 
 	/* benchmark on Windows */
 	/* C2D 6600 2.4 Ghz */
@@ -160,33 +161,43 @@ static int lengthStrings(int RhsPosition)
 	/* code stack3 (commented) : 17629 microsecondes */
 	/* Conclusion : GetRhsVar with strings is too slow ... */
 
-	//char **Input_StringMatrix = NULL;
-	//int Row_Num = 0,Col_Num = 0,mn = 0;
+	char **Input_StringMatrix = NULL;
+	int Row_Num = 0,Col_Num = 0,mn = 0;
 
-	///* When input character string or matrix of strings. */
-	//GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&Row_Num,&Col_Num,&Input_StringMatrix);
-	//mn = Row_Num*Col_Num;  
+	/* When input character string or matrix of strings. */
+	GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&Row_Num,&Col_Num,&Input_StringMatrix);
+	mn = Row_Num*Col_Num;  
 
-	//if (Input_StringMatrix)
-	//{
-	//	int outIndex = 0 ;
-	//	int x = 0;
+	if (Input_StringMatrix)
+	{
+		int outIndex = 0 ;
+		int x = 0;
 
-	//	CreateVar( Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &Row_Num,&Col_Num, &outIndex );
-	//	for  ( x = 0; x < mn; x++ )
-	//	{
-	//		stk(outIndex)[x] = (int)strlen(Input_StringMatrix[x]);
-	//	}
-	//	LhsVar(1) = Rhs+1 ;
-	//	C2F(putlhsvar)();
-	//	freeArrayOfString(Input_StringMatrix,Row_Num * Col_Num);
-	//}
-	//else
-	//{
-	//	freeArrayOfString(Input_StringMatrix,Row_Num * Col_Num);
-	//	Scierror(999,_("%s: No more memory.\n"),fname);
-	//}
-	//return 0;
+		CreateVar( Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &Row_Num,&Col_Num, &outIndex );
+		for  ( x = 0; x < mn; x++ )
+		{
+			int len = 0;
+			char *currentchar = Input_StringMatrix[x];
+
+			while (*currentchar != 0)
+			{
+				int  charBytes = 0;
+				char *UTFChar = readNextUTFChar(currentchar,&charBytes);
+				currentchar += charBytes;
+				len++;
+			}
+			stk(outIndex)[x] = len;
+		}
+		LhsVar(1) = Rhs+1 ;
+		C2F(putlhsvar)();
+		freeArrayOfString(Input_StringMatrix,Row_Num * Col_Num);
+	}
+	else
+	{
+		freeArrayOfString(Input_StringMatrix,Row_Num * Col_Num);
+		Scierror(999,_("%s: No more memory.\n"),"length");
+	}
+	return 0;
 }
 /*--------------------------------------------------------------------------*/
 static int lengthOthers(char *fname)
