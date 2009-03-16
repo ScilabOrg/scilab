@@ -18,6 +18,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 int int_objfprintfMat(char *fname,unsigned long fname_len)
 {
@@ -85,11 +86,30 @@ int int_objfprintfMat(char *fname,unsigned long fname_len)
 		GetRhsVar(4,MATRIX_OF_STRING_DATATYPE,&mS,&nS,&Str2);
 	}
 
+	#ifdef _MSC_VER
+	{
+		wchar_t *wcfilename = to_wide_string(filename);
+		if (wcfilename)
+		{
+			if (( f = _wfopen(wcfilename,L"wt")) == (FILE *)0)
+			{
+				FREE(wcfilename); wcfilename = NULL;
+
+				Scierror(999,_("%s: Cannot open file %s.\n"),fname,filename);
+				return 0;
+			}
+
+			FREE(wcfilename); wcfilename = NULL;
+		}
+	}
+	#else
 	if (( f = fopen(filename,"w")) == (FILE *)0)
 	{
 		Scierror(999,_("%s: Cannot open file %s.\n"),fname,filename);
 		return 0;
 	}
+	#endif
+	
 
 	if ( Rhs >= 4 )
 	{

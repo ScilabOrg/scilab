@@ -18,6 +18,7 @@
 #include "cluni0.h"
 #include "freeArrayOfString.h"
 #include "PATH_MAX.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #define INFOSIZE 1024
 /*--------------------------------------------------------------------------*/
@@ -81,11 +82,27 @@ int int_objfscanfMat(char *fname,unsigned long fname_len)
 	
 	C2F(cluni0)( shortcut_path, real_path, &out_n, (long)strlen(shortcut_path), lout);
 
+	#ifdef _MSC_VER
+	{
+		wchar_t *wcreal_path = to_wide_string(real_path);
+		if (wcreal_path)
+		{
+			if (( f = _wfopen(wcreal_path,L"rt")) == (FILE *)0)
+			{
+				FREE(wcreal_path); wcreal_path = NULL;
+				Scierror(999,_("%s: Cannot open file '%s'.\n"),fname,shortcut_path);
+				return 0;
+			}
+			FREE(wcreal_path); wcreal_path = NULL;
+		}
+	}
+	#else
 	if (( f = fopen(real_path,"r")) == (FILE *)0)
 	{
 		Scierror(999,_("%s: Cannot open file '%s'.\n"),fname,shortcut_path);
 		return 0;
 	}
+	#endif
 	
 	/*** first pass to get colums and rows ***/
 	strcpy(Info,"--------");
