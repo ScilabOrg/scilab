@@ -13,6 +13,7 @@
 /*--------------------------------------------------------------------------*/
 #include "TextToPrint.h"
 #include "win_mem_alloc.h" /* MALLOC */
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 static HDC PrinterHDC=NULL;
 static char PrinterName[2048];
@@ -222,7 +223,15 @@ void PrintFile(char *filename)
 		HauteurCaractere= tm.tmHeight+tm.tmExternalLeading;
 		NbLigneParPage = GetDeviceCaps(PrintDC,VERTRES) / HauteurCaractere;
 
-		pFile = fopen (filename,"rt");
+		{
+			wchar_t *wcFilename = to_wide_string(filename);
+			if (wcFilename)
+			{
+				pFile = _wfopen (wcFilename,L"rt");
+				FREE(wcFilename);
+				wcFilename = NULL;
+			}
+		}
 		if (pFile)
 		{
 			if ( StartDoc( PrintDC, &di ) > 0 )
