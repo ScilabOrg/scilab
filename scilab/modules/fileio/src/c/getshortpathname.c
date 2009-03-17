@@ -36,7 +36,7 @@ char *getshortpathname(char *longpathname,BOOL *convertok)
 
 		if (length <= 0 ) length = MAX_PATH_SHORT;
 
-		ptwShortName = (wchar_t*)MALLOC((length)*sizeof(wchar_t));
+		ptwShortName = (wchar_t*)MALLOC((length)*sizeof(wchar_t) + 1);
 
 		if (ptwShortName) 
 		{

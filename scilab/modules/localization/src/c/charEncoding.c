@@ -58,6 +58,52 @@ wchar_t *to_wide_string(char *_UTFStr)
 	}
 	return _buf;
 }
+#else //Linux check for MAC OS X
+char *wide_string_to_UTF8(wchar_t *_wide)
+{
+	size_t iCharLen = 0;
+	wchar_t *pwstr = _wide;
+	char* pchar = NULL;
+
+	int iMaxLen = (int)wcslen(psz) * 4; //MBSC Max is 4 bytes by char
+	pchar = (char*)MALLOC((iMaxLen + 1) * sizeof(char));
+	if(pchar == NULL)
+	{
+		return NULL;
+	}
+
+	iCharLen = wcstombs (pchar, pwstr, iMaxLen);
+	if(iCharLen == 0)
+	{
+		return NULL;
+	}
+	return buf;
+}
+
+wchar_t *to_wide_string(char *_UTFStr)
+{
+		wchar_t *_buf = NULL;
+		size_t pszLen = 0;
+		char *psz = _UTFStr;
+		mbstate_t ps;
+
+		memset (&ps, '\0', sizeof (ps));
+		pszLen = mbsrtowcs(NULL, (const char**)&psz, 0, NULL) + 1;
+
+		if(pszLen == 0) // -1 + 1 = 0
+		{
+			return NULL;
+		}
+
+		_buf = (wchar_t*)MALLOC(pszLen * sizeof(wchar_t));
+		if(_buf == NULL)
+		{
+			return NULL;
+		}
+
+		mbsrtowcs(_buf, (const char**)&psz, strlen(psz), NULL);
+		return _buf;
+}
 #endif
 /*--------------------------------------------------------------------------*/
 char* readNextUTFChar(char* utfstream,int* size)
@@ -98,25 +144,8 @@ char* readNextUTFChar(char* utfstream,int* size)
 	return UTFChar;
 }
 
-
-/*
 	/*  TEST UTF Tonio & Allan*/
-	{
-/*
-		wchar_t *psz = (wchar_t*)MALLOC(strlen(filename) * 3);
-		char *pfile = filename;
-		size_t iOffset = 0;
-
-		mbstate_t ps;
-		memset (&ps, '\0', sizeof (ps));
-
-		iOffset = mbsrtowcs(psz, (const char**)&pfile, strlen(filename) * 3, &ps);
-
-		printf("filename(%d) : %s\n", (int)strlen(filename), filename);
-		printf("psz(%d) : %ls\n", (int)iOffset, psz);
-		printf("wcslen(psz) : (%d)\n\n\n", (int)wcslen(psz));
-*/
-
+/*	{
 		wchar_t *psz = NULL;
 		size_t pszLen = 0;
 		char *pfile = filename;
