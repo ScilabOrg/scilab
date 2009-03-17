@@ -20,46 +20,6 @@
 /*--------------------------------------------------------------------------*/
 #define BLANK_CHAR ' '
 /*--------------------------------------------------------------------------*/
-#ifndef _MSC_VER
-char **partfunction(char** stringInput,int m,int n,int *vectInput,int row)
-{
-	char **parts = NULL;
-	int mn = m * n;
-
-	parts = (char**)MALLOC(sizeof(char*)*(mn));
-	if (parts)
-	{
-		int i = 0;
-		for (i = 0;i < mn; i++)
-		{
-			int j = 0;
-			int lengthstringInput = (int)strlen(stringInput[i]);
-
-			parts[i] = (char*)MALLOC(sizeof(char)*((row)+1));
-			if (parts[i] == NULL)
-			{
-				freeArrayOfString(parts,mn);
-				return NULL;
-			}
-
-			for (j = 0;j < row; j++)
-			{
-				if ( vectInput[j] > lengthstringInput )
-				{
-					parts[i][j] = BLANK_CHAR;
-				}
-				else
-				{
-					parts[i][j] = stringInput[i][vectInput[j]-1];
-				}
-			}
-			parts[i][j] ='\0';
-		}
-	}
-	return parts;
-}
-#else
-/*--------------------------------------------------------------------------*/
 char **partfunction(char** stringInput,int m,int n,int *vectInput,int row)
 {
 	wchar_t **wcparts = NULL;
@@ -115,4 +75,3 @@ char **partfunction(char** stringInput,int m,int n,int *vectInput,int row)
 	return parts;
 }
 /*--------------------------------------------------------------------------*/
-#endif
