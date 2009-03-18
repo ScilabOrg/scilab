@@ -29,9 +29,9 @@
 }
 #else
 #define wcfopen(fp, x,y) \
-	{\
-		fp = fopen(filename, mode);\
-	}
+{\
+	fp = fopen(x, y);\
+}
 #endif
 
 
