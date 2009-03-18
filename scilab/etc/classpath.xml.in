@@ -26,7 +26,6 @@ The option is "disableUnderMode" and can be:
 -->
 
 <classpaths>
-<path value="$SCILAB/thirdparty/"/>
 
 <!-- Mandatory on startup -->
 <path value="@FLEXDOCK@"/>
@@ -58,6 +57,9 @@ The option is "disableUnderMode" and can be:
 	<load on="documentationGeneration"/>
 </path>
 <path value="@BATIK@" load="onUse">
+	<load on="documentationGeneration"/>
+</path>
+<path value="@XML_APIS_EXT@" load="onUse">
 	<load on="documentationGeneration"/>
 </path>
 

@@ -98,6 +98,10 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBarBridge;
 import org.scilab.modules.gui.toolbar.SimpleToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
+import org.scilab.modules.gui.tree.ScilabTree;
+import org.scilab.modules.gui.tree.ScilabTreeBridge;
+import org.scilab.modules.gui.tree.SimpleTree;
+import org.scilab.modules.gui.tree.Tree;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.waitbar.ScilabWaitBarBridge;
@@ -701,6 +705,16 @@ public class ScilabBridge {
 	
 	/**
 	 * Add a member (dockable element) to a tab and returns the index of this member
+	 * @param tab the tab which we want to add the Tree Overview to
+	 * @param member the Tree Overview to add
+	 * @return the position of the Tree Overview in the member list.
+	 */
+	public static int addMember(Tab tab, Tree member) {
+		return ScilabTabBridge.addMember(tab, member);
+	}
+
+	/**
+	 * Add a member (dockable element) to a tab and returns the index of this member
 	 * @param tab the tab which we want to add the pushbutton to
 	 * @param member the pushbutton to add
 	 * @return the position of the pushbutton in the member list.
@@ -1286,10 +1300,12 @@ public class ScilabBridge {
 	/**
 	 * Creates a Scilab Canvas
 	 * @param figureIndex index of the displayed figure
+	 * @param antialiasingQuality Specify the number of pass to use for antialiasing.
+     *                            If its value is 0, then antialiasing is disable.
 	 * @return the created canvas
 	 */
-	public static SimpleCanvas createCanvas(int figureIndex) {
-		return ScilabCanvasBridge.createCanvas(figureIndex);
+	public static SimpleCanvas createCanvas(int figureIndex, int antialiasingQuality) {
+		return ScilabCanvasBridge.createCanvas(figureIndex, antialiasingQuality);
 	}
 
 	/**
@@ -4304,8 +4320,8 @@ public class ScilabBridge {
 	 * @param popupMenu the PopupMenu we want to get the selected index of
 	 * @return the index of the item selected
 	 */
-	public static int getSelectedIndex(PopupMenu popupMenu) {
-		return ScilabPopupMenuBridge.getSelectedIndex(popupMenu);
+	public static int getUserSelectedIndex(PopupMenu popupMenu) {
+		return ScilabPopupMenuBridge.getUserSelectedIndex(popupMenu);
 	}
 	
 	/**
@@ -4474,7 +4490,7 @@ public class ScilabBridge {
 	
 	/**
 	 * Enable the multiple selection
-	 * @param scilabFileChooser the file chooser we want to get the  muliple selection 
+	 * @param fileChooser the file chooser we want to get the  muliple selection 
 	 * @param multipleSelection boolean for the multiple selection 
 	 */
 	public static void setMultipleSelection(FileChooser fileChooser, boolean multipleSelection) {
@@ -4492,7 +4508,7 @@ public class ScilabBridge {
 	
 	/**
 	 * Get the filter index
-	 * @param scilabFileChooser the file chooser we want to get the filter indexs
+	 * @param fileChooser the file chooser we want to get the filter indexs
 	 * @return the filter index
 	 */
 	public static int getFilterIndex(FileChooser fileChooser) {
@@ -4888,5 +4904,18 @@ public class ScilabBridge {
 	 */
 	public static void displayAndWait(ColorChooser colorChooser) {
 		ScilabColorChooserBridge.displayAndWait(colorChooser);
+	}
+	
+	
+	/******************/
+	/* Tree Bridge    */
+	/******************/
+
+	public static void  showTree(Tree tree) {
+		ScilabTreeBridge.showTree(tree);
+	}
+
+	public static SimpleTree createTree(Tree scilabTree) {
+	    return ScilabTreeBridge.createTree(scilabTree);
 	}
 }

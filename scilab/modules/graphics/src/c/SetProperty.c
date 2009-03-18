@@ -54,6 +54,7 @@
 #include "WindowList.h"
 #include "localization.h"
 #include "SetJavaProperty.h"
+#include "GraphicSynchronizerInterface.h"
 
 #include "MALLOC.h"
 #include "DrawingBridge.h"
@@ -523,7 +524,10 @@ int sciInitBackground( sciPointObj * pobj, int colorindex )
 
     if (sciGetEntityType(pobj) == SCI_FIGURE && !isFigureModel(pobj))
     {
+			/* disable protection since this function will call Java */
+		  disableFigureSynchronization(pobj);
       sciSetJavaBackground(pobj, newIndex);
+			enableFigureSynchronization(pobj);
     }
 
     return 0;
@@ -1847,7 +1851,6 @@ int sciInitName(sciPointObj * pobj, char * newName)
     case SCI_FIGURE:
     {
       int newNameLength;
-      int percentStatus = 0 ;
 
 			/* first case newName is NULL */
 			if (newName == NULL)
@@ -3756,6 +3759,188 @@ int sciSetIsUsingFractionalMetrics(sciPointObj * pObj, BOOL useFractionalMetrics
     return 1;
   }
   return sciInitIsUsingFractionalMetrics(pObj, useFractionalMetrics);
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitColorRange(sciPointObj * pObj, int subset[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		pFEC_FEATURE(pObj)->colminmax[0] = subset[0];
+		pFEC_FEATURE(pObj)->colminmax[1] = subset[1];
+		return 0;
+  default:
+    printSetGetErrorMessage("color_range");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify the subset of colormap bounds used by a particular object (colminmax).
+ */
+int sciSetColorRange(sciPointObj * pObj, int subset[2])
+{
+
+	int curColorRange[2];
+	sciGetColorRange(pObj, curColorRange);
+	if (curColorRange[0] == subset[0] && curColorRange[1] == subset[1])
+	{
+		/* nothing to do */
+		return 1;
+	}
+
+	return sciInitColorRange(pObj, subset);
+
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitOutsideColors(sciPointObj * pObj, int colors[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		pFEC_FEATURE(pObj)->colout[0] = colors[0];
+		pFEC_FEATURE(pObj)->colout[1] = colors[1];
+		return 0;
+  default:
+    printSetGetErrorMessage("outside_color");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify the color to use for an objects when it uses index outside of the colormap (colout).
+ */
+int sciSetOutsideColors(sciPointObj * pObj, int colors[2])
+{
+
+	int curColors[2];
+	sciGetOutsideColor(pObj, curColors);
+	if (curColors[0] == colors[0] && curColors[1] == colors[1])
+	{
+		/* nothing to do */
+		return 1;
+	}
+
+  return sciInitOutsideColors(pObj, colors);
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitZBounds(sciPointObj * pObj, double bounds[2])
+{
+  switch (sciGetEntityType(pObj))
+  {
+  case SCI_FEC:
+		pFEC_FEATURE(pObj)->zminmax[0] = bounds[0];
+		pFEC_FEATURE(pObj)->zminmax[1] = bounds[1];
+		return 0;
+  default:
+    printSetGetErrorMessage("z_bounds");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify the Z range used by a fec object (zminmax).
+ */
+int sciSetZBounds(sciPointObj * pObj, double bounds[2])
+{
+  double curBounds[2];
+	sciGetZBounds(pObj, curBounds);
+	if (curBounds[0] == bounds[0] && curBounds[1] == bounds[1])
+	{
+		/* nothing to do */
+		return 1;
+	}
+
+	return sciInitZBounds(pObj, bounds);
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitGridFront(sciPointObj * pObj, BOOL gridFront)
+{
+  switch (sciGetEntityType(pObj))
+  {
+	case SCI_SUBWIN:
+		pSUBWIN_FEATURE(pObj)->gridFront = gridFront;
+		return 0;
+	default:
+    printSetGetErrorMessage("grid_position");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify whether the grid is drawn in background or foreground.
+ */
+int sciSetGridFront(sciPointObj * pObj, BOOL gridFront)
+{
+	if (sciGetGridFront(pObj) == gridFront)
+	{
+		/* nothing to do */
+		return 1;
+	}
+	return sciInitGridFront(pObj, gridFront);
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitAntialiasingQuality(sciPointObj * pObj, int quality)
+{
+  switch (sciGetEntityType(pObj))
+  {
+	case SCI_FIGURE:
+		if (isFigureModel(pObj))
+		{
+			pFIGURE_FEATURE(pObj)->pModelData->antialiasingQuality = quality;
+		}
+		else
+		{
+			sciSetJavaAntialiasingQuality(pObj, quality);
+		}
+		return 0;
+  default:
+    printSetGetErrorMessage("anti_aliasing");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify the quality of antialiasing or disable it.
+ * If quality if 0, the antialiasing is disabled,
+ * otherwise it might be either 1, 2, 4, 8 or 16 and then
+ * specifies the number of pass for antialiasing.
+ * @param quality positive integer.
+ */
+int sciSetAntialiasingQuality(sciPointObj * pObj, int quality)
+{
+  if (sciGetAntialiasingQuality(pObj) == quality)
+	{
+		/* nothing to do */
+		return 1;
+	}
+	return sciInitAntialiasingQuality(pObj, quality);
+}
+/*----------------------------------------------------------------------------------*/
+int sciInitLegendLocation(sciPointObj * pObj, sciLegendPlace location)
+{
+	switch (sciGetEntityType(pObj))
+  {
+	case SCI_LEGEND:
+		pLEGEND_FEATURE(pObj)->place = location;
+		return 0;
+	default:
+    printSetGetErrorMessage("legend_location");
+		return -1;
+  }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+ * Modify the legend position relatively to the subwindow
+ */
+int sciSetLegendLocation(sciPointObj * pObj, sciLegendPlace location)
+{
+	if (sciGetLegendLocation(pObj) == location)
+	{
+		/* nothing to do */
+		return 1;
+	}
+	return sciInitLegendLocation(pObj, location);
 }
 /*----------------------------------------------------------------------------------*/
 /**

@@ -15,7 +15,7 @@
 /* file: sci_matplot1.c                                                   */
 /* desc : interface for matplot1 routine                                  */
 /*------------------------------------------------------------------------*/
-
+#include "stack-c.h"
 #include "sci_matplot.h"
 #include "GetProperty.h"
 #include "sci_demo.h"
@@ -29,8 +29,7 @@ int sci_matplot1( char * fname, unsigned long fname_len )
   int m1, n1, l1,m2,n2,l2;
   if ( Rhs <= 0 )
   {
-    int zero = 0 ;
-    sci_demo(fname,"plot2d([0,10],[0,10],0);a=ones(50,50);a= 3*tril(a)+2*a;Matplot1(a,[4,4,9,9]);", &zero);
+    sci_demo(fname,"plot2d([0,10],[0,10],0);a=ones(50,50);a= 3*tril(a)+2*a;Matplot1(a,[4,4,9,9]);", FALSE);
     return 0;
   }
 

@@ -44,11 +44,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl;../call_scilab/includes"
 				PreprocessorDefinitions="_DEBUG;_USRDLL;JAVA_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
@@ -67,7 +67,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/fixed:no"
 				OutputFile="../../bin/Javasci.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -128,11 +127,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl;../call_scilab/includes"
 				PreprocessorDefinitions="_DEBUG;_USRDLL;JAVA_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
@@ -151,7 +150,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/fixed:no"
 				OutputFile="../../bin/Javasci.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -210,9 +208,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl;../call_scilab/includes"
 				PreprocessorDefinitions="NDEBUG;_USRDLL;JAVA_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="0"
 				UsePrecompiledHeader="0"
 				ObjectFile="$(ConfigurationName)/"
@@ -293,9 +291,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl"
+				AdditionalIncludeDirectories="includes;../../libs/MALLOC/includes;../../libs/doublylinkedlist/includes;../core/includes;../output_stream/includes;../tclsci/includes;../tclsci/includes/tcltk/include;../../java/jdk/include/;../../java/jdk/include/win32;../../libs/intl;../call_scilab/includes"
 				PreprocessorDefinitions="NDEBUG;_USRDLL;JAVA_EXPORTS;_CRT_SECURE_NO_DEPRECATE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="0"
 				UsePrecompiledHeader="0"
 				ObjectFile="$(ConfigurationName)/"

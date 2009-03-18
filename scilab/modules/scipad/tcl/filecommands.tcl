@@ -460,6 +460,7 @@ proc opensourceof {} {
 # wants to open
     global pad menuFont textFont
     global opensoflb opensofbOK
+    global Tk85
 
     if {[isscilabbusy 0]} {return}
 
@@ -501,7 +502,10 @@ proc opensourceof {} {
     grid $opensof.f3.buttonCancel -row 0 -column 1 -sticky we -padx 10
     grid columnconfigure $opensof.f3 0 -uniform 1
     grid columnconfigure $opensof.f3 1 -uniform 1
-    pack $opensof.f3 -pady 4 -after $opensof.f2 -expand 0 -fill x
+    if {$Tk85} {
+        grid anchor $opensof.f3 center
+    }
+    pack $opensof.f3 -pady 4 -after $opensof.f2 -expand 1 -fill x
 
     # arrange for the buttons to disappear last
     # when the window size is reduced
@@ -656,20 +660,33 @@ proc doopenfunsource {keywtype nametoopen} {
     }
 }
 
-proc openlistoffiles {filelist tiledisplay} {
+proc openlistoffiles {filelist tiledisplay needpercentsubstitution} {
 # open many files at once - for use with file list provided by TkDnD
 # the open dialog is not shown
 # in case a directory is given, open all the files in that directory
+# $needpercentsubstitution instructs this proc to substitute percent
+# sequences in filenames (see bug 2998), which should only be done
+# when the filename is provided by TkDnD (and only on Linux), and not
+# when the file chooser provided it
+# on Windows, $needpercentsubstitution is ignored
+    global tcl_platform
     foreach f $filelist {
         regsub "^file:" $f "" f
         # in unix, .* files are not matched by *, but .* matches . and ..
         # If we don't exclude them, we have infinite recursion
-        if {[file tail $f] == "." | [file tail $f] == ".."} continue
+        if {[file tail $f] == "." || [file tail $f] == ".."} continue
+        # on Linux, TkDnD provides filenames that can contain %xy escape sequences
+        # that must be substituted - This is bug 2998, fixed for all platforms
+        # I know of but Ubuntu 8.04.x because the latter is affected by Ubuntu bug 320959
+        # see  https://bugs.launchpad.net/ubuntu/+bug/320959
+        if {$needpercentsubstitution eq "substpercentseq" && $tcl_platform(platform) eq "unix"} {
+            set f [substitutepercentescapesequences $f]
+        }
         if {[file isfile $f] == 1} {
             openfile $f $tiledisplay
         } elseif {[file isdirectory $f] == 1} {
-            openlistoffiles [glob -nocomplain -directory $f -types hidden *] $tiledisplay
-            openlistoffiles [glob -nocomplain -directory $f -types {f d} *] $tiledisplay
+            openlistoffiles [glob -nocomplain -directory $f -types hidden *] $tiledisplay $needpercentsubstitution
+            openlistoffiles [glob -nocomplain -directory $f -types {f d} *]  $tiledisplay $needpercentsubstitution
         } else {
             # In windows this never happened to us, but linux applications
             # allow sometimes drag of e.g. http:// or ftp://; moreover
@@ -729,7 +746,7 @@ proc showopenwin {tiledisplay} {
     }
     if {[llength $file] > 0} {
         set startdir [file dirname [lindex $file 0]]
-        openlistoffiles $file $tiledisplay
+        openlistoffiles $file $tiledisplay "DONTsubstpercentseq"
     }
 }
 
@@ -1819,6 +1836,24 @@ proc globtails {directoryname pat} {
         set matchfiles [lreplace $matchfiles $i $i [file tail [lindex $matchfiles $i]]]
     }
     return $matchfiles
+}
+
+proc substitutepercentescapesequences {str} {
+# substitute all %xy sequences in $str (x and y being two hex digits)
+# by the character whose hex code is xy and return the substituted string
+# this is used in URLs, where the percent sign is an escape character indicating
+# that the next two characters are hex digits representing a single ASCII character
+    global percenthexseqRE
+    # first find out where %xy must be substituted
+    set percentmatches [regexp -all -inline -indices -- $percenthexseqRE $str]
+    # second, replace each %xy by the character which hex code can be found in range {$sta+1 $sto} in $str
+    # lreverse the list of matches so that it's possible to work in place
+    foreach amatch [lreverse $percentmatches] {
+        foreach {sta sto} $amatch {}
+        set newchar [format %c [expr 0x[string range $str [expr $sta + 1] $sto]]]
+        set str [string replace $str $sta $sto $newchar]
+    }
+    return $str
 }
 
 ##################################################

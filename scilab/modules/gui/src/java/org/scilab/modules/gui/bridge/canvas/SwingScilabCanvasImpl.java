@@ -37,6 +37,7 @@ import java.awt.image.ImageObserver;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
@@ -51,6 +52,7 @@ import javax.media.opengl.GLJPanel;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.utils.Debug;
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.renderer.utils.RenderingCapabilities;
 
 public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, MenuContainer, Accessible, Serializable {
@@ -100,13 +102,28 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
 	    // By default disable GLJPanel on Linux
 	    if (OS_NAME.contains("Linux")) {
 		noGLJPanel = true;
-		// Linux && NVIDIA 
+		// Linux && NVIDIA
 		if (GL_VENDOR.contains("NVIDIA")) {
 		    noGLJPanel = false;
 		}
 		// Linux && ATI
 		if (GL_VENDOR.contains("ATI")) {
-		    noGLJPanel = false;
+		    StringTokenizer stSpace = new StringTokenizer(GL_VERSION, " ");
+		    StringTokenizer stDot = new StringTokenizer(stSpace.nextToken(), ".");
+		    int majorVersion = Integer.parseInt(stDot.nextToken());
+		    int minorVersion = Integer.parseInt(stDot.nextToken());
+		    int releaseVersion = Integer.parseInt(stDot.nextToken());
+		    // Only OpenGL version newer than 2.1.7873 works
+		    // available through ATI 8.8 installer
+		    // and driver newer than 8.52.3
+		    Debug.DEBUG("SwingScilabCanvasImpl", "majorVersion = "+majorVersion+
+			    " minorVersion = "+minorVersion+
+			    " releaseVersion = "+releaseVersion);
+		    if (majorVersion > 2
+			    || majorVersion == 2 && minorVersion > 1
+			    || majorVersion == 2 && minorVersion == 1 && releaseVersion >= 7873) {
+			noGLJPanel = false;
+		    }
 		}
 	    }
 	    if ( OS_NAME.contains("Windows") && OS_ARCH.equals("amd64") ) {
@@ -122,18 +139,18 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
 
 	    if (noGLJPanel) {
 		/** Inform the users */
-		InterpreterManagement.putCommandInScilabQueue("disp(\"WARNING: Due to your configuration limitations, "
+		InterpreterManagement.requestScilabExec(Messages.gettext("disp(\"WARNING: Due to your configuration limitations, "
 			+ "Scilab switched in a mode where mixing uicontrols and graphics is not available. "
-			+ "Type \"\"help usecanvas\"\" for more information.\")");
+			+ "Type \"\"help usecanvas\"\" for more information.\")"));
 	    }
 	}
 	catch (GLException e) {
 	    noGLJPanel = true;
 	    /** Inform the users */
-	    InterpreterManagement.putCommandInScilabQueue("disp(\"WARNING: Due to your video card drivers limitations, "+
-		    "that are not able to manage OpenGL, Scilab will not be able to draw any graphics. "+
-	    "Please update your driver.\")");
-	}	
+	    InterpreterManagement.requestScilabExec(Messages.gettext("disp(\"WARNING: Due to your video card drivers limitations, "
+		    + "that are not able to manage OpenGL, Scilab will not be able to draw any graphics. "
+		    + "Please update your driver.\")"));
+	}
     }
 
     GLCanvas realGLCanvas;
@@ -147,9 +164,9 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
     public static boolean switchToGLCanvas(boolean onOrOff) {
 	Debug.DEBUG("SwingScilabCanvasImpl", "switchToGLCanvas " + onOrOff);
 	if(!onOrOff && noGLJPanel) {
-	    InterpreterManagement.putCommandInScilabQueue("disp(\"WARNING: Despite of our previous warning, "
+	    InterpreterManagement.requestScilabExec(Messages.gettext("disp(\"WARNING: Despite of our previous warning, "
 			+ "you choosed to use Scilab with advanced graphics capabilities. "
-			+ "Type \"\"help usecanvas\"\" for more information.\")"); 
+			+ "Type \"\"help usecanvas\"\" for more information.\")"));
 	}
 	enableGLCanvas = onOrOff;
 	return enableGLCanvas;
@@ -210,22 +227,30 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
 	}
     }
 
+    /**
+     * @return BLOUNO
+     */
     private GLAutoDrawable getAsGL() {
-	if (enableGLCanvas) {
-	    return realGLCanvas;
-	}
-	else {
-	    return realGLJPanel;
-	}
+    	/* Don't use enableGLCanvas. */
+    	/* It might change but not current type of the canvas.*/
+    	if (realGLCanvas != null) {
+    		return realGLCanvas;
+    	} else {
+    		return realGLJPanel;
+    	}
     }
 
+    /**
+     * @return BLOUNO
+     */
     public Component getAsComponent() {
-	if (enableGLCanvas) {
-	    return realGLCanvas;
-	}
-	else {
-	    return realGLJPanel;
-	}
+    	/* Don't use enableGLCanvas. */
+    	/* It might change but not current type of the canvas.*/
+    	if (realGLCanvas != null) {
+    		return realGLCanvas;
+    	} else {
+    		return realGLJPanel;
+    	}
     }
 
     public void addGLEventListener(GLEventListener arg0) {
@@ -428,6 +453,7 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
     }
 
     public void setBackground(Color arg0) {
+    	
 	getAsComponent().setBackground(arg0);
     }
 

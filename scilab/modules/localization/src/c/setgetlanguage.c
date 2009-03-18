@@ -18,6 +18,9 @@
 #include "machine.h" /*  HAVE_LIBINTL_H &  HAVE_LOCALE_H */
 
 #ifndef _MSC_VER
+#ifdef __APPLE__
+#include <locale.h>
+#else
  #ifdef HAVE_LIBINTL_H
   #include <libintl.h>
   #ifdef HAVE_LOCALE_H
@@ -26,6 +29,7 @@
    #error "Cannot find locale.h despite that libintl.h is available"
   #endif
  #endif
+#endif
 #else
 	#include <locale.h>
 	#include <libintl.h>
@@ -262,15 +266,24 @@ char *convertlanguagealias(char *strlanguage)
  */
 BOOL exportLocaleToSystem(char *locale){
 
-	if (locale==NULL) {
-		fprintf(stderr,"Localization: Haven't been able to find a suitable locale. Remains to default.\n", EXPORTENVLOCALE);
+	if (locale==NULL) 
+	{
+#ifdef _MSC_VER
+		fprintf(stderr,"Localization: Haven't been able to find a suitable locale. Remains to default %s.\n", "LC_CTYPE");
+#else
+		fprintf(stderr,"Localization: Haven't been able to find a suitable locale. Remains to default %s.\n", EXPORTENVLOCALE);
+#endif
 		return FALSE;
 	}
 
-	/* It will put in the env something like LC_ALL=fr_FR */
+	/* It will put in the env something like LC_MESSAGES=fr_FR */
 	if ( !setenvc(EXPORTENVLOCALESTR,locale))
 	{
-		fprintf(stderr,"Localization: Failed to declare the system variable %s\n", EXPORTENVLOCALE);
+#ifdef _MSC_VER
+		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", "LC_CTYPE");
+#else
+		fprintf(stderr,"Localization: Failed to declare the system variable %s.\n", EXPORTENVLOCALE);
+#endif
 		return FALSE;
 	}
 
