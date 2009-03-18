@@ -51,9 +51,10 @@ char* scistrrev(char* str)
 	char *revstr = NULL;
 	if (str)
 	{
+		wchar_t *wcrevstr = NULL;
 		wchar_t *wcstr = to_wide_string(str);
 #ifdef _MSC_VER
-		wchar_t *wcrevstr = _wcsrev(wcstr);
+		wcrevstr = _wcsrev(wcstr);
 		revstr = wide_string_to_UTF8(wcrevstr);
 #else
 		int i = wcslen(wcstr);
