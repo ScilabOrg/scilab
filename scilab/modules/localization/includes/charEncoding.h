@@ -13,6 +13,8 @@
 #define __CHARENCODING_H__
 
 #include <wchar.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "MALLOC.h"
 
 
@@ -55,6 +57,9 @@ wchar_t *to_wide_string(char *_UTFStr);
 * @return UTF string converted
 */
 char *wide_string_to_UTF8(wchar_t *_wide);
+
+/*file management with UTF filename*/
+int wcstat(char* filename, struct _stat *st);
 
 #endif /* __CHARENCODING_H__ */
 

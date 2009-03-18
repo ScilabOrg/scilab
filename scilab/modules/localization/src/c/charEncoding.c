@@ -12,7 +12,6 @@
 */
 /*--------------------------------------------------------------------------*/
 
-#include <wchar.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -58,6 +57,15 @@ wchar_t *to_wide_string(char *_UTFStr)
 		return NULL;
 	}
 	return _buf;
+}
+
+int wcstat(char* filename, struct _stat *st)
+{
+	int stat_result = 0;
+	wchar_t *wfilename = to_wide_string(filename);
+	stat_result = _wstat(wfilename, st);
+	FREE(wfilename);
+	return stat_result;
 }
 #else //Linux check for MAC OS X
 char *wide_string_to_UTF8(wchar_t *_wide)
@@ -106,5 +114,11 @@ wchar_t *to_wide_string(char *_UTFStr)
 		mbsrtowcs(_buf, (const char**)&psz, (int)strlen(psz), NULL);
 		return _buf;
 }
+
+int wcstat(char* filename, struct stat *st)
+{
+	return stat(filename, st);
+}
+
 #endif
 /*--------------------------------------------------------------------------*/

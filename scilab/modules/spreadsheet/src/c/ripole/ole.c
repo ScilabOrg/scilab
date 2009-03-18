@@ -6,8 +6,6 @@
 #include <ctype.h>
 #include <string.h>
 #include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
 #include "logger.h"
 #include "pldstr.h"
@@ -1426,18 +1424,19 @@ filesize range.
 \------------------------------------------------------------------*/
 int OLE_open_file( struct OLE_object *ole, char *fullpath )
 {
-
+#ifdef _MSC_VER
+	struct _stat st;
+#else
 	struct stat st;
+#endif
 	int stat_result;
 	FILE *f;
-/*
-	{
-		wchar_t *wfullpath = to_wide_string(fullpath);
-		stat_result = _wstat(wfullpath, &st);
-		FREE(wfullpath);
-	}
-*/
+
+#ifdef _MSC_VER
+	stat_result = wcstat(fullpath, &st);
+#else
 	stat_result = stat(fullpath, &st);
+#endif
 	if (stat_result != 0) {
 		DOLE LOGGER_log(_("%s:%d:OLE_open_file:ERROR: Cannot locate file '%s' for opening (%s)"),FL, fullpath, strerror(errno));
 		return OLEER_BAD_INPUT_FILE;
@@ -1448,11 +1447,8 @@ int OLE_open_file( struct OLE_object *ole, char *fullpath )
 
 	ole->file_size = st.st_size;
 
-	{
-		wchar_t *wfullpath = to_wide_string(fullpath);
-//		f = _wfopen(wfullpath, L"rb");
-		FREE(wfullpath);
-	}
+	wcfopen(f, fullpath, "rb");
+
 	if (f == NULL)
 	{
 		ole->f = NULL;
@@ -1567,11 +1563,7 @@ int OLE_store_stream( struct OLE_object *ole, char *stream_name, char *directory
 	else
 	{
 		FILE *f;
-		{
-			wchar_t *wfull_path = to_wide_string(full_path);
-//			f = _wfopen(wfull_path, L"wb");
-			FREE(wfull_path);
-		}
+		wcfopen(f, full_path, "wb");
 		
 		if (f == NULL)
 		{
