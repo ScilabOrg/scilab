@@ -12,7 +12,6 @@
 #ifndef __CHARENCODING_H__
 #define __CHARENCODING_H__
 
-#ifdef _MSC_VER
 #include <wchar.h>
 
 /**
@@ -29,9 +28,15 @@ wchar_t *to_wide_string(char *_UTFStr);
 */
 char *wide_string_to_UTF8(wchar_t *_wide);
 
-#endif 
+//#endif
 
 char* readNextUTFChar(char* utfstream,int* size);
+
+
+
+/*file management with UTF filename*/
+
+FILE * wcfopen(char *filename, char* mode);
 
 
 #endif /* __CHARENCODING_H__ */
