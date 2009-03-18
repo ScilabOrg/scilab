@@ -61,12 +61,12 @@ Bug fixes:
 * bug 3839 fixed - strrev doesn't work correctly if the string to be reversed includes some accentuated characters.
 
 * bug 3944 fixed - ilib_mex_build() wasn't using the content of the  
-		   variable tables to compile other files
+                   variable tables to compile other files
 
 * bug 3945 fixed - Error with the help example of library()
 
 * bug 4052 fixed - A wrong usage of xmlCleanupParser (libxml2) was causing
-				   a seg fault on startup
+                   a seg fault on startup
 
 * bug 4067 fixed - bug with completion and some paths
 
@@ -91,14 +91,19 @@ Bug fixes:
 * bug 4159 fixed - coshlt was defined twice on windows
 
 * bug 4164 fixed - isinf is now defined in more recent versions of the Sun 
-				   Compiler. Detection and replacement of the function is now
-				   done in the configure.
+                   Compiler. Detection and replacement of the function is now
+                   done in the configure.
 
 * bug 4166 fixed - test_run was broken
 
+* bug 4179 fixed - The dec2hex "see also" part was missing in the help page.
+
+* bug 4192 fixed - When doing a getd in a directory where there are no .sci files,
+                   getd displayed a error message not clear at all.
+
 * bug 4197 fixed - inaccurate floating point results computed by norm with 
-				   large/small vector matrices.
-				   
+                   large/small vector matrices.
+   
 * bug 4197 fixed - When warning messages are disabled, a blank line is printed out.
 
 * bug 4201 fixed - Confusing error message in datafit
@@ -113,6 +118,8 @@ Bug fixes:
 
 * bug 4250 fixed - The online help of intx function was badly located
 
+* bug 4269 fixed - Fix a bashim in the macros of detection of swig (causing 
+                   problems with netbsd)
 
                Changes between version 5.0.X and 5.1 of Scilab
                ===============================================
@@ -178,6 +185,10 @@ Enhancement:
 
 * Update of the example in the dynamic_link modules and in the toolbox skeleton
   (use the actual filename instead of the .o)
+
+* The demos of the simulated_annealing module have been integrated into the demos menu
+
+* The demos of the genetic_algorithms module have been integrated into the demos menu
 
 Tests:
 ======
