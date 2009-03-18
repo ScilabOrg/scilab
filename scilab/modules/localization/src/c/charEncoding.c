@@ -10,9 +10,8 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#ifdef _MSC_VER
-	#include <wchar.h>
-#endif
+
+#include <wchar.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "charEncoding.h"
@@ -65,7 +64,7 @@ char *wide_string_to_UTF8(wchar_t *_wide)
 	wchar_t *pwstr = _wide;
 	char* pchar = NULL;
 
-	int iMaxLen = (int)wcslen(psz) * 4; //MBSC Max is 4 bytes by char
+	int iMaxLen = (int)wcslen(_wide) * 4; //MBSC Max is 4 bytes by char
 	pchar = (char*)MALLOC((iMaxLen + 1) * sizeof(char));
 	if(pchar == NULL)
 	{
@@ -75,9 +74,10 @@ char *wide_string_to_UTF8(wchar_t *_wide)
 	iCharLen = wcstombs (pchar, pwstr, iMaxLen);
 	if(iCharLen == 0)
 	{
+		FREE(pchar);
 		return NULL;
 	}
-	return buf;
+	return pchar;
 }
 
 wchar_t *to_wide_string(char *_UTFStr)
