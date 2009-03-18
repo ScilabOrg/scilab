@@ -51,11 +51,11 @@ char* scistrrev(char* str)
 	char *revstr = NULL;
 	if (str)
 	{
-		wchar_t *wcrevstr = NULL;
 		wchar_t *wcstr = to_wide_string(str);
 #ifdef _MSC_VER
-		wcrevstr = _wcsrev(wcstr);
+		wchar_t *wcrevstr = _wcsrev(wcstr);
 		revstr = wide_string_to_UTF8(wcrevstr);
+		if (wcrevstr) {FREE(wcrevstr);wcrevstr = NULL;}
 #else
 		int i = wcslen(wcstr);
 		int t = !(i%2)? 1 : 0;      // check the length of the string .
@@ -72,8 +72,6 @@ char* scistrrev(char* str)
 		}
 		revstr = wide_string_to_UTF8(wcstr);
 #endif
-		revstr = wide_string_to_UTF8(wcrevstr);
-		if (wcrevstr) {FREE(wcrevstr);wcrevstr = NULL;}
 	}
 	return revstr;
 }
