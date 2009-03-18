@@ -42,6 +42,7 @@ static int GetScalarInt(char *fname,int *first,int *arg,int narg, int *ir,int ic
 static int GetString (char *fname,int *first,int *arg,int narg, int *ir,int ic,char **sval);
 static int GetScalarDouble(char *fname,int *prev,int *arg,int narg, int *ic,int ir,double *dval);
 static void error_on_rval(XXPRINTF xxprintf,FLUSH flush,char *target);
+static char* readNextUTFChar(char* utfstream,int* size);
 static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *asterisk,int asterisk_count,int conversion_type,double dval );
 /*--------------------------------------------------------------------------*/
 static void error_on_rval(XXPRINTF xxprintf,FLUSH flush,char *target)
@@ -222,6 +223,7 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 						retval++;
 					}
 					break;
+
 				default:
 					/* putc */
 					{
@@ -495,6 +497,44 @@ int do_xxprintf (char *fname, FILE *fp, char *format, int nargs, int argcount, i
 		}
 	}
 	return (retval);
+}
+/*--------------------------------------------------------------------------*/
+static char* readNextUTFChar(char* utfstream,int* size)
+{
+	static char UTFChar[5]; /**UTF char. at most 4 bytes*/
+	unsigned char charcode=(unsigned)*utfstream;
+	/** UTF-8 format: ref. http://en.wikipedia.org/wiki/UTF-8/ */
+	if(charcode > 193 && charcode <= 223 )
+	{ /* twi bytes UTF-8 */
+		UTFChar[0]=*utfstream;
+		UTFChar[1]=*(utfstream+1);
+		UTFChar[2]='\0';
+		*size=2;
+	}
+	else if(charcode > 223 && charcode <= 239 )
+	{/* three bytes UTF-8*/
+		UTFChar[0]=*utfstream;
+		UTFChar[1]=*(utfstream+1);
+		UTFChar[2]=*(utfstream+2);;
+		UTFChar[3]='\0';
+		*size=3;
+	}
+	else if(charcode > 239 && charcode < 245 )
+	{/* four bytes UTF-8*/
+		UTFChar[0]=*utfstream;
+		UTFChar[1]=*(utfstream+1);
+		UTFChar[2]=*(utfstream+2);
+		UTFChar[3]=*(utfstream+3);
+		UTFChar[4]='\0';
+		*size=4;
+	}
+	else
+	{
+		UTFChar[0]=*utfstream;
+		UTFChar[1]='\0';
+		*size=1;
+	}
+	return UTFChar;
 }
 /*--------------------------------------------------------------------------*/
 static int GetScalarInt(char *fname, int *prev, int *arg, int narg, int *ic, int ir, int *ival)

@@ -1,7 +1,7 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA - Allan CORNET
-*
+* Copyright (C) 2009 - DIGITEO - Antoine ELIAS , Allan CORNET
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
@@ -42,7 +42,6 @@
 }
 #endif
 
-
 /**
 * convert a UTF string to wide char string
 * @param[in] UTF string
@@ -56,9 +55,6 @@ wchar_t *to_wide_string(char *_UTFStr);
 * @return UTF string converted
 */
 char *wide_string_to_UTF8(wchar_t *_wide);
-
-
-char* readNextUTFChar(char* utfstream,int* size);
 
 #endif /* __CHARENCODING_H__ */
 

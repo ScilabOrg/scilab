@@ -1,6 +1,7 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2008 - Yung-Jang Lee
+* Copyright (C) 2009 - DIGITEO - Antoine ELIAS , Allan CORNET
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -107,83 +108,3 @@ wchar_t *to_wide_string(char *_UTFStr)
 }
 #endif
 /*--------------------------------------------------------------------------*/
-char* readNextUTFChar(char* utfstream,int* size)
-{
-	static char UTFChar[5]; /**UTF char. at most 4 bytes*/
-	unsigned char charcode=(unsigned)*utfstream;
-	/** UTF-8 format: ref. http://en.wikipedia.org/wiki/UTF-8/ */
-	if(charcode > 193 && charcode <= 223 )
-	{ /* twi bytes UTF-8 */
-		UTFChar[0]=*utfstream;
-		UTFChar[1]=*(utfstream+1);
-		UTFChar[2]='\0';
-		*size=2;
-	}
-	else if(charcode > 223 && charcode <= 239 )
-	{/* three bytes UTF-8*/
-		UTFChar[0]=*utfstream;
-		UTFChar[1]=*(utfstream+1);
-		UTFChar[2]=*(utfstream+2);;
-		UTFChar[3]='\0';
-		*size=3;
-	}
-	else if(charcode > 239 && charcode < 245 )
-	{/* four bytes UTF-8*/
-		UTFChar[0]=*utfstream;
-		UTFChar[1]=*(utfstream+1);
-		UTFChar[2]=*(utfstream+2);
-		UTFChar[3]=*(utfstream+3);
-		UTFChar[4]='\0';
-		*size=4;
-	}
-	else
-	{
-		UTFChar[0]=*utfstream;
-		UTFChar[1]='\0';
-		*size=1;
-	}
-	return UTFChar;
-}
-
-	/*  TEST UTF Tonio & Allan*/
-/*	{
-		wchar_t *psz = NULL;
-		size_t pszLen = 0;
-		char *pfile = filename;
-		size_t iOffset = 0;
-
-		mbstate_t ps;
-		memset (&ps, '\0', sizeof (ps));
-
-		pszLen = mbsrtowcs(NULL, (const char**)&pfile, 0, &ps) + 1;
-
-		psz = (wchar_t*)MALLOC(pszLen * sizeof(wchar_t));
-
-		iOffset = mbsrtowcs(psz, (const char**)&pfile, strlen(filename), &ps);
-
-		printf("UTF-8 -> UTF-16\n");
-		printf("filename(%d) : %s\n", (int)strlen(filename), filename);
-		printf("psz(%d) : %ls\n", (int)iOffset, psz);
-		printf("wcslen(psz) : (%d)\n\n", (int)wcslen(psz));
-
-		{
-			size_t iCharLen = 0;
-			wchar_t *pwstr = psz;
-			char* pchar = NULL;
-
-			int iMaxLen = wcslen(psz) * 4;
-			pchar = (char*)MALLOC((iMaxLen + 1) * sizeof(char));
-
-			iCharLen = wcstombs (pchar, pwstr, iMaxLen);
-
-			printf("UTF-16 -> UTF-8\n");
-			printf("psz(%d) : %ls\n", (int)wcslen(psz), psz);
-			printf("pchar(%d) : %s\n", (int)iCharLen, pchar);
-			printf("strlen(pchar) : (%d)\n\n\n", (int)strlen(pchar));
-
-			FREE(pchar);
-		}
-
-		FREE(psz);
-	}
-*/
