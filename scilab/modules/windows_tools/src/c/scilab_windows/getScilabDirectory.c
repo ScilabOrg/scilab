@@ -43,7 +43,7 @@ char *getScilabDirectory(BOOL UnixStyle)
 
 	if (wcslen(dir) - wcslen(DirTmp)>0)
 	{
-		dir[wcslen(dir) - wcslen(DirTmp)] = '\0';
+		dir[wcslen(dir) - wcslen(DirTmp)] = L'\0';
 	}
 	else return NULL;
 

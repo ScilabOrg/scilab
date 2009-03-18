@@ -223,15 +223,8 @@ void PrintFile(char *filename)
 		HauteurCaractere= tm.tmHeight+tm.tmExternalLeading;
 		NbLigneParPage = GetDeviceCaps(PrintDC,VERTRES) / HauteurCaractere;
 
-		{
-			wchar_t *wcFilename = to_wide_string(filename);
-			if (wcFilename)
-			{
-				pFile = _wfopen (wcFilename,L"rt");
-				FREE(wcFilename);
-				wcFilename = NULL;
-			}
-		}
+		wcfopen(pFile , filename, "rt");
+
 		if (pFile)
 		{
 			if ( StartDoc( PrintDC, &di ) > 0 )

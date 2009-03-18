@@ -106,19 +106,7 @@ BOOL HistoryFile::writeToFile(std::string filename)
 
 		if (filename.empty())  return bOK;
 
-		#ifdef _MSC_VER
-		{
-			wchar_t * wcFilename = to_wide_string((char*)filename.c_str());
-			if (wcFilename)
-			{
-				pFile = _wfopen (wcFilename,L"wt");
-				FREE(wcFilename);
-				wcFilename = NULL;
-			}
-		}
-		#else
-		pFile = fopen (filename.c_str(),"wt");
-		#endif
+		wcfopen(pFile , (char*)filename.c_str(), "wt");
 
 		if (pFile)
 		{
@@ -161,19 +149,7 @@ BOOL HistoryFile::loadFromFile(std::string filename)
 
 	if (filename.empty()) return bOK;
 
-#ifdef _MSC_VER
-	{
-		wchar_t * wcFilename = to_wide_string((char*)filename.c_str());
-		if (wcFilename)
-		{
-			pFile = _wfopen (wcFilename,L"rt");
-			FREE(wcFilename);
-			wcFilename = NULL;
-		}
-	}
-#else
-	pFile = fopen (filename.c_str(),"rt");
-#endif
+	wcfopen(pFile , (char*)filename.c_str(), "rt");
 
 	if (pFile)
 	{

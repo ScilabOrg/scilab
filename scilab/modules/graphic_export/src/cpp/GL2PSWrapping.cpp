@@ -39,19 +39,7 @@ int sci_gl2psBeginPage(const char *title, const char *producer,
 		colorMap[i][3] = colormap_a[i];
 	}
 
-	#ifdef _MSC_VER
-	{
-		wchar_t* wcfilename = to_wide_string((char*)filename);
-		if (wcfilename)
-		{
-			curExportFile = _wfopen(wcfilename, L"wb");
-			FREE(wcfilename);
-			wcfilename = NULL;
-		}
-	}
-	#else
-	curExportFile = fopen(filename, "wb");
-	#endif
+	wcfopen(curExportFile , (char*)filename, "wb");
 
 	int returnStatus = gl2psBeginPage(title, producer, viewport, format, sort,
 									  options, colormode, colorsize, colorMap, nr, ng, nb, buffersize, curExportFile, filename);

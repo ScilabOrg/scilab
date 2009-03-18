@@ -54,21 +54,7 @@ void C2F(mopen)(int *fd, char *file, char *status, int *f_swap, double *res, int
 		return;
 	}
 
-	#ifdef _MSC_VER
-	{
-		wchar_t *wfilename = to_wide_string(file);
-		wchar_t *wstatus = to_wide_string(status);
-
-		if (wfilename && wstatus)
-		{
-			fa = _wfopen(wfilename,wstatus);
-			FREE(wstatus); wstatus = NULL;
-			FREE(wfilename); wfilename = NULL;
-		}
-	}
-	#else
-		fa = fopen(file,status);
-	#endif
+	wcfopen(fa , file,status);
 
 	if (! fa )
 	{     
