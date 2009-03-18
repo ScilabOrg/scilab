@@ -15,6 +15,14 @@
 #include <wchar.h>
 #include "MALLOC.h"
 
+
+/**
+* wcfopen macro for fopen Multibyte char multiplatform
+* @param[out] fp file descriptor
+* @param[in] x filename
+* @param[in] y mode
+*/
+
 #ifdef _MSC_VER
 #define wcfopen(fp, x,y) \
 {\
@@ -49,16 +57,8 @@ wchar_t *to_wide_string(char *_UTFStr);
 */
 char *wide_string_to_UTF8(wchar_t *_wide);
 
-//#endif
 
 char* readNextUTFChar(char* utfstream,int* size);
-
-
-
-/*file management with UTF filename*/
-
-//FILE * wcfopen(char *filename, char* mode);
-
 
 #endif /* __CHARENCODING_H__ */
 

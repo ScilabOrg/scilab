@@ -48,38 +48,32 @@ char **strings_strrev(char **Input_strings,int Dim_Input_strings)
 /*----------------------------------------------------------------------------*/
 char* scistrrev(char* str)
 {
-	char *reversestr = NULL;
-
-	if (str == NULL) return NULL;
-
-	reversestr = (char*)MALLOC(sizeof(char)*((int)strlen(str)+1));
-
-	if (reversestr)
+	char *revstr = NULL;
+	if (str)
 	{
-		char *currentchar = str;
-		int i = 0;
-		while (*currentchar != 0)
+		wchar_t *wcstr = to_wide_string(str);
+#ifdef _MSC_VER
+		wchar_t *wcrevstr = _wcsrev(wcstr);
+		revstr = wide_string_to_UTF8(wcrevstr);
+#else
+		int i = wcslen(wcstr);
+		int t = !(i%2)? 1 : 0;      // check the length of the string .
+		int j = 0, k = 0;
+		/* copy character by character to reverse string */
+		k = 0;
+		for(j = i-1; j > (i/2 -t) ; j-- )
 		{
-			int  charBytes = 0;
-			char *UTFChar = readNextUTFChar(currentchar,&charBytes);
-			currentchar += charBytes;
-
-			if (i == 0)
-			{
-				sprintf(reversestr,"%s",UTFChar);
-				i = 1;
-			}
-			else
-			{
-				char *prevpart = strdup(reversestr);
-				if (prevpart)
-				{
-					sprintf(reversestr,"%s%s",UTFChar,prevpart);
-					FREE(prevpart);
-				}
-			}
+			/* j starts from end of string */
+			/* k starts from beginning of string */
+			wchar_t ch  = wcstr[j]; /* ch temp. character 
+			wcstr[j]   = wcstr[k]; /* end and beginning characters are exchanged */
+			wcstr[k++] = ch;
 		}
+		revstr = wide_string_to_UTF8(wcstr);
+#endif
+		revstr = wide_string_to_UTF8(wcrevstr);
+		if (wcrevstr) {FREE(wcrevstr);wcrevstr = NULL;}
 	}
-	return reversestr;
+	return revstr;
 }
 /*----------------------------------------------------------------------------*/

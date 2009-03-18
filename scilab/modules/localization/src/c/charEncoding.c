@@ -19,24 +19,6 @@
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-/*
-FILE * wcfopen(char *filename, char* mode)
-{
-	wchar_t* wfilename = to_wide_string(filename);
-	wchar_t* wmode = to_wide_string(mode);
-	FILE * filedesc = NULL;
-	if(wfilename == NULL || wmode == NULL)
-	{
-		return 0;
-	}
-
-	filedesc = _wfopen(wfilename, wmode);
-
-	FREE(wfilename);
-	FREE(wmode);
-	return filedesc;
-}
-*/
 char *wide_string_to_UTF8(wchar_t *_wide)
 {
 	DWORD size = 0;
@@ -77,13 +59,6 @@ wchar_t *to_wide_string(char *_UTFStr)
 	return _buf;
 }
 #else //Linux check for MAC OS X
-/*
-FILE * wcfopen(char *filename, char* mode)
-{
-	return fopen(filename, mode);
-}
-*/
-
 char *wide_string_to_UTF8(wchar_t *_wide)
 {
 	size_t iCharLen = 0;
