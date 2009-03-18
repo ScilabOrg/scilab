@@ -69,7 +69,7 @@ int C2F(sci_getmd5) (char *fname,unsigned long fname_len)
 
 				C2F(cluni0)(Input_Matrix[i], real_path, &out_n, (long)strlen(Input_Matrix[i]), lout);
 
-				fp = wcfopen(real_path,"rb");
+				wcfopen(fp , real_path,"rb");
 
 				if (real_path) {FREE(real_path);real_path=NULL;}
 

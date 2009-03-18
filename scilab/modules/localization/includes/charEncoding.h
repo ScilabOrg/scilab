@@ -13,6 +13,27 @@
 #define __CHARENCODING_H__
 
 #include <wchar.h>
+#include "MALLOC.h"
+
+#ifdef _MSC_VER
+#define wcfopen(fp, x,y) \
+{\
+	wchar_t* wfilename = NULL;\
+	wchar_t* wmode = NULL;\
+	wfilename = to_wide_string(x);\
+	wmode = to_wide_string(y);\
+	if(wfilename == NULL || wmode == NULL){fp = 0;}\
+	fp = _wfopen(wfilename, wmode);\
+	if(wfilename != NULL){FREE(wfilename);}\
+	if(wmode != NULL){FREE(wmode);} \
+}
+#else
+#define wcfopen(fp, x,y) \
+	{\
+		fp = fopen(filename, mode);\
+	}
+#endif
+
 
 /**
 * convert a UTF string to wide char string
@@ -36,7 +57,7 @@ char* readNextUTFChar(char* utfstream,int* size);
 
 /*file management with UTF filename*/
 
-FILE * wcfopen(char *filename, char* mode);
+//FILE * wcfopen(char *filename, char* mode);
 
 
 #endif /* __CHARENCODING_H__ */
