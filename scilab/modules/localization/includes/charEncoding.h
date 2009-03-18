@@ -59,7 +59,9 @@ wchar_t *to_wide_string(char *_UTFStr);
 char *wide_string_to_UTF8(wchar_t *_wide);
 
 /*file management with UTF filename*/
+#ifdef _MSC_VER
 int wcstat(char* filename, struct _stat *st);
+#endif
 
 #endif /* __CHARENCODING_H__ */
 
