@@ -40,7 +40,7 @@ src/c/createdirectory.c \
 src/c/isdir.c \
 src/c/isDrive.c \
 src/c/removedir.c \
-src/c/set_xxprintf.c \ 
+src/c/set_xxprintf.c \
 src/c/fullpath.c
 
 GATEWAY_SOURCES = \
