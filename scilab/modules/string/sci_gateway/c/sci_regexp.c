@@ -33,7 +33,7 @@
 #define CHAR_R 'r'
 #define STR_ONCE 'o'
 /*------------------------------------------------------------------------*/
-int C2F(sci_regexp)(char *fname,unsigned long fname_len)
+int sci_regexp(char *fname,unsigned long fname_len)
 {
     char typ = CHAR_S;
      char **Str = NULL;

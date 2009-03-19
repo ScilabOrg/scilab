@@ -15,8 +15,6 @@
 /*--------------------------------------------------------------------------*/
 #include <string.h>
 #include <stdio.h>
-#include <ctype.h> 
-#include "gw_string.h"
 #include "convstr.h"
 #include "MALLOC.h"
 #include "charEncoding.h"

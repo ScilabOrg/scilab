@@ -420,10 +420,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\kmp.c"
-				>
-			</File>
-			<File
 				RelativePath=".\men_Sutils.c"
 				>
 			</File>
@@ -609,10 +605,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath=".\code2str.h"
-				>
-			</File>
-			<File
 				RelativePath=".\convstr.h"
 				>
 			</File>
@@ -646,10 +638,6 @@
 			</File>
 			<File
 				RelativePath=".\isletter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\kmp.h"
 				>
 			</File>
 			<File
@@ -690,10 +678,6 @@
 			</File>
 			<File
 				RelativePath=".\stripblanks.h"
-				>
-			</File>
-			<File
-				RelativePath=".\strsubst.h"
 				>
 			</File>
 			<File

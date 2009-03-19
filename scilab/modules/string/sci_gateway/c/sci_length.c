@@ -44,7 +44,7 @@ static int lengthPoly(int RhsPosition);
 /* !!! WARNING !!! : Read comments about length on sparse matrix */
 static int lengthSparse(int RhsPosition);
 /*----------------------------------------------------------------------------*/
-int C2F(sci_length)(char *fname,unsigned long fname_len)
+int sci_length(char *fname,unsigned long fname_len)
 {
 	int lenghtValue = 0;
 	int m_out = 1, n_out = 1, l_out = 0;
