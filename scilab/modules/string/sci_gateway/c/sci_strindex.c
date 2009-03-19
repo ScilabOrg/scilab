@@ -28,6 +28,7 @@
 #include "BOOL.h"
 #include "pcre_error.h"
 #include "Scierror.h"
+#include "charEncoding.h"
 /*------------------------------------------------------------------------*/
 #define CHAR_S "s"
 #define CHAR_R "r"
@@ -159,9 +160,11 @@ int C2F(sci_strindex)(char *fname,unsigned long fname_len)
 		}
 		else
 		{
-			values = (struct In *)MALLOC( sizeof(struct In) * ( strlen(Strings_Input1[0]) ) );
+			//max size of result array is size of the InputStrng * number of searched strings
+			values = (struct In *)MALLOC( sizeof(struct In) * ( strlen(Strings_Input1[0]) ) * m2n2);
 		}
 
+		/*regexp*/
 		if (bStrindex_with_pattern)
 		{
 			int x = 0;
@@ -199,24 +202,48 @@ int C2F(sci_strindex)(char *fname,unsigned long fname_len)
 			int x = 0;
 			int pos = 0;
 			
+			//convert original string to UTF-16 string
+			wchar_t *wOrigStr = to_wide_string(Strings_Input1[0]);
 			for (x=0; x < m2n2 ;++x)
 			{
 				int w = 0;
-				if ( strlen(Strings_Input2[x]) == 0 )
+
+				//convert substring ti UTF-16 string
+				wchar_t *wSubStr = to_wide_string(Strings_Input2[x]);
+				if ( wcslen(wSubStr) == 0 )
 				{
 					freeArrayOfString(Strings_Input2,m2n2);
 					freeArrayOfString(Strings_Input1,m1n1);
 					if (next) {FREE(next); next = NULL;}
 					if (values) {FREE(values); values = NULL;}
 					Scierror(999, _("%s: Wrong size for input argument #%d: Non-empty string expected.\n"), fname,2);
+					FREE(wSubStr);
+					FREE(wOrigStr);
 					return 0;
 				}
-				if (Strings_Input2)
+
+				if (wSubStr)
 				{
+					wchar_t *wCurrent = wOrigStr;
+					do
+					{
+						wCurrent = wcsstr(wCurrent, wSubStr);
+
+						if(wCurrent != NULL)
+						{
+							//To not find the same "token" and base index 0
+							wCurrent++;
+							values[nbValues++].data = (int)(wCurrent - wOrigStr); //cast for pointer on 64bit OS
+							values[nbposition++].position = x + 1;
+						}
+					}
+					while(wCurrent != NULL);// wCurrent is the answer of wcsstr ( using the kmp algorithem )
+
+					/*
 					do
 					{
 						next = getnext(Strings_Input2[x]);
-						/*Str is the input string matrix, Str2[x] is the substring to match; pos is the start point*/
+						//Str is the input string matrix, Str2[x] is the substring to match; pos is the start point
 						w = kmp(*Strings_Input1,Strings_Input2[x],pos,next);
 						if (next) { FREE(next);next = NULL; }
 						if (w !=0)
@@ -226,14 +253,17 @@ int C2F(sci_strindex)(char *fname,unsigned long fname_len)
 						}
 						pos = w;
 					}
-					while(w != 0);/* w is the answer of the kmp algorithem*/
-					
-					/* values are sorted */
+					while(w != 0);// w is the answer of the kmp algorithem
+					*/
+
+					// values are sorted 
 					qsort(values,nbValues,sizeof(values[0]),cmp);
 				}
+				FREE(wSubStr);
 			}
+			FREE(wOrigStr);
 		}
-		
+
 		freeArrayOfString(Strings_Input1,m1n1);
 		freeArrayOfString(Strings_Input2,m2n2);
 		
@@ -259,6 +289,7 @@ int C2F(sci_strindex)(char *fname,unsigned long fname_len)
 		}
 
 		C2F(putlhsvar)();
+
 
 		if (values) {FREE(values); values = NULL;}
 	}
