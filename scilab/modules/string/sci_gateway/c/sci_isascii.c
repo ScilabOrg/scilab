@@ -22,6 +22,9 @@
 #include "localization.h"
 #include "freeArrayOfString.h"
 #include "charEncoding.h"
+#ifndef _MSC_VER
+#define iswascii(x) isascii(wctob(x))
+#endif
 /*----------------------------------------------------------------------------*/
 static int isasciiStrings(char *fname);
 static int isasciiMatrix(char *fname);
