@@ -20,6 +20,7 @@
 #include "systemc.h"
 #include "tmpdir.h"
 #include "stack-def.h"
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 #include "FileExist.h"
@@ -56,17 +57,17 @@ int C2F(systemc)(char *command, int *stat)
 BOOL CallWindowsShell(char *command,BOOL WaitInput)
 {
 	BOOL bReturn=FALSE;
-	char shellCmd[PATH_MAX];
-	char *CmdLine=NULL;
+	wchar_t shellCmd[PATH_MAX];
+	wchar_t *CmdLine=NULL;
 
 	PROCESS_INFORMATION piProcInfo; 
-	STARTUPINFO siStartInfo;
+	STARTUPINFOW siStartInfo;
 	SECURITY_ATTRIBUTES saAttr; 
 
 	DWORD ExitCode;
 
-	char *TMPDir=NULL;
-	char FileTMPDir[PATH_MAX];
+	wchar_t *TMPDir=NULL;
+	wchar_t FileTMPDir[PATH_MAX];
 
 	saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
 	saAttr.bInheritHandle = TRUE; 
@@ -91,20 +92,32 @@ BOOL CallWindowsShell(char *command,BOOL WaitInput)
 	siStartInfo.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	siStartInfo.hStdError = GetStdHandle(STD_ERROR_HANDLE);
 
-	GetEnvironmentVariable("ComSpec", shellCmd, PATH_MAX);
-	TMPDir=getTMPDIR();
-	sprintf(FileTMPDir,"%s\\DOS.OK",TMPDir);
+	GetEnvironmentVariableW(L"ComSpec", shellCmd, PATH_MAX);
+	{
+		char *pTemp = getTMPDIR();
+		TMPDir = to_wide_string(pTemp);
+		swprintf(FileTMPDir, PATH_MAX, L"%s\\DOS.OK",TMPDir);
+		FREE(pTemp);
+	}
 	if (TMPDir) 
 	{
 		FREE(TMPDir);
 		TMPDir=NULL;
 	}
 
-	CmdLine=(char*)MALLOC( (strlen(shellCmd)+strlen(command)+strlen(FileTMPDir)+strlen("%s /a /c \"%s\" && echo DOS>%s")+1)*sizeof(char) );
-	sprintf(CmdLine,"%s /a /c \"%s\" && echo DOS>%s",shellCmd,command,FileTMPDir);
-	if (FileExist(FileTMPDir)) DeleteFile(FileTMPDir);
-
-	if (CreateProcess(NULL, CmdLine, NULL, NULL, TRUE,0, NULL, NULL, &siStartInfo, &piProcInfo))
+	{
+		wchar_t * wcommand = to_wide_string(command);
+		size_t iCmdSize = (wcslen(shellCmd)+wcslen(wcommand)+wcslen(FileTMPDir)+wcslen(L"%s /a /c \"%s\" && echo DOS>%s")+1);
+		CmdLine=(wchar_t*)MALLOC(iCmdSize * sizeof(wchar_t));
+		swprintf(CmdLine, iCmdSize, L"%s /a /c \"%s\" && echo DOS>%s", shellCmd, wcommand, FileTMPDir);
+	}
+/*
+	if (FileExist(FileTMPDir))
+	{
+		DeleteFileW(FileTMPDir);
+	}
+*/
+	if (CreateProcessW(NULL, CmdLine, NULL, NULL, TRUE,0, NULL, NULL, &siStartInfo, &piProcInfo))
 	{
 		WaitForSingleObject(piProcInfo.hProcess,INFINITE);
 
@@ -117,14 +130,18 @@ BOOL CallWindowsShell(char *command,BOOL WaitInput)
 
 		if (CmdLine) {FREE(CmdLine);CmdLine=NULL;}
 
-		if (FileExist(FileTMPDir))
 		{
-			DeleteFile(FileTMPDir);
-			bReturn=TRUE;
-		}
-		else
-		{
-			bReturn=FALSE;
+			FILE *f = _wfopen(FileTMPDir, L"r");
+			if(f != NULL)
+			{
+				fclose(f);
+				DeleteFileW(FileTMPDir);
+				bReturn=TRUE;
+			}
+			else
+			{
+				bReturn=FALSE;
+			}
 		}
 	}
 	else
