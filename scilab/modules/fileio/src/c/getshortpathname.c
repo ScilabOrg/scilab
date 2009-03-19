@@ -22,6 +22,26 @@
 	#endif
 #endif
 /*--------------------------------------------------------------------------*/
+int C2F(getshortpathname)(char *pathname,int *len)
+{
+	if (pathname)
+	{
+		BOOL bConvert = FALSE;
+		char *result = NULL;
+		pathname[*len] = 0;
+		result = getshortpathname(pathname,&bConvert);
+		if (result)
+		{
+			strcpy(pathname, result);
+			*len = (int)strlen(result);
+			FREE(result);
+			result = NULL;
+			return 1;
+		}
+	}
+	return 0;
+}
+/*--------------------------------------------------------------------------*/
 char *getshortpathname(char *longpathname,BOOL *convertok)
 {
 	char *ShortName = NULL;
