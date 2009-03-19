@@ -37,7 +37,7 @@ static int asciiOthers(char *fname);
 #define ASCII_MIN 0
 #define ASCII_MAX 255
 /*----------------------------------------------------------------------------*/
-int C2F(sci_ascii)(char *fname,unsigned long fname_len)
+int sci_ascii(char *fname,unsigned long fname_len)
 {
 	CheckRhs(1,1);
 	CheckLhs(0,1);

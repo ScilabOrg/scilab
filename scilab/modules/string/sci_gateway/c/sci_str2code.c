@@ -24,7 +24,7 @@
 #include "localization.h"
 #include "freeArrayOfString.h"
 /*----------------------------------------------------------------------------*/
-int C2F(sci_str2code)(char *fname,unsigned long fname_len)
+int sci_str2code(char *fname,unsigned long fname_len)
 {
 	CheckRhs(1,1);
 	CheckLhs(1,1);

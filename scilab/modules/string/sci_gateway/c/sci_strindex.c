@@ -21,7 +21,6 @@
 #include "pcre.h"
 #include "stack-c.h"
 #include "MALLOC.h"
-#include "kmp.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
 #include "pcre_private.h"
@@ -44,7 +43,7 @@ int cmp( const void *a ,const void *b)
 return (*(struct In *)a).data > (*(struct In *)b).data ? 1 : -1;
 }
 /*------------------------------------------------------------------------*/
-int C2F(sci_strindex)(char *fname,unsigned long fname_len)
+int sci_strindex(char *fname,unsigned long fname_len)
 {
 	BOOL bStrindex_with_pattern = FALSE;
 	int outIndex = 0;
@@ -237,24 +236,7 @@ int C2F(sci_strindex)(char *fname,unsigned long fname_len)
 							values[nbposition++].position = x + 1;
 						}
 					}
-					while(wCurrent != NULL);// wCurrent is the answer of wcsstr ( using the kmp algorithem )
-
-					/*
-					do
-					{
-						next = getnext(Strings_Input2[x]);
-						//Str is the input string matrix, Str2[x] is the substring to match; pos is the start point
-						w = kmp(*Strings_Input1,Strings_Input2[x],pos,next);
-						if (next) { FREE(next);next = NULL; }
-						if (w !=0)
-						{
-							values[nbValues++].data = w;
-							values[nbposition++].position = x+1;
-						}
-						pos = w;
-					}
-					while(w != 0);// w is the answer of the kmp algorithem
-					*/
+					while(wCurrent != NULL);// wCurrent is the answer of wcsstr ( using the kmp algorithm )
 
 					// values are sorted 
 					qsort(values,nbValues,sizeof(values[0]),cmp);

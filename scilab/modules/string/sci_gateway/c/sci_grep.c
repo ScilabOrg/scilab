@@ -45,7 +45,7 @@ static int sci_grep_common(char *fname,BOOL new_grep);
 static int GREP_NEW(GREPRESULTS *results,char **Inputs_param_one,int mn_one,char **Inputs_param_two,int mn_two);
 static int GREP_OLD(GREPRESULTS *results,char **Inputs_param_one,int mn_one,char **Inputs_param_two,int mn_two);
 /*------------------------------------------------------------------------*/
-int C2F(sci_grep)(char *fname,unsigned long fname_len)
+int sci_grep(char *fname,unsigned long fname_len)
 {
     CheckRhs(2,3);
     CheckLhs(1,2);

@@ -27,7 +27,7 @@
 /*--------------------------------------------------------------------------*/
 #define one 1
 /*--------------------------------------------------------------------------*/
-int C2F(sci_tokens)(char *fname,unsigned long fname_len)
+int sci_tokens(char *fname,unsigned long fname_len)
 {
 
 	int Row_One = 0,Col_One = 0; 
