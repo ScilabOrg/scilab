@@ -127,15 +127,22 @@ static int lengthStrings(int RhsPosition)
 		CreateVar( Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &Row_Num,&Col_Num, &outIndex );
 		for  ( x = 0; x < mn; x++ )
 		{
-			wchar_t *wcLine = to_wide_string(Input_StringMatrix[x]);
-			if (wcLine)
+			if (Input_StringMatrix[x])
 			{
-				stk(outIndex)[x] = (int) wcslen(wcLine);
-				FREE(wcLine); wcLine = NULL;
+				wchar_t *wcLine = to_wide_string(Input_StringMatrix[x]);
+				if (wcLine)
+				{
+					stk(outIndex)[x] = (int) wcslen(wcLine);
+					FREE(wcLine); wcLine = NULL;
+				}
+				else
+				{
+					stk(outIndex)[x] = -1;
+				}
 			}
 			else
 			{
-				stk(outIndex)[x] = -1;
+				stk(outIndex)[x] = 0;
 			}
 		}
 		LhsVar(1) = Rhs+1 ;
