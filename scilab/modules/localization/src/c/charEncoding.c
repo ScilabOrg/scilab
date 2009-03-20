@@ -74,12 +74,18 @@ char *wide_string_to_UTF8(wchar_t *_wide)
 	wchar_t *pwstr = _wide;
 	char* pchar = NULL;
 
+	if (_wide == NULL)
+	{
+		return NULL;
+	}
+
 	int iMaxLen = (int)wcslen(_wide) * 4; //MBSC Max is 4 bytes by char
 	pchar = (char*)MALLOC((iMaxLen + 1) * sizeof(char));
 	if(pchar == NULL)
 	{
 		return NULL;
 	}
+	memset(pchar, 0x00, (iMaxLen + 1) * sizeof(char));
 
 	iCharLen = wcstombs (pchar, pwstr, iMaxLen);
 	if(iCharLen == 0)
@@ -95,21 +101,20 @@ wchar_t *to_wide_string(char *_UTFStr)
 		wchar_t *_buf = NULL;
 		size_t pszLen = 0;
 		char *psz = _UTFStr;
-		mbstate_t ps;
 
-		memset (&ps, 0x00, sizeof(ps));
-		pszLen = mbsrtowcs(NULL, (const char**)&psz, 0, NULL) + 1;
+		pszLen = mbsrtowcs(NULL, (const char**)&psz, 0, NULL);
 
-		if(pszLen == 0) // -1 + 1 = 0
+		if(pszLen == (size_t)-1)
 		{
 			return NULL;
 		}
 
-		_buf = (wchar_t*)MALLOC(pszLen * sizeof(wchar_t));
+		_buf = (wchar_t*)MALLOC((pszLen + 1) * sizeof(wchar_t));
 		if(_buf == NULL)
 		{
 			return NULL;
 		}
+		memset(_buf, 0x00, (pszLen + 1) * sizeof(wchar_t));
 
 		mbsrtowcs(_buf, (const char**)&psz, (int)strlen(psz), NULL);
 		return _buf;

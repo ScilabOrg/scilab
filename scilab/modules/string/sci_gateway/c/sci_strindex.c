@@ -37,6 +37,8 @@ struct In
 		int data;
 		int position;
 } ;
+
+wchar_t * Mywcsstr(const wchar_t * __restrict s, const wchar_t * __restrict find);
 /*------------------------------------------------------------------------*/
 int cmp( const void *a ,const void *b)
 {
@@ -60,7 +62,7 @@ int sci_strindex(char *fname,unsigned long fname_len)
 		int n3 = 0;
 		char **Strings_Input3 = NULL;
 		int m3n3 = 0; /* m3 * n3 */
-		
+
 		if (VarType(3) != sci_strings)
 		{
 			Scierror(999,_("%s: Wrong type for input argument #%d: Character expected.\n"),fname,3);
@@ -68,14 +70,14 @@ int sci_strindex(char *fname,unsigned long fname_len)
 		}
 		GetRhsVar(3,MATRIX_OF_STRING_DATATYPE,&m3,&n3,&Strings_Input3);
 		m3n3 = m3*n3;
-		
+
 		if (m3n3 != 1)
 		{
 			freeArrayOfString(Strings_Input3,m3n3);
 			Scierror(999,_("%s: Wrong type for input argument #%d: Character expected.\n"),fname,3);
 			return 0;
 		}
-		
+
 		if ( (strcmp(Strings_Input3[0],CHAR_R) == 0) || (strcmp(Strings_Input3[0],CHAR_S) == 0) )
 		{
 			if (strcmp(Strings_Input3[0],CHAR_R) == 0)
@@ -101,7 +103,7 @@ int sci_strindex(char *fname,unsigned long fname_len)
 		int m1 = 0;
 		int n1 = 0;
 		int l1 = 0;
-		
+
 		GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
 		if ((m1 == 0) && (n1 == 0))
 		{
@@ -116,35 +118,41 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			return 0;
 		}
 	}
-	
+
 	if ( (VarType(1) == sci_strings) && (VarType(2) == sci_strings) )
 	{
 		int m1 = 0, n1 = 0;
 		char **Strings_Input1 = NULL;
+		wchar_t *wStrings_Input1 = NULL;
 		int m1n1 = 0; /* m1 * n1 */
-		
+
 		int m2 = 0, n2 = 0;
 		char **Strings_Input2 = NULL;
+		wchar_t **wStrings_Input2 = NULL;
 		int m2n2 = 0; /* m2 * n2 */
-		
+
 		struct In *values=NULL;
-		
+
 		int nbValues = 0;
 		int nbposition = 0;
-		
+
+		int i = 0;
+
 		GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&Strings_Input1);
 		m1n1 = m1*n1;
-		
+
 		if (m1n1 != 1)
 		{
 			freeArrayOfString(Strings_Input1,m1n1);
 			Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
 			return 0;
 		}
-		
+
+		wStrings_Input1 = to_wide_string(Strings_Input1[0]);
+
 		GetRhsVar(2,MATRIX_OF_STRING_DATATYPE,&m2,&n2,&Strings_Input2);
 		m2n2 = m2*n2;
-		
+
 		if ( (m2 != 1) && (n2 != 1) )
 		{
 			freeArrayOfString(Strings_Input1,m1n1);
@@ -152,18 +160,25 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			Scierror(999,_("%s: Wrong type for input argument #%d: Row vector of strings or column vector of strings expected.\n"),fname,2);
 			return 0;
 		}
-		
-		if ( (int)strlen(Strings_Input1[0]) == 0 )
+
+		wStrings_Input2 = (wchar_t**)MALLOC(m2n2 * sizeof(wchar_t*));
+		for(i = 0 ; i < m2n2 ; i++)
+		{
+			wStrings_Input2[i] = to_wide_string(Strings_Input2[i]);
+		}
+
+
+//FREE Strings_Input*
+
+		if ( (int)wcslen(wStrings_Input1) == 0 )
 		{
 			values= (struct In*)MALLOC(sizeof(struct In));
 		}
 		else
 		{
-			//max size of result array is size of the InputStrng * number of searched strings
-			values = (struct In *)MALLOC( sizeof(struct In) * ( strlen(Strings_Input1[0]) ) * m2n2);
+			values = (struct In *)MALLOC( sizeof(struct In) * ( wcslen(wStrings_Input1) ) * m2n2);
 		}
 
-		/*regexp*/
 		if (bStrindex_with_pattern)
 		{
 			int x = 0;
@@ -191,64 +206,59 @@ int sci_strindex(char *fname,unsigned long fname_len)
 					break;
 				}
 			}
-			
+
 			qsort(values,nbValues,sizeof(values[0]),cmp);
-			
+
 		}
 		else
 		{
 			/* We don't use pcre library */
 			int x = 0;
 			int pos = 0;
-			
-			//convert original string to UTF-16 string
-			wchar_t *wOrigStr = to_wide_string(Strings_Input1[0]);
+
 			for (x=0; x < m2n2 ;++x)
 			{
 				int w = 0;
-
-				//convert substring ti UTF-16 string
-				wchar_t *wSubStr = to_wide_string(Strings_Input2[x]);
-				if ( wcslen(wSubStr) == 0 )
+				if ( wcslen(wStrings_Input2[x]) == 0 )
 				{
 					freeArrayOfString(Strings_Input2,m2n2);
 					freeArrayOfString(Strings_Input1,m1n1);
 					if (next) {FREE(next); next = NULL;}
 					if (values) {FREE(values); values = NULL;}
 					Scierror(999, _("%s: Wrong size for input argument #%d: Non-empty string expected.\n"), fname,2);
-					FREE(wSubStr);
-					FREE(wOrigStr);
 					return 0;
 				}
-
-				if (wSubStr)
+				if (Strings_Input2)
 				{
-					wchar_t *wCurrent = wOrigStr;
+					wchar_t *pCur = wStrings_Input1;
 					do
 					{
-						wCurrent = wcsstr(wCurrent, wSubStr);
-
-						if(wCurrent != NULL)
+						pCur = wcsstr(pCur, wStrings_Input2[x]);
+						if (pCur != NULL)
 						{
-							//To not find the same "token" and base index 0
-							wCurrent++;
-							values[nbValues++].data = (int)(wCurrent - wOrigStr); //cast for pointer on 64bit OS
-							values[nbposition++].position = x + 1;
+							pCur++;
+							values[nbValues++].data = (int)(pCur - wStrings_Input1);
+							values[nbposition++].position = x+1;
 						}
 					}
-					while(wCurrent != NULL);// wCurrent is the answer of wcsstr ( using the kmp algorithm )
+					while(pCur != NULL && *pCur != 0);//Plus tard
 
-					// values are sorted 
+					/* values are sorted */
 					qsort(values,nbValues,sizeof(values[0]),cmp);
 				}
-				FREE(wSubStr);
 			}
-			FREE(wOrigStr);
 		}
+
+		FREE(wStrings_Input1);
+		for(i = 0 ; i < m2n2 ; i++)
+		{
+			FREE(wStrings_Input2[i]);
+		}
+		FREE(wStrings_Input2);
 
 		freeArrayOfString(Strings_Input1,m1n1);
 		freeArrayOfString(Strings_Input2,m2n2);
-		
+
 		numRow   = 1;
 		outIndex = 0;
 		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&numRow,&nbValues,&outIndex);
@@ -257,7 +267,7 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			stk(outIndex)[i] = (double)values[i].data ;
 		}
 		LhsVar(1) = Rhs+1 ;
-		
+
 		if (Lhs == 2)
 		{
 			numRow   = 1;
@@ -271,7 +281,6 @@ int sci_strindex(char *fname,unsigned long fname_len)
 		}
 
 		C2F(putlhsvar)();
-
 
 		if (values) {FREE(values); values = NULL;}
 	}
@@ -289,4 +298,29 @@ int sci_strindex(char *fname,unsigned long fname_len)
 	}
 	return 0;
 }
+
+wchar_t * Mywcsstr(const wchar_t * __restrict s, const wchar_t * __restrict find)
+{
+	wchar_t c, sc;
+	size_t len;
+
+	if ((c = *find++) != 0)
+	{
+		len = wcslen(find);
+		do
+		{
+			do
+			{
+				if ((sc = *s++) == L'\0')
+				{
+					return (NULL);
+				}
+			} while (sc != c);
+		} while (wcsncmp(s, find, len) != 0);
+		s--;
+	}
+	return ((wchar_t *)s);
+}
+
+
 /*------------------------------------------------------------------------*/
