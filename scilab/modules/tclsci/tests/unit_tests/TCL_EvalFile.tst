@@ -4,6 +4,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
+// <-- INTERACTIVE TEST -->
 
 tab_ref = [ ..
 "世界您好", ..
@@ -16,21 +17,16 @@ tab_ref = [ ..
 "תוכנית"];
 
 cd TMPDIR;
-mkdir open_xls_tests;
-cd open_xls_tests;
-origfile = SCI + "/modules/spreadsheet/tests/unit_tests/readxls.xls";
-	
+mkdir TCL_tests;
+cd TCL_tests;
+
+origfile = SCI + "/modules/tclsci/demos/tk/puzzle";
+
 for i = 1 : size(tab_ref, "*")
-	newfile = tab_ref(i) + ".xls";
+	newfile = tab_ref(i);
 	copyfile(origfile, newfile);
-	[fileID, fileStream, SheetNames, SheetPos] = xls_open(newfile);
-	if(fileID == 0) then
-		pause
-	else
-		mclose(fileID);
-	end
+	TCL_EvalFile(newfile);
 end
 
-
 cd TMPDIR
-removedir open_xls_tests;
+removedir TCL_tests;
