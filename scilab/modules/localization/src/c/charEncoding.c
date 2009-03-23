@@ -17,6 +17,8 @@
 #include <string.h>
 #include "charEncoding.h"
 #include "MALLOC.h"
+#include <locale.h>
+
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 char *wide_string_to_UTF8(wchar_t *_wide)
@@ -101,8 +103,10 @@ wchar_t *to_wide_string(char *_UTFStr)
 		wchar_t *_buf = NULL;
 		size_t pszLen = 0;
 		char *psz = _UTFStr;
+		mbstate_t ps;
 
-		pszLen = mbsrtowcs(NULL, (const char**)&psz, 0, NULL);
+		memset (&ps, 0x00, sizeof(ps));
+		pszLen = mbsrtowcs(NULL, (const char**)&psz, 0, &ps);
 
 		if(pszLen == (size_t)-1)
 		{
@@ -116,7 +120,7 @@ wchar_t *to_wide_string(char *_UTFStr)
 		}
 		memset(_buf, 0x00, (pszLen + 1) * sizeof(wchar_t));
 
-		mbsrtowcs(_buf, (const char**)&psz, (int)strlen(psz), NULL);
+		mbsrtowcs(_buf, (const char**)&psz, (int)strlen(psz), &ps);
 		return _buf;
 }
 

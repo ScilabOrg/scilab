@@ -68,7 +68,8 @@ BOOL setlanguage(char *lang)
 			#endif
 				/* Load the locale from the system */
 				#ifndef _MSC_VER
-				char *ret=setlocale(LC_MESSAGES,lang);
+				char *ret=setlocale(LC_CTYPE,lang);
+				ret=setlocale(LC_MESSAGES,lang);
 				#else
 				/* Load the user locale from the system */
 				char *ret = getLocaleUserInfo();
