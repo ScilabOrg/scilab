@@ -5,27 +5,27 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-tab_ref = [
-"世界您好",
-"азеазея",
-"ハロー・ワールド",
-"เฮลโลเวิลด์",
-"حريات وحقوق",
-"프로그램",
-"프로그램",
+tab_ref = [ ..
+"世界您好", ..
+"азеазея", ..
+"ハロー・ワールド", ..
+"เฮลโลเวิลด์", ..
+"حريات وحقوق", ..
+"프로그램", ..
+"프로그램", ..
 "תוכנית"];
 
 cd TMPDIR;
 mkdir open_xls_tests;
 cd open_xls_tests;
-origfile = SCI + "modules/spreadsheet/tests/unit_tests/readxls.xls";
+origfile = SCI + "/modules/spreadsheet/tests/unit_tests/readxls.xls";
 
 for i = 1 : size(tab_ref, "*")
 	newfile = tab_ref(i) + ".xls";
 	copyfile(origfile, newfile);
 	[fileID, fileStream, SheetNames, SheetPos] = xls_open(newfile);
-	if(fileID == 0) then 
-		pause 
+	if(fileID == 0) then
+		pause
 	else
 		mclose(fileID);
 	end
