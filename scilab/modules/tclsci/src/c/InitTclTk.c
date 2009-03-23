@@ -73,7 +73,7 @@ static void *DaemonOpenTCLsci(void* in)
 	{
 		sciprint(_("The SCI environment variable is not set.\nTCL initialisation failed !\n"));
 	}
-	
+
 
 	SciPathShort = getshortpathname(SciPath, &bOK);
 
@@ -89,7 +89,7 @@ static void *DaemonOpenTCLsci(void* in)
 
 #ifdef _MSC_VER
 
-	strcpy(TkScriptpath, SciPath);
+	strcpy(TkScriptpath, SciPathShort);
 	strcat(TkScriptpath, "/modules/tclsci/tcl/TK_Scilab.tcl");
 
 	TkScriptpathShort = getshortpathname(TkScriptpath, &bOK);
@@ -100,15 +100,16 @@ static void *DaemonOpenTCLsci(void* in)
 	}
 	else fclose(tmpfile2);
 #else
-	tmpdir=opendir(SciPath);
+	tmpdir=opendir(SciPathShort);
 	if (tmpdir==NULL)
 	{
 		sciprint(_("The SCI environment variable is not set.\nTcl initialisation failed !\n"));
 	}
 	else closedir(tmpdir);
-	strcpy(TkScriptpath,SciPath);
+	strcpy(TkScriptpath,SciPathShort);
 	strcat(TkScriptpath,"/modules/tclsci/tcl/TK_Scilab.tcl");
-	tmpfile2 = fopen(TkScriptpath,"r");
+	TkScriptpathShort = getshortpathname(TkScriptpath, &bOK);
+	tmpfile2 = fopen(TkScriptpathShort, "r");
 	if (tmpfile2==NULL)
 	{
 		sciprint(_("Unable to find Tcl initialisation scripts.\nCheck your SCI environment variable.\nTcl initialisation failed !"));
@@ -139,9 +140,9 @@ static void *DaemonOpenTCLsci(void* in)
 			Scierror(999,_("Tcl Error: Error during the Tcl initialization (Tcl_Init): %s\n"),Tcl_GetStringResult(getTclInterp()));
 		}
 		releaseTclInterp();
-		if (getenv("SCI_DISABLE_TK")==NULL) { 
-			/* When SCI_DISABLE_TK is set in the env disable the TK init 
-			 * process. It is causing issues when Scilab is 
+		if (getenv("SCI_DISABLE_TK")==NULL) {
+			/* When SCI_DISABLE_TK is set in the env disable the TK init
+			 * process. It is causing issues when Scilab is
 			 * used through ssh.  */
 		  if ( Tk_Init(getTclInterp()) == TCL_ERROR)
 		    {
@@ -154,7 +155,7 @@ static void *DaemonOpenTCLsci(void* in)
 		}
 
 
-		sprintf(MyCommand, "set SciPath \"%s\";",SciPath);
+		sprintf(MyCommand, "set SciPath \"%s\";",SciPathShort);
 
 		if ( Tcl_Eval(getTclInterp(),MyCommand) == TCL_ERROR  )
 		{
@@ -172,10 +173,11 @@ static void *DaemonOpenTCLsci(void* in)
 		TKmainWindow = Tk_MainWindow(getTclInterp());
 		releaseTclInterp();
 		Tk_GeometryRequest(TKmainWindow,2,2);
+		//printf("TkScriptpathShort : |%s|\n", TkScriptpathShort);
 		if ( Tcl_EvalFile(getTclInterp(),TkScriptpathShort) == TCL_ERROR  )
 		{
 			releaseTclInterp();
-			Scierror(999,_("Tcl Error: Error during the Scilab/TK init process. Error while loading %s: %s\n"),TkScriptpath,Tcl_GetStringResult(getTclInterp()));
+			Scierror(999,_("Tcl Error: Error during the Scilab/TK init process. Error while loading %s: %s\n"),TkScriptpathShort,Tcl_GetStringResult(getTclInterp()));
 		}
 		releaseTclInterp();
 	}
