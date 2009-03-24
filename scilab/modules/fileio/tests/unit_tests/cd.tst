@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-cd(TMPDIR);
+tmp = cd(TMPDIR);
 
 if MSDOS then
 	unix_w(jre_path()+"\bin\java.exe -cp "+SCI+"\modules\localization\tests\unit_tests CreateDir");
@@ -26,7 +26,7 @@ tab_ref = [
 for i = 1 : size(tab_ref,'*')
 	sz = "dir_" + tab_ref(i);
 	a = cd(sz);
-	if (a <> (TMPDIR + filesep() + sz)) then
+	if (a <> (tmp + filesep() + sz)) then
 		pause
 	end
 	cd(TMPDIR);
