@@ -11,10 +11,10 @@ you should have received as part of this distribution.  The terms
 are also available at
 http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-tests:
-=================
+tests :
+=======
 
-Files: tests/unit_test/eferg.ttf
+Files: tests/unit_test/DejaVuSansMono.ttf
 
 This package was debianized by Peter Cernak <pce@users.sourceforge.net> on
 Sun,  5 Sep 2004 17:10:26 +0200.
