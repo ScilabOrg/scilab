@@ -8,6 +8,7 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+xlfont('reset')
 initialfonts = xlfont();
 if size(initialfonts,'*') <> 11 then pause,end
 
@@ -45,13 +46,24 @@ tab_ref = [
 "ハロー・ワールド",
 "حريات وحقوق",
 "תוכנית"];
+fontpath = SCI + "/modules/graphics/tests/unit_tests";
+fontname = "DejaVuSansMono.ttf";
+fontfull = fontpath + filesep() + fontname;
 
 for i = 1 : size(tab_ref,'*')
-  pathnam = getshortpathname(TMPDIR + filesep() + 'dir_' + tab_ref(i));
-  filnam = pathnam + filesep() + 'scilabsymbols.ttf';
-  copyfile(SCI+'/thirdparty/fonts/scilabsymbols.ttf',pathnam);
-  ierr = execstr('r = xlfont(filnam);','errcatch');
-  if ierr <> 0 then pause,end
-	if ~isdef('r') then pause,end
+  pathtemp = TMPDIR + filesep() + 'dir_' + tab_ref(i);
+  fonttemp = pathtemp + filesep() + fontname;
+  copyfile(fontfull, fonttemp);
+  ierr = execstr('r = xlfont(fonttemp);','errcatch');
+  if ierr <> 0 then
+		pause
+	end
+	if ~isdef('r') then
+		pause
+	end
 	clear r;
 end
+
+xlfont('reset')
+cd(TMPDIR);
+unix("rm -r dir_*");
