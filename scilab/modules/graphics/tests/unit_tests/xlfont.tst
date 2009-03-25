@@ -46,6 +46,7 @@ tab_ref = [
 "ハロー・ワールド",
 "حريات وحقوق",
 "תוכנית"];
+
 fontpath = SCI + "/modules/graphics/tests/unit_tests";
 fontname = "DejaVuSansMono.ttf";
 fontfull = fontpath + filesep() + fontname;
@@ -65,5 +66,3 @@ for i = 1 : size(tab_ref,'*')
 end
 
 xlfont('reset')
-cd(TMPDIR);
-unix("rm -r dir_*");
