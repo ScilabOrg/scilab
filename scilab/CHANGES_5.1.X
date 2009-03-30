@@ -174,6 +174,8 @@ Bug fixes:
 
 * bug 4284 fixed - The online help of isfield() was missing.
 
+* bug 4295 fixed - mdelete no more works with "*.extension" as input (wildcard).
+
 * bug 4297 fixed - A spelling mistake was causing in some cases with the 
 		   pfss function
 
@@ -656,6 +658,8 @@ Bug fixes:
 * bug 4221 fixed - graypolarplot uses to much memory.
 
 * bug 4272 fixed - Preconditionning in pcg was not taken into account.
+
+* bug 4186 fixed - uigetfile() uses a hardcoded path in SCI\modules\gui\src\java\org\scilab\modules\gui\filechooser\Juigetfile.java
 
 * Side effect in the setenvc function.
 
