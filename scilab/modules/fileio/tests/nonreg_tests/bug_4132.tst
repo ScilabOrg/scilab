@@ -20,4 +20,4 @@ cd SCI;
 filetoconvert = "modules/core";
 
 ierr = execstr("fpath = fullpath(filetoconvert);","errcatch");
-if ierr <> 0 then pause,end
+if ierr == 0 then pause,end

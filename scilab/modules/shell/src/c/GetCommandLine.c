@@ -9,6 +9,11 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+#ifdef _MSC_VER
+#include <io.h>
+#define isatty	_isatty
+#endif
+#include <stdio.h>
 #include <string.h>
 #include "Thread_Wrapper.h" /* Thread should be first for Windows */
 #include "BOOL.h"
@@ -159,6 +164,23 @@ static void *watchGetCommandLine(void *in) {
 void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
 		 int *menusflag,int * modex,long int dummy1)
 {
+
+	//-- TODO : reactivate this under windows.
+	// prevent Scilab to start for now :-S
+#ifndef _MSC_VER
+	if(!isatty(fileno(stdin))) { /* if not an interactive terminal */
+		/* read a line into the buffer, but not too
+		* big */
+		*eof = (fgets(buffer, *buf_size, stdin) == NULL);
+		*len_line = strlen(buffer);
+		/* remove newline character if there */
+		if(buffer[*len_line - 1] == '\n') {
+			(*len_line)--;
+		}
+		return;
+	}
+#endif
+
   if(!initialized)
     {
       initAll();
