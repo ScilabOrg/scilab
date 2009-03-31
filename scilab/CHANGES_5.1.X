@@ -2,6 +2,13 @@
                =================================================
 
 
+Improvement:
+============
+
+* Catalan localization added (Thanks to Oriol Gonzalez and others)
+
+* German localization added (Thanks to Armin Mohring and others)
+
 Compilation:
 ============
 
@@ -172,12 +179,20 @@ Bug fixes:
 * bug 4269 fixed - Fix a bashim in the macros of detection of swig (causing
                    problems with netbsd)
 
+* bug 4270 fixed - The module tclsci wasn't really desactivated when using
+		   the option --without-tk
+
 * bug 4284 fixed - The online help of isfield() was missing.
 
 * bug 4295 fixed - mdelete no more works with "*.extension" as input (wildcard).
 
 * bug 4297 fixed - A spelling mistake was causing in some cases with the 
 		   pfss function
+
+* bug 4301 fixed - Better reporting at the end of the configure
+
+* bug 4302 fixed - Do not build the helptool module when --disable-build-help
+		   is used
 
                Changes between version 5.0.X and 5.1 of Scilab
                ===============================================
@@ -502,6 +517,8 @@ Bug fixes:
 
 * bug 3844 fixed - Axes with a very high y-bounds/x-bounds ratio do not appear.
 
+* bug 3858 fixed - when trying to open a file from the GUI (Menu: File -> Open file), Scilab crashes (xgetfile error).
+
 * bug 3860 fixed - Scilab was using the dev name of the fftw library (ie without
                    heading .3 in the lib name). Thanks to Andrea Florio for
                    providing the patch
@@ -651,15 +668,13 @@ Bug fixes:
 
 * bug 4173 fixed - Graphic export : Style the text fonts is not respected when exporting to SVG.
 
-* bug 3858 fixed - when trying to open a file from the GUI (Menu: File -> Open file), Scilab crashes (xgetfile error).
-
 * bug 4174 fixed - the xs2xxx (graphic export) functions don't support paths that start with a tild.
+
+* bug 4186 fixed - uigetfile() uses a hardcoded path in SCI\modules\gui\src\java\org\scilab\modules\gui\filechooser\Juigetfile.java
 
 * bug 4221 fixed - graypolarplot uses to much memory.
 
 * bug 4272 fixed - Preconditionning in pcg was not taken into account.
-
-* bug 4186 fixed - uigetfile() uses a hardcoded path in SCI\modules\gui\src\java\org\scilab\modules\gui\filechooser\Juigetfile.java
 
 * Side effect in the setenvc function.
 
