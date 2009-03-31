@@ -529,3 +529,34 @@ if grep('fools'                                   ,'/(foo|fool|money|parted)$/' 
 //if grep('A\B'                                     ,'/a\\b/i'                               ,'r') <>  1   then bugmes();quit;end
 //if grep('aaaaaaaaaaaaaaab'                        ,'/(a|aa|aaa|aaaa|aaaaa|aaaaaa)(??{$1&&"foo"})(b|c)/','r') <>  []  then bugmes();quit;end
 //========================================================================================
+str = "世界您好";
+needle = "界";
+[r,w] = grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+str = "азеазея";
+needle = "з";
+[r,w] = grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+str = "ハロー・ワールド";
+needle = "ワ";
+[r,w] = grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+str = "เฮลโลเวิลด์";
+needle = "วิ";
+[r,w] = grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+str = "حريات وحقوق";
+needle = "و";
+[r,w] = grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+str = "תוכנית";
+needle = "ו";
+grep(str,needle);
+if r <> 1 then bugmes();quit;end
+if w <> 1 then bugmes();quit;end
+//========================================================================================

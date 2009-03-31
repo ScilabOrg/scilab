@@ -531,4 +531,41 @@ if grep('fools'                                   ,'/(foo|fool|money|parted)$/' 
 //if grep('cabd'                                    ,'/a(?{"\{"})b/'                         ,'r') <>  1   then pause,end
 //if grep('A\B'                                     ,'/a\\b/i'                               ,'r') <>  1   then pause,end
 //if grep('aaaaaaaaaaaaaaab'                        ,'/(a|aa|aaa|aaaa|aaaaa|aaaaaa)(??{$1&&"foo"})(b|c)/','r') <>  []  then pause,end
-//========================================================================================
+//======================================================================================== 
+str = "世界您好";
+needle = "界";
+[r,w] = grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+str = "азеазея";
+needle = "з";
+[r,w] = grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+str = "ハロー・ワールド";
+needle = "ワ";
+[r,w] = grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+str = "เฮลโลเวิลด์";
+needle = "วิ";
+[r,w] = grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+str = "حريات وحقوق";
+needle = "و";
+[r,w] = grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+str = "תוכנית";
+needle = "ו";
+grep(str,needle);
+if r <> 1 then pause,end
+if w <> 1 then pause,end
+
+//======================================================================================== 
