@@ -322,6 +322,35 @@ if strsubst('abcd:'               ,'/([\w:]+::)?(\w+)$/'                  ,' ' ,
 if strsubst('abcd:'            ,'/([\w:]+::)?(\w+)$/'                  ,' ' ,'r') <>   'abcd:'  then pause,end
 if strsubst('aaab'                  ,'/(>a+)ab/'                            ,' ' ,'r') <>  'aaab'   then pause,end
 //===============================
+v = "世界您好";
+c = "您";
+if strsubst(v,c,'ç')<>'世界ç好' then pause,end
 
+v = "азеазея";
+c = "з";
+if strsubst(v,c,'ç')<>'аçеаçея'  then pause,end
 
+v = "ድቅስድቅስግ";
+c = "ቅ";
+if strsubst(v,c,'ç')<> 'ድçስድçስግ'  then pause,end
 
+v = "ハロー・ワールド";
+c = "ド";
+if strsubst(v,c,'ç')<> 'ハロー・ワールç'  then pause,end
+
+v = "เฮลโลเวิลด์";
+c = "เ"; 
+if strsubst(v,c,'ç')<> 'çฮลโลçวิลด์' then pause,end
+
+v = "حريات وحقوق";
+c = "قوق";
+if strsubst(v,c,'ç')<> 'حريات وحç'  then pause,end
+
+v = "ഹലോ വേള്‍ഡ";
+c = "‍ഡ"; 
+if strsubst(v,c,'ç')<>'ഹലോ വേള്ç'  then pause,end
+
+v = "תוכנית";
+c = "י";
+if strsubst(v,c,'ç')<>'תוכנçת'  then pause,end
+//===============================

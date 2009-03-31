@@ -319,3 +319,28 @@ if strsubst('abcd:'               ,'/([\w:]+::)?(\w+)$/'                  ,' ' ,
 if strsubst('abcd:'            ,'/([\w:]+::)?(\w+)$/'                  ,' ' ,'r') <>   'abcd:'  then bugmes();quit;end
 if strsubst('aaab'                  ,'/(>a+)ab/'                            ,' ' ,'r') <>  'aaab'   then bugmes();quit;end
 //===============================
+v = "世界您好";
+c = "您";
+if strsubst(v,c,'ç')<>'世界ç好' then bugmes();quit;end
+v = "азеазея";
+c = "з";
+if strsubst(v,c,'ç')<>'аçеаçея'  then bugmes();quit;end
+v = "ድቅስድቅስግ";
+c = "ቅ";
+if strsubst(v,c,'ç')<> 'ድçስድçስግ'  then bugmes();quit;end
+v = "ハロー・ワールド";
+c = "ド";
+if strsubst(v,c,'ç')<> 'ハロー・ワールç'  then bugmes();quit;end
+v = "เฮลโลเวิลด์";
+c = "เ";
+if strsubst(v,c,'ç')<> 'çฮลโลçวิลด์' then bugmes();quit;end
+v = "حريات وحقوق";
+c = "قوق";
+if strsubst(v,c,'ç')<> 'حريات وحç'  then bugmes();quit;end
+v = "ഹലോ വേള്‍ഡ";
+c = "‍ഡ";
+if strsubst(v,c,'ç')<>'ഹലോ വേള്ç'  then bugmes();quit;end
+v = "תוכנית";
+c = "י";
+if strsubst(v,c,'ç')<>'תוכנçת'  then bugmes();quit;end
+//===============================
