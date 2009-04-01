@@ -28,6 +28,9 @@
 #include "pcre_error.h"
 #include "Scierror.h"
 #include "charEncoding.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
 /*------------------------------------------------------------------------*/
 #define CHAR_S "s"
 #define CHAR_R "r"
@@ -37,8 +40,6 @@ struct In
 		int data;
 		int position;
 } ;
-
-wchar_t * Mywcsstr(const wchar_t * __restrict s, const wchar_t * __restrict find);
 /*------------------------------------------------------------------------*/
 int cmp( const void *a ,const void *b)
 {
@@ -167,9 +168,6 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			wStrings_Input2[i] = to_wide_string(Strings_Input2[i]);
 		}
 
-
-//FREE Strings_Input*
-
 		if ( (int)wcslen(wStrings_Input1) == 0 )
 		{
 			values= (struct In*)MALLOC(sizeof(struct In));
@@ -193,7 +191,14 @@ int sci_strindex(char *fname,unsigned long fname_len)
 				w = pcre_private(Strings_Input1[0],Strings_Input2[x],&Output_Start,&Output_End);
 				if ( w == PCRE_FINISHED_OK)
 				{
-					values[nbValues++].data = Output_Start+1; /* adding the answer into the outputmatrix */
+					char *partStr = strdup(Strings_Input1[0]);
+					wchar_t *wcpartStr = NULL;
+					partStr[Output_Start] = '\0';
+					wcpartStr = to_wide_string(partStr);
+					values[nbValues++].data = wcslen(wcpartStr) + 1; /* adding the answer into the outputmatrix */
+
+					//values[nbValues++].data = Output_Start+1; /* adding the answer into the outputmatrix */
+
 					values[nbposition++].position = x+1;        /* The number according to the str2 matrix */
 				}
 				else
@@ -298,29 +303,4 @@ int sci_strindex(char *fname,unsigned long fname_len)
 	}
 	return 0;
 }
-
-wchar_t * Mywcsstr(const wchar_t * __restrict s, const wchar_t * __restrict find)
-{
-	wchar_t c, sc;
-	size_t len;
-
-	if ((c = *find++) != 0)
-	{
-		len = wcslen(find);
-		do
-		{
-			do
-			{
-				if ((sc = *s++) == L'\0')
-				{
-					return (NULL);
-				}
-			} while (sc != c);
-		} while (wcsncmp(s, find, len) != 0);
-		s--;
-	}
-	return ((wchar_t *)s);
-}
-
-
 /*------------------------------------------------------------------------*/
