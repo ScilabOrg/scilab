@@ -37,6 +37,9 @@ char** stringTokens(char *str,char **delim,int sizedelim,int *sizeOutputs)
 			int i = 0;
 			wchar_t * wcstr = to_wide_string(str);
 			wchar_t *wctoken = NULL;
+			#ifndef _MSC_VER
+			wchar_t *state = NULL;
+			#endif
 
 			for (i = 0;i < sizedelim; i++)
 			{
@@ -46,7 +49,11 @@ char** stringTokens(char *str,char **delim,int sizedelim,int *sizeOutputs)
 			}
 			wcdelimiters[i] = L'\0';
 
+			#ifndef _MSC_VER
+			wctoken = wcstok(wcstr,wcdelimiters,&state);
+			#else
 			wctoken = wcstok(wcstr,wcdelimiters);
+			#endif
 
 			while ( wctoken != NULL)
 			{
@@ -60,7 +67,11 @@ char** stringTokens(char *str,char **delim,int sizedelim,int *sizeOutputs)
 					Outputs = (char**)REALLOC(Outputs,sizeof(char*)*(*sizeOutputs));
 				}
 				Outputs[*sizeOutputs - 1] = wide_string_to_UTF8(wctoken);
+				#ifndef _MSC_VER
+				wctoken =  wcstok(NULL,wcdelimiters,&state);
+				#else
 				wctoken =  wcstok(NULL,wcdelimiters);
+				#endif
 			}
 
 			if (wcdelimiters) {FREE(wcdelimiters);	wcdelimiters = NULL;}
