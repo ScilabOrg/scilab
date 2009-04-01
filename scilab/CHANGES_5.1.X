@@ -2,12 +2,14 @@
                =================================================
 
 
-Improvement:
-============
+Improvements:
+=============
 
-* Catalan localization added (Thanks to Oriol Gonzalez and others)
+* Catalan localization added (Thanks Oriol Gonzalez and others)
 
-* German localization added (Thanks to Armin Mohring and others)
+* German Localization added (Thanks Armin Mohring and others)
+
+* Spanish Localization added (Thanks Federico Vera and others)
 
 Compilation:
 ============
@@ -109,6 +111,7 @@ It has been reported a numerous number of time:
 * bug 4196 fixed - Scipad and Scilab crashing when using menu "Execute->load 
   	  	   		   into Scilab".
 
+* bug 4204 fixed - Strange error message when using usecanvas(%F).
 
 Bug fixes:
 ==========
@@ -159,6 +162,8 @@ Bug fixes:
 
 * bug 4197 fixed - When warning messages are disabled, a blank line is printed out.
 
+* bug 4199 fixed - Missing information in findobj help page + findobj did not find figures.
+
 * bug 4201 fixed - Confusing error message in datafit
 
 * bug 4228 fixed - mclearerr with a false file descriptor crashs
@@ -189,10 +194,18 @@ Bug fixes:
 * bug 4297 fixed - A spelling mistake was causing in some cases with the 
 		   pfss function
 
+* bug 4299 fixed - getmemory is reporting bad total memory on system with 
+  	  	   a lot of memory (> 3Go)
+
 * bug 4301 fixed - Better reporting at the end of the configure
 
 * bug 4302 fixed - Do not build the helptool module when --disable-build-help
 		   is used
+
+* bug 4311 fixed - rcond(eye()) returns 1 and not eye()
+
+* bug 4312 fixed - Support for NetBSD in the memory detection (getmemory)
+
 
                Changes between version 5.0.X and 5.1 of Scilab
                ===============================================
@@ -677,6 +690,8 @@ Bug fixes:
 * bug 4221 fixed - graypolarplot uses to much memory.
 
 * bug 4272 fixed - Preconditionning in pcg was not taken into account.
+
+* bug 4309 fixed - Under Scilab5 the dashed lines are not well displayed. They are reinitialized for each segment.
 
 * Side effect in the setenvc function.
 
