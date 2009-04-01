@@ -36,7 +36,7 @@
 int sci_regexp(char *fname,unsigned long fname_len)
 {
     char typ = CHAR_S;
-     char **Str = NULL;
+    char **Str = NULL;
     char **Str2 = NULL;
     int i = 0; /* loop indice */
 
@@ -57,7 +57,7 @@ int sci_regexp(char *fname,unsigned long fname_len)
 
     char **match = NULL;
 
-    CheckRhs(1,3);
+    CheckRhs(2,3);
     CheckLhs(1,3);
 
     if (VarType(1) == sci_matrix)
@@ -66,6 +66,7 @@ int sci_regexp(char *fname,unsigned long fname_len)
         int n1 = 0;
 
         GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&Str);
+
         if ((m1 == 0) && (n1 == 0))
         {
             int l = 0;
@@ -105,7 +106,27 @@ int sci_regexp(char *fname,unsigned long fname_len)
         values_start = (int *)MALLOC( sizeof(int) * ( strlen(Str[0]) ) );
         values_end = (int *)MALLOC( sizeof(int) * ( strlen(Str[0]) ) );
     }
-    if (Rhs == 2 )
+
+	if (Rhs == 2 )
+	{
+		typ = CHAR_S;
+	}
+	else /* Rhs == 3 */
+	{
+		int m3 = 0, n3 = 0, l3 = 0;
+
+		GetRhsVar(3,STRING_DATATYPE,&m3,&n3,&l3);
+
+		if ( m3*n3 != 0) typ = cstk(l3)[0];
+		if (typ != STR_ONCE)
+		{
+			freeArrayOfString(Str,mn);
+			freeArrayOfString(Str2,mn2);
+			Scierror(999,_("%s: Wrong type for input argument #%d: '%s' expected.\n"),fname,3,"o");
+			return 0;
+		}
+	}
+
     {
         int x = 0;
         pcre_error_code answer = PCRE_FINISHED_OK;
@@ -155,73 +176,24 @@ int sci_regexp(char *fname,unsigned long fname_len)
                         if (answer != NO_MATCH)
                         {
                             pcre_error(fname,answer);
+							freeArrayOfString(Str,mn);
+							freeArrayOfString(Str2,mn2);
                             return 0;
                         }
                     }
                 }
-                while( answer == PCRE_FINISHED_OK && *pointer != '\0' );
+                while( (answer == PCRE_FINISHED_OK) && (*pointer != '\0') &&  (typ != STR_ONCE) );
 
                 if (save) {FREE(save);save=NULL;}
             }
             else
             {
+				freeArrayOfString(Str,mn);
+				freeArrayOfString(Str2,mn2);
                 Scierror(999, _("%s: No more memory.\n"),fname);
                 return 0;
             }
         }
-    }
-
-    if (Rhs == 3)
-    {
-        int m3 = 0;
-        int n3 = 0;
-        int l3 = 0;
-
-        GetRhsVar(3,STRING_DATATYPE,&m3,&n3,&l3);
-
-        if ( m3*n3 != 0) typ = cstk(l3)[0];
-
-        if (typ== STR_ONCE)
-        {
-            int x = 0;
-            pcre_error_code answer = PCRE_FINISHED_OK;
-
-            int Output_Start = 0;
-            int Output_End = 0;
-
-            for (x = 0; x < mn2; ++x)
-            {
-                answer = pcre_private(Str[0], Str2[x], &Output_Start, &Output_End);
-                if ( answer == PCRE_FINISHED_OK)
-                {
-                    /* Start = End means that we matched a position and 0 characters.
-                     * Matching 0 characters, for us, means no match.
-                     */
-                    if (Output_Start!=Output_End)
-                    {
-                        /*adding the answer into the outputmatrix*/
-                        values_start[nbValues_start++] = Output_Start+1;
-                        values_end[nbValues_end++] = Output_End;
-                        
-                        /*The number according to the str2 matrix*/
-                        nbposition++;
-                    }
-                }
-                else
-                {
-                    if (answer != NO_MATCH)
-                    {
-                        pcre_error(fname,answer);
-                        return 0;
-                    }
-                }
-            }
-        }
-		else
-		{
-			Scierror(999,_("%s: Wrong type for input argument #%d: '%s' expected.\n"),fname,3,"o");
-			return 0;
-		}
     }
 
     if (nbValues_start!=0)
@@ -231,8 +203,15 @@ int sci_regexp(char *fname,unsigned long fname_len)
     else
     {
         match = (char**)MALLOC(sizeof(char*)*(1));
-
     }
+
+	if (!match)
+	{
+		freeArrayOfString(Str,mn);
+		freeArrayOfString(Str2,mn2);
+		Scierror(999, _("%s: No more memory.\n"),fname);
+		return 0;
+	}
 
     for( i = 0; i < nbValues_start; i++)
     {
@@ -247,7 +226,7 @@ int sci_regexp(char *fname,unsigned long fname_len)
     freeArrayOfString(Str, mn);
     freeArrayOfString(Str2, mn2);
 
-    numRow   = 1;/* Output values[] */
+    numRow   = 1; /* Output values[] */
     outIndex = 0;
     CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&numRow,&nbValues_start,&outIndex);
     for ( i = 0 ; i < nbValues_start ; i++ )
