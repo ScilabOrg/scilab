@@ -51,7 +51,7 @@ int sci_strindex(char *fname,unsigned long fname_len)
 	BOOL bStrindex_with_pattern = FALSE;
 	int outIndex = 0;
 	int numRow = 1;
-    int *next= NULL;
+    int *next = NULL;
 	int i = 0;
 
 	CheckRhs(2,3);
@@ -69,13 +69,13 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			Scierror(999,_("%s: Wrong type for input argument #%d: Character expected.\n"),fname,3);
 			return 0;
 		}
-		GetRhsVar(3,MATRIX_OF_STRING_DATATYPE,&m3,&n3,&Strings_Input3);
-		m3n3 = m3*n3;
+		GetRhsVar(3, MATRIX_OF_STRING_DATATYPE, &m3, &n3, &Strings_Input3);
+		m3n3 = m3 * n3;
 
 		if (m3n3 != 1)
 		{
-			freeArrayOfString(Strings_Input3,m3n3);
-			Scierror(999,_("%s: Wrong type for input argument #%d: Character expected.\n"),fname,3);
+			freeArrayOfString(Strings_Input3, m3n3);
+			Scierror(999,_("%s: Wrong type for input argument #%d: Character expected.\n"), fname, 3);
 			return 0;
 		}
 
@@ -89,12 +89,12 @@ int sci_strindex(char *fname,unsigned long fname_len)
 			{
 				bStrindex_with_pattern = FALSE;
 			}
-			freeArrayOfString(Strings_Input3,m3n3);
+			freeArrayOfString(Strings_Input3, m3n3);
 		}
 		else
 		{
-			freeArrayOfString(Strings_Input3,m3n3);
-			Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"),fname,3,"s","r");
+			freeArrayOfString(Strings_Input3, m3n3);
+			Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"),fname,3,CHAR_S,CHAR_R);
 			return 0;
 		}
 	}
@@ -196,10 +196,10 @@ int sci_strindex(char *fname,unsigned long fname_len)
 					partStr[Output_Start] = '\0';
 					wcpartStr = to_wide_string(partStr);
 					values[nbValues++].data = wcslen(wcpartStr) + 1; /* adding the answer into the outputmatrix */
-
-					//values[nbValues++].data = Output_Start+1; /* adding the answer into the outputmatrix */
-
 					values[nbposition++].position = x+1;        /* The number according to the str2 matrix */
+
+					if (partStr) {FREE(partStr); partStr = NULL;}
+					if (wcpartStr) {FREE(wcpartStr); wcpartStr = NULL;}
 				}
 				else
 				{
