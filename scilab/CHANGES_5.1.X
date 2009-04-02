@@ -116,6 +116,8 @@ It has been reported a numerous number of time:
 Bug fixes:
 ==========
 
+* bug 3666 fixed - 'input' with accentued character returns incorrect value
+
 * bug 3944 fixed - ilib_mex_build() wasn't using the content of the
                    variable tables to compile other files
 
@@ -191,11 +193,9 @@ Bug fixes:
 
 * bug 4295 fixed - mdelete no more works with "*.extension" as input (wildcard).
 
-* bug 4297 fixed - A spelling mistake was causing in some cases with the 
-		   pfss function
+* bug 4297 fixed - A spelling mistake was causing in some cases with the pfss function
 
-* bug 4299 fixed - getmemory is reporting bad total memory on system with 
-  	  	   a lot of memory (> 3Go)
+* bug 4299 fixed - getmemory is reporting bad total memory on system with a lot of memory (> 3Go)
 
 * bug 4301 fixed - Better reporting at the end of the configure
 
