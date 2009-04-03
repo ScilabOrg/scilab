@@ -59,6 +59,7 @@ char *getScilabDirectory(BOOL UnixStyle)
 				if (wcSciPathName[i] == L'\\') wcSciPathName[i] = L'/';
 			}
 		}
+		wcSciPathName[wcslen(wcSciPathName)-1]='\0';
 
 		SciPathName = wide_string_to_UTF8(wcSciPathName);
 		FREE(wcSciPathName);
