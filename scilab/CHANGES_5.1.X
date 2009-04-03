@@ -1,4 +1,29 @@
-﻿               Changes between version 5.1.0 and 5.1.1 of Scilab
+﻿UTF - Branch changes:
+
+Bug fixes:
+==========
+
+bug 3433 - length with a UTF string returns a incorrect size
+
+bug 3472 - Dropping files in the Scilab shell doesn't work when the path contains accented characters.
+
+bug 3666 - 'input' returns accented characters.
+
+bug 3839 - strrev() doesn't work correctly if the string to be reversed includes some accentuated characters.
+
+bug 4003 - setenv & getenv do not manage utf string on Windows.
+
+bug 4019 - with -nw or -nwni mode on Windows, console returns error about localization.
+
+bug 4068 - Accentuated names in directories not supported.
+
+bug 4145 - Simplified Chinese file names can not shown correctly.
+
+bug 4233 - exec command with a UTF filename fails.
+
+bug 4277 - strsubst,regexp, strindex, grep return strange results if accented characters and character class are associated in the pattern to match.
+               
+               Changes between version 5.1.0 and 5.1.1 of Scilab
                =================================================
 
 
