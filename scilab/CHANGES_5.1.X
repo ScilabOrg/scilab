@@ -24,6 +24,7 @@ bug 4145 - Simplified Chinese file names can not shown correctly.
 bug 4233 - exec command with a UTF filename fails.
 
 bug 4277 - strsubst,regexp, strindex, grep return strange results if accented characters and character class are associated in the pattern to match.
+
                
                Changes between version 5.1.0 and 5.1.1 of Scilab
                =================================================
@@ -142,7 +143,10 @@ It has been reported a numerous number of time:
 
 Bug fixes:
 ==========
+
 * bug 3186 fixed - input is lost when graphics window is closed.
+
+* bug 3240 fixed - msprintf error in plotprofile.
 
 * bug 3587 fixed - gsort is not stable: It does not preserve the relative order 
   	  	   		   of equal values creates problem with function unique.
@@ -156,6 +160,8 @@ Bug fixes:
 
 * bug 3945 fixed - Error with the help example of library()
 
+* bug 3962 fixed - incorrect first left hand side argument of pca (one col instead of two)
+
 * bug 4052 fixed - A wrong usage of xmlCleanupParser (libxml2) was causing
                    a seg fault on startup
 
@@ -164,6 +170,11 @@ Bug fixes:
 * bug 4073 fixed - mprintf does not display some special characters
 
 * bug 4074 fixed - Scilab now uses native MacOSX menubar.
+
+* bug 4088 fixed - When Tcl/Tk is disable, demos are now deactivated.
+
+* bug 4099 fixed - Demos mixing gui and plots were not desactivated on plateforms
+                   having usecanvas set to %T.
 
 * bug 4120 fixed - amell returns wrong value on Scilab x64 (Windows)
 
@@ -213,6 +224,9 @@ Bug fixes:
 
 * bug 4235 fixed - error.h renamed
 
+* bug 4238 fixed - waitbar and progressionbar won't close when clicking on the X 
+                   in the upper-right corner of the window.
+
 * bug 4245 fixed - The icon of the progressionbar is a java icon.
                    It should it be a Scilab one instead.
 
@@ -258,6 +272,8 @@ Bug fixes:
 * bug 4311 fixed - rcond(eye()) returns 1 and not eye()
 
 * bug 4312 fixed - Support for NetBSD in the memory detection (getmemory)
+
+* bug 4316 fixed - mfprintf(0,'string') does not redirect stderr as fprintf(0,...)
 
 * bug 4321 fixed - strcat with 3 input parameters crashs if input type 
   	  	   		   parameters are wrong.
