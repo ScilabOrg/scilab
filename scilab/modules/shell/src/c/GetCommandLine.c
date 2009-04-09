@@ -27,9 +27,7 @@
 #include "dynamic_menus.h" /* for ismenu() */
 #include "zzledt.h"
 #include "GetCommandLine.h"
-#if _MSC_VER
 #include "TermReadAndProcess.h"
-#endif
 #include "stack-def.h"
 
 #ifdef _MSC_VER
@@ -60,8 +58,6 @@ static BOOL WatchGetCmdLineThreadAlive = FALSE;
 static __threadId WatchGetCmdLineThread;
 
 static BOOL initialized = FALSE;
-
-char *TermReadAndProcess(void);
 
 /***********************************************************************
  * line editor
