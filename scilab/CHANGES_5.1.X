@@ -95,6 +95,12 @@ Enhancement:
   present, the second input argument of test_run is no more the list of tests to
   launch but the list of tests to skip.
   For example, test_run("time",["bug_1506" "bug_793"],"skip_tests");
+  
+* test_run() : The following tags have been added :
+  - <-- WINDOWS ONLY --> If the operating system isn't Windows, the test is skipped.
+  - <-- UNIX ONLY -->    If the operating system isn't an unix OS, the test is skipped.
+  - <-- LINUX ONLY -->   If the operating system isn't Linux, the test is skipped.
+  - <-- MACOSX ONLY -->  If the operating system isn't MacOSX, the test is skipped.
 
 License:
 ========
@@ -200,6 +206,9 @@ Bug fixes:
                    
 * bug 4141 fixed - ascii doesn't support extended ascii values in the range of [128-255].
 
+* bug 4242 fixed - Copyright added (INRIA code) 
+		   on modules/linear_algebra/src/fortran/doldqr.f
+
 * bug 4150 fixed - user startup executed twice if you change directory to 
   	  	   		   SCIHOME in this file.
 
@@ -299,6 +308,7 @@ Bug fixes:
 
 * bug 4343 fixed - the plot3d demo doesn't seems to work.
 
+* bug 4372 fixed - The graphics from the genetic_algorithms and simulated_annealing toolbox where not displayed
 
                Changes between version 5.0.X and 5.1 of Scilab
                ===============================================
