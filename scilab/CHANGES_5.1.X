@@ -1,5 +1,4 @@
-﻿UTF - Branch changes:
-
+UTF - Branch changes:
 
 
 Bug fixes:
@@ -25,7 +24,48 @@ bug 4233 - exec command with a UTF filename fails.
 
 bug 4277 - strsubst,regexp, strindex, grep return strange results if accented characters and character class are associated in the pattern to match.
 
-               
+               Changes between version 5.1.1 and 5.1.2 of Scilab
+               =================================================
+Compilation:
+============
+
+* "make check" now builds also call_scilab examples
+
+Source reorganisation:
+======================
+
+* Some function profiles in stack3.h provided to manage named named variable
+  have been moved in CallScilab.h (please note that we haven't changed the ABI
+  and the symbols remain in the core library)
+  The goal of this modification is to separate functions dealing with the 
+  call_scilab API and the internal API used in the gateways.
+
+* In call_scilab:
+  * C2F(readmat) is obsolete. Please use C2F(creadmat) instead (same profile)
+  * C2F(readchain) is obsolete. Please use C2F(creadchain) instead 
+    (same profile)
+  * C2F(matptr) is obsolete. Please use C2F(cmatptr) instead (same profile)
+
+Help & Tests:
+=============
+
+* Documentation and examples about call_scilab added
+
+Bug fixes:
+==========
+
+ * bug 4369 fixed - Help for text_properties: For the clip_state attribut, the second 
+                    possible value was 'clipgrf' instead of 'cliprf'.
+
+ * bug 4385 fixed - the param3d_properties page has been removed, but a lot of
+                    links to this page exist in the documentation.
+
+ * bug 4386 fixed - Dynamic link: link('show') displays only one library if 
+                    we have only one symbol.
+
+
+
+
                Changes between version 5.1.0 and 5.1.1 of Scilab
                =================================================
 
@@ -309,6 +349,8 @@ Bug fixes:
 * bug 4343 fixed - the plot3d demo doesn't seems to work.
 
 * bug 4372 fixed - The graphics from the genetic_algorithms and simulated_annealing toolbox where not displayed
+
+* bug 4386 fixed - link('show') with only one symbol writes 'librairies' and not 'library'.
 
                Changes between version 5.0.X and 5.1 of Scilab
                ===============================================
