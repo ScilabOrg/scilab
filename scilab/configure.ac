@@ -1040,6 +1040,29 @@ AC_SUBST(PVM_ENABLE)
 
 AM_CONDITIONAL(PVM, test "$with_pvm" != no)
 
+#################
+## OpenMP
+#################
+
+AC_ARG_WITH(openmp,
+    AC_HELP_STRING([--without-openmp],[Disable the usage of OpenMP (parallelization of some algoritms)]))
+
+OPENMP_ENABLE=no
+if test "$with_openmp" != no; then
+#   AC_OPENMP
+	OPENMP_CFLAGS="-fopenmp"
+	OPENMP_CXXFLAGS="-fopenmp"
+	OPENMP_LIBS="-lgomp"
+
+	CFLAGS="$CFLAGS $OPENMP_CFLAGS"
+	CXXFLAGS="$CXXFLAGS $OPENMP_CFLAGS"
+	LIBS="$LIBS $OPENMP_LIBS"
+	OPENMP_ENABLE=yes
+fi
+AC_SUBST(OPENMP_ENABLE)
+
+AM_CONDITIONAL(OPENMP, test "$with_openmp" != no)
+
 #######################
 ## Test for libxml
 #######################
@@ -1586,6 +1609,17 @@ else
    echo "Not using Scicos"
 fi
 fi
+
+echo ""
+if test $OPENMP_ENABLE = yes; then
+   echo "OpenMP Configuration:"
+   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
+   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
+   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
+else
+   echo "Not using OpenMP"
+fi
+
 
 echo ""
 if test $PVM_ENABLE = yes; then
