@@ -55,6 +55,8 @@ libscipvm_la_CFLAGS=  -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
 	-I$(top_srcdir)/modules/io/includes/ \
 	-I$(top_srcdir)/modules/fileio/includes/ \
+	-I$(top_srcdir)/modules/api_scilab/includes \
+	-I$(top_srcdir)/modules/operations/includes/
 	$(PVM_INCLUDE)
 
 pkglib_LTLIBRARIES = libscipvm.la
@@ -75,11 +77,11 @@ modulename=pvm
 libscipvm_la_rootdir = $(mydatadir)
 libscipvm_la_root_DATA = changelog.txt license.txt readme.txt version.xml
 
-#### pvm : init scripts #### 
+#### pvm : init scripts ####
 libscipvm_la_etcdir = $(mydatadir)/etc
 libscipvm_la_etc_DATA = etc/pvm.quit etc/pvm.start
 
-#### pvm : gateway declaration #### 
+#### pvm : gateway declaration ####
 libscipvm_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscipvm_la_sci_gateway_DATA = sci_gateway/pvm_gateway.xml
 
@@ -99,12 +101,15 @@ pkglib_LTLIBRARIES = libscipvm.la
 
 libscipvm_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
-libscipvm_la_SOURCES = $(PVM_C_SOURCES) 
+libscipvm_la_SOURCES = $(PVM_C_SOURCES)
 
 libscipvm_la_LIBADD = \
 	$(top_builddir)/modules/core/libscicore.la
 
-libscipvm_la_CFLAGS = -I$(top_srcdir)/modules/output_stream/includes/
+libscipvm_la_CFLAGS = \
+						-I$(top_srcdir)/modules/api_scilab/includes \
+						-I$(top_srcdir)/modules/output_stream/includes/
+
 
 modulename=pvm
 

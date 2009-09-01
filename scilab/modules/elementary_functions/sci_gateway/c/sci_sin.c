@@ -11,13 +11,79 @@
  */
 /*--------------------------------------------------------------------------*/ 
 #include "gw_elementary_functions.h"
+#include "stack-c.h"
+#include "basic_functions.h"
+#include "api_scilab.h"
+#include "Scierror.h"
+
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsin)(int *id);
-/*--------------------------------------------------------------------------*/
-int C2F(sci_sin)(char *fname,unsigned long fname_len)
+int C2F(sci_sin) (char *fname,unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intsin)(id);
+	int i;
+	int iRet						= 0;
+	int iRows						= 0;
+	int iCols						= 0;	
+
+	int* piAddr					= NULL;
+
+	double *pdblReal		= NULL;
+	double *pdblImg			= NULL;
+	double *pdblRealRet	= NULL;
+	double *pdblImgRet	= NULL;
+
+	CheckRhs(1,1);
+	CheckLhs(1,1);
+
+		iRet = getVarAddressFromPosition(1, &piAddr);
+	if(iRet)
+	{
+		return 1;
+	}
+
+	if(getVarType(piAddr) != sci_matrix)
+	{
+		OverLoad(1);
+		return 0;
+	}
+
+	if(isVarComplex(piAddr))
+	{
+		iRet = getComplexMatrixOfDouble(piAddr, &iRows, &iCols, &pdblReal, &pdblImg);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		iRet = allocComplexMatrixOfDouble(Rhs + 1, iRows, iCols, &pdblRealRet, &pdblImgRet);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iCols * iRows ; i++)
+		{
+			zsins(pdblReal[i], pdblImg[i], &pdblRealRet[i], &pdblImgRet[i]);
+		}
+	}
+	else
+	{
+		iRet = getMatrixOfDouble(piAddr, &iRows, &iCols, &pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		iRet = allocMatrixOfDouble(Rhs + 1, iRows, iCols, &pdblRealRet);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iCols * iRows ; i++)
+		{
+			pdblRealRet[i] = dsins(pdblReal[i]);
+		}
+	}
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

@@ -2,11 +2,11 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA - 2006-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Sylvestre Ledru
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 
@@ -17,11 +17,13 @@
 SUBDIRS = core
 
 SUBDIRS += \
+operations \
 output_stream \
 action_binding \
 arnoldi \
 elementary_functions \
 string \
+api_scilab \
 dynamic_link \
 fileio \
 history_manager \
@@ -70,7 +72,6 @@ maple2scilab \
 m2sci \
 texmacs \
 scipad \
-scilab2fortran \
 development_tools \
 compatibility_functions \
 helptools \
@@ -80,7 +81,9 @@ demo_tools \
 genetic_algorithms \
 simulated_annealing \
 parameters \
-matio
+matio \
+atoms \
+hdf5
 
 #umfpack
 
@@ -140,6 +143,7 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/cacsd/libscicacsd.la \
 	$(top_builddir)/modules/core/libscicore.la \
 	$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+	$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
 	$(top_builddir)/modules/data_structures/libscidata_structures.la \
 	$(top_builddir)/modules/differential_equations/libscidifferential_equations.la \
 	$(top_builddir)/modules/double/libscidouble.la \
@@ -176,7 +180,8 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/signal_processing/libscisignal_processing.la \
 	$(top_builddir)/modules/interpolation/libsciinterpolation.la \
 	$(top_builddir)/modules/string/libscistring.la \
-	$(top_builddir)/modules/functions/libscifunctions.la 
+	$(top_builddir)/modules/functions/libscifunctions.la \
+	$(top_builddir)/modules/hdf5/libscihdf5.la
 
 OTHER_LIBS = $(top_builddir)/modules/fftw/libscifftw.la \
 $(top_builddir)/modules/umfpack/libsciumfpack.la \

@@ -11,13 +11,223 @@
  */
 /*--------------------------------------------------------------------------*/ 
 #include "gw_elementary_functions.h"
+#include "stack-c.h"
+#include "basic_functions.h"
+#include "api_scilab.h"
+#include "Scierror.h"
+
+int round_double(int* _piAddress);
+int round_poly(int* _piAddress);
+
 /*--------------------------------------------------------------------------*/
-extern int C2F(intround)(int *id);
-/*--------------------------------------------------------------------------*/
-int C2F(sci_round)(char *fname,unsigned long fname_len)
+int C2F(sci_round) (char *fname,unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intround)(id);
+	int iRet		= 0;
+	int* piAddr	= NULL;
+
+	CheckRhs(1,1);
+	CheckLhs(1,1);
+
+	iRet = getVarAddressFromPosition(1, &piAddr);
+	if(iRet)
+	{
+		return 1;
+	}
+
+	switch(getVarType(piAddr))
+	{
+	case sci_matrix :
+		iRet = round_double(piAddr);
+		break;
+	case sci_poly :
+		iRet = round_poly(piAddr);
+		break;
+	default:
+		OverLoad(1);
+		return 0;
+		break;
+	}
+
+	if(iRet != 0)
+	{
+		return 1;
+	}
+
+	LhsVar(1) = Rhs + 1;
+	PutLhsVar();
 	return 0;
 }
+
+int round_double(int* _piAddress)
+{
+	int i;
+	int iRet						= 0;
+	int iRows						= 0;
+	int iCols						= 0;
+
+	double *pdblReal		= NULL;
+	double *pdblImg			= NULL;
+	double *pdblRealRet	= NULL;
+	double *pdblImgRet	= NULL;
+
+	if(isVarComplex(_piAddress))
+	{
+		iRet = getComplexMatrixOfDouble(_piAddress, &iRows, &iCols, &pdblReal, &pdblImg);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		iRet = allocComplexMatrixOfDouble(Rhs + 1, iRows, iCols, &pdblRealRet, &pdblImgRet);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iRows * iCols; i++)
+		{
+			pdblRealRet[i] = danints(pdblReal[i]);
+			pdblImgRet[i]	= danints(pdblImg[i]);
+		}
+	}
+	else
+	{
+		iRet = getMatrixOfDouble(_piAddress, &iRows, &iCols, &pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		iRet = allocMatrixOfDouble(Rhs + 1, iRows, iCols, &pdblRealRet);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iRows * iCols; i++)
+		{
+			pdblRealRet[i] = danints(pdblReal[i]);
+		}
+	}
+
+	return 0;
+}
+
+int round_poly(int* _piAddress)
+{
+	int i,j;
+	int iRet							= 0;
+	int iRows							= 0;
+	int iCols							= 0;
+	int iLen							= 0;
+	int *piCoeff					= NULL;
+	char pstVarName[16];
+
+	double** pdblReal			= NULL;
+	double** pdblImg			= NULL;
+	double** pdblRealRet	= NULL;
+	double** pdblImgRet	= NULL;
+
+	iRet = getPolyVariableName(_piAddress, pstVarName, &iLen);
+	if(iRet)
+	{
+		return 1;
+	}
+
+	if(isVarComplex(_piAddress))
+	{
+		iRet = getComplexMatrixOfPoly(_piAddress, &iRows, &iCols, NULL, NULL, NULL);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		piCoeff	= (int*)malloc(iRows * iCols * sizeof(int));
+		iRet = getComplexMatrixOfPoly(_piAddress, &iRows, &iCols, piCoeff, NULL, NULL);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		pdblReal		= (double**)malloc(sizeof(double*) * iRows * iCols);
+		pdblImg			= (double**)malloc(sizeof(double*) * iRows * iCols);
+		pdblRealRet	= (double**)malloc(sizeof(double*) * iRows * iCols);
+		pdblImgRet	= (double**)malloc(sizeof(double*) * iRows * iCols);
+
+		for(i = 0 ; i < iRows * iCols ; i++)
+		{
+			pdblReal[i]			= (double*)malloc(sizeof(double) * piCoeff[i]);
+			pdblImg[i]			= (double*)malloc(sizeof(double) * piCoeff[i]);
+			pdblRealRet[i]	= (double*)malloc(sizeof(double) * piCoeff[i]);
+			pdblImgRet[i]		= (double*)malloc(sizeof(double) * piCoeff[i]);
+		}
+
+		iRet = getComplexMatrixOfPoly(_piAddress, &iRows, &iCols, piCoeff, pdblReal, pdblImg);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iRows * iCols ; i++)
+		{
+			for(j = 0 ; j < piCoeff[i] ; j++)
+			{
+				pdblRealRet[i][j] = danints(pdblReal[i][j]);
+				pdblImgRet[i][j] = danints(pdblImg[i][j]);
+			}
+		}
+		
+		iRet = createComplexMatrixOfPoly(Rhs + 1, pstVarName, iRows, iCols, piCoeff, pdblRealRet, pdblImgRet);
+		if(iRet)
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		iRet = getMatrixOfPoly(_piAddress, &iRows, &iCols, NULL, NULL);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		piCoeff	= (int*)malloc(iRows * iCols * sizeof(int));
+		iRet = getMatrixOfPoly(_piAddress, &iRows, &iCols, piCoeff, NULL);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		pdblReal		= (double**)malloc(sizeof(double*) * iRows * iCols);
+		pdblRealRet	= (double**)malloc(sizeof(double*) * iRows * iCols);
+
+		for(i = 0 ; i < iRows * iCols ; i++)
+		{
+			pdblReal[i]			= (double*)malloc(sizeof(double) * piCoeff[i]);
+			pdblRealRet[i]	= (double*)malloc(sizeof(double) * piCoeff[i]);
+		}
+
+		iRet = getMatrixOfPoly(_piAddress, &iRows, &iCols, piCoeff, pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iRows * iCols ; i++)
+		{
+			for(j = 0 ; j < piCoeff[i] ; j++)
+			{
+				pdblRealRet[i][j] = danints(pdblReal[i][j]);
+			}
+		}
+		
+		iRet = createMatrixOfPoly(Rhs + 1, pstVarName, iRows, iCols, piCoeff, pdblRealRet);
+		if(iRet)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
 /*--------------------------------------------------------------------------*/

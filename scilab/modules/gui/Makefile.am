@@ -48,7 +48,7 @@ src/c/InitWaitBar.c \
 src/c/InitProgressionBar.c \
 src/c/CreateUIContextMenu.c \
 src/c/UicontrolStyleToString.c \
-src/c/messageboxoptions.c 
+src/c/messageboxoptions.c
 
 GUI_CPP_SOURCES = src/cpp/InitUIMenu.cpp \
 src/jni/CallScilabBridge.cpp \
@@ -107,6 +107,8 @@ src/cpp/SetUiobjectTag.cpp \
 src/cpp/GetUiobjectTag.cpp \
 src/cpp/SetUiobjectEnable.cpp \
 src/cpp/GetUiobjectEnable.cpp \
+src/cpp/SetUimenuChecked.cpp \
+src/cpp/GetUimenuChecked.cpp \
 src/cpp/SetUicontrolMin.cpp \
 src/cpp/GetUicontrolMin.cpp \
 src/cpp/SetUicontrolMax.cpp \
@@ -212,12 +214,14 @@ libscigui_la_CFLAGS=	-I$(srcdir)/src/c/ \
 			-I$(top_srcdir)/modules/output_stream/includes \
 			-I$(top_srcdir)/modules/dynamic_link/includes \
 			-I$(srcdir)/src/cpp/ \
+			-I$(top_srcdir)/modules/api_scilab/includes \
 			-I$(top_srcdir)/modules/graphics/src/c/getHandleProperty/
 
 libscigui_la_CFLAGS += $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/jvm/includes/ \
 			-I$(top_srcdir)/modules/renderer/includes/ \
-			-I$(top_srcdir)/modules/string/includes/
+			-I$(top_srcdir)/modules/string/includes/ \
+			-I$(top_srcdir)/modules/operations/includes/
 
 libscigui_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(srcdir)/includes/ \
@@ -236,10 +240,11 @@ libscigui_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/graphics/includes/ \
 			-I$(top_srcdir)/modules/graphics/src/c/getHandleProperty/ \
 			-I$(top_srcdir)/modules/graphic_export/includes/ \
-			-I$(top_srcdir)/modules/string/includes/
+			-I$(top_srcdir)/modules/string/includes/ \
+			-I$(top_srcdir)/modules/api_scilab/includes \
+			-I$(top_srcdir)/modules/operations/includes/
 
-
-# Without the GUI module 
+# Without the GUI module
 libscigui_disable_la_CFLAGS = -Iincludes/ \
 			-I$(top_srcdir)/modules/output_stream/includes
 
@@ -317,6 +322,7 @@ includes/GetUiobjectForegroundColor.h \
 includes/GetUiobjectTag.h \
 includes/GetUiobjectVisible.h \
 includes/GetUiobjectEnable.h \
+includes/GetUimenuChecked.h \
 includes/InitUIMenu.h \
 includes/Label.h \
 includes/ListBox.h \
@@ -352,6 +358,7 @@ includes/SetUiobjectForegroundColor.h \
 includes/SetUiobjectTag.h \
 includes/SetUiobjectVisible.h \
 includes/SetUiobjectEnable.h \
+includes/SetUimenuChecked.h \
 includes/Slider.h \
 includes/TerminateGui.h \
 includes/write_scilab.h \

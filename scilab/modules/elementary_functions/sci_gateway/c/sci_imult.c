@@ -11,13 +11,80 @@
  */
 /*--------------------------------------------------------------------------*/ 
 #include "gw_elementary_functions.h"
+#include "stack-c.h"
+#include "basic_functions.h"
+#include "api_scilab.h"
+
 /*--------------------------------------------------------------------------*/
-extern int C2F(intimult)(int *id);
-/*--------------------------------------------------------------------------*/
-int C2F(sci_imult)(char *fname,unsigned long fname_len)
+int C2F(sci_imult) (char *fname,unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intimult)(id);
+	int i;
+	int iRet						= 0;
+	int iRows						= 0;
+	int iCols						= 0;
+
+	int* piAddr					= NULL;
+	
+	double *pdblReal		= NULL;
+	double *pdblImg			= NULL;
+	double *pdblRealRet = NULL;
+	double *pdblImgRet	= NULL;
+
+	CheckRhs(1,1);
+	CheckLhs(1,1);
+
+	iRet = getVarAddressFromPosition(1, &piAddr);
+	if(iRet)
+	{
+		return 1;
+	}
+
+	if(getVarType(piAddr) != sci_matrix)
+	{
+		OverLoad(1);
+		return 0;
+	}
+
+	if(isVarComplex(piAddr))
+	{
+		iRet = getComplexMatrixOfDouble(piAddr, &iRows, &iCols, &pdblReal, &pdblImg);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		for(i = 0 ; i < iCols * iRows ; i++)
+		{
+			pdblImg[i] *= -1;
+		}
+
+		iRet = createComplexMatrixOfDouble(Rhs + 1, iRows, iCols, pdblImg, pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		iRet = getMatrixOfDouble(piAddr, &iRows, &iCols, &pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+
+		pdblRealRet = (double*)malloc(sizeof(double) * iRows * iCols);
+		memset(pdblRealRet, 0x00, sizeof(double) * iRows * iCols);
+
+		iRet = createComplexMatrixOfDouble(Rhs + 1, iRows, iCols, pdblRealRet, pdblReal);
+		if(iRet)
+		{
+			return 1;
+		}
+		free(pdblRealRet);
+	}
+
+	LhsVar(1) = Rhs + 1;
+	PutLhsVar();
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

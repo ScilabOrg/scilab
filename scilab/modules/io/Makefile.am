@@ -19,7 +19,6 @@ sci_gateway/c/sci_getio.c \
 sci_gateway/c/sci_readb.c \
 sci_gateway/c/sci_host.c \
 sci_gateway/c/sci_file.c \
-sci_gateway/c/intsetenv.c \
 sci_gateway/c/sci_rat.c \
 sci_gateway/c/sci_getenv.c \
 sci_gateway/c/sci_write.c \
@@ -27,7 +26,6 @@ sci_gateway/c/sci_writeb.c \
 sci_gateway/c/sci_setenv.c \
 sci_gateway/c/gw_io.c \
 sci_gateway/c/sci_mgetl.c \
-sci_gateway/c/sci_diary.c \
 sci_gateway/c/sci_read.c \
 sci_gateway/c/sci_getpid.c \
 sci_gateway/c/sci_write4b.c \
@@ -53,11 +51,14 @@ libsciio_la_CFLAGS=  	-I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
 			-I$(top_srcdir)/modules/fileio/includes/ \
-			-I$(top_srcdir)/modules/output_stream/includes/
+			-I$(top_srcdir)/modules/api_scilab/includes/ \
+			-I$(top_srcdir)/modules/output_stream/includes \
+			-I$(top_srcdir)/modules/operations/includes
 
 libsciio_la_CPPFLAGS= 	-I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/core/includes/ \
-                        -I$(top_srcdir)/modules/output_stream/includes/
+			-I$(top_srcdir)/modules/api_scilab/includes \
+			-I$(top_srcdir)/modules/output_stream/includes/
 
 
 pkglib_LTLIBRARIES = libsciio.la
