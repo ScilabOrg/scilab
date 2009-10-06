@@ -1074,6 +1074,40 @@ AC_SUBST(OPENMP_ENABLE)
 
 AM_CONDITIONAL(OPENMP, test "$with_openmp" != no)
 
+######
+## Perf enable
+######
+AC_ARG_WITH(performance-flags,
+    AC_HELP_STRING([--with-performance-flags],[Enable performances flags]))
+
+PERFORMANCE_FLAGS_ENABLE=no
+if test "$with_performance_flags" != no; then
+
+        CFLAGS="$CFLAGS -O4 -march=native"
+        CXXFLAGS="$CXXFLAGS -O4 -march=native"
+	FFLAGS="$FFLAGS -O4 -march=native"
+fi
+AC_SUBST(PERFORMANCE_FLAGS_ENABLE)
+
+AM_CONDITIONAL(PERFORMANCE_FLAGS, test "$with_performance_flags" != yes)
+
+######
+## profiling enable
+######
+AC_ARG_WITH(profiling-flags,
+    AC_HELP_STRING([--with-profiling-flags],[Enable profiling flags]))
+
+PROFILING_FLAGS_ENABLE=no
+if test "$with_profiling_flags" != no; then
+        CFLAGS="$CFLAGS -pg"
+        CXXFLAGS="$CXXFLAGS -pg"
+        FFLAGS="$FFLAGS -pg"
+fi
+AC_SUBST(PROFILING_FLAGS_ENABLE)
+
+AM_CONDITIONAL(PROFILING_FLAGS, test "$with_profiling_flags" != yes)
+
+
 #######################
 ## Test for libxml
 #######################
