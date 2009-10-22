@@ -12,10 +12,11 @@
 
 /*--------------------------------------------------------------------------*/
 #include "gw_string.h"
+#include "stack-c.h"
+#include "MALLOC.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-#define STRING_TAB_SIZE 31
-static gw_generic_table Tab[STRING_TAB_SIZE]=
+static gw_generic_table Tab[] =
 {
 	{sci_length,"length"},
 	{sci_part,"part"},
@@ -53,7 +54,13 @@ static gw_generic_table Tab[STRING_TAB_SIZE]=
 /*--------------------------------------------------------------------------*/
 int gw_string(void)
 {  
-	callFunctionFromGateway(Tab,STRING_TAB_SIZE);
+	if(pvApiCtx == NULL)
+	{
+		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrErr));
+	}
+
+	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

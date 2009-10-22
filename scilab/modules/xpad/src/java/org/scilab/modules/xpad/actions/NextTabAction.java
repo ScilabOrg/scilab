@@ -14,20 +14,27 @@ package org.scilab.modules.xpad.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class NextTabAction extends DefaultAction {
 
-	public NextTabAction(Xpad editor) {
-		super("Next tab", editor);
-		setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, ActionEvent.CTRL_MASK));
+	private NextTabAction(Xpad editor) {
+		super(XpadMessages.NEXT_TAB, editor);
 	}
 	
 	public void doAction() {
 		int index = this.getEditor().getTabPane().getSelectedIndex();
 		System.out.println(index);
 	}
+	
+	public static MenuItem createMenu(Xpad editor) {
+		return createMenu(XpadMessages.NEXT_TAB, null, new NextTabAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_TAB, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+	 }
+	
 }

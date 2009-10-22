@@ -13,16 +13,21 @@
 package org.scilab.modules.xpad.actions;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class HelpAction extends DefaultAction {
 
-    public HelpAction(Xpad editor) {
-	super("Help...", editor);
-    }
-    
-    public void doAction() {
-	InterpreterManagement.requestScilabExec("help('xpad')");
-    }
+	private HelpAction(Xpad editor) {
+		super(XpadMessages.HELP, editor);
+	}
 
+	public void doAction() {
+		InterpreterManagement.requestScilabExec("help('xpad')");
+	}
+
+	public static MenuItem createMenu(Xpad editor) {
+		return createMenu(XpadMessages.HELP, null, new HelpAction(editor), null);
+	}
 }

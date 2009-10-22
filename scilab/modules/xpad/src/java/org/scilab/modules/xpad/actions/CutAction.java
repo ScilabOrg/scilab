@@ -14,22 +14,32 @@ package org.scilab.modules.xpad.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class CutAction extends DefaultAction {
 
-    public CutAction(Xpad editor) {
-	super("Cut", editor);
-	//setMnemonic('c');
-	setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+    private CutAction(Xpad editor) {
+	super(XpadMessages.CUT, editor);
     }
     
     public void doAction() {
 	getEditor().getTextPane().getActionMap().get(DefaultEditorKit.cutAction).actionPerformed(null);
     }
 
+    public static MenuItem createMenu(Xpad editor) {
+	return createMenu(XpadMessages.CUT, null, new CutAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+    }
+    
+    public static PushButton createButton(Xpad editor) {
+	return createButton(XpadMessages.CUT, "edit-cut.png", new CutAction(editor));
+    }
+    
 }

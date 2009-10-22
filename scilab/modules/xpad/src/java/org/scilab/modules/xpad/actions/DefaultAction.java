@@ -12,65 +12,112 @@
 
 package org.scilab.modules.xpad.actions;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 import org.scilab.modules.gui.bridge.menuitem.SwingScilabMenuItem;
+import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
 import org.scilab.modules.gui.events.callback.CallBack;
-import org.scilab.modules.gui.menu.SimpleMenu;
 import org.scilab.modules.gui.menuitem.MenuItem;
-import org.scilab.modules.gui.menuitem.SimpleMenuItem;
+import org.scilab.modules.gui.menuitem.ScilabMenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
+import org.scilab.modules.gui.pushbutton.ScilabPushButton;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
-public class DefaultAction extends SwingScilabMenuItem implements MenuItem {
-    private Xpad _editor;
+/**
+ * Default action in Xpad
+ * @author Bruno JOFRET
+ */
+public class DefaultAction extends CallBack {
+	
+	private static final long serialVersionUID = 3597772070169671017L;
 
-    public DefaultAction(Xpad editor) {
-	super();
-	setText("Default...");
-	_editor = editor;
-	setCallback(new CallBack("Default...") {
+	private Xpad editor;
 
-	    public void callBack() {
+	/**
+	 * Constructor
+	 * @param editor associated Xpad instance
+	 */
+	private DefaultAction(Xpad editor) {
+		super(XpadMessages.DEFAULT + XpadMessages.DOTS);
+		this.editor = editor;
+	}
+
+	/**
+	 * Constructor
+	 * @param label action name
+	 * @param editor associated editor
+	 */
+	protected DefaultAction(String label, Xpad editor) {
+		super(label);
+		this.editor = editor;
+	}
+
+	/**
+	 * Get associated editor 
+	 * @return editor instance
+	 */
+	public Xpad getEditor() {
+		return editor;
+	}
+
+	/**
+	 * Create a button for a tool bar
+	 * @param title tooltip for the button
+	 * @param icon image icon
+	 * @param listener action listener
+	 * @return the button
+	 */
+	protected static PushButton createButton(String title, String icon, ActionListener listener) {
+		PushButton button = ScilabPushButton.createPushButton(); 
+		((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(listener);
+		button.setToolTipText(title);
+		if (icon == null) {
+			button.setText(title);
+		} else {
+			((SwingScilabPushButton) button.getAsSimplePushButton())
+				.setIcon(new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/" + icon));
+		}
+
+		return button;
+	}
+
+	/**
+	 * Create a menu for a menu bar
+	 * @param title label for the menu
+	 * @param icon image icon
+	 * @param listener action listener
+	 * @param keyStroke menu shortcut
+	 * @return the button
+	 */
+	protected static MenuItem createMenu(String title, String icon, DefaultAction listener, KeyStroke keyStroke) {
+		MenuItem menu = ScilabMenuItem.createMenuItem();
+		menu.setCallback(listener);
+		menu.setText(title);
+
+		if (keyStroke != null) {
+			((SwingScilabMenuItem) menu.getAsSimpleMenuItem()).setAccelerator(keyStroke);
+		}
+
+		return menu;
+	}
+
+	/**
+	 * Default action
+	 */
+	public void doAction() {
+		JOptionPane.showMessageDialog(getEditor(), "Not Implemented Now !!!", null, JOptionPane.ERROR_MESSAGE);
+	}
+
+	/**
+	 * Default action
+	 */
+	public void callBack() {
 		doAction();
-	    }
-
-	    public void actionPerformed(ActionEvent e) {
-		callBack();
-	    } 
-	});
-    }
-
-    protected DefaultAction(String label, Xpad editor) {
-	super();
-	setText(label);
-	_editor = editor;
-	setCallback(new CallBack("Default...") {
-	    public void callBack() {
-		doAction();
-	    }
-
-	    public void actionPerformed(ActionEvent e) {
-		callBack();
-	    } 
-	});
-    }
-
-    public Xpad getEditor() {
-	return _editor;
-    }
-
-    public SimpleMenuItem getAsSimpleMenuItem() {
-	return (SwingScilabMenuItem) this;
-    }
-
-    public void doAction() {
-	  JOptionPane.showMessageDialog(getEditor(), "Not Implemented Now !!!", null, JOptionPane.ERROR_MESSAGE);
-    }
-
-    public SimpleMenu getAsSimpleMenu() {
-	return null;
-    }
+	}
 
 }

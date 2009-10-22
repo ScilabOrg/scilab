@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
  *
  * This file must be used under the terms of the CeCILL.
@@ -19,8 +19,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,12 +48,17 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.Highlight;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xpad.Xpad;
 import org.scilab.modules.xpad.style.ScilabStyleDocument;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
-public class FindAction extends DefaultAction {
+public final class FindAction extends DefaultAction {
 
-	private JFrame frame;
+	private static boolean windowAlreadyExist;
+	
+	private static JFrame frame;
 	private JTextField textfieldFind;
 	private JTextField textfieldReplace;
 	private JRadioButton buttonForward;
@@ -66,36 +76,52 @@ public class FindAction extends DefaultAction {
 	private JButton buttonReplace;
 	private JButton buttonReplaceAll;
 	private JButton buttonClose;
-	private JLabel statusBar ;
+	private JLabel statusBar;
 
 	private String oldWord;
 	private String newWord;
 	private String wordToFind;
 
 
-	ArrayList<Integer[]> offsets;
-	int startFindSelection ;
-	int endFindSelection ;
+	private ArrayList<Integer[]> offsets;
+	
+	private int startSelectedLines;
+	private int endSelectedLines;
+	
+	private int startFindSelection;
+	private int endFindSelection;
 
 
-	public FindAction(Xpad editor) {
-		super("Find/Replace...", editor);
-		//setMnemonic('F');
-		setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, ActionEvent.CTRL_MASK));
+	private FindAction(Xpad editor) {
+		super(XpadMessages.FIND_REPLACE +  XpadMessages.DOTS, editor);
 	}
 
 	public void doAction() {
-
-		findReplaceBox();
+    	if (!FindAction.windowAlreadyExist) {
+        	findReplaceBox();
+        	FindAction.windowAlreadyExist = true;
+    	}
 	}
 
+	 public static MenuItem createMenu(Xpad editor) {
+		return createMenu(XpadMessages.FIND_REPLACE + XpadMessages.DOTS, null, new FindAction(editor),
+				KeyStroke.getKeyStroke(KeyEvent.VK_F, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+	 }
+	 
+	 public static PushButton createButton(Xpad editor) {
+	     return createButton(XpadMessages.FIND_REPLACE +  "...", "edit-find-replace.png", new FindAction(editor));
+	 }
+	
+	 
+	 
 	public void findReplaceBox() {
 
 		//Find & Replace Frame
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(300, 650));
-		frame.setTitle("Find/Replace");
+		frame.setMinimumSize(new Dimension(250, 600));
+		frame.setTitle(XpadMessages.FIND_REPLACE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);		
@@ -115,12 +141,14 @@ public class FindAction extends DefaultAction {
 		gbc.insets = new Insets(10,5,10,5);
 
 		//Find & Replace label, text field
-		JLabel labelFind = new JLabel("Find :");
-		JLabel labelReplace = new JLabel("Replace with :");
+		JLabel labelFind = new JLabel(XpadMessages.FIND);
+		JLabel labelReplace = new JLabel(XpadMessages.REPLACE_WITH);
 		textfieldFind = new JTextField();
 		textfieldFind.setPreferredSize(new Dimension(150, 20));
+		textfieldFind.setMinimumSize(new Dimension(100, 20));
 		textfieldReplace = new JTextField();
 		textfieldReplace.setPreferredSize(new Dimension(150, 20));
+		textfieldReplace.setMinimumSize(new Dimension(100, 20));
 
 		panel.add(labelFind, gbc);
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -140,10 +168,10 @@ public class FindAction extends DefaultAction {
 		panel.add(options, gbc);
 
 		//Find & Replace direction
-		direction.setBorder(BorderFactory.createTitledBorder("Direction"));
+		direction.setBorder(BorderFactory.createTitledBorder(XpadMessages.DIRECTION));
 
-		buttonForward = new JRadioButton("Forward");
-		buttonBackward = new JRadioButton("Backward");
+		buttonForward = new JRadioButton(XpadMessages.FORWARD);
+		buttonBackward = new JRadioButton(XpadMessages.BACKWARD);
 
 		groupDirection = new ButtonGroup();
 		groupDirection.add(buttonForward);
@@ -159,10 +187,10 @@ public class FindAction extends DefaultAction {
 		gbc.gridwidth = 1;
 
 		//Find & Replace scope
-		scope.setBorder(BorderFactory.createTitledBorder("Scope"));
+		scope.setBorder(BorderFactory.createTitledBorder(XpadMessages.SCOPE));
 
-		buttonAll = new JRadioButton("All");
-		buttonSelection = new JRadioButton("Selected lines");
+		buttonAll = new JRadioButton(XpadMessages.ALL);
+		buttonSelection = new JRadioButton(XpadMessages.SELECTED_LINES);
 
 		groupScope = new ButtonGroup();
 		groupScope.add(buttonAll);
@@ -178,12 +206,12 @@ public class FindAction extends DefaultAction {
 		gbc.gridwidth = 1;
 
 		//Find & Replace options
-		options.setBorder(BorderFactory.createTitledBorder("Options"));
+		options.setBorder(BorderFactory.createTitledBorder(XpadMessages.OPTIONS));
 
-		caseSensitive = new JCheckBox("Case sensitive");
-		wrap = new JCheckBox("Wrap search");
-		wholeWord = new JCheckBox("Whole word");
-		regularExp = new JCheckBox("Regular expressions");
+		caseSensitive = new JCheckBox(XpadMessages.CASE_SENSITIVE);
+		wrap = new JCheckBox(XpadMessages.WRAP_SEARCH);
+		wholeWord = new JCheckBox(XpadMessages.WHOLE_WORD);
+		regularExp = new JCheckBox(XpadMessages.REGULAR_EXPRESSIONS);
 
 		gbc.anchor = GridBagConstraints.WEST;
 
@@ -195,11 +223,11 @@ public class FindAction extends DefaultAction {
 		options.add(regularExp, gbc);
 
 		//Find & Replace buttons
-		buttonFind = new JButton("Find");
-		buttonReplaceFind = new JButton("Replace/Find");
-		buttonReplace = new JButton("Replace");
-		buttonReplaceAll = new JButton("Replace All");
-		buttonClose = new JButton("Close");
+		buttonFind = new JButton(XpadMessages.FIND_BUTTON);
+		buttonReplaceFind = new JButton(XpadMessages.REPLACE_FIND);
+		buttonReplace = new JButton(XpadMessages.REPLACE);
+		buttonReplaceAll = new JButton(XpadMessages.REPLACE_ALL);
+		buttonClose = new JButton(XpadMessages.CLOSE);
 
 		buttonFind.setPreferredSize(buttonReplaceFind.getPreferredSize());
 		buttonReplace.setPreferredSize(buttonReplaceFind.getPreferredSize());
@@ -209,11 +237,11 @@ public class FindAction extends DefaultAction {
 		gbc.gridwidth = 1;
 		panel.add(buttonFind, gbc);
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		buttonReplaceFind.setEnabled(false) ;
+		buttonReplaceFind.setEnabled(false);
 		panel.add(buttonReplaceFind, gbc);
 		gbc.gridwidth = 1;
 
-		buttonReplace.setEnabled(false) ;
+		buttonReplace.setEnabled(false);
 		panel.add(buttonReplace, gbc);
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panel.add(buttonReplaceAll, gbc);
@@ -230,15 +258,61 @@ public class FindAction extends DefaultAction {
 		panel.add(statusBar, gbc);
 
 		
-		buttonFind.addActionListener(new ActionListener() {
+		/*behaviour of buttons*/
+		 buttonSelection.addActionListener(new ActionListener() {
 
+				public void actionPerformed(ActionEvent e) {
+					JTextPane xpadTextPane =  getEditor().getTextPane();		
+					startSelectedLines = xpadTextPane.getSelectionStart();
+					endSelectedLines = xpadTextPane.getSelectionEnd();					
+					
+					startSelectedLines = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).getParagraphElement(startSelectedLines).getStartOffset();
+					endSelectedLines =   ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).getParagraphElement(endSelectedLines).getEndOffset();
+					
+					Highlighter hl = xpadTextPane.getHighlighter();
+					hl.removeAllHighlights();
+					try {
+					hl.addHighlight(startSelectedLines, endSelectedLines, new DefaultHighlighter.DefaultHighlightPainter(new Color(205,183,158)));
+					} catch (BadLocationException exc) {
+						exc.printStackTrace();
+					}
+					getEditor().getTextPane().addFocusListener(new FocusListener() {
+						
+						
+						public void focusGained(FocusEvent arg0) {
+			            	//System.out.println("scope will change");
+			            	if (buttonSelection.isSelected()) {
+			            		
+			            		Highlighter highlight = getEditor().getTextPane().getHighlighter();
+			            		highlight.removeAllHighlights();
+			            		
+			            		buttonSelection.setSelected(false);
+			            		buttonAll.setSelected(true);
+			            		
+			            		getEditor().getTextPane().removeFocusListener(this);
+			            	}	
+			            }
+						
+						
+						public void focusLost(FocusEvent arg0) {
+							// TODO Auto -generated method stub
+							
+						}
+					});
+						
+						
+				}
+			});
+		
+		
+		
+		buttonFind.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				findText();
 			}
 		});
-
-		
+	
 		buttonReplace .addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -246,56 +320,66 @@ public class FindAction extends DefaultAction {
 			}	
 			
 		});
-		
-		
+			
 		buttonReplaceFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				replaceText() ;
-				findText() ;
+				replaceText();
+				findText();
 				
 			}
 		});
-		
-		
+			
 		buttonReplaceAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JTextPane xpadTextPane =  getEditor().getTextPane() ;
+				JTextPane xpadTextPane =  getEditor().getTextPane();
+				String text = null;
 				
-				boolean wrapSearchSelected = wrap.isSelected() ;
-				boolean backwardSearch = buttonBackward.isSelected();
-				boolean caseSensitiveSelected  = caseSensitive.isSelected();
 				boolean wholeWordSelected  = wholeWord.isSelected() &&  wholeWord.isEnabled();
 				boolean regexpSelected  = regularExp.isSelected();
 				
-				int currentPosStart = 0;
+				// save current caret position to restore it at the end
+				int currentCaretPos = xpadTextPane.getCaretPosition();
 				
-				int[] nextFindArray = new int[] {-1,-1} ;
-				Pattern pattern = null ;
+				if (buttonSelection.isSelected()) {
+					text = ((ScilabStyleDocument)xpadTextPane.getStyledDocument()).getSelectedDocumentLines(startSelectedLines, endSelectedLines);
+				} else {
+					text = xpadTextPane.getText();
+				}
+				System.out.println(text);
+				int[] nextFindArray = new int[] {-1, -1};
+				Pattern pattern = null;
 				
 				oldWord = textfieldFind.getText();
 				newWord = textfieldReplace.getText();
 				
 				
-				if (regexpSelected){
+				if (regexpSelected) {
+					oldWord = "(?m)" + oldWord;
 			        pattern = Pattern.compile(oldWord);
 
 
-				}else{
-					if (wholeWordSelected){
+				} else {
+					if (wholeWordSelected) {
 						oldWord = "\\b" + oldWord + "\\b";
 						pattern = Pattern.compile(oldWord);
 						
-					}else {
+					} else {
 					
-			        pattern = Pattern.compile(oldWord , Pattern.LITERAL);
+			        pattern = Pattern.compile(oldWord, Pattern.LITERAL);
 					}
 				}
 				
-	            Matcher matcher = pattern.matcher(xpadTextPane.getText());
-	            xpadTextPane.setText(matcher.replaceAll(newWord));
-					
-				
-				
+	            Matcher matcher = pattern.matcher(text);
+	            String replacedText = matcher.replaceAll(newWord);
+	            if (!replacedText.equals(text)) {// only touch document if any replacement took place
+	            	try {
+	            		((ScilabStyleDocument) xpadTextPane.getStyledDocument()).replace(startSelectedLines, text.length(), replacedText, null);
+	            	} catch (BadLocationException e1) {
+	            		// TODO Auto -generated catch block
+	            		e1.printStackTrace();
+	            	}
+	            }
+				xpadTextPane.setCaretPosition(currentCaretPos);
 			}
 		});
 
@@ -303,6 +387,7 @@ public class FindAction extends DefaultAction {
 
 
 			public void actionPerformed(ActionEvent e) {
+				FindAction.windowAlreadyExist = false;
 
 				frame.dispose();
 			}
@@ -311,7 +396,7 @@ public class FindAction extends DefaultAction {
 		
 		textfieldFind.addCaretListener(new CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
-                String text = ((JTextField)e.getSource()).getText();
+                String text = ((JTextField) e.getSource()).getText();
                 
 
                 // permit to choose "whole word" only if the input is a single word
@@ -321,24 +406,23 @@ public class FindAction extends DefaultAction {
                 
                 wholeWord.setEnabled(false);
                 
-                if ( matcherWholeWord.find() ){
-                	if ( (matcherWholeWord.end() - matcherWholeWord.start()) == text.length() ){
+                if (matcherWholeWord.find()) {
+                	if ((matcherWholeWord.end() - matcherWholeWord.start()) == text.length()) {
                 		wholeWord.setEnabled(true);
                 	}
                 	
                 }
 
-                // if we search a regexp , we first need to know if the regexp is valid or not
-                if (regularExp.isSelected()){
-                	try{
-                		Pattern pattern =  Pattern.compile(text) ;
+                // if we search a regexp, we first need to know if the regexp is valid or not
+                if (regularExp.isSelected()) {
+                	try {
+                		Pattern.compile(text);
                 		statusBar.setText("");
                     	buttonFind.setEnabled(true);
                     	buttonReplaceAll.setEnabled(true);
-                    }
-                    catch(PatternSyntaxException pse){
+                    } catch (PatternSyntaxException pse) {
                     	
-                    	statusBar.setText("unvalid regular expression");
+                    	statusBar.setText(String.format(XpadMessages.INVALID_REGEXP, text));
                     	
                     	buttonFind.setEnabled(false);
                     	buttonReplaceAll.setEnabled(false);
@@ -348,7 +432,7 @@ public class FindAction extends DefaultAction {
 
                 }
                 
-                if (buttonReplace.isEnabled() && oldWord.compareTo(text) != 0){
+                if (buttonReplace.isEnabled() && oldWord.compareTo(text) != 0) {
 
 					buttonReplace.setEnabled(false);
 					buttonReplaceFind.setEnabled(false);
@@ -358,57 +442,89 @@ public class FindAction extends DefaultAction {
             }
 		});
 		
+		frame.addWindowListener(new WindowListener() {
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto -generated method stub
 				
+			}
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto -generated method stub
+				
+			}
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto -generated method stub
+				
+			}
+			public void windowClosing(WindowEvent arg0) {
+				FindAction.windowAlreadyExist = false;
+				frame.dispose();
+				
+			}
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto -generated method stub
+				
+			}
+			public void windowIconified(WindowEvent arg0) {
+				
+			}
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto -generated method stub
+				
+			}
+		});
 
 	}
-	private void findText(){
+	private void findText() {
 		
 		
-		boolean wrapSearchSelected = wrap.isSelected() ;
+		boolean wrapSearchSelected = wrap.isSelected();
 		boolean backwardSearch = buttonBackward.isSelected();
 		boolean caseSensitiveSelected  = caseSensitive.isSelected();
-		boolean wholeWordSelected  = wholeWord.isSelected() &&  wholeWord.isEnabled() ;
+		boolean wholeWordSelected  = wholeWord.isSelected() &&  wholeWord.isEnabled();
 		boolean regexpSelected  = regularExp.isSelected();
 		
 		boolean onlySelectedLines = buttonSelection.isSelected();
 		
-		JTextPane xpadTextPane =  getEditor().getTextPane() ;
+		JTextPane xpadTextPane =  getEditor().getTextPane();
+		ScilabStyleDocument scilabStyle = ((ScilabStyleDocument) xpadTextPane.getStyledDocument());
 
-		int[] nextFindArray ;
+		int[] nextFindArray;
 		/*mainly used in case of selected text, otherwise currentPosStart =  currentPosEnd*/
-		int currentPosStart = 0 ;
-		int currentPosEnd = 0 ;
+		int currentCaretPos = 0;
 
 		//Get the word we have to find
 		wordToFind = textfieldFind.getText();
-		oldWord = wordToFind ;
+		oldWord = wordToFind;
 		
-		/*case we want to search only into the selected lines*/
-		/*
-		if (onlySelectedLines){
-			currentPosStart = xpadTextPane.getSelectionStart();
-			currentPosEnd = xpadTextPane.getSelectionEnd();
-		}else{
-			
-			currentPosEnd = currentPosStart;
-		}*/
-		currentPosStart =  xpadTextPane.getCaretPosition() ;
-
-		//Find all matching words and return their starting position into a vector
-		offsets = ((ScilabStyleDocument) getEditor().getTextPane().getStyledDocument()).findWord(wordToFind, caseSensitiveSelected , wholeWordSelected , regexpSelected);
-
-		statusBar.setText("");
-		Highlighter highlight = getEditor().getTextPane().getHighlighter();
+		Highlighter highlight = xpadTextPane.getHighlighter();
 		highlight.removeAllHighlights();
 		
+		/*case we want to search only into the selected lines*/
+		
+		if (onlySelectedLines) {
+			currentCaretPos = xpadTextPane.getCaretPosition();
+			offsets = scilabStyle.findWord(wordToFind, startSelectedLines, endSelectedLines - 1, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+		} else {
+			currentCaretPos =  xpadTextPane.getCaretPosition();
+			offsets = scilabStyle.findWord(wordToFind, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+		}
+		
+
+		//Find all matching words and return their starting position into a vector
+		
+
+		statusBar.setText("");
+
+		
 		// if nothing has been found all this things are not needed
-		if (offsets.size() > 0){
+		if (offsets.size() > 0) {
 			
 
 
 			//Here we highlight all the matching words
 			for (int i = 0; i < offsets.size(); i++) {
 				try {
+
 					
 					highlight.addHighlight(offsets.get(i)[0], offsets.get(i)[1], new DefaultHighlighter.DefaultHighlightPainter(Color.green));
 					//TODO add a mechanism to change the foreground color too, if not if the text matched is in green too ...
@@ -417,49 +533,77 @@ public class FindAction extends DefaultAction {
 				}
 			}
 			
-
+			if (onlySelectedLines) {
+			
+			
+				try {
+					highlight.addHighlight(startSelectedLines, endSelectedLines, new DefaultHighlighter.DefaultHighlightPainter(new Color(205,183,158)));
+					} catch (BadLocationException exc) {
+						exc.printStackTrace();
+					}
+				
+			}
 
 
 			
 			// get the position of the next expression to find
-			if (backwardSearch){
-				nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentPosStart, caseSensitiveSelected , wholeWordSelected , regexpSelected);
-			}else{
-				nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentPosStart,caseSensitiveSelected , wholeWordSelected , regexpSelected);
+			if (backwardSearch) {
+				if (onlySelectedLines) {
+					nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentCaretPos, startSelectedLines, endSelectedLines -1, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+				} else {
+					System.out.println(startSelectedLines);
+					nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentCaretPos, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+				}
+			} else {
+				if (onlySelectedLines) {
+					nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentCaretPos, startSelectedLines, endSelectedLines -1, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+				} else {
+					System.out.println(startSelectedLines);
+					nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentCaretPos, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+				}
 			}
 			
 			//Here we highlight differently the match next after the caret position
-			if ( nextFindArray[0] == -1) {
-				statusBar.setText("You have reached the end of the document");
+			if (nextFindArray[0] == -1) {
+				statusBar.setText(XpadMessages.END_OF_DOCUMENT);
 				
-				if (wrapSearchSelected){
+				if (wrapSearchSelected) {
 					// return to the end or the beginning of the document
-					if (backwardSearch){
+					if (backwardSearch) {
 						
 						xpadTextPane.setCaretPosition(xpadTextPane.getDocument().getLength());
-						currentPosStart =  xpadTextPane.getCaretPosition() ;
-						nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentPosStart, caseSensitiveSelected , wholeWordSelected , regexpSelected);
+						currentCaretPos =  xpadTextPane.getCaretPosition();
+						if (onlySelectedLines) {
+							nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentCaretPos, startSelectedLines, endSelectedLines -1, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+						} else {
+							nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentCaretPos, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+						}
 						
-					}else{
+					} else {
 						xpadTextPane.setCaretPosition(0);
-						currentPosStart =  xpadTextPane.getCaretPosition() ;
-						nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentPosStart,caseSensitiveSelected , wholeWordSelected , regexpSelected);
+						currentCaretPos =  xpadTextPane.getCaretPosition();
+						if (onlySelectedLines) {
+							nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentCaretPos, startSelectedLines, endSelectedLines -1, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+						} else {
+							nextFindArray = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findNextWord(wordToFind, currentCaretPos, caseSensitiveSelected, wholeWordSelected, regexpSelected);
+						}
 					}
 					
 				}
 			}
-			if ( nextFindArray[0] != -1){
+			if (nextFindArray[0] != -1) {
 				
-				Highlighter hl = xpadTextPane.getHighlighter(); 
+				//Highlighter hl = xpadTextPane.getHighlighter(); 
 				
 				Highlight myHighlight = null;
-				Highlight[] highlights =hl.getHighlights();
+				Highlight[] highlights =highlight.getHighlights();
 
-				for(int i=0; i < highlights.length; i++) {
+				for (int i =0; i < highlights.length; i ++) {
 					myHighlight = highlights[i];
 					//Should equal zero
-					if(myHighlight.getStartOffset() == nextFindArray[0] )
+					if (myHighlight.getStartOffset() == nextFindArray[0]) {
 						break;
+					}
 				}
 
 				try {
@@ -475,15 +619,16 @@ public class FindAction extends DefaultAction {
 					buttonReplaceFind.setEnabled(true);
 					
 					highlight.addHighlight(nextFindArray[0], nextFindArray[1], DefaultHighlighter.DefaultPainter);
-					hl.changeHighlight(myHighlight, myHighlight.getStartOffset()+(nextFindArray[1] - nextFindArray[0]), myHighlight.getEndOffset());
+					int hilightLength = myHighlight.getStartOffset() + (nextFindArray[1] - nextFindArray[0]);
+					
+					highlight.changeHighlight(myHighlight, hilightLength, myHighlight.getEndOffset());
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
 				
-				if (backwardSearch)
-				{
+				// when doing we need the caret to be at the beginning of the word to avoid the same word being matched 
+				if (backwardSearch) {
 					xpadTextPane.setCaretPosition(nextFindArray[0]);
-
 				}
 				
 			}
@@ -492,14 +637,14 @@ public class FindAction extends DefaultAction {
 			
 			/*if we typed on the textPanel all hilights will disappear*/
 			
-			if ( getEditor().getTextPane().getKeyListeners().length == 0 ){
+			if (getEditor().getTextPane().getKeyListeners().length == 0) {
 
-				getEditor().getTextPane().addKeyListener(new KeyListener(){
+				getEditor().getTextPane().addKeyListener(new KeyListener() {
 
-					public void keyReleased(KeyEvent e){}
-					public void keyTyped(KeyEvent e){}
+					public void keyReleased(KeyEvent e) { }
+					public void keyTyped(KeyEvent e) { }
 					
-					public void keyPressed(KeyEvent e){ 
+					public void keyPressed(KeyEvent e) { 
 						
 						getEditor().getTextPane().getHighlighter().removeAllHighlights();
 						getEditor().getTextPane().removeKeyListener(this);
@@ -507,64 +652,55 @@ public class FindAction extends DefaultAction {
 						
 				});
 			}
-		}else{ // nothing has been found
-			statusBar.setText("String not found");
+		} else { // nothing has been found
+			statusBar.setText(String.format(XpadMessages.STRING_NOT_FOUND, wordToFind));
 			
 			startFindSelection = -1;
 			endFindSelection = -1;
 		
 		}
 	}
-	
 
-	
-	private void replaceOnlyText(){
+	private void replaceOnlyText() {
 		
-		boolean wrapSearchSelected = wrap.isSelected() ;
-		boolean backwardSearch = buttonBackward.isSelected();
-		boolean caseSensitiveSelected  = caseSensitive.isSelected();
-		boolean wholeWordSelected  =  wholeWord.isSelected() &&  wholeWord.isEnabled();
 		boolean regexpSelected  = regularExp.isSelected();
 		
 		oldWord = textfieldFind.getText();
 		newWord = textfieldReplace.getText();
-		JTextPane xpadTextPane =  getEditor().getTextPane() ;
-		int currentPosStart = startFindSelection ;
-		int currentPosEnd = endFindSelection ;
-
-		//currentPosStart = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentPosStart, caseSensitiveSelected , wholeWordSelected , regexpSelected)[0];
+		JTextPane xpadTextPane =  getEditor().getTextPane();
+		int currentPosStart = startFindSelection;
+		int currentPosEnd = endFindSelection;
 		
 
-		
 		/*
 		 * we replace only the current result and then disable replace and replace find button
 		 * same behaviour as find and replace in eclipse
 		 */
 
-		if (regexpSelected){
+		if (regexpSelected) {
 			Pattern patternOldWord = Pattern.compile(oldWord);
 			 Matcher matcher;
-			try{
-				matcher = patternOldWord.matcher(xpadTextPane.getText(currentPosStart ,currentPosEnd- currentPosStart ));
+			try {
+				matcher = patternOldWord.matcher(xpadTextPane.getText(currentPosStart, currentPosEnd - currentPosStart));
 				newWord = matcher.replaceAll(newWord);
-			}catch (BadLocationException ex){
-				System.out.println("Bad location");
+			} catch (BadLocationException ex) {
+				System.err.println("Bad location");
 				ex.printStackTrace();
 
 			}
 		}
 
 	
-		try{
-			((ScilabStyleDocument) getEditor().getTextPane().getStyledDocument()).replace(currentPosStart ,currentPosEnd- currentPosStart, newWord,null);
+		try {
+			((ScilabStyleDocument) getEditor().getTextPane().getStyledDocument()).replace(currentPosStart, currentPosEnd - currentPosStart, newWord, null);
 		
-		}catch (BadLocationException ex){
-			System.out.println("Bad location");
+		} catch (BadLocationException ex) {
+			System.err.println("Bad location");
 			ex.printStackTrace();
 
 		}
 		getEditor().getTextPane().getHighlighter().removeAllHighlights();
-		offsets.clear() ;
+		offsets.clear();
 		buttonReplace.setEnabled(false);
 		buttonReplaceFind.setEnabled(false);
 			
@@ -573,21 +709,16 @@ public class FindAction extends DefaultAction {
 	}
 	
 
-	private void replaceText(){
+	private void replaceText() {
 		
-		boolean wrapSearchSelected = wrap.isSelected() ;
-		boolean backwardSearch = buttonBackward.isSelected();
-		boolean caseSensitiveSelected  = caseSensitive.isSelected();
-		boolean wholeWordSelected  =  wholeWord.isSelected() &&  wholeWord.isEnabled();
 		boolean regexpSelected  = regularExp.isSelected();
 		
 		oldWord = textfieldFind.getText();
 		newWord = textfieldReplace.getText();
-		JTextPane xpadTextPane =  getEditor().getTextPane() ;
-		int currentPosStart = startFindSelection ;
-		int currentPosEnd = endFindSelection ;
+		JTextPane xpadTextPane =  getEditor().getTextPane();
+		int currentPosStart = startFindSelection;
+		int currentPosEnd = endFindSelection;
 
-		//currentPosStart = ((ScilabStyleDocument) xpadTextPane.getStyledDocument()).findPreviousWord(wordToFind, currentPosStart, caseSensitiveSelected , wholeWordSelected , regexpSelected)[0];
 		
 
 		
@@ -596,25 +727,25 @@ public class FindAction extends DefaultAction {
 		 * same behaviour as find and replace in eclipse
 		 */
 
-		if (regexpSelected){
+		if (regexpSelected) {
 			Pattern patternOldWord = Pattern.compile(oldWord);
 			 Matcher matcher;
-			try{
-				matcher = patternOldWord.matcher(xpadTextPane.getText(currentPosStart ,currentPosEnd- currentPosStart ));
+			try {
+				matcher = patternOldWord.matcher(xpadTextPane.getText(currentPosStart, currentPosEnd - currentPosStart));
 				newWord = matcher.replaceAll(newWord);
-			}catch (BadLocationException ex){
-				System.out.println("Bad location");
+			} catch (BadLocationException ex) {
+				System.err.println("Bad location");
 				ex.printStackTrace();
 
 			}
 		}
 
 	
-		try{
-			((ScilabStyleDocument) getEditor().getTextPane().getStyledDocument()).replace(currentPosStart ,currentPosEnd- currentPosStart, newWord,null);
+		try {
+			((ScilabStyleDocument) getEditor().getTextPane().getStyledDocument()).replace(currentPosStart, currentPosEnd - currentPosStart, newWord, null);
 		
-		}catch (BadLocationException ex){
-			System.out.println("Bad location");
+		} catch (BadLocationException ex) {
+			System.err.println("Bad location");
 			ex.printStackTrace();
 
 		}
@@ -623,5 +754,13 @@ public class FindAction extends DefaultAction {
 		
 	}
 
+	public static void closeFindReplaceWindow() {
+    	if (FindAction.windowAlreadyExist) {
+    		frame.dispose();
+    		FindAction.windowAlreadyExist = false;
+        	
+    	}
+		
+	}
 
 }

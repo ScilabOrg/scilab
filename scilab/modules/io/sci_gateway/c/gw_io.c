@@ -12,11 +12,11 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_io.h"
 #include "stack-c.h"
+#include "MALLOC.h"
 #include "callFunctionFromGateway.h"
 #include "recursionFunction.h"
 /*--------------------------------------------------------------------------*/
-#define IO_TAB_SIZE 18
-static gw_generic_table Tab[IO_TAB_SIZE]=
+static gw_generic_table Tab[] =
 {
 {C2F(sci_setenv),"setenv"},
 {C2F(sci_read),"read"},
@@ -41,18 +41,25 @@ static gw_generic_table Tab[IO_TAB_SIZE]=
 int gw_io(void)
 {  
 	/* Recursion from a function */
+	if(pvApiCtx == NULL)
+	{
+		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrErr));
+	}
+
 	if ( isRecursionCallToFunction() )
 	{
 		switch ( getRecursionFunctionToCall() )
 		{
 			case RECURSION_CALL_SAVE:
 				{
+					pvApiCtx->pstName = "save";
 					C2F(intsave)(); 
 					return 0;
 				}
 				break;
 			case RECURSION_CALL_LOAD:
 				{
+					pvApiCtx->pstName = "load";
 					C2F(sci_load)("load",(unsigned long)strlen("load"));
 					return 0;
 				}
@@ -64,7 +71,8 @@ int gw_io(void)
 	else
 	{
 		Rhs = Max(0, Rhs);
-		callFunctionFromGateway(Tab,IO_TAB_SIZE);
+		pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+		callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	}
 	return 0;
 }

@@ -16,7 +16,6 @@
 extern "C" {
 #endif
 
-#include "dynlib_api_scilab.h"
 #include "doublecomplex.h"
 
 /**********************/
@@ -29,7 +28,7 @@ extern "C" {
  * @param[out] _piNbItem return number of item
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getListItemNumber(int* _piAddress, int* _piNbItem);
+StrErr getListItemNumber(void* _pvCtx, int* _piAddress, int* _piNbItem);
 
 /**
  * Get address of an item in a list
@@ -38,7 +37,7 @@ API_SCILAB_IMPEXP int getListItemNumber(int* _piAddress, int* _piNbItem);
  * @param[out] _piItemAddress return item address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getListItemAddress(int* _piAddress, int _iItemNum, int** _piItemAddress);
+StrErr getListItemAddress(void* _pvCtx, int* _piAddress, int _iItemNum, int** _piItemAddress);
 
 /**
  * get a list from a list
@@ -47,7 +46,7 @@ API_SCILAB_IMPEXP int getListItemAddress(int* _piAddress, int _iItemNum, int** _
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getListInList(int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getListInList(void* _pvCtx, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * get a tlist from a list
@@ -56,7 +55,7 @@ API_SCILAB_IMPEXP int getListInList(int* _piParent, int _iItemPos, int** _piAddr
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getTListInList(int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getTListInList(void* _pvCtx, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * get a mlist from a list
@@ -65,7 +64,7 @@ API_SCILAB_IMPEXP int getTListInList(int* _piParent, int _iItemPos, int** _piAdd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMListInList(int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getMListInList(void* _pvCtx, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * get a list from a named list
@@ -75,7 +74,7 @@ API_SCILAB_IMPEXP int getMListInList(int* _piParent, int _iItemPos, int** _piAdd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * get a tlist from a named list
@@ -85,7 +84,7 @@ API_SCILAB_IMPEXP int getListInNamedList(char* _pstName, int* _piParent, int _iI
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getTListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getTListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * get a mlist from a named list
@@ -95,7 +94,7 @@ API_SCILAB_IMPEXP int getTListInNamedList(char* _pstName, int* _piParent, int _i
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
+StrErr getMListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int** _piAddress);
 
 /**
  * create a list
@@ -104,7 +103,7 @@ API_SCILAB_IMPEXP int getMListInNamedList(char* _pstName, int* _piParent, int _i
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createList(int _iVar, int _iNbItem, int** _piAddress);
+StrErr createList(void* _pvCtx, int _iVar, int _iNbItem, int** _piAddress);
 
 /**
  * create a mlist
@@ -113,7 +112,7 @@ API_SCILAB_IMPEXP int createList(int _iVar, int _iNbItem, int** _piAddress);
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMList(int _iVar, int _iNbItem, int** _piAddress);
+StrErr createMList(void* _pvCtx, int _iVar, int _iNbItem, int** _piAddress);
 
 /**
  * create a tlist
@@ -122,7 +121,7 @@ API_SCILAB_IMPEXP int createMList(int _iVar, int _iNbItem, int** _piAddress);
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createTList(int _iVar, int _iNbItem, int** _piAddress);
+StrErr createTList(void* _pvCtx, int _iVar, int _iNbItem, int** _piAddress);
 
 /**
  * create a list
@@ -131,7 +130,7 @@ API_SCILAB_IMPEXP int createTList(int _iVar, int _iNbItem, int** _piAddress);
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createNamedList(char* _pstName, int _iNbItem, int** _piAddress);
+StrErr createNamedList(void* _pvCtx, char* _pstName, int _iNbItem, int** _piAddress);
 
 /**
  * create a tlist
@@ -140,7 +139,7 @@ API_SCILAB_IMPEXP int createNamedList(char* _pstName, int _iNbItem, int** _piAdd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createNamedTList(char* _pstName, int _iNbItem, int** _piAddress);
+StrErr createNamedTList(void* _pvCtx, char* _pstName, int _iNbItem, int** _piAddress);
 
 /**
  * create a mlist
@@ -149,7 +148,7 @@ API_SCILAB_IMPEXP int createNamedTList(char* _pstName, int _iNbItem, int** _piAd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createNamedMList(char* _pstName, int _iNbItem, int** _piAddress);
+StrErr createNamedMList(void* _pvCtx, char* _pstName, int _iNbItem, int** _piAddress);
 
 /**
  * read a named list
@@ -158,7 +157,7 @@ API_SCILAB_IMPEXP int createNamedMList(char* _pstName, int _iNbItem, int** _piAd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readNamedList(char* _pstName, int* _piNbItem, int** _piAddress);
+StrErr readNamedList(void* _pvCtx, char* _pstName, int* _piNbItem, int** _piAddress);
 
 /**
  * read a named tlist
@@ -167,7 +166,7 @@ API_SCILAB_IMPEXP int readNamedList(char* _pstName, int* _piNbItem, int** _piAdd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readNamedTList(char* _pstName, int* _piNbItem, int** _piAddress);
+StrErr readNamedTList(void* _pvCtx, char* _pstName, int* _piNbItem, int** _piAddress);
 
 /**
  * read a named mlist
@@ -176,7 +175,7 @@ API_SCILAB_IMPEXP int readNamedTList(char* _pstName, int* _piNbItem, int** _piAd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readNamedMList(char* _pstName, int* _piNbItem, int** _piAddress);
+StrErr readNamedMList(void* _pvCtx, char* _pstName, int* _piNbItem, int** _piAddress);
 
 /**
  * create a list in a list
@@ -187,7 +186,7 @@ API_SCILAB_IMPEXP int readNamedMList(char* _pstName, int* _piNbItem, int** _piAd
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createListInList(int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createListInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /**
  * create a tlist in a list
@@ -198,7 +197,7 @@ API_SCILAB_IMPEXP int createListInList(int _iVar, int* _piParent, int _iItemPos,
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createTListInList(int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createTListInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /**
  * create a mlist in a list
@@ -209,7 +208,7 @@ API_SCILAB_IMPEXP int createTListInList(int _iVar, int* _piParent, int _iItemPos
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMListInList(int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createMListInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /**
  * create a list in a named list
@@ -220,7 +219,7 @@ API_SCILAB_IMPEXP int createMListInList(int _iVar, int* _piParent, int _iItemPos
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /**
  * create a tlist in a named list
@@ -231,7 +230,7 @@ API_SCILAB_IMPEXP int createListInNamedList(char* _pstName, int* _piParent, int 
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createTListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createTListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /**
  * create a mlist in a named list
@@ -242,7 +241,7 @@ API_SCILAB_IMPEXP int createTListInNamedList(char* _pstName, int* _piParent, int
  * @param[out] _piAddress return list address
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMListInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
+StrErr createMListInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iNbItem, int** _piAddress);
 
 /*********************
  * Double functions *
@@ -250,27 +249,25 @@ API_SCILAB_IMPEXP int createMListInNamedList(char* _pstName, int* _piParent, int
 
 /**
  * Get double variable data
- * @param[in] _iVar variable number
  * @param[in] _piParent pointer on the parent
- * @param[in] _iItemPos position of the new list in the parent
+ * @param[in] _iItemPos itme position in the list
  * @param[out] _piRows return number of row 
  * @param[out] _piCols return number of column
  * @param[out] _pdblReal return pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double** _pdblReal);
+StrErr getMatrixOfDoubleInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double** _pdblReal);
 
 /**
  * Get double variable data
- * @param[in] _iVar variable number
  * @param[in] _piParent pointer on the parent
- * @param[in] _iItemPos position of the new list in the parent
+ * @param[in] _iItemPos itme position in the list
  * @param[out] _piRows return number of row 
  * @param[out] _piCols return number of column
  * @param[out] _pdblReal return pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getComplexMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double** _pdblReal, double** _pdblImg);
+StrErr getComplexMatrixOfDoubleInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double** _pdblReal, double** _pdblImg);
 
 /**
  * Alloc double variable in a list
@@ -282,7 +279,7 @@ API_SCILAB_IMPEXP int getComplexMatrixOfDoubleInList(int _iVar, int* _piParent, 
  * @param[out] _pdblReal return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double** _pdblReal);
+StrErr allocMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double** _pdblReal);
 
 /**
  * Alloc double variable in a list
@@ -295,7 +292,7 @@ API_SCILAB_IMPEXP int allocMatrixOfDoubleInList(int _iVar, int* _piParent, int _
  * @param[out] _pdblImg return pointer on imaginary data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocComplexMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg);
+StrErr allocComplexMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg);
 
 /**
  * create double variable in a list
@@ -307,7 +304,7 @@ API_SCILAB_IMPEXP int allocComplexMatrixOfDoubleInList(int _iVar, int* _piParent
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal);
+StrErr createMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal);
 
 /**
  * create double variable in a list
@@ -320,7 +317,7 @@ API_SCILAB_IMPEXP int createMatrixOfDoubleInList(int _iVar, int* _piParent, int 
  * @param[in] _pdblImg pointer on imaginary data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
+StrErr createComplexMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
 
 /**
  * create double variable in a list
@@ -332,7 +329,7 @@ API_SCILAB_IMPEXP int createComplexMatrixOfDoubleInList(int _iVar, int* _piParen
  * @param[in] _pdblData pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexZMatrixOfDoubleInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, doublecomplex* _pdblData);
+StrErr createComplexZMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, doublecomplex* _pdblData);
 
 /**
  * create double named variable in a list
@@ -344,7 +341,7 @@ API_SCILAB_IMPEXP int createComplexZMatrixOfDoubleInList(int _iVar, int* _piPare
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfDoubleInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal);
+StrErr createMatrixOfDoubleInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal);
 
 /**
  * create double named variable in a list
@@ -357,7 +354,7 @@ API_SCILAB_IMPEXP int createMatrixOfDoubleInNamedList(char* _pstName, int* _piPa
  * @param[in] _pdblImg pointer on imaginary data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexMatrixOfDoubleInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
+StrErr createComplexMatrixOfDoubleInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
 
 /**
  * create double named variable in a list
@@ -369,7 +366,7 @@ API_SCILAB_IMPEXP int createComplexMatrixOfDoubleInNamedList(char* _pstName, int
  * @param[in] _pdblData pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexZMatrixOfDoubleInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, doublecomplex* _pdblData);
+StrErr createComplexZMatrixOfDoubleInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, doublecomplex* _pdblData);
 
 /**
  * read double named variable in a list
@@ -381,7 +378,7 @@ API_SCILAB_IMPEXP int createComplexZMatrixOfDoubleInNamedList(char* _pstName, in
  * @param[in] _pdblReal return data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfDoubleInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double* _pdblReal);
+StrErr readMatrixOfDoubleInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double* _pdblReal);
 
 /**
  * read double named variable in a list
@@ -394,7 +391,7 @@ API_SCILAB_IMPEXP int readMatrixOfDoubleInNamedList(char* _pstName, int* _piPare
  * @param[in] _pdblImg return  imaginary data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readComplexMatrixOfDoubleInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double* _pdblReal, double* _pdblImg);
+StrErr readComplexMatrixOfDoubleInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, double* _pdblReal, double* _pdblImg);
 
 /*********************
  * Strings functions *
@@ -402,7 +399,6 @@ API_SCILAB_IMPEXP int readComplexMatrixOfDoubleInNamedList(char* _pstName, int* 
 
 /**
  * Get string variable in a list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _piRows return number of row 
@@ -411,7 +407,7 @@ API_SCILAB_IMPEXP int readComplexMatrixOfDoubleInNamedList(char* _pstName, int* 
  * @param[out] _pstStrings return array of char
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfStringInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piLength, char** _pstStrings);
+StrErr getMatrixOfStringInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piLength, char** _pstStrings);
 
 /**
  * Create string variable in a list
@@ -423,7 +419,7 @@ API_SCILAB_IMPEXP int getMatrixOfStringInList(int _iVar, int* _piParent, int _iI
  * @param[in] _pstStrings array of strings ( null terminated )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfStringInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pstStrings);
+StrErr createMatrixOfStringInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pstStrings);
 
 /**
  * Write string variable in a named list
@@ -436,7 +432,7 @@ API_SCILAB_IMPEXP int createMatrixOfStringInList(int _iVar, int* _piParent, int 
  * @param[out] _piAddress return pointer on new variable
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfStringInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pstStrings);
+StrErr createMatrixOfStringInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pstStrings);
 
 /**
  * Read string variable in a named list
@@ -448,7 +444,7 @@ API_SCILAB_IMPEXP int createMatrixOfStringInNamedList(char* _pstName, int* _piPa
  * @param[in] _pstStrings array of strings ( null terminated )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfStringInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piLength, char** _pstStrings);
+StrErr readMatrixOfStringInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piLength, char** _pstStrings);
 
 /*********************
  * boolean functions *
@@ -456,7 +452,6 @@ API_SCILAB_IMPEXP int readMatrixOfStringInNamedList(char* _pstName, int* _piPare
 
 /**
  * Get boolean variable data from a list
- * @param[in] _iVar variable number
  * @param[in] _piParent pointer on the parent
  * @param[in] _iItemPos position of the new list in the parent
  * @param[out] _piRows return number of row 
@@ -464,7 +459,7 @@ API_SCILAB_IMPEXP int readMatrixOfStringInNamedList(char* _pstName, int* _piPare
  * @param[out] _piBool return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfBooleanInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int** _piBool);
+StrErr getMatrixOfBooleanInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int** _piBool);
 
 /**
  * Alloc boolean variable in a list
@@ -476,7 +471,7 @@ API_SCILAB_IMPEXP int getMatrixOfBooleanInList(int _iVar, int* _piParent, int _i
  * @param[out] _piBool return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocMatrixOfBooleanInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int** _piBool);
+StrErr allocMatrixOfBooleanInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int** _piBool);
 
 /**
  * create boolean variable in a list
@@ -488,7 +483,7 @@ API_SCILAB_IMPEXP int allocMatrixOfBooleanInList(int _iVar, int* _piParent, int 
  * @param[in] _piBool  pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfBooleanInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piBool);
+StrErr createMatrixOfBooleanInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piBool);
 
 /**
  * create boolean variable in a named list
@@ -500,7 +495,7 @@ API_SCILAB_IMPEXP int createMatrixOfBooleanInList(int _iVar, int* _piParent, int
  * @param[in] _piBool pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfBooleanInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piBool);
+StrErr createMatrixOfBooleanInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piBool);
 
 /**
  * Read string variable in a named list
@@ -512,7 +507,7 @@ API_SCILAB_IMPEXP int createMatrixOfBooleanInNamedList(char* _pstName, int* _piP
  * @param[in] _piBool pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfBooleanInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piBool);
+StrErr readMatrixOfBooleanInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piBool);
 
 /*************************
  * polynomials functions *
@@ -520,7 +515,6 @@ API_SCILAB_IMPEXP int readMatrixOfBooleanInNamedList(char* _pstName, int* _piPar
 
 /**
  * Get polynomial variable in list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _piRows return number of row 
@@ -529,11 +523,10 @@ API_SCILAB_IMPEXP int readMatrixOfBooleanInNamedList(char* _pstName, int* _piPar
  * @param[out] _pdblReal return polynomials coefficients
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfPolyInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal);
+StrErr getMatrixOfPolyInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal);
 
 /**
  * Get complex polynomial variable in list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _piRows return number of row 
@@ -543,7 +536,7 @@ API_SCILAB_IMPEXP int getMatrixOfPolyInList(int _iVar, int* _piParent, int _iIte
  * @param[out] _pdblImg return polynomials coefficients
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getComplexMatrixOfPolyInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+StrErr getComplexMatrixOfPolyInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
 
 /**
  * Create polynomial variable in list
@@ -556,7 +549,7 @@ API_SCILAB_IMPEXP int getComplexMatrixOfPolyInList(int _iVar, int* _piParent, in
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfPolyInList(int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal);
+StrErr createMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal);
 
 /**
  * Create complex polynomial variable in list
@@ -570,7 +563,7 @@ API_SCILAB_IMPEXP int createMatrixOfPolyInList(int _iVar, int* _piParent, int _i
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexMatrixOfPolyInList(int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+StrErr createComplexMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
 
 /**
  * Get polynomial variable in named list
@@ -583,7 +576,8 @@ API_SCILAB_IMPEXP int createComplexMatrixOfPolyInList(int _iVar, int* _piParent,
  * @param[out] _pdblReal return data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfPolyInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal);
+
+StrErr NamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal);
 
 /**
  * Get polynomial variable in named list
@@ -597,7 +591,8 @@ API_SCILAB_IMPEXP int readMatrixOfPolyInNamedList(char* _pstName, int* _piParent
  * @param[out] _pdblImg return img data
 * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readComplexMatrixOfPolyInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+
+StrErr readComplexMatrixOfPolyInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
 
 /**
  * Create polynomial variable in named list
@@ -610,7 +605,8 @@ API_SCILAB_IMPEXP int readComplexMatrixOfPolyInNamedList(char* _pstName, int* _p
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfPolyInNamedList(char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal);
+
+StrErr createMatrixOfPolyInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal);
 
 /**
  * Create complex polynomial variable in named list
@@ -624,7 +620,8 @@ API_SCILAB_IMPEXP int createMatrixOfPolyInNamedList(char* _pstName, int* _piPare
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexMatrixOfPolyInNamedList(char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+
+StrErr createComplexMatrixOfPolyInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
 
 /*********************
  * integer functions *
@@ -640,8 +637,9 @@ API_SCILAB_IMPEXP int createComplexMatrixOfPolyInNamedList(char* _pstName, int* 
  * @param[in] _pcData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger8InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char* _pcData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger8InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char* _pucData);
+
+StrErr createMatrixOfInteger8InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char* _pcData);
+StrErr createMatrixOfUnsignedInteger8InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char* _pucData);
 
 /**
  * create integer 16 variable in a list
@@ -653,8 +651,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger8InList(int _iVar, int* _piPa
  * @param[in] _psData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger16InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, short* _psData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger16InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short* _pusData);
+
+StrErr createMatrixOfInteger16InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, short* _psData);
+StrErr createMatrixOfUnsignedInteger16InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short* _pusData);
 
 /**
  * create integer 32 variable in a list
@@ -666,8 +665,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger16InList(int _iVar, int* _piP
  * @param[in] _piData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger32InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger32InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int* _puiData);
+
+StrErr createMatrixOfInteger32InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piData);
+StrErr createMatrixOfUnsignedInteger32InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int* _puiData);
 
 /**
  * create integer 64 variable in a list
@@ -680,8 +680,8 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger32InList(int _iVar, int* _piP
  * @return if the operation successed (0) or not ( !0 )
  */
 #ifdef __SCILAB_INT64__
-API_SCILAB_IMPEXP int createMatrixOfInteger64InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long* _pllData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger64InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long* _pullData);
+StrErr createMatrixOfInteger64InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long* _pllData);
+StrErr createMatrixOfUnsignedInteger64InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long* _pullData);
 #endif
 
 /**
@@ -694,8 +694,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger64InList(int _iVar, int* _piP
  * @param[in] _psData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocMatrixOfInteger8InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pcData);
-API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger8InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char** _pucData);
+
+StrErr allocMatrixOfInteger8InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char** _pcData);
+StrErr allocMatrixOfUnsignedInteger8InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char** _pucData);
 
 /**
  * alloc integer 16 variable in a list
@@ -707,8 +708,9 @@ API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger8InList(int _iVar, int* _piPar
  * @param[in] _psData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocMatrixOfInteger16InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, short** _psData);
-API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger16InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short** _pusData);
+
+StrErr allocMatrixOfInteger16InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, short** _psData);
+StrErr allocMatrixOfUnsignedInteger16InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short** _pusData);
 
 /**
  * alloc integer 32 variable in a list
@@ -720,8 +722,9 @@ API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger16InList(int _iVar, int* _piPa
  * @param[in] _psData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int allocMatrixOfInteger32InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int** _piData);
-API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger32InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int** _puiData);
+
+StrErr allocMatrixOfInteger32InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int** _piData);
+StrErr allocMatrixOfUnsignedInteger32InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int** _puiData);
 
 /**
  * alloc integer 32 variable in a list
@@ -734,12 +737,11 @@ API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger32InList(int _iVar, int* _piPa
  * @return if the operation successed (0) or not ( !0 )
  */
 #ifdef __SCILAB_INT64__
-API_SCILAB_IMPEXP int allocMatrixOfInteger64InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long** _pllData);
-API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger64InList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long** _pullData);
+StrErr allocMatrixOfInteger64InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long** _pllData);
+StrErr allocMatrixOfUnsignedInteger64InList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long** _pullData);
 #endif
 /**
  * read integer 8 variable in a list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _iRows Number of row
@@ -747,12 +749,12 @@ API_SCILAB_IMPEXP int allocMatrixOfUnsignedInteger64InList(int _iVar, int* _piPa
  * @param[out] _pcData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfInteger8InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, char** _pcData);
-API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger8InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned char** _pucData);
+
+StrErr getMatrixOfInteger8InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, char** _pcData);
+StrErr getMatrixOfUnsignedInteger8InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned char** _pucData);
 
 /**
  * read integer 16 variable in a list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _iRows Number of row
@@ -760,12 +762,12 @@ API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger8InList(int _iVar, int* _piParen
  * @param[out] _psData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfInteger16InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, short** _psData);
-API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger16InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned short** _pusData);
+
+StrErr getMatrixOfInteger16InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, short** _psData);
+StrErr getMatrixOfUnsignedInteger16InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned short** _pusData);
 
 /**
  * read integer 32 variable in a list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _iRows Number of row
@@ -773,12 +775,12 @@ API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger16InList(int _iVar, int* _piPare
  * @param[out] _piData return pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getMatrixOfInteger32InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int** _piData);
-API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger32InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned int** _puiData);
+
+StrErr getMatrixOfInteger32InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int** _piData);
+StrErr getMatrixOfUnsignedInteger32InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned int** _puiData);
 
 /**
  * read integer 64 variable in a list
- * @param[in] _iVar variable number
  * @param[in] _piParent address of parent node
  * @param[in] _iItemPos item postion in the list
  * @param[out] _iRows Number of row
@@ -787,8 +789,8 @@ API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger32InList(int _iVar, int* _piPare
  * @return if the operation successed (0) or not ( !0 )
  */
 #ifdef __SCILAB_INT64__
-API_SCILAB_IMPEXP int getMatrixOfInteger64InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, long long** _pllData);
-API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger64InList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned long long** _pullData);
+StrErr getMatrixOfInteger64InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, long long** _pllData);
+StrErr getMatrixOfUnsignedInteger64InList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned long long** _pullData);
 #endif
 
 /**
@@ -801,8 +803,9 @@ API_SCILAB_IMPEXP int getMatrixOfUnsignedInteger64InList(int _iVar, int* _piPare
  * @param[in] _pcData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger8InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char* _pcData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger8InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char* _pucData);
+
+StrErr createMatrixOfInteger8InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char* _pcData);
+StrErr createMatrixOfUnsignedInteger8InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned char* _pucData);
 
 /**
  * Create integer 16 bis variable in named list
@@ -814,8 +817,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger8InNamedList(char* _pstName, 
  * @param[in] _psData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger16InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, short* _psData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger16InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short* _pusData);
+
+StrErr createMatrixOfInteger16InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, short* _psData);
+StrErr createMatrixOfUnsignedInteger16InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned short* _pusData);
 
 /**
  * Create integer 32 bis variable in named list
@@ -827,8 +831,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger16InNamedList(char* _pstName,
  * @param[in] _piData pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createMatrixOfInteger32InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger32InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int* _puiData);
+
+StrErr createMatrixOfInteger32InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int* _piData);
+StrErr createMatrixOfUnsignedInteger32InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned int* _puiData);
 
 /**
  * Create integer 64 bis variable in named list
@@ -841,8 +846,8 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger32InNamedList(char* _pstName,
  * @return if the operation successed (0) or not ( !0 )
  */
 #ifdef __SCILAB_INT64__
-API_SCILAB_IMPEXP int createMatrixOfInteger64InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long* _pllData);
-API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger64InNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long* _pullData);
+StrErr createMatrixOfInteger64InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, long long* _pllData);
+StrErr createMatrixOfUnsignedInteger64InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, unsigned long long* _pullData);
 #endif
 
 /**
@@ -855,8 +860,9 @@ API_SCILAB_IMPEXP int createMatrixOfUnsignedInteger64InNamedList(char* _pstName,
  * @param[in] _pcData return data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfIntger8InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, char* _pcData);
-API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger8InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned char* _pucData);
+
+StrErr readMatrixOfIntger8InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, char* _pcData);
+StrErr readMatrixOfUnsignedInteger8InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned char* _pucData);
 
 /**
  * read integer 16 named variable in a list
@@ -868,8 +874,9 @@ API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger8InNamedList(char* _pstName, in
  * @param[in] _psData return data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfIntger16InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, short* _psData);
-API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger16InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned short* _pusData);
+
+StrErr readMatrixOfIntger16InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, short* _psData);
+StrErr readMatrixOfUnsignedInteger16InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned short* _pusData);
 
 /**
  * read integer 32 named variable in a list
@@ -881,8 +888,9 @@ API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger16InNamedList(char* _pstName, i
  * @param[in] _piData return data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readMatrixOfIntger32InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piData);
-API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger32InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned int* _puiData);
+
+StrErr readMatrixOfIntger32InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piData);
+StrErr readMatrixOfUnsignedInteger32InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned int* _puiData);
 
 /**
  * read integer 64 named variable in a list
@@ -895,8 +903,8 @@ API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger32InNamedList(char* _pstName, i
  * @return if the operation successed (0) or not ( !0 )
  */
 #ifdef __SCILAB_INT64__
-API_SCILAB_IMPEXP int readMatrixOfIntger64InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, long long* _pllData);
-API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger64InNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned long long* _pullData);
+StrErr readMatrixOfIntger64InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, long long* _pllData);
+StrErr readMatrixOfUnsignedInteger64InNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, unsigned long long* _pullData);
 #endif
 
 /********************
@@ -916,7 +924,8 @@ API_SCILAB_IMPEXP int readMatrixOfUnsignedInteger64InNamedList(char* _pstName, i
  * @param[in] _pdblReal pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
+
+StrErr createSparseMatrixInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
 
 /**
  * Create complex sparse variable in a list
@@ -932,7 +941,8 @@ API_SCILAB_IMPEXP int createSparseMatrixInList(int _iVar, int* _piParent, int _i
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
+
+StrErr createComplexSparseMatrixInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
 
 /**
  * Create sparse variable in a named list
@@ -947,7 +957,8 @@ API_SCILAB_IMPEXP int createComplexSparseMatrixInList(int _iVar, int* _piParent,
  * @param[in] _pdblReal pointer on real data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
+
+StrErr createSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
 
 /**
  * Create complex sparse variable in a named list
@@ -963,7 +974,8 @@ API_SCILAB_IMPEXP int createSparseMatrixInNamedList(char* _pstName, int* _piPare
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createComplexSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
+
+StrErr createComplexSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
 
 /**
  * get complex sparse variable in a list
@@ -978,7 +990,8 @@ API_SCILAB_IMPEXP int createComplexSparseMatrixInNamedList(char* _pstName, int* 
  * @param[out] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal);
+
+StrErr getSparseMatrixInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal);
 
 /**
  * get complex sparse variable in a list
@@ -994,7 +1007,8 @@ API_SCILAB_IMPEXP int getSparseMatrixInList(int _iVar, int* _piParent, int _iIte
  * @param[out] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getComplexSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
+
+StrErr getComplexSparseMatrixInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
 
 /**
  * read sparse variable in a named list
@@ -1009,7 +1023,8 @@ API_SCILAB_IMPEXP int getComplexSparseMatrixInList(int _iVar, int* _piParent, in
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
+
+StrErr readSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
 
 /**
  * read complex sparse variable in a named list
@@ -1025,7 +1040,8 @@ API_SCILAB_IMPEXP int readSparseMatrixInNamedList(char* _pstName, int* _piParent
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readComplexSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
+
+StrErr readComplexSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
 
 
 /****************************
@@ -1044,7 +1060,8 @@ API_SCILAB_IMPEXP int readComplexSparseMatrixInNamedList(char* _pstName, int* _p
  * @param[in] _piColPos array of item column position ( 1 indexed )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createBooleanSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos);
+
+StrErr createBooleanSparseMatrixInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos);
 
 /**
  * Create boolean sparse variable in a named list
@@ -1058,7 +1075,8 @@ API_SCILAB_IMPEXP int createBooleanSparseMatrixInList(int _iVar, int* _piParent,
  * @param[in] _piColPos array of item column position ( 1 indexed )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createBooleanSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos);
+
+StrErr createBooleanSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos);
 
 /**
  * get boolean sparse variable in a list
@@ -1072,7 +1090,8 @@ API_SCILAB_IMPEXP int createBooleanSparseMatrixInNamedList(char* _pstName, int* 
  * @param[out] _piColPos array of item column position ( 1 indexed )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getBooleanSparseMatrixInList(int _iVar, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos);
+
+StrErr getBooleanSparseMatrixInList(void* _pvCtx, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos);
 
 /**
  * read sparse variable in a named list
@@ -1086,8 +1105,8 @@ API_SCILAB_IMPEXP int getBooleanSparseMatrixInList(int _iVar, int* _piParent, in
  * @param[in] _piColPos array of item column position ( 1 indexed )
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readBooleanSparseMatrixInNamedList(char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos);
 
+StrErr readBooleanSparseMatrixInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos);
 
 /*********************
  * pointer functions *
@@ -1101,7 +1120,8 @@ API_SCILAB_IMPEXP int readBooleanSparseMatrixInNamedList(char* _pstName, int* _p
  * @param[out] _pvPtr return pointer value
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int getPointerInList(int _iVar, int* _piParent, int _iItemPos, void** _pvPtr);
+
+StrErr getPointerInList(void* _pvCtx, int* _piParent, int _iItemPos, void** _pvPtr);
 
 /**
  * Create pointer in a list
@@ -1111,7 +1131,8 @@ API_SCILAB_IMPEXP int getPointerInList(int _iVar, int* _piParent, int _iItemPos,
  * @param[in] _pvPtr return pointer value
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createPointerInList(int _iVar, int* _piParent, int _iItemPos, void* _pvPtr);
+
+StrErr createPointerInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, void* _pvPtr);
 
 /**
  * Get pointer in a list
@@ -1121,7 +1142,8 @@ API_SCILAB_IMPEXP int createPointerInList(int _iVar, int* _piParent, int _iItemP
  * @param[out] _pvPtr return pointer value
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int readPointerInNamedList(char* _pstName, int* _piParent, int _iItemPos, void** _pvPtr);
+
+StrErr readPointerInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, void** _pvPtr);
 
 /**
  * Create pointer in a list
@@ -1131,7 +1153,8 @@ API_SCILAB_IMPEXP int readPointerInNamedList(char* _pstName, int* _piParent, int
  * @param[in] _pvPtr return pointer value
  * @return if the operation successed (0) or not ( !0 )
  */
-API_SCILAB_IMPEXP int createPointerInNamedList(char* _pstName, int* _piParent, int _iItemPos, void* _pvPtr);
+
+StrErr createPointerInNamedList(void* _pvCtx, char* _pstName, int* _piParent, int _iItemPos, void* _pvPtr);
 
 #ifdef __cplusplus
 }

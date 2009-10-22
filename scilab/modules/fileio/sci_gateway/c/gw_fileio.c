@@ -13,12 +13,12 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_fileio.h"
 #include "callFunctionFromGateway.h"
+#include "MALLOC.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/ 
 /*  interface function */
 /*--------------------------------------------------------------------------*/ 
-#define FILEIO_TAB_SIZE 38
-static gw_generic_table Tab[FILEIO_TAB_SIZE]={
+static gw_generic_table Tab[]={
 	{sci_mopen, "mopen"},
 	{sci_mputstr, "mputstr"},
 	{sci_mclose, "mclose"},
@@ -56,13 +56,25 @@ static gw_generic_table Tab[FILEIO_TAB_SIZE]={
 	{sci_getrelativefilename,"getrelativefilename"},
 	{sci_get_absolute_file_path,"get_absolute_file_path"},
 	{sci_copyfile,"copyfile"},
-	{sci_isfile,"isfile"}
+	{sci_isfile,"isfile"},
+	{sci_fileparts,"fileparts"},
+	{sci_movefile,"movefile"},
+	{sci_basename,"basename"},
+	{sci_pathconvert,"pathconvert"},
+	{sci_chdir,"cd"}
 	};
 /*--------------------------------------------------------------------------*/ 
 int gw_fileio(void)
 {
 	Rhs = Max(0,Rhs);
-	callFunctionFromGateway(Tab,FILEIO_TAB_SIZE);
+
+	if(pvApiCtx == NULL)
+	{
+		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrErr));
+	}
+
+	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	return 0;
 }
 /*--------------------------------------------------------------------------*/ 

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2009 - INRIA - Allan SIMON
  * 
  * This file must be used under the terms of the CeCILL.
@@ -43,11 +43,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
-public class ConfigXpadManager {
+public final class ConfigXpadManager {
 	private static final int BUFSIZE = 1024;
 	
 	private static final int MARGIN = 20;
@@ -55,6 +56,10 @@ public class ConfigXpadManager {
 	private static final String ERROR_READ = "Could not load file: ";
 	private static final String ERROR_WRITE = "Could not save file: ";
 	private static final String VALUE = "value";
+	private static final String STYLE = "style";
+	private static final String FONT_SIZE = "FontSize";
+	private static final String FONT_STYLE = "FontStyle";
+	private static final String FONT_NAME = "FontName";
 	private static final String DEFAULT = "default";
 	private static final String WIDTH = "width";
 	private static final String HEIGHT = "height";
@@ -70,9 +75,9 @@ public class ConfigXpadManager {
 	private static final String NAME = "name";
 	
 	private static final String PROFILE = "Profile";
-	private static final String XPAD_CONFIG_FILE = System.getenv("SCI") + "/modules/xpad/etc/configuration_xpad.xml";
+	private static final String XPAD_CONFIG_FILE = System.getenv("SCI") + "/modules/xpad/etc/xpadConfiguration.xml";
 	
-	private static final String USER_XPAD_CONFIG_FILE = GuiManagement.getSCIHOME() + "/configuration_xpad.xml";
+    private static final String USER_XPAD_CONFIG_FILE = GuiManagement.getSCIHOME() + "/xpadConfiguration.xml";
 	private static final int PLAIN = 0;
 	private static final int BOLD =  1;
 	private static final int ITALIC = 2;
@@ -80,6 +85,8 @@ public class ConfigXpadManager {
 	
 	private static final int DEFAULT_WIDTH = 650;
 	private static final int DEFAULT_HEIGHT = 550;
+	
+	private static final int MAX_RECENT_FILES = 10;
 	
 	
 	private static Document document; 
@@ -98,7 +105,7 @@ public class ConfigXpadManager {
 	public static void createUserCopy() {
 		/*TODO*/
 		File fileConfig = new File(USER_XPAD_CONFIG_FILE);
-		if ( !fileConfig.exists() || (fileConfig.length() == 0) ) {
+		if (!fileConfig.exists() || (fileConfig.length() == 0)) {
 			/* Create a local copy of the configuration file */
 			copyFile(new File(XPAD_CONFIG_FILE), new File(USER_XPAD_CONFIG_FILE));
 			
@@ -118,23 +125,23 @@ public class ConfigXpadManager {
 	 * @return a array list of all style name
 	 */
 	
-	public static ArrayList<String> getAllStyleName(){
+	public static ArrayList<String> getAllStyleName() {
 		ArrayList<String> stylesName = new ArrayList<String>();
 
-		readDocument() ;
+		readDocument();
 
 
 		Element root = document.getDocumentElement();
-		NodeList styles= root.getElementsByTagName("style");
+		NodeList styles = root.getElementsByTagName(STYLE);
 		
-		for (int i = 0; i < styles.getLength() ; ++i){
-			Element style =(Element) styles.item(i);
+		for (int i = 0; i < styles.getLength(); ++i) {
+			Element style = (Element) styles.item(i);
 		
-			stylesName.add( style.getAttribute(NAME));
+			stylesName.add(style.getAttribute(NAME));
 
 			
 		}		
-		return stylesName ;
+		return stylesName;
 		
 		
 	}
@@ -146,14 +153,14 @@ public class ConfigXpadManager {
 	public static String getFontName() {
 		
 		/*load file*/
-		readDocument() ;
+		readDocument();
 		
 		Element root = document.getDocumentElement();
 		
 		NodeList profiles = root.getElementsByTagName(PROFILE);
 		Element xpadProfile = (Element) profiles.item(0);
 		
-		NodeList fontNameElement = xpadProfile.getElementsByTagName("FontName");
+		NodeList fontNameElement = xpadProfile.getElementsByTagName(FONT_NAME);
 		Element fontName = (Element) fontNameElement.item(0);
 		return fontName.getAttribute(VALUE);
 		
@@ -163,16 +170,16 @@ public class ConfigXpadManager {
 	 * Get the font size
 	 * @return the font size
 	 */
-	public static int getFontSize(){
+	public static int getFontSize() {
 		/*load file*/
-		readDocument() ;
+		readDocument();
 		
 		Element root = document.getDocumentElement();
 		
 		NodeList profiles = root.getElementsByTagName(PROFILE);
 		Element xpadProfile = (Element) profiles.item(0);
 		
-		NodeList fontSizeElement = xpadProfile.getElementsByTagName("FontSize");
+		NodeList fontSizeElement = xpadProfile.getElementsByTagName(FONT_SIZE);
 		Element fontSize = (Element) fontSizeElement.item(0);
 		return Integer.parseInt(fontSize.getAttribute(VALUE));
 		
@@ -182,28 +189,29 @@ public class ConfigXpadManager {
 	 * Get all font style 
 	 * @return true if the font style is bold , false otherwise
 	 */
-	public static Hashtable<String,Boolean> getAllisBold (){
+	public static Hashtable<String, Boolean> getAllisBold() {
 		/*load file*/
-		readDocument() ;
+		readDocument();
 		Hashtable<String, Boolean > stylesIsBoldTable = new Hashtable<String, Boolean>();
 
 		Element root = document.getDocumentElement();
-		NodeList styles= root.getElementsByTagName("style");
+		NodeList styles = root.getElementsByTagName(STYLE);
 		
-		for (int i = 0; i < styles.getLength() ; ++i){
-			Element style =(Element) styles.item(i);
+		for (int i = 0; i < styles.getLength(); ++i) {
+			Element style = (Element) styles.item(i);
 				
 		
-			NodeList fontStyleElement = style.getElementsByTagName("FontStyle");
+			NodeList fontStyleElement = style.getElementsByTagName(FONT_STYLE);
 			Element fontStyle = (Element) fontStyleElement.item(0);
 			int value = Integer.parseInt(fontStyle.getAttribute(VALUE));
 			
-			if (value  == BOLD || value == BOLDITALIC)
-				stylesIsBoldTable.put( style.getAttribute(NAME), true);
-			else
-				stylesIsBoldTable.put( style.getAttribute(NAME), false);
+			if (value  == BOLD || value == BOLDITALIC) {
+				stylesIsBoldTable.put(style.getAttribute(NAME), true);
+			} else {
+				stylesIsBoldTable.put(style.getAttribute(NAME), false);
+			}
 		}		
-		return stylesIsBoldTable ;
+		return stylesIsBoldTable;
 	}
 	
 	
@@ -214,42 +222,42 @@ public class ConfigXpadManager {
 	public static Font getFont() {
 		
 		/*load file*/
-		readDocument() ;
-		
+		readDocument();
+		Font font;
 		Element root = document.getDocumentElement();
 		
 		NodeList profiles = root.getElementsByTagName(PROFILE);
 		Element xpadProfile = (Element) profiles.item(0);
 		
-		NodeList fontSizeElement = xpadProfile.getElementsByTagName("FontSize");
+		NodeList fontSizeElement = xpadProfile.getElementsByTagName(FONT_SIZE);
 		Element fontSize = (Element) fontSizeElement.item(0);
 		int size = Integer.parseInt(fontSize.getAttribute(VALUE));
 		
-		NodeList fontNameElement = xpadProfile.getElementsByTagName("FontName");
+		NodeList fontNameElement = xpadProfile.getElementsByTagName(FONT_NAME);
 		Element fontName = (Element) fontNameElement.item(0);
 		String name = fontName.getAttribute(VALUE);
 		
-		NodeList fontStyleElement = xpadProfile.getElementsByTagName("FontStyle");
+		NodeList fontStyleElement = xpadProfile.getElementsByTagName(FONT_STYLE);
 		Element fontStyle = (Element) fontStyleElement.item(0);
 		int style = Integer.parseInt(fontStyle.getAttribute(VALUE));
 		
-		if (style == PLAIN ){
-			return new Font(name, Font.PLAIN, size ) ; 
+		if (style == PLAIN) {
+			font = new Font(name, Font.PLAIN, size); 
 			
-		} else if( style == BOLD) {
-			return new Font(name, Font.BOLD, size ) ; 		
+		} else if (style == BOLD) {
+			font = new Font(name, Font.BOLD, size); 		
 			
-		} else if( style == ITALIC) {
-			return new Font(name, Font.ITALIC, size ) ; 
+		} else if (style == ITALIC) {
+			font = new Font(name, Font.ITALIC, size); 
 			
-		} else if( style == BOLDITALIC ){
-			return new Font(name, Font.BOLD | Font.ITALIC , size ) ; 
+		} else if (style == BOLDITALIC) {
+			font = new Font(name, Font.BOLD | Font.ITALIC , size); 
 			
-		}else {
-			return new Font(name, Font.PLAIN, size ) ; 
+		} else {
+			font = new Font(name, Font.PLAIN, size); 
 		}
 			
-
+		return font;
 	}
 	
 	/**
@@ -257,43 +265,43 @@ public class ConfigXpadManager {
 	 * @return the default font
 	 */
 	
-	public static Font getDefaultFont (){
+	public static Font getDefaultFont() {
 		/*load file*/
-		readDocument() ;
-		
+		readDocument();
+		Font font;
 		Element root = document.getDocumentElement();
 		
 		NodeList profiles = root.getElementsByTagName(PROFILE);
 		Element xpadProfile = (Element) profiles.item(0);
 		
-		NodeList fontSizeElement = xpadProfile.getElementsByTagName("FontSize");
+		NodeList fontSizeElement = xpadProfile.getElementsByTagName(FONT_SIZE);
 		Element fontSize = (Element) fontSizeElement.item(0);
 		int size = Integer.parseInt(fontSize.getAttribute(DEFAULT));
 		
-		NodeList fontNameElement = xpadProfile.getElementsByTagName("FontName");
+		NodeList fontNameElement = xpadProfile.getElementsByTagName(FONT_NAME);
 		Element fontName = (Element) fontNameElement.item(0);
 		String name = fontName.getAttribute(DEFAULT);
 		
-		NodeList fontStyleElement = xpadProfile.getElementsByTagName("FontStyle");
+		NodeList fontStyleElement = xpadProfile.getElementsByTagName(FONT_STYLE);
 		Element fontStyle = (Element) fontStyleElement.item(0);
 		int style = Integer.parseInt(fontStyle.getAttribute(DEFAULT));
 		
-		if (style == PLAIN ){
-			return new Font(name, Font.PLAIN, size ) ; 
+		if (style == PLAIN) {
+			font = new Font(name, Font.PLAIN, size); 
 			
-		} else if( style == BOLD) {
-			return new Font(name, Font.BOLD, size ) ; 		
+		} else if (style == BOLD) {
+			font = new Font(name, Font.BOLD, size); 		
 			
-		} else if( style == ITALIC) {
-			return new Font(name, Font.ITALIC, size ) ; 
+		} else if (style == ITALIC) {
+			font = new Font(name, Font.ITALIC, size); 
 			
-		} else if( style == BOLDITALIC ){
-			return new Font(name, Font.BOLD | Font.ITALIC , size ) ; 
+		} else if (style == BOLDITALIC) {
+			font = new Font(name, Font.BOLD | Font.ITALIC , size); 
 			
-		}else {
-			return new Font(name, Font.PLAIN, size ) ; 
+		} else {
+			font = new Font(name, Font.PLAIN, size); 
 		}
-		
+		return font;
 		
 	}
 	
@@ -304,22 +312,22 @@ public class ConfigXpadManager {
 	public static void saveFont(Font font) {
 		/*TODO*/
 		/*load file */
-		readDocument() ;
+		readDocument();
 		
 		Element root = document.getDocumentElement();
 		
 		NodeList profiles = root.getElementsByTagName(PROFILE);
 		Element xpadProfile = (Element) profiles.item(0);
 		
-		NodeList fontSizeElement = xpadProfile.getElementsByTagName("FontSize");
+		NodeList fontSizeElement = xpadProfile.getElementsByTagName(FONT_SIZE);
 		Element fontSize = (Element) fontSizeElement.item(0);
 		fontSize.setAttribute(VALUE, Integer.toString(font.getSize()));		
 		
-		NodeList fontNameElement = xpadProfile.getElementsByTagName("FontName");
+		NodeList fontNameElement = xpadProfile.getElementsByTagName(FONT_NAME);
 		Element fontName = (Element) fontNameElement.item(0);
 		fontName.setAttribute(VALUE, font.getFontName());
 		
-		NodeList fontStyleElement = xpadProfile.getElementsByTagName("FontStyle");
+		NodeList fontStyleElement = xpadProfile.getElementsByTagName(FONT_STYLE);
 		Element fontStyle = (Element) fontStyleElement.item(0);
 		
 		if (!font.isBold() && !font.isItalic()) {
@@ -372,7 +380,7 @@ public class ConfigXpadManager {
 	 * Get the background Color 
 	 * @return the background Color
 	 */
-	public static Color getXpadBackgroundColor(){
+	public static Color getXpadBackgroundColor() {
 		/* Load file */
 		readDocument();
 		
@@ -392,7 +400,7 @@ public class ConfigXpadManager {
 	 * Save Xpad BackgroundColor
 	 * @param color the new Color
 	 */
-	public static void saveXpadBackground(Color color){
+	public static void saveXpadBackground(Color color) {
 		
 		/* Load file */
 		readDocument();
@@ -419,23 +427,23 @@ public class ConfigXpadManager {
 	 * @return a Hashtable with the styles and the associated colors.
 	 */
 	
-	public static Hashtable<String, Color> getAllForegroundColors(){
+	public static Hashtable<String, Color> getAllForegroundColors() {
 		/* Load file */
 		readDocument();
 		
 		Hashtable<String, Color> stylesColorsTable = new Hashtable<String, Color>();
 		
 		Element root = document.getDocumentElement();
-		NodeList styles= root.getElementsByTagName("style");
+		NodeList styles = root.getElementsByTagName(STYLE);
 		
-		for (int i = 0; i < styles.getLength() ; ++i){
-			Element style =(Element) styles.item(i);
+		for (int i = 0; i < styles.getLength(); ++i) {
+			Element style = (Element) styles.item(i);
 			
 			NodeList allForegroundElements = style.getElementsByTagName(FOREGROUNDCOLOR);
 			Element styleForeground = (Element) allForegroundElements.item(0);
 			Color styleColor = Color.decode(styleForeground.getAttribute(VALUE));
 
-			stylesColorsTable.put( style.getAttribute(NAME), styleColor);
+			stylesColorsTable.put(style.getAttribute(NAME), styleColor);
 		}
 		
 		return stylesColorsTable;
@@ -445,23 +453,23 @@ public class ConfigXpadManager {
 	 * get all default foreground colors of xpad
 	 * @return a Hashtable with the styles and the associated default colors.
 	 */
-	public static Hashtable<String, Color> getAllDefaultForegroundColors(){
+	public static Hashtable<String, Color> getAllDefaultForegroundColors() {
 		/* Load file */
 		readDocument();
 		
 		Hashtable<String, Color> stylesDefaultColorsTable = new Hashtable<String, Color>();
 		
 		Element root = document.getDocumentElement();
-		NodeList styles= root.getElementsByTagName("style");
+		NodeList styles = root.getElementsByTagName(STYLE);
 		
-		for (int i = 0; i < styles.getLength() ; ++i){
-			Element style =(Element) styles.item(i);
+		for (int i = 0; i < styles.getLength(); ++i) {
+			Element style = (Element) styles.item(i);
 			
 			NodeList allForegroundElements = style.getElementsByTagName(FOREGROUNDCOLOR);
 			Element styleForeground = (Element) allForegroundElements.item(0);
-			Color styleColor = Color.decode(styleForeground.getAttribute("default"));
+			Color styleColor = Color.decode(styleForeground.getAttribute(DEFAULT));
 
-			stylesDefaultColorsTable.put( style.getAttribute(NAME), styleColor);
+			stylesDefaultColorsTable.put(style.getAttribute(NAME), styleColor);
 		}
 		
 		return stylesDefaultColorsTable;
@@ -471,15 +479,15 @@ public class ConfigXpadManager {
 	 * save all foreground colors
 	 *@param stylesColorsTable a hashtable containing styles and the associated colors
 	 */
-	public static void saveAllForegroundColors(Hashtable<String, Color> stylesColorsTable ){
+	public static void saveAllForegroundColors(Hashtable<String, Color> stylesColorsTable) {
 		/* Load file */
 		readDocument();
 		
 		Element root = document.getDocumentElement();
-		NodeList styles= root.getElementsByTagName("style");
+		NodeList styles = root.getElementsByTagName(STYLE);
 		
-		for (int i = 0; i < styles.getLength() ; ++i){
-			Element style =(Element) styles.item(i);
+		for (int i = 0; i < styles.getLength(); ++i) {
+			Element style = (Element) styles.item(i);
 			
 			String styleName = style.getAttribute(NAME);
 			NodeList allForegroundElements = style.getElementsByTagName(FOREGROUNDCOLOR);
@@ -604,7 +612,82 @@ public class ConfigXpadManager {
 		}
 	}
 	
+	/**
+	 * Get all the  recent opened files
+	 * @return a array of uri
+	 */
+	
+	public static ArrayList<File> getAllRecentOpenedFiles() {
+		ArrayList<File> files = new ArrayList<File>();
 
+		readDocument();
+
+
+		Element root = (Element)document.getDocumentElement().getElementsByTagName("recentFiles").item(0);
+		if (root != null) {
+		    NodeList recentFiles = root.getElementsByTagName("document");
+
+		    for (int i = 0; i < recentFiles.getLength(); ++i) {
+			Element style = (Element) recentFiles.item(i);
+
+			File temp = new File(style.getAttribute("path"));
+
+			if (temp.exists()) {
+				files.add(temp);
+			} else {
+				root.removeChild((Node) style);
+			}
+
+			/* Save changes */
+			writeDocument();
+		    }		
+		}
+		return files;
+	}
+	
+	/**
+	 * Add a file to recent Opened Files
+	 * @param filePath the path of the files to add 
+	 */
+	public static void saveToRecentOpenedFiles(String filePath) {
+		
+		readDocument();
+
+		Element root = (Element) document.getDocumentElement().getElementsByTagName("recentFiles").item(0);
+		NodeList recentFiles = root.getElementsByTagName("document");
+		int numberOfFiles = recentFiles.getLength();
+		
+		// we remove all the duplicate
+		for (int i = 0; i < recentFiles.getLength();  ++i) {
+			Element style = (Element) recentFiles.item(i);
+		
+			
+			if (filePath.equals(style.getAttribute("path"))) {
+				root.removeChild((Node) style);
+				numberOfFiles--;
+			}
+				
+		}
+		
+		
+		// if we have reached the maximun , we remove the oldest files
+		while (recentFiles.getLength() >= MAX_RECENT_FILES) {
+			root.removeChild(root.getFirstChild());
+		}
+			
+		Element newFile =  document.createElement("document");
+		
+		newFile.setAttribute("path", filePath);
+		
+		root.appendChild((Node) newFile);
+			
+		/* Save changes */
+		writeDocument();
+			
+				
+		
+	}
+	
 	
 	
 	/**
@@ -612,7 +695,7 @@ public class ConfigXpadManager {
 	 */
 	private static void readDocument() {
 		
-		File xml = null ;
+		File xml = null;
 		DocumentBuilder docBuilder = null;
 		
 		try {
@@ -623,7 +706,7 @@ public class ConfigXpadManager {
 			xml = new File(USER_XPAD_CONFIG_FILE);
 			document = docBuilder.parse(xml);
 		
-		}catch (ParserConfigurationException pce) {
+		} catch (ParserConfigurationException pce) {
 			System.out.println(ERROR_READ + USER_XPAD_CONFIG_FILE);
 		} catch (SAXException se) {
 			System.out.println(ERROR_READ + USER_XPAD_CONFIG_FILE);
@@ -637,7 +720,7 @@ public class ConfigXpadManager {
 	 */
 	private static void writeDocument() {
 		
-		Transformer transformer = null ; 
+		Transformer transformer = null; 
 		try {
 			transformer = TransformerFactory.newInstance().newTransformer();
 		} catch (TransformerConfigurationException e1) {
@@ -647,7 +730,7 @@ public class ConfigXpadManager {
 		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		
-		StreamResult result = new StreamResult (new File(USER_XPAD_CONFIG_FILE));
+		StreamResult result = new StreamResult(new File(USER_XPAD_CONFIG_FILE));
 		DOMSource source = new DOMSource(document);
 		try {
 			transformer.transform(source, result);
