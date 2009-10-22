@@ -3,6 +3,7 @@
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2009 - DIGITEO - Pierre Lando
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -21,19 +22,10 @@
 #include "getHandleProperty.h"
 #include "GetProperty.h"
 #include "returnProperty.h"
-#include "Scierror.h"
-#include "localization.h"
-#include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
 int get_background_property( sciPointObj * pobj )
 {
-	if (sciGetGraphicContext(pobj) == NULL)
-	{
-		/* This object has not a background color */
-		Scierror(999, _("%s property does not exist for this handle.\n"),"background");
-	}
-
   return sciReturnDouble( sciGetBackgroundToDisplay( pobj ) ) ;
 }
 /*------------------------------------------------------------------------*/

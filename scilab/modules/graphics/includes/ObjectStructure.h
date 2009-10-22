@@ -35,7 +35,7 @@
 #define pLEGEND_FEATURE(pointobj)      ((sciLegend        *)pointobj->pfeatures)/** */
 #define pPOLYLINE_FEATURE(pointobj)    ((sciPolyline      *)pointobj->pfeatures)/** */
 #define pARC_FEATURE(pointobj)         ((sciArc           *)pointobj->pfeatures)/** */
-#define pRECTANGLE_FEATURE(pointobj)   ((sciRectangle     *)pointobj->pfeatures)/** */
+//#define pRECTANGLE_FEATURE(pointobj)   ((sciRectangle     *)pointobj->pfeatures)/** */
 #define pSURFACE_FEATURE(pointobj)     ((sciSurface       *)pointobj->pfeatures)/** */
 #define pAXES_FEATURE(pointobj)        ((sciAxes          *)pointobj->pfeatures)/** */
 #define pGRAYPLOT_FEATURE(pointobj)    ((sciGrayplot      *)pointobj->pfeatures)/** */
@@ -77,43 +77,48 @@ POINT2D;
  */
 typedef enum
   {/**Entity type FIGURE*/
-    SCI_FIGURE,		
+    SCI_FIGURE=0,		
     /**Entity type SUBWINDOW*/
-    SCI_SUBWIN,		
+    SCI_SUBWIN=1,		
     /**Entity type TEXT*/
-    SCI_TEXT,
+    SCI_TEXT=2,
     /**Entity type LEGEND */
-    SCI_LEGEND,		
+    SCI_LEGEND=3,		
     /**Entity type ARC */
-    SCI_ARC,			
+    SCI_ARC=4,			
     /**Entity type POLYLINE*/
-    SCI_POLYLINE,	    
-    /**Entity type RECTANGLE*/
-    SCI_RECTANGLE,    
+    SCI_POLYLINE=5,	    
     /**Entity type SURFACE*/
-    SCI_SURFACE,	
+    SCI_SURFACE=6,	
     /**Entity type AXES*/
-    SCI_AXES,	  
+    SCI_AXES=7,	  
     /**Entity type SEGS*/
-    SCI_SEGS,	
+    SCI_SEGS=8,	
     /**Entity type GRAYPLOT*/
-    SCI_GRAYPLOT, 
+    SCI_GRAYPLOT=9, 
     /**Entity type FEC*/
-    SCI_FEC,						
+    SCI_FEC=10,						
     /**Entity type CONTEXT MENU*/
-    SCI_UICONTEXTMENU,		    
+    SCI_UICONTEXTMENU=11,
     /**Entity type Compound */
-    SCI_AGREG,			
+    SCI_AGREG=12,			
     /**Entity type LABEL created by F.Leray 26.05.04 */
-    SCI_LABEL,
+    SCI_LABEL=13,
     /**Entity type UIMENU created by A.C 28.09.05 **/
-    SCI_UIMENU,
+    SCI_UIMENU=14,
     /**Entity type UICONTROL **/
-    SCI_UICONTROL,
+    SCI_UICONTROL=15,
     /** Entity type WAITBAR */
-    SCI_WAITBAR,
+    SCI_WAITBAR=16,
     /** Entity type PROGRESSIONBAR */
-    SCI_PROGRESSIONBAR
+    SCI_PROGRESSIONBAR=18,
+
+
+    /**Entity over 128 are CPP entity with the new API**/
+    /**Cpp entity*/
+    SCIGFX_ENTITY=128,
+    /**Entity type RECTANGLE*/
+    SCI_RECTANGLE=129
   }
 /**Struct of Entity type*/
 sciEntityType;	

@@ -75,18 +75,8 @@ sciAddCallback (sciPointObj * pthis,char *code, int len, int mevent )
 	}
       break;
     case SCI_RECTANGLE:
-      if ((pRECTANGLE_FEATURE (pthis)->callback = CALLOC (len+1, sizeof (char))) == NULL)
-	{
-	  Scierror(999, _("%s: No more memory.\n"),"sciAddCallback");
-	  return -1;
-	}
-      else 
-	{
-	  strncpy(pRECTANGLE_FEATURE (pthis)->callback, code, len);
-	  pRECTANGLE_FEATURE (pthis)->callbacklen = len;
-	  pRECTANGLE_FEATURE (pthis)->callbackevent = mevent;
-                       
-	}
+    //SCIGFX : but tout fusioner
+    GFXSetCallback (pthis,code, len, mevent);
       break;
     case SCI_SEGS:  
       if ((pSEGS_FEATURE (pthis)->callback = CALLOC (len+1, sizeof (char))) == NULL)
@@ -192,7 +182,8 @@ char *sciGetCallback(sciPointObj * pthis)
       return (char *)(pPOLYLINE_FEATURE(pthis)->callback);
       break;
     case SCI_RECTANGLE:
-      return (char *)(pRECTANGLE_FEATURE(pthis)->callback);
+      printf("DEAD : sciGetCallback SCI_RECTANGLE\n");
+      return NULL;
       break;
     case SCI_TEXT:
       return (char *)(pTEXT_FEATURE(pthis)->callback);
@@ -247,7 +238,8 @@ int sciGetCallbackMouseEvent(sciPointObj * pthis)
       return pPOLYLINE_FEATURE(pthis)->callbackevent;
       break;
     case SCI_RECTANGLE:
-      return pRECTANGLE_FEATURE(pthis)->callbackevent;
+      //SCIGFX : tout fusioner
+      return GFXGetCallbackMouseEvent(pthis);
       break;
     case SCI_TEXT:
       return pTEXT_FEATURE(pthis)->callbackevent;
@@ -297,7 +289,8 @@ int sciSetCallbackMouseEvent(sciPointObj * pthis, int mevent)
       pPOLYLINE_FEATURE(pthis)->callbackevent = mevent;
       break;
     case SCI_RECTANGLE:
-      pRECTANGLE_FEATURE(pthis)->callbackevent = mevent;
+      //SCIGFX : tout fusioner
+      GFXSetCallbackMouseEvent(pthis, mevent);
       break;
     case SCI_TEXT:
       pTEXT_FEATURE(pthis)->callbackevent = mevent;
@@ -344,10 +337,8 @@ sciDelCallback (sciPointObj * pthis)
       pARC_FEATURE (pthis)->callback = NULL;
       break;
     case SCI_RECTANGLE:
-      pRECTANGLE_FEATURE (pthis)->callbacklen = 0;
-      pRECTANGLE_FEATURE (pthis)->callbackevent = 100;
-      FREE(pRECTANGLE_FEATURE (pthis)->callback);
-      pRECTANGLE_FEATURE (pthis)->callback = NULL;
+      //SCIGFX : tout fusioner
+      GFXDelCallback(pthis);
       break;
     case SCI_SEGS:  
       pSEGS_FEATURE (pthis)->callbacklen = 0;
@@ -423,9 +414,8 @@ static int moveObj(sciPointObj * pobj, double displacement[], int displacementSi
     if (displacementSize == 3) pARC_FEATURE(pobj)->z += z;
     break;
   case SCI_RECTANGLE: 
-    pRECTANGLE_FEATURE(pobj)->x += x;  
-    pRECTANGLE_FEATURE(pobj)->y += y; 
-    if (displacementSize == 3) pRECTANGLE_FEATURE(pobj)->z += z;
+    //SCIGFX : tout fusioner
+    GFXmoveObj(pobj, displacement, displacementSize);
     break; 
   case SCI_AGREG: 
     {

@@ -76,7 +76,7 @@ sciGetPointerToFeature (sciPointObj * pobj)
       return (sciGrayplot *) pGRAYPLOT_FEATURE (pobj);
       break;
     case SCI_RECTANGLE:
-      return (sciRectangle *) pRECTANGLE_FEATURE (pobj);
+      return (sciRectangle *) pobj->pfeatures;
       break;
     case SCI_SURFACE:
       return (sciSurface *) pSURFACE_FEATURE (pobj);
@@ -232,7 +232,8 @@ sciGetGraphicContext (sciPointObj * pobj)
       return  &(pPOLYLINE_FEATURE (pobj)->graphiccontext);
       break;
     case SCI_RECTANGLE:
-      return  &(pRECTANGLE_FEATURE (pobj)->graphiccontext);
+      printf("DEAD : sciGetGraphicContext SCI_RECTANGLE\n");
+      return NULL;
       break;
     case SCI_SURFACE:
       return  &(pSURFACE_FEATURE (pobj)->graphiccontext);
@@ -316,12 +317,17 @@ int sciGetGoodIndex(sciPointObj * pobj, int colorindex) /* return colorindex or 
 int
 sciGetForeground (sciPointObj * pobj)
 {
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetForegroundColor(pobj);
+  }
+
 
   int colorindex = -999;
   
   if(sciGetGraphicContext(pobj) != NULL)
   {
-    colorindex = (sciGetGraphicContext(pobj))->foregroundcolor + 1;
+    colorindex = (sciGetGraphicContext(pobj))->foregroundcolor;
   }
   else
   {
@@ -360,7 +366,11 @@ sciGetBackground (sciPointObj * pobj)
 
   int colorindex = -999;
   
-  if(sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    colorindex = GFXGetBackgroundColor(pobj);
+  }
+  else if(sciGetGraphicContext(pobj) != NULL)
   {
     colorindex = (sciGetGraphicContext(pobj))->backgroundcolor + 1;
   }
@@ -403,7 +413,11 @@ sciGetMarkForeground (sciPointObj * pobj)
 
   int colorindex = -999;
   
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    colorindex = GFXGetMarkForegroundColor(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     colorindex = sciGetGraphicContext(pobj)->markforeground + 1;
   }
@@ -445,7 +459,11 @@ sciGetMarkBackground (sciPointObj * pobj)
 
   int colorindex = -999;
   
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    colorindex = GFXGetMarkBackgroundColor(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     colorindex = sciGetGraphicContext(pobj)->markbackground + 1;
   }
@@ -483,7 +501,13 @@ sciGetMarkBackgroundToDisplay (sciPointObj * pobj)
  */
 double sciGetLineWidth (sciPointObj * pobj)
 {
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    double LineWidth;
+    GFXGetLineWidth(pobj, &LineWidth);
+    return LineWidth;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     return sciGetGraphicContext(pobj)->linewidth;
   }
@@ -498,7 +522,11 @@ double sciGetLineWidth (sciPointObj * pobj)
 int
 sciGetLineStyle (sciPointObj * pobj)
 {
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetLineStyle(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     return sciGetGraphicContext(pobj)->linestyle;
   }
@@ -513,7 +541,11 @@ sciGetLineStyle (sciPointObj * pobj)
 BOOL
 sciGetIsMark (sciPointObj * pobj)
 {
-  if(sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetIsMarked(pobj);
+  }
+  else if(sciGetGraphicContext(pobj) != NULL)
   {
     return sciGetGraphicContext(pobj)->ismark;
   }
@@ -528,8 +560,11 @@ sciGetIsMark (sciPointObj * pobj)
 int
 sciGetMarkStyle (sciPointObj * pobj)
 {
-
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetMarkStyle(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     return (sciGetGraphicContext(pobj))->markstyle;
   }
@@ -547,8 +582,11 @@ sciGetMarkStyle (sciPointObj * pobj)
 int
 sciGetMarkSize (sciPointObj * pobj)
 {
-
-  if (sciGetGraphicContext(pobj) != NULL )
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetMarkSize(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL )
   {
     return sciGetGraphicContext(pobj)->marksize;
   }
@@ -565,7 +603,11 @@ sciGetMarkSize (sciPointObj * pobj)
 int
 sciGetMarkSizeUnit (sciPointObj * pobj)
 {
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetMarkSizeUnit(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     return (sciGetGraphicContext(pobj))->marksizeunit;
   }
@@ -581,8 +623,11 @@ sciGetMarkSizeUnit (sciPointObj * pobj)
 BOOL
 sciGetIsLine (sciPointObj * pobj)
 {
-
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetIsLined(pobj);
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     return sciGetGraphicContext(pobj)->isline;
   }
@@ -612,7 +657,11 @@ sciGetIsFilled (sciPointObj * pobj)
   case SCI_SUBWIN:
     return pSUBWIN_FEATURE(pobj)->axes.filled;
   default:
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      return GFXGetIsFilled(pobj);
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
     {
       return sciGetGraphicContext(pobj)->isfilled;
     }
@@ -1219,7 +1268,8 @@ sciGetIsClipRegionValuated (sciPointObj * pobj)
       return pPOLYLINE_FEATURE (pobj)->clip_region_set;
       break;
     case SCI_RECTANGLE:
-      return pRECTANGLE_FEATURE (pobj)->clip_region_set;
+      // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
+      return GFXGetClippingRegionSet(pobj);
       break;   
     case SCI_SEGS: 
       return pSEGS_FEATURE (pobj)->clip_region_set;
@@ -1270,7 +1320,8 @@ sciGetIsClipping (sciPointObj * pobj)
       return pPOLYLINE_FEATURE (pobj)->isclip;
       break;
     case SCI_RECTANGLE:
-      return pRECTANGLE_FEATURE (pobj)->isclip;
+      // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
+      return GFXGetClippingMethode(pobj);
       break;   
     case SCI_SEGS: 
       return pSEGS_FEATURE (pobj)->isclip;
@@ -1324,7 +1375,9 @@ sciGetClipping (sciPointObj * pobj)
       return pPOLYLINE_FEATURE (pobj)->clip_region;
       break;
     case SCI_RECTANGLE:
-      return pRECTANGLE_FEATURE (pobj)->clip_region;
+      // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
+      printf("DEAD : sciGetClipping SCI_RECTANGLE\n");
+      return NULL;
       break;   
     case SCI_SEGS: 
       return pSEGS_FEATURE (pobj)->clip_region;
@@ -1571,7 +1624,8 @@ sciGetVisibility (sciPointObj * pobj)
       return pPOLYLINE_FEATURE (pobj)->visible;
       break;
     case SCI_RECTANGLE:
-      return pRECTANGLE_FEATURE (pobj)->visible;
+      // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
+      return GFXGetVisibility(pobj);
       break;
     case SCI_SURFACE:
       return pSURFACE_FEATURE (pobj)->visible;
@@ -1988,30 +2042,16 @@ double *sciGetPoint(sciPointObj * pthis, int *numrow, int *numcol)
       }
       return tab;
       break;
+
+// SCIGFX : But que chaque objet fasse son calcul.
     case SCI_RECTANGLE:
-      *numrow = 1;
-      *numcol= (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d) ? 5: 4;
-      if ((tab = CALLOC((*numrow)*(*numcol),sizeof(double))) == NULL)
-      {
-        *numrow = -1;
-        *numcol = -1;
-	return NULL;
-      }
-      tab[0] = pRECTANGLE_FEATURE (pthis)->x;
-      tab[1] = pRECTANGLE_FEATURE (pthis)->y;
-      if (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d)
-	{
-	  tab[2] = pRECTANGLE_FEATURE (pthis)->z;
-	  tab[3] = pRECTANGLE_FEATURE (pthis)->width;
-	  tab[4] = pRECTANGLE_FEATURE (pthis)->height;
-	}
-      else
-	{
-	  tab[2] = pRECTANGLE_FEATURE (pthis)->width;
-	  tab[3] = pRECTANGLE_FEATURE (pthis)->height; 
-	}
-      return (double*)tab;
+      tab = (double*) CALLOC(GFXPointSize(pthis),sizeof(double));   //TODO test != NULL
+      GFXGetPoint(pthis, tab, numrow, numcol);
+      return tab;
       break;
+// fin SCI_RECTANGLE
+
+
     case SCI_ARC:
       *numrow = 1;
       *numcol= (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d) ? 7: 6;
@@ -2268,8 +2308,8 @@ void sciGetPointerToUserData (sciPointObj * pobj,int ***user_data_ptr, int **siz
       *size_ptr =  &(((sciGrayplot *) pGRAYPLOT_FEATURE (pobj))->size_of_user_data);
       break;
     case SCI_RECTANGLE:
-      *user_data_ptr = &(((sciRectangle *) pRECTANGLE_FEATURE (pobj))->user_data);
-      *size_ptr =  &(((sciRectangle *) pRECTANGLE_FEATURE (pobj))->size_of_user_data);
+      // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
+      GFXGetPointerToUserData(pobj, user_data_ptr, size_ptr);
       break;
     case SCI_SURFACE:
       *user_data_ptr = &(((sciSurface *) pSURFACE_FEATURE (pobj))->user_data);

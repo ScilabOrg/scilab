@@ -27,6 +27,15 @@
 /*------------------------------------------------------------------------*/
 int get_callback_property( sciPointObj * pobj )
 {
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+      char callback[GFXGetCallbackSize()+1];
+      GFXGetCallback(pobj, callback);
+      return sciReturnString(callback);
+  }
+
+  // old methode
+
   if(sciGetEntityType(pobj) == SCI_UIMENU || sciGetEntityType(pobj) == SCI_UICONTROL)
     {
       return GetUiobjectCallback(pobj);

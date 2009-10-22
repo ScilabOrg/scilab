@@ -39,6 +39,12 @@ void createDrawer( sciPointObj * pObj )
 /*---------------------------------------------------------------------------------*/
 void destroyHandleDrawer( sciPointObj * pObj )
 {
+  if(sciGetEntityType (pObj) & SCIGFX_ENTITY) //New API entities
+  {
+    pObj->pDrawer = NULL ;
+    return;
+  }
+
   /* don't call getHandleDrawer for the test, otherwise a drawer will be created */
   if ( pObj->pDrawer != NULL )
   {

@@ -17,6 +17,7 @@
 
 #include <list>
 
+#include "GFXRectangle.h"
 #include "DrawableRectangle.h"
 #include "DrawRectangleStrategy.h"
 

@@ -660,13 +660,20 @@ int sciStandardDestroyOperations( sciPointObj * pThis )
   }
 
   deleteObservers( pThis ) ;
-  destroyHandleDrawer( pThis ) ;
+  destroyHandleDrawer( pThis ) ;// in New API drawer=entity, this function will do nothing
   clearUserData( pThis ) ;
   sciUnselectSons( pThis ) ;
   sciDelThisToItsParent( pThis, sciGetParent(pThis) ) ;
   if ( sciDelHandle(pThis) == -1 ) { res = -1 ; }
 	destroyRelationShip(pThis);
-  FREE( pThis->pfeatures ) ;
+  if(sciGetEntityType (pThis) & SCIGFX_ENTITY) //New API entities
+  {
+    GFXDeleteFeatures(pThis);
+  }
+  else
+  {
+    FREE( pThis->pfeatures ) ;
+  }
   FREE( pThis ) ;
   return res ;
 }

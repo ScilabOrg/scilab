@@ -510,12 +510,16 @@ int sciInitBackground( sciPointObj * pobj, int colorindex )
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
 
   colorindex = sciSetGoodIndex(pobj,colorindex);
+  int newIndex = Max (0, Min (colorindex - 1, m + 1));
 
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    int newIndex = Max (0, Min (colorindex - 1, m + 1));
+    GFXSetBackgroundColor(pobj, colorindex);
+    return 0;
+  }
+  else if(sciGetGraphicContext(pobj) != NULL)        
+  {
     sciGetGraphicContext(pobj)->backgroundcolor = newIndex;
-
     if (sciGetEntityType(pobj) == SCI_FIGURE && !isFigureModel(pobj))
     {
 			/* disable protection since this function will call Java */
@@ -523,7 +527,6 @@ int sciInitBackground( sciPointObj * pobj, int colorindex )
       sciSetJavaBackground(pobj, newIndex);
 			enableFigureSynchronization(pobj);
     }
-
     return 0;
   }
 
@@ -550,14 +553,19 @@ sciSetBackground (sciPointObj * pobj, int colorindex)
 
 int sciInitForeground( sciPointObj * pobj, int colorindex )
 {
-  int m = sciGetNumColors(pobj);
-  if(!sciCheckColorIndex(pobj, colorindex)) return 0;
-
-  colorindex = sciSetGoodIndex(pobj,colorindex);
-
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    sciGetGraphicContext(pobj)->foregroundcolor = Max (0, Min (colorindex - 1, m + 1));
+    GFXSetForegroundColor(pobj, colorindex);
+    return 0;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
+  {
+    int m = sciGetNumColors(pobj);
+    if(!sciCheckColorIndex(pobj, colorindex)) return 0;
+    colorindex = sciSetGoodIndex(pobj,colorindex);
+    colorindex = Max (0, Min (colorindex - 1, m + 1));
+
+    sciGetGraphicContext(pobj)->foregroundcolor = colorindex;
     return 0;
   }
 
@@ -604,10 +612,14 @@ sciInitLineWidth (sciPointObj * pobj, double linewidth)
     }
   else
   {
-
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
     {
-      (sciGetGraphicContext(pobj))->linewidth = linewidth;
+      GFXSetLineWidth(pobj, linewidth);
+      return 0;
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
+    {
+      sciGetGraphicContext(pobj)->linewidth = linewidth;
       return 0;
     }
   }
@@ -640,7 +652,12 @@ sciInitLineStyle (sciPointObj * pobj, int linestyle)
     }
   else
   {
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      GFXSetLineStyle(pobj, linestyle);
+      return 0;
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
     {
       (sciGetGraphicContext(pobj))->linestyle = linestyle;
       return 0;
@@ -655,7 +672,12 @@ sciInitLineStyle (sciPointObj * pobj, int linestyle)
 int sciInitIsMark( sciPointObj * pobj, BOOL ismark )
 {
 
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    GFXSetIsMarked(pobj, ismark);
+    return 0;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     sciGetGraphicContext(pobj)->ismark = ismark;
     return 0;
@@ -686,12 +708,17 @@ sciSetIsMark (sciPointObj * pobj, BOOL ismark)
 int sciInitMarkForeground( sciPointObj * pobj, int colorindex )
 {
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
-  colorindex = sciSetGoodIndex(pobj,colorindex); /* Adding F.Leray 31.03.04*/
+  colorindex = sciSetGoodIndex(pobj,colorindex);
+  colorindex = Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
 
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    sciGetGraphicContext(pobj)->markforeground =
-      Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+    GFXSetMarkForegroundColor(pobj, colorindex);
+    return 0;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
+  {
+    sciGetGraphicContext(pobj)->markforeground = colorindex;
     return 0;
   }
 
@@ -720,12 +747,17 @@ sciSetMarkForeground (sciPointObj * pobj, int colorindex)
 int sciInitMarkBackground( sciPointObj * pobj, int colorindex )
 {
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
-  colorindex = sciSetGoodIndex(pobj,colorindex); /* Adding F.Leray 31.03.04*/
+  colorindex = sciSetGoodIndex(pobj,colorindex);
+  colorindex = Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
 
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    sciGetGraphicContext(pobj)->markbackground =
-      Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+    GFXSetMarkBackgroundColor(pobj, colorindex);
+    return 0;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
+  {
+    sciGetGraphicContext(pobj)->markbackground = colorindex;
     return 0;
   }
 
@@ -762,7 +794,12 @@ int sciInitMarkStyle( sciPointObj * pobj, int markstyle )
   }
   else
   {
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      GFXSetMarkStyle(pobj, markstyle);
+      return 0;
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
     {
       sciGetGraphicContext(pobj)->markstyle = markstyle;
       return 0;
@@ -798,7 +835,12 @@ int sciInitMarkSize( sciPointObj * pobj, int marksize )
   }
   else
   {
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      GFXSetMarkSize(pobj, marksize);
+      return 0;
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
     {
       sciGetGraphicContext(pobj)->marksize = marksize;
       return 0;
@@ -834,8 +876,12 @@ int sciInitMarkSizeUnit( sciPointObj * pobj, int marksizeunit )
   }
   else
   {
-
-    if (sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      GFXSetMarkSizeUnit(pobj, marksizeunit);
+      return 0;
+    }
+    else if (sciGetGraphicContext(pobj) != NULL)
     {
       (sciGetGraphicContext(pobj))->marksizeunit = marksizeunit;
       return 0;
@@ -865,7 +911,12 @@ sciSetMarkSizeUnit (sciPointObj * pobj, int marksizeunit)
 int sciInitIsLine( sciPointObj * pobj, BOOL isline )
 {
 
-  if (sciGetGraphicContext(pobj) != NULL)
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    GFXSetIsLined(pobj, isline);
+    return 0;
+  }
+  else if (sciGetGraphicContext(pobj) != NULL)
   {
     sciGetGraphicContext(pobj)->isline = isline;
     return 0;
@@ -1366,8 +1417,8 @@ int sciInitIsClipping( sciPointObj * pobj, int value )
       if(value>0) pPOLYLINE_FEATURE (pobj)->clip_region_set=1;
       break;
     case SCI_RECTANGLE:
-      pRECTANGLE_FEATURE (pobj)->isclip = value;
-      if(value>0) pRECTANGLE_FEATURE (pobj)->clip_region_set=1;
+      //SCIGFX : tout fusioner
+      GFXSetClippingMethode(pobj, value);
       break;
     case SCI_SEGS:
       pSEGS_FEATURE (pobj)->isclip = value;
@@ -1446,7 +1497,8 @@ sciSetClipping (sciPointObj * pobj, double pclip[4] )
       for(i=0;i<4;i++) {pPOLYLINE_FEATURE (pobj)->clip_region[i] = pclip[i];}
       break;
     case SCI_RECTANGLE:
-      for(i=0;i<4;i++) {pRECTANGLE_FEATURE (pobj)->clip_region[i] = pclip[i];}
+      //SCIGFX : tout fusionner
+      return GFXSetClippingRegion(pobj, pclip);
       break;
     case SCI_SEGS:
       for(i=0;i<4;i++) {pSEGS_FEATURE (pobj)->clip_region[i] = pclip[i];}
@@ -1730,7 +1782,8 @@ int sciInitVisibility( sciPointObj * pobj, BOOL value )
       pPOLYLINE_FEATURE (pobj)->visible = value;
       break;
     case SCI_RECTANGLE:
-      pRECTANGLE_FEATURE (pobj)->visible = value;
+      // SCIGFX : tout fusioner
+      GFXSetVisibility(pobj, value);
       break;
     case SCI_SURFACE:
       pSURFACE_FEATURE (pobj)->visible = value;
@@ -2274,41 +2327,11 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
 	      pPOLYLINE_FEATURE (pthis)->pvz=NULL;
 	    }
 	}
-
-
-
       return 0;
       break;
     case SCI_RECTANGLE:
-    {
-      int widthIndex = 2 ;
-      int size = *numrow * *numcol ;
-      if ( size != 5 && size != 4 )
-      {
-        Scierror(999, _("Number of elements must be %d (%d if %s coordinate).\n"),4,5,"z");
-        return -1;
-      }
-
-      pRECTANGLE_FEATURE (pthis)->x = tab[0] ;
-      pRECTANGLE_FEATURE (pthis)->y = tab[1] ;
-
-      if ( size == 5 )
-      {
-        pRECTANGLE_FEATURE (pthis)->z = tab[2] ;
-        widthIndex = 3 ;
-      }
-
-      /* check that the height and width are positive */
-      if ( tab[widthIndex] < 0.0 || tab[widthIndex + 1] < 0.0 )
-      {
-        Scierror(999,"Width and height must be positive.\n") ;
-        return -1 ;
-      }
-      pRECTANGLE_FEATURE (pthis)->width  = tab[widthIndex    ] ;
-      pRECTANGLE_FEATURE (pthis)->height = tab[widthIndex + 1] ;
-
-      return 0;
-    }
+      //SCIGFX : but tout fusionner (chaques objet fait sa tache)
+      GFXSetPoint(pthis, tab, numrow, numcol);
     break;
     case SCI_ARC:
       if ((*numrow * *numcol != 7)&&(*numrow * *numcol != 6))
@@ -2691,7 +2714,12 @@ int sciInitIsFilled( sciPointObj * pobj, BOOL isfilled )
     pSUBWIN_FEATURE(pobj)->axes.filled = isfilled;
     return 0;
   default:
-    if(sciGetGraphicContext(pobj) != NULL)
+    if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+    {
+      GFXSetIsFilled(pobj, isfilled);
+      return 0;
+    }
+    else if(sciGetGraphicContext(pobj) != NULL)
     {
       sciGetGraphicContext(pobj)->isfilled = isfilled;
       return 0;

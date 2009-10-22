@@ -61,7 +61,7 @@ void ConcreteDrawableRectangle::getCornersCoordinates( double corner1[3], double
   //   |           |
   //   c2---------c3
 
-  sciRectangle * ppRect = pRECTANGLE_FEATURE(m_pDrawed) ;
+  Rectangle * ppRect = reinterpret_cast<Rectangle*>(m_pDrawed->pfeatures);
   corner1[0] = ppRect->x ;
   corner1[1] = ppRect->y ;
   corner1[2] = ppRect->z ;

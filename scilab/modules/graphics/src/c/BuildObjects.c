@@ -1187,8 +1187,21 @@ ConstructRectangle (sciPointObj * pparentsubwin, double x, double y,
 		    double height, double width,  int *foreground, int *background,
 		    int isfilled, int isline)
 {
-  sciPointObj *pobj = (sciPointObj *) NULL;
+  sciPointObj* pObj = (sciPointObj*) MALLOC (sizeof (sciPointObj));
+  if(pObj == NULL)//todo remplacer par un try/throw sur tout
+    return NULL;
+  sciSetEntityType (pObj, SCI_RECTANGLE);
+  sciStandardBuildOperations(pObj, pparentsubwin);//efface le pDrawer.
+  BuildGFXRectangle(pObj,
+        x, y, height, width,
+        foreground, background,
+		    isfilled, isline
+        );
+  GFXSetHimselfAsDrawer(pObj);
+  return pObj;
 
+/**-------------
+  sciPointObj *pobj = (sciPointObj *) NULL;
   if ( height < 0.0 || width < 0.0 )
   {
     Scierror(999,_("Width and height must be positive.\n"));
@@ -1257,6 +1270,7 @@ ConstructRectangle (sciPointObj * pparentsubwin, double x, double y,
       Scierror(999, _("The parent has to be a SUBWIN\n"));
       return (sciPointObj *) NULL;
     }
+*/
 }
 
 
@@ -2358,15 +2372,19 @@ sciPointObj * sciStandardBuildOperations( sciPointObj * pObj, sciPointObj * pare
     return NULL ;
   }
 
-  sciInitVisibility( pObj, TRUE ) ;
-
-  initUserData(pObj);
-
   pObj->pObservers = DoublyLinkedList_new() ;
   createDrawingObserver( pObj ) ;
 
-
   pObj->pDrawer = NULL ;
+
+  if(sciGetEntityType (pObj) & SCIGFX_ENTITY) //New API entities
+  {// In the new API, features is not allocated at the call of sciStandardBuildOperations
+  }// Init operation on the features is done in the constructor.
+  else
+  {
+    sciInitVisibility( pObj, TRUE ) ;
+    initUserData(pObj);
+  }
 
   return pObj ;
 

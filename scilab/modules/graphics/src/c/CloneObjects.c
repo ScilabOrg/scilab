@@ -151,6 +151,7 @@ sciCloneObj (sciPointObj * pobj)
 sciPointObj *
 CloneRectangle (sciPointObj * pthis)
 {
+/* SCIGFX : CloneRectangle n'existe plus, tout est dans sciClone
   sciPointObj * pobj, *subwinparent;
   int foreground = sciGetForeground(pthis);
   int background = sciGetBackground(pthis);
@@ -168,7 +169,7 @@ CloneRectangle (sciPointObj * pthis)
     return (sciPointObj *)NULL;
   }
   else {
-    sciSetCurrentObj(pobj);}; /* F.Leray Adding 26.03.04*/
+    sciSetCurrentObj(pobj);};
   if (sciSetBackground(pobj, sciGetBackground (pthis)) == -1)
     return (sciPointObj *)NULL;
   if (sciSetForeground(pobj, sciGetForeground (pthis)) == -1)
@@ -183,6 +184,7 @@ CloneRectangle (sciPointObj * pthis)
   cloneUserData(pthis, pobj);
   
   return (sciPointObj *)pobj;
+*/
 }
 
 
