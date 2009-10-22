@@ -258,6 +258,78 @@ sciGetGraphicContext (sciPointObj * pobj)
   return (sciGraphicContext *) NULL;
 }
 
+/**
+* sciGetBackgroundColor function 
+* @return the stored value of BackgroundColor index
+*/
+int sciGetBackgroundColor (sciPointObj * pobj)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetBackgroundColor(pobj);
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    return sciGetGraphicContext(pobj)->backgroundcolor;
+  }
+  printSetGetErrorMessage("background");
+  return -999;
+}
+
+/**
+* sciGetForegroundColor function 
+* @return the stored value of ForegroundColor index
+*/
+int sciGetForegroundColor (sciPointObj * pobj)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetForegroundColor(pobj);
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    return sciGetGraphicContext(pobj)->foregroundcolor;
+  }
+  printSetGetErrorMessage("foreground");
+  return -999;
+}
+
+/**
+* sciGetMarkBackgroundColor function 
+* @return the stored value of MarkBackgroundColor index
+*/
+int sciGetMarkBackgroundColor (sciPointObj * pobj)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetMarkBackgroundColor(pobj);
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    return sciGetGraphicContext(pobj)->markbackground;
+  }
+  printSetGetErrorMessage("markbackground");
+  return -999;
+}
+
+/**
+* sciGetMarkForegroundColor function 
+* @return the stored value of MarkForegroundColor index
+*/
+int sciGetMarkForegroundColor (sciPointObj * pobj)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetMarkForegroundColor(pobj);
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    return sciGetGraphicContext(pobj)->markforeground;
+  }
+  printSetGetErrorMessage("markforeground");
+  return -999;
+}
+
 
 /**sciGetNumColors
  * This function gets the number of the color defined in colormap
@@ -317,38 +389,19 @@ int sciGetGoodIndex(sciPointObj * pobj, int colorindex) /* return colorindex or 
 int
 sciGetForeground (sciPointObj * pobj)
 {
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    return GFXGetForegroundColor(pobj);
-  }
-
-
-  int colorindex = -999;
-  
-  if(sciGetGraphicContext(pobj) != NULL)
-  {
-    colorindex = (sciGetGraphicContext(pobj))->foregroundcolor;
-  }
-  else
-  {
-    /*printSetGetErrorMessage("foreground");*/ /* rewrite updatebaw to renable this message */
-    return -999;
-  }
-
-  colorindex = sciGetGoodIndex(pobj, colorindex);
-  
-  return colorindex;
+  int colorindex = sciGetForegroundColor(pobj);
+  /*printSetGetErrorMessage("foreground");*/ /* rewrite updatebaw to renable this message */
+  if(colorindex==-999) return -999;
+  /*make index conversion*/
+  return sciGetGoodIndex(pobj, colorindex+1);
 }
 
 
 int
 sciGetForegroundToDisplay (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
+  int colorindex = sciGetForeground(pobj);
   int m = sciGetNumColors(pobj);
-
-  colorindex = sciGetForeground(pobj);
   
   if((m - colorindex == -1) || (m - colorindex == -2)) colorindex =  m - colorindex;
     
@@ -363,26 +416,11 @@ sciGetForegroundToDisplay (sciPointObj * pobj)
 int
 sciGetBackground (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
-  
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    colorindex = GFXGetBackgroundColor(pobj);
-  }
-  else if(sciGetGraphicContext(pobj) != NULL)
-  {
-    colorindex = (sciGetGraphicContext(pobj))->backgroundcolor + 1;
-  }
-  else
-  {
-    /*printSetGetErrorMessage("background");*/ /* rewrite updatebaw to renable this message */
-    return -999;
-  }
-  
-  colorindex = sciGetGoodIndex(pobj, colorindex);
-  
-  return colorindex;
+  int colorindex = sciGetBackgroundColor(pobj);
+  /*printSetGetErrorMessage("background");*/ /* rewrite updatebaw to renable this message */
+  if(colorindex==-999) return -999;
+  /*make index conversion*/
+  return sciGetGoodIndex(pobj, colorindex+1);
 }
 
 
@@ -392,11 +430,8 @@ sciGetBackground (sciPointObj * pobj)
 int
 sciGetBackgroundToDisplay (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
+  int colorindex = sciGetBackground(pobj);
   int m = sciGetNumColors(pobj);
-  
-  colorindex = sciGetBackground(pobj);
 
   if((m - colorindex == -1) || (m - colorindex == -2)) colorindex =  m - colorindex;
   
@@ -410,26 +445,11 @@ sciGetBackgroundToDisplay (sciPointObj * pobj)
 int
 sciGetMarkForeground (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
-  
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    colorindex = GFXGetMarkForegroundColor(pobj);
-  }
-  else if (sciGetGraphicContext(pobj) != NULL)
-  {
-    colorindex = sciGetGraphicContext(pobj)->markforeground + 1;
-  }
-  else
-  {
-    printSetGetErrorMessage("mark_foreground");
-    return -1;
-  }
-
-  colorindex = sciGetGoodIndex(pobj, colorindex);
-  
-  return colorindex;
+  int colorindex = sciGetMarkForegroundColor(pobj);
+  /*printSetGetErrorMessage("background");*/ /* rewrite updatebaw to renable this message */
+  if(colorindex==-999) return -999;
+  /*make index conversion*/ 
+  return sciGetGoodIndex(pobj, colorindex+1);
 }
 
 
@@ -437,10 +457,8 @@ int
 sciGetMarkForegroundToDisplay (sciPointObj * pobj)
 {
 
-  int colorindex = -999;
+  int colorindex = sciGetMarkForeground(pobj);
   int m = sciGetNumColors(pobj);
-
-  colorindex = sciGetMarkForeground(pobj);
   
   if((m - colorindex == -1) || (m - colorindex == -2)) colorindex =  m - colorindex;
     
@@ -456,25 +474,11 @@ sciGetMarkForegroundToDisplay (sciPointObj * pobj)
 int
 sciGetMarkBackground (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
-  
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    colorindex = GFXGetMarkBackgroundColor(pobj);
-  }
-  else if (sciGetGraphicContext(pobj) != NULL)
-  {
-    colorindex = sciGetGraphicContext(pobj)->markbackground + 1;
-  }
-  else
-  {
-    printSetGetErrorMessage("mark_background");
-    return -1;
-  }
-  
-  return sciGetGoodIndex(pobj, colorindex);
-  
+  int colorindex = sciGetMarkBackgroundColor(pobj);
+  /*printSetGetErrorMessage("background");*/ /* rewrite updatebaw to renable this message */
+  if(colorindex==-999) return -999;
+  /*make index conversion*/ 
+  return sciGetGoodIndex(pobj, colorindex+1); 
 }
 
 
@@ -484,14 +488,11 @@ sciGetMarkBackground (sciPointObj * pobj)
 int
 sciGetMarkBackgroundToDisplay (sciPointObj * pobj)
 {
-
-  int colorindex = -999;
+  int colorindex = sciGetMarkBackground(pobj);
   int m = sciGetNumColors(pobj);
-  
-  colorindex = sciGetMarkBackground(pobj);
 
   if((m - colorindex == -1) || (m - colorindex == -2)) colorindex =  m - colorindex;
-  
+
   return colorindex;
 }
 
@@ -519,8 +520,7 @@ double sciGetLineWidth (sciPointObj * pobj)
 /**sciGetLineStyle
  * Gets the line style
  */
-int
-sciGetLineStyle (sciPointObj * pobj)
+int sciGetLineStyle (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -538,8 +538,7 @@ sciGetLineStyle (sciPointObj * pobj)
 /**sciGetIsMark
  * Gets the line style
  */
-BOOL
-sciGetIsMark (sciPointObj * pobj)
+BOOL sciGetIsMark (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -557,8 +556,7 @@ sciGetIsMark (sciPointObj * pobj)
 /**sciGetMarkStyle
  * Gets the mark style
  */
-int
-sciGetMarkStyle (sciPointObj * pobj)
+int sciGetMarkStyle (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -579,8 +577,7 @@ sciGetMarkStyle (sciPointObj * pobj)
 /**sciGetMarkSize
  * Gets the mark size
  */
-int
-sciGetMarkSize (sciPointObj * pobj)
+int sciGetMarkSize (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -600,8 +597,7 @@ sciGetMarkSize (sciPointObj * pobj)
  * Gets the mark size unit
  * 1 : points, 2 : tabulated
  */
-int
-sciGetMarkSizeUnit (sciPointObj * pobj)
+int sciGetMarkSizeUnit (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -620,8 +616,7 @@ sciGetMarkSizeUnit (sciPointObj * pobj)
 /**sciGetIsLine
  * Returns the line drawing existence
  */
-BOOL
-sciGetIsLine (sciPointObj * pobj)
+BOOL sciGetIsLine (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -649,8 +644,7 @@ BOOL sciGetIsDisplayingLines(sciPointObj * pObj)
 /**sciGetIsFilled
  * Returns the filled line existence
  */
-BOOL
-sciGetIsFilled (sciPointObj * pobj)
+BOOL sciGetIsFilled (sciPointObj * pobj)
 {
   switch (sciGetEntityType (pobj))
   {

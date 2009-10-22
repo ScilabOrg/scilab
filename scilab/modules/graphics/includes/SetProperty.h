@@ -44,44 +44,44 @@ GRAPHICS_IMPEXP int sciSetGoodIndex(sciPointObj * pobj, int colorindex);
 GRAPHICS_IMPEXP void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m); 
 GRAPHICS_IMPEXP int sciUpdateBaW (sciPointObj * pobj, int flag, int value );
 
+/* Function calling sciGetGraphicContext */
+GRAPHICS_IMPEXP int sciSetBackgroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciSetForegroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciSetMarkBackgroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciSetMarkForegroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciInitIsLine (sciPointObj * pobj, BOOL isline);
+GRAPHICS_IMPEXP int sciInitLineWidth (sciPointObj * pobj, double linewidth);
+GRAPHICS_IMPEXP int sciInitLineStyle (sciPointObj * pobj, int linestyle);
+GRAPHICS_IMPEXP int sciInitIsMark (sciPointObj * pobj, BOOL ismark);
+GRAPHICS_IMPEXP int sciInitMarkForeground (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciInitMarkBackground (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciInitMarkStyle (sciPointObj * pobj, int markstyle);
+GRAPHICS_IMPEXP int sciInitMarkSize (sciPointObj * pobj, int marksize);
+GRAPHICS_IMPEXP int sciInitMarkSizeUnit (sciPointObj * pobj, int marksizeunit);
+GRAPHICS_IMPEXP int sciInitIsFilled (sciPointObj * pobj, BOOL isfilled);
+
+/* Function setting GraphicContext property */
 GRAPHICS_IMPEXP int sciInitBackground( sciPointObj * pobj, int colorindex );
 GRAPHICS_IMPEXP int sciSetBackground ( sciPointObj * pobj, int colorindex );
 
 GRAPHICS_IMPEXP int sciInitForeground( sciPointObj * pobj, int colorindex );
 GRAPHICS_IMPEXP int sciSetForeground ( sciPointObj * pobj, int colorindex );
 
-GRAPHICS_IMPEXP int sciInitLineWidth( sciPointObj * pobj, double linewidth );
 GRAPHICS_IMPEXP int sciSetLineWidth ( sciPointObj * pobj, double linewidth ); 
-
-GRAPHICS_IMPEXP int sciInitIsLine(sciPointObj * pobj, BOOL isline);
 GRAPHICS_IMPEXP int sciSetIsLine (sciPointObj * pobj, BOOL isline); 
-
-GRAPHICS_IMPEXP int sciInitLineStyle( sciPointObj * pobj, int linestyle );
 GRAPHICS_IMPEXP int sciSetLineStyle ( sciPointObj * pobj, int linestyle );
 
-GRAPHICS_IMPEXP int sciInitIsMark(sciPointObj * pobj, BOOL ismark); 
 GRAPHICS_IMPEXP int sciSetIsMark (sciPointObj * pobj, BOOL ismark); 
+GRAPHICS_IMPEXP int sciSetMarkStyle (sciPointObj * pobj, int markstyle);
+GRAPHICS_IMPEXP int sciSetMarkSize (sciPointObj * pobj, int marksize);
+GRAPHICS_IMPEXP int sciSetMarkSizeUnit (sciPointObj * pobj, int marksizeunit);
+GRAPHICS_IMPEXP int sciSetMarkBackground (sciPointObj * pobj, int colorindex); 
+GRAPHICS_IMPEXP int sciSetMarkForeground (sciPointObj * pobj, int colorindex); 
 
-GRAPHICS_IMPEXP int sciInitIsFilled(sciPointObj * pobj, BOOL isfilled);
 GRAPHICS_IMPEXP int sciSetIsFilled (sciPointObj * pobj, BOOL isfilled); 
 
 GRAPHICS_IMPEXP int sciInitPolylineStyle( sciPointObj * pobj, int plot );
 GRAPHICS_IMPEXP int sciInitArrowSize( sciPointObj * pobj, double size );
-
-GRAPHICS_IMPEXP int sciInitMarkStyle(sciPointObj * pobj, int markstyle);
-GRAPHICS_IMPEXP int sciSetMarkStyle (sciPointObj * pobj, int markstyle);
-
-GRAPHICS_IMPEXP int sciInitMarkSize(sciPointObj * pobj, int marksize);
-GRAPHICS_IMPEXP int sciSetMarkSize (sciPointObj * pobj, int marksize);
-
-GRAPHICS_IMPEXP int sciInitMarkSizeUnit(sciPointObj * pobj, int marksizeunit);
-GRAPHICS_IMPEXP int sciSetMarkSizeUnit (sciPointObj * pobj, int marksizeunit);
-
-GRAPHICS_IMPEXP int sciInitMarkBackground(sciPointObj * pobj, int colorindex);
-GRAPHICS_IMPEXP int sciSetMarkBackground (sciPointObj * pobj, int colorindex); 
-
-GRAPHICS_IMPEXP int sciInitMarkForeground(sciPointObj * pobj, int colorindex);
-GRAPHICS_IMPEXP int sciSetMarkForeground (sciPointObj * pobj, int colorindex); 
 
 GRAPHICS_IMPEXP int sciInitBoxType( sciPointObj * pobj, EAxesBoxType type );
 GRAPHICS_IMPEXP int sciSetBoxType ( sciPointObj * pobj, EAxesBoxType type );

@@ -37,6 +37,21 @@ GRAPHICS_IMPEXP sciEntityType sciGetEntityType (sciPointObj * pobj);
 GRAPHICS_IMPEXP char *sciGetCharEntityType (sciPointObj * pobj); 
 
 /* Graphic Context Functions */
+    /* Function calling sciGetGraphicContext */
+GRAPHICS_IMPEXP int sciGetBackgroundColor (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetForegroundColor (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetMarkBackgroundColor (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetMarkForegroundColor (sciPointObj * pobj);
+GRAPHICS_IMPEXP double sciGetLineWidth (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetLineStyle (sciPointObj * pobj);
+GRAPHICS_IMPEXP BOOL sciGetIsMark (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetMarkStyle (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetMarkSize (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetMarkSizeUnit (sciPointObj * pobj);
+GRAPHICS_IMPEXP BOOL sciGetIsLine (sciPointObj * pobj);
+GRAPHICS_IMPEXP BOOL sciGetIsFilled (sciPointObj * pobj);
+
+
 GRAPHICS_IMPEXP sciGraphicContext *sciGetGraphicContext (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetNumColors (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetColormap (sciPointObj * pobj, double rgbmat[] );
