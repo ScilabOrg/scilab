@@ -46,16 +46,22 @@ extern "C"
     }
 */
 
-    Rectangle* geom = new Rectangle(pObj, x, y, height, width);
+    Rectangle* geom = new Rectangle(pObj);
+    // Set GraphicContext from the parent one.
+    geom->setGraphicContext(sciGetGraphicContext(sciGetParent(pObj)));
+    geom->setVisibility(sciGetVisibility(sciGetParentSubwin(pObj)));
 
-    if(foreground)
-      geom->setForegroundColor(sciSetGoodIndex(pObj, *foreground));
-    if(background)
-      geom->setBackgroundColor(sciSetGoodIndex(pObj, *background));
+    geom->setPosition(x,y);
+    geom->setSize(height, width);
+
+    if(foreground!=NULL) geom->setForegroundSciColor(*foreground);
+    if(background!=NULL) geom->setBackgroundSciColor(*background);
     geom->setIsFilled(isfilled != 0);
     geom->setIsLined(isline != 0);
 
     pObj->pfeatures = reinterpret_cast<void*>(geom);
+
+    GFXSetHimselfAsDrawer(pObj);
   }
 
   void GFXDeleteFeatures(sciPointObj * pObj)
@@ -85,27 +91,27 @@ extern "C"
   }
   void GFXGetLineWidth(sciPointObj * pobj, double * lw)
   {
-    MyCast<GraphicContext*>(pobj)->getLineWidthFromC(lw);
+    *lw=MyCast<GraphicContext*>(pobj)->getLineWidth();
   }
-  bool GFXGetIsFilled(sciPointObj * pobj)
+  BOOL GFXGetIsFilled(sciPointObj * pobj)
   {
-    return MyCast<GraphicContext*>(pobj)->getIsFilled();
+    return MyCast<GraphicContext*>(pobj)->getIsFilled()?TRUE:FALSE;
   }
   int GFXGetFillColor(sciPointObj * pobj)
   {
     return MyCast<GraphicContext*>(pobj)->getFillColor();
   }
-  bool GFXGetIsLined(sciPointObj * pobj)
+  BOOL GFXGetIsLined(sciPointObj * pobj)
   {
-    return MyCast<GraphicContext*>(pobj)->getIsLined();
+    return MyCast<GraphicContext*>(pobj)->getIsLined()?TRUE:FALSE;
   }
   int GFXGetLineStyle(sciPointObj * pobj)
   {
     return MyCast<GraphicContext*>(pobj)->getLineStyle();
   }
-  bool GFXGetIsMarked(sciPointObj * pobj)
+  BOOL GFXGetIsMarked(sciPointObj * pobj)
   {
-    return MyCast<GraphicContext*>(pobj)->getIsMarked();
+    return MyCast<GraphicContext*>(pobj)->getIsMarked()?TRUE:FALSE;
   }
   int GFXGetMarkStyle(sciPointObj * pobj)
   {
@@ -141,25 +147,25 @@ extern "C"
   {
     MyCast<GraphicContext*>(pobj)->setLineWidth(width);
   }
-  void GFXSetIsFilled(sciPointObj * pobj, bool filled)
+  void GFXSetIsFilled(sciPointObj * pobj, BOOL filled)
   {
-    MyCast<GraphicContext*>(pobj)->setIsFilled(filled);
+    MyCast<GraphicContext*>(pobj)->setIsFilled(filled!=0);
   }
   void GFXSetFillColor(sciPointObj * pobj, int color)
   {
     MyCast<GraphicContext*>(pobj)->setFillColor(color);
   }
-  void GFXSetIsLined(sciPointObj * pobj, bool lined)
+  void GFXSetIsLined(sciPointObj * pobj, BOOL lined)
   {
-    MyCast<GraphicContext*>(pobj)->setIsLined(lined);
+    MyCast<GraphicContext*>(pobj)->setIsLined(lined!=0);
   }
   void GFXSetLineStyle(sciPointObj * pobj, int style)
   {
     MyCast<GraphicContext*>(pobj)->setLineStyle(style);
   }
-  void GFXSetIsMarked(sciPointObj * pobj, bool marked)
+  void GFXSetIsMarked(sciPointObj * pobj, BOOL marked)
   {
-    MyCast<GraphicContext*>(pobj)->setIsMarked(marked);
+    MyCast<GraphicContext*>(pobj)->setIsMarked(marked!=0);
   }
   void GFXSetMarkStyle(sciPointObj * pobj, int style)
   {
@@ -265,11 +271,11 @@ extern "C"
 // class  Visible
   void GFXSetVisibility(sciPointObj * pobj, BOOL value)
   {
-    MyCast<Visible*>(pobj)->setVisibility(value);
+    MyCast<Visible*>(pobj)->setVisibility(value!=0);
   }
-  bool GFXGetVisibility(sciPointObj * pobj)
+  BOOL GFXGetVisibility(sciPointObj * pobj)
   {
-    return MyCast<Visible*>(pobj)->getVisibility();
+    return MyCast<Visible*>(pobj)->getVisibility()?TRUE:FALSE;
   }
 }
 ///     end extern C
@@ -280,18 +286,17 @@ extern "C"
 // class  Rectangle
 
 
-Rectangle::Rectangle
-       (sciPointObj *pObj,
-        double _x, double _y,
-		    double _height, double _width):
-        x(_x),y(_y),height(_height),width(_width),z(0),
-        GraphicContext(),
+Rectangle::Rectangle(sciPointObj *pObj):
+        x(0), y(0), z(0), width(0), height(0),
+        sciGraphics::DrawableObject(pObj),
+        ColorMapUser(pObj),
         CallBackable(),
         UserData(),
         ClippedObject(pObj),
-        Visible(sciGetVisibility(sciGetParentSubwin(pObj))),
+        Visible(),
         Point(),
-        Deplacable()
+        Deplacable(),
+        GraphicContext(pObj)
 {
 }
 

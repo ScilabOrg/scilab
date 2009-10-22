@@ -20,6 +20,7 @@ extern "C"
 {
 #include "getScilabJavaVM.h"
 
+#include "HandleManagement.h" // sciGetParent
 
 
 #include "ObjectStructure.h"
@@ -48,51 +49,81 @@ extern "C"
 
 // class GraphicContext
 // GET
-  int     GFXGetForegroundColor(sciPointObj * pobj);
-  int     GFXGetBackgroundColor(sciPointObj * pobj);
-  int     GFXGetMarkForegroundColor(sciPointObj * pobj);
-  int     GFXGetMarkBackgroundColor(sciPointObj * pobj);
-  void    GFXGetLineWidth(sciPointObj * pobj, double * lw);
-  bool    GFXGetIsFilled(sciPointObj * pobj);
-  int     GFXGetFillColor(sciPointObj * pobj);
-  bool    GFXGetIsLined(sciPointObj * pobj);
-  int     GFXGetLineStyle(sciPointObj * pobj);
-  bool    GFXGetIsMarked(sciPointObj * pobj);
-  int     GFXGetMarkStyle(sciPointObj * pobj);
-  int     GFXGetMarkSize(sciPointObj * pobj);
-  int     GFXGetMarkSizeUnit(sciPointObj * pobj);
-  int     GFXGetMarkBackgroundColor(sciPointObj * pobj);
-  int     GFXGetMarkForegroundColor(sciPointObj * pobj);
+  int     GFXGetForegroundColor(sciPointObj * pObj);
+  int     GFXGetBackgroundColor(sciPointObj * pObj);
+  int     GFXGetMarkForegroundColor(sciPointObj * pObj);
+  int     GFXGetMarkBackgroundColor(sciPointObj * pObj);
+  void    GFXGetLineWidth(sciPointObj * pObj, double * lw);
+  BOOL    GFXGetIsFilled(sciPointObj * pObj);
+  int     GFXGetFillColor(sciPointObj * pObj);
+  BOOL    GFXGetIsLined(sciPointObj * pObj);
+  int     GFXGetLineStyle(sciPointObj * pObj);
+  BOOL    GFXGetIsMarked(sciPointObj * pObj);
+  int     GFXGetMarkStyle(sciPointObj * pObj);
+  int     GFXGetMarkSize(sciPointObj * pObj);
+  int     GFXGetMarkSizeUnit(sciPointObj * pObj);
+  int     GFXGetMarkBackgroundColor(sciPointObj * pObj);
+  int     GFXGetMarkForegroundColor(sciPointObj * pObj);
 // SET
-  void GFXSetForegroundColor(sciPointObj * pobj, int color);
-  void GFXSetBackgroundColor(sciPointObj * pobj, int color);
-  void GFXSetMarkForegroundColor(sciPointObj * pobj, int color);
-  void GFXSetMarkBackgroundColor(sciPointObj * pobj, int color);
-  void GFXSetIsFilled(sciPointObj * pobj, bool filled);
-  void GFXSetFillColor(sciPointObj * pobj, int color);
-  void GFXSetIsLined(sciPointObj * pobj, bool lined);
-  void GFXSetLineStyle(sciPointObj * pobj, int style);
-  void GFXSetLineWidth(sciPointObj * pobj, double width);
-  void GFXSetIsMarked(sciPointObj * pobj, bool marked);
-  void GFXSetMarkStyle(sciPointObj * pobj, int style);
-  void GFXSetMarkSize(sciPointObj * pobj, int size);
-  void GFXSetMarkSizeUnit(sciPointObj * pobj, int sizeunit);
-  void GFXSetMarkBackgroundColor(sciPointObj * pobj, int color);
-  void GFXSetMarkForegroundColor(sciPointObj * pobj, int color);
+  void GFXSetForegroundColor(sciPointObj * pObj, int color);
+  void GFXSetBackgroundColor(sciPointObj * pObj, int color);
+  void GFXSetMarkForegroundColor(sciPointObj * pObj, int color);
+  void GFXSetMarkBackgroundColor(sciPointObj * pObj, int color);
+  void GFXSetIsFilled(sciPointObj * pObj, BOOL filled);
+  void GFXSetFillColor(sciPointObj * pObj, int color);
+  void GFXSetIsLined(sciPointObj * pObj, BOOL lined);
+  void GFXSetLineStyle(sciPointObj * pObj, int style);
+  void GFXSetLineWidth(sciPointObj * pObj, double width);
+  void GFXSetIsMarked(sciPointObj * pObj, BOOL marked);
+  void GFXSetMarkStyle(sciPointObj * pObj, int style);
+  void GFXSetMarkSize(sciPointObj * pObj, int size);
+  void GFXSetMarkSizeUnit(sciPointObj * pObj, int sizeunit);
+  void GFXSetMarkBackgroundColor(sciPointObj * pObj, int color);
+  void GFXSetMarkForegroundColor(sciPointObj * pObj, int color);
 
 
 // class UserData
 
-  void GFXGetPointerToUserData(sciPointObj * pobj,int ***user_data_ptr, int **size_ptr);
+  void GFXGetPointerToUserData(sciPointObj * pObj,int ***user_data_ptr, int **size_ptr);
 
 // class GivePoint
-  void GFXGetPoint(sciPointObj * pobj, double *tab, int *numrow, int *numcol);
-  int GFXSetPoint(sciPointObj * pobj, double *tab, int *numrow, int *numcol);
-  int GFXPointSize(sciPointObj * pobj);
+  void GFXGetPoint(sciPointObj * pObj, double *tab, int *numrow, int *numcol);
+  int GFXSetPoint(sciPointObj * pObj, double *tab, int *numrow, int *numcol);
+  int GFXPointSize(sciPointObj * pObj);
 
 // Deplacable
-  int GFXmoveObj(sciPointObj * pobj, double displacement[], int displacementSize);
+  int GFXmoveObj(sciPointObj * pObj, double displacement[], int displacementSize);
 }
+
+class ColorMapUser:
+  virtual public sciGraphics::DrawableObject
+{
+public:
+  ColorMapUser(sciPointObj * pObj):
+    sciGraphics::DrawableObject(pObj)
+  {
+  }
+
+  int sci2cppColorIndex(int colorindex)
+  {
+    int m = getColorMapSize();
+
+    if(colorindex<-2) colorindex = -2;
+    if(colorindex>m+2) colorindex = m+2;
+
+    //TODO allow index = -1
+    if( colorindex ==  0 ) colorindex = 1;
+    if( colorindex == -1 ) colorindex = m+1;
+    if( colorindex == -2 ) colorindex = m+2;    
+
+    return colorindex-1;
+  }
+
+  int getColorMapSize()
+  {
+    return sciGetNumColors(m_pDrawed);
+  }
+};
 
 
 class Point
@@ -117,12 +148,12 @@ public:
 
 extern "C"
 {
-  void GFXSetCallback(sciPointObj * pobj, char *code, int len, int mevent);
-  void GFXGetCallback(sciPointObj * pobj, char *code);
-  void GFXSetCallbackMouseEvent(sciPointObj * pobj, int mevent);
-  void GFXDelCallback(sciPointObj * pobj);
-  int GFXGetCallbackMouseEvent(sciPointObj * pobj);
-  int GFXGetCallbackSize(sciPointObj * pobj);
+  void GFXSetCallback(sciPointObj * pObj, char *code, int len, int mevent);
+  void GFXGetCallback(sciPointObj * pObj, char *code);
+  void GFXSetCallbackMouseEvent(sciPointObj * pObj, int mevent);
+  void GFXDelCallback(sciPointObj * pObj);
+  int GFXGetCallbackMouseEvent(sciPointObj * pObj);
+  int GFXGetCallbackSize(sciPointObj * pObj);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -169,21 +200,22 @@ public:
   int size_of_user_data;
 };
 
-class GraphicContext
+class GraphicContext:
+  virtual public ColorMapUser
 {
 // TODO diviser cette classe
 private:
   int backgroundColor;      
   int foregroundColor;
 
-  BOOL isFilled;
+  bool isFilled;
   int fillColor;
 
-  BOOL isLined;
+  bool isLined;
   int lineStyle;
   double lineWidth;
 
-  BOOL isMarked;
+  bool isMarked;
   int markStyle;
   int markSize;
   int markSizeUnit;
@@ -191,15 +223,61 @@ private:
   int markForegroundColor;
 
 public:
-  GraphicContext():
-    backgroundColor(1), foregroundColor(1), isFilled(false), fillColor(1),
-    isLined(false), lineStyle(1), lineWidth(1),
-    isMarked(false), markStyle(1), markSize(1), markSizeUnit(1), markBackgroundColor(1), markForegroundColor(1)
+  GraphicContext(sciPointObj * pObj):
+    sciGraphics::DrawableObject(pObj),
+    ColorMapUser(pObj),
+    backgroundColor(0),   foregroundColor(0),
+    isFilled(false),      fillColor(0),
+    isLined(false),  lineStyle(0),
+    lineWidth(0),    isMarked(false),
+    markStyle(0),    markSize(0),
+    markSizeUnit(0),    markBackgroundColor(0),
+    markForegroundColor(0)
   {
   }
+
+  void setGraphicContext(sciGraphicContext * sgc)
+  {
+    if(sgc!=NULL)
+    {
+      backgroundColor     = sgc->backgroundcolor;
+      foregroundColor     = sgc->foregroundcolor;
+      isFilled            = sgc->isfilled!=0;
+      fillColor           = sgc->fillcolor;
+      isLined             = sgc->isline!=0;
+      lineStyle           = sgc->linestyle;
+      lineWidth           = sgc->linewidth;
+      isMarked            = sgc->ismark!=0;
+      markStyle           = sgc->markstyle;
+      markSize            = sgc->marksize;
+      markSizeUnit        = sgc->marksizeunit;
+      markBackgroundColor = sgc->markbackground;
+      markForegroundColor = sgc->markforeground;
+    }
+  }
+
+  void setDefaultValues()
+  {
+    backgroundColor=0;
+    foregroundColor=0;
+    isFilled=false;
+    fillColor=0;
+    isLined=false;
+    lineStyle=0;
+    lineWidth=0;
+    isMarked=false;
+    markStyle=0;
+    markSize=0;
+    markSizeUnit=0;
+    markBackgroundColor=0;
+    markForegroundColor=0;
+  }
+
   void    setBackgroundColor(int bgc){backgroundColor=bgc;}
+  void    setBackgroundSciColor(int bgc){backgroundColor=sci2cppColorIndex(bgc);}
   int     getBackgroundColor(){return backgroundColor;}
   void    setForegroundColor(int fgc){foregroundColor=fgc;}
+  void    setForegroundSciColor(int fgc){foregroundColor=sci2cppColorIndex(fgc);}
   int     getForegroundColor(){return foregroundColor;}
 
   void    setIsFilled(bool filled){isFilled=filled;}
@@ -213,7 +291,6 @@ public:
   int     getLineStyle(){return lineStyle;}
   void    setLineWidth(double lw){lineWidth=lw;}
   double  getLineWidth(){return lineWidth;}
-  void    getLineWidthFromC(double * lw){*lw = lineWidth;}
 
   void    setIsMarked(bool marked){isMarked=marked;}
   bool    getIsMarked(){return isMarked;}
@@ -237,8 +314,8 @@ public:
 // C function about Visible
 extern "C"
 {
-  bool GFXGetVisibility(sciPointObj * pobj);
-  void GFXSetVisibility(sciPointObj * pobj, BOOL value);
+  BOOL GFXGetVisibility(sciPointObj * pObj);
+  void GFXSetVisibility(sciPointObj * pObj, BOOL value);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -246,7 +323,7 @@ extern "C"
 class Visible
 {
 private:
-  BOOL visible;
+  bool visible;
 public:
   Visible():
     visible(true)
@@ -257,7 +334,7 @@ public:
   {
   }
   void setVisibility(bool v){visible=v;}
-  BOOL getVisibility(){return visible;}
+  bool getVisibility(){return visible;}
 };
 
 /******************************************************************************/
@@ -267,18 +344,18 @@ public:
 // C function about ClipedObject
 extern "C"
 {
-  void GFXSetClippingRegion(sciPointObj * pobj, double pclip[4]);
-  void GFXUnsetClippingRegion(sciPointObj * pobj);
-  bool GFXGetClippingRegionSet(sciPointObj * pobj);
-  void GFXGetClippingRegion(sciPointObj * pobj, double pclip[]);
+  void GFXSetClippingRegion(sciPointObj * pObj, double pclip[4]);
+  void GFXUnsetClippingRegion(sciPointObj * pObj);
+  bool GFXGetClippingRegionSet(sciPointObj * pObj);
+  void GFXGetClippingRegion(sciPointObj * pObj, double pclip[]);
 
-  void GFXSetClippingMethode(sciPointObj * pobj, int cm);
-  int  GFXGetClippingMethode(sciPointObj * pobj);
+  void GFXSetClippingMethode(sciPointObj * pObj, int cm);
+  int  GFXGetClippingMethode(sciPointObj * pObj);
 }
 /* -------------------------------------------------------------------------- */
 // class ClipedObject
 class ClippedObject:
-  public sciGraphics::DrawableObject
+  virtual public sciGraphics::DrawableObject
 {
 public:
   enum ClippingMethode
@@ -416,26 +493,26 @@ class Rectangle:
   public Point,
   public Deplacable
 {
-private:
+protected:
 /*
   org_scilab_modules_renderer_rectangleDrawing::RectangleLineDrawerGL* lineDrawer;
   org_scilab_modules_renderer_rectangleDrawing::RectangleMarkDrawerGL* markDrawer;
   org_scilab_modules_renderer_rectangleDrawing::RectangleFillDrawerGL* fillDrawer;
 */
 public:
-  Rectangle(
-        sciPointObj *pObj,
-        double x, double y,
-		    double height, double width
-        );
-
-public:
-  
   double x;
   double y;
   double z;
   double width;
   double height;
+
+
+  Rectangle(sciPointObj *pObj);
+
+  void setPosition(double _x, double _y){x=_x; y=_y;}
+  void setPosition(double _x, double _y, double _z){x=_x; y=_y; z=_z;}
+
+  void setSize(double _width, double _height){width=_width; height=_height;}
 
 // Class Point
   void getPoint(double *tab, int *numrow, int *numcol);

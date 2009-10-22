@@ -554,11 +554,11 @@ int sciSetForegroundColor (sciPointObj * pobj, int colorindex)
 }
 
 /**
-* sciSetMarkBackgroundColor function 
+* sciInitMarkBackgroundColor function 
 * Set the stored value of MarkBackgroundColor index
 * @return 0 if ok, -1 if not (no GraphicContext)
 */
-int sciSetMarkBackgroundColor (sciPointObj * pobj, int colorindex)
+int sciInitMarkBackgroundColor (sciPointObj * pobj, int colorindex)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -570,16 +570,16 @@ int sciSetMarkBackgroundColor (sciPointObj * pobj, int colorindex)
     sciGetGraphicContext(pobj)->markbackground=colorindex;
     return 0;
   }
-  printSetGetErrorMessage("background");
+  printSetGetErrorMessage("MarkBackgroundColor");
   return -1;
 }
 
 /**
-* sciSetMarkForegroundColor function 
+* sciInitMarkForegroundColor function 
 * Set the stored value of MarkForegroundColor index
 * @return 0 if ok, -1 if not (no GraphicContext)
 */
-int sciSetMarkForegroundColor (sciPointObj * pobj, int colorindex)
+int sciInitMarkForegroundColor (sciPointObj * pobj, int colorindex)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -591,7 +591,7 @@ int sciSetMarkForegroundColor (sciPointObj * pobj, int colorindex)
     sciGetGraphicContext(pobj)->markforeground=colorindex;
     return 0;
   }
-  printSetGetErrorMessage("background");
+  printSetGetErrorMessage("MarkForegroundColor");
   return -1;
 }
 
@@ -778,24 +778,13 @@ sciSetIsMark (sciPointObj * pobj, BOOL ismark)
 
 int sciInitMarkForeground( sciPointObj * pobj, int colorindex )
 {
+  int m = sciGetNumColors(pobj);
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
+
   colorindex = sciSetGoodIndex(pobj,colorindex);
-  colorindex = Max (-1, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+  colorindex = Max (0, Min (colorindex - 1, m + 1));
 
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    GFXSetMarkForegroundColor(pobj, colorindex);
-    return 0;
-  }
-  else if (sciGetGraphicContext(pobj) != NULL)
-  {
-    sciGetGraphicContext(pobj)->markforeground = colorindex;
-    return 0;
-  }
-
-  printSetGetErrorMessage("mark_foreground");
-  return -1;
-
+  return sciInitMarkForegroundColor(pobj, colorindex);
 }
 
 /**sciSetMarkForeground
@@ -817,23 +806,13 @@ sciSetMarkForeground (sciPointObj * pobj, int colorindex)
 
 int sciInitMarkBackground( sciPointObj * pobj, int colorindex )
 {
+  int m = sciGetNumColors(pobj);
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
+
   colorindex = sciSetGoodIndex(pobj,colorindex);
-  colorindex = Max (-1, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+  colorindex = Max (0, Min (colorindex - 1, m + 1));
 
-  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
-  {
-    GFXSetMarkBackgroundColor(pobj, colorindex);
-    return 0;
-  }
-  else if (sciGetGraphicContext(pobj) != NULL)
-  {
-    sciGetGraphicContext(pobj)->markbackground = colorindex;
-    return 0;
-  }
-
-  printSetGetErrorMessage("mark_background");
-  return -1;
+  return sciInitMarkBackgroundColor(pobj, colorindex);
 }
 
 /**sciSetMarkBackground

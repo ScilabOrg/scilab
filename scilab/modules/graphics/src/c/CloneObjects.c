@@ -302,8 +302,8 @@ int cloneGraphicContext( sciPointObj * pObjSource, sciPointObj * pObjDest )
   sciInitLineWidth (pObjDest, sciGetLineWidth (pObjSource));
   sciInitLineStyle (pObjDest, sciGetLineStyle (pObjSource));
   sciInitIsMark (pObjDest, sciGetIsMark (pObjSource));
-  sciInitMarkBackground (pObjDest, sciGetMarkBackgroundColor (pObjSource));
-  sciInitMarkForeground (pObjDest, sciGetMarkForegroundColor (pObjSource));
+  sciInitMarkBackgroundColor (pObjDest, sciGetMarkBackgroundColor (pObjSource));
+  sciInitMarkForegroundColor (pObjDest, sciGetMarkForegroundColor (pObjSource));
   sciInitMarkStyle (pObjDest, sciGetMarkStyle (pObjSource));
   sciInitMarkSize (pObjDest, sciGetMarkSize (pObjSource));
   sciInitMarkSizeUnit (pObjDest, sciGetMarkSizeUnit (pObjSource));

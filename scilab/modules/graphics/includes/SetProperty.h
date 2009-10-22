@@ -47,16 +47,20 @@ GRAPHICS_IMPEXP int sciUpdateBaW (sciPointObj * pobj, int flag, int value );
 /* Function calling sciGetGraphicContext */
 GRAPHICS_IMPEXP int sciSetBackgroundColor (sciPointObj * pobj, int colorindex);
 GRAPHICS_IMPEXP int sciInitBackgroundColor (sciPointObj * pobj, int colorindex);
+
 GRAPHICS_IMPEXP int sciSetForegroundColor (sciPointObj * pobj, int colorindex);
 GRAPHICS_IMPEXP int sciInitForegroundColor (sciPointObj * pobj, int colorindex);
-GRAPHICS_IMPEXP int sciSetMarkBackgroundColor (sciPointObj * pobj, int colorindex);
-GRAPHICS_IMPEXP int sciSetMarkForegroundColor (sciPointObj * pobj, int colorindex);
+
+GRAPHICS_IMPEXP int sciInitMarkBackgroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciInitMarkForeground (sciPointObj * pobj, int colorindex);
+
+GRAPHICS_IMPEXP int sciInitMarkForegroundColor (sciPointObj * pobj, int colorindex);
+GRAPHICS_IMPEXP int sciInitMarkBackground (sciPointObj * pobj, int colorindex);
+
 GRAPHICS_IMPEXP int sciInitIsLine (sciPointObj * pobj, BOOL isline);
 GRAPHICS_IMPEXP int sciInitLineWidth (sciPointObj * pobj, double linewidth);
 GRAPHICS_IMPEXP int sciInitLineStyle (sciPointObj * pobj, int linestyle);
 GRAPHICS_IMPEXP int sciInitIsMark (sciPointObj * pobj, BOOL ismark);
-GRAPHICS_IMPEXP int sciInitMarkForeground (sciPointObj * pobj, int colorindex);
-GRAPHICS_IMPEXP int sciInitMarkBackground (sciPointObj * pobj, int colorindex);
 GRAPHICS_IMPEXP int sciInitMarkStyle (sciPointObj * pobj, int markstyle);
 GRAPHICS_IMPEXP int sciInitMarkSize (sciPointObj * pobj, int marksize);
 GRAPHICS_IMPEXP int sciInitMarkSizeUnit (sciPointObj * pobj, int marksizeunit);
