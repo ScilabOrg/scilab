@@ -767,7 +767,7 @@ int sciInitMarkForeground( sciPointObj * pobj, int colorindex )
 {
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
   colorindex = sciSetGoodIndex(pobj,colorindex);
-  colorindex = Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+  colorindex = Max (-1, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
 
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -806,7 +806,7 @@ int sciInitMarkBackground( sciPointObj * pobj, int colorindex )
 {
   if(!sciCheckColorIndex(pobj, colorindex)) return 0;
   colorindex = sciSetGoodIndex(pobj,colorindex);
-  colorindex = Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+  colorindex = Max (-1, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
 
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
