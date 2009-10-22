@@ -12,12 +12,17 @@
 
 package org.scilab.modules.xpad.actions;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class AboutAction extends DefaultAction {
 
-    public AboutAction(Xpad editor) {
-	super("About...", editor);
+    private AboutAction(Xpad editor) {
+	super(XpadMessages.ABOUT, editor);
     }
 
+    public static MenuItem createMenu(Xpad editor) {
+	return createMenu(XpadMessages.ABOUT, null, new AboutAction(editor), null);
+    }
 }

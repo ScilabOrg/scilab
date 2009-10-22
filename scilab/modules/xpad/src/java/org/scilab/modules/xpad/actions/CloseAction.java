@@ -13,23 +13,31 @@
 package org.scilab.modules.xpad.actions;
 
 
-import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class CloseAction extends DefaultAction {
     
-    public CloseAction(Xpad editor) {
-        super("Close", editor);
-        //setMnemonic('W');
-        setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+    private CloseAction(Xpad editor) {
+        super(XpadMessages.CLOSE, editor);
     }
     
     public void doAction() {
-	getEditor().closeCurrentTab();
-	Xpad.closeXpad();
+    	getEditor().closeCurrentTab();
+    	
+    	// Close the last opened file create a new file named "Untitled 1"
+    	if (getEditor().getTabPane().getTabCount() == 0) {
+    		getEditor().addEmptyTab();
+    	}
+    }
+    
+    public static MenuItem createMenu(Xpad editor) {
+	return createMenu(XpadMessages.CLOSE, null, new CloseAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_W, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
     }
 }

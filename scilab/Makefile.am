@@ -27,6 +27,8 @@ bin_PROGRAMS		= scilab-bin scilab-cli-bin
 bin_SCRIPTS			= bin/scilab bin/scilab-adv-cli bin/scilab-cli
 
 scilab_bin_LDFLAGS 		= 
+scilab_cli_bin_LDFLAGS		=
+
 if IS_MACOSX
 scilab_bin_LDFLAGS 		+= -framework Cocoa
 endif
@@ -98,7 +100,8 @@ $(top_srcdir)/etc/scilab.quit \
 $(top_srcdir)/etc/modules.xml \
 $(top_srcdir)/etc/classpath.xml \
 $(top_srcdir)/etc/librarypath.xml \
-$(top_srcdir)/etc/toolboxes.xml
+$(top_srcdir)/etc/toolboxes.xml \
+$(top_srcdir)/etc/jvm_options.xml
 
 
 infofilesdir=$(pkgdatadir)/

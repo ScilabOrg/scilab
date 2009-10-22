@@ -11,12 +11,12 @@
  */
 #include <string.h>
 #include "gw_core.h"
+#include "MALLOC.h"
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 #include "recursionFunction.h"
 /*--------------------------------------------------------------------------*/
-#define CORE_TAB_SIZE 53
-static gw_generic_table Tab[CORE_TAB_SIZE]=
+static gw_generic_table Tab[]=
 {
 {C2F(sci_debug),"debug"},
 {C2F(sci_who),"who"},
@@ -89,7 +89,13 @@ int gw_core(void)
 		}
 	}
 	
-	callFunctionFromGateway(Tab,CORE_TAB_SIZE);
+	if(pvApiCtx == NULL)
+	{
+		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrErr));
+	}
+
+	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

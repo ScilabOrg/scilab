@@ -12,11 +12,17 @@
 
 package org.scilab.modules.xpad.actions;
 
+import org.scilab.modules.gui.checkboxmenuitem.CheckBoxMenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class UTF8EncodingAction extends DefaultCheckAction {
 
-    public UTF8EncodingAction(Xpad editor) {
-	super("UTF-8 Encoding", editor);
-    }
+	private UTF8EncodingAction(Xpad editor) {
+		super(XpadMessages.UTF8_ENCODING, editor);
+	}
+
+	public static CheckBoxMenuItem createCheckBoxMenu(Xpad editor) {
+		return createCheckBoxMenu(XpadMessages.UTF8_ENCODING, null, new UTF8EncodingAction(editor), null);
+	}
 }

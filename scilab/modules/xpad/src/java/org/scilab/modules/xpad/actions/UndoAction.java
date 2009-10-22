@@ -14,19 +14,31 @@ package org.scilab.modules.xpad.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class UndoAction extends DefaultAction {
 
-	public UndoAction(Xpad editor) {
-		super("Undo", editor);
-		setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+	private UndoAction(Xpad editor) {
+		super(XpadMessages.UNDO, editor);
 	}
 
 	public void doAction() {
 		getEditor().undo();
 	}
+
+	public static MenuItem createMenu(Xpad editor) {
+	    return createMenu(XpadMessages.UNDO, null, new UndoAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+	}
+
+	public static PushButton createButton(Xpad editor) {
+	    return createButton(XpadMessages.UNDO, "edit-undo.png", new UndoAction(editor));
+	}
+
 }

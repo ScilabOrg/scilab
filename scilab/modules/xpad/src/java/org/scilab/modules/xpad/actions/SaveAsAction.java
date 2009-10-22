@@ -12,37 +12,39 @@
 
 package org.scilab.modules.xpad.actions;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.ConfigXpadManager;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class SaveAsAction extends DefaultAction {
 
-	public SaveAsAction(Xpad editor) {
-		super("Save As...", editor);
+	private SaveAsAction(Xpad editor) {
+		super(XpadMessages.SAVE_AS, editor);
 	}
 
 	public void doAction() {
-		JFileChooser _fileChooser = new JFileChooser();
-		int retval = _fileChooser.showSaveDialog(getEditor());
-		if (retval == JFileChooser.APPROVE_OPTION) {
-			File f = _fileChooser.getSelectedFile();
-			try {
-
-				String doc = getEditor().getTextPane().getText();
-
-				FileWriter writer = new FileWriter(f);
-				writer.write(doc);
-				writer.flush();
-				writer.close();
-
-			} catch (Exception ioex) {
-			    JOptionPane.showMessageDialog(getEditor(), ioex);
-			}
-		}
+		
+		 getEditor().saveAs(getEditor().getTextPane());
+			
 	}
+	
+	 public static MenuItem createMenu(Xpad editor) {
+		return createMenu(XpadMessages.SAVE_AS, null, new SaveAsAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()+ActionEvent.SHIFT_MASK));
+	 }
+	 
+	 public static PushButton createButton(Xpad editor) {
+	     return createButton(XpadMessages.SAVE_AS, "document-save-as.png", new SaveAsAction(editor));
+	 }
 }

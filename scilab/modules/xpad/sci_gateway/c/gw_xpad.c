@@ -22,11 +22,13 @@
 /*--------------------------------------------------------------------------*/
 static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/
-#define XPAD_TAB_SIZE 1
-static gw_generic_table Tab[XPAD_TAB_SIZE]={
-  {sci_xpad, "xpad"}
+static gw_generic_table Tab[]=
+{
+  {sci_xpad, "xpad"},
+  {sci_xpad_highlightline, "xpad_highlightline"},
+  {sci_xpad, "editor"},
+  {sci_xpad_highlightline, "editor_highlightline"}
 };
-
 /*--------------------------------------------------------------------------*/
 int gw_xpad(void)
 {
@@ -43,7 +45,7 @@ int gw_xpad(void)
 		loadOnUseClassPath("Xpad");
 		loadedDep = TRUE;
 	}
-	callFunctionFromGateway(Tab,XPAD_TAB_SIZE);
+	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

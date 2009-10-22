@@ -14,6 +14,7 @@ package org.scilab.modules.xpad.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -21,16 +22,31 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.style.ScilabStyleDocument;
+import org.scilab.modules.xpad.utils.ConfigXpadManager;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class SaveAction extends DefaultAction {
 
-	public SaveAction(Xpad editor) {
-		super("Save", editor);
-		//setMnemonic('S');
-		setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+	private SaveAction(Xpad editor) {
+		super(XpadMessages.SAVE, editor);
+
 	}
 
+	public static MenuItem createMenu(Xpad editor) {
+		return createMenu(XpadMessages.SAVE, null, new SaveAction(editor), KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+	}
 
+	public static PushButton createButton(Xpad editor) {
+		return createButton(XpadMessages.SAVE, "media-floppy.png", new SaveAction(editor));
+	}
 
+	public void doAction() {
+		getEditor().save(getEditor().getTextPane());
+
+	}
 }
+

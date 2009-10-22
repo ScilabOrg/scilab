@@ -14,16 +14,22 @@ package org.scilab.modules.xpad.actions;
 
 import javax.swing.text.DefaultEditorKit;
 
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xpad.Xpad;
+import org.scilab.modules.xpad.utils.XpadMessages;
 
 public class DeleteAction extends DefaultAction {
 
-    public DeleteAction(Xpad editor) {
-	super("Delete", editor);
+    private DeleteAction(Xpad editor) {
+	super(XpadMessages.DELETE, editor);
     }
     
     public void doAction() {
 	getEditor().getTextPane().getActionMap().get(DefaultEditorKit.deleteNextCharAction).actionPerformed(null);
     }
 
+    public static MenuItem createMenu(Xpad editor) {
+	return createMenu(XpadMessages.DELETE, null, new DeleteAction(editor), null);
+    }
+    
 }

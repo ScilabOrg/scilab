@@ -8,6 +8,8 @@ Improvements:
 
 * Portugues do Brazil Localization added (Thanks Daniel de Souza Grilo and others)
 
+* Japanese localization added (Thanks Hiroshi Saito)
+
 * More help pages translated to Portugues do Brazil (Thanks Daniel de Souza Grilo)
 
 * Catalan localization added to Scipad (Thanks Oriol Gonzalez)
@@ -26,14 +28,14 @@ Compilation:
 
 * --enable-debug-java add two options to the JVM args (-verbose:jni and
   -Xcheck:jni) in order to provide more feedbacks on debug
-  Note that this should be used into a binary since it is expensive
+  Note that this should not be used into a binary since it is expensive
 
 * C++ => Java connector updated (using GIWS - 
   http://www.scilab.org/giws/ version 1.0.3)
   There was a bug in GIWS:
 	The use of a static method returning an int wasn't calling the right
 	method.
-	It didn't seem to trigger any errors in the past but the latest 
+	It did not seem to trigger any errors in the past but the latest 
 	version of the JDK is now complaining.
 
 
@@ -64,9 +66,12 @@ Compilation:
 		- adds missing enable_keypad_mode()
 		- use configure results to protect the inclusion of curses.h, 
 		  ncurses.h, term.h, and termcap.h.
-		- Large amounts of cleanup of the PVM configure code
+		- Large amounts of cleanup of the PVM configure code (Closes: #4151)
 
-* automake version changed (1.10.1 => 1.10.2)
+* improve detection of build/run environnement under GNU/Linux Debian under
+  arm, armel, mips & mipsel
+
+* automake version changed (1.10.1 => 1.11)
 
 * autoconf version changed (2.63 => 2.64)
 
@@ -260,7 +265,15 @@ Bug fixes:
 
  * bug 4773 fixed - Using "axes_reverse" produce a switch between the front and back color of a figure.
 
+ * bug 4429 fixed - Use hidden_axes instead of hidden_axis
 
+ * bug 4396 fixed - In Plot2d, the nax option can receive -1 for number of ticks, it's mean autoticks
+
+ * bug 4394 fixed - Add 'origin' as position for X and Y axes
+
+ * bug 4431 fixed - xsegs() accept z argument
+
+ * bug 4826 fixed - The type of the 'dims' entry of an hypermat is not always the same.
 
                Changes between version 5.1.0 and 5.1.1 of Scilab
                =================================================

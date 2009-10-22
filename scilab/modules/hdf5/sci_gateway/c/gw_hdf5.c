@@ -13,19 +13,28 @@
 #include "gw_hdf5.h"
 #include "callFunctionFromGateway.h"
 #include "stack-c.h"
+#include "MALLOC.h"
+
 /*--------------------------------------------------------------------------*/ 
 /*  interface function */
 /*--------------------------------------------------------------------------*/ 
-#define HDF5_TAB_SIZE 2
-static gw_generic_table Tab[HDF5_TAB_SIZE]={
+static gw_generic_table Tab[] = 
+{
 	{sci_export_to_hdf5,"export_to_hdf5"},
 	{sci_import_from_hdf5,"import_from_hdf5"}
-	};
+};
 /*--------------------------------------------------------------------------*/ 
 int gw_hdf5(void)
 {
 	Rhs = Max(0,Rhs);
-	callFunctionFromGateway(Tab, HDF5_TAB_SIZE);
+
+	if(pvApiCtx == NULL)
+	{
+		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrErr));
+	}
+
+	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 	return 0;
 }
 /*--------------------------------------------------------------------------*/ 

@@ -28,9 +28,6 @@ src/c/IsEqualVar.c
 # List of the cpp files
 ELEMENTARIES_FUNCTIONS_CPP_SOURCES =
 
-SLATEC_SOURCES = 
-
-
 SLATEC_SOURCES = src/fortran/slatec/zwrsk.f \
 src/fortran/slatec/d9b0mp.f \
 src/fortran/slatec/d9b1mp.f \
@@ -459,21 +456,5 @@ libscielementary_functions_la_etc_DATA = etc/elementary_functions.quit etc/eleme
 libscielementary_functions_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscielementary_functions_la_sci_gateway_DATA = sci_gateway/elementary_functions_gateway.xml
 
-
-#### elementary_functions : include files ####
-libscielementary_functions_la_includedir=$(pkgincludedir)/elementary_functions
-libscielementary_functions_la_include_HEADERS = includes/sci_tools.h \
-includes/gw_elementary_functions.h \
-includes/elementary_functions.h \
-includes/xerhlt.h \
-includes/idmax.h \
-includes/idmin.h \
-includes/int2db.h \
-includes/rea2b.h \
-includes/rea2db.h \
-includes/scidcopy.h \
-includes/unsfdcopy.h \
-includes/finite.h \
-includes/vfinite.h
 
 include $(top_srcdir)/Makefile.incl.am
