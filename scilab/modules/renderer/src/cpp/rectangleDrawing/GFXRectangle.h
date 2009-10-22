@@ -454,8 +454,8 @@ public:
   double coord[12];
   sciGraphics::DrawableObject::pointScale(x,       y,        z,&coord[0],&coord[ 1],&coord[ 2]);
   sciGraphics::DrawableObject::pointScale(x+width, y,        z,&coord[3],&coord[ 4],&coord[ 5]);
-  sciGraphics::DrawableObject::pointScale(x+width, y+height, z,&coord[6],&coord[ 7],&coord[ 8]);
-  sciGraphics::DrawableObject::pointScale(x,       y+height, z,&coord[9],&coord[10],&coord[11]);
+  sciGraphics::DrawableObject::pointScale(x+width, y-height, z,&coord[6],&coord[ 7],&coord[ 8]);
+  sciGraphics::DrawableObject::pointScale(x,       y-height, z,&coord[9],&coord[10],&coord[11]);
   clip();
   if(getIsLined())
   {
