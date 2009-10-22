@@ -42,15 +42,18 @@ GRAPHICS_IMPEXP int sciGetBackgroundColor (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetForegroundColor (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetMarkBackgroundColor (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetMarkForegroundColor (sciPointObj * pobj);
+
+GRAPHICS_IMPEXP BOOL sciGetIsLine (sciPointObj * pobj);
 GRAPHICS_IMPEXP double sciGetLineWidth (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetLineStyle (sciPointObj * pobj);
+
 GRAPHICS_IMPEXP BOOL sciGetIsMark (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetMarkStyle (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetMarkSize (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetMarkSizeUnit (sciPointObj * pobj);
-GRAPHICS_IMPEXP BOOL sciGetIsLine (sciPointObj * pobj);
-GRAPHICS_IMPEXP BOOL sciGetIsFilled (sciPointObj * pobj);
 
+GRAPHICS_IMPEXP BOOL sciGetIsFilled (sciPointObj * pobj);
+GRAPHICS_IMPEXP int sciGetFillColor (sciPointObj * pobj);
 
 GRAPHICS_IMPEXP sciGraphicContext *sciGetGraphicContext (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetNumColors (sciPointObj * pobj);
@@ -62,19 +65,13 @@ GRAPHICS_IMPEXP int sciGetBackgroundToDisplay (sciPointObj * pobj);
 
 GRAPHICS_IMPEXP int sciGetBackground (sciPointObj * pobj);
 GRAPHICS_IMPEXP int sciGetForeground (sciPointObj * pobj);
-GRAPHICS_IMPEXP double sciGetLineWidth (sciPointObj * pobj);
-GRAPHICS_IMPEXP BOOL sciGetIsLine (sciPointObj * pobj);
+
 GRAPHICS_IMPEXP BOOL sciGetIsDisplayingLines(sciPointObj * pObj);
-GRAPHICS_IMPEXP int sciGetLineStyle (sciPointObj * pobj);
-GRAPHICS_IMPEXP BOOL sciGetIsMark (sciPointObj * pobj);
-GRAPHICS_IMPEXP BOOL sciGetIsFilled (sciPointObj * pobj);
 GRAPHICS_IMPEXP double sciGetArrowSize (sciPointObj * pobj);
 
 GRAPHICS_IMPEXP EAxesBoxType sciGetBoxType( sciPointObj * pobj ) ;
 GRAPHICS_IMPEXP BOOL sciGetIsBoxed (sciPointObj * pobj);
-GRAPHICS_IMPEXP int sciGetMarkStyle (sciPointObj * pobj);
-GRAPHICS_IMPEXP int sciGetMarkSize (sciPointObj * pobj);
-GRAPHICS_IMPEXP int sciGetMarkSizeUnit (sciPointObj * pobj);
+
 
 /* Text Functions */
 GRAPHICS_IMPEXP sciFont *sciGetFontContext (sciPointObj * pobj); 

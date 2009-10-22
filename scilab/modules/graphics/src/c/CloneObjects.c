@@ -296,8 +296,20 @@ sciCopyObj (sciPointObj * pobj, sciPointObj * psubwinparenttarget )
 /*--------------------------------------------------------------------------*/
 int cloneGraphicContext( sciPointObj * pObjSource, sciPointObj * pObjDest )
 {
-  /* struct affectation */
-  *(sciGetGraphicContext(pObjDest)) = *(sciGetGraphicContext(pObjSource)) ;
+  sciInitBackgroundColor (pObjDest, sciGetBackgroundColor (pObjSource));
+  sciInitForegroundColor (pObjDest, sciGetForegroundColor (pObjSource));
+  sciInitIsLine (pObjDest, sciGetIsLine (pObjSource));
+  sciInitLineWidth (pObjDest, sciGetLineWidth (pObjSource));
+  sciInitLineStyle (pObjDest, sciGetLineStyle (pObjSource));
+  sciInitIsMark (pObjDest, sciGetIsMark (pObjSource));
+  sciInitMarkBackground (pObjDest, sciGetMarkBackgroundColor (pObjSource));
+  sciInitMarkForeground (pObjDest, sciGetMarkForegroundColor (pObjSource));
+  sciInitMarkStyle (pObjDest, sciGetMarkStyle (pObjSource));
+  sciInitMarkSize (pObjDest, sciGetMarkSize (pObjSource));
+  sciInitMarkSizeUnit (pObjDest, sciGetMarkSizeUnit (pObjSource));
+  sciInitIsFilled (pObjDest, sciGetIsFilled (pObjSource));
+  sciInitFillColor (pObjDest, sciGetFillColor (pObjSource));
+
   return 0 ;
 }
 /*--------------------------------------------------------------------------*/

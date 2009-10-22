@@ -667,6 +667,23 @@ BOOL sciGetIsFilled (sciPointObj * pobj)
   }
 }
 
+/**
+* sciGetFillColor function 
+* @return the stored value of fillColor index
+*/
+int sciGetFillColor (sciPointObj * pobj)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    return GFXGetFillColor(pobj);
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    return sciGetGraphicContext(pobj)->fillcolor;
+  }
+  printSetGetErrorMessage("fillcolor");
+  return -999;
+}
 
 
 /**sciGetFontContext

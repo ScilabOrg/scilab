@@ -492,11 +492,11 @@ sciSetNumColors (sciPointObj * pobj, int numcolors)
 }
 
 /**
-* sciSetBackgroundColor function 
+* sciInitBackgroundColor function 
 * Set the stored value of BackgroundColor index
 * @return 0 if ok, -1 if not (no GraphicContext)
 */
-int sciSetBackgroundColor (sciPointObj * pobj, int colorindex)
+int sciInitBackgroundColor (sciPointObj * pobj, int colorindex)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -506,25 +506,33 @@ int sciSetBackgroundColor (sciPointObj * pobj, int colorindex)
   if(sciGetGraphicContext(pobj) != NULL)
   {
     sciGetGraphicContext(pobj)->backgroundcolor=colorindex;
-    if (sciGetEntityType(pobj) == SCI_FIGURE && !isFigureModel(pobj))
-    {
-      /* disable protection since this function will call Java */
-      disableFigureSynchronization(pobj);
-      sciSetJavaBackground(pobj, colorindex);
-      enableFigureSynchronization(pobj);
-    }
     return 0;
   }
-  printSetGetErrorMessage("background");
+  printSetGetErrorMessage("backgroundcolor");
   return -1;
 }
 
+int sciSetBackgroundColor (sciPointObj * pobj, int colorindex)
+{
+  if(sciInitBackgroundColor(pobj, colorindex) != 0)
+    return -1;
+  if(sciGetEntityType(pobj) == SCI_FIGURE && !isFigureModel(pobj))
+  {
+    /* disable protection since this function will call Java */
+    disableFigureSynchronization(pobj);
+    sciSetJavaBackground(pobj, colorindex);
+    enableFigureSynchronization(pobj);
+  }
+  return 0;
+}
+
+
 /**
-* sciSetForegroundColor function 
+* sciInitForegroundColor function 
 * Set the stored value of ForegroundColor index
 * @return 0 if ok, -1 if not (no GraphicContext)
 */
-int sciSetForegroundColor (sciPointObj * pobj, int colorindex)
+int sciInitForegroundColor (sciPointObj * pobj, int colorindex)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
@@ -536,8 +544,13 @@ int sciSetForegroundColor (sciPointObj * pobj, int colorindex)
     sciGetGraphicContext(pobj)->foregroundcolor=colorindex;
     return 0;
   }
-  printSetGetErrorMessage("background");
+  printSetGetErrorMessage("foregroundcolor");
   return -1;
+}
+
+int sciSetForegroundColor (sciPointObj * pobj, int colorindex)
+{
+   return sciInitForegroundColor(pobj, colorindex);
 }
 
 /**
@@ -2810,6 +2823,27 @@ sciSetIsFilled (sciPointObj * pobj, BOOL isfilled)
   }
   return sciInitIsFilled( pobj, isfilled ) ;
 
+}
+
+/**
+* sciInitFillColor function 
+* Set the stored value of fillcolor index
+* @return 0 if ok, -1 if not (no GraphicContext)
+*/
+int sciInitFillColor (sciPointObj * pobj, int colorindex)
+{
+  if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
+  {
+    GFXSetFillColor(pobj, colorindex);
+    return 0;
+  }
+  if(sciGetGraphicContext(pobj) != NULL)
+  {
+    sciGetGraphicContext(pobj)->fillcolor=colorindex;
+    return 0;
+  }
+  printSetGetErrorMessage("fillcolor");
+  return -1;
 }
 
 
