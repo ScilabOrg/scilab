@@ -266,7 +266,7 @@ int sciGetBackgroundColor (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetBackgroundColor(pobj);
+    return GetBackgroundColor(pobj);
   }
   if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -284,7 +284,7 @@ int sciGetForegroundColor (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetForegroundColor(pobj);
+    return GetForegroundColor(pobj);
   }
   if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -302,7 +302,7 @@ int sciGetMarkBackgroundColor (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetMarkBackgroundColor(pobj);
+    return GetMarkBackgroundColor(pobj);
   }
   if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -320,7 +320,7 @@ int sciGetMarkForegroundColor (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetMarkForegroundColor(pobj);
+    return GetMarkForegroundColor(pobj);
   }
   if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -505,7 +505,7 @@ double sciGetLineWidth (sciPointObj * pobj)
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
     double LineWidth;
-    GFXGetLineWidth(pobj, &LineWidth);
+    GetLineWidth(pobj, &LineWidth);
     return LineWidth;
   }
   else if (sciGetGraphicContext(pobj) != NULL)
@@ -524,7 +524,7 @@ int sciGetLineStyle (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetLineStyle(pobj);
+    return GetLineStyle(pobj);
   }
   else if (sciGetGraphicContext(pobj) != NULL)
   {
@@ -542,7 +542,7 @@ BOOL sciGetIsMark (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetIsMarked(pobj);
+    return GetIsMarked(pobj);
   }
   else if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -560,7 +560,7 @@ int sciGetMarkStyle (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetMarkStyle(pobj);
+    return GetMarkStyle(pobj);
   }
   else if (sciGetGraphicContext(pobj) != NULL)
   {
@@ -581,7 +581,7 @@ int sciGetMarkSize (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetMarkSize(pobj);
+    return GetMarkSize(pobj);
   }
   else if (sciGetGraphicContext(pobj) != NULL )
   {
@@ -601,7 +601,7 @@ int sciGetMarkSizeUnit (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetMarkSizeUnit(pobj);
+    return GetMarkSizeUnit(pobj);
   }
   else if (sciGetGraphicContext(pobj) != NULL)
   {
@@ -620,7 +620,7 @@ BOOL sciGetIsLine (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetIsLined(pobj);
+    return GetIsLined(pobj);
   }
   else if (sciGetGraphicContext(pobj) != NULL)
   {
@@ -653,7 +653,7 @@ BOOL sciGetIsFilled (sciPointObj * pobj)
   default:
     if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
     {
-      return GFXGetIsFilled(pobj);
+      return GetIsFilled(pobj);
     }
     else if (sciGetGraphicContext(pobj) != NULL)
     {
@@ -675,7 +675,7 @@ int sciGetFillColor (sciPointObj * pobj)
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    return GFXGetFillColor(pobj);
+    return GetFillColor(pobj);
   }
   if(sciGetGraphicContext(pobj) != NULL)
   {
@@ -1280,7 +1280,7 @@ sciGetIsClipRegionValuated (sciPointObj * pobj)
       break;
     case SCI_RECTANGLE:
       // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
-      return GFXGetClippingRegionSet(pobj);
+      return GetClippingRegionSet(pobj);
       break;   
     case SCI_SEGS: 
       return pSEGS_FEATURE (pobj)->clip_region_set;
@@ -1332,7 +1332,7 @@ sciGetIsClipping (sciPointObj * pobj)
       break;
     case SCI_RECTANGLE:
       // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
-      return GFXGetClippingMethode(pobj);
+      return GetClippingMethode(pobj);
       break;   
     case SCI_SEGS: 
       return pSEGS_FEATURE (pobj)->isclip;
@@ -1636,7 +1636,7 @@ sciGetVisibility (sciPointObj * pobj)
       break;
     case SCI_RECTANGLE:
       // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
-      return GFXGetVisibility(pobj);
+      return GetVisibility(pobj);
       break;
     case SCI_SURFACE:
       return pSURFACE_FEATURE (pobj)->visible;
@@ -2056,8 +2056,8 @@ double *sciGetPoint(sciPointObj * pthis, int *numrow, int *numcol)
 
 // SCIGFX : But que chaque objet fasse son calcul.
     case SCI_RECTANGLE:
-      tab = (double*) CALLOC(GFXPointSize(pthis),sizeof(double));   //TODO test != NULL
-      GFXGetPoint(pthis, tab, numrow, numcol);
+      tab = (double*) CALLOC(SCIGFX_GetDataSize(pthis),sizeof(double));   //TODO test != NULL
+      SCIGFX_GetData(pthis, tab, numrow, numcol);
       return tab;
       break;
 // fin SCI_RECTANGLE
@@ -2320,7 +2320,7 @@ void sciGetPointerToUserData (sciPointObj * pobj,int ***user_data_ptr, int **siz
       break;
     case SCI_RECTANGLE:
       // SCIGFX : But que tout les 'case' donnent le même code et fusionnent
-      GFXGetPointerToUserData(pobj, user_data_ptr, size_ptr);
+      GetPointerToUserData(pobj, user_data_ptr, size_ptr);
       break;
     case SCI_SURFACE:
       *user_data_ptr = &(((sciSurface *) pSURFACE_FEATURE (pobj))->user_data);

@@ -21,6 +21,7 @@
 #include "localization.h"
 #include "getDictionaryGetProperties.h"
 #include "MALLOC.h"
+
 /**
  * use for the singleton to know if the hashtable has already be created.
  */
@@ -247,6 +248,12 @@ GetPropertyHashTable * createScilabGetHashTable( void )
 /*--------------------------------------------------------------------------*/
 int callGetProperty( sciPointObj * pObj, char * propertyName )
 {
+
+  if(sciGetEntityType (pObj) > SCIGFX_ENTITY) //New API entities
+  {
+    return getPropertyByName(pObj, propertyName);
+  }
+
   getPropertyFunc accessor = searchGetHashtable( getHashTable, propertyName ) ;
   if ( accessor == NULL )
   {Scierror(999, _("Unknown property: %s.\n"), propertyName ) ;

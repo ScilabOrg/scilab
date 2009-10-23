@@ -668,7 +668,7 @@ int sciStandardDestroyOperations( sciPointObj * pThis )
 	destroyRelationShip(pThis);
   if(sciGetEntityType (pThis) & SCIGFX_ENTITY) //New API entities
   {
-    GFXDeleteFeatures(pThis);
+    DeleteFeatures(pThis);
   }
   else
   {

@@ -29,10 +29,10 @@ int get_clip_box_property( sciPointObj * pobj )
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-    if(GFXGetClippingRegionSet(pobj))
+    if(GetClippingRegionSet(pobj))
     {
       double area[4];
-      GFXGetClippingRegion(pobj,area);
+      GetClippingRegion(pobj,area);
       return sciReturnRowVector(area, 4);
     }
     return sciReturnEmptyMatrix();

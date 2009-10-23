@@ -1197,7 +1197,7 @@ ConstructRectangle (sciPointObj * pparentsubwin, double x, double y,
     return NULL;
   sciSetEntityType (pObj, SCI_RECTANGLE);
   sciStandardBuildOperations(pObj, pparentsubwin);//efface le pDrawer.
-  BuildGFXRectangle(pObj, x, y, height, width, foreground, background, isfilled, isline);
+  BuildRectangle(pObj, x, y, height, width, foreground, background, isfilled, isline);
   return pObj;
 
 /**-------------

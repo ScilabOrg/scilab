@@ -198,7 +198,6 @@ am__objects_1 = libscirenderer_la-DrawableSubwinFactory.lo \
 	libscirenderer_la-RectangleFillDrawerJavaMapper.lo \
 	libscirenderer_la-RectangleLineDrawerJavaMapper.lo \
 	libscirenderer_la-RectangleMarkDrawerJavaMapper.lo \
-	libscirenderer_la-GFXRectangle.lo \
 	libscirenderer_la-DrawableFigureGL.lo \
 	libscirenderer_la-DrawableSubwinGL.lo \
 	libscirenderer_la-DrawablePolylineGL.lo \
@@ -663,7 +662,7 @@ libscirenderer_la_root_DATA = changelog.txt license.txt readme.txt version.xml
 libscirenderer_la_etcdir = $(mydatadir)/etc
 libscirenderer_la_etc_DATA = etc/renderer.quit etc/renderer.start
 
-# List of the c files
+# List of the cpp files
 RENDERER_CPP_SOURCES = \
 src/cpp/subwinDrawing/DrawableSubwinFactory.cpp \
 src/cpp/subwinDrawing/DrawableSubwin.cpp \
@@ -739,7 +738,6 @@ src/cpp/rectangleDrawing/DrawableRectangleJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleFillDrawerJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleLineDrawerJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleMarkDrawerJavaMapper.cpp \
-src/cpp/rectangleDrawing/GFXRectangle.cpp \
 src/jni/DrawableFigureGL.cpp \
 src/jni/DrawableSubwinGL.cpp \
 src/jni/DrawablePolylineGL.cpp \
@@ -933,6 +931,7 @@ libscirenderer_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 				-I$(srcdir)/src/jni/ \
 				-I$(top_srcdir)/modules/jvm/includes \
 				-I$(top_srcdir)/modules/graphics/includes/ \
+				-I$(top_srcdir)/modules/graphics/src/cpp/ \
 				-I$(top_srcdir)/modules/graphics/includes/handleDrawing/ \
 				-I$(top_srcdir)/libs/doublylinkedlist/includes \
 				-I$(top_srcdir)/modules/output_stream/includes \
@@ -1291,7 +1290,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-FullBoxDrawerGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-FullBoxDrawerJavaMapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-FullBoxDrawerJoGL.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GFXRectangle.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GetJavaProperty.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GiwsException.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-GlobalSynchronizer.Plo@am__quote@
@@ -1993,13 +1991,6 @@ libscirenderer_la-RectangleMarkDrawerJavaMapper.lo: src/cpp/rectangleDrawing/Rec
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/rectangleDrawing/RectangleMarkDrawerJavaMapper.cpp' object='libscirenderer_la-RectangleMarkDrawerJavaMapper.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-RectangleMarkDrawerJavaMapper.lo `test -f 'src/cpp/rectangleDrawing/RectangleMarkDrawerJavaMapper.cpp' || echo '$(srcdir)/'`src/cpp/rectangleDrawing/RectangleMarkDrawerJavaMapper.cpp
-
-libscirenderer_la-GFXRectangle.lo: src/cpp/rectangleDrawing/GFXRectangle.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-GFXRectangle.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-GFXRectangle.Tpo -c -o libscirenderer_la-GFXRectangle.lo `test -f 'src/cpp/rectangleDrawing/GFXRectangle.cpp' || echo '$(srcdir)/'`src/cpp/rectangleDrawing/GFXRectangle.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscirenderer_la-GFXRectangle.Tpo $(DEPDIR)/libscirenderer_la-GFXRectangle.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/rectangleDrawing/GFXRectangle.cpp' object='libscirenderer_la-GFXRectangle.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-GFXRectangle.lo `test -f 'src/cpp/rectangleDrawing/GFXRectangle.cpp' || echo '$(srcdir)/'`src/cpp/rectangleDrawing/GFXRectangle.cpp
 
 libscirenderer_la-DrawableFigureGL.lo: src/jni/DrawableFigureGL.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-DrawableFigureGL.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-DrawableFigureGL.Tpo -c -o libscirenderer_la-DrawableFigureGL.lo `test -f 'src/jni/DrawableFigureGL.cpp' || echo '$(srcdir)/'`src/jni/DrawableFigureGL.cpp

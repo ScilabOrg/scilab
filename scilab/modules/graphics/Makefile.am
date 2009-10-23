@@ -24,6 +24,22 @@ libscigraphics_la_etc_DATA = etc/graphics.quit etc/graphics.start
 
 
 
+# List of the cpp files
+GRAPHICS_CPP_SOURCES = \
+src/cpp/scigfx_API.cpp \
+src/cpp/scigfx_ColorMapUser.cpp \
+src/cpp/scigfx_PropertyContainer.cpp \
+src/cpp/scigfx_CallBackable.cpp \
+src/cpp/scigfx_DataContainer.cpp \
+src/cpp/scigfx_Rectangle.cpp \
+src/cpp/scigfx_CastObject.cpp \
+src/cpp/scigfx_GraphicContext.cpp \
+src/cpp/scigfx_UserDataContainer.cpp \
+src/cpp/scigfx_Clipped.cpp \
+src/cpp/scigfx_Movable.cpp \
+src/cpp/scigfx_Visible.cpp
+
+
 # the module Doublylinkedlist  is included here... of course, it is not
 # used in the mode without gui but It causes some silly problems with includes
 libscigraphics_la_CFLAGS = -I$(top_srcdir)/libs/doublylinkedlist/includes/ \
@@ -36,6 +52,7 @@ libscigraphics_la_CFLAGS = -I$(top_srcdir)/libs/doublylinkedlist/includes/ \
 	-I$(top_srcdir)/modules/string/includes/
 
 
+# List of the c files
 GRAPHICS_C_SOURCES = src/c/GetCommandArg.c \
 src/c/WindowList.c \
 src/c/loadTextRenderingAPI.c \
@@ -425,16 +442,33 @@ libscigraphics_la_CFLAGS +=	$(JAVA_JNI_INCLUDE) \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
 				-I$(top_srcdir)/modules/graphic_export/includes/
 
+# Includes need for the compilation
+libscigraphics_la_CPPFLAGS =  	$(JAVA_JNI_INCLUDE) \
+				-I$(srcdir)/includes/ \
+				-I$(srcdir)/src/cpp/ \
+				-I$(top_srcdir)/modules/jvm/includes \
+				-I$(top_srcdir)/modules/renderer/includes/ \
+				-I$(top_srcdir)/modules/renderer/src/jni/ \
+				-I$(top_srcdir)/modules/renderer/include/ \
+				-I$(top_srcdir)/modules/renderer/src/cpp/ \
+				-I$(top_srcdir)/modules/graphics/includes/handleDrawing/ \
+				-I$(top_srcdir)/libs/doublylinkedlist/includes \
+				-I$(top_srcdir)/modules/output_stream/includes \
+				-I$(top_srcdir)/modules/graphic_export/includes/ \
+				-I$(top_srcdir)/modules/elementary_functions/includes/ \
+				-I$(top_srcdir)/modules/api_scilab/includes \
+				-I$(top_srcdir)/modules/gui/includes/
+
 libscigraphics_la_CXXFLAGS =  	-Iincludes/ \
 				-Isrc/c/ $(JAVA_JNI_INCLUDE) \
 				-I$(top_srcdir)/modules/jvm/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
 			 	-I$(top_srcdir)/modules/graphic_export/includes/
 
-libscigraphics_la_SOURCES = $(GRAPHICS_C_SOURCES) $(GATEWAY_C_SOURCES) $(GRAPHICS_CPP_SOURCES)
+libscigraphics_la_SOURCES = $(GRAPHICS_CPP_SOURCES) $(GRAPHICS_C_SOURCES) $(GATEWAY_C_SOURCES)
 
 # For the code check (splint)
-CHECK_SRC= $(GRAPHICS_C_SOURCES) $(GATEWAY_C_SOURCES)
+CHECK_SRC= $(GRAPHICS_CPP_SOURCES) $(GRAPHICS_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscigraphics_la_CFLAGS)
 
 libscigraphics_la_LIBADD =  $(top_builddir)/libs/hashtable/libscihashtable.la $(top_builddir)/modules/action_binding/libsciaction_binding.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/renderer/libscirenderer.la $(top_builddir)/modules/tclsci/libscitclsci.la $(top_builddir)/modules/gui/libscigui.la $(top_builddir)/libs/doublylinkedlist/libscidoublylinkedlist.la $(top_builddir)/modules/core/libscicore.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/modules/fileio/libscifileio.la $(top_builddir)/modules/jvm/libscijvm.la

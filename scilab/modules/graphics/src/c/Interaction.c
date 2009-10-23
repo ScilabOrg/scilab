@@ -76,7 +76,7 @@ sciAddCallback (sciPointObj * pthis,char *code, int len, int mevent )
       break;
     case SCI_RECTANGLE:
     //SCIGFX : but tout fusioner
-    GFXSetCallback (pthis,code, len, mevent);
+    SetCallback (pthis,code, len, mevent);
       break;
     case SCI_SEGS:  
       if ((pSEGS_FEATURE (pthis)->callback = CALLOC (len+1, sizeof (char))) == NULL)
@@ -239,7 +239,7 @@ int sciGetCallbackMouseEvent(sciPointObj * pthis)
       break;
     case SCI_RECTANGLE:
       //SCIGFX : tout fusioner
-      return GFXGetCallbackMouseEvent(pthis);
+      return GetCallbackMouseEvent(pthis);
       break;
     case SCI_TEXT:
       return pTEXT_FEATURE(pthis)->callbackevent;
@@ -290,7 +290,7 @@ int sciSetCallbackMouseEvent(sciPointObj * pthis, int mevent)
       break;
     case SCI_RECTANGLE:
       //SCIGFX : tout fusioner
-      GFXSetCallbackMouseEvent(pthis, mevent);
+      SetCallbackMouseEvent(pthis, mevent);
       break;
     case SCI_TEXT:
       pTEXT_FEATURE(pthis)->callbackevent = mevent;
@@ -338,7 +338,7 @@ sciDelCallback (sciPointObj * pthis)
       break;
     case SCI_RECTANGLE:
       //SCIGFX : tout fusioner
-      GFXDelCallback(pthis);
+      ResetCallback(pthis);
       break;
     case SCI_SEGS:  
       pSEGS_FEATURE (pthis)->callbacklen = 0;
@@ -415,7 +415,7 @@ static int moveObj(sciPointObj * pobj, double displacement[], int displacementSi
     break;
   case SCI_RECTANGLE: 
     //SCIGFX : tout fusioner
-    GFXmoveObj(pobj, displacement, displacementSize);
+    Move(pobj, displacement, displacementSize);
     break; 
   case SCI_AGREG: 
     {

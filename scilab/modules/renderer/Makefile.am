@@ -24,7 +24,7 @@ libscirenderer_la_etc_DATA = etc/renderer.quit etc/renderer.start
 
 
 
-# List of the c files
+# List of the cpp files
 RENDERER_CPP_SOURCES = \
 src/cpp/subwinDrawing/DrawableSubwinFactory.cpp \
 src/cpp/subwinDrawing/DrawableSubwin.cpp \
@@ -100,7 +100,6 @@ src/cpp/rectangleDrawing/DrawableRectangleJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleFillDrawerJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleLineDrawerJavaMapper.cpp \
 src/cpp/rectangleDrawing/RectangleMarkDrawerJavaMapper.cpp \
-src/cpp/rectangleDrawing/GFXRectangle.cpp \
 src/jni/DrawableFigureGL.cpp \
 src/jni/DrawableSubwinGL.cpp \
 src/jni/DrawablePolylineGL.cpp \
@@ -293,6 +292,7 @@ libscirenderer_la_CPPFLAGS =  	$(JAVA_JNI_INCLUDE) \
 				-I$(srcdir)/src/jni/ \
 				-I$(top_srcdir)/modules/jvm/includes \
 				-I$(top_srcdir)/modules/graphics/includes/ \
+				-I$(top_srcdir)/modules/graphics/src/cpp/ \
 				-I$(top_srcdir)/modules/graphics/includes/handleDrawing/ \
 				-I$(top_srcdir)/libs/doublylinkedlist/includes \
 				-I$(top_srcdir)/modules/output_stream/includes \

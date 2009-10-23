@@ -29,8 +29,8 @@ int get_callback_property( sciPointObj * pobj )
 {
   if(sciGetEntityType (pobj) & SCIGFX_ENTITY) //New API entities
   {
-      char callback[GFXGetCallbackSize()+1];
-      GFXGetCallback(pobj, callback);
+      char callback[GetCallbackSize()+1];
+      GetCallback(pobj, callback);
       return sciReturnString(callback);
   }
 
