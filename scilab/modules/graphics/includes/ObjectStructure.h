@@ -19,6 +19,11 @@
  *    newGraph Library header
  *    This file contains all structures definitions used for New Graphics mode.
  --------------------------------------------------------------------------*/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef __SCI_OBJECT_STRUCTURE__
 #define __SCI_OBJECT_STRUCTURE__
 
@@ -1118,3 +1123,6 @@ typedef struct
 sciAgreg;  /** */
 
 #endif /*__SCI_OBJECT_STRUCTURE__ */
+#ifdef __cplusplus
+} // extern "C"
+#endif

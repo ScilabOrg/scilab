@@ -21,7 +21,9 @@
  *    objects.
  --------------------------------------------------------------------------*/
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef __SCI_GET_PROPERTY__
 #define __SCI_GET_PROPERTY__
@@ -287,3 +289,6 @@ GRAPHICS_IMPEXP sciLegendPlace sciGetLegendLocation(sciPointObj * pObj);
 GRAPHICS_IMPEXP void printSetGetErrorMessage(const char * propertyName);
 
 #endif /* __SCI_GET_PROPERTY__ */
+#ifdef __cplusplus
+} // extern "C"
+#endif

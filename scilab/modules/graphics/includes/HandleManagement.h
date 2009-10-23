@@ -20,6 +20,10 @@
  *    This file contains all functions used in graphics handle management.
  --------------------------------------------------------------------------*/
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef __SCI_HANDLE_MANAGEMENT__
 #define __SCI_HANDLE_MANAGEMENT__
 
@@ -64,3 +68,6 @@ GRAPHICS_IMPEXP sciPointObj * sciGetIndexedSon(sciPointObj * pobj, int lindex);
 GRAPHICS_IMPEXP long generateNewHandle(sciPointObj * pObj);
 
 #endif /* __SCI_HANDLE_MANAGEMENT__ */
+#ifdef __cplusplus
+} // extern "C"
+#endif
