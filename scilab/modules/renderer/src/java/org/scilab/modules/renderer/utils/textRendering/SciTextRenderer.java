@@ -20,7 +20,7 @@ import java.awt.geom.Rectangle2D;
 import javax.media.opengl.GL;
 
 import java.lang.reflect.Field;
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.sun.opengl.util.awt.TextRenderer;
 
 
 /**

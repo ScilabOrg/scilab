@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.GLException;
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.sun.opengl.util.awt.TextRenderer;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureCoords;

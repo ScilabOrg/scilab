@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.sun.opengl.util.awt.TextRenderer;
 
 /**
  * Class storing the textRender objects used by a figure

@@ -15,6 +15,7 @@
 package org.scilab.modules.renderer.utils;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import org.scilab.modules.renderer.drawers.FillDrawerGL;
 import org.scilab.modules.renderer.figureDrawing.DrawableFigureGL;
@@ -225,9 +226,9 @@ public class CoordinateTransformation {
 		// get OpenGL transformation matrices
 		double[] oglModelViewMatrix = new double[MATRIX_4X4_SIZE];
 		double[] oglProjectionMatrix = new double[MATRIX_4X4_SIZE];
-		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX, oglModelViewMatrix, 0);
-		gl.glGetDoublev(GL.GL_PROJECTION_MATRIX, oglProjectionMatrix, 0);
-		//gl.glGetDoublev(GL.GL_VIEWPORT, viewPort, 0);
+		gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, oglModelViewMatrix, 0);
+		gl.glGetDoublev(GL2.GL_PROJECTION_MATRIX, oglProjectionMatrix, 0);
+		//gl.glGetDoublev(GL2.GL_VIEWPORT, viewPort, 0);
 		// force values to 0 to be compatible when
 		// OpenGL pipeline is enable. The viewport position
 		// is modified. See http://www.javagaming.org/forums/index.php?topic=16414.0.
@@ -473,15 +474,15 @@ public class CoordinateTransformation {
 			// perform anti-aliasing using accumulation buffers
 			if (antiAliasingPass == 0) {
 				// before the first pass
-				gl.glClear(GL.GL_ACCUM_BUFFER_BIT);
+				gl.glClear(GL2.GL_ACCUM_BUFFER_BIT);
 			} else  {
 				// just after the end of a pass
-				gl.glAccum(GL.GL_ACCUM, 1.0f / ((float) getNbAntialisingPass()));
+				gl.glAccum(GL2.GL_ACCUM, 1.0f / ((float) getNbAntialisingPass()));
 			}
 			
 			if (antiAliasingPass == getNbAntialisingPass()) {
 				// just after the last pass
-				gl.glAccum(GL.GL_RETURN, 1.0f);
+				gl.glAccum(GL2.GL_RETURN, 1.0f);
 				
 				// reset before next call
 				antiAliasingPass = 0;
@@ -583,15 +584,15 @@ public class CoordinateTransformation {
 //				// multisampling can be enabled
 //				// but check if we really have the requested number of buffers
 //				int[] nbSampleBuffers = {0};
-//				gl.glGetIntegerv(GL.GL_SAMPLES, nbSampleBuffers, 0);
+//				gl.glGetIntegerv(GL2.GL_SAMPLES, nbSampleBuffers, 0);
 //				if (nbSampleBuffers[0] == antiAliasingQuality) {
 //					// every thing ok, we have as many samples as we need
 //					useFallBackAntialiasing = false;
-//					gl.glEnable(GL.GL_MULTISAMPLE);
+//					gl.glEnable(GL2.GL_MULTISAMPLE);
 //				} else {
 //					// we don't have the same, number we need to use accumulation buffers
 //					useFallBackAntialiasing = true;
-//					gl.glDisable(GL.GL_MULTISAMPLE);
+//					gl.glDisable(GL2.GL_MULTISAMPLE);
 //				}
 //			} else {
 //				// gl version is lower than 1.3, multi sampling is not available
@@ -605,9 +606,9 @@ public class CoordinateTransformation {
 			// if fallback mode is on, check that accum buffer is OK
 			if (useFallBackAntialiasing) {
 				int[] nbAccumBits = {0, 0, 0};
-				gl.glGetIntegerv(GL.GL_ACCUM_RED_BITS, nbAccumBits, 0);
-				gl.glGetIntegerv(GL.GL_ACCUM_GREEN_BITS, nbAccumBits, 1);
-				gl.glGetIntegerv(GL.GL_ACCUM_BLUE_BITS, nbAccumBits, 2);
+				gl.glGetIntegerv(GL2.GL_ACCUM_RED_BITS, nbAccumBits, 0);
+				gl.glGetIntegerv(GL2.GL_ACCUM_GREEN_BITS, nbAccumBits, 1);
+				gl.glGetIntegerv(GL2.GL_ACCUM_BLUE_BITS, nbAccumBits, 2);
 				
 				if (nbAccumBits[0] == 0 || nbAccumBits[1] == 0 || nbAccumBits[2] == 0) {
 					// accum buffers not there, so disable antiAliasing

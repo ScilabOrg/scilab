@@ -13,6 +13,8 @@
 package org.scilab.modules.renderer.arcDrawing;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
+
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUnurbs;
 
@@ -81,25 +83,25 @@ public class NurbsArcFillTools extends ArcFillTools {
 		GLU glu = new GLU();
 		double angle = getSweepAngle();
 		
-		gl.glEnable(GL.GL_MAP2_VERTEX_4);
+		gl.glEnable(GL2.GL_MAP2_VERTEX_4);
 		
-		GLUnurbs nurbsObj = NurbsArcGL.createNurbsDrawer(glu);
+		GLUnurbs nurbsObj = NurbsArcGL2.createNurbsDrawer(glu);
 		
 		// draw as many quarter circle as needed
-		while (nbQuarter < NurbsArcGL.NB_QUARTER_MAX && displayedAngle < angle - NurbsArcGL.QUARTER_ANGLE) {
-			drawArcPart(glu, nurbsObj, displayedAngle, NurbsArcGL.QUARTER_ANGLE);
-			displayedAngle += NurbsArcGL.QUARTER_ANGLE;
+		while (nbQuarter < NurbsArcGL2.NB_QUARTER_MAX && displayedAngle < angle - NurbsArcGL2.QUARTER_ANGLE) {
+			drawArcPart(glu, nurbsObj, displayedAngle, NurbsArcGL2.QUARTER_ANGLE);
+			displayedAngle += NurbsArcGL2.QUARTER_ANGLE;
 			nbQuarter++;
 		}
 		
 		// finish the ramining arc if the circle is not already complete
-		if (nbQuarter < NurbsArcGL.NB_QUARTER_MAX) {
+		if (nbQuarter < NurbsArcGL2.NB_QUARTER_MAX) {
 			drawArcPart(glu, nurbsObj, displayedAngle, angle - displayedAngle);
 		}
 		
-		NurbsArcGL.destroyNurbsObj(glu, nurbsObj);
+		NurbsArcGL2.destroyNurbsObj(glu, nurbsObj);
 		
-		gl.glDisable(GL.GL_MAP2_VERTEX_4);
+		gl.glDisable(GL2.GL_MAP2_VERTEX_4);
 	}
 	
 	/**
@@ -112,7 +114,7 @@ public class NurbsArcFillTools extends ArcFillTools {
 	 */
 	public void drawArcPart(GLU glu, GLUnurbs nurbsObj, double startAngle, double sweepAngle) {
 		// the control points to draw the arc part (not partial disc).
-		float[] arcControlPoints = NurbsArcGL.computeArcControlPoints4D(startAngle, sweepAngle);
+		float[] arcControlPoints = NurbsArcGL2.computeArcControlPoints4D(startAngle, sweepAngle);
 		
 		// set the last 3 control points with the computed ones.
 		for (int i = 0; i < arcControlPoints.length; i++) {
@@ -121,8 +123,8 @@ public class NurbsArcFillTools extends ArcFillTools {
 		
 		glu.gluBeginSurface(nurbsObj);
 		glu.gluNurbsSurface(nurbsObj, KNOTS_S.length, KNOTS_S, KNOTS_T.length, KNOTS_T,
-						    CPOINT_SIZE_T * NurbsArcGL.SIZE_4D, NurbsArcGL.SIZE_4D,
-						    controlPoints, ORDER_S, ORDER_T, GL.GL_MAP2_VERTEX_4);
+						    CPOINT_SIZE_T * NurbsArcGL2.SIZE_4D, NurbsArcGL2.SIZE_4D,
+						    controlPoints, ORDER_S, ORDER_T, GL2.GL_MAP2_VERTEX_4);
 		glu.gluEndSurface(nurbsObj);
 		
 	}

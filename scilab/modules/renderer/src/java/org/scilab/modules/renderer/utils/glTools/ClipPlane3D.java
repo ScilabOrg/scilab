@@ -18,6 +18,7 @@ import org.scilab.modules.renderer.utils.geom3D.Plane3D;
 import org.scilab.modules.renderer.utils.geom3D.Vector3D;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 /**
  * Plane which can be use to clip the scene
@@ -99,10 +100,10 @@ public class ClipPlane3D extends Plane3D {
 	 * @return true if there is a clip plane available, false otherwise
 	 */
 	protected int getAvailableClipPlane(GL gl) {
-		for (int i = 0; i < GL.GL_MAX_CLIP_PLANES; i++) {
-			if (!gl.glIsEnabled(GL.GL_CLIP_PLANE0 + i)) {
+		for (int i = 0; i < GL2.GL_MAX_CLIP_PLANES; i++) {
+			if (!gl.glIsEnabled(GL2.GL_CLIP_PLANE0 + i)) {
 				// note that GL_CLIP_PLANEi == GL_CLIP_PLANE0 + i
-				return GL.GL_CLIP_PLANE0 + i;
+				return GL2.GL_CLIP_PLANE0 + i;
 			}
 		}
 		return CLIP_PLANE_NOT_AVAILABLE;

@@ -15,7 +15,7 @@ package org.scilab.modules.renderer.utils.textRendering;
 import java.awt.Font;
 
 
-import com.sun.opengl.util.j2d.TextRenderer;
+import com.sun.opengl.util.awt.TextRenderer;
 
 
 /**
