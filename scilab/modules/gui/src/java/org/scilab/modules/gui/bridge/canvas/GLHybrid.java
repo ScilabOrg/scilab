@@ -24,17 +24,20 @@ import java.awt.image.DataBufferByte;
 import java.nio.ByteBuffer;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
+import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLCapabilitiesChooser;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
 import javax.swing.JPanel;
+import javax.media.opengl.GLDrawableFactory;
+import javax.media.opengl.GLProfile;
 
 import com.sun.opengl.util.Animator;
-import com.sun.opengl.util.Screenshot;
+import com.sun.opengl.util.awt.Screenshot;
 
 
 public class GLHybrid extends JPanel implements GLAutoDrawable {
@@ -139,8 +142,8 @@ public class GLHybrid extends JPanel implements GLAutoDrawable {
 	    psm.save(gl);
 
 	    /** read the BGR values into the image */
-	    gl.glReadPixels(0, 0, getWidth(), getHeight(), GL.GL_BGR,
-		    GL.GL_UNSIGNED_BYTE,
+	    gl.glReadPixels(0, 0, getWidth(), getHeight(), GL2.GL_BGR,
+		    GL2.GL_UNSIGNED_BYTE,
 		    ByteBuffer.wrap(((DataBufferByte) image.getRaster().getDataBuffer()).getData()));
 
 	    /** Restore pixel storage modes */
@@ -242,12 +245,32 @@ public class GLHybrid extends JPanel implements GLAutoDrawable {
 	call("setAutoSwapBufferMode(boolean arg0)");
 	canvas.setAutoSwapBufferMode(arg0);
     }
-
-    public void setGL(GL gl) {
+	
+    public GL setGL(GL gl) {
 	call("setGL(GL gl)");
 	canvas.setGL(gl);
+	/* @TODO */
+	return null;
     }
+	public GLProfile getGLProfile(){
+	/* @TODO */
+		return null;
+	}
+	public void destroy(){
+	/* @TODO */
 
+	}
+	public void setContext(GLContext gc) {
+	/* @TODO */
+	}
+	public GLDrawableFactory getFactory(){
+	/* @TODO */
+		return null;
+	}
+	public javax.media.nativewindow.NativeWindow getNativeWindow(){	
+		/* @TODO */
+		return null;
+	}
     public GLContext createContext(GLContext arg0) {
 	call("createContext(GLContext arg0)");
 	return canvas.createContext(arg0);
@@ -309,30 +332,30 @@ public class GLHybrid extends JPanel implements GLAutoDrawable {
 	int[] tmp = new int[1];
 
 	void save(GL gl) {
-	    gl.glGetIntegerv(GL.GL_PACK_ALIGNMENT, tmp, 0);
+	    gl.glGetIntegerv(GL2.GL_PACK_ALIGNMENT, tmp, 0);
 	    packAlignment  = tmp[0];
-	    gl.glGetIntegerv(GL.GL_PACK_ROW_LENGTH, tmp, 0);
+	    gl.glGetIntegerv(GL2.GL_PACK_ROW_LENGTH, tmp, 0);
 	    packRowLength  = tmp[0];
-	    gl.glGetIntegerv(GL.GL_PACK_SKIP_ROWS, tmp, 0);
+	    gl.glGetIntegerv(GL2.GL_PACK_SKIP_ROWS, tmp, 0);
 	    packSkipRows   = tmp[0];
-	    gl.glGetIntegerv(GL.GL_PACK_SKIP_PIXELS, tmp, 0);
+	    gl.glGetIntegerv(GL2.GL_PACK_SKIP_PIXELS, tmp, 0);
 	    packSkipPixels = tmp[0];
-	    gl.glGetIntegerv(GL.GL_PACK_SWAP_BYTES, tmp, 0);
+	    gl.glGetIntegerv(GL2.GL_PACK_SWAP_BYTES, tmp, 0);
 	    packSwapBytes  = tmp[0];
 
-	    gl.glPixelStorei(GL.GL_PACK_ALIGNMENT, 1);
-	    gl.glPixelStorei(GL.GL_PACK_ROW_LENGTH, 0);
-	    gl.glPixelStorei(GL.GL_PACK_SKIP_ROWS, 0);
-	    gl.glPixelStorei(GL.GL_PACK_SKIP_PIXELS, 0);
-	    gl.glPixelStorei(GL.GL_PACK_SWAP_BYTES, 0);
+	    gl.glPixelStorei(GL2.GL_PACK_ALIGNMENT, 1);
+	    gl.glPixelStorei(GL2.GL_PACK_ROW_LENGTH, 0);
+	    gl.glPixelStorei(GL2.GL_PACK_SKIP_ROWS, 0);
+	    gl.glPixelStorei(GL2.GL_PACK_SKIP_PIXELS, 0);
+	    gl.glPixelStorei(GL2.GL_PACK_SWAP_BYTES, 0);
 	}
 
 	void restore(GL gl) {
-	    gl.glPixelStorei(GL.GL_PACK_ALIGNMENT, packAlignment);
-	    gl.glPixelStorei(GL.GL_PACK_ROW_LENGTH, packRowLength);
-	    gl.glPixelStorei(GL.GL_PACK_SKIP_ROWS, packSkipRows);
-	    gl.glPixelStorei(GL.GL_PACK_SKIP_PIXELS, packSkipPixels);
-	    gl.glPixelStorei(GL.GL_PACK_SWAP_BYTES, packSwapBytes);
+	    gl.glPixelStorei(GL2.GL_PACK_ALIGNMENT, packAlignment);
+	    gl.glPixelStorei(GL2.GL_PACK_ROW_LENGTH, packRowLength);
+	    gl.glPixelStorei(GL2.GL_PACK_SKIP_ROWS, packSkipRows);
+	    gl.glPixelStorei(GL2.GL_PACK_SKIP_PIXELS, packSkipPixels);
+	    gl.glPixelStorei(GL2.GL_PACK_SWAP_BYTES, packSwapBytes);
 	}
     }
 

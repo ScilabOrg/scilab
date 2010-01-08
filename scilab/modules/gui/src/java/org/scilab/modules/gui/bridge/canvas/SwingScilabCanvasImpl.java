@@ -43,12 +43,15 @@ import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
+import javax.media.opengl.awt.AWTGLAutoDrawable;
+import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
-import javax.media.opengl.GLJPanel;
+import javax.media.opengl.awt.GLJPanel;
+import javax.media.opengl.GLDrawableFactory;
+import javax.media.opengl.GLProfile;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.utils.Debug;
@@ -65,7 +68,7 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
     static {
 	long lastTime = Calendar.getInstance().getTimeInMillis();
 	try {
-	    GLCanvas tmpCanvas = new GLCanvas(new GLCapabilities());
+	    GLCanvas tmpCanvas = new GLCanvas(new GLCapabilities(null)); 	/* @TODO */
 	    Frame tmpFrame = new Frame();
 	    tmpFrame.add(tmpCanvas);
 	    tmpFrame.setVisible(true);
@@ -230,7 +233,7 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
     /**
      * @return BLOUNO
      */
-    private GLAutoDrawable getAsGL() {
+    private AWTGLAutoDrawable getAsGL() {
     	/* Don't use enableGLCanvas. */
     	/* It might change but not current type of the canvas.*/
     	if (realGLCanvas != null) {
@@ -278,10 +281,32 @@ public class SwingScilabCanvasImpl implements GLAutoDrawable, ImageObserver, Men
 	getAsGL().setAutoSwapBufferMode(arg0);
     }
 
-    public void setGL(GL arg0) {
-	getAsGL().setGL(arg0);
+    public GL setGL(GL arg0) {
+		getAsGL().setGL(arg0);
+		return null;
+		/* @TODO */
     }
 
+	public GLProfile getGLProfile(){
+		return null;
+	/* @TODO */
+	}
+	public void destroy(){
+	/* @TODO */
+	}
+	public void setContext(GLContext gc) {
+	/* @TODO */
+
+	}
+	public GLDrawableFactory getFactory(){
+	/* @TODO */
+		return null;
+
+	}
+	public javax.media.nativewindow.NativeWindow getNativeWindow(){
+	/* @TODO */
+		return null;
+	}
     public GLContext createContext(GLContext arg0) {
 	return getAsGL().createContext(arg0);
     }

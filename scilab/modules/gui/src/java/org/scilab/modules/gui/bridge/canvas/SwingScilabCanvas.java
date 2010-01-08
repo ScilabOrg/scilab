@@ -37,7 +37,7 @@ import org.scilab.modules.renderer.FigureMapper;
 import org.scilab.modules.renderer.figureDrawing.SciRenderer;
 import org.scilab.modules.renderer.utils.RenderingCapabilities;
 
-import com.sun.opengl.util.Screenshot;
+import com.sun.opengl.util.awt.Screenshot;
 
 import javax.swing.SwingUtilities;
 import java.lang.reflect.InvocationTargetException;
@@ -92,7 +92,7 @@ public class SwingScilabCanvas extends SwingScilabCanvasImpl implements SimpleCa
 	 * @return the created canvas
 	 */
 	public static SwingScilabCanvas createCanvas(int figureIndex, int antialiasingQuality) {
-		GLCapabilities cap = new GLCapabilities();
+		GLCapabilities cap = new GLCapabilities(null); 	/* @TODO */
 		
 		if (antialiasingQuality > 0) {
 			// try to enable both

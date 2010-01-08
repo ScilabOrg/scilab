@@ -41,7 +41,13 @@ public class ScilabCanvasBridge {
 	 * @return the created canvas
 	 */
 	public static SimpleCanvas createCanvas(int figureIndex, int antialiasingQuality) {
-		return SwingScilabCanvas.createCanvas(figureIndex, antialiasingQuality);
+		try {
+			return SwingScilabCanvas.createCanvas(figureIndex, antialiasingQuality);
+		} catch (Exception e){
+			System.err.println("Error : " + e.getLocalizedMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**

@@ -25,8 +25,8 @@ import javax.media.opengl.GLException;
 import org.scilab.modules.graphic_export.ExportRenderer;
 
 import com.sun.opengl.impl.GLContextImpl;
-import com.sun.opengl.util.ImageUtil;
-import com.sun.opengl.util.Screenshot;
+import com.sun.opengl.util.awt.ImageUtil;
+import com.sun.opengl.util.awt.Screenshot;
 
 /**
  * GLEventListener whose display function export the content of a glDrawable into
@@ -87,7 +87,11 @@ public class ImageExportRenderer implements GLEventListener {
 		canvas.getContext().release();
 		
 	}
-	
+
+	public void dispose(javax.media.opengl.GLAutoDrawable gl) {
+		/* @TODO */
+	}
+
 	/**
 	 * Unused
 	 * @param canvas canvas in which the renreding will be done.
