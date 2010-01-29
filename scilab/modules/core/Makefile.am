@@ -39,7 +39,6 @@ src/c/timer.c \
 src/c/stack2.c \
 src/c/xscion.c \
 src/c/SetScilabEnvironment.c \
-src/c/hashtable_core.c \
 src/c/returnanan.c \
 src/c/LoadFunctionsTab.c \
 src/c/with_module.c \
@@ -85,6 +84,10 @@ src/c/recursionFunction.c \
 src/c/typename.c \
 src/c/inittypenames.c \
 src/c/funcprot.c
+
+CORE_CPP_SOURCES = \
+src/cpp/mc_apply.cpp \
+src/cpp/hashtable_core.cpp
 
 
 if USE_DYNAMIC_STACK
@@ -256,6 +259,10 @@ sci_gateway/c/sci_readgateway.c \
 sci_gateway/c/sci_comp.c \
 sci_gateway/c/sci_exit.c
 
+
+GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_mc_apply.cpp
+
+
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_errclear.f \
 sci_gateway/fortran/sci_global.f \
 sci_gateway/fortran/sci_mtlb_mode.f \
@@ -300,6 +307,27 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/operations/includes \
 	$(XML_FLAGS)
 
+libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
+	-I$(srcdir)/src/c/ \
+	-I$(top_srcdir)/libs/MALLOC/includes/ \
+	-I$(top_srcdir)/libs/dynamiclibrary/includes/ \
+	-I$(top_srcdir)/libs/doublylinkedlist/includes \
+	-I$(top_srcdir)/modules/intersci/includes \
+	-I$(top_srcdir)/modules/call_scilab/includes \
+	-I$(top_srcdir)/modules/api_scilab/includes \
+	-I$(top_srcdir)/modules/action_binding/includes \
+	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/modules/localization/includes \
+	-I$(top_srcdir)/modules/tclsci/includes \
+	-I$(top_srcdir)/modules/dynamic_link/includes \
+	-I$(top_srcdir)/modules/pvm/includes \
+	-I$(top_srcdir)/modules/elementary_functions/includes \
+        -I$(top_srcdir)/modules/string/includes \
+        -I$(top_srcdir)/modules/fileio/includes \
+        -I$(top_srcdir)/modules/shell/includes \
+	-I$(top_srcdir)/modules/operations/includes \
+	$(XML_FLAGS)
+
 
 
 # Used by sci_getdebuginfo:
@@ -316,7 +344,7 @@ libscicore_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(XML_LIBS)
 CHECK_SRC= $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CFLAGS)
 
-libscicore_la_SOURCES = $(CORE_C_SOURCES) $(CORE_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(JNI_SOURCES)
+libscicore_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES)  $(GATEWAY_CPP_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(JNI_SOURCES)
 
 # Commented because it is easier to comment first the core module
 #�libscicore_la_LIBADD =  $(top_builddir)/modules/io/libsciio.la $(top_builddir)/modules/fftw/libscifftw.la $(top_builddir)/modules/console/libsciconsole.la $(top_builddir)/modules/special_functions/libscispecial_functions.la $(top_builddir)/modules/cacsd/libscicacsd.la $(top_builddir)/modules/polynomials/libscipolynomials.la $(top_builddir)/modules/data_structures/libscidata_structures.la $(top_builddir)/modules/boolean/libsciboolean.la $(top_builddir)/modules/dynamic_link/libscidynamic_link.la $(top_builddir)/modules/randlib/libscirandlib.la $(top_builddir)/modules/localization/libscilocalization.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/signal_processing/libscisignal_processing.la $(top_builddir)/modules/completion/libscicompletion.la $(top_builddir)/modules/action_binding/libsciaction_binding.la $(top_builddir)/modules/differential_equations/libscidifferential_equations.la $(top_builddir)/modules/tclsci/libscitclsci.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/libs/dynamiclibrary/libscidynamiclibrary.la $(top_builddir)/modules/shell/libscishell.la $(top_builddir)/modules/pvm/libscipvm.la $(top_builddir)/modules/string/libscistring.la $(top_builddir)/modules/double/libscidouble.la $(top_builddir)/modules/sound/libscisound.la $(top_builddir)/modules/intersci/libsciintersci.la $(top_builddir)/modules/graphics/libscigraphics.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/graphic_export/libscigraphic_export.la $(top_builddir)/modules/fileio/libscifileio.la $(top_builddir)/modules/spreadsheet/libscispreadsheet.la $(top_builddir)/modules/gui/libscigui.la $(top_builddir)/modules/history_manager/libscihistory_manager.la $(top_builddir)/modules/time/libscitime.la $(top_builddir)/modules/metanet/libscimetanet.la $(top_builddir)/modules/windows_tools/libsciwindows_tools.la $(top_builddir)/modules/interpolation/libsciinterpolation.la $(top_builddir)/modules/symbolic/libscisymbolic.la $(top_builddir)/libs/blas/libsciblas.la $(top_builddir)/modules/statistics/libscistatistics.la $(top_builddir)/modules/jvm/libscijvm.la $(top_builddir)/modules/sparse/libscisparse.la $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/optimization/libscioptimization.la $(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/libs/lapack/libscilapack.la
