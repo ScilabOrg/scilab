@@ -62,8 +62,6 @@ src/c/expr.c \
 src/c/getcommandlineargs.c \
 src/c/syncexec.c \
 src/c/callFunctionFromGateway.c \
-src/c/librarieslist.c \
-src/c/libraryinfo.c \
 src/c/getvariablesname.c \
 src/c/commandwords.c \
 src/c/freeArrayOfString.c \
@@ -83,7 +81,8 @@ src/c/transposeMatrix.c \
 src/c/recursionFunction.c \
 src/c/typename.c \
 src/c/inittypenames.c \
-src/c/funcprot.c
+src/c/funcprot.c \
+src/c/eqid.c
 
 CORE_CPP_SOURCES = \
 src/cpp/mc_apply.cpp \
@@ -93,7 +92,6 @@ src/cpp/hashtable_core.cpp
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
 endif
-
 
 CORE_FORTRAN_SOURCES = src/fortran/clunit.f \
 src/fortran/getlin.f \
@@ -185,7 +183,6 @@ src/fortran/clause.f \
 src/fortran/compcl.f \
 src/fortran/termf.f \
 src/fortran/expsum.f \
-src/fortran/eqid.f \
 src/fortran/copyvar.f \
 src/fortran/putid.f \
 src/fortran/itosci.f \
@@ -219,7 +216,6 @@ sci_gateway/c/sci_funcprot.c \
 sci_gateway/c/sci_newfun.c \
 sci_gateway/c/sci_warning.c \
 sci_gateway/c/sci_dispbpt.c \
-sci_gateway/c/sci_whereis.c \
 sci_gateway/c/sci_intppty.c \
 sci_gateway/c/sci_ieee.c \
 sci_gateway/c/sci_gstacksize.c \
@@ -252,8 +248,6 @@ sci_gateway/c/sci_sciargs.c \
 sci_gateway/c/sci_with_module.c \
 sci_gateway/c/sci_islittleendian.c \
 sci_gateway/c/sci_getscilabmode.c \
-sci_gateway/c/sci_librarieslist.c \
-sci_gateway/c/sci_libraryinfo.c \
 sci_gateway/c/sci_getvariablesonstack.c \
 sci_gateway/c/sci_readgateway.c \
 sci_gateway/c/sci_comp.c \
@@ -269,7 +263,6 @@ sci_gateway/fortran/sci_mtlb_mode.f \
 sci_gateway/fortran/sci_resume.f \
 sci_gateway/fortran/sci_dispbpt.f \
 sci_gateway/fortran/sci_useascommand.f \
-sci_gateway/fortran/sci_whereis.f \
 sci_gateway/fortran/sci_intppty.f \
 sci_gateway/fortran/sci_ieee.f \
 sci_gateway/fortran/sci_macrovar.f \
@@ -309,26 +302,12 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 
 libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
 	-I$(srcdir)/src/c/ \
-	-I$(top_srcdir)/libs/MALLOC/includes/ \
-	-I$(top_srcdir)/libs/dynamiclibrary/includes/ \
-	-I$(top_srcdir)/libs/doublylinkedlist/includes \
-	-I$(top_srcdir)/modules/intersci/includes \
-	-I$(top_srcdir)/modules/call_scilab/includes \
-	-I$(top_srcdir)/modules/api_scilab/includes \
-	-I$(top_srcdir)/modules/action_binding/includes \
-	-I$(top_srcdir)/modules/output_stream/includes \
-	-I$(top_srcdir)/modules/localization/includes \
-	-I$(top_srcdir)/modules/tclsci/includes \
+	-I$(srcdir)/src/cpp/ \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
-	-I$(top_srcdir)/modules/pvm/includes \
-	-I$(top_srcdir)/modules/elementary_functions/includes \
-        -I$(top_srcdir)/modules/string/includes \
-        -I$(top_srcdir)/modules/fileio/includes \
-        -I$(top_srcdir)/modules/shell/includes \
+	-I$(top_srcdir)/modules/api_scilab/includes \
 	-I$(top_srcdir)/modules/operations/includes \
-	$(XML_FLAGS)
-
-
+	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/libs/MALLOC/includes/ 
 
 # Used by sci_getdebuginfo:
 if TCLTK
@@ -345,6 +324,7 @@ CHECK_SRC= $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CFLAGS)
 
 libscicore_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES)  $(GATEWAY_CPP_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(JNI_SOURCES)
+
 
 # Commented because it is easier to comment first the core module
 #�libscicore_la_LIBADD =  $(top_builddir)/modules/io/libsciio.la $(top_builddir)/modules/fftw/libscifftw.la $(top_builddir)/modules/console/libsciconsole.la $(top_builddir)/modules/special_functions/libscispecial_functions.la $(top_builddir)/modules/cacsd/libscicacsd.la $(top_builddir)/modules/polynomials/libscipolynomials.la $(top_builddir)/modules/data_structures/libscidata_structures.la $(top_builddir)/modules/boolean/libsciboolean.la $(top_builddir)/modules/dynamic_link/libscidynamic_link.la $(top_builddir)/modules/randlib/libscirandlib.la $(top_builddir)/modules/localization/libscilocalization.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/signal_processing/libscisignal_processing.la $(top_builddir)/modules/completion/libscicompletion.la $(top_builddir)/modules/action_binding/libsciaction_binding.la $(top_builddir)/modules/differential_equations/libscidifferential_equations.la $(top_builddir)/modules/tclsci/libscitclsci.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/libs/dynamiclibrary/libscidynamiclibrary.la $(top_builddir)/modules/shell/libscishell.la $(top_builddir)/modules/pvm/libscipvm.la $(top_builddir)/modules/string/libscistring.la $(top_builddir)/modules/double/libscidouble.la $(top_builddir)/modules/sound/libscisound.la $(top_builddir)/modules/intersci/libsciintersci.la $(top_builddir)/modules/graphics/libscigraphics.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/graphic_export/libscigraphic_export.la $(top_builddir)/modules/fileio/libscifileio.la $(top_builddir)/modules/spreadsheet/libscispreadsheet.la $(top_builddir)/modules/gui/libscigui.la $(top_builddir)/modules/history_manager/libscihistory_manager.la $(top_builddir)/modules/time/libscitime.la $(top_builddir)/modules/metanet/libscimetanet.la $(top_builddir)/modules/windows_tools/libsciwindows_tools.la $(top_builddir)/modules/interpolation/libsciinterpolation.la $(top_builddir)/modules/symbolic/libscisymbolic.la $(top_builddir)/libs/blas/libsciblas.la $(top_builddir)/modules/statistics/libscistatistics.la $(top_builddir)/modules/jvm/libscijvm.la $(top_builddir)/modules/sparse/libscisparse.la $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/optimization/libscioptimization.la $(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/libs/lapack/libscilapack.la
@@ -370,57 +350,25 @@ libscicore_la_xmldir = $(mydatadir)/xml
 libscicore_la_xml_DATA = xml/modules.dtd xml/version.dtd
 
 #### core : include files ####
-libscicore_la_includedir=$(pkgincludedir)/core
+libscicore_la_includedir=$(pkgincludedir)
 libscicore_la_include_HEADERS = \
 includes/BOOL.h \
-includes/callFunctionFromGateway.h \
-includes/callinter.h \
-includes/callinterf.h \
-includes/commandwords.h \
 includes/core_math.h \
 includes/ExceptionMessage.h \
 includes/existfunction.h \
 includes/freeArrayOfString.h \
-includes/Funtab.h \
 includes/getcommandlineargs.h \
-includes/GetExceptionCode.h \
-includes/getfunctionslist.h \
 includes/getmemory.h \
-includes/getmodules.h \
-includes/getvariablesname.h \
-includes/GetXmlFileEncoding.h \
-includes/gw_core.h \
-includes/gw_user.h \
-includes/gw_user2.h \
-includes/inffic.h \
-includes/inisci-c.h \
-includes/InitializeCore.h \
-includes/intmacr2tree.h \
-includes/isanan.h \
-includes/IsAScalar.h \
-includes/islittleendian.h \
-includes/librarieslist.h \
-includes/libraryinfo.h \
-includes/loadversion.h \
+includes/getos.h \
 includes/machine.h \
-includes/machine.h.in \
-includes/machine.h.vc \
-includes/Os_specific.h \
-includes/PARAMS.h \
+includes/mode_exec.h \
 includes/PATH_MAX.h \
-includes/realmain.h \
-includes/returnanan.h \
-includes/returnProperty.h \
-includes/returnPropertyList.h \
 includes/SCIHOME.h \
 includes/scilabDefaults.h \
 includes/scilabmode.h \
-includes/scimem.h \
+includes/scisparse.h \
 includes/sciquit.h \
-includes/scirun.h \
 includes/setgetSCIpath.h \
-includes/SetScilabEnvironment.h \
-includes/sigbas.h \
 includes/stack-c.h \
 includes/stack-def.h \
 includes/stack.h \
@@ -429,22 +377,7 @@ includes/stack2.h \
 includes/stack3.h \
 includes/stackinfo.h \
 includes/stackTypeVariable.h \
-includes/stamp-h1 \
-includes/syncexec.h \
-includes/scisparse.h \
-includes/texmacs.h \
-includes/timerEvents.h \
-includes/tmpdir.h \
 includes/version.h \
-includes/warningmode.h \
-includes/x_main.h \
-includes/xscion.h \
-includes/Thread_Wrapper.h \
-includes/setPrecisionFPU.h \
-includes/LaunchScilabSignal.h \
-includes/getos.h \
-includes/mode_exec.h \
-includes/transposeMatrix.h \
-includes/recursionFunction.h
+includes/warningmode.h
 
 include $(top_srcdir)/Makefile.incl.am

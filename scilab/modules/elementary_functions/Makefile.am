@@ -53,7 +53,7 @@ src/c/add_vector.c \
 src/c/sub_vector.c
 
 # List of the cpp files
-ELEMENTARIES_FUNCTIONS_CPP_SOURCES = 	src/cpp/sortTemplate.cpp
+ELEMENTARIES_FUNCTIONS_CPP_SOURCES =
 
 SLATEC_SOURCES = src/fortran/slatec/zwrsk.f \
 src/fortran/slatec/d9b0mp.f \
@@ -140,12 +140,28 @@ src/fortran/slatec/zunk1.f \
 src/fortran/slatec/zunk2.f \
 src/fortran/slatec/zuoik.f \
 src/fortran/slatec/dlngam.f \
-src/fortran/slatec/balanc.f
+src/fortran/slatec/balanc.f \
+src/fortran/slatec/dtensbs.f \
+src/fortran/slatec/pchim.f
 
 LINPACK_SOURCES =    src/fortran/linpack/dgesl.f \
-   src/fortran/linpack/wpade.f \
-   src/fortran/linpack/wcopy.f \
-   src/fortran/linpack/dgefa.f
+	src/fortran/linpack/wpade.f \
+	src/fortran/linpack/util.f \
+	src/fortran/linpack/wcopy.f \
+	src/fortran/linpack/dgefa.f \
+	src/fortran/linpack/dgbfa.f \
+	src/fortran/linpack/dgeco.f \
+	src/fortran/linpack/dgedi.f \
+	src/fortran/linpack/dqrdc.f \
+	src/fortran/linpack/dqrsl.f \
+	src/fortran/linpack/dqrsm.f \
+	src/fortran/linpack/hhdml.f \
+	src/fortran/linpack/spofa.f \
+	src/fortran/linpack/wgeco.f \
+	src/fortran/linpack/wgefa.f \
+	src/fortran/linpack/wgesl.f \
+	src/fortran/linpack/dpofa.f \
+	src/fortran/linpack/util.f
 
 ELEMENTARIES_FUNCTIONS_FORTRAN_SOURCES = \
 src/fortran/psi.f \
@@ -274,7 +290,8 @@ src/fortran/ribesl.f \
 src/fortran/rjbesl.f \
 src/fortran/rkbesl.f \
 src/fortran/rybesl.f \
-src/fortran/old_pythag.f
+src/fortran/old_pythag.f \
+src/fortran/sdot.f
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_isequal.c \
 sci_gateway/c/sci_matrix.c \
@@ -372,6 +389,8 @@ sci_gateway/fortran/sci_f_chinesehat.f \
 sci_gateway/fortran/sci_f_exp.f \
 sci_gateway/fortran/sci_f_sort.f 
 
+EISPACK_SOURCES = src/fortran/eispack/balbak.f
+
 # Disable optimisation of the file hqror2.f comqr3.f pade.f
 noinst_LTLIBRARIES = libdummy-elementary_functions.la
 
@@ -412,7 +431,7 @@ pkglib_LTLIBRARIES = libscielementary_functions.la
 
 libscielementary_functions_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
-libscielementary_functions_la_SOURCES = $(SLATEC_SOURCES) $(LINPACK_SOURCES) $(ELEMENTARIES_FUNCTIONS_C_SOURCES) $(ELEMENTARIES_FUNCTIONS_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(ELEMENTARIES_FUNCTIONS_CPP_SOURCES)
+libscielementary_functions_la_SOURCES = $(SLATEC_SOURCES) $(LINPACK_SOURCES)  $(EISPACK_SOURCES) $(ELEMENTARIES_FUNCTIONS_C_SOURCES) $(ELEMENTARIES_FUNCTIONS_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(ELEMENTARIES_FUNCTIONS_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC= $(ELEMENTARIES_FUNCTIONS_C_SOURCES) $(GATEWAY_C_SOURCES)
@@ -458,21 +477,5 @@ libscielementary_functions_la_etc_DATA = etc/elementary_functions.quit etc/eleme
 libscielementary_functions_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscielementary_functions_la_sci_gateway_DATA = sci_gateway/elementary_functions_gateway.xml
 
-
-#### elementary_functions : include files ####
-libscielementary_functions_la_includedir=$(pkgincludedir)/elementary_functions
-libscielementary_functions_la_include_HEADERS = includes/sci_tools.h \
-includes/gw_elementary_functions.h \
-includes/elementary_functions.h \
-includes/xerhlt.h \
-includes/idmax.h \
-includes/idmin.h \
-includes/int2db.h \
-includes/rea2b.h \
-includes/rea2db.h \
-includes/scidcopy.h \
-includes/unsfdcopy.h \
-includes/finite.h \
-includes/vfinite.h
 
 include $(top_srcdir)/Makefile.incl.am
