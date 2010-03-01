@@ -233,7 +233,11 @@ struct scilab_allocated_concrete_var : virtual scilab_allocated_var,  ScilabVar 
     err= getVarType( pvApiCtx, addr, &(this->type) );
     this->read_from_stack();
   }
-
+ explicit scilab_allocated_concrete_var<ScilabVar>(int pos){
+   err= getVarAddressFromPosition(pvApiCtx, pos, &this->addr);
+   err= getVarType( pvApiCtx, addr, &(this->type) );
+   this->read_from_stack();
+ }
 
   // if n>0 : alloc n times the model, if n=0, alloc 1/n times 
   // model rowsM x colsM -> n>1 -> alloc rows= rowsM x colsM cols= n n==0 alloc rows=rowsM cols=1
@@ -275,11 +279,17 @@ template<> void scilab_allocated_concrete_var<scilab_int8_matrix>::read_from_sta
 template<> void scilab_allocated_concrete_var<scilab_string_matrix>::read_from_stack(){
   getAllocatedMatrixOfString(pvApiCtx, addr, &nrows, &ncols, &data_ptr.as_char_ptr_ptr);
 }
+
+template<>  scilab_allocated_concrete_var<scilab_c_function>::scilab_allocated_concrete_var(int pos){
+  C2F(getrhsvar)(&pos, EXTERNAL_DATATYPE, &nb_lhs, &nb_rhs, &data_ptr.as_sci_c_function,strlen(EXTERNAL_DATATYPE));  
+}
+
+
 template<> void scilab_allocated_concrete_var<scilab_c_function>::read_from_stack(){
   double* unused;
   // c'est n'imp : macro qui fait return 0 et position nécessaire :(
-  //  int ref(
-	  //  GetRhsVar(1, EXTERNAL_DATATYPE, &nb_lhs, &nb_rhs, &data_ptr.as_sci_c_function);
+  //  -> autre constructeur avec position
+
 }
 
 
@@ -312,6 +322,8 @@ template<>  scilab_allocated_concrete_var<scilab_string_matrix>::scilab_allocate
 template<>  scilab_allocated_concrete_var<scilab_complex_matrix>::scilab_allocated_concrete_var(scilab_complex_matrix const& model, std::size_t const n ){
   std::cerr<<"unimplemented complex returned value\n";
 }
+
+
 
 
 scilab_allocated_var* scilab_allocated_var::create(scilab_var const& m, std::size_t n){
@@ -354,8 +366,8 @@ scilab_allocated_var* scilab_allocated_var::get(int pos){
     res = new scilab_allocated_concrete_var<scilab_string_matrix>(addr);
     break;
   }
-  case sci_c_function : {
-    res = new scilab_allocated_concrete_var<scilab_c_function>(addr);
+  case sci_c_function : {// must use position with GetRhsVar for sci_c_function :( :( :(
+    res = new scilab_allocated_concrete_var<scilab_c_function>(pos);
     break;
   }
   default : { std::cerr<<"unimplemented type in scilab_allocated_var fatory !!!\n";}
