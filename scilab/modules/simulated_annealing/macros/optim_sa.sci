@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+// Copyright (C) 2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,7 +8,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [x_best, f_best, mean_list, var_list, temp_list, f_history, x_history] = optim_sa(x0, sa_f, ItExt, ItInt, T0, Log, param)
+function [x_best, f_best, mean_list, var_list, temp_list, f_history, x_history , It ] = optim_sa(x0, sa_f, ItExt, ItInt, T0, Log, param)
 // Simulated annealing
 // x0         : initial solution
 // f          : objective function
@@ -20,15 +21,16 @@ function [x_best, f_best, mean_list, var_list, temp_list, f_history, x_history] 
 
 [nargout, nargin] = argn();
 
-if ~isdef('param','local') then
+if ~isdef("param","local") then
   param = [];
 end
 
-[temp_law,err]    = get_param(param,'temp_law',temp_law_default);
-[neigh_func,err]  = get_param(param,'neigh_func',neigh_func_default);
-[accept_func,err] = get_param(param,'accept_func',accept_func_default);
+[temp_law,err]    = get_param(param,"temp_law",temp_law_default);
+[neigh_func,err]  = get_param(param,"neigh_func",neigh_func_default);
+[accept_func,err] = get_param(param,"accept_func",accept_func_default);
+[output_func,err] = get_param(param,"output_func",[]);
 
-if (~isdef('Log','local')) then
+if (~isdef("Log","local")) then
   Log = %F;
 end
 
@@ -53,13 +55,13 @@ else
   x_history_defined = %F;
 end
 
-if ~isdef('sa_f','local') then
+if ~isdef("sa_f","local") then
   error(gettext("optim_sa: sa_f is mandatory"));
 else
-  if typeof(sa_f)=='list' then
-    deff('y=_sa_f(x)','y=sa_f(1)(x, sa_f(2:$))');
+  if typeof(sa_f)=="list" then
+    deff("y=_sa_f(x)","y=sa_f(1)(x, sa_f(2:$))");
   else
-    deff('y=_sa_f(x)','y=sa_f(x)');
+    deff("y=_sa_f(x)","y=sa_f(x)");
   end
 end
 
@@ -76,7 +78,14 @@ f_current = _sa_f(x_current);
 x_best = x_current;
 f_best = f_current;
 
-for i=1:ItExt
+for It=1:ItExt
+  if ( output_func <> [] ) then
+    stop = output_func ( It , x_best , f_best , T , saparams );
+    if (stop) then
+      break
+    end
+  end
+
   f_list = [];
   x_list = list();
   for j=1:ItInt
@@ -116,10 +125,10 @@ for i=1:ItExt
   var_list  = [var_list step_var];
   
   if (Log) then
-    printf(gettext("%s: Temperature step %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = %f\n"), "optim_sa", i, ItExt, T, step_mean, step_var, f_best);
+    printf(gettext("%s: Temperature step %d / %d - T = %f, E(f(T)) = %f var(f(T)) = %f f_best = %f\n"), "optim_sa", It, ItExt, T, step_mean, step_var, f_best);
   end
 
-  T = temp_law(T, step_mean, step_var, i, max(size(x_current)), param);
+  T = temp_law(T, step_mean, step_var, It, max(size(x_current)), param);
 end
 endfunction
 

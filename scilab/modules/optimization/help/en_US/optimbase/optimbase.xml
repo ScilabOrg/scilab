@@ -32,7 +32,6 @@ value = optimbase_get (this,key)
 this = optimbase_set ( this , key , value )
 [ this , isok ] = optimbase_checkbounds ( this )
 [ opt , isok ] = optimbase_checkx0 ( this )
-this = optimbase_display ( this )
 [ this , f , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )
 [ this , f , c , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )
 [ this , f , g , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )
@@ -599,31 +598,17 @@ g_i(x) &lt;= 0, i = 1,nbineq
       </varlistentry>
 
       <varlistentry>
-        <term>this = optimbase_display ( this )</term>
+        <term>[ this , f , index [ , data ] ] = optimbase_function ( this , x
+        , index [ , data ] )</term>
 
-        <listitem>
-          <para>Display the current settings in the console.</para>
+        <term>[ this , f , c , index [ , data ] ] = optimbase_function ( this
+        , x , index [ , data ] )</term>
 
-          <variablelist>
-            <varlistentry>
-              <term>this</term>
+        <term>[ this , f , g , index [ , data ] ] = optimbase_function ( this
+        , x , index [ , data ] )</term>
 
-              <listitem>
-                <para>The current object.</para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>[ this , f , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )</term>
-
-        <term>[ this , f , c , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )</term>
-
-        <term>[ this , f , g , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )</term>
-
-        <term>[ this , f , g , c , gc , index [ , data ] ] = optimbase_function ( this , x , index [ , data ] )</term>
+        <term>[ this , f , g , c , gc , index [ , data ] ] =
+        optimbase_function ( this , x , index [ , data ] )</term>
 
         <listitem>
           <para>Call the cost function and return the required results.</para>
@@ -643,6 +628,7 @@ g_i(x) &lt;= 0, i = 1,nbineq
 
             <varlistentry>
               <term>x</term>
+
               <listitem>
                 <para>the current point, as a column vector</para>
               </listitem>
@@ -650,48 +636,55 @@ g_i(x) &lt;= 0, i = 1,nbineq
 
             <varlistentry>
               <term>index</term>
+
               <listitem>
                 <para>what value to compute.</para>
+
                 <para>See below in the section "Cost function" for details on
                 this index.</para>
               </listitem>
             </varlistentry>
-	    
+
             <varlistentry>
               <term>f</term>
+
               <listitem>
                 <para>the value of the cost function</para>
               </listitem>
             </varlistentry>
-	    
+
             <varlistentry>
               <term>g</term>
+
               <listitem>
                 <para>the gradient of the cost function</para>
               </listitem>
             </varlistentry>
-	    
+
             <varlistentry>
               <term>c</term>
+
               <listitem>
                 <para>the nonlinear, positive, inequality constraints</para>
               </listitem>
             </varlistentry>
-	    
+
             <varlistentry>
               <term>gc</term>
+
               <listitem>
-                <para>the gradient of the nonlinear, positive, inequality constraints</para>
+                <para>the gradient of the nonlinear, positive, inequality
+                constraints</para>
               </listitem>
             </varlistentry>
-	    
+
             <varlistentry>
               <term>data</term>
+
               <listitem>
                 <para>an optionnal user-provided argument</para>
               </listitem>
             </varlistentry>
-	    
           </variablelist>
         </listitem>
       </varlistentry>
@@ -1358,30 +1351,34 @@ g_i(x) &lt;= 0, i = 1,nbineq
   <refsection>
     <title>The cost function</title>
 
-    <para>The <literal>-function</literal> option  allows to configure the cost function. The cost
-    function is used, depending on the context, to compute the cost, the
-    nonlinear inequality positive constraints, the gradient of the function
-    and the gradient of the nonlinear inequality constraints.</para>
+    <para>The <literal>-function</literal> option allows to configure the cost
+    function. The cost function is used, depending on the context, to compute
+    the cost, the nonlinear inequality positive constraints, the gradient of
+    the function and the gradient of the nonlinear inequality
+    constraints.</para>
 
     <para>The cost function can also be used to produce outputs and to
     terminate an optimization algorithm.</para>
 
-    <para>In the following, the variables are </para>
+    <para>In the following, the variables are</para>
+
     <itemizedlist>
       <listitem>
         <para><literal>f</literal>: scalar, the objective,</para>
       </listitem>
-      
+
       <listitem>
-        <para><literal>g</literal>: row matrix, the gradient of the objective,</para>
+        <para><literal>g</literal>: row matrix, the gradient of the
+        objective,</para>
       </listitem>
-      
+
       <listitem>
         <para><literal>c</literal>: row matrix, the constraints,</para>
       </listitem>
-      
+
       <listitem>
-        <para><literal>gc</literal>: matrix, the gradient of the constraints.</para>
+        <para><literal>gc</literal>: matrix, the gradient of the
+        constraints.</para>
       </listitem>
     </itemizedlist>
 
@@ -1392,82 +1389,96 @@ g_i(x) &lt;= 0, i = 1,nbineq
     <itemizedlist>
       <listitem>
         <para>If the -withderivatives is false and there is no nonlinear
-        constraint, the calling sequence is </para>
-	<programlisting role="example"><![CDATA[ 
+        constraint, the calling sequence is</para>
+
+        <programlisting role="example"> 
 [ this , f , index ] = optimbase_function ( this , x , index )
- ]]></programlisting> 
-	<para>which corresponds to the cost functions</para>
-	<programlisting role="example"><![CDATA[ 
+ </programlisting>
+
+        <para>which corresponds to the cost functions</para>
+
+        <programlisting role="example"> 
 function [ f , index ] = costf ( x , index ) 
 function [ f , index , data ] = costf ( x , index , data ) // if there is a -costfargument
- ]]></programlisting>
+ </programlisting>
       </listitem>
 
       <listitem>
         <para>If the -withderivatives is false and there are nonlinear
-        constraints, the calling sequence is </para>
-	<programlisting role="example"><![CDATA[ 
+        constraints, the calling sequence is</para>
+
+        <programlisting role="example"> 
 [ this , f , c , index ] = optimbase_function ( this , x , index )
- ]]></programlisting>
-	<para>which corresponds to the cost functions</para>
-	<programlisting role="example"><![CDATA[ 
+ </programlisting>
+
+        <para>which corresponds to the cost functions</para>
+
+        <programlisting role="example"> 
 function [ f , c , index ] = costf ( x , index ) 
 function [ f , c , index , data ] = costf ( x , index , data ) // if there is a -costfargument
- ]]></programlisting>
+ </programlisting>
       </listitem>
 
       <listitem>
         <para>If the -withderivatives is true and there is no nonlinear
         constraint, the calling sequence is</para>
-	<programlisting role="example"><![CDATA[ 
+
+        <programlisting role="example"> 
 [ this , f , g , index ] = optimbase_function ( this , x , index )
- ]]></programlisting> 
-	<para>which corresponds to the cost functions</para>
-	<programlisting role="example"><![CDATA[ 
+ </programlisting>
+
+        <para>which corresponds to the cost functions</para>
+
+        <programlisting role="example"> 
 function [ f , g , index ] = costf ( x , index ) 
 function [ f , g , index , data ] = costf ( x , index , data ) // if there is a -costfargument
- ]]></programlisting>
+ </programlisting>
       </listitem>
 
       <listitem>
         <para>If the -withderivatives is true and there is are nonlinear
         constraints, the calling sequence is</para>
-	<programlisting role="example"><![CDATA[ 
+
+        <programlisting role="example"> 
 [ this , f , g , c , gc , index ] = optimbase_function ( this , x , index )
- ]]></programlisting> 
-	<para>which corresponds to the cost functions</para>
-	<programlisting role="example"><![CDATA[ 
+ </programlisting>
+
+        <para>which corresponds to the cost functions</para>
+
+        <programlisting role="example"> 
 function [ f , g , c , gc , index ] = costf ( x , index ) 
 function [ f , g , c , gc , index , data ] = costf ( x , index , data ) // if there is a -costfargument
- ]]></programlisting>
+ </programlisting>
       </listitem>
     </itemizedlist>
 
     <para>Each calling sequence corresponds to a particular class of
     algorithms, including for example</para>
+
     <itemizedlist>
       <listitem>
         <para>unconstrained, derivative-free algorithms,</para>
       </listitem>
-      
+
       <listitem>
         <para>nonlinearily constrained, derivative-free algorithms,</para>
       </listitem>
-      
+
       <listitem>
         <para>unconstrained, derivative-based algorithms,</para>
       </listitem>
-      
+
       <listitem>
         <para>nonlinearilyconstrained, derivative-based algorithms,</para>
       </listitem>
-      
+
       <listitem>
         <para>etc...</para>
       </listitem>
     </itemizedlist>
-    <para> The current component is designed in order to be able to
-      handle many situations.</para>
+
+    <para>The current component is designed in order to be able to handle many
+    situations.</para>
 
     <para>The index input parameter has the following meaning.</para>
 
@@ -1755,7 +1766,8 @@ opt = optimbase_new();
 opt = optimbase_configure(opt,"-numberofvariables",2);
 nbvar = optimbase_cget(opt,"-numberofvariables");
 opt = optimbase_configure(opt,"-function",rosenbrock);
-[ this , f , index ] = optimbase_function ( opt , [0.0 0.0] , index );
+[ this , f , index ] = optimbase_function ( opt , [0.0 0.0] , 1 );
+opt
 opt = optimbase_destroy(opt);
  </programlisting>
   </refsection>
@@ -1763,7 +1775,7 @@ opt = optimbase_destroy(opt);
   <refsection>
     <title>Authors</title>
 
-    <para>Michael Baudin, 2008-2009</para>
+    <para>Michael Baudin, 2008-2010</para>
   </refsection>
 
   <refsection>

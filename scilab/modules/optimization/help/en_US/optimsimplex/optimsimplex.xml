@@ -55,7 +55,6 @@ m = optimsimplex_fvmean ( this )
 sd = optimsimplex_fvstdev ( this )
 v = optimsimplex_fvvariance ( this )
 [ g , data ] = optimsimplex_gradientfv ( this , fun , method , data )
-optimsimplex_print ( this )
 [ r , data ] = optimsimplex_reflect ( this , fun , data )
 [ this , data ] = optimsimplex_shrink ( this , fun , sigma , data )
 ssize = optimsimplex_size ( this , method )
@@ -217,16 +216,16 @@ cen = optimsimplex_xbar ( this , iexcl )</synopsis>
     <variablelist>
       <varlistentry>
         <term>newobj = optimsimplex_new ( )</term>
+
         <listitem>
-          <para>
-	  Creates a new simplex object. All input arguments are
+          <para>Creates a new simplex object. All input arguments are
           optional. If no input argument is provided, returns an empty simplex
-          object.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-                <programlisting> 
+          object.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 newobj = optimsimplex_new ( coords )
 newobj = optimsimplex_new ( coords , fun )
 [ newobj , data ] = optimsimplex_new ( coords , fun , data )
@@ -260,19 +259,14 @@ newobj = optimsimplex_new ( coords , fun )
               <listitem>
                 <para>optional, the function to compute at vertices.</para>
 
-                <para>
-		The function is expected to have the following input and
-                output arguments :
-                </para>
+                <para>The function is expected to have the following input and
+                output arguments :</para>
 
                 <programlisting> 
 function y = myfunction (x)
                 </programlisting>
- 
-                 <para>
-		where <literal>x</literal> is a row vector.
-                </para>
 
+                <para>where <literal>x</literal> is a row vector.</para>
               </listitem>
             </varlistentry>
 
@@ -305,19 +299,20 @@ function [ y , data ] = myfunction ( x , data )
 
       <varlistentry>
         <term>this = optimsimplex_new ( "axes" , x0 )</term>
+
         <listitem>
-          <para>
-	  Creates a new simplex object so that it is computed axis by
-          axis, with the given length.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+          <para>Creates a new simplex object so that it is computed axis by
+          axis, with the given length.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 this = optimsimplex_new ( "axes" , x0 , fun )
 this = optimsimplex_new ( "axes" , x0 , fun , len )
 [ this , data ] = optimsimplex_new ( "axes" , x0 , fun , len , data )
  </programlisting>
+
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -390,16 +385,16 @@ function [ y , data ] = myfunction ( x , data )
 
       <varlistentry>
         <term>this = optimsimplex_new ( "pfeffer" , x0 )</term>
+
         <listitem>
-          <para>
-	  Creates a new simplex so that it is computed from Pfeffer's
+          <para>Creates a new simplex so that it is computed from Pfeffer's
           method, i.e. a relative delta for non-zero values and an absolute
-          delta for zero values.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+          delta for zero values.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 this = optimsimplex_new ( "pfeffer" , x0 , fun )
 this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual )
 this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero )
@@ -486,16 +481,16 @@ function [ y , data ] = myfunction ( x , data )
       <varlistentry>
         <term>this = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin ,
         boundsmax , nbpoints )</term>
+
         <listitem>
-          <para>
-	  Creates a new simplex so that it is computed by taking the
+          <para>Creates a new simplex so that it is computed by taking the
           bounds into account with random scaling. The number of vertices in
-          the simplex is arbitrary.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+          the simplex is arbitrary.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 [ this , data ] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbpoints , data )
  </programlisting>
 
@@ -594,15 +589,14 @@ function [ y , data ] = myfunction ( x , data )
         <term>this = optimsimplex_new ( "spendley" , x0 )</term>
 
         <listitem>
-          <para>
-	  Creates a new simplex so that it is computed from Spendley's
+          <para>Creates a new simplex so that it is computed from Spendley's
           et al. method, i.e. a regular simplex made of nbve = n+1
-          vertices.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+          vertices.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 this = optimsimplex_new ( "spendley" , x0 , fun )
 this = optimsimplex_new ( "spendley" , x0 , fun , len )
 [ this , data ] = optimsimplex_new ( "spendley" , x0 , fun , len, data )
@@ -678,18 +672,18 @@ function [ y , data ] = myfunction ( x , data )
 
       <varlistentry>
         <term>this = optimsimplex_new ( "oriented" , simplex0 , fun )</term>
+
         <listitem>
-          <para>
-	  Returns a new oriented simplex, in sorted order. The new
+          <para>Returns a new oriented simplex, in sorted order. The new
           simplex has the same sigma- length of the base simplex, but is
           "oriented" depending on the function value. The created simplex may
           be used, as Kelley suggests, for a restart of Nelder-Mead
-          algorithm.
-	  </para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+          algorithm.</para>
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 [ this , data ] = optimsimplex_new ( "oriented" , simplex0 , fun, data )
  </programlisting>
 
@@ -1467,10 +1461,11 @@ function [ y , data ] = myfunction ( x , data )
 
         <listitem>
           <para>Returns the simplex gradient of the function.</para>
-          <para>
-	  The following is a complete list of available calling sequences.
-	  </para>
-	  <programlisting> 
+
+          <para>The following is a complete list of available calling
+          sequences.</para>
+
+          <programlisting> 
 g = optimsimplex_gradientfv ( this , fun , method )
 [ g , data ] = optimsimplex_gradientfv ( this , fun , method , data )
  </programlisting>
@@ -1534,25 +1529,6 @@ function [ y , data ] = myfunction ( x , data )
                 computing the function value. This feature may be used, for
                 example, to count the number of times that the function has
                 been called.</para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>optimsimplex_print ( this )</term>
-
-        <listitem>
-          <para>Display the current simplex, with coordinates and function
-          values.</para>
-
-          <variablelist>
-            <varlistentry>
-              <term>this</term>
-
-              <listitem>
-                <para>The current simplex object.</para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -1827,18 +1803,18 @@ function [ y , data ] = myfunction ( x , data )
     coordinates. The function values at the vertices are unset.</para>
 
     <programlisting role="example"> 
-<![CDATA[ 
+ 
 coords = [
     0.    0.  
     1.    0.  
     0.    1.  
 ];
 s1 = optimsimplex_new ( coords );
-computed = optimsimplex_getallx ( s1 );
-computed = optimsimplex_getn(s1);
-computed = optimsimplex_getnbve (s1);
+optimsimplex_getallx ( s1 )
+optimsimplex_getn(s1)
+optimsimplex_getnbve (s1)
 s1 = optimsimplex_destroy(s1);
- ]]>
+ 
 </programlisting>
   </refsection>
 
@@ -1854,7 +1830,7 @@ s1 = optimsimplex_destroy(s1);
     one function call by vertex.</para>
 
     <programlisting role="example"> 
-<![CDATA[ 
+ 
 function y = rosenbrock (x)
   y = 100*(x(2)-x(1)^2)^2+(1-x(1))^2;
 endfunction
@@ -1865,12 +1841,12 @@ endfunction
 
 mystuff = tlist(["T_MYSTUFF","nb"]);
 mystuff.nb = 0;
-s1 = optimsimplex_new ();
-[ s1 , mystuff ] = optimsimplex_randbounds ( s1 , x0 = [-1.2 1.0], fun = mycostf, ...
-  boundsmin = [-5.0 -5.0] , boundsmax = [5.0 5.0], nbve=5 , data = mystuff );
+[ s1 , mystuff ] = optimsimplex_new ("randbounds" , [-1.2 1.0], mycostf, ...
+  [-5.0 -5.0] , [5.0 5.0], 5 , mystuff );
+s1
 mprintf("Function evaluations: %d\n",mystuff.nb)
 s1 = optimsimplex_destroy ( s1 );
-]]>
+
  </programlisting>
   </refsection>
 
@@ -1887,18 +1863,17 @@ s1 = optimsimplex_destroy ( s1 );
     <para>The first historical simplex-based algorithm is the one presented in
     "Sequential Application of Simplex Designs in Optimisation and
     Evolutionary Operation" by W. Spendley, G. R. Hext and F. R. Himsworth.
-    The "spendley" simplex creates the regular simplex which is
-    presented in the paper.</para>
+    The "spendley" simplex creates the regular simplex which is presented in
+    the paper.</para>
 
-    <para>The "randbounds" simplex is due to
-    M.J. Box in "A New Method of Constrained Optimization and a Comparison
-    With Other Methods".</para>
+    <para>The "randbounds" simplex is due to M.J. Box in "A New Method of
+    Constrained Optimization and a Comparison With Other Methods".</para>
 
     <para>Pfeffer's method is an heuristic which is presented in "Global
     Optimization Of Lennard-Jones Atomic Clusters" by Ellen Fan. It is due to
     L. Pfeffer at Stanford and it is used in fminsearch.</para>
   </refsection>
-  
+
   <refsection>
     <title>TODO</title>
 
@@ -1909,16 +1884,14 @@ s1 = optimsimplex_destroy ( s1 );
       </listitem>
 
       <listitem>
-        <para>
-	turn optimsimplex_reflect into a proper constructor, i.e. an option of the 
-	the optimsimplex_new function. Another possibility is to reflect "in place" 
-	as in the optimsimplex_shrink function (but in this case we must provide a "copy" 
-	constructor from current simplex before reflecting it).
-	</para>
+        <para>turn optimsimplex_reflect into a proper constructor, i.e. an
+        option of the the optimsimplex_new function. Another possibility is to
+        reflect "in place" as in the optimsimplex_shrink function (but in this
+        case we must provide a "copy" constructor from current simplex before
+        reflecting it).</para>
       </listitem>
     </itemizedlist>
   </refsection>
-
 
   <refsection>
     <title>Authors</title>
