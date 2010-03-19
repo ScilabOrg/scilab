@@ -155,8 +155,18 @@ Removed functions (previously declared as obsolete):
 
 * 'with_gtk' replaced by 'getversion'.
 
+<<<<<<< HEAD
 * 'readc_' replaced by 'input'.
 
+=======
+Optimization:
+=============
+
+* Updated the help pages for simulated annealing.
+
+* Added an output function to optim_sa which also manages a stopping criterion.
+ 
+>>>>>>> Fixed bug #6774
 Bug fixes:
 ==========
 
@@ -215,3 +225,7 @@ Bug fixes:
 
 * bug 6947 fixed - Some demos in "Optimization and Simulation" failed, 
                    without write rights in SCI subdirectory.
+
+* bug 6774 fixed - get_param failed when managing functions.
+
+
