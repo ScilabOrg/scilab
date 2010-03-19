@@ -167,8 +167,17 @@ Removed functions (previously declared as obsolete):
 
 * 'with_gtk' replaced by 'getversion'.
 
+<<<<<<< HEAD
 * 'readc_' replaced by 'input'.
 
+=======
+Optimization:
+=============
+
+* Updated the help pages for simulated annealing.
+
+* Added an output function to optim_sa which also manages a stopping criterion.
+ 
 Bug fixes:
 ==========
 
@@ -241,4 +250,8 @@ Bug fixes:
 
 * bug 6971 fixed - after launching a toolbox by loader.sce, variable v was
                    predefined.
+
+* bug 6774 fixed - get_param failed when managing functions.
+
+
 
