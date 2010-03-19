@@ -41,6 +41,11 @@ Documentation:
 * bug 6852 fixed - JavaHelp did not center the LaTeX formulas containing an
                    attribute align="center" 
 
+Optimization:
+=============
+
+ * Added documentation for the simulated annealing algorithm : accept_func_default and accept_func_vfsa.  
+
 Xcos:
 =====
 
