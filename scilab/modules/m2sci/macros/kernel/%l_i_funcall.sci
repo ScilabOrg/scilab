@@ -8,6 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function funcall=%l_i_funcall(field,inslist,funcall)
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%l_i_funcall", field));
 if field=="dims" then
   funcall.lhs(1).dims=inslist
 elseif field=="type" then

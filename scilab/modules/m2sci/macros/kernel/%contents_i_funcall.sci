@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function funcall=%contents_i_funcall(field,contlist,funcall)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%contents_i_funcall", field));
 if field=="contents" then
   funcall.lhs(1).infer.contents=contlist
 else

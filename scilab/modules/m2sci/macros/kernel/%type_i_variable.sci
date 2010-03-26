@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function var=%type_i_variable(field,inslist,var)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%type_i_variable", field));
 if typeof(inslist)=="ce" then
   if field=="type" then
     var.infer=inslist

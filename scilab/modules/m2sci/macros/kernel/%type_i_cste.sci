@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function cste=%type_i_cste(field,inslist,cste)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%type_i_cste", field));
 if field=="type" then
   cste.infer.type=inslist
 else

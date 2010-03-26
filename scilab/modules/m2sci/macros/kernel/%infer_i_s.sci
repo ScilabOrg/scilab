@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function M=%infer_i_s(varargin)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%infer_i_s", field));
 [lhs,rhs]=argn(0)
 M=varargin(rhs)
 N=varargin(rhs-1)//inserted matrix

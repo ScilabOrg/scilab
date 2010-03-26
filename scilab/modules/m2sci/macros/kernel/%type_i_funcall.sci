@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function funcall=%type_i_funcall(field,inslist,funcall)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%type_i_funcall", field));
 if field=="type" then
   funcall.lhs(1).type=inslist
 else

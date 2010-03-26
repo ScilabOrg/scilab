@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function var=%s_i_variable(field,cste,var)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%s_i_variable", field));
 if field=="vtype" then
   var.infer.type.vtype=cste
 elseif field=="property" then

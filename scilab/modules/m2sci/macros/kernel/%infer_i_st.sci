@@ -8,5 +8,6 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function st=%infer_i_st(field,infer,st)
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%infer_i_st", field));
 st=generic_i_st(field,infer,st)
 endfunction

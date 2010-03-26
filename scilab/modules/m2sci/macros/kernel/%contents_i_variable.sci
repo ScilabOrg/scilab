@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function variable=%contents_i_variable(field,contlist,variable)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%contents_i_variable", field));
 if field=="contents" then
   variable.infer.contents=contlist
 else

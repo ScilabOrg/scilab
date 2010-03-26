@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function val=%m2scivar_e(field,m2scitlist)
-
+m2sciError(msprintf("%s: must call ''get'' for ''%s''\n", "%m2scivar_6", field));
 val=[]
 if field=="infer" then
   val=m2scitlist.infer

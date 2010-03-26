@@ -10,7 +10,7 @@
 function infer=Infer(varargin)
 // Create a new inference tlist
 
-fields=["infer","dims","type","contents"]
+fields=["infer","dims","type","contents","isempty","isscalar","isvector","isarray"]
 
 rhs=argn(2)
 
@@ -19,6 +19,13 @@ nargs=size(varargin)
 // Infer(): all unknown
 if nargs==0 then
   infer=tlist(fields,list(Unknown,Unknown),Type(Unknown,Unknown),Contents())
+  
+  // New property fields
+  infer.isempty = Unknown;
+  infer.isscalar = Unknown;
+  infer.isvector = Unknown;
+  infer.isarray = Unknown;
+  
 elseif nargs==2 then
   if typeof(varargin(1))<>"list" then
     error(msprintf(gettext("dims must be a list instead of a: %s."),typeof(varargin(1))));
@@ -40,3 +47,7 @@ elseif nargs==3 then // Should only be used for cells and structs
   infer=tlist(fields,varargin(1),varargin(2),varargin(3))
 end
 endfunction
+
+// isempty = %T ==> Sure it is empty
+// isempty = %F ==> Sure it is not empty
+// isempty = "?" ==> I don't known

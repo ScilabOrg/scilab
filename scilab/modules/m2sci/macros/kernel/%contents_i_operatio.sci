@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function operation=%contents_i_operatio(field,contlist,operation)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%contents_i_operatio", field));
 if field=="contents" then
   operation.out(1).infer.contents=contlist
 else

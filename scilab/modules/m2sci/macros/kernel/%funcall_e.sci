@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function val=%funcall_e(field,m2scitlist)
-
+m2sciError(msprintf("%s: must call ''get'' for ''%s''\n", "%funcall_e", field));
 val=[]
 if field=="infer" then
   val=m2scitlist.lhs(1).infer

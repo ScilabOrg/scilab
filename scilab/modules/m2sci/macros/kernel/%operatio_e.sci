@@ -9,7 +9,7 @@
 
 function val=%operatio_e(field,m2scitlist)
 // File generated from %PROTO_e.g: PLEASE DO NOT EDIT !
-
+m2sciError(msprintf("%s: must call ''get'' for ''%s''\n", "%operatio_e", field));
 val=[]
 if field=="infer" then
   val=m2scitlist.out(1).infer

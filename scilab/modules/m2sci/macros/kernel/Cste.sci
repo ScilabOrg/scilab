@@ -47,5 +47,16 @@ else
   end
 end
 
-const=tlist(["cste","value","infer"],value,Infer(dims,Type(type(value),prop)))
+%infer = Infer(dims,Type(type(value),prop));
+
+const=tlist(["cste","value","infer"], value, %infer);
+
+const = set(const, "Dimensions", dims);
+const = set(const, "DataType", type(value));
+const = set(const, "IsComplex", prop);
+const = set(const, "IsEmpty", isempty(value));
+const = set(const, "IsScalar", size(value,"*")==1);
+const = set(const, "IsVector", %F);
+const = set(const, "IsArray", %F);
+
 endfunction

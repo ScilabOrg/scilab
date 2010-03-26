@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function operation=%type_i_operatio(field,inslist,operation)
-
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%type_i_operatio", field));
 if field=="type" then
   operation.out(1).type=inslist
 else

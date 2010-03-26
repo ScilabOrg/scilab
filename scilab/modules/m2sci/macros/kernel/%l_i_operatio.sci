@@ -8,6 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function operation=%l_i_operatio(field,inslist,operation)
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%l_i_operatio", field));
 if field=="dims" then
   operation.out(1).dims=inslist
 elseif field=="type" then

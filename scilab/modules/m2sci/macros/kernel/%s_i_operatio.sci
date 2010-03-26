@@ -8,6 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function op=%s_i_operatio(field,cste,op)
+m2sciError(msprintf("%s: must call ''set'' for ''%s''\n", "%s_i_operatio", field));
 if field=="vtype" then
   op.type.vtype=cste
 elseif field=="property" then

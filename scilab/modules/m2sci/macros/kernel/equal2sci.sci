@@ -78,12 +78,10 @@ else
     end
   case "cste" then
     sci_instr.lhs=lhslist;
-    sci_instr.lhs(1).dims=sci_expr.dims;
-    sci_instr.lhs(1).type=sci_expr.type;
+    sci_instr.lhs(1) = set(sci_instr.lhs(1), "AllProperties", sci_expr);
   case "variable" then
     sci_instr.lhs=lhslist;
-    sci_instr.lhs(1).dims=sci_expr.dims;
-    sci_instr.lhs(1).type=sci_expr.type;
+    sci_instr.lhs(1) = set(sci_instr.lhs(1), "AllProperties", sci_expr);
   else
     error(msprintf(gettext("%s is not yet implemented."),typeof(sci_instr.expression)));
   end
