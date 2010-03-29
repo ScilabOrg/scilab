@@ -85,7 +85,7 @@ src/c/funcprot.c \
 src/c/eqid.c
 
 CORE_CPP_SOURCES = \
-src/cpp/mc_apply.cpp \
+src/cpp/parallel_run.cpp \
 src/cpp/hashtable_core.cpp
 
 
@@ -254,7 +254,7 @@ sci_gateway/c/sci_comp.c \
 sci_gateway/c/sci_exit.c
 
 
-GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_mc_apply.cpp
+GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_parallel_run.cpp
 
 
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_errclear.f \
