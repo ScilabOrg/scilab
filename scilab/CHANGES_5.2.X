@@ -22,7 +22,6 @@ next usage. See bug #6482
 Scilab:
 =======
 
-
 * Title of the main Scilab window changed from 'Console' to 'Scilab Console'.
   See bug #5023
 
@@ -38,6 +37,18 @@ For GNU/Linux, Unix & Mac OS X:
 * Bug 6633 fixed - Unknown arguments are now accepted with option -args. This
   allows user to access to them throught the Scilab function sciargs:
   scilab -nwni -args 2 3
+
+dynamic link:
+=============
+
+* Bug 4787 fixed -  Under Linux/Unix/Mac OS X, when a library is not available, 
+  do not stop during the compiler detection but stop at build time.
+  The error message is much more explicit.
+
+call_scilab:
+============
+
+* Examples added to show how to manage returned error.
 
 Compilation:
 ============
@@ -55,6 +66,9 @@ Vyskocil
   This is done to prepare Scilab 5.3 and the mandatory dependency on 
   Java 1.6 (64 bits only).
   This option will set the LDFLAGS & source the fink init script.
+
+* CFLAGS -msse2 added under Mac OS X for Scilab module shell. See bug
+  #6839
 
 Xcos:
 =====
@@ -118,8 +132,14 @@ Obsolete Functions:
 Bug Fixes:
 ==========
 
+* bug 2395 fixed - mfile2sci could failed with "undefined variable: mfile_path" 
+                   error message for some functions conversion.
+
 * bug 4599 fixed - It was possible create many different variables with the same
                    name in the same scope.
+
+* bug 5466 fixed - "savematfile" no more append variables in file by default, 
+                   file is now reinitialized at each "savematfile" call.
 
 * bug 6472 fixed - Resizing the graphics window after having plotted several 2D
                    curves and a legend caused some of them to disappear.
@@ -167,12 +187,20 @@ Bug Fixes:
 * bug 6719 fixed - Error fixed in example of root_properties help page
                    (French version only).
 
+* bug 6720 fiwed - "caption" function doesn't handled properly polylines handles.
+
 * bug 6792 fixed - Wrong interpretation of macro arguments when the
                    macro call appeared in an list extraction.
 
 * bug 6798 fixed - About Matlab to Scilab tools help page updated.
 
+* bug 6816 fixed - Incoherent extraction when there is no index: M()
+
 * bug 6817 fixed - The "xstring" function shifted the start position of the string relative to the string length.
+
+* bug 6829 fixed - kpure fails to compute  when applied to an high degree system
+
+* bug 6834 fixed - The rotation formula in the rotate help page was incorrect.
 
 
                 Changes between Versions 5.2.0 and 5.2.1 of Scilab
