@@ -5,6 +5,9 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class Label extends TextObject {
+	/** Label properties names */
+	public enum LabelProperty { FONTANGLE, AUTOPOSITION, POSITION, AUTOROTATION };
+	
 	/** Text orientation */
 	private double fontAngle;
 	
@@ -27,31 +30,99 @@ public class Label extends TextObject {
 	}
 
 	/**
+	 * Returns the enum associated to a property name
+	 * @param propertyName the property name
+	 * @return the associated property enum
+	 */
+	public Object getPropertyFromName(String propertyName) {
+		Object returnedProp;
+
+		if (propertyName.equals("FontAngle")) {
+			returnedProp =  LabelProperty.FONTANGLE;
+		} else if (propertyName.equals("AutoPosition")) {
+			returnedProp =  LabelProperty.AUTOPOSITION;
+		} else if (propertyName.equals("Position")) {
+			returnedProp =  LabelProperty.POSITION;
+		} else if (propertyName.equals("AutoRotation")) {
+			returnedProp =  LabelProperty.AUTOROTATION;
+		} else {
+			returnedProp = super.getPropertyFromName(propertyName);
+		//System.out.format("prop toString: %s\n", contouredpropertytest.toString());
+		}
+		
+		return (Object) returnedProp;
+	}
+
+	/**
+	 * Fast property get method
+	 * @param property the property to get
+	 * @return the property
+	 */
+	public Object getPropertyFast(Object property) {
+		Object returnedProp;
+	
+		if (property == LabelProperty.FONTANGLE) {
+			returnedProp = getFontAngle();
+		} else if (property == LabelProperty.AUTOPOSITION) {
+			returnedProp = getAutoPosition();
+		} else if (property == LabelProperty.POSITION) {
+			returnedProp = getPosition();
+		} else if (property == LabelProperty.AUTOROTATION) {
+			returnedProp = getAutoRotation();
+		} else {
+			returnedProp = super.getPropertyFast(property);	
+		}
+
+		return returnedProp;
+	}
+
+	/**
+	 * Fast property set method
+	 * @param property the property to set
+	 * @param value the property value
+	 */
+	public void setPropertyFast(Object property, Object value) {
+
+//		System.out.format("prop to string: %s\n", prop.toString());
+		if (property == LabelProperty.FONTANGLE) {
+			setFontAngle((Double) value);
+		} else if (property == LabelProperty.AUTOPOSITION) {
+			setAutoPosition((Boolean) value);
+		} else if (property == LabelProperty.POSITION) {
+			setPosition((double []) value);
+		} else if (property == LabelProperty.AUTOROTATION) {
+			setAutoRotation((Boolean) value);
+		} else {
+			super.setPropertyFast(property, value);
+		}
+	}
+	
+	/**
 	 * @return the autoPosition
 	 */
-	public boolean isAutoPosition() {
+	public boolean getAutoPosition() {
 		return autoPosition;
 	}
 
 	/**
 	 * @param autoPosition the autoPosition to set
 	 */
-	public void setAutoPosition(boolean autoPosition) {
-		this.autoPosition = autoPosition;
+	public void setAutoPosition(Boolean autoPosition) {
+		this.autoPosition = autoPosition.booleanValue();
 	}
 
 	/**
 	 * @return the autoRotation
 	 */
-	public boolean isAutoRotation() {
+	public boolean getAutoRotation() {
 		return autoRotation;
 	}
 
 	/**
 	 * @param autoRotation the autoRotation to set
 	 */
-	public void setAutoRotation(boolean autoRotation) {
-		this.autoRotation = autoRotation;
+	public void setAutoRotation(Boolean autoRotation) {
+		this.autoRotation = autoRotation.booleanValue();
 	}
 
 	/**
@@ -64,8 +135,8 @@ public class Label extends TextObject {
 	/**
 	 * @param fontAngle the fontAngle to set
 	 */
-	public void setFontAngle(double fontAngle) {
-		this.fontAngle = fontAngle;
+	public void setFontAngle(Double fontAngle) {
+		this.fontAngle = fontAngle.doubleValue();
 	}
 
 	/**

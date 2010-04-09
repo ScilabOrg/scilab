@@ -1,10 +1,14 @@
 package org.scilab.modules.graphic_objects;
 
+
 /**
  * Font class
  * @author juliachs
  */
 public class Font {
+	/** Font properties names */
+	public enum FontProperty { STYLE, SIZE, COLOR, FRACTIONAL };
+	
 	/** Font style */
 	private int style;
 
@@ -26,6 +30,71 @@ public class Font {
 	}
 
 	/**
+	 * Returns the enum associated to a property name
+	 * @param propertyName the property name
+	 * @return the associated property enum
+	 */
+	public Object getPropertyFromName(String propertyName) {
+		Object returnedProp = null;
+
+		if (propertyName.equals("Style")) {
+			returnedProp =  FontProperty.STYLE;
+		} else if (propertyName.equals("Size")) {
+			returnedProp =  FontProperty.SIZE;
+		} else if (propertyName.equals("Color")) {
+			returnedProp =  FontProperty.COLOR;
+		} else if (propertyName.equals("Fractional")) {
+			returnedProp = FontProperty.FRACTIONAL;
+		}
+		
+		return (Object) returnedProp;
+	}
+
+	/**
+	 * Fast property get method
+	 * @param property the property to get
+	 * @return the property
+	 */
+	public Object getPropertyFast(Object property) {
+		Object returnedProp = null;
+		//STYLE, SIZE, COLOR, FRACTIONAL };
+		if (property == FontProperty.STYLE) {
+			returnedProp = getStyle();
+		} else if (property == FontProperty.SIZE) {
+			returnedProp = getSize();
+		} else if (property == FontProperty.COLOR) {
+			returnedProp = getColor();
+		} else if (property == FontProperty.FRACTIONAL) {
+			returnedProp = this.getFractional();
+		}
+
+		return returnedProp;
+	}
+
+	/**
+	 * Fast property set method
+	 * @param propertyEnum the property to set
+	 * @param value the property value
+	 */
+	public void setPropertyFast(Object propertyEnum, Object value) {
+
+//		System.out.format("prop to string: %s\n", prop.toString());
+		if (propertyEnum == FontProperty.STYLE) {
+			setStyle((Integer) value);
+		} else if (propertyEnum == FontProperty.SIZE) {
+			//System.out.format("Width !\n");
+			setSize((Double) value);
+		} else if (propertyEnum == FontProperty.COLOR) {
+			//System.out.format("Height !\n");
+			setColor((Integer) value);
+		} else if (propertyEnum == FontProperty.FRACTIONAL) {
+			//System.out.format("Height !\n");
+			setFractional((Boolean) value);
+		}
+	}
+
+
+	/**
 	 * @return the color
 	 */
 	public int getColor() {
@@ -35,22 +104,22 @@ public class Font {
 	/**
 	 * @param color the color to set
 	 */
-	public void setColor(int color) {
-		this.color = color;
+	public void setColor(Integer color) {
+		this.color = color.intValue();
 	}
 
 	/**
 	 * @return the fractional
 	 */
-	public boolean isFractional() {
+	public boolean getFractional() {
 		return fractional;
 	}
 
 	/**
 	 * @param fractional the fractional to set
 	 */
-	public void setFractional(boolean fractional) {
-		this.fractional = fractional;
+	public void setFractional(Boolean fractional) {
+		this.fractional = fractional.booleanValue();
 	}
 
 	/**
@@ -63,8 +132,8 @@ public class Font {
 	/**
 	 * @param size the size to set
 	 */
-	public void setSize(double size) {
-		this.size = size;
+	public void setSize(Double size) {
+		this.size = size.doubleValue();
 	}
 
 	/**
@@ -77,8 +146,8 @@ public class Font {
 	/**
 	 * @param style the style to set
 	 */
-	public void setStyle(int style) {
-		this.style = style;
+	public void setStyle(Integer style) {
+		this.style = style.intValue();
 	}
 	
 	//	 Methods: to be done

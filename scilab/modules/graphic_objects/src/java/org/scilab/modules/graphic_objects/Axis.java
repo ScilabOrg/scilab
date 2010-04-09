@@ -2,11 +2,17 @@ package org.scilab.modules.graphic_objects;
 
 import java.util.ArrayList;
 
+import org.scilab.modules.graphic_objects.Arc.ArcDrawingMethod;
+
 /**
  * Axis class
  * @author juliachs
  */
 public class Axis extends ClippableContouredObject {
+	/** Axis properties */
+	private enum AxisProperty { TICKSDIRECTION, XTICKSCOORDS, YTICKSCOORDS, TICKSCOLOR, TICKSSEGMENT, TICKSLABELS,
+		FORMATN, FONT, UNKNOWNPROP };
+
 	/** Ticks direction */
 	private enum TicksDirection { TOP, BOTTOM, LEFT, RIGHT };
 	
@@ -48,6 +54,133 @@ public class Axis extends ClippableContouredObject {
 	}
 	
 	/**
+	 * Returns the enum associated to a property name
+	 * @param propertyName the property name
+	 * @return the associated property enum
+	 */
+	public Object getPropertyFromName(String propertyName) {
+		Object returnedProp;
+
+		if (propertyName.equals("TicksDirection")) {
+			returnedProp =  AxisProperty.TICKSDIRECTION;
+		} else if (propertyName.equals("XTicksCoords")) {
+			returnedProp =  AxisProperty.XTICKSCOORDS;
+		} else if (propertyName.equals("YTicksCoords")) {
+			returnedProp =  AxisProperty.YTICKSCOORDS;
+		} else if (propertyName.equals("TicksColor")) {
+			returnedProp =  AxisProperty.TICKSCOLOR;
+		} else if (propertyName.equals("TicksSegment")) {
+			returnedProp =  AxisProperty.TICKSSEGMENT;
+		} else if (propertyName.equals("TicksLabels")) {
+			returnedProp = AxisProperty.TICKSLABELS;
+		} else if (propertyName.equals("Formatn")) {
+			returnedProp = AxisProperty.FORMATN;
+		} else if (propertyName.equals("Font")) {
+			returnedProp = AxisProperty.FONT;
+		} else if (propertyName.equals("Style")) {
+			returnedProp = Font.FontProperty.STYLE;
+		} else if (propertyName.equals("Size")) {
+			returnedProp = Font.FontProperty.SIZE;
+		} else if (propertyName.equals("Color")) {
+			returnedProp = Font.FontProperty.COLOR;
+		} else if (propertyName.equals("Fractional")) {
+			returnedProp = Font.FontProperty.FRACTIONAL;
+//					
+		} else {
+			returnedProp = super.getPropertyFromName(propertyName);
+
+		//System.out.format("prop toString: %s\n", contouredpropertytest.toString());
+		}
+		
+		return (Object) returnedProp;
+	}
+
+	
+	/**
+	 * Fast property get method
+	 * @param property the property to get
+	 * @return the property
+	 */
+	public Object getPropertyFast(Object property) {
+		Object returnedProp;
+	
+		if (property == AxisProperty.TICKSDIRECTION) {
+			returnedProp = getTicksDirection();
+		} else if (property == AxisProperty.XTICKSCOORDS) {
+			returnedProp = getXTicksCoords();
+		} else if (property == AxisProperty.YTICKSCOORDS) {
+			returnedProp = getYTicksCoords();
+		} else if (property == AxisProperty.TICKSCOLOR) {
+			returnedProp = getTicksColor();
+		} else if (property == AxisProperty.TICKSSEGMENT) {
+			returnedProp = getTicksSegment();
+		} else if (property == AxisProperty.TICKSLABELS) {
+			returnedProp = getTicksLabels();
+		} else if (property == AxisProperty.FORMATN) {
+			returnedProp = getFormatn();
+		} else if (property == AxisProperty.FONT) {
+			returnedProp = getFont();
+		} else if (property == Font.FontProperty.STYLE) {
+			returnedProp = font.getStyle();
+		} else if (property == Font.FontProperty.SIZE) {
+			returnedProp = font.getSize();
+		} else if (property == Font.FontProperty.COLOR) {
+			returnedProp = font.getColor();
+		} else if (property == Font.FontProperty.FRACTIONAL) {
+			returnedProp = font.getFractional();
+		} else {
+			returnedProp = super.getPropertyFast(property);	
+		}
+
+		return returnedProp;
+	}
+
+	
+	/**
+	 * Fast property set method
+	 * @param propertyEnum the property to set
+	 * @param value the property value
+	 */
+	public void setPropertyFast(Object propertyEnum, Object value) {
+
+//		System.out.format("prop to string: %s\n", prop.toString());
+		if (propertyEnum == AxisProperty.TICKSDIRECTION) {
+			setTicksDirection((TicksDirection) value);
+		} else if (propertyEnum == AxisProperty.XTICKSCOORDS) {
+			setXTicksCoords((double []) value);
+		} else if (propertyEnum == AxisProperty.YTICKSCOORDS) {
+			setYTicksCoords((double []) value);
+		} else if (propertyEnum == AxisProperty.TICKSCOLOR) {
+			setTicksColor((Integer) value);
+		} else if (propertyEnum == AxisProperty.TICKSSEGMENT) {
+			setTicksSegment((Boolean) value);
+		} else if (propertyEnum == AxisProperty.TICKSLABELS) {
+			setTicksLabels((ArrayList<String>) value);
+		} else if (propertyEnum == AxisProperty.FORMATN) {
+			setFormatn((String) value);
+		} else if (propertyEnum == AxisProperty.FONT) {
+			setFont((Font) value);
+		} else if (propertyEnum == Font.FontProperty.STYLE) {
+			font.setStyle((Integer) value);
+		} else if (propertyEnum == Font.FontProperty.SIZE) {
+			font.setSize((Double) value);
+		} else if (propertyEnum == Font.FontProperty.COLOR) {
+			font.setColor((Integer) value);
+		} else if (propertyEnum == Font.FontProperty.FRACTIONAL) {
+			font.setFractional((Boolean) value);
+		} else if (propertyEnum == AxisProperty.UNKNOWNPROP) {
+			System.out.format("UNKNOWN PROPERTY !");
+		} else {
+			super.setPropertyFast(propertyEnum, value);
+			
+			return;
+		}
+
+	}
+	
+	
+
+	/**
 	 * @return the font
 	 */
 	public Font getFont() {
@@ -78,15 +211,15 @@ public class Axis extends ClippableContouredObject {
 	/**
 	 * @return the ticksColor
 	 */
-	public int getTicksColor() {
-		return ticksColor;
+	public Integer getTicksColor() {
+		return new Integer(ticksColor);
 	}
 
 	/**
 	 * @param ticksColor the ticksColor to set
 	 */
-	public void setTicksColor(int ticksColor) {
-		this.ticksColor = ticksColor;
+	public void setTicksColor(Integer ticksColor) {
+		this.ticksColor = ticksColor.intValue();
 	}
 
 	/**
@@ -120,14 +253,14 @@ public class Axis extends ClippableContouredObject {
 	/**
 	 * @return the ticksSegment
 	 */
-	public boolean isTicksSegment() {
-		return ticksSegment;
+	public Boolean getTicksSegment() {
+		return new Boolean(ticksSegment);
 	}
 
 	/**
 	 * @param ticksSegment the ticksSegment to set
 	 */
-	public void setTicksSegment(boolean ticksSegment) {
+	public void setTicksSegment(Boolean ticksSegment) {
 		this.ticksSegment = ticksSegment;
 	}
 

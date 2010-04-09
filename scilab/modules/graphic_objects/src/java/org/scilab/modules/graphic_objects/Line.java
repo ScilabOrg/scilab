@@ -5,6 +5,9 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class Line {
+	/** Line properties */
+	public enum LinePropertyType { MODE, LINESTYLE, THICKNESS, COLOR };
+	
 	/** Line style */
 	enum LineType { SOLID, STYLE1, STYLE2, STYLE3, STYLE4, STYLE5, STYLE6 };
 	
@@ -59,7 +62,7 @@ public class Line {
 	/**
 	 * @return the mode
 	 */
-	public boolean isMode() {
+	public boolean getMode() {
 		return mode;
 	}
 

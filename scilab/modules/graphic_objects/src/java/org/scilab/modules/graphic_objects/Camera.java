@@ -5,8 +5,11 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class Camera {
+	/** Camera properties names */
+	public enum CameraProperty { VIEW, ISOVIEW, CUBESCALING, ROTATIONANGLES };
+	
 	/** View type */
-	private enum ViewType { VIEW_2D, VIEW_3D };
+	public enum ViewType { VIEW_2D, VIEW_3D };
 	
 	/** Specifies whether the projection must be performed for a 2D or a 3D scene */  
 	private ViewType view;
@@ -31,7 +34,7 @@ public class Camera {
 	/**
 	 * @return the cubeScaling
 	 */
-	public boolean isCubeScaling() {
+	public boolean getCubeScaling() {
 		return cubeScaling;
 	}
 
@@ -45,7 +48,7 @@ public class Camera {
 	/**
 	 * @return the isoview
 	 */
-	public boolean isIsoview() {
+	public boolean getIsoview() {
 		return isoview;
 	}
 

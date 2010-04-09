@@ -7,6 +7,10 @@ package org.scilab.modules.graphic_objects;
 public class Polyline extends ClippableContouredObject {
 	/** TBD: data */
 	// Data data -> Data Model
+	/* TBD: properties relative to the data model */
+	/** Polyline properties names */
+	private enum PolylineProperty { CLOSED, ARROWSIZEFACTOR, POLYLINESTYLE, INTERPCOLORVECTOR, INTERPCOLORMODE,
+		XSHIFT, YSHIFT, ZSHIFT, BARWIDTH };
 
 	/** Specifies whether the polyline is closed */
 	private boolean closed;
@@ -50,6 +54,73 @@ public class Polyline extends ClippableContouredObject {
 	}
 
 	/**
+	 * Returns the enum associated to a property name
+	 * @param propertyName the property name
+	 * @return the associated property enum
+	 */
+	public Object getPropertyFromName(String propertyName) {
+		Object returnedProp;
+
+		if (propertyName.equals("Closed")) {
+			returnedProp =  PolylineProperty.CLOSED;
+		} else if (propertyName.equals("ArrowSizeFactor")) {
+			returnedProp =  PolylineProperty.ARROWSIZEFACTOR;
+		} else if (propertyName.equals("PolylineStyle")) {
+			returnedProp =  PolylineProperty.POLYLINESTYLE;
+		} else if (propertyName.equals("InterpColorVector")) {
+			returnedProp =  PolylineProperty.INTERPCOLORVECTOR;
+		} else if (propertyName.equals("InterpColorMode")) {
+			returnedProp =  PolylineProperty.INTERPCOLORMODE;
+		} else if (propertyName.equals("XShift")) {
+			returnedProp = PolylineProperty.XSHIFT;
+		} else if (propertyName.equals("YShift")) {
+			returnedProp = PolylineProperty.YSHIFT;
+		} else if (propertyName.equals("ZShift")) {
+			returnedProp = PolylineProperty.ZSHIFT;
+		} else if (propertyName.equals("BarWidth")) {
+			returnedProp = PolylineProperty.BARWIDTH;
+		} else {
+			returnedProp = super.getPropertyFromName(propertyName);
+
+		//System.out.format("prop toString: %s\n", contouredpropertytest.toString());
+		}
+		
+		return (Object) returnedProp;
+	}	
+
+	/**
+	 * Fast property get method
+	 * @param property the property to get
+	 * @return the property
+	 */
+	public Object getPropertyFast(Object property) {
+		Object returnedProp;
+
+		if (property == PolylineProperty.CLOSED) {
+			returnedProp = getClosed();
+		} else if (property == PolylineProperty.ARROWSIZEFACTOR) {
+			returnedProp = getArrowSizeFactor();
+		} else if (property == PolylineProperty.POLYLINESTYLE) {
+			returnedProp = getPolylineStyle();
+		} else if (property == PolylineProperty.INTERPCOLORVECTOR) {
+			returnedProp = this.getInterpColorVector();
+		} else if (property == PolylineProperty.INTERPCOLORMODE) {
+			returnedProp = this.getInterpColorMode();
+		} else if (property == PolylineProperty.XSHIFT) {
+			returnedProp = getXShift();
+		} else if (property == PolylineProperty.YSHIFT) {
+			returnedProp = getYShift();
+		} else if (property == PolylineProperty.ZSHIFT) {
+			returnedProp = getZShift();
+		} else {
+			returnedProp = super.getPropertyFast(property);	
+		}
+
+		return returnedProp;
+	}
+	
+
+	/**
 	 * @return the arrowSizeFactor
 	 */
 	public double getArrowSizeFactor() {
@@ -80,7 +151,7 @@ public class Polyline extends ClippableContouredObject {
 	/**
 	 * @return the closed
 	 */
-	public boolean isClosed() {
+	public boolean getClosed() {
 		return closed;
 	}
 
@@ -94,7 +165,7 @@ public class Polyline extends ClippableContouredObject {
 	/**
 	 * @return the interpColorMode
 	 */
-	public boolean isInterpColorMode() {
+	public boolean getInterpColorMode() {
 		return interpColorMode;
 	}
 

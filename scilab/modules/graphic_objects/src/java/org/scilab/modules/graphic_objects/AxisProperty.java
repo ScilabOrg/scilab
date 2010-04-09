@@ -5,6 +5,8 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class AxisProperty {
+	// TBD AxisPropertyPropertyName
+	
 	/**
 	 * Axis location type
 	 * BOTTOM, TOP, MIDDLE, ORIGIN are allowed for an x-axis,

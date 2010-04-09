@@ -5,6 +5,9 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class FormattedText {
+	/** FormattedText properties names */
+	public enum FormattedTextProperty { TEXT, FONT };
+	
 	/** Text */
 	private String text;
 

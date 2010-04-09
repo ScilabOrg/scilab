@@ -5,8 +5,11 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class Mark {
+	/** Mark properties */
+	public enum MarkPropertyType { MODE, STYLE, MARKSIZEUNIT, FOREGROUND, BACKGROUND };
+
 	/** Mark size unit type */
-	private enum MarkSizeUnitType { POINT, TABULATED };
+	public enum MarkSizeUnitType { POINT, TABULATED };
 
 	/** Specifies whether marks must be drawn or not */
 	private boolean mode;

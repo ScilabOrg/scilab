@@ -5,12 +5,15 @@ package org.scilab.modules.graphic_objects;
  * @author juliachs
  */
 public class Box {
+	/** Box properties names */
+	public enum BoxProperty { BOX, HIDDENAXISCOLOR, TIGHTLIMITS, DATABOUNDS, REALDATABOUNDS, ZOOMBOX, AUTOSCALE };
+
 	/** Box type */
-	private static enum BoxType { ON, OFF, HIDDEN_AXES, BACK_HALF };
+	public static enum BoxType { ON, OFF, HIDDEN_AXES, BACK_HALF };
 
 	/** Box type */
 	private BoxType box;
-	
+
 	/** Hidden axis color */
 	private int hiddenAxisColor;
 
@@ -43,7 +46,7 @@ public class Box {
 	/**
 	 * @return the autoScale
 	 */
-	public boolean isAutoScale() {
+	public boolean getAutoScale() {
 		return autoScale;
 	}
 
@@ -113,7 +116,7 @@ public class Box {
 	/**
 	 * @return the tightLimits
 	 */
-	public boolean isTightLimits() {
+	public boolean getTightLimits() {
 		return tightLimits;
 	}
 
