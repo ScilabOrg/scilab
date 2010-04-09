@@ -15,12 +15,13 @@ package org.scilab.modules.xcos.block.io;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.utils.ScilabInterpreterManagement;
 import org.scilab.modules.graph.utils.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;
 import org.scilab.modules.xcos.block.BasicBlock;
-import org.scilab.modules.xcos.io.BlockReader;
+import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -28,15 +29,14 @@ import org.scilab.modules.xcos.port.input.ExplicitInputPort;
 import org.scilab.modules.xcos.port.input.ImplicitInputPort;
 import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
 import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
+import org.scilab.modules.xcos.utils.XcosConstants;
 
 /**
- * @author Clement DAVID
- *
+ * Abstract super class of all blocks which need to be updated after a context
+ * change.
  */
 public abstract class ContextUpdate extends BasicBlock {
 
-    private static final long serialVersionUID = 6076826729067963560L;
-    
     /**
      * This enum represent all the subclasses of ContextUpdate .
      *
@@ -106,42 +106,40 @@ public abstract class ContextUpdate extends BasicBlock {
 	}
     
     /**
+     * Update the block with the associated context
      * @param context new context
      */
     public void onContextChange(String[] context) {
-	//prevent to open twice
-	if (isLocked()) {
-	    return;
-	}
-	
-	final File tempOutput;
-	final File tempInput;
-	final File tempContext;
-	try {
-	    tempInput = File.createTempFile("xcos", ".h5");
-	    tempInput.deleteOnExit();
-
-	    // Write scs_m
-	    tempOutput = exportBlockStruct();
-	    // Write context
-	    tempContext = exportContext(context);
-
-	    String cmd = ScilabInterpreterManagement.buildCall("xcosBlockEval", 
-	    		tempOutput.getAbsolutePath(),
-	    		tempInput.getAbsolutePath(),
-	    		getInterfaceFunctionName(),
-	    		tempContext.getAbsolutePath());
-
 		try {
-			ScilabInterpreterManagement.synchronousScilabExec(cmd);
-		} catch (InterpreterException e) {
-			e.printStackTrace();
+			final File tempOutput = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, XcosConstants.TMPDIR);
+			final File tempInput = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, XcosConstants.TMPDIR);
+			final File tempContext = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, XcosConstants.TMPDIR);
+			
+		    // Write block
+			new H5RWHandler(tempOutput).writeBlock(this);
+		    // Write context
+			new H5RWHandler(tempContext).writeContext(context);
+	
+		    String cmd = ScilabInterpreterManagement.buildCall("xcosBlockEval", 
+		    		tempOutput.getAbsolutePath(),
+		    		tempInput.getAbsolutePath(),
+		    		getInterfaceFunctionName(),
+		    		tempContext.getAbsolutePath());
+	
+			try {
+				ScilabInterpreterManagement.synchronousScilabExec(cmd);
+			} catch (InterpreterException e) {
+				LogFactory.getLog(ContextUpdate.class).error(e);
+			}
+			BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
+			updateBlockSettings(modifiedBlock);
+		    
+		    tempInput.delete();
+		    tempOutput.delete();
+		    tempContext.delete();
+			
+		} catch (IOException e) {
+			LogFactory.getLog(ContextUpdate.class).error(e);
 		}
-		BasicBlock modifiedBlock = BlockReader.readBlockFromFile(tempInput.getAbsolutePath());
-		updateBlockSettings(modifiedBlock);
-	    
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
     }
 }
