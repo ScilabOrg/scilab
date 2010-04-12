@@ -6,18 +6,16 @@ Performance:
 ============
 
 * Fix a regression which was slowing down loops in some cases (this can
-improve performances to 50 %)
-Note that many performance improvements will be also available in 
-Scilab 5.3.0.
+  improve performances to 50 %).
+  Note that many performance improvements will be also available in Scilab 5.3.0.
 
-
-Help brower:
+Help browser:
 ============
 
 * Increase of the default size of the help browser window.
 
 * Help browser window position and size are now stored and restored for the
-next usage. See bug #6482
+  next usage. See bug #6482
 
 Scilab:
 =======
@@ -26,6 +24,7 @@ Scilab:
   See bug #5023
 
 For GNU/Linux, Unix & Mac OS X:
+
 * Arguments -h / --help added to get help about the startup script.
 
 * Clear separation in the help between users and developers arguments in
@@ -45,10 +44,67 @@ dynamic link:
   do not stop during the compiler detection but stop at build time.
   The error message is much more explicit.
 
+* In some cases, when a library is not available, we try to find it into the
+  .libs of the module (it is the case in the development source tree). 
+  However, in the binary, for any reason, if we fail to load the library
+  (missing symbol, bad format of library, etc), the error message was not
+  displayed.
+
 call_scilab:
 ============
 
 * Examples added to show how to manage returned error.
+
+Graphics:
+=========
+
+* Adding two new line style : "dot" and "double dot". See bug 6840.
+
+* bug 6472 fixed - Resizing the graphics window after having plotted several 2D
+                   curves and a legend caused some of them to disappear.
+
+* bug 6531 fixed - Adding a new color to the current colormap caused the Legend
+                   entity's default background color to change.
+
+* bug 6557 fixed - The legend order of the "plzr" function was incorrect.
+
+* bug 6648 fixed - The description of the "format_n" property was missing from
+                   the "axis_properties" online help page.
+
+* bug 6664 fixed - Setting the Axes property "tight_limits" to "on" caused the 
+                   Axes and their attached entities to disappear when data min
+                   and max bounds were equal (for any of the X,Y or Z axes).
+
+* bug 6687 fixed - The "Matplot" function didn't set the clip_state property of 
+                   the entities it creates.
+
+* bug 6712 fixed - The "title" function forced displaying axes.
+
+* bug 6718 fixed - A text in a graphic containing a "<" symbol cannot be
+                   exported in eps.
+
+* bug 6720 fixed - "caption" function doesn't handled properly polylines
+                   handles.
+
+* bug 6721 fixed - Loading a saved Axis graphics entity didn't correctly 
+                   restore its tics_direction property.
+
+* bug 6735 fixed - The "landscape" option in the print dialog as well as in
+                   xs2eps did not work as expected.
+
+* bug 6738 fixed - The horizontal line of the square root symbol was not
+                   drawn when exported.
+
+* bug 6817 fixed - The "xstring" function shifted the start position of the 
+                   string relative to the string length.
+
+* bug 6834 fixed - The rotation formula in the rotate help page was incorrect.
+
+* bug 6850 fixed - "PlotSparse" function did not use the ticks provided by the
+                   axis but drew his own.
+
+* bug 6870 fixed - Arrowed polylines with infinite value was not plotted even
+                   if it was possible.
 
 Compilation:
 ============
@@ -58,7 +114,7 @@ Compilation:
 * Support of GNU/Linux sparc64 and sh4
 
 * Improves the detection of JOGL/Gluegen under Suse/Opensuse. Thanks to Michal
-Vyskocil
+  Vyskocil
 
 * "make clean" continues even if errors are found
 
@@ -66,6 +122,8 @@ Vyskocil
   This is done to prepare Scilab 5.3 and the mandatory dependency on 
   Java 1.6 (64 bits only).
   This option will set the LDFLAGS & source the fink init script.
+
+* Some macros were duplicated during the installation process.
 
 * CFLAGS -msse2 added under Mac OS X for Scilab module shell. See bug
   #6839
@@ -79,6 +137,9 @@ Xcos:
 
 * bug 5541 fixed - The Cut/Copy-n-Paste operation did not preserve the block
                    rotation.
+
+* bug 5700 fixed - Compilation under RHE4 was failing on term.h and termcap.h
+                   inclusion. Thanks to Nicolas Vergnes for providing the fix.
 
 * bug 6415 fixed - The SAWTOOTH_f block was not working properly.
 
@@ -121,86 +182,81 @@ Tests:
 On-line Help building system:
 =============================
 
-* Compilation of the on-line help failed if two XML files had the same name. This
-  constraint has been removed.
+* Compilation of the on-line help failed if two XML files had the same name.
+  This constraint has been removed.
 
 Obsolete Functions:
 ===================
 
 * 'tk_choose' obsolete see 'x_choose'.
 
+* 'readc_' obsolete see 'input'.
+
 Bug Fixes:
 ==========
 
-* bug 2395 fixed - mfile2sci could failed with "undefined variable: mfile_path" 
+* bug 2395 fixed - mfile2sci could failed with "undefined variable: mfile_path"
                    error message for some functions conversion.
 
-* bug 4599 fixed - It was possible create many different variables with the same
-                   name in the same scope.
+* bug 4599 fixed - It was possible create many different variables with the 
+                   same name in the same scope.
+                   
+* bug 5140 fixed - lines to be executed were not printed in the console.
+                   A message box added to advice to use ""Execute into Scilab",
+                   if file is very long (more 100 lines).
 
 * bug 5466 fixed - "savematfile" no more append variables in file by default, 
                    file is now reinitialized at each "savematfile" call.
 
-* bug 6472 fixed - Resizing the graphics window after having plotted several 2D
-                   curves and a legend caused some of them to disappear.
-
-* bug 6531 fixed - Adding a new color to the current colormap caused the Legend
-                   entity's default background color to change.
-
-* bug 6557 fixed - The legend order of the plzr function was incorrect.
-
-* bug 6648 fixed - The description of the format_n property was missing from the
-                   axis_properties online help page.
-
-* bug 6664 fixed - Setting the Axes property tight_limits to "on" caused the Axes
-                   and their attached entities to disappear when data min and max
-                   bounds were equal (for any of the X,Y or Z axes).
-
-* bug 6675 fixed - x_mdialog crashed scilab with some incorrect input arguments.
-
-* bug 6687 fixed - The Matplot function didn't set the clip_state property of the
-                   entities it creates.
+* bug 6675 fixed - x_mdialog crashed scilab with some incorrect input 
+                   arguments.
 
 * bug 6698 fixed - isreal does not work on hypermatrix
 
-* bug 6718 fixed - A text in a graphic containing a "<" symbol cannot be
-                   exported in eps.
-
-* bug 6721 fixed - Loading a saved Axis graphics entity didn't correctly restore
-                   its tics_direction property.
-
-* bug 6730 fixed - problem with function calls when seen has member of an mlist.
+* bug 6730 fixed - problem with function calls when seen has member of an 
+                   mlist.
 
 * bug 6734 fixed - read_csv function contained erroneous error messages.
-
-* bug 6735 fixed - The "landscape" option in the print dialog as well as in
-                   xs2eps did not work as expected.
-
-* bug 6738 fixed - The horizontal line of the square root symbol was not
-                   drawn when exported.
 
 * bug 6739 fixed - if a Scilab coded library function is redefined in a new 
                    library, completion on its name maked Scilab crashed.
 
-* bug 6712 fixed - The "title" function forced displaying axes.
-
 * bug 6719 fixed - Error fixed in example of root_properties help page
                    (French version only).
 
-* bug 6720 fiwed - "caption" function doesn't handled properly polylines handles.
+* bug 6720 fixed - "lib" function didn't print the same thing when it was 
+                   entered several times.
 
-* bug 6792 fixed - Wrong interpretation of macro arguments when the
-                   macro call appeared in an list extraction.
+* bug 6792 fixed - Wrong interpretation of macro arguments when the macro call
+                   appeared in an list extraction.
+
+* bug 6796 fixed - test_run() crashed if SCI directory was read-only.
 
 * bug 6798 fixed - About Matlab to Scilab tools help page updated.
 
 * bug 6816 fixed - Incoherent extraction when there is no index: M()
+ 
+* bug 6829 fixed - kpure fails to compute  when applied to an high degree 
+                   system.
 
-* bug 6817 fixed - The "xstring" function shifted the start position of the string relative to the string length.
+* bug 6841 fixed - fun2string failed on simple examples containing variable
+                   extraction.
 
-* bug 6829 fixed - kpure fails to compute  when applied to an high degree system
+* bug 6787 fixed - toprint(filename) required only absolute path to filename.
 
-* bug 6834 fixed - The rotation formula in the rotate help page was incorrect.
+* bug 6788 fixed - toprint(filename) UTF8 chars in a file were mis-printed.
+
+* bug 6790 fixed - toprint(nFigure): %F was returned while actually the figure
+                   is printed.
+
+* bug 6821 fixed - in text editor, labels of contextual menu called
+                   "Execute selection into Scilab" and menu called 
+                   "Evaluate selection" were not homogenized.
+
+* bug 6864 partially fixed - ATOMS: Error messages were not homogenized.
+
+* bug 6879 fixed - Error messages in "sci_champ.c" were not homogenized.
+
 
 
                 Changes between Versions 5.2.0 and 5.2.1 of Scilab

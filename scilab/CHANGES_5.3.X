@@ -30,6 +30,8 @@ Documentation:
 * bug 6630 fixed - JavaHelp does not update existing image files when 
                    building help.
 
+* bug 6852 fixed - JavaHelp did not center the LaTeX formulas containing an
+      	   	   attribute align="center" 
 
 Xcos:
 =====
@@ -71,7 +73,7 @@ Compilation:
 * Windows 2000 is no more supported as operating system.
 
 * Scilab Mac OS X distribution relies only on Java 1.6 and is therefor now
-only available under 64 bits OS (Most of 10.5 and all 10.6 Mac OS X versions)
+  only available under 64 bits OS (Most of 10.5 and all 10.6 Mac OS X versions)
 
 * Under Mac OS X, uses /usr/libexec/java_home instead of hardcoded paths to
   retrieve JAVA_HOME
@@ -103,7 +105,7 @@ Matlab to Scilab conversion tools:
 Tests:
 ======
 
-* Mechanism of unitary tests for Java code based on TestNG added and used
+* Mechanism of unitary tests for Java code based on TestNG added and used.
 
 Text Rendering:
 ===============
@@ -115,7 +117,6 @@ Obsolete Functions:
 ===================
 
 * 'MSDOS' obsolete see 'getos' (SEP #39).
-
 
 Removed functions (previously declared as obsolete):
 ====================================================
@@ -149,9 +150,15 @@ Removed functions (previously declared as obsolete):
 * 'scilab_demos' replaced by 'demo_gui'.
 
 * 'with_gtk' replaced by 'getversion'.
+
+* 'readc_' replaced by 'input'.
  
 Bug fixes:
 ==========
+
+* bug 4672 fixed - Internal function AddFunctionInTable renamed to 
+                   getFunctionByName to avoid confusions on the actual usage
+                   of this function. Thanks to Yuvraj Tomar.
 
 * bug 6419 fixed - gstacksize() There was no way to retrieve minimum 
                    from Scilab.
@@ -182,4 +189,7 @@ Bug fixes:
 
 * bug 6740 fixed - It was not possible to launch Scilab as Minimized 
                    or Maximized Window.
+
+* bug 6830 fixed - C2F(scistring) in stack2.c was broken for macro names of 
+                   exactly 2 characters.
 

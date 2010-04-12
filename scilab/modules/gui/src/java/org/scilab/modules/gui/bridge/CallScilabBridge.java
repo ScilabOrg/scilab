@@ -2214,6 +2214,7 @@ public class CallScilabBridge {
 	 * Save the help Window size and position
 	 */
 	public static void saveHelpWindowSettings() {
+        if ((SwingScilabHelpBrowser) ScilabHelpBrowser.getHelpBrowserWithoutCreation() !=null )  {
 		SwingScilabHelpBrowser sciHelpBrowser = ((SwingScilabHelpBrowser) ScilabHelpBrowser.getHelpBrowser().getAsSimpleHelpBrowser());
 		if (sciHelpBrowser != null) {
 			SwingScilabTab consoleTab = (SwingScilabTab) sciHelpBrowser.getParent();
@@ -2224,6 +2225,7 @@ public class CallScilabBridge {
 				ConfigManager.saveHelpWindowSize(helpWindow.getDims());
 			}
 		}
+        }
 
 	}
 
@@ -2345,8 +2347,11 @@ public class CallScilabBridge {
 				Canvas canvas;
 				canvas = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getCanvas();
 				ScilabPrint scilabPrint = new ScilabPrint(canvas.dumpAsBufferedImage(), printerJob, scilabPageFormat);
-
-				return false;
+				if (scilabPrint != null) {
+					return true;
+				} else {
+					return false;
+				}
 
 			//If the OS is Linux
 			} else {
