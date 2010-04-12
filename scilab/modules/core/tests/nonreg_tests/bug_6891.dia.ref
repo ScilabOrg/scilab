@@ -1,0 +1,30 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- Non-regression test for bug 6891 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=6891
+//
+// <-- Short Description -->
+// whos did not display global variables
+whos -name %modalWarning
+Name                     Type           Size           Bytes        
+ 
+%modalWarning            *boolean       1 by 1         24           
+whos -name %t
+Name                     Type           Size           Bytes        
+ 
+%tk                      boolean        1 by 1         16           
+%t                       boolean        1 by 1         24           
+%toolboxes               *string        1 by 1         88           
+%toolboxes_dir           *string        1 by 1         160          
+whos -type polynomial
+Name                     Type           Size           Bytes        
+ 
+%z                       polynomial     1 by 1         56           
+%s                       polynomial     1 by 1         56           
+$                        polynomial     1 by 1         56           
