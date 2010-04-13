@@ -20,8 +20,17 @@ function xcosConfigureModelica()
 //     initial_scicos_tables();
 //
 // Extract only needed variable from initial_scicos_tables.sci
-//Scicos Modelica librabry path definitions========================================
+//Scicos Modelica library path definitions========================================
   modelica_libs = 'SCI/modules/scicos_blocks/macros/' + ['Electrical','Hydraulics'];
+  
+  // add TMPDIR/Modelica for generic modelica blocks
+  // needed by modelicat to compile every modelica file
+  [status,message] = mkdir(TMPDIR, 'Modelica');
+  if (status==1 | status==2)  then 
+    modelica_libs = [modelica_libs,TMPDIR + '/Modelica'];
+  else
+    messagebox(message);
+  end
   
   name=scs_m.props.title(1);
   if ~validvar(name) then 
