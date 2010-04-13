@@ -28,7 +28,7 @@ font_color = -1
 fractional_font = "off"
 links = ["Polyline";"Polyline";"Polyline"]
 legend_location = "in_upper_right"
-position = [0.7491013,0.1332972]
+position = [0.7487705,0.1332972]
 line_mode = "on"
 thickness = 1
 foreground = -1
@@ -44,11 +44,11 @@ Handle of type "Figure" with properties:
 ========================================
 children: "Axes"
 figure_position = [200,200]
-figure_size = [624,596]
-axes_size = [612,461]
+figure_size = [622,594]
+axes_size = [610,461]
 auto_resize = "on"
 viewport = [0,0]
-figure_name = "Figure n°%d"
+figure_name = "Graphic window number %d"
 figure_id = 0
 info_message = ""
 color_map= matrix 32x3
@@ -82,7 +82,7 @@ font_color = -1
 fractional_font = "off"
 links = ["Polyline";"Polyline";"Polyline"]
 legend_location = "in_upper_right"
-position = [0.7491013,0.1332972]
+position = [0.7487705,0.1332972]
 line_mode = "on"
 thickness = 1
 foreground = -1
