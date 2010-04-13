@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 
-function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc)
+function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
   // This function is restricted to Linux/Unix user only
 	if MSDOS then
 	  error(msprintf(gettext("%s: Feature not available under Microsoft Windows.\n"),'gencompilationflags_unix'));
@@ -16,7 +16,7 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc)
 	end
 	
   [lhs,rhs] = argn(0);
-  if rhs <> 4 then
+  if rhs <> 5 then
     error(msprintf(gettext("%s: Wrong number of input argument(s).\n"),"gencompilationflags_unix"));
     return
   end
@@ -34,9 +34,9 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc)
 	
 	// LDFLAGS
 	// Do not set the LDFLAGS See bug #4787
-	//	if ldflags <> '' then
-	//		cmd = cmd +" LDFLAGS="""+ldflags+""""
-	//	end
+	if ldflags <> '' & flagsType <> "configure" then
+		cmd = cmd +" LDFLAGS="""+ldflags+""""
+	end
 	
 	// FFLAGS
 	if fflags <> '' then
