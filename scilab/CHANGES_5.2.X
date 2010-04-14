@@ -77,6 +77,9 @@ Graphics:
 * bug 6648 fixed - The description of the "format_n" property was missing from
                    the "axis_properties" online help page.
 
+* bug 6660 fixed - In some cases, the print under GNU/Linux and Mac OS X was
+                   failing.
+
 * bug 6664 fixed - Setting the Axes property "tight_limits" to "on" caused the 
                    Axes and their attached entities to disappear when data min
                    and max bounds were equal (for any of the X,Y or Z axes).
@@ -178,6 +181,8 @@ Xcos:
 
 * bug 6808 fixed - The GOTO/FROM blocks did not display their parameters.
 
+* bug 6699 fixed - The Capacitor block had wrong default label settings.
+
 Tests:
 ======
 
@@ -262,6 +267,10 @@ Bug Fixes:
 * bug 6864 partially fixed - ATOMS: Error messages were not homogenized.
 
 * bug 6879 fixed - Error messages in "sci_champ.c" were not homogenized.
+
+* bug 6897 fixed - On Windows, umfpack had some wrong dependencies.
+
+* bug 6905 fixed - Error messages in "Gray.c" & "Plo2dn.c" were not homogenized.
 
 
 
