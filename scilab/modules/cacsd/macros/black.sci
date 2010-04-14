@@ -43,7 +43,10 @@ function black(varargin)
 //See also:
 //  bode nyquist  abaque freq repfreq 
 //!
-    rhs=size(varargin)
+  ieee_old = ieee();
+  ieee(2);
+
+  rhs=size(varargin)
   if type(varargin($))==10 then
     comments=varargin($),rhs=rhs-1;
   else
@@ -136,6 +139,7 @@ function black(varargin)
 	ks=[ks kk]
 	dst=0
       end
+      frq_tmp = [];
     end
   end
   kf=1
@@ -197,4 +201,5 @@ function black(varargin)
     legend([c e]',[comments(:);'2.3Db'])
   end
   drawnow()
+  ieee(ieee_old);
 endfunction
