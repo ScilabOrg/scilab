@@ -63,6 +63,8 @@ description.
 
 * bug 6668 fixed - Xcos modelica demos did not work with the new 
                    modelica compiler.
+                   
+* bug 6903 fixed - modelicat calls ocamlrun (wrong dependency on Windows).                   
 
 Compilation:
 ============
