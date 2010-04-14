@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
 
-// <-- NO CHECK ERROR OUTPUT -->
+// <-- NO CHECK REF -->
 //
 // <-- Short Description -->
 // Blocks must have valid dimensions for their settings.
