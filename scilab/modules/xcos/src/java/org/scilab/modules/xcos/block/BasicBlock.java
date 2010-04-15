@@ -42,11 +42,11 @@ import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
+import org.scilab.modules.hdf5.write.H5Write;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;
 import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.types.scilabTypes.ScilabType;
-import org.scilab.modules.hdf5.write.H5Write;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.actions.ShowHideShadowAction;
 import org.scilab.modules.xcos.block.actions.BlockDocumentationAction;
@@ -69,8 +69,8 @@ import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionTop;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.BasicBlockInfo;
-import org.scilab.modules.xcos.io.BlockReader;
+import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
+import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
@@ -648,7 +648,7 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 					LOG.trace("Updating data.");
 					
 				// Now read new Block
-			    BasicBlock modifiedBlock = BlockReader.readBlockFromFile(tempInput.getAbsolutePath());
+			    BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
 			    updateBlockSettings(modifiedBlock);
 			    
 			    getParentDiagram().fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, 
@@ -692,13 +692,10 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 	try {
 	    tempOutput = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, XcosConstants.TMPDIR);
 	    tempOutput.deleteOnExit();
-	    int fileId = H5Write.createFile(tempOutput.getAbsolutePath());
-	    H5Write.writeInDataSet(fileId, "scs_m", BasicBlockInfo.getAsScilabObj(this));
-	    H5Write.closeFile(fileId);
+	    
+	    new H5RWHandler(tempOutput).writeBlock(this);
 	    return tempOutput;
 	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (HDF5Exception e) {
 	    e.printStackTrace();
 	}
 	return null;
