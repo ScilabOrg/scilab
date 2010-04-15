@@ -31,15 +31,15 @@ function [scicos_pal, %scicos_menu, %scicos_short, modelica_libs, scicos_pal_lib
   
   //Scicos Modelica librabry path definitions========================================
   modelica_libs = 'SCI/modules/scicos_blocks/macros/' + ['Electrical','Hydraulics'];
-  
-  
-  
-  //add TMPDIR/Modelica for generic modelica blocks
-  status = mkdir(TMPDIR, 'Modelica');
-  if isdir(TMPDIR + '/Modelica') then 
-    modelica_libs = [modelica_libs,TMPDIR + '/Modelica'];
-  end,
-  
+    
+  //add TMPDIR/modelica for generic modelica blocks
+  [status,message] = mkdir(TMPDIR,'modelica');
+  if (status==1 | status==2)  then 
+    modelica_libs = [modelica_libs,TMPDIR + '/modelica'];
+  else
+    messagebox(message);
+    return
+  end
   
   //** This is the END, the END my friend". By The Doors, Apocalypse Now.
 endfunction
