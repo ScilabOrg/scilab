@@ -30,16 +30,7 @@ function [scicos_pal, %scicos_menu, %scicos_short, modelica_libs, scicos_pal_lib
   [%scicos_menu,%scicos_lhb_list,%scicos_short,%CmenuTypeOneVector] = set_initial_xcos_menus()
   
   //Scicos Modelica librabry path definitions========================================
-  modelica_libs = 'SCI/modules/scicos_blocks/macros/' + ['Electrical','Hydraulics'];
-  
-  
-  
-  //add TMPDIR/Modelica for generic modelica blocks
-  status = mkdir(TMPDIR, 'Modelica');
-  if isdir(TMPDIR + '/Modelica') then 
-    modelica_libs = [modelica_libs,TMPDIR + '/Modelica'];
-  end,
-  
+  [modelica_libs,mlibsM] = get_modelica_libs();
   
   //** This is the END, the END my friend". By The Doors, Apocalypse Now.
 endfunction

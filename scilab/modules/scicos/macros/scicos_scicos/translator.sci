@@ -41,7 +41,9 @@ function [ok]=translator(filemo,Mblocks,_Modelica_libs,Flat)
   namef = name + 'f';
 
   molibs = [];
-  mlibsM = pathconvert(TMPDIR+'/Modelica/',%f,%t);
+  
+  [modelica_libs,mlibsM] = get_modelica_libs();
+  
   for k = 1:size(Mblocks,'r')
     funam = stripblanks(Mblocks(k));
     [dirF, nameF, extF] = fileparts(funam);
