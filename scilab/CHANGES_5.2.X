@@ -49,6 +49,11 @@ dynamic link:
   However, in the binary, for any reason, if we fail to load the library
   (missing symbol, bad format of library, etc), the error message was not
   displayed.
+  
+* Bug 4575 fixed - 'makename' argument in 'ilib_mex_build', 'ilib_gen_cleaner',
+  'ilib_gen_Make', 'ilib_for_link', 'tbx_build_src' and 'tbx_build_gateway' is
+  useless.
+  A warning will be display in next major release, if you use a wrong value.
 
 call_scilab:
 ============
@@ -60,6 +65,8 @@ Graphics:
 
 * Adding two new line style : "dot" and "double dot". See bug 6840.
 
+* Temporary files in the ps export were stored at a wrong place.
+
 * bug 6472 fixed - Resizing the graphics window after having plotted several 2D
                    curves and a legend caused some of them to disappear.
 
@@ -70,6 +77,9 @@ Graphics:
 
 * bug 6648 fixed - The description of the "format_n" property was missing from
                    the "axis_properties" online help page.
+
+* bug 6660 fixed - In some cases, the print under GNU/Linux and Mac OS X was
+                   failing.
 
 * bug 6664 fixed - Setting the Axes property "tight_limits" to "on" caused the 
                    Axes and their attached entities to disappear when data min
@@ -172,6 +182,8 @@ Xcos:
 
 * bug 6808 fixed - The GOTO/FROM blocks did not display their parameters.
 
+* bug 6699 fixed - The Capacitor block had wrong default label settings.
+
 Tests:
 ======
 
@@ -256,6 +268,8 @@ Bug Fixes:
 * bug 6864 partially fixed - ATOMS: Error messages were not homogenized.
 
 * bug 6879 fixed - Error messages in "sci_champ.c" were not homogenized.
+
+* bug 6897 fixed - On Windows, umfpack had some wrong dependencies.
 
 
 
