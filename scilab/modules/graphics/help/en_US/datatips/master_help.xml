@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book [
+<!--Begin Entities-->
+<!ENTITY create_datatip SYSTEM "/home/steer/datatips-0.1/help/en_US/create_datatip.xml">
+<!ENTITY datacursormode SYSTEM "/home/steer/datatips-0.1/help/en_US/datacursormode.xml">
+<!ENTITY datatips SYSTEM "/home/steer/datatips-0.1/help/en_US/datatips.xml">
+<!ENTITY hallchart SYSTEM "/home/steer/datatips-0.1/help/en_US/hallchart.xml">
+<!ENTITY initialize_tips_struct SYSTEM "/home/steer/datatips-0.1/help/en_US/initialize_tips_struct.xml">
+<!ENTITY move_datatip SYSTEM "/home/steer/datatips-0.1/help/en_US/move_datatip.xml">
+<!ENTITY nicholschart SYSTEM "/home/steer/datatips-0.1/help/en_US/nicholschart.xml">
+<!ENTITY orth_proj SYSTEM "/home/steer/datatips-0.1/help/en_US/orth_proj.xml">
+<!ENTITY remove_a_datatip SYSTEM "/home/steer/datatips-0.1/help/en_US/remove_a_datatip.xml">
+<!ENTITY remove_datatips SYSTEM "/home/steer/datatips-0.1/help/en_US/remove_datatips.xml">
+<!ENTITY set_tip_orientation SYSTEM "/home/steer/datatips-0.1/help/en_US/set_tip_orientation.xml">
+<!ENTITY toggle_datatip SYSTEM "/home/steer/datatips-0.1/help/en_US/toggle_datatip.xml">
+<!--End Entities-->
+]>
+<book version="5.0-subset Scilab" xml:lang="en_US"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:mml="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info xml:id='datatips_manual'>
+    <title>datatips</title>
+  </info>
+
+<part xml:id='section_88f48ebd8d2415262093443da51ad7d1'>
+<title>datatips</title>
+&create_datatip;
+&datacursormode;
+&datatips;
+&hallchart;
+&initialize_tips_struct;
+&move_datatip;
+&nicholschart;
+&orth_proj;
+&remove_a_datatip;
+&remove_datatips;
+&set_tip_orientation;
+&toggle_datatip;
+</part>
+</book>

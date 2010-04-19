@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) INRIA -  Serge Steer Serge.Steer@inria.fr
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en_US" xml:id="datatips">
+  <info>
+    <pubdate>$LastChangedDate: 19-02-2010 $</pubdate>
+  </info>
+  <refnamediv>
+    <refname>datatips</refname>
+    <refpurpose>Tool for placing and editing tips along the plotted 2D curves.</refpurpose>
+  </refnamediv>
+ 
+  <refsection>
+  <title>Description</title>
+    <para>
+      With this tool, it is possible to place, move and modify tips on
+      the 2D curves. This can be done by program or interactively. The
+      commonly used mode is the interactive one:
+    </para>
+    <para>
+      Once the datatips mode has been enabled by
+      <literal>datatipToggle()</literal>, a simple left click on a curve
+      will add a tip ( a small box with informations on the current
+      point) at the nearest datapoint of the curve. Each time one left
+      click on a curve a new tip is added.
+    </para>
+    <para>
+      To move a tip, press left button on the small square mark on
+      the curve and (slowly) drag it to the desired location.
+    </para>
+    <para>
+      Clicking outside all the curves will erase all the tips already set.
+    </para>
+    <para>
+      Right click on the tip mark opens a contextual dialog. This
+      dialog allows in particular to customize the information
+      displayed in all the datatips of the associated curve.
+    </para>
+
+   <para>
+      Middle click on the tip mark opens a contextual dialog taht
+      allows to manage the orientation of the selected tip.
+    </para>
+
+
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    // this examples show how to manage tips by program
+    x=linspace(0,1,100)';
+    y=x.^3;
+    clf();
+    plot(x,y);
+    e=gce();p=e.children(1);
+    datatipCreate(p,50)
+    t=datatipCreate(p,80);
+
+    datatipMove(t) // then move the mouse along the curve and left click
+    datatipSetDisplay(p) //then modify the function in the editor an ok
+
+     ]]></programlisting>
+    <para>
+      <inlinemediaobject>
+	<imageobject>
+	  <imagedata fileref="../images/datatips.svg"/>
+	</imageobject>
+      </inlinemediaobject>
+    </para>
+  </refsection>
+  <refsection>
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="datatipToggle" >datatipToggle</link>
+      </member>
+      <member>
+        <link linkend="datatipsInitStruct">datatipsInitStruct</link>
+      </member>
+      <member>
+        <link linkend="datatipCreate">datatipCreate</link>
+      </member>
+     <member>
+        <link linkend="datatipMove">datatipMove</link>
+      </member>
+      <member>
+        <link linkend="datatipSetSisplay">datatips_set_display</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>Authors</title>
+    <simplelist type="vert">
+      <member>Serge Steer, INRIA</member>
+    </simplelist>
+  </refsection>
+ 
+</refentry>
