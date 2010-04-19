@@ -1,0 +1,41 @@
+
+datatipCreate.xml,19
+<?xml version=1,0
+
+datatipMove.xml,19
+<?xml version=1,0
+
+datatipRemove.xml,19
+<?xml version=1,0
+
+datatipsInitStruct.xml,19
+<?xml version=1,0
+
+datatipsManagerMode.xml,19
+<?xml version=1,0
+
+datatipsRemoveAll.xml,19
+<?xml version=1,0
+
+datatips.xml,19
+<?xml version=1,0
+
+datatipToggle.xml,19
+<?xml version=1,0
+
+master_help.xml,451
+<?xml version=1,0
+&datacursormode;datacursormode33,1719
+&datatips;datatips34,1736
+&hallchart;hallchart35,1747
+&initialize_tips_struct;initialize_tips_struct36,1759
+&move_datatip;move_datatip37,1784
+&nicholschart;nicholschart38,1799
+&orth_proj;orth_proj39,1814
+&remove_a_datatip;remove_a_datatip40,1826
+&remove_datatips;remove_datatips41,1845
+&set_tip_orientation;set_tip_orientation42,1863
+&toggle_datatip;toggle_datatip43,1885
+
+orthProj.xml,19
+<?xml version=1,0
