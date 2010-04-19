@@ -1,63 +1,0 @@
-
-datatipCreate.sci,32
-function datatip_handle=11,495
-
-datatipLookfor.sci,53
-function 11,495
-  curve_index=[];tip_index=26,1079
-
-datatipMove.sci,29
-function datatipMove(12,496
-
-datatipRemove.sci,31
-function datatipRemove(11,495
-
-datatipsDefaultDisplay.sci,21
-function str=11,495
-
-datatipSetOrientation.sci,39
-function datatipSetOrientation(11,495
-
-datatipsGetEntities.sci,31
-function curve_handles=11,495
-
-datatipsGetStruct.sci,19
-function t=10,494
-
-datatipsInitStruct.sci,20
-function ok=11,495
-
-datatipsManagerMode.sci,76
-function datatipsManagerMode(11,495
-function datatipsEventhandler(64,1895
-
-datatipsRemoveAll.sci,35
-function datatipsRemoveAll(11,495
-
-datatipsSetDisplay.sci,36
-function datatipsSetDisplay(11,495
-
-datatipsSetInterp.sci,35
-function datatipsSetInterp(10,494
-
-datatipsSetStruct.sci,35
-function datatipsSetStruct(10,494
-
-datatipToggle.sci,31
-function datatipToggle(11,495
-
-orthProj.sci,134
-function 10,494
-  d = [];ptp 18,806
-  d = [];ptp = [];ind 18,806
-  L 30,1344
-  nz 31,1381
-  X = X(nz,:); Y 32,1398
-  P 33,1426
-
-pixDist.sci,19
-function d=11,495
-
-setStringPosition.sci,61
-function set_string_position(11,495
-function usize=40,1541
