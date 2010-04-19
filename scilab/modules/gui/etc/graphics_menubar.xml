@@ -216,6 +216,13 @@
         <submenu label="S&amp;top entity picker">
             <callback instruction='ged(11,[SCILAB_FIGURE_ID]);' type="0"/>
         </submenu>
+	<separator/>
+        <submenu label="&amp;Start datatip manager">
+            <callback instruction='datatipManagerMode([SCILAB_FIGURE_ID],"on");' type="0"/>
+        </submenu>
+        <submenu label="Stop datatip manager">
+            <callback instruction='datatipManagerMode([SCILAB_FIGURE_ID],"off");' type="0"/>
+        </submenu>
     </menu>
 
     <menu label="&amp;?">
