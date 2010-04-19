@@ -21,6 +21,8 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* Datatips tools added 
+
 Documentation:
 ==============
 
