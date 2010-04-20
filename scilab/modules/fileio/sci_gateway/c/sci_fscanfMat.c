@@ -145,6 +145,17 @@ int sci_fscanfMat(char *fname,unsigned long fname_len)
 	}
 
 	cols = NumTokens(Info);
+    if (cols == -1)
+    {
+        if (Info)
+        {
+            FREE(Info);
+            Info = NULL;
+        }
+        fclose(f);
+        Scierror(999,_("%s: Cannot read data in file '%s'.\n"), fname, shortcut_path);
+        return 0;
+    }
 	rows = 1;
 
 	while (1)
