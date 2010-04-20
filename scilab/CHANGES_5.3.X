@@ -198,3 +198,5 @@ Bug fixes:
                    exactly 2 characters.
 
 * bug 6891 fixed - 'whos' did not display global variables.
+
+* bug 6901 fixed - This script with 'exec' produced a weird warning.
