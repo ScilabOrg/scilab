@@ -1,21 +1,44 @@
+% Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+% Copyright (C) 2008-2010 - Digiteo - Michael Baudin
+%
+% This file must be used under the terms of the CeCILL.
+% This source file is licensed as described in the file COPYING, which
+% you should have received as part of this distribution.  The terms
+% are also available at
+% http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 \section{Conclusion}
 
 We have presented several cases where the mathematically perfect 
-algorithm (i.e. without obvious bugs) do not produce accurate results 
+algorithm (i.e. without obvious bugs) does not produce accurate results 
 with the computer in particular situations.
-In this paper, we have shown that specific methods can be used to 
-cure some of the problems. We have also shown that these methods 
-do not cure all the problems.
+Many Scilab algorithms take floating point values as inputs,
+and return floating point values as output. We have presented situations 
+where the intermediate calculations involve terms which are 
+not representable as floating point values. We have also presented 
+examples where cancellation occurs so that the rounding errors dominate 
+the result. We have analyzed specific algorithms which can be used to 
+cure some of the problems. 
 
-All Scilab algorithms take floating point values as inputs,
-and returns floating point values as output. Problems arrive when the 
-intermediate calculations involve terms which are 
-not representable as floating point values.
+Most algorithms provided by Scilab are designed specifically to take into 
+account for floating point numbers issues. The result is a collection of 
+robust algorithms which, most of the time, exceed the user's needs.
 
-That article should not discourage us 
-from implementing our own algorithms. Rather, it should warn
-us and that some specific work is to do when we translate the 
-mathematical material into a algorithm.
-That article shows us that accurate can be obtained with 
-floating point numbers, provided that we are less \emph{naïve}.
+Still, it may happen that the algorithm used by Scilab is not accurate enough,
+so that floating point issues may occur in particular cases. We cannot 
+pretend that Scilab always use the best algorithm. In fact, we have 
+given in this document practical (but extreme) examples where the 
+algorithm used by Scilab is not accurate. In this situation, an 
+interesting point is that Scilab is open-source, so that anyone who want 
+can inspect the source code, analyze the algorithm and point out the 
+problems of this algorithm.
+
+That article does not aim at discouraging from 
+using floating point numbers or implementing our own algorithms.
+Instead, the goal of this document is to give examples where 
+some specific work is to do when we translate the 
+mathematical material into a computational algorithm based on floating 
+point numbers. Indeed, accuracy can be obtained with floating point numbers, 
+provided that we are less \emph{naive}, use the appropriate theory and algorithms, and perform 
+the computations with tested softwares.
 
