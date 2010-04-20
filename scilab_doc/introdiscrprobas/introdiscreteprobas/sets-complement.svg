@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="629.625"
+   height="389.875"
+   id="svg2567"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="sets-complement.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="F:\SVN-Books\OptimizationInScilab\introstats\sets-complement.png"
+   inkscape:export-xdpi="90.019997"
+   inkscape:export-ydpi="90.019997"
+   version="1.0">
+  <defs
+     id="defs2569">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3952"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2575" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="334.98759"
+     inkscape:cy="62.393367"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="995"
+     inkscape:window-x="23"
+     inkscape:window-y="19">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4732"
+       visible="true"
+       enabled="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2572">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-72.75,-25.0625)">
+    <path
+       style="fill:#000000;fill-opacity:0.25098039;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       clip-path="none"
+       d="M 73.75,26.0625 L 73.75,413.9375 L 701.375,413.9375 L 701.375,26.0625 L 73.75,26.0625 z M 387.75,97.0625 C 482.74316,97.062499 559.8125,157.86185 559.8125,232.78125 C 559.81253,307.70066 482.74315,368.5 387.75,368.5 C 292.75685,368.5 215.65625,307.70065 215.65625,232.78125 C 215.65625,157.86185 292.75685,97.0625 387.75,97.0625 z"
+       id="rect2401" />
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="653.46375"
+       y="62.853264"
+       id="text3184"><tspan
+         sodipodi:role="line"
+         id="tspan3186"
+         x="653.46375"
+         y="62.853264">Ω</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="197.80899"
+       y="117.78885"
+       id="text3194"><tspan
+         sodipodi:role="line"
+         id="tspan3196"
+         x="197.80899"
+         y="117.78885">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="216.16098"
+       y="99.147995"
+       id="text3209"><tspan
+         sodipodi:role="line"
+         id="tspan3211"
+         x="216.16098"
+         y="99.147995">c</tspan></text>
+  </g>
+</svg>

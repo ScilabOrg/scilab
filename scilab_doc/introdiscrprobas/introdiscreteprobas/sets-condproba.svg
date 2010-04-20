@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="629.63306"
+   height="389.89859"
+   id="svg2567"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="sets-condproba.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="G:\SVN-Books\OptimizationInScilab\introstats\sets-intersection.png"
+   inkscape:export-xdpi="90.019997"
+   inkscape:export-ydpi="90.019997"
+   version="1.0">
+  <defs
+     id="defs2569">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3952"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2575" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="174.53403"
+     inkscape:cy="248.38943"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="995"
+     inkscape:window-x="1822"
+     inkscape:window-y="15">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4732"
+       visible="true"
+       enabled="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2572">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-72.741135,-25.047186)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2401"
+       width="627.63306"
+       height="387.89859"
+       x="73.741135"
+       y="26.047186" />
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="653.46375"
+       y="62.853264"
+       id="text3184"><tspan
+         sodipodi:role="line"
+         id="tspan3186"
+         x="653.46375"
+         y="62.853264">Ω</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.0000702;stroke-miterlimit:4;stroke-dasharray:2.0000702,12.00042121;stroke-opacity:1;stroke-dashoffset:0"
+       id="path3188"
+       sodipodi:cx="253.04321"
+       sodipodi:cy="231.61324"
+       sodipodi:rx="131.82491"
+       sodipodi:ry="135.86552"
+       d="M 384.86812,231.61324 A 131.82491,135.86552 0 1 1 121.21831,231.61324 A 131.82491,135.86552 0 1 1 384.86812,231.61324 z"
+       transform="matrix(1.3054365,0,0,0.9989551,-36.88254,-1.0532e-2)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3192"
+       sodipodi:cx="253.04321"
+       sodipodi:cy="231.61324"
+       sodipodi:rx="131.82491"
+       sodipodi:ry="135.86552"
+       d="M 384.86812,231.61324 A 131.82491,135.86552 0 1 1 121.21831,231.61324 A 131.82491,135.86552 0 1 1 384.86812,231.61324 z"
+       transform="matrix(1.3054365,0,0,0.9989551,157.57183,-1.0532e-2)" />
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="116.38042"
+       y="117.78885"
+       id="text3194"><tspan
+         sodipodi:role="line"
+         id="tspan3196"
+         x="116.38042"
+         y="117.78885">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="617.172"
+       y="117.78885"
+       id="text3198"><tspan
+         sodipodi:role="line"
+         id="tspan3200"
+         x="617.172"
+         y="117.78885">B</tspan></text>
+    <path
+       style="opacity:0.25;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 390.92904,118.98123 C 346.32167,138.68605 316.38737,187.14469 315.67267,227.57263 C 314.95797,268.00057 333.57441,309.59368 389.91888,343.23509 C 448.58517,313.30888 466.56919,265.55942 465.68033,225.04725 C 464.79147,184.53508 439.92144,145.75027 390.92904,118.98123 z"
+       id="path3202"
+       sodipodi:nodetypes="czczc" />
+    <text
+       xml:space="preserve"
+       style="font-size:32.92952347px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="361.75928"
+       y="238.16017"
+       id="text3188"><tspan
+         sodipodi:role="line"
+         id="tspan3190"
+         x="361.75928"
+         y="238.16017">A⋂B</tspan></text>
+  </g>
+</svg>

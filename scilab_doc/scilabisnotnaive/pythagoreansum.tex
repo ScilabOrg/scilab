@@ -1,15 +1,24 @@
+% Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+% Copyright (C) 2008-2010 - Digiteo - Michael Baudin
+%
+% This file must be used under the terms of the CeCILL.
+% This source file is licensed as described in the file COPYING, which
+% you should have received as part of this distribution.  The terms
+% are also available at
+% http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 \section{The Pythagorean sum}
 
-In this section, we analyse the computation of the Pythagorean sum,
+In this section, we analyze the computation of the Pythagorean sum,
 which is used in two different computations, that is the norm of a complex
 number and the 2-norm of a vector of real values.
 
 In the first part, we briefly present the mathematical formulas for these 
 two computations.
-We then present the naïve algorithm based on these mathematical formulas. 
+We then present the naive algorithm based on these mathematical formulas. 
 In the second part, we make some experiments in Scilab and compare our
-naïve algorithm with the \emph{abs} and \emph{norm} Scilab primitives.
-In the third part, we analyse 
+naive algorithm with the \scifun{abs} and \scifun{norm} Scilab functions.
+In the third part, we analyze 
 why and how floating point numbers must be taken into account when the 
 Pythagorean sum is to compute.
 
@@ -19,12 +28,9 @@ Pythagorean sum is to compute.
 
 % TODO : compare both abs and norm.
 
-\lstset{language=Scilab}
-\lstset{numbers=left}
-\lstset{basicstyle=\footnotesize}
-\lstset{keywordstyle=\bfseries}
+\lstset{language=scilabscript}
 \begin{lstlisting}
-// Straitforward implementation
+// Straightforward implementation
 function mn2 = mynorm2(a,b)
   mn2 = sqrt(a^2+b^2)
 endfunction
@@ -83,7 +89,7 @@ x = 1.e-200 + 1.e-200 * %i;
 compare(x);
 \end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 ***************************************
 Example #1 : simple computation with Scilab 5.1
 x(1)=1.000000e+000, x(2)=1.000000e+000
@@ -153,7 +159,7 @@ Re(x)=1.000000e-200, Im(x)=1.000000e-200
     Moler & Morrison : 1.414214e-200
 ***************************************
 > Conclusion : Scilab is not naive !
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Explanations}
 
@@ -164,16 +170,16 @@ algorithm to compute the Pythagorean sum $a\oplus b = \sqrt{a^2 + b^2}$
 without computing their squares or their square roots. Their algorithm is based on a cubically
 convergent sequence.
 The BLAS linear algebra suite of routines \cite{900236} includes the SNRM2, DNRM2
-and SCNRM2 routines which conpute the euclidian norm of a vector.
+and SCNRM2 routines which compute the euclidian norm of a vector.
 These routines are based on Blue \cite{355771} and Cody \cite{Cody:1971:SEF}.
 In his 1978 paper \cite{355771}, James Blue gives an algorithm to compute the 
 Euclidian norm of a n-vector $\|x\| = \sqrt{\sum_{i=1,n}x_i^2}$. 
-The exceptionnal values of the \emph{hypot} operator are defined as the 
+The exceptional values of the \scifun{hypot} operator are defined as the 
 Pythagorean sum in the IEEE 754 standard \cite{P754:2008:ISF,ieee754-1985}.
-The \emph{\_\_ieee754\_hypot(x,y)} C function is implemented in the 
+The \scifun{\_\_ieee754\_hypot(x,y)} C function is implemented in the 
 Fdlibm software library \cite{fdlibm} developed by Sun Microsystems and 
 available at netlib. This library is used by Matlab \cite{matlab-hypot}
-and its \emph{hypot} command.
+and its \scifun{hypot} command.
 
 
 
