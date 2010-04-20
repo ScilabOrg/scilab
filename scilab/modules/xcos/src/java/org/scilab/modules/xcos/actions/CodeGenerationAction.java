@@ -18,6 +18,7 @@ import static org.scilab.modules.graph.utils.ScilabInterpreterManagement.buildCa
 import static org.scilab.modules.hdf5.write.H5Write.closeFile;
 import static org.scilab.modules.hdf5.write.H5Write.createFile;
 import static org.scilab.modules.hdf5.write.H5Write.writeInDataSet;
+import static org.scilab.modules.xcos.utils.FileUtils.delete;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -112,8 +113,8 @@ public class CodeGenerationAction extends SuperBlockSelectedAction {
 					public void actionPerformed(ActionEvent arg0) {
 						doAction(block, tempInput);
 						
-						tempOutput.delete();
-						tempInput.delete();
+						delete(tempOutput);
+						delete(tempInput);
 						
 						((XcosDiagram) getGraph(null)).info(XcosMessages.EMPTY_INFO);
 					}
