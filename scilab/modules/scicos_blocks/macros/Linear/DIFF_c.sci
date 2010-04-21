@@ -1,6 +1,8 @@
 //  Scicos
 //
 //  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009-2010 - DIGITEO - Clément DAVID
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,7 +40,7 @@ case 'set' then
   while %t do
     ask_again=%f
    [ok,x0,xd0,exprs]=scicos_getvalue('Set continuous linear system parameters',..
-	['Initial state','Initial Derivative'],list('vec',-1,'vec',-1),exprs)
+	['Initial state';'Initial Derivative'],list('vec',-1,'vec',-1),exprs)
     if ~ok then break,end
     x0=x0(:);N=size(x0,'*');
     xd0=xd0(:);Nxd=size(xd0,'*');
