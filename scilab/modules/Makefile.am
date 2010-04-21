@@ -22,6 +22,7 @@ output_stream \
 action_binding \
 arnoldi \
 elementary_functions \
+matio \
 functions_manager \
 string \
 api_scilab \
