@@ -155,7 +155,6 @@ Removed functions (previously declared as obsolete):
 
 * 'with_gtk' replaced by 'getversion'.
 
-<<<<<<< HEAD
 * 'readc_' replaced by 'input'.
 
 =======
@@ -166,7 +165,6 @@ Optimization:
 
 * Added an output function to optim_sa which also manages a stopping criterion.
  
->>>>>>> Fixed bug #6774
 Bug fixes:
 ==========
 
