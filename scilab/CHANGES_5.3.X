@@ -66,6 +66,9 @@ Xcos:
 * bug 6668 fixed - Xcos modelica demos did not work with the new 
                    modelica compiler.
 
+* bug 6814 fixed - Link point positions (link.xx and link.yy) were not exported
+                   as column vectors.
+
 * bug 6903 fixed - modelicat calls ocamlrun (wrong dependency on Windows).                   
 
 Compilation:
