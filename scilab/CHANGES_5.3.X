@@ -162,6 +162,13 @@ Bug fixes:
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
+* bug 3780 fixed - The function loadmatfile did not ignore comments found in 
+                   ASCII files while loading them, resulting in an error message.
+                   For Matlab compatibility, when this function is called with 
+                   one input argument load(filename), it now looks for a binary 
+                   file (if filename as no extension or .mat extension) or for an
+                   ASCII file if filename has an other extension.
+
 * bug 4672 fixed - Internal function AddFunctionInTable renamed to 
                    getFunctionByName to avoid confusions on the actual usage
                    of this function. Thanks to Yuvraj Tomar.
