@@ -8,6 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 mprintf("Illustrates the sensitivity to dimension of the Nelder-Mead algorithm\n");
+mprintf("Han and Neumann. ""Effect of dimensionality on the nelder-mead simplex method."" Optimization Methods and Software, 2006.\n");
 
 function [ f , index ] = quadracticn ( x , index )
   f = sum(x.^2);
@@ -37,7 +38,6 @@ function [nbfevals , niter , rho] = solvepb ( n )
   // Perform optimization
   //
   nm = neldermead_search(nm);
-  //neldermead_display(nm);
   si0 = neldermead_get ( nm , "-simplex0" );
   sigma0 = optimsimplex_size ( si0 , "sigmaplus" );
   siopt = neldermead_get ( nm , "-simplexopt" );

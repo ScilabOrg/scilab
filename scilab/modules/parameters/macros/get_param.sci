@@ -16,6 +16,7 @@ if ~isdef('param_default','local') then
   param_default = [];
 end
 
+// Temporarily disable the function protection to avoid an anoying and unnecessary warning.
 if ( type(param_default) == 13 ) then
   prot=funcprot()
   funcprot(0);
