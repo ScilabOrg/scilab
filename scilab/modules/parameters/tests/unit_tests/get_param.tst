@@ -29,6 +29,12 @@ function x_neigh = myneighfun (x_current, T,param)
   x_neigh = x_current + (sa_max_delta - sa_min_delta).*rand(size(x_current,1),size(x_current,2)) + sa_min_delta;
 endfunction
 
+function T_init = myclientfunction ( x0, cit_f, proba_init, ItMX, param)
+[neigh_func,err]  = get_param(param,'neigh_func',neigh_func_default);
+[type_accept,err] = get_param(param,'type_accept','sa');
+T_init = 0
+endfunction
+
 x0          = [2 2];
 Proba_start = 0.7;
 It_Pre      = 100;
@@ -37,5 +43,5 @@ It_intern   = 1000;
 
 params = init_param();
 params = add_param(params,'neigh_func', myneighfun);
-T0 = compute_initial_temp(x0, rastrigin, Proba_start, It_Pre, params);
+T0 = myclientfunction ( x0, rastrigin, Proba_start, It_Pre, params);
 

@@ -117,12 +117,11 @@ nm = neldermead_configure(nm,"-boxboundsalpha" , 0.0001 );
 // Perform optimization
 //
 mprintf("Searching (please wait)...\n");
-nm = neldermead_search(nm);
-neldermead_display(nm);
+nm = neldermead_search(nm)
 mprintf("==========================\n");
 xcomp = neldermead_get(nm,"-xopt");
-mprintf("x computed=%s\n",strcat(string(xcomp)," "));
-mprintf("x expected=%s\n",strcat(string(xopt)," "));
+mprintf("x computed= [%s]\n",strcat(string(xcomp)," "));
+mprintf("x expected= [%s]\n",strcat(string(xopt)," "));
 shift = norm(xcomp-xopt)/norm(xopt);
 mprintf("Shift =%f\n",shift);
 fcomp = neldermead_get(nm,"-fopt");

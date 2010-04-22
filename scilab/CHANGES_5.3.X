@@ -167,7 +167,6 @@ Removed functions (previously declared as obsolete):
 
 * 'with_gtk' replaced by 'getversion'.
 
-<<<<<<< HEAD
 * 'readc_' replaced by 'input'.
 
 =======

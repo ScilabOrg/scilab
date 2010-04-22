@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - Yann COLLETTE <yann.collette@renault.com>
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -30,7 +31,7 @@
   <refsynopsisdiv>
     <title>Calling Sequence</title>
 
-    <synopsis>[x_best,f_best,mean_list,var_list,f_history,temp_list,x_history] = optim_sa(x0,f,ItExt,ItInt,T0,Log,temp_law,param_temp_law,neigh_func,param_neigh_func)</synopsis>
+    <synopsis>[x_best,f_best,mean_list,var_list,f_history,temp_list,x_history,It] = optim_sa(x0,f,ItExt,ItInt,T0,Log[,param])</synopsis>
   </refsynopsisdiv>
 
   <refsection>
@@ -49,8 +50,10 @@
         <term>f</term>
 
         <listitem>
-          <para>the objective function to be optimized (the prototype if
-          f(x))</para>
+          <para>
+            the objective function to be optimized (the prototype if
+            f(x))
+          </para>
         </listitem>
       </varlistentry>
 
@@ -74,8 +77,10 @@
         <term>T0</term>
 
         <listitem>
-          <para>the initial temperature (see compute_initial_temp to compute
-          easily this temperature)</para>
+          <para>
+            the initial temperature (see compute_initial_temp to compute
+            easily this temperature)
+          </para>
         </listitem>
       </varlistentry>
 
@@ -83,47 +88,91 @@
         <term>Log</term>
 
         <listitem>
-          <para>if %T, some information will be displayed during the run of
-          the simulated annealing</para>
+          <para>
+            if %T, some information will be displayed during the run of
+            the simulated annealing
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>temp_law</term>
-
+        <term>param</term>
         <listitem>
-          <para>the temperature decrease law (see temp_law_default for an
-          example of such a function)</para>
+          <para>optional, a data structure managed with the parameters module.</para>
+          <para>
+            The <literal>optim_sa</literal> function is sensitive to the following fields.
+          </para>
+
+          <variablelist>
+
+            <varlistentry>
+              <term>"temp_law"</term>
+              <listitem>
+                <para>
+                  optional, the temperature decrease law.
+                  The default temperature law is <literal>temp_law_default</literal>.
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>"neigh_func"</term>
+              <listitem>
+                <para>
+                  optional, a function which computes a neighbor of a given point.
+                  The default neighbourhood function is <literal>neigh_func_default</literal>.
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>"accept_func"</term>
+              <listitem>
+                <para>
+                  optional, a function which computes the level used to accept a neighbour,
+                  depending on the function value and the temperature.
+                  The default function is <literal>accept_func_default</literal>.
+                  If the level computed by the acceptation function is higher
+                  than the generated uniform random number in the interval [0,1], then the neighbour is accepted.
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>"output_func"</term>
+              <listitem>
+                <para>
+                  optional, a plot function which can be used to implement a stopping criterion.
+                  This plot function must have the following header.
+                </para>
+                <programlisting role="example">
+<![CDATA[ 
+function stop = outfunc ( itExt , x_best , f_best , T , saparams )
+]]>
+                </programlisting>
+
+                <para>
+                  The plot function is called back at the begining of each external
+                  iteration. It is designed to be used as an output or plot function,
+                  in order to display specific messages in the console or in a
+                  data file or to update a graphics.
+                </para>
+
+                <para>
+                  The plot function implements a stopping rule. If the <literal>stop</literal> output 
+                  argument is true, the algorithm stops. If the user 
+                  does not want to use this feature of the plot function, he should set the 
+                  stop output argument to <literal>%f</literal>. See the examples for details.
+                </para>
+              </listitem>
+            </varlistentry>
+
+          </variablelist>
+
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term>param_temp_law</term>
 
-        <listitem>
-          <para>a structure (of any kind - it depends on the temperature law
-          used) which is transmitted as a parameter to temp_law</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>neigh_func</term>
-
-        <listitem>
-          <para>a function which computes a neighbor of a given point (see
-          neigh_func_default for an example of such a function)</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>param_neigh_func</term>
-
-        <listitem>
-          <para>a structure (of any kind like vector, list, it depends on the
-          neighborhood function used) which is transmitted as a parameter to
-          neigh_func</para>
-        </listitem>
-      </varlistentry>
 
       <varlistentry>
         <term>x_best</term>
@@ -145,8 +194,10 @@
         <term>mean_list</term>
 
         <listitem>
-          <para>the mean of the objective function value for each temperature
-          stage. A vector of float (optional)</para>
+          <para>
+            the mean of the objective function value for each temperature
+            stage. A row vector with length ItExt (optional)
+          </para>
         </listitem>
       </varlistentry>
 
@@ -154,8 +205,10 @@
         <term>var_list</term>
 
         <listitem>
-          <para>the variance of the objective function values for each
-          temperature stage. A vector of float (optional)</para>
+          <para>
+            the variance of the objective function values for each
+            temperature stage. A row vector with length ItExt (optional)
+          </para>
         </listitem>
       </varlistentry>
 
@@ -163,11 +216,13 @@
         <term>f_history</term>
 
         <listitem>
-          <para>the computed objective function values for each iteration.
-          Each input of the list corresponds to a temperature stage. Each
-          input of the list is a vector of float which gathers all the
-          objective function values computed during the corresponding
-          temperature stage - (optional)</para>
+          <para>
+            a list with ItExt elements containing the computed objective function values for each external iteration.
+            Each input of the list corresponds to a temperature stage. Each
+            input of the list is a vector of float which gathers all the
+            objective function values computed during the corresponding
+            temperature stage - (optional)
+          </para>
         </listitem>
       </varlistentry>
 
@@ -175,8 +230,7 @@
         <term>temp_list</term>
 
         <listitem>
-          <para>the list of temperature computed for each temperature stage. A
-          vector of float (optional)</para>
+          <para>a row vector with length ItExt containing the temperature computed for each temperature stage (optional)</para>
         </listitem>
       </varlistentry>
 
@@ -184,82 +238,240 @@
         <term>x_history</term>
 
         <listitem>
-          <para>the parameter values computed for each iteration. Each input
-          of the list corresponds to a temperature stage. Each input of the
-          list is a vector of input variables which corresponds to all the
-          variables computed during the corresponding temperature stage -
-          (optional - can slow down a lot the execution of optim_sa)</para>
+          <para>
+            a list with ItExt elements containing the parameter values computed for each iteration. Each input
+            of the list corresponds to a temperature stage. Each input of the
+            list is a vector of input variables which corresponds to all the
+            variables computed during the corresponding temperature stage -
+            (optional - can slow down a lot the execution of optim_sa)
+          </para>
         </listitem>
       </varlistentry>
+
+
+      <varlistentry>
+        <term>It</term>
+
+        <listitem>
+          <para>
+            an integer. The actual number of iterations.
+            If no plot function has been configured, this is equal to ItExt.
+            If a plot function has been configure, it might be lower than ItExt, if
+            the plot function has implemented a stopping rule which has interrupted
+            the algorithm.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsection>
 
   <refsection>
     <title>Description</title>
 
-    <itemizedlist>
-      <listitem>
-        <para>A Simulated Annealing optimization method.</para>
-      </listitem>
-    </itemizedlist>
+    <para>
+      The <literal>optim_sa</literal> function provides a Simulated Annealing optimization method.
+      It is based on an random walk, where the neighbour function allows to move in the
+      search space. The algorithm uses an internal and an external loop, keeping track of the
+      minimum achieved function value.
+    </para>
+    <para>
+      During the internal loop,
+      the random walk is performed and a new point is accepted as a new point depending on the
+      current temperature and the acceptation function. If, at any time, the function value is improved, the corresponding
+      point is registered.
+    </para>
+    <para>
+      During the external loop, the temperature is updated according to the temperature law.
+    </para>
   </refsection>
 
   <refsection>
     <title>Examples</title>
 
-    <programlisting role="example"><![CDATA[ 
+    <para>
+      In the following example, we define the Rastrigin function, which is known to have
+      many local optimas, but only one global minimum at <literal>x=[0 0]</literal>
+      where the function value is -2.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
 function y = rastrigin(x)
   y = x(1)^2+x(2)^2-cos(12*x(1))-cos(18*x(2));
 endfunction
-    
+x0          = [2 2];
+T0 = compute_initial_temp(x0, rastrigin, 0.7, 100);
+[x_opt, f_opt] = optim_sa(x0, rastrigin, 50, 100, T0, %f);
+
+printf('optimal solution:\n'); disp(x_opt);
+printf('value of the objective function = %f\n', f_opt);
+ ]]>
+    </programlisting>
+
+    <para>
+      In the following example, we show how to configure a particular neighbourhood function.
+      We set the "neigh_func" option to <literal>myneigh_func</literal>.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function y = rastrigin(x)
+  y = x(1)^2+x(2)^2-cos(12*x(1))-cos(18*x(2));
+endfunction
+
+// We produce a neighbor by adding some noise to each component of a given vector
+function x_neigh = myneigh_func(x_current, T, param)
+  sa_min_delta = -0.1*ones(size(x_current,1),size(x_current,2));
+  sa_max_delta = 0.1*ones(size(x_current,1),size(x_current,2));
+  x_neigh = x_current + (sa_max_delta - sa_min_delta).*rand(size(x_current,1),size(x_current,2)) + sa_min_delta;
+endfunction
+
 x0          = [2 2];
 Proba_start = 0.7;
 It_Pre      = 100;
-It_extern   = 100;
-It_intern   = 1000;
+It_extern   = 50;
+It_intern   = 100;
 x_test = neigh_func_default(x0);
 
-comp_t_params = init_param();
-comp_t_params = add_param(comp_t_params,'neigh_func', neigh_func_default);
+saparams = init_param();
+saparams = add_param(saparams,"neigh_func", myneigh_func);
 
-T0 = compute_initial_temp(x0, rastrigin, Proba_start, It_Pre, comp_t_sa);
-
-[x_opt, f_opt, sa_mean_list, sa_var_list] = optim_sa(x0, rastrigin, It_extern, It_intern, T0, Log = %T);
+T0 = compute_initial_temp(x0, rastrigin, Proba_start, It_Pre, saparams);
+Log = %T;
+[x_opt, f_opt, sa_mean_list, sa_var_list] = optim_sa(x0, rastrigin, It_extern, It_intern, T0, Log,saparams);
 
 printf('optimal solution:\n'); disp(x_opt);
 printf('value of the objective function = %f\n', f_opt);
 
 t = 1:length(sa_mean_list);
 plot(t,sa_mean_list,'r',t,sa_var_list,'g');
- ]]></programlisting>
+ ]]>
+    </programlisting>
   </refsection>
 
   <refsection>
+    <title>Passing extra parameters</title>
+
+    <para>
+      In the following example, we define a quadratic function <literal>quad</literal>
+      which uses the additionnal parameter <literal>p</literal>. In order to tell to
+      <literal>optim_sa</literal> that our function needs an extra parameter,
+      we pass the cost function as a list, where the first element is the actual function
+      and the second element is the parameter <literal>p</literal>. When the
+      function is evaluated, the elements in the list at index 2 to the end are passed
+      to the cost function as a second argument.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+// 1. Define the function for contouring
+function f = quadC ( x1 , x2 )
+  x = [x1 x2];
+  p = [4 3 2];
+  f = p(1) * x(1)^2 + p(2) * x(2)^2 + p(3) *x(1)*x(2)
+endfunction
+x0 = [-1.2 1.0];
+xopt = [1.0 1.0];
+// 2. Draw the contour of Rosenbrock's function
+xdata = linspace(-2,2,100);
+ydata = linspace(-2,2,100);
+contour ( xdata , ydata , quadC , [1 5 10])
+// 3. Define function for optimization
+function f = quad ( x , p )
+  f = p(1) * x(1)^2 + p(2) * x(2)^2 + p(3) *x(1)*x(2)
+  plot ( x(1) , x(2) , "g." )
+endfunction
+
+x0 = [-1.2 1.0];
+Proba_start = 0.7;
+It_Pre      = 10;
+It_extern   = 30;
+It_intern   = 20;
+x_test = neigh_func_default(x0);
+
+p = [4 3 2];
+
+T0 = compute_initial_temp(x0, list(quad,p) , Proba_start, It_Pre);
+Log = %T;
+[x_opt, f_opt, sa_mean_list, sa_var_list] = optim_sa(x0, list(quad,p) , It_extern, It_intern, T0, Log);
+]]>
+    </programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Configuring a plot function and a termination criteria</title>
+
+    <para>
+      In the following example, we define a plot function which prints a message
+      in the console. This plot function also uses a parameter which has been
+      setup in the parameters data structure and use it as an 
+      absolute tolerance on the function value. If the absolute value of the 
+      function value is lower than a threshold, the optimization stops.
+      In order to ensure that this criteria is met when the optimization
+      is finished, the number of external iterations is set to infinity.
+      In this particular case, the output argument <literal>It</literal>,
+      representing the number of iterations, is not equal to <literal>It_extern</literal>
+      but is generally from 10 to 20.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function f = quad ( x )
+  p = [4 3];
+  f = (x(1) - p(1))^2 + (x(2) - p(2))^2
+endfunction
+
+function stop = outfunc ( itExt , x_best , f_best , T , saparams )
+  [mythreshold,err] = get_param(saparams,"mythreshold",0);
+  mprintf ( "Iter = #%d, x_best=[%s], f_best = %e, T = %e\n",itExt , strcat(string(x_best)," ") , f_best , T )
+  stop = ( abs(f_best) < mythreshold )
+endfunction
+
+x0 = [-1 -1];
+Proba_start = 0.7;
+It_Pre      = 100;
+It_extern   = %inf;
+It_intern   = 100;
+saparams = init_param();
+saparams = add_param(saparams,"output_func", outfunc );
+saparams = add_param(saparams,"mythreshold", 1.e-2 );
+
+T0 = compute_initial_temp(x0, quad , Proba_start, It_Pre, saparams);
+[x_best, f_best, mean_list, var_list, temp_list, f_history, x_history , It ] = optim_sa(x0, quad , It_extern, It_intern, T0, %f, saparams);
+]]>
+</programlisting>
+</refsection>
+
+
+<refsection>
     <title>See Also</title>
 
     <simplelist type="inline">
-      <member><link linkend="compute_initial_temp"> compute_initial_temp
-      </link></member>
+      <member>
+        <link linkend="compute_initial_temp">
+          compute_initial_temp
+        </link>
+      </member>
 
-      <member><link linkend="neigh_func_default"> neigh_func_default
-      </link></member>
+      <member>
+        <link linkend="neigh_func_default">
+          neigh_func_default
+        </link>
+      </member>
 
-      <member><link linkend="temp_law_default"> temp_law_default
-      </link></member>
+      <member>
+        <link linkend="temp_law_default">
+          temp_law_default
+        </link>
+      </member>
     </simplelist>
   </refsection>
 
   <refsection>
     <title>Authors</title>
-
-    <variablelist>
-      <varlistentry>
-        <term>collette</term>
-
-        <listitem>
-          <para>Yann COLLETTE (ycollet@freesurf.fr)</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+    <para>Yann Collette - 2008 - ycollet@freesurf.fr</para>
+    <para>Michael Baudin - Digiteo - 2010</para>
   </refsection>
+
 </refentry>
