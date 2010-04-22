@@ -201,8 +201,9 @@ function result = atomsRemove(packages,section)
 		
 		// Check if this_package_directory start with SCI or SCIHOME
 		
-		if (grep(this_package_directory,pathconvert(SCI)) == []) & ..
-			(grep(this_package_directory,pathconvert(SCIHOME)) == []) then
+		if  (grep(this_package_directory,pathconvert(SCI)) == []) & ..
+			(grep(this_package_directory,pathconvert(SCIHOME)) == []) &..
+			(grep(this_package_directory,"/^(SCI|SCIHOME)\"+filesep()+"/","r") == []) then
 			
 			atomsError("error", ..
 				msprintf( ..
