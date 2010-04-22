@@ -26,9 +26,17 @@ fil=[]
 bin=[]
 varnames=[]
 
-if rhs==1 then // Compatibility with old loadmatfile version
-  bin=%T
-  fil=varargin(1)
+if rhs==1 then 
+  fil = varargin(1)
+  fileExtension = fileparts(fil, "extension");
+  if isempty(fileExtension) then // No extension: looks for a file named fil.mat and treats it as a binary MAT-file
+	bin = %T
+	fil = file + ".mat";
+  elseif convstr(fileExtension, "l") <> ".mat" then // Extension other than .mat: treats the file as ASCII data.
+	bin = %F
+  else // Compatibility with old loadmatfile version
+	bin = %T
+  end
 else // Try to find type binary or ASCII ?
   // Filename is the first parameter: loadmatfile(filename[,opts])
   // or the second parameter: loadmatfile(filetype,filename[,opts]) with filetype equal to -ascii or -mat
@@ -109,23 +117,23 @@ if bin then // Uses MATIO interface
   //-- Return variables in the calling context
   execstr('['+strcat(Names,',')+']=resume(Matrices(:))')
    
-// --- ASCII FILE (Copy/Paste from mtlb_load.sci) ---
+// --- ASCII FILE ---
 else
-  ke=strindex(fil,'.')
-  if ke==[] then
-    ke=length(fil)
-  else
-    ke=ke($)-1
+  txt = mgetl(fil);
+  
+  // Remove comments
+  rowIndexes = grep(txt, "%")
+  for k = rowIndexes
+	txt(k) = part(txt(k), 1:(strindex(txt(k), "%") - 1));
   end
-  kp=strindex(fil,['/','\'])
-  if kp==[] then
-    kp=1
-  else
-    kp=kp($)+1
-  end
-  name=part(fil,kp:ke)
-  mat=evstr(mgetl(fil))
-  execstr(name+'= resume(mat)')
+  
+  // Values read
+  mat = evstr(txt);
+  
+  // Output variable name generated from file name
+  name = fileparts(fil, "fname");
+  
+  execstr(name + " = resume(mat)")
 end
 endfunction
 
