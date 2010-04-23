@@ -39,6 +39,7 @@ extern "C" {
 #include "stack1.h"
 #include "stack2.h"
 #include "stack3.h"
+#include "sciprint.h"
 
 /*-------------------------------------------------
  * types
@@ -224,7 +225,7 @@ static void initial_c1_local(void)
         { return 0;  }
 
 /* the real function error is defined in output_stream */
-#define Error(x) SciError(x)
+#define Error(x) SciError(x); sciprint(_("Error(x) is deprecated and will be removed in Scilab 5.4. Please consider SciError(x).\n"));
 
 #define Errorinfo(routinename,info) C2F(errorinfo)(routinename,(c_local=info, &c_local), strlen(routinename));
 
