@@ -21,6 +21,8 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* Datatips tools added
+
 * bug 2651 fixed - "plot2d" was not working when the x argument was not given
                    and some optional arguments were given.
 
