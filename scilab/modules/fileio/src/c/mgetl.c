@@ -10,20 +10,28 @@
 *
 */
 /*--------------------------------------------------------------------------*/
+#include <string.h>
 #include "mgetl.h"
 #include "filesmanagement.h"
 #include "mopen.h"
 #include "MALLOC.h"
 #include "BOOL.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
+#include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #define LINE_MAX 4096
-#define CR 13
-#define LF 10
+#define CR '\r'
+#define LF '\n'
 #define EMPTYSTR ""
+/*--------------------------------------------------------------------------*/
+static char *removeEOL(char *_inString);
+static char *convertAnsiToUtf(char *_inString);
 /*--------------------------------------------------------------------------*/
 char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 {
-    char **wcLines = NULL;
+    char **strLines = NULL;
     FILE *fa = NULL;
 
     *ierr = MGETL_ERROR;
@@ -38,8 +46,8 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 
         if (nbLinesIn < 0)
         {
-            wcLines = (char **)MALLOC(sizeof(char *));
-            if (wcLines == NULL)
+            strLines = (char **)MALLOC(sizeof(char *));
+            if (strLines == NULL)
             {
                 *nbLinesOut = 0;
                 *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
@@ -48,34 +56,22 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 
             while ( fgets ( Line, sizeof(Line), fa ) != NULL )
             {
-                int wcLen = (int)strlen(Line);
                 nbLines++;
-                wcLines = (char **)REALLOC(wcLines, nbLines * sizeof(char *));
-                if (wcLines == NULL)
+                strLines = (char **)REALLOC(strLines, nbLines * sizeof(char *));
+                if (strLines == NULL)
                 {
                     *nbLinesOut = 0;
                     *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
                     return NULL;
                 }
 
-                wcLines[nbLines - 1] = (char*)MALLOC(sizeof(char) * (wcLen + 1)); 
-                if (wcLines[nbLines - 1] == NULL)
+                strLines[nbLines - 1] = convertAnsiToUtf(removeEOL(Line)); 
+                if (strLines[nbLines - 1] == NULL)
                 {
                     *nbLinesOut = 0;
                     *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
                     return NULL;
                 }
-
-                if (wcLen >= 1)
-                {
-                    /* remove EOL */
-                    if ( (Line[wcLen - 1] == CR) || (Line[wcLen - 1] == LF) )
-                    {
-                        Line[wcLen - 1] = 0;
-                    }
-                }
-
-                strcpy(wcLines[nbLines - 1], Line);
                 strcpy(Line, EMPTYSTR);
             }
             *nbLinesOut = nbLines;
@@ -87,17 +83,17 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
             {
                 *ierr = MGETL_EOF;
                 *nbLinesOut = 0;
-                if (wcLines) 
+                if (strLines) 
                 {
-                    FREE(wcLines);
+                    FREE(strLines);
                 }
-                wcLines = NULL;
+                strLines = NULL;
             }
             else
             {
                 BOOL bContinue = TRUE;
-                wcLines = (char **)MALLOC(sizeof(char *) * nbLinesIn);
-                if (wcLines == NULL)
+                strLines = (char **)MALLOC(sizeof(char *) * nbLinesIn);
+                if (strLines == NULL)
                 {
                     *nbLinesOut = 0;
                     *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
@@ -110,25 +106,14 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                     {
                         if ( fgets ( Line, sizeof(Line), fa ) != NULL)
                         {
-                            int wcLen = (int)strlen(Line);
-                            if (wcLen >= 1)
-                            {
-                                /* remove EOL */
-                                if ( (Line[wcLen - 1] == CR) || (Line[wcLen - 1] == LF) )
-                                {
-                                    Line[wcLen - 1] = 0;
-                                }
-                            }
                             nbLines++;
-                            wcLines[nbLines - 1] = (char*)MALLOC(sizeof(char) * (wcLen + 1)); 
-                            if (wcLines[nbLines - 1] == NULL)
+                            strLines[nbLines - 1] = convertAnsiToUtf(removeEOL(Line)); 
+                            if (strLines[nbLines - 1] == NULL)
                             {
                                 *nbLinesOut = 0;
                                 *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
                                 return NULL;
                             }
-                            strcpy(wcLines[nbLines - 1], Line);
-
                             strcpy(Line, EMPTYSTR);
                         }
                         else
@@ -147,6 +132,82 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
             }
         }
     }
-    return wcLines;
+    return strLines;
 }
 /*--------------------------------------------------------------------------*/
+char *removeEOL(char *_inString)
+{
+    if (_inString)
+    {
+        int len = (int)strlen(_inString);
+
+        if ((_inString[len - 1] == LF) && (len > 0))
+        {
+            _inString[len - 1] = 0; 
+            len = (int)strlen(_inString);
+        }
+        
+        if ((_inString[len - 1] == CR) && (len > 0))
+        {
+            _inString[len - 1] = 0; 
+        }
+    }
+    return _inString;
+}
+/*--------------------------------------------------------------------------*/
+/*
+* convert ansi to Utf
+* linux, mac conversion is already made by fgets
+* windows need to do conversion
+*/
+char *convertAnsiToUtf(char *_inString)
+{
+    char *outString = NULL;
+    if (_inString)
+    {
+#ifdef _MSC_VER
+        if (IsValidUTF8(_inString))
+        {
+            outString = strdup(_inString);
+        }
+        else
+        {
+            /* conversion ANSI to UTF */
+            int Len = 0;
+            int newLen = 0;   
+            BSTR bstrCode = NULL;    
+
+            Len = MultiByteToWideChar(CP_ACP, 0, _inString, lstrlen(_inString), NULL, NULL);    
+            bstrCode = SysAllocStringLen(NULL, Len);    
+            if (bstrCode)
+            {
+                MultiByteToWideChar(CP_ACP, 0, _inString, lstrlen(_inString), bstrCode, Len);   
+                newLen = WideCharToMultiByte(CP_UTF8, 0, bstrCode, -1, outString, 0, NULL, NULL);    
+                outString = (char*) MALLOC(newLen + 1);    
+                if (outString)
+                {
+                    WideCharToMultiByte(CP_UTF8, 0, bstrCode, -1, outString, newLen, NULL, NULL); 
+                }
+                else
+                {
+                    outString = strdup(_inString);
+                }
+                SysFreeString(bstrCode);
+                bstrCode = NULL;
+
+            }
+            else
+            {
+                outString = strdup(_inString);
+            }
+        }
+#else
+        // on linux, macos 
+        // nothing to do
+        outString = strdup(_inString);
+#endif
+    }
+    return outString;
+}
+/*--------------------------------------------------------------------------*/
+
