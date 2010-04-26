@@ -23,4 +23,12 @@
     <button icon="help-browser.png" tooltiptext="Help Browser">
         <callback instruction='help();' type="-2"/>
     </button>
+
+    <separator/>
+
+    <!-- Datatips -->
+    <button icon="datatips.png" tooltiptext="Datatips Manager">
+        <callback instruction='datatipManagerMode(get_figure_handle([SCILAB_FIGURE_ID]));' type="-2"/>
+    </button>
+
 </toolbar>
