@@ -13,13 +13,12 @@
 #ifndef __NUMTOKENS_H__
 #define __NUMTOKENS_H__
 
-#include "dynlib_string.h"
-
 /**
 * get position of a numeric token
+* used only by fscanfMat
 * @param[in] a string
 * @return a position
 */
-STRING_IMPEXP int NumTokens(char *string);
+int NumTokens(char *string);
 
 #endif /* __NUMTOKENS_H__ */ 

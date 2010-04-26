@@ -547,6 +547,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\c\NumTokens.c"
+				>
+			</File>
+			<File
 				RelativePath=".\src\c\pathconvert.c"
 				>
 			</File>
@@ -914,6 +918,10 @@
 			</File>
 			<File
 				RelativePath=".\includes\mtell.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\c\NumTokens.h"
 				>
 			</File>
 			<File
