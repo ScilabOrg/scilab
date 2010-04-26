@@ -21,6 +21,8 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* Datatips tools added
+
 * bug 6959 fixed - axis.tics_labels did not accept $..$ LaTeXed labels
 
 API_Scilab:
