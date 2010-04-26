@@ -66,6 +66,11 @@ int NumTokens(char *string)
             {
                 if (strTmp)
                 {
+                    if (strlen(strTmp) > 0)
+                    {
+                        ntok++;
+                    }
+
                     FREE(strTmp);
                     strTmp = NULL;
                 }
