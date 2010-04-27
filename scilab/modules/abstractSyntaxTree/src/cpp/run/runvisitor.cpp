@@ -49,9 +49,42 @@ namespace ast
 	template <class T>
 	void RunVisitorT<T>::visitprivate(const CellExp &e)
 	{
-		/*
-			FIXME : container type
-		*/
+        //check dimmension
+        std::list<MatrixLineExp *>::const_iterator row;
+        std::list<Exp *>::const_iterator col;
+
+        int iColMax = -1;
+        for (row = e.lines_get().begin() ; row != e.lines_get().end() ; ++row )
+        {
+            if(iColMax == -1)
+            {
+                iColMax = static_cast<int>((*row)->columns_get().size());
+            }
+
+            if(iColMax != static_cast<int>((*row)->columns_get().size()))
+            {
+                std::ostringstream os;
+                os << "inconsistent row/column dimensions";
+                os << ((Location)(*row)->location_get()).location_string_get() << std::endl;
+                throw os.str();
+            }
+        }
+
+        Cell *pC = new Cell(static_cast<int>(e.lines_get().size()), iColMax);
+
+        int i = 0;
+        int j = 0;
+        for (i = 0, row = e.lines_get().begin() ; row != e.lines_get().end() ; row++, i++ )
+        {
+            for (j = 0, col = (*row)->columns_get().begin() ; col != (*row)->columns_get().end() ; col++, j++)
+            {
+                T execMe;
+                (*col)->accept(execMe);
+                pC->set(i,j, execMe.result_get());
+            }
+        }
+
+        result_set(pC);
 	}
 
 	/** \name Visit Constant Expressions nodes.
@@ -1104,7 +1137,7 @@ namespace ast
 	{
 		//Create list of indexes
 		//std::vector<std::vector<int>> IndexList;
-		int iProductElem				= _plstArg.size();
+		int iProductElem				= static_cast<int>(_plstArg.size());
 		int **piIndexList				= NULL;
 		int *piTabsize					= NULL;
 		int iTotalCombi					= 1;
