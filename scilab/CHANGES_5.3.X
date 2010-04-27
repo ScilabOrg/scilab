@@ -199,6 +199,9 @@ Bug fixes:
 
 * bug 6435 fixed - error 4 returned a wrong message.
 
+* bug 6447 fixed - unix_g() and dos() did not support properly neither UTF8 
+                   nor ANSI encoded output.
+
 * bug 6484 fixed - file did not return filename of a opened fortran file.
 
 * bug 6511 fixed - mseek and mtell did not manage files > 2 Gbytes on 64 bits 
