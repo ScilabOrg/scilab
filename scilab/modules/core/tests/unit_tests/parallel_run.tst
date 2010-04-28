@@ -7,24 +7,26 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+stacksize("max");
+
 function make_compiled_function(name, ext, code)
 filename=name+ext;
 mputl(code, filename);
-ilib_for_link(fun_name,filename,[],"c");
+ilib_for_link(name,filename,[],"c");
 exec loader.sce;
 mdelete(filename);
 endfunction
 
-fun_name='test_fun';
+g_fun_name='test_fun';
 c_prog=['#include  <math.h>'
-'void '+fun_name+'(void const* const* args, void *const* res) {'
+'void '+g_fun_name+'(void const* const* args, void *const* res) {'
 '*((double*)*res)= 2.*(((double*)args[0])[0]);'
 '}'];
 
-make_compiled_function(fun_name, '.c',c_prog);
+make_compiled_function(g_fun_name, '.c',c_prog);
 
 args=[1,2];
-res=parallel_run(args,fun_name,1);
+res=parallel_run(args,g_fun_name,1);
 if res<>[2, 4] then pause,end
 
 function a= g(arg1); a=2*arg1; endfunction;
@@ -191,3 +193,80 @@ blocks_to_sparse(parallel_run(N,1:L,"invert_one_block",[N,N]));
 
 
 if max(full(sp_inv-sp_inv_1)) > %eps then pause,end
+
+
+// testing configuration
+
+args=[1,2,3,4,5];
+function a= g(arg1); a=2*arg1; endfunction;
+
+function startup(n)
+disp("starting process "+string(n));
+endfunction
+function cleanup(n)
+disp("ending process "+string(n));
+endfunction
+
+conf= init_param();
+conf=add_param(conf, 'prologue');
+conf=set_param(conf,'prologue','startup');
+
+conf=add_param(conf, 'epilogue');
+conf=set_param(conf,'epilogue','cleanup');
+
+conf=add_param(conf, 'nb_workers');
+conf=set_param(conf,'nb_workers', 2);
+parallel_run(args, "g", conf);
+parallel_run(args, g_fun_name, conf);
+
+conf=add_param(conf, 'shared_memory');
+conf=set_param(conf,'shared_memory',1);
+parallel_run(args, g_fun_name, conf);
+
+function init_rand(n)
+  rand('seed',n);
+endfunction;
+
+function res= rand_macro(nb)
+  res= rand(1, nb);
+endfunction
+nb= 5;
+conf= init_param();
+conf=add_param(conf, 'nb_workers');
+conf=set_param(conf,'nb_workers', 2);
+// We use conf to force nb_workers = 2 even on monocore
+res= parallel_run([nb,nb],'rand_macro',nb,conf);
+// without seeding the 2 workers have the same rng.
+if max(abs(res(:,1)-res(:,2))) > %eps then pause,end
+
+conf=add_param(conf, 'prologue');
+conf=set_param(conf,'prologue','init_rand');
+res= parallel_run([nb,nb],'rand_macro',nb,conf);
+// when setting the seed, they should have different random numbers
+if max(abs(res(:,1)-res(:,2))) < %eps then pause,end
+
+many_args= 1:10e3;
+many_workers= 80;
+for sched=0:1
+  res= parallel_run(many_args, "g", set_param(add_param(set_param(add_param(init_param(),"dynamic_scheduling"),"dynamic_scheduling", sched),'nb_workers'),'nb_workers', many_workers ));
+  if res<>g(many_args) then pause,end;
+end;
+
+// test scheduling: sleeping is embarassingly parallel even on uniprocessors ! :)
+function r=do_sleep(t);sleep(t*1000);r=1;endfunction
+many_workers= 80;
+sleep_time=2;
+args=ones(1,many_workers)*sleep_time;
+for sched=0:1
+  tic();
+  res= parallel_run(args, "do_sleep", set_param(add_param(set_param(add_param(init_param(),"dynamic_scheduling"),"dynamic_scheduling", sched),'nb_workers'),'nb_workers', many_workers ));
+  if toc()>sleep_time+1 then pause,end;
+end;
+// test dynamic versus static scheduling : dynamic scheduling should be better on tasks of varying length.
+args=(1:50)/200;
+for sched=0:1
+  tic();
+  res= parallel_run(args, "do_sleep", set_param(add_param(set_param(add_param(init_param(),"dynamic_scheduling"),"dynamic_scheduling", sched),'nb_workers'),'nb_workers', 5 ));
+  elapsed(sched+1)= toc();
+end;
+if elapsed(2)>elapsed(1) then pause,end;
