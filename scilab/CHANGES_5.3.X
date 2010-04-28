@@ -244,3 +244,6 @@ Bug fixes:
 * bug 6971 fixed - after launching a toolbox by loader.sce, variable v was
                    predefined.
 
+* bug 6990 fixed - and and or does not work on hypermatrices
+
+
