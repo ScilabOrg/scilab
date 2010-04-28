@@ -109,7 +109,33 @@ void AutomaticTicksComputer::getTicksPosition(double positions[], char * labels[
 /*------------------------------------------------------------------------------------------*/
 void AutomaticTicksComputer::reduceTicksNumber(void)
 {
-  m_iNbTicks = (m_iNbTicks + 1) / 2;
+  m_iNbTicks = reduceTicksNumber(m_iNbTicks);
+}
+/*------------------------------------------------------------------------------------------*/
+int AutomaticTicksComputer::reduceTicksNumber(int numberOfTicks)
+{
+  return ((numberOfTicks +1) / 2);
+}
+/*------------------------------------------------------------------------------------------*/
+int AutomaticTicksComputer::computeMaxNumberOfDecimationIterations(void)
+{
+  int nbIterations = 0;
+  int numberOfTicks = m_iNbTicks;
+
+  // No iterations are performed since decimation requires
+  // more than one tick
+  if (numberOfTicks <= 1)
+  {
+    return 0;
+  }
+
+  while(numberOfTicks > 1)
+  {
+    numberOfTicks = reduceTicksNumber(numberOfTicks);
+    nbIterations++;
+  }
+
+  return nbIterations;
 }
 /*------------------------------------------------------------------------------------------*/
 void AutomaticTicksComputer::setAxisBounds(double min, double max)

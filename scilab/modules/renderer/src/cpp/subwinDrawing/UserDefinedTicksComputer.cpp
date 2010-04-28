@@ -60,6 +60,14 @@ void UserDefinedTicksComputer::reduceTicksNumber(void)
   // Actually, this function should not be called.
 }
 /*------------------------------------------------------------------------------------------*/
+int UserDefinedTicksComputer::computeMaxNumberOfDecimationIterations()
+{
+  // return 0 since this is user defined ticks and
+  // decimation is not performed at all.
+  // Actually, this function should not be called.
+  return 0;
+}
+/*------------------------------------------------------------------------------------------*/
 void UserDefinedTicksComputer::setUserTicks(double * userTicks, char ** userLabels,
                                             int nbUserTicks, int nbSubticks)
 {

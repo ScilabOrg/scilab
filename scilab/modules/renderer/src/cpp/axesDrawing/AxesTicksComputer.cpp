@@ -111,5 +111,11 @@ void AxesTicksComputer::reduceTicksNumber(void)
   // the ticks number can not change
 }
 /*---------------------------------------------------------------------------------*/
-
+int AxesTicksComputer::computeMaxNumberOfDecimationIterations(void)
+{
+  // return 0 since the number of ticks cannot change as
+  // decimation is not performed at all
+  return 0;
+}
+/*------------------------------------------------------------------------------------------*/
 }

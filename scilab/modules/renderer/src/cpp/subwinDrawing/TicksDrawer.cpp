@@ -244,7 +244,16 @@ double TicksDrawer::drawTicks(void)
 
     if (m_pTicksComputer->needTicksDecimation())
     {
-      while(dist < 0.0)
+      int itCount = 0;
+
+      // Since decimation cannot decrease the number of ticks to a value lower than 1,
+      // an upper bound to the number of iterations can be computed
+      int maxNbIterations = m_pTicksComputer->computeMaxNumberOfDecimationIterations();
+
+      // The iteration count is used as an additional exit condition in order to avoid infinite
+      // looping, which might occur if only the distance-to-axis condition is used (see bug 6835),
+      // though it never should.
+      while(dist < 0.0 && itCount < maxNbIterations)
       {
         m_pTicksComputer->reduceTicksNumber();
         // there is less ticks and positions, no need to reallocate smaller arrays
@@ -255,7 +264,7 @@ double TicksDrawer::drawTicks(void)
 
         nbSubticks = m_pSubticksComputer->getNbSubticks(ticksPos, nbTicks);
         // unfortunately subticks numbers may increase
-        // so somtime we need to reallocate subticks
+        // so sometime we need to reallocate subticks
         if (nbSubticks > initNbSubticks)
         {
           delete[] subticksPos;
@@ -271,7 +280,7 @@ double TicksDrawer::drawTicks(void)
         dist = m_pTicksDrawer->drawTicks(ticksPos, labels, labelsExponents, nbTicks,
                                          subticksPos, nbSubticks,
                                          axisSegmentStart, axisSegmentEnd, ticksDirection);
-
+        itCount++;
       }
     }
   }

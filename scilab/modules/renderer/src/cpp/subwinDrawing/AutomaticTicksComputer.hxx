@@ -50,9 +50,20 @@ public:
   virtual void reduceTicksNumber(void);
 
   /**
+   * Performs the actual reduction
+   */
+  int reduceTicksNumber(int numberOfTicks);
+
+  /**
    * To know if the ticks computer needs decimation.
    */
   virtual bool needTicksDecimation(void) {return true;}
+
+  /**
+   * To compute the maximum number of ticks decimation iterations
+   * Assumes that m_iNbTicks is set to the number of undecimated ticks
+   */
+  virtual int computeMaxNumberOfDecimationIterations(void);
 
   /**
    * Set bounds between which we must compute ticks.
@@ -60,7 +71,7 @@ public:
   virtual void setAxisBounds(double min, double max);
 
   /**
-   * To know if we need to get ticks exposants or not.
+   * To know if we need to get ticks exponents or not.
    */
   virtual bool isDisplayingLabelsExponents(void) {return false;}
 

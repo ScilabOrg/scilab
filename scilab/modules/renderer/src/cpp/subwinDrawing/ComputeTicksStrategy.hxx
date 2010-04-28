@@ -55,7 +55,12 @@ public:
   virtual bool needTicksDecimation(void) = 0;
 
   /**
-   * To know if we need to get ticks exposants or not.
+   * To compute the maximum number of ticks decimation iterations
+   */
+  virtual int computeMaxNumberOfDecimationIterations(void) = 0;
+
+  /**
+   * To know if we need to get ticks exponents or not.
    */
   virtual bool isDisplayingLabelsExponents(void) = 0;
 
