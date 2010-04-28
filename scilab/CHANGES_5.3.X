@@ -21,8 +21,9 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* Datatips tools added
+
 * bug 6835 fixed - Performing an interactive rotation after having executed the
-                   "plot3d" function caused Scilab to freeze on 64-bit Windows.
 
 * bug 6959 fixed - axis.tics_labels did not accept $..$ LaTeXed labels
 
