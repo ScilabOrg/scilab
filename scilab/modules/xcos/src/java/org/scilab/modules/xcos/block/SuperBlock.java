@@ -210,6 +210,11 @@ public final class SuperBlock extends BasicBlock {
 		 */
 		getChild().updateCellsContext();
 		
+		/*
+		 * Register the diagram container
+		 */
+		getChild().setContainer(this);
+		
 		XcosTab.getAllDiagrams().add(getChild());
 	}
 
