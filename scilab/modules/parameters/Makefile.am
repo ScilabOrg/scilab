@@ -7,6 +7,37 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+### SOURCES ###
+
+PARAMETERS_CPP_SOURCES = src/cpp/parameters.cpp
+
+libsciparameters_la_CFLAGS=-I$(srcdir)/includes/ \
+-I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/core/includes \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
+-I$(top_srcdir)/modules/output_stream/includes/ \
+-I$(top_srcdir)/modules/localization/includes 
+
+libsciparameters_la_CPPFLAGS=-I$(srcdir)/includes/ \
+-I$(srcdir)/src/cpp/ \
+-I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/core/includes \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
+-I$(top_srcdir)/modules/output_stream/includes/ \
+-I$(top_srcdir)/modules/localization/includes 
+
+pkglib_LTLIBRARIES = libsciparameters.la
+
+libsciparameters_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
+
+libsciparameters_la_SOURCES = $(PARAMETERS_CPP_SOURCES)
+
+# For the code check (splint)
+CHECK_SRC= $(libsciparameters_la_SOURCES)
+INCLUDE_FLAGS = $(libsciparameters_la_CFLAGS) 
+
+libsciparameters_la_LIBADD =  $(top_builddir)/modules/api_scilab/libsciapi_scilab.la
+
 #### Target ######
 modulename=parameters
 
@@ -17,5 +48,9 @@ libparameters_la_root_DATA = changelog.txt license.txt readme.txt version.xml
 #### parameters : init scripts ####
 libparameters_la_etcdir = $(mydatadir)/etc
 libparameters_la_etc_DATA = etc/parameters.quit etc/parameters.start
+
+#### api_scilab : include files ####
+libsciparameters_la_includedir=$(pkgincludedir)
+libsciparameters_la_include_HEADERS = includes/parameters.h
 
 include $(top_srcdir)/Makefile.incl.am
