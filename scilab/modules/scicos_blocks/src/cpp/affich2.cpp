@@ -1,6 +1,7 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2009 - DIGITEO - Antoine ELIAS
+* Copyright (C) 2010 - DIGITEO - Clément DAVID
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -11,44 +12,48 @@
 
 #include <math.h>
 #include <stdio.h>
-#include "XcosDiagram.hxx"
+#include "AfficheBlock.hxx"
 
 extern "C"
 {
 #include "machine.h"
+#include "dynlib_scicos_blocks.h"
 #include "MALLOC.h"
 #include "scicos_block4.h"
 #include "core_math.h"
 #include "getScilabJavaVM.h"
-#include "freeArrayOfString.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
 
 double C2F(sciround)(double* x);
+SCICOS_BLOCKS_IMPEXP void affich2(scicos_block *block, int flag);
 }
 /*--------------------------------------------------------------------------*/
-using namespace org_scilab_modules_xcos_graph;
+using namespace org_scilab_modules_xcos_block;
 /*--------------------------------------------------------------------------*/
-extern "C" void affich2(scicos_block *block,int flag)
+SCICOS_BLOCKS_IMPEXP void affich2(scicos_block *block, int flag)
 {
 	int i;
-	int iRowsIn					= 0;
-	int iColsIn					= 0;
-	double* pdblReal		= NULL;
-	char** pstValue			= NULL;
+	int j;
+	int iRowsIn = 0;
+	int iColsIn = 0;
+	double* pdblReal = NULL;
+	char*** pstValue = NULL;
 	char pstConv[128];
 
 	//get xcos object ID
-	int iBlock		= 0;
+	int blockHashCode;
 	int type = GetOparType(block, 1);
 	
-	if(type == 10)//SCSREAL_N
+	if(type == SCSREAL_N)
 	{
-		iBlock = (int)*(double*)GetOparPtrs(block,1);
+		// getting the current block hashcode (linked to the AfficheBlock#getObjectsParameters() method).
+		blockHashCode = (int) *(double*)GetOparPtrs(block,1);
 	}
 	else
 	{
+		// this is a not applicable block so does nothing.
 		return;
 	}
 
@@ -57,54 +62,74 @@ extern "C" void affich2(scicos_block *block,int flag)
 
 	pdblReal = (double*)GetInPortPtrs(block,1);
 
-	pstValue = (char**)MALLOC(sizeof(char*) * iRowsIn * iColsIn);
-
 	//functions
 	switch(flag)
 	{
-	case 2 : //state evolution
+	case StateUpdate: //state evolution
+		// Getting the allocated area
+		pstValue = (char***) block->work[0];
+		
+		for(i = 0; i < iRowsIn; i++)
 		{
-			int iOK = 1;
-			for(i = 0 ; i < iRowsIn * iColsIn ; i++)
+			for(j = 0; j < iColsIn; j++)
 			{
-				int iPrec				= GetIparPtrs(block)[5];
+				int iPrec = GetIparPtrs(block)[5];
 				double dblScale	= pow((double)10, iPrec);
 				double dblTemp = pdblReal[i] * dblScale;
 				double dblValue = C2F(sciround)(&dblTemp) / dblScale; 
 				char pstFormat[10];
 
-
 #if _MSC_VER
-//"%0.2f"
+				//"%0.2f"
 				sprintf_s(pstFormat, 10, "%%0.%df", iPrec);
 				sprintf_s(pstConv, 128, pstFormat, dblValue);
 #else
 				sprintf(pstFormat, "%%0.%df", iPrec);
 				sprintf(pstConv, pstFormat, dblValue);
 #endif
-				pstValue[i] = strdup(pstConv);
+				pstValue[i][j] = strdup(pstConv);
 			}
-
-			XcosDiagram::setBlockTextValue(getScilabJavaVM(), iBlock, pstValue, iRowsIn * iColsIn, iRowsIn, iColsIn);
-		}
-		break; 
-	case 4 : //init
-		for(i = 0 ; i < iRowsIn * iColsIn ; i++)
-		{
-#if _MSC_VER
-			sprintf_s(pstConv, 128, "%0.2f", 0.0);
-#else
-			sprintf(pstConv, "%0.2f", 0.0);
-#endif
-			pstValue[i] = strdup(pstConv);
 		}
 
-		XcosDiagram::setBlockTextValue(getScilabJavaVM(), iBlock, pstValue, iRowsIn * iColsIn, iRowsIn, iColsIn);
-
-		freeArrayOfString(pstValue, iRowsIn * iColsIn);
+		AfficheBlock::setValue(getScilabJavaVM(), blockHashCode, pstValue, iRowsIn, iColsIn);
 		break;
-	default :
+		
+	case Initialization: //init
+		pstValue = (char***) MALLOC(sizeof(char**) * iRowsIn);
+	
+		for(i = 0; i < iRowsIn; i++)
+		{
+			pstValue[i] = (char**) MALLOC(sizeof(char*) * iColsIn);
+			
+			for(j = 0; j < iColsIn; j++)
+			{
+#if _MSC_VER
+				sprintf_s(pstConv, 128, "%0.2f", 0.0);
+#else
+				sprintf(pstConv, "%0.2f", 0.0);
+#endif
+				pstValue[i][j] = strdup(pstConv);
+			}
+		}
+
+		AfficheBlock::setValue(getScilabJavaVM(), blockHashCode, pstValue, iRowsIn, iColsIn);
+		
+		// storing the allocated area on the block work field.
+		block->work[0] = pstValue;
+		break;
+	
+	case Ending:
+		// Getting the allocated area
+		pstValue = (char***) block->work[0];
+
+		for(i = 0; i < iRowsIn; i++)
+		{
+			FREE(pstValue[i]);		
+		}		
 		FREE(pstValue);
+		break;
+
+	default :
 		break;
 	}
 }
