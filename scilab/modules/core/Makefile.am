@@ -85,7 +85,6 @@ src/c/funcprot.c \
 src/c/eqid.c
 
 CORE_CPP_SOURCES = \
-src/cpp/parallel_run.cpp \
 src/cpp/hashtable_core.cpp
 
 
@@ -307,6 +306,7 @@ libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/api_scilab/includes \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/modules/parameters/includes \
 	-I$(top_srcdir)/libs/MALLOC/includes/ 
 
 # Used by sci_getdebuginfo:
