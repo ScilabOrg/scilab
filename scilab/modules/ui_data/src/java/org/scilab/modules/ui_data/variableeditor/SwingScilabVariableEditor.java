@@ -27,9 +27,18 @@ import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.ui_data.datatable.SwingEditvarTableModel;
+import org.scilab.modules.ui_data.variableeditor.celleditor.VariableEditorCellEditor;
 
+/**
+ * Swing implementation of Scilab Variable Editor
+ * uses JTable
+ */
 public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, SimpleVariableEditor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private SwingEditvarTableModel<Object> dataModel;
 	private JTable table;
 
@@ -43,6 +52,7 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 		dataModel = new SwingEditvarTableModel<Object>(data);
 
 		table = new JTable(dataModel);
+		table.setDefaultEditor(Object.class, new VariableEditorCellEditor());
 		table.setFillsViewportHeight(true);
 		table.setAutoResizeMode(CENTER);
 		table.setAutoCreateRowSorter(true);
@@ -79,8 +89,16 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 	/**
 	 * {@inheritDoc}
 	 */
+	
 	public void setData(Object[][] data) {
-		dataModel.setData(data);
+		dataModel.setDataVector(data);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void setValueAt(Object value, int row, int col) {
+		dataModel.setValueAt(value, row, col);
 	}
 
 	/**
@@ -97,6 +115,5 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }
