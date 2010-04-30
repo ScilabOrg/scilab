@@ -336,6 +336,9 @@ ATOMS:
 Bug fixes:
 ==========
 
+* bug 1041 fixed - An error inside a loop was reported as if it occurred on 
+                   the "end" line.
+
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
 * bug 2076 fixed - pspect did not use the last data window.
