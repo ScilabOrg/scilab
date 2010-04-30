@@ -150,10 +150,10 @@ am__libscicore_la_SOURCES_DIST = src/c/inffic.c src/c/cs2st.c \
 	src/c/predef.c src/c/transposeMatrix.c \
 	src/c/recursionFunction.c src/c/typename.c \
 	src/c/inittypenames.c src/c/funcprot.c src/c/eqid.c \
-	src/c/scimem64.c src/cpp/parallel_run.cpp \
-	src/cpp/hashtable_core.cpp src/fortran/clunit.f \
-	src/fortran/getlin.f src/fortran/allowptr.f \
-	src/fortran/isany.f src/fortran/hmcreate.f src/fortran/nextj.f \
+	src/c/scimem64.c src/cpp/hashtable_core.cpp \
+	src/fortran/clunit.f src/fortran/getlin.f \
+	src/fortran/allowptr.f src/fortran/isany.f \
+	src/fortran/hmcreate.f src/fortran/nextj.f \
 	src/fortran/setgetmode.f src/fortran/showstack.f \
 	src/fortran/misops.f src/fortran/iseye.f src/fortran/chkvar.f \
 	src/fortran/setippty.f src/fortran/compil.f \
@@ -284,8 +284,7 @@ am__objects_2 = libscicore_la-inffic.lo libscicore_la-cs2st.lo \
 	libscicore_la-recursionFunction.lo libscicore_la-typename.lo \
 	libscicore_la-inittypenames.lo libscicore_la-funcprot.lo \
 	libscicore_la-eqid.lo $(am__objects_1)
-am__objects_3 = libscicore_la-parallel_run.lo \
-	libscicore_la-hashtable_core.lo
+am__objects_3 = libscicore_la-hashtable_core.lo
 @USE_DYNAMIC_STACK_TRUE@am__objects_4 = relocstack.lo
 am__objects_5 = clunit.lo getlin.lo allowptr.lo isany.lo hmcreate.lo \
 	nextj.lo setgetmode.lo showstack.lo misops.lo iseye.lo \
@@ -658,7 +657,6 @@ CORE_C_SOURCES = src/c/inffic.c src/c/cs2st.c src/c/tmpdir.c \
 	src/c/inittypenames.c src/c/funcprot.c src/c/eqid.c \
 	$(am__append_1)
 CORE_CPP_SOURCES = \
-src/cpp/parallel_run.cpp \
 src/cpp/hashtable_core.cpp
 
 CORE_FORTRAN_SOURCES = src/fortran/clunit.f src/fortran/getlin.f \
@@ -807,6 +805,7 @@ libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/api_scilab/includes \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/modules/parameters/includes \
 	-I$(top_srcdir)/libs/MALLOC/includes/ 
 
 pkglib_LTLIBRARIES = libscicore.la
@@ -1052,7 +1051,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-isanan.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-islittleendian.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-loadversion.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-parallel_run.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-md5.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-mode_exec.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-parse.Plo@am__quote@
@@ -1101,10 +1099,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_lasterror.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_macr2lst.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_macr2tree.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_parallel_run.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_mode.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_mtlb_mode.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_newfun.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_parallel_run.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_predef.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_readgateway.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_la-sci_resume.Plo@am__quote@
@@ -2108,13 +2106,6 @@ libscicore_la-sci_exit.lo: sci_gateway/c/sci_exit.c
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
-
-libscicore_la-parallel_run.lo: src/cpp/parallel_run.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscicore_la-parallel_run.lo -MD -MP -MF $(DEPDIR)/libscicore_la-parallel_run.Tpo -c -o libscicore_la-parallel_run.lo `test -f 'src/cpp/parallel_run.cpp' || echo '$(srcdir)/'`src/cpp/parallel_run.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscicore_la-parallel_run.Tpo $(DEPDIR)/libscicore_la-parallel_run.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/parallel_run.cpp' object='libscicore_la-parallel_run.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscicore_la-parallel_run.lo `test -f 'src/cpp/parallel_run.cpp' || echo '$(srcdir)/'`src/cpp/parallel_run.cpp
 
 libscicore_la-hashtable_core.lo: src/cpp/hashtable_core.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscicore_la-hashtable_core.lo -MD -MP -MF $(DEPDIR)/libscicore_la-hashtable_core.Tpo -c -o libscicore_la-hashtable_core.lo `test -f 'src/cpp/hashtable_core.cpp' || echo '$(srcdir)/'`src/cpp/hashtable_core.cpp
