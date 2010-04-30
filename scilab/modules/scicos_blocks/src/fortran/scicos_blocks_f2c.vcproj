@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
@@ -6,6 +6,7 @@
 	ProjectGUID="{2F7B6080-8D84-43A7-A967-13FC8AA83DEB}"
 	RootNamespace="scicos_blocks_f2c"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -404,10 +405,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\affich2.c"
-				>
-			</File>
-			<File
 				RelativePath=".\csslti.c"
 				>
 			</File>
@@ -653,10 +650,6 @@
 			>
 			<File
 				RelativePath=".\affich.f"
-				>
-			</File>
-			<File
-				RelativePath=".\affich2.f"
 				>
 			</File>
 			<File

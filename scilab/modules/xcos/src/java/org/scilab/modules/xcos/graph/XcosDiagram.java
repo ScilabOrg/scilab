@@ -49,7 +49,6 @@ import org.scilab.modules.graph.actions.SelectAllAction;
 import org.scilab.modules.graph.actions.UndoAction;
 import org.scilab.modules.graph.actions.ZoomInAction;
 import org.scilab.modules.graph.actions.ZoomOutAction;
-import org.scilab.modules.graph.utils.ScilabExported;
 import org.scilab.modules.graph.utils.ScilabInterpreterManagement;
 import org.scilab.modules.graph.utils.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
@@ -2077,36 +2076,6 @@ public class XcosDiagram extends ScilabGraph {
 	    return ((BasicPort) cell).getToolTipText();
 	}
 	return "";
-    }
-
-    /**
-     * Set any text to an Afficheblock specified by its ID.
-     * @param blockID ID of the AfficheBlock to be modified.
-     * @param blockValue Content to be apply to the block.
-     * @param iRows Number of Row in the blockValue.
-     * @param iCols Number of Collumns in the blockValue.
-     */
-    @ScilabExported(module="scicos_blocks", filename="XcosDiagram.giws.xml")
-    public static void setBlockTextValue(int blockID, String[] blockValue, int iRows, int iCols) {
-
-	AfficheBlock block = XcosTab.getAfficheBlocks().get(blockID);
-	if (block == null) {
-	    return;
-	}
-
-	StringBuilder blockResult = new StringBuilder();
-	for (int i = 0; i < iRows; i++) {
-	    for (int j = 0; j < iCols; j++) {
-		if (iCols != 0) {
-		    blockResult.append("  ");
-		}
-		blockResult.append(blockValue[j * iRows + i]);
-	    }
-	    blockResult.append(System.getProperty("line.separator"));
-	}
-
-	block.setValue(blockResult.toString());
-	block.getParentDiagram().refresh();
     }
 
 

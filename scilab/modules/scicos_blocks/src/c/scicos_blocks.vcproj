@@ -398,6 +398,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\jni\AfficheBlock.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\andlog.c"
 				>
 			</File>
@@ -915,6 +919,10 @@
 			</File>
 			<File
 				RelativePath=".\gainblk_ui8s.c"
+				>
+			</File>
+			<File
+				RelativePath="..\jni\GiwsException.cpp"
 				>
 			</File>
 			<File
@@ -1654,10 +1662,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\jni\XcosDiagram.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\zcross2.c"
 				>
 			</File>
@@ -1671,7 +1675,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\jni\AfficheBlock.hxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\includes\blocks.h"
+				>
+			</File>
+			<File
+				RelativePath="..\jni\GiwsException.hxx"
 				>
 			</File>
 			<File
@@ -1706,10 +1718,6 @@
 				RelativePath="..\..\includes\scoWindowScope.h"
 				>
 			</File>
-			<File
-				RelativePath="..\jni\XcosDiagram.hxx"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="localization"
@@ -1722,10 +1730,6 @@
 		<Filter
 			Name="Libraries Dependencies"
 			>
-			<File
-				RelativePath=".\scicos_blocks_header.def"
-				>
-			</File>
 			<Filter
 				Name="Import"
 				>
