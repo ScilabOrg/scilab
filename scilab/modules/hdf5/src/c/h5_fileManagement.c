@@ -14,25 +14,31 @@
 #include "h5_fileManagement.h"
 #include "FileExist.h"
 #include "deleteafile.h"
+#include "isdir.h"
 
 int createHDF5File(char *name) 
 {
-  hid_t       file;
-	hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
-	H5Pset_fclose_degree(fapl,H5F_CLOSE_STRONG);
+    hid_t       file;
+    hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
+    H5Pset_fclose_degree(fapl,H5F_CLOSE_STRONG);
 
-	
-	if(FileExist(name))
-	{
-		deleteafile(name);
-	}
-	/*
-   * Create a new file using the default properties.
-   */
+    /*bug 5629 : to prevent replace directory by file*/
+    if(isdir(name))
+    {
+        return -2;
+    }
 
-	file = H5Fcreate(name, H5F_ACC_TRUNC, H5P_DEFAULT, fapl);
-  
-  return file;
+    if(FileExist(name))
+    {
+        deleteafile(name);
+    }
+    /*
+    * Create a new file using the default properties.
+    */
+
+    file = H5Fcreate(name, H5F_ACC_TRUNC, H5P_DEFAULT, fapl);
+
+    return file;
 }
 
 int openHDF5File(char *name) 
