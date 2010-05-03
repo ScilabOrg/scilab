@@ -850,6 +850,12 @@ the the JNI libraries."])],
 				  AC_SUBST(JHDF5)
 				fi
 
+                AC_JAVA_CHECK_VERSION_PACKAGE([hdf5],[import ncsa.hdf.hdf5lib.H5;],$JHDF5,[1.8.4],[ver],[int[] vers = new int[3];
+                        try { H5.H5get_libversion(vers); }
+                        catch (Throwable ex) {System.exit(-1);}
+                        String ver = vers[0] + "."+ vers[1] +"."+vers[2];
+                ])
+
 				# Logging (flexdock dep)
 				AC_JAVA_CHECK_PACKAGE([commons-logging],[org.apache.commons.logging.LogFactory],[Apache logging])
 				COMMONS_LOGGING=$PACKAGE_JAR_FILE
