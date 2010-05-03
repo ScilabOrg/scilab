@@ -107,8 +107,16 @@ int sci_export_to_hdf5(char *fname,unsigned long fname_len)
 
 	if(iH5File < 0)
 	{
-		Scierror(999,_("%s: Cannot open file %s.\n"), fname, pstNameList[0]);
-		return 0;
+        if(iH5File == -2)
+        {
+    	    Scierror(999,_("%s is a directory."), pstNameList[0]);
+        }
+        else
+        {
+    	    Scierror(999,_("%s: Cannot open file %s.\n"), fname, pstNameList[0]);
+        }
+
+	    return 0;
 	}
 
 	// export data
