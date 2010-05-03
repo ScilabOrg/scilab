@@ -298,5 +298,7 @@ Bug fixes:
 
 * bug 6990 fixed - "and" and "or" did not work on hypermatrices
 
+* bug 7019 fixed - resume() produced an incorrect error message.
+
 
 
