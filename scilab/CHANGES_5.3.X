@@ -308,5 +308,8 @@ Bug fixes:
 
 * bug 6990 fixed - "and" and "or" did not work on hypermatrices
 
+* bug 6774 fixed - The use of get_param requires to be extra-careful when we 
+                   get the value of an option which is a function.
+
 
 
