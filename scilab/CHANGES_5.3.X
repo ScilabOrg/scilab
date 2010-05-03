@@ -61,6 +61,9 @@ Graphics:
 
 * bug 7067 fixed - The "isoview" macro created an unnecessary "plot" object.
 
+* bug 7075 fixed - When we set "links" property for a handle of type legend,
+                   the property type was not checked.
+
 Localization:
 =============
 
