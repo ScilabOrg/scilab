@@ -542,6 +542,7 @@ Bug fixes:
 
 * bug 2613 fixed - Incorrect stack recovery for catched errors in some
                    specific contexts (for loops, ..)
+* bug 1989 fixed - Semantics of empty matrices in boolean expressions was not clear enough
 
 * bug 2623 fixed - non regression test script fixed
 
