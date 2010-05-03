@@ -313,5 +313,5 @@ Bug fixes:
 
 * bug 6990 fixed - "and" and "or" did not work on hypermatrices
 
-
-
+* bug 7006 fixed - scilab -nwni -f 'script.sci ' was failing. -f argument is 
+                   now trimmed/stripped

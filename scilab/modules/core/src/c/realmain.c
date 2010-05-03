@@ -17,6 +17,7 @@
 #include "scirun.h"
 #include "realmain.h" /* enum InitScriptType */
 #include "sciquit.h"
+#include "stripblanks.h"
 #include "tmpdir.h"
 #include "inisci-c.h"
 #include "PATH_MAX.h"
@@ -86,8 +87,20 @@ int realmain(int no_startup_flag_l, char *initial_script, InitScriptType initial
             switch ( initial_script_type )
             {
                 case SCILAB_SCRIPT :
-                    snprintf(startup,PATH_MAX,"%s;exec('%s',-1)",get_sci_data_strings(STARTUP_ID),initial_script);
-                    break;
+                {
+                    /* Create a temporary char** because stripblanks needs it
+                     * but we will only use the first argument */
+                    char *initial_script_trimed[1];
+                    initial_script_trimed[0]=(char*)MALLOC((strlen(initial_script)+1)*sizeof(char));
+                    /* strip leading and ending blanks. 
+                     * not doing it will cause scilab -nwni -f 'script.sci ' 
+                     * to fails. See bug #7006 */
+                    stripblanks(&initial_script,initial_script_trimed,1,TRUE); /* True is to remove also the tabs */
+
+                    snprintf(startup,PATH_MAX,"%s;exec('%s',-1)",get_sci_data_strings(STARTUP_ID),initial_script_trimed[0]);
+                    FREE(initial_script_trimed[0]);
+                }
+                break;
                 case SCILAB_CODE :
                     snprintf(startup,PATH_MAX,"%s;%s;",get_sci_data_strings(STARTUP_ID),initial_script);
                     break;
