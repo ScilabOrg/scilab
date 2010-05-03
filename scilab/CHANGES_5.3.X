@@ -250,6 +250,8 @@ Bug fixes:
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
+* bug 1989 fixed - Semantics of empty matrices in boolean expressions was not clear enough
+
 * bug 2654 partially fixed - exec returned a wrong error if line had more 
                    than 4096 characters.
 
