@@ -182,6 +182,8 @@ Warning :
 matrix is close to singular or badly scaled. rcond =    6.6651D-13
 computing least squares solution. (see lsq).
 
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check optimum point
 xopt = neldermead_get(nm,"-xopt");
 assert_close ( xopt , [0.0;-0.5], 1e-5 );
@@ -234,6 +236,12 @@ nm = neldermead_configure(nm,"-kelleystagnationflag",%t);
 nm = neldermead_configure(nm,"-restartflag",%t);
 nm = neldermead_configure(nm,"-restartdetection","kelley");
 nm = neldermead_search(nm);
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check status
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "maxrestart" );
@@ -273,6 +281,8 @@ Warning :
 matrix is close to singular or badly scaled. rcond =    6.6651D-13
 computing least squares solution. (see lsq).
 
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check status
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "tolsize" );
@@ -311,6 +321,8 @@ nm = neldermead_configure(nm,"-restartdetection","kelley");
 nm = neldermead_configure(nm,"-restartsimplexmethod","axes");
 nm = neldermead_configure(nm,"-kelleystagnationalpha0",1.e-2);
 nm = neldermead_search(nm);
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check status
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "tolsize" );
@@ -349,6 +361,8 @@ nm = neldermead_configure(nm,"-restartdetection","kelley");
 nm = neldermead_configure(nm,"-restartsimplexmethod","spendley");
 nm = neldermead_configure(nm,"-kelleystagnationalpha0",1.e-2);
 nm = neldermead_search(nm);
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check status
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "tolsize" );
@@ -389,6 +403,12 @@ nm = neldermead_configure(nm,"-restartdetection","kelley");
 nm = neldermead_configure(nm,"-restartsimplexmethod","pfeffer");
 nm = neldermead_configure(nm,"-kelleystagnationalpha0",1.e-2);
 nm = neldermead_search(nm);
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 // Check status
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "maxrestart" );
@@ -430,6 +450,8 @@ Warning :
 matrix is close to singular or badly scaled. rcond =    6.6651D-13
 computing least squares solution. (see lsq).
 
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 xopt = neldermead_get(nm,"-xopt");
 assert_close ( xopt , [0.0;-0.5], 1e-1 );
 iterations = neldermead_get(nm,"-iterations");
@@ -462,6 +484,8 @@ Warning :
 matrix is close to singular or badly scaled. rcond =    6.6651D-13
 computing least squares solution. (see lsq).
 
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 xopt = neldermead_get(nm,"-xopt");
 assert_close ( xopt , [0.0;-0.5], 1e-1 );
 iterations = neldermead_get(nm,"-iterations");
@@ -494,6 +518,8 @@ Warning :
 matrix is close to singular or badly scaled. rcond =    6.6651D-13
 computing least squares solution. (see lsq).
 
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 xopt = neldermead_get(nm,"-xopt");
 assert_close ( xopt , [0.0;-0.5], 1e-1 );
 iterations = neldermead_get(nm,"-iterations");
