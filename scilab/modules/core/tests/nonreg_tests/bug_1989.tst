@@ -1,0 +1,21 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- JVM NOT MANDATORY -->
+
+// <-- Non-regression test for bug 1989 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=1989
+//
+// <-- Short Description -->
+// Semantics of empty matrices in boolean expressions is not clear enough
+
+// The  Semantics of empty matrices in short circuit context has been changed
+// to make it fit with the semantics described in the and_op and or_op help pages
+
+if []<10 & 1==1 then r=1;else pause, end
