@@ -6,6 +6,8 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
+// <-- ENGLISH IMPOSED -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -142,6 +144,16 @@ nm = neldermead_configure(nm,"-verbose",1);
 nm = neldermead_configure(nm,"-logfile" , "search.txt" );
 nm = neldermead_configure(nm,"-verbosetermination",1);
 nm = neldermead_search(nm);
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+WARNING: optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 nm = neldermead_destroy(nm);
 computed = deletefile("search.txt");
 assert_equal ( computed , %t );

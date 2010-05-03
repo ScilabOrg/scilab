@@ -6,6 +6,7 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -54,6 +55,8 @@ nm = neldermead_configure(nm,"-function",rosenbrock);
 nm = neldermead_configure(nm,"-x0",[-1.2 1.0].');
 nm = neldermead_search(nm);
 nm = neldermead_restart(nm);
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 nm = neldermead_destroy(nm);
 //
 // Test with and maximum number of iterations reached
@@ -66,6 +69,8 @@ nm = neldermead_configure(nm,"-maxiter",10);
 nm = neldermead_search(nm);
 nm = neldermead_configure(nm,"-maxiter",100);
 nm = neldermead_restart(nm);
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 nm = neldermead_destroy(nm);
 function [ f , index ] = objfun ( x , index ) 
   f = exp(x(1))*(4*x(1)^2+2*x(2)^2+x(1)*x(2)+2*x(2));
@@ -80,4 +85,6 @@ nm = neldermead_configure(nm,"-x0",[-1 1].');
 nm = neldermead_search(nm);
 nm = neldermead_configure(nm,"-maxfunevals",200);
 nm = neldermead_restart(nm);
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
+ATTENTION : optimsimplex_tostring: obsolete use of optimsimplex_tostring, use string instead.
 nm = neldermead_destroy(nm);
