@@ -208,6 +208,8 @@ Bug fixes:
 
 * bug 4699 fixed - xml2test.pl: Paths were badly displayed in some cases.
 
+* bug 4799 fixed - Sometime the bode, nyquist , ... function reported a "non convergence" error
+
 * bug 4985 fixed - mgetl did not use fgets (C function).
 
 * bug 4996 fixed - mgetl() was not located in the right module. It has been
