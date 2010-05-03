@@ -21,6 +21,9 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* bug 6786 fixed - The "polarplot" function did not correctly display the polar
+                   coordinates grid when negative rho values were plotted.
+
 * bug 6835 fixed - Performing an interactive rotation after having executed the
                    "plot3d" function caused Scilab to freeze on 64-bit Windows.
 
