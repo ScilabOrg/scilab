@@ -27,9 +27,19 @@
 
     <para><literal>A|B</literal> renvoie la disjonction logique élément par
     élément des matrices booléennes <literal>A</literal> et
-    <literal>B</literal>. <literal>A</literal> et <literal>B</literal> doivent
-    être des matrices de mêmes dimensions ou l'une d'elles doit être un simple
+    <literal>B</literal>. Les matrices <literal>A</literal> et <literal>B</literal> doivent
+    avoir les mêmes dimensions ou l'une d'elles doit être un simple
     booléen.</para>
+
+   <para> Utilisé à l'interieur de l'expression de la condition d'un
+   <literal>if</literal> ou d'un <literal>while</literal>, l'opérateur
+    <literal>|</literal>court circuite l'évaluation du second opérande si
+   l'évaluation du premier a la valeur <literal>%t</literal>.</para>
+   <para>Si l'un des opérandes est une matrice vide: <literal>[ ]</literal> alors les règles suivantes s'appliquent:</para>
+   <para>[]|[] == []</para>
+   <para>[]|A == A</para>   
+   <para>A|[] == A</para>   
+   
   </refsection>
 
   <refsection>
