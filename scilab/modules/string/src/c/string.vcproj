@@ -713,7 +713,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\stripblanks.h"
+				RelativePath="..\..\includes\stripblanks.h"
 				>
 			</File>
 			<File
