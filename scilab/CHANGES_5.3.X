@@ -21,6 +21,9 @@ Graphics:
 
 * the set and get functions are now overloadable.
 
+* bug 2651 fixed - "plot2d" was not working when the x argument was not given
+                   and some optional arguments was given.
+
 * bug 6835 fixed - Performing an interactive rotation after having executed the
                    "plot3d" function caused Scilab to freeze on 64-bit Windows.
 
