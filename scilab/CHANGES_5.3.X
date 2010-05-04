@@ -35,6 +35,9 @@ Graphics:
 
 * bug 6532 fixed - In some case text entity rendering order was wrong.
 
+* bug 6676 fixed - When we executed "twinkle(gca())", data related to the
+                   current axes were not twinkling.
+
 * bug 6786 fixed - The "polarplot" function did not correctly display the polar
                    coordinates grid when negative rho values were plotted.
 
@@ -49,7 +52,7 @@ Graphics:
 
 * bug 7028 fixed - When scilab printed an "axis" graphic handle, string array
                    size for "tics_labels" was erroneous.
-=======
+
 Localization:
 =============
 
