@@ -34,6 +34,9 @@ Graphics:
 
 * bug 6959 fixed - axis.tics_labels did not accept $..$ LaTeXed labels
 
+* bug 7028 fixed - When scilab printed an "axis" graphic handle, string array
+                   size for "tics_labels" were erroneous.
+
 API_Scilab:
 ===========
 
