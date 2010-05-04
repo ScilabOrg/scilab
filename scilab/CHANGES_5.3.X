@@ -39,6 +39,13 @@ Graphics:
 
 * bug 7024 fixed - Error messages from "twinkle" were not standard.
 
+Localization:
+=============
+
+* Polish localization added. Thanks to Paweł Dąbrowski, Ernest Życiński, 
+  Sebastian Sławski, Kamil Dąbrowsk, Kamil Strojek, Kamil Dąbrowski, 
+  Michał Snoc, Piotr Seroka...
+
 API_Scilab:
 ===========
 
