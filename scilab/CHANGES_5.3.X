@@ -395,4 +395,8 @@ Bug fixes:
 
 * bug 7014 fixed - ilib_verbose value was modified after toolbox_skeleton.
 
+* bug 7021 fixed - Scilab did not start and returned a error system (193)
+                   on Windows.
+
 * bug 7033 fixed - newfun was randomly crashing (mostly on 32 bits) writing to unallocated memory.
+
