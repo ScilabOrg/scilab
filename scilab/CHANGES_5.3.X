@@ -355,3 +355,7 @@ Bug fixes:
 * bug 6990 fixed - "and" and "or" did not work on hypermatrices
 
 * bug 7014 fixed - ilib_verbose value was modified after toolbox_skeleton.
+
+* bug 7021 fixed - Scilab did not start and returned a error system (193)
+                   on Windows.
+
