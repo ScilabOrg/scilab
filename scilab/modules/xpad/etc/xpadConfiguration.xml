@@ -26,7 +26,7 @@
 	  
 	  <styles>
 	    
-	    <FontName default="Monospaced" useCache="true" value="Monospaced.plain"/>
+	    <FontName default="Lucida Sans Typewriter Regular" useCache="true" value="Lucida Sans Typewriter Regular"/>
 	    <FontSize default="14" useCache="true" value="14"/>
 	    
 	    <MainWindowPosition useCache="true" x="150" y="50"/>
@@ -43,12 +43,12 @@
               <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
 	    </style>
 
-	    <style name="Url">
+	    <style name="Url" underline="true">
 	      <ForegroundColor default="#0000ff" useCache="true" value="#0000ff"/>
               <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
 	    </style>
 
-	    <style name="Boolean">
+	    <style name="Constantes">
 	      <ForegroundColor default="#da70d6" useCache="true" value="#da70d6"/>
               <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
 	    </style>
@@ -102,7 +102,17 @@
 	      <ForegroundColor default="#aaaaaa" useCache="true" value="#aaaaaa"/>
               <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
 	    </style>
+
+	    <style name="TabIndentation">
+	      <ForegroundColor default="#dcdcdc" useCache="true" value="#dcdcdc"/>
+              <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
+	    </style>
 	    
+	    <style name="WhiteIndentation">
+	      <ForegroundColor default="#dcdcdc" useCache="true" value="#dcdcdc"/>
+              <FontStyle default="0" useCache="true" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
+	    </style>
+
 	    <!--style name="Macro">
 	      <ForegroundColor default="#ff9933" useCache="true" value="#ff9933"/>
               <FontStyle default="0" useCache="true" value="0"/--> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
@@ -111,27 +121,63 @@
 	  
 	  <!-- Recent Opened Files Section  -->
 	  <recentFiles>
-<document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%b_g_s.sci"/>
-<document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%lss_size.sci"/>
-<document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%lss_l_lss.sci"/>
-<document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%i_g_i.sci"/>
-<document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%sp_s_sp.sci"/>
 <document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%i_i_ce.sci"/>
 <document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%p_matrix.sci"/>
 <document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%st_o_p.sci"/>
 <document path="/home/calixte/git/xpad/scilab/scilab/modules/overloading/macros/%s_s_ip.sci"/>
-
-
-
-
-
-
-
-
-
-
+<document path="/home/calixte/toto.sci"/>
+<document path="/home/calixte/prettyprint.sci"/>
+<document path="/home/calixte/git/master/scilab/scilab/modules/output_stream/macros/prettyprint.sci"/>
+<document path="/home/calixte/git/5.2/scilab/scilab/modules/output_stream/macros/prettyprint.sci"/>
+<document path="/home/calixte/git/xpad/scilab/scilab/modules/optimization/macros/derivative.sci"/>
 <document path="/home/calixte/git/xpad/scilab/scilab/modules/graphics/macros/ged.sci"/>
 </recentFiles>
 	  
-	</Profile>
+	<recentSearch>
+<search exp="axes"/>
+<search exp="\delta"/>
+<search exp="\D"/>
+<search exp="\d"/>
+<search exp="&quot;\delta t&quot;"/>
+<search exp="\Delta"/>
+<search exp="delta"/>
+<search exp="delte"/>
+<search exp="salut"/>
+<search exp="calixte"/>
+<search exp="den"/>
+<search exp="abc"/>
+<search exp="ade"/>
+<search exp="\abc"/>
+<search exp="\AB"/>
+<search exp="\salut"/>
+<search exp="\bla"/>
+</recentSearch>
+<recentReplace>
+
+<replace exp="\Delta"/>
+<replace exp="\n"/>
+<replace exp="&quot;\Delta t&quot;"/>
+<replace exp="\delta"/>
+<replace exp="\delte"/>
+<replace exp="\deltv"/>
+<replace exp="calixte"/>
+<replace exp="deninzet"/>
+<replace exp="co"/>
+<replace exp="a"/>
+<replace exp="abcde"/>
+<replace exp="\abcde"/>
+<replace exp="\xuz"/>
+<replace exp="\AB"/>
+<replace exp="\calixt"/>
+<replace exp="\Salut"/>
+<replace exp="\bli"/>
+<replace exp="blo"/>
+<replace exp="\blo"/>
+</recentReplace>
+
+<regularExp state="false"/>
+<wordWarp state="false"/>
+<wholeWord state="false"/>
+<caseSensitive state="false"/>
+</Profile>
 </Setting>
