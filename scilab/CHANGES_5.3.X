@@ -242,6 +242,8 @@ Bug fixes:
 * bug 4996 fixed - mgetl() was not located in the right module. It has been
                    moved to "fileio" module
 
+* bug 5149 fixed - test_run(): Calls to exec() were no more logged by diary().
+
 * bug 5541 fixed - In the API documentation, the information that data must be
                    allocated before calling API functions was missing.
 
