@@ -27,6 +27,9 @@ Graphics:
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
 
+* bug 6676 fixed - When we executed "twinkle(gca())", data related to the
+                   current axes were not twinkling.
+
 * bug 6786 fixed - The "polarplot" function did not correctly display the polar
                    coordinates grid when negative rho values were plotted.
 
