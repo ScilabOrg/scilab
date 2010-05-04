@@ -346,6 +346,8 @@ Bug fixes:
 * bug 6947 fixed - Some demos in "Optimization and Simulation" failed, 
                    without write rights in SCI subdirectory.
 
+* bug 6962 fixed - bvode generated a error on Windows.
+
 * bug 6971 fixed - after launching a toolbox by loader.sce, variable v was
                    predefined.
 
