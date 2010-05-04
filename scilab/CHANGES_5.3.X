@@ -222,6 +222,8 @@ Bug fixes:
 
 * bug 4359 fixed - M(:,:)='anything' produced erroneous result.
 
+* bug 4640 fixed - plot2d() put CPU utilization at 100% on Windows.
+
 * bug 4672 fixed - Internal function AddFunctionInTable renamed to 
                    getFunctionByName to avoid confusions on the actual usage
                    of this function. Thanks to Yuvraj Tomar.
