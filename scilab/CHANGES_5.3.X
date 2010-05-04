@@ -46,6 +46,12 @@ Graphics:
 * bug 7028 fixed - When scilab printed an "axis" graphic handle, string array
                    size for "tics_labels" was erroneous.
 
+* bug 6820 fixed - "Execute le fichier dans Scilab" => "Exécuter le fichier 
+                   dans Scilab"
+
+* bug 6985 fixed - plot2d(ones(1,2048),ones(1,1024)) was returning an
+                   incorrect french message.
+
 API_Scilab:
 ===========
 
