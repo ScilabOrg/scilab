@@ -336,6 +336,8 @@ Bug fixes:
 
 * bug 6940 fixed - An error message was wrong in 'pvm_send'.
 
+* bug 6962 fixed - bvode generated a error on Windows.
+
 * bug 6947 fixed - Some demos in "Optimization and Simulation" failed, 
                    without write rights in SCI subdirectory.
 
