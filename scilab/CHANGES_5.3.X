@@ -24,6 +24,9 @@ Graphics:
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
 
+* bug 6676 fixed - When we executed "twinkle(gca())", data related to the
+                   current axes were not twinkeling.
+
 * bug 6835 fixed - Performing an interactive rotation after having executed the
                    "plot3d" function caused Scilab to freeze on 64-bit Windows.
 
