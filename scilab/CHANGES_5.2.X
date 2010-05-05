@@ -2393,3 +2393,4 @@ Bug fixes:
 
 * bug 6883 fixed - black failed to plot integrators.
 
+* bug 5115 fixed - incomplete mgetstr documentation.
