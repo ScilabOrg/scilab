@@ -262,6 +262,9 @@ Bug fixes:
 * bug 4996 fixed - mgetl() was not located in the right module. It has been
                    moved to "fileio" module
 
+* bug 5136 fixed - added a comment in prinft_conversion help file about 
+                   dependant platform display of exponential form (%e).
+
 * bug 5541 fixed - In the API documentation, the information that data must be
                    allocated before calling API functions was missing.
 
