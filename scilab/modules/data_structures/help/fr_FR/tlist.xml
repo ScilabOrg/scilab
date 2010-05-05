@@ -56,8 +56,11 @@
     : <literal>l(i)=a</literal>
   </para>
     <para>
-     suppression
-    : <literal>l(i)=null()</literal> supprime le i-ème élément de la <literal>tlist l</literal>.
+     suppression : <literal>l(i)=null()</literal> supprime le i-ème
+     élément de la <literal>tlist l</literal>. A noter que
+     <literal>l.x=null()</literal> n'est pas défini, mais qu'il est
+     possible de lui donner un sens par surcharge (voir <link
+     linkend="overloading">overloading</link>).
   </para>
     <para>
      affichage
