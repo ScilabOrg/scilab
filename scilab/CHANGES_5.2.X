@@ -2392,4 +2392,3 @@ Bug fixes:
 * bug 6632 fixed - nm_contour failed with respect to vector orientation.
 
 * bug 6883 fixed - black failed to plot integrators.
-
