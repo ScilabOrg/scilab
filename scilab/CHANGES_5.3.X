@@ -341,6 +341,9 @@ Bug fixes:
 
 * bug 6332 fixed - stacksize had problems on Mac OS X and 64 bit platforms.
 
+* bug 5588 fixed - Assigning null() in a tlist or mlist field shifted all remaining
+                   values with respect to  field names.
+
 * bug 6419 fixed - gstacksize() There was no way to retrieve minimum 
                    from Scilab.
 
