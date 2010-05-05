@@ -8,6 +8,7 @@ Performance:
 * Faster access to primitive table (internal). This change improves the overall
   speed of Scilab.
 
+* Improved access to the list of functions increases the performances.
 
 FFTW:
 =====
@@ -20,6 +21,8 @@ Graphics:
 =========
 
 * the set and get functions are now overloadable.
+
+* Datatips tools added
 
 * bug 2651 fixed - "plot2d" was not working when the x argument was not given
                    and some optional arguments were given.
@@ -43,7 +46,7 @@ Graphics:
 * bug 7024 fixed - Error messages from "twinkle" were not standard.
 
 * bug 7028 fixed - When scilab printed an "axis" graphic handle, string array
-                   size for "tics_labels" were erroneous.
+                   size for "tics_labels" was erroneous.
 
 API_Scilab:
 ===========
@@ -135,6 +138,10 @@ Compilation:
 * pvm module is dynamically loaded by Scilab.
 
 * fix many warnings detected by Intel Fortran 11.1.051 and more on Windows.
+
+* Better detection system of the version of the dependencies
+
+* Add a check of the minimal installations of hdf5 (1.8.4), batik (1.7)
 
 * bug 6643 fixed - --without-gui failed to disable Ocaml build (A xcos 
                    dependency)
@@ -339,6 +346,8 @@ Bug fixes:
 
 * bug 6830 fixed - C2F(scistring) in stack2.c was broken for macro names of 
                    exactly 2 characters.
+
+* bug 6831 fixed - in cli (=nwni) mode, tbx_build_help failed.
 
 * bug 6861 fixed - yulewalk example failed on Windows.
 
