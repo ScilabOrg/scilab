@@ -79,6 +79,8 @@ Xcos:
 
 * builnewblock.sci rewritten to use scilab dynamic link module tools.
 
+* bug 4977 fixed - Some icons were dupicated between Gui and Xcos.
+
 * bug 5161 fixed - The export to SVG did not work with images or html.
 
 * bug 5596 fixed - It was not possible to change text block properties (font
