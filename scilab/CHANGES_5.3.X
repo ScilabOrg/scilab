@@ -220,8 +220,6 @@ Removed functions (previously declared as obsolete):
 
 * 'readc_' replaced by 'input'.
 
-* The "toolboxes" menu has been removed and replaced by atomsGui().
-
 Bug fixes:
 ==========
 
