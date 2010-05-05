@@ -15,7 +15,9 @@ package org.scilab.modules.graph.actions.base;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
@@ -39,7 +41,7 @@ import com.mxgraph.swing.mxGraphComponent;
  */
 public abstract class DefaultAction extends CallBack {
 	private static final String ICON_PATH = System.getenv("SCI")
-			+ "/modules/xcos/images/icons/";
+			+ "/modules/gui/images/icons/";
 
 	private ScilabGraph scilabGraph;
 
