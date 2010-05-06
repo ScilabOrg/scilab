@@ -461,3 +461,5 @@ Bug fixes:
 * bug 7057 fixed - isdigit and isalphanum crashed with a matrix of string
                    as input argument.
 
+* bug 7036 fixed - the plot2d document was incomplete (missing optional argument).
+
