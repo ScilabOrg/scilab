@@ -26,7 +26,8 @@ libsciapi_scilab_la_CFLAGS=-I$(srcdir)/includes/ \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/localization/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
--I$(top_srcdir)/modules/string/includes
+-I$(top_srcdir)/modules/string/includes \
+-I$(top_srcdir)/modules/operations/includes
 
 libsciapi_scilab_la_CPPFLAGS=-I$(srcdir)/includes/ \
 -I$(srcdir)/src/cpp/ \
@@ -35,6 +36,7 @@ libsciapi_scilab_la_CPPFLAGS=-I$(srcdir)/includes/ \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/localization/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
+-I$(top_srcdir)/modules/operations/includes \
 -I$(top_srcdir)/modules/string/includes
 
 

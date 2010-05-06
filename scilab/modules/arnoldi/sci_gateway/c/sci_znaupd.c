@@ -15,6 +15,7 @@
 #include "stack-c.h"
 #include "core_math.h"
 #include "gw_arnoldi.h"
+#include "doublecomplex.h"
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
