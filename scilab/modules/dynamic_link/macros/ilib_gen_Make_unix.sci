@@ -1,6 +1,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) ENPC
 // Copyright (C) 2007-2008 - INRIA - Sylvestre LEDRU (rewrite to use autotools)
+// Copyright (C) 2009-2010 - DIGITEO - Sylvestre LEDRU
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -71,7 +72,10 @@ function ilib_gen_Make_unix(names,   ..
 	
 	if (writePerm == %T & ( fileinfo(commandpath+"/Makefile.orig") == [] | fileinfo(commandpath+"/libtool") == [] )) then
 	  // We have write permission on the scilab tree, then generate the stuff into the directory in order to avoid the configure each time.
-	  generateConfigure(commandpath)
+		err = generateConfigure(commandpath);
+		if ( err == %F ) then 
+			error(msprintf(gettext("%s: An error occurred during the detection of the compiler(s).\n"), "ilib_gen_Make"));
+		end
 	end
 	
 	
@@ -182,7 +186,10 @@ function ilib_gen_Make_unix(names,   ..
 		end
 
 		mdelete(linkBuildDir+"/Makefile.orig");
-		generateConfigure(linkBuildDir, ldflags, cflags, fflags, cc)
+		err = generateConfigure(linkBuildDir, ldflags, cflags, fflags, cc)
+		if ( err == %F ) then 
+			error(msprintf(gettext("%s: An error occurred during the detection of the compiler(s).\n"), "ilib_gen_Make"));
+		end
 	else
 		// Reuse existing Makefile.orig because compilation flags are all empty 
 		[status,msg]=copyfile(commandpath+"/Makefile.orig",linkBuildDir);
@@ -237,7 +244,7 @@ function ilib_gen_Make_unix(names,   ..
 endfunction
 
 
-function generateConfigure(workingPath, ..
+function err = generateConfigure(workingPath, ..
 						ldflags, ..
 						cflags, ..
 						fflags, ..
@@ -264,9 +271,10 @@ function generateConfigure(workingPath, ..
 	  if ( ilib_verbose() <> 0 ) then
 		  mprintf(msg + " " + stderr);
 		end
-		return %F;
+		err = %F;
+		return;
 	end
 	
-	return %T;
+	err = %T;
 
 endfunction
