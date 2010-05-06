@@ -426,3 +426,5 @@ Bug fixes:
 
 * bug 7033 fixed - newfun was randomly crashing (mostly on 32 bits) writing to unallocated memory.
 
+* bug 7036 fixed - the plot2d document was incomplete (missing optional argument).
+
