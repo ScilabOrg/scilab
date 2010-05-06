@@ -229,6 +229,9 @@ Bug fixes:
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
+* bug 1371 fixed - The representation of floating numbers with exponent larger 
+                   than 100 or smaller than -100 was incorrect.
+
 * bug 2654 partially fixed - exec returned a wrong error if line had more 
                    than 4096 characters.
 
