@@ -44,9 +44,9 @@
     <title>Description</title>
     <para>
       La fonction <literal>fieldnames</literal> retourne le nom des
-      champs d'une tlist, mlist ou struct. Dans Scilab 5.2,
-      <literal>fieldnames</literal> ne fonctionne pas sur le type
-      cell.
+      champs d'une tlist, mlist ou
+      struct. <literal>fieldnames</literal> ne fonctionne pas sur le
+      type cell.
     </para>
   </refsection>
   <refsection>
