@@ -433,3 +433,5 @@ Bug fixes:
 
 * bug 7033 fixed - newfun was randomly crashing (mostly on 32 bits) writing to unallocated memory.
 
+* bug 7042 fixed - Insertion of an empty matrix into a struct (to remove a row or column) 
+                   was buggy when multiple index is used.
