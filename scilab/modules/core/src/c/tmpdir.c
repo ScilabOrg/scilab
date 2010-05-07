@@ -49,58 +49,58 @@ static int alreadyCreated = 0;
 #ifdef _MSC_VER
 void createScilabTMPDIR(void)
 {
-	wchar_t wcTmpDirDefault[PATH_MAX];
-	if (!GetTempPathW(PATH_MAX,wcTmpDirDefault))
-	{
-		MessageBox(NULL,_("Cannot find Windows temporary directory (1)."),_("Error"),MB_ICONERROR);
-		exit(1);
-	}
-	else
-	{
-		wchar_t wctmp_dir[PATH_MAX+FILENAME_MAX+1];
-		static wchar_t bufenv[PATH_MAX + 16];
-		char *TmpDir = NULL;
-		swprintf(wctmp_dir,PATH_MAX+FILENAME_MAX+1,L"%sSCI_TMP_%d_",wcTmpDirDefault,(int) _getpid());
-		if ( CreateDirectoryW(wctmp_dir,NULL) == FALSE)
-		{
-			DWORD attribs = GetFileAttributesW (wctmp_dir);
-			if (attribs & FILE_ATTRIBUTE_DIRECTORY)
-			{
-				/* Repertoire existant */
-			}
-			else
-			{
-				#ifdef _DEBUG
-				{
-					char MsgErr[1024];
-					wsprintf(MsgErr,_("Impossible to create : %s"),tmp_dir);
-					MessageBox(NULL,MsgErr,_("Error"),MB_ICONERROR);
-					exit(1);
-				}
-				#else
-				{
-					GetTempPathW(PATH_MAX,wcTmpDirDefault);
-					wcscpy(wctmp_dir,wcTmpDirDefault);
-					wctmp_dir[wcslen(wctmp_dir)-1]='\0'; /* Remove last \ */
-				}
-				#endif
-			}
-		}
+    wchar_t wcTmpDirDefault[PATH_MAX];
+    if (!GetTempPathW(PATH_MAX,wcTmpDirDefault))
+    {
+        MessageBox(NULL,_("Cannot find Windows temporary directory (1)."),_("Error"),MB_ICONERROR);
+        exit(1);
+    }
+    else
+    {
+        wchar_t wctmp_dir[PATH_MAX+FILENAME_MAX+1];
+        static wchar_t bufenv[PATH_MAX + 16];
+        char *TmpDir = NULL;
+        swprintf(wctmp_dir,PATH_MAX+FILENAME_MAX+1,L"%sSCI_TMP_%d_",wcTmpDirDefault,(int) _getpid());
+        if ( CreateDirectoryW(wctmp_dir,NULL) == FALSE)
+        {
+            DWORD attribs = GetFileAttributesW (wctmp_dir);
+            if (attribs & FILE_ATTRIBUTE_DIRECTORY)
+            {
+                /* Repertoire existant */
+            }
+            else
+            {
+                #ifdef _DEBUG
+                {
+                    char MsgErr[1024];
+                    wsprintf(MsgErr,_("Impossible to create : %s"),tmp_dir);
+                    MessageBox(NULL,MsgErr,_("Error"),MB_ICONERROR);
+                    exit(1);
+                }
+                #else
+                {
+                    GetTempPathW(PATH_MAX,wcTmpDirDefault);
+                    wcscpy(wctmp_dir,wcTmpDirDefault);
+                    wctmp_dir[wcslen(wctmp_dir)-1]='\0'; /* Remove last \ */
+                }
+                #endif
+            }
+        }
 
-		swprintf(bufenv,PATH_MAX + 16,L"TMPDIR=%s",wctmp_dir);
-		_wputenv(bufenv);
+        swprintf(bufenv,PATH_MAX + 16,L"TMPDIR=%s",wctmp_dir);
+        _wputenv(bufenv);
 
-		TmpDir = wide_string_to_UTF8(wctmp_dir);
-		if (TmpDir)
-		{
-			strcpy(tmp_dir, TmpDir);
-			FREE(TmpDir);
-		}
-		else
-		{
-			strcpy(tmp_dir, "");
-		}
-	}
+        TmpDir = wide_string_to_UTF8(wctmp_dir);
+        if (TmpDir)
+        {
+            strcpy(tmp_dir, TmpDir);
+            FREE(TmpDir);
+        }
+        else
+        {
+            strcpy(tmp_dir, "");
+        }
+    }
 }
 #else
 
@@ -108,10 +108,10 @@ void createScilabTMPDIR(void)
 {
     char *tmpdir;
 
-	if ( alreadyCreated == 0 ) 
-	{
-		static char bufenv[PATH_MAX + 16];
-		alreadyCreated++;
+    if ( alreadyCreated == 0 ) 
+    {
+        static char bufenv[PATH_MAX + 16];
+        alreadyCreated++;
         /* If the env variable TMPDIR is set, honor this preference */
         if((tmpdir = getenv("TMPDIR")) != NULL && strlen(tmpdir) < (PATH_MAX))
         {
@@ -123,16 +123,16 @@ void createScilabTMPDIR(void)
         }
 
         /* XXXXXX will be randomized by mkdtemp */
-		sprintf(tmp_dir, "%s/SCI_TMP_%d_XXXXXX", tmp_dir, (int) getpid());
+        sprintf(tmp_dir, "%s/SCI_TMP_%d_XXXXXX", tmp_dir, (int) getpid());
 
         if(mkdtemp(tmp_dir) < 0)
         {
                 fprintf(stderr,_("Error: Could not create %s: %s\n"), tmp_dir, strerror(errno));
         }
 
-		sprintf(bufenv, "TMPDIR=%s", tmp_dir);
-		putenv(bufenv);
-	}
+        sprintf(bufenv, "TMPDIR=%s", tmp_dir);
+        putenv(bufenv);
+    }
 }
 #endif
 /*--------------------------------------------------------------------------*/
@@ -142,12 +142,12 @@ void createScilabTMPDIR(void)
 */
 void C2F(settmpdir)(void)
 {
-	createScilabTMPDIR();
+    createScilabTMPDIR();
 }
 /*--------------------------------------------------------------------------*/
 char *getTMPDIR(void)
 {
-	return strdup(tmp_dir);
+    return strdup(tmp_dir);
 }
 /*--------------------------------------------------------------------------*/
 /**
@@ -155,11 +155,11 @@ char *getTMPDIR(void)
 */
 void C2F(tmpdirc)(void)
 {
-	removedir(tmp_dir);
+    removedir(tmp_dir);
 }
 /*--------------------------------------------------------------------------*/
 wchar_t *getTMPDIRW(void)
 {
-	return to_wide_string(tmp_dir);
+    return to_wide_string(tmp_dir);
 }
 /*--------------------------------------------------------------------------*/
