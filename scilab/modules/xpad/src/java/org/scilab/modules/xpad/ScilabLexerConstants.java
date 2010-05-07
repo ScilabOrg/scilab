@@ -185,4 +185,13 @@ public class ScilabLexerConstants {
 	    || type == SKEYWORD
 	    || type == CONSTANTES;
     }
+
+    /**
+     * Can we open the source file of the keyword with type ?
+     * @param type the type of the keyword
+     * @return true if the keyword is openable
+     */
+    public static boolean isOpenable(int type) {
+	return type == COMMANDS;
+    }
 }

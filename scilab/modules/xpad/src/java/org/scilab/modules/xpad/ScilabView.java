@@ -160,7 +160,9 @@ public class ScilabView extends WrappedPlainView {
      */
     public int getLineAllocation(int n) {
 	rect.setLocation(0, 4); // Why 4 ?? Because it works with 4 !
-	childAllocation(n, rect);
+	try {
+	    childAllocation(n, rect);
+	} catch (ArrayIndexOutOfBoundsException e) { }
 	return rect.y;
     }
 
