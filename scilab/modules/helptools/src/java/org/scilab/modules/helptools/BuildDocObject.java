@@ -22,6 +22,8 @@ import org.xml.sax.SAXException;
 
 import com.icl.saxon.StyleSheet; /* saxon */
 
+import org.scilab.modules.jvm.utils.ScilabConstants;
+
 /**
  * This classes intends to wrap Saxon features in a easy-to-use class.
  */
@@ -282,7 +284,7 @@ public class BuildDocObject extends StyleSheet {
 			File tmpFileForURI = new File(this.styleDoc);
 			contentMainStyleDoc = contentMainStyleDoc.replaceAll("STYLE_DOC", tmpFileForURI.toURI().toString());
 
-			File temporaryStyleFile = File.createTempFile("style_",".xsl");
+			File temporaryStyleFile = File.createTempFile("style_",".xsl", ScilabConstants.TMPDIR);
 
 			Helpers.saveString(contentMainStyleDoc, temporaryStyleFile, "UTF-8");
 			return temporaryStyleFile;
