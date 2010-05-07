@@ -16,6 +16,7 @@
 
 namespace ast
 {
+
 	void TimedVisitor::visit (const SeqExp &e)
 	{
 		Timer timer;

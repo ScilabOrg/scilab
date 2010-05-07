@@ -34,8 +34,8 @@ using std::string;
 
 namespace ast
 {
-	template class RunVisitorT<ExecVisitor>;
-	template class RunVisitorT<TimedVisitor>;
+  //	template class RunVisitorT<ExecVisitor>;
+  //	template class RunVisitorT<TimedVisitor>;
 
 	template <class T>
 	void RunVisitorT<T>::visitprivate(const OpExp &e)

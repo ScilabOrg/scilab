@@ -20,53 +20,140 @@
 
 #include "all.hxx"
 #include "types.hxx"
-
+#include "visitor.hxx"
 
 namespace ast
 {
 	class EXTERN_AST RunVisitor : public ConstVisitor
 	{
+
+	public :
+	  RunVisitor()
+	    {
+	      _excepted_result = -1;
+	      _resultVect.push_back(NULL);
+	      _result = NULL;
+	      m_bSingleResult = true;
+	    }
+
+	  virtual ~RunVisitor()
+	  {
+	    if(is_single_result())
+	      {
+		if(_result != NULL && _result->isDeletable() == true)
+		  {
+		    //                                      std::cout << "before single delete : " << _result << std::endl;                                                                                                                                                                 
+		    delete _result;
+		    //                                      std::cout << "after single delete" << std::endl;                                                                                                                                                                                
+		  }
+	      }
+	    else
+	      {
+		for(unsigned int i = 0 ; i < _resultVect.size() ; i++)
+		  {
+		    if(_resultVect[i] != NULL && _resultVect[i]->isDeletable() == true)
+		      {
+			delete _resultVect[i];
+		      }
+		  }
+	      }
+	  }
+
+	  virtual int expected_size_get(void)
+	  {
+	    return _excepted_result;
+	  }
+
+	  virtual int result_size_get(void)
+	  {
+	    if(is_single_result())
+	      {
+		if(_result == NULL)
+		  {
+		    return 0;
+		  }
+		else
+		  {
+		    return 1;
+		  }
+	      }
+	    else
+	      {
+		return static_cast<int>(_resultVect.size());
+	      }
+	  }
+
+	  virtual void expected_size_set(int _iSize)
+	  {
+	    _excepted_result = _iSize;
+	  }
+
+	  types::InternalType* result_get(void)
+	  {
+	    if(is_single_result())
+	      {
+		return _result;
+	      }
+	    else
+	      {
+		return _resultVect[0];
+	      }
+	  }
+
+	  types::InternalType* result_get(int _iPos)
+	  {
+	    if(_iPos >= static_cast<int>(_resultVect.size()))
+	      {
+		return NULL;
+	      }
+	    return _resultVect[_iPos];
+	  }
+
+	  vector<types::InternalType*>* result_list_get()
+	  {
+	    return &_resultVect;
+	  }
+
+	  void result_set(int _iPos, const types::InternalType *gtVal)
+	  {
+	    m_bSingleResult = false;
+	    if(_iPos <  static_cast<int>(_resultVect.size()))
+	      {
+		if(_resultVect[_iPos] != NULL && _resultVect[_iPos]->isDeletable())
+		  {
+		    delete _resultVect[_iPos];
+		  }
+	      }
+
+	    if(_iPos >=  static_cast<int>(_resultVect.size()))
+	      {
+		_resultVect.resize(_iPos + 1, NULL);
+	      }
+
+	    _resultVect[_iPos] = const_cast<types::InternalType *>(gtVal);
+	  }
+
+	  void result_set(const types::InternalType *gtVal)
+	  {
+	    m_bSingleResult = true;
+	    _result = const_cast<types::InternalType *>(gtVal);
+	  }
+
+	  bool is_single_result()
+	  {
+	    return m_bSingleResult;
+	  }
+
+	protected:
+	  vector<types::InternalType*>    _resultVect;
+	  types::InternalType*    _result;
+	  bool m_bSingleResult;
+	  int _excepted_result;
+
 	};
 
 	template <class T> class EXTERN_AST RunVisitorT : public RunVisitor
 	{
-	public:
-		RunVisitorT()
-		{
-			_excepted_result = -1;
-			_resultVect.push_back(NULL);
-			_result = NULL;
-			m_bSingleResult = true;
-		}
-
-		~RunVisitorT()
-		{
-			result_clear();
-		}
-
-		void result_clear()
-		{
-			if(is_single_result())
-			{
-				if(_result != NULL && _result->isDeletable() == true)
-				{
-//					std::cout << "before single delete : " << _result << std::endl;
-					delete _result;
-//					std::cout << "after single delete" << std::endl;
-				}
-			}
-			else
-			{
-				for(unsigned int i = 0 ; i < _resultVect.size() ; i++)
-				{
-					if(_resultVect[i] != NULL && _resultVect[i]->isDeletable() == true)
-					{
-						delete _resultVect[i];
-					}
-				}
-			}
-		}
-
 	protected :
 		int GetIndexList(std::list<ast::Exp *>const& _plstArg, int** _piIndexSeq, int** _piMaxDim, types::InternalType *_pRefVar, int *_iDimSize);
 
@@ -143,114 +230,9 @@ namespace ast
 		 virtual void visitprivate(const ListExp &e);
 		/** \} */
 
-		int expected_size_get(void)
-		{
-			return _excepted_result;
-		}
-
-		int result_size_get(void)
-		{
-			if(is_single_result())
-			{
-				if(_result == NULL)
-				{
-					return 0;
-				}
-				else
-				{
-					return 1;
-				}
-			}
-			else
-			{
-			  return static_cast<int>(_resultVect.size());
-			}
-		}
-
-		void expected_size_set(int _iSize)
-		{
-			_excepted_result = _iSize;
-		}
-
-		types::InternalType* result_get(void)
-		{
-			if(is_single_result())
-			{
-				return _result;
-			}
-			else
-			{
-				return _resultVect[0];
-			}
-		}
-
-		types::InternalType* result_get(int _iPos)
-		{
-			if(_iPos >= static_cast<int>(_resultVect.size()))
-			{
-				return NULL;
-			}
-			return _resultVect[_iPos];
-		}
-
-		vector<types::InternalType*>* result_list_get()
-		{
-			return &_resultVect;
-		}
-
-		void result_set(int _iPos, const types::InternalType *gtVal)
-		{
-			m_bSingleResult = false;
-			if(_iPos <  static_cast<int>(_resultVect.size()))
-			{
-				if(_resultVect[_iPos] != NULL && _resultVect[_iPos]->isDeletable())
-				{
-					delete _resultVect[_iPos];
-				}
-			}
-
-			if(_iPos >=  static_cast<int>(_resultVect.size()))
-			{
-				_resultVect.resize(_iPos + 1, NULL);
-			}
-
-			_resultVect[_iPos] = const_cast<types::InternalType *>(gtVal);
-		}
-
-		void result_set(const types::InternalType *gtVal)
-		{
-			m_bSingleResult = true;
-			_result = const_cast<types::InternalType *>(gtVal);
-		}
-
-		bool is_single_result()
-		{
-			return m_bSingleResult;
-		}
-
-		/*
-		int result_size_get(void);
-		int expected_size_get(void);
-		void expected_size_set(int _iSize);
-		types::InternalType*		result_get(void);
-		types::InternalType*		result_get(int _iPos);
-		vector<types::InternalType*>* result_list_get();
-		void	result_set(const types::InternalType *gtVal);
-		void	result_set(int _iPos, const types::InternalType *gtVal);
-		bool	is_single_result();
-		*/
-
-		/*-------------.
-		| Attributes.  |
-		`-------------*/
-	protected:
-		vector<types::InternalType*>	_resultVect;
-		types::InternalType*	_result;
-		bool m_bSingleResult;
-		int _excepted_result;
-	//private :
-	//	RunVisitorT(RunVisitorT const& e){}
 	};
 }
+
+//#include "runvisitordecls.hxx"
 
 #endif // !AST_RUNVISITOR_HXX
