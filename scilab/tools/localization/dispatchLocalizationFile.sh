@@ -53,6 +53,12 @@ for file in $LAUNCHPAD_DIRECTORY/*.po; do
 		if test ! -d $DIR; then
 			mkdir $DIR
 		fi
+
+        # Before the copy, strip the line with the date. It is only making
+        # diff too big for a little gain.
+        # See bug #7059
+        sed -i -e "/X-Launchpad-Export-Date/d" $LAUNCHPAD_DIRECTORY/$file
+
 		echo "/bin/cp $LAUNCHPAD_DIRECTORY/$file $DIR/$MODULE.po"
 		/bin/cp -f $LAUNCHPAD_DIRECTORY/$file $DIR/$MODULE.po
 		if test $? -ne 0; then
