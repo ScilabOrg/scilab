@@ -34,20 +34,20 @@ public class OpenSourceFileOnKeywordAction extends DefaultAction {
      * @param editor Xpad
      */
     private OpenSourceFileOnKeywordAction(Xpad editor) {
-	super(XpadMessages.OPEN_SOURCE_FILE_ON_KEYWORD, editor);
+        super(XpadMessages.OPEN_SOURCE_FILE_ON_KEYWORD, editor);
     }
     
     /**
      * doAction
      */
     public void doAction() {
-	KeywordEvent kwe = ((ScilabEditorPane) getEditor().getTextPane()).getKeywordEvent();
-	if (ScilabLexerConstants.isOpenable(kwe.getType())) {
-	    try {
-		String kw = getEditor().getTextPane().getDocument().getText(kwe.getStart(), kwe.getLength());
-		InterpreterManagement.requestScilabExec("path=get_function_path('" + kw + "');if path~=[] then xpad(path),end");
-	    } catch (BadLocationException e) { }
-	}
+        KeywordEvent kwe = ((ScilabEditorPane) getEditor().getTextPane()).getKeywordEvent();
+        if (ScilabLexerConstants.isOpenable(kwe.getType())) {
+            try {
+                String kw = getEditor().getTextPane().getDocument().getText(kwe.getStart(), kwe.getLength());
+                InterpreterManagement.requestScilabExec("path=get_function_path('" + kw + "');if path~=[] then editor(path),end");
+            } catch (BadLocationException e) { }
+        }
     }
     
     /**
@@ -57,6 +57,6 @@ public class OpenSourceFileOnKeywordAction extends DefaultAction {
      * @return MenuItem
      */
     public static MenuItem createMenu(Xpad editor, KeyStroke key) {
-	return createMenu(XpadMessages.OPEN_SOURCE_FILE_ON_KEYWORD, null, new OpenSourceFileOnKeywordAction(editor), key);
+        return createMenu(XpadMessages.OPEN_SOURCE_FILE_ON_KEYWORD, null, new OpenSourceFileOnKeywordAction(editor), key);
     }
 }
