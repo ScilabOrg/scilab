@@ -410,6 +410,13 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
 	}
 
 	/**
+	 * Reset type (normally called on a change in the document)
+	 */
+	public void resetType() {
+	    type = scanner.getLineType(getStartOffset(), getEndOffset());
+	}
+
+	/**
 	 * @return the type of this line (FUN,...)
 	 */
 	public int getType() {

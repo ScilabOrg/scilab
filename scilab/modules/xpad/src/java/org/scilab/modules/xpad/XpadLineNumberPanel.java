@@ -226,7 +226,7 @@ public class XpadLineNumberPanel extends JPanel implements CaretListener, Docume
     private void updateLineNumber(int p0, int p1) {
 	synchronized (doc) {
 	    Stack<Integer> stk = new Stack();
-	    ScilabDocument.BranchElement root = (ScilabDocument.BranchElement) doc.getDefaultRootElement();
+	    Element root = doc.getDefaultRootElement();
 	    int nlines = root.getElementCount();
 	    lineNumber = new int[nlines + 1];
 	    lineNumber[0] = 1;
@@ -271,11 +271,7 @@ public class XpadLineNumberPanel extends JPanel implements CaretListener, Docume
      * @param e the event
      */
     public void insertUpdate(DocumentEvent e) {
-	if (whereami) {
-	    int offset = e.getOffset();
-	    updateLineNumber(offset, offset + e.getLength());
-	}
-	repaint();
+	handleEvent(e.getOffset(), e.getLength());
     }
     
     /**
@@ -283,9 +279,22 @@ public class XpadLineNumberPanel extends JPanel implements CaretListener, Docume
      * @param e the event
      */
     public void removeUpdate(DocumentEvent e) {
+	handleEvent(e.getOffset(), e.getLength());
+    }
+    
+    /** 
+     * Update the line numbering on a change in the document
+     * @param offset offset where the event occured
+     * @param length length of inserted or removed text
+     */
+    private void handleEvent(int offset, int length) {
 	if (whereami) {
-	    int offset = e.getOffset();
-	    updateLineNumber(offset, offset + e.getLength());
+	    Element root = doc.getDefaultRootElement();
+	    Element line = root.getElement(root.getElementIndex(offset));
+	    if (line instanceof ScilabDocument.ScilabLeafElement) {
+		((ScilabDocument.ScilabLeafElement) line).resetType();
+		updateLineNumber(offset, offset + length);
+	    }
 	}
 	repaint();
     }
