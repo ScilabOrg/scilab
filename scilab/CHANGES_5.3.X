@@ -105,6 +105,9 @@ Xcos:
 
 * bug 5161 fixed - The export to SVG did not work with images or html.
 
+* bug 5022 fixed - When openning some demos, ArrayIndexOutOfBoundsException 
+                   were throwed by some Swing components.
+
 * bug 5596 fixed - It was not possible to change text block properties (font
                    and color)
 
@@ -316,6 +319,9 @@ Bug fixes:
                    the same altered the permission of the directory.
 
 * bug 6332 fixed - stacksize had problems on Mac OS X and 64 bit platforms.
+
+* bug 6391 fixed - The SwingScilabTab implementation might change component 
+                   hierarchy on a validateTree call which led to an exception.
 
 * bug 6419 fixed - gstacksize() There was no way to retrieve minimum 
                    from Scilab.
