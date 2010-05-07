@@ -51,7 +51,7 @@ src/c/pathconvert.c \
 src/c/copyfile_others.c \
 src/c/getFullFilename.c
 
-GATEWAY_SOURCES = \
+GATEWAY_C_SOURCES = \
 sci_gateway/c/gw_fileio.c \
 sci_gateway/c/sci_mfprintf.c \
 sci_gateway/c/sci_mscanf.c \
@@ -96,13 +96,19 @@ sci_gateway/c/sci_basename.c \
 sci_gateway/c/sci_pathconvert.c \
 sci_gateway/c/sci_isfile.c
 
+GATEWAY_CPP_SOURCES = \
+sci_gateway/cpp/fileio_gw.cpp
 
-libscifileio_la_CXXFLAGS=	-I$(srcdir)/includes/ \
+libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \
 				-I$(top_srcdir)/libs/MALLOC/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes \
 				-I$(top_srcdir)/modules/output_stream/includes \
 				-I$(top_srcdir)/modules/operations/includes \
+				-I$(top_srcdir)/modules/types/includes \
+				-I$(top_srcdir)/modules/functions_manager/includes \
+				-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+				-I$(top_srcdir)/modules/symbol/includes \
 				$(HDF5_CFLAGS)
 
 libscifileio_la_CFLAGS=		-I$(srcdir)/includes/ \
@@ -120,7 +126,7 @@ pkglib_LTLIBRARIES = libscifileio.la
 
 libscifileio_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
-libscifileio_la_SOURCES = $(FILEIO_SOURCES) $(GATEWAY_SOURCES) $(GATEWAY_CPP_SOURCES)
+libscifileio_la_SOURCES = $(FILEIO_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC= $(FILEIO_SOURCES) $(GATEWAY_SOURCES)
