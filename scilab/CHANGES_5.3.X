@@ -415,6 +415,9 @@ Bug fixes:
 
 * bug 6891 fixed - 'whos' did not display global variables.
 
+* bug 6893 fixed - Some files +~JF****.tmp where created outside of the Scilab
+                   temporary directory.
+
 * bug 6901 fixed - This script with 'exec' produced a weird warning.
 
 * bug 6923 fixed - Some localized messages were wrong in 'qmr'.
