@@ -26,6 +26,7 @@ libsciabstractSyntaxTree_la_SOURCES 	=	src/cpp/libAst.cpp \
 				src/cpp/run/run_OpExp.cpp \
 				src/cpp/run/run_MatrixExp.cpp \
 				src/cpp/run/run_AssignExp.cpp \
+				src/cpp/run/runvisitorT.cpp \
 				src/cpp/original/originalvisitor.cpp \
 				src/cpp/original/original_OpExp.cpp \
 				src/cpp/original/original_MatrixExp.cpp \

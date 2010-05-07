@@ -19,8 +19,8 @@ using std::string;
 
 namespace ast
 {
-	template class RunVisitorT<ExecVisitor>;
-	template class RunVisitorT<TimedVisitor>;
+  //	template class RunVisitorT<ExecVisitor>;
+  //	template class RunVisitorT<TimedVisitor>;
 
 	/*
 	[1,2;3,4] with/without special character $ and :

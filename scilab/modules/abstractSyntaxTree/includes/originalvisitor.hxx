@@ -20,7 +20,7 @@
 
 #include "all.hxx"
 #include "alltypes.hxx"
-
+#include "visitor.hxx"
 
 namespace ast
 {
