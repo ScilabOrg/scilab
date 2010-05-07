@@ -15,7 +15,7 @@
 #include <string.h>
 #include "stack-c.h"
 #include "MALLOC.h"
-#include "dynamic_menus.h"
+#include "storeCommand.h"
 #include "sciprint.h"
 #include "sciprint_full.h"
 #include "localization.h"
