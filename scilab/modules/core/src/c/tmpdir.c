@@ -28,6 +28,8 @@
 extern  char  *getenv();
 #endif
 
+#include <errno.h>
+
 #ifdef _MSC_VER
 #include <process.h>
 #include "strdup_windows.h"
@@ -104,21 +106,31 @@ void createScilabTMPDIR(void)
 
 void createScilabTMPDIR(void)
 {
+    char *tmpdir;
+
 	if ( alreadyCreated == 0 ) 
 	{
 		static char bufenv[PATH_MAX + 16];
 		alreadyCreated++;
+        /* If the env variable TMPDIR is set, honor this preference */
+        if((tmpdir = getenv("TMPDIR")) != NULL && strlen(tmpdir) < (PATH_MAX))
+        {
+            strcpy(tmp_dir, tmpdir);
+        }
+        else
+        {
+            strcpy(tmp_dir, "/tmp");
+        }
 
-#ifdef __APPLE__
-        /* /tmp is a symbolic link to /private/tmp under MacOS */
-        realpath("/tmp/", tmp_dir);
-		sprintf(tmp_dir,"%s/SD_%d_XXXXXX_",tmp_dir, (int) getpid());
-#else
-		sprintf(tmp_dir,"/tmp/SD_%d_XXXXXX_",(int) getpid());
-#endif
-		createdirectory(tmp_dir) ;
+        /* XXXXXX will be randomized by mkdtemp */
+		sprintf(tmp_dir, "%s/SCI_TMP_%d_XXXXXX", tmp_dir, (int) getpid());
 
-		sprintf(bufenv,"TMPDIR=%s",tmp_dir);
+        if(mkdtemp(tmp_dir) < 0)
+        {
+                fprintf(stderr,_("Error: Could not create %s: %s\n"), tmp_dir, strerror(errno));
+        }
+
+		sprintf(bufenv, "TMPDIR=%s", tmp_dir);
 		putenv(bufenv);
 	}
 }
