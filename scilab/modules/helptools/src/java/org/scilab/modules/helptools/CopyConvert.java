@@ -53,6 +53,7 @@ import net.sourceforge.jeuclid.MutableLayoutContext;
 import net.sourceforge.jeuclid.context.LayoutContextImpl;
 import net.sourceforge.jeuclid.converter.Converter;
 
+import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.scilab.forge.jlatexmath.TeXConstants; 
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.ParseException;
@@ -644,7 +645,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         throws IOException {
         String tex = Helpers.loadString(inFile, "ISO-8859-1");
 
-        File latexFile = File.createTempFile("CopyConvert", ".tex", TMPDIR);
+        File latexFile = File.createTempFile("CopyConvert", ".tex", ScilabConstants.TMPDIR);
 
         StringBuilder buffer = new StringBuilder();
         buffer.append("\\documentclass[12pt]{article}\n");
