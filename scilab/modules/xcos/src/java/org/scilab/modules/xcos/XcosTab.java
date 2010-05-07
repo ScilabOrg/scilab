@@ -48,6 +48,7 @@ import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
+import org.scilab.modules.gui.utils.BarUpdater;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.window.ScilabWindow;
@@ -300,6 +301,8 @@ public class XcosTab extends ScilabTab {
 		addInfoBar(ScilabTextBox.createTextBox());
 		
 		window.addTab(this);
+		BarUpdater.updateBars(getParentWindowId(), getMenuBar(), getToolBar(),
+				getInfoBar(), getName());
     }
     
     /**
