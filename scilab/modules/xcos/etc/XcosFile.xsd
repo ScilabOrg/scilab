@@ -195,7 +195,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -238,7 +237,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -282,7 +280,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 
@@ -326,7 +323,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="connectable" use="optional" />
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -369,7 +365,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="connectable" use="optional" />
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -412,7 +407,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="connectable" use="optional" />
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -455,7 +449,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="connectable" use="optional" />
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 
@@ -499,7 +492,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -542,7 +534,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 
@@ -586,7 +577,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="connectable" use="optional" />
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -629,7 +619,6 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:byte" name="vertex" use="optional" />
 		<xs:attribute type="xs:byte" name="connectedLinkId" use="optional" />
 		<xs:attribute type="xs:float" name="initialState" use="optional" />
-		<xs:attribute type="xs:byte" name="locked" use="optional" />
 		<xs:attribute type="xs:short" name="angle" use="optional" />
 	</xs:complexType>
 	
@@ -722,13 +711,11 @@ This type come from JGraphx serialization which use this type as its default con
 		<xs:attribute type="xs:float" name="maxIntegrationTimeinterval"
 			use="optional" />
 		<xs:attribute type="xs:float" name="maximumStepSize" use="optional" />
-		<xs:attribute type="xs:byte" name="modified" use="optional" />
 		<xs:attribute type="xs:byte" name="opened" use="optional" />
 		<xs:attribute type="xs:string" name="title" use="optional" />
 		<xs:attribute type="xs:float" name="solver" use="optional" />
 		<xs:attribute type="xs:float" name="integratorRelativeTolerance"
 			use="optional" />
-		<xs:attribute type="xs:byte" name="cellsLocked" use="optional" />
 		<xs:attribute type="xs:float" name="realTimeScaling" use="optional" />
 		<xs:attribute type="xs:string" name="savedFile" use="optional" />
 		<xs:attribute type="xs:float" name="toleranceOnTime" use="optional" />
@@ -742,19 +729,8 @@ This type come from JGraphx serialization which use this type as its default con
 		</xs:sequence>
 		<xs:attribute type="xs:string" name="as" use="optional" />
 		<xs:attribute type="xs:byte" name="background" use="optional" />
-		<xs:attribute type="xs:float" name="integratorAbsoluteTolerance"
-			use="optional" />
-		<xs:attribute type="xs:float" name="integratorRelativeTolerance"
-			use="optional" />
-		<xs:attribute type="xs:float" name="maxIntegrationTimeinterval"
-			use="optional" />
-		<xs:attribute type="xs:byte" name="modified" use="optional" />
 		<xs:attribute type="xs:string" name="title" use="optional" />
-		<xs:attribute type="xs:float" name="toleranceOnTime" use="optional" />
 		<xs:attribute type="xs:byte" name="gridEnabled" use="optional" />
-		<xs:attribute type="xs:float" name="finalIntegrationTime"
-			use="optional" />
-		<xs:attribute type="xs:float" name="solver" use="optional" />
 	</xs:complexType>
 	
 	<!-- Root element -->
