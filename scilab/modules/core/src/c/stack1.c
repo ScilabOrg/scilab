@@ -74,19 +74,19 @@ int crelist_G(int *slw,int *ilen,int *lw,int type);
  *       lc : stk(lc+i-1)= imag(a(i)) exists only if it==1 
  *------------------------------------------------------------------ */
 
-int C2F(getlistmat)(char *fname,int *topk,int *spos,int *lnum,int *it,int *m,int *n,int *lr,int *lc,unsigned long fname_len)
-{
-  int nv, ili;
+                    int C2F(getlistmat)(char *fname,int *topk,int *spos,int *lnum,int *it,int *m,int *n,int *lr,int *lc,unsigned long fname_len)
+                    {
+                      int nv, ili;
 
-  if ( C2F(getilist)(fname, topk, spos, &nv, lnum, &ili, fname_len) == FALSE )
-    return FALSE;
+                      if ( C2F(getilist)(fname, topk, spos, &nv, lnum, &ili, fname_len) == FALSE )
+                        return FALSE;
 
-  if (*lnum > nv) {
-    Scierror(999,_("%s: argument %d should be a list of size at least %d.\n"),get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
-    return FALSE;
-  }
-  return C2F(getmati)(fname, topk, spos, &ili, it, m, n, lr, lc, &c_true, lnum, fname_len);
-} 
+                      if (*lnum > nv) {
+                        Scierror(999,_("%s: argument %d should be a list of size at least %d.\n"),get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
+                        return FALSE;
+                      }
+                      return C2F(getmati)(fname, topk, spos, &ili, it, m, n, lr, lc, &c_true, lnum, fname_len);
+                    } 
 
 /*------------------------------------------------------------------- 
  * getmat :
@@ -170,12 +170,12 @@ static int C2F(getmati)(char *fname,int *topk,int *spos,int *lw,int *it,int *m,i
   il = iadr(*lw);
   if (*istk(il ) < 0) il = iadr(*istk(il +1));
   if (*istk(il ) != 1) {
-	  if (*inlistx) {
-		  Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Real or complex matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
-	  } else {
-		  Scierror(201,_("%s: Wrong type for argument %d: Real or complex matrix expected.\n"),get_fname(fname,fname_len),
-	       Rhs + (*spos - *topk));
-	  }
+    if (*inlistx) {
+      Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Real or complex matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
+    } else {
+      Scierror(201,_("%s: Wrong type for argument %d: Real or complex matrix expected.\n"),get_fname(fname,fname_len),
+               Rhs + (*spos - *topk));
+    }
     return  FALSE;
   }
   *m = *istk(il + 1);
@@ -233,7 +233,7 @@ int C2F(cremat)(char *fname,int *lw,int *it,int *m,int *n,int *lr,int *lc,unsign
 {
 
   if (*lw + 1 >= Bot) {
-	  Scierror(18,_("%s: Too many names.\n"),get_fname(fname,fname_len));
+    Scierror(18,_("%s: Too many names.\n"),get_fname(fname,fname_len));
     return FALSE;
   }
   if ( C2F(cremati)(fname, Lstk(*lw ), it, m, n, lr, lc, &c_true, fname_len) == FALSE)
@@ -269,7 +269,7 @@ static int C2F(cremati)(char *fname,int *stlw,int *it,int *m,int *n,int *lr,int 
   ix1 = il + 4;
   Err = sadr(ix1) - *Lstk(Bot );
   if ( (double) Err > -size ) {
-	  Scierror(17,_("%s: stack size exceeded (Use stacksize function to increase it).\n"),get_fname(fname,fname_len));
+    Scierror(17,_("%s: stack size exceeded (Use stacksize function to increase it).\n"),get_fname(fname,fname_len));
     return FALSE;
   };
   if (*flagx) {
@@ -286,106 +286,106 @@ static int C2F(cremati)(char *fname,int *stlw,int *it,int *m,int *n,int *lr,int 
 } 
 
 /*--------------------------------------------------------- 
-*     same as cremat, but without test ( we are below bot)
-*     and adding a call to putid 
-*     cree une variable de type matrice 
-*     de nom id 
-*     en lw : sans verification de place 
-*---------------------------------------------------------- */
+ *     same as cremat, but without test ( we are below bot)
+ *     and adding a call to putid 
+ *     cree une variable de type matrice 
+ *     de nom id 
+ *     en lw : sans verification de place 
+ *---------------------------------------------------------- */
 int C2F(crematvar)(int *id, int *lw, int *it, int *m, int *n, double *rtab, double *itab)
 {
 
-	/* Local variables */
-	int i__1;
-	static int lc, il, lr;
-	static int c__1 = 1;
+  /* Local variables */
+  int i__1;
+  static int lc, il, lr;
+  static int c__1 = 1;
 
-	/* Parameter adjustments */
-	--itab;
-	--rtab;
-	--id;
+  /* Parameter adjustments */
+  --itab;
+  --rtab;
+  --id;
 
-	/* Function Body */
-	C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
-	il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
-	*istk(il) = 1;
-	*istk(il+1) = *m;
-	*istk(il+2) = *n;
-	*istk(il+3) = *it;
-	i__1 = il + 4;
-	lr = i__1 / 2 + 1;
-	lc = lr + *m * *n;
-	if (*lw < C2F(vstk).isiz) 
-	{
-		i__1 = il + 4;
-		C2F(vstk).lstk[*lw] = i__1 / 2 + 1 + *m * *n * (*it + 1);
-	}
-	i__1 = *m * *n;
-	C2F(unsfdcopy)(&i__1, &rtab[1], &c__1, stk(lr), &c__1);
-	if (*it == 1) 
-	{
-		i__1 = *m * *n;
-		C2F(unsfdcopy)(&i__1, &itab[1], &c__1, stk(lc), &c__1);
-	}
-	return 0;
+  /* Function Body */
+  C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
+  il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
+  *istk(il) = 1;
+  *istk(il+1) = *m;
+  *istk(il+2) = *n;
+  *istk(il+3) = *it;
+  i__1 = il + 4;
+  lr = i__1 / 2 + 1;
+  lc = lr + *m * *n;
+  if (*lw < C2F(vstk).isiz) 
+    {
+      i__1 = il + 4;
+      C2F(vstk).lstk[*lw] = i__1 / 2 + 1 + *m * *n * (*it + 1);
+    }
+  i__1 = *m * *n;
+  C2F(unsfdcopy)(&i__1, &rtab[1], &c__1, stk(lr), &c__1);
+  if (*it == 1) 
+    {
+      i__1 = *m * *n;
+      C2F(unsfdcopy)(&i__1, &itab[1], &c__1, stk(lc), &c__1);
+    }
+  return 0;
 } 
 
 
 /*--------------------------------------------------------- 
-*     crebmat without check and call to putid 
-*---------------------------------------------------------- */
+ *     crebmat without check and call to putid 
+ *---------------------------------------------------------- */
 int C2F(crebmatvar)(int *id, int *lw, int *m, int *n, int *val)
 {
-	/* Local variables */
-	static int il, lr;
-	int i__1;
-	static int c__1 = 1;
+  /* Local variables */
+  static int il, lr;
+  int i__1;
+  static int c__1 = 1;
 
-	/* Parameter adjustments */
-	--val;
-	--id;
+  /* Parameter adjustments */
+  --val;
+  --id;
 
-	C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
-	il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
-	*istk(il) = 4;
-	*istk(il+1) = *m;
-	*istk(il+2) = *n;
-	lr = il + 3;
-	i__1 = il + 3 + *m * *n + 2;
-	C2F(vstk).lstk[*lw] = i__1 / 2 + 1;
-	i__1 = *m * *n;
-	C2F(icopy)(&i__1, &val[1], &c__1, istk(lr), &c__1);
-	return 0;
+  C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
+  il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
+  *istk(il) = 4;
+  *istk(il+1) = *m;
+  *istk(il+2) = *n;
+  lr = il + 3;
+  i__1 = il + 3 + *m * *n + 2;
+  C2F(vstk).lstk[*lw] = i__1 / 2 + 1;
+  i__1 = *m * *n;
+  C2F(icopy)(&i__1, &val[1], &c__1, istk(lr), &c__1);
+  return 0;
 } 
 /*--------------------------------------------------------- 
-*     cresmatvar without check and call to putid 
-*---------------------------------------------------------- */
+ *     cresmatvar without check and call to putid 
+ *---------------------------------------------------------- */
 int C2F(cresmatvar)(int *id, int *lw, char *str, int *lstr, unsigned long str_len)
 {
-	static int il, mn, lr1, ix1, ilp;
-	static int ilast;
-	static int c__0 = 0;
+  static int il, mn, lr1, ix1, ilp;
+  static int ilast;
+  static int c__0 = 0;
 
-	/* Parameter adjustments */
-	--id;
+  /* Parameter adjustments */
+  --id;
 
-	C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
-	il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
-	mn = 1;
-	ix1 = il + 4 + (*lstr + 1) + (mn + 1);
-	*istk(il) = 10;
-	*istk(il+1) = 1;
-	*istk(il+2) = 1;
-	*istk(il+3) = 0;
-	ilp = il + 4;
-	*istk(ilp) = 1;
-	*istk(ilp+1) = *istk(ilp) + *lstr;
-	ilast = ilp + mn;
-	lr1 = ilast + *istk(ilp);
-	C2F(cvstr)(lstr, istk(lr1), str, &c__0, str_len);
-	ix1 = ilast + *istk(ilast);
-	C2F(vstk).lstk[*lw] = ix1 / 2 + 1;
-	return 0;
+  C2F(putid)(&C2F(vstk).idstk[*lw * 6 - 6], &id[1]);
+  il = C2F(vstk).lstk[*lw - 1] + C2F(vstk).lstk[*lw - 1] - 1;
+  mn = 1;
+  ix1 = il + 4 + (*lstr + 1) + (mn + 1);
+  *istk(il) = 10;
+  *istk(il+1) = 1;
+  *istk(il+2) = 1;
+  *istk(il+3) = 0;
+  ilp = il + 4;
+  *istk(ilp) = 1;
+  *istk(ilp+1) = *istk(ilp) + *lstr;
+  ilast = ilp + mn;
+  lr1 = ilast + *istk(ilp);
+  C2F(cvstr)(lstr, istk(lr1), str, &c__0, str_len);
+  ix1 = ilast + *istk(ilast);
+  C2F(vstk).lstk[*lw] = ix1 / 2 + 1;
+  return 0;
 }
 
 /**********************************************************************
@@ -627,7 +627,7 @@ static int C2F(getbmati)(char *fname,int *topk,int *spos,int *lw,int *m,int *n,i
       Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Boolean matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
     else 
       Scierror(208,_("%s: Wrong type for argument %d: Boolean matrix expected.\n"),get_fname(fname,fname_len),
-	       Rhs + (*spos - *topk));
+               Rhs + (*spos - *topk));
     return FALSE;
   };
   *m = *istk(il +1);
@@ -703,7 +703,7 @@ int C2F(crebmat)(char *fname,int *lw,int *m,int *n,int *lr,unsigned long fname_l
 int C2F(fakecrebmat)(int *lw,int *m,int *n,int *lr) 
 {
   if (*lw + 1 >= Bot) {
-	Scierror(18,_("%s: Too many names.\n"),"fakecrebmat");
+    Scierror(18,_("%s: Too many names.\n"),"fakecrebmat");
     return FALSE;
   }
   if ( C2F(crebmati)("crebmat", Lstk(*lw ), m, n, lr, &c_false, 7L)== FALSE)
@@ -765,7 +765,7 @@ int C2F(getlistsparse)(char *fname,int *topk,int *spos,int *lnum,int *it,int *m,
   
   if (*lnum > nv) {
     Scierror(999,_("%s: Wrong size for argument %d: At least %d expected.\n"),
-	     get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
+             get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
     return FALSE;
   }
 
@@ -1031,7 +1031,7 @@ int C2F(getlistscalar)(char *fname,int *topk,int *spos,int *lnum,int *lr,unsigne
 
   if (*lnum > nv) {
     Scierror(999,_("%s: Wrong size for argument %d: At least %d expected.\n"),
-	     get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
+             get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
     return FALSE;
   }
   
@@ -1100,7 +1100,7 @@ int C2F(getlistsmat)(char *fname,int *topk,int *spos,int *lnum,int *m,int *n,int
 
   if (*lnum > nv) {
     Scierror(999,_("%s: Wrong size for argument %d: At least %d expected.\n"),
-	     get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
+             get_fname(fname,fname_len), Rhs+(*spos - *topk), *lnum);
     return FALSE;
   }
   return C2F(getsmati)(fname, topk, spos, &ili,  m, n, ix,j, lr, nlr, &c_true, lnum, fname_len);
@@ -1185,22 +1185,22 @@ int C2F(getwsmat)(char *fname,int *topk,int *lw,int *m,int *n,int *ilr,int *ilrd
 
 static int C2F(getwsmati)(char *fname,int *topk,int *spos,int *lw,int *m,int *n,int *ilr,int *ilrd ,int *inlistx,int *nel,unsigned long fname_len)
 {
-    int il;
-    il = iadr(*lw);
-    if (*istk(il ) < 0) il = iadr(*istk(il +1));
-    if (*istk(il ) != sci_strings) {
-		if (*inlistx){
-			Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Matrix of strings expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
-		} else {
-			Scierror(207,_("%s: Wrong type for argument %d: Matrix of strings expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk));
-		}
-		return FALSE;
+  int il;
+  il = iadr(*lw);
+  if (*istk(il ) < 0) il = iadr(*istk(il +1));
+  if (*istk(il ) != sci_strings) {
+    if (*inlistx){
+      Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Matrix of strings expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
+    } else {
+      Scierror(207,_("%s: Wrong type for argument %d: Matrix of strings expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk));
     }
-    *m = *istk(il + 1);
-    *n = *istk(il + 2);
-    *ilrd = il + 4;
-    *ilr =  il + 5 + *m * *n;
-    return TRUE;
+    return FALSE;
+  }
+  *m = *istk(il + 1);
+  *n = *istk(il + 2);
+  *ilrd = il + 4;
+  *ilr =  il + 5 + *m * *n;
+  return TRUE;
 } 
 
 /*------------------------------------------------------------------- 
@@ -1212,11 +1212,11 @@ static int C2F(getsmati)(char *fname,int *topk,int *spos,int *lw,int *m,int *n,i
   int il = iadr(*lw);
   if (*istk(il ) < 0) il = iadr(*istk(il +1));
   if (*istk(il ) != sci_strings ) {
-	  if (*inlistx) {
-		  Scierror(999,_("%s: Wrong type for argument %d (List element: %d): String matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
-	  } else {
-		  Scierror(201,_("%s: Wrong type for argument %d: String matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk));
-	  }
+    if (*inlistx) {
+      Scierror(999,_("%s: Wrong type for argument %d (List element: %d): String matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
+    } else {
+      Scierror(201,_("%s: Wrong type for argument %d: String matrix expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk));
+    }
     return  FALSE;
   }
   C2F(getsimati)(fname, topk, spos, lw, m, n, ix,j , lr ,nlr, inlistx, nel, fname_len);
@@ -1328,7 +1328,7 @@ int C2F(cresmat2)(char *fname,int *lw,int *nchar,int *lr,unsigned long fname_len
   int job = 1, n=1,m=1;
   int ix1, ilast, sz ;
   if (*lw + 1 >= Bot) {
-   Scierror(18,_("%s: Too many names.\n"),get_fname(fname,fname_len));
+    Scierror(18,_("%s: Too many names.\n"),get_fname(fname,fname_len));
     return  FALSE;
   }
   if ( C2F(cresmati)(fname,Lstk(*lw), &m, &n, nchar, &job, lr, &sz, fname_len) == FALSE )
@@ -1425,7 +1425,7 @@ int C2F(cresmati)(char *fname,int *stlw,int *m,int *n,int *nchar,int *job,int *l
   int ix1, ix, il, kij, ilp, mn= (*m)*(*n);
   il = iadr(*stlw);
  
- /* compute the size of chains */ 
+  /* compute the size of chains */ 
   *sz = 0;
   switch ( *job ) 
     {
@@ -1452,21 +1452,21 @@ int C2F(cresmati)(char *fname,int *stlw,int *m,int *n,int *nchar,int *job,int *l
     case 1 :
       ix1 = mn  + ilp;
       for (kij = ilp + 1; kij <= ix1; ++kij) {
-	*istk(kij) = *istk(kij - 1) + nchar[0];
+        *istk(kij) = *istk(kij - 1) + nchar[0];
       }
       break;
     case 2 :
       ix = 0;
       ix1 = mn + ilp;
       for (kij = ilp + 1; kij <= ix1; ++kij) {
-	*istk(kij ) = *istk(kij - 2 +1) + nchar[ix]; 
-	++ix;
+        *istk(kij ) = *istk(kij - 2 +1) + nchar[ix]; 
+        ++ix;
       }
       break;
     case 3 :
       {
-	ix1 = mn + 1;
-	C2F(icopy)(&ix1, nchar, &cx1, istk(ilp ), &cx1);
+        ix1 = mn + 1;
+        C2F(icopy)(&ix1, nchar, &cx1, istk(ilp ), &cx1);
       }
     }
   *lr = ilp + mn + 1;
@@ -1507,30 +1507,30 @@ int cre_smat_from_str_i(char *fname, int *lw, int *m, int *n, char *Str[],unsign
   ix = 0;
   ix1 = ilp + *m * *n;
   for (kij = ilp + 1; kij <= ix1; ++kij) 
-  {
-	  if (Str)
-	  {
-		*istk(kij ) = *istk(kij - 1) + (int)strlen(Str[ix]);
-		++ix;
-	  }
-	  else
-	  {
-		*istk(kij ) = *istk(kij - 1) + 0;
-		++ix;
-	  }
-  }
+    {
+      if (Str)
+        {
+          *istk(kij ) = *istk(kij - 1) + (int)strlen(Str[ix]);
+          ++ix;
+        }
+      else
+        {
+          *istk(kij ) = *istk(kij - 1) + 0;
+          ++ix;
+        }
+    }
   ilast = ilp + *m * *n;
   lr1 = ilast + *istk(ilp );
   pos = istk(lr1);
   if (Str)
-  {
-	  for ( ix = 0 ; ix < (*m)*(*n) ; ix++) 
-	  {
-		  int l = (int)strlen(Str[ix]);
-		  C2F(cvstr)(&l, pos, Str[ix], &cx0, l);
-		  pos += l;
-	  }
-  }
+    {
+      for ( ix = 0 ; ix < (*m)*(*n) ; ix++) 
+        {
+          int l = (int)strlen(Str[ix]);
+          C2F(cvstr)(&l, pos, Str[ix], &cx0, l);
+          pos += l;
+        }
+    }
   ix1 = ilast + *istk(ilast );
   *rep = sadr(ix1);
   return TRUE;
@@ -1593,8 +1593,8 @@ int cre_sparse_from_ptr_i(char *fname, int *lw, int *m, int *n, SciSparse *S, un
   *istk(il ) = sci_sparse;
   /* note: code sligtly modified (remark of C. Deroulers in the newsgroup) */
   if ( (*m == 0)  |  (*n == 0) ) {
-      *istk(il + 1) = 0; 
-      *istk(il + 2) = 0;
+    *istk(il + 1) = 0; 
+    *istk(il + 2) = 0;
   } else {
     *istk(il + 1) = *m; 
     *istk(il + 2) = *n;
@@ -1669,15 +1669,15 @@ int C2F(listcrestring)(char *fname,int *lw,int *numi,int *stlw,int *nch,int *ilr
 }
 
 /*------------------------------------------------------------------ 
-*     verifie que l'on peut stocker une matrice [1,1] 
-*     de chaine de caracteres a la position spos du stack 
-*     en renvoyant .true. ou .false.  suivant la reponse. 
-*     nchar est le nombre de caracteres que l'on veut stocker 
-*     Entree : 
-*       spos : position (entier) 
-*     Sortie : 
-*       ilrs 
-*------------------------------------------------------------------ */
+ *     verifie que l'on peut stocker une matrice [1,1] 
+ *     de chaine de caracteres a la position spos du stack 
+ *     en renvoyant .true. ou .false.  suivant la reponse. 
+ *     nchar est le nombre de caracteres que l'on veut stocker 
+ *     Entree : 
+ *       spos : position (entier) 
+ *     Sortie : 
+ *       ilrs 
+ *------------------------------------------------------------------ */
 
 int C2F(crestring)(char *fname,int *spos,int *nchar,int *ilrs,unsigned long fname_len)
 {
@@ -1740,17 +1740,17 @@ int C2F(fakecresmat2)(int *lw,int *nchar,int *lr)
   il = iadr((*Lstk(*lw)));
   Err = sadr(il + 4 + (*nchar + 1)) - *Lstk(Bot);
   if (Err > 0) 
-  {
-    SciError(cx17);
-    retval = FALSE;
-  }
+    {
+      SciError(cx17);
+      retval = FALSE;
+    }
   else
-  {
-    ilast = il + 5;
-    *Lstk(*lw+1) = sadr(ilast + *istk(ilast));
-    *lr = ilast + *istk(ilast - 1);
-    retval = TRUE;
-  }
+    {
+      ilast = il + 5;
+      *Lstk(*lw+1) = sadr(ilast + *istk(ilast));
+      *lr = ilast + *istk(ilast - 1);
+      retval = TRUE;
+    }
   return retval;
 }
 
@@ -1985,22 +1985,22 @@ int C2F(getilist)(char *fname,int *topk,int *lw,int *n,int *ix,int *ili,unsigned
  **********************************************************************/
 
 /*------------------------------------------------
-*     renvoit .true. si l'argument en lw est une matrice de polynome 
-*             sinon appelle error et renvoit .false. 
-*     Entree : 
-*       fname : nom de la routine appellante pour le message 
-*       d'erreur 
-*       lw    : position ds la pile 
-*     Sortie 
-*       [it,m,n] caracteristiques de la matrice 
-*       name : nom de la variable muette ( character*4) 
-*       namel : taille de name <=4 ( uncounting trailling blanks) 
-*       soit lij=istk(ilp+(i-1)+(j-1)*m) 
-*       alors le degre zero de l'elements (i,j) est en 
-*       stk(lr+lij) (partie reelle ) et stk(lc+lij) (imag) 
-*       le degre de l'elt (i,j)= l(i+1)j - lij -1 
-*      implicit undefined (a-z) 
-*------------------------------------------------*/
+ *     renvoit .true. si l'argument en lw est une matrice de polynome 
+ *             sinon appelle error et renvoit .false. 
+ *     Entree : 
+ *       fname : nom de la routine appellante pour le message 
+ *       d'erreur 
+ *       lw    : position ds la pile 
+ *     Sortie 
+ *       [it,m,n] caracteristiques de la matrice 
+ *       name : nom de la variable muette ( character*4) 
+ *       namel : taille de name <=4 ( uncounting trailling blanks) 
+ *       soit lij=istk(ilp+(i-1)+(j-1)*m) 
+ *       alors le degre zero de l'elements (i,j) est en 
+ *       stk(lr+lij) (partie reelle ) et stk(lc+lij) (imag) 
+ *       le degre de l'elt (i,j)= l(i+1)j - lij -1 
+ *      implicit undefined (a-z) 
+ *------------------------------------------------*/
 
 int C2F(getpoly)(char *fname,int *topk,int *lw,int *it,int *m,int *n,char *namex,int *namel,int *ilp,int *lr,int *lc,unsigned long fname_len,unsigned long name_len)
 {
@@ -2034,11 +2034,11 @@ int C2F(getpoly)(char *fname,int *topk,int *lw,int *it,int *m,int *n,char *namex
 
 
 /*------------------------------------------------------------------ 
-*     recupere un polynome 
-*     md est son degre et son premier element est en 
-*     stk(lr),stk(lc) 
-*     Finir les tests 
-*------------------------------------------------------------------ */
+ *     recupere un polynome 
+ *     md est son degre et son premier element est en 
+ *     stk(lr),stk(lc) 
+ *     Finir les tests 
+ *------------------------------------------------------------------ */
 
 int C2F(getonepoly)(char *fname,int *topk,int *lw,int *it,int *md,char *namex,int *namel,int *lr,int *lc, unsigned long fname_len, unsigned long name_len)
 {
@@ -2096,7 +2096,7 @@ int C2F(pmatj)(char *fname,int *lw,int *j,unsigned long fname_len)
   m2 = Max(m,1);
   ix1 = il + 9 + m * n;
   l = sadr(ix1);
-  n = *istk(il + 8 + m * n );
+  n = *istk(il + 8 + m * n )-1;
   ix1 = il2 + 9 + m2;
   l2 = sadr(ix1);
   n2 = *istk(il + 8 + incj + m ) - *istk(il + 8 + incj );
@@ -2400,7 +2400,7 @@ int C2F(getlistvectrow)(char *fname,int *topk,int *spos,int *lnum,int *it,int *m
  *       lr : pointe sur la partie reelle ( si la matrice est a 
  *              a(1,1)=stk(lr) 
  *            si l'on veut acceder a des entiers 
- * 			   a(1,1)=istk(adr(lr,0)) 
+ *                a(1,1)=istk(adr(lr,0)) 
  *       lc : pointe sur la partie imaginaire si elle existe sinon sur zero 
  *------------------------------------------------------------------ */
 
@@ -2443,22 +2443,22 @@ int C2F(getlistvectcol)(char *fname,int *topk,int *spos,int *lnum,int *it,int *m
 }
 
 /*------------------------------------------------------------------ 
-*     Fonction normalement identique a getmat mais rajoutee 
-*     pour ne pas avoir a changer le stack.f de interf 
-*     renvoit .true. si l'argument en spos est une matrice 
-*             sinon appelle error et renvoit .false. 
-*     Entree : 
-*       fname : nom de la routine appellante pour le message 
-*       d'erreur 
-*       spos    : position ds la pile 
-*     Sortie 
-*       [it,m,n] caracteristiques de la matrice 
-*       lr : pointe sur la partie reelle ( si la matrice est a 
-*              a(1,1)=stk(lr) 
-*            si l'on veut acceder a des entiers 
-* 			   a(1,1)=istk(adr(lr,0)) 
-*       lc : pointe sur la partie imaginaire si elle existe sinon sur zero 
-*------------------------------------------------------------------ */
+ *     Fonction normalement identique a getmat mais rajoutee 
+ *     pour ne pas avoir a changer le stack.f de interf 
+ *     renvoit .true. si l'argument en spos est une matrice 
+ *             sinon appelle error et renvoit .false. 
+ *     Entree : 
+ *       fname : nom de la routine appellante pour le message 
+ *       d'erreur 
+ *       spos    : position ds la pile 
+ *     Sortie 
+ *       [it,m,n] caracteristiques de la matrice 
+ *       lr : pointe sur la partie reelle ( si la matrice est a 
+ *              a(1,1)=stk(lr) 
+ *            si l'on veut acceder a des entiers 
+ *                a(1,1)=istk(adr(lr,0)) 
+ *       lc : pointe sur la partie imaginaire si elle existe sinon sur zero 
+ *------------------------------------------------------------------ */
 
 int C2F(getvectcol)(char *fname,int *topk,int *spos,int *it,int *m,int *n,int *lr,int *lc,unsigned long fname_len)
 {
@@ -2541,7 +2541,7 @@ static int C2F(getpointeri)(char *fname,int *topk,int *spos,int *lw,int *lr,int 
       Scierror(197,_("%s: Wrong type for argument %d (List element: %d): Boxed pointer expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
     else 
       Scierror(198,_("%s: Wrong type for argument %d: Boxed pointer expected.\n"),get_fname(fname,fname_len),
-	       Rhs + (*spos - *topk));
+               Rhs + (*spos - *topk));
     return  FALSE;
   }
   *lr = sadr(il+4);
@@ -2575,8 +2575,8 @@ int C2F(mspcreate)(int *lw,int *m,int *n,int *nzMax,int *it)
   };
   *istk(il ) = sci_matlab_sparse;
   /*        si m*n=0 les deux dimensions sont mises a zero. 
-  *istk(il +1) = Min(*m , *m * *n);
-  *istk(il + 1 +1) = Min(*n, *m * *n);     */
+   *istk(il +1) = Min(*m , *m * *n);
+   *istk(il + 1 +1) = Min(*n, *m * *n);     */
   *istk(il +1) = *m;
   *istk(il + 2) = *n;
   *istk(il + 3) = *it;
@@ -2646,12 +2646,12 @@ int C2F(realmat)(void)
 
 
 /*------------------------------------------------------------------ 
-*     copie l'objet qui est a la position lw de la pile 
-*     a la position lwd de la pile 
-*     copie faite avec dcopy 
-*     pas de verification 
-*      implicit undefined (a-z) 
-*------------------------------------------------------------------ */
+ *     copie l'objet qui est a la position lw de la pile 
+ *     a la position lwd de la pile 
+ *     copie faite avec dcopy 
+ *     pas de verification 
+ *      implicit undefined (a-z) 
+ *------------------------------------------------------------------ */
 
 int C2F(copyobj)(char *fname,int *lw,int *lwd,unsigned long fname_len)
 {
@@ -2707,13 +2707,13 @@ int C2F(vcopyobj)(char *fname,int *lw,int *lwd,unsigned long fname_len)
 
 
 /*------------------------------------------------== 
-*     suppose qu'il y a une matrice en lw de taille it1,m1,n1,mn1, 
-*     et une autre en lw+1 de taille it2,m2,n2,mn2 
-*     et echange les matrices et change les valeurs de it1,m1,n1,... 
-*     apres echange la taille de la matrice en lw est stocke ds(it1,m1,n1) 
-*     et celle en lw+1 est stocke ds (it2,m2,n2) 
-*     effet de bord il faut que lw+2 soit une place libre 
-*------------------------------------------------== */
+ *     suppose qu'il y a une matrice en lw de taille it1,m1,n1,mn1, 
+ *     et une autre en lw+1 de taille it2,m2,n2,mn2 
+ *     et echange les matrices et change les valeurs de it1,m1,n1,... 
+ *     apres echange la taille de la matrice en lw est stocke ds(it1,m1,n1) 
+ *     et celle en lw+1 est stocke ds (it2,m2,n2) 
+ *     effet de bord il faut que lw+2 soit une place libre 
+ *------------------------------------------------== */
 
 
 int C2F(swapmat)(char *fname,int *topk,int *lw,int *it1,int *m1,int *n1,int *mn1,int *it2,int *m2,int *n2,int *mn2,unsigned long fname_len)
@@ -2748,26 +2748,26 @@ int C2F(swapmat)(char *fname,int *topk,int *lw,int *it1,int *m1,int *n1,int *mn1
 
 
 /*------------------------------------------------== 
-*     verifie qu'en lw il y a une matrice de taille (it1,m1,n1) 
-*     deplace cette matrice en lw+1, en reservant en lw 
-*     la place pour stocker une matrice (it,m,n) 
-*     insmat  verifie  qu'on a la place de faire tout ca 
-*     appelle error en cas de probleme 
-*     Remarque : noter par exemple que si it=it1,m1=m,n1=n 
-*        alors apres le contenu de la matrice en lw est une copie de 
-*        celle en lw+1 
-*     Remarque : lw doit etre top car sinon on perd ce qu'il y avait avant 
-*        en lw+1,....,lw+n 
-*     Entree : 
-*        lw : position 
-*        it ,m,n : taille de la matrice a inserer 
-*     Sortie : 
-*       lr : pointe sur la partie reelle de la matrice 
-*            en lw (   a(1,1)=stk(lr)) 
-*       lc : pointe sur la partie imaginaire si besoin est 
-*       lr1,lc1 : meme signification mais pour la matrice en lw+1 
-*            ( matrice qui a ete copiee de lw a lw+1 
-*------------------------------------------------== */
+ *     verifie qu'en lw il y a une matrice de taille (it1,m1,n1) 
+ *     deplace cette matrice en lw+1, en reservant en lw 
+ *     la place pour stocker une matrice (it,m,n) 
+ *     insmat  verifie  qu'on a la place de faire tout ca 
+ *     appelle error en cas de probleme 
+ *     Remarque : noter par exemple que si it=it1,m1=m,n1=n 
+ *        alors apres le contenu de la matrice en lw est une copie de 
+ *        celle en lw+1 
+ *     Remarque : lw doit etre top car sinon on perd ce qu'il y avait avant 
+ *        en lw+1,....,lw+n 
+ *     Entree : 
+ *        lw : position 
+ *        it ,m,n : taille de la matrice a inserer 
+ *     Sortie : 
+ *       lr : pointe sur la partie reelle de la matrice 
+ *            en lw (   a(1,1)=stk(lr)) 
+ *       lc : pointe sur la partie imaginaire si besoin est 
+ *       lr1,lc1 : meme signification mais pour la matrice en lw+1 
+ *            ( matrice qui a ete copiee de lw a lw+1 
+ *------------------------------------------------== */
 
 int C2F(insmat)(int *topk,int *lw,int *it,int *m,int *n,int *lr,int *lc,int *lr1,int *lc1)
 {
@@ -2798,7 +2798,7 @@ int C2F(insmat)(int *topk,int *lw,int *it,int *m,int *n,int *lr,int *lc,int *lr1
 
 /*------------------------------------------------
  *     imprime le contenu de la pile en lw en mode entier ou 
- * 	  double precision suivant typ 
+ *       double precision suivant typ 
  *------------------------------------------------*/
 
 int C2F(stackinfo)(int *lw,int *typ)
@@ -2935,14 +2935,14 @@ int C2F(getexternal)(char *fname,int *topk,int *lw,char *namex,int *typex,void (
     for (i=0; i < (int)name_len ; i++ ) namex[i] = ' ';
     if (ret_value == TRUE) 
       {
-	C2F(cvstr)(&nlr, istk(lr ), namex, &cx1, name_len);
-	namex[nlr] = '\0';
-	(*setfun)(namex, &irep); /* , name_len); */
-	if (irep == 1) 
-	  {
-		  Scierror(50,_("%s: entry point %s not found in predefined tables or link table.\n"),get_fname(fname,fname_len),namex);
-	    ret_value = FALSE;
-	  }
+        C2F(cvstr)(&nlr, istk(lr ), namex, &cx1, name_len);
+        namex[nlr] = '\0';
+        (*setfun)(namex, &irep); /* , name_len); */
+        if (irep == 1) 
+          {
+            Scierror(50,_("%s: entry point %s not found in predefined tables or link table.\n"),get_fname(fname,fname_len),namex);
+            ret_value = FALSE;
+          }
       }
     break;
   default: 
@@ -2959,10 +2959,10 @@ int C2F(getexternal)(char *fname,int *topk,int *lw,char *namex,int *typex,void (
 int C2F(checkval)(char *fname,int *ival1,int *ival2,unsigned long fname_len)
 {
   if (*ival1 != *ival2) 
-  {
-    Scierror(999,_("%s: Incompatible sizes.\n"),get_fname(fname,fname_len));
-    return  FALSE;
-  } ;
+    {
+      Scierror(999,_("%s: Incompatible sizes.\n"),get_fname(fname,fname_len));
+      return  FALSE;
+    } ;
   return  TRUE;
 }
 
@@ -3043,8 +3043,8 @@ int C2F(credata)(char *fname,int *lw,int m,unsigned long fname_len)
   return TRUE;
 } 
 /* ==============================================================
-MATRIX OF HANDLE
-================================================================= */
+   MATRIX OF HANDLE
+   ================================================================= */
 /*--------------------------------------------------------- 
  * internal function used by crehmat and listcrehmat 
  *---------------------------------------------------------- */
@@ -3183,7 +3183,7 @@ static int C2F(gethmati)(char *fname,int *topk,int *spos,int *lw,int *m,int *n,i
       Scierror(999,_("%s: Wrong type for argument %d (List element: %d): Matrix of handle expected.\n"),get_fname(fname,fname_len), Rhs + (*spos - *topk), *nel);
     else 
       Scierror(200,_("%s: Wrong type for argument %d: Matrix of handle expected.\n"),get_fname(fname,fname_len),
-	       Rhs + (*spos - *topk));
+               Rhs + (*spos - *topk));
     return  FALSE;
   }
   *m = *istk(il + 1);
