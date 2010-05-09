@@ -264,6 +264,8 @@ Bug fixes:
 * bug 2775 fixed - Multiplication of 0 times infinity did not work because of
                    ATLAS under Windows.
 
+* bug 3311 fixed - Loop with a "for" over a vector of complex polynomials produced wrong values
+
 * bug 3780 fixed - The function loadmatfile did not ignore comments found in 
                    ASCII files while loading them, resulting in an error message.
                    For Matlab compatibility, when this function is called with 

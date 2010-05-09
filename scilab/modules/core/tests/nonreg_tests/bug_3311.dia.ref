@@ -1,0 +1,85 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2007-2008 - INRIA - Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- Non-regression test for bug 3311 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=?
+//
+// <-- Short Description -->
+// Loop with a "for" over a vector of complex polynomials.
+computed=0.
+ computed  =
+ 
+    0.  
+p1=1.+2.*%i+3*%s
+ p1  =
+ 
+Partie réelle
+
+ 
+    1 + 3s   
+Partie imaginaire
+
+ 
+    2   
+p2=4.+5.*%i+6*%s
+ p2  =
+ 
+Partie réelle
+
+ 
+    4 + 6s   
+Partie imaginaire
+
+ 
+    5   
+myvector=[p1 p2]
+ myvector  =
+ 
+Partie réelle
+
+ 
+    1 + 3s     4 + 6s   
+Partie imaginaire
+
+ 
+    2     5   
+for p=myvector
+  computed=computed+p
+end
+ computed  =
+ 
+Partie réelle
+
+ 
+    1 + 3s   
+Partie imaginaire
+
+ 
+    2   
+ computed  =
+ 
+Partie réelle
+
+ 
+    5 + 9s   
+Partie imaginaire
+
+ 
+    7   
+expected=5.+7*%i+9*%s
+ expected  =
+ 
+Partie réelle
+
+ 
+    5 + 9s   
+Partie imaginaire
+
+ 
+    7   
+if computed<>expected then bugmes();quit;end
