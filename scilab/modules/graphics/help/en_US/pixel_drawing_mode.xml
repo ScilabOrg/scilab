@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) INRIA
+ * Copyright (C) 2010 - DIGITEO - Pierre Lando <pierre.lando@scilab.org>
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,114 +10,122 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="alufunctions">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="pixel_drawing_mode">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
   <refnamediv>
-    <refname>alufunctions</refname>
-    <refpurpose>pixel drawing functions. <emphasis role="bold">This function is obsolete.</emphasis></refpurpose>
+    <refname>pixel_drawing_mode</refname>
+    <refpurpose>bitwise pixel rendering functions.</refpurpose>
   </refnamediv>
   <refsection>
     <title>Description</title>
     <para>
-    src is the source ie the "value of the pixel" which we want to draw.
-    dst is the destination ie "value of the pixel" which is already drawn.</para>
+      The pixel drawing mode is a <link linkend="figure_properties">figure property</link> that
+      specifies a bitwise operation applied between the incoming color and the color at the corresponding location on the figure.
+
+      <literal>src</literal> is the incoming value of the pixel.
+      <literal>dst</literal> is the destination value of the pixel (which is already drawn).
+      <literal>res</literal> is the resulting value of the pixel.
+
+      Possible values for <literal>pixel_drawing_mode</literal> are:
+    </para>
+    
     <variablelist>
       <varlistentry>
         <term>0</term>
         <listitem>
-          <para>clear ie "0"</para>
+          <para>clear: res = "0" </para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>1</term>
         <listitem>
-          <para>and ie "src AND dst"</para>
+          <para>and: res = src AND dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>2</term>
         <listitem>
-          <para>and reverse ie "src AND NOT dst"</para>
+          <para>and reverse: res = src AND NOT dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>3</term>
+        <term>3 (default)</term>
         <listitem>
-          <para>copy ie "src"</para>
+          <para>copy: res = src</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>4</term>
         <listitem>
-          <para>and inverted ie "(NOT src) AND dst"</para>
+          <para>and inverted: res = (NOT src) AND dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>5</term>
         <listitem>
-          <para>noop ie "dst"</para>
+          <para>noop: res = dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>6</term>
         <listitem>
-          <para>xor ie "src XOR dst"</para>
+          <para>xor: res = src XOR dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>7</term>
         <listitem>
-          <para>or ie "src OR dst"</para>
+          <para>or: res = src OR dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>8</term>
         <listitem>
-          <para>nor ie "(NOT src) AND (NOT dst)"</para>
+          <para>nor: res = (NOT src) AND (NOT dst)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>9</term>
         <listitem>
-          <para>equiv ie "(NOT src) XOR dst"</para>
+          <para>equiv: res = (NOT src) XOR dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>10</term>
         <listitem>
-          <para>invert ie "NOT dst"</para>
+          <para>invert: res = NOT dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>11</term>
         <listitem>
-          <para>or reverse ie "src OR (NOT dst)"</para>
+          <para>or reverse: res = src OR (NOT dst)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>12</term>
         <listitem>
-          <para>copy inverted ie "NOT src"</para>
+          <para>copy inverted: res = NOT src</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>13</term>
         <listitem>
-          <para>or inverted ie "(NOT src) OR dst"</para>
+          <para>or inverted: res = (NOT src) OR dst</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>14</term>
         <listitem>
-          <para>nand ie "(NOT src) OR (NOT dst)"</para>
+          <para>nand: res = (NOT src) OR (NOT dst)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>15</term>
         <listitem>
-          <para>set ie "1"</para>
+          <para>set: res = "1"</para>
         </listitem>
       </varlistentry>
     </variablelist>
