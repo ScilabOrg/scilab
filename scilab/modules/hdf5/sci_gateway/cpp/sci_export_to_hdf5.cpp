@@ -28,6 +28,8 @@ extern "C"
 #include "strdup_windows.h"
 #endif
 #include "scilabmode.h"
+#include "splitpath.h"
+#include "scicurdir.h"
 }
 #include "forceJHDF5load.hxx"
 
@@ -102,8 +104,66 @@ int sci_export_to_hdf5(char *fname,unsigned long fname_len)
     }
 
     iLevel = 0;
-    //open hdf5 file
-    int iH5File = createHDF5File(pstNameList[0]); 
+    // open hdf5 file
+    int iH5File = -1;
+
+    {
+        char* drv  = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+        char* dir  = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+        char* name = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+        char* ext  = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+        char* path = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+        char* filename = (char*)MALLOC(sizeof(char) * ((int)strlen(pstNameList[0]) + 1));
+
+        /* TO DO : remove when HDF5 will be fixed ... */
+        /* HDF5 does not manage no ANSI characters */
+        /* UGLY workaround :( */
+        /* We split path, move in this path, open file */
+        /* and return in previous place */
+        /* see BUG 6440 */
+        if (drv && dir && name && ext && path && filename)
+        {
+            char *currentpath = NULL;
+            int ierr = 0;
+
+            splitpath(pstNameList[0], FALSE, drv, dir, name, ext);
+
+            if (strcmp(drv, "") == 0)
+            {
+                strcpy(path, dir);
+            }
+            else
+            {
+                strcpy(path, drv);
+                strcat(path, dir);
+            }
+
+            if (strcmp(ext, "") == 0)
+            {
+                strcpy(filename, name);
+            }
+            else
+            {
+                strcpy(filename, name);
+                strcat(filename, ext);
+            }
+
+            currentpath = scigetcwd(&ierr);
+
+            scichdir(path);
+            iH5File = createHDF5File(filename);
+            scichdir(currentpath);
+
+            if (currentpath) {FREE(currentpath); currentpath = NULL;}
+        }
+
+        if (drv) {FREE(drv); drv = NULL;}
+        if (dir) {FREE(dir); dir = NULL;}
+        if (name) {FREE(name); name = NULL;}
+        if (ext) {FREE(ext); ext = NULL;}
+        if (path) {FREE(path); path = NULL;}
+        if (filename) {FREE(filename); filename = NULL;}
+    }
 
     if(iH5File < 0)
     {
