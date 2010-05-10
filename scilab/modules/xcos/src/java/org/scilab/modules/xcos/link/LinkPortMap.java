@@ -12,16 +12,17 @@
 
 package org.scilab.modules.xcos.link;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
 import org.scilab.modules.xcos.link.implicit.ImplicitLink;
 import org.scilab.modules.xcos.port.BasicPort;
+import org.scilab.modules.xcos.port.BasicPort.Type;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
-import org.scilab.modules.xcos.port.input.ExplicitInputPort;
-import org.scilab.modules.xcos.port.input.ImplicitInputPort;
-import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
-import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
+import org.scilab.modules.xcos.port.input.InputPort;
+import org.scilab.modules.xcos.port.output.OutputPort;
 
 /**
  * Enum used to get the links and ports class from ids. 
@@ -30,25 +31,25 @@ public enum LinkPortMap {
 	/**
 	 * Explicit input port mapping
 	 */
-	EX_INPUT(ExplicitLink.class, ExplicitInputPort.class, false),
+	EX_INPUT(ExplicitLink.class, InputPort.class, false),
 	/**
 	 * Implicit input port mapping
 	 * 
 	 * Note: for implicit link, the from and to start flag is inverted. So here
 	 * the {@link #isStart} is inverted too.
 	 */
-	IM_INPUT(ImplicitLink.class, ImplicitInputPort.class, true),
+	IM_INPUT(ImplicitLink.class, InputPort.class, false),
 	/**
 	 * Explicit output port mapping
 	 */
-	EX_OUTPUT(ExplicitLink.class, ExplicitOutputPort.class, true),
+	EX_OUTPUT(ExplicitLink.class, OutputPort.class, true),
 	/**
 	 * Implicit output port mapping
 	 * 
 	 * Note: for implicit link, the from and to start flag is inverted. So here
 	 * the {@link #isStart} is inverted too.
 	 */
-	IM_OUTPUT(ImplicitLink.class, ImplicitOutputPort.class, false),
+	IM_OUTPUT(ImplicitLink.class, OutputPort.class, true),
 	/**
 	 * Control port mapping
 	 */
@@ -57,6 +58,14 @@ public enum LinkPortMap {
 	 * Command port mapping
 	 */
 	COMMAND(CommandControlLink.class, CommandPort.class, true);
+
+	private static final Log LOG = LogFactory.getLog(LinkPortMap.class); 
+	
+	/*
+	 * Caching variable to invert return value of isStart(src, target) between
+	 * two call.
+	 */
+	private static double previous_isStart;
 	
 	private final Class< ? extends BasicLink> linkKlass;
 	private final Class< ? extends BasicPort> portKlass;
@@ -139,7 +148,7 @@ public enum LinkPortMap {
 	 * @param port the instance
 	 * @return 1.0 if is a start point, 0.0 otherwise.
 	 */
-	public static double isStart(BasicPort port) {
+	private static double isStart(BasicPort port) {
 		double ret = 0.0;
 		
 		final Class< ? extends BasicPort> klass = port.getClass();
@@ -152,6 +161,39 @@ public enum LinkPortMap {
 			}
 		}
 		
+		return ret;
+	}
+	
+	/**
+	 * Get the direction of the link as a scicos value.
+	 * 
+	 * @param src the start
+	 * @param target the end
+	 * @return 0.0 when the link is from src to target , 1.0 otherwise.
+	 */
+	public static double isStart(BasicPort src, BasicPort target) {
+		double ret = 0.0;
+		
+		if (src instanceof InputPort && target instanceof OutputPort) {
+			ret = 0.0; 
+		} else if (src instanceof OutputPort && target instanceof InputPort) {
+			ret = 1.0;
+		} else {
+			/*
+			 * Complex case with implicit blocks (Input->Input) or
+			 * (Output->Output) previous call return value is stored on the
+			 * previous_isStart variable
+			 */
+			if (src.getType() == Type.IMPLICIT && target.getType() == Type.IMPLICIT) {
+				if (src instanceof InputPort) {
+					ret = 1.0;
+				} else {
+					ret = 0.0;
+				}
+			} else {
+				ret = isStart(src);
+			}
+		}
 		return ret;
 	}
 	
