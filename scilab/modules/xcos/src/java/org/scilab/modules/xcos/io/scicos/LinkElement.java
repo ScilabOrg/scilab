@@ -99,7 +99,7 @@ public class LinkElement extends AbstractElement<BasicLink> {
 		 */
 		link.setSource(start);
 		link.setTarget(end);
-
+		
 		mxGeometry geom = link.getGeometry();
 		if (geom == null) {
 			geom = new mxGeometry();
@@ -205,15 +205,31 @@ public class LinkElement extends AbstractElement<BasicLink> {
 		final int startPortIndex = (int) fromReal[indexes[0]][indexes[1]];
 		final int endPortIndex = (int) toReal[indexes[0]][indexes[1]];
 
+		incrementIndexes(indexes, isColumnDominant);
+		
+		final boolean startPortIsStart;
+		if (canGet(from, indexes)) {
+			startPortIsStart = fromReal[indexes[0]][indexes[1]] == 0.0;
+		} else {
+			startPortIsStart = true;
+		}
+		
+		final boolean endPortIsStart;
+		if (canGet(to, indexes)) {
+			endPortIsStart = toReal[indexes[0]][indexes[1]] == 0.0;
+		} else {
+			endPortIsStart = false;
+		}
+		
 		final Class< ? extends BasicPort> startKlass = LinkPortMap.getPortClass(
-				link.getClass(), true);
+				link.getClass(), startPortIsStart);
 		final Class< ? extends BasicPort> endKlass = LinkPortMap.getPortClass(
-				link.getClass(), false);
+				link.getClass(), endPortIsStart);
 
 		start = BasicBlockInfo.getAllTypedPorts(startBlock, false, startKlass)
 				.get(startPortIndex - 1);
-		end = BasicBlockInfo.getAllTypedPorts(endBlock, false, endKlass).get(
-				endPortIndex - 1);
+		end = BasicBlockInfo.getAllTypedPorts(endBlock, false, endKlass)
+				.get(endPortIndex - 1);
 	}
 
 	/**
