@@ -284,7 +284,7 @@ public class BuildDocObject extends StyleSheet {
 			File tmpFileForURI = new File(this.styleDoc);
 			contentMainStyleDoc = contentMainStyleDoc.replaceAll("STYLE_DOC", tmpFileForURI.toURI().toString());
 
-			File temporaryStyleFile = File.createTempFile("style_",".xsl", ScilabConstants.TMPDIR);
+			File temporaryStyleFile = File.createTempFile("style_",".xsl");
 
 			Helpers.saveString(contentMainStyleDoc, temporaryStyleFile, "UTF-8");
 			return temporaryStyleFile;
