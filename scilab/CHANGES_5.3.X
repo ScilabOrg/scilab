@@ -142,6 +142,9 @@ Xcos:
                    prompting the user if modified diagrams must be saved before 
                    exiting.
 
+* bug 7053 fixed - Rotated saved blocks were not loaded with the right rotation 
+                   value.
+
 Dynamic link:
 =============
 
