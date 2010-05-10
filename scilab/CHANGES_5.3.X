@@ -252,6 +252,9 @@ Bug fixes:
 
 * bug 2076 fixed - pspect did not use the last data window.
 
+* bug 2613 warning fixed - Incorrect stack recovery for catched errors in some 
+                   specific contexts (for loops, ..)
+
 * bug 2654 partially fixed - exec returned a wrong error if line had more 
                    than 4096 characters.
 
