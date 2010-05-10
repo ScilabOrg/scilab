@@ -1,6 +1,13 @@
-#!/bin/bash
-# Copyright INRIA/Scilab 2007/2008
-# Author : Sylvestre Ledru <sylvestre.ledru@inria.fr>
+#!/bin/sh
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2007-2008 - INRIA - Sylvestre Ledru
+# Copyright (C) 2009-2010 - DIGITEO - Sylvestre Ledru
+# This file must be used under the terms of the CeCILL.
+# This source file is licensed as described in the file COPYING, which
+# you should have received as part of this distribution.  The terms
+# are also available at
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+#
 # This script goes into a module and updates the localization file by checking
 # the _( and gettext( calls in the code
 
