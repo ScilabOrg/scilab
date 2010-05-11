@@ -318,11 +318,11 @@ end
       end
 
       ok = %f;
-      //xset('window',curwin)
+      //scf(curwin);
       return
     end
     //scf(gh_win);
-    //xset('window',win);
+    //scf(win);
   end
 
   //** scicos simulation

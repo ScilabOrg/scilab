@@ -10,8 +10,11 @@
 function v=mtlb_get(H,property)
 
 [lhs,rhs]=argn()
-win=xget('window')
-xset('window',H)
+
+oldfigure = gcf();
+scf(H);
+a=gca();
+
 if rhs==1 then
 else
   v=[]
@@ -19,7 +22,7 @@ else
   case 'backingstore' then
   case 'color' then
   case 'colormap' then
-    v=xget('colormap')
+    v=f.color_map;
   case 'currentaxes' then
     error(msprintf(gettext("%s: No equivalent for ''%s'' property.\n"), "mtlb_get", property));
   case 'currentcharacter' then
@@ -39,7 +42,7 @@ else
   case 'menubar' then
     error(msprintf(gettext("%s: No equivalent for ''%s'' property.\n"), "mtlb_get", property));
   case 'mincolormap' then
-    v=xget('colormap')
+    v=f.color_map;
     v=size(v,1)
   case 'name' then
     error(msprintf(gettext("%s: No equivalent for ''%s'' property.\n"), "mtlb_get", property));
@@ -60,8 +63,8 @@ else
   case 'pointer' then
     v='arrow'
   case 'position' then
-    o=xget('wpos')
-    sz=xget('wdim')
+    o=f.figure_position;
+    sz=f.figure_size;
     v=[o(:);sz(:)]'
   case 'resize' then
     v='on'
@@ -84,8 +87,16 @@ else
   case 'children' then
     error(msprintf(gettext("%s: No equivalent for ''%s'' property.\n"), "mtlb_get", property));
   case 'clipping' then
-    v=xget('clipping')
-    if v(1)<>0 then v='on',else v='off',end
+    v=a.clip_box;
+    if v<>[] then
+      if v(1)<>0 then
+        v='on'
+      else
+        v='off'
+      end
+    else
+      v='off'
+    end
   case 'interruptible' then
     error(msprintf(gettext("%s: No equivalent for ''%s'' property.\n"), "mtlb_get", property));
   case 'parent' then
@@ -98,5 +109,5 @@ else
     v='on'
   end   
 end
-xset('window',win)
+scf(oldfigure)
 endfunction
