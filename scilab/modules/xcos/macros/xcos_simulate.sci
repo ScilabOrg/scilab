@@ -1,6 +1,6 @@
 //
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009-2009 - DIGITEO - Bruno JOFRET
+// Copyright (C) 2009 - DIGITEO - Bruno JOFRET
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -119,11 +119,11 @@ end
     %state0 = %cpr.state;
     alreadyran = %f;
   end
-  
+
   tf          = scs_m.props.tf;
   %zoom       = 1.4;
   Select      = [];
-  
+
   //** extract tolerances from scs_m.props.tol
   tolerances = scs_m.props.tol ;
   //** extract solver type from tolerances
@@ -134,25 +134,25 @@ end
   context = scs_m.props.context;
   //** context eval here
   [%scicos_context, ierr] = script2var(context, %scicos_context);
-  
+
   //for backward compatibility for scifunc
   if ierr==0 then
     %mm = getfield(1,%scicos_context)
     for %mi=%mm(3:$)
       ierr = execstr(%mi+'=%scicos_context(%mi)','errcatch')
       if ierr<>0 then
-	break; //** in case of error exit 
+        break; //** in case of error exit
       end
     end
   end
   //end of for backward compatibility for scifuncpagate context values
-  
+
   [scs_m,%cpr,needcompile,ok] = do_eval(scs_m, %cpr);
-  
-  
+
+
   //** update parameters or compilation results
   [%cpr,%state0_n,needcompile,alreadyran,ok] = do_update(%cpr,%state0,needcompile)
-  
+
   //** if an error has ocurred in do_update
   //** then we exit from do_run
   if ~ok then
@@ -223,11 +223,11 @@ end
 
     select choix(to_do)
 
-      case "Continue" then 
+      case "Continue" then
         needstart = %f ;
         state     = %cpr.state ;
 
-      case "Restart" then 
+      case "Restart" then
         needstart = %t ;
         state     = %state0 ;
 
@@ -264,11 +264,11 @@ end
           end
           ok = %f
         end
-       
+
         return
     end
-  
-  else //** Normal first start simulation 
+
+  else //** Normal first start simulation
 
     needstart = %t
     state     = %state0
@@ -314,15 +314,11 @@ end
 
       else //** simulator error
         message(['Initialisation problem:';str_err])
-        //scf(curwin);
       end
 
       ok = %f;
-      //xset('window',curwin)
       return
     end
-    //scf(gh_win);
-    //xset('window',win);
   end
 
   //** scicos simulation
@@ -334,10 +330,10 @@ end
 
   //** run scicosim via 'start' flag
   ierr = execstr('[state,t]=scicosim(%cpr.state,%tcur,tf,%cpr.sim,'+..
-	             '''run'',tolerances)','errcatch')
+           '''run'',tolerances)','errcatch')
 
   %cpr.state = state
-  
+
   //** no error
   if ierr==0 then
     alreadyran = %t;
@@ -393,7 +389,7 @@ end
     end
     ok = %f;
   end
-  
+
   //restore saved variables in Scilab environment ( "To workspace" block )
   [txt,files]=returntoscilab()
   n=size(files,1)

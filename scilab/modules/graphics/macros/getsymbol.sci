@@ -7,6 +7,9 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function [rep] = getsymbol(Title)
+
+warnobsolete('ged', '5.3.1');
+
 [lhs,rhs] = argn(0)
 if rhs<1 then
   Title = "",

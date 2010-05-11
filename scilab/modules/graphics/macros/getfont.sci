@@ -9,6 +9,8 @@
 
 function [fontId,fontSize]=getfont(S,v1)
   
+  warnobsolete('ged', '5.3.1');
+  
 //returns the clicked font id and font size. 
   fontId=[];fontSize=[];
   

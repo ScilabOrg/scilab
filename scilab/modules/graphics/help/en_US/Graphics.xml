@@ -530,13 +530,13 @@
     <title>Graphics context</title>
     <variablelist>
       <varlistentry>
-        <term><link linkend="xset">xset</link></term>
+        <term><link linkend="set">set</link></term>
         <listitem>
           <para>Set values of the graphics context</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term><link linkend="xget">xget</link></term>
+        <term><link linkend="get">get</link></term>
         <listitem>
           <para>Get current values of the graphics context</para>
         </listitem>

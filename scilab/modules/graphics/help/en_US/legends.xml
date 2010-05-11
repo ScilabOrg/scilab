@@ -130,9 +130,10 @@ t=0:0.1:2*%pi;
 plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);  
 legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3],opt="lr")
 
-scf() ;
-xset("line style",2);plot2d(t,cos(t),style=5);
-xset("line style",4);plot2d(t,sin(t),style=3);
+f = scf() ;
+a = gca();
+set(a,"line_style",2);plot2d(t,cos(t),style=5);
+set(a,"line_style",4);plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt="?")
 
 // Example 2
@@ -143,13 +144,15 @@ plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);
 legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3], opt=3 )
 
 subplot(222)
-xset("line style",2);plot2d(t,cos(t),style=5);
-xset("line style",4);plot2d(t,sin(t),style=3);
+a = gca();
+set(a,"line_style",2);plot2d(t,cos(t),style=5);
+set(a,"line_style",4);plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt=6 )
 
 subplot(223)
-xset("line style",2);plot2d(t,cos(t),style=5);
-xset("line style",4);plot2d(t,sin(t),style=3);
+a = gca();
+set(a,"line_style",2);plot2d(t,cos(t),style=5);
+set(a,"line_style",4);plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt=1, font_size=2 )
 
 subplot(224)

@@ -41,7 +41,7 @@ plot2d(sin(t),cos(t))
 clf()
 square(-1,-1,1,1)
 plot2d(sin(t),cos(t))
-xset("default")
+sdf()
  ]]></programlisting>
   </refsection>
   <refsection>

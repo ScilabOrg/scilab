@@ -113,12 +113,6 @@ plot2d(x(im)',y(jm)',-9,"000")
     matrice <literal>z</literal> aux points du plan définis dans
     <literal>x</literal> et <literal>y</literal>.</para>
 
-    <para>Il est possible de changer le format des nombres affichés sur les
-    courbes de niveau en utilisant <literal>xset("fpf",string)</literal> où
-    <literal>string</literal> précise le format comme en langage C (par
-    exemple <literal>string="%.3f"</literal>). Utiliser
-    <literal>string=""</literal> pour revenir au format par défaut.</para>
-
     <para>Taper <literal>contourf()</literal> pour voir une démonstration de
     la fonction.</para>
   </refsection>
@@ -150,7 +144,8 @@ r = [(1:n)'/n; ones(m-n,1)];
 g = [zeros(n,1); (1:n)'/n; ones(m-2*n,1)];
 b = [zeros(2*n,1); (1:m-2*n)'/(m-2*n)];
 h = [r g b];
-xset('colormap',h);
+f = gcf();
+f.color_map = h;
 xset('fpf',' ');
 clf();
 contourf([],[],z,[-6:-1,-logspace(-5,0,10),logspace(-5,0,10),1:8],0*ones(1,m))
@@ -175,7 +170,7 @@ contourf([],[],z,[-6:-1,-logspace(-5,0,10),logspace(-5,0,10),1:8]);
 
       <member><link linkend="plot2d">plot2d</link></member>
 
-      <member><link linkend="xset">xset</link></member>
+      <member><link linkend="set">set</link></member>
     </simplelist>
   </refsection>
 

@@ -7,16 +7,17 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function ged(k,win)
-  //xset, xget used because ged should handle both old and new style
   
   if ~%tk then
    warning('TCL/TK interface not installed.');
    return
   end
+  
+  f = gcf();
 
   // Check number of arguments
   if argn(2) ==1 then
-    win=get(gcf(),'figure_id')
+    win = f.figure_id;
   elseif argn(2)<>2 then
     error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "ged", 2));
   end
@@ -40,11 +41,10 @@ function ged(k,win)
   global ged_current_figure
   global ged_cur_fig_handle
   
-  ged_current_figure=xget('window')
-  xset('window',win) 
+  ged_current_figure = f.figure_id;
   
   scf(win);
-  ged_cur_fig_handle=gcf();
+  ged_cur_fig_handle = f;
   
   if k>3 then
     TCL_EvalStr("set isgedinterp [interp exists ged]")
@@ -120,7 +120,7 @@ function ged(k,win)
     case 11 then //stop Entity picker
       seteventhandler("")
   end
-  xset('window',ged_current_figure)
+  scf(ged_current_figure);
 endfunction
 
 
@@ -2341,7 +2341,7 @@ function DestroyGlobals()
 global ged_current_figure
 
 if ~isempty(winsid()) & ~isempty(find(ged_current_figure==winsid())) then
-  xset('window',ged_current_figure)
+  scf(ged_current_figure)
 end 
 
 // ged is closed

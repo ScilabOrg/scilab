@@ -84,6 +84,15 @@ Windows Installer:
 * Add "Command Line - Minimal Installation (no gui)" Configuration.
   Interpreter in command line without the graphic, java or Tcl/Tk capabilities.
   Installation requires only 60 Mo on disk.
+  
+Obsolete Functions:
+===================
+
+* 'getfont', 'getlinestyle', 'getmark', 'getsymbol', 'graduate' obsolete see 'ged'.
+
+* 'xset' obsolete see 'set'.
+
+* 'xget' obsolete see 'get'.
 
 Bug Fixes:
 ==========

@@ -9,6 +9,8 @@
 
 function [k1,k2]=getmark()
   
+  warnobsolete('ged', '5.3.1');
+  
 //returns the clicked markid (with a minus sign) 
 //and mark size. 
   [lhs,rhs]=argn(0)

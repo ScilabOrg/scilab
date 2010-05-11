@@ -51,7 +51,7 @@ xgrid(2)
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-        <link linkend="xset">xset</link>
+        <link linkend="set">set</link>
       </member>
       <member>
         <link linkend="plot2d">plot2d</link>

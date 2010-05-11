@@ -8,6 +8,7 @@
 
 
 function [xi,xa,np]=graduate( xmi, xma,n1,n2)
+
 // graduate - axis pretty graduations
 //%Syntax
 // [xa,xi,np]=graduate( xma, xmi,n1,n2)	
@@ -33,7 +34,7 @@ function [xi,xa,np]=graduate( xmi, xma,n1,n2)
 // Copyright INRIA
 //!
 
-
+warnobsolete('GED', '5.3.1');
 kadm=[1,2,5];nadm=prod(size(kadm))
 
 // test

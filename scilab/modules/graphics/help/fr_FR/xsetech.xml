@@ -111,7 +111,7 @@ clf()
 xsetech(arect=[1/8,1/8,1/16,1/4])
 x=1:0.1:10;plot2d(x',sin(x)')
 clf()
-xset("default")
+sdf();
  ]]></programlisting>
   </refsection>
   <refsection>

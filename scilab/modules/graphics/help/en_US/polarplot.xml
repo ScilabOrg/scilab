@@ -60,7 +60,7 @@ polarplot(theta,rho,&lt;opt_args&gt;)</synopsis>
               <listitem>
                 <para>if <literal>style(i)</literal> is negative, the curve is plotted
                 using the mark with id <literal>abs(style(i))+1</literal>; use
-                <literal>xset()</literal> to see the mark ids.</para>
+                <literal>set()</literal> to see the mark ids.</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -68,7 +68,7 @@ polarplot(theta,rho,&lt;opt_args&gt;)</synopsis>
               <listitem>
                 <para>if <literal>style(i)</literal> is strictly positive, a plain
                 line with color id <literal>style(i)</literal> or a dashed line with
-                dash id <literal>style(i)</literal> is used; use <literal>xset()</literal>
+                dash id <literal>style(i)</literal> is used; use <literal>set()</literal>
                 to see the color ids.</para>
               </listitem>
             </varlistentry>

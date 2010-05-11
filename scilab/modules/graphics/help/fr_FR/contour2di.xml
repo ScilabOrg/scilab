@@ -115,7 +115,7 @@ end
         <link linkend="plot2d">plot2d</link>
       </member>
       <member>
-        <link linkend="xset">xset</link>
+        <link linkend="set">set</link>
       </member>
     </simplelist>
   </refsection>
