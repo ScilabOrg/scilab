@@ -351,6 +351,8 @@ Bug fixes:
 * bug 5432 fixed - a link to http://www.tcl.tk/doc/ added in help files about
                    Tcl/Tk.
 
+* bug 5512 fixed - help of 'disp' updated about display order of input arguments.
+
 * bug 5541 fixed - In the API documentation, the information that data must be
                    allocated before calling API functions was missing.
 
