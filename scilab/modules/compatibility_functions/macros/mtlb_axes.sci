@@ -10,7 +10,7 @@
 function h=mtlb_axes(varargin)
 global AXES_T
 if AXES_T==[] then AXES_T=list([]),end
-win=xget('window')
+f=gcf(), win=f.figure_id
 k=find(AXES_T(1)==win)
 if k==[] then
   AXES_T(1)=[AXES_T(1);win]
