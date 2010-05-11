@@ -13,10 +13,12 @@ function ged(k,win)
    warning('TCL/TK interface not installed.');
    return
   end
+  
+  f = gcf();
 
   // Check number of arguments
   if argn(2) ==1 then
-    win=get(gcf(),'figure_id')
+    win = f.figure_id;
   elseif argn(2)<>2 then
     error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "ged", 2));
   end
@@ -40,11 +42,10 @@ function ged(k,win)
   global ged_current_figure
   global ged_cur_fig_handle
   
-  ged_current_figure=xget('window')
-  xset('window',win) 
+  ged_current_figure = f.figure_id;
   
   scf(win);
-  ged_cur_fig_handle=gcf();
+  ged_cur_fig_handle = f;
   
   if k>3 then
     TCL_EvalStr("set isgedinterp [interp exists ged]")

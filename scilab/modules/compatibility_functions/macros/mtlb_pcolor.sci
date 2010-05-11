@@ -8,7 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function h=mtlb_pcolor(varargin)
-h=xget('window')
+f=gcf(), h=f.figure_id
 //find first propertyname position
 Rhs=size(varargin)
 for k=1:Rhs
