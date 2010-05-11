@@ -350,6 +350,9 @@ Bug fixes:
 
 * bug 5149 fixed - test_run(): Calls to exec() were no more logged by diary().
 
+* bug 5324 fixed - "File open" dialog box focused on parent directory of current
+                   directory, on Windows.
+
 * bug 5432 fixed - a link to http://www.tcl.tk/doc/ added in help files about
                    Tcl/Tk.
 
