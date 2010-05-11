@@ -348,6 +348,9 @@ Bug fixes:
 
 * bug 5149 fixed - test_run(): Calls to exec() were no more logged by diary().
 
+* bug 5324 fixed - "File open" dialog box focused on parent directory of current
+                   directory, on Windows.
+
 * bug 5541 fixed - In the API documentation, the information that data must be
                    allocated before calling API functions was missing.
 
