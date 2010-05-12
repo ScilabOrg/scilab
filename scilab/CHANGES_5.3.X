@@ -39,6 +39,8 @@ Graphics:
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
 
+* bug 5606 fixed - In certain cases, user-defined x-axis ticks were not correctly aligned.
+
 * bug 6532 fixed - In some case text entity rendering order was wrong.
 
 * bug 6676 fixed - When we executed "twinkle(gca())", data related to the
