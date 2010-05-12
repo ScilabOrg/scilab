@@ -33,6 +33,8 @@ Graphics:
 * bug 3975 fixed - The "xload" function was not able to load the contents of a previously
                    saved graphics figure into a different one.
 
+* bug 4531 fixed - "legend" macros does show any error when no 'Polyline' exist.
+
 * bug 4658 fixed - When some graphic functions were called without any arguments,
                    the error was not explicit enough.
 
