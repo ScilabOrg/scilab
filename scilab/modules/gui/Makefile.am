@@ -50,7 +50,7 @@ src/c/InitWaitBar.c \
 src/c/InitProgressionBar.c \
 src/c/CreateUIContextMenu.c \
 src/c/UicontrolStyleToString.c \
-src/c/messageboxoptions.c 
+src/c/messageboxoptions.c
 
 GUI_CPP_SOURCES = src/cpp/InitUIMenu.cpp \
 src/jni/CallScilabBridge.cpp \
@@ -223,7 +223,8 @@ libscigui_la_CFLAGS=	-I$(srcdir)/src/c/ \
 libscigui_la_CFLAGS += $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/jvm/includes/ \
 			-I$(top_srcdir)/modules/renderer/includes/ \
-			-I$(top_srcdir)/modules/string/includes/
+			-I$(top_srcdir)/modules/string/includes/ \
+			-I$(top_srcdir)/modules/operations/includes/
 
 libscigui_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(srcdir)/includes/ \
@@ -242,11 +243,11 @@ libscigui_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/graphics/includes/ \
 			-I$(top_srcdir)/modules/graphics/src/c/getHandleProperty/ \
 			-I$(top_srcdir)/modules/graphic_export/includes/ \
+			-I$(top_srcdir)/modules/string/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes \
-			-I$(top_srcdir)/modules/string/includes/
+			-I$(top_srcdir)/modules/operations/includes/
 
-
-# Without the GUI module 
+# Without the GUI module
 libscigui_disable_la_CFLAGS = -Iincludes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes \
 			-I$(srcdir)/includes/ \

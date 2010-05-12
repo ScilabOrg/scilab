@@ -70,14 +70,16 @@ libsciumfpack_la_CFLAGS= -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \
 			-I$(top_srcdir)/libs/dynamiclibrary/includes/ \
 			-I$(top_srcdir)/modules/output_stream/includes \
+			-I$(top_srcdir)/modules/mexlib/includes \
 			-I$(top_srcdir)/modules/api_scilab/includes \
-			-I$(top_srcdir)/modules/mexlib/includes
+			-I$(top_srcdir)/modules/operations/includes
 
 else
 
 UMFPACK_C_SOURCES = src/noumfpack/noumfpack.c
 
 libsciumfpack_la_SOURCES = $(UMFPACK_C_SOURCES)
+
 libsciumfpack_la_CFLAGS= -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/umfpack/includes/ \
 -I$(top_srcdir)/modules/output_stream/includes

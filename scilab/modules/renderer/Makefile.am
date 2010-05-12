@@ -297,8 +297,8 @@ libscirenderer_la_CPPFLAGS =  	$(JAVA_JNI_INCLUDE) \
 				-I$(top_srcdir)/modules/output_stream/includes \
 				-I$(top_srcdir)/modules/graphic_export/includes/ \
 				-I$(top_srcdir)/modules/elementary_functions/includes/ \
-				-I$(top_srcdir)/modules/api_scilab/includes \
-				-I$(top_srcdir)/modules/gui/includes/
+				-I$(top_srcdir)/modules/gui/includes/ \
+				-I$(top_srcdir)/modules/operations/includes/
 
 libscirenderer_la_CFLAGS=	-I$(srcdir)/includes/
 
@@ -313,7 +313,7 @@ INCLUDE_FLAGS = $(libscirenderer_la_CFLAGS)
 
 ## Libraries necessary
 ## Change to include other Scilab modules/lib
-# cyclic $(top_builddir)/modules/graphics/libscigraphics.la 
+# cyclic $(top_builddir)/modules/graphics/libscigraphics.la
 libscirenderer_la_LIBADD =  $(top_builddir)/libs/doublylinkedlist/libscidoublylinkedlist.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 # needs the rendererer before $(top_builddir)/modules/jvm/libscijvm.la
