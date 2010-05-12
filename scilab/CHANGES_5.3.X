@@ -312,6 +312,8 @@ Bug fixes:
 * bug 4117 fixed - Closing via the user interface a graphics figure which had a non-existing
                    event handler attached did not destroy its associated data structure.
 
+* bug 4224 fixed - uigetfile masks were case insensitive on Windows.
+
 * bug 4359 fixed - M(:,:)='anything' produced erroneous result.
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
