@@ -27,14 +27,8 @@ Graphics:
 * bug 2651 fixed - "plot2d" was not working when the x argument was not given
                    and some optional arguments were given.
 
-* bug 3100 fixed - The "xselect" function has been made obsolete, in accordance
-                   with its help page.
-
 * bug 3975 fixed - The "xload" function was not able to load the contents of a previously
                    saved graphics figure into a different one.
-
-* bug 4658 fixed - When some graphic functions were called without any arguments,
-                   the error was not explicit enough.
 
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
@@ -58,24 +52,13 @@ Graphics:
 
 * bug 7028 fixed - When scilab printed an "axis" graphic handle, string array
                    size for "tics_labels" was erroneous.
-
-* bug 7065 fixed - "getColorIndex" used some global variables prohibiting
-                   user's calls.
-
-* bug 7067 fixed - The "isoview" macro created an unnecessary "plot" object.
-
-* bug 7079 fixed - The "mtlb_get" used a "h" global variable instead of the
-                   given "H" argument.
-
+=======
 Localization:
 =============
 
 * Polish localization added. Thanks to Paweł Dąbrowski, Ernest Życiński, 
   Sebastian Sławski, Kamil Dąbrowsk, Kamil Strojek, Kamil Dąbrowski, 
   Michał Snoc, Piotr Seroka...
-
-* bug 7059 fixed - Remove the tag X-Launchpad-Export-Date to avoid huge and
-                   useless diff after a launchpad synchronization
 
 API_Scilab:
 ===========
@@ -124,9 +107,6 @@ Xcos:
 
 * bug 5596 fixed - It was not possible to change text block properties (font
                    and color)
-
-* bug 6440 fixed - xcos demos did not work and returned an error "Unable to 
-                   open file".
 
 * bug 6527 fixed - There was several instances of the same variable name
                    in the workspace when a data set was exported via a
@@ -188,8 +168,6 @@ Compilation:
 
 * /usr/share/*/lib added to the Java search path for OpenSuse
 
-* bug 4300 fixed - Moving Command Queue management to core.
-
 * bug 6432 fixed - Checkstyle disabled on SWIG (Java/JNI) generated files
 
 * bug 6643 fixed - --without-gui failed to disable Ocaml build (A xcos 
@@ -214,19 +192,6 @@ Matlab to Scilab conversion tools:
 
 * Conversion updated with new Scilab functions:
   - 'filesep' now converted by 'filesep' instead of 'pathconvert'.
-
-Core:
-=====
-
-* Under GNU/Linux, Unix and Mac OS X, for security purposes, temporary
-  directory name are now randomized and permissions are limited to the user.
-  (See bug #3493)
-
-* Under GNU/Linux, Unix and Mac OS X, if TMPDIR is set, Scilab will honor it 
-  to store its temporary files (See bug #3493)
-
-* Under non-Windows system, the name of the temporary directory has been changed
-  from SD_* to SCI_TMP_* to match the current Windows behavior.
 
 Tests:
 ======
@@ -289,8 +254,6 @@ Bug fixes:
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
-* bug 2076 fixed - pspect did not use the last data window.
-
 * bug 2654 partially fixed - exec returned a wrong error if line had more 
                    than 4096 characters.
 
@@ -315,8 +278,6 @@ Bug fixes:
 * bug 4359 fixed - M(:,:)='anything' produced erroneous result.
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
-
-* bug 4625 fixed - intersci-n was broken on Windows.
 
 * bug 4640 fixed - plot2d() put CPU utilization at 100% on Windows.
 
@@ -348,11 +309,6 @@ Bug fixes:
                    exponential form (%e) was missing in the prinft_conversion
                    documentation.
 
-* bug 5149 fixed - test_run(): Calls to exec() were no more logged by diary().
-
-* bug 5432 fixed - a link to http://www.tcl.tk/doc/ added in help files about
-                   Tcl/Tk.
-
 * bug 5541 fixed - In the API documentation, the information that data must be
                    allocated before calling API functions was missing.
 
@@ -368,8 +324,6 @@ Bug fixes:
 
 * bug 5630 fixed - export_to_hdf5 to a file with a directory named 
                    the same altered the permission of the directory.
-
-* bug 5724 fixed - erfinv and erf missed references to similar functions
 
 * bug 6332 fixed - stacksize had problems on Mac OS X and 64 bit platforms.
 
@@ -426,8 +380,12 @@ Bug fixes:
 
 * bug 6745 fixed - g_margin() returned an erroneous result.
 
+* bug 6750 fixed - TMPDIR constant had no help page.
+
 * bug 6774 fixed - Calling get_param generated a "funcprot" warning when  
                    the value of an option which was a function.
+
+* bug 6750 fixed - TMPDIR constant had no help page.
 
 * bug 6783 fixed - Solving a system of linear equation by backslash ("\")
                    caused a crash, when using complex numbers on Windows.
@@ -464,8 +422,7 @@ Bug fixes:
 
 * bug 6924 fixed - Some error messages were wrong in 'gmres' and 'qmr'.
 
-* bug 6932 fixed - Unitary test for function 'exit' failed in Linux binary
-                   version.
+* bug 6932 fixed - Unitary test for function 'exit' failed in Linux binary version.
 
 * bug 6940 fixed - An error message was wrong in 'pvm_send'.
 
@@ -478,29 +435,18 @@ Bug fixes:
 
 * bug 6962 fixed - bvode generated an error on Windows.
 
-* bug 6964 fixed - Scilab could detect a wrong SCI path on Windows.
-
 * bug 6971 fixed - after launching a toolbox by loader.sce, variable v was
                    predefined.
 
-* bug 6990 fixed - "and" and "or" did not work on hypermatrices.
-
-* bug 7006 fixed - exec removed spaces at the end of filename when it returned
-                   an error.
+* bug 6990 fixed - "and" and "or" did not work on hypermatrices
 
 * bug 7014 fixed - ilib_verbose value was modified after toolbox_skeleton.
-
-* bug 7019 fixed - resume() produced an incorrect error message.
 
 * bug 7021 fixed - Scilab did not start and returned a system error (193)
                    on Windows.
 
-* bug 7033 fixed - newfun was randomly crashing (mostly on 32 bits) writing to
-                   unallocated memory.
-
-* bug 7036 fixed - the plot2d document was incomplete (missing optional argument).
+* bug 7033 fixed - newfun was randomly crashing (mostly on 32 bits) writing to unallocated memory.
 
 * bug 7057 fixed - isdigit and isalphanum crashed with a matrix of string
                    as input argument.
 
-* bug 7077 fixed - uigetfont crashed Scilab when the cancel button was clicked.
