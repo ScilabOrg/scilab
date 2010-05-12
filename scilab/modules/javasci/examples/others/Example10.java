@@ -6,7 +6,8 @@
  *
  */
 
-import javasci.* ; 
+import javasci.Scilab;
+import javasci.SciComplex;
 
 
 class Example10 {
@@ -14,7 +15,7 @@ class Example10 {
   public static void main(String[] args) {
   	
   	SciComplex a = new SciComplex("A");
-		Scilab.Exec("A=1. + 80*%i");
+    Scilab.Exec("A=1. + 80*%i");
   	System.out.println("----------------------------------------------------");
   	a.disp();
   	System.out.println("----------------------------------------------------");

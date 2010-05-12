@@ -6,7 +6,8 @@
  *
  */
 
-import javasci.* ; 
+import javasci.Scilab; 
+import javasci.SciBoolean; 
 
 class Example12 {
 

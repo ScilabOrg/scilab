@@ -6,7 +6,8 @@
  *
  */
 
-import javasci.* ; 
+import javasci.SciString;
+import javasci.Scilab;
 
 class Example8 {
 

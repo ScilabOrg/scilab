@@ -6,10 +6,7 @@
  *
  */
 
-import javasci.* ; 
-import java.io.*;
-
-
+import javasci.Scilab; 
 
 class ExampleEvents
 {

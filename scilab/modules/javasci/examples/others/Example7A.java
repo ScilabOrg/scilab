@@ -6,8 +6,10 @@
  *
  */
 
-import java.io.*;
-import javasci.*; 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import javasci.SciDoubleArray;
+import javasci.Scilab;
 
 public class Example7A {
 

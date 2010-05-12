@@ -6,7 +6,8 @@
  *
  */
 
-import javasci.* ; 
+import javasci.SciDoubleArray;
+import javasci.Scilab;
 
 class Example3 {
 
