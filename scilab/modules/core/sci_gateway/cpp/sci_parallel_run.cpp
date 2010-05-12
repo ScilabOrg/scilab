@@ -727,8 +727,7 @@ namespace
         SciErr err(getVarAddressFromPosition(pvApiCtx, config_arg_pos, &addr));
         bool has_config_arg(false);
 	{
-	  int tmp;
-	  err=  checkPList(pvApiCtx, addr, &tmp);
+	  int tmp =  checkPList(pvApiCtx, addr);
 	  has_config_arg= (tmp!=0);
 	}
         if(has_config_arg) {
