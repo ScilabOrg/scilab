@@ -1,10 +1,12 @@
 ##########
 ### Sylvestre Ledru <sylvestre.ledru@inria.fr>
 ### INRIA - Scilab 2006/2007
+### Copyright (C) 2009 - DIGITEO - Vincent LIARD
 ##########
 
 STATISTICS_C_SOURCES = src/c/CdfBase.c \
-src/c/ipmpar1.c
+src/c/ipmpar1.c \
+src/c/sci_string_matrix.c
 
 STATISTICS_FORTRAN_SOURCES = src/dcdflib/psi.f \
 src/dcdflib/alngam.f \
@@ -84,8 +86,9 @@ sci_gateway/c/sci_cdfnor.c
 
 libscistatistics_la_CFLAGS=  	-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \
+				-I$(top_srcdir)/modules/output_stream/includes \
 				-I$(top_srcdir)/modules/api_scilab/includes \
-				-I$(top_srcdir)/modules/output_stream/includes
+				-I$(top_srcdir)/modules/operations/includes
 #-Isrc/c/
 pkglib_LTLIBRARIES = libscistatistics.la
 
@@ -97,7 +100,7 @@ libscistatistics_la_SOURCES = $(STATISTICS_C_SOURCES) $(STATISTICS_FORTRAN_SOURC
 CHECK_SRC= $(STATISTICS_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscistatistics_la_CFLAGS)
 
-libscistatistics_la_LIBADD =  $(top_builddir)/modules/core/libscicore.la $(top_builddir)/modules/output_stream/libscioutput_stream.la 
+libscistatistics_la_LIBADD =  $(top_builddir)/modules/core/libscicore.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 #### Target ######
 modulename=statistics

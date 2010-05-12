@@ -1,7 +1,6 @@
-
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) ????-2008 - INRIA
+ * Copyright (C) 2009 - DIGITEO - Bernard HUGUENEY
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,117 +9,238 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+#include "api_common.h"
+#include "api_double.h"
 
 #include <string.h>
 #include <stdio.h>
+#include "stack3.h"
 #include "stack-c.h"
 #include "gw_linear_algebra.h"
 #include "Scierror.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/
-extern int C2F(intdgeqpf3)(char *fname, unsigned long fname_len);
-extern int C2F(intzgeqpf3)(char *fname, unsigned long fname_len);
-extern int C2F(intdgeqpf4)(char *fname, unsigned long fname_len);
-extern int C2F(intzgeqpf4)(char *fname, unsigned long fname_len);
-extern int C2F(doldqr)(double *tol,char *fname, unsigned long fname_len);
-extern int C2F(zoldqr)(double *tol,char *fname, unsigned long fname_len);
+#include "MALLOC.h"
+#include "qr.h"
 
+
+#include <stdio.h>
+
+/* conditional allocs short-circuits :
+   MALLOC :
+   0 -> error,  !=0 -> ok
+   (MALLOC1 && MALLOC2 &&...) : 0-> error, !=0 ok
+   (!Cond1 || MALLOC1) && (!Cond2 || MALLOC2) &&
+
+   iAlloc :
+   0 -> ok, , !0 -> error
+   (iAlloc1 || iAlloc2 ...)
+   (Cond1 && iAlloc1) || (Cond2 && iAlloc2) ...
+
+*/
+/*
+
+
+iQrM(pData, iRows, iCols, complexArg, iRowsToCompute, tol, pdblQ, pdblR, pdblE, pdblRank)
+
+*/
 /*--------------------------------------------------------------------------*/
 int C2F(intqr)(char *fname,unsigned long fname_len)
 {
-	int *header1;int *header2;
-	int Cmplx;int ret; double *snd; double tol;
+  int* arg[2]= {NULL, NULL};
 
-	if (GetType(1)!=sci_matrix) 
+  int iRows, iCols;
+  int type;
+  double* pData= NULL;
+  double* pDataReal= NULL;
+  double* pDataImg= NULL;
+  int complexArg= 0;
+  int ret= 0;
+
+	if (Rhs>=1)
 	{
-		OverLoad(1);
-		return 0;
-	}
-	header1 = (int *) GetData(1);
-	Cmplx=header1[3];
-
-	if (header1[0] == 10) Cmplx=10;
-
-	if (Lhs==4) 
-	{   /* obsolete : [Q,R,rk,E]=qr(A) or = qr(A,tol)   */
-		if (Rhs==2) 
+		getVarAddressFromPosition(pvApiCtx, 1, &arg[0]);
+		getVarType(pvApiCtx, arg[0], &type);
+		if( type != sci_matrix)
 		{
-			snd = (double *) GetData(2);
-			tol = snd[2];
-		}
-		else 
-		{
-			tol = -1;Rhs=1;
-		}
-
-		switch (Cmplx) 
-		{
-			case REAL :
-				ret = C2F(doldqr)(&tol,"qr",2L);
-			break;
-			case COMPLEX :
-				ret = C2F(zoldqr)(&tol,"qr",2L);
-			break;
-			default :
-				Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-				fname,1);
+			OverLoad(1);
 			return 0;
 		}
-		return 0;
-	}
 
-	switch (Rhs) 
-	{
-		case 1:   /*   qr(A)   */
-			switch (Cmplx) 
+		CheckRhs(1,2); /* qr(X[,"e"|tol]) */
+		CheckLhs(1,4); /*[Q,R[,E]]=qr(X[,"e"]), [Q,R,rk,E]=qr(X[,tol])*/
+		complexArg= isVarComplex(pvApiCtx, arg[0]);
+
+		if(complexArg)
+		{
+#ifdef STACK3
+			GetRhsVarMatrixComplex(1, &iRows, &iCols, &pDataReal, &pDataImg);
+#else
+			getComplexMatrixOfDouble(pvApiCtx, arg[0], &iRows, &iCols, &pDataReal, &pDataImg);
+#endif
+			/* c -> z */
+			pData=(double*)oGetDoubleComplexFromPointer( pDataReal, pDataImg, iRows * iCols);
+			if(!pData)
 			{
-				case REAL :
-					ret = C2F(intdgeqpf3)("qr",2L);
-				break;
-				case COMPLEX :
-					ret = C2F(intzgeqpf3)("qr",2L);
-				break;
-				default :
-					Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-					fname,1);
-				break;
+				Scierror(999,_("%s: Cannot allocate more memory.\n"),fname);
+				ret = 1;
 			}
-		break;
+		}
+		else
+		{
+#ifdef STACK3
+			GetRhsVarMatrixDouble(1, &iRows, &iCols, &pData);
+#else
+			getMatrixOfDouble(pvApiCtx, arg[0], &iRows, &iCols, &pData);
+#endif
+		}
 
-		case 2 :   /*   qr(A, something)   */
-			header2 = (int *) GetData(2);
-			switch (header2[0]) 
+		if( (iCols == 0) || (iRows == 0))
+		{
+			if( complexArg )
 			{
-				case STRING  :
-				/* Economy size:  ...=qr(A,"e")  */
-					switch (Cmplx) 
+				double* pdblQReal;
+				double* pdblQImg;
+				double* pdblRReal;
+				double* pdblRImg;
+				allocComplexMatrixOfDouble(pvApiCtx, Rhs+1, 0, 0, &pdblQReal, &pdblQImg);
+				allocComplexMatrixOfDouble(pvApiCtx, Rhs+2, 0, 0, &pdblRReal, &pdblRImg);
+			}
+			else
+			{
+				double* pdblQ;
+				double* pdblR;
+				allocMatrixOfDouble(pvApiCtx, Rhs+1, 0, 0, &pdblQ);
+				allocMatrixOfDouble(pvApiCtx, Rhs+2, 0, 0, &pdblR);
+			}
+			LhsVar(1)= Rhs+1;
+			LhsVar(2)= Rhs+2;
+			if( Lhs >= 3) /* ..[rk],E] =*/
+			{
+				double* pdblE;
+				allocMatrixOfDouble(pvApiCtx, Rhs+3, 0, 0, &pdblE);
+				if( Lhs == 4 ) /* rk */
+				{
+					double* pdblRk;
+					allocMatrixOfDouble(pvApiCtx, Rhs+4, 1, 1, &pdblRk);
+					*pdblRk= 0.;
+					LhsVar(3)= Rhs+4;
+					LhsVar(4)= Rhs+3;
+				}
+				else
+				{
+					LhsVar(3)= Rhs+3;
+				}
+			}
+		}
+		else
+		{
+			if( (iRows == -1) || (iCols == -1) )
+			{
+				Scierror(999,_("Size varying argument a*eye(), (arg %d) not allowed here.\n"), 1);
+				ret= 1;
+			}
+			else /* now at last the interesting case */
+			{
+				int iRowsToCompute= iRows;
+				double dblTol= -1.;
+				if(Rhs == 2) /* first check economy mode or tolerance */
+				{
+					getVarAddressFromPosition(pvApiCtx, 2, &arg[1]);
+					getVarType(pvApiCtx, arg[1], &type);
+					switch( type)
 					{
-						case REAL :
-						ret = C2F(intdgeqpf4)("qr",2L);
-						break;
-
-						case COMPLEX :
-						ret = C2F(intzgeqpf4)("qr",2L);
-						break;
-
-						default :
-						Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-						fname,1);
-						break;
+						case sci_strings :
+						{ /* /!\ original code did not check that string is "e" so any [matrix of] string is accepted as "e" ! */
+							iRowsToCompute= Min(iRows, iCols);
+							break;
+						}
+						case sci_matrix :
+						{/* /!\ original code do not check anything (real && 1x1 matrix)*/
+							double* pdblTol;
+							int tmpRows, tmpCols;
+#ifdef STACK3
+							GetRhsVarMatrixDouble(2, &tmpRows, &tmpCols, &pdblTol);
+#else
+							getMatrixOfDouble(pvApiCtx, arg[1], &tmpRows, &tmpCols, &pdblTol);
+#endif
+							dblTol= *pdblTol;
+							break;
+						}
+						default:
+						{
+							Scierror(999,_("%s: Wrong type for input argument #%d: A real or a string expected.\n"),fname, 1);
+							ret= 1;
+							break;
+						}
 					}
-				break;
+				}
 
-				default:
-					Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-					fname,2);
-				break;
+				{
+					double* pdblQ= NULL;
+					double* pdblQReal= NULL;
+					double* pdblQImg= NULL;
+					double* pdblR= NULL;
+					double* pdblRReal= NULL;
+					double* pdblRImg= NULL;
+					double* pdblE= NULL;
+					double* pdblRk= NULL;
+
+					if(complexArg)
+					{
+						allocComplexMatrixOfDouble(pvApiCtx, Rhs+1, iRows, iRowsToCompute, &pdblQReal, &pdblQImg);
+						allocComplexMatrixOfDouble(pvApiCtx, Rhs+2, iRowsToCompute, iCols, &pdblRReal, &pdblRImg);
+						pdblQ= (double*) MALLOC(iRows * iRowsToCompute * sizeof(doublecomplex) );
+						pdblR= (double*) MALLOC( iRowsToCompute * iCols * sizeof(doublecomplex) );
+					}
+					else
+					{
+						allocMatrixOfDouble(pvApiCtx, Rhs+1, iRows, iRowsToCompute, &pdblQ);
+						allocMatrixOfDouble(pvApiCtx, Rhs+2, iRowsToCompute, iCols, &pdblR);
+					}
+
+					if(Lhs >= 3) /* next alloc for E needed only for lhs>=3 */
+					{
+						allocMatrixOfDouble(pvApiCtx, Rhs+3, iCols, iCols, &pdblE);
+					}
+
+					if(Lhs >=4) /* next alloc for Rk needed only for lhs>=4 */
+					{
+						allocMatrixOfDouble(pvApiCtx, Rhs+4, 1, 1, &pdblRk);
+					}
+
+					ret = ret ? ret : iQrM(pData, iRows, iCols, complexArg, iRowsToCompute, dblTol, pdblQ, pdblR, pdblE, pdblRk);
+					if( complexArg )
+					{
+						if(pdblQ)
+						{
+							vGetPointerFromDoubleComplex((doublecomplex*)pdblQ, iRows * iRowsToCompute, pdblQReal, pdblQImg);
+							FREE(pdblQ);
+						}
+
+						if(pdblR)
+						{
+							vGetPointerFromDoubleComplex((doublecomplex*)pdblR, iRowsToCompute * iCols, pdblRReal, pdblRImg);
+							FREE(pdblR);
+						}
+					}
+				}
+				LhsVar(1)= Rhs+1;
+				LhsVar(2)= Rhs+2;
+				if(Lhs >= 3)
+				{
+					if(Lhs == 4)
+					{
+						LhsVar(3)= Rhs+4;
+						LhsVar(4)= Rhs+3;
+					}
+					else
+					{
+						LhsVar(3)= Rhs+3;
+					}
+				}
 			}
-	  return 0;
-  default :
-	  Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-				fname,1);
-	  break;
+		}
 	}
-	return 0;
+  return ret;
 }
 /*--------------------------------------------------------------------------*/

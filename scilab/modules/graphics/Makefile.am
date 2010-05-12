@@ -33,7 +33,8 @@ libscigraphics_la_CFLAGS = -I$(top_srcdir)/libs/doublylinkedlist/includes/ \
 	-I$(top_srcdir)/modules/gui/includes/ \
 	-I$(top_srcdir)/modules/api_scilab/includes/ \
 	-I$(top_srcdir)/modules/fileio/includes/ \
-	-I$(top_srcdir)/modules/string/includes/
+	-I$(top_srcdir)/modules/string/includes/ \
+	-I$(top_srcdir)/modules/operations/includes/
 
 
 GRAPHICS_C_SOURCES = src/c/GetCommandArg.c \
@@ -493,6 +494,7 @@ libscigraphics_disable_la_CFLAGS = -I$(top_srcdir)/modules/output_stream/include
 -I$(top_srcdir)/libs/hashtable/ \
 -I$(top_srcdir)/libs/doublylinkedlist/includes \
 -I$(top_srcdir)/modules/api_scilab/includes/ \
+-I$(top_srcdir)/modules/operations/includes/ \
 -Iincludes/ \
 -I$(top_srcdir)/libs/doublylinkedlist/includes/
 

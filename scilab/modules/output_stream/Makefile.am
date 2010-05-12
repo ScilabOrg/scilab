@@ -67,8 +67,9 @@ libscioutput_stream_la_CFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/core/includes \
 -I$(srcdir)/src/c/ \
+-I$(top_srcdir)/modules/string/includes \
 -I$(top_srcdir)/modules/api_scilab/includes \
--I$(top_srcdir)/modules/string/includes
+-I$(top_srcdir)/modules/operations/includes
 
 libscioutput_stream_la_CPPFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
@@ -76,6 +77,7 @@ libscioutput_stream_la_CPPFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/src/cpp/ \
 -I$(srcdir)/src/c/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/operations/includes \
 -I$(top_srcdir)/modules/string/includes
 
 

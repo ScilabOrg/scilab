@@ -10,44 +10,103 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+#include "api_common.h"
+#include "api_double.h"
 
 #include <string.h>
-#include <stdio.h>
 #include "stack-c.h"
 #include "gw_linear_algebra.h"
 #include "Scierror.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/
-extern int C2F(intddet)(char *fname, unsigned long fname_len);
-extern int C2F(intzdet)(char *fname, unsigned long fname_len);
-/*--------------------------------------------------------------------------*/
+#include "doublecomplex.h"
+
+#include "det.h"
+
+/*
+ * det function see http://www.scilab.org/product/man/det.html
+ * det(X)
+ * [e,m]=det(X)
+ */
+
 int C2F(intdet)(char *fname,unsigned long fname_len)
 {
-	int *header1;
-	int CmplxA;int ret;
+  int ret= 0;
+  int type=0;
+  int* arg= NULL;
 
-	/*   det(A)  */
-	if (GetType(1)!=sci_matrix) 
+  if ( Rhs>=1 )
+    {
+      getVarAddressFromPosition(pvApiCtx, 1, &arg);
+      getVarType(pvApiCtx, arg, &type);
+      if( type!=sci_matrix )
 	{
-		OverLoad(1);
-		return 0;
+	  OverLoad(1);
+	  return 0;
 	}
-	header1 = (int *) GetData(1);
-	CmplxA=header1[3];
-	switch (CmplxA) 
-	{
-		case REAL:
-			ret = C2F(intddet)("det",3L);
-		break;
-		case COMPLEX:
-			ret = C2F(intzdet)("det",3L);
-		break;
+      CheckRhs(1, 1);
+      CheckLhs(1, 2);
+      {
+	double* pData;
+	int iRows, iCols;
+	int complexArg;
+	if( (complexArg= isVarComplex(pvApiCtx, arg)) )
+	  {
+	    getComplexZMatrixOfDouble(pvApiCtx, arg, &iRows, &iCols, (doublecomplex**)&pData);
+	  }
+	else
+	  {
+	    getMatrixOfDouble(pvApiCtx, arg, &iRows, &iCols, &pData);
+	  }
+	if( iRows != iCols)
+	  {
+	    Scierror(20,_("%s: Wrong type for input argument #%d: Square matrix expected.\n"), fname, 1);
+	    ret= 1;
+	  }
+	else
+	  {
+	    if(iRows == -1)
+	      {
+		Scierror(271,_("Size varying argument a*eye(), (arg %d) not allowed here.\n"), 1);
+		ret= 1;
+	      }
+	    else
+	      {
+		double* pMantissaReal= NULL;
+		double* pMantissaImg= NULL;
+		double* pExponent= NULL;
+		int intExponent;
 
-		default:
-			Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-					fname,1);
-		break;
-	}
-	return 0;
+		if(complexArg)
+		{
+			allocComplexMatrixOfDouble(pvApiCtx, 2, 1, 1, &pMantissaReal, &pMantissaImg);
+		}
+		else
+		{
+			allocMatrixOfDouble(pvApiCtx, 2, 1, 1, &pMantissaReal);
+		}
+
+		if(Lhs == 2)
+		{
+			allocMatrixOfDouble(pvApiCtx, 3, 1, 1, &pExponent);
+		}
+
+		ret= iDetM(pData, iCols, pMantissaReal, complexArg ? pMantissaImg : NULL, pExponent ? &intExponent : NULL);
+		if(pExponent)
+		{
+			*pExponent= (double)intExponent;
+		}
+		LhsVar(1)= Lhs + 1;
+		if(Lhs == 2)
+		  {
+		    LhsVar(2)= 2;
+		  }
+	      }
+	  }
+	if(complexArg)
+	  {
+	    vFreeDoubleComplexFromPointer((doublecomplex*)pData);
+	  }
+      }
+    }
+  return ret;
 }
-/*--------------------------------------------------------------------------*/
