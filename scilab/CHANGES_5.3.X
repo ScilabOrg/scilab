@@ -13,11 +13,53 @@ Performance:
 Text Editor:
 ============
 
+* Complete refactorization of the text editor.
+
+* bugs 4399, 4922 fixed - the line numbering could not be compatible with the output of the whereami function
+
+* bug 4907 fixed - the source code of a given macro could not be opened
+
+* bug 4916 fixed - problem with 'See the code' in the demos
+
+* bug 5087 fixed - the different keywords were not splited in different category
+
+* bug 5102 fixed - it was not possible to choose the font weight or the font style for a kind of keyword
+
+* bug 5126 fixed - problems appeared when we played with undo a few times
+
+* bug 5175 fixed - ghost text appeared in the view
+
+* bug 5178 fixed - the kind of the tabulations ('\t' or ' ') could not be choosen
+
+* bug 5204 fixed - weird display of keyword 'else'
+
+* bug 5321 fixed - there was not the possibility to choose the length of a tabulation
+
+* bug 5645 fixed - undo action deleted a line rather than make it visible
+
+* bug 5647 fixed - bad line numbering when a file was just opened
+
+* bug 5652 fixed - bad line numbering when several files were opened
+
 * bug 5655 fixed - the selection was lost after an unsuccessful search
 
-* bug 5656 fixed - when a text was selected, word was searched in the entire document
+* bug 5656 fixed - when a text was selected word was searched in the entire document
+
+* bug 5658 fixed - the undo/redo strategy was not good
 
 * bug 5682 fixed - there was a problem with the replace action
+
+* bug 6479 fixed - there was a problem when a '{' was in comments
+
+* bug 6670 fixed - there was not a shortcut on the "Evaluate Selection" action
+
+* bug 6807 fixed - '.*' was not correctly highlighted
+
+* bug 6980 fixed - when a replaced text contained a '\', the backslash was considered as a special char
+
+* bug 7032 fixed - there was a problem when filename contained a ' or a " 
+
+* bug 7112 fixed - two transpositions gave a string (if a'==1 then a=b')
 
 FFTW:
 =====
