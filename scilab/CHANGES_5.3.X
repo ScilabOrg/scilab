@@ -39,7 +39,11 @@ Graphics:
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
 
-* bug 6098 fixed - It was not possible get values by clicking on point of Bode diagram
+* bug 6394 fixed - The "black", "m_circle", "chart" functions has been
+                   improved for a better rendrering and datatips
+                   customization. two new function created: "hallchart"
+                   (superseed "m_circle") and "nicholschart" (superseed
+                   "chart").
 
 * bug 6532 fixed - In some case text entity rendering order was wrong.
 
