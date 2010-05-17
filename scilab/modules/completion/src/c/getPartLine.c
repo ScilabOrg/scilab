@@ -19,8 +19,8 @@
 /*--------------------------------------------------------------------------*/
 char *getPartLevel(char *line)
 {
-	#define MAX_SYMBS 23
-	const char symbs[MAX_SYMBS] = "+-*/\\([ ^,;={.&|\'])}:\"\'";
+	#define MAX_SYMBS 27
+	const char symbs[MAX_SYMBS] = "+-*/\\([ ^,;={.&|\'])}:\"\'><~@";
 	int index = -1;
 	int i = 0;
 

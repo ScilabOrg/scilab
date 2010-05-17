@@ -517,3 +517,7 @@ Bug fixes:
 * bug 7077 fixed - uigetfont crashed Scilab when the cancel button was clicked.
 
 * bug 7094 fixed - If badly called, ode made Scilab crash.
+
+* bug 7123 fixed - No completion was possible if the name of a variable is 
+                   preceded by ~ or @ or < or >
+
