@@ -13,6 +13,8 @@
 package org.scilab.modules.xcos.port;
 
 import org.scilab.modules.graph.ScilabGraphUniqueObject;
+import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.xcos.utils.XcosConstants;
 
 import com.mxgraph.model.mxGeometry;
@@ -204,7 +206,10 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
 	 *            The default orientation of this port
 	 */
 	public final void setOrientation(Orientation defaultOrientation) {
-		this.orientation = defaultOrientation;
+		if (this.orientation != defaultOrientation) {
+			this.orientation = defaultOrientation;
+			setLabelPosition();
+		}
 	}
     
 	/**
@@ -240,5 +245,34 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
 		setDataLines(DEFAULT_DATALINES);
 		setDataColumns(DEFAULT_DATACOLUMNS);
 		setDataType(DataType.UNKNOW_TYPE);
+		
+		setLabelPosition();
 	}
+
+	/**
+	 * Set the label position of the current port.
+	 * 
+	 * The position is Orientation dependent. If the
+	 * {@link BasicPort#getOrientation()} method return null, does nothing.
+	 */
+	protected void setLabelPosition() {
+		final Orientation current = getOrientation();
+		if (current != null) {
+			StyleMap style = new StyleMap(getStyle());
+			style.put(XcosConstants.STYLE_ALIGN, XcosConstants.ALIGN_CENTER);
+			style.put(XcosConstants.STYLE_LABEL_POSITION, current.getLabelPosition());
+			style.put(XcosConstants.STYLE_VERTICAL_LABEL_POSITION, current.getVerticalLabelPosition());
+			style.put(current.getSpacingSide(), Integer.toString(BasicPort.DEFAULT_PORTSIZE/2 + 1));
+			
+			setStyle(style.toString());
+		}
+	}
+	
+	/**
+	 * Hook to update the port label from the associated block expression.
+	 * 
+	 * The current port index may be found in the ordering data.
+	 * @param exprs the associated block expression.
+	 */
+	public void updateLabel(ScilabType exprs) { }
 }
