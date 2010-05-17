@@ -28,6 +28,8 @@ extern "C"
 #include "strdup_windows.h"
 #endif
 #include "scilabmode.h"
+#include "splitpath.h"
+#include "scicurdir.h"
 }
 #include "forceJHDF5load.hxx"
 

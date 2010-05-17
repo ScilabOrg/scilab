@@ -85,7 +85,8 @@ src/c/funcprot.c \
 src/c/eqid.c \
 src/c/exitCodeValue.c \
 src/c/getversion.c \
-src/c/dynamic_tclsci.c
+src/c/dynamic_tclsci.c \
+src/c/storeCommand.c
 
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
