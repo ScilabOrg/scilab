@@ -39,7 +39,7 @@ Graphics:
 * bug 5284 fixed - In some case function "legend" drew line segments in its box
                    in a reverse order.
 
-* bug 6394 fixed - black, m_circle, chart functions needed to be improved
+* bug 6395 fixed - evans and evans grid functions  needed to be improved
 
 * bug 6532 fixed - In some case text entity rendering order was wrong.
 
