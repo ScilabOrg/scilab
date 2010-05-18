@@ -15,6 +15,8 @@ Text Editor:
 
 * Complete refactorization of the text editor.
 
+* Add the possibility to have an help on typing (e.g. type '(' gives '()')
+
 * bugs 4399, 4922 fixed - The line numbering could not be compatible with the
                           output of the whereami function.
 
