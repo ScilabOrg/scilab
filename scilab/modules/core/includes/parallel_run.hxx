@@ -17,15 +17,21 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
+#include <omp.h>
+
+#ifndef  _MSC_VER
+
 #include <sys/mman.h>
 #include <semaphore.h>
 #include <pthread.h>
 #include <signal.h>
 #include <algorithm>
-#include <cstdlib>
-#include <cstring>
 #include <unistd.h>
-#include <omp.h>
+
+#endif
 
 /*
   implementation notes: 
@@ -36,6 +42,8 @@
 
 namespace
 {
+#ifndef _MSC_VER
+
     /*
      * allocates shared memory for s elements of type T. (anonymous, not mapped to a file)
      *
@@ -180,7 +188,23 @@ namespace
         std::size_t* todo;
         std::vector<void*> backup_res;
     };
-
+#else
+    template< typename ParallelWrapper> struct scheduler
+    {
+	scheduler( ParallelWrapper& wrapper,std::size_t nb_proc, bool dyn, std::size_t chunk_s)
+	    : w(wrapper)
+	{
+	}
+	void operator()()
+	{
+	    for(std::size_t i(0); i != w.n; ++i)
+	    {
+		w.callF(i);
+	    }
+	}
+	ParallelWrapper& w;
+    };
+#endif
     template<typename F, typename G>
     struct parallel_wrapper {
         parallel_wrapper(void const* const* const a, std::size_t const* a_s, std::size_t const* a_n, std::size_t const the_rhs, std::size_t nb_tasks, void * const* const r, std::size_t const* r_s, std::size_t const the_lhs, F the_f, G p, G e)
