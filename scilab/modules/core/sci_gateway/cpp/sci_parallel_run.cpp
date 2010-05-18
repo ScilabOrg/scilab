@@ -725,12 +725,7 @@ namespace
         int log(0);
         int* addr;
         SciErr err(getVarAddressFromPosition(pvApiCtx, config_arg_pos, &addr));
-        bool has_config_arg(false);
-	{
-	  int tmp;
-	  err=  checkPList(pvApiCtx, addr, &tmp);
-	  has_config_arg= (tmp!=0);
-	}
+        bool has_config_arg(checkPList(pvApiCtx, addr) != 0);
         if(has_config_arg) {
             int found;
             getIntInPList(pvApiCtx, addr, "nb_workers", &nb_workers, &found, nb_workers, log,  CHECK_NONE);

@@ -200,6 +200,8 @@ if max(full(sp_inv-sp_inv_1)) > %eps then pause,end
 
 
 // testing configuration
+// nb_workers only effective on Linux for now :(
+if(getos() <> 'Windows')
 
 args=[1,2,3,4,5];
 function a= g(arg1); a=2*arg1; endfunction;
@@ -254,3 +256,5 @@ for sched=0:1
   elapsed(sched+1)= toc();
 end;
 if elapsed(2)>elapsed(1) then pause,end;
+
+end
