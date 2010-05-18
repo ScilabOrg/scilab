@@ -67,6 +67,7 @@ bool ElemFuncModule::Load()
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("testmatrix", &sci_testmatrix, MODULE_NAME));
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("tril", &sci_tril, MODULE_NAME));
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("zeros", &sci_zeros, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction("cellfun", &sci_cellfun, MODULE_NAME));
 
 	return true;
 }
