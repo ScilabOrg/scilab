@@ -24,11 +24,10 @@
 #include "MALLOC.h"
 #include "prompt.h"
 #include "HistoryManager.h"
-#include "dynamic_menus.h" /* for ismenu() */
+#include "storeCommand.h" /* for ismenu() */
 #include "zzledt.h"
 #include "GetCommandLine.h"
 #include "TermReadAndProcess.h"
-#include "stack-def.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
@@ -189,30 +188,36 @@ void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,
 
   __LockSignal(&ReadyForLaunch);
 
-  if (__CommandLine) { FREE(__CommandLine); __CommandLine = NULL;}
+  if (__CommandLine)
+  {
+	  FREE(__CommandLine);
+	  __CommandLine = NULL;
+  }
   __CommandLine = strdup("");
 
   if (ismenu() == 0)
-    {
-      if (!WatchGetCmdLineThreadAlive)
-	{
-	  if (WatchGetCmdLineThread) {
-	    __WaitThreadDie(WatchGetCmdLineThread);
+  {
+	  if (!WatchGetCmdLineThreadAlive)
+	  {
+		  if (WatchGetCmdLineThread)
+		  {
+			  __WaitThreadDie(WatchGetCmdLineThread);
+		  }
+		  __CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
+		  WatchGetCmdLineThreadAlive = TRUE;
 	  }
-	  __CreateThread(&WatchGetCmdLineThread, &watchGetCommandLine);
-	  WatchGetCmdLineThreadAlive = TRUE;
-	}
       if (!WatchStoreCmdThreadAlive)
-	{
-	  if (WatchStoreCmdThread) {
-	    __WaitThreadDie(WatchStoreCmdThread);
+	  {
+		  if (WatchStoreCmdThread)
+		  {
+			  __WaitThreadDie(WatchStoreCmdThread);
+		  }
+		  __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
+		  WatchStoreCmdThreadAlive = TRUE;
 	  }
-	  __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
-	  WatchStoreCmdThreadAlive = TRUE;
-	}
 
       __Wait(&TimeToWork, &ReadyForLaunch);
-    }
+  }
   __UnLockSignal(&ReadyForLaunch);
 
   /*

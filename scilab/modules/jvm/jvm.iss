@@ -23,6 +23,8 @@ Source: etc\classpath.xml; DestDir: {app}\etc; Components: {#COMPN_SCILAB}
 Source: etc\librarypath.xml; DestDir: {app}\etc; Components: {#COMPN_SCILAB}
 Source: etc\jvm_options.xml; DestDir: {app}\etc; Components: {#COMPN_SCILAB}
 ;
+Source: modules\{#JVM}\xml\*.dtd; DestDir: {app}\modules\{#JVM}\xml; Components: {#COMPN_SCILAB}
+;
 Source: modules\{#JVM}\jar\org.scilab.modules.jvm.jar;DestDir: {app}\modules\{#JVM}\jar; Components: {#COMPN_SCILAB}
 ;
 Source: modules\{#JVM}\license.txt; DestDir: {app}\modules\{#JVM}; Components: {#COMPN_SCILAB}
@@ -50,8 +52,6 @@ Source: modules\{#JVM}\macros\lib; DestDir: {app}\modules\{#JVM}\macros; Compone
 Source: modules\{#JVM}\macros\names; DestDir: {app}\modules\{#JVM}\macros; Components: {#COMPN_SCILAB}
 Source: modules\{#JVM}\macros\*.bin; DestDir: {app}\modules\{#JVM}\macros; Components: {#COMPN_SCILAB}
 Source: modules\{#JVM}\macros\*.sci; DestDir: {app}\modules\{#JVM}\macros; Components: {#COMPN_SCILAB}
-;
-Source: modules\{#JVM}\help\addchapter.sce; DestDir: {app}\modules\{#JVM}\help; Flags: recursesubdirs; Components:  {#COMPN_SCILAB}
 ;
 Source: modules\{#JVM}\tests\*.*; DestDir: {app}\modules\{#JVM}\tests; Flags: recursesubdirs; Components: {#COMPN_SCILAB} and {#COMPN_TESTS}
 ;

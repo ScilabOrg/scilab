@@ -19,37 +19,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.ScilabGraphUniqueObject;
 import org.scilab.modules.graph.actions.DeleteAction;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.contextmenu.ScilabContextMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
-import org.scilab.modules.hdf5.scilabTypes.ScilabDouble;
-import org.scilab.modules.hdf5.scilabTypes.ScilabMList;
-import org.scilab.modules.hdf5.scilabTypes.ScilabString;
-import org.scilab.modules.xcos.XcosUIDObject;
-import org.scilab.modules.xcos.block.actions.ColorAction;
-import org.scilab.modules.xcos.actions.LinkStyleAction;
-import org.scilab.modules.xcos.block.BasicBlock;
+import org.scilab.modules.xcos.block.actions.BorderColorAction;
+import org.scilab.modules.xcos.link.actions.StyleHorizontalAction;
+import org.scilab.modules.xcos.link.actions.StyleStraightAction;
+import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
+import org.scilab.modules.xcos.link.actions.TextAction;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
 import org.scilab.modules.xcos.link.implicit.ImplicitLink;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.BasicPort.Type;
-import org.scilab.modules.xcos.port.control.ControlPort;
-import org.scilab.modules.xcos.port.input.InputPort;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
-import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 
-public abstract class BasicLink extends XcosUIDObject {
-
-	private static final long serialVersionUID = 8557979393361216098L;
+/**
+ * Root base class for links.
+ * 
+ * A link is always oriented from Input to Output or from Command to Control. 
+ */
+public abstract class BasicLink extends ScilabGraphUniqueObject {
 	private static final mxGeometry DEFAULT_GEOMETRY = new mxGeometry(0, 0, 80, 80);
 	private static final int DETECTION_RECTANGLE_DIMENSION = 10;
 
@@ -206,17 +205,15 @@ public abstract class BasicLink extends XcosUIDObject {
 
     /**
      * Insert point on the nearest link
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param point the point to add
      */
-    public void insertPoint(double x, double y) {
+    public void insertPoint(mxPoint point) {
 
 	//if it is a loop link, change coordinate origin to block instead of diagram
-	mxPoint point = new mxPoint(x, y);
 	if (isLoopLink()) {
 	    mxGeometry geo = getSource().getParent().getGeometry();
-	    point.setX(x - geo.getX());
-	    point.setY(y - geo.getY());
+	    point.setX(point.getX() - geo.getX());
+	    point.setY(point.getY() - geo.getY());
 	}
 
 	if (getGeometry() == null) {
@@ -256,65 +253,6 @@ public abstract class BasicLink extends XcosUIDObject {
 	return false;
     }
 
-    /**
-     * @return A scicos representation of this link
-     */
-    public ScilabMList getAsScilabObj() {
-	String[] fields = {"Link", "xx", "yy", "id", "thick", "ct", "from", "to"};
-	ScilabMList data = new ScilabMList(fields);
-
-	double[][] xx = new double[1][2 + getPointCount()];
-
-	// xx
-	xx[0][0] = getSource().getGeometry().getCenterX() + getSource().getParent().getGeometry().getX();
-	for (int i = 0; i < getPointCount(); i++) { 
-	    xx[0][i + 1] = ((mxPoint) getGeometry().getPoints().get(i)).getX();
-	}
-	xx[0][1 + getPointCount()] = getTarget().getGeometry().getCenterX() + getTarget().getParent().getGeometry().getX();
-	data.add(new ScilabDouble(xx));
-
-	// yy
-	double[][] yy = new double[1][2 + getPointCount()];
-		yy[0][0] = -(getSource().getGeometry().getCenterY()
-				+ getSource().getParent().getGeometry().getY() - getSource()
-				.getParent().getGeometry().getHeight());
-	for (int i = 0; i < getPointCount(); i++) { 
-			yy[0][i + 1] = -(((mxPoint) getGeometry().getPoints().get(i)).getY());
-	}
-		yy[0][1 + getPointCount()] = -(getTarget().getGeometry().getCenterY()
-				+ getTarget().getParent().getGeometry().getY() - getSource()
-				.getParent().getGeometry().getHeight());
-	data.add(new ScilabDouble(yy));
-
-	data.add(new ScilabString("drawlink")); // id
-
-	double[][] thick = {{0, 0}};
-	data.add(new ScilabDouble(thick)); // thick
-
-	data.add(new ScilabDouble(getColorAndType())); //ct
-
-	double fromBlockID = ((BasicBlock) getSource().getParent()).getOrdering();
-	double fromPortID = ((BasicPort) getSource()).getOrdering();
-	double fromType = 0;
-
-	if (getSource() instanceof InputPort || getSource() instanceof ControlPort) { 
-	    fromType = 1;
-	}
-	double[][] fromData = {{fromBlockID, fromPortID, fromType}};
-	data.add(new ScilabDouble(fromData)); // from
-
-	double toBlockID = ((BasicBlock) getTarget().getParent()).getOrdering();
-	double toPortID = ((BasicPort) getTarget()).getOrdering();
-	double toType = 0;
-	if (getTarget() instanceof InputPort || getTarget() instanceof ControlPort) { 
-	    toType = 1;
-	}
-	double[][] toData = {{toBlockID, toPortID, toType}};
-	data.add(new ScilabDouble(toData)); // to
-
-	return data;
-    }
-
     /** @return The scicos color and type values */
     public abstract double[][] getColorAndType();
 
@@ -330,16 +268,17 @@ public abstract class BasicLink extends XcosUIDObject {
 	/*--- */
 	Menu format = ScilabMenu.createMenu();
 	format.setText(XcosMessages.FORMAT);
-	format.add(ColorAction.createMenu(graph, XcosMessages.BORDER_COLOR, mxConstants.STYLE_STROKECOLOR));
+	format.add(BorderColorAction.createMenu(graph));
+	format.add(TextAction.createMenu(graph));
 	menu.add(format);
 	/*--- */
 	menu.getAsSimpleContextMenu().addSeparator();
 	/*--- */
 	Menu linkStyle = ScilabMenu.createMenu();
 	linkStyle.setText(XcosMessages.LINK_STYLE);
-	linkStyle.add(LinkStyleAction.createMenu(graph, XcosMessages.LINK_STYLE_STRAIGHT, mxConstants.SHAPE_CONNECTOR));
-	linkStyle.add(LinkStyleAction.createMenu(graph, XcosMessages.LINK_STYLE_HORIZONTAL, mxConstants.ELBOW_HORIZONTAL));
-	linkStyle.add(LinkStyleAction.createMenu(graph, XcosMessages.LINK_STYLE_VERTICAL, mxConstants.ELBOW_VERTICAL));
+	linkStyle.add(StyleHorizontalAction.createMenu(graph));
+	linkStyle.add(StyleStraightAction.createMenu(graph));
+	linkStyle.add(StyleVerticalAction.createMenu(graph));
 
 
 	menu.add(linkStyle);
@@ -359,8 +298,9 @@ public abstract class BasicLink extends XcosUIDObject {
 	 */
     public static BasicLink createLinkFromPorts(BasicPort from, BasicPort to) {
     	// Pre-conditions
-    	assert from != null;
-    	assert to != null;
+    	if (to == null || from == null) {
+    		throw new NullPointerException();
+    	}
     	
     	BasicLink instance;
     	

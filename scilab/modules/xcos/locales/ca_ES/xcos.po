@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2009-12-12 18:22+0000\n"
+"PO-Revision-Date: 2010-04-10 19:28+0000\n"
 "Last-Translator: oriolsbd <oriolsbd@yahoo.es>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-15 16:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -43,6 +42,16 @@ msgid "%s: Wrong size for input argument #%d: A string expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d té una mida incorrecta: Ha de ser una cadena de "
 "text.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: String or diagram structure expected"
+msgstr ""
+"%s: L'argument %d és d'un tipus incorrecte: Ha de ser una cadena de text o "
+"un diagrama"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: diagram structure expected"
+msgstr "%s: L'argument %d és d'un tipus incorrecte: Ha de ser un diagrama"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
@@ -98,6 +107,8 @@ msgstr "Centrat"
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr ""
+"Feu clic al diagrama per afegir un punt d'enllaç o en un destí compatible "
+"per finalitzar"
 
 msgid "Close"
 msgstr "Tanca"
@@ -145,6 +156,9 @@ msgstr "Crides a blocs de depuració sense traces"
 msgid "Default"
 msgstr "Predeterminat"
 
+msgid "Default values"
+msgstr "Valors predeterminats"
+
 msgid "Delete"
 msgstr "Suprimeix"
 
@@ -183,6 +197,9 @@ msgstr "Bolca"
 
 msgid "Edit"
 msgstr "Edita"
+
+msgid "Editable"
+msgstr "Editable"
 
 msgid "Electrical"
 msgstr "Elèctric"
@@ -236,6 +253,9 @@ msgstr "Volteja"
 msgid "Format"
 msgstr "Format"
 
+msgid "From %s"
+msgstr ""
+
 msgid "Generate SuperBlock, please wait ..."
 msgstr "S'està generant el SuperBlock, espereu ..."
 
@@ -244,6 +264,9 @@ msgstr "S'està generant el codi C per al SuperBlock"
 
 msgid "Get infos"
 msgstr "Informació"
+
+msgid "Goto %s"
+msgstr ""
 
 msgid "Grid"
 msgstr "Quadrícula"
@@ -278,6 +301,9 @@ msgstr ""
 msgid "Import from XML"
 msgstr "Importa de XML"
 
+msgid "Insert"
+msgstr "Insereix"
+
 msgid "Integer"
 msgstr "Enter"
 
@@ -293,8 +319,8 @@ msgstr "Inverteix la selecció"
 msgid "Left"
 msgstr "Esquerra"
 
-msgid "Light Simulation trace (Discrete and Continous part switches)"
-msgstr "Traca de la simulació (interruptors de parts discretes i contínues)"
+msgid "Light Simulation trace (Discrete and Continuous part switches)"
+msgstr "Light Simulation trace (Discrete and Continuous part switches)"
 
 msgid "Link Style"
 msgstr "Estil dels enllaços"
@@ -314,6 +340,9 @@ msgstr "S'està carregant les paletes d'usuari"
 msgid "Lookup Tables"
 msgstr "Taules de cerca"
 
+msgid "Masked SuperBlock editor"
+msgstr "Editor de superblocs emmascarats"
+
 msgid "Mathematical Operations"
 msgstr "Operacions matemàtiques"
 
@@ -328,6 +357,12 @@ msgstr "Centre"
 
 msgid "Mirror"
 msgstr "Inverteix"
+
+msgid "Move Down"
+msgstr "Avall"
+
+msgid "Move Up"
+msgstr "Amunt"
 
 msgid "New"
 msgstr "Nou"
@@ -404,6 +439,12 @@ msgstr "Dreta"
 msgid "Rotate"
 msgstr "Gira"
 
+msgid "Rows"
+msgstr "Files"
+
+msgid "Same command executed again"
+msgstr "Torneu a executar la mateixa comanda"
+
 msgid "Save"
 msgstr "Desa"
 
@@ -442,6 +483,9 @@ msgstr "Contexte"
 
 msgid "Set Parameters"
 msgstr "Indiqueu els paràmetres"
+
+msgid "Set block parameters"
+msgstr "Defineix els paràmetres de bloc"
 
 msgid "Set debugging level (0,1,2,3) <br/> it performs scicos_debug(n)"
 msgstr ""
@@ -489,6 +533,9 @@ msgstr "Directe"
 msgid "Superblock mask"
 msgstr "Màscara de superbloc"
 
+msgid "The Scicos libraries are not loaded"
+msgstr ""
+
 msgid "The Scilab Consortium (DIGITEO)"
 msgstr "El Scilab Consortium (DIGITEO)"
 
@@ -514,11 +561,22 @@ msgstr "Superior"
 msgid "UnGroup"
 msgstr "Desagrupa"
 
+msgid "Unable to communicate with the interpreter"
+msgstr "No s'ha pogut comunicar amb l'intèrpret"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to simulate %s"
+msgstr ""
+
 msgid "Undo"
 msgstr "Desfés"
 
-msgid "Unknow Diagram Version : "
-msgstr "Versió de diagrama desconeguda : "
+msgid "Unknown Diagram Version : "
+msgstr "Diagrama de versió desconegut: "
 
 msgid "Untitled"
 msgstr "Sense títol"
@@ -528,6 +586,18 @@ msgstr "Definit per l'usuari"
 
 msgid "User-Defined Functions"
 msgstr "Funcions definides per l'usuari"
+
+msgid "Values"
+msgstr "Valors"
+
+msgid "Variable descriptions"
+msgstr "Descripcions de les variables"
+
+msgid "Variable names"
+msgstr "Noms de les variables"
+
+msgid "Variable settings"
+msgstr "Configuració de les variables"
 
 msgid "Vertical"
 msgstr "Vertical"
@@ -544,11 +614,14 @@ msgstr "Finestra de visualització"
 msgid "Will try to continue..."
 msgstr "S'intenta continuar..."
 
+msgid "WinTitle"
+msgstr "WinTitle"
+
+msgid "Window title"
+msgstr "Títol de la finestra"
+
 msgid "Xcos"
 msgstr "Xcos"
-
-msgid "Xcos 1.0"
-msgstr "Xcos 1.0"
 
 msgid "Xcos Demos"
 msgstr "Mostres de Xcos"
@@ -561,9 +634,6 @@ msgstr "Error de Xcos"
 
 msgid "Xcos file"
 msgstr "Fitxer d'Xcos"
-
-msgid "Xcos version 1.0"
-msgstr "Versió de Xcos 1.0"
 
 msgid ""
 "You may enter here scilab instructions to define symbolic parameters used in "

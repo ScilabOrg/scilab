@@ -14,28 +14,36 @@
 package org.scilab.modules.xcos.block.actions;
 
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.actions.DefaultAction;
+import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
-import org.scilab.modules.hdf5.scilabTypes.ScilabDouble;
-import org.scilab.modules.hdf5.scilabTypes.ScilabList;
-import org.scilab.modules.hdf5.scilabTypes.ScilabString;
+import org.scilab.modules.types.scilabTypes.ScilabDouble;
+import org.scilab.modules.types.scilabTypes.ScilabList;
+import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
- * @author Vincent COUVERT
- *
+ * Create a mask for the {@link SuperBlock}
  */
 public final class SuperblockMaskCreateAction extends DefaultAction {
-
+	/** Name of the action */
+	public static final String NAME = XcosMessages.CREATE;
+	/** Icon name of the action */
+	public static final String SMALL_ICON = "";
+	/** Mnemonic key of the action */
+	public static final int MNEMONIC_KEY = 0;
+	/** Accelerator key for the action */
+	public static final int ACCELERATOR_KEY = 0;
+	
 	/**
 	 * @param scilabGraph graph
 	 */
-	private SuperblockMaskCreateAction(ScilabGraph scilabGraph) {
-		super(XcosMessages.CREATE, scilabGraph);
+	public SuperblockMaskCreateAction(ScilabGraph scilabGraph) {
+		super(scilabGraph);
 	}
 
 	/**
@@ -43,8 +51,7 @@ public final class SuperblockMaskCreateAction extends DefaultAction {
 	 * @return menu item
 	 */
 	public static MenuItem createMenu(ScilabGraph scilabGraph) {
-		return createMenu(XcosMessages.CREATE, null,
-				new SuperblockMaskCreateAction(scilabGraph), null);
+		return createMenu(scilabGraph, SuperblockMaskCreateAction.class);
 	}
 
 	/**
@@ -52,32 +59,37 @@ public final class SuperblockMaskCreateAction extends DefaultAction {
 	 * @param e parameters
 	 * @see org.scilab.modules.gui.events.callback.CallBack#actionPerformed(java.awt.event.ActionEvent)
 	 */
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		SuperBlock block = (SuperBlock) ((XcosDiagram) getGraph(e))
 				.getSelectionCell();
-		/*
-		 * FIXME: this action doesn't handle variable settings
-		 */
-		block.mask();
 
-		/* Set default values */
-		ScilabList exprs = new ScilabList() {
-			{
-				add(new ScilabDouble());
-				add(new ScilabList() {
-					{
-						add(new ScilabDouble());
-						add(new ScilabString(
-								XcosMessages.MASK_DEFAULTWINDOWNAME));
-						add(new ScilabList() {
-							{
-								add(new ScilabDouble());
-							}
-						});
-					}
-				});
-			}
-		};
-		block.setExprs(exprs);
+		block.mask();
+		
+		/*
+		 * Create a valid DSUPER exprs field if not already present.
+		 */
+		if (!(block.getExprs() instanceof ScilabList)) {
+			
+			/* Set default values */
+			ScilabList exprs = new ScilabList(
+				Arrays.asList(
+					new ScilabDouble(),
+					new ScilabList(
+						Arrays.asList(
+							new ScilabDouble(),
+							new ScilabString(XcosMessages.MASK_DEFAULTWINDOWNAME),
+							new ScilabList(
+								Arrays.asList(
+									new ScilabDouble()
+								)
+							)
+						)
+					)
+				)
+			);
+			
+			block.setExprs(exprs);
+		}
 	}
 }

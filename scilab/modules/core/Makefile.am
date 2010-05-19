@@ -82,11 +82,15 @@ src/c/recursionFunction.c \
 src/c/typename.c \
 src/c/inittypenames.c \
 src/c/funcprot.c \
-src/c/eqid.c
+src/c/eqid.c \
+src/c/exitCodeValue.c \
+src/c/getversion.c \
+src/c/dynamic_tclsci.c \
+src/c/storeCommand.c
 
-CORE_CPP_SOURCES = \
-src/cpp/hashtable_core.cpp
-
+CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
+src/cpp/namstr.cpp \
+src/cpp/search_functions.cpp
 
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
@@ -138,7 +142,6 @@ src/fortran/allops.f \
 src/fortran/mname.f \
 src/fortran/command.f \
 src/fortran/ref2val.f \
-src/fortran/namstr.f \
 src/fortran/stack.f \
 src/fortran/isbrk.f \
 src/fortran/majmin.f \
@@ -378,6 +381,7 @@ includes/stack3.h \
 includes/stackinfo.h \
 includes/stackTypeVariable.h \
 includes/version.h \
+includes/getversion.h \
 includes/warningmode.h
 
 include $(top_srcdir)/Makefile.incl.am

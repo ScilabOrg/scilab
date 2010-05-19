@@ -14,16 +14,19 @@ package org.scilab.modules.xcos.io.codec;
 
 import java.util.Map;
 
+import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.xcos.block.BasicBlock;
-import org.scilab.modules.xcos.block.SuperBlock;
+import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BasicBlock.SimulationFunctionType;
+import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
 import org.scilab.modules.xcos.io.XcosObjectCodec;
-import org.scilab.modules.xcos.utils.StyleMap;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import com.mxgraph.io.mxCellCodec;
 import com.mxgraph.io.mxCodec;
+import com.mxgraph.io.mxCodecRegistry;
 import com.mxgraph.model.mxCell;
 
 /**
@@ -32,6 +35,7 @@ import com.mxgraph.model.mxCell;
 public class BasicBlockCodec extends XcosObjectCodec {
 
 	private static final String SIMULATION_FUNCTION_TYPE = "simulationFunctionType";
+	private static final String[] IGNORED_FIELDS = new String[] {SIMULATION_FUNCTION_TYPE, "locked"};
 
 	/**
 	 * The constructor used on for configuration
@@ -44,6 +48,29 @@ public class BasicBlockCodec extends XcosObjectCodec {
 	{
 		super(template, exclude, idrefs, mapping);
 
+	}
+	
+	/**
+	 * Register all known codecs on the {@link mxCodecRegistry}.
+	 */
+	public static void register() {
+		mxCodecRegistry.addPackage("org.scilab.modules.xcos.block");
+		mxCodecRegistry.addPackage("org.scilab.modules.xcos.block.io");
+		mxCodecRegistry.addPackage("org.scilab.modules.xcos.block.positionning");
+		
+		for (BlockInterFunction function : BlockFactory.BlockInterFunction.values()) {
+			XcosObjectCodec codec = new BasicBlockCodec(function.getSharedInstance(),
+					IGNORED_FIELDS, REFS, null);
+			mxCodecRegistry.register(codec);
+		}
+		
+		XcosObjectCodec basicBlockCodec = new BasicBlockCodec(new BasicBlock(),
+				IGNORED_FIELDS, REFS, null);
+		mxCodecRegistry.register(basicBlockCodec);
+		
+		mxCellCodec cellCodec = new mxCellCodec(new mxCell(), null,
+				REFS, null);
+		mxCodecRegistry.register(cellCodec);
 	}
 	
 	/**
@@ -78,11 +105,7 @@ public class BasicBlockCodec extends XcosObjectCodec {
 		    ((BasicBlock) obj).setSimulationFunctionType(type);
 		}
 	    }
-
-	    if (obj instanceof SuperBlock) {
-		((SuperBlock) obj).setChild(null);
-	    }
-
+	    
 	    NamedNodeMap attrs = node.getAttributes();
 	    for (int i = 0; i < attrs.getLength(); i++) {
 		Node attr = attrs.item(i);
@@ -114,6 +137,14 @@ public class BasicBlockCodec extends XcosObjectCodec {
 			map.put(name, null);
 		}
 
+		// Remove the abstract blockWithLabel (set as defaultVertex) 
+		map.remove("blockWithLabel");
+		
+		// Remove a custom shape value
+		// This is used for pre-5.2 schema with TEXT_f block with a custom
+		// "shape=label" style attribute.
+		map.remove("shape");
+		
 		formatStyle(map);
 	}
 }

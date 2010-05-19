@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 SPARSE_C_SOURCES = \
 src/c/spUtils.c \
@@ -103,7 +103,8 @@ src/fortran/dspmat.f \
 src/fortran/wspmsp.f \
 src/fortran/lspis.f \
 src/fortran/dspmin.f \
-src/fortran/writebuf.f
+src/fortran/writebuf.f \
+src/fortran/ta2lpd.f
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_spcompa.c \
 sci_gateway/c/sci_full.c \
@@ -153,7 +154,8 @@ sci_gateway/fortran/sci_spchol.f \
 sci_gateway/fortran/sci_spmax.f \
 sci_gateway/fortran/sci_lusolve.f \
 sci_gateway/fortran/sci_fadj2sp.f \
-sci_gateway/fortran/sci_sfinit.f
+sci_gateway/fortran/sci_sfinit.f \
+sci_gateway/fortran/sci_ta2lpd.f
 
 libscisparse_la_CFLAGS=  	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes \

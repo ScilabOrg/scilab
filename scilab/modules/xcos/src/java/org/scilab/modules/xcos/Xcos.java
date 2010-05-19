@@ -13,6 +13,8 @@
 
 package org.scilab.modules.xcos;
 
+import static org.scilab.modules.xcos.utils.FileUtils.delete;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -21,15 +23,17 @@ import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.graph.utils.ScilabExported;
+import org.scilab.modules.graph.utils.ScilabInterpreterManagement;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.SuperBlock;
+import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.palette.PaletteManager;
 import org.scilab.modules.xcos.palette.actions.ViewPaletteBrowserAction;
-import org.scilab.modules.xcos.utils.ConfigXcosManager;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement;
 
 /**
  * Xcos entry point class 
@@ -47,17 +51,14 @@ public final class Xcos {
     /** This class is a static singleton, thus it must not be instantiated */
     private Xcos() { }
 
-    /** Palette creation */
-    static {
-	/* load scicos libraries (macros) */
-	XcosInterpreterManagement.requestScilabExec("loadScicosLibs();");
-    }
-
     /**
      * Debug main function
      * @param args command line args (Not used)
      */
     public static void main(String[] args) {
+    	/* load scicos libraries (macros) */
+		ScilabInterpreterManagement.requestScilabExec("loadScicosLibs();");
+    
 	SwingUtilities.invokeLater(new Runnable() {
 	    public void run() {
 		xcos();
@@ -68,7 +69,11 @@ public final class Xcos {
     /**
      * Entry point without filename
      */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static void xcos() {
+    	/* load scicos libraries (macros) */
+		ScilabInterpreterManagement.requestScilabExec("loadScicosLibs();");
+    
 	SwingUtilities.invokeLater(new Runnable() {
 	    public void run() {
 	    PaletteManager.setVisible(true);
@@ -82,15 +87,26 @@ public final class Xcos {
      * Entry point with filename
      * @param fileName The filename
      */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static void xcos(String fileName) {
+    	/* load scicos libraries (macros) */
+		ScilabInterpreterManagement.requestScilabExec("loadScicosLibs();");
+		
+		// FIXME: temporary workaround
+    	// fix #7015 by instantiate the palette manager once. 
+    	PaletteManager.getInstance();
+		
 	final String filename = fileName;
 	SwingUtilities.invokeLater(new Runnable() {
 	    public void run() {
-		ConfigXcosManager.saveToRecentOpenedFiles(filename);
+		ConfigurationManager.getInstance().addToRecentFiles(filename);
 		if (!XcosTab.focusOnExistingFile(filename)) {
 		    XcosDiagram diagram = createEmptyDiagram();
+		    ViewPaletteBrowserAction.setPalettesVisible(false);
 		    diagram.openDiagramFromFile(filename);
 		}
+		ConfigurationManager.getInstance().saveConfig();
+		
 	    }
 	});
     }
@@ -136,12 +152,11 @@ public final class Xcos {
 	 * We are looping in the inverted order because we have to close latest
 	 * add diagrams (eg SuperBlockDiagrams) before any others.
 	 * 
-	 * Furthermore the closeDiagram operation modify the diagram list.
+	 * Furthermore the closeDiagram operation modify the diagram list. Thus we
+	 * must *NOT* use i-- there.
 	 */
-	int i = diagrams.size() - 1;
-	while (i >= 0) {
+	for (int i = diagrams.size() - 1; i >= 0; i = diagrams.size() - 1) {
 		diagrams.get(i).closeDiagram();
-		i = diagrams.size() - 1;
 	}
 
 	ViewPaletteBrowserAction.setPalettesVisible(false);
@@ -163,6 +178,7 @@ public final class Xcos {
      * @param message
      *            The message to display.
      */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static void warnCellByUID(String uid, String message) {
 	// Try to find a block with given index (UID)
 	List<XcosDiagram> allDiagrams = Xcos.getDiagrams();
@@ -171,20 +187,26 @@ public final class Xcos {
 	}
     }
 
-    /**
-     * This method is called when the user exits from Scilab
-     */
-    public static void closeXcosFromScilab() {
-
-	SwingUtilities.invokeLater(new Runnable() {
-	    public void run() {
-		// call close on all diagrams
-		while (XcosTab.getAllDiagrams().size() > 0) {
-		    XcosTab.getAllDiagrams().get(0).closeDiagram(true);
+	/**
+	 * This method is called when the user exits from Scilab
+	 */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
+	public static void closeXcosFromScilab() {
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+					// call close on all diagrams
+					while (XcosTab.getAllDiagrams().size() > 0) {
+						XcosTab.getAllDiagrams().get(0).closeDiagram(true);
+					}
+				}
+			});
+		} catch (InterruptedException e) {
+			LogFactory.getLog(Xcos.class).error(e);
+		} catch (InvocationTargetException e) {
+			LogFactory.getLog(Xcos.class).error(e);
 		}
-	    }
-	});
-    }
+	}
 
     /**
      * This function convert a Xcos diagram to Scilab variable
@@ -193,6 +215,7 @@ public final class Xcos {
      * @param forceOverwrite Does the file will be overwritten ?
      * @return Not used (compatibility) 
      */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static int xcosDiagramToHDF5(String xcosFile, String h5File,
 	    boolean forceOverwrite) {
 	final String file = xcosFile;
@@ -203,7 +226,7 @@ public final class Xcos {
 	    if (!overwrite) {
 		return 1;
 	    } else {
-		temp.delete();
+		delete(temp);
 	    }
 	}
 
@@ -232,6 +255,7 @@ public final class Xcos {
 	 * @param showed
 	 *            True if you want the diagram to be shown, false otherwise.
 	 */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static void xcosDiagramOpen(String uid, boolean showed) {
 	final String id = uid;
 	final boolean show = showed;
@@ -276,6 +300,7 @@ public final class Xcos {
      * Close a diagram by uid.
      * @param uid The diagram id
      */
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
     public static void xcosDiagramClose(String uid) {
 	final String id = uid;
 

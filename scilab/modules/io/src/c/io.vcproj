@@ -416,10 +416,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\sci_gateway\c\sci_mgetl.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\sci_gateway\c\sci_rat.c"
 				>
 			</File>
@@ -467,6 +463,10 @@
 				RelativePath=".\systemc.c"
 				>
 			</File>
+			<File
+				RelativePath=".\v2cuniterror.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -493,11 +493,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\includes\setenvc.h"
 				>
 			</File>
 			<File
 				RelativePath=".\systemc.h"
+				>
+			</File>
+			<File
+				RelativePath=".\v2cuniterror.h"
 				>
 			</File>
 		</Filter>
@@ -524,6 +532,14 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Resource File"
+			>
+			<File
+				RelativePath=".\io.rc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\io.iss"

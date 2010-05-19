@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Bruno JOFRET
  * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ * Copyright (C) 2010 - DIGITEO - Clément DAVID
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,34 +14,45 @@
 
 package org.scilab.modules.xcos.actions;
 
+import static org.scilab.modules.graph.utils.ScilabInterpreterManagement.asynchronousScilabExec;
+import static org.scilab.modules.graph.utils.ScilabInterpreterManagement.buildCall;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.actions.DefaultAction;
+import org.scilab.modules.graph.actions.base.DefaultAction;
+import org.scilab.modules.graph.actions.base.GraphActionManager;
+import org.scilab.modules.graph.utils.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
-import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement;
+import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement.InterpreterException;
 
 /**
- * @author Bruno JOFRET
- *
+ * Start the simulation
  */
-public class StartAction  extends DefaultAction {
-
-    private static final long serialVersionUID = -7548486977403506053L;
-
+public class StartAction extends DefaultAction {
+	/** Name of the action */
+	public static final String NAME = XcosMessages.START;
+	/** Icon name of the action */
+	public static final String SMALL_ICON = "media-playback-start.png";
+	/** Mnemonic key of the action */
+	public static final int MNEMONIC_KEY = 0;
+	/** Accelerator key for the action */
+	public static final int ACCELERATOR_KEY = 0;
+	
     /**
      * @param scilabGraph graph
      */
     public StartAction(ScilabGraph scilabGraph) {
-	super(XcosMessages.START, scilabGraph);
+    	super(scilabGraph);
+    	setEnabled(GraphActionManager.getEnable(StartAction.class));
     }
 
     /**
@@ -48,7 +60,7 @@ public class StartAction  extends DefaultAction {
      * @return push button
      */
     public static PushButton createButton(ScilabGraph scilabGraph) {
-	return createButton(XcosMessages.START, "media-playback-start.png", new StartAction(scilabGraph));
+    	return createButton(scilabGraph, StartAction.class);
     }
 
     /**
@@ -56,37 +68,121 @@ public class StartAction  extends DefaultAction {
      * @return menu item
      */
     public static MenuItem createMenu(ScilabGraph scilabGraph) {
-	return createMenu(XcosMessages.START, null, new StartAction(scilabGraph), null);
+    	return createMenu(scilabGraph, StartAction.class);
     }
 
+    /**
+     * Action !!!
+     * @param e the source event
+     * @see org.scilab.modules.gui.events.callback.CallBack#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent e) {
-	File temp;
-	((XcosDiagram) getGraph(null)).info(XcosMessages.SIMULATION_IN_PROGRESS);
-	XcosTab.setStartEnabled(false);
-	((XcosDiagram) getGraph(null)).setReadOnly(true);
+		final XcosDiagram diagram = ((XcosDiagram) getGraph(e)).getRootDiagram();
+		String cmd;
+		
+		updateUI(true);
 	
-	try {
-	    temp = File.createTempFile("xcos",".h5");
-	    ((XcosDiagram) getGraph(e)).getRootDiagram().dumpToHdf5File(temp.getAbsolutePath());
-
-	    String command = "import_from_hdf5(\"" + temp.getAbsolutePath() + "\");"
-	    				+ "scicos_debug(" + ((XcosDiagram) getGraph(e)).getDebugLevel() + ");"
-	    				+ "xcos_simulate(scs_m);"
-	    				+ "deletefile(\"" + temp.getAbsolutePath() + "\");";
+		try {
+			cmd = createSimulationCommand(diagram);
+		} catch (IOException ex) {
+			LogFactory.getLog(StartAction.class).error(ex);
+			updateUI(false);
+			return;
+		}
+		
+		final ActionListener action = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateUI(false);
+				diagram.getEngine().setCompilationNeeded(false);
+			}
+		};
+		
 	    try {
-			XcosInterpreterManagement.asynchronousScilabExec(command, new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					((XcosDiagram) getGraph(null)).info(XcosMessages.EMPTY_INFO);
-				    XcosTab.setStartEnabled(true);
-				    ((XcosDiagram) getGraph(null)).setReadOnly(false);
-				}
-			});
+			asynchronousScilabExec(action, cmd);
 		} catch (InterpreterException e1) {
 			e1.printStackTrace();
+			updateUI(false);
 		}
-	} catch (IOException e1) {
-	    e1.printStackTrace();
-	    XcosTab.setStartEnabled(true);
-	}
     }
+
+	/**
+	 * Create the command String
+	 * 
+	 * @param diagram
+	 *            the working diagram
+	 * @return the command string
+	 * @throws IOException
+	 *             when temporary files must not be created.
+	 */
+	private String createSimulationCommand(final XcosDiagram diagram)
+			throws IOException {
+		String cmd;
+		final StringBuilder command = new StringBuilder();
+		final boolean needCompile = diagram.getEngine().isCompilationNeeded();
+
+		File temp = null;
+		
+		/*
+		 * Log compilation info
+		 */
+		final Log log = LogFactory.getLog(StartAction.class);
+		if (needCompile && log.isTraceEnabled()) {
+			log.trace("diagram need compilation.");
+		} else {
+			log.trace("diagram doesn't need compilation.");
+		}
+		
+		/*
+		 * Import a valid scs_m structure into Scilab
+		 */
+		if (needCompile) {
+			temp = FileUtils.createTempFile();
+			diagram.dumpToHdf5File(temp.getAbsolutePath());
+
+			command.append(buildCall("import_from_hdf5", temp.getAbsolutePath()));
+			command.append(buildCall("scicos_debug", diagram.getScicosParameters().getDebugLevel()));
+		} else {
+			command.append(diagram.getEngine().getLoadSimulationDataCommand());
+		}
+
+		/*
+		 * Magic numbers come from scicos partial compilation status.
+		 */
+		String compile;
+		if (needCompile) {
+			compile = "4";
+		} else {
+			compile = "0";
+		}
+		
+		/*
+		 * Simulate and store results commands
+		 */
+		command.append("%cpr = xcos_simulate(scs_m, " + compile + ");");
+		command.append(diagram.getEngine().getStoreSimulationDataCommand());
+
+		if (needCompile) {
+			command.append("deletefile(\"" + temp.getAbsolutePath() + "\");");
+		}
+
+		cmd = command.toString();
+		return cmd;
+	}
+
+	/**
+	 * Update the UI depending on the action selected or not
+	 * @param started the started status
+	 */
+	public void updateUI(boolean started) {
+		GraphActionManager.setEnable(StartAction.class, !started);
+		GraphActionManager.setEnable(StopAction.class, started);
+		((XcosDiagram) getGraph(null)).setReadOnly(started);
+		
+		if (started) {
+			((XcosDiagram) getGraph(null)).info(XcosMessages.SIMULATION_IN_PROGRESS);
+		} else {
+			((XcosDiagram) getGraph(null)).info(XcosMessages.EMPTY_INFO);
+		}
+	}
 }

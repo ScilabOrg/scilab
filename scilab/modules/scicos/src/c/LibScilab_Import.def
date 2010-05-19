@@ -36,6 +36,7 @@ dtosci_
 ierode_
 str2sci
 syncexec
+mkmlist_
 
 ;
 ; elementary_functions
@@ -43,3 +44,6 @@ unsfdcopy_
 itosci_
 isort_
 dset_
+;
+ismenu
+GetCommand

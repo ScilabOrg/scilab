@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 OPTIMIZATION_C_SOURCES = src/c/sp.c \
 src/c/fsolvetable.c \
@@ -122,6 +122,7 @@ sci_gateway/fortran/Ex-lsqrsolve.f
 
 libscioptimization_la_CFLAGS=  	-I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/localization/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
 -I$(top_srcdir)/modules/dynamic_link/includes \
 -I$(top_srcdir)/modules/operations/includes

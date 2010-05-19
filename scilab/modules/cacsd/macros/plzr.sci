@@ -83,14 +83,14 @@ function plzr(a,b,c,d)
     e=gce();e.line_mode='off';e.mark_mode='on';
     e.mark_size_unit="point";e.mark_size=7;e.mark_style=5;
     legs=[legs;gettext("Zeros")]
-    lhandle=[lhandle;e]
+    lhandle=[e;lhandle]
   end;
   if size(dr,'*')<>0 then
     xpoly(dr,di)
     e=gce();e.line_mode='off';e.mark_mode='on';
     e.mark_size_unit="point";e.mark_size=7;e.mark_style=2;
     legs=[legs;gettext("Poles")]
-    lhandle=[lhandle;e]
+    lhandle=[e;lhandle]
   end
   ax.grid=ones(1,3)*color('gray')
   ax.box = "on";
@@ -99,5 +99,5 @@ function plzr(a,b,c,d)
 	 gettext("Imaginary axis"));
   if legs<>[] then legend(lhandle,legs,1),end
   drawnow()
-  xselect();
+  show_window();
 endfunction

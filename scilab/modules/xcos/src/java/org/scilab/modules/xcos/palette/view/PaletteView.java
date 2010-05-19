@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2009 - DIGITEO - Clément DAVID
+ * Copyright (C) 2010 - DIGITEO - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
 
-import org.scilab.modules.xcos.palette.Palette;
 import org.scilab.modules.xcos.utils.XcosConstants;
 
 /**
@@ -29,21 +28,16 @@ import org.scilab.modules.xcos.utils.XcosConstants;
  * 
  * As the JScrollPane doesn't allow a to specify it's associated layout, we have
  * to use a {@link #mainArea} to perform what we want there. Never use the
- * {@link JScrollPane#add(java.awt.Component)} on this class but use
+ * {@link javax.swing.JScrollPane#add(java.awt.Component)} on this class but use
  * {@link #getMainArea()} then {@link JPanel#add(java.awt.Component)} instead.
  */
 public class PaletteView extends JPanel implements Scrollable {
-	private Palette controller;
 	private boolean isLoaded;
 
 	/**
 	 * Default constructor
-	 * 
-	 * @param controller
-	 *            The associated controller
 	 */
-	public PaletteView(Palette controller) {
-		this.controller = controller;
+	public PaletteView() {
 		initComponents();
 	}
 
@@ -78,15 +72,6 @@ public class PaletteView extends JPanel implements Scrollable {
 		}
 
 		isLoaded = b;
-	}
-
-	/**
-	 * @return the localized message
-	 * @see java.awt.Component#toString()
-	 */
-	@Override
-	public String toString() {
-		return controller.getModel().toString();
 	}
 
 	/**

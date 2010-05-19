@@ -72,6 +72,9 @@ library.graphic_export.name=org.scilab.modules.graphic_export.jar
 library.javasci.dir=${modules.dir}/javasci/${build.jar.dir}/
 library.javasci.name=javasci.jar
 
+library.types.dir=${modules.dir}/types/${build.jar.dir}/
+library.types.name=org.scilab.modules.types.jar
+
 library.hdf5.dir=${modules.dir}/hdf5/${build.jar.dir}/
 library.hdf5.name=org.scilab.modules.hdf5.jar
 
@@ -80,3 +83,7 @@ library.xcos.name=org.scilab.modules.xcos.jar
 
 library.xpad.dir=${modules.dir}/xpad/${build.jar.dir}/
 library.xpad.name=org.scilab.modules.xpad.jar
+
+library.graph.dir=${modules.dir}/graph/${build.jar.dir}/
+library.graph.name=org.scilab.modules.graph.jar
+

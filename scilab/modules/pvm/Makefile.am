@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 if PVM
 
@@ -12,8 +12,7 @@ src/c/scipvmf77.c \
 src/c/varpack.c \
 src/c/pvm_grp.c \
 src/c/pvm_send.c \
-src/c/pvm_info.c \
-src/c/with_pvm.c
+src/c/pvm_info.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_pvm_get_timer.c \
 sci_gateway/c/sci_pvm_gettid.c \
@@ -103,7 +102,8 @@ libscipvm_la_LIBADD = \
 
 libscipvm_la_CFLAGS = -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(srcdir)/includes/ \
--I$(top_srcdir)/modules/output_stream/includes/
+-I$(top_srcdir)/modules/output_stream/includes/ \
+-I$(top_srcdir)/modules/operations/includes/
 
 modulename=pvm
 

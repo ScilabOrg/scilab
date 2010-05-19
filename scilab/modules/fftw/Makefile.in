@@ -252,6 +252,7 @@ JGRAPHX = @JGRAPHX@
 JHALL = @JHALL@
 JHDF5 = @JHDF5@
 JLATEXMATH = @JLATEXMATH@
+JLATEXMATH_FOP = @JLATEXMATH_FOP@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
 JROSETTA_ENGINE = @JROSETTA_ENGINE@
@@ -261,6 +262,7 @@ LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBM = @LIBM@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
@@ -1065,7 +1067,7 @@ check-code:
 @GIWS_TRUE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@		done; \
 @GIWS_TRUE@	fi
 
@@ -1169,6 +1171,7 @@ install-data-local:
 		if test -d $(srcdir)/$$dir/; then \
 			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
 			if test -n "$(MACROSSPECIALEXT)"; then \
+				specialExtDir=""; \
 				for specialExt in $(MACROSSPECIALEXT); do \
 					specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
 				done; \

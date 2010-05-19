@@ -121,12 +121,12 @@ PathFileName=uigetfile([file_mask[,dir[,boxTitle[,multiple]]]])
 
     <para>To disable, this feature:</para>
 
-    <para>if MSDOS then unix("REGSVR32 /u %WINDIR%\System32\zipfldr.dll")
+    <para>if getos() == 'Windows' then unix("REGSVR32 /u %WINDIR%\System32\zipfldr.dll")
     ;end</para>
 
     <para>To re-enable,</para>
 
-    <para>if MSDOS then unix("REGSVR32 %WINDIR%\System32\zipfldr.dll")
+    <para>if getos() == 'Windows' then unix("REGSVR32 %WINDIR%\System32\zipfldr.dll")
     ;end</para>
   </refsection>
 
@@ -137,8 +137,8 @@ PathFileName=uigetfile([file_mask[,dir[,boxTitle[,multiple]]]])
 uigetfile(["*.sci";"*.bin"],"SCI/modules/gui/macros/")
 uigetfile(["*.sc*";"*.bin"],"SCI/modules/gui/macros/")
 uigetfile(["*.x*","X files";"*.bin","BIN files"],"SCI/modules/gui/macros/")
-uigetfile(["*.sce";"*.bin"],"SCI/modules/gui/macros/", "Choose a file name"", %t); 
-uigetfile(["*.sce";"*.bin"],"SCI/modules/gui/macros/", "Choose a file name"", %f); 
+uigetfile(["*.sce";"*.bin"],"SCI/modules/gui/macros/", "Choose a file name", %t); 
+uigetfile(["*.sce";"*.bin"],"SCI/modules/gui/macros/", "Choose a file name", %f); 
 </programlisting>
   </refsection>
 

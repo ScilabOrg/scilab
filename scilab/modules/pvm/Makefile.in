@@ -15,10 +15,10 @@
 
 @SET_MAKE@
 
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) 2006-2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
@@ -130,7 +130,7 @@ LTLIBRARIES = $(pkglib_LTLIBRARIES)
 am__libscipvm_la_SOURCES_DIST = src/nopvm/nopvm.c \
 	src/c/pvm_proc_ctrl.c src/c/sci_tools.c src/c/pvm_recv.c \
 	src/c/scipvmf77.c src/c/varpack.c src/c/pvm_grp.c \
-	src/c/pvm_send.c src/c/pvm_info.c src/c/with_pvm.c \
+	src/c/pvm_send.c src/c/pvm_info.c \
 	sci_gateway/c/sci_pvm_get_timer.c \
 	sci_gateway/c/sci_pvm_gettid.c sci_gateway/c/sci_pvm_gsize.c \
 	sci_gateway/c/sci_pvm_sci2f77.c \
@@ -159,7 +159,7 @@ am__libscipvm_la_SOURCES_DIST = src/nopvm/nopvm.c \
 @PVM_TRUE@	libscipvm_la-sci_tools.lo libscipvm_la-pvm_recv.lo \
 @PVM_TRUE@	libscipvm_la-scipvmf77.lo libscipvm_la-varpack.lo \
 @PVM_TRUE@	libscipvm_la-pvm_grp.lo libscipvm_la-pvm_send.lo \
-@PVM_TRUE@	libscipvm_la-pvm_info.lo libscipvm_la-with_pvm.lo
+@PVM_TRUE@	libscipvm_la-pvm_info.lo
 @PVM_TRUE@am__objects_2 = libscipvm_la-sci_pvm_get_timer.lo \
 @PVM_TRUE@	libscipvm_la-sci_pvm_gettid.lo \
 @PVM_TRUE@	libscipvm_la-sci_pvm_gsize.lo \
@@ -305,6 +305,7 @@ JGRAPHX = @JGRAPHX@
 JHALL = @JHALL@
 JHDF5 = @JHDF5@
 JLATEXMATH = @JLATEXMATH@
+JLATEXMATH_FOP = @JLATEXMATH_FOP@
 JOGL = @JOGL@
 JROSETTA_API = @JROSETTA_API@
 JROSETTA_ENGINE = @JROSETTA_ENGINE@
@@ -314,6 +315,7 @@ LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBM = @LIBM@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
@@ -471,8 +473,7 @@ top_srcdir = @top_srcdir@
 @PVM_TRUE@src/c/varpack.c \
 @PVM_TRUE@src/c/pvm_grp.c \
 @PVM_TRUE@src/c/pvm_send.c \
-@PVM_TRUE@src/c/pvm_info.c \
-@PVM_TRUE@src/c/with_pvm.c
+@PVM_TRUE@src/c/pvm_info.c
 
 @PVM_TRUE@GATEWAY_C_SOURCES = sci_gateway/c/sci_pvm_get_timer.c \
 @PVM_TRUE@sci_gateway/c/sci_pvm_gettid.c \
@@ -511,7 +512,8 @@ top_srcdir = @top_srcdir@
 
 @PVM_FALSE@libscipvm_la_CFLAGS = -I$(top_srcdir)/modules/api_scilab/includes \
 @PVM_FALSE@-I$(srcdir)/includes/ \
-@PVM_FALSE@-I$(top_srcdir)/modules/output_stream/includes/
+@PVM_FALSE@-I$(top_srcdir)/modules/output_stream/includes/ \
+@PVM_FALSE@-I$(top_srcdir)/modules/operations/includes/
 
 @PVM_TRUE@libscipvm_la_CFLAGS = -I$(srcdir)/includes/ \
 @PVM_TRUE@	-I$(top_srcdir)/libs/MALLOC/includes/ -I$(srcdir)/src/c/  \
@@ -796,7 +798,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscipvm_la-sci_tools.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscipvm_la-scipvmf77.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscipvm_la-varpack.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscipvm_la-with_pvm.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -881,13 +882,6 @@ libscipvm_la-pvm_info.lo: src/c/pvm_info.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/pvm_info.c' object='libscipvm_la-pvm_info.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscipvm_la_CFLAGS) $(CFLAGS) -c -o libscipvm_la-pvm_info.lo `test -f 'src/c/pvm_info.c' || echo '$(srcdir)/'`src/c/pvm_info.c
-
-libscipvm_la-with_pvm.lo: src/c/with_pvm.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscipvm_la_CFLAGS) $(CFLAGS) -MT libscipvm_la-with_pvm.lo -MD -MP -MF $(DEPDIR)/libscipvm_la-with_pvm.Tpo -c -o libscipvm_la-with_pvm.lo `test -f 'src/c/with_pvm.c' || echo '$(srcdir)/'`src/c/with_pvm.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscipvm_la-with_pvm.Tpo $(DEPDIR)/libscipvm_la-with_pvm.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/with_pvm.c' object='libscipvm_la-with_pvm.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscipvm_la_CFLAGS) $(CFLAGS) -c -o libscipvm_la-with_pvm.lo `test -f 'src/c/with_pvm.c' || echo '$(srcdir)/'`src/c/with_pvm.c
 
 libscipvm_la-sci_pvm_get_timer.lo: sci_gateway/c/sci_pvm_get_timer.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscipvm_la_CFLAGS) $(CFLAGS) -MT libscipvm_la-sci_pvm_get_timer.lo -MD -MP -MF $(DEPDIR)/libscipvm_la-sci_pvm_get_timer.Tpo -c -o libscipvm_la-sci_pvm_get_timer.lo `test -f 'sci_gateway/c/sci_pvm_get_timer.c' || echo '$(srcdir)/'`sci_gateway/c/sci_pvm_get_timer.c
@@ -1458,7 +1452,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @GIWS_TRUE@@PVM_TRUE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@PVM_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@PVM_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@PVM_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@@PVM_TRUE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@PVM_TRUE@		done; \
 @GIWS_TRUE@@PVM_TRUE@	fi
 
@@ -1562,6 +1556,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @PVM_TRUE@		if test -d $(srcdir)/$$dir/; then \
 @PVM_TRUE@			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
 @PVM_TRUE@			if test -n "$(MACROSSPECIALEXT)"; then \
+@PVM_TRUE@				specialExtDir=""; \
 @PVM_TRUE@				for specialExt in $(MACROSSPECIALEXT); do \
 @PVM_TRUE@					specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
 @PVM_TRUE@				done; \
@@ -1642,7 +1637,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @GIWS_TRUE@@PVM_FALSE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@@PVM_FALSE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@@PVM_FALSE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@@PVM_FALSE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@@PVM_FALSE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@@PVM_FALSE@		done; \
 @GIWS_TRUE@@PVM_FALSE@	fi
 
@@ -1746,6 +1741,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @PVM_FALSE@		if test -d $(srcdir)/$$dir/; then \
 @PVM_FALSE@			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
 @PVM_FALSE@			if test -n "$(MACROSSPECIALEXT)"; then \
+@PVM_FALSE@				specialExtDir=""; \
 @PVM_FALSE@				for specialExt in $(MACROSSPECIALEXT); do \
 @PVM_FALSE@					specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
 @PVM_FALSE@				done; \

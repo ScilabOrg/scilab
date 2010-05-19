@@ -12,13 +12,9 @@
 // =============================================================================
 if (getscilabmode() <> 'NWNI') then
 	load(SCI+"/modules/graphics/macros/lib");
+	load(SCI+"/modules/graphics/macros/datatips/lib");
 end
 
-// Add help chapter
-// =============================================================================
-if WITH_HELPTOOLS then
-	add_module_help_chapter("graphics");
-end
 
 // Add demo
 // =============================================================================

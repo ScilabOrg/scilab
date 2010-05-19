@@ -24,7 +24,7 @@
   <refnamediv>
     <refname>Graphics</refname>
 
-    <refpurpose>contenu de la librairie graphique</refpurpose>
+    <refpurpose>contenu de la bibliothèque graphique</refpurpose>
   </refnamediv>
 
   <refsection>
@@ -835,7 +835,7 @@
 
     <variablelist>
       <varlistentry>
-        <term><link linkend="xbasc">xbasc</link></term>
+        <term><link linkend="clf">clf</link></term>
 
         <listitem>
           <para>efface une fenêtre graphique et les graphiques

@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2009 - INRIA - Michael Baudin
+// Copyright (C) 2009-2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -29,7 +30,7 @@ function [ this , xdata , ydata , zdata ] = nmplot_contour ( this , xmin , xmax 
   ydata = ymin:stepy:ymax;
   for ix = 1:length(xdata)
     for iy = 1:length(ydata)
-      experiment = [xdata(ix) ydata(iy)];
+      experiment = [xdata(ix) ydata(iy)]';
       [ this.nmbase , fiexp ] = neldermead_function ( this.nmbase , experiment );
       zdata ( ix , iy ) = fiexp;
     end

@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
+ * Copyright (C) 2010 - DIGITEO - Clément DAVID
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,16 +14,15 @@
 package org.scilab.modules.xcos.actions;
 
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
-import javax.swing.KeyStroke;
-
 import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.actions.DefaultAction;
+import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xcos.utils.XcosMessages;
@@ -31,18 +31,25 @@ import com.mxgraph.swing.mxGraphComponent;
 
 /**
  * Diagram printing management
- * @author Vincent COUVERT
- *
  */
 public final class PrintAction extends DefaultAction {
+	/** Name of the action */
+	public static final String NAME = XcosMessages.PRINT;
+	/** Icon name of the action */
+	public static final String SMALL_ICON = "document-print.png";
+	/** Mnemonic key of the action */
+	public static final int MNEMONIC_KEY = KeyEvent.VK_P;
+	/** Accelerator key for the action */
+	public static final int ACCELERATOR_KEY = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
-	private static final long serialVersionUID = 1L;
-
+	/** The default page margin */
+	private static final int DEFAULT_MARGIN = 36;
+	
 	/** Constructor
 	 * @param scilabGraph associated diagram
 	 */
-	private PrintAction(ScilabGraph scilabGraph) {
-		super(XcosMessages.PRINT, scilabGraph);
+	public PrintAction(ScilabGraph scilabGraph) {
+		super(scilabGraph);
 	}
 
 	/**
@@ -51,8 +58,7 @@ public final class PrintAction extends DefaultAction {
 	 * @return the menu
 	 */
 	public static MenuItem createMenu(ScilabGraph scilabGraph) {
-		return createMenu(XcosMessages.PRINT, null, new PrintAction(scilabGraph),
-				KeyStroke.getKeyStroke(KeyEvent.VK_P, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		return createMenu(scilabGraph, PrintAction.class);
 	}
 
 	/**
@@ -61,21 +67,22 @@ public final class PrintAction extends DefaultAction {
 	 * @return the button
 	 */
 	public static PushButton createButton(ScilabGraph scilabGraph) {
-		return createButton(XcosMessages.PRINT, "document-print.png", new PrintAction(scilabGraph));
+		return createButton(scilabGraph, PrintAction.class);
 	}
 
 	/**
-	 * Action !
-	 * @see org.scilab.modules.graph.actions.DefaultAction#doAction()
+	 * @param e parameter
+	 * @see org.scilab.modules.graph.actions.base.DefaultAction#actionPerformed(java.awt.event.ActionEvent)
 	 */
-	public void doAction() {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		mxGraphComponent graphComponent = getGraph(null).getAsComponent();
 		PrinterJob pj = PrinterJob.getPrinterJob();
 
 		if (pj.printDialog()) {
 			PageFormat pf = graphComponent.getPageFormat();
 			Paper paper = new Paper();
-			double margin = 36;
+			double margin = DEFAULT_MARGIN;
 			paper.setImageableArea(margin, margin, paper.getWidth()	- margin * 2, paper.getHeight() - margin * 2);
 			pf.setPaper(paper);
 			pj.setPrintable(graphComponent, pf);

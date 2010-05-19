@@ -36,7 +36,7 @@ case 'set' then
   model=arg1.model;
   while %t do
    [ok,x0,xd0,exprs]=scicos_getvalue('Set continuous linear system parameters',..
-	['Initial state','Initial Derivative'],list('vec',1,'vec',1),exprs)
+	['Initial state';'Initial Derivative'],list('vec',1,'vec',1),exprs)
 
 
     if ~ok then break,end
@@ -57,7 +57,7 @@ case 'define' then
   model.dep_ut=[%f %t]
   
   exprs=[strcat(sci2exp(x0(1)));strcat(sci2exp(x0(2)))]
-  gr_i=['xstringb(orig(1),orig(2),''  s  '',sz(1),sz(2),''fill'');']
+  gr_i=['xstringb(orig(1),orig(2),'' s   '',sz(1),sz(2),''fill'');']
   x=standard_define([2 2],model,exprs,gr_i)
 end
 endfunction

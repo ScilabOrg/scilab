@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2009-10-19 20:20+0000\n"
+"PO-Revision-Date: 2010-04-14 21:05+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-15 16:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -114,9 +113,6 @@ msgstr "%s: Неверный тип входного параметра №%d и
 msgid "%s: Wrong type for input argument #%d: String expected.\n"
 msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
-msgid "Console"
-msgstr "Командное окно"
-
 msgid "Could not access to the Main Scilab Class:\n"
 msgstr "Не удалось получить доступ к главному классу Scilab:\n"
 
@@ -149,6 +145,10 @@ msgid "Error in the creation of the Java VM: %s\n"
 msgstr "Ошибка создания Java VM: %s\n"
 
 #, c-format
+msgid "Error: %s\n"
+msgstr "Ошибка: %s\n"
+
+#, c-format
 msgid "Error: Could not parse file %s.\n"
 msgstr "Ошибка: не удалось сделать грамматический разбор файла %s.\n"
 
@@ -164,6 +164,22 @@ msgstr ""
 msgid "Error: could not parse file %s\n"
 msgstr "Ошибка: не удалось сделать грамматический разбор файла %s\n"
 
+#, c-format
+msgid ""
+"If you are using a binary version of Scilab, please report a bug "
+"http://bugzilla.scilab.org/.\n"
+msgstr ""
+"Если вы используете бинарную версию Scilab, просьба сообщить об ошибке на "
+"http://bugzilla.scilab.org/.\n"
+
+#, c-format
+msgid ""
+"If you are using a self-built version of Scilab, update the script "
+"bin/scilab to provide the path to the JVM.\n"
+msgstr ""
+"Если вы используете самостоятельно собранную версию Scilab, обновите "
+"сценарий bin/scilab для указания пути к JVM.\n"
+
 msgid "JNI version error"
 msgstr "Ошибка версии JNI"
 
@@ -175,6 +191,9 @@ msgstr "JNI: недостаточно памяти"
 
 msgid "JVM interface disabled in -nogui or -nwni modes.\n"
 msgstr "Интерфейс JVM недоступен в режимах -nogui и -nwni.\n"
+
+msgid "Scilab Console"
+msgstr "Командное окно Scilab"
 
 msgid "Scilab Java module not installed.\n"
 msgstr "Модуль Java не установлен.\n"
@@ -188,6 +207,10 @@ msgstr ""
 "При загрузке библиотек Java были некоторые проблемы.\n"
 "Это может привести к неожиданному поведению.\n"
 "Проверьте SCI/etc/classpath.xml.\n"
+
+#, c-format
+msgid "The problem might be related to SELinux. Try to deactivate it.\n"
+msgstr "Проблема может быть связана с SELinux. Попробуйте отключить её.\n"
 
 msgid "Thread detached from the VM"
 msgstr "Поток отделён от VM"

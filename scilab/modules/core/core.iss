@@ -20,8 +20,6 @@ Source: modules\{#CORE}\sci_gateway\core_gateway.xml; DestDir: {app}\modules\{#C
 Source: modules\{#CORE}\etc\{#CORE}.quit; DestDir: {app}\modules\{#CORE}\etc; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\etc\{#CORE}.start; DestDir: {app}\modules\{#CORE}\etc; Components: {#COMPN_SCILAB}
 ;
-Source: modules\{#CORE}\help\addchapter.sce; DestDir: {app}\modules\{#CORE}\help; Flags: recursesubdirs; Components:  {#COMPN_SCILAB}
-;
 ;Source: modules\{#CORE}\includes\*.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\BOOL.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\core_math.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
@@ -49,6 +47,7 @@ Source: modules\{#CORE}\includes\stackinfo.h; DestDir: {app}\modules\{#CORE}\inc
 Source: modules\{#CORE}\includes\stackTypeVariable.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\version.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\includes\warningmode.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
+Source: modules\{#CORE}\includes\getversion.h; DestDir: {app}\modules\{#CORE}\includes; Components: {#COMPN_SCILAB}
 ;
 Source: modules\{#CORE}\macros\buildmacros.sce; DestDir: {app}\modules\{#CORE}\macros; Components: {#COMPN_SCILAB}
 Source: modules\{#CORE}\macros\buildmacros.bat; DestDir: {app}\modules\{#CORE}\macros; Components: {#COMPN_SCILAB}

@@ -1,8 +1,24 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Sylvestre KOUMAR
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
 package org.scilab.modules.gui.tree;
 
 import java.util.StringTokenizer;
 import java.util.Hashtable;
 
+/**
+ * Display a graphical tree
+ *
+ */
 public class ScilabDisplayTree {	
 
 	private static String[][] myShapedTree;
@@ -11,7 +27,7 @@ public class ScilabDisplayTree {
 	/**
 	 * PRIVATE constructor
 	 */
-	private ScilabDisplayTree() {}
+	private ScilabDisplayTree() { };
 
 	/**
 	 * scilabDisplayTree called with 1 arg (treeData)
@@ -28,7 +44,7 @@ public class ScilabDisplayTree {
 
 	/**
 	 * Get depth and parent node for each node
-	 * @param treeData
+	 * @param treeData data of a tree
 	 * @return treeShape
 	 */
 	public static String[][] treeShaping(String[] treeData) {
@@ -44,7 +60,7 @@ public class ScilabDisplayTree {
 			treeShape[i][0] = treeData[i];
 
 			// Get depth & parent node
-			if (i%4 == 0) {
+			if (i % 4 == 0) {
 				// Depth
 				st = new StringTokenizer(treeData[i], ".");
 				depth = st.countTokens() - 1;
@@ -76,14 +92,14 @@ public class ScilabDisplayTree {
 
 	/**
 	 * Get tree's max depth
-	 * @param myShapedTree
-	 * @return
+	 * @param myShapedTree shaped tree
+	 * @return an integer
 	 */
 	public static int getTreeDepth(String[][] myShapedTree) {
 		int depth = 0;
 		for (int i = 0; i < myShapedTree.length; i++) {
 
-			if (i%4 == 0 && i > 0) {
+			if (i % 4 == 0 && i > 0) {
 				if (Integer.parseInt(myShapedTree[i][1]) > depth) {
 					depth = Integer.parseInt(myShapedTree[i][1]);
 				}
@@ -94,7 +110,7 @@ public class ScilabDisplayTree {
 
 	/**
 	 * Create the tree structure
-	 * @param myShapedTree
+	 * @param myShapedTree shaped tree
 	 * @return ScilabTree
 	 */
 	public static ScilabTree createTree(String[][] myShapedTree) {
@@ -102,10 +118,10 @@ public class ScilabDisplayTree {
 		ScilabTree tree = null;
 		Hashtable<String, ScilabTree> treeVsPosition = new Hashtable<String, ScilabTree>();
 
-		tree = new ScilabTree(myShapedTree[1][0], myShapedTree[2][0],myShapedTree[3][0]);
+		tree = new ScilabTree(myShapedTree[1][0], myShapedTree[2][0], myShapedTree[3][0]);
 		treeVsPosition.put(myShapedTree[0][0], tree);
-		for (int i = 4; i < myShapedTree.length; i = i+4) {
-			tree = new ScilabTree(myShapedTree[i+1][0], myShapedTree[i+2][0],myShapedTree[i+3][0]);
+		for (int i = 4; i < myShapedTree.length; i = i + 4) {
+			tree = new ScilabTree(myShapedTree[i + 1][0], myShapedTree[i + 2][0], myShapedTree[i + 3][0]);
 			treeVsPosition.put(myShapedTree[i][0], tree);
 			((ScilabTree) treeVsPosition.get(myShapedTree[i][2])).addChild(tree);
 		}

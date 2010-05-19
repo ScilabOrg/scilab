@@ -14,6 +14,7 @@
 
 package org.scilab.modules.xcos.block.actions;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,12 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.actions.DefaultAction;
+import org.scilab.modules.graph.ScilabGraphUniqueObject;
+import org.scilab.modules.graph.actions.base.VertexSelectionDependantAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
-import org.scilab.modules.hdf5.scilabTypes.ScilabDouble;
-import org.scilab.modules.hdf5.scilabTypes.ScilabList;
-import org.scilab.modules.hdf5.scilabTypes.ScilabString;
-import org.scilab.modules.xcos.XcosUIDObject;
+import org.scilab.modules.types.scilabTypes.ScilabDouble;
+import org.scilab.modules.types.scilabTypes.ScilabList;
+import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.SplitBlock;
@@ -43,8 +44,8 @@ import org.scilab.modules.xcos.block.io.ImplicitOutBlock;
 import org.scilab.modules.xcos.block.io.ContextUpdate.IOBlocks;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.BasicBlockInfo;
-import org.scilab.modules.xcos.io.BlockWriter;
+import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
+import org.scilab.modules.xcos.io.scicos.DiagramElement;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
@@ -66,17 +67,22 @@ import com.mxgraph.model.mxGeometry;
  * Extract the selection to a new diagram and create a {@link SuperBlock} which
  * contains this new diagram.
  */
-public final class RegionToSuperblockAction extends DefaultAction {
-
-	/**
-	 * 
-	 */
+public final class RegionToSuperblockAction extends VertexSelectionDependantAction {
+	/** Name of the action */
+	public static final String NAME = XcosMessages.REGION_TO_SUPERBLOCK;
+	/** Icon name of the action */
+	public static final String SMALL_ICON = "";
+	/** Mnemonic key of the action */
+	public static final int MNEMONIC_KEY = 0;
+	/** Accelerator key for the action */
+	public static final int ACCELERATOR_KEY = 0;
+	
 	private static final String INTERFUNCTION_NAME = "SUPER_f";
 
 	/**
 	 * Any link which is broken by performing this action
 	 */
-    private class BrokenLink {
+    private static class BrokenLink {
 	private BasicLink link;
 	private BasicPort port;
 	private mxGeometry geom;
@@ -140,10 +146,11 @@ public final class RegionToSuperblockAction extends DefaultAction {
     }
 
     /**
+     * Default constructor
      * @param scilabGraph graph
      */
-    private RegionToSuperblockAction(ScilabGraph scilabGraph) {
-	super(XcosMessages.REGION_TO_SUPERBLOCK, scilabGraph);
+    public RegionToSuperblockAction(ScilabGraph scilabGraph) {
+	super(scilabGraph);
     }
 
     /**
@@ -151,12 +158,15 @@ public final class RegionToSuperblockAction extends DefaultAction {
      * @return menu item
      */
     public static MenuItem createMenu(ScilabGraph scilabGraph) {
-	return createMenu(XcosMessages.REGION_TO_SUPERBLOCK, null,
-		new RegionToSuperblockAction(scilabGraph), null);
+	return createMenu(scilabGraph, RegionToSuperblockAction.class);
     }
 
-    /** To be done on action */
-    public void doAction() {
+	/**
+	 * @param e parameter
+	 * @see org.scilab.modules.graph.actions.base.DefaultAction#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
 	XcosDiagram graph = (XcosDiagram) getGraph(null);
 	graph.info(XcosMessages.GENERATE_SUPERBLOCK);
@@ -165,7 +175,7 @@ public final class RegionToSuperblockAction extends DefaultAction {
 	/*
 	 * Update selection and return it.
 	 */
-	List<XcosUIDObject> selectedCells = updateForNotSelectedLinks(graph);
+	List<ScilabGraphUniqueObject> selectedCells = updateForNotSelectedLinks(graph);
 	
 	/*
 	 * Sort the selected cells to avoid misplacement
@@ -177,9 +187,9 @@ public final class RegionToSuperblockAction extends DefaultAction {
 	 */
 	Object[] cellArrays = getGraph(null).cloneCells(selectedCells.toArray());
 	Collection<Object> cells = Arrays.asList(cellArrays);
-	XcosUIDObject[] typedCells = new XcosUIDObject[cellArrays.length];
+	ScilabGraphUniqueObject[] typedCells = new ScilabGraphUniqueObject[cellArrays.length];
 	cells.toArray(typedCells);
-	List<XcosUIDObject> cellsCopy = Arrays.asList(typedCells);
+	List<ScilabGraphUniqueObject> cellsCopy = Arrays.asList(typedCells);
 	Object[] translationMatrix = new Object[cellsCopy.size()]; 
 	for (int i = 0; i < translationMatrix.length; i++) {
 	    translationMatrix[i] = selectedCells.get(i);
@@ -237,8 +247,8 @@ public final class RegionToSuperblockAction extends DefaultAction {
 	/*
 	 * Update block with real parameters
 	 */
-	superBlock.setRealParameters(BlockWriter.convertDiagramToMList(diagram));
-	superBlock.createChildDiagram();
+	superBlock.setRealParameters(new DiagramElement().encode(diagram));
+	superBlock.setChild(diagram);
 	
 	/*
 	 * Update the parent
@@ -293,9 +303,9 @@ public final class RegionToSuperblockAction extends DefaultAction {
      * @param cellsCopy list of selected cells
      * @return list of blocks
      */
-    private List<BasicBlock> getBlocks(List<XcosUIDObject> cellsCopy) {
+    private List<BasicBlock> getBlocks(List<ScilabGraphUniqueObject> cellsCopy) {
 	List<BasicBlock> list = new ArrayList<BasicBlock>(cellsCopy.size());
-	for (XcosUIDObject cell : cellsCopy) {
+	for (ScilabGraphUniqueObject cell : cellsCopy) {
 	    if (cell instanceof BasicBlock) {
 		if (!(cell instanceof SplitBlock)) {
 		    list.add((BasicBlock) cell);
@@ -310,12 +320,12 @@ public final class RegionToSuperblockAction extends DefaultAction {
      * @param graph parent diagram
      * @return new selected list
      */
-    private List<XcosUIDObject> updateForNotSelectedLinks(XcosDiagram graph) {
+    private List<ScilabGraphUniqueObject> updateForNotSelectedLinks(XcosDiagram graph) {
 
 	graph.getModel().beginUpdate();
 
 	for (int i = 0; i < graph.getSelectionCells().length; i++) {
-	    XcosUIDObject current = (XcosUIDObject) graph.getSelectionCells()[i];
+	    ScilabGraphUniqueObject current = (ScilabGraphUniqueObject) graph.getSelectionCells()[i];
 	    if (current instanceof BasicBlock) {
 		BasicBlock block = (BasicBlock) current;
 		for (int j = 0; j < block.getChildCount(); j++) {
@@ -340,10 +350,10 @@ public final class RegionToSuperblockAction extends DefaultAction {
 	
 	Object[] selectedCells = graph.getSelectionCells();
 	Collection<Object> cells = Arrays.asList(selectedCells);
-	XcosUIDObject[] typedCells = new XcosUIDObject[selectedCells.length];
+	ScilabGraphUniqueObject[] typedCells = new ScilabGraphUniqueObject[selectedCells.length];
 	cells.toArray(typedCells);
 	
-	return new ArrayList<XcosUIDObject>(Arrays.asList(typedCells));
+	return new ArrayList<ScilabGraphUniqueObject>(Arrays.asList(typedCells));
     }
 
 	/**
@@ -364,8 +374,10 @@ public final class RegionToSuperblockAction extends DefaultAction {
 
 		if (isInSelection(graph.getSelectionCells(), otherSide)) {
 		    graph.addSelectionCell(link);
-		} // isInSelection
-		
+		} else {
+			graph.removeSelectionCell(link);
+		}
+
 		if (otherSide instanceof SplitBlock) {
 		    graph.addSelectionCell(otherSide);
 		} // otherSide is a SplitBlock
@@ -393,21 +405,21 @@ public final class RegionToSuperblockAction extends DefaultAction {
 	    	target = (BasicPort) link.getLink().getTarget();
 
 	    	if (link.getLink() instanceof ExplicitLink) {
-	    		source = BasicBlockInfo.getAllExplicitOutputPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		source = BasicBlockInfo.getAllTypedPorts(superBlock, false, ExplicitOutputPort.class).get(link.getPortNumber() - 1);
 	    	} else if (link.getLink() instanceof ImplicitLink) {
-	    		source = BasicBlockInfo.getAllImplicitOutputPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		source = BasicBlockInfo.getAllTypedPorts(superBlock, false, ImplicitOutputPort.class).get(link.getPortNumber() - 1);
 	    	} else if (link.getLink() instanceof CommandControlLink) {
-	    		source = BasicBlockInfo.getAllCommandPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		source = BasicBlockInfo.getAllTypedPorts(superBlock, false, CommandPort.class).get(link.getPortNumber() - 1);
 	    	}
 	    } else {
 	    	source = (BasicPort) link.getLink().getSource();
 
 	    	if (link.getLink() instanceof ExplicitLink) {
-	    		target = BasicBlockInfo.getAllExplicitInputPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		target = BasicBlockInfo.getAllTypedPorts(superBlock, false, ExplicitInputPort.class).get(link.getPortNumber() - 1);
 	    	} else if (link.getLink() instanceof ImplicitLink) {
-	    		target = BasicBlockInfo.getAllImplicitInputPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		target = BasicBlockInfo.getAllTypedPorts(superBlock, false, ImplicitInputPort.class).get(link.getPortNumber() - 1);
 	    	} else if (link.getLink() instanceof CommandControlLink) {
-	    		target = BasicBlockInfo.getAllControlPorts(superBlock, false).get(link.getPortNumber() - 1);
+	    		target = BasicBlockInfo.getAllTypedPorts(superBlock, false, ControlPort.class).get(link.getPortNumber() - 1);
 	    	}
 	    }
 
@@ -499,6 +511,10 @@ public final class RegionToSuperblockAction extends DefaultAction {
 		}
 	    }
 
+		/**
+		 * FIXME: findbugs found that some execution path may lead to a
+		 * NullPointerException on the next line.
+		 */
 	    block.setGeometry(link.getGeometry());
 	    block.setExprs(new ScilabString(Integer.toString(link
 		    .getPortNumber())));
@@ -542,7 +558,7 @@ public final class RegionToSuperblockAction extends DefaultAction {
      * @param copiedCells The copy of the selected cells
      * @return all the broken links in the diagram
      */
-    private List<BrokenLink> getBrokenLinks(List<XcosUIDObject> objs, List<XcosUIDObject> copiedCells) {
+    private List<BrokenLink> getBrokenLinks(List<ScilabGraphUniqueObject> objs, List<ScilabGraphUniqueObject> copiedCells) {
 	List<BrokenLink> breaks = new ArrayList<BrokenLink>();	
 
 	int objsLength = objs.size();
@@ -586,28 +602,15 @@ public final class RegionToSuperblockAction extends DefaultAction {
     }
 
     /**
-     * @param breaks List of broken link in current selection
-     */
-    private void printBreakingLink(List<BrokenLink> breaks) {
-	System.err.println("breaks count : " + breaks.size());
-
-	for (BrokenLink brk : breaks) {
-	    System.err.println("Link : " + brk.getLink());
-	    System.err.println("OutGoing : " + brk.getOutGoing());
-	    System.err.println("Geometry : " + brk.getGeometry());
-	}
-    }
-
-    /**
      * @param blocks list of blocks
      * @return integer list of max values
      */
-    private List<Integer> getMaxBlocksValues(List<XcosUIDObject> blocks) {
+    private List<Integer> getMaxBlocksValues(List<ScilabGraphUniqueObject> blocks) {
 	List<Integer> values = new ArrayList<Integer>();
 	Map<ContextUpdate.IOBlocks, List<BasicBlock>> items = new EnumMap<ContextUpdate.IOBlocks, List<BasicBlock>>(ContextUpdate.IOBlocks.class);
 
 	// ExplicitInBlock
-	for (XcosUIDObject cell : blocks) {
+	for (ScilabGraphUniqueObject cell : blocks) {
 	    if (cell instanceof ContextUpdate) {
 	    if (cell instanceof ExplicitOutBlock) {
 		if (!items.containsKey(IOBlocks.ExplicitInBlock)) {

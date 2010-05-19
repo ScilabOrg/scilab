@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2009-12-15 15:34+0000\n"
+"PO-Revision-Date: 2010-04-13 09:25+0000\n"
 "Last-Translator: Allan CORNET <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-15 16:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -43,6 +42,17 @@ msgid "%s: Wrong size for input argument #%d: A string expected.\n"
 msgstr ""
 "%s : Mauvaise dimension pour l'argument d'entrée n°%d : Une chaîne de "
 "caractères attendue.\n"
+
+#, c-format
+msgid "%s: Wrong type for argument %d: String or diagram structure expected"
+msgstr ""
+"%s: mauvais type pour l'argument %d: Chaîne ou structure du diagramme "
+"attendue."
+
+#, c-format
+msgid "%s: Wrong type for argument %d: diagram structure expected"
+msgstr ""
+"%s: mauvais type pour l'argument %d: Structure du diagramme attendue."
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
@@ -149,6 +159,9 @@ msgstr "Appels au bloc Debug, sans trace"
 msgid "Default"
 msgstr "Standard"
 
+msgid "Default values"
+msgstr "Valeurs par défaut"
+
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -186,6 +199,9 @@ msgstr "Copie (dump)"
 
 msgid "Edit"
 msgstr "Edition"
+
+msgid "Editable"
+msgstr "Éditable"
 
 msgid "Electrical"
 msgstr "Électrique"
@@ -239,6 +255,9 @@ msgstr "Retourner"
 msgid "Format"
 msgstr "Format"
 
+msgid "From %s"
+msgstr "De %s"
+
 msgid "Generate SuperBlock, please wait ..."
 msgstr "Generation SuperBlock, veuillez patienter ..."
 
@@ -247,6 +266,9 @@ msgstr "Génère le code C du superbloc"
 
 msgid "Get infos"
 msgstr "Récupérer les informations"
+
+msgid "Goto %s"
+msgstr "Aller à %s"
 
 msgid "Grid"
 msgstr "Grille"
@@ -281,6 +303,9 @@ msgstr ""
 msgid "Import from XML"
 msgstr "Importer à partir du XML"
 
+msgid "Insert"
+msgstr "Insérer"
+
 msgid "Integer"
 msgstr "Entier"
 
@@ -296,8 +321,8 @@ msgstr "Inverser la sélection"
 msgid "Left"
 msgstr "Gauche"
 
-msgid "Light Simulation trace (Discrete and Continous part switches)"
-msgstr "Trace de l'alternance des modes Discret et Continu"
+msgid "Light Simulation trace (Discrete and Continuous part switches)"
+msgstr "Light Simulation trace (Discrete and Continuous part switches)"
 
 msgid "Link Style"
 msgstr "Style du lien"
@@ -317,6 +342,9 @@ msgstr "Chargement de la palette personnalisée"
 msgid "Lookup Tables"
 msgstr "Interpolation"
 
+msgid "Masked SuperBlock editor"
+msgstr "Éditeur de masque de SuperBlock"
+
 msgid "Mathematical Operations"
 msgstr "Opérations mathématiques"
 
@@ -331,6 +359,12 @@ msgstr "Milieu"
 
 msgid "Mirror"
 msgstr "Miroir"
+
+msgid "Move Down"
+msgstr "Descendre"
+
+msgid "Move Up"
+msgstr "Monter"
 
 msgid "New"
 msgstr "Nouveau"
@@ -407,6 +441,12 @@ msgstr "Droite"
 msgid "Rotate"
 msgstr "Rotation"
 
+msgid "Rows"
+msgstr "Lignes"
+
+msgid "Same command executed again"
+msgstr "La même commande s'est encore exécutée."
+
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -444,6 +484,9 @@ msgstr "Modifier le Contexte"
 
 msgid "Set Parameters"
 msgstr "Règle les paramètres"
+
+msgid "Set block parameters"
+msgstr "Configuration des Paramètres du bloc"
 
 msgid "Set debugging level (0,1,2,3) <br/> it performs scicos_debug(n)"
 msgstr ""
@@ -492,6 +535,9 @@ msgstr "Droit"
 msgid "Superblock mask"
 msgstr "Masque du superbloc"
 
+msgid "The Scicos libraries are not loaded"
+msgstr "Les bibliothèques Scicos ne sont pas chargées"
+
 msgid "The Scilab Consortium (DIGITEO)"
 msgstr "Scilab Consortium (DIGITEO)"
 
@@ -517,11 +563,22 @@ msgstr "Haut"
 msgid "UnGroup"
 msgstr "Dégrouper"
 
+msgid "Unable to communicate with the interpreter"
+msgstr "Impossible de communiquer avec l'interprète."
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Impossible d'ouvrir %s"
+
+#, c-format
+msgid "Unable to simulate %s"
+msgstr "Impossible de simuler %s"
+
 msgid "Undo"
 msgstr "Annuler"
 
-msgid "Unknow Diagram Version : "
-msgstr "Version du diagramme inconnue: "
+msgid "Unknown Diagram Version : "
+msgstr "Version inconnue de diagramme : "
 
 msgid "Untitled"
 msgstr "Sans titre"
@@ -531,6 +588,18 @@ msgstr "Définit par l'utilisateur"
 
 msgid "User-Defined Functions"
 msgstr "Fonctions définies par l'utilisateur"
+
+msgid "Values"
+msgstr "Valeurs"
+
+msgid "Variable descriptions"
+msgstr "Descriptions"
+
+msgid "Variable names"
+msgstr "Noms"
+
+msgid "Variable settings"
+msgstr "Propriétés des variables"
 
 msgid "Vertical"
 msgstr "Vertical"
@@ -547,11 +616,14 @@ msgstr "Zone d'affichage"
 msgid "Will try to continue..."
 msgstr "Essayera de continuer ..."
 
+msgid "WinTitle"
+msgstr "TitreFenêtre"
+
+msgid "Window title"
+msgstr "Titre de la fenêtre"
+
 msgid "Xcos"
 msgstr "Xcos"
-
-msgid "Xcos 1.0"
-msgstr "Xcos 1.0"
 
 msgid "Xcos Demos"
 msgstr "Démos Xcos"
@@ -564,9 +636,6 @@ msgstr "Erreur Xcos"
 
 msgid "Xcos file"
 msgstr "Fichier Xcos"
-
-msgid "Xcos version 1.0"
-msgstr "Xcos version 1.0"
 
 msgid ""
 "You may enter here scilab instructions to define symbolic parameters used in "

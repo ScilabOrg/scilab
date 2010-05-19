@@ -24,7 +24,6 @@ import org.scilab.modules.xcos.block.TextBlock;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.palette.view.PaletteComponent;
 import org.scilab.modules.xcos.utils.BlockPositioning;
-import org.scilab.modules.xcos.utils.ConfigXcosManager;
 import org.scilab.modules.xcos.utils.XcosConstants;
 
 import com.mxgraph.model.mxGeometry;
@@ -47,7 +46,9 @@ public class PaletteDiagram extends XcosDiagram {
      */
     public PaletteDiagram() {
 	super();
-	component = new PaletteComponent(this);
+	setComponent(new PaletteComponent(this));
+	
+	setComponent(new PaletteComponent(this));
 	
 	setCellsLocked(true);
 	setGridVisible(false);
@@ -87,8 +88,7 @@ public class PaletteDiagram extends XcosDiagram {
 			for (Object object : tobeRemoved) {
 				getModel().remove(object);
 			}
-			
-			ConfigXcosManager.saveUserDefinedPalettes(diagramFileName);
+
 			return true;
 		}
 		return false;

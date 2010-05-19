@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
-// Copyright (C) 2008-2009 DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
+// Copyright (C) 2008-2010 DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
 // Copyright (C) 2009 DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
 //
 // This file must be used under the terms of the CeCILL.
@@ -30,7 +30,15 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 	
 	global %helps;
 	global %helps_modules;
-	%HELPS=[%helps_modules;%helps];
+	
+	if %helps_modules == [] then
+	  moduleslist = getmodules();
+	  for i = 1:size(moduleslist,'*')
+	    add_module_help_chapter(moduleslist(i));
+	  end
+	end
+	
+	%HELPS = [%helps_modules; %helps];
 	
 	SCI_long = pathconvert(getlongpathname(SCI),%F,%F);
 	
@@ -227,7 +235,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 		end
 		
 		chdir(dirs(k));
-		if MSDOS then
+		if getos() == 'Windows' then
 			dirs(k) = getlongpathname(pwd());
 		else
 			dirs(k) = pwd();
@@ -243,7 +251,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 				error(msprintf(gettext("%s: Directory %s does not exist or read access denied."),"xmltoformat",dirs_m(k)));
 			end
 			chdir(dirs_m(k));
-			if MSDOS then
+			if getos() == 'Windows' then
 				dirs_m(k) = getlongpathname(pwd());
 			else
 				dirs_m(k) = pwd();
@@ -256,7 +264,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 				error(msprintf(gettext("%s: Directory %s does not exist or read access denied."),"xmltoformat",dirs_c(k)));
 			end
 			chdir(dirs_c(k));
-			if MSDOS then
+			if getos() == 'Windows' then
 				dirs_c(k) = getlongpathname(pwd());
 			else
 				dirs_c(k) = pwd();
@@ -957,7 +965,7 @@ function tree = x2f_dir_to_tree(directory,level)
 	
 	// Get the default title
 	
-	if MSDOS then
+	if getos() == 'Windows' then
 		tmpdirectory = strsubst(directory,"/\\$/","","r");
 	else
 		tmpdirectory = strsubst(directory,"/\/$/","","r");
@@ -1065,9 +1073,18 @@ function xmlfiles = x2f_get_xml_files(directory)
 		lmt   = [];
 	end
 	
+	// xmlfiles => md5sum
+	// =========================================================================
+	
+	if xmlfiles <> [] then
+		xmlmd5 = "a" + getmd5(xmlpaths,"string");
+	else
+		xmlmd5 = [];
+	end
+	
 	// Build the final matrix
 	// =========================================================================
-	xmlfiles = [ xmlfiles xmlpaths lmt ];
+	xmlfiles = [ xmlmd5 xmlpaths lmt xmlfiles];
 	
 endfunction
 
@@ -1374,7 +1391,7 @@ function master_document = x2f_tree_to_master( tree )
 	tree_xmllist = x2f_cat_xmllist( tree , [] )
 	
 	// Process the path if under windows
-	if MSDOS then
+	if getos() == 'Windows' then
 		tree_xmllist(:,2) = "file:///"+ getshortpathname(tree_xmllist(:,2));
 	end
 	
@@ -1654,8 +1671,8 @@ function tree_out = x2f_merge_trees( tree_in_1 , tree_in_2 )
 	
 	xmllist_out = xmllist_2;
 	
-	for i=1:size(xmllist_1(:,1),"*")
-		if find(xmllist_2(:,1) == xmllist_1(i,1)) == [] then
+	for i=1:size(xmllist_1(:,4),"*")
+		if find(xmllist_2(:,4) == xmllist_1(i,4)) == [] then
 			xmllist_out             = [ xmllist_out ; xmllist_1(i,:) ];
 			tree_out("xml_number")  = tree_out("xml_number") + 1;
 		end

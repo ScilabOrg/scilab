@@ -8,15 +8,16 @@
 ; are also available at
 ; http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 ;
-;##############################################################################################################
-; Script d'installation Inno Setup (5.2.1) pour scilab
-; Version TRUNK
-;##############################################################################################################
 ;--------------------------------------------------------------------------------------------------------------
 ; double module
 ;--------------------------------------------------------------------------------------------------------------
 ;
 #define DOUBLE "double"
+;
+Source: bin\{#DOUBLE}.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\{#DOUBLE}.lib; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\double_f.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\double_f.lib; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
 Source: modules\{#DOUBLE}\VERSION.xml; DestDir: {app}\modules\{#DOUBLE}; Components: {#COMPN_SCILAB}
 Source: modules\{#DOUBLE}\readme.txt; DestDir: {app}\modules\{#DOUBLE}; Components: {#COMPN_SCILAB}
@@ -25,8 +26,6 @@ Source: modules\{#DOUBLE}\changelog.txt; DestDir: {app}\modules\{#DOUBLE}; Compo
 ;
 Source: modules\{#DOUBLE}\etc\{#DOUBLE}.quit; DestDir: {app}\modules\{#DOUBLE}\etc; Components: {#COMPN_SCILAB}
 Source: modules\{#DOUBLE}\etc\{#DOUBLE}.start; DestDir: {app}\modules\{#DOUBLE}\etc; Components: {#COMPN_SCILAB}
-;
-Source: modules\{#DOUBLE}\help\addchapter.sce; DestDir: {app}\modules\{#DOUBLE}\help; Flags: recursesubdirs; Components:  {#COMPN_SCILAB}
 ;
 ;Source: modules\{#DOUBLE}\includes\*.h; DestDir: {app}\modules\{#DOUBLE}\includes; Components: {#COMPN_SCILAB}
 ;

@@ -12,6 +12,7 @@
 
 package org.scilab.modules.xcos.block;
 
+import static org.scilab.modules.xcos.utils.FileUtils.delete;
 
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
@@ -24,11 +25,17 @@ import java.util.Map;
 
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.ScilabGraphUniqueObject;
 import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
-import org.scilab.modules.graph.actions.DefaultAction;
 import org.scilab.modules.graph.actions.DeleteAction;
+import org.scilab.modules.graph.actions.base.DefaultAction;
+import org.scilab.modules.graph.utils.ScilabInterpreterManagement;
+import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.utils.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.contextmenu.ScilabContextMenu;
@@ -37,59 +44,66 @@ import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
-import org.scilab.modules.hdf5.scilabTypes.ScilabDouble;
-import org.scilab.modules.hdf5.scilabTypes.ScilabList;
-import org.scilab.modules.hdf5.scilabTypes.ScilabString;
-import org.scilab.modules.hdf5.scilabTypes.ScilabType;
 import org.scilab.modules.hdf5.write.H5Write;
+import org.scilab.modules.types.scilabTypes.ScilabDouble;
+import org.scilab.modules.types.scilabTypes.ScilabList;
+import org.scilab.modules.types.scilabTypes.ScilabString;
+import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.xcos.Xcos;
-import org.scilab.modules.xcos.XcosUIDObject;
 import org.scilab.modules.xcos.actions.ShowHideShadowAction;
-import org.scilab.modules.xcos.block.actions.AlignBlockAction;
 import org.scilab.modules.xcos.block.actions.BlockDocumentationAction;
 import org.scilab.modules.xcos.block.actions.BlockParametersAction;
-import org.scilab.modules.xcos.block.actions.ColorAction;
+import org.scilab.modules.xcos.block.actions.BorderColorAction;
+import org.scilab.modules.xcos.block.actions.EditBlockFormatAction;
+import org.scilab.modules.xcos.block.actions.FilledColorAction;
 import org.scilab.modules.xcos.block.actions.FlipAction;
 import org.scilab.modules.xcos.block.actions.MirrorAction;
 import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.RotateAction;
 import org.scilab.modules.xcos.block.actions.ViewDetailsAction;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockAction;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionBottom;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionCenter;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionLeft;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionMiddle;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionRight;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionTop;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.BasicBlockInfo;
-import org.scilab.modules.xcos.io.BlockReader;
+import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
+import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
 import org.scilab.modules.xcos.port.control.ControlPort;
 import org.scilab.modules.xcos.port.input.InputPort;
 import org.scilab.modules.xcos.port.output.OutputPort;
 import org.scilab.modules.xcos.utils.BlockPositioning;
-import org.scilab.modules.xcos.utils.StyleMap;
+import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosEvent;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement;
 import org.scilab.modules.xcos.utils.XcosMessages;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement.InterpreterException;
 
 import com.mxgraph.model.mxGeometry;
-import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 
-public class BasicBlock extends XcosUIDObject {
-	private static final long serialVersionUID = 2189690915516168262L;
-	private static final String INTERNAL_FILE_PREFIX = "xcos";
-	private static final String INTERNAL_FILE_EXTENSION = ".h5";
+public class BasicBlock extends ScilabGraphUniqueObject {
+	private static final double DEFAULT_POSITION_X = 10.0;
+	private static final double DEFAULT_POSITION_Y = 10.0;
+	private static final double DEFAULT_WIDTH = 40.0;
+	private static final double DEFAULT_HEIGHT = 40.0;
+	
+	private static final Log LOG = LogFactory.getLog(BasicBlock.class);
 	
     private String interfaceFunctionName = "xcos_block";
     private String simulationFunctionName = "xcos_simulate";
     private SimulationFunctionType simulationFunctionType = SimulationFunctionType.DEFAULT;
     private transient XcosDiagram parentDiagram;
     
-    private transient int angle;
-    private transient boolean isFlipped;
-    private transient boolean isMirrored;
+    private int angle;
+    private boolean isFlipped;
+    private boolean isMirrored;
     
 
     // TODO : Must make this types evolve, but for now keep a strong link to Scilab
@@ -127,9 +141,9 @@ public class BasicBlock extends XcosUIDObject {
 	 * Represent a simulation function type compatible with Scilab/Scicos
 	 * function type descriptors.
 	 */
-	public enum SimulationFunctionType {
+	public static enum SimulationFunctionType {
 		ESELECT(-2.0), IFTHENELSE(-1.0), DEFAULT(0.0), TYPE_1(1.0), TYPE_2(2.0),
-		TYPE_3(3.0), C_OR_FORTRAN(4.0), SCILAB(5.0), UNKNOWN(5.0);
+		    TYPE_3(3.0), C_OR_FORTRAN(4.0), SCILAB(5.0), MODELICA(30004.0), UNKNOWN(5.0), OLDBLOCKS(10001.0);
 
 		private double value;
 
@@ -204,7 +218,8 @@ public class BasicBlock extends XcosUIDObject {
 		setVisible(true);
 		setVertex(true);
 		setConnectable(false);
-		setGeometry(new mxGeometry(0, 0, 40, 40));
+		setGeometry(new mxGeometry(DEFAULT_POSITION_X, DEFAULT_POSITION_Y,
+				DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		setValue("");
 		setStyle("");
 	}
@@ -235,7 +250,16 @@ public class BasicBlock extends XcosUIDObject {
      * @param interfaceFunctionName interface function name
      */
     public void setInterfaceFunctionName(String interfaceFunctionName) {
-	this.interfaceFunctionName = interfaceFunctionName;
+    	String interfunction = getInterfaceFunctionName();
+    	this.interfaceFunctionName = interfaceFunctionName;
+    	
+    	/*
+    	 * Update style
+    	 */
+    	StyleMap style = new StyleMap(getStyle());
+    	style.remove(interfunction);
+    	style.put(interfaceFunctionName, null);
+    	setStyle(style.toString());
     }
 
     /**
@@ -607,42 +631,54 @@ public class BasicBlock extends XcosUIDObject {
 	final File tempOutput;
 	final File tempInput;
 	final File tempContext;
+	final BasicBlock currentBlock = this;
+	
 	try {
-	    tempInput = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, new File(System.getenv("TMPDIR")));
-	    tempInput.deleteOnExit();
+	    tempInput = FileUtils.createTempFile();
 
 	    // Write scs_m
 	    tempOutput = exportBlockStruct();
 	    // Write context
 	    tempContext = exportContext(context);
-
-	    String cmd;
 	    
-	    cmd = "xcosBlockInterface(\"" + tempOutput.getAbsolutePath() + "\"";
-	    cmd += ", \"" + tempInput.getAbsolutePath() + "\"";
-	    cmd += ", " + getInterfaceFunctionName();
-	    cmd += ", \"set\"";
-	    cmd += ", \"" + tempContext.getAbsolutePath() + "\");";
-	    
-	    final BasicBlock currentBlock = this;
-	    try {
-			XcosInterpreterManagement.asynchronousScilabExec(cmd, new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					// Now read new Block
-				    BasicBlock modifiedBlock = BlockReader.readBlockFromFile(tempInput.getAbsolutePath());
-				    updateBlockSettings(modifiedBlock);
-				    getParentDiagram().fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, 
-					    currentBlock));
-				    setLocked(false);
+	    final ActionListener action = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tempInput.exists()) {
+					LOG.trace("Updating data.");
+					
+				// Now read new Block
+			    BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
+			    updateBlockSettings(modifiedBlock);
+			    
+			    getParentDiagram().fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, 
+				    currentBlock));
+				} else {
+					LOG.trace("No needs to update data.");
 				}
-			});
+				
+			    setLocked(false);
+			    delete(tempInput);
+			    delete(tempOutput);
+			    delete(tempContext);
+			}
+		};
+		
+	    try {
+			ScilabInterpreterManagement.asynchronousScilabExec(action, 
+				"xcosBlockInterface", 
+				tempOutput.getAbsolutePath(),
+				tempInput.getAbsolutePath(),
+				getInterfaceFunctionName().toCharArray(),
+				"set",
+				tempContext.getAbsolutePath());
 		} catch (InterpreterException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	    setLocked(true);
 
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    LOG.error(e);
 	}
     }
 
@@ -654,15 +690,12 @@ public class BasicBlock extends XcosUIDObject {
 	// Write scs_m
 	File tempOutput;
 	try {
-	    tempOutput = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION, new File(System.getenv("TMPDIR")));
+	    tempOutput = FileUtils.createTempFile();
 	    tempOutput.deleteOnExit();
-	    int fileId = H5Write.createFile(tempOutput.getAbsolutePath());
-	    H5Write.writeInDataSet(fileId, "scs_m", BasicBlockInfo.getAsScilabObj(this));
-	    H5Write.closeFile(fileId);
+	    
+	    new H5RWHandler(tempOutput).writeBlock(this);
 	    return tempOutput;
 	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (HDF5Exception e) {
 	    e.printStackTrace();
 	}
 	return null;
@@ -676,7 +709,7 @@ public class BasicBlock extends XcosUIDObject {
 
 	// Write context
 	try {
-	    File tempContext = File.createTempFile(INTERNAL_FILE_PREFIX, INTERNAL_FILE_EXTENSION);
+	    File tempContext = FileUtils.createTempFile();
 	    tempContext.deleteOnExit();
 	    int contextFileId = H5Write.createFile(tempContext.getAbsolutePath());
 	    H5Write.writeInDataSet(contextFileId, "context", new ScilabString(context));
@@ -765,8 +798,7 @@ public class BasicBlock extends XcosUIDObject {
 		    BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
 		    theDiagram.getModel().add(theDiagram.getDefaultParent(), block, 0);
 		    mxGeometry geom = BasicBlock.this.getGeometry();
-		    geom.setX(10);
-		    geom.setY(10);
+		    setDefaultPosition(geom);
 		    theDiagram.getModel().setGeometry(block, geom);
 		    BlockPositioning.updateBlockView(block);
 		}
@@ -787,8 +819,7 @@ public class BasicBlock extends XcosUIDObject {
 		    BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
 		    theDiagram.getModel().add(theDiagram.getDefaultParent(), block, 0);
 		    mxGeometry geom = BasicBlock.this.getGeometry();
-		    geom.setX(10);
-		    geom.setY(10);
+		    setDefaultPosition(geom);
 		    theDiagram.getModel().setGeometry(block, geom);
 		    BlockPositioning.updateBlockView(block);
 		    block.setParentDiagram(theDiagram);
@@ -814,8 +845,7 @@ public class BasicBlock extends XcosUIDObject {
 			BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
 			theDiagram.getModel().add(theDiagram.getDefaultParent(), block, 0);
 			mxGeometry geom = BasicBlock.this.getGeometry();
-			geom.setX(10);
-			geom.setY(10);
+		    setDefaultPosition(geom);
 			theDiagram.getModel().setGeometry(block, geom);
 			BlockPositioning.updateBlockView(block);
 		    }
@@ -835,7 +865,7 @@ public class BasicBlock extends XcosUIDObject {
 	    private static final long serialVersionUID = -1480947262397441951L;
 
 	    public void callBack() {
-		XcosInterpreterManagement.requestScilabExec("help " + getInterfaceFunctionName());
+		ScilabInterpreterManagement.requestScilabExec("help " + getInterfaceFunctionName());
 	    }
 	});
 	menu.add(help);
@@ -877,11 +907,6 @@ public class BasicBlock extends XcosUIDObject {
 		value = RegionToSuperblockAction.createMenu(graph);
 		menuList.put(RegionToSuperblockAction.class, value);
 		menu.add(value);
-//		Menu mask = ScilabMenu.createMenu();
-//		mask.setText(XcosMessages.SUPERBLOCK_MASK);
-//		menu.add(mask);
-//		mask.add(SuperblockMaskCreateAction.createMenu(graph));
-//		mask.add(SuperblockMaskRemoveAction.createMenu(graph));
 		/*--- */
 		menu.getAsSimpleContextMenu().addSeparator();
 		/*--- */
@@ -905,20 +930,24 @@ public class BasicBlock extends XcosUIDObject {
 		/*--- */
 		Menu alignMenu = ScilabMenu.createMenu();
 		alignMenu.setText(XcosMessages.ALIGN_BLOCKS);
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_LEFT, mxConstants.ALIGN_LEFT));
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_CENTER, mxConstants.ALIGN_CENTER));
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_RIGHT, mxConstants.ALIGN_RIGHT));
+		alignMenu.add(AlignBlockActionLeft.createMenu(graph));
+		alignMenu.add(AlignBlockActionCenter.createMenu(graph));
+		alignMenu.add(AlignBlockActionRight.createMenu(graph));
 		alignMenu.addSeparator();
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_TOP, mxConstants.ALIGN_TOP));
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_MIDDLE, mxConstants.ALIGN_MIDDLE));
-		alignMenu.add(AlignBlockAction.createMenu(graph, XcosMessages.ALIGN_BOTTOM, mxConstants.ALIGN_BOTTOM));
+		alignMenu.add(AlignBlockActionTop.createMenu(graph));
+		alignMenu.add(AlignBlockActionMiddle.createMenu(graph));
+		alignMenu.add(AlignBlockActionBottom.createMenu(graph));
 		menuList.put(AlignBlockAction.class, alignMenu);
 		format.add(alignMenu);
 		/*--- */
 		format.addSeparator();
 		/*--- */
-		format.add(ColorAction.createMenu(graph, XcosMessages.BORDER_COLOR, mxConstants.STYLE_STROKECOLOR));
-		format.add(ColorAction.createMenu(graph, XcosMessages.FILL_COLOR, mxConstants.STYLE_FILLCOLOR));
+		if (graph.getSelectionCells().length > 1) {
+			format.add(BorderColorAction.createMenu(graph));
+			format.add(FilledColorAction.createMenu(graph));
+		} else {
+			format.add(EditBlockFormatAction.createMenu(graph));
+		}
 		/*--- */
 		menu.getAsSimpleContextMenu().addSeparator();
 		/*--- */
@@ -1023,7 +1052,7 @@ public class BasicBlock extends XcosUIDObject {
 	this.angle = angle;
 	
 	if (getParentDiagram() != null) {
-	    mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] {this}, XcosConstants.STYLE_ROTATION, new Integer(angle).toString());
+	    mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] {this}, XcosConstants.STYLE_ROTATION, Integer.toString(angle));
 	}
     }
 
@@ -1041,5 +1070,14 @@ public class BasicBlock extends XcosUIDObject {
 		
 		isFlipped = Boolean.parseBoolean(map.get(XcosConstants.STYLE_FLIP));
 		isMirrored = Boolean.parseBoolean(map.get(XcosConstants.STYLE_MIRROR));
+	}
+
+	/**
+	 * Set the default block position on the geom
+	 * @param geom the current geom
+	 */
+	private void setDefaultPosition(mxGeometry geom) {
+		geom.setX(DEFAULT_POSITION_X);
+		geom.setY(DEFAULT_POSITION_Y);
 	}
 }

@@ -1,4 +1,4 @@
-## Macros "stolen" from jacl (http://tcljava.sourceforge.net/)
+## Macros "stolen" from jacl (http://tcljava.sourceforge.net/)
 ## They made a great job on this part !
 
 #------------------------------------------------------------------------
@@ -68,7 +68,9 @@ AC_DEFUN([AC_PROG_JAVAC], [
 	case "$host_os" in
 	     *darwin* ) 
 	     # Don't follow the symlink since Java under MacOS is messy
-		JAVAC="/System/Library/Frameworks/JavaVM.framework/Home/bin/javac"
+	     # Uses the wrapper providing by Apple to retrieve the path
+	     # See: http://developer.apple.com/mac/library/qa/qa2001/qa1170.html
+		JAVAC=$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)/bin/javac
 		DONT_FOLLOW_SYMLINK=yes
 		;;
 	esac
@@ -153,24 +155,30 @@ EOF
     CLASSPATH=$ac_java_classpath
     export CLASSPATH
     cmd="$JAVAC ${JAVAC_FLAGS} conftest.java"
-    if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD) ; then
+    if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >&conftest.java.output 2>&AS_MESSAGE_LOG_FD) ; then
        if test "$3" = "no"; then
            echo "yes" >&AS_MESSAGE_LOG_FD
    		   $4
 	   else
 	   	   cmd="$JAVA conftest"
-	   	   if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >&AS_MESSAGE_LOG_FD 2>&AS_MESSAGE_LOG_FD); then
+	   	   if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >&conftest.java.output 2>&AS_MESSAGE_LOG_FD); then
 	           echo "yes" >&AS_MESSAGE_LOG_FD
        		   $4
 			else
 		        echo "configure: failed program was:" >&AS_MESSAGE_LOG_FD
 				cat conftest.java >&AS_MESSAGE_LOG_FD
+                if test -s conftest.java.output; then
+                   STDOUT=`cat conftest.java.output`
+                fi
         		echo "configure: CLASSPATH was $CLASSPATH" >&AS_MESSAGE_LOG_FD
         		m4_ifval([$5],
         		[  $5
         		])dnl
 			fi
 		fi
+        if test -f conftest.java.output; then 
+           rm conftest.java.output
+        fi
     else
         echo "configure: failed program was:" >&AS_MESSAGE_LOG_FD
         cat conftest.java >&AS_MESSAGE_LOG_FD
@@ -224,7 +232,8 @@ Maybe JAVA_HOME is pointing to a JRE (Java Runtime Environment) instead of a JDK
 		case "$host_os" in
 		     *darwin* ) 
 			AC_MSG_RESULT([Darwin (Mac OS X) found. Use the standard paths.])
-			ac_java_jvm_dir="/System/Library/Frameworks/JavaVM.framework/Home/"
+			# See: http://developer.apple.com/mac/library/qa/qa2001/qa1170.html
+			ac_java_jvm_dir=$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)
 			JAVAC=$ac_java_jvm_dir/bin/javac
 			;;
 		esac
@@ -433,7 +442,7 @@ AC_DEFUN([AC_JAVA_JNI_LIBS], [
 		# Solaris 10 x86
           machine=i386
           ;;
-		sun*)
+		sun*|sparc64)
        # Sun
           machine=sparc
           ;;
@@ -445,6 +454,9 @@ AC_DEFUN([AC_JAVA_JNI_LIBS], [
 		  ;;
 		  s390x) # s390 arch can also returns s390x
 		  machine=s390
+		  ;;
+	    sh*)
+	  	  machine=sh
 		  ;;
     esac
 
@@ -807,7 +819,7 @@ AC_DEFUN([AC_JAVA_CHECK_PACKAGE], [
 	PACKAGE_JAR_FILE=
 	found_jar=no
 	saved_ac_java_classpath=$ac_java_classpath
-	DEFAULT_JAR_DIR="/usr/share/java/ /usr/lib/java/ /usr/share/java /usr/share/java/jar /opt/java/lib /usr/local/java /usr/local/java/jar /usr/local/share/java /usr/local/share/java/jar /usr/local/lib/java $(ls -d /usr/share/java/*/ 2>/dev/null) $(ls -d /usr/lib64/*/ 2>/dev/null) $(ls -d /usr/lib/*/ 2>/dev/null)"
+	DEFAULT_JAR_DIR="/usr/share/java/ /usr/lib/java/ /usr/share/java /usr/share/java/jar /opt/java/lib /usr/local/java /usr/local/java/jar /usr/local/share/java /usr/local/share/java/jar /usr/local/lib/java $(ls -d /usr/share/java/*/ 2>/dev/null) $(ls -d /usr/lib64/*/ 2>/dev/null) $(ls -d /usr/lib/*/ 2>/dev/null)  $(ls -d /usr/share/*/lib/ 2>/dev/null)"
     for jardir in "`pwd`/thirdparty" "`pwd`/jar" $DEFAULT_JAR_DIR "$_user_libdir"; do
       for jar in "$jardir/$1.jar" "$jardir/lib$1.jar" "$jardir/lib$1-java.jar" "$jardir/$1*.jar"; do
 #	jar=`echo $jar|sed -e 's/ /\\ /'`
@@ -815,7 +827,8 @@ AC_DEFUN([AC_JAVA_CHECK_PACKAGE], [
 #	jar_resolved=`ls $jar 2>/dev/null`
 #	echo "looking for $jar_resolved"
 # TODO check the behaviour when spaces
-	jar_resolved=`ls -r $jar 2>/dev/null`
+	jars_resolved=`ls $jar 2>/dev/null`
+	for jar_resolved in $jars_resolved; do # If several jars matches
         if test -e "$jar_resolved"; then
           export ac_java_classpath="$jar_resolved:$ac_java_classpath"
           AC_JAVA_TRY_COMPILE([import $2;], , "no", [
@@ -828,7 +841,13 @@ AC_DEFUN([AC_JAVA_CHECK_PACKAGE], [
 			
           ])
         fi
+	  done
+	  # If ls returns several results and the first one is OK, stop the search
+      if test "$found_jar" = "yes"; then 
+        break
+      fi
       done
+	  # If found, no need to search in other directory
       if test "$found_jar" = "yes"; then
         break
       fi

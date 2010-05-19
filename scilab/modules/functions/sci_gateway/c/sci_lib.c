@@ -11,6 +11,7 @@
 *
 */
 /*--------------------------------------------------------------------------*/
+#include <string.h>
 #include "stack-c.h"
 #include "gw_functions.h"
 #include "api_scilab.h"
@@ -19,6 +20,10 @@
 #include "MALLOC.h"
 #include "machine.h"
 #include "FileExist.h"
+#include "getFullFilename.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
 /*--------------------------------------------------------------------------*/
 extern int C2F(intlib)();
 /*--------------------------------------------------------------------------*/
@@ -30,6 +35,7 @@ int C2F(sci_lib)(char *fname,unsigned long fname_len)
 	int iType1 = 0;
 	char *pStVarOne = NULL;
 	char lib_filename[bsiz];
+	char *fullfilename = NULL;
 	int lenStVarOne = 0;
 
 	int len = 0;
@@ -61,7 +67,7 @@ int C2F(sci_lib)(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne,&m1,&n1,&lenStVarOne,&pStVarOne);
+	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne,&m1,&n1,&lenStVarOne, NULL);
 	if(sciErr.iErr)
 	{
 		printError(&sciErr, 0);
@@ -79,7 +85,7 @@ int C2F(sci_lib)(char *fname,unsigned long fname_len)
 
 	if (pStVarOne == NULL)
 	{
-		Scierror(999,"%s : Memory allocation error.\n", fname);
+		Scierror(999,"%s: Memory allocation error.\n", fname);
 		return 0;
 	}
 
@@ -101,21 +107,49 @@ int C2F(sci_lib)(char *fname,unsigned long fname_len)
 		}
 		else
 		{
-			Scierror(999,"%s : Memory allocation error.\n",fname);
+			Scierror(999,"%s: Memory allocation error.\n",fname);
 			return 0;
 		}
 	}
 
-	if ((int)strlen(pStVarOne) >= bsiz)
+	/* getfullfilename only if we need */
+	if (strchr(pStVarOne, '.') != NULL)
 	{
-		strncpy(lib_filename, pStVarOne, bsiz - 1);
-		lib_filename[bsiz - 1] = '\0';
+		fullfilename = getFullFilename(pStVarOne);
 	}
 	else
 	{
-		strcpy(lib_filename, pStVarOne);
+		fullfilename = strdup(pStVarOne);
 	}
-	
+
+	if (fullfilename)
+	{
+		if ((int)strlen(fullfilename) >= bsiz)
+		{
+			strncpy(lib_filename, fullfilename, bsiz - 1);
+			lib_filename[bsiz - 1] = '\0';
+		}
+		else
+		{
+			strcpy(lib_filename, fullfilename);
+		}
+
+		FREE(fullfilename);
+		fullfilename = NULL;
+	}
+	else
+	{
+		if ((int)strlen(pStVarOne) >= bsiz)
+		{
+			strncpy(lib_filename, pStVarOne, bsiz - 1);
+			lib_filename[bsiz - 1] = '\0';
+		}
+		else
+		{
+			strcpy(lib_filename, pStVarOne);
+		}
+	}
+
 	if (pStVarOne)
 	{
 		FREE(pStVarOne);

@@ -60,7 +60,6 @@
 #include "CallFigure.h"
 
 #define MAX_MARK_STYLE 14
-#define MAX_MARK_STYLE_S "14"
 
 /*---------------------------------------------------------------------------*/
 /* setSubWinAngles                                                                    */
@@ -218,10 +217,7 @@ void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m)
   sciSetNumColors (pobj,old_m);
 
 
-  if((sciGetEntityType(pobj) != SCI_TEXT)        &&
-     (sciGetEntityType(pobj) != SCI_LEGEND)      &&
-     (sciGetEntityType(pobj) != SCI_AXES)        &&
-     (sciGetEntityType(pobj) != SCI_LABEL)       &&
+  if((sciGetEntityType(pobj) != SCI_AXES)        &&
 		 !sciIsAutomaticallyRedrawn(pobj))
     {
       if(old_m +1 == sciGetForeground(pobj)) {   /* 0 => deals with Foreground */
@@ -343,11 +339,11 @@ sciUpdateBaW (sciPointObj * pobj, int flag, int value)
 	case SCI_AXES:
 	case SCI_LABEL: /* F.Leray 28.05.04 */
 	case SCI_TEXT:
+	case SCI_LEGEND:
 	  sciSetForeground(pobj,value);
 	  break;
 	case SCI_UIMENU:
 	case SCI_AGREG:
-	case SCI_LEGEND:
 	default:
 	  return -1;
 	  break;
@@ -368,11 +364,11 @@ sciUpdateBaW (sciPointObj * pobj, int flag, int value)
 	case SCI_AXES:
 	case SCI_LABEL: /* F.Leray 28.05.04 */
 	case SCI_TEXT:
+	case SCI_LEGEND:
 	  sciSetBackground(pobj,value);
 	  break;
 	case SCI_UIMENU:
 	case SCI_AGREG:
-	case SCI_LEGEND:
 	default:
 	  return -1;
 	  break;
@@ -760,7 +756,7 @@ int sciInitMarkStyle( sciPointObj * pobj, int markstyle )
 {
   if (markstyle < 0 || markstyle > MAX_MARK_STYLE )
   {
-    Scierror(999, _("Wrong value for %s property: Must be in the interval [%s, %s].\n"),"mark_style","0",MAX_MARK_STYLE_S);
+    Scierror(999, _("Wrong value for '%s' property: Must be between %d and %d.\n"), "mark_style", 0, MAX_MARK_STYLE);
     return -1;
   }
   else

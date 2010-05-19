@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2009 - INRIA - Michael Baudin
+// Copyright (C) 2009-2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -851,8 +852,8 @@ function [ this , istorestart ] = neldermead_isroneill ( this )
   // If required, make a vector step from the scalar step
   //
   defaultstep = this.restartstep;
-  stepn = length ( defaultstep );
-  if ( stepn <> n ) then
+  steprows = size ( defaultstep , "r" );
+  if ( steprows == 1 ) then
     step = defaultstep * ones(n,1);
   else
     step = defaultstep;
@@ -863,13 +864,16 @@ function [ this , istorestart ] = neldermead_isroneill ( this )
   fopt = optimbase_get ( this.optbase , "-fopt" );
   verbose = optimbase_cget ( this.optbase , "-verbose" )
 
+  if ( verbose ) then
+    this = neldermead_log (this,sprintf("================================================================="));
+    this = neldermead_log (this, sprintf ( "O''Neill Restart\n") );
+    this = neldermead_log (this, sprintf ( "Using step [%s]" , _strvec(step) ) );
+  end
+
     istorestart = %f
     for ix = 1:n
       stepix = step ( ix )
       del = stepix * restarteps
-      if ( del==0.0 ) then
-         del = eps
-      end
       xix =  x ( ix )
       x ( ix ) = xix + del
       [ this.optbase , fv , index ] = optimbase_function ( this.optbase , x , 2 )

@@ -19,6 +19,7 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_matio.c \
 #### List of the C files ####
 MATIO_C_SOURCES = src/c/matfile_manager.c \
 		  src/c/CreateMatlabVariable.c \
+		  src/c/CreateBooleanVariable.c \
 		  src/c/CreateCharVariable.c \
 		  src/c/CreateDoubleVariable.c \
 		  src/c/CreateIntegerVariable.c \
@@ -48,7 +49,8 @@ libscimatio_la_CFLAGS = -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/matio/ \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
 			-I$(top_srcdir)/modules/string/includes/ \
-			-I$(top_srcdir)/modules/operations/includes/ \
+			-I$(top_srcdir)/modules/api_scilab/includes \
+			-I$(top_srcdir)/modules/operations/includes \
 			$(MATIO_CFLAGS)
 
 pkglib_LTLIBRARIES = libscimatio.la

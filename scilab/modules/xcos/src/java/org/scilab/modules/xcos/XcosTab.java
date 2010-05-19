@@ -12,14 +12,16 @@
 
 package org.scilab.modules.xcos;
 
-
-import java.io.File;
-import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
@@ -59,7 +61,7 @@ import org.scilab.modules.xcos.actions.DebugLevelAction;
 import org.scilab.modules.xcos.actions.DiagramBackgroundAction;
 import org.scilab.modules.xcos.actions.ExportAction;
 import org.scilab.modules.xcos.actions.FitDiagramToViewAction;
-import org.scilab.modules.xcos.actions.LinkStyleAction;
+import org.scilab.modules.xcos.actions.InitModelicaAction;
 import org.scilab.modules.xcos.actions.NewDiagramAction;
 import org.scilab.modules.xcos.actions.NormalViewAction;
 import org.scilab.modules.xcos.actions.OpenAction;
@@ -79,24 +81,34 @@ import org.scilab.modules.xcos.actions.ViewViewportAction;
 import org.scilab.modules.xcos.actions.XcosDemonstrationsAction;
 import org.scilab.modules.xcos.actions.XcosDocumentationAction;
 import org.scilab.modules.xcos.block.AfficheBlock;
-import org.scilab.modules.xcos.block.actions.AlignBlockAction;
 import org.scilab.modules.xcos.block.actions.BlockDocumentationAction;
 import org.scilab.modules.xcos.block.actions.BlockParametersAction;
-import org.scilab.modules.xcos.block.actions.ColorAction;
+import org.scilab.modules.xcos.block.actions.BorderColorAction;
+import org.scilab.modules.xcos.block.actions.FilledColorAction;
 import org.scilab.modules.xcos.block.actions.FlipAction;
 import org.scilab.modules.xcos.block.actions.MirrorAction;
 import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.RotateAction;
 import org.scilab.modules.xcos.block.actions.ViewDetailsAction;
-import org.scilab.modules.xcos.graph.SuperBlockDiagram;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionBottom;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionCenter;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionLeft;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionMiddle;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionRight;
+import org.scilab.modules.xcos.block.actions.alignement.AlignBlockActionTop;
+import org.scilab.modules.xcos.configuration.ConfigurationManager;
+import org.scilab.modules.xcos.configuration.model.DocumentType;
+import org.scilab.modules.xcos.configuration.model.PositionType;
+import org.scilab.modules.xcos.configuration.utils.ConfigurationConstants;
 import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.link.actions.StyleHorizontalAction;
+import org.scilab.modules.xcos.link.actions.StyleStraightAction;
+import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
 import org.scilab.modules.xcos.palette.PaletteManager;
 import org.scilab.modules.xcos.palette.actions.ViewPaletteBrowserAction;
-import org.scilab.modules.xcos.utils.ConfigXcosManager;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.swing.mxGraphOutline;
-import com.mxgraph.util.mxConstants;
 
 /**
  * Xcos tab operations
@@ -104,8 +116,6 @@ import com.mxgraph.util.mxConstants;
  * This class implement specific operation of an Xcos Tab.
  */
 public class XcosTab extends ScilabTab {
-
-    private static final long serialVersionUID = -290453474673387812L;
     private static final Size WIN_SIZE = new Size(600, 500);
     
     /*
@@ -113,14 +123,6 @@ public class XcosTab extends ScilabTab {
      */
     private static List<XcosDiagram> diagrams = new Vector<XcosDiagram>();
     private static Map<Integer, AfficheBlock> afficheBlocks = new HashMap<Integer, AfficheBlock>();
-
-    private static List<Menu> recentsMenus = new ArrayList<Menu>();
-    private static List<MenuItem> startMenuItems = new ArrayList<MenuItem>();
-    private static List<MenuItem> stopMenuItems = new ArrayList<MenuItem>();
-    private static List<PushButton> startPushButtons = new ArrayList<PushButton>();
-    private static List<PushButton> stopPushButtons = new ArrayList<PushButton>();
-
-    private static boolean startEnabled = true;
     
     /*
      * Instance fields
@@ -154,8 +156,6 @@ public class XcosTab extends ScilabTab {
     private PushButton zoomOutAction;
     private PushButton xcosDemonstrationAction;
     private PushButton xcosDocumentationAction;
-    
-    private boolean actionsEnabled;
 
     /**
      * Default constructor
@@ -165,10 +165,9 @@ public class XcosTab extends ScilabTab {
 	super(XcosMessages.XCOS);
 
 	this.diagram = diagram;
-	this.actionsEnabled = false;
 
 	initComponents();
-
+	
 	// No SimpleTab.addMember(ScilabComponent ...) so perform a raw association.
 	((SwingScilabTab) getAsSimpleTab()).setContentPane(diagram.getAsComponent());
 	
@@ -230,21 +229,6 @@ public class XcosTab extends ScilabTab {
     }
 
     /**
-     * @param status new status
-     */
-    public static void setStartEnabled(boolean status) {
-	for (int i = 0; i < startMenuItems.size(); i++) {
-	    startMenuItems.get(i).setEnabled(status);
-	    startPushButtons.get(i).setEnabled(status);
-	    startEnabled = status;
-
-	    stopMenuItems.get(i).setEnabled(!status);
-	    stopPushButtons.get(i).setEnabled(!status);
-	}
-
-    }
-
-    /**
      * @param xcosDiagram diagram
      */
     public static void createTabFromDiagram(XcosDiagram xcosDiagram) {
@@ -275,45 +259,7 @@ public class XcosTab extends ScilabTab {
      */
     public static void showTabFromDiagram(XcosDiagram xcosDiagram) {
 	assert xcosDiagram.isOpened();
-	XcosTab tab = (XcosTab) xcosDiagram.getParentTab();
-	
 	xcosDiagram.setVisible(true);
-
-	/*
-	 * Superblock specific customizations
-	 */
-	if (xcosDiagram instanceof SuperBlockDiagram) {
-	    tab.setSimulationActionEnabled(false);
-	}
-
-	/*
-	 * Set buttons enabled
-	 */
-	tab.setActionsEnabled(true);
-
-	// Disabling undo/redo at startup
-	tab.setEnabledRedo(false);
-	tab.setEnabledUndo(false);
-    }
-    
-    /**
-     * Update menu displaying recent opened files
-     * @param scilabGraph graph
-     */
-    public static void updateRecentOpenedFilesMenu(ScilabGraph scilabGraph) {
-	List<File> recentFiles = ConfigXcosManager
-		.getAllRecentOpenedFiles();
-
-	for (int j = 0; j < recentsMenus.size(); j++) {
-	    ((SwingScilabMenu) recentsMenus.get(j).getAsSimpleMenu())
-		    .removeAll();
-
-	    for (int i = 0; i < recentFiles.size(); i++) {
-		recentsMenus.get(j).add(
-			RecentFileAction.createMenu(scilabGraph, recentFiles
-				.get(i)));
-	    }
-	}
     }
 
     /**
@@ -335,7 +281,12 @@ public class XcosTab extends ScilabTab {
      */
     private void initComponents() {
     	Window window = ScilabWindow.createWindow();
-		window.setDims(WIN_SIZE);
+    	
+		final ConfigurationManager manager = ConfigurationManager.getInstance();
+		final PositionType p = manager.getSettings().getWindows().getDiagram();
+		
+		window.setDims(new Size(p.getWidth(), p.getHeight()));
+		window.setPosition(new Position(p.getX(), p.getY()));
 		
 		/* Create the menu bar */
 		menuBar = createMenuBar();
@@ -346,7 +297,7 @@ public class XcosTab extends ScilabTab {
 		addToolBar(toolBar);
 		
 		/* Create the infoBar */
-		getAsSimpleTab().setInfoBar(ScilabTextBox.createTextBox());
+		addInfoBar(ScilabTextBox.createTextBox());
 		
 		window.addTab(this);
     }
@@ -355,9 +306,7 @@ public class XcosTab extends ScilabTab {
      * Create the windows menu bar
      */
     private MenuBar createMenuBar() {
-	List<File> recentFiles = ConfigXcosManager
-		.getAllRecentOpenedFiles();
-
+	
 	menuBar = ScilabMenuBar.createMenuBar();
 
 	/** FILE MENU */
@@ -375,11 +324,47 @@ public class XcosTab extends ScilabTab {
 
 	recentsMenu = ScilabMenu.createMenu();
 	recentsMenu.setText(XcosMessages.RECENT_FILES);
+	
+	final ConfigurationManager manager = ConfigurationManager.getInstance();
+	final List<DocumentType> recentFiles = manager.getSettings().getRecentFiles().getDocument();
 	for (int i = 0; i < recentFiles.size(); i++) {
-	    recentsMenu.add(RecentFileAction.createMenu(diagram,
-		    recentFiles.get(i)));
+		URL url;
+		try {
+			url = new URL(recentFiles.get(i).getUrl());
+		} catch (MalformedURLException e) {
+			LogFactory.getLog(XcosTab.class).error(e);
+			break;
+		}
+	    recentsMenu.add(RecentFileAction.createMenu(url));
 	}
-	recentsMenus.add(recentsMenu);
+	
+	ConfigurationManager.getInstance().addPropertyChangeListener(ConfigurationConstants.RECENT_FILES_CHANGED, new PropertyChangeListener() {
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			assert evt.getPropertyName().equals(ConfigurationConstants.RECENT_FILES_CHANGED);
+			
+			/*
+			 * We only handle menu creation there. Return when this is not the case.
+			 */
+			if (evt.getOldValue() != null) {
+				return;
+			}
+			
+			URL url;
+			try {
+				url = new URL(((DocumentType)evt.getNewValue()).getUrl());
+			} catch (MalformedURLException e) {
+				LogFactory.getLog(XcosTab.class).error(e);
+				return;
+			}
+			
+			((SwingScilabMenu) recentsMenu.getAsSimpleMenu()).add(
+					(SwingScilabMenu) RecentFileAction.createMenu(
+							url).getAsSimpleMenu(), 0);
+		}
+	});
+	
+	
 	fileMenu.add(recentsMenu);
 
 	fileMenu.add(PrintAction.createMenu(diagram));
@@ -437,16 +422,13 @@ public class XcosTab extends ScilabTab {
 	menuBar.add(simulate);
 
 	MenuItem startMenu = StartAction.createMenu(diagram);
-	startMenuItems.add(startMenu);
-	startMenu.setEnabled(startEnabled);
 	MenuItem stopMenu = StopAction.createMenu(diagram);
-	stopMenuItems.add(stopMenu);
-	stopMenu.setEnabled(startEnabled);
 
 	simulate.add(SetupAction.createMenu(diagram));
 	simulate.add(DebugLevelAction.createMenu(diagram));
 	simulate.add(SetContextAction.createMenu(diagram));
 	simulate.add(CompileAction.createMenu(diagram));
+	simulate.add(InitModelicaAction.createMenu(diagram));
 	simulate.add(startMenu);
 	simulate.add(stopMenu);
 
@@ -464,37 +446,25 @@ public class XcosTab extends ScilabTab {
 	format.addSeparator();
 	alignMenu = ScilabMenu.createMenu();
 	alignMenu.setText(XcosMessages.ALIGN_BLOCKS);
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_LEFT, mxConstants.ALIGN_LEFT));
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_CENTER, mxConstants.ALIGN_CENTER));
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_RIGHT, mxConstants.ALIGN_RIGHT));
+	alignMenu.add(AlignBlockActionLeft.createMenu(diagram));
+	alignMenu.add(AlignBlockActionCenter.createMenu(diagram));
+	alignMenu.add(AlignBlockActionRight.createMenu(diagram));
 	alignMenu.addSeparator();
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_TOP, mxConstants.ALIGN_TOP));
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_MIDDLE, mxConstants.ALIGN_MIDDLE));
-	alignMenu.add(AlignBlockAction.createMenu(diagram,
-		XcosMessages.ALIGN_BOTTOM, mxConstants.ALIGN_BOTTOM));
+	alignMenu.add(AlignBlockActionTop.createMenu(diagram));
+	alignMenu.add(AlignBlockActionMiddle.createMenu(diagram));
+	alignMenu.add(AlignBlockActionBottom.createMenu(diagram));
 	format.add(alignMenu);
 	format.addSeparator();
 
-	format.add(ColorAction.createMenu(diagram,
-		XcosMessages.BORDER_COLOR, mxConstants.STYLE_STROKECOLOR));
-	format.add(ColorAction.createMenu(diagram, XcosMessages.FILL_COLOR,
-		mxConstants.STYLE_FILLCOLOR));
+	format.add(BorderColorAction.createMenu(diagram));
+	format.add(FilledColorAction.createMenu(diagram));
 	format.addSeparator();
 
 	linkStyle = ScilabMenu.createMenu();
 	linkStyle.setText(XcosMessages.LINK_STYLE);
-	linkStyle.add(LinkStyleAction.createMenu(diagram,
-		XcosMessages.LINK_STYLE_HORIZONTAL,
-		mxConstants.ELBOW_HORIZONTAL));
-	linkStyle.add(LinkStyleAction.createMenu(diagram,
-		XcosMessages.LINK_STYLE_STRAIGHT, mxConstants.SHAPE_CONNECTOR));
-	linkStyle.add(LinkStyleAction.createMenu(diagram,
-		XcosMessages.LINK_STYLE_VERTICAL, mxConstants.ELBOW_VERTICAL));
+	linkStyle.add(StyleHorizontalAction.createMenu(diagram));
+	linkStyle.add(StyleStraightAction.createMenu(diagram));
+	linkStyle.add(StyleVerticalAction.createMenu(diagram));
 	format.add(linkStyle);
 	format.addSeparator();
 
@@ -575,10 +545,6 @@ public class XcosTab extends ScilabTab {
 	// START / STOP
 	startAction = StartAction.createButton(diagram);
 	stopAction = StopAction.createButton(diagram);
-	startAction.setEnabled(startEnabled);
-	stopAction.setEnabled(!startEnabled);
-	startPushButtons.add(startAction);
-	stopPushButtons.add(stopAction);
 
 	toolBar.add(startAction);
 	toolBar.add(stopAction);
@@ -635,68 +601,5 @@ public class XcosTab extends ScilabTab {
 	outline.addTab(outlineTab);
 	outline.setVisible(false);
 	outlineTab.setVisible(false);
-    }
-
-    /**
-     * @param status new status
-     */
-    public void setEnabledRedo(boolean status) {
-	if (actionsEnabled) {
-	redoAction.setEnabled(status);
-	}
-    }
-
-    /**
-     * @param status new status
-     */
-    public void setEnabledUndo(boolean status) {
-	if (actionsEnabled) {
-	undoAction.setEnabled(status);
-	}
-    }
-    
-    /**
-     * Enable or Disable simulation related actions
-     * @param state True if it have to be enabled, flase otherwise
-     */
-    public void setSimulationActionEnabled(boolean state) {
-	if (actionsEnabled) {
-    	simulate.setEnabled(state);
-    	startAction.setEnabled(state);
-    	stopAction.setEnabled(state);
-	}
-    }
-    
-    /**
-     * Enable or disable all actions
-     * @param status True if they have to be enabled, false otherwise
-     */
-    public void setActionsEnabled(boolean status) {
-	fileMenu.setEnabled(status);
-	edit.setEnabled(status);
-	view.setEnabled(status);
-	simulate.setEnabled(status);
-	format.setEnabled(status);
-	alignMenu.setEnabled(status);
-	linkStyle.setEnabled(status);
-	tools.setEnabled(status);
-	help.setEnabled(status);
-	openAction.setEnabled(status);
-	saveAction.setEnabled(status);
-	saveAsAction.setEnabled(status);
-	printAction.setEnabled(status);
-	newDiagramAction.setEnabled(status);
-	deleteAction.setEnabled(status);
-	undoAction.setEnabled(status);
-	redoAction.setEnabled(status);
-	fitDiagramToViewAction.setEnabled(status);
-	startAction.setEnabled(status);
-	stopAction.setEnabled(false);
-	zoomInAction.setEnabled(status);
-	zoomOutAction.setEnabled(status);
-	xcosDemonstrationAction.setEnabled(status);
-	xcosDocumentationAction.setEnabled(status);
-	
-	actionsEnabled = status;
     }
 }

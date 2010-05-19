@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006/2007
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006-2007 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 STRING_C_SOURCES = src/c/code2str.c \
 src/c/stripblanks.c \
@@ -24,7 +24,6 @@ src/c/stringsstrrchr.c \
 src/c/stringsstrrev.c \
 src/c/stringsCompare.c \
 src/c/isalphanum.c \
-src/c/NumTokens.c \
 src/c/StringConvert.c \
 src/c/scistrtostr.c
 
@@ -60,8 +59,8 @@ sci_gateway/c/sci_strspn.c \
 sci_gateway/c/sci_strstr.c \
 sci_gateway/c/sci_strtod.c \
 sci_gateway/c/sci_strtok.c \
-sci_gateway/c/sci_regexp.c \
-sci_gateway/c/sci_NumTokens.c
+sci_gateway/c/sci_regexp.c
+
 
 
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_string.f \
@@ -73,6 +72,7 @@ libscistring_la_CFLAGS= $(PCRE_CFLAGS) \
 	-I$(top_srcdir)/libs/MALLOC/includes/ \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/api_scilab/includes \
+	-I$(top_srcdir)/modules/localization/includes \
 	-I$(top_srcdir)/modules/output_stream/includes
 
 pkglib_LTLIBRARIES = libscistring.la
@@ -106,3 +106,4 @@ libscistring_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscistring_la_sci_gateway_DATA = sci_gateway/string_gateway.xml
 
 include $(top_srcdir)/Makefile.incl.am
+

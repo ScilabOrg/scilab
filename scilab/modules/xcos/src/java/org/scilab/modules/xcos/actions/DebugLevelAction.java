@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Allan SIMON
+ * Copyright (C) 2010 - DIGITEO - Clément DAVID
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,50 +14,31 @@
 
 package org.scilab.modules.xcos.actions;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 
 import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.actions.DefaultAction;
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.xcos.actions.dialog.DebugLevelDialog;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement;
 import org.scilab.modules.xcos.utils.XcosMessages;
-import org.scilab.modules.xcos.utils.XcosInterpreterManagement.InterpreterException;
 
 /**
- * @author Allan SIMON
- *
+ * Set the debug level
  */
-public class DebugLevelAction extends DefaultAction {
-	private static final long serialVersionUID = 1L;
-
-	private static XcosDiagram diagram;
-	private static JFrame mainFrame;
-	private static JList debugList;
+public class DebugLevelAction extends SimulationNotRunningAction {
+	/** Name of the action */
+	public static final String NAME = XcosMessages.SET_DEBUG;
+	/** Icon name of the action */
+	public static final String SMALL_ICON = "";
+	/** Mnemonic key of the action */
+	public static final int MNEMONIC_KEY = 0;
+	/** Accelerator key for the action */
+	public static final int ACCELERATOR_KEY = 0;
 
 	/**
-	 * @author Allan SIMON
-	 *
+	 * Get the enum level value
 	 */
-	private enum DebugLevel {
+	public static enum DebugLevel {
 		ZERO (0, XcosMessages.DEBUGLEVEL_0),
 		ONE (1, XcosMessages.DEBUGLEVEL_1),
 		TWO (2, XcosMessages.DEBUGLEVEL_2),
@@ -81,6 +63,10 @@ public class DebugLevelAction extends DefaultAction {
 			return level;
 		}
 		
+		/**
+		 * @return the localized debug name
+		 * @see java.lang.Enum#toString()
+		 */
 		public String toString() {
 			return debugName;
 		}
@@ -91,12 +77,20 @@ public class DebugLevelAction extends DefaultAction {
 	 * @param scilabGraph corresponding Scilab Graph
 	 */
 	public DebugLevelAction(ScilabGraph scilabGraph) {
-		super(XcosMessages.SET_DEBUG, scilabGraph);
+		super(scilabGraph);
 	}
 
+	/**
+	 * Action !!!
+	 * @param e action parameters
+	 * @see org.scilab.modules.graph.actions.base.DefaultAction#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
-		diagram = (XcosDiagram) getGraph(e);
-		debugLevel(diagram);
+		final XcosDiagram diag = (XcosDiagram) getGraph(e);
+		final DebugLevelDialog dialog = new DebugLevelDialog(diag.getAsComponent(), diag.getScicosParameters());
+		
+		dialog.pack();
+		dialog.setVisible(true);
 	}
 
 	/**
@@ -104,91 +98,6 @@ public class DebugLevelAction extends DefaultAction {
 	 * @return menu item
 	 */
 	public static MenuItem createMenu(ScilabGraph scilabGraph) {
-		return createMenu(XcosMessages.SET_DEBUG, null, new DebugLevelAction(scilabGraph), null);
-	}
-
-	/**
-	 * @param diagramArgu diagram
-	 */
-	public static void debugLevel(XcosDiagram diagramArgu){
-
-		diagram = diagramArgu;
-
-		Icon scilabIcon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/scilab.png");
-		Image imageForIcon = ((ImageIcon) scilabIcon).getImage();
-
-		mainFrame = new JFrame();
-		mainFrame.setIconImage(imageForIcon);
-		mainFrame.setLayout(new GridBagLayout());
-
-		JLabel textLabel = new JLabel(XcosMessages.DEBUG_LEVEL_LABEL);
-		debugList = new JList(DebugLevel.values());
-		debugList.setSelectedIndex(diagram.getDebugLevel());
-		debugList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		JButton cancelButton = new JButton(XcosMessages.CANCEL);
-		JButton okButton = new JButton(XcosMessages.OK);
-		okButton.setPreferredSize(cancelButton.getPreferredSize());
-
-		JPanel buttonPane = new JPanel();
-		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-		buttonPane.add(okButton);
-		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-		buttonPane.add(cancelButton);
-
-		GridBagConstraints gbc = new GridBagConstraints();
-		
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 1.0;
-		gbc.insets = new Insets(10, 10, 10, 10);
-		mainFrame.add(textLabel, gbc);
-		
-		gbc.gridy = GridBagConstraints.RELATIVE;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weighty = 1.0;
-		mainFrame.add(debugList, gbc);
-		
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
-		gbc.anchor = GridBagConstraints.LAST_LINE_END;
-		gbc.fill = GridBagConstraints.NONE;
-		gbc.weighty = 0;
-		gbc.insets = new Insets(5, 0, 10, 10);
-		mainFrame.add(buttonPane, gbc);
-
-
-		cancelButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				mainFrame.dispose();
-			}
-		});
-
-		okButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				int value = ((DebugLevel) debugList.getSelectedValue()).getValue();
-				diagram.setDebugLevel(value);
-				try {
-					XcosInterpreterManagement.synchronousScilabExec("scicos_debug(" + value + ");");
-				} catch (InterpreterException e1) {
-					e1.printStackTrace();
-				}
-		
-				mainFrame.dispose();
-			}
-		});
-
-
-		mainFrame.setMinimumSize(textLabel.getPreferredSize());
-		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		mainFrame.setTitle(XcosMessages.SET_DEBUG);
-		mainFrame.pack();
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setVisible(true);	
+		return createMenu(scilabGraph, DebugLevelAction.class);
 	}
 }

@@ -22,6 +22,7 @@ extern "C"
 #include "pixel_mode.h"
 #include "DrawingBridge.h"
 #include "HandleManagement.h"
+#include "math_graphics.h"
 }
 
 using namespace std;
@@ -177,8 +178,11 @@ void ConcreteDrawableSubwin::computeRealDataBounds(void)
   double userBounds[6];
   sciGetDisplayedDataBounds(m_pDrawed, userBounds);
 
-  // check wether the subwin is zoomed or not
+  // check whether the subwin is zoomed or not
   bool isZoomed = (sciGetZooming(m_pDrawed) == TRUE);
+
+  // check whether tight limits are enabled or not
+  bool tightLimitsEnabled = (sciGetTightLimitsOn(m_pDrawed) == TRUE);
 
   double bestBounds[6]; // output bounds
 
@@ -208,13 +212,33 @@ void ConcreteDrawableSubwin::computeRealDataBounds(void)
   }
 
   // fit them if needed
-  // for a more accurate zoom, tigth limits are enable if the zoom
-  // is enable
-  if (!sciGetTightLimitsOn(m_pDrawed) && !isZoomed)
+  // for a more accurate zoom, tight limits are enabled if the zoom
+  // is enabled
+  if (!tightLimitsEnabled && !isZoomed)
   {
     m_pXBoundsStrategy->applyBestFitting(bestXBounds, bestXBounds);
     m_pYBoundsStrategy->applyBestFitting(bestYBounds, bestYBounds);
     m_pZBoundsStrategy->applyBestFitting(bestZBounds, bestZBounds);
+  }
+
+  /* If tight limits are enabled, check whether the min and max bounds are equal,
+  for each of the 3 axes; in this case, the automatically computed bounds are kept */
+  if (tightLimitsEnabled && !isZoomed)
+  {
+    if(SAFE_EQUAL(bestXBounds[0], bestXBounds[1], BOUNDS_COMPARE_ACCURACY))
+    {
+      m_pXBoundsStrategy->applyBestFitting(bestXBounds, bestXBounds);
+    }
+
+    if(SAFE_EQUAL(bestYBounds[0], bestYBounds[1], BOUNDS_COMPARE_ACCURACY))
+    {
+      m_pYBoundsStrategy->applyBestFitting(bestYBounds, bestYBounds);
+    }
+
+    if(SAFE_EQUAL(bestZBounds[0], bestZBounds[1], BOUNDS_COMPARE_ACCURACY))
+    {
+      m_pZBoundsStrategy->applyBestFitting(bestZBounds, bestZBounds);
+    }
   }
 
   sciSetRealDataBounds(m_pDrawed, bestBounds);
@@ -390,7 +414,7 @@ void ConcreteDrawableSubwin::displayChildren(void)
   // draw the children as usual
   DrawableObject::displayChildren();
 
-  // draw the text after
+  // because of transparency, the text is drawn after.
   displayTexts();
 
 }
@@ -486,17 +510,17 @@ void ConcreteDrawableSubwin::displayLabels(void)
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::displayTexts(void)
 {
- 
+  list<sciPointObj *> displayedTexts = m_oDisplayedTexts;
   // sortDisplayed text if needed
   if (m_bNeedDraw || m_bNeedRedraw || m_bTextListChanged)
   {
-    sortDisplayedTexts();
+    displayedTexts.sort(getTextOrder);
   }
 
   // display all the text registered in the list
   // The list should be sorted
-	list<sciPointObj *>::iterator it = m_oDisplayedTexts.begin();
-  for ( ; it != m_oDisplayedTexts.end(); it++)
+  list<sciPointObj *>::iterator it = displayedTexts.begin();
+  for ( ; it != displayedTexts.end(); it++)
   {
     // HACK here. This patch is to force disepearance
     // of text objects if one of there parents is not visible.
@@ -505,15 +529,6 @@ void ConcreteDrawableSubwin::displayTexts(void)
       getHandleDrawer(*it)->display();
     }
   }
-}
-/*------------------------------------------------------------------------------------------*/
-void ConcreteDrawableSubwin::sortDisplayedTexts(void)
-{
-	// sort the text from back to front
-	m_oDisplayedTexts.sort(getTextOrder);
-
-  // text has been sorted successfully
-  m_bTextListChanged = false;
 }
 /*------------------------------------------------------------------------------------------*/
 void ConcreteDrawableSubwin::setLabelsDistanceToAxis(double xLabelDist, double yLabelDist,
@@ -592,7 +607,7 @@ double ConcreteDrawableSubwin::getEyeDistance(Camera * cam, sciPointObj * pText)
 bool ConcreteDrawableSubwin::getTextOrder(sciPointObj * pText1, sciPointObj * pText2)
 {
 	Camera * cam = getSubwinDrawer(sciGetParentSubwin(pText1))->getCamera();
-	// find the deepest one
+	// find the deepest witch is the first drawn.
 	return (getEyeDistance(cam, pText1) > getEyeDistance(cam, pText2));
 }
 /*---------------------------------------------------------------------------------*/

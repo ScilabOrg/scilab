@@ -11,8 +11,8 @@
  */
 package org.scilab.modules.xcos.block;
 
-import org.scilab.modules.hdf5.scilabTypes.ScilabDouble;
-import org.scilab.modules.hdf5.scilabTypes.ScilabList;
+import org.scilab.modules.types.scilabTypes.ScilabDouble;
+import org.scilab.modules.types.scilabTypes.ScilabList;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
@@ -21,12 +21,12 @@ import org.scilab.modules.xcos.port.input.ExplicitInputPort;
 import org.scilab.modules.xcos.port.input.ImplicitInputPort;
 import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
 import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
+import org.scilab.modules.xcos.utils.BlockPositioning;
 
 import com.mxgraph.model.mxGeometry;
 
 /**
- * @author Bruno JOFRET
- * 
+ * A SplitBlock is used on a junction between links.
  */
 public final class SplitBlock extends BasicBlock {
 
@@ -44,18 +44,18 @@ public final class SplitBlock extends BasicBlock {
 		super();
 	}
 
-	// SPLIT_f <-> lsplit
-	// CLKSPLIT_f <-> split
-	// IMPSPLIT_F <-> limpsplit
 	/**
 	 * @param label
 	 *            block label
 	 */
 	protected SplitBlock(String label) {
+		// SPLIT_f <-> lsplit
+		// CLKSPLIT_f <-> split
+		// IMPSPLIT_F <-> limpsplit
 		this();
 		setValue(label);
 	}
-
+	
 	/**
 	 * Connect the splitblock to a source and 2 targets.
 	 * 
@@ -163,6 +163,8 @@ public final class SplitBlock extends BasicBlock {
 	}
 
 	/**
+	 * Set the geometry of the block
+	 * 
 	 * @param geometry
 	 *            change split block geometry
 	 */
@@ -170,7 +172,20 @@ public final class SplitBlock extends BasicBlock {
 		if (geometry != null) {
 			geometry.setWidth(DEFAULT_SIZE);
 			geometry.setHeight(DEFAULT_SIZE);
+			
+			/*
+			 * Align the geometry on the grid
+			 */
+			double gridSize;
+			if (getParentDiagram() != null) {
+				gridSize = getParentDiagram().getGridSize();
+			} else {
+				gridSize = BlockPositioning.DEFAULT_GRIDSIZE;
+			}
+			BlockPositioning.alignPoint(geometry, gridSize,
+					(geometry.getWidth() / 2.0));
 		}
+		
 		super.setGeometry(geometry);
 	}
 

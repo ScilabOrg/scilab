@@ -80,7 +80,7 @@
   </para>
     <para>
      14 
-    :  fonction d'une librairie.
+    :  fonction d'une bibliothèque.
   </para>
     <para>
      15 
@@ -112,6 +112,9 @@
     <simplelist type="inline">
       <member>
         <link linkend="typeof">typeof</link>
+      </member>
+      <member>
+        <link linkend="inttype">inttype</link>
       </member>
     </simplelist>
   </refsection>

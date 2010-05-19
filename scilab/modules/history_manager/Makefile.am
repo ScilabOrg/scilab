@@ -1,8 +1,7 @@
-##########
-### Allan CORNET
-### INRIA - Scilab 2007
-########## *
-
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2007 - INRIA - Allan CORNET
+#
+# This file is distributed under the same license as the Scilab package.
 
 # List of the cpp files
 HISTORY_MANAGER_CPP_SOURCES = src/cpp/CommandLine.cpp \
@@ -41,7 +40,15 @@ endif
 
 
 # Includes need for the compilation
-libscihistory_manager_la_CPPFLAGS =  $(JAVA_JNI_INCLUDE) -I$(srcdir)/includes/ -I$(srcdir)/src/cpp/ -I$(srcdir)/src/c/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/output_stream/includes/ -I$(top_srcdir)/modules/fileio/includes/
+libscihistory_manager_la_CPPFLAGS =  $(JAVA_JNI_INCLUDE) \
+-I$(srcdir)/includes/ \
+-I$(srcdir)/src/cpp/ \
+-I$(srcdir)/src/c/ \
+-I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/localization/includes \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
+-I$(top_srcdir)/modules/output_stream/includes/ \
+-I$(top_srcdir)/modules/fileio/includes/
 
 # Includes need for the compilation
 libscihistory_manager_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \

@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2009-2010 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -16,6 +17,7 @@
 function this = neldermead_updatesimp ( this )
   simplex0 = optimsimplex_new ( );
   xopt = optimbase_get ( this.optbase , "-xopt" );
+  [ this.optbase , hasbounds ] = optimbase_hasbounds ( this.optbase );
   select this.restartsimplexmethod
   case "oriented" then
     [ simplex0 , this ] = optimsimplex_new ( "oriented" , this.simplexopt , costf_transposex , this );
@@ -64,7 +66,6 @@ function this = neldermead_updatesimp ( this )
   for i = 1:nbve
     this = neldermead_log (this,str(i));
   end
-  [ this.optbase , hasbounds ] = optimbase_hasbounds ( this.optbase );
   [ this.optbase , hasnlcons ] = optimbase_hasnlcons ( this.optbase );
   if ( hasbounds | hasnlcons ) then
     this = neldermead_log (this,sprintf("Scaling initial simplex into nonlinear inequality constraints..."));

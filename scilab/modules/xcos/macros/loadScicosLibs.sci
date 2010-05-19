@@ -11,6 +11,24 @@
 //
 function loadScicosLibs()
 
+  if ~isdef('scicos_menuslib') then
+    load('SCI/modules/scicos/macros/scicos_menus/lib')
+  end
+ 
+
+  if ( ~isdef("scicos_pal") | ~isdef("%scicos_menu") | ..
+       ~isdef("%scicos_short") | ~isdef("%scicos_help") | ..
+       ~isdef("%scicos_display_mode") | ~isdef("modelica_libs") | ..
+       ~isdef("scicos_pal_libs") ) then
+
+    
+     [scicos_pal, %scicos_menu, %scicos_short, modelica_libs, scicos_pal_libs,...
+     %scicos_lhb_list, %CmenuTypeOneVector, %scicos_gif,%scicos_contrib, ..
+     %scicos_libs, %scicos_with_grid, %scs_wgrid] = initial_scicos_tables();
+
+    clear initial_scicos_tables
+  end
+
   // list of scicos libraries that we need at xcos launch
   listlibsname = [];
   
@@ -21,6 +39,11 @@ function loadScicosLibs()
     end
   end
   clear theLib;
+
+  if isfile('SCI/modules/scicos/macros/scicos_menus/lib') then
+    load('SCI/modules/scicos/macros/scicos_menus/lib');
+    listlibsname = [listlibsname, 'scicos_menus'];
+  end
 
   if isfile('SCI/modules/scicos/macros/scicos_scicos/lib') then
     load('SCI/modules/scicos/macros/scicos_scicos/lib');

@@ -59,15 +59,15 @@ public final class SuperBlockDiagram extends XcosDiagram implements Serializable
 
     public String[] buildEntireContext() {
 	
-	String[] parentContext = getContainer().getParentDiagram().buildEntireContext();
-	String []entireContext = new String[getContext().length + parentContext.length];
+	String[] parentContext = getContainer().getParentDiagram().getScicosParameters().getContext();
+	String []entireContext = new String[getScicosParameters().getContext().length + parentContext.length];
 	
 	for (int i = 0; i < parentContext.length; ++i) {
 	    entireContext[i] = parentContext[i];
 	}
 
-	for (int i = 0; i < getContext().length; ++i) {
-	    entireContext[i + parentContext.length] = getContext()[i];
+	for (int i = 0; i < getScicosParameters().getContext().length; ++i) {
+	    entireContext[i + parentContext.length] = getScicosParameters().getContext()[i];
 	}
 	
 	return entireContext;
@@ -153,17 +153,5 @@ public final class SuperBlockDiagram extends XcosDiagram implements Serializable
      */
     public void setModifiedNonRecursively(boolean modified) {
 	super.setModified(modified);
-    }
-    
-    public void undo() {
-	super.undo();
-	getContainer().updateAllBlocksColor();
-	getContainer().updateExportedPort();
-    }
-
-    public void redo() {
-	super.redo();
-	getContainer().updateAllBlocksColor();
-	getContainer().updateExportedPort();
     }
 }

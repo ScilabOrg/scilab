@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007-2008 - INRIA - Vincent COUVERT
  * Copyright (C) 2008 - DIGITEO - Sylvestre KOUMAR
+ * Copyright (C) 2010 - DIGITEO - Manuel JULIACHS
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -32,6 +33,7 @@ import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
+import javax.print.PrintService;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttribute;
@@ -46,6 +48,7 @@ import org.scilab.modules.graphic_export.ExportRenderer;
 import org.scilab.modules.graphic_export.FileExporter;
 import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvasImpl;
 import org.scilab.modules.gui.bridge.console.SwingScilabConsole;
+import org.scilab.modules.gui.bridge.helpbrowser.SwingScilabHelpBrowser;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.canvas.Canvas;
 import org.scilab.modules.gui.checkbox.CheckBox;
@@ -152,7 +155,7 @@ public class CallScilabBridge {
 
 
 	private static PrintRequestAttributeSet scilabPageFormat = new HashPrintRequestAttributeSet();
-	private static String tmpPrinterFile = System.getenv("TMPDIR") + "scilabfigure";
+	private static String tmpPrinterFile = System.getenv("TMPDIR") + System.getProperty("file.separator") + "scilabfigure";
 	
 	private static final String FIGURE_TITLE = "Graphic window number ";
 	
@@ -581,15 +584,15 @@ public class CallScilabBridge {
 		// if (get_figure_handle(fid) <> []) then
 		//   if (get(get_figure_handle(fid), 'event_handler_enable') == 'on') then
 		//     // execute closing call back
-		//     execstr(get(get_figure_handle(fid), 'event_handler') + '(fid, -1, -1, -1000)');
+		//     execstr(get(get_figure_handle(fid), 'event_handler') + '(fid, -1, -1, -1000)', 'errcatch', 'm');
 		//   end
-		//   // destory the figure
+		//   // destroy the figure
 		//   delete(get_figure_handle(fid));
 		// end
 		String closingCommand = 
 			       "if (get_figure_handle(" + figureIndex + ") <> []) then"
 			+      "  if (get(get_figure_handle(" + figureIndex + "), 'event_handler_enable') == 'on') then"
-			+      "    execstr(get(get_figure_handle(" + figureIndex + "), 'event_handler')+'(" + figureIndex + ", -1, -1, -1000)');"
+			+      "    execstr(get(get_figure_handle(" + figureIndex + "), 'event_handler')+'(" + figureIndex + ", -1, -1, -1000)', 'errcatch', 'm');"
 			+      "  end;"
 			+      "  delete(get_figure_handle(" + figureIndex + "));"
 			+      "end;";
@@ -2084,6 +2087,7 @@ public class CallScilabBridge {
 	 * Close Scilab Help Browser
 	 */
 	public static void closeHelpBrowser() {
+		CallScilabBridge.saveHelpWindowSettings();
 		ScilabHelpBrowser.getHelpBrowser().close();
 	}
 
@@ -2209,6 +2213,25 @@ public class CallScilabBridge {
 	}
 
 	/**
+	 * Save the help Window size and position
+	 */
+	public static void saveHelpWindowSettings() {
+        if (ScilabHelpBrowser.getHelpBrowserWithoutCreation() !=null )  {
+		SwingScilabHelpBrowser sciHelpBrowser = ((SwingScilabHelpBrowser) ScilabHelpBrowser.getHelpBrowser().getAsSimpleHelpBrowser());
+		if (sciHelpBrowser != null) {
+			SwingScilabTab consoleTab = (SwingScilabTab) sciHelpBrowser.getParent();
+			if (consoleTab != null) {
+				Window helpWindow = (Window) UIElementMapper.getCorrespondingUIElement(consoleTab.getParentWindowId());
+				
+				ConfigManager.saveHelpWindowPosition(helpWindow.getPosition());
+				ConfigManager.saveHelpWindowSize(helpWindow.getDims());
+			}
+		}
+        }
+
+	}
+
+	/**
 	 * Opens a dialog to selected a new Foreground Color for the console
 	 */
 	public static void changeConsoleForeground() {
@@ -2326,12 +2349,14 @@ public class CallScilabBridge {
 				Canvas canvas;
 				canvas = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureID).getRendererProperties()).getCanvas();
 				ScilabPrint scilabPrint = new ScilabPrint(canvas.dumpAsBufferedImage(), printerJob, scilabPageFormat);
-
-				return false;
+				if (scilabPrint != null) {
+					return true;
+				} else {
+					return false;
+				}
 
 			//If the OS is Linux
 			} else {
-
 				int exportRendererMode = ExportRenderer.PS_EXPORT;
 				DocFlavor printDocFlavor = DocFlavor.INPUT_STREAM.POSTSCRIPT;
 				String fileExtension = ".ps";
@@ -2359,12 +2384,22 @@ public class CallScilabBridge {
 					}
 
 					Doc myDoc = new SimpleDoc(psStream, printDocFlavor, null);
-					DocPrintJob job = printerJob.getPrintService().createPrintJob();
+					PrintService printService = printerJob.getPrintService();
+
+					if (printService == null) {
+						/* Could not find the print service */
+						MessageBox messageBox = ScilabMessageBox.createMessageBox();
+						messageBox.setMessage(Messages.gettext("No print service found."));
+						messageBox.setModal(true);
+						messageBox.setIcon("error");
+						messageBox.displayAndWait();
+						return false;
+					}
+					DocPrintJob job = printService.createPrintJob();
 
 					// Remove Orientation option from page setup because already managed in FileExporter
 					PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet(scilabPageFormat);
 					aset.add(OrientationRequested.PORTRAIT);
-
 					job.print(myDoc, aset);
 					return true;
 				} catch (PrintException e) {
@@ -2389,9 +2424,9 @@ public class CallScilabBridge {
 	}
 
 	/***********************/
-	/*                     */
+	/*					 */
 	/* FONT CHOOSER BRIDGE */
-	/*                     */
+	/*					 */
 	/***********************/
 
 	/**

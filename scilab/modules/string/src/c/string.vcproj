@@ -424,10 +424,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\NumTokens.c"
-				>
-			</File>
-			<File
 				RelativePath=".\partfunction.c"
 				>
 			</File>
@@ -477,10 +473,6 @@
 			</File>
 			<File
 				RelativePath="..\..\sci_gateway\c\sci_length.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\sci_gateway\c\sci_NumTokens.c"
 				>
 			</File>
 			<File
@@ -673,10 +665,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\includes\NumTokens.h"
-				>
-			</File>
-			<File
 				RelativePath=".\partfunction.h"
 				>
 			</File>
@@ -717,7 +705,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\stripblanks.h"
+				RelativePath="..\..\includes\stripblanks.h"
 				>
 			</File>
 			<File
@@ -764,6 +752,14 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Resource File"
+			>
+			<File
+				RelativePath=".\string.rc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\Makefile.am"

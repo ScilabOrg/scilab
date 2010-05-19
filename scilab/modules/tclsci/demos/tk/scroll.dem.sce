@@ -1,16 +1,14 @@
-//
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) ????-2008 - INRIA
 //
-// This file is distributed under the same license as the Scilab package.
-//
+// This file is released into the public domain
 
 consolestatus = 'off';
 tkpath = get_absolute_file_path("scroll.dem.sce");
 
 TCL_EvalFile(tkpath+'cscroll')
 
-if MSDOS then
+if getos() == 'Windows' then
    consolestatus = consolebox();
    if consolestatus == 'off' then
      consolebox("on");
@@ -23,7 +21,7 @@ while %t //wait for toplevel to disapear
   sleep(1);
 end
 
-if MSDOS then
+if getos() == 'Windows' then
    consolebox(consolestatus);
 end
 

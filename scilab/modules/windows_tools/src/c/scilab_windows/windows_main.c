@@ -35,6 +35,7 @@
 #include "strdup_windows.h"
 #include "InnosetupMutex.h"
 #include "charEncoding.h"
+#include "WindowShow.h"
 /*--------------------------------------------------------------------------*/ 
 #define MIN_STACKSIZE 180000
 #define WSCILEX "wscilex.exe"
@@ -48,6 +49,7 @@ extern int sci_show_banner ;
 /*--------------------------------------------------------------------------*/ 
 int Windows_Main (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, int iCmdShow)
 {
+	int iExitCode = 0;
 	BOOL ShortCircuitExec = FALSE;
 	BOOL LaunchAFile = FALSE;
 	char *ScilabDirectory = NULL;
@@ -64,6 +66,7 @@ int Windows_Main (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, i
 	forbiddenToUseScilab();
 
 	setScilabMode(SCILAB_STD);
+	setWindowShowMode(iCmdShow);
 
 	ScilabDirectory = getScilabDirectory(FALSE);
 
@@ -98,9 +101,6 @@ int Windows_Main (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, i
 			ShowMessageBoxInfo = FALSE;
 		}
 	}
-
-	// No more needed
-	//if (ShowMessageBoxInfo) StartupMessageBox();
 
 	for (i = 1; i < my_argc; i++)
 	{
@@ -227,7 +227,10 @@ int Windows_Main (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, i
 	}		
 
 #ifndef _DEBUG
-	if ( (sci_show_banner) && (LaunchAFile == FALSE) ) splashScreen();
+	if ( (iCmdShow != SW_HIDE) && (iCmdShow != SW_MINIMIZE) && (iCmdShow != SW_SHOWMINNOACTIVE) )
+	{
+		if ( (sci_show_banner) && (LaunchAFile == FALSE) ) splashScreen();
+	}
 #endif
 
 	CreateScilabHiddenWndThread();
@@ -235,8 +238,6 @@ int Windows_Main (HINSTANCE hInstance, HINSTANCE hPrevInstance,PSTR szCmdLine, i
 	HideScilex(); /* hide console window */
 
 	createInnosetupMutex();
-	sci_windows_main (&startupf, path,(InitScriptType)pathtype, &lpath,memory);
-
-	return 0;
+	return sci_windows_main (&startupf, path,(InitScriptType)pathtype, &lpath,memory);
 }
 /*--------------------------------------------------------------------------*/ 
