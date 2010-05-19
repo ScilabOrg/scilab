@@ -23,6 +23,7 @@ import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;
 import org.scilab.modules.types.scilabTypes.ScilabMList;
+import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.actions.CodeGenerationAction;
 import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
@@ -198,13 +199,8 @@ public final class SuperBlock extends BasicBlock {
 		if (!getChild().isOpened()) {
 			updateAllBlocksColor();
 			getChild().setModifiedNonRecursively(false);
-			XcosTab.createTabFromDiagram(getChild());
-			XcosTab.showTabFromDiagram(getChild());
-			getChild().setOpened(true);
-			getChild().setVisible(true);
 			
-			getChild().installListeners();
-			getChild().installSuperBlockListeners();
+			new XcosTab(getChild()).setVisible(true);
 			
 		} else {
 			getChild().setVisible(true);
@@ -215,12 +211,7 @@ public final class SuperBlock extends BasicBlock {
 		 */
 		getChild().updateCellsContext();
 		
-		/*
-		 * Register the diagram container
-		 */
-		getChild().setContainer(this);
-		
-		XcosTab.getAllDiagrams().add(getChild());
+		Xcos.getInstance().getDiagrams().add(getChild());
 		
 		setLocked(false);
 	}
@@ -244,9 +235,9 @@ public final class SuperBlock extends BasicBlock {
 		/*
 		 * Hide the current child window
 		 */
-		getChild().setVisible(false);
-		setLocked(false);
-		XcosTab.getAllDiagrams().remove(getChild());
+		getChild().getParentTab().close();
+		
+		Xcos.getInstance().getDiagrams().remove(getChild());
 	}
 
 	/**
