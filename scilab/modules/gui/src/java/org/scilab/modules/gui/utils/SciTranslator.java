@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007-2008 - INRIA - Bruno JOFRET
+ * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -57,6 +58,14 @@ public class SciTranslator {
 	/** Internal initial state */
 	public static final int UNMANAGED = -10000;
 	
+	public static final int WHEEL_UNIT_ROTATED = 20;
+	public static final int WHEEL_BLOCK_ROTATED = 21;
+
+	public static final int WINDOW_HIDDEN     = 40;
+	public static final int WINDOW_MOVED      = 41;
+	public static final int WINDOW_RESIZED    = 42;
+	public static final int WINDOW_SHOWN      = 43;
+
 	private static final int SCILAB_CTRL_OFFSET = 1000;
 	
 	private static final int TIMETOSLEEP = 300;	
