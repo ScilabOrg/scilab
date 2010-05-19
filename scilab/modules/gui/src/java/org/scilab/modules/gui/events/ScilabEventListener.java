@@ -14,8 +14,12 @@ package org.scilab.modules.gui.events;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.ComponentListener;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.utils.SciTranslator;
@@ -24,7 +28,7 @@ import org.scilab.modules.gui.utils.SciTranslator;
  * it means call a dedicated scilab function like this :
  * function my_eventhandler(windowsId, mouse X, mouse Y, mouse Button)
  */
-public class ScilabEventListener implements KeyListener, MouseListener, MouseMotionListener {
+public class ScilabEventListener implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, ComponentListener {
 
 	private String callback;
 	private int windowsId;
@@ -178,6 +182,53 @@ public class ScilabEventListener implements KeyListener, MouseListener, MouseMot
 		callScilab();
 	}
 
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+                if (arg0.getScrollType()==MouseWheelEvent.WHEEL_BLOCK_SCROLL) {
+                    eventTranslator.setClickAction(SciTranslator.WHEEL_BLOCK_ROTATED);
+                };
+                if (arg0.getScrollType()==MouseWheelEvent.WHEEL_UNIT_SCROLL) {
+                    eventTranslator.setClickAction(SciTranslator.WHEEL_UNIT_ROTATED);
+                };
 
+		mouseX = arg0.getWheelRotation();
+		mouseY = arg0.getScrollAmount();
+		callScilab();
+	}
+
+	public void componentHidden(ComponentEvent arg0) {
+                if (arg0.getID()==ComponentEvent.COMPONENT_HIDDEN) {
+                    eventTranslator.setClickAction(SciTranslator.WINDOW_HIDDEN);
+                };
+		mouseX = 0;
+		mouseY = 0;
+		callScilab();
+	}
+
+	public void componentMoved(ComponentEvent arg0) {
+                if (arg0.getID()==ComponentEvent.COMPONENT_MOVED) {
+                    eventTranslator.setClickAction(SciTranslator.WINDOW_MOVED);
+                };
+		mouseX = 0;
+		mouseY = 0;
+		callScilab();
+	}
+
+	public void componentShown(ComponentEvent arg0) {
+                if (arg0.getID()==ComponentEvent.COMPONENT_SHOWN) {
+                    eventTranslator.setClickAction(SciTranslator.WINDOW_SHOWN);
+                };
+		mouseX = 0;
+		mouseY = 0;
+		callScilab();
+	}
+
+	public void componentResized(ComponentEvent arg0) {
+                if (arg0.getID()==ComponentEvent.COMPONENT_RESIZED) {
+                    eventTranslator.setClickAction(SciTranslator.WINDOW_RESIZED);
+                };
+		mouseX = 0;
+		mouseY = 0;
+		callScilab();
+	}
 
 }
