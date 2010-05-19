@@ -960,6 +960,120 @@ namespace ast
 			}
 		case LogicalOpExp::logicalShortCutAnd :
 			{
+				if(TypeL == GenericType::RealBool)
+				{
+
+					Bool *pL	= execMeL.result_get()->getAsBool();
+					int *piL	= pL->bool_get();
+					int iL		= true;
+
+					for(int i = 0 ; i < pL->size_get() ; i++)
+					{
+						if(piL[i] == 0)
+						{
+							iL = 0;
+							break;
+						}
+					}
+
+					if(iL == 0)
+					{//we don't need to look at ohers exp
+						pResult = new Bool(0);
+						result_set(pResult);
+					}
+					else //look at others exp
+					{
+						e.right_get().accept(execMeR);
+						GenericType::RealType TypeR = execMeR.result_get()->getType();
+
+						if(TypeR == GenericType::RealImplicitList)
+						{
+							ImplicitList* pIL = execMeR.result_get()->getAsImplicitList();
+							if(pIL->computable())
+							{
+								InternalType *pIT = pIL->extract_matrix();
+								execMeR.result_set(pIT);
+								TypeR = pIT->getType();
+							}
+						}
+
+						if(TypeR == GenericType::RealBool)
+						{
+							Bool *pR	= execMeR.result_get()->getAsBool();
+							int* piR = pR->bool_get();
+							int* piL = pL->bool_get();
+
+							if(pR->size_get() == 1)
+							{
+								if(piR[0] == 0)
+								{
+									pResult = new Bool(0);
+									result_set(pResult);
+								}
+								else
+								{
+									int iState = 1;
+									for(int i = 0 ; i < pL->size_get() ; i++)
+									{
+										if(piL[i] == 0)
+										{
+											iState = 0;
+											break;
+										}
+									}
+									pResult = new Bool(iState);
+									result_set(pResult);
+								}
+							}
+							else if(pL->size_get() == 1)
+							{
+								if(piL[0] == 0)
+								{
+									pResult = new Bool(0);
+									result_set(pResult);
+								}
+								else
+								{
+									int iState = 1;
+									for(int i = 0 ; i < pR->size_get() ; i++)
+									{
+										if(piR[i] == 1)
+										{
+											iState = 0;
+											break;
+										}
+									}
+									pResult = new Bool(iState);
+									result_set(pResult);
+								}
+							}
+							else if(pR->rows_get() == pL->rows_get() && pR->cols_get() == pL->cols_get())
+							{
+								int* piB	= NULL;
+								int* piR	= pR->bool_get();
+								int* piL	= pL->bool_get();
+
+								pResult = new Bool(pR->rows_get(), pR->cols_get(), &piB);
+								for(int i = 0 ; i < pL->size_get(); i++)
+								{
+									piB[i] = (piR[i] == 1) && (piL[i] == 1);
+								}
+								result_set(pResult);
+							}
+							else
+							{
+								std::ostringstream os;
+								os << _("Inconsistent row/column dimensions.\n");
+								os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+								throw os.str();
+							}
+						}
+					}
+				}
+				else
+				{
+					//TODO YaSp : Overloading %*_h_*
+				}
 				break;
 			}
 		}
