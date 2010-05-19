@@ -57,6 +57,14 @@ public class SciTranslator {
 	/** Internal initial state */
 	public static final int UNMANAGED = -10000;
 	
+        public static final int WHEEL_UNIT_ROTATED = 20;
+	public static final int WHEEL_BLOCK_ROTATED = 21;
+
+        public static final int WINDOW_HIDDEN     = 30;
+        public static final int WINDOW_MOVED      = 31;
+        public static final int WINDOW_RESIZED    = 32;
+        public static final int WINDOW_SHOWN      = 33;
+
 	private static final int SCILAB_CTRL_OFFSET = 1000;
 	
 	private static final int TIMETOSLEEP = 300;	
