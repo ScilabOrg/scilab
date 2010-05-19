@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,20 +11,24 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="eventhandlerfunctions">
-  <info>
-    <pubdate>$LastChangedDate: 2007-03-08 08:05:42 +0200 (jeu, 08 mar 2007) $</pubdate>
-  </info>
+<refentry xmlns="http://docbook.org/ns/docbook" 
+          xmlns:xlink="http://www.w3.org/1999/xlink" 
+          xmlns:svg="http://www.w3.org/2000/svg" 
+          xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+          xmlns:db="http://docbook.org/ns/docbook" 
+          version="5.0-subset Scilab" xml:lang="en" xml:id="eventhandlerfunctions">
   <refnamediv>
     <refname>event handler functions</refname>
     <refpurpose>
-    Prototype of functions which may be used as event handler.
-  </refpurpose>
+      Prototype of functions which may be used as event handler.
+    </refpurpose>
   </refnamediv>
+
   <refsynopsisdiv>
     <title>Calling Sequence</title>
     <synopsis>envent_handler_function(win,x,y,ibut)</synopsis>
   </refsynopsisdiv>
+
   <refsection>
     <title>Parameters</title>
     <variablelist>
@@ -56,15 +61,15 @@
   <refsection>
     <title>Description</title>
     <para>
-  When the event handler mode is enable, Scilab will call the specified event handler
-  function each time an event occures in the graphic window. The event handler function
-  must comply with the above prototype. Each time an event occured, the function is called
-  and its four parameters are set accordingly to the window number, mouse position and
-  type of event.
-  </para>
+      When the event handler mode is enable, Scilab will call the specified event handler
+      function each time an event occures in the graphic window. The event handler function
+      must comply with the above prototype. Each time an event occured, the function is called
+      and its four parameters are set accordingly to the window number, mouse position and
+      type of event.
+    </para>
     <para>
-    The <literal>ibut</literal> parameter takes one of the following value depending on event type:
-  </para>
+      The <literal>ibut</literal> parameter takes one of the following value depending on event type:
+    </para>
     <variablelist>
       <varlistentry>
         <term>ibut==0</term>
@@ -124,6 +129,28 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>ibut==20</term>
+        <listitem>
+          <para>The mouse wheel has been unit rotated. In that case,
+            X will contain the number of clicks the mouse wheel was
+            rotated.</para>
+          <para>Y will contain the number of units that should be
+            scrolled in response to this event.
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>ibut==21</term>
+        <listitem>
+          <para>The mouse wheel has been block rotated. In that case,
+            X will contain the number of clicks the mouse wheel was
+            rotated.</para>
+          <para>Y will contain the number of units that should be
+            scrolled in response to this event.
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>ibut==-5</term>
         <listitem>
           <para>Left mouse button has been released</para>
@@ -170,6 +197,12 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>ibut==42</term>
+        <listitem>
+          <para>graphic window has been resized</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>ibut==-1000</term>
         <listitem>
           <para>graphic window has been closed</para>
@@ -191,8 +224,14 @@
     <programlisting role="example"><![CDATA[ 
 function my_eventhandler(win,x,y,ibut)
   if ibut==-1000 then return,end
-  [x,y]=xchange(x,y,'i2f')
-  xinfo(msprintf('Event code %d at mouse position is (%f,%f)',ibut,x,y))
+  if and(ibut<>[20 21]) then
+    [x,y]=xchange(x,y,'i2f')
+    xinfo(msprintf('Event code %d at mouse position is (%f,%f)',ibut,x,y))
+  else
+    xinfo(msprintf('Event code %d - (%d,%d)',ibut,x,y))
+    my_handle = get_figure_handle(win);
+    my_handle.figure_size = my_handle.figure_size + x*[y y];
+  end    
 endfunction
 
 plot2d()
@@ -205,6 +244,7 @@ fig.event_handler_enable = "on" ;
 //   -  press button, wait a little release
 //   -  press and release button
 //   -  double-click button
+//   -  use the mouse wheel to resize the window
 
 fig.event_handler_enable = "off" ; //suppress the event handler
  ]]></programlisting>
@@ -223,6 +263,9 @@ fig.event_handler_enable = "off" ; //suppress the event handler
       </member>
       <member>
         <link linkend="xclick">xclick</link>
+      </member>
+      <member>
+        <link linkend="get_figure_handle">get_figure_handle</link>
       </member>
     </simplelist>
   </refsection>
