@@ -283,6 +283,7 @@ bool FuncManager::CreateModuleList(void)
 	m_ModuleMap.insert(pair<string, GW_MOD>("functions", &FunctionsModule::Load));
 	m_ModuleMap.insert(pair<string, GW_MOD>("output_stream", &OutputStreamModule::Load));
 	m_ModuleMap.insert(pair<string, GW_MOD>("matio", &MatioModule::Load));
+	m_ModuleMap.insert(pair<string, GW_MOD>("overloading", NULL));
 	return bRet;
 }
 
@@ -308,7 +309,12 @@ bool FuncManager::LoadFuncByModule(void)
 	for(itMod = m_ActivModuleMap.begin() ; itMod != m_ActivModuleMap.end() ; itMod++)
 	{
 		//call Load function
-		itMod->second();
+
+        //check if module have gateways
+        if(itMod->second != NULL)
+        {
+		    itMod->second();
+        }
 		LoadMacroFile(itMod->first);
 	}
 	return bRet;
