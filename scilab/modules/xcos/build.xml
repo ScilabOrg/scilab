@@ -37,7 +37,7 @@
   </target>
 
   <!-- Overload the test target dependencies -->
-  <target name="test" depends="compile-test, validate">
+  <target name="test" depends="compile-test, validate" if="test-present">
     <taskdef name="testng" classpathref="unittest.classpath" classname="org.testng.TestNGAntTask" />
     <testng verbose="2"  haltonfailure="true">
 	    <classpath>
