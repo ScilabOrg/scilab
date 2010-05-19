@@ -352,6 +352,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\bcompc_com.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\fortran\bfeval.c"
 				>
 			</File>
@@ -412,7 +416,75 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\cintg_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\cjac_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\coladr_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colapr_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colbas_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colest_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colloc_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colmsh_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\colname_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\colnew.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colnln_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colord_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colout_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\colsid_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\coltyp_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\csurf_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\cydot_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\dassln_com.c"
 				>
 			</File>
 			<File
@@ -436,11 +508,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dqa001_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\dqag0.c"
 				>
 			</File>
 			<File
 				RelativePath=".\dqags.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\eh0001_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\eh0001_com.c"
 				>
 			</File>
 			<File
@@ -488,6 +572,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\fevaladr_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\fevalname_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\fevaltyp_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\fnorm.c"
 				>
 			</File>
@@ -501,6 +597,50 @@
 			</File>
 			<File
 				RelativePath=".\hpins.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\icolnew_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\ierajf_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\ierajf_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\iercol_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\iercol_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\ierdcu_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\ierdcu_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\ierode_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\ierode_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\iertwo_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\iertwo_com.c"
 				>
 			</File>
 			<File
@@ -528,6 +668,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ls0001_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\lsa001_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\lsdisc.c"
 				>
 			</File>
@@ -548,7 +696,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\lsr001_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\lsrgk.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\odecd_com.c"
 				>
 			</File>
 			<File
@@ -557,6 +713,10 @@
 			</File>
 			<File
 				RelativePath=".\order.c"
+				>
+			</File>
+			<File
+				RelativePath=".\path_com.c"
 				>
 			</File>
 			<File

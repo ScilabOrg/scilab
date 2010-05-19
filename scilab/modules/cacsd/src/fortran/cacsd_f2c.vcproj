@@ -344,7 +344,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\arl2c_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\calsca.c"
+				>
+			</File>
+			<File
+				RelativePath=".\comall_com.c"
 				>
 			</File>
 			<File
@@ -413,6 +421,10 @@
 			</File>
 			<File
 				RelativePath=".\mzdivq.c"
+				>
+			</File>
+			<File
+				RelativePath=".\no2f_com.c"
 				>
 			</File>
 			<File
@@ -572,11 +584,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\sortie_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\sszer.c"
 				>
 			</File>
 			<File
 				RelativePath=".\storl2.c"
+				>
+			</File>
+			<File
+				RelativePath=".\temps_com.c"
 				>
 			</File>
 			<File

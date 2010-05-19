@@ -403,6 +403,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\cinter_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\ibfu_com.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\fortran\sci_fort.c"
 				>
 			</File>

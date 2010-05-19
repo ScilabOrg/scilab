@@ -453,6 +453,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\corradr_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\corrname_com.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\corrtyp_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\degree.c"
 				>
 			</File>
@@ -573,6 +585,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\iercorr_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\ino.c"
 				>
 			</File>
@@ -582,6 +598,10 @@
 			</File>
 			<File
 				RelativePath=".\nstabl.c"
+				>
+			</File>
+			<File
+				RelativePath=".\oops_com.c"
 				>
 			</File>
 			<File
@@ -606,6 +626,10 @@
 			</File>
 			<File
 				RelativePath=".\r8tx.c"
+				>
+			</File>
+			<File
+				RelativePath=".\rem001_com.c"
 				>
 			</File>
 			<File
@@ -670,6 +694,10 @@
 			</File>
 			<File
 				RelativePath=".\tg02ad.c"
+				>
+			</File>
+			<File
+				RelativePath=".\tg02bd_com.c"
 				>
 			</File>
 			<File

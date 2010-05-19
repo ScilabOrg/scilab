@@ -336,6 +336,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\adre_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\allops.c"
 				>
 			</File>
@@ -368,6 +372,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cha1_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\chkvar.c"
 				>
 			</File>
@@ -388,6 +396,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\com_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\command.c"
 				>
 			</File>
@@ -401,6 +413,10 @@
 			</File>
 			<File
 				RelativePath=".\copyvar.c"
+				>
+			</File>
+			<File
+				RelativePath=".\cosdebug_com.c"
 				>
 			</File>
 			<File
@@ -424,11 +440,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dbg_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\defmat.c"
 				>
 			</File>
 			<File
 				RelativePath=".\dtosci.c"
+				>
+			</File>
+			<File
+				RelativePath=".\errgst_com.c"
 				>
 			</File>
 			<File
@@ -524,7 +548,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\intersci_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\intstr.c"
+				>
+			</File>
+			<File
+				RelativePath=".\iop_com.c"
+				>
+			</File>
+			<File
+				RelativePath=".\ippty_com.c"
 				>
 			</File>
 			<File
@@ -557,6 +593,10 @@
 			</File>
 			<File
 				RelativePath=".\itosci.c"
+				>
+			</File>
+			<File
+				RelativePath=".\keepme_com.c"
 				>
 			</File>
 			<File
@@ -604,7 +644,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mprot_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\mrknmd.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\mtlbc_com.c"
 				>
 			</File>
 			<File
@@ -613,6 +661,10 @@
 			</File>
 			<File
 				RelativePath=".\prompt.c"
+				>
+			</File>
+			<File
+				RelativePath=".\ptkeep_com.c"
 				>
 			</File>
 			<File
@@ -625,6 +677,10 @@
 			</File>
 			<File
 				RelativePath=".\putid.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\recu_com.c"
 				>
 			</File>
 			<File
@@ -748,6 +804,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\fortran\stack_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\stackc2i.c"
 				>
 			</File>
@@ -788,7 +848,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\typnams_com.c"
+				>
+			</File>
+			<File
 				RelativePath=".\varfunptr.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\fortran\vstk_com.c"
 				>
 			</File>
 			<File
