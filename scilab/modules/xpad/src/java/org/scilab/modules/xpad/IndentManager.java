@@ -94,69 +94,72 @@ public class IndentManager {
      * @return an array of length 2 containing the new start and the new end of the indented text
      */
     public int[] indentDoc(int start, int end) {
-        try {
-            if (start > end ) {
-                end = start;
-            }
-            int[] level = new int[2];
-            int lineStart = elem.getElementIndex(start);
-            int lineEnd = elem.getElementIndex(end);
-            int[] tabs = new int[lineEnd - lineStart + 1];
-            int[] ret = new int[2];
-
-            int[] ind = new int[2];
-
-            getNums(lineStart - 1, ind);
-            if (lineStart > 0) {
-                scanner.getIndentLevel(elem.getElement(lineStart - 1).getStartOffset(), level);
-                tabs[0] = ind[1] + level[1];
-            }
-
-            for (int lineNumber = 0; lineNumber <= lineEnd - lineStart; lineNumber++) {
-                int pos = elem.getElement(lineNumber + lineStart).getEndOffset() - 1;
-                scanner.getIndentLevel(pos, level);
-                tabs[lineNumber] = Math.max(tabs[lineNumber] - level[0], 0);
-                if (lineNumber != lineEnd - lineStart) {
-                    tabs[lineNumber + 1] = tabs[lineNumber] + level[1];
+        if (doc.getAutoIndent()) {
+            try {
+                if (start > end ) {
+                    end = start;
                 }
-            }
+                int[] level = new int[2];
+                int lineStart = elem.getElementIndex(start);
+                int lineEnd = elem.getElementIndex(end);
+                int[] tabs = new int[lineEnd - lineStart + 1];
+                int[] ret = new int[2];
 
-            Segment seg = new Segment();
-            StringBuffer buffer = new StringBuffer();
-            int e = start;
+                int[] ind = new int[2];
 
-            for (int lineNumber = lineStart; lineNumber <= lineEnd; lineNumber++) {
-                if (lineNumber < lineEnd) {
-                    e = elem.getElement(lineNumber).getEndOffset();
-                } else {
-                    e = elem.getElement(lineNumber).getEndOffset() - 1;
+                getNums(lineStart - 1, ind);
+                if (lineStart > 0) {
+                    scanner.getIndentLevel(elem.getElement(lineStart - 1).getStartOffset(), level);
+                    tabs[0] = ind[1] + level[1];
                 }
-                int t = elem.getElement(lineNumber).getStartOffset() + scanner.getTabsAtBeginning(lineNumber);
-                if (e - t + 1 == 0) {
-                    e = t;
-                }
-                doc.getText(t, e - t, seg);
-                if (e > t + 1) {
-                    char[] str = new char[tabs[lineNumber - lineStart] * num];
-                    for (int i = 0; i < str.length; i++) {
-                        str[i] = indentChar;
-                    }
-                    buffer.append(str);
-                    if (lineNumber == lineStart) {
-                        ret[0] = start + str.length - scanner.getTabsAtBeginning(lineNumber);
+
+                for (int lineNumber = 0; lineNumber <= lineEnd - lineStart; lineNumber++) {
+                    int pos = elem.getElement(lineNumber + lineStart).getEndOffset() - 1;
+                    scanner.getIndentLevel(pos, level);
+                    tabs[lineNumber] = Math.max(tabs[lineNumber] - level[0], 0);
+                    if (lineNumber != lineEnd - lineStart) {
+                        tabs[lineNumber + 1] = tabs[lineNumber] + level[1];
                     }
                 }
-                buffer.append(seg.array, seg.offset, seg.count);
-            }
 
-            int sstart = elem.getElement(lineStart).getStartOffset();
-            doc.replace(sstart, e - sstart, buffer.toString(), null);
-            ret[1] = sstart + buffer.length() - (e - end - 1);
-            return ret;
-        } catch (BadLocationException e) {
-            System.err.println(e);
-            return null;
+                Segment seg = new Segment();
+                StringBuffer buffer = new StringBuffer();
+                int e = start;
+
+                for (int lineNumber = lineStart; lineNumber <= lineEnd; lineNumber++) {
+                    if (lineNumber < lineEnd) {
+                        e = elem.getElement(lineNumber).getEndOffset();
+                    } else {
+                        e = elem.getElement(lineNumber).getEndOffset() - 1;
+                    }
+                    int t = elem.getElement(lineNumber).getStartOffset() + scanner.getTabsAtBeginning(lineNumber);
+                    if (e - t + 1 == 0) {
+                        e = t;
+                    }
+                    doc.getText(t, e - t, seg);
+                    if (e > t + 1) {
+                        char[] str = new char[tabs[lineNumber - lineStart] * num];
+                        for (int i = 0; i < str.length; i++) {
+                            str[i] = indentChar;
+                        }
+                        buffer.append(str);
+                        if (lineNumber == lineStart) {
+                            ret[0] = start + str.length - scanner.getTabsAtBeginning(lineNumber);
+                        }
+                    }
+                    buffer.append(seg.array, seg.offset, seg.count);
+                }
+
+                int sstart = elem.getElement(lineStart).getStartOffset();
+                doc.replace(sstart, e - sstart, buffer.toString(), null);
+                ret[1] = sstart + buffer.length() - (e - end - 1);
+                return ret;
+            } catch (BadLocationException e) {
+                System.err.println(e);
+                return null;
+            }
         }
+        return null;
     }
 
     /**
