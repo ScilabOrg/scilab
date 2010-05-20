@@ -51,11 +51,12 @@ extern "C" {
 #include <iostream>
 #include <algorithm>
 #include <functional>
-
+#include <limits>
+#include <iterator>
 /*
  *
  We can handle k Rhs  et m Lhs. Currently, only real (double) matrix are implemented.
- In fact, from a performance point of view, only Random-Acces data types where it is possible to "extract" a column in O(1) 
+ In fact, from a performance point of view, only Random-Acces data types where it is possible to "extract" a column in O(1)
  (plus memcpy for macro a args) are making sense. This rules out most Scilab data types except for matrices of double / int.
 
 
@@ -75,7 +76,7 @@ extern "C"
     int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len);
 }
 
-namespace 
+namespace
 {
     /* to distinguish scilab variable 'address' from usual int* */
     typedef int* scilabVar_t;
@@ -92,16 +93,16 @@ namespace
     /* A scilab variable description is a typename and a matric dimension, just to add a default constructor on the inherited struct
     * character string a static (no dynamic alloc/destruction)
     */
-    struct scilabDesc_t :std::pair<char const*, dim_t> 
+    struct scilabDesc_t :std::pair<char const*, dim_t>
     {
         scilabDesc_t(char const* name="constant", dim_t dim=dim_t(1,1)) /* default variable is a scalar i.e. 1x1 matrix of typename "constant" */
             :std::pair<char const*, dim_t>(name, dim)
         {
         }
-/* for debug purposes only 
-        std::string toString() const 
+/* for debug purposes only
+        std::string toString() const
         {
-            std::stringstream buf; 
+            std::stringstream buf;
             buf<<std::pair<char const*, dim_t>::first<<" :"<<std::pair<char const*, dim_t>::second.first
                <<" x "<<std::pair<char const*, dim_t>::second.second;
             return buf.str();
@@ -109,7 +110,7 @@ namespace
 */
     };
 
-    /* types to be used in unions of function pointers */  
+    /* types to be used in unions of function pointers */
     typedef void (*functionToCall_t)(void const*const*, void*const*);
     typedef void (*wrapperFunction_t)(double const*, double*);
     typedef void (*loadedFunction_t)();
@@ -189,24 +190,24 @@ namespace
      * @param var the scilab var
      * @return bool true iff it can be a function
      */
-    bool isFunctionOrString(scilabVar_t var){ 
+    bool isFunctionOrString(scilabVar_t var){
         bool res;
-        switch(getVarType(var)) 
+        switch(getVarType(var))
         {
-        case sci_u_function :  
-        case sci_c_function : 
-        { 
-            res= true; 
+        case sci_u_function :
+        case sci_c_function :
+        {
+            res= true;
             break;
         }
-        case sci_strings : 
-        { 
+        case sci_strings :
+        {
             res= (getRows(var) == 1) && (getCols(var) == 1);
             break;
         }
-        default : 
-        { 
-            res= false; 
+        default :
+        {
+            res= false;
         }
         }
         return res;
@@ -229,7 +230,7 @@ namespace
             }
             else
             {/* TODO suggest workaround in tutorial */
-                
+
 //              std::cerr<<"complex data not yet implemented var @"<<var<<std::endl;
             }
             break;
@@ -238,7 +239,7 @@ namespace
         {
 //          std::cerr<<"getData() string data not yet implemented"<<std::endl;
             break;
-        } 
+        }
         default :
         {
 //          std::cerr<<"getData() data type"<<getVarType(var)<<" not yet implemented"<<std::endl;
@@ -351,7 +352,31 @@ namespace
         }
         return res;
     }
+    /* Ensures that the complete expected var is filled with reasonable default values
+     * when the returned var was smaller than expected
+     *
+     * i.e. we just copied the data from a resultVar @ varData
+     * when we were expecting an expectedVar : we fill the rest.
+     *
+     * @param d scilab variable description
+     * @param n either slice or concatenation
+     * @return the variable address
+     * only real matrices are implemented yet.
+     */
+    void fillUndefinedData(void* varData, scilabDesc_t resultVar, scilabDesc_t expectedVar)
+    {
+        if(!std::strcmp(resultVar.first, expectedVar.first))
+        {
+            if(!strcmp(resultVar.first, "constant"))
+            {
+                std::size_t const nbFilled(resultVar.second.first * resultVar.second.second);
+                std::fill_n(static_cast<double *>(varData)+ nbFilled
+                            , expectedVar.second.first * expectedVar.second.second - nbFilled
+                            ,std::numeric_limits<double>::quiet_NaN() );
 
+            }
+        }
+    }
     /*
       wrapper on a native c function or a scilab macro called on scilab variables.
 
@@ -359,7 +384,7 @@ namespace
       - scilab variable for the function (external native function name, sci_c_function (buggy) or macro name)scilab matrices of arguments
       - expected lhs
 
-      upon construction, allocate scilab result variables and computes all necessary meta data. 
+      upon construction, allocate scilab result variables and computes all necessary meta data.
     */
     struct wrapper {
 
@@ -384,46 +409,46 @@ namespace
          * @ param args array of ptrs to args data
          * @ param res array of ptrs to res data
          */
-        void operator()(void const** args, void ** res)  
-        { 
-            (*this.*(this->fPtr))(args, res); 
+        void operator()(void const** args, void ** res)
+        {
+            (*this.*(this->fPtr))(args, res);
         }
 
         /* It is idiomatic to pass functors by value in C++, but our wrapper is heavy,
          * so we provide a lightweight handle */
-        struct handle 
+        struct handle
         {
             handle(wrapper& r) : w(r)
             {
             }
             /* just forward to the underlying wrapper */
-            void operator()(void const** args, void ** res) const 
+            void operator()(void const** args, void ** res) const
             {
-                w(args, res); 
+                w(args, res);
             }
             wrapper& w;
         };
-        handle getHandle() 
+        handle getHandle()
         {
-            return handle(*this); 
+            return handle(*this);
         }
         /* @return begin iterator to the array of pointers to arguments data */
-        void const*const* argsDataBegin() const 
+        void const*const* argsDataBegin() const
         {
             return &argsData[0].opaquePtr;
         }
         /* @return begin iterator to the array of arguments sizes */
-        std::size_t const* argsSizesBegin() const 
-        { 
+        std::size_t const* argsSizesBegin() const
+        {
             return &argsSizes[0];
         }
-        /* @return begin iterator to the array of arguments number of elements (they are not requires to have the same nb of elements */ 
-        std::size_t const* argsNbBegin() const 
+        /* @return begin iterator to the array of arguments number of elements (they are not requires to have the same nb of elements */
+        std::size_t const* argsNbBegin() const
         {
             return &argsNb[0];
         }
         /* @return nb of tasks (calls) to perform = max(args_nb_begin(), args_nb_begin()+rhs) */
-        std::size_t tasksNb() const 
+        std::size_t tasksNb() const
         {
             return n;
         }
@@ -433,7 +458,7 @@ namespace
             return &resData[0].opaquePtr;
         }
         /* @return begin iterator to the array of results sizes */
-        std::size_t const* resSizesBegin() const 
+        std::size_t const* resSizesBegin() const
         {
             return &resSizes[0];
         }
@@ -443,7 +468,7 @@ namespace
             return rhsDesc.size();
         }
         /* @return true if the underlying function is a foreign function, false if it is a Scilab macro */
-        bool isForeignFunction() const 
+        bool isForeignFunction() const
         {
             return function.toCall !=0 ;
         }
@@ -465,7 +490,7 @@ namespace
             std::transform(it, end, std::back_inserter(rhsDesc), std::bind2nd(std::ptr_fun(&getDesc), 0)); /* get a slice as model for function rhs*/
         }
 
-        /* alloc the scilab variables that will hold the complete collection of results 
+        /* alloc the scilab variables that will hold the complete collection of results
          * @param first_arg_position only used to compute the args positions for error messages
          * @param res_types_begin, res_types_end iterator range on the args describing result, can be empty
          * @param nb_lhs number of lhs    */
@@ -482,12 +507,12 @@ namespace
                 }
                 if(resBegin != resEnd)
                 {
-                    if(getVarType(*resBegin) == sci_matrix) 
+                    if(getVarType(*resBegin) == sci_matrix)
                     {
                         //    std::cerr<<"we have a dim lhs arg\n";
                         dim_t const tmp(getRowsCols(*resBegin));
                         double const*const data(getData(*resBegin).doublePtr);
-                        switch(tmp.second) 
+                        switch(tmp.second)
                         {
 
                         case 2:
@@ -500,7 +525,7 @@ namespace
                             }
                             break;
                         }
-                        case 1: 
+                        case 1:
                         {
                             //            std::cerr<<"we have rows \n";
                             for(std::size_t i(0); i< tmp.first && i< tmp.first*tmp.second; ++i)
@@ -509,7 +534,7 @@ namespace
                             }
                             break;
                         }
-                        default : 
+                        default :
                         {
                             Scierror(999,_("%s: Wrong size of input argument #%d: Number of columns are incompatible ")
                                      ,currentFname, std::distance(begin, resBegin));
@@ -526,12 +551,12 @@ namespace
         }
 
         /* extract the function form the scilab variable (i.e.string) reprensenting it.
-         * @param v the variable 
+         * @param v the variable
          * @return nothing useful but GetRhsVar() macro wants to be able to return an int :(
          */
         int getFunction(scilabVar_t var) {
             function.toCall= 0;
-            switch(getVarType(var)) 
+            switch(getVarType(var))
             {
             case sci_c_function : {
                 int unused[2];
@@ -545,8 +570,8 @@ namespace
                 int found;
                 found=SearchInDynLinks(funName, &function.toLoad);
                 fPtr= &wrapper::nativeFunction;
-                if(found == -1) 
-                { 
+                if(found == -1)
+                {
                     /* should check amongst defined macros with getmacroslist (cf dans core/src/c/getvariablesname.c) and check that type is sci_XXX */
                     function.toCall=0;
                     scilabFunctionName= funName;
@@ -557,7 +582,7 @@ namespace
             }
         }
 
-        /* performs the Scilab macro call 
+        /* performs the Scilab macro call
          * @param byName bool template parameter tells if the macro is called by name or by ptr (ptr is currently broken).
          * @param args array of ptrs to args data
          * @param res array of ptr to res data
@@ -567,12 +592,12 @@ namespace
             /* rhs models from  */
             int saveNbvars= Nbvars, saveTop= currentTop;
             for( std::vector<scilabDesc_t>::const_iterator it(rhsDesc.begin())
-                     ; it != rhsDesc.end(); ++it, ++args) 
+                     ; it != rhsDesc.end(); ++it, ++args)
             {
                 scilabVar_t scilabArg= allocVar(*it); /* create a var for a slice (col)of the parallel_run Rhs arg */
                 memcpy(getData(scilabArg).bytePtr, *args, getSizeOfData(scilabArg));
             }
-            
+
             int  sciRhs = rhsDesc.size();
             int  sciLhs = lhsDesc.size();
 
@@ -583,11 +608,11 @@ namespace
                 double* unused;
                 err= allocMatrixOfDouble(pvApiCtx, ++currentTop, 0, 0, &unused);
             }
-            Nbvars = Rhs+Lhs+sciRhs; 
+            Nbvars = Rhs+Lhs+sciRhs;
             if(byName)
             {
                 C2F(scistring)(&sciArgPos, scilabFunctionName, &sciLhs, &sciRhs, scilabFunctionNameLength);
-            } 
+            }
             else
             {
                 C2F(scifunction)(&sciArgPos, &scilabFunction, &sciLhs, &sciRhs);
@@ -598,22 +623,33 @@ namespace
                 int* addr;
                 int rm1, rn1;
                 Nbvars = Rhs+Lhs+sciRhs+dummyVars;
-                int resPos= Rhs+Lhs+1; //+1 
-                
+                int resPos= Rhs+Lhs+1; //+1
+
                 for( std::vector<scilabDesc_t>::iterator it(lhsDesc.begin())
                          ; it != lhsDesc.end(); ++it, ++resPos, ++res)
                 {
                     scilabVar_t scilabRes;
                     err= getVarAddressFromPosition(pvApiCtx, resPos, &scilabRes);
-                    memcpy(*res, getData(scilabRes).bytePtr, getSizeOfData(scilabRes));
+                    scilabDesc_t resDesc;
+                    if(err.iErr)
+                    {/* there was an error getting the result variable */
+                        resDesc= *it; /* pretend we got the right type */
+                        resDesc.second.first = resDesc.second.second= 0;/* but 0 elements */
+                    }
+                    else
+                    { /* copy the returned data */
+                        memcpy(*res, getData(scilabRes).bytePtr, getSizeOfData(scilabRes));
+                        resDesc= getDesc(scilabRes);
+                    }
+                    fillUndefinedData(*res, resDesc, *it);
                 }
                 Nbvars= saveNbvars;
                 currentTop=saveTop;
             }
         }
-        void nativeFunction(void const** args, void ** res) 
-        {  
-            function.toCall(args, res); 
+        void nativeFunction(void const** args, void ** res)
+        {
+            function.toCall(args, res);
         }
 
         /* we prealloc as much scilab var more than requested lhs in case the scilab macro call back returns more thant requested.*/
@@ -632,7 +668,7 @@ namespace
         std::size_t scilabFunctionNameLength;/* the scilab function name length for scistring */
 
         /* store models of scilab lhs and rhs variables */
-        std::vector<scilabDesc_t> lhsDesc, rhsDesc; 
+        std::vector<scilabDesc_t> lhsDesc, rhsDesc;
         std::vector<scilabVar_t> scilabCollectionsOfLhs;    /* lhs vars of the parallel_run function : collections of the lhs form the function*/
 
     };
@@ -640,7 +676,7 @@ namespace
      * 1 or more matrices of doubles
      * 1 matrix of 1 string
      * 0 or 1 matrix of strings and/or 1 matrix of doubles with 1 ou 2 columns
-     * 0 or 1 configuration plist  
+     * 0 or 1 configuration plist
      *
      * @retun true is the args are valid */
     bool check_args(void) {
@@ -718,7 +754,7 @@ namespace
      * @param chunk_size int config value for the key "chunk_size"
      * @param prologue char* config value for the key "prologue"
      * @param prologue char* config value for the key "epilogue"
-     * 
+     *
      * @return bool true if there was a configuration argument in position config_arg_pos.
      */
     bool getConfigParameters(int config_arg_pos, int& nb_workers, bool& shared_memory, bool& dynamic_scheduling, int& chunk_size, char const*& prologue, char const*& epilogue){
@@ -748,7 +784,7 @@ namespace
         /* the constructor
          * @param the macro or foreign function name, empty string allowed: the function then does nothing.
          */
-        explicit simple_wrapper(char const* name):fun(name) 
+        explicit simple_wrapper(char const* name):fun(name)
         {
         }
         /* the operator : calls the function or macro passing a scalar argument on the stack
@@ -785,7 +821,7 @@ namespace
     };
 }
 
-/* Calling point from Scilab. 
+/* Calling point from Scilab.
  * checking args and contruction a wrapper around function call of a foreign function or a Scilab macro.
  * this wrapper (in fact, a handle) is then passed to another wrapper that will parallelize the calls.
  * the parallel wrapper is independant of Scilab (thanks to this wrapper) and is implemented in parallel_wrapper.hpp.
@@ -794,25 +830,25 @@ namespace
  * 1 checking args
  * 2 constructing wrapper pre allocating result Scilab vars and abstracting arrays of args and results pointers
  * (in parallel_wrapper )
- * 3 contructing a parallel_wrapper 
+ * 3 contructing a parallel_wrapper
  * 4 calling the parallel_wrapper according to config options (i.e. nb of workers)
  * 4.1 for each call to be made, adjusting the args and res ptr
  * 4.2 calling the wrapper
  *
  */
-int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len) 
+int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len)
 {
     typedef std::vector<scilabVar_t> varsContainer_t;
     currentFname=fname; //get_fname(fname, fname_len); uses a static buffer :(
     currentTop= Rhs;
     Nbvars= std::max(Rhs, Top);
-    if( !check_args()) 
+    if( !check_args())
     {
         Scierror(999,_("%s: Wrong number of input argument(s).\n"),fname);/* need a better error message */
         PutLhsVar();
-        return 0; 
+        return 0;
     }
-  
+
 
     int nbArgsToHandle(Rhs);
     /* parameters default values */
@@ -837,7 +873,7 @@ int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len)
     make_parallel_wrapper(w.argsDataBegin(), w.argsSizesBegin(), w.argsNbBegin(), w.nbRhs(), w.tasksNb()
                           ,  w.resDataBegin(), w.resSizesBegin()
                           , Lhs, w.getHandle(), prologue, epilogue)(withThreads, nbWorkers, dynamicScheduling, chunkSize);
-    
+
     for(std::size_t i(0); i != Lhs; ++i)
     {
         LhsVar(i+1)=Rhs+i+1;
