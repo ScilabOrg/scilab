@@ -60,10 +60,10 @@ public class SciTranslator {
         public static final int WHEEL_UNIT_ROTATED = 20;
 	public static final int WHEEL_BLOCK_ROTATED = 21;
 
-        public static final int WINDOW_HIDDEN     = 30;
-        public static final int WINDOW_MOVED      = 31;
-        public static final int WINDOW_RESIZED    = 32;
-        public static final int WINDOW_SHOWN      = 33;
+        public static final int WINDOW_HIDDEN     = 40;
+        public static final int WINDOW_MOVED      = 41;
+        public static final int WINDOW_RESIZED    = 42;
+        public static final int WINDOW_SHOWN      = 43;
 
 	private static final int SCILAB_CTRL_OFFSET = 1000;
 	
