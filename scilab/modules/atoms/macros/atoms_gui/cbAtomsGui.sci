@@ -28,16 +28,33 @@ function cbAtomsGui()
     if or(UItag == ["LeftListbox";"HomeListbox"]) then
 
         // Get the selected module
-        module = getSelected(UItag);
+        selected = getSelected(UItag);
 
-        // Save the module name
-        set(DescFrame,"userdata",module);
 
-        // Update the description frame
-        updateDescFrame();
+       if selected(1)=="module" then
 
-        // Show the description frame
-        showDesc();
+            // Save the module name
+            set(DescFrame,"userdata",selected(2));
+
+            // Update the description frame
+            updateDescFrame();
+
+            // Show the description frame
+            showDesc();
+
+       elseif selected(1)=="category" then
+
+            LeftListbox             = findobj("tag","LeftListbox");
+            LeftElements            = atomsGetLeftListboxElts(selected(2));
+            LeftListbox("String")   = LeftElements("items_str");
+            LeftListbox("UserData") = LeftElements("items_mat");
+
+            // Figure name
+            atomsfig                = findobj("tag","atomsFigure");
+            atomsfig("figure_name") = LeftElements("title")+" - Atoms";
+
+       end
+
     end
 
     // A button has been pressed
@@ -113,28 +130,15 @@ endfunction
 
 // =============================================================================
 // getSelected()
-//  + Return the module name selected from a listbox.
-//  + Accepted listboxes:
-//    - LeftListbox
-//    - HomeListbox
+//  + Return the type: category / module
+//  + Return the name selected from a listbox.
 // =============================================================================
 
-function name = getSelected(listbox)
+function selected = getSelected(listbox)
 
-    selected = get(findobj("Tag",listbox),"Value");
-
-    if listbox == "HomeListbox" then
-        modulesNames       = atomsGetInstalled();
-        modulesNames       = modulesNames(:,1);
-    elseif listbox == "LeftListbox" then
-        allModules         = get(findobj("Tag", "atomsFigure"), "userdata");
-        modulesNames       = getfield(1, allModules);
-        modulesNames (1:2) = [];
-    else
-        error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"),"getSelected",1,"HomeListbox","LeftListbox"));
-    end
-
-    name = modulesNames(selected);
+    index    = get(findobj("Tag",listbox),"Value");
+    UserData = get(findobj("Tag",listbox),"UserData");
+    selected = UserData(index,:);
 
 endfunction
 
@@ -412,6 +416,12 @@ function showHome()
     hide("installButton");
     hide("updateButton");
 
+    // update the left listbox
+    LeftListbox             = findobj("tag","LeftListbox");
+    LeftElements            = getLeftListboxElements("filter:main");
+    LeftListbox("String")   = LeftElements("items_str");
+    LeftListbox("UserData") = LeftElements("items_mat");
+
     // Show the Home page
     show("HomeFrame");
     show("HomeTitle");
@@ -522,3 +532,4 @@ function txtout = txt2title(txtin)
              "</div>";
 
 endfunction
+
