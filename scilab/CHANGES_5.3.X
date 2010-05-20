@@ -296,6 +296,8 @@ ATOMS:
 
 * The ATOMS GUI ergonomics has been improved.
 
+* ATOMS GUI: Modules can be filtered by category (See request 5276).
+
 * ATOMS GUI: When a module is not up-to-date, a warning is displayed on the
   corresponding sheet.
 
