@@ -959,6 +959,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helptools", "modules\helpto
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helptools-Ant", "modules\helptools\src\java\helptools-JAVA.vcproj", "{899DECF1-D4DC-4C84-BB3C-3A343401A5B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E9783492-017E-4811-9CC7-6B71856F847C} = {E9783492-017E-4811-9CC7-6B71856F847C}
+	EndProjectSection
 EndProject
 Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "linpack_f", "modules\elementary_functions\src\fortran\linpack\linpack_f.vfproj", "{F0F55692-0355-4BC3-BE9D-552C8AAC5238}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -1095,6 +1098,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parameters", "modules\param
 		{A5911CD7-F8E8-440C-A23E-4843A0636F3A} = {A5911CD7-F8E8-440C-A23E-4843A0636F3A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graph-java-tests", "modules\graph\tests\java\graph-JAVA-tests.vcproj", "{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{968FD6C1-5845-4B22-B61E-F6DE987D47AD} = {968FD6C1-5845-4B22-B61E-F6DE987D47AD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcos-java-tests", "modules\xcos\tests\java\xcos-JAVA-tests.vcproj", "{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6DA4FFA-E405-4DCF-883B-A3C1713F8C5D} = {F6DA4FFA-E405-4DCF-883B-A3C1713F8C5D}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hdf5-java-tests", "modules\hdf5\tests\java\hdf5-JAVA-tests.vcproj", "{78D46B73-ADD7-40CF-8436-B66897B18D9A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9B6500B0-66F6-44F0-910D-47A1435B4E02} = {9B6500B0-66F6-44F0-910D-47A1435B4E02}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -1226,11 +1244,9 @@ Global
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Debug|Win32.ActiveCfg = Debug|Win32
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Debug|Win32.Build.0 = Debug|Win32
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Debug|x64.ActiveCfg = Debug|x64
-		{45CA5B12-7601-4968-AE16-16069FD1A152}.Debug|x64.Build.0 = Debug|x64
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Release|Win32.ActiveCfg = Release|Win32
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Release|Win32.Build.0 = Release|Win32
 		{45CA5B12-7601-4968-AE16-16069FD1A152}.Release|x64.ActiveCfg = Release|x64
-		{45CA5B12-7601-4968-AE16-16069FD1A152}.Release|x64.Build.0 = Release|x64
 		{425B887B-9FC5-4CD2-B632-DBFC000E3E25}.Debug|Win32.ActiveCfg = Debug|Win32
 		{425B887B-9FC5-4CD2-B632-DBFC000E3E25}.Debug|Win32.Build.0 = Debug|Win32
 		{425B887B-9FC5-4CD2-B632-DBFC000E3E25}.Debug|x64.ActiveCfg = Debug|x64
@@ -2215,6 +2231,20 @@ Global
 		{A09E8584-0713-48A5-97BA-ACED0F3728F8}.Release|Win32.Build.0 = Release|Win32
 		{A09E8584-0713-48A5-97BA-ACED0F3728F8}.Release|x64.ActiveCfg = Release|x64
 		{A09E8584-0713-48A5-97BA-ACED0F3728F8}.Release|x64.Build.0 = Release|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|x64.ActiveCfg = Debug|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|x64.Build.0 = Debug|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|Win32.ActiveCfg = Release|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|x64.ActiveCfg = Release|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|x64.Build.0 = Release|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|x64.ActiveCfg = Debug|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|Win32.ActiveCfg = Release|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|x64.ActiveCfg = Release|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|x64.ActiveCfg = Debug|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|Win32.ActiveCfg = Release|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

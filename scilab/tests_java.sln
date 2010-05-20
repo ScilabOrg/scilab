@@ -1,0 +1,49 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graph-java-tests", "modules\graph\tests\java\graph-JAVA-tests.vcproj", "{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xcos-java-tests", "modules\xcos\tests\java\xcos-JAVA-tests.vcproj", "{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A} = {AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A} = {78D46B73-ADD7-40CF-8436-B66897B18D9A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hdf5-java-tests", "modules\hdf5\tests\java\hdf5-JAVA-tests.vcproj", "{78D46B73-ADD7-40CF-8436-B66897B18D9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|Win32.Build.0 = Debug|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|x64.ActiveCfg = Debug|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Debug|x64.Build.0 = Debug|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|Win32.ActiveCfg = Release|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|Win32.Build.0 = Release|Win32
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|x64.ActiveCfg = Release|x64
+		{AB7EBA0D-1B00-4B1B-BB00-62AB38E2309A}.Release|x64.Build.0 = Release|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|Win32.Build.0 = Debug|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|x64.ActiveCfg = Debug|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Debug|x64.Build.0 = Debug|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|Win32.ActiveCfg = Release|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|Win32.Build.0 = Release|Win32
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|x64.ActiveCfg = Release|x64
+		{DABDF840-2A2F-4B38-90B2-A4393E6DF38B}.Release|x64.Build.0 = Release|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|Win32.Build.0 = Debug|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|x64.ActiveCfg = Debug|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Debug|x64.Build.0 = Debug|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|Win32.ActiveCfg = Release|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|Win32.Build.0 = Release|Win32
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|x64.ActiveCfg = Release|x64
+		{78D46B73-ADD7-40CF-8436-B66897B18D9A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
