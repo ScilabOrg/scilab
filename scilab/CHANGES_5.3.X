@@ -18,6 +18,8 @@ Text Editor:
 * Add the possibility to autocomplete some characters (e.g. type '[' gives '[]')
   or keywords (e.g. type 'if ' gives 'if <CR>end')  
 
+* Add the possibility to remove trailing whitespaces.
+
 * bugs 4399, 4922 fixed - The line numbering could not be compatible with the
                           output of the whereami function.
 

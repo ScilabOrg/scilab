@@ -51,6 +51,7 @@ import org.scilab.modules.xpad.actions.CloseAllAction;
 import org.scilab.modules.xpad.actions.CloseAllButThisAction;
 import org.scilab.modules.xpad.actions.CommentAction;
 import org.scilab.modules.xpad.actions.UnCommentAction;
+import org.scilab.modules.xpad.actions.RemoveTrailingWhiteAction;
 import org.scilab.modules.xpad.actions.CopyAction;
 import org.scilab.modules.xpad.actions.CutAction;
 import org.scilab.modules.xpad.actions.DeleteAction;
@@ -362,6 +363,8 @@ public class XpadGUI {
                 toolsMenu.add(UnTabifyAction.createMenu(editorInstance, map.get("UnTabifyAction")));
                 toolsMenu.addSeparator();
                 toolsMenu.add(IndentAction.createMenu(editorInstance, map.get("IndentAction")));
+                toolsMenu.addSeparator();
+                toolsMenu.add(RemoveTrailingWhiteAction.createMenu(editorInstance, map.get("RemoveTrailingWhiteAction")));
         }
 
         /**
