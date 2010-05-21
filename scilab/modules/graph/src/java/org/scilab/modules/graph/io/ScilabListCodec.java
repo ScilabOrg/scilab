@@ -27,7 +27,6 @@ import com.mxgraph.io.mxCodec;
  */
 public class ScilabListCodec  extends ScilabObjectCodec {
 
-    
     private static final String SCILAB_CLASS = "scilabClass";
 
     /**
