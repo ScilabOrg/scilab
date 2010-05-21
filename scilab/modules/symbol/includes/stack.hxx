@@ -82,6 +82,12 @@ namespace symbol
 			}
 */    }
 
+    /** Remove Association between value and key in the current scope. */
+    void	remove(const string& key)
+    {
+        (this->l_scope.front())->remove(key);
+    }
+
     /** If key was associated to some Entry_T in the open scopes, return the
      ** most recent insertion. Otherwise return the empty pointer. */
     InternalType*	get (const string& key) const
