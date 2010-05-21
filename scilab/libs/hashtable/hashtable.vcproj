@@ -36,7 +36,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -55,7 +57,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -73,14 +74,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\bin\hashtable.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				IgnoreDefaultLibraryNames="libmmdd.lib"
 				ModuleDefinitionFile="..\..\bin\hashtable.def"
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\bin\hashtable.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				CLRUnmanagedCodeCheck="true"
 			/>
 			<Tool
@@ -124,7 +125,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -143,7 +146,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -161,14 +163,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\bin\hashtable.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				IgnoreDefaultLibraryNames="libmmdd.lib"
 				ModuleDefinitionFile="..\..\bin\hashtable.def"
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\bin\hashtable.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -212,7 +214,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -235,7 +239,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				CompileAs="0"
 			/>
 			<Tool
@@ -252,14 +255,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\bin\hashtable.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				IgnoreDefaultLibraryNames="libmmd.lib"
 				ModuleDefinitionFile="..\..\bin\hashtable.def"
 				OptimizeForWindows98="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				SupportUnloadOfDelayLoadedDLL="true"
-				ImportLibrary="..\..\bin\hashtable.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				CLRUnmanagedCodeCheck="true"
 			/>
 			<Tool
@@ -302,7 +305,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -325,7 +330,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				CompileAs="0"
 			/>
 			<Tool
@@ -342,14 +346,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="..\..\bin\hashtable.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				IgnoreDefaultLibraryNames="libmmd.lib"
 				ModuleDefinitionFile="..\..\bin\hashtable.def"
 				OptimizeForWindows98="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				SupportUnloadOfDelayLoadedDLL="true"
-				ImportLibrary="..\..\bin\hashtable.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>

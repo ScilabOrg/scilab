@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="LibScilab_f"
+	Name="LibScilab"
 	ProjectGUID="{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}"
 	RootNamespace="LibScilab"
 	TargetFrameworkVersion="0"
@@ -66,7 +66,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -98,7 +97,7 @@
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../bin/LibScilab.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -150,7 +149,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
@@ -172,7 +173,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 				CompileAs="0"
 			/>
@@ -200,7 +200,7 @@
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../bin/LibScilab.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -280,7 +280,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				CompileAs="0"
 			/>
 			<Tool
@@ -313,7 +312,7 @@
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				SupportUnloadOfDelayLoadedDLL="true"
-				ImportLibrary="../../bin/LibScilab.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -365,7 +364,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
@@ -393,7 +394,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				CompileAs="0"
 			/>
 			<Tool
@@ -422,7 +422,7 @@
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				SupportUnloadOfDelayLoadedDLL="true"
-				ImportLibrary="../../bin/LibScilab.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>

@@ -62,7 +62,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -82,7 +81,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				ExecutionBucket="10"
-				OutputFile="../../bin/Dumpexts.exe"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
@@ -140,7 +139,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -160,7 +161,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -176,7 +176,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="../../bin/Dumpexts.exe"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
@@ -258,7 +258,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -277,7 +276,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				ExecutionBucket="10"
-				OutputFile="../../bin/Dumpexts.exe"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile="$(ConfigurationName)/Dumpexts.pdb"
@@ -334,7 +333,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -358,7 +359,6 @@
 				ProgramDataBaseFileName="$(ConfigurationName)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -373,7 +373,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="../../bin/Dumpexts.exe"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile="$(ConfigurationName)/Dumpexts.pdb"

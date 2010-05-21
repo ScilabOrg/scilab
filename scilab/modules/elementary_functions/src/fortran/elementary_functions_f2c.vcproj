@@ -62,7 +62,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -80,7 +79,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				ExecutionBucket="10"
-				OutputFile="../../../../libs/elementary_functions_f.lib"
+				OutputFile="$(SolutionDir)libs\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -124,7 +123,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -139,7 +140,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -153,7 +153,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="../../../../libs/elementary_functions_f.lib"
+				OutputFile="$(SolutionDir)libs\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -212,7 +212,6 @@
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -230,7 +229,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				ExecutionBucket="10"
-				OutputFile="../../../../libs/elementary_functions_f.lib"
+				OutputFile="$(SolutionDir)libs\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -275,7 +274,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -288,7 +289,6 @@
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -302,7 +302,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="../../../../libs/elementary_functions_f.lib"
+				OutputFile="$(SolutionDir)libs\$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

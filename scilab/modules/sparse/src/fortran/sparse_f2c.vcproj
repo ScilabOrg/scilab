@@ -64,7 +64,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -85,13 +84,14 @@
 				Name="VCLinkerTool"
 				ExecutionBucket="10"
 				AdditionalDependencies="Libscilab.lib"
-				OutputFile="$(SolutionDir)bin\sparse_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="sparse_f.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -144,7 +144,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -159,7 +161,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -176,13 +177,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib"
-				OutputFile="$(SolutionDir)bin\sparse_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="sparse_f.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -230,7 +232,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -243,7 +247,6 @@
 				EnableEnhancedInstructionSet="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -260,7 +263,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib"
-				OutputFile="$(SolutionDir)bin\sparse_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="sparse_f.def"
 				GenerateDebugInformation="true"
@@ -270,6 +273,7 @@
 				LinkTimeCodeGeneration="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -317,7 +321,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -331,7 +337,6 @@
 				EnableEnhancedInstructionSet="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -348,7 +353,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib"
-				OutputFile="$(SolutionDir)bin\sparse_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="sparse_f.def"
 				GenerateDebugInformation="true"
@@ -358,6 +363,7 @@
 				LinkTimeCodeGeneration="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -853,12 +859,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
 		<Filter

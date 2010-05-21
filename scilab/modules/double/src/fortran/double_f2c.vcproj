@@ -64,7 +64,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -86,13 +85,14 @@
 				Name="VCLinkerTool"
 				ExecutionBucket="10"
 				AdditionalDependencies="Libscilab.lib double.lib"
-				OutputFile="$(SolutionDir)bin\double_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="double_f.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -144,7 +144,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -159,7 +161,6 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -177,13 +178,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib double.lib"
-				OutputFile="$(SolutionDir)bin\double_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="double_f.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -230,7 +232,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -243,7 +247,6 @@
 				EnableEnhancedInstructionSet="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -260,7 +263,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib double.lib"
-				OutputFile="$(SolutionDir)bin\double_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="double_f.def"
 				GenerateDebugInformation="true"
@@ -270,6 +273,7 @@
 				LinkTimeCodeGeneration="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -316,7 +320,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -330,7 +336,6 @@
 				EnableEnhancedInstructionSet="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -347,7 +352,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Libscilab.lib double.lib"
-				OutputFile="$(SolutionDir)bin\double_f.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="double_f.def"
 				GenerateDebugInformation="true"
@@ -357,6 +362,7 @@
 				LinkTimeCodeGeneration="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 			/>
 			<Tool

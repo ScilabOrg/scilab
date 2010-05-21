@@ -35,7 +35,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -53,7 +55,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
 				WarningLevel="0"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -70,7 +71,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../../../bin/libintl.lib"
-				OutputFile="../../../../bin/libmx.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="libmx.def"
 				GenerateDebugInformation="true"
@@ -78,7 +79,7 @@
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../../../bin/libmx.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -120,7 +121,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -138,7 +141,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
 				WarningLevel="0"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -155,7 +157,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../../../bin/libintl.lib"
-				OutputFile="../../../../bin/libmx.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="libmx.def"
 				GenerateDebugInformation="true"
@@ -163,7 +165,7 @@
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../../../bin/libmx.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -205,7 +207,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 			/>
@@ -220,7 +224,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -237,7 +240,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../../../bin/libintl.lib"
-				OutputFile="../../../../bin/libmx.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="libmx.def"
 				GenerateDebugInformation="false"
@@ -247,7 +250,7 @@
 				OptimizeForWindows98="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../../../bin/libmx.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="1"
 				CLRUnmanagedCodeCheck="true"
 			/>
@@ -289,7 +292,9 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"
 			/>
-
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TargetEnvironment="3"
@@ -304,7 +309,6 @@
 				ObjectFile="$(ConfigurationName)/"
 				ProgramDataBaseFileName="$(ConfigurationName)/vc80.pdb"
 				WarningLevel="3"
-				
 				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
@@ -321,7 +325,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../../../bin/libintl.lib"
-				OutputFile="../../../../bin/libmx.dll"
+				OutputFile="$(SolutionDir)bin\$(ProjectName).dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="libmx.def"
 				GenerateDebugInformation="false"
@@ -331,7 +335,7 @@
 				OptimizeForWindows98="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="../../../../bin/libmx.lib"
+				ImportLibrary="$(SolutionDir)bin\$(ProjectName).lib"
 				TargetMachine="17"
 				CLRUnmanagedCodeCheck="true"
 			/>
