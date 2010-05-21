@@ -95,6 +95,27 @@ namespace symbol
 		return true;
 	}
 
+    bool Context::remove(const string& key)
+    {
+        // First look in Variables Environment
+        if (EnvVarTable.get(key) == NULL)
+        {
+            // If not found, look in Functions Environment
+            if (EnvFunTable.get(key) == NULL)
+            {
+                return false;
+            }
+            else
+            {
+               EnvFunTable.remove(key);
+               return true;
+            }
+        }
+
+        EnvVarTable.remove(key);
+        return true;
+    }
+
 	bool Context::put_in_previous_scope(const string& key, InternalType &type)
 	{
 		// FIXME

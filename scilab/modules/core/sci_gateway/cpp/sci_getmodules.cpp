@@ -17,7 +17,7 @@
 /*--------------------------------------------------------------------------*/
 Function::ReturnValue sci_getmodules(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-	InternalType *pIT	= symbol::Context::getInstance()->get(symbol::Symbol("module_list"));
+	InternalType *pIT	= symbol::Context::getInstance()->get("module_list");
 
 	out.push_back(pIT);
 	return Function::OK;

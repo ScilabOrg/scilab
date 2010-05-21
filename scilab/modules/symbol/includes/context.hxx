@@ -61,6 +61,9 @@ namespace symbol
 		/*add symbol and value in the previous scope*/
 		bool put_in_previous_scope(const string& key, InternalType &type);
 
+        /* remove symbol/value association */
+        bool remove(const string& key);
+
 		bool AddFunction(types::Function *_info);
 		bool AddMacro(types::Macro *_info);
 		bool AddMacroFile(types::MacroFile *_info);

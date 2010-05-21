@@ -14,6 +14,7 @@
 #include "gw_core.h"
 #include "stack-c.h"
 #include "version.h"
+#include "api_oldstack.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 #ifdef _MSC_VER

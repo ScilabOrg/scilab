@@ -22,6 +22,10 @@ using namespace types;
 bool CoreModule::Load()
 {
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("type", &sci_type, "core"));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction("getmodules", &sci_getmodules, "core"));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction("getdebuginfo", &sci_getdebuginfo, "core"));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction("getversion", &sci_getversion, "core"));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction("clear", &sci_clear, "core"));
 	return true;
 }
 

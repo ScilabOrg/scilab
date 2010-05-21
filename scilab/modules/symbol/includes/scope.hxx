@@ -104,6 +104,19 @@ namespace symbol
 			return NULL;
 		}
 
+        void remove(const string& key)
+        {
+            InternalType *pOld = (*_scope)[key];
+
+            _scope->erase(key);
+            pOld->DecreaseRef();
+            if(pOld->isDeletable() == true)
+            {
+                delete pOld;
+                pOld = NULL;
+            }
+        }
+
 		/** If key was associated to some Entry_T in the open scopes, return the
 		** most recent insertion. Otherwise return the empty pointer. */
 		InternalType*	get (const string& key) const
