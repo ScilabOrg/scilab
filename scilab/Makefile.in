@@ -1716,7 +1716,7 @@ clean-tests:
 	fi
 
 clean-localization:
-	rm -rf $(top_srcdir)/locale/
+	rm -rf $(top_srcdir)/locales/
 
 clean-generated:
 	rm -rf $(top_builddir)/modules/scicos_blocks/build/ 2> /dev/null
