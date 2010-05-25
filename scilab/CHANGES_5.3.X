@@ -99,6 +99,11 @@ Text Editor:
 * bug 7032 fixed - There was a problem when filename contained a ' or a ".
 
 * bug 7112 fixed - Two transpositions gave a string (if a'==1 then a=b').
+=======
+Incompatibilities:
+==================
+* The bug 4583 fix makes the default element value in string array assignment 
+  be an empty string instead of " ".
 
 FFTW:
 =====
@@ -449,8 +454,8 @@ ATOMS:
                    one, the ATOMS GUI claimed that the newest version was
                    installed.
 
-* bug 6976 fixed - ATOMS GUI: Webpages URLs linked with a module were missing
-                   from the presentation frame.
+* bug 6976  fixed - ATOMS GUI: Webpages  URLs linked with a module were missing		
+	            from the presentation frame.
 
 * bug 6977 fixed - ATOMS GUI: In the presentation frame, URLs and emails were
                    not hyperlinked.
@@ -466,6 +471,8 @@ Bug fixes:
                    than 100 or smaller than -100 was incorrect.
 
 * bug 2076 fixed - pspect did not use the last data window.
+
+* bug 2623 fixed - non regression test script fixed
 
 * bug 2613 fixed - Incorrect stack recovery for catched errors in some
                    specific contexts (for loops, ..)
@@ -495,6 +502,8 @@ Bug fixes:
                    compute correctly the state space representation of
                    a transfer function.
 
+* bug 3810 fixed - Insertion in string array and polynomial array may be very slow.
+
 * bug 3811 fixed - Documention about "typeof" and overload prefixes was not
                    up-to-date (help overloading).
 
@@ -513,6 +522,9 @@ Bug fixes:
 * bug 4362 fixed - test_run("gui","checkbox") no more freezes Scilab.
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
+
+* bug 4583 fixed - Default value for string array assignment was " " instead 
+                   of an empty string "".
 
 * bug 4625 fixed - intersci-n was broken on Windows.
 
@@ -556,7 +568,7 @@ Bug fixes:
 * bug 5216 fixed - URLs are now active in uicontrols of style "text". This
                    feature is used in ATOMS GUI (modules description).
 
-* bug 5324 fixed - "File open" dialog box focused on parent directory of current
+* bug 5324 fixed - "File open" dialog box focused on parent directory of current		
                    directory, on Windows.
 
 * bug 5432 fixed - a link to http://www.tcl.tk/doc/ added in help files about
