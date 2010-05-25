@@ -218,7 +218,7 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 		
@@ -240,28 +240,28 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		// block will be displayed )
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabMList.class, data.get(field).getClass());
 		}
 		
 		// the third field must contains all the informations needed to compile
 		// the block
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabMList.class, data.get(field).getClass());
 		}
 		
 		// the fourth field must contains all the informations needed to represent
 		// the block
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		
 		// the last field must contain a list of nothing aka scicos doc
 		field++;
 		if (!(data.get(field) instanceof ScilabList)
 				&& !isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(Void.class, data.get(field).getClass());
 		}
 	}
 	// CSON: CyclomaticComplexity

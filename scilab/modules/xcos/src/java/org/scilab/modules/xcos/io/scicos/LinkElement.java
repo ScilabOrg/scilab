@@ -246,7 +246,7 @@ public class LinkElement extends AbstractElement<BasicLink> {
 
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 
@@ -263,43 +263,43 @@ public class LinkElement extends AbstractElement<BasicLink> {
 		// xx
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// yy
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// id
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 
 		// thick
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// ct
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// from
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// to
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 	}
 

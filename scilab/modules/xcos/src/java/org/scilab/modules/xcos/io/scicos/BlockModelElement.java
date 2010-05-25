@@ -281,7 +281,7 @@ class BlockModelElement extends BlockPartsElement {
 
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 
@@ -303,61 +303,61 @@ class BlockModelElement extends BlockPartsElement {
 		field++;
 		if (!(data.get(field) instanceof ScilabString)
 				&& !(data.get(field) instanceof ScilabList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 
 		// in
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// in2
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// intyp
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// out
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// out2
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// outtyp
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// evtin
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// evtout
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// state
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// dstate
@@ -365,14 +365,14 @@ class BlockModelElement extends BlockPartsElement {
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)
 				&& !(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// odstate
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)
 				&& !(data.get(field) instanceof ScilabList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// rpar
@@ -381,7 +381,7 @@ class BlockModelElement extends BlockPartsElement {
 		if (!(data.get(field) instanceof ScilabDouble)
 				&& !(data.get(field) instanceof ScilabMList)
 				&& !(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// ipar
@@ -389,57 +389,57 @@ class BlockModelElement extends BlockPartsElement {
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)
 				&& !(data.get(field) instanceof ScilabList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// opar
 		field++;
 		if (!(data.get(field) instanceof ScilabList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabList.class, data.get(field).getClass());
 		}
 
 		// blocktype
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 
 		// firing
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)
 				&& !(data.get(field) instanceof ScilabBoolean)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// dep-ut
 		field++;
 		if (!(data.get(field) instanceof ScilabBoolean)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabBoolean.class, data.get(field).getClass());
 		}
 
 		// label
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 
 		// nzcross
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// nmode
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 
 		// equations
 		field++;
 		if (!(data.get(field) instanceof ScilabTList)
 				&& !isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabTList.class, data.get(field).getClass());
 		}
 	}
 	// CSON: CyclomaticComplexity

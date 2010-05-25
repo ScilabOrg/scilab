@@ -14,6 +14,7 @@ package org.scilab.modules.xcos.io.scicos;
 
 
 
+
 /**
  * Default exception for a Xcos - Scicos communication
  */
@@ -28,7 +29,11 @@ public abstract class ScicosFormatException extends Exception {
 		/**
 		 * Default constructor
 		 */
-		public WrongElementException() { }
+		public WrongElementException() {
+			super();
+			
+			printStackTrace();
+		}
 	}
 	
 	/**
@@ -36,21 +41,46 @@ public abstract class ScicosFormatException extends Exception {
 	 */
 	public static class WrongTypeException extends ScicosFormatException {
 		
+		private final Class expected;
+		private final Class getting;
+		
 		/**
 		 * Default constructor
+		 * 
+		 * @param expected the expected class type
+		 * @param getting the serialized klass type
 		 */
-		public WrongTypeException() { }
+		public WrongTypeException(Class expected, Class getting) {
+			super();
+			
+			this.expected = expected;
+			this.getting = getting;
+			
+			printStackTrace();
+		}
+		
+		/**
+		 * @return the error message
+		 * @see java.lang.Throwable#getMessage()
+		 */
+		@Override
+		public String getMessage() {
+			return "Expecting " + expected + " but getting " + getting;
+		}
 	}
 	
 	/**
 	 * Used when the expected data are not well formatted.
 	 */
 	public static class WrongStructureException extends ScicosFormatException {
-		
 		/**
 		 * Default constructor
 		 */
-		public WrongStructureException() { }
+		public WrongStructureException() {
+			super();
+			
+			printStackTrace();
+		}
 	}
 	
 	/**
@@ -80,10 +110,6 @@ public abstract class ScicosFormatException extends Exception {
 	 */
 	protected ScicosFormatException() {
 		this.field = null;
-		
-		if (!(this instanceof VersionMismatchException)) {
-			printStackTrace();
-		}
 	}
 	
 	/**
@@ -91,7 +117,9 @@ public abstract class ScicosFormatException extends Exception {
 	 * @param field path to the erroneous field
 	 */
 	public ScicosFormatException(String field) {
-		this.field = field; 
+		this.field = field;
+		
+		printStackTrace();
 	}
 
 	/**

@@ -118,7 +118,7 @@ public class ScicosParametersElement extends AbstractElement<ScicosParameters> {
 		
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 		
@@ -139,63 +139,70 @@ public class ScicosParametersElement extends AbstractElement<ScicosParameters> {
 		// wpar
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 		
 		// title
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		
 		// tol
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 		
 		// tf
 		field++;
 		if (!(data.get(field) instanceof ScilabDouble)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabDouble.class, data.get(field).getClass());
 		}
 		
 		// context
 		field++;
 		if (!(data.get(field) instanceof ScilabString)
 				&& !isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		
 		// void1
 		field++;
 		if (!isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			ScilabDouble object = (ScilabDouble) data.get(field);
+			
+			final boolean doubleEmptiness = object instanceof ScilabDouble
+			&& ((ScilabDouble) object).isEmpty();
+			
+			System.err.println(object.getRealPart().length);
+			
+			throw new WrongTypeException(Void.class, data.get(field).getClass());
 		}
-
+		
 		// options
 		field++;
 		if (!(data.get(field) instanceof ScilabTList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabTList.class, data.get(field).getClass());
 		}
-
+		
 		// void2
 		field++;
 		if (!isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(Void.class, data.get(field).getClass());
 		}
 
 		// void3
 		field++;
 		if (!isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(Void.class, data.get(field).getClass());
 		}
 
 		// doc
 		field++;
 		if (!(data.get(field) instanceof ScilabList)
 				&& !isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabList.class, data.get(field).getClass());
 		}
 	}
 	// CSON: CyclomaticComplexity

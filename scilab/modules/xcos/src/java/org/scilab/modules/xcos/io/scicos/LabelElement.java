@@ -125,7 +125,7 @@ public class LabelElement extends AbstractElement<TextBlock> {
 		
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 		
@@ -147,27 +147,27 @@ public class LabelElement extends AbstractElement<TextBlock> {
 		// block will be displayed )
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabMList.class, data.get(field).getClass());
 		}
 		
 		// the third field must contains all the informations needed to compile
 		// the block
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabMList.class, data.get(field).getClass());
 		}
 
 		// the fourth field must contains an empty string
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 		
 		// the last field must contain a gui name
 		field++;
 		if (!(data.get(field) instanceof ScilabString)
 				&& isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, data.get(field).getClass());
 		}
 	}
 	// CSON: CyclomaticComplexity

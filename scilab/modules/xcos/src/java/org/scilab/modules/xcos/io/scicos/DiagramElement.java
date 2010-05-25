@@ -285,7 +285,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
 
 		// Check the first field
 		if (!(base.get(0) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, base.get(0).getClass());
 		}
 		String[] header = ((ScilabString) base.get(0)).getData()[0];
 
@@ -308,19 +308,19 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
 
 		// the second field must contain list of props
 		if (!(base.get(field) instanceof ScilabTList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabTList.class, base.get(field).getClass());
 		}
 
 		// the third field must contains lists of blocks and links
 		field++;
 		if (!(base.get(field) instanceof ScilabList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabList.class, base.get(field).getClass());
 		}
 
 		// the last field must contain the scicos version used
 		field++;
 		if (!(base.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(ScilabString.class, base.get(field).getClass());
 		}
 
 		/*
