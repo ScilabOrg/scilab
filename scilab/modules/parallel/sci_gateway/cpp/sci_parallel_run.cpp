@@ -11,32 +11,16 @@
  */
 extern "C" {
 #include <stdio.h>
-
+#include "api_scilab.h"
 #include "stack-c.h"
-#include "gw_core.h"
-
+#include "gw_parallel.h"
 #include "dynamic_link.h"
-#include "api_common.h"
-#include "api_double.h"
-
 #include "MALLOC.h"
-
-#include "stack1.h"
-#include "api_double.h"
-#include "api_int.h"
-#include "api_list.h"
-#include "api_string.h"
-#include "api_common.h"
-#include "stack3.h"
-#include "stack2.h"
-#include "stack-c.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "sci_mem_alloc.h"
 #include "parameters.h"
 #include "stack-def.h" /* #define nlgh nsiz*4   */
 #include "stack-c.h"  /* #define Nbvars C2F(intersci).nbvars, Top & cie */
-
 }
 
 #include <cstdlib>
@@ -73,7 +57,7 @@ extern "C" {
 
 extern "C"
 {
-    int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len);
+    int sci_parallel_run(char *fname,unsigned long fname_len);
 }
 
 namespace
@@ -308,7 +292,7 @@ namespace
         default :
         {
             d.first *= d.second;
-            d.second = n;
+            d.second = (int)n;
         }
         }
         return d;
@@ -598,8 +582,8 @@ namespace
                 memcpy(getData(scilabArg).bytePtr, *args, getSizeOfData(scilabArg));
             }
 
-            int  sciRhs = rhsDesc.size();
-            int  sciLhs = lhsDesc.size();
+            int  sciRhs = (int)rhsDesc.size();
+            int  sciLhs = (int)lhsDesc.size();
 
             std::size_t dummyVars(0); /* alloc safety variable to ensure space on the stack upon return*/
             int sciArgPos = saveTop+1;
@@ -611,7 +595,7 @@ namespace
             Nbvars = Rhs+Lhs+sciRhs;
             if(byName)
             {
-                C2F(scistring)(&sciArgPos, scilabFunctionName, &sciLhs, &sciRhs, scilabFunctionNameLength);
+                C2F(scistring)(&sciArgPos, scilabFunctionName, &sciLhs, &sciRhs, (unsigned long)scilabFunctionNameLength);
             }
             else
             {
@@ -619,11 +603,8 @@ namespace
             }
             // result r is now on first position on stack
             {
-                double* tmp;
-                int* addr;
-                int rm1, rn1;
-                Nbvars = Rhs+Lhs+sciRhs+dummyVars;
-                int resPos= Rhs+Lhs+1; //+1
+                Nbvars = (int)(Rhs + Lhs + sciRhs + dummyVars);
+                int resPos = Rhs + Lhs + 1; //+1
 
                 for( std::vector<scilabDesc_t>::iterator it(lhsDesc.begin())
                          ; it != lhsDesc.end(); ++it, ++resPos, ++res)
@@ -685,7 +666,7 @@ namespace
             bool before_function(true), at_least_one_arg(false);
             bool ok(true);
             SciErr err;
-            for( unsigned int pos(1); pos <= Rhs && ok; ++pos) {
+            for( unsigned int pos(1); pos <= (unsigned int)Rhs && ok; ++pos) {
                 int* addr;
                 err= getVarAddressFromPosition(pvApiCtx, pos, &addr);
                 int type;
@@ -759,8 +740,7 @@ namespace
      */
     bool getConfigParameters(int config_arg_pos, int& nb_workers, bool& shared_memory, bool& dynamic_scheduling, int& chunk_size, char const*& prologue, char const*& epilogue){
         int log(0);
-        int* addr;
-        SciErr err(getVarAddressFromPosition(pvApiCtx, config_arg_pos, &addr));
+        int* addr = NULL;
         bool has_config_arg(checkPList(pvApiCtx, addr) != 0);
         if(has_config_arg) {
             int found;
@@ -811,7 +791,7 @@ namespace
                     *tmpPtr= static_cast<double>(i);
                     ++Nbvars;
                     int lhs(0), rhs(1);
-                    C2F(scistring)(&(Top), const_cast<char*>(fun), &lhs, &rhs, strlen(fun));
+                    C2F(scistring)(&(Top), const_cast<char*>(fun), &lhs, &rhs, (unsigned long)strlen(fun));
                     --Nbvars;
                     --Top;
                 }
@@ -836,12 +816,16 @@ namespace
  * 4.2 calling the wrapper
  *
  */
-int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len)
+int sci_parallel_run(char *fname,unsigned long fname_len)
 {
     typedef std::vector<scilabVar_t> varsContainer_t;
     currentFname=fname; //get_fname(fname, fname_len); uses a static buffer :(
     currentTop= Rhs;
-    Nbvars= std::max(Rhs, Top);
+#ifdef _MSC_VER
+    Nbvars = max(Rhs, Top);
+#else
+    Nbvars = std::max(Rhs, Top);
+#endif
     if( !check_args())
     {
         Scierror(999,_("%s: Wrong number of input argument(s).\n"),fname);/* need a better error message */
@@ -876,7 +860,7 @@ int  C2F(sci_parallel_run)(char *fname,unsigned long fname_len)
 
     for(std::size_t i(0); i != Lhs; ++i)
     {
-        LhsVar(i+1)=Rhs+i+1;
+        LhsVar(i + 1) = (int)(Rhs + i + 1);
     }
 
     PutLhsVar(); /* to be moved to gateway */

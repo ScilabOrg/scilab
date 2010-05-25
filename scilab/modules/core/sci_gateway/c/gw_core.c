@@ -70,8 +70,7 @@ static gw_generic_table Tab[]=
 {C2F(sci_with_module),"with_module"},
 {C2F(sci_getdebuginfo),"getdebuginfo"},
 {C2F(sci_readgateway),"readgateway"},
-{C2F(sci_exit),"exit"},
-{C2F(sci_parallel_run),"parallel_run"}
+{C2F(sci_exit),"exit"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_core(void)

@@ -233,10 +233,14 @@ namespace
         F applyWithThreads(std::size_t nb_threads, bool dynamic_scheduling, int chunk_size)
         {
             std::size_t i;
-            nb_threads= std::min(nb_threads, n);
+#ifdef _MSC_VER
+            nb_threads = min(nb_threads, n);
+#else
+            nb_threads = std::min(nb_threads, n);
+#endif
             if (nb_threads)
             {
-                omp_set_num_threads(nb_threads);
+                omp_set_num_threads((int)nb_threads);
             }
             if (dynamic_scheduling)
             {
@@ -263,7 +267,11 @@ namespace
          */
         F applyWithProcesses(std::size_t nb_process, bool dynamic_scheduling, std::size_t chunk_size)
         {
+#ifdef _MSC_VER
+            nb_process = min( (nb_process ? nb_process : omp_get_num_procs()), n);
+#else
             nb_process = std::min( (nb_process ? nb_process : omp_get_num_procs()), n);
+#endif
             scheduler<parallel_wrapper> s(*this, nb_process, dynamic_scheduling, chunk_size );
             s();
             return f;
@@ -273,6 +281,7 @@ namespace
          */
         void callF(std::size_t const i)
         {
+#ifndef _MSC_VER /* DISABLED TEMP. on Windows */
             void const * local_args[rhs];
             for (std::size_t j(0); j!= rhs; ++j)
             {
@@ -284,6 +293,7 @@ namespace
                 local_res[j]= res[j]+ i*(*(res_size+j));// all res are required to have n elts
             }
             f(local_args, local_res);
+#endif
         }
         void const* const* const args; /* ptrs to the rhs args */
         std::size_t const* args_size; /* sizeof each rhs */
