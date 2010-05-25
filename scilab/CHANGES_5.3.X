@@ -10,6 +10,11 @@ Performance:
 
 * Improved access to the list of functions increases the performances.
 
+Incompatibilities:
+==================
+* The bug 4583 fix makes the default element value in string array assignment 
+  be an empty string instead of " ".
+
 FFTW:
 =====
 
@@ -174,8 +179,6 @@ Compilation:
 * On Windows, Pentium III class (or equivalent) with SSE instructions is 
   required.
 
-* Scilab_f2c.sln can be exported to VS 2010 format.
-
 * Windows 2000 is no more supported as operating system.
 
 * Scilab Mac OS X distribution relies only on Java 1.6 and is therefor now
@@ -304,17 +307,12 @@ ATOMS:
 * ATOMS GUI: When a module is not up-to-date, a warning is displayed on the
   corresponding sheet.
 
-* ATOMS GUI: Display the release date of the watched module.
-
 * bug 6596 fixed - When the ATOMS GUI started, nothing was displayed. Now, the
                    list of already installed modules appears on the home page.
 
 * bug 6842 fixed - If the installed version of a module was not the most recent
                    one, the ATOMS GUI claimed that the newest version was
                    installed.
-
-* bug 6976 fixed - ATOMS GUI: Webpages URLs linked with a module were missing
-                   from the presentation frame.
 
 * bug 6977 fixed - ATOMS GUI: In the presentation frame, URLs and emails were
                    not hyperlinked.
@@ -325,8 +323,6 @@ Bug fixes:
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
 * bug 2076 fixed - pspect did not use the last data window.
-
-* bug 2623 fixed - non regression test script fixed
 
 * bug 2654 partially fixed - exec returned a wrong error if line had more 
                    than 4096 characters.
@@ -345,6 +341,8 @@ Bug fixes:
                    compute correctly the state space representation of
                    a transfer function.
 
+* bug 3810 fixed - Insertion in string array and polynomial array may be very slow.
+
 * bug 3811 fixed - Documention about "typeof" and overload prefixes was not
                    up-to-date (help overloading).
 
@@ -361,6 +359,9 @@ Bug fixes:
 * bug 4362 fixed - test_run("gui","checkbox") no more freezes Scilab.
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
+
+* bug 4583 fixed - Default value for string array assignment was " " instead 
+                   of an empty string "".
 
 * bug 4625 fixed - intersci-n was broken on Windows.
 
@@ -403,9 +404,6 @@ Bug fixes:
 
 * bug 5216 fixed - URLs are now active in uicontrols of style "text". This 
                    feature is used in ATOMS GUI (modules description).
-
-* bug 5324 fixed - "File open" dialog box focused on parent directory of current
-                   directory, on Windows.
 
 * bug 5432 fixed - a link to http://www.tcl.tk/doc/ added in help files about
                    Tcl/Tk.
