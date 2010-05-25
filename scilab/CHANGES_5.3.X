@@ -68,6 +68,8 @@ Graphics:
 * bug 7079 fixed - The "mtlb_get" used a "h" global variable instead of the
                    given "H" argument.
 
+* bug 7173 fixed - The equation in the "scaling" help page was incorrect.
+
 Localization:
 =============
 
