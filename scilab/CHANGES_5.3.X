@@ -623,3 +623,5 @@ Bug fixes:
                    preceded by ~ or @ or < or >
 
 * bug 7161 fixed - wavread failed to load some .wav files with error 44.
+
+* bug 7180 fixed - xs2pdf was unable to export a graphic.
