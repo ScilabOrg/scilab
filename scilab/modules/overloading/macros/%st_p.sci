@@ -23,9 +23,14 @@ function %st_p(s)
     return
   end
   
+  if size(f, "*")==2 then // No fields
+    t = strcat(string(double(s.dims)), "x") + " struct array with no fields.";
+  end
+  
   if multi> 1 then
     t=strcat(string(double(s.dims)),'x') + ' struct array with fields:';
   end
+
   for k=3:size(f,'*')
     var=f(k)
     value=s(var)

@@ -606,3 +606,5 @@ Bug fixes:
 
 * bug 7123 fixed - No completion was possible if the name of a variable is 
                    preceded by ~ or @ or < or >
+
+* bug 7181 fixed - The display of a struct having no fields did not work.
