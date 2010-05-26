@@ -149,6 +149,13 @@ int gw_dynamic_hdf5(void);
 */
 int gw_dynamic_graphic_export(void);
 
+/**
+* parallel gateway
+* parallel is loaded dynamically at runtime
+* load gw_parallel in SCI/modules/parallel/sci_gateway/gw_parallel.c
+*/
+int gw_dynamic_parallel(void);
+
 #endif /* __DYNAMIC_GATEWAYS_H__ */
 /*--------------------------------------------------------------------------*/
 
