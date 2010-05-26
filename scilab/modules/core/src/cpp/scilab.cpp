@@ -88,6 +88,7 @@ bool dumpStack = false;
 bool timed = false;
 bool ASTtimed = false;
 bool consoleMode = false;
+bool noJvm = false;
 
 using symbol::Context;
 using std::string;
@@ -193,8 +194,13 @@ static int	get_option (const int argc, char *argv[], int *_piFileIndex, int *_pi
 			i++;
 			*_piLangIndex = i;
 		}
-		else if (!strcmp("-nw", argv[i]) || !strcmp("-nwni", argv[i])) {
+		else if (!strcmp("-nw", argv[i])) {
 			consoleMode = true;
+			setScilabMode(SCILAB_NW);
+		}
+        else if (!strcmp("-nwni", argv[i])) {
+			consoleMode = true;
+            noJvm = true;
 			setScilabMode(SCILAB_NWNI);
 		}
 	}
@@ -500,14 +506,13 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
 
 	InitializeShell();
 
-	if ( 
-		!consoleMode ) 
+	if (!noJvm) 
 	{
 		/* bug 3702 */
 		/* tclsci creates a TK window on Windows */
 		/* it changes focus on previous windows */
 		/* we put InitializeTclTk before InitializeGUI */
-
+        
 		//InitializeTclTk();
 		InitializeJVM();
 		InitializeGUI();
@@ -516,7 +521,7 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
 		loadGraphicModule() ;
 
 		/* Standard mode -> init Java Console */
-		//if ( !consoleMode ) 
+		if ( !consoleMode ) 
 		{
 			/* Initialize console: lines... */
 			InitializeConsole();
