@@ -30,7 +30,7 @@
 <path value="$SCILAB/.libs"/>
 
 <!-- Default path to the JNI classes under some Linux (JoGL under Debian for example) -->
-<path value="/usr/lib/jni/"/>
+<path value="/usr/lib/"/>
 
 <!-- Make install with prefix -->
 <path value="$SCILAB/../../lib/scilab/"/>
