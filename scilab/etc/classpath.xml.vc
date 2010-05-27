@@ -41,6 +41,18 @@ The option is "disableUnderMode" and can be:
 	<load on="XCos"/>
 </path>
 
+<path value="$SCILAB/thirdparty/simulink.jar" load="onUse">
+	<load on="XCos"/>
+</path>
+
+<path value="$SCILAB/thirdparty/ccsm-commons.jar" load="onUse">
+	<load on="XCos"/>
+</path>
+
+<path value="$SCILAB/thirdparty/cup-runtime.jar" load="onUse">
+	<load on="XCos"/>
+</path>
+
 <path value="$SCILAB/thirdparty/jogl.jar" load="onUse">
 	<load on="graphics"/>
 	<load on="graphic_export"/>
