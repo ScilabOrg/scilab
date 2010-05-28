@@ -211,6 +211,9 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 		}
 	};
 
+	/**
+	 * Update the source block when the interfunction change. 
+	 */
 	private static class UpdateStyleFromInterfunction implements PropertyChangeListener {
 
 		/**
@@ -934,8 +937,7 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 
 	    addTo.setText(XcosMessages.ADDTO_NEW_DIAGRAM);
 	    addTo.setCallback(new CallBack(XcosMessages.ADDTO_NEW_DIAGRAM) {
-		private static final long serialVersionUID = 8370536280449900878L;
-
+		@Override
 		public void callBack() {
 		    XcosDiagram theDiagram = Xcos.createEmptyDiagram();
 		    BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
@@ -958,6 +960,7 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 	    addTo.setCallback(new CallBack(theDiagram.getTitle()) {
 		private static final long serialVersionUID = -99601763227525686L;
 
+		@Override
 		public void callBack() {
 		    BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
 		    theDiagram.getModel().add(theDiagram.getDefaultParent(), block, 0);
@@ -984,6 +987,7 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 		diagram.setCallback(new CallBack(theDiagram.getTitle()) {
 		    private static final long serialVersionUID = 3345416658377835057L;
 
+			@Override
 		    public void callBack() {
 			BasicBlock block = (BasicBlock) BlockFactory.createClone(BasicBlock.this);
 			theDiagram.getModel().add(theDiagram.getDefaultParent(), block, 0);
@@ -1007,6 +1011,7 @@ public class BasicBlock extends ScilabGraphUniqueObject {
 	help.setCallback(new CallBack(XcosMessages.BLOCK_DOCUMENTATION) {
 	    private static final long serialVersionUID = -1480947262397441951L;
 
+		@Override
 	    public void callBack() {
 		ScilabInterpreterManagement.requestScilabExec("help " + getInterfaceFunctionName());
 	    }
