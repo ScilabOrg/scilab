@@ -25,7 +25,8 @@ function scs_m=do_version(scs_m,version)
 if version<>'scicos2.2'&version<>'scicos2.3'&version<>'scicos2.3.1'&..
    version<>'scicos2.4'&version<>'scicos2.5.1'&version<>'scicos2.7'&..
    version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4'&..
-   version<>'scicos4.0.1'&version<>'scicos4.0.2'&version<>'scicos4.2' then
+   version<>'scicos4.0.1'&version<>'scicos4.0.2'&version<>'scicos4.2'&..
+   version<>'scicos4.3'&version<>'scicos4.4' then
    error('No version update defined to '+version+' version')
 end
 
@@ -67,15 +68,85 @@ if version=='scicos4.2' then
   scs_m=do_version43(scs_m);
   lines(ncl(2))
 end
+
+if version=='scicos4.3' | version=='scicos4.4' then
+  ncl=lines(); lines(0);
+  version='scicos4.4';
+  scs_m=update_scs_m(scs_m,version);
+  scs_m=do_version44(scs_m);
+  scs_m.version = version;
+  lines(ncl(2))
+end
 endfunction
+
+function scs_m_new=do_version44(scs_m)
+  scs_m_new=scs_m
+
+  scs_m_new.props.options.ID(1)=[scs_m.props.options.ID(1)(1),scs_m.props.options.ID(1)(2),2,1]
+  scs_m_new.props.options.ID(2)=[scs_m.props.options.ID(2)(1),scs_m.props.options.ID(2)(2),10,1]
+  
+  gr = ['bouncexy',...
+        'cscope',...
+	'cmscope',...
+	'canimxy',...
+	'canimxy3d',...
+	'cevscpe',...
+	'cfscope',...
+	'cscopexy',...
+	'cscopxy',..
+	'cscopexy3d',...
+	'cscopxy3d',...
+	'cmatview',...
+	'cmat3d',..
+	'affich',...
+	'affich2',..
+	'writec',..
+	'writef',..
+	'writeau',..
+	'tows_c',..
+	'bplatform2'];
+
+  n=size(scs_m.objs);
+  for j=1:n //loop on objects
+    o=scs_m.objs(j);
+    if typeof(o)=='Block' then
+      gra=o.graphics;
+      omod=o.model;
+      if o.gui=='CBLOCK4' then
+        exprs_1=gra.exprs(1)
+        if size(exprs_1,'*')==19 then
+          exprs_1($+1)='';
+	  exprs_1($+1)='';
+          gra.exprs(1)=exprs_1;
+	  o.graphics=gra;
+          scs_m_new.objs(j)=o;
+        end
+      else
+        if or(omod.sim(1)==gr) then
+          dep_t=omod.dep_ut($);
+	  dep_u(1:size(omod.in,'*'))=%t;
+          scs_m_new.objs(j).model.dep_ut=[%t dep_t];
+          if or(omod.sim(1)==['cmscope';'cscope']) then 
+             scs_m_new.objs(j).model.blocktype='x';
+          end
+        elseif omod.sim=='super'|omod.sim=='csuper'|omod.sim(1)=='asuper' then
+          rpar=do_version44(omod.rpar);
+          scs_m_new.objs(j).model.rpar=rpar;
+        end
+      end
+    end
+  end
+endfunction
+
+
 
 function scs_m_new=do_version43(scs_m)
   //disp('do_version43');
   scs_m_new=scs_m;
 
   //@@ adjust ID.fonts
-  scs_m_new.props.options.ID(1)=[scs_m.props.options.ID(1)(1),scs_m.props.options.ID(1)(2),2,1]
-  scs_m_new.props.options.ID(2)=[scs_m.props.options.ID(2)(1),scs_m.props.options.ID(2)(2),10,1]
+  scs_m_new.props.options.ID(1)=[scs_m.props.options.ID(1)(1),scs_m.props.options.ID(1)(2),2,1];
+  scs_m_new.props.options.ID(2)=[scs_m.props.options.ID(2)(1),scs_m.props.options.ID(2)(2),10,1];
 
   n=size(scs_m.objs);
   for j=1:n //loop on objects
