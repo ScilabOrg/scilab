@@ -25,7 +25,8 @@ function scs_m=do_version(scs_m,version)
 if version<>'scicos2.2'&version<>'scicos2.3'&version<>'scicos2.3.1'&..
    version<>'scicos2.4'&version<>'scicos2.5.1'&version<>'scicos2.7'&..
    version<>'scicos2.7.1'&version<>'scicos2.7.3'&version<>'scicos4'&..
-   version<>'scicos4.0.1'&version<>'scicos4.0.2'&version<>'scicos4.2' then
+   version<>'scicos4.0.1'&version<>'scicos4.0.2'&version<>'scicos4.2'&..
+   version<>'scicos4.4' then
    error('No version update defined to '+version+' version')
 end
 
@@ -59,7 +60,7 @@ if version=='scicos2.7.3' | version=='scicos4' |...
   scs_m=do_version42(scs_m);
   //*********************************//
 end
-if version=='scicos4.2' then
+if version=='scicos4.2' | version=='scicos4.4' then
   ncl=lines(); lines(0);
   version='scicos4.3';
   //*** do certification ***//
