@@ -32,6 +32,7 @@ import org.scilab.modules.ui_data.rowheader.RowHeader;
 import org.scilab.modules.ui_data.rowheader.RowHeaderModel;
 import org.scilab.modules.ui_data.variableeditor.celleditor.VariableEditorCellEditor;
 import org.scilab.modules.ui_data.variableeditor.listeners.ExpandListener;
+import org.scilab.modules.ui_data.variableeditor.renderers.RendererFactory;
 
 
 /**
@@ -46,6 +47,7 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 	private static final long serialVersionUID = 1L;
 	private SwingEditvarTableModel<Object> dataModel;
 	private JTable table;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create a JTable with data Model.
@@ -57,10 +59,12 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 		dataModel = new SwingEditvarTableModel<Object>(data);
 
 		table = new JTable(dataModel);
-		table.setDefaultEditor(Object.class, new VariableEditorCellEditor());
+		table.setDefaultEditor(Object.class, new VariableEditorCellEditor(data));
 		table.setFillsViewportHeight(true);
 		table.setAutoResizeMode(CENTER);
 		table.setRowHeight(25);
+			table.setDefaultRenderer(Object.class, RendererFactory.createRenderer(data));
+	
 		//table.getColumnModel().setColumnMargin(2);
 		
 		
@@ -68,14 +72,11 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 		RowHeaderModel rowHeaderModel = new RowHeaderModel(dataModel);
 	    RowHeader rowHeader = new RowHeader(rowHeaderModel, table);
 
-		
-		
-		// Mouse selection mode
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table);
 	    scrollPane.setRowHeaderView(rowHeader);
 	    scrollPane.getHorizontalScrollBar().addAdjustmentListener(new ExpandListener());
+
 		table.setBackground(Color.WHITE);
 		setContentPane(scrollPane);
 	}
@@ -114,6 +115,9 @@ public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, Si
 	 */
 	public void setValueAt(Object value, int row, int col) {
 		dataModel.setValueAt(value, row, col);
+		RowHeaderModel rowHeaderModel = new RowHeaderModel(dataModel);
+	    RowHeader rowHeader = new RowHeader(rowHeaderModel, table);
+	    scrollPane.setRowHeaderView(rowHeader);
 	}
 
 	/**

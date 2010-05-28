@@ -28,6 +28,8 @@ import javax.swing.KeyStroke;
 
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.ui_data.variableeditor.ScilabVariableEditor;
+import org.scilab.modules.ui_data.variableeditor.renderers.ScilabDoubleRenderer;
+import org.scilab.modules.ui_data.variableeditor.renderers.ScilabStringRenderer;
 
 /**
  * class VariableEditorCellEditor
@@ -43,26 +45,33 @@ public class VariableEditorCellEditor extends DefaultCellEditor {
 	private int row;
 	private int col;
 	private JFormattedTextField textField;
-
+	private String type;
 	/**
 	 * Constructor
 	 */
-	public VariableEditorCellEditor() {
+	public VariableEditorCellEditor(Object[][] data) {
 		super(new JFormattedTextField());
 		// TODO Auto-generated constructor stub
 
-
+		if (data instanceof String[][]) {
+			type = "string";
+		} else if (data instanceof Double[][]) {
+			type = "double";
+		} else if (data instanceof Boolean[][]) {
+			type = "boolean";
+		}
+		
 		textField = (JFormattedTextField) getComponent();
-		textField.setFocusLostBehavior(JFormattedTextField.PERSIST);
-		textField.getInputMap().put(KeyStroke .getKeyStroke(
-				KeyEvent.VK_ENTER, 0),
-		"check");
-		textField.getInputMap().put(KeyStroke .getKeyStroke(
-				KeyEvent.VK_TAB, 0),
-		"check");
-		textField.getActionMap().put("check", new CellContentCheck());
+		textField.setFocusLostBehavior(JFormattedTextField.COMMIT);
 
+		
+		textField.getInputMap().put(KeyStroke .getKeyStroke(KeyEvent.VK_ENTER, 0),"check");
+		textField.getInputMap().put(KeyStroke .getKeyStroke(KeyEvent.VK_TAB, 0),"check");
+		
+		textField.getActionMap().put("check", new CellContentCheck());
 	}
+	
+	
 	/**
 	 * ellContentCheck
 	 * Called when user try to validate current cell content with TAB or ENTER
@@ -71,6 +80,7 @@ public class VariableEditorCellEditor extends DefaultCellEditor {
 
 		public void actionPerformed(ActionEvent e) {
 			String request = buildScilabRequest();
+			System.out.println(request);
 			callScilabValidationOfCellContent(request);
 		}
 		/**
@@ -78,10 +88,20 @@ public class VariableEditorCellEditor extends DefaultCellEditor {
 		 * @return the request to be executed by Scilab
 		 */
 		private String buildScilabRequest(){
+			
 			final StringBuilder command = new StringBuilder();
 			String variableName = ScilabVariableEditor.getVariableEditor().getVariablename();
 			String data = String.valueOf(textField.getText());
-
+			
+			if (type.equalsIgnoreCase("string")) {
+				data = data.replace("\"","\"\"\"\"");
+				data = data.replace("'","''''");
+				data = "\"\"" + data +"\"\"";
+			} else if (type.equalsIgnoreCase("double")) {
+				data = data.replace("\"","\"\"");
+				data = data.replace("'","''");
+			}
+			
 			String cellInVariable = variableName + "(" + row + "," + col + ")";
 			String cmdInExecStr = cellInVariable + " = " + data;
 			command.append("temp = " + buildCall("execstr", cmdInExecStr, "errcatch"));

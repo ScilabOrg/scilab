@@ -39,13 +39,14 @@ public class SwingEditvarTableModel<Type> extends DefaultTableModel {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setDataVector(Object[][] data) {
+	public void setDataVector(Type[][] data) {
 		int cols = data[0].length;
 		Integer[] identifiers = new Integer[cols]; 
 		for (int i = 0; i < cols; ++i) {
 			identifiers[i] = i+1;
 		}
 		super.setDataVector(data, identifiers);
+		
 	}
 	
 	
@@ -53,7 +54,7 @@ public class SwingEditvarTableModel<Type> extends DefaultTableModel {
 	public void setValueAt(Object value, int row, int col) {
 
 
-		Object defaultValue = new Double(0.0);
+		Object defaultValue = "";
 		
 		
 		for (int i = scilabMatrixRowCount; i <= Math.max(row, scilabMatrixRowCount-1); i++){
@@ -109,6 +110,6 @@ public class SwingEditvarTableModel<Type> extends DefaultTableModel {
 
 		}
 	}
-
+	
 
 }

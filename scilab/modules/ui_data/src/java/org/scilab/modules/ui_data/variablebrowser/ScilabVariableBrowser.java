@@ -16,6 +16,7 @@ import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.utils.MenuBarBuilder;
+import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.localization.Messages;
 
@@ -88,8 +89,11 @@ public final class ScilabVariableBrowser extends ScilabWindow implements Variabl
 	 * Close Variable Browser
 	 */
 	public void close() {
+		ScilabWindow editvarWindow = (ScilabWindow) UIElementMapper.getCorrespondingUIElement(browserTab.getParentWindowId());
+		editvarWindow.removeTab(browserTab);
 		browserTab.setVisible(false);
 		browserTab.close();
+		instance = null;
 	}
 
 	/**

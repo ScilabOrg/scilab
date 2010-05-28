@@ -11,12 +11,19 @@
  */
 package org.scilab.modules.ui_data.variablebrowser;
 
+import static org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.asynchronousScilabExec;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.tab.SimpleTab;
@@ -51,6 +58,7 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 		table.setAutoResizeMode(CENTER);
 		table.setAutoCreateRowSorter(true);
 
+		table.addMouseListener(new BrowseVarMouseListener());
 		// Mouse selection mode
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -109,5 +117,54 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 		return null;
 	}
 
+
+	/**
+	 * MouseListener inner class
+	 */
+	private class BrowseVarMouseListener implements MouseListener {
+
+		/**
+		 * 
+		 */
+		public BrowseVarMouseListener() {
+			
+		}
+
+		public void mouseClicked(MouseEvent e) {
+	
+			if (e.getClickCount() >= 2) {
+
+				String variableName = ((JTable)e.getSource()).getValueAt(((JTable)e.getSource()).getSelectedRow(), 1).toString();
+				final ActionListener action = new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+
+					}
+				};
+
+				try {
+					asynchronousScilabExec(action, "editvar(\""+variableName+"\")");
+				} catch (InterpreterException e1) {
+					System.err.println("An error in the interpreter has been catched: " + e1.getLocalizedMessage()); 
+				}
+			
+			}
+
+		}
+
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		public void mouseExited(MouseEvent e) {
+		}
+
+		public void mousePressed(MouseEvent e) {
+		}
+
+		public void mouseReleased(MouseEvent e) {
+
+		}
+	}
+	
 
 }
