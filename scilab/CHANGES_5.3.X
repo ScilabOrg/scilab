@@ -77,6 +77,9 @@ Graphics:
 * bug 7079 fixed - The "mtlb_get" used a "h" global variable instead of the
                    given "H" argument.
 
+* bug 7187 fixed - Plotting a curve, zooming, and then plotting an additional curve
+                   caused Scilab to freeze, depending on the zoomed-in area.
+
 Localization:
 =============
 
