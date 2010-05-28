@@ -129,7 +129,7 @@ _DEFAULT_LN_ = lines();
 lines(0);
 
 // load contrib menu if present ========================================
-if fileinfo(SCI+'/contrib/loader.sce') <> [] then
+if isfile(SCI+'/contrib/loader.sce') then
   global %toolboxes;
   global %toolboxes_dir;
   exec(SCI+'/contrib/loader.sce');
@@ -150,7 +150,7 @@ if sciargs()<>'-nouserstartup' then
   end
 
   for i=1:size(startupfiles,"*")
-    if ~isempty(fileinfo(startupfiles(i))) & ~isdir(startupfiles(i)) then
+    if isfile(startupfiles(i)) & ~isdir(startupfiles(i)) then
       exec(startupfiles(i),-1);
     end
   end

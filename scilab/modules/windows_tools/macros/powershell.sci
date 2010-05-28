@@ -32,7 +32,7 @@ function [resultat,status] = powershell(varargin)
     if ( (type(varargin(1)) == 10) & and(size(varargin(1)) == [1 1]) ) then
       // Check that the first input argument is a file
       [x,ierr]=fileinfo(varargin(1));
-      if ( x == [] ) then // it is a command
+      if ~isfile(varargin(1)) then // it is a command
         Chainecmd = Chainecmdbegin + '-command ""' + varargin(1) + '""';
       else //it is a file script
         Chainecmd = Chainecmdbegin + '-command ""Set-ExecutionPolicy RemoteSigned; &{' + varargin(1) + '}""';
