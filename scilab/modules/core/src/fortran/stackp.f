@@ -63,6 +63,8 @@ c     find the scope where the variable has to be stored
       if(macr.ne.0.or.paus.ne.0) then
 c     .  inside a macro or a pause
          k=lpt(1) - (13+nsiz)
+         print *,'stackp k=',k,rstk(pt),lin(k+5)
+      
          if(rstk(pt).eq.504) then
 c     .     [...]=resume(....) case , use the upper scope
             lpt1=lin(k+1)
@@ -75,7 +77,7 @@ c     .     [...]=resume(....) case , use the upper scope
 c     .  main scope
          last=isiz
       endif
-
+      print *,'stackp last=',last
 
 c
 c     does variable already exist
