@@ -1,0 +1,15 @@
+<blocks>
+  <!--Zero or more repetitions:-->
+  <block simulinkName="string" xCosName="string" description="string">
+    <!--Zero or more repetitions:-->
+    <string simulinkName="string" xCosName="string" description="string">
+      <!--1 or more repetitions:-->
+      <ParameterMap simulinkValue="string" xCosValue="string"/>
+    </string>
+    <!--Zero or more repetitions:-->
+    <integer simulinkName="string" xCosName="string" description="string">
+      <!--1 or more repetitions:-->
+      <ParameterMap simulinkValue="100" xCosValue="100"/>
+    </integer>
+  </block>
+</blocks>
