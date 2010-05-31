@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.UUID;
 
 import javax.swing.KeyStroke;
 
@@ -62,7 +61,7 @@ public final class LoadIntoScilabAction extends DefaultAction {
                         boolean bContinue = false;
 
                         if (maxLinesRecommandedDetected(text)) {
-                                if (ScilabModalDialog.show(Xpad.getEditor(), XpadMessages.BIG_FILE_WARNING, XpadMessages.LOAD_INTO_SCILAB,
+                                if (ScilabModalDialog.show(getEditor(), XpadMessages.BIG_FILE_WARNING, XpadMessages.LOAD_INTO_SCILAB,
                                  IconType.QUESTION_ICON, ButtonType.YES_NO) == AnswerOption.YES_OPTION) {
                                         bContinue = true;
                                 } else {
