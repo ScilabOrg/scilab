@@ -39,12 +39,9 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 			block = BlockFactory.createBlock(from.getId());
 		}
 		
-		try {
-			Logger.toFile("From " + base.getName() + ":");
-			Logger.toFile(base.getParameterNames().toString());
-		} catch(IOException e1) {
-			LogFactory.getLog(BlockElement.class).error(e1);
-		}
+		LogFactory.getLog(BlockElement.class).trace("From " + from.getName() + ":");
+		LogFactory.getLog(BlockElement.class).trace(from.getParameterNames().toString());
+		
 		/*
 		 * TODO: SimulinkBlock decoding, parameters etc.
 		 */
@@ -83,7 +80,9 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		 */
 		double minimalYaxisValue = 0.0;
 		int i=0;
-		
+		LogFactory.getLog(BlockElement.class).trace("From " + base.getName() + " subblocks:");
+		LogFactory.getLog(BlockElement.class).trace(base.getSubBlocks().toString());
+
 		UnmodifiableIterator<SimulinkBlock> blockIter = base.getSubBlocks().iterator();
 		while(blockIter.hasNext()) {
 			SimulinkBlock data = blockIter.next();
@@ -99,7 +98,7 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 			
 			if (cell != null) {
 				// FIXME: How to create subsystem in existing block?
-				block.getParentDiagram().addCell(cell); //not that way for sure
+				//block.getParentDiagram().addCell(cell); //not that way for sure
 			}
 			i++;
 		}
