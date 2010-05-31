@@ -18,12 +18,7 @@ public class OutputPortElement {
 
 	public BasicPort decode(SimulinkOutPort simulinkOutPort, Object object) {
 		// TODO Auto-generated method stub
-		try {
-			Logger.toFile("OutPort: " + simulinkOutPort.toString());
-			//Logger.toFile(simulinkOutPort.getParameterNames().toString());
-		} catch(IOException e1) {
-			LogFactory.getLog(BlockElement.class).error(e1);
-		}
+		LogFactory.getLog(OutputPortElement.class).trace("InPort" + simulinkOutPort.toString());
 		
 		/*
 		 * Set out lines

@@ -11,12 +11,7 @@ public class LineElement extends AbstractElement<BasicLink>{
 
 	public void decode(SimulinkLine simulinkLine) {
 		// TODO Auto-generated method stub
-		try {
-			Logger.toFile("Line: " + simulinkLine.toString());
-			//Logger.toFile(simulinkOutPort.getParameterNames().toString());
-		} catch(IOException e1) {
-			LogFactory.getLog(BlockElement.class).error(e1);
-		}
+		LogFactory.getLog(LineElement.class).trace("Line: " + simulinkLine.toString());
 	}
 
 }

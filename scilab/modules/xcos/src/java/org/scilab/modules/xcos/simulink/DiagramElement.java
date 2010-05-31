@@ -47,12 +47,9 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
 	
 	public void decodeDiagram(XcosDiagram diag) throws SimulinkFormatException {
 		// fill all diagram parameters
-		try {
-			Logger.toFile("From " + base.getName() + ":");
-			Logger.toFile(base.getParameterNames().toString());
-		} catch(IOException e1) {
-			LogFactory.getLog(BlockElement.class).error(e1);
-		}
+		LogFactory.getLog(DiagramElement.class).trace("From " + base.getName() + ":");
+		LogFactory.getLog(DiagramElement.class).trace(base.getParameterNames().toString());
+		
 		decodeObjs(diag);
 	}
 	

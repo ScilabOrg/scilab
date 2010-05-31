@@ -18,13 +18,8 @@ public class InputPortElement {
 
 	public BasicPort decode(SimulinkInPort simulinkInPort, Object object) {
 		// TODO Auto-generated method stub
-		try {
-			Logger.toFile("InPort: " + simulinkInPort.toString());
-			//Logger.toFile(simulinkOutPort.getParameterNames().toString());
-		} catch(IOException e1) {
-			LogFactory.getLog(BlockElement.class).error(e1);
-		}
-		
+		LogFactory.getLog(InputPortElement.class).trace("InPort" + simulinkInPort.toString());
+
 		/*
 		 * Set in line
 		 */
