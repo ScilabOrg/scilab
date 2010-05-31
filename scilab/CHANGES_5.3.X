@@ -625,3 +625,5 @@ Bug fixes:
                    preceded by ~ or @ or < or >
 
 * bug 7161 fixed - wavread failed to load some .wav files with error 44.
+
+* bug 7189 fixed - In some cases the usage of resume produced to a Scilab crash.
