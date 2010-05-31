@@ -1,0 +1,12 @@
+<generalParameters description="string">
+  <!--Zero or more repetitions:-->
+  <stringParam simulinkName="string" xCosName="string" description="string">
+    <!--1 or more repetitions:-->
+    <ParameterMap simulinkValue="string" xCosValue="string"/>
+  </stringParam>
+  <!--Zero or more repetitions:-->
+  <intParam simulinkName="string" xCosName="string" description="string">
+    <!--1 or more repetitions:-->
+    <ParameterMap simulinkValue="100" xCosValue="100"/>
+  </intParam>
+</generalParameters>
