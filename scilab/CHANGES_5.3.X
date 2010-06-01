@@ -342,6 +342,8 @@ Bug fixes:
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
+* bug 1371 fixed - The representation of floating numbers with exponent larger 
+                   than 100 or smaller than -100 was incorrect.
 * bug 2076 fixed - pspect did not use the last data window.
 
 * bug 2623 fixed - non regression test script fixed
