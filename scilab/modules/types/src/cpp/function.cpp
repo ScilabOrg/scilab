@@ -81,6 +81,8 @@ namespace types
       memset(pStr->m_pOutOrder, 0xFF, (_iRetCount < 1 ? 1 : _iRetCount) * sizeof(int));
       memset(pStr->m_pOut, 0x00, MAX_OUTPUT_VARIABLE * sizeof(InternalType*));
 
+      std::cout << "Trying to call old GW [" << m_stName << "]" << std::endl;
+      std::cout << "@m_pOldFunc = " << &m_pOldFunc << std::endl;
       //call gateway
       int iRet = m_pOldFunc((char*)m_stName.c_str(), (int*)pStr);
 
@@ -94,7 +96,8 @@ namespace types
           for(int i = 0 ; i < _iRetCount ; i++)
           {
               //take care about return value count
-              if(pStr->m_pOutOrder[i] == -1)
+              // or LhsVar(1) = 0
+              if(pStr->m_pOutOrder[i] == -1 || pStr->m_pOutOrder[i] == 0)
               {
                   break;
               }
