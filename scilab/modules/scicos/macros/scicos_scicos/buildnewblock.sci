@@ -123,9 +123,9 @@ function [ok]=buildnewblock(blknam, files, filestan, filesint, libs, rpat, ldfla
       cflags = cflags + " -I" + SCI + "/modules/dynamic_link/includes/"; 
     end
   else
-    cflags = cflags + " -I" + SCI + "/modules/scicos/includes/"; 
-    cflags = cflags + " -I" + SCI + "/modules/scicos_blocks/includes/"; 
-    cflags = cflags + " -I" + SCI + "/modules/dynamic_link/includes/"; 
+    cflags = cflags + ' -I""' + SCI + '/modules/scicos/includes/""'; 
+    cflags = cflags + ' -I""' + SCI + '/modules/scicos_blocks/includes/""'; 
+    cflags = cflags + ' -I""' + SCI + '/modules/dynamic_link/includes/""'; 
     
     // ldflags for Visual studio
     if findmsvccompiler() <> 'unknown' & haveacompiler() then
