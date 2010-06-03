@@ -87,6 +87,9 @@ Localization:
 * bug 7059 fixed - Remove the tag X-Launchpad-Export-Date to avoid huge and
                    useless diff after a launchpad synchronization
 
+* bug 7220 fixed - On Windows, When you start Scilab with "WScilex -l ru_RU",
+                   some menus were disabled.
+
 API_Scilab:
 ===========
 
