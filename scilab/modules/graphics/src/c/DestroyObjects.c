@@ -4,6 +4,7 @@
  * Copyright (C) 2002-2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -164,8 +165,8 @@ int destroyGraphicHierarchy(sciPointObj * pthis)
 
 /**sciDelGraphicObj
  * This function delete only users graphics object and its dependency limited to 
- * SCI_TITLE SCI_LEGEND SCI_ARC SCI_POLYLINE SCI_RECTANGLE SCI_SURFACE 
- * SCI_AXIS SCI_SUBWIN
+ * SCI_LEGEND SCI_ARC SCI_SEGS SCI_FEC SCI_GRAYPLOT SCI_POLYLINE SCI_RECTANGLE SCI_SURFACE 
+ * SCI_AXES SCI_AGREG SCI_TEXT SCI_FIGURE SCI_SUBWIN
  * @param sciPointObj * pthis: the pointer to the entity
  */
 int
@@ -173,6 +174,9 @@ sciDelGraphicObj (sciPointObj * pthis)
 {
   switch (sciGetEntityType (pthis))
     {
+    case SCI_LABEL:
+      sciprint(_("A Label object cannot be deleted.\n"));
+      return -1;
     case SCI_LEGEND:
     case SCI_ARC:
     case SCI_SEGS: 
@@ -184,7 +188,6 @@ sciDelGraphicObj (sciPointObj * pthis)
     case SCI_AXES:
     case SCI_AGREG:
     case SCI_TEXT:
-    case SCI_LABEL:
     case SCI_FIGURE:
 			destroyGraphicHierarchy (pthis);
       return 0;
