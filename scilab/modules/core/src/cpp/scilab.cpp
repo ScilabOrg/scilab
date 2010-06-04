@@ -33,24 +33,8 @@ extern "C"
 #ifdef _MSC_VER
 #include "../src/c/scilab_windows/getScilabDirectory.h"
 #endif
-#include "ConsoleRead.h"
-#include "../../../console/includes/InitializeConsole.h"
-#include "../../../jvm/includes/InitializeJVM.h"
-#include "InitializeCore.h"
-#include "../../../shell/includes/InitializeShell.h"
-#include "../../../console/includes/InitializeConsole.h"
-#include "../../../tclsci/includes/InitializeTclTk.h"
-#include "../../../localization/includes/InitializeLocalization.h"
-#include "../../../graphics/includes/graphicModuleLoad.h"
-#include "../../../jvm/includes/InitializeJVM.h"
-#ifdef _MSC_VER
-#include "../../../windows_tools/includes/InitializeWindows_tools.h"
-#endif
-#include "../../../gui/includes/InitializeGUI.h"
-#include "../../../string/includes/InitializeString.h"
 #include "scilabmode.h"
 #include "SetScilabEnvironment.h"
-#include "../../../jvm/includes/loadBackGroundClassPath.h"
 
 #include "../../../history_manager/includes/HistoryManager.h"
 #include "../../../history_manager/includes/InitializeHistoryManager.h"
@@ -59,10 +43,6 @@ extern "C"
 #ifdef __APPLE__
 #include "../../../shell/src/c/others/initMacOSXEnv.h"
 #endif
-/*
-** HACK HACK HACK
-*/
-    extern char *TermReadAndProcess(void);
 }
 
 #include "yaspio.hxx"
@@ -74,6 +54,8 @@ extern "C"
 #include "context.hxx"
 //#include "setenvvar.hxx"
 #include "funcmanager.hxx"
+
+#include "initscilabengine.hxx"
 
 #define INTERACTIVE     -1
 
@@ -216,23 +198,6 @@ static int get_option (const int argc, char *argv[], int *_piFileIndex, int *_pi
 
     return 0;
 }
-
-/*
-** HACK HACK HACK
-*/
-
-extern "C"
-{
-#include <stdio.h>
-
-#ifndef _MSC_VER
-#include <unistd.h>
-#endif
-#include "scilabmode.h"
-    extern char *TermReadAndProcess(void);
-    extern void ConsolePrintf(char*);
-}
-
 
 /*
 ** -*- Batch Main -*-
@@ -458,11 +423,6 @@ static int interactiveMain (void)
     return WELL_DONE;
 }
 
-static void TermPrintf(char *text)
-{
-    std::cout << text;
-}
-
 /*
 ** -*- MAIN -*-
 */
@@ -479,14 +439,12 @@ int main(int argc, char *argv[])
 
     if (consoleMode)
     {
-        setYaspInputMethod(&TermReadAndProcess);
-        setYaspOutputMethod(&TermPrintf);
+        BindTerminalConsoleIO();
         return StartScilabEngine(argc, argv, iFileIndex);
     }
     else
     {
-        setYaspInputMethod(&ConsoleRead);
-        setYaspOutputMethod(&ConsolePrintf);
+        BindGuiConsoleIO();
 #ifdef __APPLE__
         return initMacOSXEnv(argc, argv, iFileIndex);
 #else
@@ -500,40 +458,7 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
     int iMainRet = 0;
     /* Scilab Startup */
     InitializeEnvironnement();
-
-    InitializeString();
-
-#ifdef _MSC_VER
-    InitializeWindows_tools();
-#endif
-
-    InitializeCore();
-
-    InitializeShell();
-
-    if (!noJvm) 
-    {
-        /* bug 3702 */
-        /* tclsci creates a TK window on Windows */
-        /* it changes focus on previous windows */
-        /* we put InitializeTclTk before InitializeGUI */
-        
-        //InitializeTclTk();
-        InitializeJVM();
-        InitializeGUI();
-
-        /* create needed data structure if not already created */
-        loadGraphicModule() ;
-
-        /* Standard mode -> init Java Console */
-        if ( !consoleMode ) 
-        {
-            /* Initialize console: lines... */
-            InitializeConsole();
-        }
-
-        loadBackGroundClassPath();
-    }
+    InitScilabEngine(consoleMode, noJvm);
 
     /* set current language of scilab */
     FuncManager *pFM = new FuncManager();

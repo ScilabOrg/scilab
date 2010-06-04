@@ -53,7 +53,8 @@ SCILAB_CLI_LIB=$(top_builddir)/modules/libscilab-cli.la
 
 
 scilab_bin_SOURCES		= 	$(top_srcdir)/modules/core/src/cpp/scilab.cpp \
-							$(top_srcdir)/modules/core/src/cpp/tasks.cpp
+							$(top_srcdir)/modules/core/src/cpp/tasks.cpp \
+							$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
 
 scilab_bin_LDADD 		= $(COMMON_LIBS) $(SCILAB_LIB)
 
@@ -61,7 +62,8 @@ scilab_bin_CPPFLAGS		= $(scilab_cli_bin_CPPFLAGS)
 
 # Match scilab -nwni (ie command line without graphics)
 scilab_cli_bin_SOURCES	=	$(top_srcdir)/modules/core/src/cpp/scilab.cpp \
-							$(top_srcdir)/modules/core/src/cpp/tasks.cpp
+							$(top_srcdir)/modules/core/src/cpp/tasks.cpp \
+							$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
 
 scilab_cli_bin_CFLAGS 		= -DWITHOUT_GUI
 scilab_cli_bin_LDADD 		= $(COMMON_LIBS) $(SCILAB_CLI_LIB)

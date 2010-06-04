@@ -188,7 +188,8 @@ call_scilab_readwritestring_LINK = $(LIBTOOL) --tag=CC \
 	$(call_scilab_readwritestring_CFLAGS) $(CFLAGS) \
 	$(call_scilab_readwritestring_LDFLAGS) $(LDFLAGS) -o $@
 am_scilab_bin_OBJECTS = scilab_bin-scilab.$(OBJEXT) \
-	scilab_bin-tasks.$(OBJEXT)
+	scilab_bin-tasks.$(OBJEXT) \
+	scilab_bin-initscilabengine-jvm.$(OBJEXT)
 scilab_bin_OBJECTS = $(am_scilab_bin_OBJECTS)
 am__DEPENDENCIES_1 =
 am__DEPENDENCIES_2 = $(top_builddir)/modules/shell/libscishell.la \
@@ -202,7 +203,8 @@ scilab_bin_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(scilab_bin_LDFLAGS) $(LDFLAGS) -o $@
 am_scilab_cli_bin_OBJECTS = scilab_cli_bin-scilab.$(OBJEXT) \
-	scilab_cli_bin-tasks.$(OBJEXT)
+	scilab_cli_bin-tasks.$(OBJEXT) \
+	scilab_cli_bin-initscilabengine-nojvm.$(OBJEXT)
 scilab_cli_bin_OBJECTS = $(am_scilab_cli_bin_OBJECTS)
 scilab_cli_bin_DEPENDENCIES = $(am__DEPENDENCIES_2) $(SCILAB_CLI_LIB)
 scilab_cli_bin_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -210,8 +212,10 @@ scilab_cli_bin_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(CXXFLAGS) $(scilab_cli_bin_LDFLAGS) $(LDFLAGS) -o $@
 am__scilab_static_bin_SOURCES_DIST =  \
 	$(top_srcdir)/modules/core/src/cpp/scilab.cpp \
-	$(top_srcdir)/modules/core/src/cpp/tasks.cpp
-am__objects_1 = scilab.$(OBJEXT) tasks.$(OBJEXT)
+	$(top_srcdir)/modules/core/src/cpp/tasks.cpp \
+	$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+am__objects_1 = scilab.$(OBJEXT) tasks.$(OBJEXT) \
+	initscilabengine-jvm.$(OBJEXT)
 @ENABLE_STATIC_TRUE@am_scilab_static_bin_OBJECTS = $(am__objects_1)
 scilab_static_bin_OBJECTS = $(am_scilab_static_bin_OBJECTS)
 @ENABLE_STATIC_TRUE@scilab_static_bin_DEPENDENCIES =  \
@@ -608,14 +612,16 @@ $(LTLIBINTL)
 SCILAB_LIB = $(top_builddir)/modules/libscilab.la
 SCILAB_CLI_LIB = $(top_builddir)/modules/libscilab-cli.la
 scilab_bin_SOURCES = $(top_srcdir)/modules/core/src/cpp/scilab.cpp \
-							$(top_srcdir)/modules/core/src/cpp/tasks.cpp
+							$(top_srcdir)/modules/core/src/cpp/tasks.cpp \
+							$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
 
 scilab_bin_LDADD = $(COMMON_LIBS) $(SCILAB_LIB)
 scilab_bin_CPPFLAGS = $(scilab_cli_bin_CPPFLAGS)
 
 # Match scilab -nwni (ie command line without graphics)
 scilab_cli_bin_SOURCES = $(top_srcdir)/modules/core/src/cpp/scilab.cpp \
-							$(top_srcdir)/modules/core/src/cpp/tasks.cpp
+							$(top_srcdir)/modules/core/src/cpp/tasks.cpp \
+							$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
 
 scilab_cli_bin_CFLAGS = -DWITHOUT_GUI
 scilab_cli_bin_LDADD = $(COMMON_LIBS) $(SCILAB_CLI_LIB)
@@ -925,9 +931,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/call_scilab_readwritecomplexmatrix-readwritecomplexmatrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/call_scilab_readwritematrix-readwritematrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/call_scilab_readwritestring-readwritestring.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/initscilabengine-jvm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_bin-initscilabengine-jvm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_bin-scilab.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_bin-tasks.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_cli_bin-scilab.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/scilab_cli_bin-tasks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tasks.Po@am__quote@
@@ -1114,6 +1123,20 @@ scilab_bin-tasks.obj: $(top_srcdir)/modules/core/src/cpp/tasks.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_bin-tasks.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; fi`
 
+scilab_bin-initscilabengine-jvm.o: $(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab_bin-initscilabengine-jvm.o -MD -MP -MF $(DEPDIR)/scilab_bin-initscilabengine-jvm.Tpo -c -o scilab_bin-initscilabengine-jvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab_bin-initscilabengine-jvm.Tpo $(DEPDIR)/scilab_bin-initscilabengine-jvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' object='scilab_bin-initscilabengine-jvm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_bin-initscilabengine-jvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+
+scilab_bin-initscilabengine-jvm.obj: $(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab_bin-initscilabengine-jvm.obj -MD -MP -MF $(DEPDIR)/scilab_bin-initscilabengine-jvm.Tpo -c -o scilab_bin-initscilabengine-jvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab_bin-initscilabengine-jvm.Tpo $(DEPDIR)/scilab_bin-initscilabengine-jvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' object='scilab_bin-initscilabengine-jvm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_bin-initscilabengine-jvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; fi`
+
 scilab_cli_bin-scilab.o: $(top_srcdir)/modules/core/src/cpp/scilab.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab_cli_bin-scilab.o -MD -MP -MF $(DEPDIR)/scilab_cli_bin-scilab.Tpo -c -o scilab_cli_bin-scilab.o `test -f '$(top_srcdir)/modules/core/src/cpp/scilab.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/scilab.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab_cli_bin-scilab.Tpo $(DEPDIR)/scilab_cli_bin-scilab.Po
@@ -1142,6 +1165,20 @@ scilab_cli_bin-tasks.obj: $(top_srcdir)/modules/core/src/cpp/tasks.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_cli_bin-tasks.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; fi`
 
+scilab_cli_bin-initscilabengine-nojvm.o: $(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab_cli_bin-initscilabengine-nojvm.o -MD -MP -MF $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Tpo -c -o scilab_cli_bin-initscilabengine-nojvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Tpo $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp' object='scilab_cli_bin-initscilabengine-nojvm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_cli_bin-initscilabengine-nojvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
+
+scilab_cli_bin-initscilabengine-nojvm.obj: $(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab_cli_bin-initscilabengine-nojvm.obj -MD -MP -MF $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Tpo -c -o scilab_cli_bin-initscilabengine-nojvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Tpo $(DEPDIR)/scilab_cli_bin-initscilabengine-nojvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp' object='scilab_cli_bin-initscilabengine-nojvm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(scilab_cli_bin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o scilab_cli_bin-initscilabengine-nojvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-nojvm.cpp'; fi`
+
 scilab.o: $(top_srcdir)/modules/core/src/cpp/scilab.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT scilab.o -MD -MP -MF $(DEPDIR)/scilab.Tpo -c -o scilab.o `test -f '$(top_srcdir)/modules/core/src/cpp/scilab.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/scilab.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/scilab.Tpo $(DEPDIR)/scilab.Po
@@ -1169,6 +1206,20 @@ tasks.obj: $(top_srcdir)/modules/core/src/cpp/tasks.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/tasks.cpp' object='tasks.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o tasks.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/tasks.cpp'; fi`
+
+initscilabengine-jvm.o: $(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT initscilabengine-jvm.o -MD -MP -MF $(DEPDIR)/initscilabengine-jvm.Tpo -c -o initscilabengine-jvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/initscilabengine-jvm.Tpo $(DEPDIR)/initscilabengine-jvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' object='initscilabengine-jvm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o initscilabengine-jvm.o `test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' || echo '$(srcdir)/'`$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+
+initscilabengine-jvm.obj: $(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT initscilabengine-jvm.obj -MD -MP -MF $(DEPDIR)/initscilabengine-jvm.Tpo -c -o initscilabengine-jvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/initscilabengine-jvm.Tpo $(DEPDIR)/initscilabengine-jvm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp' object='initscilabengine-jvm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o initscilabengine-jvm.obj `if test -f '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; then $(CYGPATH_W) '$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/modules/core/src/cpp/initscilabengine-jvm.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
