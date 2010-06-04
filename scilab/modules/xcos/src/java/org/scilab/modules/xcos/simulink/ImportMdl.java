@@ -15,6 +15,7 @@ import edu.tum.cs.simulink.model.SimulinkModel;
 import edu.tum.cs.simulink.model.SimulinkOutPort;
 
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.simulink.DiagramElement;
 
@@ -34,14 +35,15 @@ public class ImportMdl {
 	 */
 	public static void fromFile(String filename) throws IOException,SimulinkModelBuildingException {
 		SimulinkModelBuilder builder = new SimulinkModelBuilder(new File(
-		        filename), new SimpleLogger());
-	    SimulinkModel model = builder.buildModel();
-	    DiagramElement diagram = new DiagramElement();
-	    try {
-	    	XcosDiagram into = diagram.decode(model, null);
-	    } catch(SimulinkFormatException e1) {
-	    	LogFactory.getLog(ImportMdl.class).error(e1);
-	    }
+			filename), new SimpleLogger());
+		SimulinkModel model = builder.buildModel();
+		DiagramElement diagram = new DiagramElement();
+		try {
+			XcosDiagram into = diagram.decode(model, null);
+			XcosTab.showTabFromDiagram(into);
+		} catch(SimulinkFormatException e1) {
+			LogFactory.getLog(ImportMdl.class).error(e1);
+		}
 	}
 	/**
 	 * 
@@ -51,7 +53,7 @@ public class ImportMdl {
 	public static void readSimulinkBlock(SimulinkBlock block) {
 		UnmodifiableIterator<SimulinkBlock> blockIter = block.getSubBlocks().iterator();
 		while(blockIter.hasNext()) {
-	    	readSimulinkBlock(blockIter.next());
-    	}
+			readSimulinkBlock(blockIter.next());
+		}
 	}
 }
