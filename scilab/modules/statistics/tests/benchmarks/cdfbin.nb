@@ -1,0 +1,48 @@
+(*
+// =============================================================================
+// Copyright (C) 2010 - Michael Zhang
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// =============================================================================
+*)
+
+Share[];
+
+(*
+// Calculate the CDF (Cumulative Distribution Function) of
+// binomial distribution to high precision for benchmark use
+// CDF(k) = beta(1 - p, n - k, k + 1) / Beta(n - k, k + 1)
+// where beta() is the incomplete beta function and
+// Beta() is the beta function
+*)
+
+ClearAll["Global`*"];
+
+(* load package *)
+<< Statistics`DiscreteDistributions`;
+
+(* set the number of significant digits*)
+digits = 30;
+
+(* parameters lists *)
+n = {1, 10, 21, 50, 50, 50, 50, 10^100, 1000, 10^9, 1000, 10^9};
+p = {0.2, 1, 0.5, 0.6, 0.6, 0.6, 0.6, 0.7, Pi/10, Pi/10, 0.5, 0.5};
+k = {0, 5, 10, 0, 1, 9, 48, 10^100, 300, 3*10^8, 500, 5*10^8};
+
+If [Length[k] == Length[n] == Length[p],
+    (* then statement *)
+    For [i = 1, i <= Length[k], i++,
+        bin = BinomialDistribution[n[[i]], p[[i]]];
+        cdfbin = N[CDF[bin, k[[i]]]];
+        Print["n = ", N[n[[i]]]];
+        Print["p = ", N[p[[i]]]];
+        Print["k = ", N[k[[i]]]];
+        Print["cdfbin = ", SetPrecision[cdfbin, digits]];
+    ],
+    (* else statement *)
+    Print["Number of parameters do not match!"];
+]

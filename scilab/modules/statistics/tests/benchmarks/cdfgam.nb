@@ -1,0 +1,53 @@
+(*
+// =============================================================================
+// Copyright (C) 2010 - Michael Zhang
+//
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// =============================================================================
+*)
+
+Share[];
+
+(*
+// Calculate the CDF (Cumulative Distribution Function) of
+// gamma distribution to high precision for benchmark use
+// CDF(x) = gamma(shape, x / scale) / Gamma(shape)
+// where gamma() is the lower incomplete gamma function and
+// Gamma() is the gamma function
+*)
+
+ClearAll["Global`*"];
+
+(* load package *)
+<< Statistics`ContinuousDistributions`;
+
+(* set the number of significant digits*)
+digits = 30;
+
+(* parameters lists *)
+shape = {1, 1, 5.4, 10, E, E, 10000, 10^(-7), EulerGamma};
+scale = {2, 1/2, Pi, 0.1, 10^(-50), 10^(-50), 10, 1/3, 10^51};
+x = {0, 5, 1.083, 10^10, Pi, 10^49, 2, 1.6, 10^(-50)};
+
+(* scale parameters in Scilab and Mathematica are reciprocal *)
+(* Scilab and R-Project follow the same convention *)
+(* Mathematica and Matlab have the same definition *)
+scale = 1 / scale;
+
+If [Length[x] == Length[shape] == Length[scale],
+    (* then statement *)
+    For [i = 1, i <= Length[x], i++,
+        gam = GammaDistribution[shape[[i]], scale[[i]]];
+        cdfgam = N[CDF[gam, x[[i]]]];
+        Print["shape = ", N[shape[[i]]]];
+        Print["scale = ", N[scale[[i]]]];
+        Print["x = ", N[x[[i]]]];
+        Print["cdfgam = ", SetPrecision[cdfgam, digits]];
+    ],
+    (* else statement *)
+    Print["Number of parameters does not match!"];
+]
