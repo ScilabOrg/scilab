@@ -477,13 +477,10 @@ int main(int argc, char *argv[])
     Parser::getInstance()->disableParseTrace();
     get_option(argc, argv, &iFileIndex, &iLangIndex);
 
-    if (consoleMode)
-    {
-        setYaspInputMethod(&TermReadAndProcess);
-        setYaspOutputMethod(&TermPrintf);
-        return StartScilabEngine(argc, argv, iFileIndex);
-    }
-    else
+// if WITHOUT_GUI is defined
+// force Terminal IO
+#ifndef WITHOUT_GUI
+    if (!consoleMode)
     {
         setYaspInputMethod(&ConsoleRead);
         setYaspOutputMethod(&ConsolePrintf);
@@ -492,6 +489,13 @@ int main(int argc, char *argv[])
 #else
         return StartScilabEngine(argc, argv, iFileIndex);
 #endif
+    }
+    else
+#endif
+    {
+        setYaspInputMethod(&TermReadAndProcess);
+        setYaspOutputMethod(&TermPrintf);
+        return StartScilabEngine(argc, argv, iFileIndex);
     }
 }
 
