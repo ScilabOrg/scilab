@@ -1,5 +1,6 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
+c Copyright (C) DIGITEO - 2010 - Allan CORNET
 c 
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
@@ -37,7 +38,7 @@ C
       data blank/40/
       data func/202841615,387453469,nz2*673720360/
    
-C     if, else, for, while, end, select, case, quit, quit, return
+C     if, else, for, while, end, select, case, case, case, return
       data ((cmd(i,j), i = 1,nsiz), j = 1,10)/
      &     673713938,nz1*673720360,
      &     236721422,nz1*673720360,
@@ -46,8 +47,8 @@ C     if, else, for, while, end, select, case, quit, quit, return
      &     671946510,nz1*673720360,
      $     236260892,673717516,nz2*673720360,
      &     236718604,nz1*673720360,
-     $     487726618,nz1*673720360,
-     $     487726618,nz1*673720360,
+     &     236718604,nz1*673720360,
+     &     236718604,nz1*673720360,
      $     505220635,673715995,nz2*673720360/
 C     help, what, who, pause, clear, resume, then, do, apropos, abort
       data ((cmd(i,j), i = 1,nsiz), j = 11,20)/
@@ -265,52 +266,10 @@ C     compilation return:<99>
       goto 999
 C     
 C     -------------
-C     quit
+C     'quit' moved SCI/modules/core/sci_gateway/c/sci_exit.c
 C     -------------
 C     
  50   continue
-c     if special compilation mode skip  commands
-      if (comp(3).eq.1) then
-         fin=0
-         fun=0
-         return
-      endif
-C     compilation quit:<17>
-      if (compil(17,0,0,0,0)) return
-      if (paus .ne. 0) then
-C     quit dans une pause, decrease recursion level up to the pause one
-         pt = pt + 1
- 51      pt = pt - 1
-c     .  suppress loop variables if any
-         if (rstk(pt).eq.802 .or. rstk(pt).eq.612 .or.
-     &        (rstk(pt).eq.805.and.ids(1,pt).eq.iselect) .or.
-     &        (rstk(pt).eq.616.and.pstk(pt).eq.10)) top = top - 1
-         if (rstk(pt) .ne. 503) goto 51
-c
-C$$$         k = lpt(1) - (13+nsiz)
-C$$$         lpt(1) = lin(k+1)
-C$$$         lpt(2) = lin(k+4)
-C$$$         lpt(6) = k
-C$$$         bot = lin(k+5)
-C$$$         pt = pt - 1
-C$$$         rio = pstk(pt)
-C$$$         if (rstk(pt) .eq. 701.or.rstk(pt).eq.604) then
-C$$$            errct=ids(2,pt+1)
-C$$$            err2=ids(3,pt+1)
-C$$$            err1=ids(4,pt+1)
-C$$$            errpt=ids(5,pt+1)
-C$$$            pt = pt - 1
-C$$$         endif
-C$$$         paus = paus - 1
-C$$$         goto 46
-c     recall macro to terminate the pause level
-         fun=0
-         fin=2
-         return
-      else
-C     quit (sortie)
-         fun = 99
-      endif
       goto 998
 
 C     
