@@ -15,6 +15,7 @@ import edu.tum.cs.simulink.model.SimulinkModel;
 import edu.tum.cs.simulink.model.SimulinkOutPort;
 
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.simulink.DiagramElement;
 
@@ -39,6 +40,7 @@ public class ImportMdl {
 	    DiagramElement diagram = new DiagramElement();
 	    try {
 	    	XcosDiagram into = diagram.decode(model, null);
+	    	XcosTab.showTabFromDiagram(into);
 	    } catch(SimulinkFormatException e1) {
 	    	LogFactory.getLog(ImportMdl.class).error(e1);
 	    }
