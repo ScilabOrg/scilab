@@ -664,7 +664,10 @@ public class Xpad extends SwingScilabTab implements Tab {
         fileChooser.setFileFilter(sceFilter);
         fileChooser.setTitle(XpadMessages.SAVE_AS); /* Bug 4869 */
 
-        if (textPane.getName() != null) { /* Bug 5319 */
+        String name = ((ScilabDocument) textPane.getDocument()).getFirstFunctionName();
+        if (name != null) {
+            fileChooser.setSelectedFile(new File(name + ".sci"));
+        } else if (textPane.getName() != null) { /* Bug 5319 */
             fileChooser.setSelectedFile(new File(textPane.getName()));
         }
 
