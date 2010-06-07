@@ -107,8 +107,11 @@ namespace symbol
         void remove(const string& key)
         {
             InternalType *pOld = (*_scope)[key];
-
-            _scope->erase(key);
+            
+            std::cerr << "Key = " << key << std::endl;
+            std::cerr << "pOld = " << pOld << std::endl;
+            int iErasedElem = _scope->erase(key);
+            std::cerr << "iErasedElem = " << iErasedElem << std::endl;
             pOld->DecreaseRef();
             if(pOld->isDeletable() == true)
             {
