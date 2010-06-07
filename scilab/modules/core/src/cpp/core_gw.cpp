@@ -26,6 +26,8 @@ bool CoreModule::Load()
     symbol::Context::getInstance()->AddFunction(Function::createFunction("getdebuginfo", &sci_getdebuginfo, "core"));
     symbol::Context::getInstance()->AddFunction(Function::createFunction("getversion", &sci_getversion, "core"));
     symbol::Context::getInstance()->AddFunction(Function::createFunction("clear", &sci_clear, "core"));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction("quit", &sci_quit, "core"));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction("exit", &sci_exit, "core"));
     return true;
 }
 
