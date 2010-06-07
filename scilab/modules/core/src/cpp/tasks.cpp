@@ -225,7 +225,9 @@ void execScilabStartTask(void)
 {
     return;
     Parser* pParse = Parser::getInstance();
-    string stSCI = ConfigVariable::getInstance()->get("SCI");
+
+    string stSCI = ConfigVariable::getSCIPath();
+
     stSCI += SCILAB_START;
     pParse->parseFile(stSCI, "");
 
