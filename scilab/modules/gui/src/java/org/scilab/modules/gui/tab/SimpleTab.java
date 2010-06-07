@@ -21,6 +21,7 @@ import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.frame.Frame;
 import org.scilab.modules.gui.helpbrowser.HelpBrowser;
 import org.scilab.modules.gui.label.Label;
+import org.scilab.modules.gui.imagerender.ImageRender;
 import org.scilab.modules.gui.listbox.ListBox;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.popupmenu.PopupMenu;
@@ -125,6 +126,19 @@ public interface SimpleTab {
 	 * @param member the Label to remove
 	 */
 	void removeMember(Label member);
+
+	/**
+	 * We want to be able to add directly a imageRender in a Tab.
+	 * @param member the imageRender to add
+	 * @return the position of the imageRender in the member list.
+	 */
+	int addMember(ImageRender member);
+
+	/**
+	 * Remove a ImageRender from a Tab.
+	 * @param member the ImageRender to remove
+	 */
+	void removeMember(ImageRender member);
 
 	/**
 	 * We want to be able to add directly a checkbox in a Tab.

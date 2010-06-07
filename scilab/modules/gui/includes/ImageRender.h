@@ -9,8 +9,10 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+
 #ifndef __IMAGERENDER_H__
 #define __IMAGERENDER_H__
+
 #include "dynlib_gui.h"
 #include "ObjectStructure.h"
 #include "returnProperty.h"
@@ -31,4 +33,3 @@ GUI_IMPEXP void createImageRender(sciPointObj* sciObj);
 GUI_IMPEXP int setCurentFigureAsImageRenderParent(sciPointObj* sciObj);
 
 #endif /* __IMAGERENDER_H__ */
-

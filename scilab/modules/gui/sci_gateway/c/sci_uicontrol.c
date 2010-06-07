@@ -2,7 +2,6 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2007 - INRIA - Vincent COUVERT
- * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -32,6 +31,7 @@
 #include "PopupMenu.h" /* setCurentFigureAsPopupMenuParent */
 #include "ListBox.h" /* setCurentFigureAsListBoxParent */
 #include "Frame.h" /* setCurentFigureAsFrameParent */
+#include "ImageRender.h" /* setCurentFigureAsImageRenderParent */
 #include "Scierror.h"
 #include "WindowList.h" /* getFigureFromIndex */
 #include "Widget.h" /* requestWidgetFocus */
@@ -66,9 +66,10 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
   /* DO NOT CHANGE ORDER !! */
   char propertiesNames[NBPROPERTIES][MAXPROPERTYNAMELENGTH] = {"style", "parent", "backgroundcolor", "foregroundcolor","string", "units", "fontweight", "min", "max", "tag", "position", "relief", "horizontalalignment", "verticalalignment", "sliderstep", "fontname", "callback", "fontangle", "fontunits", "fontsize", "listboxtop", "user_data", "value", "userdata", "visible", "enable"};
   int *propertiesValuesIndices = NULL;
-  int lw = 0;
+
   char *propertyPart = NULL;
 
+  //CheckRhs(2,2);
   CheckLhs(0,1);
 
   if (Rhs==0)
@@ -88,8 +89,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
 
       if (VarType(1) != sci_handles)
         {
-          lw = 1 + Top - Rhs;
-          C2F(overload)(&lw,"uicontrol",9);
+          Scierror(999,_("%s: Wrong type for input argument #%d: A graphic handle expected.\n"),fname, 1);
           return FALSE;
         }
       else /* Get parent ID */
@@ -137,13 +137,6 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
     }
   else
     {
-      if ((VarType(1) != sci_handles) && (VarType(1) != sci_strings))
-        {
-          lw = 1 + Top - Rhs;
-          C2F(overload)(&lw,"uicontrol",9);
-          return FALSE;
-        }
-
       /* Allocate memory to store the position of properties in uicontrol call */
       if((propertiesValuesIndices = (int*)MALLOC(sizeof(int)*NBPROPERTIES))==NULL)
         {
@@ -303,7 +296,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
       /* If no parent given then the current figure is the parent */
       if(propertiesValuesIndices[1]==NOT_FOUND)
         {
-          sciPointObj * graphicObject = sciGetPointerFromHandle(GraphicHandle);
+					sciPointObj * graphicObject = sciGetPointerFromHandle(GraphicHandle);
           /* Set the parent */
            switch(pUICONTROL_FEATURE(graphicObject)->style)
             {
@@ -333,6 +326,9 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
               break;
             case SCI_UIFRAME:
               setCurentFigureAsFrameParent(graphicObject);
+              break;
+            case SCI_IMAGERENDER:
+              setCurentFigureAsImageRenderParent(graphicObject);
               break;
            default:
               break;
