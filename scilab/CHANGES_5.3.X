@@ -56,14 +56,14 @@ Text Editor:
 
 * bug 5261 fixed - Could not open several instances of the editor.
 
-* bug 5269 fixed - Could not have help on a keyword with CTRL+F1. 
+* bug 5269 fixed - Could not have help on a keyword with CTRL+F1.
 
 * bug 5320 fixed - A good name was not proposed on the 'Save as' action.
 
 * bug 5321 fixed - There was not the possibility to choose the length of a
                    tabulation.
 
-* bug 5473 fixed - It was not possibile to generate a function help template 
+* bug 5473 fixed - It was not possibile to generate a function help template
                    using help_from_sci.
 
 * bug 5534 fixed - There was not auto-completion
@@ -90,6 +90,8 @@ Text Editor:
 * bug 6515 fixed - The DragN'Droped text was copied at the end of the file.
 
 * bug 6670 fixed - There was not a shortcut on the "Evaluate Selection" action.
+
+* bug 6748 fixed - There was a problem of time between local computer and NFS.
 
 * bug 6807 fixed - '.*' was not correctly highlighted.
 
