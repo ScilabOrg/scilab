@@ -107,7 +107,7 @@ int sci_import_from_hdf5(char *fname,unsigned long fname_len)
 
     if(iFile < 0)
     {
-        Scierror(999, "Unable to open file: %s", pstVarName);
+        Scierror(999, _("Unable to open file: %s"), pstVarName);
         return 0;
     }
 
