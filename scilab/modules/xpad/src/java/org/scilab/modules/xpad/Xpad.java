@@ -91,7 +91,6 @@ import org.scilab.modules.xpad.actions.FindNextAction;
 import org.scilab.modules.xpad.actions.FindPreviousAction;
 import org.scilab.modules.xpad.actions.LineBeautifierAction;
 import org.scilab.modules.xpad.actions.XpadCompletionAction;
-import org.scilab.modules.xpad.style.CompoundUndoManager;
 import org.scilab.modules.xpad.utils.ConfigXpadManager;
 import org.scilab.modules.xpad.utils.DropFilesListener;
 import org.scilab.modules.xpad.utils.SaveFile;
@@ -113,13 +112,17 @@ public class Xpad extends SwingScilabTab implements Tab {
     private static final String ALL_SCE_FILES = "*.sce";
     private static final String ALL_SCX_FILES = "*.sc*";
     private static final String ALL_FILES = "*.*";
+    private static final String TIRET = " - ";
+    private static final String DOT = ".";
+    private static final String ERROR_WITH_STRING = "Error while reading the String";
+
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
 
     private static List<Xpad> xpadList = new ArrayList();
-    static Xpad editor;
+    private static Xpad editor;
 
     private static XpadGUI xpadGUI;
     private final Window parentWindow;
@@ -144,8 +147,8 @@ public class Xpad extends SwingScilabTab implements Tab {
 
     private int whereami;
 
-    private Vector<Integer> tabList = new Vector<Integer>();
-    private Vector<Integer> closedTabList = new Vector<Integer>();
+    private Vector<Integer> tabList = new Vector();
+    private Vector<Integer> closedTabList = new Vector();
 
     private String fileFullPath = "";
 
@@ -164,7 +167,7 @@ public class Xpad extends SwingScilabTab implements Tab {
         editorKit = new ScilabEditorKit();
         setDefaultHighlight();
         setDefaultHelpOnTyping();
-        
+
         tabPane = new JTabbedPane();
         tabPane.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent e) {
@@ -173,7 +176,7 @@ public class Xpad extends SwingScilabTab implements Tab {
                         if (getTextPane().getName() != null) {
                             path  =  " (" + getTextPane().getName() + ")";
                         }
-                        setTitle(tabPane.getTitleAt(tabPane.getSelectedIndex()) + path + " - " + XpadMessages.SCILAB_EDITOR);
+                        setTitle(tabPane.getTitleAt(tabPane.getSelectedIndex()) + path + TIRET + XpadMessages.SCILAB_EDITOR);
                         updateUI();
 
                         // Update encoding menu
@@ -184,7 +187,7 @@ public class Xpad extends SwingScilabTab implements Tab {
                     }
                 }
             });
-	tabPane.addFocusListener(new FocusListener() {
+        tabPane.addFocusListener(new FocusListener() {
                 public void focusGained(FocusEvent e) {
                     ScilabEditorPane pane = getTextPane();
                     if (pane != null) {
@@ -193,7 +196,7 @@ public class Xpad extends SwingScilabTab implements Tab {
                 }
 
                 public void focusLost(FocusEvent e) { }
-	    });
+            });
         this.setContentPane(tabPane);
     }
 
@@ -276,9 +279,9 @@ public class Xpad extends SwingScilabTab implements Tab {
         try {
             editorInstance.getEditorKit().read(new StringReader(text), styleDocument, 0);
         } catch (IOException e) {
-            System.err.println("Error while reading the String");
+            System.err.println(ERROR_WITH_STRING);
         } catch (BadLocationException e) {
-            System.err.println("Error while reading the String");
+            System.err.println(ERROR_WITH_STRING);
         }
     }
 
@@ -504,12 +507,12 @@ public class Xpad extends SwingScilabTab implements Tab {
         styledDocument.setContentModified(false);
 
         getTabPane().setTitleAt(getTabPane().getSelectedIndex() , newSavedFile.getName());
-        setTitle(newSavedFile.getPath() + " - " + XpadMessages.SCILAB_EDITOR);
+        setTitle(newSavedFile.getPath() + TIRET + XpadMessages.SCILAB_EDITOR);
 
         // Get current file path for Execute file into Scilab
         fileFullPath = newSavedFile.getAbsolutePath();
-	getTextPane().setLastModified(newSavedFile.lastModified());
-        
+        getTextPane().setLastModified(newSavedFile.lastModified());
+
         textPaneAt.setName(fileToSave);
         return true;
     }
@@ -522,7 +525,7 @@ public class Xpad extends SwingScilabTab implements Tab {
      */
     public String checkExternalModification(String filename) {
         File newSavedFile = new File(filename);
-	if (newSavedFile.lastModified() > getTextPane().getLastModified()) {
+        if (newSavedFile.lastModified() > getTextPane().getLastModified()) {
             if (ScilabModalDialog.show(this, String.format(XpadMessages.EXTERNAL_MODIFICATION, newSavedFile.getPath()),
                                        XpadMessages.REPLACE_FILE_TITLE, IconType.QUESTION_ICON,
                                        ButtonType.YES_NO) == AnswerOption.NO_OPTION) {
@@ -565,12 +568,12 @@ public class Xpad extends SwingScilabTab implements Tab {
 
         //select default file type
         fileChooser.setFileFilter(sceFilter);
-        
+
         String name = ((ScilabDocument) getTextPane().getDocument()).getFirstFunctionName();
         if (name != null) {
-            fileChooser.setSelectedFile(new File(name + ".sci"));
-        } 
-        
+            fileChooser.setSelectedFile(new File(name + SCI_EXTENSION));
+        }
+
         int retval = fileChooser.showSaveDialog(this);
 
         if (retval == JFileChooser.APPROVE_OPTION) {
@@ -591,9 +594,9 @@ public class Xpad extends SwingScilabTab implements Tab {
             // we consider the file has already an extension
             // we previously only check for .sci and .sce extension, but what if the user open a txt file
             String fileName = f.getName();
-            if (fileName.lastIndexOf(".") != -1) {
-                if (fileName.substring(fileName.lastIndexOf("."), fileName.length()).length() >= 2
-                    && fileName.substring(fileName.lastIndexOf("."), fileName.length()).length() <= 4) {
+            if (fileName.lastIndexOf(DOT) != -1) {
+                if (fileName.substring(fileName.lastIndexOf(DOT), fileName.length()).length() >= 2
+                    && fileName.substring(fileName.lastIndexOf(DOT), fileName.length()).length() <= 4) {
                     hasNoExtension = false;
                 }
 
@@ -647,6 +650,7 @@ public class Xpad extends SwingScilabTab implements Tab {
         SciFileFilter allFilter = new SciFileFilter(ALL_FILES , null , 3);
 
 
+
         SwingScilabFileChooser fileChooser = ((SwingScilabFileChooser) ScilabFileChooser.createFileChooser().getAsSimpleFileChooser());
 
         fileChooser.setInitialDirectory(ConfigManager.getLastOpenedDirectory());
@@ -666,7 +670,7 @@ public class Xpad extends SwingScilabTab implements Tab {
 
         String name = ((ScilabDocument) textPane.getDocument()).getFirstFunctionName();
         if (name != null) {
-            fileChooser.setSelectedFile(new File(name + ".sci"));
+            fileChooser.setSelectedFile(new File(name + SCI_EXTENSION));
         } else if (textPane.getName() != null) { /* Bug 5319 */
             fileChooser.setSelectedFile(new File(textPane.getName()));
         }
@@ -719,12 +723,12 @@ public class Xpad extends SwingScilabTab implements Tab {
             ConfigXpadManager.saveToRecentOpenedFiles(f.getPath());
             textPane.setName(f.getPath());
             getTabPane().setTitleAt(getTabPane().getSelectedIndex() , f.getName());
-            setTitle(f.getPath() + " - " + XpadMessages.SCILAB_EDITOR);
+            setTitle(f.getPath() + TIRET + XpadMessages.SCILAB_EDITOR);
             updateRecentOpenedFilesMenu();
 
             styledDocument.setContentModified(false);
             getTextPane().setLastModified(f.lastModified());
-	    isSuccess = true;
+            isSuccess = true;
 
             // Get current file path for Execute file into Scilab
             fileFullPath = f.getAbsolutePath();
@@ -742,23 +746,34 @@ public class Xpad extends SwingScilabTab implements Tab {
      * @return the text component inside the tab
      */
     public ScilabEditorPane addTab(String title) {
-        ScilabEditorPane textPane = new ScilabEditorPane(this);
-        initPane(textPane);
-        tabPane.add(title, textPane.getParentComponent());
+        ScilabEditorPane sep = new ScilabEditorPane(this);
+        initPane(sep);
+        tabPane.add(title, sep.getParentComponent());
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         setContentPane(tabPane);
-        initInputMap(textPane);
+        initInputMap(sep);
         updateTabTitle();
-        return textPane;
+        setTitle(title + TIRET + XpadMessages.SCILAB_EDITOR);
+        repaint();
+        return sep;
+    }
+
+    /**
+     * Init a pane
+     * @param pane the pane to init
+     */
+    public void initPane(ScilabEditorPane pane) {
+        initPane(pane, false);
     }
 
     /**
      * Init the EditorPane.
      * @param pane the EditorPane
+     * @param plain true for a plain view or false for a wrapped view
      */
-    public void initPane(ScilabEditorPane pane) {
+    public void initPane(ScilabEditorPane pane, boolean plain) {
         setHighlight(pane);
-        pane.setEditorKit(new ScilabEditorKit());
+        pane.setEditorKit(new ScilabEditorKit(plain));
 
         // Panel of line number for the text pane
         pane.getXln().setWhereamiLineNumbering(ConfigXpadManager.getLineNumberingState());
@@ -804,6 +819,63 @@ public class Xpad extends SwingScilabTab implements Tab {
     }
 
     /**
+     * Split the EditorPane
+     * @param vertical true for a vertical split
+     */
+    public void splitTab(boolean vertical) {
+        ScilabEditorPane pane = getTextPane();
+        ScilabEditorPane leftPane = new ScilabEditorPane(editor);
+        ScilabEditorPane rightPane = new ScilabEditorPane(editor);
+        initPane(leftPane, true);
+        initPane(rightPane, true);
+        leftPane.setOtherPaneInSplit(rightPane);
+        rightPane.setOtherPaneInSplit(leftPane);
+        pane.copyProps(leftPane);
+        pane.copyProps(rightPane);
+        ScilabDocument doc = (ScilabDocument) pane.getDocument();
+        leftPane.setDocument(doc);
+        rightPane.setDocument(doc);
+        leftPane.setCaretPosition(0);
+        rightPane.setCaretPosition(0);
+        initInputMap(leftPane);
+        initInputMap(rightPane);
+        JSplitPane split;
+        if (vertical) {
+            split = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        } else {
+            split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        }
+        tabPane.setComponentAt(tabPane.getSelectedIndex(), split);
+        split.setLeftComponent(leftPane.getScrollPane());
+        split.setRightComponent(rightPane.getScrollPane());
+        split.setResizeWeight(0.5);
+        setContentPane(tabPane);
+        setHelpOnTyping(leftPane);
+        setHelpOnTyping(rightPane);
+        updateTabTitle();
+    }
+
+    /**
+     * Remove a split
+     */
+    public void removeSplit() {
+        if (tabPane.getSelectedComponent() instanceof JSplitPane) {
+            ScilabEditorPane pane = new ScilabEditorPane(editor);
+            ScilabEditorPane textpane = getTextPane();
+            initPane(pane);
+            textpane.setOtherPaneInSplit(null);
+            textpane.copyProps(pane);
+            ScilabDocument doc = (ScilabDocument) textpane.getDocument();
+            pane.setDocument(doc);
+            pane.setCaretPosition(0);
+            initInputMap(pane);
+            tabPane.setComponentAt(tabPane.getSelectedIndex(), pane.getScrollPane());
+            setContentPane(tabPane);
+            updateTabTitle();
+        }
+    }
+
+    /**
      * Create an empty tab inside Xpad.
      * @return the text component inside the tab
      */
@@ -834,9 +906,13 @@ public class Xpad extends SwingScilabTab implements Tab {
         try {
             File f = new File(textPaneName);
             newTitle.append(f.getName());
-        } catch (Exception e) { // not a file name, no path prefix to remove, but maybe a '*'
+        } catch (NullPointerException e) { // not a file name, no path prefix to remove, but maybe a '*'
             textPaneName = getTabPane().getTitleAt(getTabPane().getSelectedIndex());
-            newTitle.append(textPaneName.charAt(0) == '*' ? textPaneName.substring(1, textPaneName.length()) : textPaneName);
+            if (textPaneName.charAt(0) == '*') {
+                newTitle.append(textPaneName.substring(1, textPaneName.length()));
+            } else {
+                newTitle.append(textPaneName);
+            }
         }
         getTabPane().setTitleAt(getTabPane().getSelectedIndex() , newTitle.toString());
     }
@@ -1012,8 +1088,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             sep.getXln().setWhereamiLineNumbering(state);
-            if (sep.getRightTextPane() != null) {
-                sep.getRightTextPane().getXln().setWhereamiLineNumbering(state);
+            if (sep.getOtherPaneInSplit() != null) {
+                sep.getOtherPaneInSplit().getXln().setWhereamiLineNumbering(state);
             }
         }
         repaint();
@@ -1029,8 +1105,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             ((ScilabDocument) sep.getDocument()).setAutoIndent(b);
-            if (sep.getRightTextPane() != null) {
-                ((ScilabDocument) sep.getRightTextPane().getDocument()).setAutoIndent(b);
+            if (sep.getOtherPaneInSplit() != null) {
+                ((ScilabDocument) sep.getOtherPaneInSplit().getDocument()).setAutoIndent(b);
             }
         }
     }
@@ -1044,8 +1120,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             sep.enableHighlightedLine(b);
-            if (sep.getRightTextPane() != null) {
-                sep.getRightTextPane().enableHighlightedLine(b);
+            if (sep.getOtherPaneInSplit() != null) {
+                sep.getOtherPaneInSplit().enableHighlightedLine(b);
             }
         }
         highlight = b;
@@ -1053,7 +1129,7 @@ public class Xpad extends SwingScilabTab implements Tab {
 
     /**
      * Enable the help on typing in the current textPane
-     * @param b boolean
+     * @param pane the pane
      */
     public void setHelpOnTyping(ScilabEditorPane pane) {
         pane.activateHelpOnTyping(helpOnTyping);
@@ -1068,8 +1144,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             sep.activateHelpOnTyping(b);
-            if (sep.getRightTextPane() != null) {
-                sep.getRightTextPane().activateHelpOnTyping(b);
+            if (sep.getOtherPaneInSplit() != null) {
+                sep.getOtherPaneInSplit().activateHelpOnTyping(b);
             }
         }
         helpOnTyping = b;
@@ -1091,8 +1167,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             sep.setHighlightedLineColor(c);
-            if (sep.getRightTextPane() != null) {
-                sep.getRightTextPane().setHighlightedLineColor(c);
+            if (sep.getOtherPaneInSplit() != null) {
+                sep.getOtherPaneInSplit().setHighlightedLineColor(c);
             }
         }
         highlightColor = c;
@@ -1107,8 +1183,8 @@ public class Xpad extends SwingScilabTab implements Tab {
         for (int i = 0; i < n; i++) {
             ScilabEditorPane sep = (ScilabEditorPane) getTextPane(i);
             sep.setHighlightedContourColor(c);
-            if (sep.getRightTextPane() != null) {
-                sep.getRightTextPane().setHighlightedContourColor(c);
+            if (sep.getOtherPaneInSplit() != null) {
+                sep.getOtherPaneInSplit().setHighlightedContourColor(c);
             }
         }
         highlightContourColor = c;
@@ -1241,13 +1317,12 @@ public class Xpad extends SwingScilabTab implements Tab {
             setFileToEncode(f);
         }
 
-        @SuppressWarnings("deprecation")
         /**
          * Function Run
          */
-            public void run() {
+        public void run() {
             readFile(fileToRead);
-            this.stop();
+            this.interrupt();
         }
 
         /**
@@ -1267,7 +1342,7 @@ public class Xpad extends SwingScilabTab implements Tab {
                 theTextPane = addTab(f.getName());
                 styleDocument = (ScilabDocument) theTextPane.getDocument();
                 styleDocument.disableUndoManager();
-		theTextPane.setLastModified(f.lastModified());
+                theTextPane.setLastModified(f.lastModified());
 
                 try {
                     synchronized (styleDocument) {
@@ -1305,7 +1380,7 @@ public class Xpad extends SwingScilabTab implements Tab {
                 theTextPane = addEmptyTab();
                 int choice = JOptionPane.showConfirmDialog(Xpad.this,
                                                            String.format(XpadMessages.FILE_DOESNT_EXIST, f.getName()),
-                                                           "Editor",
+                                                           XPAD,
                                                            JOptionPane.YES_NO_OPTION);
                 if (choice == 0) { //OK
                     styleDocument = (ScilabDocument) theTextPane.getDocument();
@@ -1333,12 +1408,12 @@ public class Xpad extends SwingScilabTab implements Tab {
                     ConfigXpadManager.saveToRecentOpenedFiles(f.getPath());
                     theTextPane.setName(f.getPath());
                     getTabPane().setTitleAt(getTabPane().getSelectedIndex() , f.getName());
-                    setTitle(f.getPath() + " - " + XpadMessages.SCILAB_EDITOR);
+                    setTitle(f.getPath() + TIRET + XpadMessages.SCILAB_EDITOR);
                     updateRecentOpenedFilesMenu();
 
                     styleDocument.setContentModified(false);
                     styleDocument.enableUndoManager();
-		    getTextPane().setLastModified(f.lastModified());
+                    getTextPane().setLastModified(f.lastModified());
 
                     // Get current file path for Execute file into Scilab
                     fileFullPath = f.getAbsolutePath();
@@ -1368,6 +1443,13 @@ public class Xpad extends SwingScilabTab implements Tab {
     }
 
     /**
+     * @param editor the focused editor
+     */
+    public static void setEditor(Xpad xpad) {
+        editor = xpad;
+    }
+
+    /**
      * EditorKit Setter
      * @param editorKit EditorKit
      */
@@ -1392,8 +1474,7 @@ public class Xpad extends SwingScilabTab implements Tab {
     }
 
     /**
-     * Xpad Getter
-     * @return editor Xpad
+     * @param find the FindAction to add
      */
     public void addFindActionWindow(FindAction find) {
         this.find = find;
