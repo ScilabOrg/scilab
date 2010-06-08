@@ -336,6 +336,7 @@ public class Xpad extends SwingScilabTab implements Tab {
         while (getTabPane().getComponentCount() > 0) {
             closeTabAt(0, true);
         }
+        xpadList.remove(this);
         editor = null;
     }
 
@@ -852,6 +853,13 @@ public class Xpad extends SwingScilabTab implements Tab {
         setHelpOnTyping(rightPane);
         initInputMap(leftPane);
         initInputMap(rightPane);
+        if (doc.getBinary()) {
+            leftPane.disableAll();
+            rightPane.disableAll();
+            getInfoBar().setText("Binary file : read-only mode");
+        } else {
+            getInfoBar().setText("");
+        }
         updateTabTitle();
     }
 
@@ -868,9 +876,16 @@ public class Xpad extends SwingScilabTab implements Tab {
             ScilabDocument doc = (ScilabDocument) textpane.getDocument();
             pane.setDocument(doc);
             pane.setCaretPosition(0);
-            initInputMap(pane);
+            setHelpOnTyping(pane);
             tabPane.setComponentAt(tabPane.getSelectedIndex(), pane.getScrollPane());
             setContentPane(tabPane);
+            initInputMap(pane);
+            if (doc.getBinary()) {
+                pane.disableAll();
+                getInfoBar().setText("Binary file : read-only mode");
+            } else {
+                getInfoBar().setText("");
+            }
             updateTabTitle();
         }
     }
@@ -1371,7 +1386,13 @@ public class Xpad extends SwingScilabTab implements Tab {
                 styleDocument.setContentModified(false);
                 styleDocument.enableUndoManager();
 
-                getInfoBar().setText("");
+                if (styleDocument.getBinary()) {
+                    theTextPane.setEditable(false);
+                    theTextPane.disableAll();
+                    getInfoBar().setText("Binary file : read-only mode");
+                } else {
+                    getInfoBar().setText("");
+                }
 
                 xpadGUI.updateEncodingMenu((ScilabDocument) getTextPane().getDocument());
 
