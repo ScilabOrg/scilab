@@ -490,7 +490,7 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
     InitializeWindows_tools();
 #endif
 
-    InitializeCore();
+    //InitializeCore();
 
     InitializeShell();
 
