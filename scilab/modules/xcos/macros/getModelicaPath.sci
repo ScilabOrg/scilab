@@ -25,7 +25,7 @@ function [modelica_path,modelica_directory] = getModelicaPath()
     modelica_directory = [];
     
     // path for generic modelica blocks
-    // modelica_directory = pathconvert(TMPDIR+'/modelica/',%f,%t);
+    modelica_directory = pathconvert(TMPDIR+'/modelica/',%t,%t);
     
     // for the standard electrical and hydraulical components 
     modelica_path = 'SCI/modules/scicos_blocks/macros/' + ['Electrical','Hydraulics'];

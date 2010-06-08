@@ -284,6 +284,8 @@ Xcos:
 * bug 7143 fixed - Simulation values were not valid if the exponential sign is
                    an 'e'.
 
+* bug 7214 fixed - Modelica demos did not generate a .mo file in TMPDIR/modelica directory.
+
 * bug 7175 fixed - demo bridge rectifier did not build on Windows.
 
 Dynamic link:
