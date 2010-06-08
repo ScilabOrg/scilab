@@ -1,16 +1,16 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,14 +23,14 @@
 #include "fromjava.h"
 #include "localization.h"
 #include "getJvmOptions.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static JavaVM *jvm_SCILAB=NULL;
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static BOOL HadAlreadyJavaVm = FALSE;
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static JavaVMOption *jvm_options = NULL;
 static int nOptions = 0;
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static void freeJavaVMOption(void)
 {
 	if (jvm_options)
@@ -47,12 +47,16 @@ static void freeJavaVMOption(void)
 		nOptions = 0;
 	}
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 JavaVM *getScilabJavaVM(void)
 {
 	return jvm_SCILAB;
 }
-/*--------------------------------------------------------------------------*/ 
+void releaseScilabJavaVM(void)
+{
+	jvm_SCILAB=NULL;
+}
+/*--------------------------------------------------------------------------*/
 JNIEnv *getScilabJNIEnv(void)
 {
 	JNIEnv *JNIEnv_SCILAB=NULL;
@@ -64,7 +68,7 @@ JNIEnv *getScilabJNIEnv(void)
 #elif JNI_VERSION_1_4
 		res = (*jvm_SCILAB)->GetEnv(jvm_SCILAB, (void **)&JNIEnv_SCILAB, JNI_VERSION_1_4);
 #endif
-		if(res == JNI_ERR) 
+		if(res == JNI_ERR)
 		{
 		#ifdef _MSC_VER
 			MessageBox(NULL,gettext("\nError: Cannot return Scilab Java environment (JNIEnv_SCILAB).\n"),gettext("Error"),MB_ICONEXCLAMATION|MB_OK);
@@ -89,7 +93,7 @@ JNIEnv *getScilabJNIEnv(void)
 	}
 	return JNIEnv_SCILAB;
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 BOOL startJVM(char *SCI_PATH)
 {
 	JNIEnv *env=NULL;
@@ -105,7 +109,7 @@ BOOL startJVM(char *SCI_PATH)
 			jvm_SCILAB = ptr_jvm;
 			env = getScilabJNIEnv();
 		}
-		else 
+		else
 		{
 			fprintf(stderr,_("\nWeird error. Calling from Java but haven't been able to find the already existing JVM.\n"));
 			FreeDynLibJVM();
@@ -114,7 +118,7 @@ BOOL startJVM(char *SCI_PATH)
 	}
 	else
 	{
-		if (! LoadDynLibJVM(SCI_PATH) ) 
+		if (! LoadDynLibJVM(SCI_PATH) )
 		{
 			fprintf(stderr,_("\nCould not load JVM dynamic library (libjava).\n"));
 			fprintf(stderr,_("Error: %s\n"),GetLastDynLibError());
@@ -222,7 +226,7 @@ BOOL startJVM(char *SCI_PATH)
 	}
 	else return TRUE;
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 BOOL finishJVM(void)
 {
 	BOOL bOK=FALSE;
@@ -235,4 +239,4 @@ BOOL finishJVM(void)
 	freeJavaVMOption();
 	return bOK;
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

@@ -2,16 +2,16 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __GETSCILABJAVAVM_H__
 #define __GETSCILABJAVAVM_H__
 
@@ -23,5 +23,16 @@
 */
 JavaVM *getScilabJavaVM(void);
 
+/**
+* releases the Scilab JavaVM
+* It do *not* destroy or cleanup anything, as it
+* is used after a fork when the newly created process
+* should not interfer with the JVM (that cannot use
+* interprocess synchronization).
+* After a call to this function, the calling process
+* no longer has access to the JVM.
+*/
+void releaseScilabJavaVM(void);
+
 #endif /* __GETSCILABJAVAVM_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

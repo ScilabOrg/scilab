@@ -22,6 +22,11 @@
 #include <cstring>
 #include <omp.h>
 
+extern "C"
+{
+#include "getScilabJavaVM.h" /* for releaseScilabJavaVM() */
+}
+
 #ifndef  _MSC_VER
 
 #ifndef MAP_ANONYMOUS
@@ -178,6 +183,7 @@ namespace
             std::size_t p;
             for (p= 1; p != nb_process; ++p) {
                 if (!fork()) { /* child process goes to work at once */
+                    releaseScilabJavaVM();
                     break;
                 }/* parent process continues to spawn children */
             }
