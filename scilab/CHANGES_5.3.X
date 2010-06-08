@@ -93,6 +93,8 @@ Text Editor:
 
 * bug 6515 fixed - The DragN'Droped text was copied at the end of the file.
 
+* bug 6658 fixed - The position and size of the editor were not saved.
+
 * bug 6670 fixed - There was not a shortcut on the "Evaluate Selection" action.
 
 * bug 6748 fixed - There was a problem of time between local computer and NFS.
