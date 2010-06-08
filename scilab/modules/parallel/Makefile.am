@@ -30,6 +30,7 @@ libsciparallel_la_CPPFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
 -I$(top_srcdir)/modules/parameters/includes \
+-I$(top_srcdir)/modules/jvm/includes \
 -I$(top_srcdir)/modules/dynamic_link/includes
 
 
@@ -62,6 +63,8 @@ libsciparallel_la_sci_gateway_DATA = sci_gateway/parallel_gateway.xml
 #### parallel : include files ####
 libsciparallel_la_includedir=$(pkgincludedir)
 libsciparallel_la_include_HEADERS =
+
+libsciparallel_la_LIBADD = $(top_builddir)/modules/jvm/libscijvm.la
 
 include $(top_srcdir)/Makefile.incl.am
 

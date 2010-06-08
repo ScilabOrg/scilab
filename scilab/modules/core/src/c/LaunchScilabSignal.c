@@ -1,11 +1,11 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) DIGITEO - Allan CORNET
-* 
+*
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
-* are also available at    
+* are also available at
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
@@ -16,16 +16,31 @@
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
  __declspec(dllexport) __threadSignal		LaunchScilab;
- __declspec(dllexport) __threadSignalLock	LaunchScilabLock;
+ __declspec(dllexport) __threadSignalLock	pLaunchScilabLock;
+
+#include "mmapWindows.h"
 #else
+#include <sys/mman.h>
+#ifndef MAP_ANONYMOUS
+# define MAP_ANONYMOUS MAP_ANON
+#endif
  __threadSignal		LaunchScilab;
- __threadSignalLock	LaunchScilabLock;
+ __threadSignalLock	*pLaunchScilabLock= NULL;
 
 #endif
 /*--------------------------------------------------------------------------*/
+static void release(void)
+{
+    if(pLaunchScilabLock)
+    {
+        __UnLockSignal(pLaunchScilabLock);
+    }
+}
 void InitializeLaunchScilabSignal(void)
 {
+    pLaunchScilabLock= mmap(0, sizeof(__threadSignalLock), PROT_READ | PROT_WRITE,MAP_SHARED |  MAP_ANONYMOUS, -1, 0);
 	__InitSignal(&LaunchScilab);
-	__InitSignalLock(&LaunchScilabLock);
+	__InitSignalLock(pLaunchScilabLock);
+    atexit(release);
 }
 /*--------------------------------------------------------------------------*/
