@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ * 
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * 
+ * See the file ./license.txt
+ -->
+<refentry version="5.0-subset Scilab" xml:id="getModelicaPath"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns4="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+  <refnamediv>
+    <refname>getModelicaPath</refname>
+
+    <refpurpose>Get the Modelica directory path needed by Xcos diagram
+    containing Modelica blocks</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+
+    <synopsis>[modelica_path, modelica_directory] = getModelicaPath()</synopsis>
+  </refsynopsisdiv>
+
+  <refsection id="Module_get_scicos_version">
+    <title>Module</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <link linkend="xcos">xcos</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+
+  <refsection id="Description_get_scicos_version">
+    <title>Description</title>
+
+    <para>This function is used to know where are the Modelica files used to
+    define Xcos Modelica blocks.</para>
+
+    <para>If the user want to define his own Modelica blocks, he has to
+    indicate where are the Modelica files describing the blocks. The variable
+    %MODELICA_PATH has to be declared in the Scilab console before launching
+    xcos.</para>
+
+    <programlisting role="example"> 
+[modelica_path, modelica_directory] = getModelicaPath()
+ </programlisting>
+  </refsection>
+
+  <refsection id="Parameters_get_scicos_version">
+    <title>Parameters</title>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">modelica_path :</emphasis> a string given
+        the current path of the Modelica directory containing the defining
+        blocks Modelica files.</para>
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">modelica_directory :</emphasis> a string
+        given the name of the Modelica directory.</para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+
+  <refsection id="Example_get_scicos_version">
+    <title>Example</title>
+
+    <programlisting role="example">
+      //Get the modelica path and directory 
+      [modelica_path, modelica_directory] = getModelicaPath()
+   
+
+      // to define user Modelica blocks 
+      // path of the directory containing the user Modelica files 
+      %MODELICA_PATH = SCI + "/modules/xcos/modelica_library";
+
+      // launch xcos
+      xcos();
+      // load the diagram with Modelica blocks
+
+      [modelica_path, modelica_directory] = getModelicaPath()
+    </programlisting>
+  </refsection>
+
+  <refsection id="Filecontent_get_scicos_version">
+    <title>File content</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>SCI/modules/xcos/macros/getModelicaPath.sci</para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+
+  <refsection id="Authors_get_scicos_version">
+    <title>Authors</title>
+
+    <para><emphasis role="bold">Jérôme Picard</emphasis> - "DIGITEO"</para>
+  </refsection>
+</refentry>
