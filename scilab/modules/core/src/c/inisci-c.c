@@ -23,10 +23,10 @@
 #include "localization.h"
 #include "Os_specific.h"
 #include "core_math.h" 
-#include "setgetSCIpath.h"
+#include "sci_path.h"
+#include "sci_home.h"
 #include "MALLOC.h"
 #include "inisci-c.h"
-#include "SCIHOME.h"
 #include "scilabmode.h"
 #include "PATH_MAX.h"
 #include "scilabDefaults.h"
@@ -53,7 +53,7 @@ int SetSci(void)
 		#endif
 		exit(1);
 		}
-		setSCIpath(buf);
+		setSCI(buf);
 		FREE(buf);
 		buf = NULL;
 	}
@@ -71,7 +71,7 @@ int C2F(getsci)(char *buf,int *nbuf,long int lbuf)
 
 	SetSci();
 
-	pathtmp = getSCIpath();
+	pathtmp = getSCI();
 	if (pathtmp)
 	{
 		strcpy(buf,pathtmp);
@@ -93,36 +93,6 @@ int C2F(getsci)(char *buf,int *nbuf,long int lbuf)
 */
 int C2F(getscihome)(char *buf,int *nbuf,long int lbuf)
 {
-	char *pathtmp=NULL;
-	char *SCIHOME = getSCIHOME();
-	if (strcmp(SCIHOME,"empty_SCIHOME")==0)
-	{
-		if (!setSCIHOME())
-		{
-			#ifdef  _MSC_VER
-				MessageBox(NULL,gettext("SCIHOME not defined.\n"),gettext("Warning"),MB_ICONWARNING);
-			#else
-				fprintf(stderr,"%s",_("SCIHOME not defined.\n"));
-			#endif
-			exit(1);
-		}
-		else
-		{
-			if (SCIHOME) {FREE(SCIHOME);SCIHOME=NULL;}
-		}
-	}
-
-	pathtmp = getSCIHOME();
-	if (pathtmp)
-	{
-		strcpy(buf,pathtmp);
-		*nbuf = (int)strlen(buf);
-		FREE(pathtmp);
-		pathtmp = NULL;
-	}
-
-	if (SCIHOME) {FREE(SCIHOME);SCIHOME=NULL;}
-
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

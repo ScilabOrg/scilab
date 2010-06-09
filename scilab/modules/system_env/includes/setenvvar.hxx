@@ -12,7 +12,7 @@
 
 #include "stdio.h"
 #include "PATH_MAX.h"
-#include "configvariable.hxx"
+#include "dynlib_system_env.h"
 
 #ifdef _MSC_VER
 	#ifndef MAX_PATH_SHORT
@@ -33,8 +33,6 @@
 #define UNIX_SEPATATOR '/'
 #define WINDOWS_SEPATATOR '\\'
 
-static char SCIHOMEPATH[PATH_MAX*2] = "empty_SCIHOME";
-
 bool IsTheGoodShell(void);
 bool Set_Shell(void);
 bool Set_YASP_PATH(char *DefaultPath);
@@ -47,10 +45,6 @@ bool setYASPHOME(void);
 bool convertSlash(char *path_in,char *path_out,bool slashToAntislash);
 bool AntislashToSlash(char *pathwindows,char *pathunix);
 bool slashToAntislash(char *pathunix,char *pathwindows);
-char *getYASPpath(void);
-void setYASPpath(char *path);
-void setYASPHome(char *path);
-char *getYASPHome(void);
 void getenvc(int *ierr,char *var,char *buf,int *buflen,int *iflag);
 char *getshortpathname(char *longpathname,bool *convertok);
 bool isdir(const char * path);
