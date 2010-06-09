@@ -812,3 +812,6 @@ Bug fixes:
 * bug 7189 fixed - In some cases the usage of resume lead to a crash of Scilab.
 
 * bug 7224 fixed - export empty matrix in HDF5 did not unlock file.
+
+* bug 7250 fixed - In the console, first char of a filename was doubled
+                   when completed.
