@@ -15,16 +15,7 @@
 
 #include <list>
 #include <string>
-
-#ifdef _MSC_VER
-    #if SYSTEM_ENV_EXPORTS
-        #define EXTERN_SYSTEM_ENV __declspec (dllexport)
-    #else
-        #define EXTERN_SYSTEM_ENV __declspec (dllimport)
-    #endif
-#else
-    #define EXTERN_SYSTEM_ENV 
-#endif
+#include "dynlib_system_env.h"
 
 class EXTERN_SYSTEM_ENV ConfigVariable
 {
@@ -47,11 +38,11 @@ public :
 
     //HOME
 private :
-    static std::string m_HOMEPath;
+    static std::string m_SciHome;
 
 public :
-    static bool setHOMEPath(std::string& _HOMEPath);
-    static std::string getHOMEPath();
+    static bool setSCIHOME(std::string& _SciHome);
+    static std::string getSCIHOME();
 
 // Force Quit
 private :

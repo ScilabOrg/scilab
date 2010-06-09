@@ -29,6 +29,9 @@
 
 #include "setenvvar.hxx"
 #include "context.hxx"
+#include "configvariable.hxx"
+#include "sci_home.h"
+#include "sci_path.h"
 
 using namespace std;
 
@@ -46,15 +49,9 @@ using namespace std;
 */
 void SetScilabEnvironment(void)
 {
-#ifdef _MSC_VER
-	SciEnvForWindows();
-#else
-	SciEnvForOthers();
-#endif
-	if(!setYASPHOME())
-	{
-		cerr << "Error: Impossible to define SCIHOME environment variable." << endl;
-	}
+    //create SCI, SCIHOME, home, ...
+    defineSCI();
+    defineSCIHOME();
 }
 
 #ifdef _MSC_VER
@@ -62,7 +59,7 @@ void SciEnvForWindows(void)
 {
 	char *SCIPathName = 0;
 
-	SCIPathName = getScilabDirectory(true);
+	//SCIPathName = getScilabDirectory(true);
 
 	/* Correction Bug 1579 */
 	if (!IsTheGoodShell())
@@ -73,7 +70,7 @@ void SciEnvForWindows(void)
 		}
 	}
 
-	SetScilabEnvironmentVariables(SCIPathName);
+//	SetScilabEnvironmentVariables(SCIPathName);
 	if(SCIPathName)
 	{
 		delete[] SCIPathName;
@@ -95,7 +92,7 @@ int SciEnvForOthers(void)
 			cerr << "SCI environment variable not defined." << endl;
 			exit(1);
 		}
-		setYASPpath(buf);
+		setSCI(buf);
 		delete[] buf;
 		buf = NULL;
 	}
@@ -105,171 +102,6 @@ int SciEnvForOthers(void)
 #endif
 
 #ifdef _MSC_VER
-/*----------------------------------------------------
-* set env variables (used when calling scilab from
-* other programs)
-*----------------------------------------------------*/
-void SetScilabEnvironmentVariables(char *DefaultSCIPATH)
-{
-	if (DefaultSCIPATH)
-	{
-		Set_YASP_PATH(DefaultSCIPATH);
-		Set_HOME_PATH(DefaultSCIPATH);
-		Set_SOME_ENVIRONMENTS_VARIABLES_FOR_SCILAB();
-	}
-	else
-	{
-		/* Error */
-		exit(1);
-	}
-
-}
-
-/*--------------------------------------------------------------------------*/
-bool Set_YASP_PATH(char *DefaultPath)
-{
-	char env[PATH_MAX + 1 + 10];
-	char ShortPath[PATH_MAX+1];
-	char *CopyOfDefaultPath = NULL;
-
-	CopyOfDefaultPath = new char[strlen(DefaultPath) + 1];
-	if (CopyOfDefaultPath)
-	{
-		/* to be sure that it's unix 8.3 format */
-		/* c:/progra~1/scilab-5.0 */
-		GetShortPathName(DefaultPath,ShortPath,PATH_MAX);
-		AntislashToSlash(ShortPath,CopyOfDefaultPath);
-		sprintf (env, "SCI=%s",ShortPath);
-        setYASPpath(ShortPath);
-
-		if(CopyOfDefaultPath)
-		{
-			delete[] CopyOfDefaultPath;
-			CopyOfDefaultPath = NULL;
-		}
-
-		if (putenv (env))
-		{
-		  return false;
-		}
-		else
-		{
-		  return true;
-		}
-	}
-	return false;
-}
-/*--------------------------------------------------------------------------*/
-bool Set_HOME_PATH(char *DefaultPath)
-{
-	bool bOK=false;
-	char env[PATH_MAX + 1 + 10];
-	char *GetHOMEpath=NULL;
-
-	GetHOMEpath=getenv ("HOME");
-
-	if (GetHOMEpath)
-	{
-		char ShortPath[PATH_MAX+1];
-		char *CopyOfDefaultPath=NULL;
-		CopyOfDefaultPath = new char[strlen(GetHOMEpath) + 1];
-		if (GetShortPathName(GetHOMEpath,ShortPath,PATH_MAX)==0)
-		{
-			fprintf(stderr,"\n%s%s\n","Incorrect HOME path. Please verify your HOME environment variable.\n",
-				"HOME has been redefined.");
-			if(CopyOfDefaultPath)
-			{
-				delete[] CopyOfDefaultPath;
-				CopyOfDefaultPath = NULL;
-			}
-			CopyOfDefaultPath = new char[strlen(DefaultPath) + 1];
-
-			/* to be sure that it's unix format */
-			/* c:/progra~1/scilab-3.1 */
-			GetShortPathName(DefaultPath,ShortPath,PATH_MAX);
-			slashToAntislash(ShortPath,CopyOfDefaultPath);
-			sprintf (env, "HOME=%s",ShortPath);
-            setYASPHome(ShortPath);
-
-			if(CopyOfDefaultPath)
-			{
-				delete[] CopyOfDefaultPath;
-				CopyOfDefaultPath = NULL;
-			}
-
-		}
-		else
-		{
-			/* to be sure that it's unix format */
-			/* c:/progra~1/scilab-3.1 */
-			slashToAntislash(ShortPath,CopyOfDefaultPath);
-			sprintf (env, "HOME=%s",CopyOfDefaultPath);
-			if(CopyOfDefaultPath)
-			{
-				delete[] CopyOfDefaultPath;
-				CopyOfDefaultPath = NULL;
-			}
-		}
-	}
-	else
-	{
-		char ShortPath[PATH_MAX+1];
-		char *CopyOfDefaultPath=NULL;
-		CopyOfDefaultPath = new char[strlen(DefaultPath) + 1];
-
-		/* to be sure that it's unix format */
-		/* c:/progra~1/scilab-3.1 */
-		AntislashToSlash(DefaultPath,CopyOfDefaultPath);
-		GetShortPathName(CopyOfDefaultPath,ShortPath,PATH_MAX);
-		sprintf (env, "HOME=%s",ShortPath);
-        setYASPHome(ShortPath);
-
-
-		if(CopyOfDefaultPath)
-		{
-			delete[] CopyOfDefaultPath;
-			CopyOfDefaultPath = NULL;
-		}
-	}
-
-	if (putenv (env))
-	{
-		bOK=false;
-	}
-	else
-	{
-		bOK=true;
-	}
-
-	return bOK;
-}
-/*--------------------------------------------------------------------------*/
-bool Set_SOME_ENVIRONMENTS_VARIABLES_FOR_SCILAB(void)
-{
-	bool bOK=true;
-
-	#ifdef _MSC_VER
-		putenv ("COMPILER=VC++");
-	#endif
-
-	/* WIN32 variable Environment */
-    #ifdef _WIN32
-		putenv ("WIN32=OK");
-	#endif
-
-	/* WIN64 variable Environment */
-    #ifdef _WIN64
-		putenv ("WIN64=OK");
-	#endif
-
-	if ( GetSystemMetrics(SM_REMOTESESSION) )
-	{
-		putenv ("SCILAB_MSTS_SESSION=OK");
-	}
-
-	return bOK;
-}
-
 /*--------------------------------------------------------------------------*/
 bool IsTheGoodShell(void)
 {
@@ -316,160 +148,7 @@ bool Set_Shell(void)
 	}
 	return bOK;
 }
-
-char *getScilabDirectory(bool UnixStyle)
-{
-	char ScilabModuleName[MAX_PATH + 1];
-	char drive[_MAX_DRIVE];
-	char dir[_MAX_DIR];
-	char fname[_MAX_FNAME];
-	char ext[_MAX_EXT];
-
-	char *SciPathName=NULL;
-	char *DirTmp=NULL;
-
-	if (!GetModuleFileName ((HINSTANCE)GetModuleHandle("libScilab"), (char*) ScilabModuleName, MAX_PATH))
-	{
-		return NULL;
-	}
-
-	_splitpath(ScilabModuleName,drive,dir,fname,ext);
-
-	if (dir[strlen(dir)-1] == '\\') dir[strlen(dir)-1] = '\0';
-
-	DirTmp=strrchr (dir, '\\');
-	if (strlen(dir)-strlen(DirTmp)>0)
-	{
-		dir[strlen(dir)-strlen(DirTmp)] = '\0';
-	}
-	else return NULL;
-
-	SciPathName = new char[strlen(drive) + strlen(dir) + 5];
-	if (SciPathName)
-	{
-		_makepath(SciPathName,drive,dir,NULL,NULL);
-
-		if ( UnixStyle )
-		{
-			int i=0;
-			for (i=0;i<(int)strlen(SciPathName);i++)
-			{
-				if (SciPathName[i]=='\\') SciPathName[i]='/';
-			}
-		}
-		SciPathName[strlen(SciPathName)-1]='\0';
-	}
-	return SciPathName;
-}
 #endif
-
-bool setYASPHOME(void)
-{
-	int ierr = 0;
-	int buflen = PATH_MAX;
-	int iflag = 0;
-
-	char SCIHOME[PATH_MAX];
-	char USERPATHSCILAB[PATH_MAX];
-
-	getenvc(&ierr,(char*)"SCIHOME",SCIHOME,&buflen,&iflag);
-	if (ierr) /* SCIHOME not define */
-	{
-		#ifdef _MSC_VER
-			#define BASEDIR "Scilab"
-		#else
-			#define BASEDIR ".Scilab"
-		#endif
-
-		char env[PATH_MAX+1+10]; /* PATH_MAX + strlen '\0' + strlen "SCIHOME=%s" */
-		char USERHOMESYSTEM[PATH_MAX];
-
-		iflag = 0;
-
-		#ifdef _MSC_VER
-		{
-			char *SHORTUSERHOMESYSTEM = NULL;
-			bool bConverted = false;
-
-			getenvc(&ierr,"APPDATA",USERHOMESYSTEM,&buflen,&iflag);
-
-			/* if APPDATA not found we try with USERPROFILE */
-			if (ierr) getenvc(&ierr,"USERPROFILE",USERHOMESYSTEM,&buflen,&iflag);
-
-			/* convert long path to short path format : remove some special characters */
-			SHORTUSERHOMESYSTEM = getshortpathname(USERHOMESYSTEM,&bConverted);
-			if (SHORTUSERHOMESYSTEM)
-			{
-				if (!isdir(SHORTUSERHOMESYSTEM))
-				{
-					/* last chance, we try to get default all users profile */
-					getenvc(&ierr,"ALLUSERSPROFILE",USERHOMESYSTEM,&buflen,&iflag);
-					if (ierr)
-					{
-						delete[] SHORTUSERHOMESYSTEM;
-						SHORTUSERHOMESYSTEM = NULL;
-						return false;
-					}
-
-					/* convert long path to short path format : remove some special characters */
-					SHORTUSERHOMESYSTEM = getshortpathname(USERHOMESYSTEM,&bConverted);
-
-					if ( (!SHORTUSERHOMESYSTEM) || (!isdir(SHORTUSERHOMESYSTEM)) )
-					{
-						if(SHORTUSERHOMESYSTEM)
-						{
-							delete[] SHORTUSERHOMESYSTEM;
-							SHORTUSERHOMESYSTEM = NULL;
-						}
-						return false;
-					}
-				}
-			}
-			else
-			{
-				if(SHORTUSERHOMESYSTEM)
-				{
-					delete[] SHORTUSERHOMESYSTEM;
-					SHORTUSERHOMESYSTEM = NULL;
-				}
-				return false;
-			}
-
-			/* checks that directory exists */
-			strcpy(USERHOMESYSTEM,SHORTUSERHOMESYSTEM);
-			if(SHORTUSERHOMESYSTEM)
-			{
-				delete[] SHORTUSERHOMESYSTEM;
-				SHORTUSERHOMESYSTEM = NULL;
-			}
-		}
-		#else /* Linux */
-			getenvc(&ierr,(char*)"HOME",USERHOMESYSTEM,&buflen,&iflag);
-			if (ierr) return false;
-		#endif
-
-		/* Set SCIHOME environment variable */
-		sprintf(USERPATHSCILAB,"%s%s%s",USERHOMESYSTEM,DIR_SEPARATOR,BASEDIR);
-		sprintf(SCIHOMEPATH,"%s%s%s",USERPATHSCILAB,DIR_SEPARATOR,SCI_VERSION_STRING);
-		sprintf(env,"SCIHOME=%s",SCIHOMEPATH);
-		putenv(env);
-	}
-	else /* SCIHOME already defined */
-	{
-		strcpy(SCIHOMEPATH,SCIHOME);
-	}
-
-	/* creates directory if it does not exists */
-	if (!isdir(SCIHOMEPATH))
-	{
-		if(!isdir(USERPATHSCILAB)) createdirectory(USERPATHSCILAB);
-		if (createdirectory(SCIHOMEPATH)) return true;
-	}
-	else return true;
-
-	return false;
-}
-
 
 bool slashToAntislash(char *pathunix,char *pathwindows)
 {
@@ -514,45 +193,6 @@ bool convertSlash(char *path_in,char *path_out,bool slashToAntislash)
 }
 
 /*--------------------------------------------------------------------------*/
-void setYASPpath(char *path)
-{
-    String *pS = new String(path);
-    symbol::Context::getInstance()->put("SCI", *pS);
-
-    string sciPath(path);
-    ConfigVariable::setSCIPath(sciPath);
-}
-/*--------------------------------------------------------------------------*/
-char *getYASPpath(void)
-{
-    InternalType* pIT = symbol::Context::getInstance()->get("SCI");
-    if(pIT != NULL && pIT->getType() == InternalType::RealString)
-    {
-        return pIT->getAsString()->string_get(0);
-    }
-    return NULL;
-}
-
-/*--------------------------------------------------------------------------*/
-void setYASPHome(char *path)
-{
-    String *pS = new String(path);
-    symbol::Context::getInstance()->put("home", *pS);
-
-    string sciHome(path);
-    ConfigVariable::setHOMEPath(sciHome);
-}
-/*--------------------------------------------------------------------------*/
-char *getYASPHome(void)
-{
-    InternalType* pIT = symbol::Context::getInstance()->get("home");
-    if(pIT != NULL && pIT->getType() == InternalType::RealString)
-    {
-        return pIT->getAsString()->string_get(0);
-    }
-    return NULL;
-}
-
 void getenvc(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 {
 	#ifdef _MSC_VER
@@ -586,7 +226,7 @@ void getenvc(int *ierr,char *var,char *buf,int *buflen,int *iflag)
 	#endif
 }
 
-char *getshortpathname(char *longpathname,bool *convertok)
+char *getshortpathname(const char *longpathname,bool *convertok)
 {
 	char *ShortName = NULL;
 
