@@ -271,6 +271,8 @@ Xcos:
 
 * builnewblock.sci rewritten to use Scilab dynamic link module tools.
 
+* variable %MODELICA_PATH: declared by the user to indicate where are the Modelica files describing the user's Modelica blocks.
+
 * bug 4156 fixed - scicos defines some temp. variables on stack without remove.
 
 * bug 4705 fixed - scicos used a non existing file BEpsf
