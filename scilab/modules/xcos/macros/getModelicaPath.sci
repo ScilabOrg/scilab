@@ -21,15 +21,28 @@ function [modelica_path, modelica_directory] = getModelicaPath()
 
   else
 
-    modelica_path = [];
+    // modelica_path : indicates path for generic modelica blocks
+    // this variable can be defined by the user for his own blocks
+    
+    // initialize modelica_path if not defined by the user
+    if ~exists("user_modelica_path") then 
+      modelica_path = "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"] ;
+    else
+      
+      // test type (matrix of character strings) and size (row matrix) of user_modelica_path  
+      if type(user_modelica_path) == 10 & size(user_modelica_path,"r") == 1  then
+	modelica_path = [ user_modelica_path , "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"] ];
+	// eliminate re-written name 
+	modelica_path = unique(modelica_path);
+      else
+	error(msprintf(gettext("%s: Wrong type: this variable should be a row matrix of character strings.\n"),'user_modelica_path'));
+      end
+    
+    end
+    
     modelica_directory = [];
 
-    // path for generic modelica blocks
-    modelica_directory = pathconvert(TMPDIR + "/modelica/", %t, %t);
-
-    // for the standard electrical and hydraulical components
-    modelica_path = "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"];
-
+    
     // add TMPDIR/modelica for generic modelica blocks
     // needed by modelicat to compile every modelica file
 

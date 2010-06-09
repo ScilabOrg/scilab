@@ -100,11 +100,6 @@ Text Editor:
 
 * bug 7112 fixed - Two transpositions gave a string (if a'==1 then a=b').
 
-Incompatibilities:
-==================
-* The bug 4583 fix makes the default element value in string array assignment 
-  be an empty string instead of " ".
-
 * bug 7238 fixed - The dot/del key on the numeric pad added a 'suppr' and a dot.
 
 * bug 7239 fixed - Font style was lost on a selected text.
@@ -185,13 +180,7 @@ Graphics:
 * bug 7079 fixed - The "mtlb_get" used a "h" global variable instead of the
                    given "H" argument.
 
-* bug 7172 fixed - Executing the "scaling" function caused a function redefinition
-                   warning due to its "factor" input argument.
-
 * bug 7173 fixed - The equation in the "scaling" help page was incorrect.
-
-* bug 7187 fixed - Plotting a curve, zooming, and then plotting an additional curve
-                   caused Scilab to freeze, depending on the zoomed-in area.
 
 * bug 7188 fixed - Deleting a Label graphics entity caused Scilab to crash.
 
@@ -249,6 +238,9 @@ Xcos:
   description.
 
 * builnewblock.sci rewritten to use scilab dynamic link module tools.
+
+* variable user_modelica_path: declared by the user in the Scilab console to 
+indicate where are the Modelica files describing the user Modelica blocks. 
 
 * bug 4156 fixed - scicos defines some temp. variables on stack without remove.
 
@@ -475,9 +467,6 @@ ATOMS:
 Bug fixes:
 ==========
 
-* bug 1041 fixed - An error inside a loop was reported as if it occurred on 
-                   the "end" line.
-
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
 
 * bug 1371 fixed - The representation of floating numbers with exponent larger
@@ -496,8 +485,6 @@ Bug fixes:
 * bug 2775 fixed - Multiplication of 0 times infinity did not work because of
                    ATLAS under Windows.
 
-* bug 3281 fixed - Incorrect error message #72 fixed.
-
 * bug 3311 fixed - Loop with a "for" over a vector of complex polynomials produced
                    wrong values.
 
@@ -514,8 +501,6 @@ Bug fixes:
 * bug 3796 fixed - In some situation the "tf2ss()" function failed to
                    compute correctly the state space representation of
                    a transfer function.
-
-* bug 3810 fixed - Insertion in string array and polynomial array may be very slow.
 
 * bug 3811 fixed - Documention about "typeof" and overload prefixes was not
                    up-to-date (help overloading).
@@ -535,9 +520,6 @@ Bug fixes:
 * bug 4362 fixed - test_run("gui","checkbox") no more freezes Scilab.
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
-
-* bug 4583 fixed - Default value for string array assignment was " " instead 
-                   of an empty string "".
 
 * bug 4625 fixed - intersci-n was broken on Windows.
 
@@ -791,8 +773,6 @@ Bug fixes:
 
 * bug 7170 fixed - Scilab equivalent for Matlab "uigetdir" was "tk_getdir",
                    it has been replaced by "uigetdir".
-
-* bug 7180 fixed - xs2pdf was unable to export a graphic.
 
 * bug 7181 fixed - The display of a struct having no fields did not work.
 
