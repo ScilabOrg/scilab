@@ -56,17 +56,26 @@ std::string ConfigVariable::getSCIPath()
     return m_SCIPath;
 }
 
-std::string ConfigVariable::m_HOMEPath;
+/*
+** \}
+*/
 
-bool ConfigVariable::setHOMEPath(std::string& _HOMEPath)
+/*
+** SCIHOME
+** \{
+*/
+
+std::string ConfigVariable::m_SciHome;
+
+bool ConfigVariable::setSCIHOME(std::string& _SciHome)
 {
-    m_HOMEPath = _HOMEPath;
+    m_SciHome = _SciHome;
     return true;
 }
 
-std::string ConfigVariable::getHOMEPath()
+std::string ConfigVariable::getSCIHOME()
 {
-    return m_HOMEPath;
+    return m_SciHome;
 }
 /*
 ** \}
