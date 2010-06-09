@@ -110,7 +110,9 @@ FFTW:
 Graphics:
 =========
 
-* the set, get and uicontrol functions are now overloadable.
+* the set, get, delete and uicontrol functions are now overloadable.
+
+* the event_handler_function now manages mouse wheel scroll and figure resize events.
 
 * Datatips tools added, the frequency response plots ("bode", "black",
   "nyquist", "gainplot",...) supports cutomized datatips.
@@ -766,6 +768,8 @@ Bug fixes:
 
 * bug 7170 fixed - Scilab equivalent for Matlab "uigetdir" was "tk_getdir",
                    it has been replaced by "uigetdir".
+
+* bug 7180 fixed - xs2pdf was unable to export a graphic.
 
 * bug 7181 fixed - The display of a struct having no fields did not work.
 
