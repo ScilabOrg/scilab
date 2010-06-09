@@ -1,5 +1,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2010-2010 - DIGITEO - Jérôme PICARD
+// Copyright (C) 2010 - DIGITEO - Jérôme PICARD
+// Copyright (C) 2010 - DIGITEO - Pierre MARECHAL
+
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -13,36 +15,43 @@
 
 function [modelica_path, modelica_directory] = getModelicaPath()
 
-  lhs = argn(1);
+    // modelica_path:
+    //  - indicates path for generic modelica blocks
+    //  - this variable can be defined by the user for his own blocks
 
-  if (lhs > 2) then
-    error(msprintf(gettext("%s: Wrong number of output argument(s): %d or %d expected.\n"), "getModelicaPath",1,2));
-    return
+    // Init
+    modelica_path = "SCI/modules/scicos_blocks/macros/" + ["Electrical","Hydraulics"];
 
-  else
+    // user-defined %MODELICA_PATH
+    if exists("%MODELICA_PATH") then
 
-    modelica_path = [];
-    modelica_directory = [];
+        if type(%MODELICA_PATH)<>10 then
+            error(msprintf(gettext("%s: wrong type for %s variable: A string array expected\n"),"getModelicaPath","%MODELICA_PATH"));
+        end
 
-    // path for generic modelica blocks
-    modelica_directory = pathconvert(TMPDIR + "/modelica/", %t, %t);
+        if or(~isdir(%MODELICA_PATH)) then
+            error(msprintf(gettext("%s: All paths defined by %s variable should exist\n"),"getModelicaPath","%MODELICA_PATH"));
+        end
 
-    // for the standard electrical and hydraulical components
-    modelica_path = "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"];
+        // reshape %MODELICA_PATH to get a row vector
+        %MODELICA_PATH = matrix(%MODELICA_PATH,[1 prod(size(%MODELICA_PATH))])
 
-    // add TMPDIR/modelica for generic modelica blocks
-    // needed by modelicat to compile every modelica file
+        // Remove duplicate paths
+        %MODELICA_PATH = unique(%MODELICA_PATH);
 
-    // create modelica directory if it doesn't exist
-    [status_exists, messages_exists] = mkdir(TMPDIR, "modelica");
-
-    if (status_exists == 1 | status_exists == 2)  then
-      modelica_path = [modelica_path, TMPDIR + "/modelica"];
-    else
-      error(msprintf(gettext("%s \n" ), messages_exists));
-      return
+        // Concatenate %MODELICA_PATH with modelica_path
+        modelica_path = [ %MODELICA_PATH modelica_path ];
     end
 
-  end
+    // modelica_directory:
+    //  - Path for generic modelica blocks
+    //  - Add TMPDIR/modelica for generic modelica blocks
+    //    needed by modelicat to compile every modelica file
+    modelica_directory = pathconvert(TMPDIR+"/modelica/",%T,%T);
+
+    // create modelica directory if it doesn't exist
+    if ~isdir(modelica_directory) & mkdir(modelica_directory)<>1 then
+        error(msprintf(gettext("%s: The directory %s cannot be created\n"),"getModelicaPath",modelica_directory));
+    end
 
 endfunction
