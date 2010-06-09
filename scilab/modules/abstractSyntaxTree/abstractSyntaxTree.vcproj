@@ -315,10 +315,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\cpp\conditionvisitor.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\cpp\debugvisitor.cpp"
 				>
 			</File>
@@ -342,25 +338,6 @@
 				RelativePath=".\src\cpp\visitor_common.cpp"
 				>
 			</File>
-			<Filter
-				Name="original"
-				>
-				<File
-					RelativePath=".\src\cpp\original\original_AssignExp.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\original\original_MatrixExp.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\original\original_OpExp.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\cpp\original\originalvisitor.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -434,10 +411,6 @@
 			</File>
 			<File
 				RelativePath=".\includes\commentexp.hxx"
-				>
-			</File>
-			<File
-				RelativePath=".\includes\conditionvisitor.hxx"
 				>
 			</File>
 			<File
@@ -542,10 +515,6 @@
 			</File>
 			<File
 				RelativePath=".\includes\opexp.hxx"
-				>
-			</File>
-			<File
-				RelativePath=".\includes\originalvisitor.hxx"
 				>
 			</File>
 			<File
