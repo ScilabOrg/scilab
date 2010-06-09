@@ -21,14 +21,21 @@ function [modelica_path, modelica_directory] = getModelicaPath()
 
   else
 
-    modelica_path = [];
+    // modelica_path = [];
+    // the variable modelica_path can be defined bt the user
+    
+    // initialize modelica_path if not defined by the user
+    if ~exists("modelica_path") then 
+      modelica_path = [];
+    end
+    
     modelica_directory = [];
 
     // path for generic modelica blocks
     modelica_directory = pathconvert(TMPDIR + "/modelica/", %t, %t);
 
     // for the standard electrical and hydraulical components
-    modelica_path = "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"];
+    modelica_path = [ modelica_path , "SCI/modules/scicos_blocks/macros/" + ["Electrical", "Hydraulics"] ];
 
     // add TMPDIR/modelica for generic modelica blocks
     // needed by modelicat to compile every modelica file
