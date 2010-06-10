@@ -56,6 +56,30 @@ static char * strrstr(char *string, char *find)
 	return cp;
 }
 /*--------------------------------------------------------------------------*/
+
+int dothestuff(char* string,char* find)
+{
+	char *tmp_ptr_find,*tmp_ptr_string;
+	char* ptr_find=find+strlen(find)-1;
+	char* ptr_string=string+strlen(string)-1;
+	int tmp;
+
+	while(1)
+	{
+		while(*ptr_find != *ptr_string)
+			ptr_find--;
+		tmp_ptr_find=ptr_find;
+		tmp_ptr_string=ptr_string;
+		while(tmp_ptr_find>find && *--tmp_ptr_find==*--tmp_ptr_string);
+		if(tmp_ptr_find==find)
+			break;
+	}
+	tmp=ptr_find+1-tmp_ptr_find;
+	return strlen(string)-tmp;
+}
+
+/*--------------------------------------------------------------------------*/
+
 char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 				   char *defaultPattern,BOOL stringToAddIsPath, char *postCaretLine)
 {
@@ -169,7 +193,7 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 	lenstringToAdd = (int)strlen(stringToAdd);
 
 	iposInsert = lencurrentline;
-	for(i = 1; i < lenstringToAdd+1;i++)
+	/*for(i = 1; i < lenstringToAdd+1;i++)
 	{
 		char *partstringToAdd = strdup(stringToAdd);
 		partstringToAdd[i] = 0;
@@ -187,7 +211,8 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 		{
 			break;
 		}
-	}
+	}*/
+	iposInsert=dothestuff(currentline,stringToAdd);
 
 	res = strstr(stringToAdd,&currentline[iposInsert]);
 	if (res == NULL)
