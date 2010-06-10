@@ -43,10 +43,9 @@ BUILT_SOURCES=giws
 endif
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_xpad.c
-
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_xpad.cpp \
-sci_gateway/cpp/sci_closeXpadFromScilab.cpp
+sci_gateway/cpp/sci_closeXpadFromScilab.cpp \
+sci_gateway/cpp/xpad_gw.cpp
 
 libscixpad_la_CFLAGS= $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
@@ -69,15 +68,17 @@ libscixpad_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/output_stream/includes \
 			-I$(top_srcdir)/modules/localization/includes \
 			-I$(top_srcdir)/modules/operations/includes \
-			-I$(top_srcdir)/modules/api_scilab/includes
+			-I$(top_srcdir)/modules/api_scilab/includes \
+			-I$(top_srcdir)/modules/types/includes \
+			-I$(top_srcdir)/modules/symbol/includes \
+			-I$(top_srcdir)/modules/abstractSyntaxTree/includes
 
 # Without the xpad module 
-libscixpad_disable_la_CFLAGS = -Iincludes/ \
-			-I$(top_srcdir)/modules/output_stream/includes
+libscixpad_disable_la_CPPFLAGS = 	-Iincludes/
 
-XPAD_DISABLE_C_SOURCES = src/noxpad/noxpad.c
+XPAD_DISABLE_CPP_SOURCES = src/noxpad/noxpad.cpp
 libscixpad_disable_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
-libscixpad_disable_la_SOURCES = $(XPAD_DISABLE_C_SOURCES)
+libscixpad_disable_la_SOURCES = $(XPAD_DISABLE_CPP_SOURCES)
 
 pkglib_LTLIBRARIES = libscixpad-disable.la
 
@@ -87,7 +88,7 @@ endif
 
 libscixpad_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 
-libscixpad_la_SOURCES = $(XPAD_C_SOURCES) $(XPAD_JNI_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(XPAD_CPP_SOURCES)
+libscixpad_la_SOURCES = $(XPAD_C_SOURCES) $(XPAD_JNI_SOURCES) $(GATEWAY_CPP_SOURCES) $(XPAD_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC= $(XPAD_C_SOURCES) $(GATEWAY_C_SOURCES)

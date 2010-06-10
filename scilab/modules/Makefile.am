@@ -23,7 +23,6 @@ action_binding \
 arnoldi \
 elementary_functions \
 matio \
-functions_manager \
 string \
 api_scilab \
 dynamic_link \
@@ -87,6 +86,7 @@ hdf5 \
 graph \
 xcos \
 xpad \
+functions_manager \
 system_env \
 abstractSyntaxTree \
 symbol \

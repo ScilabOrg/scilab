@@ -18,11 +18,18 @@ extern "C"
 #include "gw_xpad.h"
 #include "stack-c.h"
 #include "api_scilab.h"
+#include "api_oldstack.h"
 #include "localization.h"
 #include "Scierror.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
+
+
+#include "loadOnUseClassPath.h"
+#include "BOOL.h"
 }
+
+static BOOL loadedDep = FALSE;
 
 /*--------------------------------------------------------------------------*/
 int sci_xpad(char *fname, int* _piKey)
@@ -31,7 +38,13 @@ int sci_xpad(char *fname, int* _piKey)
 	CheckRhs(0,2);
 	CheckLhs(0,1);
 
-	if (Rhs == 0)
+    if (!loadedDep)
+	{
+		loadOnUseClassPath("Xpad");
+		loadedDep = TRUE;
+	}
+
+    if (Rhs == 0)
 	{
 		callXpadW(NULL, 0);
 	}
@@ -98,7 +111,7 @@ int sci_xpad(char *fname, int* _piKey)
 		{
 			pStVarOne[i] = (wchar_t *)MALLOC(sizeof(wchar_t) * (lenStVarOne[i] + 1));
 		}
-  
+
 		/* get strings */
 		sciErr = getMatrixOfWideString(_piKey, piAddressVarOne, &m1, &n1, lenStVarOne, pStVarOne);
 		if(sciErr.iErr)
