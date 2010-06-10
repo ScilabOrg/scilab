@@ -1033,6 +1033,9 @@ Bug fixes:
 
 * bug 6831 fixed - in cli (=nwni) mode, tbx_build_help failed.
 
+* bug 6849 fixed - add_profiling badly handled "else" that made plotprofile
+                   function produce an incorrect report.
+
 * bug 6861 fixed - yulewalk example failed on Windows.
 
 * bug 6862 fixed - Help page for 'vectorfind' missed some explanations about
