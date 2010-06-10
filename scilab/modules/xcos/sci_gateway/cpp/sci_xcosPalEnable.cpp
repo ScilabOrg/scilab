@@ -37,7 +37,6 @@ sci_xcosPalEnable(char *fname, unsigned long fname_len)
     CheckRhs(1, 1);
     CheckLhs(1, 1);
 
-    SciErr sciErr;
 
     char** name;
     int nameLength;
@@ -59,7 +58,6 @@ sci_xcosPalEnable(char *fname, unsigned long fname_len)
         return 0;
     }
 
-    LhsVar(1) = 1;
     PutLhsVar();
     return 0;
 }
