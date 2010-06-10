@@ -111,7 +111,7 @@ Text Editor:
 
 Incompatibilities:
 ==================
-* The bug 4583 fix makes the default element value in string array assignment 
+* The bug 4583 fix makes the default element value in string array assignment
   be an empty string instead of " ".
 
 * bug 7238 fixed - The dot/del key on the numeric pad added a 'suppr' and a dot.
@@ -488,7 +488,7 @@ ATOMS:
 Bug fixes:
 ==========
 
-* bug 1041 fixed - An error inside a loop was reported as if it occurred on 
+* bug 1041 fixed - An error inside a loop was reported as if it occurred on
                    the "end" line.
 
 * bug 1304 fixed - macr2tree now works with a Scilab expression as input.
@@ -549,7 +549,7 @@ Bug fixes:
 
 * bug 4572 fixed - scilab did a SIGSEGV after stacksize('max') + stacksize().
 
-* bug 4583 fixed - Default value for string array assignment was " " instead 
+* bug 4583 fixed - Default value for string array assignment was " " instead
                    of an empty string "".
 
 * bug 4625 fixed - intersci-n was broken on Windows.
@@ -708,6 +708,9 @@ Bug fixes:
                    exactly 2 characters.
 
 * bug 6831 fixed - in cli (=nwni) mode, tbx_build_help failed.
+
+* bug 6849 fixed - add_profiling badly handled "else" that made plotprofile
+                   function produce an incorrect report.
 
 * bug 6861 fixed - yulewalk example failed on Windows.
 
