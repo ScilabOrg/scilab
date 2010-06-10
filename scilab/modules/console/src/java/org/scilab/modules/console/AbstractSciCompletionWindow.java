@@ -252,7 +252,10 @@ public abstract class AbstractSciCompletionWindow implements CompletionWindow, K
         public void addCompletedWord(int position) {
                 String currentLine = inputParsingManager.getCommandLine();
                 String lineBeforeCaret = currentLine.substring(0, position);
-                lineBeforeCaret = currentLine.substring(0, position - Completion.getPartLevel(lineBeforeCaret).length() + 1);
+
+                int len = Completion.getPartLevel(lineBeforeCaret).length();
+                lineBeforeCaret = currentLine.substring(0, position - len);
+
                 String lineAfterCaret = currentLine.substring(position);
 
                 String stringToAdd = getCompletionResult();
@@ -261,7 +264,13 @@ public abstract class AbstractSciCompletionWindow implements CompletionWindow, K
                 boolean typeStringIsFile = false;
 
                 if (stringToAddType.equals(Messages.gettext("File or Directory"))) {
-                        typeStringIsFile = true;
+                    typeStringIsFile = true;
+                }
+
+                String brk = "+-*([ ^,;={.&|\'])}:\"\'><~@\t";
+                int pos = brk.indexOf(lineBeforeCaret.charAt(lineBeforeCaret.length() - 1));
+                if (pos == -1 && stringToAdd != null && stringToAdd.length() != 0) {
+                    lineBeforeCaret = lineBeforeCaret + stringToAdd.charAt(0);
                 }
 
                 String newLine = Completion.completelineforjava(lineBeforeCaret, stringToAdd, typeStringIsFile, lineAfterCaret);
