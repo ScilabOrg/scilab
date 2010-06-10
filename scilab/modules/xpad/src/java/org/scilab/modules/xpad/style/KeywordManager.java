@@ -25,38 +25,42 @@ public class KeywordManager {
 	private static final String[] BOOLS = {"%T", "%F", "%t", "%f", "%e", "%pi",
 			"%inf", "%i", "%z", "%s", "%nan", "%eps", "SCI", "WSCI", "SCIHOME", "TMPDIR"};
 	private static final String[] COMMENTS = {"//[^{\n}]*"};
-	
-	private static final String[] OPERATORS = {"=", "\\+", "-", "\\*", "/", "\\\\", "\\^", 
-			"\\./", "\\.\\\\", "\\.\\^", 
+
+	private static final String[] OPERATORS = {"=", "\\+", "-", "\\*", "/", "\\\\", "\\^",
+			"\\./", "\\.\\\\", "\\.\\^",
 			"\\.\\*\\.", "\\./\\.", "\\.\\\\\\.",
 			"==", "<", ">", "<=", ">=", "~=", "@=",
 			"&", "\\|", "@", "~",
 	"\\.\\.[\\.]*"};
-	
+
 	Hashtable<String, String[]> keywords = new Hashtable<String, String[]>();
 
-	
+
 	/**
 	 * constructor of the object
-	 * It loads all the keywords values from the Scilab engine 
+	 * It loads all the keywords values from the Scilab engine
 	 */
 	public KeywordManager() {
 		//Get all Scilab keywords with SWIG
 		String[] commands;
 		String[] functions;
 		String[] macros;
-		try {
-			commands =  ScilabKeywords.GetCommandsName();
-			functions =  ScilabKeywords.GetFunctionsName();
-			macros =  ScilabKeywords.GetMacrosName();
-		} catch (UnsatisfiedLinkError e) {
-			/* If Scilab is launched as standalone, it cannot get the JNI
-			 * access 
-			 */
-			commands = new String[]{""};
-			functions = new String[]{""};
-			macros = new String[]{""};
-		}
+		/*
+          try {
+          commands =  ScilabKeywords.GetCommandsName();
+          functions =  ScilabKeywords.GetFunctionsName();
+          macros =  ScilabKeywords.GetMacrosName();
+          } catch (UnsatisfiedLinkError e) {
+        */
+        /* If Scilab is launched as standalone, it cannot get the JNI
+         * access
+         */
+        commands = new String[]{"if", "then", "else", "end", "function", "endfunction", "for", "while"};
+        functions = new String[]{"exists", "disp"};
+        macros = new String[]{""};
+        /*
+          }
+        */
 		//String[] variables =  ScilabKeywords.GetVariablesName();
 
 		for (int i = 0; i < macros.length; i++) {
@@ -67,7 +71,7 @@ public class KeywordManager {
 		}
 		for (int i = 0; i < functions.length; i++) {
 			keywords.put("function", functions);
-		}	
+		}
 	}
 
 	/**
@@ -77,7 +81,7 @@ public class KeywordManager {
 	public static String[] getQuotations() {
 		return QUOTATIONS;
 	}
-	
+
 	/**
 	 * getBools
 	 * @return String[]
@@ -85,7 +89,7 @@ public class KeywordManager {
 	public static String[] getBools() {
 		return BOOLS;
 	}
-	
+
 	/**
 	 * getComments
 	 * @return String[]
@@ -93,7 +97,7 @@ public class KeywordManager {
 	public static String[] getComments() {
 		return COMMENTS;
 	}
-	
+
 	/**
 	 * getOperators
 	 * @return String[]
@@ -101,7 +105,7 @@ public class KeywordManager {
 	public static String[] getOperators() {
 		return OPERATORS;
 	}
-	
+
 	/**
 	 * Get all Scilab's keywords into a hashtable
 	 * @return the hashtable of the keywords

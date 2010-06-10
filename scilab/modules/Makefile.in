@@ -152,10 +152,10 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = core operations output_stream action_binding arnoldi \
-	elementary_functions matio functions_manager string api_scilab \
-	dynamic_link fileio history_manager spreadsheet tclsci \
-	localization renderer shell completion console graphic_export \
-	gui jvm graphics optimization symbolic randlib statistics \
+	elementary_functions matio string api_scilab dynamic_link \
+	fileio history_manager spreadsheet tclsci localization \
+	renderer shell completion console graphic_export gui jvm \
+	graphics optimization symbolic randlib statistics \
 	special_functions interpolation linear_algebra integer \
 	data_structures mexlib differential_equations cacsd \
 	polynomials boolean double pvm io intersci signal_processing \
@@ -163,8 +163,8 @@ DIST_SUBDIRS = core operations output_stream action_binding arnoldi \
 	overloading maple2scilab m2sci texmacs development_tools \
 	compatibility_functions helptools fftw umfpack demo_tools \
 	genetic_algorithms simulated_annealing parameters atoms types \
-	hdf5 graph xcos xpad system_env abstractSyntaxTree symbol \
-	parse scicos_blocks scicos . javasci
+	hdf5 graph xcos xpad functions_manager system_env \
+	abstractSyntaxTree symbol parse scicos_blocks scicos . javasci
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -441,10 +441,10 @@ yacc_present = @yacc_present@
 # core is the main module of Scilab. All the compilation deps has been removed
 # since it already linked almost the whole world
 SUBDIRS = core operations output_stream action_binding arnoldi \
-	elementary_functions matio functions_manager string api_scilab \
-	dynamic_link fileio history_manager spreadsheet tclsci \
-	localization renderer shell completion console graphic_export \
-	gui jvm graphics optimization symbolic randlib statistics \
+	elementary_functions matio string api_scilab dynamic_link \
+	fileio history_manager spreadsheet tclsci localization \
+	renderer shell completion console graphic_export gui jvm \
+	graphics optimization symbolic randlib statistics \
 	special_functions interpolation linear_algebra integer \
 	data_structures mexlib differential_equations cacsd \
 	polynomials boolean double pvm io intersci signal_processing \
@@ -452,9 +452,9 @@ SUBDIRS = core operations output_stream action_binding arnoldi \
 	windows_tools functions overloading maple2scilab m2sci texmacs \
 	development_tools compatibility_functions helptools fftw \
 	umfpack demo_tools genetic_algorithms simulated_annealing \
-	parameters atoms types hdf5 graph xcos xpad system_env \
-	abstractSyntaxTree symbol parse types $(am__append_1) scicos . \
-	$(am__append_2)
+	parameters atoms types hdf5 graph xcos xpad functions_manager \
+	system_env abstractSyntaxTree symbol parse types \
+	$(am__append_1) scicos . $(am__append_2)
 
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)
