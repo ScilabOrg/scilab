@@ -109,6 +109,8 @@ Text Editor:
 
 * bug 7112 fixed - Two transpositions gave a string (if a'==1 then a=b').
 
+* bug 7262 fixed - An exception was thrown when a text was dragged and droped.
+
 * bug 7272 fixed - No check on the lastModified property was performed when
                    a file is opened. 
 
