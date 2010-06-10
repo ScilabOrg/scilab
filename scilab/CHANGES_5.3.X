@@ -115,6 +115,11 @@ Text Editor:
 
 * bug 7237 fixed - Whites and tabs were not visible in strings and in comments.
 
+Incompatibilities:
+==================
+* The bug 4583 fix makes the default element value in string array assignment
+  be an empty string instead of " ".
+
 * bug 7238 fixed - The dot/del key on the numeric pad added a 'suppr' and a dot.
 
 * bug 7239 fixed - Font style was lost on a selected text.
@@ -126,10 +131,6 @@ Text Editor:
 
 * bug 7277 fixed - The "recent files" list was badly ordered.
 
-Incompatibilities:
-==================
-* The bug 4583 fix makes the default element value in string array assignment
-  be an empty string instead of " ".
 
 
 FFTW:
@@ -610,8 +611,11 @@ Bug fixes:
 
 * bug 4505 fixed - A red vertical bar appeared for some continuous time systems.
 
+<<<<<<< HEAD
 * bug 4572 fixed - Scilab did a SIGSEGV after stacksize('max') + stacksize().
 
+=======
+>>>>>>> fec6547... bug 6849 fix, add_profiling badly handled else + get_profile and plotprofile cleaning
 * bug 4583 fixed - Default value for string array assignment was " " instead
                    of an empty string "".
 
@@ -774,6 +778,9 @@ Bug fixes:
                    exactly 2 characters.
 
 * bug 6831 fixed - in cli (=nwni) mode, tbx_build_help failed.
+
+* bug 6849 fixed - add_profiling badly handled "else" that made plotprofile
+                   function produce an incorrect report.
 
 * bug 6861 fixed - yulewalk example failed on Windows.
 
