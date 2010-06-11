@@ -22,7 +22,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 
@@ -31,10 +30,12 @@ import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.utils.ScilabExported;
 import org.scilab.modules.hdf5.read.H5Read;
 import org.scilab.modules.jvm.utils.ScilabConstants;
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.types.scilabTypes.ScilabTList;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.model.PaletteNode;
@@ -56,7 +57,11 @@ import com.mxgraph.view.mxStylesheet;
  */
 public final class Palette {
 	private static final String NAME = "name";
-	private static final String WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH = "Wrong input argument \"%s\": invalid tree path.\n";
+	
+	private static final String WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH = 
+		Messages.gettext("Wrong input argument \"%s\": invalid tree path.\n");
+	private static final String UNABLE_TO_IMPORT = 
+		Messages.gettext("Unable to import %s .\n");
 
 	private static final Log LOG = LogFactory.getLog(Palette.class);
 
@@ -85,6 +90,11 @@ public final class Palette {
 		}
 
 		Category node = PaletteManager.getInstance().getRoot();
+		
+		if (path == null) {
+			return node;
+		}
+		
 		for (int categoryCounter = 0; categoryCounter < path.length; categoryCounter++) {
 
 			for (Iterator<PaletteNode> iter = node.getNode().iterator(); iter
@@ -142,26 +152,32 @@ public final class Palette {
 			H5Read.readDataFromFile(fileId, data);
 			H5Read.closeFile(fileId);
 		} catch (HDF5Exception e) {
-			throw new Exception(String.format("Unable to import %s .\n", file),
+			throw new Exception(String.format(UNABLE_TO_IMPORT, file),
 					e);
 		}
 
 		/*
-		 * Decode the style part of the palette
-		 */
-		mxStylesheet styleSheet = new mxStylesheet();
-		FileUtils.decodeStyle(styleSheet);
-		new StyleElement().decode(data, styleSheet);
-		mxUtils.writeFile(mxUtils.getXml(new mxCodec().encode(styleSheet)),
-				ScilabConstants.SCIHOME.getAbsolutePath() + '/'
-						+ FileUtils.STYLE_FILENAME);
-
-		/*
-		 * Getting the node and create the path to it.
+		 * handle shared data on the EDT thread
 		 */
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
+				/*
+				 * Decode the style part of the palette
+				 */
+				mxStylesheet styleSheet = new mxStylesheet();
+				try {
+					FileUtils.decodeStyle(styleSheet);
+					new StyleElement().decode(data, styleSheet);
+					mxUtils.writeFile(mxUtils.getXml(new mxCodec().encode(styleSheet)),
+							ScilabConstants.SCIHOME.getAbsolutePath() + '/'
+									+ FileUtils.STYLE_FILENAME);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				} catch (ScicosFormatException e) {
+					throw new RuntimeException(e);
+				}
+				
 				PaletteNode node = getPathNode(category, true);
 				if (!(node instanceof Category)) {
 					throw new RuntimeException(String.format(
@@ -173,7 +189,11 @@ public final class Palette {
 				/*
 				 * Adding the palette tree part of the palette
 				 */
-				cat.getNode().add(new PreLoadedElement().decode(data, null));
+				try {
+					cat.getNode().add(new PreLoadedElement().decode(data, null));
+				} catch (ScicosFormatException e) {
+					throw new RuntimeException(e);
+				}
 
 				PaletteManager.getInstance().saveConfig();
 				if (PaletteManager.getInstance().getView() != null) {
@@ -185,6 +205,20 @@ public final class Palette {
 		});
 	}
 
+	/**
+	 * Load an xcos palette into the palette manager at the root category.
+	 * 
+	 * @param path
+	 *            full path to the scilab exported palette
+	 * @throws Exception
+	 *             in case of error
+	 */
+	@ScilabExported(module = "xcos", filename = "Palette.giws.xml")
+	public static void loadPal(final String path)
+			throws Exception {
+		loadPal(path, null);
+	}
+	
 	/**
 	 * Add a category into the palette manager
 	 * 
@@ -232,21 +266,27 @@ public final class Palette {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
+				
 				PaletteNode node = getPathNode(name, false);
 				if (node == null) {
 					throw new RuntimeException(String.format(
 							WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, NAME));
 				}
 
-				final TreeNode toBeReloaded = node.getParent();
-
-				node.getParent().getNode().remove(node);
+				final Category toBeReloaded = node.getParent();
+				if (toBeReloaded != null) {
+					toBeReloaded.getNode().remove(node);
+				}
 				node.setParent(null);
 
 				if (PaletteManager.getInstance().getView() != null) {
 					final DefaultTreeModel model = (DefaultTreeModel) PaletteManager
 							.getInstance().getView().getTree().getModel();
-					model.reload(toBeReloaded);
+					if (toBeReloaded != null) {
+						model.reload(toBeReloaded);
+					} else {
+						model.reload();
+					}
 				}
 
 				PaletteManager.getInstance().saveConfig();
@@ -293,7 +333,7 @@ public final class Palette {
 	 * 
 	 * @param source
 	 *            TreePath of the palette or category
-	 * @param target
+	 * @param target TreePath of the category
 	 * @link TreePath} of the destination
 	 * @throws Exception
 	 *             in case of error
@@ -318,10 +358,12 @@ public final class Palette {
 				}
 				Category destination = (Category) trg;
 
-				final TreeNode toBeReloaded[] = new TreeNode[] {
+				final Category[] toBeReloaded = new Category[] {
 						src.getParent(), destination };
 
-				src.getParent().getNode().remove(src);
+				if (toBeReloaded[0] != null) {
+					toBeReloaded[0].getNode().remove(src);
+				}
 				destination.getNode().add(src);
 				src.setParent(destination);
 
@@ -329,8 +371,12 @@ public final class Palette {
 				if (PaletteManager.getInstance().getView() != null) {
 					final DefaultTreeModel model = (DefaultTreeModel) PaletteManager
 							.getInstance().getView().getTree().getModel();
-					model.reload(toBeReloaded[0]);
-					model.reload(toBeReloaded[1]);
+					if (toBeReloaded[0] != null) {
+						model.reload(toBeReloaded[0]);
+						model.reload(toBeReloaded[1]);
+					} else {
+						model.reload();
+					}
 				}
 			}
 		});
@@ -371,7 +417,7 @@ public final class Palette {
 		mxGraphComponent graphComponent = graph.getAsComponent();
 		graphComponent.refresh();
 
-		final mxRectangle bounds = graph.getPaintBounds(new Object[] { block });
+		final mxRectangle bounds = graph.getPaintBounds(new Object[] {block});
 		final double width = bounds.getWidth();
 		final double height = bounds.getHeight();
 
