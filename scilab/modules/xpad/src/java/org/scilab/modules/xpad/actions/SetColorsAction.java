@@ -465,6 +465,8 @@ public final class SetColorsAction extends DefaultAction {
             allStylesColor = ConfigXpadManager.getAllDefaultForegroundColors();
             allStylesIsBold = ConfigXpadManager.getDefaultAllisBold();
             allStylesIsItalic = ConfigXpadManager.getDefaultAllisItalic();
+            allAttributes = ConfigXpadManager.getDefaultAllAttributes();
+
             Iterator<String> iter = allStylesColor.keySet().iterator();
             while (iter.hasNext()) {
                 String name = iter.next();
@@ -479,9 +481,12 @@ public final class SetColorsAction extends DefaultAction {
                 if (allStylesIsItalic.get(name)) {
                     italic = 2;
                 }
+                previewEditorPane.resetAttribute(name, allAttributes.get(name));
                 previewEditorPane.resetFont(name, italic);
                 boldCheckBox.setSelected(allStylesIsBold.get(name));
                 italicCheckBox.setSelected(allStylesIsItalic.get(name));
+                underlineCheckBox.setSelected((allAttributes.get(name) & 1) == 1);
+                strikethroughCheckBox.setSelected((allAttributes.get(name) & 2) == 2);
             }
 
             previewEditorPane.repaint();
