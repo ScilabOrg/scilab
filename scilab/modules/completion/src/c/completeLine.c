@@ -56,6 +56,42 @@ static char * strrstr(char *string, char *find)
 	return cp;
 }
 /*--------------------------------------------------------------------------*/
+
+/*! \brief Get the position of the shortest suffix of string that match with a prefix of find
+ *  \param string  A string that has a suffix that match a prefix of find
+ *  \param find A string that has a prefix that match with a suffix of string
+ *
+ */
+int findMatchingPrefixSuffix(const char* string,const char* find)
+{
+	char* tmp;
+	char* tmpstring;
+	//get a working copy of find
+	char* tmpfind=strdup(find);
+	//last character of string
+	char laststr=*(string+strlen(string)-1);
+
+
+	//Tips : no infinite loop there, tmpfind string length is always reduced at each iteration
+	do{
+		//find the last occurence of last char of string in tmpfind
+		tmp = strrchr(tmpfind,laststr);
+		// Cut tmpfind at this position
+		tmp[0]='\0';
+
+		//Check if the cutted tmpfind match with the suffix of string that has adequat length
+		tmpstring=string+strlen(string)-1-strlen(tmpfind);
+		if(!strncmp(tmpfind,tmpstring,strlen(tmpfind)))
+			return tmpstring-string;
+
+	}
+	while(tmp!=NULL);
+	//if no return, no position is correct, return -1 by convention.
+	return -1;
+}
+
+/*--------------------------------------------------------------------------*/
+
 char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 				   char *defaultPattern,BOOL stringToAddIsPath, char *postCaretLine)
 {
@@ -167,27 +203,7 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 	}
 
 	lenstringToAdd = (int)strlen(stringToAdd);
-
-	iposInsert = lencurrentline;
-	for(i = 1; i < lenstringToAdd+1;i++)
-	{
-		char *partstringToAdd = strdup(stringToAdd);
-		partstringToAdd[i] = 0;
-
-		res = strrstr(currentline, partstringToAdd);
-		
-		FREE(partstringToAdd);
-		partstringToAdd = NULL;
-
-		if (res)
-		{
-			iposInsert = lencurrentline - (int) strlen(res);
-		}
-		else
-		{
-			break;
-		}
-	}
+	iposInsert=findMatchingPrefixSuffix(currentline,stringToAdd);
 
 	res = strstr(stringToAdd,&currentline[iposInsert]);
 	if (res == NULL)
