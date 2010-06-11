@@ -20,7 +20,7 @@ deff('[]=lig()',[
 'end,shlig(8)   ,'; // break-point
 'shlig(9),';
 'for k=1:3,';
-'  k;shlig(11)  ,'; // break-point 
+'  k;shlig(11)  ,'; // break-point
 'end,shlig(12)  ,'; // break-point
 ',';
 'for l=1:10,';
@@ -52,7 +52,7 @@ deff('[]=lig()',[
 'shlig(40)    ,'; // break-point
 'i=0,';
 'while i<3,';
-'i=i+1,shlig(43) ,'; // break-point 
+'i=i+1,shlig(43) ,'; // break-point
 'end,shlig(44) ,'; //break-point
 'i=0;,';
 'while i<10,';
@@ -79,42 +79,11 @@ write(%io(2),[
 'user should check the line number'])
 write(%io(2),[' ';'MACRO NOT COMPILED';'-----------------';' '])
 lig()
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
 
 comp(lig)
 write(%io(2),[' ';'COMPILED MACRO';'-----------------';' '])
 lig()
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
-resume
+
 delbpt('lig')
 clear lig shlig
 
@@ -122,9 +91,9 @@ clear lig shlig
 // Order of the commands is important to guarantee
 // the full coverage of the tests
 delbpt(),dispbpt()   // should display no output
-setbpt("foo1",0)    // should spit error 9997
-setbpt("foo1",-3)   // should spit error 9997
-setbpt("foo1",3.2)  // should spit error 9997
+if execstr("delbpt(""foo1"",0)","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",-3)","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",3.2)","errcatch")<>9997 then pause,end   // should spit error 9997
 setbpt("foo1"),dispbpt()   // set at line 1 (default)
 setbpt("foo1",5),dispbpt()  // add another bpt to a macro that already has bpts, and that is the last one
 setbpt("foo2",5),setbpt("foo2",8),dispbpt()  // add bpts to a new macro (will always be placed at the end)
@@ -136,9 +105,9 @@ setbpt("foo2",5),dispbpt()  // check duplicates removal - line 5 should appear o
 // Order of the commands is important to guarantee
 // the full coverage of the tests
 delbpt(),dispbpt()   // should display no output
-setbpt("foo1",[1,0,5])    // should spit error 9997
-setbpt("foo1",[-3,2,7])   // should spit error 9997
-setbpt("foo1",[1,3.2])  // should spit error 9997
+if execstr("setbpt(""foo1"",[1,0,5]) ","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("setbpt(""foo1"",[-3,2,7]) ","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("setbpt(""foo1"",[1,3.2]) ","errcatch")<>9997 then pause,end   // should spit error 9997
 setbpt("foo1",[8,9]),dispbpt()    // add 2 bpts at once to a new macro
 setbpt("foo1",5),setbpt("foo1",[2,3]),dispbpt()  // add further bpts to a macro that already has bpts, and that is the last one
 setbpt("foo2",[5,8]),setbpt("foo2",7),dispbpt()  // add bpts to a new macro (will always be placed at the end)
@@ -153,9 +122,9 @@ setbpt("foo2",[9,5,8,100,7,2]),dispbpt()  // check duplicates removal wrt existi
 // Order of the commands is important to guarantee
 // the full coverage of the tests
 delbpt(),dispbpt()   // should display no output
-delbpt("foo1",0)    // should spit error 9997
-delbpt("foo1",-3)   // should spit error 9997
-delbpt("foo1",3.2)  // should spit error 9997
+if execstr("delbpt(""foo1"",0)","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",-3)","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",3.2)","errcatch")<>9997 then pause,end   // should spit error 9997
 delbpt("foo1"),dispbpt()   // should display no output
 setbpt("foo1",[5,8,11]),delbpt("foo1"),dispbpt()   // should display no output
 setbpt("foo1",[5,8,11]),setbpt("foo2",[55,88,111]),delbpt("foo1"),dispbpt()   // should display the 3 bpts for foo2 only
@@ -172,9 +141,9 @@ delbpt("foo2",21),dispbpt()    // lines 5, and 8 for foo1, and 20, 22, 23 for fo
 // Order of the commands is important to guarantee
 // the full coverage of the tests
 delbpt(),dispbpt()   // should display no output
-delbpt("foo1",[1,0,5])    // should spit error 9997
-delbpt("foo1",[-3,2,7])   // should spit error 9997
-delbpt("foo1",[1,3.2])  // should spit error 9997
+if execstr("delbpt(""foo1"",[1,0,5])","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",[-3,2,7])","errcatch")<>9997 then pause,end   // should spit error 9997
+if execstr("delbpt(""foo1"",[1,3.2])","errcatch")<>9997 then pause,end   // should spit error 9997
 delbpt("foo1",[8,9]),dispbpt()   // should display no output
 setbpt("foo1",[5,6,8,9]),delbpt("foo1",[8,5]),dispbpt()    // lines 6 and 9 should appear only
 setbpt("foo1",[5,6,8,9]),delbpt("foo1",[8,5,8,8,6,5]),dispbpt()    // check duplicates removal in vector input - line 9 should appear only
