@@ -85,6 +85,11 @@ public final class Palette {
 		}
 
 		Category node = PaletteManager.getInstance().getRoot();
+		
+		if (path == null) {
+			return node;
+		}
+		
 		for (int categoryCounter = 0; categoryCounter < path.length; categoryCounter++) {
 
 			for (Iterator<PaletteNode> iter = node.getNode().iterator(); iter
@@ -112,7 +117,7 @@ public final class Palette {
 
 					node = cat;
 				} else {
-					return null;
+					return node;
 				}
 			}
 		}
@@ -185,6 +190,20 @@ public final class Palette {
 		});
 	}
 
+	/**
+	 * Load an xcos palette into the palette manager at the root category.
+	 * 
+	 * @param path
+	 *            full path to the scilab exported palette
+	 * @throws Exception
+	 *             in case of error
+	 */
+	@ScilabExported(module = "xcos", filename = "Palette.giws.xml")
+	public static void loadPal(final String path)
+			throws Exception {
+		loadPal(path, null);
+	}
+	
 	/**
 	 * Add a category into the palette manager
 	 * 
