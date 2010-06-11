@@ -8,6 +8,7 @@
 
 package org.scilab.modules.xcos.simulink.patterns;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for StringValueMap complex type.
+ * <p>Java class for Str2IntValueMap complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="StringValueMap">
+ * &lt;complexType name="Str2IntValueMap">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="simVal" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="xCosVal" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="xCosVal" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,13 +34,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "StringValueMap")
-public class StringValueMap {
+@XmlType(name = "Str2IntValueMap")
+public class Str2IntValueMap {
 
     @XmlAttribute(required = true)
     protected String simVal;
     @XmlAttribute(required = true)
-    protected String xCosVal;
+    protected BigInteger xCosVal;
 
     /**
      * Gets the value of the simVal property.
@@ -70,10 +71,10 @@ public class StringValueMap {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public String getXCosVal() {
+    public BigInteger getXCosVal() {
         return xCosVal;
     }
 
@@ -82,10 +83,10 @@ public class StringValueMap {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public void setXCosVal(String value) {
+    public void setXCosVal(BigInteger value) {
         this.xCosVal = value;
     }
 

@@ -13,28 +13,23 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Block complex type.
+ * <p>Java class for GeneralParameters complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Block">
+ * &lt;complexType name="GeneralParameters">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="string" type="{}StringParameter" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="integer" type="{}IntegerParameter" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="simple" type="{}SimpleParameter" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="str2int" type="{}Str2IntParameter" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="int2str" type="{}Int2StrParameter" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="sim" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="xCos" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="dsc" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,26 +39,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Block", propOrder = {
+@XmlType(name = "GeneralParameters", propOrder = {
     "string",
     "integer",
-    "simple",
-    "str2Int",
-    "int2Str"
+    "simple"
 })
-public class Block {
+public class GeneralParameters {
 
     protected List<StringParameter> string;
     protected List<IntegerParameter> integer;
     protected List<SimpleParameter> simple;
-    @XmlElement(name = "str2int")
-    protected List<Str2IntParameter> str2Int;
-    @XmlElement(name = "int2str")
-    protected List<Int2StrParameter> int2Str;
-    @XmlAttribute(required = true)
-    protected String sim;
-    @XmlAttribute(required = true)
-    protected String xCos;
     @XmlAttribute
     protected String dsc;
 
@@ -152,112 +137,6 @@ public class Block {
             simple = new ArrayList<SimpleParameter>();
         }
         return this.simple;
-    }
-
-    /**
-     * Gets the value of the str2Int property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the str2Int property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getStr2Int().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Str2IntParameter }
-     * 
-     * 
-     */
-    public List<Str2IntParameter> getStr2Int() {
-        if (str2Int == null) {
-            str2Int = new ArrayList<Str2IntParameter>();
-        }
-        return this.str2Int;
-    }
-
-    /**
-     * Gets the value of the int2Str property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the int2Str property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getInt2Str().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Int2StrParameter }
-     * 
-     * 
-     */
-    public List<Int2StrParameter> getInt2Str() {
-        if (int2Str == null) {
-            int2Str = new ArrayList<Int2StrParameter>();
-        }
-        return this.int2Str;
-    }
-
-    /**
-     * Gets the value of the sim property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSim() {
-        return sim;
-    }
-
-    /**
-     * Sets the value of the sim property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSim(String value) {
-        this.sim = value;
-    }
-
-    /**
-     * Gets the value of the xCos property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getXCos() {
-        return xCos;
-    }
-
-    /**
-     * Sets the value of the xCos property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setXCos(String value) {
-        this.xCos = value;
     }
 
     /**
