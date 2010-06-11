@@ -18,8 +18,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,6 +61,8 @@ import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.pushbutton.PushButton;
+import org.scilab.modules.gui.messagebox.MessageBox;
+import org.scilab.modules.gui.messagebox.ScilabMessageBox;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.ButtonType;
@@ -547,7 +547,37 @@ public class Xpad extends SwingScilabTab implements Tab {
     public String checkExternalModification(String filename) {
         File newSavedFile = new File(filename);
         if (newSavedFile.lastModified() > getTextPane().getLastModified()) {
-            if (ScilabModalDialog.show(this, String.format(XpadMessages.EXTERNAL_MODIFICATION, newSavedFile.getPath()),
+    		
+        	/* 
+        	 * Create a new messagebox to know what the user wants to do
+        	 * if the file has been modified outside Xpad
+        	 */	
+        	/*
+        	MessageBox messageBox = ScilabMessageBox.createMessageBox();
+    		messageBox.setTitle(XpadMessages.REPLACE_FILE_TITLE);
+    		messageBox.setMessage(String.format(XpadMessages.EXTERNAL_MODIFICATION, newSavedFile.getPath()));
+    		
+    		String[] labels = new String[]{XpadMessages.RELOAD, XpadMessages.OVERWRITE, XpadMessages.IGNORE};
+    		messageBox.setButtonsLabels(labels);
+    		
+    		messageBox.setIcon("question"); // Question icon
+    		
+    		messageBox.setParentForLocation(this); // Centered on Xpad main window
+    		
+    		messageBox.displayAndWait(); // Waits for a user action
+    		
+    		switch (messageBox.getSelectedButton()) {
+    		case 0: // Reload
+    			// TODO
+    			break;
+    		case 1: // Overwrite
+    			// TODO
+    			break;
+    		default: // Ignore
+    			// TODO
+    		}
+        	*/
+    		if (ScilabModalDialog.show(this, String.format(XpadMessages.EXTERNAL_MODIFICATION, newSavedFile.getPath()),
                                        XpadMessages.REPLACE_FILE_TITLE, IconType.QUESTION_ICON,
                                        ButtonType.YES_NO) == AnswerOption.NO_OPTION) {
                 return chooseFileToSave();
