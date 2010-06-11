@@ -88,7 +88,7 @@ namespace types
             }
         }
         _typedValue->IncreaseRef();
-        (*m_plData)[_sKey] = _typedValue;
+        (*m_plData)[_sKey] = _typedValue->clone();
     }
 
 
