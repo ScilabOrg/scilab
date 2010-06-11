@@ -56,6 +56,51 @@ static char * strrstr(char *string, char *find)
 	return cp;
 }
 /*--------------------------------------------------------------------------*/
+
+/*!  Get the position of the longest suffix of string that match with a prefix of find
+ *  @param[in] string  A string that has a suffix that match a prefix of find ; Assumed to be non null because of the first guard in completeLine
+ *  @param[in] find A string that has a prefix that match with a suffix of string
+ *  @return Position in string where suffix of string and prefix of find does match
+ *
+ */
+static int findMatchingPrefixSuffix(const char* string,const char* find)
+{
+	char* pointerOnString;
+	char* pointerOnFindCopy;
+	char* movingPointerOnFindCopy;
+	char lastchar;
+	size_t stringLength;
+	//get a working copy of find
+	pointerOnFindCopy = strdup(find);
+	//last character of string
+	lastchar = *(string+strlen(string)-1);
+	stringLength = strlen(string);
+
+	//Tips : no infinite loop there, tmpfind string length is always reduced at each iteration
+	while( movingPointerOnFindCopy = strrchr(pointerOnFindCopy,lastchar) )
+	{
+		//find the last occurence of last char of string in tmpfind
+		movingPointerOnFindCopy = strrchr(pointerOnFindCopy,lastchar);
+		if(movingPointerOnFindCopy == NULL)
+		  break;
+		// Cut tmpfind at this position
+		movingPointerOnFindCopy[0] = '\0';
+		//Check if the cutted tmpfind match with the suffix of string that has adequat length
+		pointerOnString = string + stringLength - 1 - strlen(pointerOnFindCopy);
+		if( !strncmp(pointerOnFindCopy,pointerOnString,strlen(pointerOnFindCopy)) )
+		{
+			free(pointerOnFindCopy);
+			return pointerOnString-string;
+		}
+
+	}
+	//if no return, no position is correct, return last char of string.
+	free(pointerOnFindCopy);
+	return stringLength - 1;
+}
+
+/*--------------------------------------------------------------------------*/
+
 char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 				   char *defaultPattern,BOOL stringToAddIsPath, char *postCaretLine)
 {
@@ -167,27 +212,7 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 	}
 
 	lenstringToAdd = (int)strlen(stringToAdd);
-
-	iposInsert = lencurrentline;
-	for(i = 1; i < lenstringToAdd+1;i++)
-	{
-		char *partstringToAdd = strdup(stringToAdd);
-		partstringToAdd[i] = 0;
-
-		res = strrstr(currentline, partstringToAdd);
-		
-		FREE(partstringToAdd);
-		partstringToAdd = NULL;
-
-		if (res)
-		{
-			iposInsert = lencurrentline - (int) strlen(res);
-		}
-		else
-		{
-			break;
-		}
-	}
+	iposInsert=findMatchingPrefixSuffix(currentline,stringToAdd);
 
 	res = strstr(stringToAdd,&currentline[iposInsert]);
 	if (res == NULL)
