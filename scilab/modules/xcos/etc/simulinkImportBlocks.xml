@@ -1,5 +1,5 @@
 <blocks>
-  <!--Zero or more repetitions:-->
+  <!--Template-->
   <block sim="string" xCos="string" dsc="string">
     <!--Zero or more repetitions:-->
     <string sim="string" xCos="string" dsc="string">
@@ -13,5 +13,23 @@
     </integer>
     <!--Zero or more repetitions:-->
     <simple sim="string" xCos="string" dsc="string"/>
+  </block>
+  <!-- Constant Block Compatibility Pattern -->
+  <block sim="Constant" xCos="CONST_m" dsc="no description">
+    <simple sim="Value" xCos="Constant" dsc="no description"/>
+  </block>
+  <!--Absolute Value Block Compatibility Pattern:-->
+  <block sim="Abs" xCos="ABSOLUTE_VALUE" dsc="
+	SampleTime - in Xcos always inherited;
+	OutMax - output limiter not available;
+	OutDataTypeStr - always inherited(?);
+	RndMeth - rounding mode not available(?);
+	SaturateOnIntegerOverflow - always saturated(?);
+	">
+    <string sim="ZeroCross" xCos="zero_crossing" dsc="Enable zero-crossing detection">
+      <!--FIXME: here it should be string to int mapping-->
+      <parMap simVal="off" xCosVal="0"/>
+      <parMap simVal="yes" xCosVal="1"/>
+    </string>
   </block>
 </blocks>

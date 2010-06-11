@@ -4,7 +4,7 @@
             jxb:version="2.0">
 	
 	<!--Each Migration Schema, can consist of many blocks, and only one general parameters section -->
-	<xsd:element name="generals" type="GeneralParameters"/>
+	<!--<xsd:element name="generals" type="GeneralParameters"/> general section will be added as a block to blockPallete-->
 	<xsd:element name="blocks" type="BlockPallete"/>	
 	
 	<xsd:complexType name="GeneralParameters">
