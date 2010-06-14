@@ -69,59 +69,60 @@ EXPORTS
 	swapcodeint
 	rea2db_
 	scidcopy_
-	sci_abs_
-	sci_acos_
-	sci_asin_
-	sci_atan_
-	sci_ceil_
-	sci_chinesehat_
-	sci_clean_
-	sci_conj_
-	sci_cos_
-	sci_cumprod_
-	sci_cumsum_
-	sci_diag_
-	sci_dsearch_
-	sci_exp_
-	sci_expm_
-	sci_eye_
-	sci_floor_
-	sci_frexp_
-	sci_gsort_
-	sci_imag_
-	sci_imult_
-	sci_int_
-	sci_isequal_
-	sci_isequalbitwise_
-	sci_isreal_
-	sci_kron_
-	sci_log_
-	sci_log1p_
-	sci_scimatrix_
-	sci_maxi_
-	sci_nearfloat_
-	sci_number_properties_
-	sci_ones_
-	sci_prod_
-	sci_rand_
-	sci_real_
-	sci_round_
-	sci_sign_
-	sci_sin_
-	sci_size_
-	sci_spones_
-	sci_sqrt_
-	sci_sum_
-	sci_tan_
-	sci_testmatrix_
+	sci_abs
+	sci_acos
+	sci_asin
+	sci_atan
+	sci_ceil
+	sci_chinesehat
+	sci_clean
+	sci_conj
+	sci_cos
+	sci_cumprod
+	sci_cumsum
+	sci_diag
+	sci_dsearch
+	sci_exp
+	sci_expm
+	sci_eye
+	sci_floor
+	sci_frexp
+	sci_gsort
+	sci_imag
+	sci_imult
+	sci_int
+	sci_isequal
+	sci_isequalbitwise
+	sci_isreal
+	sci_kron
+	sci_log
+	sci_log1p
+	sci_scimatrix
+	sci_maxi
+	sci_nearfloat
+	sci_number_properties
+	sci_ones
+	sci_prod
+	sci_rand
+	sci_rat
+	sci_real
+	sci_round
+	sci_sign
+	sci_sin
+	sci_size
+	sci_spones
+	sci_sqrt
+	sci_sum
+	sci_tan
+	sci_testmatrix
 	ccomplexf_
 	SciToF77
 	F77ToSci
 	double2z
 	z2double
-	sci_tril_
-	sci_triu_
-	sci_zeros_
+	sci_tril
+	sci_triu
+	sci_zeros
 	unsfdcopy_
 	vceil_
 	vfinite_
