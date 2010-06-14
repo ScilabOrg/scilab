@@ -8,6 +8,13 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 function r=%b_h_s(a,b)
 // r=a&b
-
-r=a&(b<>0)
+  if mtlb_mode() then
+    r=[]
+  else
+    if b==[] then
+      r=a
+    else
+      r=a&(b<>0)
+    end
+  end
 endfunction

@@ -867,3 +867,7 @@ Bug fixes:
 
 * bug 7250 fixed - In the console, first char of a filename was doubled
                    when completed.
+
+* bug 7300 fixed - The boolean expression using empty matrices did not give 
+                   coherent results.
+

@@ -1,0 +1,39 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - INRIA - Serge Steer
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- JVM NOT MANDATORY -->
+// <-- Non-regression test for bug 7300 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=7300
+//
+// <-- Short Description -->
+// Semantics of empty matrices in boolean expressions is no coherent
+x=[]|%t;
+if x<>%t then bugmes();quit;end
+x=%t|[];
+if x<>%t then bugmes();quit;end
+x=[]|%f;
+if x<>%f then bugmes();quit;end
+x=%f|[];
+if x<>%f then bugmes();quit;end
+x=[]&%t;
+if x<>%t then bugmes();quit;end
+x=%t&[];
+if x<>%t then bugmes();quit;end
+x=[]&%f;
+if x<>%f then bugmes();quit;end
+x=%f&[];
+if x<>%f then bugmes();quit;end
+a=[%t %f %f %t];
+x=[]|a;
+if or(x<>a) then bugmes();quit;end
+x=a|[];
+if or(x<>a) then bugmes();quit;end
+x=[]&a;
+if or(x<>a) then bugmes();quit;end
+x=a&[];
+if or(x<>a) then bugmes();quit;end
