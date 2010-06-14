@@ -147,7 +147,7 @@ Text Editor:
                    was selected.
 
 * bug 7299 fixed - There was a bad matching by the right for the expression
-                   n=size(x,"*"); r=(x*x') 
+                   n=size(x,"*"); r=(x*x')
 
 Incompatibilities:
 ==================
@@ -317,7 +317,7 @@ Xcos:
 
 * bug 4977 fixed - Some icons were duplicated between Gui and Xcos.
 
-* bug 5022 fixed - When openning some demos, ArrayIndexOutOfBoundsException 
+* bug 5022 fixed - When openning some demos, ArrayIndexOutOfBoundsException
                    were throwed by some Swing components.
 
 * bug 5161 fixed - The export to SVG did not work with images or html.
@@ -493,7 +493,7 @@ Obsolete Functions:
   'findlcccompiler' have been moved as toolbox in ATOMS
   See http://atoms.scilab.org/toolboxes/LCC-windows or atomsInstall('LCC-windows')
   from Scilab.
-  
+
 * 'maxi' obsolete see 'max'.
 
 * 'mini' obsolete see 'min'.
@@ -932,5 +932,11 @@ Bug fixes:
 
 * bug 7291 fixed - unix('') and dos('') returned a wrong messsage on Windows.
 
+* bug 7300 fixed - The boolean expression using empty matrices did not give
+                   coherent results.
+
 * bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
+
+* bug 7300 fixed - The boolean expression using empty matrices did not give
+                   coherent results.
 
