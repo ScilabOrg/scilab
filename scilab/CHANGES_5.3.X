@@ -1281,5 +1281,11 @@ Bug fixes:
 
 * bug 7278 fixed - strsplit did not work with some particular inputs.
 
+* bug 7300 fixed - The boolean expression using empty matrices did not give
+                   coherent results.
+
 * bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
+
+* bug 7300 fixed - The boolean expression using empty matrices did not give
+                   coherent results.
 

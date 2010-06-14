@@ -9,5 +9,14 @@
 
 function r=%s_h_b(a,b)
 // r=a&b
-r=(a<>0)&b
+
+  if a==[] then
+    if mtlb_mode() then
+      r=[]
+    else
+      r=b
+    end
+  else
+    r=(a<>0)&b
+  end
 endfunction
