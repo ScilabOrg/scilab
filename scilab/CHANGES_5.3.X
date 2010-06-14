@@ -772,6 +772,8 @@ Bug fixes:
 
 * bug 6895 fixed - completion crashed with -NW mode, on some linux.
 
+* bug 6899 fixed - if a "resume" output arg was a protected variable, Scilab  crashed.
+
 * bug 6901 fixed - This script with 'exec' produced a weird warning.
 
 * bug 6923 fixed - Some localized messages were wrong in 'qmr'.

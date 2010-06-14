@@ -389,10 +389,17 @@ c     .     preserve names stored in the macro if macro is moved
 c     .        retained for 2.7 and earlier version compatibility (old affectation)
                if(i27.ne.0.and.istk(lc-1).eq.22) lc=lc+2
  43         continue
+c     .     decrease pt accordingly to lpt(1) for stackp errors recovery 
+            pt=pt-1
             do 44 i=1,lhsr
-               call stackp(ids(1,pt+i),0)
+               call stackp(ids(1,pt+i+1),0)
                if(err.gt.0) return
+               if(err1.gt.0) then
+                  pt=pt+1
+                  goto 48
+               endif
  44         continue
+            pt=pt+1
          else
 c     .     resume in "uncompiled" macros
 c     .     and in execstr call in a macro (rstk(pt)==504 see sci_resume)
@@ -400,7 +407,7 @@ c     .     and in execstr call in a macro (rstk(pt)==504 see sci_resume)
             ptr=pstk(pt+1)
             count=pstk(pt+2)
             lpt1s=lpt(1)
-c     .      reset lpt(1) for error recovery
+c     .     reset lpt(1) for  stackp errors recovery
             if(rstk(pt).eq.504) lpt(1)=lpt1
             do 45 i=1,lhsr
                call stackp(ids(1,ptr),0)

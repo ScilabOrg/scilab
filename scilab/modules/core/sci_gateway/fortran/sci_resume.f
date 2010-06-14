@@ -85,6 +85,7 @@ c     .     Locate end of the lhs argument list (703 set by parse)
             rhs=0
             do  i=1,mrhs
                call stackp(ids(1,ip0+mrhs-i),0)
+               if (err.gt.0.or.err1.gt.0) return
             enddo
 c     .        remove top variables associated with unstacked contexts  (for, select,..)
             top=top-count
@@ -135,6 +136,7 @@ c     .        save resumed variables in the calling context
                rhs=0
                do  i=1,mrhs
                   call stackp(ids(1,ip0+mrhs-i),0)
+                  if (err.gt.0.or.err1.gt.0) return
                enddo
 c     .        recreate  pause context (the pause will be finished  normally)
                lpt(1)=lpt1
@@ -171,6 +173,7 @@ c     .           remove execstr context
                rhs=0
                do  i=1,mrhs
                   call stackp(ids(1,ip0+mrhs-i),0)
+                  if (err.gt.0.or.err1.gt.0) return
                enddo
 c     .        remove top variables associated with unstacked contexts  (for, select,..)
                top=top-count-1
@@ -213,6 +216,7 @@ c     .        syncexec case
                rhs=0
                do  i=1,mrhs
                   call stackp(ids(1,pt),0)
+                  if (err.gt.0.or.err1.gt.0) return
                   pt=pt-1
                enddo
                pstk(pt0+1)=pt
@@ -221,7 +225,6 @@ c     .        syncexec case
 c     .       main  -> pause -> resume  (701)
 c     .       macro(uncompiled) -> pause -> resume (701)
 c     .       macro(compiled) -> pause -> resume (604)
-
                k=lpt(1)-(13+nsiz)
                bot=lin(k+5)
                if(macr.ne.0.or.paus.ne.0) then
@@ -233,6 +236,7 @@ c     .       macro(compiled) -> pause -> resume (604)
                paus=paus-1
                do  i=1,mrhs
                   call stackp(ids(1,pt),0)
+                  if (err.gt.0.or.err1.gt.0) return
                   pt=pt-1
                enddo
                paus=paus+1
@@ -275,6 +279,7 @@ c     .  check against syntax like [a,b(1,2)]=resume(3,1)
          paus=paus-1
          do 155 i=1,mrhs
             call stackp(ids(1,pt),0)
+            if (err.gt.0.or.err1.gt.0) return
             pt=pt-1
  155     continue
          paus=paus+1
