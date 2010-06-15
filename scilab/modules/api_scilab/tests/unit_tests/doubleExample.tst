@@ -4,15 +4,25 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
+
 // <-- JVM NOT MANDATORY -->
 ilib_verbose(0);
-mkdir(pathconvert(TMPDIR+"/sparse_writing_api"));
-cd(pathconvert(TMPDIR+"/sparse_writing_api"));
-copyfile(SCI+"/modules/api_scilab/tests/unit_tests/sparse_writing_api.c",pathconvert(TMPDIR+"/sparse_writing_api/sparse_writing_api.c",%F));
+mkdir(pathconvert(TMPDIR+"/doubleExample"));
+cd(pathconvert(TMPDIR+"/doubleExample"));
+copyfile(SCI+"/modules/api_scilab/tests/unit_tests/doubleExample.c",pathconvert(TMPDIR+"/doubleExample/doubleExample.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("sparse_writing",["write_sparse","write_sparse"],"sparse_writing_api.c",[],"","",cflags);
+ilib_build("doubleExample",["doubleExample","doubleExample"],"doubleExample.c",[],"","",cflags);
 exec("loader.sce");
-	 
-sp_ref = sparse([1,8;2,4;2,7;3,2],[1+4*%i,2+3*%i,3+2*%i,4+%i], [3,10]);
-sp = write_sparse();
-if or(sp <> sp_ref) then bugmes();quit;end
+
+			 
+a = 1;
+b = %i;
+c = [1,2,3;4,5,6];
+d = c(1:$) + c($:-1:1) * %i;
+
+doubleExample(a) == a
+doubleExample(b) == b
+doubleExample(c) == c
+doubleExample(d) == d
+ 
+		

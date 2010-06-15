@@ -7,14 +7,17 @@
 
 // <-- JVM NOT MANDATORY -->
 ilib_verbose(0);
-mkdir(pathconvert(TMPDIR+"/sparse_reading_api"));
-cd(pathconvert(TMPDIR+"/sparse_reading_api"));
-copyfile(SCI+"/modules/api_scilab/tests/unit_tests/sparse_reading_api.c",pathconvert(TMPDIR+"/sparse_reading_api/sparse_reading_api.c",%F));
+mkdir(pathconvert(TMPDIR+"/sparseExample"));
+cd(pathconvert(TMPDIR+"/sparseExample"));
+copyfile(SCI+"/modules/api_scilab/tests/unit_tests/sparseExample.c",pathconvert(TMPDIR+"/sparseExample/sparseExample.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("sparse_reading",["read_sparse","read_sparse"],"sparse_reading_api.c",[],"","",cflags);
+ilib_build("sparseExample",["sparseExample","sparseExample"],"sparseExample.c",[],"","",cflags);
 exec("loader.sce");
- 
-sp=sparse([1,2;4,5;3,10],[1 + 2*%i,2 - 3*%i,-3 + 4*%i]);
-read_sparse(sp);
+
+             
+a = sparse([1,1;2,2;3,3], [1, 2, 3]);
+b = sparse([1,1;2,2;3,3], [1 + 2 * %i, 3 , -4 * %i]);
+if sparseExample(a) <> a then pause;end
+if sparseExample(b) <> b then pause;end
  
         
