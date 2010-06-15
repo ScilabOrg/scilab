@@ -874,3 +874,6 @@ Bug fixes:
 
 * bug 7250 fixed - In the console, first char of a filename was doubled
                    when completed.
+
+* bug 7285 fixed - Open/Save dialog box did not display filenames without
+                   extension with filter "*.*"
