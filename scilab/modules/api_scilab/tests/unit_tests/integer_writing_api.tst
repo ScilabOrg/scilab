@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Scilab Consortium Operational Team
+// Copyright (C) 2009-2010 - DIGITEO - Scilab Consortium Operational Team
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@ mkdir(pathconvert(TMPDIR+"/integer_writing_api"));
 cd(pathconvert(TMPDIR+"/integer_writing_api"));
 copyfile(SCI+"/modules/api_scilab/tests/unit_tests/integer_writing_api.c",pathconvert(TMPDIR+"/integer_writing_api/integer_writing_api.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("integer_writing",["read_integer","read_integer"],"integer_writing_api.c",[],"Makefile","",cflags);
+ilib_build("integer_writing",["read_integer","read_integer"],"integer_writing_api.c",[],"","",cflags);
 exec("loader.sce");
 
              
@@ -48,4 +48,4 @@ if or(cu16 <> au16 * 16) then pause;end
 if or(c32 <> a32 * 32) then pause;end
 if or(cu32 <> au32 * 64) then pause;end
  
-        
+       

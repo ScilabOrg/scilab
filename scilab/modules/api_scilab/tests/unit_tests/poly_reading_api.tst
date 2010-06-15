@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - DIGITEO - Scilab Consortium Operational Team
+// Copyright (C) 2009-2010 - DIGITEO - Scilab Consortium Operational Team
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -11,7 +11,7 @@ mkdir(pathconvert(TMPDIR+"/poly_reading_api"));
 cd(pathconvert(TMPDIR+"/poly_reading_api"));
 copyfile(SCI+"/modules/api_scilab/tests/unit_tests/poly_reading_api.c",pathconvert(TMPDIR+"/poly_reading_api/poly_reading_api.c",%F));
 cflags = "-I"+SCI+"/modules/localization/includes";
-ilib_build("poly_reading",["read_poly","read_poly"],"poly_reading_api.c",[],"Makefile","",cflags);
+ilib_build("poly_reading",["read_poly","read_poly"],"poly_reading_api.c",[],"","",cflags);
 exec("loader.sce");
  
 coeff1 = [ ..
@@ -40,4 +40,4 @@ p = [p1, p2, p3, p4, p5 ; p6, p7, p8, p9 ,p10 ; p11, p12, p13, p14, p15];
 p1 = read_poly(p);
 coeff2 = coeff(p1);
 if or(coeff2 <> coeff1) then pause;end
- 
+
