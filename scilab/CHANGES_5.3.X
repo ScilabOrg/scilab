@@ -876,3 +876,6 @@ Bug fixes:
 
 * bug 7250 fixed - In the console, first char of a filename was doubled
                    when completed.
+
+* bug 7236 fixed - Due to bug 1371 fix, sci2exp(-%inf) returned a wrong 
+                   value -nf and not -%inf.
