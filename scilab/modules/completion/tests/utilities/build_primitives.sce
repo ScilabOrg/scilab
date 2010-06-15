@@ -39,7 +39,7 @@ table = [ "completeline"  ,"sci_completeline"    ;
 		"getfilepartlevel","sci_getfilepartlevel";
 		"getcommonpart"   ,"sci_getcommonpart"   ];
 
-libname = ilib_build(ilib_name,table,files,libs,"makelib","",cflags);
+libname = ilib_build(ilib_name,table,files,libs,"","",cflags);
 
 cd(previous_dir);
 
