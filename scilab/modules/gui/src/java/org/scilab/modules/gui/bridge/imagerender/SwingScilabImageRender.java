@@ -294,13 +294,26 @@ public class SwingScilabImageRender extends JScrollPane implements SimpleImageRe
 	 * Rotates the image
 	 * @param indices the double value of the angle to rotate
 	 */
-	public void setRotate(double[] indices)
-	{
+	public void setRotate(double[] indices) {
 		int h = img.getHeight(this);
 		int w = img.getWidth(this);
 		BufferedImage bim = new BufferedImage(h, w, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2 = bim.createGraphics();
 		g2.rotate(Math.toRadians(indices[0]), w/2, h/2);
+		g2.drawImage(img, 0, 0, this);
+		imageRender.setIcon(new ImageIcon(bim));
+	}
+
+	/**
+	 * Shears the image
+	 * @param indices the double array of x, y values to shear
+	 */
+	public void setShear(double[] indices) {
+		int h = img.getHeight(this);
+		int w = img.getWidth(this);
+		BufferedImage bim = new BufferedImage(h, w, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = bim.createGraphics();
+		g2.shear(indices[0], indices[1]);
 		g2.drawImage(img, 0, 0, this);
 		imageRender.setIcon(new ImageIcon(bim));
 	}
