@@ -1252,6 +1252,33 @@ AC_SUBST(PVM_ENABLE)
 
 AM_CONDITIONAL(PVM, test "$with_pvm" != no)
 
+#################
+## OpenMP
+#################
+
+AC_ARG_WITH(openmp,
+    AC_HELP_STRING([--without-openmp],[Disable the usage of OpenMP (parallelization of some algoritms)]))
+
+OPENMP_ENABLE=no
+if test "$with_openmp" != no; then
+#   AC_OPENMP
+	OPENMP_CFLAGS="-fopenmp"
+	OPENMP_CXXFLAGS="-fopenmp"
+	OPENMP_LIBS="-lgomp"
+
+    AC_CHECK_HEADERS([omp.h], [],
+     [AC_MSG_ERROR([Could not find omp.h])])
+
+	OPENMP_ENABLE=yes
+fi
+AC_SUBST(OPENMP_ENABLE)
+AC_SUBST(OPENMP_CFLAGS)
+AC_SUBST(OPENMP_CXXFLAGS)
+AC_SUBST(OPENMP_LIBS)
+
+AM_CONDITIONAL(OPENMP, test "$with_openmp" != no)
+
+
 #######################
 ## Test for libxml
 #######################
@@ -1681,6 +1708,8 @@ modules/atoms/Makefile
 modules/xcos/Makefile
 modules/xpad/Makefile
 modules/graph/Makefile
+modules/parallel/Makefile
+modules/modules_manager/Makefile
 modules/Makefile
 libs/Makefile
 Makefile
@@ -1815,6 +1844,17 @@ fi
 else 
    echo "Not using Scicos"
 fi
+fi
+
+echo ""
+if test $OPENMP_ENABLE = yes; then
+   echo "OpenMP Configuration:"
+   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
+   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
+   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
+   echo "OpenMP FFLAGS ...... = $OPENMP_LDFLAGS"
+else
+   echo "Not using OpenMP"
 fi
 
 echo ""
