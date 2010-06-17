@@ -21,10 +21,14 @@ import javax.swing.text.Element;
     private ScilabDocument doc;
     private Element elem;
     private boolean transp = false;
+    private ScilabLexer scilabLexer;
+    private int start;
+    private int end;
 
     public MatchingBlockScanner(ScilabDocument doc) {
         this.doc = doc;
         this.elem = doc.getDefaultRootElement();
+        this.scilabLexer = doc.createLexer();
     }
 
     public MatchingPositions getMatchingBlock(int pos, boolean lr) {
@@ -32,7 +36,9 @@ import javax.swing.text.Element;
         transp = false;
         try {
             if (lr) {
-                yyreset(new ScilabDocumentReader(doc, pos, doc.getEndPosition().getOffset()));
+                start =  pos;
+                end = doc.getEndPosition().getOffset();
+                yyreset(new ScilabDocumentReader(doc, start, end));
                 yybegin(OPENCLOSE);
                 if (yylex() != 1) {
                    return null;
@@ -41,7 +47,9 @@ import javax.swing.text.Element;
                 p1 = pos + yylength();
                 yybegin(LR);
             } else {
-                 yyreset(new ScilabDocumentReader(doc, true, pos - 1, 0));
+                 start = pos - 1;
+                 end = 0;
+                 yyreset(new ScilabDocumentReader(doc, true, start, end));
                  yybegin(CLOSEOPEN);
                  if (yylex() != 1) {
                     return null;
@@ -71,9 +79,11 @@ import javax.swing.text.Element;
         return null;
     }
 
-    public int getAloneOpenSymbol(int start, int end) {
+    public int getAloneOpenSymbol(int p1, int p2) {
         int s = 0;
-        yyreset(new ScilabDocumentReader(doc, true, end, start));
+        start = p2;
+        end = p1;
+        yyreset(new ScilabDocumentReader(doc, true, start, end));
         yybegin(RLALONE);
         try {
            do {
@@ -84,7 +94,7 @@ import javax.swing.text.Element;
               }
            } while (zzMarkedPos != 0 && s != -1);
            if (s == -1) {
-              return end - yychar - yylength() + 2;
+              return start - yychar - yylength() + 2;
            } else {
               return -1;
            }
@@ -125,6 +135,7 @@ id = [a-zA-Z%_#!?][a-zA-Z0-9_#!$?]*
 
 string = (([^\'\"\r\n]*)|([\'\"]{2}))*
 qstring = (\"|\'){string}(\"|\')
+gnirtsq = \"{string}(\"|\')
 transp = ({spec} | ")" | "]" | "}") "'"
 
 openK = ("if" | "for" | "while" | "select" | "try" | "function")
@@ -143,7 +154,7 @@ nepoKx = {spec}{nepoK}
 
 psnart = "'" {string} "'" ({spec} | ")" | "]" | "}")
 
-%x LR, RL, OPENCLOSE, CLOSEOPEN, RLALONE
+%x LR, RL, OPENCLOSE, CLOSEOPEN, PSNART
 
 %%
 
@@ -179,14 +190,15 @@ psnart = "'" {string} "'" ({spec} | ")" | "]" | "}")
 }
 
 <RL> {
-  {psnart}                       {
-                                   yypushback(yylength() - 1);
+  \'                             {
+                                   yypushback(1);
+                                   yybegin(PSNART);
                                  }
 
   "fiesle"                       |
   {tnemmoc}                      |
   {esolcKx}                      |
-  {qstring}                      { }
+  {gnirtsq}                      { }
 
   {closeS}                       |
   {nepoK}                        {
@@ -203,27 +215,13 @@ psnart = "'" {string} "'" ({spec} | ")" | "]" | "}")
   {eol}                          { }
 }
 
-<RLALONE> {
-  {psnart}                       {
-                                   yypushback(yylength() - 1);
+<PSNART> {
+  \'                             {
+                                   if (scilabLexer.getKeyword(start - zzCurrentPos, false) == ScilabLexerConstants.STRING) {
+                                      zzMarkedPos += start - zzCurrentPos - scilabLexer.beginString;
+                                   }
+                                   yybegin(RL);
                                  }
-
-  "fiesle"                       |
-  {tnemmoc}                      |
-  {esolcKx}                      |
-  {qstring}                      { }
-
-  {closeS}                       {
-                                   return 1;
-                                 }
-
-  {openS}                        {
-                                   return 0;
-                                 }
-
-  {nepoKx}                       |
-  .                              |
-  {eol}                          { }
 }
 
 <OPENCLOSE> {
