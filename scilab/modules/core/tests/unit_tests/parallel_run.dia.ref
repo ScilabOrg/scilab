@@ -19,15 +19,15 @@ c_prog=['#include  <math.h>'
 '*((double*)*res)= 2.*(((double*)args[0])[0]);'
 '}'];
 make_compiled_function(fun_name, '.c',c_prog);
-   Génère un fichier loader
-   Génère un Makefile
-   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
-   ilib_gen_Make : Copie test_fun.c vers TMPDIR
-   ilib_gen_Make : Modification du Makefile dans TMPDIR.
-   Exécute le Makefile
-   Génère un fichier cleaner
-Bibliothèque partagée chargée.
-Edition de liens effectuée.
+   Generate a loader file
+   Generate a Makefile
+   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
+   ilib_gen_Make: Copy test_fun.c to TMPDIR
+   ilib_gen_Make: Modification of the Makefile in TMPDIR.
+   Running the Makefile
+   Generate a cleaner file
+Shared archive loaded.
+Link done.
 args=[1,2];
 res=parallel_run(args,fun_name,1);
 if res<>[2, 4] then bugmes();quit;end
@@ -40,15 +40,15 @@ c_prog=['#include  <math.h>'
 'res[0][0]= .5*args[0][0]; res[0][1]= .25*args[0][1];res[1][0]= 2*args[1][0];'
 '}'];
 make_compiled_function(fun_name, '.c',c_prog);
-   Génère un fichier loader
-   Génère un Makefile
-   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
-   ilib_gen_Make : Copie test_fun_2_1.c vers TMPDIR
-   ilib_gen_Make : Modification du Makefile dans TMPDIR.
-   Exécute le Makefile
-   Génère un fichier cleaner
-Bibliothèque partagée chargée.
-Edition de liens effectuée.
+   Generate a loader file
+   Generate a Makefile
+   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
+   ilib_gen_Make: Copy test_fun_2_1.c to TMPDIR
+   ilib_gen_Make: Modification of the Makefile in TMPDIR.
+   Running the Makefile
+   Generate a cleaner file
+Shared archive loaded.
+Link done.
 arg1=[1,2;4,5]; arg2=[2,3];
 [res1, res2] =parallel_run(arg1, arg2,fun_name,"constant", [2;1]);
 if res1<>[.5,1;1,1.25]  then bugmes();quit;end
@@ -89,15 +89,15 @@ c_prog=['#include <algorithm>'
 '  }'
 '}'];
 make_compiled_function(fun_name, '.cxx',c_prog);
-   Génère un fichier loader
-   Génère un Makefile
-   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
-   ilib_gen_Make : Copie min_med_max_cxx.cxx vers TMPDIR
-   ilib_gen_Make : Modification du Makefile dans TMPDIR.
-   Exécute le Makefile
-   Génère un fichier cleaner
-Bibliothèque partagée chargée.
-Edition de liens effectuée.
+   Generate a loader file
+   Generate a Makefile
+   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
+   ilib_gen_Make: Copy min_med_max_cxx.cxx to TMPDIR
+   ilib_gen_Make: Modification of the Makefile in TMPDIR.
+   Running the Makefile
+   Generate a cleaner file
+Shared archive loaded.
+Link done.
 [Min_mc,Med_mc,Max_mc]=parallel_run(A,B,C, fun_name);
 if max(max(Min-Min_mc', Med-Med_mc',Max-Max_mc')) > %eps  then bugmes();quit;end
 function r= quantiles(data, ranks)
@@ -126,15 +126,15 @@ c_prog=['#include<algorithm>'
 ' }'
 '}'];
 make_compiled_function(fun_name, '.cxx',c_prog);
-   Génère un fichier loader
-   Génère un Makefile
-   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
-   ilib_gen_Make : Copie quantiles_cxx.cxx vers TMPDIR
-   ilib_gen_Make : Modification du Makefile dans TMPDIR.
-   Exécute le Makefile
-   Génère un fichier cleaner
-Bibliothèque partagée chargée.
-Edition de liens effectuée.
+   Generate a loader file
+   Generate a Makefile
+   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
+   ilib_gen_Make: Copy quantiles_cxx.cxx to TMPDIR
+   ilib_gen_Make: Modification of the Makefile in TMPDIR.
+   Running the Makefile
+   Generate a cleaner file
+Shared archive loaded.
+Link done.
 R4_6_7_mc=parallel_run(data',N,[4,6,7]',3,fun_name, 3)';
 if max(R4_6_7-R4_6_7_mc)  > %eps  then bugmes();quit;end
 N=5; // size of a block

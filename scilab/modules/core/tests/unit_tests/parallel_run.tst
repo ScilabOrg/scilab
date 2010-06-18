@@ -7,6 +7,8 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+// <-- ENGLISH IMPOSED -->
+
 function make_compiled_function(name, ext, code)
 filename=name+ext;
 mputl(code, filename);
