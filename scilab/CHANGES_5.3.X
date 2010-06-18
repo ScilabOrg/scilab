@@ -735,6 +735,9 @@ Bug fixes:
 
 * bug 6682 fixed - mprintf, msprintf, mfprintf did not manage octal (%o) format.
 
+* bug 6726 fixed - Variables whose name starts by a $  could be retreived 
+                   in libraries.
+
 * bug 6731 fixed - Information on the output argument was missing from the
                    lib() documentation.
 
