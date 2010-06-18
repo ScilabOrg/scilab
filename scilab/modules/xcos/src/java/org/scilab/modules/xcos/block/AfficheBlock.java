@@ -96,11 +96,12 @@ public final class AfficheBlock extends BasicBlock {
 			 * Update and refresh the values
 			 */
 			block.setValue(blockResult.toString());
+			
 			final mxGraphView view = block.getParentDiagram().getView();
-			final mxCellState state = view.getState(block);
-			state.setInvalid(true);
-			view.validate();
-			block.getParentDiagram().repaint(state.getBoundingBox());
+			final mxCellState parentState = view.getState(block.getParent());
+			
+			view.validateBounds(parentState, block);
+			block.getParentDiagram().repaint(view.validatePoints(parentState, block));
 			
 			if (LogFactory.getLog(UpdateValueListener.class).isTraceEnabled()) {
 				LogFactory.getLog(UpdateValueListener.class).trace(blockResult.toString());
