@@ -600,6 +600,8 @@ Bug fixes:
 
 * bug 4493 fixed - 'rat' moved in elementary_functions module.
 
+* bug 4505 fixed - A red vertical bar appeared for some continuous time systems.
+
 * bug 4572 fixed - Scilab did a SIGSEGV after stacksize('max') + stacksize().
 
 * bug 4583 fixed - Default value for string array assignment was " " instead
@@ -745,6 +747,9 @@ Bug fixes:
 
 * bug 6750 fixed - TMPDIR constant had no help page.
 
+* bug 6751 fixed - Completion added unwanted characters when some
+                   string sequences occured several times.
+
 * bug 6774 fixed - Calling get_param generated a "funcprot" warning when
                    the value of an option which was a function.
 
@@ -872,5 +877,10 @@ Bug fixes:
 
 * bug 7224 fixed - export empty matrix in HDF5 did not unlock file.
 
+* bug 7236 fixed - Due to bug 1371 fix, sci2exp(-%inf) returned a wrong
+                   value -nf and not -%inf.
+
 * bug 7250 fixed - In the console, first char of a filename was doubled
                    when completed.
+
+* bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
