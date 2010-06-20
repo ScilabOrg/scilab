@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Int2StrValueMap complex type.
+ * <p>Java class for RealValueMap complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Int2StrValueMap">
+ * &lt;complexType name="RealValueMap">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="simVal" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *       &lt;attribute name="xcosVal" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="simName" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="xcosIndex" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -34,60 +34,60 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Int2StrValueMap")
-public class Int2StrValueMap {
+@XmlType(name = "RealValueMap")
+public class RealValueMap {
 
     @XmlAttribute(required = true)
-    protected BigInteger simVal;
+    protected String simName;
     @XmlAttribute(required = true)
-    protected String xcosVal;
+    protected BigInteger xcosIndex;
 
     /**
-     * Gets the value of the simVal property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getSimVal() {
-        return simVal;
-    }
-
-    /**
-     * Sets the value of the simVal property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setSimVal(BigInteger value) {
-        this.simVal = value;
-    }
-
-    /**
-     * Gets the value of the xcosVal property.
+     * Gets the value of the simName property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getXcosVal() {
-        return xcosVal;
+    public String getSimName() {
+        return simName;
     }
 
     /**
-     * Sets the value of the xcosVal property.
+     * Sets the value of the simName property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setXcosVal(String value) {
-        this.xcosVal = value;
+    public void setSimName(String value) {
+        this.simName = value;
+    }
+
+    /**
+     * Gets the value of the xcosIndex property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getXcosIndex() {
+        return xcosIndex;
+    }
+
+    /**
+     * Sets the value of the xcosIndex property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setXcosIndex(BigInteger value) {
+        this.xcosIndex = value;
     }
 
 }

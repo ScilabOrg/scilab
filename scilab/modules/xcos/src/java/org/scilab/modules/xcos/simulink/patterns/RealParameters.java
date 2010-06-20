@@ -18,18 +18,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Str2IntParameters complex type.
+ * <p>Java class for RealParameters complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Str2IntParameters">
+ * &lt;complexType name="RealParameters">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="parMap" type="{}Str2IntValueMap" maxOccurs="unbounded"/>
+ *         &lt;element name="parMap" type="{}RealValueMap" maxOccurs="unbounded"/>
  *       &lt;/sequence>
- *       &lt;attribute name="sim" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="sim" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="xcos" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *       &lt;attribute name="description" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
@@ -40,14 +40,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Str2IntParameters", propOrder = {
+@XmlType(name = "RealParameters", propOrder = {
     "parMap"
 })
-public class Str2IntParameters {
+public class RealParameters {
 
     @XmlElement(required = true)
-    protected List<Str2IntValueMap> parMap;
-    @XmlAttribute(required = true)
+    protected List<RealValueMap> parMap;
+    @XmlAttribute
     protected String sim;
     @XmlAttribute(required = true)
     protected String xcos;
@@ -72,13 +72,13 @@ public class Str2IntParameters {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Str2IntValueMap }
+     * {@link RealValueMap }
      * 
      * 
      */
-    public List<Str2IntValueMap> getParMap() {
+    public List<RealValueMap> getParMap() {
         if (parMap == null) {
-            parMap = new ArrayList<Str2IntValueMap>();
+            parMap = new ArrayList<RealValueMap>();
         }
         return this.parMap;
     }
