@@ -166,7 +166,7 @@ void visitprivate(const AssignExp  &e)
             {//manage a.b(1) = x
                 pCall->name_get().accept(execVar);
 
-                if(execVar.result_get() != NULL && execVar.result_get()->isCallable())
+                if(execVar.result_get() != NULL)
                 {
                     pIT = execVar.result_get();
                 }
@@ -343,10 +343,13 @@ void visitprivate(const AssignExp  &e)
             InternalType *pIT	=	execMeR.result_get();
             if(pIT->isImplicitList())
             {
-                InternalType *pTemp = ((ImplicitList*)pIT)->extract_matrix();
-                delete pIT;
-                execMeR.result_set(NULL);
-                pIT = pTemp;
+                if(pIT->getAsImplicitList()->computable())
+                {
+                    InternalType *pTemp = pIT->getAsImplicitList()->extract_matrix();
+                    delete pIT;
+                    execMeR.result_set(NULL);
+                    pIT = pTemp;
+                }
             }
 
             const ReturnExp *pReturn = dynamic_cast<const ReturnExp*>(&e.right_exp_get());
@@ -430,10 +433,13 @@ void visitprivate(const AssignExp  &e)
             InternalType *pIT = execMeR.result_get();
             if(pIT->isImplicitList())
             {
-                InternalType *pTemp = ((ImplicitList*)pIT)->extract_matrix();
-                delete pIT;
-                execMeR.result_set(NULL);
-                pIT = pTemp;
+                if(pIT->getAsImplicitList()->computable())
+                {
+                    InternalType *pTemp = pIT->getAsImplicitList()->extract_matrix();
+                    delete pIT;
+                    execMeR.result_set(NULL);
+                    pIT = pTemp;
+                }
             }
 
             //assign result to new field
