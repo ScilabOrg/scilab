@@ -40,15 +40,15 @@ namespace types
 	List::List(List *_oListCopyMe)
 	{
 		std::vector<InternalType *>::iterator itValues;
-		m_plData = new std::vector<InternalType *>(_oListCopyMe->getData()->size());
+		m_plData = new std::vector<InternalType *>;
 
 		for(int i = 0 ; i < _oListCopyMe->getData()->size() ; i++)
 		{
 			InternalType* pIT = (*_oListCopyMe->getData())[i];
-			(*m_plData)[i] = pIT->clone();
+            append(pIT);
 		}
 
-		m_iSize = (int)m_plData->size();
+		m_iSize = static_cast<int>(m_plData->size());
 	}
 
 	std::vector<InternalType *> *List::getData()
@@ -62,7 +62,7 @@ namespace types
 	*/
 	int List::size_get() 
 	{
-		return (int)m_plData->size();
+		return static_cast<int>(m_plData->size());
 	}
 
 	/**
@@ -71,8 +71,9 @@ namespace types
 	*/
 	void List::append(InternalType *_typedValue)
 	{
+        _typedValue->IncreaseRef();
 		m_plData->push_back(_typedValue);
-		m_iSize = (int)m_plData->size();
+		m_iSize = static_cast<int>(m_plData->size());
 	}
 
 	/**
@@ -128,7 +129,7 @@ namespace types
 		for(int i = 0 ; i < _iSeqCount ; i++)
 		{
 			InternalType* pIT = (*m_plData)[_piSeqCoord[i] - 1];
-			outList.push_back(pIT->clone());
+			outList.push_back(pIT);
 		}
 
 		return outList;
@@ -172,7 +173,9 @@ namespace types
 				}
 				else
 				{
-					m_plData->insert(m_plData->begin() + (_piSeqCoord[i] - 1), pInsert->insert_get());
+                    InternalType* pIT = pInsert->insert_get();
+                    pIT->IncreaseRef();
+					m_plData->insert(m_plData->begin() + (_piSeqCoord[i] - 1), pIT);
 				}
 			}
 			else
@@ -182,7 +185,16 @@ namespace types
 					m_plData->push_back(new ListUndefined());
 					m_iSize = size_get();
 				}
-				(*m_plData)[_piSeqCoord[i] - 1] = (*_poSource)[i]->clone();
+
+                InternalType* pIT = (*m_plData)[_piSeqCoord[i] - 1];
+                pIT->DecreaseRef();
+                if(pIT->isDeletable())
+                {
+                    delete pIT;
+                }
+
+                (*_poSource)[i]->IncreaseRef();
+				(*m_plData)[_piSeqCoord[i] - 1] = (*_poSource)[i];
 			}
 		}
 		return true;

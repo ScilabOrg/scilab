@@ -145,7 +145,16 @@ namespace ast
 
 		vector<types::InternalType*>* result_list_get()
 		{
-			return &_resultVect;
+            if(result_size_get() == 1)
+            {
+                vector<types::InternalType*>* pList = new vector<types::InternalType*>;
+                pList->push_back(_result);
+                return pList;
+            }
+            else
+            {
+			    return &_resultVect;
+            }
 		}
 
 		void result_set(int _iPos, const types::InternalType *gtVal)
@@ -278,35 +287,30 @@ namespace ast
 
                     bDeleteDbl		= true;
                 }
-                else
+                else if(execMeArg.result_get()->getType() == InternalType::RealPoly)
                 {
-                    pIn = execMeArg.result_get();
+                    MatrixPoly *pPoly = execMeArg.result_get()->getAsPoly();
 
-                    if(pIn->getType() == InternalType::RealPoly)
-                    {//manage $
-                        MatrixPoly *pPoly = pIn->getAsPoly();
-
-                        if(_pRefVar != NULL)
-                        {
-                            int iMaxDim = GetVarMaxDim(_pRefVar, k, iProductElem);
-                            Double dbl(iMaxDim); // $
-                            pDbl = pPoly->evaluate(&dbl);
-                            bDeleteDbl = true;
-                        }
-                        else
-                        {//houston we have a problem ...
-                            Double dbl(0);
-                            pDbl = pPoly->evaluate(&dbl);
-
-                        }
-                    }
-                    else if(pIn->getType() == InternalType::RealDouble)
+                    if(_pRefVar != NULL)
                     {
-                        pDbl	= pIn->getAsDouble();//
+                        int iMaxDim = GetVarMaxDim(_pRefVar, k, iProductElem);
+                        Double dbl(iMaxDim); // $
+                        pDbl = pPoly->evaluate(&dbl);
+                        bDeleteDbl = true;
                     }
                     else
-                    {//Heu ... ?
+                    {//houston we have a problem ...
+                        Double dbl(0);
+                        pDbl = pPoly->evaluate(&dbl);
+
                     }
+                }
+                else if(execMeArg.result_get()->getType() == InternalType::RealDouble)
+                {
+                    pDbl	= execMeArg.result_get()->getAsDouble();
+                }
+                else
+                {//Heu ... ?
                 }
 
                 double *pData = pDbl->real_get();
@@ -871,9 +875,36 @@ namespace ast
                 T execVar;
                 e.exp_get().accept(execVar);
 
-                for(int i = 0 ; i < execVar.result_size_get() ; i++)
+                if(execVar.result_size_get() == 1)
                 {
-                    result_set(i, execVar.result_get(i)->clone());
+                    //protect variable
+                    InternalType *pIT = execVar.result_get();
+                    pIT->IncreaseRef();
+                    result_set(pIT);
+                }
+                else
+                {
+                    for(int i = 0 ; i < execVar.result_size_get() ; i++)
+                    {
+                        //protect variable
+                        InternalType *pIT = execVar.result_get(i);
+                        pIT->IncreaseRef();
+                        result_set(i, pIT);
+                    }
+                }
+            }
+
+            if(result_size_get() == 1)
+            {
+                //unprotect variable
+                result_get()->DecreaseRef();
+            }
+            else
+            {
+                for(int i = 0 ; i < result_size_get() ; i++)
+                {
+                    //unprotect variable
+                    result_get(i)->DecreaseRef();
                 }
             }
             const_cast<ReturnExp*>(&e)->return_set();
@@ -986,9 +1017,9 @@ namespace ast
                     }
                     
 
-                    FieldExp* pExp = dynamic_cast<FieldExp*>(*itExp);
-                    //to manage structure field extraction
-                    if(pExp != NULL || execMe.result_get()->isDeletable())
+                    SimpleVar* pVar = dynamic_cast<SimpleVar*>(*itExp);
+                    //don't output Silplevar and empty result
+                    if(execMe.result_get() != NULL && pVar == NULL)
                     {
                         symbol::Context::getInstance()->put("ans", *execMe.result_get());
                         if((*itExp)->is_verbose())

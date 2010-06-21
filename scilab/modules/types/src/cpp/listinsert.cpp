@@ -21,11 +21,21 @@ namespace types
 
 	ListInsert::ListInsert(InternalType* _pIT)
 	{
+        _pIT->IncreaseRef();
 		m_pInsert = _pIT;
 	}
 
 	ListInsert::~ListInsert()
 	{
+        if(m_pInsert != NULL)
+        {
+            m_pInsert->DecreaseRef();
+            if(m_pInsert->isDeletable())
+            {
+                delete m_pInsert;
+                m_pInsert = NULL;
+            }
+        }
 	}
 
 	void ListInsert::whoAmI()
