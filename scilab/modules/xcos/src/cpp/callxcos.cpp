@@ -1,6 +1,7 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2009 - DIGITEO - Bruno JOFRET
+ *  Copyright (C) 2010-2010 - DIGITEO - Clément DAVID
  * 
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
@@ -11,6 +12,7 @@
  */
 
 #include "Xcos.hxx"
+#include "GiwsException.hxx"
 
 extern "C"
 {
@@ -18,6 +20,7 @@ extern "C"
 #include "charEncoding.h"
 #include "getScilabJavaVM.h"
 #include "charEncoding.h"
+#include "Scierror.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 }
@@ -26,37 +29,65 @@ using namespace org_scilab_modules_xcos;
 /*--------------------------------------------------------------------------*/
 int callXcos(char **_filenames, int _nbfiles)
 {
-	if ( (_filenames) && (_nbfiles > 0) )
+	try
 	{
-		int i = 0;
-		for (i = 0; i < _nbfiles; i++)
+		if ( (_filenames) && (_nbfiles > 0) )
 		{
-			Xcos::xcos(getScilabJavaVM(), _filenames[i]);
+			int i = 0;
+			for (i = 0; i < _nbfiles; i++)
+			{
+				Xcos::xcos(getScilabJavaVM(), _filenames[i]);
+			}
+		}
+		else
+		{
+			Xcos::xcos(getScilabJavaVM());
 		}
 	}
-	else
-	{
-		Xcos::xcos(getScilabJavaVM());
-	}
+    catch (GiwsException::JniCallMethodException exception)
+    {
+        Scierror(999, "%s: %s\n", "xcos", exception.getJavaDescription().c_str());
+        return 0;
+    }
+    catch (GiwsException::JniException exception)
+    {
+        Scierror(999, "%s: %s\n", "xcos", exception.what());
+        return 0;
+    }
+
 	return 0;
 }
 /*--------------------------------------------------------------------------*/
 int callXcosW(wchar_t **_wcfilenames, int _nbfiles)
 {
-	if ( (_wcfilenames) && (_nbfiles > 0) )
+	try
 	{
-		int i = 0;
-		char **filesname = (char**)MALLOC(sizeof(wchar_t*) * _nbfiles);
-		if (filesname)
+		if ( (_wcfilenames) && (_nbfiles > 0) )
 		{
-			for (i = 0; i < _nbfiles; i++)
+			int i = 0;
+			char **filesname = (char**)MALLOC(sizeof(wchar_t*) * _nbfiles);
+			if (filesname)
 			{
-				filesname[i] = wide_string_to_UTF8(_wcfilenames[i]);
+				for (i = 0; i < _nbfiles; i++)
+				{
+					filesname[i] = wide_string_to_UTF8(_wcfilenames[i]);
+				}
+				callXcos(filesname, _nbfiles);
+				freeArrayOfString(filesname, _nbfiles);
 			}
-			callXcos(filesname, _nbfiles);
-			freeArrayOfString(filesname, _nbfiles);
 		}
 	}
+    catch (GiwsException::JniCallMethodException exception)
+    {
+        Scierror(999, "%s: %s\n", "xcos", exception.getJavaDescription().c_str());
+        return 0;
+    }
+    catch (GiwsException::JniException exception)
+    {
+        Scierror(999, "%s: %s\n", "xcos", exception.what());
+        return 0;
+    }
+    
 	return 0;
 }
 /*--------------------------------------------------------------------------*/
