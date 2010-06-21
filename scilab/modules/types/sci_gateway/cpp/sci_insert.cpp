@@ -23,7 +23,7 @@ Function::ReturnValue sci_insert(typed_list &in, int _piRetCount, typed_list &ou
 	}
 	else
 	{
-		out.push_back(new ListInsert(in[0]->clone()));
+		out.push_back(new ListInsert(in[0]));
 	}
   return Function::OK;
 }
