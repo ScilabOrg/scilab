@@ -100,10 +100,12 @@ public abstract class DefaultAction extends CallBack {
 			 * Getting icon from the registered icon path
 			 */
 			final String iconName = (String) getClass().getField("SMALL_ICON").get(null);
-			for (String path : ICON_PATH) {
-				if (new File(path + iconName).exists()) {
-					icon = path + iconName;
-					break;
+			if (iconName != null && !iconName.isEmpty()) {
+				for (String path : ICON_PATH) {
+					if (new File(path + iconName).isFile()) {
+						icon = path + iconName;
+						break;
+					}
 				}
 			}
 			
@@ -123,7 +125,7 @@ public abstract class DefaultAction extends CallBack {
 		putValue(Action.NAME, name);
 		putValue(Action.SHORT_DESCRIPTION, name);
 		putValue(Action.LONG_DESCRIPTION, name);
-		if (!ICON_PATH.equals(icon)) {
+		if (!icon.isEmpty()) {
 			putValue(Action.SMALL_ICON, new ImageIcon(icon));
 		}
 
