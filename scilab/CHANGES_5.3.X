@@ -145,6 +145,12 @@ Graphics:
 Two additionnal Graphics demos about plotyy() and plotyyy() added. See bug #7687
 Thanks to Samuel Gougeon.
 
+* bug 6395 fixed - evans display improved to take special care of the
+                   root loci points where complex conjugates roots
+                   collapse in a pair of real roots. Datatips
+                   customization added. Root locus grids "sgrid" and
+                   "zgrid" superposition improved.
+
 * bug 6910 fixed - The font size in LaTeX labels was too big.
 
 * bug 7137 fixed - In Text uicontrol, fontsize was rounded which was problematic when
@@ -788,7 +794,7 @@ Graphics:
                    (superseed "m_circle") and "nicholschart" (superseed
                    "chart").
 
-* bug 6532 fixed - In some cases, the text entity rendering order was wrong.
+* bug 6532 fixed - In some case text entity rendering order was wrong.
 
 * bug 6676 fixed - When "twinkle(gca())" was executed, data related to the
                    current axes was not twinkling.
