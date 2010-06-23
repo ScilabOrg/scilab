@@ -12,7 +12,6 @@
 
 package org.scilab.modules.graph;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -36,10 +35,8 @@ import org.xml.sax.SAXException;
 
 import com.mxgraph.shape.mxITextShape;
 import com.mxgraph.swing.view.mxInteractiveCanvas;
-import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxUtils;
-import com.mxgraph.view.mxCellState;
 
 /**
  * Painter for each vertex and edge
@@ -189,47 +186,6 @@ public class ScilabCanvas extends mxInteractiveCanvas {
 		
 		return temporaryGraphics;
 	}
-
-	/**
-	 * Draw the text label on the cell state.
-	 * 
-	 * @param text the current text
-	 * @param state the cell state
-	 * @param html true, if the text may be HTML, false otherwise.
-	 * @return the associated shape
-	 * @see com.mxgraph.canvas.mxGraphics2DCanvas#drawLabel(java.lang.String, com.mxgraph.view.mxCellState, boolean)
-	 */
-	@Override
-	public Object drawLabel(String text, mxCellState state, boolean html) {
-		Map<String, Object> style = state.getStyle();
-		mxITextShape shape = getTextShape(text, style, html);
-		
-		if (g != null && shape != null && drawLabels && text != null
-				&& text.length() > 0)
-		{
-			mxRectangle translatedBounds = new mxRectangle(state.getLabelBounds());
-			translatedBounds.setX(translatedBounds.getX() + translate.x);
-			translatedBounds.setY(translatedBounds.getY() + translate.y);
-
-			// Creates a temporary graphics instance for drawing this shape
-			Graphics2D previousGraphics = g;
-			g = createTemporaryGraphics(style, 100, null);
-
-			// Draws the label background and border
-			Color bg = mxUtils.getColor(style,
-					mxConstants.STYLE_LABEL_BACKGROUNDCOLOR);
-			Color border = mxUtils.getColor(style,
-					mxConstants.STYLE_LABEL_BORDERCOLOR);
-			paintRectangle(translatedBounds, bg, border);
-
-			// Paints the label and restores the graphics object
-			shape.paintShape(this, text, translatedBounds, style);
-			g.dispose();
-			g = previousGraphics;
-		}
-		
-		return shape;
-	}
 	
 	/**
 	 * Paint the image.
@@ -239,30 +195,25 @@ public class ScilabCanvas extends mxInteractiveCanvas {
 	 * 
 	 * @param bounds
 	 *            the current bounds
-	 * @param style
-	 *            the current style
-	 * @see com.mxgraph.canvas.mxGraphics2DCanvas#paintImage(com.mxgraph.util.mxRectangle,
-	 *      java.util.Map)
+	 * @param imageUrl
+	 *            the current image
+	 * @see com.mxgraph.canvas.mxGraphics2DCanvas#drawImage(Rectangle, String)
 	 */
 	@Override
-	public void paintImage(mxRectangle bounds, Map<String, Object> style) {
-		String image = getImageForStyle(style);
-		
-		if (image != null) {
-			if (image.endsWith(".svg")) {
-				Rectangle rect = bounds.getRectangle();
-				
+	public void drawImage(Rectangle bounds, String imageUrl) {
+		if (imageUrl != null) {
+			if (imageUrl.endsWith(".svg")) {
 				// Translate from (0,0) to icon base point.
-				g.translate(rect.x, rect.y);
+				g.translate(bounds.x, bounds.y);
 
 				// Paint the background image if applicable
 				if (svgBackgroundImage != null) {
-					paintSvgBackgroundImage(rect.width, rect.height);
+					paintSvgBackgroundImage(bounds.width, bounds.height);
 				}
 
-				paintSvgForegroundImage(rect.width, rect.height, image);
+				paintSvgForegroundImage(bounds.width, bounds.height, imageUrl);
 			} else {
-				super.paintImage(bounds, style);
+				super.drawImage(bounds, imageUrl);
 			}
 		}
 	}

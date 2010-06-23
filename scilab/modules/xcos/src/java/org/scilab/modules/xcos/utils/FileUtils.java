@@ -16,11 +16,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.channels.FileChannel;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.util.mxUtils;
@@ -30,8 +38,13 @@ import com.mxgraph.view.mxStylesheet;
  * Contains useful method for managing files.
  */
 public final class FileUtils {
-	public static String STYLE_FILENAME = "Xcos-style.xml";
 	
+	/**
+	 * The style configuration file name.
+	 */
+	public static final String STYLE_FILENAME = "Xcos-style.xml";
+	
+	private static final Log LOG = LogFactory.getLog(FileUtils.class); 
 	
 	/**
 	 * Default constructor
@@ -164,7 +177,45 @@ public final class FileUtils {
 		String xml = mxUtils.readFile(userStyleSheet.getAbsolutePath());
 		xml = xml.replaceAll("\\$SCILAB", sciURL);
 		xml = xml.replaceAll("\\$SCIHOME", homeURL);
-		Document document = mxUtils.parse(xml);
-		new mxCodec().decode(document.getDocumentElement(), styleSheet);
+		
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder;
+		Document document = null;
+
+	    try {
+			docBuilder = docBuilderFactory.newDocumentBuilder();
+			document = docBuilder.parse(new InputSource(new StringReader(xml)));
+			new mxCodec().decode(document.getDocumentElement(), styleSheet);
+		} catch (ParserConfigurationException e) {
+			LOG.error(e);
+		} catch (SAXException e) {
+			LOG.error(e);
+		}
+	}
+	
+    /**
+     * Load an Xcos file
+     * 
+     * @param xcosFile xcos file
+     * @return opened document
+     */
+	public static Document loadXcosDocument(String xcosFile) {
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder;
+		try {
+			docBuilder = docBuilderFactory.newDocumentBuilder();
+			return docBuilder.parse(new InputSource(new FileInputStream(
+					xcosFile)));
+		} catch (ParserConfigurationException e) {
+			LOG.error(e);
+			return null;
+		} catch (SAXException e) {
+			LOG.error(e);
+			return null;
+		} catch (IOException e) {
+			LOG.error(e);
+			return null;
+		}
 	}
 }

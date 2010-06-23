@@ -36,9 +36,6 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,7 +104,6 @@ import org.scilab.modules.xcos.utils.XcosEvent;
 import org.scilab.modules.xcos.utils.XcosFileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -2081,7 +2077,8 @@ public class XcosDiagram extends ScilabGraph {
 	    break;
 
 	case XCOS:
-	    Document document = loadXcosDocument(theFile.getAbsolutePath());
+		Document document = FileUtils.loadXcosDocument(theFile
+				.getAbsolutePath());
 	    if (document == null) {
 		XcosDialogs.couldNotLoadFile(this);
 		return false;
@@ -2125,25 +2122,6 @@ public class XcosDiagram extends ScilabGraph {
 	    break;
 	}
 	return result;
-    }
-
-    /**
-     * @param xcosFile xcos file
-     * @return opened document
-     */
-    static Document loadXcosDocument(String xcosFile) {
-	DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder docBuilder;
-	try {
-	    docBuilder = docBuilderFactory.newDocumentBuilder();
-	    return docBuilder.parse(xcosFile);
-	} catch (ParserConfigurationException e) {
-	    return null;
-	} catch (SAXException e) {
-	    return null;
-	} catch (IOException e) {
-	    return null;
-	}
     }
     
     /**
