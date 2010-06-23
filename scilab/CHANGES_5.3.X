@@ -405,7 +405,13 @@ Graphics:
                    (superseed "m_circle") and "nicholschart" (superseed
                    "chart").
 
-* bug 6532 fixed - In some cases, the text entity rendering order was wrong.
+* bug 6395 fixed - evans display improved to care special care of the
+                   root loci points where complex conjugates roots
+                   collapse in a pair of real roots. Datatips
+                   customization added. Root locus grids "sgrid" and
+                   "zgrid" superposition improved.
+
+* bug 6532 fixed - In some case text entity rendering order was wrong.
 
 * bug 6676 fixed - When "twinkle(gca())" was executed, data related to the
                    current axes was not twinkling.

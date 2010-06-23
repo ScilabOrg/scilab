@@ -61,7 +61,7 @@ options_codes=[1;2;3;
       narg=narg-1
     else
       error(msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),..
-                     "legend",narg,strcat(options_names),',')));
+                     "legend",narg,strcat(options_names),','));
     end
   end
   
