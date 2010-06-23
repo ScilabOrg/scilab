@@ -147,7 +147,7 @@ Text Editor:
                    was selected.
 
 * bug 7299 fixed - There was a bad matching by the right for the expression
-                   n=size(x,"*"); r=(x*x') 
+                   n=size(x,"*"); r=(x*x')
 
 Incompatibilities:
 ==================
@@ -410,6 +410,8 @@ Compilation:
 * Under Mac OS X, uses /usr/libexec/java_home instead of hardcoded paths to
   retrieve JAVA_HOME
 
+* special_functions module is dynamically loaded by Scilab.
+
 * tclsci module is dynamically loaded by Scilab.
 
 * pvm module is dynamically loaded by Scilab.
@@ -493,10 +495,13 @@ Obsolete Functions:
   'findlcccompiler' have been moved as toolbox in ATOMS
   See http://atoms.scilab.org/toolboxes/LCC-windows or atomsInstall('LCC-windows')
   from Scilab.
-  
+
 * 'maxi' obsolete see 'max'.
 
 * 'mini' obsolete see 'min'.
+
+* 'oldbesseli', 'oldbesselj', 'oldbesselk', 'oldbessely' are obsoletes
+  see 'besseli', 'besselj', 'besselk', 'bessely'.
 
 Removed functions (previously declared as obsolete):
 ====================================================
@@ -532,7 +537,6 @@ Removed functions (previously declared as obsolete):
 * 'with_gtk' replaced by 'getversion'.
 
 * 'readc_' replaced by 'input'.
-
 
 ATOMS:
 ======
