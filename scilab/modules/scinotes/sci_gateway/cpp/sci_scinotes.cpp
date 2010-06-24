@@ -3,6 +3,7 @@
  * Copyright (C) 2009 - DIGITEO - Allan CORNET
  * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
  * Copyright (C) 2010 - Calixte DENIZET
+ * Copyright (C) 2010 - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,6 +12,9 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+
+#include "SciNotes.hxx"
+#include "GiwsException.hxx"
 
 extern "C"
 {
@@ -34,7 +38,19 @@ int sci_scinotes(char *fname,unsigned long fname_len)
 
         if (Rhs == 0)
         {
-                callSciNotesW(NULL, 0);
+                try {
+                        callSciNotesW(NULL, 0);
+                }
+                catch (GiwsException::JniCallMethodException exception)
+                {
+                        Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
+                        return 0;
+                }
+                catch (GiwsException::JniException exception)
+                {
+                        Scierror(999, "%s: %s\n", fname, exception.what());
+                        return 0;
+                }
         }
         else
         {
@@ -186,7 +202,24 @@ int sci_scinotes(char *fname,unsigned long fname_len)
                                        return 0;
                                 }
 
-                                callSciNotesWWithOption(pStVarOne, pStVarTwo, m1 * n1);
+                                try
+                                {
+                                        callSciNotesWWithOption(pStVarOne, pStVarTwo, m1 * n1);
+                                }
+                                catch (GiwsException::JniCallMethodException exception)
+                                {
+                                        Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
+                                        freeArrayOfWideString(pStVarTwo, 1);
+                                        FREE(lenStVarTwo);
+                                        return 0;
+                                }
+                                catch (GiwsException::JniException exception)
+                                {
+                                        Scierror(999, "%s: %s\n", fname, exception.what());
+                                        freeArrayOfWideString(pStVarTwo, 1);
+                                        FREE(lenStVarTwo);
+                                        return 0;
+                                }
                                 freeArrayOfWideString(pStVarTwo, 1);
                                 FREE(lenStVarTwo);
                         }
@@ -211,14 +244,45 @@ int sci_scinotes(char *fname,unsigned long fname_len)
                                         return 0;
                                 }
 
-                                callSciNotesWWithLineNumber(pStVarOne, pdblVarTwo, m1 * n1);
+                                try
+                                {
+                                        callSciNotesWWithLineNumber(pStVarOne, pdblVarTwo, m1 * n1);
+                                }
+                                catch (GiwsException::JniCallMethodException exception)
+                                {
+                                        Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
+                                        return 0;
+                                }
+                                catch (GiwsException::JniException exception)
+                                {
+                                        Scierror(999, "%s: %s\n", fname, exception.what());
+                                        return 0;
+                                }
                         }
                 }
                 else
                 {
-                        callSciNotesW(pStVarOne,m1 * n1);
-                }
+                    try
+                    {
+                            callSciNotesW(pStVarOne, m1 * n1);
+                    }
+                    catch (GiwsException::JniCallMethodException exception)
+                    {
+                            Scierror(999, "%s: %s\n", fname,
+                                exception.getJavaDescription().c_str());
+                            freeArrayOfWideString(pStVarOne,m1 * n1);
+                            FREE(lenStVarOne);
+                            return 0;
+                    }
+                    catch (GiwsException::JniException exception)
+                    {
+                            Scierror(999, "%s: %s\n", fname, exception.what());
+                            freeArrayOfWideString(pStVarOne,m1 * n1);
+                            FREE(lenStVarOne);
+                            return 0;
+                    }
 
+                }
                 freeArrayOfWideString(pStVarOne,m1 * n1);
                 FREE(lenStVarOne);
         }
