@@ -196,6 +196,8 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
   addNewFigureToList(pobj);
   endGraphicDataWriting();
 
+  // UID
+  pobj->UID = "UID@0x000000";
   return pobj;
 }
 
@@ -1080,7 +1082,7 @@ ConstructPolyline (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, do
 
   /* allocatePolyline created a "fake" relationship, destroy it */
   FREE(pobj->relationShip);
-  
+
   if (sciStandardBuildOperations(pobj, pparentsubwin) == NULL)
   {
     FREE(pobj->pfeatures);
@@ -2509,7 +2511,7 @@ void createDefaultRelationShip(sciPointObj * pObj)
 		/* labels have their relationShip stored in their text objects */
 		return;
 	}
-	
+
 	relationShip = MALLOC(sizeof(sciRelationShip));
 	if (relationShip == NULL)
 	{
