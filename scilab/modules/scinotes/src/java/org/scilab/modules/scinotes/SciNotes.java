@@ -80,7 +80,6 @@ import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.scinotes.actions.ExitAction;
 import org.scilab.modules.scinotes.actions.FindAction;
-import org.scilab.modules.scinotes.actions.GotoLineAction;
 import org.scilab.modules.scinotes.actions.RecentFileAction;
 import org.scilab.modules.scinotes.actions.SetColorsAction;
 import org.scilab.modules.scinotes.actions.TabifyAction;
@@ -119,7 +118,6 @@ public class SciNotes extends SwingScilabTab implements Tab {
     private static final String ALL_FILES = "*.*";
     private static final String TIRET = " - ";
     private static final String DOT = ".";
-    private static final String ERROR_WITH_STRING = "Error while reading the String";
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -152,8 +150,8 @@ public class SciNotes extends SwingScilabTab implements Tab {
 
     private int whereami;
 
-    private Vector<Integer> tabList = new Vector();
-    private Vector<Integer> closedTabList = new Vector();
+    private List<Integer> tabList = new ArrayList();
+    private List<Integer> closedTabList = new ArrayList();
 
     private String fileFullPath = "";
 
@@ -294,9 +292,9 @@ public class SciNotes extends SwingScilabTab implements Tab {
         try {
             editorInstance.getEditorKit().read(new StringReader(text), styleDocument, 0);
         } catch (IOException e) {
-            System.err.println(ERROR_WITH_STRING);
+            System.err.println(SciNotesMessages.ERROR_WITH_STRING);
         } catch (BadLocationException e) {
-            System.err.println(ERROR_WITH_STRING);
+            System.err.println(SciNotesMessages.ERROR_WITH_STRING);
         }
     }
 
@@ -346,7 +344,6 @@ public class SciNotes extends SwingScilabTab implements Tab {
         if (find != null) {
             find.closeFindReplaceWindow();
         }
-        GotoLineAction.closeGotoLineWindow();
         SetColorsAction.closeSetColorsWindow();
         while (getTabPane().getComponentCount() > 0) {
             closeTabAt(0, true);
@@ -431,7 +428,7 @@ public class SciNotes extends SwingScilabTab implements Tab {
         if (textPaneAt.getName() == null) {
             String closedTabName = tabPane.getTitleAt(indexTab);
             String closedTabNameIndex = closedTabName.substring(closedTabName.length() - 1, closedTabName.length());
-            tabList.removeElement(Integer.parseInt(closedTabNameIndex));
+            tabList.remove(Integer.parseInt(closedTabNameIndex));
             closedTabList.add(Integer.parseInt(closedTabNameIndex));
         }
 
@@ -443,7 +440,8 @@ public class SciNotes extends SwingScilabTab implements Tab {
             }
         }
 
-        tabPane.remove(indexTab);
+	textPaneAt.close();
+	tabPane.remove(indexTab);
         return true;
 
     }
@@ -957,7 +955,7 @@ public class SciNotes extends SwingScilabTab implements Tab {
     public ScilabEditorPane addEmptyTab() {
         if (closedTabList.size() > 0) {
             Object obj = Collections.min(closedTabList);
-            closedTabList.removeElement(Integer.parseInt(obj.toString()));
+            closedTabList.remove(Integer.parseInt(obj.toString()));
             return addTab(SciNotesMessages.UNTITLED + obj.toString());
 
         } else {
