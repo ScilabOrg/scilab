@@ -43,10 +43,10 @@ AC_SUBST(SCILAB_LIBRARY_VERSION)
 # Check if we have a space in the path to the source tree
 SPACE_IN_PATH=`echo "$SCI_SRCDIR_FULL"|grep " " > /dev/null; echo $?`
 if test "$SPACE_IN_PATH" = "0"; then
-   AC_MSG_WARN([=====================================])
-   AC_MSG_WARN([Configure thinks that there is a space in the path to the source. This may cause problem with libtool and some other things...])
-   AC_MSG_WARN([=====================================])
-   sleep 180
+    AC_MSG_WARN([=====================================])
+    AC_MSG_WARN([Configure thinks that there is a space in the path to the source. This may cause problem with libtool and some other things...])
+    AC_MSG_WARN([=====================================])
+    sleep 180
 fi
 
 AC_CONFIG_AUX_DIR(config)
@@ -79,25 +79,25 @@ AC_CANONICAL_HOST
 
 
 AC_ARG_ENABLE(debug,
-   AC_HELP_STRING([--enable-debug],[Do not optimize and print warning messages (C/C++/Fortran code)]))
+    AC_HELP_STRING([--enable-debug],[Do not optimize and print warning messages (C/C++/Fortran code)]))
 
 AC_ARG_ENABLE(debug-C,
-   AC_HELP_STRING([--enable-debug-C],[Do not optimize and print warning messages (C code)]))
+    AC_HELP_STRING([--enable-debug-C],[Do not optimize and print warning messages (C code)]))
 
 AC_ARG_ENABLE(debug-CXX,
-   AC_HELP_STRING([--enable-debug-CXX],[Do not optimize and print warning messages (C++ code)]))
+    AC_HELP_STRING([--enable-debug-CXX],[Do not optimize and print warning messages (C++ code)]))
 
 AC_ARG_ENABLE(debug-java,
-   AC_HELP_STRING([--enable-debug-java],[Print warning messages and line numbers (Java code)]))
+    AC_HELP_STRING([--enable-debug-java],[Print warning messages and line numbers (Java code)]))
 
 AC_ARG_ENABLE(debug-fortran,
-   AC_HELP_STRING([--enable-debug-fortran],[Do not optimize and print warning messages (Fortran code)]))
+    AC_HELP_STRING([--enable-debug-fortran],[Do not optimize and print warning messages (Fortran code)]))
 
 AC_ARG_ENABLE(debug-linker,
-   AC_HELP_STRING([--enable-debug-linker],[Print warning messages from the linker (ld)]))
+    AC_HELP_STRING([--enable-debug-linker],[Print warning messages from the linker (ld)]))
 
 AC_ARG_ENABLE(stopOnWarning,
-   AC_HELP_STRING([--enable-stop-on-warning],[Stop the compilation on the first warning found in the C/C++ code]))
+    AC_HELP_STRING([--enable-stop-on-warning],[Stop the compilation on the first warning found in the C/C++ code]))
 
 AC_ARG_WITH(gcc,
     AC_HELP_STRING([--with-gcc],[Use gcc C compiler ]))
@@ -145,24 +145,24 @@ AC_ARG_WITH(fink_prefix,
 AC_HELP_STRING([--with-fink-prefix],[Provide a fink prefix. Default: /sw/ ]))
 
 case "$host" in
-     *darwin*)
-     if test -n "$with_fink_prefix"; then
-        # If with-fink-prefix is provided, use the provided path to make sure that we will
-	# use it to detect dependencies (for example, gfortran is not provided in xcode.
-	# Therefor, we use the one in fink)
-	FINK_PREFIX="$with_fink_prefix/"
-  
-	# Exec the init script of fink to make sure that the env is set
-	if test -f $with_fink_prefix/bin/init.sh; then
-	   echo "source $with_fink_prefix/bin/init.sh executed to set the env"
-	   source $with_fink_prefix/bin/init.sh	
+    *darwin*)
+        if test -n "$with_fink_prefix"; then
+            # If with-fink-prefix is provided, use the provided path to make sure that we will
+            # use it to detect dependencies (for example, gfortran is not provided in xcode.
+            # Therefor, we use the one in fink)
+            FINK_PREFIX="$with_fink_prefix/"
+    
+            # Exec the init script of fink to make sure that the env is set
+            if test -f $with_fink_prefix/bin/init.sh; then
+               echo "source $with_fink_prefix/bin/init.sh executed to set the env"
+               source $with_fink_prefix/bin/init.sh	
+                else
+               AC_MSG_WARN([Could not find the fink init.sh script: $with_fink_prefix/bin/init.sh])
+            fi
         else
-	   AC_MSG_WARN([Could not find the fink init.sh script: $with_fink_prefix/bin/init.sh])
-	fi
-     else
-	FINK_PREFIX="/sw/"
-     fi
-     ;;
+            FINK_PREFIX="/sw/"
+        fi
+    ;;
 esac
 
 #####################################################
@@ -175,33 +175,33 @@ PKG_PROG_PKG_CONFIG
 #####################################################
 
 if test "$with_g77" = yes -a "$with_gfortran" = yes; then
-	AC_MSG_ERROR([Conflicting options : you specified two fortran compiler])
+    AC_MSG_ERROR([Conflicting options : you specified two fortran compiler])
 fi
 
 if test "$with_intelcompilers" = yes -a "$with_gcc" = yes; then
-	AC_MSG_ERROR([Conflicting options : you specified two compiler series])
+    AC_MSG_ERROR([Conflicting options : you specified two compiler series])
 fi
 
 ######## fortran ########
 if test "$with_g77" = yes; then
-   AC_PROG_F77(g77)
-   if test -z "$F77"; then
-     AC_MSG_ERROR([You asked me to use g77 but i haven't been able to find it])
-	fi
+    AC_PROG_F77(g77)
+    if test -z "$F77"; then
+        AC_MSG_ERROR([You asked me to use g77 but i haven't been able to find it])
+    fi
 fi
 
 if test "$with_gfortran" = yes; then
-   AC_PROG_F77(gfortran)
-   if test -z "$F77"; then
-     AC_MSG_ERROR([You asked me to use gfortran but i haven't been able to find it])
-	fi
+    AC_PROG_F77(gfortran)
+    if test -z "$F77"; then
+        AC_MSG_ERROR([You asked me to use gfortran but i haven't been able to find it])
+    fi
 fi
 
 if test "$with_intelcompilers" = yes; then
-   AC_PROG_F77(ifc ifort)
-   if test -z "$F77"; then
-     AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
-	fi
+    AC_PROG_F77(ifc ifort)
+    if test -z "$F77"; then
+        AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
+    fi
 fi
 
 if test -z "$F77"; then
@@ -233,12 +233,12 @@ AC_COMPILE_IFELSE([
               end select
  50           continue
       END
-	],
-	[AC_MSG_RESULT([yes])
-	 AC_DEFINE([G95_FORTRAN],[],[uses G95 fortran])
-	 f90compatible=true
-	],
-	[AC_MSG_RESULT([no])]
+    ],
+    [AC_MSG_RESULT([yes])
+     AC_DEFINE([G95_FORTRAN],[],[uses G95 fortran])
+     f90compatible=true
+    ],
+    [AC_MSG_RESULT([no])]
 )
 AC_LANG_POP([Fortran 77])
 
@@ -246,26 +246,26 @@ AC_LANG_POP([Fortran 77])
 
 
 if test "$with_gcc" = yes; then
-   AC_PROG_CC(gcc)
-   if test -z "$CC"; then
-     AC_MSG_ERROR([You asked me to use gcc but i haven't been able to find it])
-	fi
+    AC_PROG_CC(gcc)
+    if test -z "$CC"; then
+        AC_MSG_ERROR([You asked me to use gcc but i haven't been able to find it])
+    fi
 fi
 
 if test "$with_intelcompilers" = yes; then
-   AC_PROG_CC(icc ecc)
-   if test -z "$CC"; then
-     AC_MSG_ERROR([You asked me to use icc (intel C compiler) but I haven't been able to find it])
-	fi
+    AC_PROG_CC(icc ecc)
+    if test -z "$CC"; then
+        AC_MSG_ERROR([You asked me to use icc (intel C compiler) but I haven't been able to find it])
+    fi
 fi
 
 if test -z "$CC"; then
 # No C compiler specified... We rely on Autoconf to find the best
-   AC_PROG_CC
+    AC_PROG_CC
 fi
 
 if test -z "$CC"; then
-  AC_MSG_ERROR([No C Compiler found. Cannot compile Scilab without a C compiler])
+    AC_MSG_ERROR([No C Compiler found. Cannot compile Scilab without a C compiler])
 fi
 
 AC_CHECK_SIZEOF([int])
@@ -279,12 +279,12 @@ AC_PROG_CXX
 # will fail.  If AC_PROG_CXX fails to find a c++ compiler it will set CXX=g++ so just run AC_CHECK_PROG
 # in this special case
 case $CXX in
-	g++)
-		AC_CHECK_PROG([cxx_present], [$CXX], [yes], [no])
-		if test "x$cxx_present" != "xyes"; then
-		    AC_MSG_ERROR([No C++ compiler found. Cannot compile scilab without a C++ compiler])
-		fi
-		;;
+    g++)
+        AC_CHECK_PROG([cxx_present], [$CXX], [yes], [no])
+        if test "x$cxx_present" != "xyes"; then
+            AC_MSG_ERROR([No C++ compiler found. Cannot compile scilab without a C++ compiler])
+        fi
+        ;;
 esac
 
 # for "subdir-objects"
@@ -294,38 +294,38 @@ AC_PROG_F77_C_O
 
 # If this option is provided, enable the debug on C & C++
 if test "$enable_stop_on_warning" = yes; then
-   enable_debug_C=yes
-   enable_debug_CXX=yes
+    enable_debug_C=yes
+    enable_debug_CXX=yes
 fi
 
 if test "$enable_debug" = yes; then
-   enable_debug_fortran=yes
-   enable_debug_C=yes
-   enable_debug_CXX=yes
+    enable_debug_fortran=yes
+    enable_debug_C=yes
+    enable_debug_CXX=yes
 else
-   enable_debug=no
+    enable_debug=no
 fi
 
 if test "$enable_debug_fortran" = yes; then
-   FFLAGS="`echo "$FFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
+    FFLAGS="`echo "$FFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
 else
-   enable_debug_fortran=no
+    enable_debug_fortran=no
 fi
 
 if test "$enable_debug_C" = yes; then
-   CFLAGS="`echo "$CFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
+    CFLAGS="`echo "$CFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
 else
-   enable_debug_C=no
+    enable_debug_C=no
 fi
 
 if test "$enable_debug_CXX" = yes; then
-   CPPFLAGS="`echo "$CPPFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
+    CPPFLAGS="`echo "$CPPFLAGS"| sed -e 's|-O[0-9+]|-O0|'`"
 else
-   enable_debug_CXX=no
+    enable_debug_CXX=no
 fi
 
 if test "x${prefix}" = "xNONE"; then
-  prefix="${ac_default_prefix}"
+    prefix="${ac_default_prefix}"
 fi
 
 ###############################
@@ -1428,12 +1428,12 @@ AC_ARG_WITH(matio,
     AC_HELP_STRING([--without-matio],[Disable the interface to Matio (MAT File I/O library)]))
 
 AC_ARG_WITH(matio_include,
-		AC_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
-		[with_matio_include="-I$withval"], [])
+        AC_HELP_STRING([--with-matio-include=DIR],[Set the path to the MATIO headers]),
+        [with_matio_include="-I$withval"], [])
 
 AC_ARG_WITH(matio_library,
-		AC_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
-		[with_matio_library="-L$withval"], [])
+        AC_HELP_STRING([--with-matio-library=DIR],[Set the path to the MATIO libraries]),
+        [with_matio_library="-L$withval"], [])
 
 MATIO_ENABLE=no
 
@@ -1474,8 +1474,8 @@ AM_CONDITIONAL(MATIO, test "$with_matio" != no)
 HELP_ENABLE=yes
 
 AC_ARG_ENABLE(build-help,
-		AC_HELP_STRING([--disable-build-help],[Disable the help build])
-		)
+        AC_HELP_STRING([--disable-build-help],[Disable the help build])
+        )
 
 if test "$enable_build_help" != no; then
     AC_DOCBOOK()
@@ -1831,73 +1831,73 @@ echo ""
 if test "$with_gui" = no; then
    echo "Not using Scicos because of the option --without-gui"
 else
-if test $SCICOS_ENABLE = yes; then
-   echo "Scicos enable"
-   echo ""
-if test "$with_ocaml" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
-   echo "Ocaml Configuration (for Modelica compiler):"
-   echo "  OCAMLC ............. = $OCAMLC"
-   echo "  OCAMLOPT ........... = $OCAMLOPT"
-   echo "  OCAMLDEP ........... = $OCAMLDEP"
-else
-	echo "Will not build Modelica compiler"
-fi
-else 
-   echo "Not using Scicos"
-fi
+    if test $SCICOS_ENABLE = yes; then
+        echo "Scicos enable"
+        echo ""
+        if test "$with_ocaml" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
+            echo "Ocaml Configuration (for Modelica compiler):"
+            echo "  OCAMLC ............. = $OCAMLC"
+            echo "  OCAMLOPT ........... = $OCAMLOPT"
+            echo "  OCAMLDEP ........... = $OCAMLDEP"
+        else
+            echo "Will not build Modelica compiler"
+        fi
+    else 
+       echo "Not using Scicos"
+    fi
 fi
 
 echo ""
 if test $OPENMP_ENABLE = yes; then
-   echo "OpenMP Configuration:"
-   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
-   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
-   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
-   echo "OpenMP FFLAGS ...... = $OPENMP_LDFLAGS"
+    echo "OpenMP Configuration:"
+    echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
+    echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
+    echo "OpenMP LIBS ........ = $OPENMP_LIBS"
+    echo "OpenMP FFLAGS ...... = $OPENMP_LDFLAGS"
 else
    echo "Not using OpenMP"
 fi
 
 echo ""
 if test $PVM_ENABLE = yes; then
-   echo "PVM Configuration:"
-   echo "  PVM Architecture ... = $PVM_ARCH"
-   echo "  PVM INCLUDE ........ = $PVM_INCLUDE"
-   echo "  PVM LIBS ........... = $PVM_LIB"
+    echo "PVM Configuration:"
+    echo "  PVM Architecture ... = $PVM_ARCH"
+    echo "  PVM INCLUDE ........ = $PVM_INCLUDE"
+    echo "  PVM LIBS ........... = $PVM_LIB"
 else
    echo "Not using PVM"
 fi
 
 echo ""
 if test $FFTW_ENABLE = yes;  then
-   echo "FFTW Configuration:"
-   echo "  FFTW LIBS .......... = $FFTW3_LIB"
-   echo "  FFTW CFLAGS ........ = $FFTW3_CFLAGS"
+    echo "FFTW Configuration:"
+    echo "  FFTW LIBS .......... = $FFTW3_LIB"
+    echo "  FFTW CFLAGS ........ = $FFTW3_CFLAGS"
 else
    echo "Not using FFTW"
 fi
 
 echo ""
 if test $MATIO_ENABLE = yes;  then
-   echo "MATIO Configuration:"
-   echo "  MATIO LIBS .......... = $MATIO_LIBS"
-   echo "  MATIO CFLAGS ........ = $MATIO_CFLAGS"
+    echo "MATIO Configuration:"
+    echo "  MATIO LIBS .......... = $MATIO_LIBS"
+    echo "  MATIO CFLAGS ........ = $MATIO_CFLAGS"
 else
-   echo "Not using MATIO"
+    echo "Not using MATIO"
 fi
 
 echo ""
 if test $UMFPACK_ENABLE = yes;  then
-   echo "UMFPACK Configuration:"
-   echo "  UMFPACK LIBS ....... = $UMFPACK_LIB"
-   echo "  UMFPACK CFLAGS ..... = $UMFPACK_CFLAGS"
-   if test $SUITESPARSE = yes; then
-      echo "  UMFPACK SUITESPARSE  = Yes"
-   else
-      echo "  UMFPACK SUITESPARSE  = No"
-   fi
+    echo "UMFPACK Configuration:"
+    echo "  UMFPACK LIBS ....... = $UMFPACK_LIB"
+    echo "  UMFPACK CFLAGS ..... = $UMFPACK_CFLAGS"
+    if test $SUITESPARSE = yes; then
+        echo "  UMFPACK SUITESPARSE  = Yes"
+    else
+        echo "  UMFPACK SUITESPARSE  = No"
+    fi
 else
-   echo "Not using UMFPACK"
+    echo "Not using UMFPACK"
 fi
 
 
@@ -1931,23 +1931,23 @@ echo ""
 
 echo ""
 if test $BUILD_LOCALIZATION_ENABLE != no; then
-   echo "Gettext/localization configuration:"
-   echo "  xgettext ............... = $XGETTEXT"
-   echo "  msgfmt  ................ = $MSGFMT"
-   echo "  msgfmt_opts ............ = $MSGFMT_OPTS"
-   echo "  msgcat  ................ = $MSGCAT"
+    echo "Gettext/localization configuration:"
+    echo "  xgettext ............... = $XGETTEXT"
+    echo "  msgfmt  ................ = $MSGFMT"
+    echo "  msgfmt_opts ............ = $MSGFMT_OPTS"
+    echo "  msgcat  ................ = $MSGCAT"
 else
-   echo "Won't generate localization files"
+    echo "Won't generate localization files"
 fi
 
 echo ""
 if test $HELP_ENABLE = yes; then
-   echo "Documentation building configuration:"
-   echo "  Docbook XSL path ....... = $DOCBOOK_ROOT"
-   echo "  Saxon XSLT ............. = $SAXON"
-   echo "  XML commons external ... = $XML_APIS_EXT"
+    echo "Documentation building configuration:"
+    echo "  Docbook XSL path ....... = $DOCBOOK_ROOT"
+    echo "  Saxon XSLT ............. = $SAXON"
+    echo "  XML commons external ... = $XML_APIS_EXT"
 else
-   echo "No documentation generated"
+    echo "No documentation generated"
 fi
 
 echo ""
@@ -2022,13 +2022,13 @@ echo "  XML_VERSION ........ = $XML_VERSION"
 
 echo "" 
 if test $HDF5_ENABLE = yes;  then
-   echo "HDF5 configuration:"
-   echo "  HDF5 CFLAGS ......... = $HDF5_CFLAGS"
-   echo "  HDF5 LIBS ........... = $HDF5_LIBS"
-   echo "  HDF5 Java ........... = $JHDF5"
-   echo "  JHDF5 LIBS (JNI) .... = $JHDF5_LIBS"
+    echo "HDF5 configuration:"
+    echo "  HDF5 CFLAGS ......... = $HDF5_CFLAGS"
+    echo "  HDF5 LIBS ........... = $HDF5_LIBS"
+    echo "  HDF5 Java ........... = $JHDF5"
+    echo "  JHDF5 LIBS (JNI) .... = $JHDF5_LIBS"
 else
-   echo "Not using HDF5"
+    echo "Not using HDF5"
 fi
 
 echo "" 
@@ -2050,9 +2050,9 @@ fi
 echo ""
 echo "GIWS Configuration:"
 if test ! -z "$GIWS_BIN"; then
-echo "  GIWS_BIN ........... = $GIWS_BIN"
+    echo "  GIWS_BIN ........... = $GIWS_BIN"
 else
-echo "  GIWS generation disabled"
+    echo "  GIWS generation disabled"
 fi
 
 echo ""
@@ -2069,7 +2069,7 @@ echo "  srcdir .............. = $SCI_SRCDIR"
 echo "  srcdir_full ......... = $SCI_SRCDIR_FULL"
 echo "  builddir ............ = $SCI_BUILDDIR"
 if test "$SCI_SRCDIR_FULL" != "$SCI_BUILDDIR"; then
-echo "  VPATH build ......... = Activated"
+    echo "  VPATH build ......... = Activated"
 fi
 
 echo "" 
@@ -2081,7 +2081,7 @@ echo "  host_os ... .... = $host_os"
 echo "  hostname ....... = $ac_hostname"
 echo "  CPU 64 bits .... = $IS_64_BITS_CPU"
 if test -n "$MAC_DETECTED_ARCH"; then
-echo "  Mac OS X arch .. = $MAC_DETECTED_ARCH"
+    echo "  Mac OS X arch .. = $MAC_DETECTED_ARCH"
 fi
 
 echo ""
