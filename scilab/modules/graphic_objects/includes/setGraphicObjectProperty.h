@@ -16,6 +16,6 @@
 #include "returnType.h"
 #include "dynlib_graphic_objects.h"
 
-GRAPHIC_OBJECTS_IMPEXP void setGraphicObjectProperty(char *_psUID, char *_psPropertyName, void *_pvValue, enum _ReturnType_ _valueTtype);
+GRAPHIC_OBJECTS_IMPEXP int setGraphicObjectProperty(char *_psUID, char *_psPropertyName, void *_pvValue, enum _ReturnType_ _valueTtype);
 
 #endif /* !__SETGRAPHICOBJECTPROPERTY_H__ */
