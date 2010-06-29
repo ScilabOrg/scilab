@@ -38,6 +38,7 @@ int doubleExample(char *fname,unsigned long fname_len)
 		{
 			return iRet;
 		}
+                LhsVar(1) = 0;
 	}
 	else if(isDoubleType(pvApiCtx, piAddr))
 	{
@@ -109,6 +110,7 @@ int doubleExample(char *fname,unsigned long fname_len)
 				}
 			}
 		}
+                LhsVar(1) = Rhs+1;
 	}
 	return 0;
 }
