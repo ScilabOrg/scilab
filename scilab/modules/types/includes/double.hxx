@@ -72,7 +72,7 @@ namespace types
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::string         getTypeStr() {return string("double");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string	        getShortTypeStr() {return string("constant");}
+        virtual std::string	    getShortTypeStr() {return string("constant");}
     protected :
         RealType                    getType(void);
 
@@ -85,10 +85,10 @@ namespace types
         void                        CreateDouble(int _iRows, int _iCols, double **_pdblReal, double **_pdblImg);
 
     private :
-        double*                       m_pdblReal;
-        double*                       m_pdblImg;
-        bool                          m_bComplex;
-        int                           m_iSizeMax;
+        double*                     m_pdblReal;
+        double*                     m_pdblImg;
+        bool                        m_bComplex;
+        int                         m_iSizeMax;
     };
 }
 

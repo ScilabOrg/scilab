@@ -27,7 +27,7 @@ Function::ReturnValue sci_cell(typed_list &in, int _piRetCount, typed_list &out)
     {
         if(in[i]->getType() != InternalType::RealDouble)
         {
-            //FIXME: call overload function %_cell to manage ohter input types
+            //FIXME: call overload function %_cell to manage other input types
             return Function::Error;
         }
     }

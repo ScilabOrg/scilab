@@ -38,6 +38,7 @@ namespace types
           RealFloat,
           RealPoly,
           RealSinglePoly,
+	  RealSparse,
           /* Callable */
           RealFunction,
           RealMacro,
@@ -69,7 +70,7 @@ namespace types
       virtual RealType                  getType(void) { return RealInternal; }
 
 
-      virtual std::string	            toString(int _iPrecison, int _iLineLen) = 0;
+      virtual std::string	        toString(int _iPrecison, int _iLineLen) = 0;
       virtual InternalType*             clone(void) = 0;
 
 
@@ -86,8 +87,8 @@ namespace types
           }
       }
 
-      bool	                            isDeletable() { return m_iRef == 0; }
-      bool	                            isRef(int _iRef = 0) { return m_iRef > _iRef; }
+      bool	                        isDeletable() { return m_iRef == 0; }
+      bool	                        isRef(int _iRef = 0) { return m_iRef > _iRef; }
       int                               getRef() { return m_iRef; }
 
       /* return type as string ( double, int, cell, list, ... )*/
@@ -133,6 +134,10 @@ namespace types
       /* Single Poly */
       bool                              isSinglePoly(void) { return (getType() == RealSinglePoly); }
       virtual Poly*                     getAsSinglePoly(void) { return NULL; }
+
+      /* Sparse Matrix */
+      bool				isSparse(void) { return (getType() == RealSparse); }
+      virtual Sparse*		        getAsSparse(void) { return NULL; }
 
       /**
       ** \}

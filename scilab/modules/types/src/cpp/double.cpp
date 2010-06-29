@@ -22,7 +22,6 @@ extern "C"
 
 using namespace std;
 
-
 namespace types
 {
 	/*------------*/
