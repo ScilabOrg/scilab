@@ -5,6 +5,13 @@ Bug Fixes:
 ==========
 
 
+Xcos:
+=====
+
+
+
+* bug 7396 fixed - On I/O blocks used in SuperBlocks, empty index threw a 
+                   decoding exception.
 
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
