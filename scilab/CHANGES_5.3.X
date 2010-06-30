@@ -907,6 +907,9 @@ Bug fixes:
 
 * bug 7044 fixed - calling sequence in help of 'strcat' was wrong.
 
+* bug 7045 fixed - it was not possible to set the language via the LANG
+                   environnement variable.
+
 * bug 7057 fixed - isdigit and isalphanum crashed with a matrix of string
                    as input argument.
 
