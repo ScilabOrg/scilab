@@ -231,12 +231,12 @@ namespace types
 		return true;
 	}
 
-/*	string Sparse::toString(int _iPrecision, int _iLineLen)
+	string Sparse::toString(int _iPrecision, int _iLineLen)
 	{
 		ostringstream ostr;
 		//if(isComplex() == false)
-		{
-			/*Comment tenir compte de la longueur des lignes dans le formatage de variable ? 
+	/*	{
+			*Comment tenir compte de la longueur des lignes dans le formatage de variable ?* 
 			if(isIdentity())
 			{
 				ostr << "eye *" << endl << endl;
@@ -590,15 +590,16 @@ namespace types
 				}
 			}
 		}
-		/*
-		else
+		
+	//	else
 		{
 		ostr << "C'est complex ca :'(" << endl;
 		}
-		
+	*/	
 		return ostr.str();
+	
 	}
-*/
+
 	bool Sparse::resize(int _iNewRows, int _iNewCols)
 	{
 		if(_iNewRows <= rows_get() && _iNewCols <= cols_get())

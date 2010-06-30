@@ -11,6 +11,7 @@
  */
 
 #include "alltypes.hxx"
+#include "sparse.hxx"
 #include "funcmanager.hxx"
 
 using namespace types;
@@ -37,6 +38,7 @@ Function::ReturnValue sci_sparse(typed_list &in, int _piRetCount, typed_list &ou
     {
 	if (in[0]->getType() == InternalType::RealDouble) {
 		Double *pD = in[0]->getAsDouble();
+		pRetVal = new Sparse(&pD);
 //unfinished 
 	}
 	else {

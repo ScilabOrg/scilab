@@ -62,6 +62,7 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
     }
 
     out.push_back(pC);
+
     return Function::OK;
 }
 
