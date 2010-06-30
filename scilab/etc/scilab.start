@@ -53,6 +53,13 @@ MSDOS = (getos() == 'Windows');
 %tk = (with_module('tclsci') & getscilabmode() <> 'NWNI');
 // Set LANGUAGE  ======================================================
 // used mainly for on-line help
+
+L = getenv("LANG");
+if L~=[] then
+  L = tokens(L,".");
+  setlanguage(L);
+end
+
 args = sciargs();
 larg = find(args=="-l");
 if larg<>[] & larg<=size(args,"*") then
