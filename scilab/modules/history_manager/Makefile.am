@@ -8,7 +8,6 @@ HISTORY_MANAGER_CPP_SOURCES = src/cpp/CommandLine.cpp \
 src/cpp/HistoryFile.cpp \
 src/cpp/HistoryManager.cpp \
 src/cpp/HistorySearch.cpp
-
 # List of the c files
 HISTORY_MANAGER_C_SOURCES = src/c/getCommentDateSession.c
 
@@ -45,6 +44,8 @@ endif
 HISTORY_MANAGER_CPP_SOURCES += src/jni/CommandHistory.cpp \
 src/jni/GiwsException.cpp
 
+else
+HISTORY_MANAGER_CPP_SOURCES += src/nohistory_manager/CommandHistoryFake.cpp
 endif
 
 
