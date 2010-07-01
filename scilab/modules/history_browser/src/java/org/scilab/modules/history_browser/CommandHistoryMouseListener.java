@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory;
+package org.scilab.modules.history_browser;
 
 import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
@@ -22,12 +22,12 @@ import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.contextmenu.ScilabContextMenu;
 import org.scilab.modules.gui.events.callback.CallBack;
-import org.scilab.modules.history_manager.commandhistory.actions.ClearAction;
-import org.scilab.modules.history_manager.commandhistory.actions.CopyAction;
-import org.scilab.modules.history_manager.commandhistory.actions.CutAction;
-import org.scilab.modules.history_manager.commandhistory.actions.DeleteAction;
-import org.scilab.modules.history_manager.commandhistory.actions.EditInScinotesAction;
-import org.scilab.modules.history_manager.commandhistory.actions.EvaluateAction;
+import org.scilab.modules.history_browser.actions.ClearAction;
+import org.scilab.modules.history_browser.actions.CopyAction;
+import org.scilab.modules.history_browser.actions.CutAction;
+import org.scilab.modules.history_browser.actions.DeleteAction;
+import org.scilab.modules.history_browser.actions.EditInScinotesAction;
+import org.scilab.modules.history_browser.actions.EvaluateAction;
 
 /**
  * Command History Mouse Event management
