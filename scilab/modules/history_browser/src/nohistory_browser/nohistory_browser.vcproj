@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="nohistory_manager"
+	Name="nohistory_browser"
 	ProjectGUID="{68F65DC6-AF8B-442F-A21A-108E1E501BE6}"
-	RootNamespace="nohistory_manager"
+	RootNamespace="nohistory_browser"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -43,7 +43,7 @@
 				AdditionalOptions=""
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../includes;../../../../libs/MALLOC/includes;../../../../libs/intl;../../../api_scilab/includes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HISTORY_MANAGER_EXPORTS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HISTORY_BROWSER_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
@@ -122,7 +122,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../includes;../../../../libs/MALLOC/includes;../../../../libs/intl;../../../api_scilab/includes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HISTORY_MANAGER_EXPORTS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HISTORY_BROWSER_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
@@ -204,7 +204,7 @@
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../includes;../../../../libs/MALLOC/includes;../../../../libs/intl;../../../api_scilab/includes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HISTORY_MANAGER_EXPORTS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HISTORY_BROWSER_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="0"
@@ -289,7 +289,7 @@
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../includes;../../../../libs/MALLOC/includes;../../../../libs/intl;../../../api_scilab/includes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HISTORY_MANAGER_EXPORTS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HISTORY_BROWSER_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="0"
@@ -357,7 +357,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\nohistory_manager.c"
+				RelativePath=".\nohistory_browser.c"
 				>
 			</File>
 		</Filter>
@@ -373,7 +373,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\nohistory_manager.rc"
+				RelativePath=".\nohistory_browser.rc"
 				>
 			</File>
 		</Filter>

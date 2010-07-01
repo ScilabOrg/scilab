@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory;
+package org.scilab.modules.history_browser;
 
 import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
