@@ -10,31 +10,32 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory.actions;
+package org.scilab.modules.history_browser.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
-import org.scilab.modules.history_manager.HistoryManagement;
-import org.scilab.modules.history_manager.commandhistory.CommandHistoryMessages;
+import org.scilab.modules.history_browser.CommandHistory;
+import org.scilab.modules.history_browser.CommandHistoryMessages;
 
 /**
- * Manage Clear Actions
+ * Manage Evaluate Actions
  * @author Vincent COUVERT
  */
-public final class ClearAction extends CallBack {
+public final class EvaluateAction extends CallBack {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String LABEL = CommandHistoryMessages.CLEAR_HISTORY;
-	private static final char MNEMONIC = 'L';
+	private static final String LABEL = CommandHistoryMessages.EVALUATE_SELECTION;
+	private static final char MNEMONIC = 'E';
 	
 	/**
 	 * Constructor
 	 */
-	public ClearAction() {
+	public EvaluateAction() {
 		super("");
 	}
 	
@@ -57,7 +58,7 @@ public final class ClearAction extends CallBack {
 	private static CallBack getCallBack() {
 		CallBack callback = null;
 		try {
-			callback = ClearAction.class.getConstructor().newInstance();
+			callback = EvaluateAction.class.getConstructor().newInstance();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -79,6 +80,11 @@ public final class ClearAction extends CallBack {
 	 * @see org.scilab.modules.gui.events.callback.CallBack#callBack()
 	 */
 	public void callBack() {
-		HistoryManagement.resetScilabHistory();
+		String commands = CommandHistory.getSelectedCommands();
+		if (commands == null) {
+			return;
+		}
+		ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(
+				commands, true /* display */, true /* store in history */);
 	}
 }

@@ -13,15 +13,26 @@
 #ifndef __COMMANDHISTORY_WRAP_H__
 #define __COMMANDHISTORY_WRAP_H__
 
-void CommandHistoryAppendLine (char * lineToAppend);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-void CommandHistoryLoadFromFile (void);
+#include "dynlib_history_browser.h"
 
-void CommandHistoryInitialize (void);
+HISTORY_BROWSER_IMPEXP void CommandHistoryAppendLine (char * lineToAppend);
 
-void CommandHistoryReset(void);
+HISTORY_BROWSER_IMPEXP void CommandHistoryLoadFromFile (void);
 
-void CommandHistoryDeleteLine(int lineNumber);
+HISTORY_BROWSER_IMPEXP void CommandHistoryInitialize (void);
+
+HISTORY_BROWSER_IMPEXP void CommandHistoryReset(void);
+
+HISTORY_BROWSER_IMPEXP void CommandHistoryDeleteLine(int lineNumber);
+
+#ifdef __cplusplus
+}; 
+#endif /
 
 #endif /* __COMMANDHISTORY_WRAP_H__ */
 
