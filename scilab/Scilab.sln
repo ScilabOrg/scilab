@@ -1249,6 +1249,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ui_data-Ant", "modules\ui_d
 		{E9783492-017E-4811-9CC7-6B71856F847C} = {E9783492-017E-4811-9CC7-6B71856F847C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "history_browser-Ant", "modules\history_browser\src\java\history_browser-JAVA.vcproj", "{95C21D50-FFD1-4FCE-A545-49FA1F825B28}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FBA3BC3F-8A2C-4D47-A50D-EB808BE42F43} = {FBA3BC3F-8A2C-4D47-A50D-EB808BE42F43}
+		{E9783492-017E-4811-9CC7-6B71856F847C} = {E9783492-017E-4811-9CC7-6B71856F847C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -2405,6 +2411,14 @@ Global
 		{405E6B33-DBA9-4850-A19F-19298DA5A64D}.Release|Win32.Build.0 = Release|Win32
 		{405E6B33-DBA9-4850-A19F-19298DA5A64D}.Release|x64.ActiveCfg = Release|x64
 		{405E6B33-DBA9-4850-A19F-19298DA5A64D}.Release|x64.Build.0 = Release|x64
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Debug|Win32.ActiveCfg = Debug|Win32
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Debug|Win32.Build.0 = Debug|Win32
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Debug|x64.ActiveCfg = Debug|x64
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Debug|x64.Build.0 = Debug|x64
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Release|Win32.ActiveCfg = Release|Win32
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Release|Win32.Build.0 = Release|Win32
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Release|x64.ActiveCfg = Release|x64
+		{95C21D50-FFD1-4FCE-A545-49FA1F825B28}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
