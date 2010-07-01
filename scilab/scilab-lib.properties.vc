@@ -1,4 +1,4 @@
-; Definition of lib used in Scilab 
+; Definition of lib used in Scilab
 
 commons-logging.jar=${thirdparty.dir}/commons-logging-1.1.jar
 
@@ -89,3 +89,5 @@ library.ui_data.name=org.scilab.modules.ui_data.jar
 library.graph.dir=${modules.dir}/graph/${build.jar.dir}/
 library.graph.name=org.scilab.modules.graph.jar
 
+library.history_manager.dir=${modules.dir}/history_manager/${build.jar.dir}/
+library.history_manager.name=org.scilab.modules.history_manager.jar
