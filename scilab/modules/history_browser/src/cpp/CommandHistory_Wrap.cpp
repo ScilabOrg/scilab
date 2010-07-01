@@ -11,9 +11,10 @@
 */
 /*------------------------------------------------------------------------*/
 #include "CommandHistory.hxx"
+#include "CommandHistory_Wrap.h"
 extern "C"
 {
-#include "CommandHistory_Wrap.h"
+    HISTORY_BROWSER_IMPEXP
 #include "getScilabJavaVM.h"
 #include "loadOnUseClassPath.h"
 #include "BOOL.h"

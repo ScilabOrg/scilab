@@ -10,32 +10,34 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory.actions;
+package org.scilab.modules.history_browser.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
-import org.scilab.modules.history_manager.commandhistory.CommandHistory;
-import org.scilab.modules.history_manager.commandhistory.CommandHistoryMessages;
+import org.scilab.modules.gui.pushbutton.PushButton;
+import org.scilab.modules.gui.pushbutton.ScilabPushButton;
+import org.scilab.modules.history_browser.CommandHistory;
+import org.scilab.modules.history_browser.CommandHistoryMessages;
 
 /**
- * Manage Evaluate Actions
+ * Manage Close Actions
  * @author Vincent COUVERT
  */
-public final class EvaluateAction extends CallBack {
+public final class CloseAction extends CallBack {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String LABEL = CommandHistoryMessages.EVALUATE_SELECTION;
-	private static final char MNEMONIC = 'E';
+	private static final String LABEL = CommandHistoryMessages.CLOSE;
+	private static final String ICON = null;
+	private static final char MNEMONIC = 'C';
 	
 	/**
 	 * Constructor
 	 */
-	public EvaluateAction() {
+	public CloseAction() {
 		super("");
 	}
 	
@@ -52,13 +54,25 @@ public final class EvaluateAction extends CallBack {
 	}
 	
 	/**
+	 * Create the associated button
+	 * @return the button
+	 */
+	public static PushButton createPushButton() {
+		PushButton pushButton = ScilabPushButton.createPushButton();
+		pushButton.setIcon(ICON);
+		pushButton.setToolTipText(LABEL);
+		pushButton.setCallback(getCallBack());
+		return pushButton;
+	}
+	
+	/**
 	 * Create a new class instance
 	 * @return the instance
 	 */
-	private static CallBack getCallBack() {
+	public static CallBack getCallBack() {
 		CallBack callback = null;
 		try {
-			callback = EvaluateAction.class.getConstructor().newInstance();
+			callback = CloseAction.class.getConstructor().newInstance();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -80,11 +94,6 @@ public final class EvaluateAction extends CallBack {
 	 * @see org.scilab.modules.gui.events.callback.CallBack#callBack()
 	 */
 	public void callBack() {
-		String commands = CommandHistory.getSelectedCommands();
-		if (commands == null) {
-			return;
-		}
-		ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(
-				commands, true /* display */, true /* store in history */);
+		CommandHistory.setVisible(false);
 	}
 }

@@ -10,34 +10,31 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory.actions;
+package org.scilab.modules.history_browser.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
-import org.scilab.modules.gui.pushbutton.PushButton;
-import org.scilab.modules.gui.pushbutton.ScilabPushButton;
-import org.scilab.modules.history_manager.commandhistory.CommandHistory;
-import org.scilab.modules.history_manager.commandhistory.CommandHistoryMessages;
+import org.scilab.modules.history_browser.CommandHistoryMessages;
+import org.scilab.modules.history_manager.HistoryManagement;
 
 /**
- * Manage Close Actions
+ * Manage Clear Actions
  * @author Vincent COUVERT
  */
-public final class CloseAction extends CallBack {
+public final class ClearAction extends CallBack {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String LABEL = CommandHistoryMessages.CLOSE;
-	private static final String ICON = null;
-	private static final char MNEMONIC = 'C';
+	private static final String LABEL = CommandHistoryMessages.CLEAR_HISTORY;
+	private static final char MNEMONIC = 'L';
 	
 	/**
 	 * Constructor
 	 */
-	public CloseAction() {
+	public ClearAction() {
 		super("");
 	}
 	
@@ -54,25 +51,13 @@ public final class CloseAction extends CallBack {
 	}
 	
 	/**
-	 * Create the associated button
-	 * @return the button
-	 */
-	public static PushButton createPushButton() {
-		PushButton pushButton = ScilabPushButton.createPushButton();
-		pushButton.setIcon(ICON);
-		pushButton.setToolTipText(LABEL);
-		pushButton.setCallback(getCallBack());
-		return pushButton;
-	}
-	
-	/**
 	 * Create a new class instance
 	 * @return the instance
 	 */
-	public static CallBack getCallBack() {
+	private static CallBack getCallBack() {
 		CallBack callback = null;
 		try {
-			callback = CloseAction.class.getConstructor().newInstance();
+			callback = ClearAction.class.getConstructor().newInstance();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -94,6 +79,6 @@ public final class CloseAction extends CallBack {
 	 * @see org.scilab.modules.gui.events.callback.CallBack#callBack()
 	 */
 	public void callBack() {
-		CommandHistory.setVisible(false);
+		HistoryManagement.resetScilabHistory();
 	}
 }
