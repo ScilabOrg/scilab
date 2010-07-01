@@ -14,6 +14,12 @@ History Manager:
 
 * Begin session line identified by "// -- " and finished by " -- //"
 
+Compilation:
+============
+
+* fix the "warning: deprecated conversion from string constant to ‘char*’"
+  message when compiling a toolbox using Scierror(...) and sciprint(...)
+
 Bug Fixes:
 ==========
 
@@ -557,6 +563,8 @@ Compilation:
 
 * Better detection system of the dependencies version.
 
+* Better detection system of the version of the dependencies
+
 * Add a check of the minimal installations of hdf5 (1.8.4), batik (1.7).
 
 * /usr/share/*/lib added to the Java search path for OpenSuse.
@@ -631,7 +639,6 @@ Obsolete Functions:
   from Scilab.
 
 * 'maxi' obsolete see 'max'.
->>>>>>> 1d472bd... bug 7316 oldbessel functions declared obsolete + special_functions module dynamically loaded by scilab
 
 * 'maxi' obsolete. Please use 'max' instead.
 
