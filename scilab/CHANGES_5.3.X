@@ -320,6 +320,8 @@ Xcos:
 * LaTeX formulas can be used on any TextBlock using the Scilab tag based
   description.
 
+* The default icon set has been updated to use the SVG rendering engine.
+
 * builnewblock.sci rewritten to use Scilab dynamic link module tools.
 
 * Introduction of the variable %MODELICA_USER_LIBS
