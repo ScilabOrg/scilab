@@ -427,6 +427,9 @@ Compilation:
 
 * fix many warnings detected by Intel Fortran 11.1.051 and more on Windows.
 
+* fix the "warning: deprecated conversion from string constant to ‘char*’"
+  message when compiling a toolbox using Scierror(...)
+
 * Better detection system of the version of the dependencies
 
 * Add a check of the minimal installations of hdf5 (1.8.4), batik (1.7)
