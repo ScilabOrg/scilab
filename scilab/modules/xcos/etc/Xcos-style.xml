@@ -17,7 +17,9 @@
     <add as="noLabel" value="1"/>
   </add>
 
-  <add as="blockWithLabel" extend="defaultVertex" />
+  <add as="blockWithLabel" extend="defaultVertex">
+  	<add as="spacing" value="13" />
+  </add>
 
 <!-- *** BLOCK DEFINITION *** -->
 
