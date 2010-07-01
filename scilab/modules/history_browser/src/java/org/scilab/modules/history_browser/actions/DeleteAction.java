@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory.actions;
+package org.scilab.modules.history_browser.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -23,9 +23,9 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
+import org.scilab.modules.history_browser.CommandHistory;
+import org.scilab.modules.history_browser.CommandHistoryMessages;
 import org.scilab.modules.history_manager.HistoryManagement;
-import org.scilab.modules.history_manager.commandhistory.CommandHistory;
-import org.scilab.modules.history_manager.commandhistory.CommandHistoryMessages;
 
 /**
  * Manage Delete Actions
