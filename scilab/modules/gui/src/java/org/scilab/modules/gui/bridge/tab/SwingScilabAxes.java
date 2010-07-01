@@ -208,6 +208,7 @@ public class SwingScilabAxes extends JLayeredPane implements Scrollable {
 		addKeyListener(eventHandler);
 		addMouseListener(eventHandler);
 		addMouseMotionListener(eventHandler);
+		addComponentListener(eventHandler);
 	}
 
 	/**
@@ -218,6 +219,7 @@ public class SwingScilabAxes extends JLayeredPane implements Scrollable {
 			removeKeyListener(eventHandler);
 			removeMouseListener(eventHandler);
 			removeMouseMotionListener(eventHandler);
+			removeComponentListener(eventHandler);
 		}
 	}
 

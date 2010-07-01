@@ -167,6 +167,8 @@ Graphics:
 
 * Datatips tools added.
 
+* the event_handler_function now manages mouse wheel scroll and figure resize events.
+
 * The frequency response plots ("bode", "black", "nyquist", "gainplot",...) 
   support cutomized datatips.
 
