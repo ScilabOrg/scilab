@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.history_manager.commandhistory;
+package org.scilab.modules.history_browser;
 
 import java.awt.BorderLayout;
 
@@ -40,14 +40,16 @@ import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.history_manager.HistoryManagement;
-import org.scilab.modules.history_manager.commandhistory.actions.ClearAction;
-import org.scilab.modules.history_manager.commandhistory.actions.CloseAction;
-import org.scilab.modules.history_manager.commandhistory.actions.CopyAction;
-import org.scilab.modules.history_manager.commandhistory.actions.CutAction;
-import org.scilab.modules.history_manager.commandhistory.actions.DeleteAction;
-import org.scilab.modules.history_manager.commandhistory.actions.EditInScinotesAction;
-import org.scilab.modules.history_manager.commandhistory.actions.EvaluateAction;
-import org.scilab.modules.history_manager.commandhistory.actions.HelpAction;
+import org.scilab.modules.history_browser.CommandHistoryMessages;
+import org.scilab.modules.history_browser.CommandHistoryMouseListener;
+import org.scilab.modules.history_browser.actions.ClearAction;
+import org.scilab.modules.history_browser.actions.CloseAction;
+import org.scilab.modules.history_browser.actions.CopyAction;
+import org.scilab.modules.history_browser.actions.CutAction;
+import org.scilab.modules.history_browser.actions.DeleteAction;
+import org.scilab.modules.history_browser.actions.EditInScinotesAction;
+import org.scilab.modules.history_browser.actions.EvaluateAction;
+import org.scilab.modules.history_browser.actions.HelpAction;
 
 /**
  * Main Scilab Command History GUI
