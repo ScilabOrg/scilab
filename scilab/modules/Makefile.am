@@ -87,7 +87,8 @@ xcos \
 scinotes \
 parallel \
 modules_manager \
-ui_data
+ui_data \
+history_browser
 
 
 #umfpack
