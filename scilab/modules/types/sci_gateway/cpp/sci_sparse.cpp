@@ -18,8 +18,9 @@ using namespace types;
 
 Function::ReturnValue sci_sparse(typed_list &in, int _piRetCount, typed_list &out)
 {
-    InternalType *pRetVal = NULL;
+    types::Sparse *pRetVal = NULL;
 
+    // per the scilab manual sparse will take upto 3 arguments but no less than one	
     if ( (in.size() < 1) || (in.size() > 3) )
     {
         return Function::Error;
@@ -33,25 +34,61 @@ Function::ReturnValue sci_sparse(typed_list &in, int _piRetCount, typed_list &ou
         }
     }
 
-// Working on as we speak.
+    // if one argument is given, it will be a matrix of constant or sparse type, which will be converted into a sparse matrix
     if(in.size() == 1)
     {
 	if (in[0]->getType() == InternalType::RealDouble) {
 		Double *pD = in[0]->getAsDouble();
-		pRetVal = new Sparse(&pD);
-//unfinished 
+	        pRetVal = new types::Sparse(pD);
 	}
 	else {
-		pRetVal = (InternalType *)in[0]->getAsSparse();
+		pRetVal = in[0]->getAsSparse();
 	}
     }
+    // if two arguments are given the first is a 'n x 2' matrix of the non zero indices and the second is a 'n x 1' vector of the values
     else if(in.size() == 2)
     {
-//unfinished
+	Double *_indices = in[0]->getAsDouble();
+	Double *_vals 	 = in[1]->getAsDouble();
+
+	for(int i = 0 ; i < in.size() ; i++)
+        {
+    	    if(in[i]->getType() != InternalType::RealDouble)
+    	    {
+    	        return Function::Error;
+    	    }
+    	}
+
+	if ( (_indices->rows_get() != _vals->rows_get()) || (_indices->cols_get() != 2) || (_vals->cols_get() != 1) )
+	{
+		return Function::Error;
+	}
+	
+	pRetVal = new types::Sparse(_indices, _vals);
+
     }
+    // if three arguments are given the first two are the same for the case of two arugments and the third is a '1 x 2' vector for the size of the matrix
     else
-    {// size is 3
-//unfinished
+    {
+	for(int i = 0 ; i < in.size() ; i++)
+        {
+    	    if(in[i]->getType() != InternalType::RealDouble)
+    	    {
+    	        return Function::Error;
+    	    }
+    	}
+
+	Double *_indices = in[0]->getAsDouble();
+	Double *_vals 	 = in[1]->getAsDouble();
+	Double *_dims 	 = in[2]->getAsDouble();
+
+	if ( (_indices->rows_get() != _vals->rows_get()) || (_indices->cols_get() != 2) || (_vals->cols_get() != 1) || (_dims->rows_get() != 1) || (_dims->cols_get() != 2) )
+	{
+		return Function::Error;
+	}
+	
+	pRetVal = new types::Sparse(_indices, _vals, _dims);
+
     }
 
     if(pRetVal == NULL)

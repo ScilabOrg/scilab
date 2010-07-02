@@ -28,7 +28,6 @@
 #include "intt.hxx"
 #include "double.hxx"
 #include "float.hxx"
-//#include "sparse.hxx"
 #include "bool.hxx"
 #include "callable.hxx"
 #include "function.hxx"

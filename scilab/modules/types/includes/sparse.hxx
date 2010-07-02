@@ -27,12 +27,13 @@ namespace types
     {
     public :
 	virtual			    ~Sparse();
-//				    Sparse(types::IntT _obj);
-				    Sparse(types::Double *_obj);
+
+				    Sparse(Double *_obj);
+				    Sparse(Double *_obj, Double *_obj2);
+				    Sparse(Double *_obj, Double *_obj2, Double *_obj3);
 	                            Sparse(int _iRows, int _iCols, bool _bComplex = false);
 
         /*data management*/
-        //GenericType*                get_col_value(int _iPos);
         bool                        val_set(int _iRows, int _iCols, double _dblReal);
         bool                        val_set(int _iRows, int _iCols, double _dblReal, double _dblImg);
 	double			    real_get(int _iRows, int _iCols);
@@ -47,11 +48,9 @@ namespace types
         void                        complex_set(bool _bComplex);
 
         Sparse*                     getAsSparse(void);
+	Sparse* 		    clone(void);
         string                      toString(int _iPrecision, int _iLineLen);
         bool                        resize(int _iNewRows, int _iNewCols);
-        //bool                        insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        //static Sparse*              insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Sparse* _poSource, bool _bAsVector);
-        //Sparse*                     extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
 
 
         bool                        operator==(const InternalType& it);

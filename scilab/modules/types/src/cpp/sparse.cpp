@@ -50,25 +50,6 @@ namespace types
 		return;
 	}
 
-
-	/*--------------------*/
-	/*				Sparse			*/
-	/*	Real constructor	*/
-	/*--------------------*/
-/*	Sparse::Sparse(types::IntT _obj)
-	{
-		m_matrix = SparseMatrix<int> ( _obj.rows_get(), _obj.cols_get() );
-		m_bComplex = false;
-
-		for (int i = 0; i < _obj.rows_get(); i++)
-		{
-			for (int j = 0; j < _obj.cols_get(); j++)
-			{
-				m_matrix.insert(i,j) = _obj.getAsInt()->data_get(i,j);
-			}
-		}			
-	}
-*/	
 	/*--------------------*/
 	/*				Sparse			*/
 	/*	Real constructor	*/
@@ -104,6 +85,99 @@ namespace types
 		}
 			
 		return;
+	}
+
+	/*--------------------*/
+	/*				Sparse			*/
+	/*	constructor      	*/
+	/*--------------------*/
+	Sparse::Sparse(Double *_obj, Double *_obj2)
+	{
+		int maxRow = 1;
+		int maxCol = 1;
+
+		if ( _obj2->isComplex() ) 
+		{
+			for (int i = 0; i < _obj->rows_get(); i++)
+			{
+				if (_obj->real_get(i,0) > maxRow)
+					maxRow = _obj->real_get(i,0);
+				if (_obj->real_get(i,1) > maxCol)
+					maxCol = _obj->real_get(i,1);
+			}
+			m_complexMatrix = SparseMatrix<std::complex<double> > ( maxRow, maxCol );
+			m_bComplex = true;
+			
+			for (int i = 0; i < maxRow; i++)
+			{
+				m_complexMatrix.insert(_obj->real_get(i,0),_obj->real_get(i,1)) = _obj2->img_get(i,0);
+			}			
+		}
+		else
+		{
+			for (int i = 0; i < _obj->rows_get(); i++)
+			{
+				if (_obj->real_get(i,0) > maxRow)
+					maxRow = _obj->real_get(i,0);
+				if (_obj->real_get(i,1) > maxCol)
+					maxCol = _obj->real_get(i,1);
+			}
+			m_matrix = SparseMatrix<double> ( maxRow, maxCol );
+			m_bComplex = false;
+			
+			for (int i = 0; i < maxRow; i++)
+			{
+				m_matrix.insert(_obj->real_get(i,0),_obj->real_get(i,1)) = _obj2->real_get(i,0);
+			}			
+		}
+
+	}
+
+	/*--------------------*/
+	/*				Sparse			*/
+	/*	constructor     	*/
+	/*--------------------*/
+	Sparse::Sparse(Double *_obj, Double *_obj2, Double *_obj3)
+	{
+		int maxRow = _obj3->real_get(0,0);
+		int maxCol = _obj3->real_get(0,1);
+
+		if ( _obj2->isComplex() ) 
+		{
+			for (int i = 0; i < _obj->rows_get(); i++)
+			{
+				if (_obj->real_get(i,0) > maxRow)
+					maxRow = _obj->real_get(i,0);
+				if (_obj->real_get(i,1) > maxCol)
+					maxCol = _obj->real_get(i,1);
+			}
+			m_complexMatrix = SparseMatrix<std::complex<double> > ( maxRow, maxCol );
+			m_bComplex = true;
+			
+			for (int i = 0; i < maxRow; i++)
+			{
+				m_complexMatrix.insert(_obj->real_get(i,0),_obj->real_get(i,1)) = _obj2->img_get(i,0);
+			}			
+		}
+		else
+		{
+			for (int i = 0; i < _obj->rows_get(); i++)
+			{
+				if (_obj->real_get(i,0) > maxRow)
+					maxRow = _obj->real_get(i,0);
+				if (_obj->real_get(i,1) > maxCol)
+					maxCol = _obj->real_get(i,1);
+			}
+			m_matrix = SparseMatrix<double> ( maxRow, maxCol );
+			m_bComplex = false;
+			
+			for (int i = 0; i < maxRow; i++)
+			{
+				m_matrix.insert(_obj->real_get(i,0),_obj->real_get(i,1)) = _obj2->real_get(i,0);
+			}			
+		}
+
+	
 	}
 
 	bool Sparse::isComplex()
@@ -202,6 +276,14 @@ namespace types
 	/*	getAsSparse		*/
 	/*--------------*/
 	Sparse* Sparse::getAsSparse(void)
+	{
+		return this;
+	}
+
+	/*--------------*/
+	/*	clone    		*/
+	/*--------------*/
+	Sparse* Sparse::clone(void)
 	{
 		return this;
 	}
@@ -661,320 +743,4 @@ namespace types
 	}
 
 }
-/*	GenericType*	Sparse::get_col_value(int _iPos)
-	{
-		Sparse *pdbl = NULL;
-		if(_iPos < m_iCols)
-		{
-			if(isComplex())
-			{
-				pdbl = Sparse(m_iRows, 1, true);
-				for(int i = 0 ; i < m_iRows ; i++)
-				{
-					pdbl->val_set(value, 0, real_get(i, _iPos), img_get(i, _iPos));
-				}
-			}
-			else
-			{
-				pdbl = Sparse(m_iRows, 1);
-				for(int i = 0 ; i < m_iRows ; i++)
-				{
-					pdbl->val_set(i, 0, real_get(i, _iPos));
-				}
-			}
-		}
-		return pdbl;
-	}
 
-	bool Sparse::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
-	{
-		int iNewRows = rows_get();
-		int iNewCols = cols_get();
-		//check input size
-		if(_bAsVector == false)
-		{
-			if(rows_get() < _piMaxDim[0] || cols_get() < _piMaxDim[1])
-			{//compute new dimensions
-				iNewRows = Max(_piMaxDim[0], rows_get());
-				iNewCols = Max(_piMaxDim[1], cols_get());
-			}
-		}
-		else
-		{
-			if(size_get() < _piMaxDim[0])
-			{
-				if(rows_get() == 1 || size_get() == 0)
-				{
-					iNewRows = 1;
-					iNewCols = _piMaxDim[0];
-				}
-				else if(cols_get() == 1)
-				{
-					iNewRows = _piMaxDim[0];
-					iNewCols = 1;
-				}
-				else
-				{
-					return false;
-				}
-			}
-		}
-
-		//check if the size of _poSource is compatible with the size of the variable
-		if(_bAsVector == false && (iNewRows < _poSource->rows_get() || iNewCols < _poSource->cols_get()))
-		{
-			return false;
-		}
-		else if(_bAsVector == true && (iNewRows * iNewCols < _poSource->size_get()))
-		{
-			return false;
-		}
-
-
-		//check if the count of values is compatible with indexes
-		if(_poSource->size_get() != 1 && _poSource->size_get() != _iSeqCount)
-		{
-			return false;
-		}
-
-
-		switch(_poSource->getType())
-		{
-		case InternalType::RealSparse :
-			{
-				Sparse *pIn = _poSource->getAsSparse();
-
-				//Only resize after all tests !
-				if(resize(iNewRows, iNewCols) == false)
-				{
-					return false;
-				}
-
-				//variable can receive new values.
-				if(pIn->size_get() == 1)
-				{//a(?) = x
-					if(pIn->isComplex())
-					{//a(?) = C
-						double* pInR = pIn->real_get();
-						double* pInI = pIn->img_get();
-
-						complex_set(true);//do nothing if variable is already complex
-
-						if(_bAsVector)
-						{//a([]) = C
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								m_pdblReal[_piSeqCoord[i] - 1]	= pInR[0];
-								m_pdblImg[_piSeqCoord[i] - 1]		= pInI[0];
-							}
-						}
-						else
-						{//a([],[]) = C
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-								m_pdblReal[iPos]	= pInR[0];
-								m_pdblImg[iPos]		= pInI[0];
-							}
-						}
-					}
-					else
-					{//a(?) = R
-						double* pInR = pIn->real_get();
-
-						if(_bAsVector)
-						{//a([]) = R
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								m_pdblReal[_piSeqCoord[i] - 1]	= pInR[0];
-							}
-						}
-						else
-						{//a([],[]) = R
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-								m_pdblReal[iPos]	= pInR[0];
-							}
-						}
-					}
-				}
-				else
-				{//a(?) = [x]
-					if(pIn->isComplex())
-					{//a(?) = [C]
-						double* pInR = pIn->real_get();
-						double* pInI = pIn->img_get();
-
-						complex_set(true);//do nothing if variable is already complex
-
-						if(_bAsVector)
-						{//a([]) = [C]
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								m_pdblReal[_piSeqCoord[i] - 1]	= pInR[i];
-								m_pdblImg[_piSeqCoord[i] - 1]		= pInI[i];
-							}
-						}
-						else
-						{//a([],[]) = [C]
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-								m_pdblReal[iPos]	= pInR[i];
-								m_pdblImg[iPos]		= pInI[i];
-							}
-						}
-					}
-					else
-					{//a(?) = [R]
-						double* pInR = pIn->real_get();
-
-						if(_bAsVector)
-						{//a([]) = [R]
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								m_pdblReal[_piSeqCoord[i] - 1]	= pInR[i];
-							}
-						}
-						else
-						{//a([],[]) = [R]
-							for(int i = 0 ; i < _iSeqCount ; i++)
-							{
-								int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-								int iTempR = i / pIn->cols_get();
-								int iTempC = i % pIn->cols_get();
-								int iNew_i = iTempR + iTempC * pIn->rows_get();
-
-								m_pdblReal[iPos]	= pInR[iNew_i];
-							}
-						}
-					}
-				}
-			break;
-			}
-		default :
-			return false;
-			break;
-		}
-		return true;
-	}
-
-	Sparse* Sparse::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Sparse* _poSource, bool _bAsVector)
-	{
-		Sparse* pdbl	= NULL ; 
-		
-		if(_bAsVector)
-		{
-			if(_poSource->cols_get() == 1)
-			{
-				pdbl = new Sparse(_piMaxDim[0], 1, _poSource->isComplex());
-			}
-			else if(_poSource->rows_get() == 1)
-			{
-				pdbl = new Sparse(1, _piMaxDim[0], _poSource->isComplex());
-			}
-			else
-			{
-				return NULL;
-			}
-		}
-		else
-		{
-			pdbl = new Sparse(_piMaxDim[0], _piMaxDim[1], _poSource->isComplex());
-		}
-
-		pdbl->zero_set();
-		if(pdbl->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
-		{
-			delete pdbl;
-			return NULL;
-		}
-
-		return pdbl;
-	}
-
-	Sparse* Sparse::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
-	{
-		Sparse *pOut	= NULL;
-		int iRowsOut	= 0;
-		int iColsOut	= 0;
-
-		//check input param
-
-		if(	(_bAsVector && _piMaxDim[0] > size_get()) ||
-            (_bAsVector == false && _piMaxDim[0] > rows_get()) ||
-            (_bAsVector == false && _piMaxDim[1] > cols_get()))
-		{
-			return NULL;
-		}
-
-		if(_bAsVector)
-		{//a([])
-			if(rows_get() == 1)
-			{
-				iRowsOut	= 1;
-				iColsOut	= _piDimSize[0];
-			}
-			else
-			{
-				iRowsOut	= _piDimSize[0];
-				iColsOut	= 1;
-			}
-		}
-		else
-		{//a([],[])
-			iRowsOut	= _piDimSize[0];
-			iColsOut	= _piDimSize[1];
-		}
-
-		pOut							= new Sparse(iRowsOut, iColsOut, isComplex());
-		double* pdblReal	= pOut->real_get();
-		double* pdblImg		= pOut->img_get();
-
-
-		if(_bAsVector)
-		{
-			if(isComplex())
-			{
-				for(int i = 0 ; i < _iSeqCount ; i++)
-				{
-					pdblReal[i] = m_pdblReal[_piSeqCoord[i] - 1];
-					pdblImg[i]	= m_pdblImg[_piSeqCoord[i] - 1];
-				}
-			}
-			else
-			{
-				for(int i = 0 ; i < _iSeqCount ; i++)
-				{
-					pdblReal[i] = m_pdblReal[_piSeqCoord[i] - 1];
-				}
-			}
-		}
-		else
-		{
-			if(isComplex())
-			{
-				for(int i = 0 ; i < _iSeqCount ; i++)
-				{
-					int iOutIndex				= (i % iColsOut) * iRowsOut + (i / iColsOut);
-					int iInIndex				= (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-					pdblReal[iOutIndex] = m_pdblReal[iInIndex];
-					pdblImg[iOutIndex]	= m_pdblImg[iInIndex];
-				}
-			}
-			else
-			{
-				for(int i = 0 ; i < _iSeqCount ; i++)
-				{
-					//convert vertical indexes to horizontal indexes
-					int iOutIndex				= (i % iColsOut) * iRowsOut + (i / iColsOut);
-					int iInIndex				= (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-					pdblReal[iOutIndex] = m_pdblReal[iInIndex];
-				}
-			}
-		}
-		
-		return pOut;
-	}
-}*/
