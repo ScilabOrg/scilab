@@ -343,14 +343,14 @@ public class SciNotes extends SwingScilabTab implements Tab {
 
     /**
      * Clone the current tab and if b is true close the tab
+     * @param ed the editor where the tab is
      * @param b a boolean
      */
-    public static void cloneAndCloseCurrentTab(boolean b) {
-        SciNotes current = editor;
-        ScilabDocument cdoc = (ScilabDocument) current.getTextPane().getDocument();
+    public static void cloneAndCloseCurrentTab(SciNotes ed, boolean b) {
+        ScilabDocument cdoc = (ScilabDocument) ed.getTextPane().getDocument();
         editor = null;
         scinotesWithText(cdoc.getText());
-        String title = current.getTabPane().getTitleAt(current.getTabPane().getSelectedIndex());
+        String title = ed.getTabPane().getTitleAt(ed.getTabPane().getSelectedIndex());
         editor.getTabPane().setTitleAt(0, title);
         current.getTextPane().copyProps(editor.getTextPane());
         editor.setTitle(current.getTitle());
@@ -362,9 +362,9 @@ public class SciNotes extends SwingScilabTab implements Tab {
         editor.enableRedoButton(false);
 
         if (b) {
-            current.closeTabAt(current.getTabPane().getSelectedIndex());
-            if (current.getTabPane().getTabCount() == 0) {
-                current.addEmptyTab();
+            ed.closeTabAt(current.getTabPane().getSelectedIndex());
+            if (ed.getTabPane().getTabCount() == 0) {
+                ed.addEmptyTab();
             }
         }
     }
