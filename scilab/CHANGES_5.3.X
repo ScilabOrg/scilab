@@ -6,7 +6,8 @@ Bug Fixes:
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating
 
-
+* bugs 7462,7463 fixed - The editor didn't manage files with extensions *.tst,
+                         *.start,*.quit.
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
