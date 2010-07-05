@@ -108,6 +108,12 @@ public:
 	*/
 	char **getAllLines(int *numberoflines);
 
+    /**
+    * returns the first line in history
+    * @return a string
+    */
+    char *getFirstLine(void);
+
 	/**
 	* returns the last line in history
 	* @return a string
@@ -201,6 +207,17 @@ private:
 	BOOL saveconsecutiveduplicatelines;
 	int afterhowmanylineshistoryissaved;
 	int numberoflinesbeforehistoryissaved;
+
+    /**
+    * search if line is a beginning of a session
+    * @return TRUE or FALSE
+    */
+    BOOL isBeginningSessionLine(char *line);
+
+    /**
+    * add as first line  beginning session info
+    */
+    void fixHistorySession(void);
 
 
 };
