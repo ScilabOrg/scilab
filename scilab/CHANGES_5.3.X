@@ -6,6 +6,9 @@ Bug Fixes:
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating
 
+* bug 7372 fixed - No message was displayed in the Xcos info bar during the
+                   first drag and drop of a block (may take some times).
+
 
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
