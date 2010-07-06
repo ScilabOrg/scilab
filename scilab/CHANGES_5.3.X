@@ -23,13 +23,14 @@ Compilation:
 Bug Fixes:
 ==========
 
-* bug 7121 fixed - update help file about saveafterncommands(0).
+* bug 7121 fixed - Update help file about saveafterncommands(0).
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating.
 
-* bug 7437 fixed - if history file was invalid, history browser crashed.
+* bug 7437 fixed - If history file was invalid, history browser crashed.
 
-* bug 7441 fixed - history browser crashed if language was changed by user.
+* bug 7441 fixed - The history browser crashed if language was changed.
+
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
