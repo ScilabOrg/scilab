@@ -31,6 +31,7 @@ Bug Fixes:
 
 * bug 7441 fixed - The history browser crashed if language was changed.
 
+* bug 7459 fixed - Fix some characters issues with japanese systems.
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
