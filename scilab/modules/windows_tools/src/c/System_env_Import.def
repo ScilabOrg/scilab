@@ -2,5 +2,5 @@ LIBRARY    system_env.dll
 
 
 EXPORTS
-getSCI
 getScilabMode
+getTMPDIR

@@ -47,6 +47,8 @@ namespace types
           /* Container */
           RealContainer,
           RealList,
+          RealTList,
+          RealMList,
           RealStruct,
           RealCell,
           /* User */
