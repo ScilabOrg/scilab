@@ -25,6 +25,8 @@ Bug Fixes:
 
 * bug 7121 fixed - update help file about saveafterncommands(0).
 
+* bug 7228 fixed - update help file of strcat about third input argument.
+
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating.
 
 * bug 7437 fixed - if history file was invalid, history browser crashed.
