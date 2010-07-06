@@ -25,6 +25,10 @@ Bug Fixes:
 
 * bug 7121 fixed - update help file about saveafterncommands(0).
 
+* bug 7182 fixed - update help file of ulink about input argument.
+
+* bug 7183 fixed - update help file of link about output argument.
+
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating.
 
 * bug 7437 fixed - if history file was invalid, history browser crashed.
