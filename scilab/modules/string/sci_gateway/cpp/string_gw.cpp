@@ -16,6 +16,7 @@
 bool StringModule::Load()
 {
   symbol::Context::getInstance()->AddFunction(Function::createFunction("grep", &sci_grep, MODULE_NAME));
+  symbol::Context::getInstance()->AddFunction(Function::createFunction("stripblanks", &sci_stripblanks, MODULE_NAME));
 
   return true;
 }
