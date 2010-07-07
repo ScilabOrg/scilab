@@ -6,6 +6,8 @@ Bug Fixes:
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating
 
+* bug 3842 fixed - "native" and "double" evaluation mode added to the sum, 
+                   cumsum, prod and cumprod functions
 
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
