@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Iterator;
-import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
@@ -45,6 +44,7 @@ import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
+import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.scinotes.actions.SplitHorizontallyAction;
 import org.scilab.modules.scinotes.actions.SplitVerticallyAction;
@@ -731,7 +731,7 @@ public class SciNotesGUI {
                         try {
                             ScilabDocument doc = (ScilabDocument) ((ScilabEditorPane) c).getDocument();
                             String url = doc.getText(kwe.getStart(), kwe.getLength());
-                            OpenURLAction.openURL(url);
+                            WebBrowser.openUrl(url);
                         } catch (BadLocationException e) { }
                     }
                 }

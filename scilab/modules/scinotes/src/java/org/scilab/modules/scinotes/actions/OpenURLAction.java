@@ -12,22 +12,17 @@
 
 package org.scilab.modules.scinotes.actions;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.scinotes.SciNotes;
 import org.scilab.modules.scinotes.ScilabDocument;
 import org.scilab.modules.scinotes.ScilabLexerConstants;
 import org.scilab.modules.scinotes.ScilabEditorPane;
 import org.scilab.modules.scinotes.KeywordEvent;
 import org.scilab.modules.scinotes.utils.SciNotesMessages;
-import org.scilab.modules.action_binding.InterpreterManagement;
 
 /**
  * OpenURLAction Class
@@ -53,7 +48,7 @@ public class OpenURLAction extends DefaultAction {
             try {
                 ScilabDocument doc = (ScilabDocument) sep.getDocument();
                 String url = doc.getText(kwe.getStart(), kwe.getLength());
-                openURL(url);
+                WebBrowser.openUrl(url);
             } catch (BadLocationException e) { }
         }
     }
@@ -66,27 +61,5 @@ public class OpenURLAction extends DefaultAction {
      */
     public static MenuItem createMenu(SciNotes editor, KeyStroke key) {
         return createMenu(SciNotesMessages.OPEN_URL, null, new OpenURLAction(editor), key);
-    }
-
-    public static void openURL(String url) {
-        if (url == null || url.length() == 0) {
-            return;
-        }
-
-        try {
-            if (url.charAt(0) == 'h') {
-                // We have something like http://...
-                Desktop.getDesktop().browse(new URI(url));
-            } else {
-                // We have <pierre.marechal@scilab.org>
-                String mail = "mailto:" + url.substring(1, url.length() - 1);
-                Desktop.getDesktop().mail(new URI(mail));
-            }
-        } catch (IOException e) {
-            System.err.println(e.toString());
-        }
-        catch (URISyntaxException e) {
-            System.err.println(e.toString());
-        }
     }
 }
