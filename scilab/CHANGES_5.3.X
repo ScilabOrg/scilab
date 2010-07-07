@@ -753,7 +753,9 @@ Bug fixes:
 * bug 2076 fixed - pspect did not use the last data window.
 
 * bug 2613 fixed - Incorrect stack recovery for catched errors in some
-                   specific contexts (for loops, ...).
+                   specific contexts (for loops, ..)
+
+* bug 1989 fixed - Semantics of empty matrices in boolean expressions was not clear enough
 
 * bug 2623 fixed - Non-regression test script fixed.
 

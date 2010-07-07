@@ -5,7 +5,7 @@
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -29,6 +29,7 @@ extern int C2F(compil)(int *, int *, int *, int *, int *);
 extern int C2F(getsym)(void);
 extern int C2F(istrue)(int *);
 extern int C2F(eptover)(int *, int *);
+static int C2F(isempty)(void);
 /*--------------------------------------------------------------------------*/ 
 #define  et      58 /* @TODO does 'et' is 'and' in english ? */
 #define  equal   50
@@ -43,15 +44,39 @@ extern int C2F(eptover)(int *, int *);
 #define  ou      57 /* @TODO does 'ou' is 'or' in english ? */
 
 /*--------------------------------------------------------------------------*/ 
+
+/*! Check if the variable at the top of the stack is empty or not
+*/
+static int isempty(void)
+{
+	int l = 0;
+	int il = 0;
+
+	il=iadr(C2F(vstk).lstk[Top - 1]);
+	if (*istk(il)<0)
+		{
+	il = *istk(il+1);
+		}
+	if (*istk(il) != 1 || *istk(il+1) != 0 || *istk(il+2) != 0 )
+		{
+			return 0;
+		}
+	else
+		{
+			return 1;
+		}
+}
+	
 int C2F(expr)(void)
 {
+
 	static int eye[6] = { 672014862,673720360,673720360,673720360, 673720360,673720360 };
 	int i = 0, j = 0;
 	int r = 0 , s = 0, ir = 0, op = 0, ls = 0, sign = 0;
 	int temp = 0;
 	int kount = 0;
 
-	if (C2F(iop).ddt == 4) {     
+	if (C2F(iop).ddt == 4) {
 	  static char tmp[100];
 	  static int io;
 	  sprintf(tmp," expr   pt:%d rstk(pt):%d sym:%d",C2F(recu).pt,C2F(recu).rstk[C2F(recu).pt - 1], C2F(com).sym);
@@ -64,8 +89,8 @@ int C2F(expr)(void)
 	ir = r / 100;
 
 	if (ir != 1) goto L1;
-	
-	switch (r - 100) 
+
+	switch (r - 100)
 	{
 		case 1:  goto L5;
 		case 2:  goto L6;
@@ -93,24 +118,24 @@ L1:
 L2:
 	kount = 1;
 	if (C2F(com).sym == not) goto L70;
-	
+
 	if (C2F(com).sym == colon) C2F(putid)(C2F(com).syn, eye);
 
 L3:
 	s = 1;
 L4:
 	if (C2F(com).sym == minus) s = -s;
-	
-	if (C2F(com).sym == plus || C2F(com).sym == minus) 
+
+	if (C2F(com).sym == plus || C2F(com).sym == minus)
 	{
 		C2F(getsym)();
 		goto L4;
 	}
 	sign = plus;
 	if (s < 0) sign = minus;
-	
+
 	if (C2F(eptover)(&inc, &checkvalue)) return 0;
-	
+
 	C2F(recu).pstk[C2F(recu).pt - 1] = sign + (kount << 8);
 	C2F(recu).rstk[C2F(recu).pt - 1] = 101;
 	C2F(recu).icall = 2;
@@ -121,7 +146,7 @@ L5:
 	kount = C2F(recu).pstk[C2F(recu).pt - 1] / 256;
 	--C2F(recu).pt;
 	if (sign != minus) goto L10;
-	
+
 	Rhs = 1;
 	++C2F(recu).pt;
 	C2F(recu).pstk[C2F(recu).pt - 1] = kount;
@@ -145,7 +170,7 @@ L20:
 	/* blank or tab is delimiter inside angle brackets */
 	ls = C2F(iop).lpt[2] - 2;
 	if ( (i = C2F(iop).lin[ls - 1], abs(i)) == blank && (j = C2F(iop).lin[C2F(iop).lpt[2] - 1], abs(j)) != blank) goto L50;
-		
+
 L21:
 	op = C2F(com).sym;
 	C2F(getsym)();
@@ -164,14 +189,14 @@ L22:
 		/* 1+-2 or 1--2 */
 		if (op == minus) op = plus;
 		else op = minus;
-			
+
 		C2F(getsym)();
 		goto L22;
 	}
 	++C2F(recu).pt;
 	C2F(recu).pstk[C2F(recu).pt - 1] = op + (kount << 8);
 	if (C2F(com).sym != not) goto L24;
-		
+
 	C2F(recu).rstk[C2F(recu).pt - 1] = 115;
 	/* *call* lfact */
 	goto L85;
@@ -259,23 +284,26 @@ L72:
 			/* evaluation shortcircuit */
 			if (C2F(com).comp[0] != 0) 
 			{
-				if (C2F(compil)(&code, &inc, &val, &val, &val)) 
+				if (C2F(compil)(&code, &inc, &val, &val, &val))
 				{
 					if (Err > 0) return 0;
 					C2F(recu).ids[C2F(recu).pt * 6 - 6] = C2F(com).comp[0];
 				}
 			} 
-			else 
+			else
 			{
-				temp = (i = *istk(iadr(C2F(vstk).lstk[Top - 1])), abs(i));
-				if ( (temp != 8) && (C2F(istrue)(&val)) )
+				if (!isempty()) /*added for bug 1989 fix*/
 				{
-					/* first term is true there is no use to evaluate the other */
-					C2F(recu).ids[C2F(recu).pt * 6 - 6] = 1;
-					/* err1 <>0 sets interpretation without evaluation */
-					/* use special value to be able to distinguish from */
-					/* recovered errors */
-					C2F(errgst).err1 = 9191919;
+					temp = (i = *istk(iadr(C2F(vstk).lstk[Top - 1])), abs(i));
+					if ( (temp != 8) && (C2F(istrue)(&val)) )
+					{
+						/* first term is true there is no use to evaluate the other */
+						C2F(recu).ids[C2F(recu).pt * 6 - 6] = 1;
+						/* err1 <>0 sets interpretation without evaluation */
+						/* use special value to be able to distinguish from */
+						/* recovered errors */
+						C2F(errgst).err1 = 9191919;
+					}
 				}
 			}
 		}
@@ -290,19 +318,19 @@ L73:
 	kount = C2F(recu).pstk[C2F(recu).pt - 1] / 256;
 	--C2F(recu).pt;
 	if (op == 0) goto L75;
-	
-	if (C2F(com).comp[0] == 0 && C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 6] == 1) 
+
+	if (C2F(com).comp[0] == 0 && C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 6] == 1)
 	{
 		/* term has not been evaluated */
 		if ((i = -C2F(errgst).errct, abs(i)) / 100000 == 0) 
 		{
 			C2F(errgst).err1 = C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5];
 		} 
-		else if (C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5] != 0) 
+		else if (C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5] != 0)
 		{
 			C2F(errgst).err1 = C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5];
 		} 
-		else 
+		else
 		{
 			if (C2F(errgst).err1 == 9191919) C2F(errgst).err1 = 0;
 		}
@@ -319,7 +347,7 @@ L73:
 	return 0;
 L74:
 	kount = C2F(recu).pstk[C2F(recu).pt - 1];
-	if (C2F(com).comp[0] != 0 && C2F(recu).ids[C2F(recu).pt * 6 - 6] != 0) 
+	if (C2F(com).comp[0] != 0 && C2F(recu).ids[C2F(recu).pt * 6 - 6] != 0)
 	{
 		i = C2F(recu).ids[C2F(recu).pt * 6 - 6] - 1;
 		if ( (C2F(compil)(&code, &val, &i, &val, &val)) && (Err > 0) ) return 0;
@@ -333,7 +361,7 @@ L80:
 	if (C2F(iop).ddt == 4) { }
 L81:
 	if (C2F(eptover)(&inc, &checkvalue)) return 0;
-	
+
 	C2F(recu).ids[C2F(recu).pt * 6 - 6] = 0;
 	C2F(recu).ids[C2F(recu).pt * 6 - 5] = C2F(errgst).err1;
 	if (C2F(com).sym == et) 
@@ -346,21 +374,24 @@ L81:
 			/* logical expression evaluation shortcircuit */
 			if (C2F(com).comp[0] != 0) 
 			{
-				if (C2F(compil)(&code, &val, &val, &val, &val)) 
+				if (C2F(compil)(&code, &val, &val, &val, &val))
 				{
 					if (Err > 0) return 0;
 					C2F(recu).ids[C2F(recu).pt * 6 - 6] = C2F(com).comp[0];
 				}
 			} 
-			else 
+			else
 			{
-				temp = (i = *istk(iadr(C2F(vstk).lstk[Top - 1])), abs(i));
-				if ( (temp != 8) && (! C2F(istrue)(&val)) )
+				if (!isempty())
 				{
-					/* first term is false there is no use to evaluate the other */
-					C2F(recu).ids[C2F(recu).pt * 6 - 6] = 1;
-					/* err1 <>0 sets interpretation without evaluation */
-					C2F(errgst).err1 = 9191919;
+					temp = (i = *istk(iadr(C2F(vstk).lstk[Top - 1])), abs(i));
+					if ( (temp != 8) && (! C2F(istrue)(&val)) )
+					{
+						/* first term is false there is no use to evaluate the other */
+						C2F(recu).ids[C2F(recu).pt * 6 - 6] = 1;
+						/* err1 <>0 sets interpretation without evaluation */
+						C2F(errgst).err1 = 9191919;
+					}
 				}
 			}
 		}
@@ -378,20 +409,20 @@ L82:
 	kount = C2F(recu).pstk[C2F(recu).pt - 1] / 256;
 	--C2F(recu).pt;
 	if (op == 0) goto L84;
-	
-	if (C2F(com).comp[0] == 0 && C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 6] == 1) 
+
+	if (C2F(com).comp[0] == 0 && C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 6] == 1)
 	{
 		/* term has not been evaluated */
 		if ((i = -C2F(errgst).errct, abs(i)) / 100000 == 0) 
 		{
 			C2F(errgst).err1 = C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5];
 		} 
-		else if (C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5] != 0) 
+		else if (C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5] != 0)
 		{
 			/* error detected before if expression evaluation (should not occur ?) */
 			C2F(errgst).err1 = C2F(recu).ids[(C2F(recu).pt + 1) * 6 - 5];
 		} 
-		else 
+		else
 		{
 			if (C2F(errgst).err1 == 9191919) C2F(errgst).err1 = 0;
 		}
@@ -422,7 +453,7 @@ L84:
 L85:
 	if (C2F(iop).ddt == 4) { }
 	if (C2F(eptover)(&inc, &checkvalue)) return 0;
-		
+
 	C2F(recu).pstk[C2F(recu).pt - 1] = 0;
 	if (C2F(com).sym == not && C2F(com).char1 != equal) 
 	{
@@ -473,13 +504,13 @@ L102:
 L103:
 	op = C2F(com).sym;
 	C2F(getsym)();
-	if (op == equal && C2F(com).sym != equal) 
+	if (op == equal && C2F(com).sym != equal)
 	{
 		int code_message = 7;
 		C2F(msgs)(&code_message, &val);
 	}
-	
-	if (C2F(com).sym == equal || C2F(com).sym == great) 
+
+	if (C2F(com).sym == equal || C2F(com).sym == great)
 	{
 		if (op != equal) op += C2F(com).sym;
 		C2F(getsym)();
