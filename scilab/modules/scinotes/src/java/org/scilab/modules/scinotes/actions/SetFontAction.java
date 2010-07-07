@@ -43,7 +43,8 @@ public class SetFontAction extends DefaultAction {
      * DoAction
      */
     public void doAction() {
-        SwingScilabFontChooser fontChooser = new SwingScilabFontChooser(ConfigSciNotesManager.getFont(), false);
+        SwingScilabFontChooser fontChooser = new SwingScilabFontChooser(ConfigSciNotesManager.getFont(), true);
+        fontChooser.setLocationRelativeTo(getEditor());
         fontChooser.displayAndWait();
 
         Font newFont = fontChooser.getSelectedFont();
