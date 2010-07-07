@@ -750,10 +750,12 @@ Bug fixes:
 * bug 1371 fixed - The representation of floating numbers with and exponent
                    larger than 100 or smaller than -100 was incorrect.
 
+* bug 1989 fixed - Semantics of empty matrices in boolean expressions were not clear enough.
+
 * bug 2076 fixed - pspect did not use the last data window.
 
 * bug 2613 fixed - Incorrect stack recovery for catched errors in some
-                   specific contexts (for loops, ...).
+                   specific contexts (for loops, ..).
 
 * bug 2623 fixed - Non-regression test script fixed.
 

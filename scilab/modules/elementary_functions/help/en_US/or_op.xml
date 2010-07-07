@@ -37,10 +37,21 @@
     <title>Description</title>
 
     <para><literal>A|B</literal> gives the element-wise logical
-    <literal>or</literal> of the booleans matrices <literal>A</literal> and
-    <literal>B</literal> .<literal>A</literal> and <literal>B</literal> must
-    be matrices with the same dimensions or one from them must be a single
-    boolean.</para>
+    <literal>or</literal> of the booleans matrices
+    <literal>A</literal> and <literal>B</literal>. Matrices
+    <literal>A</literal> and <literal>B</literal> must have the same
+    dimensions or one from them must be a single boolean.</para>
+
+    <para> Used inside an if or while condition expression the
+    <literal>|</literal> operator short circuits (do not evaluates)
+    the second operand evaluation if the first one evaluates to
+    true.</para>
+
+    <para>If one of the operand evaluates to an empty matrix <literal>[ ]</literal> the following rules apply:</para>
+    <para>[]|[] == []</para>
+    <para>[]|A == A</para>   
+    <para>A|[] == A</para>   
+   
   </refsection>
 
   <refsection>
