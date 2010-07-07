@@ -21,6 +21,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -43,6 +45,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.scilab.modules.gui.fontchooser.SimpleFontChooser;
+import org.scilab.modules.gui.utils.ScilabFontUtils;
 
 /**
  * Swing implementation of a Scilab FileChooser
@@ -50,277 +53,302 @@ import org.scilab.modules.gui.fontchooser.SimpleFontChooser;
  */
 public class SwingScilabFontChooser extends JDialog implements SimpleFontChooser {
 
-        private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-        private static final int HGAP = 10;
-        private static final int VGAP = 2;
-        private static final int PREVIEW_WIDTH = 120;
-        private static final int PREVIEW_HEIGHT = 40;
+	private static final int HGAP = 10;
+	private static final int VGAP = 2;
+	private static final int PREVIEW_WIDTH = 120;
+	private static final int PREVIEW_HEIGHT = 40;
 
-        private int elementId;
+	private int elementId;
 
-        private JList fontNameList;
-        private String[] availableFontNames;
+	private JList fontNameList;
+	private String[] availableFontNames;
 
-        private JList fontSizeList;
-        private String[] availableFontSizes = {"8", "10", "11", "12",
-                                                                                   "13", "14", "16", "18", "20",
-                                                                                   "24", "30", "36", "40",
-                                                                                    "48", "60", "72" };
+	private JList fontSizeList;
+	private String[] availableFontSizes = {"8", "10", "11", "12",
+			"13", "14", "16", "18", "20",
+			"24", "30", "36", "40",
+			"48", "60", "72" };
 
-        private boolean boldItalicEnable;
-        private JCheckBox boldCheckbox;
-        private JCheckBox italicCheckbox;
+	private boolean boldItalicEnable;
+	private JCheckBox boldCheckbox;
+	private JCheckBox italicCheckbox;
+	private JCheckBox monospacedCheckbox;
 
-        private JLabel preview;
-        private String previewText = "The Quick Brown Fox Jumps Over The Lazy Dog";
+	private JLabel preview;
+	private String previewText = "The Quick Brown Fox Jumps Over The Lazy Dog";
 
-        /* User choices */
-        private Font selectedFont;
+	/* User choices */
+	private Font selectedFont;
 
-        /**
-         * Default constructor
-         * @param font the default font
-         */
-        public SwingScilabFontChooser(Font font) {
-                this(font, true);
-        }
+	/**
+	 * Default constructor
+	 * @param font the default font
+	 */
+	public SwingScilabFontChooser(Font font) {
+		this(font, true);
+	}
 
-        /**
-         * Default constructor
-         * @param font the default font
-         * @param boldItalicEnable true if the font can be italic and/or bold
-         */
-        public SwingScilabFontChooser(Font font, boolean boldItalicEnable) {
-                super(new JFrame(), "Font Chooser", true);
-                this.boldItalicEnable = boldItalicEnable;
-                ((JFrame) getParent()).setIconImage(new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/scilab.png").getImage());
+	/**
+	 * Default constructor
+	 * @param font the default font
+	 * @param boldItalicEnable true if the font can be italic and/or bold
+	 */
+	public SwingScilabFontChooser(Font font, boolean boldItalicEnable) {
+		super(new JFrame(), "Font Chooser", true);
+		this.boldItalicEnable = boldItalicEnable;
+		((JFrame) getParent()).setIconImage(new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/scilab.png").getImage());
 
-                getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-                /* Panel used to display available fonts and sizes */
-                JPanel fontPanel = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
-                fontPanel.setBorder(new TitledBorder(new EtchedBorder(), "Font"));
+		/* Panel used to display available fonts and sizes */
+		JPanel fontPanel = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
+		fontPanel.setBorder(new TitledBorder(new EtchedBorder(), "Font"));
 
-                /* Font names list */
-                fontNameList = new JList();
-                fontNameList.setModel(new DefaultListModel());
-                fontNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                fontPanel.add(new JScrollPane(fontNameList));
+		/* Font names list */
+		fontNameList = new JList();
+		fontNameList.setModel(new DefaultListModel());
+		fontNameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		fontPanel.add(new JScrollPane(fontNameList));
 
-                /* Get the system fonts */
-                availableFontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+		/* Get the system fonts */
+		availableFontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-                /* Add the font names to the list */
-                for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
-                        ((DefaultListModel) fontNameList.getModel()).addElement(availableFontNames[fontIndex]);
-                        if ((font != null) && (availableFontNames[fontIndex].equals(font.getFamily()))) {
-                                fontNameList.setSelectedIndex(fontIndex);
-                        }
-                }
-                if (fontNameList.getSelectedIndex() == -1) {
-                        fontNameList.setSelectedIndex(0);
-                }
-
-
-                /* Font size list */
-                fontSizeList = new JList();
-                fontSizeList.setModel(new DefaultListModel());
-                fontSizeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                fontPanel.add(new JScrollPane(fontSizeList));
-
-                /* Add the font sizes to the list */
-                for (int sizeIndex = 0; sizeIndex < availableFontSizes.length; sizeIndex++) {
-                        ((DefaultListModel) fontSizeList.getModel()).addElement(availableFontSizes[sizeIndex]);
-                        if ((font != null) && (availableFontSizes[sizeIndex].equals(Integer.toString(font.getSize())))) {
-                                fontSizeList.setSelectedIndex(sizeIndex);
-                        }
-                }
-                if (fontSizeList.getSelectedIndex() == -1) {
-                        fontSizeList.setSelectedIndex(0);
-                }
+		/* Add the font names to the list */
+		for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
+			((DefaultListModel) fontNameList.getModel()).addElement(availableFontNames[fontIndex]);
+			if ((font != null) && (availableFontNames[fontIndex].equals(font.getFamily()))) {
+				fontNameList.setSelectedIndex(fontIndex);
+			}
+		}
+		if (fontNameList.getSelectedIndex() == -1) {
+			fontNameList.setSelectedIndex(0);
+		}
 
 
-                getContentPane().add(fontPanel);
+		/* Font size list */
+		fontSizeList = new JList();
+		fontSizeList.setModel(new DefaultListModel());
+		fontSizeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		fontPanel.add(new JScrollPane(fontSizeList));
 
-                /* Attributes panel */
-                if (boldItalicEnable) {
-                    JPanel attributes = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
-                    attributes.setBorder(new TitledBorder(new EtchedBorder(), "Attributes"));
-                    boldCheckbox = new JCheckBox("Bold", (font != null) && font.isBold());
-                    attributes.add(boldCheckbox);
-                    italicCheckbox = new JCheckBox("Italic", (font != null) && font.isItalic());
-                    attributes.add(italicCheckbox);
-                    getContentPane().add(attributes);
-                }
+		/* Add the font sizes to the list */
+		for (int sizeIndex = 0; sizeIndex < availableFontSizes.length; sizeIndex++) {
+			((DefaultListModel) fontSizeList.getModel()).addElement(availableFontSizes[sizeIndex]);
+			if ((font != null) && (availableFontSizes[sizeIndex].equals(Integer.toString(font.getSize())))) {
+				fontSizeList.setSelectedIndex(sizeIndex);
+			}
+		}
+		if (fontSizeList.getSelectedIndex() == -1) {
+			fontSizeList.setSelectedIndex(0);
+		}
 
-                /* Preview panel */
-                JPanel previewPanel = new JPanel(new BorderLayout());
-                previewPanel.setBorder(new TitledBorder(new EtchedBorder(), "Preview"));
-                preview = new JLabel(previewText, JLabel.CENTER);
-                preview.setBackground(Color.white);
-                preview.setForeground(Color.black);
-                preview.setOpaque(true);
-                preview.setBorder(new LineBorder(Color.black));
-                preview.setPreferredSize(new Dimension(PREVIEW_WIDTH, PREVIEW_HEIGHT));
-                previewPanel.add(preview, BorderLayout.CENTER);
 
-                getContentPane().add(previewPanel);
+		getContentPane().add(fontPanel);
 
-                /* Buttons panel */
-            JPanel buttonsContainer = new JPanel(new FlowLayout());
-            JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
+		/* Attributes panel */
+		if (boldItalicEnable) {
+			JPanel attributes = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
+			attributes.setBorder(new TitledBorder(new EtchedBorder(), "Attributes"));
+			boldCheckbox = new JCheckBox("Bold", (font != null) && font.isBold());
+			attributes.add(boldCheckbox);
+			italicCheckbox = new JCheckBox("Italic", (font != null) && font.isItalic());
+			attributes.add(italicCheckbox);
+			monospacedCheckbox = new JCheckBox("Monospaced", false);
+			attributes.add(monospacedCheckbox);
+			monospacedCheckbox.addItemListener(new ItemListener() {
 
-            JButton okButton = new JButton("Ok");
-            buttonsPanel.add(okButton);
-            getRootPane().setDefaultButton(okButton);
-            okButton.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                previewFont();
-                dispose();
-                setVisible(false);
-              }
-            });
+				public void itemStateChanged(ItemEvent e) {
+					if (monospacedCheckbox.isSelected()) {
+						((DefaultListModel) fontNameList.getModel()).removeAllElements();
+						for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
+							if (ScilabFontUtils.isMonospaced(new Font(availableFontNames[fontIndex], Font.PLAIN, 12))) {
+								((DefaultListModel) fontNameList.getModel()).addElement(availableFontNames[fontIndex]);
+							}
+						}
+					} else {
+						((DefaultListModel) fontNameList.getModel()).removeAllElements();
+						for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
+							((DefaultListModel) fontNameList.getModel()).addElement(availableFontNames[fontIndex]);
+						}
+					}
+				}
 
-            JButton canButton = new JButton("Cancel");
-            buttonsPanel.add(canButton);
-            canButton.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                selectedFont = null;
-                dispose();
-                setVisible(false);
-              }
-            });
+			});
+			getContentPane().add(attributes);
+		}
 
-            buttonsContainer.add(buttonsPanel);
-            getContentPane().add(buttonsContainer);
+		/* Preview panel */
+		JPanel previewPanel = new JPanel(new BorderLayout());
+		previewPanel.setBorder(new TitledBorder(new EtchedBorder(), "Preview"));
+		preview = new JLabel(previewText, JLabel.CENTER);
+		preview.setBackground(Color.white);
+		preview.setForeground(Color.black);
+		preview.setOpaque(true);
+		preview.setBorder(new LineBorder(Color.black));
+		preview.setPreferredSize(new Dimension(PREVIEW_WIDTH, PREVIEW_HEIGHT));
+		previewPanel.add(preview, BorderLayout.CENTER);
 
-                fontSizeList.addListSelectionListener(new ListSelectionListener() {
-                        public void valueChanged(ListSelectionEvent arg0) {
-                                previewFont();
-                        }
-                });
-                fontNameList.addListSelectionListener(new ListSelectionListener() {
-                        public void valueChanged(ListSelectionEvent arg0) {
-                                previewFont();
-                        }
-                });
-                if (boldItalicEnable) {
-                    boldCheckbox.addChangeListener(new ChangeListener() {
-                            public void stateChanged(ChangeEvent arg0) {
-                                previewFont();
-                            }
-                        });
-                    italicCheckbox.addChangeListener(new ChangeListener() {
-                            public void stateChanged(ChangeEvent arg0) {
-                                previewFont();
-                            }
-                        });
-                }
+		getContentPane().add(previewPanel);
 
-            previewFont();
+		/* Buttons panel */
+		JPanel buttonsContainer = new JPanel(new FlowLayout());
+		JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, HGAP, VGAP));
 
-            pack();
+		JButton okButton = new JButton("Ok");
+		buttonsPanel.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				previewFont();
+				dispose();
+				setVisible(false);
+			}
+		});
 
-            setResizable(false);
-        }
+		JButton canButton = new JButton("Cancel");
+		buttonsPanel.add(canButton);
+		canButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedFont = null;
+				dispose();
+				setVisible(false);
+			}
+		});
 
-        /**
-         * Set the element id for this file chooser
-         * @param id the id of the corresponding file chooser object
-         */
-        public void setElementId(int id) {
-                this.elementId = id;
-        }
+		buttonsContainer.add(buttonsPanel);
+		getContentPane().add(buttonsContainer);
 
-        /**
-         * Get the element id for this chooser
-         * @return id the id of the corresponding chooser object
-         */
-        public int getElementId() {
-                return this.elementId;
-        }
+		fontSizeList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				previewFont();
+			}
+		});
+		fontNameList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				previewFont();
+			}
+		});
+		if (boldItalicEnable) {
+			boldCheckbox.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					previewFont();
+				}
+			});
+			italicCheckbox.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					previewFont();
+				}
+			});
+		}
 
-        /**
-         * Retrieve the selected font, or null
-         * @return the selected font
-         */
-        public Font getSelectedFont() {
-                return selectedFont;
-        }
+		previewFont();
 
-        /**
-         * Update the preview label
-         */
-        protected void previewFont() {
-                String selectedFontName = availableFontNames[fontNameList.getSelectedIndex()];
-                String resultSizeName = availableFontSizes[fontSizeList.getSelectedIndex()];
-                int selectedFontSize = Integer.parseInt(resultSizeName);
-                int attrs = Font.PLAIN;
-                if (boldItalicEnable) {
-                    boolean selectedBold = boldCheckbox.isSelected();
-                    boolean selectedItalic = italicCheckbox.isSelected();
-                    if (selectedBold) {
-                        attrs = Font.BOLD;
-                    }
-                    if (selectedItalic) {
-                        attrs |= Font.ITALIC;
-                    }
-                }
-                selectedFont = new Font(selectedFontName, attrs, selectedFontSize);
-                preview.setFont(selectedFont);
-                pack();
-        }
+		pack();
 
-        /**
-         * Set the default font name
-         * @param fontName the default font name
-         */
-        public void setDefaultFontName(String fontName) {
-                for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
-                        if (availableFontNames[fontIndex].equalsIgnoreCase(fontName)) {
-                                fontNameList.setSelectedIndex(fontIndex);
-                        }
-                }
-        }
+		setResizable(false);
+	}
 
-        /**
-         * Set the default font size
-         * @param fontSize the default font size
-         */
-        public void setDefaultFontSize(int fontSize) {
-                for (int sizeIndex = 0; sizeIndex < availableFontSizes.length; sizeIndex++) {
-                        if (availableFontSizes[sizeIndex].equals(Integer.toString(fontSize))) {
-                                fontSizeList.setSelectedIndex(sizeIndex);
-                        }
-                }
-        }
+	/**
+	 * Set the element id for this file chooser
+	 * @param id the id of the corresponding file chooser object
+	 */
+	public void setElementId(int id) {
+		this.elementId = id;
+	}
 
-        /**
-         * Set the default font bold attribute
-         * @param bold the default font bold attribute
-         */
-        public void setDefaultBold(boolean bold) {
-            if (boldItalicEnable) {
-                boldCheckbox.setSelected(bold);
-            }
-        }
+	/**
+	 * Get the element id for this chooser
+	 * @return id the id of the corresponding chooser object
+	 */
+	public int getElementId() {
+		return this.elementId;
+	}
 
-        /**
-         * Set the default font italic attribute
-         * @param italic the default font italic attribute
-         */
-        public void setDefaultItalic(boolean italic) {
-            if (boldItalicEnable) {
-                italicCheckbox.setSelected(italic);
-            }
-        }
+	/**
+	 * Retrieve the selected font, or null
+	 * @return the selected font
+	 */
+	public Font getSelectedFont() {
+		return selectedFont;
+	}
 
-        /**
-         * Display the font chooser and wait for a user input
-         */
-        public void displayAndWait() {
-            setVisible(true);
-        }
+	/**
+	 * Update the preview label
+	 */
+	protected void previewFont() {
+		if (fontNameList.getSelectedIndex() == -1 || fontSizeList.getSelectedIndex() == -1) {
+			return;
+		}
+		String selectedFontName = availableFontNames[fontNameList.getSelectedIndex()];
+		String resultSizeName = availableFontSizes[fontSizeList.getSelectedIndex()];
+		int selectedFontSize = Integer.parseInt(resultSizeName);
+		int attrs = Font.PLAIN;
+		if (boldItalicEnable) {
+			boolean selectedBold = boldCheckbox.isSelected();
+			boolean selectedItalic = italicCheckbox.isSelected();
+			if (selectedBold) {
+				attrs = Font.BOLD;
+			}
+			if (selectedItalic) {
+				attrs |= Font.ITALIC;
+			}
+		}
+		selectedFont = new Font(selectedFontName, attrs, selectedFontSize);
+		preview.setFont(selectedFont);
+		pack();
+	}
+
+	/**
+	 * Set the default font name
+	 * @param fontName the default font name
+	 */
+	public void setDefaultFontName(String fontName) {
+		for (int fontIndex = 0; fontIndex < availableFontNames.length; fontIndex++) {
+			if (availableFontNames[fontIndex].equalsIgnoreCase(fontName)) {
+				fontNameList.setSelectedIndex(fontIndex);
+			}
+		}
+	}
+
+	/**
+	 * Set the default font size
+	 * @param fontSize the default font size
+	 */
+	public void setDefaultFontSize(int fontSize) {
+		for (int sizeIndex = 0; sizeIndex < availableFontSizes.length; sizeIndex++) {
+			if (availableFontSizes[sizeIndex].equals(Integer.toString(fontSize))) {
+				fontSizeList.setSelectedIndex(sizeIndex);
+			}
+		}
+	}
+
+	/**
+	 * Set the default font bold attribute
+	 * @param bold the default font bold attribute
+	 */
+	public void setDefaultBold(boolean bold) {
+		if (boldItalicEnable) {
+			boldCheckbox.setSelected(bold);
+		}
+	}
+
+	/**
+	 * Set the default font italic attribute
+	 * @param italic the default font italic attribute
+	 */
+	public void setDefaultItalic(boolean italic) {
+		if (boldItalicEnable) {
+			italicCheckbox.setSelected(italic);
+		}
+	}
+
+	/**
+	 * Display the font chooser and wait for a user input
+	 */
+	public void displayAndWait() {
+		setVisible(true);
+	}
 
 }
