@@ -92,7 +92,7 @@ int C2F(sci_newfun) (char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	if ( (m1 != n1) && (n1 != 1) ) 
+	if ( (m1 != n1) && (n1 != 1) )
 	{
 		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
 		return 0;
@@ -105,7 +105,7 @@ int C2F(sci_newfun) (char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	if ( (m2 != n2) && (n2 != 1) ) 
+	if ( (m2 != n2) && (n2 != 1) )
 	{
 		Scierror(999,_("%s: Wrong size for input argument #%d: A scalar expected.\n"),fname,1);
 		return 0;
@@ -147,33 +147,9 @@ int C2F(sci_newfun) (char *fname,unsigned long fname_len)
 
 			/* initialize id */
 			for(i = 0; i < nsiz; i++) id[i] = 0;
-
-			/* checks in functions table that nameptr exists */
-			job = SCI_HFUNCTIONS_BACKSEARCH;
-			C2F(funtab)(id,&fptr,&job,pStVarOne,(unsigned long)strlen(pStVarOne));
-
-			for(i = 0; i < nsiz; i++) 
-			{
-				if ( id[i] != 0 )
-				{
-					IdAlreadyExist = TRUE;
-					break;
-				}
-			}
-
-			if (IdAlreadyExist) /* nameptr exists */
-			{
-				C2F(cvname)(id, pStVarOne,&zero,(unsigned long)strlen(pStVarOne));
-				job = SCI_HFUNCTIONS_ENTER;
-				C2F(funtab)(id,&fptr,&job,pStVarOne,(unsigned long)strlen(pStVarOne));
-			}
-			else
-			{
-				if (pStVarOne) {FREE(pStVarOne); pStVarOne = NULL;};
-				Scierror(999,_("%s: Invalid '%s' value.\n"),fname,"nameptr");
-				return 0;
-			}
-
+            C2F(cvname)(id, pStVarOne,&zero,(unsigned long)strlen(pStVarOne));
+            job = SCI_HFUNCTIONS_ENTER;
+            C2F(funtab)(id,&fptr,&job,pStVarOne,(unsigned long)strlen(pStVarOne));
 			if (pStVarOne) {FREE(pStVarOne); pStVarOne = NULL;};
 
 			LhsVar(1) = 0;
@@ -191,7 +167,7 @@ int C2F(sci_newfun) (char *fname,unsigned long fname_len)
 		Scierror(999,_("%s: Wrong value for input argument #%d: Must be %s.\n"),fname,2, "> 0");
 		return 0;
 	}
-	
+
 
 	return 0;
 }
@@ -206,7 +182,7 @@ static BOOL Is_a_correct_function_name(char *functionname)
 			if (isdigit(functionname[0])) return FALSE;
 			for(i=1;i<(int)strlen(functionname);i++)
 			{
-				/* 
+				/*
 				   ???? = 3
 				   a___ = 3
 				   c!!! = 3

@@ -23,6 +23,8 @@ Compilation:
 Bug Fixes:
 ==========
 
+* bug 7453 fixed - newfun() was broken after clearfun().
+
 * bug 7121 fixed - update help file about saveafterncommands(0).
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating.
