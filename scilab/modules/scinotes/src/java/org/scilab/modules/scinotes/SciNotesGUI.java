@@ -45,6 +45,7 @@ import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ScilabToolBar;
 import org.scilab.modules.gui.toolbar.ToolBar;
+import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.scinotes.utils.ConfigSciNotesManager;
