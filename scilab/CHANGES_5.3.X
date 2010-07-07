@@ -23,6 +23,8 @@ Compilation:
 Bug Fixes:
 ==========
 
+* bug 1989 fixed - Semantics of empty matrices in boolean expressions were not clear enough.
+
 * bug 5366 fixed - help of modules_manager was not built.
 
 * bug 7121 fixed - update help file about saveafterncommands(0).
