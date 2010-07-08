@@ -20,12 +20,19 @@ Compilation:
 * fix the "warning: deprecated conversion from string constant to ‘char*’"
   message when compiling a toolbox using Scierror(...) and sciprint(...)
 
+fileio:
+=======
+
+* rewrite 'mputl' as a built-in function.
+
 Bug Fixes:
 ==========
 
 * bug 5366 fixed - help of modules_manager was not built.
 
 * bug 7121 fixed - update help file about saveafterncommands(0).
+
+* bug 7124 fixed - mputl returned a wrong error message if file does not exist.
 
 * bug 7158 fixed - help chapter about texmacs was empty.
 
