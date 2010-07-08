@@ -964,6 +964,11 @@ char *yytext;
 
 #include "context.hxx"
 
+extern "C"
+{
+#include "charEncoding.h"
+}
+
 static int comment_level = 0;
 static int last_token = 0;
 static int exit_status = PARSE_ERROR;
@@ -1461,9 +1466,9 @@ YY_RULE_SETUP
 case 22:
 YY_RULE_SETUP
 {
-        yylval.str = new std::string(yytext);
-        if (symbol::Context::getInstance()->get(yytext) != NULL
-            && symbol::Context::getInstance()->get(yytext)->isCallable())
+        yylval.str = new std::wstring(to_wide_string(yytext));
+        if (symbol::Context::getInstance()->get(yylval.str) != NULL
+            && symbol::Context::getInstance()->get(yylval.str)->isCallable())
         {
             scan_throw(ID);
             BEGIN(SHELLMODE);
@@ -1794,7 +1799,7 @@ YY_RULE_SETUP
 case 70:
 YY_RULE_SETUP
 {
-  yylval.str = new std::string(yytext);
+    yylval.str = new std::wstring(to_wide_string(yytext));
 #ifdef TOKENDEV
   std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
 #endif
@@ -1805,7 +1810,7 @@ YY_RULE_SETUP
 case 71:
 YY_RULE_SETUP
 {
-  yylval.comment = new std::string();
+  yylval.comment = new std::wstring();
   comment_level = 1;
   ParserSingleInstance::pushControlStatus(Parser::WithinBlockComment);
   yy_push_state(REGIONCOMMENT);
@@ -1814,14 +1819,14 @@ YY_RULE_SETUP
 case 72:
 YY_RULE_SETUP
 {
-  yylval.comment = new std::string();
+  yylval.comment = new std::wstring();
   yy_push_state(LINECOMMENT);
 }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
 {
-  yylval.str = new std::string();
+  yylval.str = new std::wstring();
   yy_push_state(DOUBLESTRING);
 }
 	YY_BREAK
@@ -1840,7 +1845,7 @@ YY_RULE_SETUP
       return scan_throw(QUOTE);
     }
   else {
-    yylval.str = new std::string();
+    yylval.str = new std::wstring();
     yy_push_state(SIMPLESTRING);
   }
 }
@@ -2076,7 +2081,7 @@ case 95:
 YY_RULE_SETUP
 {
     yy_pop_state();
-    yylval.str = new std::string(yytext);
+    yylval.str = new std::wstring(to_wide_string(yytext));
 #ifdef TOKENDEV
     std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
 #endif
@@ -2123,7 +2128,7 @@ case 100:
 YY_RULE_SETUP
 {
     scan_throw(DOTS);
-    yylval.comment = new std::string();
+    yylval.comment = new std::wstring();
     yy_push_state(LINECOMMENT);
   }
 	YY_BREAK
@@ -2173,7 +2178,7 @@ case YY_STATE_EOF(LINECOMMENT):
 case 104:
 YY_RULE_SETUP
 {
-    *yylval.comment += yytext;
+      *yylval.comment += to_wide_string(yytext);
   }
 	YY_BREAK
 
@@ -2208,7 +2213,7 @@ YY_RULE_SETUP
 case 108:
 YY_RULE_SETUP
 {
-    *yylval.comment += yytext;
+      *yylval.comment += to_wide_string(yytext);
   }
 	YY_BREAK
 case YY_STATE_EOF(REGIONCOMMENT):
@@ -2269,7 +2274,8 @@ YY_RULE_SETUP
     scan_error(str);
     yylloc.last_line += 1;
     yylloc.last_column = 1;
-    *yylval.str += yytext;
+    // ???????
+    *yylval.str += to_wide_string(yytext);
     yy_pop_state();
     yyterminate();
   }
@@ -2287,7 +2293,7 @@ case 116:
 YY_RULE_SETUP
 {
     scan_step();
-    *yylval.str += yytext;
+    *yylval.str += to_wide_string(yytext);
   }
 	YY_BREAK
 
@@ -2332,7 +2338,8 @@ YY_RULE_SETUP
     scan_error(str);
     yylloc.last_line += 1;
     yylloc.last_column = 1;
-    *yylval.str += yytext;
+    // ??????
+    *yylval.str += to_wide_string(yytext);
     yyterminate();
   }
 	YY_BREAK
@@ -2356,7 +2363,7 @@ case 124:
 YY_RULE_SETUP
 {
     scan_step();
-    *yylval.str += yytext;
+    *yylval.str += to_wide_string(yytext);
   }
 	YY_BREAK
 
@@ -2395,7 +2402,7 @@ YY_RULE_SETUP
 case 129:
 YY_RULE_SETUP
 {
-        yylval.str = new std::string(yytext);
+        yylval.str = new std::wstring(to_wide_string(yytext));
         return scan_throw(STR);
     }
 	YY_BREAK
