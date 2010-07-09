@@ -1650,6 +1650,7 @@ modules/shell/Makefile
 modules/completion/Makefile
 modules/history_manager/Makefile
 modules/jvm/Makefile
+modules/commons/Makefile
 modules/sound/Makefile
 modules/statistics/Makefile
 modules/mexlib/Makefile
