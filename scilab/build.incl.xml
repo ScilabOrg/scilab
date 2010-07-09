@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Common definitions of Java compilation for Scilab --> 
+<!-- Common definitions of Java compilation for Scilab -->
 <project name="common">
-	
+
 	<!-- Base of Scilab source tree -->
 	<property name="base.dir"  location="../../" />
-	
+
 	<!-- Where the module should be created (modules/xxx/jar) -->
 	<property name="build.jar.dir"  value="jar/" />
-	
+
 	<!-- Where the thirdparty libraries could be found -->
 	<property name="thirdparty.dir" location="${base.dir}/thirdparty/" />
-	
+
 	<!-- The building directory -->
 	<property name="build.dir" location="build/"/>
-	
+
 	<!-- The building test directory -->
 	<property name="build.test.dir" location="build/test"/>
-	
+
 	<!-- Where builded classes will be generated -->
 	<property name="classes.dir" location="${build.dir}/classes" />
-	
+
 	<!-- Where builded test classes will be generated -->
 	<property name="classes.test.dir" location="${build.test.dir}/classes" />
-	
+
 	<!-- Where we store cache files -->
 	<property name="cache.dir" location="${build.dir}/cachefile" />
-	
+
 	<!-- Where we can find the sources -->
 	<property name="src.dir"  location="src/java/" />
 
 	<!-- Where we can find the test sources -->
 	<property name="src.test.dir"  location="tests/java/" />
-	
+
 	<!-- Check style definitions -->
 	<property name = "checkstyle.config.file"      value = "${base.dir}/checkstyle/scilab_checkstyle_convention.xml" />
 	<property name = "checkstyle.stylesheet"       value = "${thirdparty.dir}/checkstyle/contrib/checkstyle-noframes-sorted.xsl" />
 	<property name = "checkstyle.report.dir"       value = "${build.dir}/checkstyle" />
 	<property name = "checkstyle.xml.report.file"  value = "${checkstyle.report.dir}/checkstyle_errors.xml" />
 	<property name = "checkstyle.html.report.file" value = "${checkstyle.report.dir}/checkstyle_errors.htm" />
-	
+
 	<property name="modules.dir"                 value="${base.dir}/modules" />
-	
+
 	<property file="${base.dir}/scilab-lib.properties"/>
 
 	<property file="${base.dir}/scilab-lib-doc.properties"/>
-	
+
 
 	<path id="checkstyle.classpath">
 		<pathelement location="${checkstyle.jar}"/>
@@ -55,11 +55,11 @@
 
 	<path id="unittest.classpath">
 		<pathelement location="${testng.jar}"/>
-		<pathelement location="${bsh.jar}"/> 
+		<pathelement location="${bsh.jar}"/>
 		<pathelement location="${junit.jar}"/>
 		<pathelement location="${qdox.jar}"/>
 	</path>
-  
+
 
 
 	<path id="compile.classpath">
@@ -74,31 +74,31 @@
 		<pathelement location="${library.completion.dir}/${library.completion.name}"/>
 		<pathelement location="${library.console.dir}/${library.console.name}"/>
 		<pathelement location="${library.action_binding.dir}/${library.action_binding.name}"/>
-		
+
 		<pathelement location="${library.gui.dir}/${library.gui.name}"/>
 		<pathelement location="${library.jvm.dir}/${library.jvm.name}"/>
 		<pathelement location="${library.renderer.dir}/${library.renderer.name}"/>
 		<pathelement location="${library.graphic_export.dir}/${library.graphic_export.name}"/>
-		
+
 		<pathelement location="${commons-logging.jar}"/>
-		
+
 		<pathelement location="${flexdock.jar}"/>
 
 		<pathelement location="${gluegen.jar}"/>
-		
+
 		<pathelement location="${jrosetta-API.jar}"/>
-		
+
 		<pathelement location="${jrosetta-engine.jar}"/>
 
 		<pathelement location="${jogl.jar}"/>
 
 		<pathelement location="${jhdf5.jar}"/>
-		
+
 		<pathelement location="${jhall.jar}"/>
-		
+
 		<pathelement location="${jgraphx.jar}"/>
 
-	<!-- Only usefull for the documentation -->	
+	<!-- Only usefull for the documentation -->
 		<pathelement location="${library.helptools.dir}/${library.helptools.name}"/>
 		<pathelement location="${batik.jar}"/>
 
@@ -118,9 +118,9 @@
 	</path>
 
 	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
-	
+
 	<!-- Checkstyle process -->
-	
+
 	<target
 		name        = "checkstyle"
 		depends     = "checkstyle-init"
@@ -145,15 +145,15 @@
 			out    = "${checkstyle.html.report.file}"
 			style  = "${checkstyle.stylesheet}" />
 	</target>
-	
+
 	<!-- Create the build directory -->
-	
+
 	<target name="checkstyle-init">
 		<mkdir dir="${checkstyle.report.dir}"/>
 	</target>
-	
+
 	<!-- Delete the build directory -->
-	
+
 	<target name="checkstyle-clean">
 		<delete dir="${checkstyle.report.dir}"/>
 	</target>
@@ -182,7 +182,7 @@
 			<!-- Create the time stamp -->
 		<tstamp/>
 	</target>
-	
+
 	<!-- Clean sources -->
 	<target name="clean" description="Clean built files">
 		<delete dir="${build.dir}"/>
@@ -190,13 +190,13 @@
 		<delete dir="${build.jar.dir}"/>
 		<delete file="${build.jar.dir}/${library.name}"/>
 	</target>
-	
+
 	<!-- Compile sources -->
 	<target name="compile" description="Build sources" depends="init">
 		<javac
-			srcdir="${src.dir}" 
-			destdir="${classes.dir}" 
-			classpathref="compile.classpath" 
+			srcdir="${src.dir}"
+			destdir="${classes.dir}"
+			classpathref="compile.classpath"
 			deprecation="on"
 			debug="off"
 			verbose="off"
@@ -208,16 +208,17 @@
 
 	<target name="existing-tests">
 		<available property="test-present"
-			directory="${src.test.dir}"
-		/>	
+			file="${src.test.dir}"
+            type="dir"
+		/>
 	</target>
 
 	<!-- Compile test sources -->
-	<target name="compile-test" description="Build tests" depends="jar" if="test-present">
+	<target name="compile-test" description="Build tests" depends="jar, existing-tests" if="test-present">
 
 		<javac
-			srcdir="${src.test.dir}" 
-			destdir="${classes.test.dir}" 
+			srcdir="${src.test.dir}"
+			destdir="${classes.test.dir}"
 			deprecation="on"
 			debug="off"
 			verbose="off"
@@ -234,7 +235,7 @@
 
 	<!-- Create the jar -->
 	<target name="jar" description="Build the jar file" depends="compile">
-	
+
 		<jar destfile="${build.jar.dir}/${library.name}" basedir="${classes.dir}">
 		<manifest>
 		</manifest>
