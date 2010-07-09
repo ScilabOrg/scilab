@@ -557,7 +557,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cacsd", "modules\cacsd\src\
 		{A5911CD7-F8E8-440C-A23E-4843A0636F3A} = {A5911CD7-F8E8-440C-A23E-4843A0636F3A}
 	EndProjectSection
 EndProject
-Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "dcd", "modules\statistics\src\dcdflib\dcd_f\dcd_f.vfproj", "{18F043DA-1DB5-464F-B67D-CF1C23BE7EA0}"
+Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "dcd_f", "modules\statistics\src\dcdflib\dcd_f\dcd_f.vfproj", "{18F043DA-1DB5-464F-B67D-CF1C23BE7EA0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3170E4C2-1173-4264-A222-7EE8CCB3DDF7} = {3170E4C2-1173-4264-A222-7EE8CCB3DDF7}
 	EndProjectSection
@@ -1274,6 +1274,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nohistory_browser", "module
 	ProjectSection(ProjectDependencies) = postProject
 		{DD8A0506-8D31-4CF8-856A-C10ECE9C13A4} = {DD8A0506-8D31-4CF8-856A-C10ECE9C13A4}
 		{3170E4C2-1173-4264-A222-7EE8CCB3DDF7} = {3170E4C2-1173-4264-A222-7EE8CCB3DDF7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "commons-Ant", "modules\commons\src\java\commons-JAVA.vcproj", "{9188FA91-E039-485D-AF1D-781CEA92F541}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FBA3BC3F-8A2C-4D47-A50D-EB808BE42F43} = {FBA3BC3F-8A2C-4D47-A50D-EB808BE42F43}
+		{E9783492-017E-4811-9CC7-6B71856F847C} = {E9783492-017E-4811-9CC7-6B71856F847C}
 	EndProjectSection
 EndProject
 Global
@@ -2464,6 +2470,14 @@ Global
 		{6EA99B1F-99B4-4528-8195-7508EF70CFED}.Release|Win32.Build.0 = Release|Win32
 		{6EA99B1F-99B4-4528-8195-7508EF70CFED}.Release|x64.ActiveCfg = Release|x64
 		{6EA99B1F-99B4-4528-8195-7508EF70CFED}.Release|x64.Build.0 = Release|x64
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Debug|Win32.Build.0 = Debug|Win32
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Debug|x64.ActiveCfg = Debug|x64
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Debug|x64.Build.0 = Debug|x64
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Release|Win32.ActiveCfg = Release|Win32
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Release|Win32.Build.0 = Release|Win32
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Release|x64.ActiveCfg = Release|x64
+		{9188FA91-E039-485D-AF1D-781CEA92F541}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
