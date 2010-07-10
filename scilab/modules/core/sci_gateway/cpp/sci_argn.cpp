@@ -75,7 +75,7 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
 
     if(pIn == NULL || pOut == NULL)
     {
-        Double* pD = new Double(0,0);
+        Double* pD = new Double(0);
         out.push_back(pD);
         out.push_back(pD);
     }
