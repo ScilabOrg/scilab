@@ -31,3 +31,4 @@ public :
 
 Function::ReturnValue sci_load(types::typed_list &in, int _iRetCount, types::typed_list &out);
 Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::typed_list &out);
+Function::ReturnValue sci_host(types::typed_list &in, int _iRetCount, types::typed_list &out);

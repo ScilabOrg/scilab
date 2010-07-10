@@ -1,11 +1,11 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2005 - INRIA - Allan CORNET
-* 
+*
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
-* are also available at    
+* are also available at
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
@@ -29,7 +29,7 @@
 BOOL CallWindowsShell(char *command,BOOL WaitInput);
 #endif
 /*--------------------------------------------------------------------------*/
-int C2F(systemc)(char *command, int *stat)
+int systemc(char *command, int *stat)
 {
 #ifdef _MSC_VER
 	{
@@ -63,23 +63,23 @@ BOOL CallWindowsShell(char *command,BOOL WaitInput)
 	wchar_t shellCmd[PATH_MAX];
 	wchar_t *CmdLine=NULL;
 
-	PROCESS_INFORMATION piProcInfo; 
+	PROCESS_INFORMATION piProcInfo;
 	STARTUPINFOW siStartInfo;
-	SECURITY_ATTRIBUTES saAttr; 
+	SECURITY_ATTRIBUTES saAttr;
 
 	DWORD ExitCode;
 
 	wchar_t *TMPDir=NULL;
 	wchar_t FileTMPDir[PATH_MAX];
 
-	saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
-	saAttr.bInheritHandle = TRUE; 
-	saAttr.lpSecurityDescriptor = NULL; 
+	saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
+	saAttr.bInheritHandle = TRUE;
+	saAttr.lpSecurityDescriptor = NULL;
 
 	ZeroMemory( &piProcInfo, sizeof(PROCESS_INFORMATION) );
 
 	ZeroMemory( &siStartInfo, sizeof(STARTUPINFO) );
-	siStartInfo.cb = sizeof(STARTUPINFO); 
+	siStartInfo.cb = sizeof(STARTUPINFO);
 	siStartInfo.dwFlags      = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 	siStartInfo.wShowWindow  = SW_HIDE;
 
@@ -102,7 +102,7 @@ BOOL CallWindowsShell(char *command,BOOL WaitInput)
 		swprintf(FileTMPDir, PATH_MAX, L"%s\\DOS.OK",TMPDir);
 		FREE(pTemp);
 	}
-	if (TMPDir) 
+	if (TMPDir)
 	{
 		FREE(TMPDir);
 		TMPDir=NULL;

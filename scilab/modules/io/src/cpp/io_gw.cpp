@@ -23,6 +23,7 @@ bool IoModule::Load()
 {
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("load", &sci_load, "io"));
 	symbol::Context::getInstance()->AddFunction(Function::createFunction("genlib", &sci_genlib, "io"));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction("host", &sci_host, "io"));
 	return true;
 }
 
