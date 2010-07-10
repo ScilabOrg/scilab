@@ -153,7 +153,6 @@ void ParserSingleInstance::parse(char *command)
 /** \brief put the asked line in codeLine */
 char *ParserSingleInstance::getCodeLine(int line, char **codeLine) {
 #ifndef _MSC_VER
-#ifndef __APPLE__
     size_t len = 0;
     int i = 0;
 
@@ -164,9 +163,8 @@ char *ParserSingleInstance::getCodeLine(int line, char **codeLine) {
     */
     for (i = 1 ; i <= line ; ++i)
     {
-        getline(codeLine, &len, yyin);
+        fgets(*codeLine, 4096, yyin);
     }
-#endif
 #endif
     return *codeLine;
 }

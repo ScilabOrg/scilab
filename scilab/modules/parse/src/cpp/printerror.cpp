@@ -15,57 +15,57 @@
 #include "parser_private.hxx"
 
 void ParserSingleInstance::PrintError(std::string msg) {
- int i = 0;
+    int i = 0;
 
- // FIXME : Should work under Windows
- // Need to have getline !!!
- std::ostringstream ostr;
+    // FIXME : Should work under Windows
+    // Need to have getline !!!
+    std::ostringstream ostr;
 #ifndef _MSC_VER
- char *codeLine = NULL;
+    char *codeLine = (char *) malloc(4096 * sizeof(char));
 
- /** First print where in the script the error is located */
- ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
+    /** First print where in the script the error is located */
+    ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
 
- /*
- ** If the error is a the very beginning of a line
- */
- if (yylloc.first_line == yylloc.last_line
-     && yylloc.first_column == 1
-     && yylloc.last_column == 1)
- {
-   --yylloc.first_line;
- }
+    /*
+    ** If the error is a the very beginning of a line
+    */
+    if (yylloc.first_line == yylloc.last_line
+        && yylloc.first_column == 1
+        && yylloc.last_column == 1)
+    {
+        --yylloc.first_line;
+    }
 
- ostr << ParserSingleInstance::getCodeLine(yylloc.first_line, &codeLine) << std::endl;
- free(codeLine);
+    ostr << ParserSingleInstance::getCodeLine(yylloc.first_line, &codeLine) << std::endl;
+    free(codeLine);
 
- /** Then underline what causes the trouble */
- ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
- for( i = 1 ; i < yylloc.first_column ; ++i) {
-   ostr << " ";
- }
- ostr << "^";
- for( i = i + 1 ; i < yylloc.last_column ; ++i) {
-   ostr << "~";
- }
- if( yylloc.first_column != yylloc.last_column ) {
-   ostr << "^" ;
- }
- ostr << std::endl;
+    /** Then underline what causes the trouble */
+    ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
+    for( i = 1 ; i < yylloc.first_column ; ++i) {
+        ostr << " ";
+    }
+    ostr << "^";
+    for( i = i + 1 ; i < yylloc.last_column ; ++i) {
+        ostr << "~";
+    }
+    if( yylloc.first_column != yylloc.last_column ) {
+        ostr << "^" ;
+    }
+    ostr << std::endl;
 #endif
 
- /** Finally display the Lexer / Parser message */
- ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
- ostr << *(ParserSingleInstance::getFileName()) << " : " <<
-   yylloc.first_line << "." << yylloc.first_column <<
-   " - " <<
-   yylloc.last_line << "." << yylloc.last_column <<
-   " : "<< msg << std::endl;
+    /** Finally display the Lexer / Parser message */
+    ostr << "[" <<*(ParserSingleInstance::getProgName()) << "] ";
+    ostr << *(ParserSingleInstance::getFileName()) << " : " <<
+        yylloc.first_line << "." << yylloc.first_column <<
+        " - " <<
+        yylloc.last_line << "." << yylloc.last_column <<
+        " : "<< msg << std::endl;
 
 
- //yylloc.first_line -= yylloc.last_line;
- //yylloc.last_line = yylloc.first_line;
- //yylloc.last_column = yylloc.first_column;
- 
- ParserSingleInstance::appendErrorMessage(ostr.str());
+    //yylloc.first_line -= yylloc.last_line;
+    //yylloc.last_line = yylloc.first_line;
+    //yylloc.last_column = yylloc.first_column;
+
+    ParserSingleInstance::appendErrorMessage(ostr.str());
 }
