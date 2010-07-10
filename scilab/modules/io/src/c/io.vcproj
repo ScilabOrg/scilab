@@ -408,10 +408,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\sci_gateway\c\sci_host.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\sci_gateway\c\sci_load.c"
 				>
 			</File>
@@ -433,10 +429,6 @@
 			</File>
 			<File
 				RelativePath="..\..\sci_gateway\c\sci_setenv.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\sci_gateway\c\sci_unix.c"
 				>
 			</File>
 			<File
@@ -497,7 +489,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\systemc.h"
+				RelativePath="..\..\includes\systemc.h"
 				>
 			</File>
 			<File
@@ -525,6 +517,10 @@
 				</File>
 				<File
 					RelativePath=".\LibScilab_Import.def"
+					>
+				</File>
+				<File
+					RelativePath=".\Scilab_Windows_Import.def"
 					>
 				</File>
 				<File
