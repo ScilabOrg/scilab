@@ -184,6 +184,7 @@ sci_gateway/c/sci_toolbar.c \
 sci_gateway/c/sci_uicontrol.c \
 sci_gateway/c/sci_uicontextmenu.c \
 sci_gateway/c/sci_uimenu.c \
+sci_gateway/c/sci_uitable.c \
 sci_gateway/c/sci_uiwait.c \
 sci_gateway/c/sci_mpopup.c \
 sci_gateway/c/sci_messagebox.c \

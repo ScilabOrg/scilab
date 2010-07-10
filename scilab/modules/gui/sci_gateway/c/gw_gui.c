@@ -59,7 +59,8 @@ static gw_generic_table Tab[]=
 	{sci_usecanvas,"usecanvas"},
 	{sci_displaytree,"uiDisplayTree"},
 	{sci_uiputfile,"uiputfile"},
-        {sci_about,"about"}
+        {sci_about,"about"},
+	{sci_uitable,"uitable"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_gui(void)
@@ -83,7 +84,8 @@ int gw_gui(void)
          */
         if (!loadedDep && (strcmp(Tab[Fin-1].name, "uicontrol")==0
 			   || strcmp(Tab[Fin-1].name, "uimenu")==0
-			   || strcmp(Tab[Fin-1].name, "usecanvas")==0))
+			   || strcmp(Tab[Fin-1].name, "usecanvas")==0
+                           || strcmp(Tab[Fin-1].name, "uitable")==0))
           {
             loadOnUseClassPath("graphics");
             loadedDep = TRUE;
