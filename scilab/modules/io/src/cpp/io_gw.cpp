@@ -25,6 +25,8 @@ bool IoModule::Load()
 {
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"load", &sci_load, MODULE_NAME));
 	symbol::Context::getInstance()->AddFunction(Function::createFunction(L"genlib", &sci_genlib, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"host", &sci_host, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"unix", &sci_unix, MODULE_NAME));
 	return true;
 }
 
