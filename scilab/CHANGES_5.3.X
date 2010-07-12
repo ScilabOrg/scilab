@@ -28,6 +28,9 @@ Bug Fixes:
 
 * bug 7121 fixed - Update help file about saveafterncommands(0).
 
+* bug 7125 fixed - fscanfMat() did not read correctly %inf, -%inf and
+                   %nan values respectively recorded by fprintfMat().
+
 * bug 7158 fixed - help chapter about texmacs was empty.
 
 * bug 7182 fixed - update help file of ulink about the input argument.
@@ -48,6 +51,8 @@ Bug Fixes:
 
 * bug 7391 fixed - add links between help files about evstr, eval, execstr.
 
+* bug 7432 fixed - fscanfMat and fprintfMat accepted wrong format.
+
 * bug 7437 fixed - If history file was invalid, history browser crashed.
 
 * bug 7441 fixed - The history browser crashed if language was changed.
@@ -66,7 +71,7 @@ Bug Fixes:
 * bug 7480 fixed - Xcos conditional compilation produce a too long script on
                    the Scilab queue.
 
-* bug 7481 fixed - 6th input argument of ilib_for_link did not allow to set 
+* bug 7481 fixed - 6th input argument of ilib_for_link did not allow to set
                    library name on Windows.
 
 * bug 7491 fixed - Lines broken with a .. were not correctly handled and caused
