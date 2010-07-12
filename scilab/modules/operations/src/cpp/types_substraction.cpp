@@ -212,6 +212,20 @@ int SubstractDoubleToDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDou
 	return 0;
 }
 
+int SubstractSparseToSparse(types::Sparse *_pSparse1, types::Sparse *_pSparse2, types::Sparse** _pSparseOut)
+{ 	
+	if ( _pSparse1->rows_get() == _pSparse2->rows_get() && _pSparse1->cols_get() == _pSparse2->cols_get() )
+	{
+		SparseMatrix<std::complex<double> > _matrix = *_pSparse1->matrix_get() - *_pSparse2->matrix_get();
+		(*_pSparseOut) = new types::Sparse(&_matrix);
+		return 0;	
+	}
+	else 
+	{
+		return 1;
+	}
+}
+
 int SubstractPolyToDouble(Double *_pDouble, MatrixPoly *_pPoly, MatrixPoly** _pPolyOut)
 {
 	double *pInDblR			= _pDouble->real_get();

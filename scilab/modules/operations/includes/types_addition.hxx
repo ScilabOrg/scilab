@@ -15,10 +15,13 @@
 
 #include "alltypes.hxx" 
 #include "operation.hxx"
+#include "sparse.hxx"
+#include <Eigen/Sparse>
 
 using namespace types;
 
 EXTERN_OP int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut);
+EXTERN_OP int AddSparseToSparse(types::Sparse *_pSparse1, types::Sparse *_pSparse2, types::Sparse** _pSparseOut);
 EXTERN_OP int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOut);
 EXTERN_OP int AddPolyToPoly(MatrixPoly* pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPolyOut);
 EXTERN_OP int AddStringToString(String *_pString1, String *_pString2, String** _pStringOut);

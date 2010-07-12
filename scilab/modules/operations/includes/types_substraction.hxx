@@ -15,10 +15,13 @@
 
 #include "operation.hxx"
 #include "alltypes.hxx" 
+#include "sparse.hxx"
+#include <Eigen/Sparse>
 
 using namespace types;
 
 EXTERN_OP int SubstractDoubleToDouble(Double* _pDouble1, Double* _pDouble2, Double **_pDoubleOut);
+EXTERN_OP int SubstractSparseToSparse(types::Sparse* _pSparse1, types::Sparse* _pSparse2, types::Sparse **_pSparseOut);
 EXTERN_OP int SubstractPolyToDouble(Double *_pDouble, MatrixPoly *_pPoly, MatrixPoly **_pPolyOut);
 EXTERN_OP int SubstractDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly **_pPolyOut);
 EXTERN_OP int SubstractPolyToPoly(MatrixPoly *_pPoly1, MatrixPoly *_pPoly2, MatrixPoly **_pPolyOut);

@@ -243,6 +243,20 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 	return 0;
 }
 
+int AddSparseToSparse(types::Sparse *_pSparse1, types::Sparse *_pSparse2, types::Sparse** _pSparseOut)
+{ 	
+	if ( _pSparse1->rows_get() == _pSparse2->rows_get() && _pSparse1->cols_get() == _pSparse2->cols_get() )
+	{
+		SparseMatrix<std::complex<double> > _matrix = *_pSparse1->matrix_get() + *_pSparse2->matrix_get();
+		(*_pSparseOut) = new types::Sparse(&_matrix);
+		return 0;	
+	}
+	else 
+	{
+		return 1;
+	}
+}
+
 int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOut)
 {
 	bool bComplex1 			= _pPoly->isComplex();
