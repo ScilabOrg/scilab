@@ -47,7 +47,7 @@ extern "C" {
 
 #include "all.hxx"
 #include "types.hxx"
-
+#include "sparse.hxx"
 
 namespace ast
 {
