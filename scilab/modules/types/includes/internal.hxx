@@ -34,6 +34,7 @@ namespace types
           RealInt,
           RealString,
           RealDouble,
+	  RealSparse,
           RealBool,
           RealFloat,
           RealPoly,
@@ -114,6 +115,10 @@ namespace types
       bool                              isDouble(void) { return (getType() == RealDouble); }
       virtual Double*                   getAsDouble(void) { return NULL; }
 
+      /* Sparse */
+      bool                              isSparse(void) { return (getType() == RealSparse); }
+      virtual Sparse*                   getAsSparse(void) { return NULL; }
+      
       /* Float */
       bool                              isFloat(void) { return (getType() == RealFloat); }
       virtual Float*                    getAsFloat(void) { return NULL; }
