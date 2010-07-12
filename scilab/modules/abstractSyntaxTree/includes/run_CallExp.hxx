@@ -67,8 +67,8 @@ void visitprivate(const CallExp &e)
             {
                 if(static_cast<int>(out.size()) < expected_size_get())
                 {
-                    std::ostringstream os;
-                    os << "bad lhs, expected : " << expected_size_get() << " returned : " << out.size() << std::endl;
+                    std::wostringstream os;
+                    os << L"bad lhs, expected : " << expected_size_get() << L" returned : " << out.size() << std::endl;
                     throw os.str();
                 }
             }
@@ -89,14 +89,14 @@ void visitprivate(const CallExp &e)
         }
         else if(Ret == Callable::Error)
         {
-            std::ostringstream os;
-            char szError[bsiz];
+            std::wostringstream os;
+            wchar_t szError[bsiz];
 #ifdef _MSC_VER
-            sprintf_s(szError, bsiz, _("Function \"%s\" failed\n"), pCall->getName().c_str());
+            swprintf_s(szError, bsiz, _W("Function \"%s\" failed\n"), pCall->getName().c_str());
 #else
-            sprintf(szError, _("Function \"%s\" failed\n"), pCall->getName().c_str());
+            swprintf(szError, _W("Function \"%s\" failed\n"), pCall->getName().c_str());
 #endif
-            throw string(szError);
+            throw szError;
         }
 
 			
@@ -144,7 +144,7 @@ void visitprivate(const CallExp &e)
 
         if(pIT->isStruct())
         {
-            list<string> stFields;
+            list<wstring> stFields;
             list<Exp*>::const_iterator it1;
             for(it1 = e.args_get().begin() ; it1 != e.args_get().end() ; it1++)
             {
@@ -155,7 +155,7 @@ void visitprivate(const CallExp &e)
                     String *pString = execArg.result_get()->getAsString();
                     for(int i = 0 ; i < pString->size_get() ; i++)
                     {
-                        stFields.push_back(string(pString->string_get(i)));
+                        stFields.push_back(pString->string_get(i));
                     }
                 }
                 else
@@ -259,8 +259,8 @@ void visitprivate(const CallExp &e)
                 if(piIndexSeq[i] < 1)
                 {
                     //manage error
-                    std::ostringstream os;
-                    os << _("Indexes must be positive .\n");
+                    std::wostringstream os;
+                    os << _W("Indexes must be positive .\n");
                     os << ((Location)e.name_get().location_get()).location_string_get() << std::endl;
                     throw os.str();
                 }
@@ -313,8 +313,8 @@ void visitprivate(const CallExp &e)
         {
             if(pOut == NULL)
             {
-                std::ostringstream os;
-                os << "inconsistent row/column dimensions";
+                std::wostringstream os;
+                os << L"inconsistent row/column dimensions";
                 os << ((*e.args_get().begin())->location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -324,8 +324,8 @@ void visitprivate(const CallExp &e)
         {
             if(ResultList.size() == 0)
             {
-                std::ostringstream os;
-                os << "inconsistent row/column dimensions";
+                std::wostringstream os;
+                os << L"inconsistent row/column dimensions";
                 os << ((*e.args_get().begin())->location_get()).location_string_get() << std::endl;
                 throw os.str();
             }

@@ -10,8 +10,6 @@
 *
 */
 
-#define BASEDIR ".Scilab"
-
 #include "sci_home.h"
 
 #include "configvariable.hxx"
@@ -33,42 +31,56 @@ extern "C"
 #include "getenvc.h"
 }
 
-char *getSCIHOME(void)
-{
-    return strdup(ConfigVariable::getSCIHOME().c_str());
-}
-
 /*--------------------------------------------------------------------------*/ 
-wchar_t *getSCIHOMEW(void)
+wchar_t* getSCIHOMEW(void)
 {
-    return to_wide_string(const_cast<char*>(ConfigVariable::getSCIHOME().c_str()));
+    return wstrdup(ConfigVariable::getSCIHOME().c_str());
 }
-
+/*--------------------------------------------------------------------------*/ 
+char* getSCIHOME(void)
+{
+    return wide_string_to_UTF8(ConfigVariable::getSCIHOME().c_str());
+}
 /*--------------------------------------------------------------------------*/ 
 void setSCIHOME(const char* _sci_home)
 {
+    const wchar_t* pstTemp = to_wide_string(_sci_home);
+    setSCIHOMEW(pstTemp);
+    FREE(pstTemp);
+}
+/*--------------------------------------------------------------------------*/ 
+void setSCIHOMEW(const wchar_t* _sci_home)
+{
     //add SCI value in context as variable
     types::String *pS = new types::String(_sci_home);
-    symbol::Context::getInstance()->put("SCIHOME", *pS);
+    symbol::Context::getInstance()->put(L"SCIHOME", *pS);
 
-    std::string sci_home(_sci_home);
+    std::wstring sci_home(_sci_home);
     ConfigVariable::setSCIHOME(sci_home);
 }
 
 /*--------------------------------------------------------------------------*/ 
+wchar_t* computeSCIHOMEW(void)
+{
+    char* pstTemp = computeSCIHOME();
+    wchar_t* pstReturn = to_wide_string(pstTemp);
+    FREE(pstTemp);
+    return pstReturn;
+}
+/*--------------------------------------------------------------------------*/ 
 #ifdef _MSC_VER
 char* computeSCIHOME(void)
 {
-#define BASEDIR "Scilab"
+#define BASEDIR L"Scilab"
     int ierr = 0;
     int buflen = PATH_MAX;
     int iflag = 0;
 
     char USERPATHSCILAB[PATH_MAX];
     char SCIHOMEPATH[PATH_MAX * 2];
-
+    char* SHORTUSERHOMESYSTEM = NULL;
+    
     char USERHOMESYSTEM[PATH_MAX];
-    char *SHORTUSERHOMESYSTEM = NULL;
 
     bool bConverted = false;
 
@@ -137,6 +149,7 @@ char* computeSCIHOME(void)
 
         if(createdirectory(SCIHOMEPATH))
         {
+            
             return strdup(SCIHOMEPATH);
         }
     }
@@ -150,6 +163,7 @@ char* computeSCIHOME(void)
 #else
 char* computeSCIHOME(void)
 {
+#define BASEDIR ".Scilab"
     int ierr   = 0;
     int buflen = PATH_MAX;
     int iflag  = 0;
@@ -206,11 +220,25 @@ char* getenvSCIHOME(void)
             return NULL;
         }
     }
-
     return SciHome;
 }
-
 /*--------------------------------------------------------------------------*/ 
+wchar_t* getenvSCIHOMEW(void)
+{
+    char *SciHome = getenvSCIHOME();
+    wchar_t* pstTemp = to_wide_string(SciHome);
+    delete[] SciHome;
+    return pstTemp;
+}
+/*--------------------------------------------------------------------------*/ 
+void putenvSCIHOMEW(const wchar_t* _sci_home)
+{
+    const char* pstTemp = wide_string_to_UTF8(_sci_home);
+    putenvSCIHOME(pstTemp);
+    FREE(pstTemp);
+    return;
+}
+
 void putenvSCIHOME(const char* _sci_home)
 {
     char *ShortPath = NULL;
@@ -243,8 +271,8 @@ void putenvSCIHOME(const char* _sci_home)
 /*--------------------------------------------------------------------------*/ 
 void defineSCIHOME()
 {
-    char* sci_home = computeSCIHOME();
-    setSCIHOME(sci_home);
-    putenvSCIHOME(sci_home);
+    const wchar_t* sci_home = computeSCIHOMEW();
+    setSCIHOMEW(sci_home);
+    putenvSCIHOMEW(sci_home);
     FREE(sci_home);
 }
