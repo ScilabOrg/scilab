@@ -112,7 +112,7 @@ int StorePrioritaryCommandWithFlag (char *command,int flag)
 /*--------------------------------------------------------------------------*/
 int isEmptyCommandQueue(void)
 {
-#pragma warning("isEmptyCommandQueue is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
+#pragma message("WARNING : isEmptyCommandQueue is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
 	// FIXME : Do not forget to remove me.
     return 0;
 }
@@ -123,14 +123,14 @@ int isEmptyCommandQueue(void)
  */
 int GetCommand ( char *str)
 {
-#pragma warning("GetCommand is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
+#pragma message("WARNING : GetCommand is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
 	// FIXME : Do not forget to remove me.
     return 0;
 }
 /*--------------------------------------------------------------------------*/
 int ismenu(void)
 {
-#pragma warning("ismenu is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
+#pragma message("WARNING : ismenu is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
 	// FIXME : Do not forget to remove me.
     return 0;
 }
@@ -138,7 +138,7 @@ int ismenu(void)
 /* menu/button info for Scilab */
 int C2F(getmen)(char * btn_cmd,int * lb, int * entry)
 {
-#pragma warning("C2F(getmen) is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
+#pragma message("WARNING : C2F(getmen) is deprecated. It will be removed _BEFORE_ Scilab 6.0.")
 	// FIXME : Do not forget to remove me.
     return 0;
 }
