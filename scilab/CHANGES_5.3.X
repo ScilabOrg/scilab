@@ -178,6 +178,9 @@ Bug Fixes:
 
 * bug 6477 fixed - in some case, schur returned wrong values on Windows.
 
+* bug 7125 fixed - fscanfMat() did not read correctly %inf, -%inf and
+                   %nan values respectively recorded by fprintfMat().
+
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
 
@@ -448,6 +451,8 @@ Bug Fixes:
 
 * bug 7391 fixed - Links added between help files on evstr, eval, execstr.
 
+* bug 7432 fixed - fscanfMat and fprintfMat accepted wrong format.
+
 * bug 7437 fixed - If history file was invalid, history browser crashed.
 
 * bug 7441 fixed - The history browser crashed if the language was changed.
@@ -467,6 +472,9 @@ Bug Fixes:
 
 * bug 7507 fixed - There were some issues in the pvm module error messages
                    which made translation difficult.
+
+* bug 7481 fixed - 6th input argument of ilib_for_link did not allow to set
+                   library name on Windows.
 
 * bug 7508 fixed - There was a wrong error message in gmres function.
 
