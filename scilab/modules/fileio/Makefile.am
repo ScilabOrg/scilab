@@ -51,7 +51,9 @@ src/c/expandPathVariable.c \
 src/c/basename.c \
 src/c/pathconvert.c \
 src/c/copyfile_others.c \
-src/c/getFullFilename.c
+src/c/getFullFilename.c \
+src/c/fscanfMat.c \
+src/c/fprintfMat.c
 
 GATEWAY_SOURCES = \
 sci_gateway/c/gw_fileio.c \
