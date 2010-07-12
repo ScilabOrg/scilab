@@ -26,15 +26,15 @@ void visitprivate(const AssignExp  &e)
         /*get king of left hand*/
         const SimpleVar *pVar				= dynamic_cast<const SimpleVar*>(&e.left_exp_get());
         const FieldExp *pField				= dynamic_cast<const FieldExp*>(&e.left_exp_get());
-        const AssignListExp *pList	        = dynamic_cast<const AssignListExp*>(&e.left_exp_get());
+        const AssignListExp *pList	        	= dynamic_cast<const AssignListExp*>(&e.left_exp_get());
         const CallExp *pCall				= dynamic_cast<const CallExp*>(&e.left_exp_get());
 
         if(pCall)
         {//x(?) = ?
-            bool bRet					    = true;
-            bool bNew						= false;
+            bool bRet					= true;
+            bool bNew					= false;
             int iProductElem				= (int)pCall->args_get().size();
-            pVar							= (SimpleVar*)&pCall->name_get();
+            pVar					= (SimpleVar*)&pCall->name_get();
             InternalType *pIT				= symbol::Context::getInstance()->get(pVar->name_get());
             bool bSeeAsVector				= iProductElem == 1;
 
@@ -75,6 +75,9 @@ void visitprivate(const AssignExp  &e)
                 case InternalType::RealDouble : 
                     pOut = Double::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsDouble(), bSeeAsVector);
                     break;
+                case InternalType::RealSparse : 
+                    pOut = types::Sparse::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsSparse(), bSeeAsVector);
+                    break;
                 case InternalType::RealBool : 
                     pOut = Bool::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsBool(), bSeeAsVector);
                     break;
@@ -101,6 +104,9 @@ void visitprivate(const AssignExp  &e)
                 {
                 case InternalType::RealDouble : 
                     bRet = pIT->getAsDouble()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
+                    break;
+                case InternalType::RealSparse : 
+                    bRet = pIT->getAsSparse()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
                     break;
                 case InternalType::RealBool : 
                     bRet = pIT->getAsBool()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
