@@ -29,8 +29,7 @@ extern "C"
 #ifndef _MSC_VER
 #include "stricmp.h"
 #endif
-#include "cluni0.h"
-#include "PATH_MAX.h"
+#include "expandPathVariable.h"
 #include "prompt.h"
 }
 
@@ -70,7 +69,7 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 				return Function::Error;
 			}
 			
-			if(stricmp(pS->string_get(0), "errcatch") == 0)
+			if(wcsicmp(pS->string_get(0), L"errcatch") == 0)
 			{
 				bErrCatch = true;
 			}
@@ -132,12 +131,12 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 			return Function::Error;
 		}
 
-		char* pstFile = pS->string_get(0);
-		C2F(cluni0)(pstFile, pstParsePath, &iParsePathLen, (long)strlen(pstFile), PATH_MAX + FILENAME_MAX);
-        parser.parseFile(pstParsePath, "exec");
+		wchar_t* pstFile = pS->string_get(0);
+        wchar_t *expandedPath = expandPathVariableW(pstFile);
+        parser.parseFile(expandedPath, L"exec");
 		if(parser.getExitStatus() !=  Parser::Succeded)
 		{
-			YaspWrite(parser.getErrorMessage());
+			YaspWriteW(parser.getErrorMessage());
 			parser.freeTree();
 			return Function::Error;
 		}
@@ -195,15 +194,15 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 			//update ans variable.
 			if(execMe.result_get() != NULL && execMe.result_get()->isDeletable())
 			{
-				string varName = "ans";
+				wstring varName = L"ans";
 				symbol::Context::getInstance()->put(varName, *execMe.result_get());
 				if((*j)->is_verbose() && !checkPrompt(iMode, EXEC_MODE_MUTE) && checkPrompt(iMode, EXEC_MODE_VERBOSE))
 				{
-					std::ostringstream ostr;
-					ostr << "ans = " << std::endl;
+					std::wostringstream ostr;
+					ostr << L"ans = " << std::endl;
 					ostr << std::endl;
 					ostr << execMe.result_get()->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth()) << std::endl;
-					YaspWrite((char *)ostr.str().c_str());
+					YaspWriteW(ostr.str().c_str());
 				}
 			}
 
@@ -213,7 +212,7 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 			}
 
 		}
-		catch(std::string st)
+		catch(std::wstring st)
 		{
 			//print last line
 			if(checkPrompt(iMode, EXEC_MODE_MUTE))
@@ -222,7 +221,7 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 			}
 
 			//print error
-			YaspWrite(const_cast<char*>(st.c_str()));
+			YaspWriteW(st.c_str());
 			file.close();
 			return Function::Error;
 		}

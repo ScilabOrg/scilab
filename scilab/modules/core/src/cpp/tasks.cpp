@@ -156,10 +156,10 @@ void execAstTask(ast::Exp* tree, bool timed, bool ASTtimed)
     {
         tree->accept(*exec);
     }
-    catch(string sz)
+    catch(wstring sz)
     {
-        YaspWrite((char *) sz.c_str());
-        YaspWrite("\n");
+        YaspWriteW(sz.c_str());
+        YaspWriteW(L"\n");
     }
 
     delete exec;
