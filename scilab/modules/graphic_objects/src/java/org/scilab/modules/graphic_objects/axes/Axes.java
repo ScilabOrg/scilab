@@ -29,16 +29,34 @@ public class Axes extends GraphicObject {
 	/** Axes properties names */
 	private enum AxesProperty { AXES,
 		XAXIS, XAXISVISIBLE, XAXISREVERSE, XAXISGRIDCOLOR, XAXISLABEL, XAXISLOCATION, XAXISLOGFLAG,
-		XAXISTICKS, XAXISAUTOTICKS, XAXISTICKSLOCATIONS, XAXISTICKSLABELS, XAXISSUBTICKS,
+		XAXISTICKS, XAXISAUTOTICKS, XAXISNUMBERTICKS, XAXISTICKSLOCATIONS, XAXISTICKSLABELS, XAXISSUBTICKS,
 		YAXIS, YAXISVISIBLE, YAXISREVERSE, YAXISGRIDCOLOR, YAXISLABEL, YAXISLOCATION, YAXISLOGFLAG,
-		YAXISTICKS, YAXISAUTOTICKS, YAXISTICKSLOCATIONS, YAXISTICKSLABELS, YAXISSUBTICKS,
+		YAXISTICKS, YAXISAUTOTICKS, YAXISNUMBERTICKS, YAXISTICKSLOCATIONS, YAXISTICKSLABELS, YAXISSUBTICKS,
 		ZAXIS, ZAXISVISIBLE, ZAXISREVERSE, ZAXISGRIDCOLOR, ZAXISLABEL, ZAXISLOCATION, ZAXISLOGFLAG,
-		ZAXISTICKS, ZAXISAUTOTICKS, ZAXISTICKSLOCATIONS, ZAXISTICKSLABELS, ZAXISSUBTICKS,
+		ZAXISTICKS, ZAXISAUTOTICKS, ZAXISNUMBERTICKS, ZAXISTICKSLOCATIONS, ZAXISTICKSLABELS, ZAXISSUBTICKS,
 		GRIDPOSITION, TITLE, AUTOCLEAR, FILLED,
 		CAMERA, BOX, MARGINS, AXESBOUNDS };
 
 	/** Specifies the grid position relative to the graphics entities */
-	public static enum GridPosition { FOREGROUND, BACKGROUND };
+	public static enum GridPosition { BACKGROUND, FOREGROUND;
+
+		/**
+		 * Converts an integer to the corresponding enum
+		 * @param intValue the integer value
+		 * @return the grid position enum
+		 */
+		public static GridPosition intToEnum(Integer intValue) {
+			switch (intValue) {
+				case 0:
+					return GridPosition.BACKGROUND;
+				case 1:
+					return GridPosition.FOREGROUND;
+				default:
+					return null;
+			}
+		}
+
+	};
 
 	/** 3-element array (properties of the X, Y and Z axes) */
 	private AxisProperty[] axes;
@@ -113,6 +131,8 @@ public class Axes extends GraphicObject {
 			return AxesProperty.XAXISTICKS;
 		} else if (propertyName.equals("XAxisAutoTicks")) {
 			return AxesProperty.XAXISAUTOTICKS;
+		} else if (propertyName.equals("XAxisNumberTicks")) {
+			return AxesProperty.XAXISNUMBERTICKS;
 		} else if (propertyName.equals("XAxisTicksLocations")) {
 			return AxesProperty.XAXISTICKSLOCATIONS;
 		} else if (propertyName.equals("XAxisTicksLabels")) {
@@ -137,6 +157,8 @@ public class Axes extends GraphicObject {
 			return AxesProperty.YAXISTICKS;
 		} else if (propertyName.equals("YAxisAutoTicks")) {
 			return AxesProperty.YAXISAUTOTICKS;
+		} else if (propertyName.equals("YAxisNumberTicks")) {
+			return AxesProperty.YAXISNUMBERTICKS;
 		} else if (propertyName.equals("YAxisTicksLocations")) {
 			return AxesProperty.YAXISTICKSLOCATIONS;
 		} else if (propertyName.equals("YAxisTicksLabels")) {
@@ -161,6 +183,8 @@ public class Axes extends GraphicObject {
 			return AxesProperty.ZAXISTICKS;
 		} else if (propertyName.equals("ZAxisAutoTicks")) {
 			return AxesProperty.ZAXISAUTOTICKS;
+		} else if (propertyName.equals("ZAxisNumberTicks")) {
+			return AxesProperty.ZAXISNUMBERTICKS;
 		} else if (propertyName.equals("ZAxisTicksLocations")) {
 			return AxesProperty.ZAXISTICKSLOCATIONS;
 		} else if (propertyName.equals("ZAxisTicksLabels")) {
@@ -197,6 +221,8 @@ public class Axes extends GraphicObject {
 			return Box.BoxProperty.DATABOUNDS;
 		} else if (propertyName.equals("RealDataBounds")) {
 			return Box.BoxProperty.REALDATABOUNDS;
+		} else if (propertyName.equals("ZoomEnabled")) {
+			return Box.BoxProperty.ZOOMENABLED;
 		} else if (propertyName.equals("ZoomBox")) {
 			return Box.BoxProperty.ZOOMBOX;
 		} else if (propertyName.equals("AutoScale")) {
@@ -211,7 +237,7 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
-	 * Fast property get method
+	 * Property get method
 	 * @param property the property to get
 	 * @return the property value
 	 */
@@ -236,6 +262,8 @@ public class Axes extends GraphicObject {
 			return getXAxisTicks();
 		} else if (property == AxesProperty.XAXISAUTOTICKS) {
 			return getXAxisAutoTicks();
+		} else if (property == AxesProperty.XAXISNUMBERTICKS) {
+			return getXAxisNumberTicks();
 		} else if (property == AxesProperty.XAXISTICKSLOCATIONS) {
 			return getXAxisTicksLocations();
 		} else if (property == AxesProperty.XAXISTICKSLABELS) {
@@ -260,6 +288,8 @@ public class Axes extends GraphicObject {
 			return getYAxisTicks();
 		} else if (property == AxesProperty.YAXISAUTOTICKS) {
 			return getYAxisAutoTicks();
+		} else if (property == AxesProperty.YAXISNUMBERTICKS) {
+			return getYAxisNumberTicks();
 		} else if (property == AxesProperty.YAXISTICKSLOCATIONS) {
 			return getYAxisTicksLocations();
 		} else if (property == AxesProperty.YAXISTICKSLABELS) {
@@ -284,6 +314,8 @@ public class Axes extends GraphicObject {
 			return getZAxisTicks();
 		} else if (property == AxesProperty.ZAXISAUTOTICKS) {
 			return getZAxisAutoTicks();
+		} else if (property == AxesProperty.ZAXISNUMBERTICKS) {
+			return getZAxisNumberTicks();
 		} else if (property == AxesProperty.ZAXISTICKSLOCATIONS) {
 			return getZAxisTicksLocations();
 		} else if (property == AxesProperty.ZAXISTICKSLABELS) {
@@ -320,6 +352,8 @@ public class Axes extends GraphicObject {
 			return getDataBounds();
 		} else if (property == Box.BoxProperty.REALDATABOUNDS) {
 			return getRealDataBounds();
+		} else if (property == Box.BoxProperty.ZOOMENABLED) {
+			return getZoomEnabled();
 		} else if (property == Box.BoxProperty.ZOOMBOX) {
 			return getZoomBox();
 		} else if (property == Box.BoxProperty.AUTOSCALE) {
@@ -334,7 +368,7 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
-	 * Fast property set method
+	 * Property set method
 	 * @param property the property to set
 	 * @param value the property value
 	 * @return true if the property has been set, false otherwise
@@ -353,7 +387,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.XAXISLABEL) {
 			setXAxisLabel((Label) value);
 		} else if (property == AxesProperty.XAXISLOCATION) {
-			setXAxisLocation((AxisLocation) value);
+			setXAxisLocation((Integer) value);
 		} else if (property == AxesProperty.XAXISLOGFLAG) {
 			setXAxisLogFlag((Boolean) value);
 		} else if (property == AxesProperty.XAXISTICKS) {
@@ -363,7 +397,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.XAXISTICKSLOCATIONS) {
 			setXAxisTicksLocations((Double[]) value);
 		} else if (property == AxesProperty.XAXISTICKSLABELS) {
-			setXAxisTicksLabels((ArrayList<FormattedText>) value);
+			setXAxisTicksLabels((String[]) value);
 		} else if (property == AxesProperty.XAXISSUBTICKS) {
 			setXAxisSubticks((Integer) value);
 		} else if (property == AxesProperty.YAXIS) {
@@ -377,7 +411,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.YAXISLABEL) {
 			setYAxisLabel((Label) value);
 		} else if (property == AxesProperty.YAXISLOCATION) {
-			setYAxisLocation((AxisLocation) value);
+			setYAxisLocation((Integer) value);
 		} else if (property == AxesProperty.YAXISLOGFLAG) {
 			setYAxisLogFlag((Boolean) value);
 		} else if (property == AxesProperty.YAXISTICKS) {
@@ -387,7 +421,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.YAXISTICKSLOCATIONS) {
 			setYAxisTicksLocations((Double[]) value);
 		} else if (property == AxesProperty.YAXISTICKSLABELS) {
-			setYAxisTicksLabels((ArrayList<FormattedText>) value);
+			setYAxisTicksLabels((String[]) value);
 		} else if (property == AxesProperty.YAXISSUBTICKS) {
 			setYAxisSubticks((Integer) value);
 		} else if (property == AxesProperty.ZAXIS) {
@@ -401,7 +435,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.ZAXISLABEL) {
 			setZAxisLabel((Label) value);
 		} else if (property == AxesProperty.ZAXISLOCATION) {
-			setZAxisLocation((AxisLocation) value);
+			setZAxisLocation((Integer) value);
 		} else if (property == AxesProperty.ZAXISLOGFLAG) {
 			setZAxisLogFlag((Boolean) value);
 		} else if (property == AxesProperty.ZAXISTICKS) {
@@ -411,11 +445,11 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.ZAXISTICKSLOCATIONS) {
 			setZAxisTicksLocations((Double[]) value);
 		} else if (property == AxesProperty.ZAXISTICKSLABELS) {
-			setZAxisTicksLabels((ArrayList<FormattedText>) value);
+			setZAxisTicksLabels((String[]) value);
 		} else if (property == AxesProperty.ZAXISSUBTICKS) {
 			setZAxisSubticks((Integer) value);
 		} else if (property == AxesProperty.GRIDPOSITION) {
-			setGridPosition((GridPosition) value);
+			setGridPosition((Integer) value);
 		} else if (property == AxesProperty.TITLE) {
 			setTitle((Label) value);
 		} else if (property == AxesProperty.AUTOCLEAR) {
@@ -425,7 +459,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.CAMERA) {
 			setCamera((Camera) value);
 		} else if (property == Camera.CameraProperty.VIEW) {
-			setView((ViewType) value);
+			setView((Integer) value);
 		} else if (property == Camera.CameraProperty.ISOVIEW) {
 			setIsoview((Boolean) value);
 		} else if (property == Camera.CameraProperty.CUBESCALING) {
@@ -435,7 +469,7 @@ public class Axes extends GraphicObject {
 		} else if (property == AxesProperty.BOX) {
 			setBox((Box) value);
 		} else if (property == Box.BoxProperty.BOX) {
-			setBoxType((BoxType) value);
+			setBoxType((Integer) value);
 		} else if (property == Box.BoxProperty.HIDDENAXISCOLOR) {
 			setHiddenAxisColor((Integer) value);
 		} else if (property == Box.BoxProperty.TIGHTLIMITS) {
@@ -444,6 +478,8 @@ public class Axes extends GraphicObject {
 			setDataBounds((Double[]) value);
 		} else if (property == Box.BoxProperty.REALDATABOUNDS) {
 			setRealDataBounds((Double[]) value);
+		} else if (property == Box.BoxProperty.ZOOMENABLED) {
+			setZoomEnabled((Boolean) value);
 		} else if (property == Box.BoxProperty.ZOOMBOX) {
 			setZoomBox((Double[]) value);
 		} else if (property == Box.BoxProperty.AUTOSCALE) {
@@ -560,14 +596,28 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the x axis location
 	 */
-	public AxisLocation getXAxisLocation() {
+	public Integer getXAxisLocation() {
+		return getXAxisLocationAsEnum().ordinal();
+	}
+
+	/**
+	 * @return the x axis location
+	 */
+	public AxisLocation getXAxisLocationAsEnum() {
 		return axes[0].getAxisLocation();
 	}
 
 	/**
 	 * @param axisLocation the x axis location to set
 	 */
-	public void setXAxisLocation(AxisLocation axisLocation) {
+	public void setXAxisLocation(Integer axisLocation) {
+		setXAxisLocationAsEnum(AxisLocation.intToEnum(axisLocation));
+	}
+
+	/**
+	 * @param axisLocation the x axis location to set
+	 */
+	public void setXAxisLocationAsEnum(AxisLocation axisLocation) {
 		axes[0].setAxisLocation(axisLocation);
 	}
 
@@ -614,6 +664,13 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
+	 * @return the x axis number of ticks
+	 */
+	public Integer getXAxisNumberTicks() {
+		return axes[0].getNumberOfTicks();
+	}
+
+	/**
 	 * @return the x axis ticks locations
 	 */
 	public Double[] getXAxisTicksLocations() {
@@ -630,8 +687,22 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the x axis ticks labels
 	 */
-	public ArrayList<FormattedText> getXAxisTicksLabels() {
+	public String[] getXAxisTicksLabels() {
+		return axes[0].getTicksLabelsStrings();
+	}
+
+	/**
+	 * @return the x axis ticks labels
+	 */
+	public ArrayList<FormattedText> getXAxisTicksLabelsAsArrayList() {
 		return axes[0].getTicksLabels();
+	}
+
+	/**
+	 * @param labels the x axis ticks labels to set
+	 */
+	public void setXAxisTicksLabels(String[] labels) {
+		axes[0].setTicksLabelsStrings(labels);
 	}
 
 	/**
@@ -728,14 +799,28 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the y axis location
 	 */
-	public AxisLocation getYAxisLocation() {
+	public Integer getYAxisLocation() {
+		return getYAxisLocationAsEnum().ordinal();
+	}
+
+	/**
+	 * @return the y axis location
+	 */
+	public AxisLocation getYAxisLocationAsEnum() {
 		return axes[1].getAxisLocation();
 	}
 
 	/**
 	 * @param axisLocation the y axis location to set
 	 */
-	public void setYAxisLocation(AxisLocation axisLocation) {
+	public void setYAxisLocation(Integer axisLocation) {
+		setYAxisLocationAsEnum(AxisLocation.intToEnum(axisLocation));
+	}
+
+	/**
+	 * @param axisLocation the y axis location to set
+	 */
+	public void setYAxisLocationAsEnum(AxisLocation axisLocation) {
 		axes[1].setAxisLocation(axisLocation);
 	}
 
@@ -782,6 +867,13 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
+	 * @return the y axis number of ticks
+	 */
+	public Integer getYAxisNumberTicks() {
+		return axes[1].getNumberOfTicks();
+	}
+
+	/**
 	 * @return the y axis ticks locations
 	 */
 	public Double[] getYAxisTicksLocations() {
@@ -798,8 +890,22 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the y axis ticks labels
 	 */
-	public ArrayList<FormattedText> getYAxisTicksLabels() {
+	public String[] getYAxisTicksLabels() {
+		return axes[1].getTicksLabelsStrings();
+	}
+
+	/**
+	 * @return the y axis ticks labels
+	 */
+	public ArrayList<FormattedText> getYAxisTicksLabelsAsArrayList() {
 		return axes[1].getTicksLabels();
+	}
+
+	/**
+	 * @param labels the y axis ticks labels to set
+	 */
+	public void setYAxisTicksLabels(String[] labels) {
+		axes[1].setTicksLabelsStrings(labels);
 	}
 
 	/**
@@ -896,14 +1002,28 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the z axis location
 	 */
-	public AxisLocation getZAxisLocation() {
+	public Integer getZAxisLocation() {
+		return getYAxisLocationAsEnum().ordinal();
+	}
+
+	/**
+	 * @return the z axis location
+	 */
+	public AxisLocation getZAxisLocationAsEnum() {
 		return axes[2].getAxisLocation();
 	}
 
 	/**
 	 * @param axisLocation the z axis location to set
 	 */
-	public void setZAxisLocation(AxisLocation axisLocation) {
+	public void setZAxisLocation(Integer axisLocation) {
+		setZAxisLocationAsEnum(AxisLocation.intToEnum(axisLocation));
+	}
+
+	/**
+	 * @param axisLocation the z axis location to set
+	 */
+	public void setZAxisLocationAsEnum(AxisLocation axisLocation) {
 		axes[2].setAxisLocation(axisLocation);
 	}
 
@@ -941,6 +1061,13 @@ public class Axes extends GraphicObject {
 	public Boolean getZAxisAutoTicks() {
 		return axes[2].getAutoTicks();
 	}
+
+	/**
+	 * @return the z axis number of ticks
+	 */
+	public Integer getZAxisNumberTicks() {
+		return axes[2].getNumberOfTicks();
+	}
 	
 	/**
 	 * @param autoTicks the z axis autoticks to set
@@ -966,8 +1093,22 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the z axis ticks labels
 	 */
-	public ArrayList<FormattedText> getZAxisTicksLabels() {
+	public String[] getZAxisTicksLabels() {
+		return axes[2].getTicksLabelsStrings();
+	}
+
+	/**
+	 * @return the z axis ticks labels
+	 */
+	public ArrayList<FormattedText> getZAxisTicksLabelsAsArrayList() {
 		return axes[2].getTicksLabels();
+	}
+
+	/**
+	 * @param labels the z axis ticks labels to set
+	 */
+	public void setZAxisTicksLabels(String[] labels) {
+		axes[2].setTicksLabelsStrings(labels);
 	}
 
 	/**
@@ -1032,16 +1173,32 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the box type
 	 */
-	public BoxType getBoxType() {
+	public Integer getBoxType() {
+		return getBoxTypeAsEnum().ordinal();
+	}
+
+	/**
+	 * @return the box type
+	 */
+	public BoxType getBoxTypeAsEnum() {
 		return box.getBox();
 	}
 
 	/**
 	 * @param box the BoxType to set
 	 */
-	public void setBoxType(BoxType box) {
+	public void setBoxType(Integer box) {
+		setBoxTypeAsEnum(BoxType.intToEnum(box));
+	}
+
+	/**
+	 * @param box the BoxType to set
+	 */
+	public void setBoxTypeAsEnum(BoxType box) {
 		this.box.setBox(box);
 	}
+
+
 
 	/**
 	 * @return the hidden axis color
@@ -1100,6 +1257,20 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
+	 * @return the zoomEnabled
+	 */
+	public Boolean getZoomEnabled() {
+		return box.getZoomEnabled();
+	}
+
+	/**
+	 * @param zoomEnabled the zoomEnabled to set
+	 */
+	public void setZoomEnabled(Boolean zoomEnabled) {
+		box.setZoomEnabled(zoomEnabled);
+	}
+
+	/**
 	 * @return the zoom box
 	 */
 	public Double[] getZoomBox() {
@@ -1144,14 +1315,28 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the view type
 	 */
-	public ViewType getView() {
+	public Integer getView() {
+		return getViewAsEnum().ordinal();
+	}
+
+	/**
+	 * @return the view type
+	 */
+	public ViewType getViewAsEnum() {
 		return camera.getView();
 	}
 
 	/**
 	 * @param view the view type to set
 	 */
-	public void setView(ViewType view) {
+	public void setView(Integer view) {
+		setViewAsEnum(ViewType.intToEnum(view));
+	}
+
+	/**
+	 * @param view the view type to set
+	 */
+	public void setViewAsEnum(ViewType view) {
 		camera.setView(view);
 	}
 
@@ -1214,15 +1399,29 @@ public class Axes extends GraphicObject {
 	/**
 	 * @return the gridPosition
 	 */
-	public GridPosition getGridPosition() {
+	public GridPosition getGridPositionAsEnum() {
 		return gridPosition;
+	}
+
+	/**
+	 * @return the gridPosition
+	 */
+	public Integer getGridPosition() {
+		return getGridPositionAsEnum().ordinal();
 	}
 
 	/**
 	 * @param gridPosition the gridPosition to set
 	 */
-	public void setGridPosition(GridPosition gridPosition) {
+	public void setGridPositionAsEnum(GridPosition gridPosition) {
 		this.gridPosition = gridPosition;
+	}
+
+	/**
+	 * @param gridPosition the gridPosition to set
+	 */
+	public void setGridPosition(Integer gridPosition) {
+		this.gridPosition = GridPosition.intToEnum(gridPosition);
 	}
 
 	/**

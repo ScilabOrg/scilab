@@ -33,7 +33,33 @@ public class AxisProperty {
 	 * BOTTOM, TOP, MIDDLE, ORIGIN are allowed for an x-axis,
 	 * LEFT, RIGHT, MIDDLE or ORIGIN are allowed for a y-axis
 	 */
-	public static enum AxisLocation { BOTTOM, TOP, MIDDLE, ORIGIN, LEFT, RIGHT };
+	public static enum AxisLocation { BOTTOM, TOP, MIDDLE, ORIGIN, LEFT, RIGHT;
+
+
+		/**
+		* Converts an integer to the corresponding enum
+		* @param intValue the integer value
+		* @return the axis location enum
+		*/
+		public static AxisLocation intToEnum(Integer intValue) {
+			switch (intValue) {
+				case 0:
+					return AxisLocation.BOTTOM;
+				case 1:
+					return AxisLocation.TOP;
+				case 2:
+					return AxisLocation.MIDDLE;
+				case 3:
+					return AxisLocation.ORIGIN;
+				case 4:
+					return AxisLocation.LEFT;
+				case 5:
+					return AxisLocation.RIGHT;
+				default:
+					return null;
+			}
+		}
+	}
 	
 	/** Specifies whether the axis is visible or not */
 	private boolean visible;
@@ -62,7 +88,7 @@ public class AxisProperty {
 		reverse = false;
 		gridColor = 0;
 		label = null;
-		axisLocation = null;
+		axisLocation = AxisLocation.ORIGIN;
 		ticks = new TicksProperty();
 		logFlag = false;
 	}
@@ -93,7 +119,7 @@ public class AxisProperty {
 	}
 	
 	/**
-	 * Fast property get method
+	 * Property get method
 	 * @param property the property to get
 	 * @return the property value
 	 */
@@ -118,7 +144,7 @@ public class AxisProperty {
 	}
 
 	/**
-	 * Fast property set method
+	 * Property set method
 	 * @param property the property to set
 	 * @param value the property value
 	 * @return true if the property has been set, false otherwise
@@ -143,6 +169,13 @@ public class AxisProperty {
 		return true;
 	}
 	
+	/**
+	 * @return the axisLocation
+	 */
+	public AxisLocation getAxisLocationAsEnum() {
+		return axisLocation;
+	}
+
 	/**
 	 * @return the axisLocation
 	 */
@@ -256,6 +289,13 @@ public class AxisProperty {
 	}
 
 	/**
+	 * @return the number of ticks
+	 */
+	public Integer getNumberOfTicks() {
+		return ticks.getNumber();
+	}
+
+	/**
 	 * @return the ticks locations
 	 */
 	public Double[] getTicksLocations() {
@@ -281,6 +321,20 @@ public class AxisProperty {
 	 */
 	public void setTicksLabels(ArrayList<FormattedText> labels) {
 		ticks.setLabels(labels);
+	}
+
+	/**
+	 * @return the ticks labels
+	 */
+	public String[] getTicksLabelsStrings() {
+		return ticks.getLabelsStrings();
+	}
+
+	/**
+	 * @param labels the labels strings to set
+	 */
+	public void setTicksLabelsStrings(String[] labels) {
+		ticks.setLabelsStrings(labels);
 	}
 
 	/**
