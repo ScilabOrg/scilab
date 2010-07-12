@@ -24,6 +24,7 @@
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
   #define vsnprintf _vsnprintf
+#define vsnwprintf _vsnwprintf
 #endif
 #define MAXPRINTF bsiz /* bsiz size of internal chain buf */
 /*--------------------------------------------------------------------------*/ 
@@ -34,15 +35,46 @@
 * print a string 
 * @param[in] buffer to disp
 */
-static void printf_scilab(char *buffer);
+static void printf_scilab(char* buffer);
+static void printf_scilabW(wchar_t* buffer);
 /*--------------------------------------------------------------------------*/ 
-void sciprint(char *fmt,...) 
+void sciprint(char* fmt,...) 
 {
 	va_list ap;
 
 	va_start(ap,fmt);
 	scivprint(fmt,ap);
 	va_end (ap);
+}
+/*--------------------------------------------------------------------------*/ 
+void sciprintW(wchar_t* fmt,...) 
+{
+	va_list ap;
+
+	va_start(ap,fmt);
+	scivprintW(fmt,ap);
+	va_end (ap);
+}
+/*--------------------------------------------------------------------------*/ 
+int scivprintW(wchar_t* fmt,va_list args) 
+{
+	static wchar_t s_buf[MAXPRINTF];
+	int count=0;
+
+	va_list savedargs;
+	va_copy(savedargs, args);
+	
+	count= vsnwprintf(s_buf, MAXPRINTF - 1, fmt, args );
+	if(count == -1)
+    {
+        s_buf[MAXPRINTF - 1]= L'\0';
+    }
+
+	printf_scilabW(s_buf);
+	
+	va_end(savedargs);
+
+	return count;
 }
 /*--------------------------------------------------------------------------*/ 
 int scivprint(char *fmt,va_list args) 
@@ -61,6 +93,34 @@ int scivprint(char *fmt,va_list args)
 	va_end(savedargs);
 
 	return count;
+}
+/*--------------------------------------------------------------------------*/ 
+static void printf_scilabW(wchar_t* buffer)
+{
+	if (buffer)
+	{
+    	char* cBuffer = wide_string_to_UTF8(buffer);
+        if(cBuffer)
+        {
+		    if (getScilabMode() == SCILAB_STD)
+		    {
+			    ConsolePrintf(cBuffer);
+		    }
+		    else
+		    {
+			    #ifdef _MSC_VER
+			    TermPrintf_Windows(cBuffer);
+			    #else
+			    printf("%s",cBuffer);
+			    #endif
+		    }
+
+		    diaryWrite(buffer, FALSE);
+
+		    FREE(cBuffer);
+		    cBuffer = NULL;
+        }
+	}
 }
 /*--------------------------------------------------------------------------*/ 
 static void printf_scilab(char *buffer)

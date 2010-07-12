@@ -25,7 +25,8 @@
 * @return all the files except '.' & '..'
 */
 
-FILEIO_IMPEXP char **findfiles(char *path,char *filespec,int *sizeListReturned,  BOOL warning);
+FILEIO_IMPEXP char** findfiles(wchar_t* path, wchar_t* filespec, int *sizeListReturned, BOOL warning);
+FILEIO_IMPEXP wchar_t** findfilesW(wchar_t* path, wchar_t* filespec, int *sizeListReturned, BOOL warning);
 
 #endif /* __FINDFILES_H__ */
 /*--------------------------------------------------------------------------*/ 
