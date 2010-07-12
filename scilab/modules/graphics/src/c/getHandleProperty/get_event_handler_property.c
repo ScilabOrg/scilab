@@ -37,6 +37,6 @@ int get_event_handler_property( sciPointObj * pobj )
     return -1 ;
   }
 
-  return sciReturnString( getGraphicObjectProperty(pobj->UID, "EventHandlerName", jni_string));
+  return sciReturnString(getGraphicObjectStringProperty(pobj->UID, "EventHandlerName"));
 }
 /*------------------------------------------------------------------------*/
