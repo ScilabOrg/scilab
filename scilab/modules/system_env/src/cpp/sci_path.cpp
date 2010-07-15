@@ -22,9 +22,7 @@
 
 extern "C"
 {
-#ifdef _MSC_VER
-#include "strdup_windows.h"
-#endif
+#include "os_wcsdup.h"
 #include "charEncoding.h"
 #include "PATH_MAX.h"
 #include "setenvc.h"
@@ -39,7 +37,7 @@ char *getSCI(void)
 /*--------------------------------------------------------------------------*/
 wchar_t *getSCIW(void)
 {
-    return wcsdup(ConfigVariable::getSCIPath().c_str());
+    return os_wcsdup(ConfigVariable::getSCIPath().c_str());
 }
 
 /*--------------------------------------------------------------------------*/
