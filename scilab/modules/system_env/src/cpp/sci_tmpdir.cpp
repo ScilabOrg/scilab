@@ -24,8 +24,8 @@ extern "C"
 {
 #ifdef _MSC_VER
 #include <process.h>
-#include "strdup_windows.h"
 #endif
+#include "os_wcsdup.h"
 #include "charEncoding.h"
 #include "PATH_MAX.h"
 #include "setenvc.h"
@@ -42,7 +42,7 @@ char* getTMPDIR(void)
 /*--------------------------------------------------------------------------*/
 wchar_t* getTMPDIRW(void)
 {
-    return wcsdup(ConfigVariable::getTMPDIR().c_str());
+    return os_wcsdup(ConfigVariable::getTMPDIR().c_str());
 }
 
 /*--------------------------------------------------------------------------*/
