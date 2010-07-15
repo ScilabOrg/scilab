@@ -27,6 +27,10 @@ src/c/isalphanum.c \
 src/c/StringConvert.c \
 src/c/scistrtostr.c
 
+if IS_MACOSX
+STRING_C_SOURCES += src/c/macOSwcsdup.c
+endif
+
 STRING_FORTRAN_SOURCES =
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_string.c \

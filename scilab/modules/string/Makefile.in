@@ -56,9 +56,10 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@IS_MACOSX_TRUE@am__append_1 = src/c/macOSwcsdup.c
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
-@NEED_JAVA_TRUE@am__append_1 = java
+@NEED_JAVA_TRUE@am__append_2 = java
 subdir = modules/string
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -112,7 +113,35 @@ libscistring_la_DEPENDENCIES = $(top_builddir)/modules/elementary_functions/libs
 	$(top_builddir)/modules/core/libscicore.la \
 	$(top_builddir)/libs/MALLOC/libscimalloc.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la
-am__objects_1 = libscistring_la-code2str.lo \
+am__libscistring_la_SOURCES_DIST = src/c/code2str.c \
+	src/c/stripblanks.c src/c/convstr.c src/c/men_Sutils.c \
+	src/c/tokens.c src/c/strcatfunction.c src/c/strsplitfunction.c \
+	src/c/partfunction.c src/c/InitializeString.c \
+	src/c/setScilabCharactersCodes.c src/c/cvstr.c \
+	src/c/getfastcode.c src/c/pcre_private.c src/c/pcre_error.c \
+	src/c/isletter.c src/c/isdigit.c src/c/strsubst.c \
+	src/c/stringsstrrchr.c src/c/stringsstrrev.c \
+	src/c/stringsCompare.c src/c/isalphanum.c \
+	src/c/StringConvert.c src/c/scistrtostr.c src/c/macOSwcsdup.c \
+	sci_gateway/c/gw_string.c sci_gateway/c/sci_ascii.c \
+	sci_gateway/c/sci_code2str.c sci_gateway/c/sci_convstr.c \
+	sci_gateway/c/sci_emptystr.c sci_gateway/c/sci_length.c \
+	sci_gateway/c/sci_part.c sci_gateway/c/sci_str2code.c \
+	sci_gateway/c/sci_strcat.c sci_gateway/c/sci_strindex.c \
+	sci_gateway/c/sci_string.c sci_gateway/c/sci_stripblanks.c \
+	sci_gateway/c/sci_strsplit.c sci_gateway/c/sci_strsubst.c \
+	sci_gateway/c/sci_tokens.c sci_gateway/c/sci_strcmp.c \
+	sci_gateway/c/sci_isletter.c sci_gateway/c/sci_isdigit.c \
+	sci_gateway/c/sci_isalphanum.c sci_gateway/c/sci_isascii.c \
+	sci_gateway/c/sci_strchr.c sci_gateway/c/sci_strcspn.c \
+	sci_gateway/c/sci_strncpy.c sci_gateway/c/sci_strrchr.c \
+	sci_gateway/c/sci_strrev.c sci_gateway/c/sci_strspn.c \
+	sci_gateway/c/sci_strstr.c sci_gateway/c/sci_strtod.c \
+	sci_gateway/c/sci_strtok.c sci_gateway/c/sci_regexp.c \
+	sci_gateway/fortran/sci_string.f sci_gateway/fortran/strops.f \
+	sci_gateway/cpp/sci_grep.cpp sci_gateway/cpp/string_gw.cpp
+@IS_MACOSX_TRUE@am__objects_1 = libscistring_la-macOSwcsdup.lo
+am__objects_2 = libscistring_la-code2str.lo \
 	libscistring_la-stripblanks.lo libscistring_la-convstr.lo \
 	libscistring_la-men_Sutils.lo libscistring_la-tokens.lo \
 	libscistring_la-strcatfunction.lo \
@@ -127,9 +156,9 @@ am__objects_1 = libscistring_la-code2str.lo \
 	libscistring_la-stringsstrrev.lo \
 	libscistring_la-stringsCompare.lo \
 	libscistring_la-isalphanum.lo libscistring_la-StringConvert.lo \
-	libscistring_la-scistrtostr.lo
-am__objects_2 =
-am__objects_3 = libscistring_la-gw_string.lo \
+	libscistring_la-scistrtostr.lo $(am__objects_1)
+am__objects_3 =
+am__objects_4 = libscistring_la-gw_string.lo \
 	libscistring_la-sci_ascii.lo libscistring_la-sci_code2str.lo \
 	libscistring_la-sci_convstr.lo libscistring_la-sci_emptystr.lo \
 	libscistring_la-sci_length.lo libscistring_la-sci_part.lo \
@@ -147,11 +176,11 @@ am__objects_3 = libscistring_la-gw_string.lo \
 	libscistring_la-sci_strspn.lo libscistring_la-sci_strstr.lo \
 	libscistring_la-sci_strtod.lo libscistring_la-sci_strtok.lo \
 	libscistring_la-sci_regexp.lo
-am__objects_4 = sci_string.lo strops.lo
-am__objects_5 = libscistring_la-sci_grep.lo \
+am__objects_5 = sci_string.lo strops.lo
+am__objects_6 = libscistring_la-sci_grep.lo \
 	libscistring_la-string_gw.lo
-am_libscistring_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
-	$(am__objects_3) $(am__objects_4) $(am__objects_5)
+am_libscistring_la_OBJECTS = $(am__objects_2) $(am__objects_3) \
+	$(am__objects_4) $(am__objects_5) $(am__objects_6)
 libscistring_la_OBJECTS = $(am_libscistring_la_OBJECTS)
 libscistring_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
@@ -186,7 +215,7 @@ F77LINK = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(F77LD) $(AM_FFLAGS) $(FFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = $(libscistring_la_SOURCES)
-DIST_SOURCES = $(libscistring_la_SOURCES)
+DIST_SOURCES = $(am__libscistring_la_SOURCES_DIST)
 DATA = $(libscistring_la_etc_DATA) $(libscistring_la_root_DATA) \
 	$(libscistring_la_sci_gateway_DATA)
 ETAGS = etags
@@ -324,7 +353,6 @@ PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
 PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
-PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PCRE_CFLAGS = @PCRE_CFLAGS@
@@ -438,30 +466,16 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
-STRING_C_SOURCES = src/c/code2str.c \
-src/c/stripblanks.c \
-src/c/convstr.c \
-src/c/men_Sutils.c \
-src/c/tokens.c \
-src/c/strcatfunction.c \
-src/c/strsplitfunction.c \
-src/c/partfunction.c \
-src/c/InitializeString.c \
-src/c/setScilabCharactersCodes.c \
-src/c/cvstr.c \
-src/c/getfastcode.c \
-src/c/pcre_private.c \
-src/c/pcre_error.c \
-src/c/isletter.c \
-src/c/isdigit.c \
-src/c/strsubst.c \
-src/c/stringsstrrchr.c \
-src/c/stringsstrrev.c \
-src/c/stringsCompare.c \
-src/c/isalphanum.c \
-src/c/StringConvert.c \
-src/c/scistrtostr.c
-
+STRING_C_SOURCES = src/c/code2str.c src/c/stripblanks.c \
+	src/c/convstr.c src/c/men_Sutils.c src/c/tokens.c \
+	src/c/strcatfunction.c src/c/strsplitfunction.c \
+	src/c/partfunction.c src/c/InitializeString.c \
+	src/c/setScilabCharactersCodes.c src/c/cvstr.c \
+	src/c/getfastcode.c src/c/pcre_private.c src/c/pcre_error.c \
+	src/c/isletter.c src/c/isdigit.c src/c/strsubst.c \
+	src/c/stringsstrrchr.c src/c/stringsstrrev.c \
+	src/c/stringsCompare.c src/c/isalphanum.c \
+	src/c/StringConvert.c src/c/scistrtostr.c $(am__append_1)
 STRING_FORTRAN_SOURCES = 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_string.c \
 sci_gateway/c/sci_ascii.c \
@@ -563,7 +577,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1)
+TARGETS_ALL = $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -698,6 +712,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-isalphanum.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-isdigit.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-isletter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-macOSwcsdup.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-men_Sutils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-partfunction.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscistring_la-pcre_error.Plo@am__quote@
@@ -925,6 +940,13 @@ libscistring_la-scistrtostr.lo: src/c/scistrtostr.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scistrtostr.c' object='libscistring_la-scistrtostr.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscistring_la_CPPFLAGS) $(CPPFLAGS) $(libscistring_la_CFLAGS) $(CFLAGS) -c -o libscistring_la-scistrtostr.lo `test -f 'src/c/scistrtostr.c' || echo '$(srcdir)/'`src/c/scistrtostr.c
+
+libscistring_la-macOSwcsdup.lo: src/c/macOSwcsdup.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscistring_la_CPPFLAGS) $(CPPFLAGS) $(libscistring_la_CFLAGS) $(CFLAGS) -MT libscistring_la-macOSwcsdup.lo -MD -MP -MF $(DEPDIR)/libscistring_la-macOSwcsdup.Tpo -c -o libscistring_la-macOSwcsdup.lo `test -f 'src/c/macOSwcsdup.c' || echo '$(srcdir)/'`src/c/macOSwcsdup.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscistring_la-macOSwcsdup.Tpo $(DEPDIR)/libscistring_la-macOSwcsdup.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/macOSwcsdup.c' object='libscistring_la-macOSwcsdup.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscistring_la_CPPFLAGS) $(CPPFLAGS) $(libscistring_la_CFLAGS) $(CFLAGS) -c -o libscistring_la-macOSwcsdup.lo `test -f 'src/c/macOSwcsdup.c' || echo '$(srcdir)/'`src/c/macOSwcsdup.c
 
 libscistring_la-gw_string.lo: sci_gateway/c/gw_string.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscistring_la_CPPFLAGS) $(CPPFLAGS) $(libscistring_la_CFLAGS) $(CFLAGS) -MT libscistring_la-gw_string.lo -MD -MP -MF $(DEPDIR)/libscistring_la-gw_string.Tpo -c -o libscistring_la-gw_string.lo `test -f 'sci_gateway/c/gw_string.c' || echo '$(srcdir)/'`sci_gateway/c/gw_string.c
