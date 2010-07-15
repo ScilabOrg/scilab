@@ -212,6 +212,9 @@ Bug Fixes:
 
 * bug 7595 fixed - In SciNotes, a string was broken if '..' was encountered.
 
+* bug 7525 fixed - Scilab failed to assign 2-d matrices into 3-d matrices, on Windows.
+
+
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
 
