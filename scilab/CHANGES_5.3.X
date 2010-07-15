@@ -51,6 +51,8 @@ Bug Fixes:
 
 * bug 7519 fixed - Help page of getcallbackobject() did not describe input argument.
 
+* bug 7525 fixed - Scilab failed to assign 2-d matrices into 3-d matrices, on Windows.
+
 * bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
                    it was not visible even if the subwindow was docked.
 
@@ -320,8 +322,6 @@ Bug Fixes:
                    item was selected.
 
 * bug 7594 fixed - Undefined variable error was not properly handled since bug 6781 fix.
-
-
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
