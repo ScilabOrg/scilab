@@ -88,6 +88,9 @@ Bug Fixes:
 * bug 7532 fixed - Old scicos diagrams without diagram version numbers could not
                    be openned.
 
+* bug 7532 fixed - Old scicos diagrams without diagram version numbers could not
+                   be openned.
+
 * bug 7533 fixed - On Xcos, it was possible to drop a block into another block.
 
 * bug 7550 fixed - In SciNotes, the "case" keyword was misplaced in some conditions.
