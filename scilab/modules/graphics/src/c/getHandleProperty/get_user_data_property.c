@@ -25,6 +25,7 @@
 #include "MALLOC.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_user_data_property( sciPointObj * pobj )
@@ -33,9 +34,9 @@ int get_user_data_property( sciPointObj * pobj )
   int userDataSize;
   int* userData;
 
-  userDataSize = getGraphicObjectIntegerProperty(pobj->UID, "UserDataSize");
+  userDataSize = *(int*)getGraphicObjectProperty(pobj->UID, __GO_USER_DATA_SIZE__, jni_int);
 
-  userData = getGraphicObjectIntegerVectorProperty(pobj->UID, "UserData");
+  userData = (int*)getGraphicObjectProperty(pobj->UID, __GO_USER_DATA__, jni_int_vector);
 
   if ( userData == NULL || userDataSize == 0 )
   {
