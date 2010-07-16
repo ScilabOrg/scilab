@@ -247,4 +247,10 @@ public class SciNotesMessages {
      * Exit confirm message
      */
     public static final String EXIT_CONFIRM = Messages.gettext("Are you sure that you want to close SciNotes ?");
+
+    /**
+     * Restore previous session's files query message
+     */
+    public static final String RESTORE_FILES_QUERY = Messages.gettext("Restore tabs from your last editor session ?");
+    public static final String RESTORE_FILES_TITLE = Messages.gettext("Restore last session ");
 }

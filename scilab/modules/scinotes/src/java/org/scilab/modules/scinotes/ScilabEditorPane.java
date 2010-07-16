@@ -32,6 +32,7 @@ import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.UUID;
 
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
@@ -93,6 +94,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     private JScrollPane scroll;
     private JSplitPane split;
     private ScilabEditorPane rightTextPane;
+    private UUID uuid;
 
     private static final Cursor handCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
     private static final Cursor textCursor = Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR);
@@ -112,6 +114,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
             focused = this;
         }
         this.editor = editor;
+        this.uuid = UUID.randomUUID();
         scroll = new JScrollPane(this);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -346,6 +349,14 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
         pane.suppressCom = suppressCom;
         pane.setName(getName());
         pane.setEditable(isEditable());
+    }
+
+    /**
+     * Get the UUID associated with the editor pane instance.
+     * @return unique identifier
+     */
+    public UUID getUUID() {
+        return uuid;
     }
 
     /**
