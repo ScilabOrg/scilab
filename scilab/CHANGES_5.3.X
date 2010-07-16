@@ -21,6 +21,12 @@ Compilation:
 * fix the "warning: deprecated conversion from string constant to ‘char*’"
   message when compiling a toolbox using Scierror(...) and sciprint(...)
 
+SciNotes:
+=========
+
+* Add the possibility to restore the last session (thanks to Paul Griffiths)
+
+
 Bug Fixes:
 ==========
 
@@ -130,6 +136,8 @@ Bug Fixes:
 
 * bug 7551 fixed - An Xcos block could not change the type of a port when it was
                    already present.
+
+* bug 7558 fixed - SciNotes: global variables were reached before local ones.
 
 * bug 7566 fixed - The cacsd module graphic functions (bode, black, nyquist,...) 
                    did not preserve the immediate_drawing property value.
