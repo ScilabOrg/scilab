@@ -40,6 +40,6 @@ int get_figure_name_property( sciPointObj * pobj )
     return -1;
   }
 
-  return sciReturnString( (char *) getGraphicObjectStringProperty(pobj->UID, __GO_NAME__));
+  return sciReturnString( (char *) getGraphicObjectProperty(pobj->UID, __GO_NAME__, jni_string));
 }
 /*------------------------------------------------------------------------*/

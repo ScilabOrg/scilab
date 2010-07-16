@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_pixmap_property( sciPointObj * pobj )
@@ -35,7 +36,7 @@ int get_pixmap_property( sciPointObj * pobj )
     Scierror(999, _("'%s' property does not exist for this handle.\n"),"pixmap");
     return -1;
   }
-  if ( getGraphicObjectBooleanProperty(pobj->UID, "Pixmap") )
+  if ( *(int*)getGraphicObjectProperty(pobj->UID, __GO_PIXMAP__, jni_bool) )
   {
     return sciReturnString( "on" ) ;
   }

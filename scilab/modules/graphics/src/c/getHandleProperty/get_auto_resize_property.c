@@ -26,6 +26,7 @@
 #include "Scierror.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_auto_resize_property( sciPointObj * pobj )
@@ -36,7 +37,7 @@ int get_auto_resize_property( sciPointObj * pobj )
 		return -1 ;
 	}
 
-  if ( getGraphicObjectBooleanProperty(pobj->UID, "AutoResize") )
+  if ( *(int*)getGraphicObjectProperty(pobj->UID, __GO_AUTORESIZE__, jni_bool) )
   {
      return sciReturnString( "on" ) ;
   }

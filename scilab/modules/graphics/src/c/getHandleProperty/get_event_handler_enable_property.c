@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_event_handler_enable_property( sciPointObj * pobj )
@@ -38,7 +39,7 @@ int get_event_handler_enable_property( sciPointObj * pobj )
     return -1 ;
   }
 
-  value = getGraphicObjectBooleanProperty(pobj->UID, "EventHandlerEnable");
+  value = *(int*)getGraphicObjectProperty(pobj->UID, __GO_EVENTHANDLER_ENABLE__, jni_bool);
 
   if ( value)
   {

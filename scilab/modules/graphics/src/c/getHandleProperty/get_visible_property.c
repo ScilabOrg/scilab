@@ -25,6 +25,7 @@
 #include "GetProperty.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 
@@ -36,7 +37,7 @@ int get_visible_property( sciPointObj * pobj )
       return GetUiobjectVisible(pobj);
     }
 
-  if ( getGraphicObjectBooleanProperty(pobj->UID, "Visible") )
+  if ( *(int*)getGraphicObjectProperty(pobj->UID, __GO_VISIBLE__, jni_bool) )
   {
     return sciReturnString( "on" ) ;
   }

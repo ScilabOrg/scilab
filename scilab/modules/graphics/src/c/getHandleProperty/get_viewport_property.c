@@ -24,6 +24,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_viewport_property( sciPointObj * pobj )
@@ -36,6 +37,6 @@ int get_viewport_property( sciPointObj * pobj )
     return -1 ;
   }
 
-  return sciReturnRowIntVector( getGraphicObjectIntegerVectorProperty(pobj->UID, "Viewport"), 2 );
+  return sciReturnRowIntVector( (int*)getGraphicObjectProperty(pobj->UID, __GO_VIEWPORT__, jni_int_vector), 2 );
 }
 /*------------------------------------------------------------------------*/

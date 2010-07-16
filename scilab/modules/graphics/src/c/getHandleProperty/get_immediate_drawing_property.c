@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_immediate_drawing_property( sciPointObj * pobj )
@@ -36,7 +37,7 @@ int get_immediate_drawing_property( sciPointObj * pobj )
     return -1;
   }
 
-  if ( getGraphicObjectBooleanProperty(pobj->UID, "ImmediateDrawing") )
+  if ( *(int*)getGraphicObjectProperty(pobj->UID, __GO_IMMEDIATE_DRAWING__, jni_bool) )
   {
     return sciReturnString( "on" ) ;
   }

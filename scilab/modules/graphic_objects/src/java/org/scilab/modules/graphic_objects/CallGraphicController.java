@@ -93,14 +93,19 @@ public final class CallGraphicController {
         return (String[]) getGraphicObjectProperty(id, propertyName);
     }
 
-    public static double getGraphicObjectPropertyAsDouble(String id, String propertyName) {
-	return (Double) getGraphicObjectProperty(id, propertyName);
+    public static double[] getGraphicObjectPropertyAsDouble(String id, String propertyName) {
+	double[] result = new double[1];
+
+	result[0] = (Double) getGraphicObjectProperty(id, propertyName);
+
+	return result;
     }
 
     public static double[] getGraphicObjectPropertyAsDoubleVector(String id, String propertyName) {
         Double[] tmp = (Double[]) getGraphicObjectProperty(id, propertyName);
 
         double[] result = new double[tmp.length];
+
         for(int i = 0; i < result.length; i++) {
             result[i] = tmp[i];
         }
@@ -108,8 +113,12 @@ public final class CallGraphicController {
         return result;
     }
 
-    public static int getGraphicObjectPropertyAsInteger(String id, String propertyName) {
-        return (Integer) getGraphicObjectProperty(id, propertyName);
+    public static int[] getGraphicObjectPropertyAsInteger(String id, String propertyName) {
+	int[] result = new int[1];
+
+	result[0] = (Integer) getGraphicObjectProperty(id, propertyName);
+
+	return result;
     }
 
     public static int[] getGraphicObjectPropertyAsIntegerVector(String id, String propertyName) {
@@ -124,17 +133,23 @@ public final class CallGraphicController {
         return result;
     }
 
-    public static boolean getGraphicObjectPropertyAsBoolean(String id, String propertyName) {
-        return ((Boolean) getGraphicObjectProperty(id, propertyName)).booleanValue();
+    public static int[] getGraphicObjectPropertyAsBoolean(String id, String propertyName) {
+	int[] result = new int[1];
+
+	Boolean tmpValue = (Boolean) getGraphicObjectProperty(id, propertyName);
+
+	result[0] = tmpValue ? 1: 0;
+
+	return result;
     }
 
-    public static boolean[] getGraphicObjectPropertyAsBooleanVector(String id, String propertyName) {
+    public static int[] getGraphicObjectPropertyAsBooleanVector(String id, String propertyName) {
         Boolean[] tmp = (Boolean[]) getGraphicObjectProperty(id, propertyName);
 
-        boolean[] result = new boolean[tmp.length];
+        int[] result = new int[tmp.length];
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = tmp[i];
+            result[i] = tmp[i] ? 1: 0;
         }
 
         return result;
