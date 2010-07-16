@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_axes_size_property( sciPointObj * pobj )
@@ -38,6 +39,6 @@ int get_axes_size_property( sciPointObj * pobj )
     return -1;
   }
  
-  return sciReturnRowIntVector( getGraphicObjectIntegerVectorProperty(pobj->UID, "AxesSize"), 2 );
+  return sciReturnRowIntVector( getGraphicObjectProperty(pobj->UID, __GO_AXES_SIZE__, jni_int_vector), 2 );
 }
 /*------------------------------------------------------------------------*/

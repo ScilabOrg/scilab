@@ -27,6 +27,7 @@
 #include "MALLOC.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_background_property( sciPointObj * pobj )
@@ -37,7 +38,7 @@ int get_background_property( sciPointObj * pobj )
 		Scierror(999, _("'%s' property does not exist for this handle.\n"),"background");
 	}
 
-  return sciReturnDouble( getGraphicObjectIntegerProperty(pobj->UID, "Background") );
+  return sciReturnDouble( *(int*)getGraphicObjectProperty(pobj->UID, __GO_BACKGROUND__, jni_int) );
 
 /* deactivated for now, to be implemented */
 #if 0

@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_rotation_style_property( sciPointObj * pobj )
@@ -38,7 +39,7 @@ int get_rotation_style_property( sciPointObj * pobj )
     return -1;
   }
 
-  rotationStyle = getGraphicObjectIntegerProperty(pobj->UID, "RotationType");
+  rotationStyle = *(int*)getGraphicObjectProperty(pobj->UID, __GO_ROTATION_TYPE__, jni_int);
 
   if (rotationStyle == 0)
   {

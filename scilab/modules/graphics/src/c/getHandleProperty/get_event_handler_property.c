@@ -26,6 +26,7 @@
 #include "localization.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_event_handler_property( sciPointObj * pobj )
@@ -37,6 +38,6 @@ int get_event_handler_property( sciPointObj * pobj )
     return -1 ;
   }
 
-  return sciReturnString( getGraphicObjectProperty(pobj->UID, "EventHandlerName", jni_string));
+  return sciReturnString( getGraphicObjectProperty(pobj->UID, __GO_EVENTHANDLER_NAME__, jni_string));
 }
 /*------------------------------------------------------------------------*/

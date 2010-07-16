@@ -27,6 +27,7 @@
 #include "MALLOC.h"
 
 #include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
 int get_info_message_property( sciPointObj * pobj )
@@ -41,7 +42,7 @@ int get_info_message_property( sciPointObj * pobj )
 		return -1;
 	}
  
-	res = sciReturnString( (char *) getGraphicObjectStringProperty(pobj->UID, "InfoMessage"));
+	res = sciReturnString( (char *) getGraphicObjectProperty(pobj->UID, __GO_INFO_MESSAGE__, jni_string));
 
 	return res;
 }
