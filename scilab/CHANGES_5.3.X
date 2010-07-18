@@ -98,6 +98,7 @@ Bug Fixes:
 
 * bug 7550 fixed - In SciNotes, the "case" keyword was misplaced in some conditions.
 
+* bug 7558 fixed - SciNotes: global variables were reached before local ones.
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
