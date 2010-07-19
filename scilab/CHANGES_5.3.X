@@ -36,6 +36,9 @@ Bug Fixes:
 
 * bug 7183 fixed - update help file of link about the output argument.
 
+* bug 7330 fixed - browsevar() called editvar() even if the latter did not 
+                   handle the variable type.
+
 * bug 7396 fixed - On I/O blocks used in SuperBlocks, empty index threw a 
                    decoding exception.
 
