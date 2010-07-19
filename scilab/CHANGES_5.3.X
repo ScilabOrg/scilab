@@ -79,6 +79,9 @@ Bug Fixes:
 * bug 7491 fixed - Lines broken with a .. were not correctly handled and caused
                    a freeze of SciNotes.
 
+* bug 7507 fixed - There was some issues in the pvm module error messages
+                   that made translation difficult.
+
 * bug 7520 fixed - The Xcos context was not translated from parent diagram to 
                    child.
 
