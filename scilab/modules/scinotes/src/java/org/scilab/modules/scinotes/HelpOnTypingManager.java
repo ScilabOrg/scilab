@@ -61,15 +61,13 @@ public class HelpOnTypingManager implements KeyListener {
                         KeywordEvent kwe = textPane.getKeywordEvent(pos);
                         switch (kwe.getType()) {
                         case ScilabLexerConstants.OSKEYWORD :
-                            doc.insertString(pos + 1, "\nend", null);
-                            int[] ret = textPane.getIndentManager().indentDoc(pos + 1, pos + 4);
-                            textPane.setCaretPosition(ret[0]);
+                            doc.insertString(pos + 1, "end", null);
+                            textPane.setCaretPosition(pos + 1);
                             break;
                         case ScilabLexerConstants.FKEYWORD :
                             /* We have 'function' or 'endfunction' */
                             if ("f".equals(doc.getText(kwe.getStart(), 1))) {
-                                doc.insertString(pos + 1, "()\nendfunction", null);
-                                textPane.getIndentManager().indentDoc(pos + 3, pos + 14);
+                                doc.insertString(pos + 1, "()endfunction", null);
                                 textPane.setCaretPosition(pos + 1);
                             }
                             break;
