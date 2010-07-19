@@ -38,10 +38,13 @@ Bug Fixes:
 
 * bug 7328 fixed - editvar() window title did not contain the name of the edited variable.
 
+* bug 7330 fixed - browsevar() called editvar() even if the latter did not
+                   handle the variable type.
+
 * bug 7388 fixed - A java exception was thrown when we clicked on a menu created
                    using uimenu and this menu had no child.
 
-* bug 7396 fixed - On I/O blocks used in SuperBlocks, empty index threw a 
+* bug 7396 fixed - On I/O blocks used in SuperBlocks, empty index threw a
                    decoding exception.
 
 * bug 7228 fixed - update help file of strcat about the third input argument.
@@ -76,7 +79,7 @@ Bug Fixes:
 * bug 7480 fixed - Xcos conditional compilation produce a too long script on
                    the Scilab queue.
 
-* bug 7481 fixed - 6th input argument of ilib_for_link did not allow to set 
+* bug 7481 fixed - 6th input argument of ilib_for_link did not allow to set
                    library name on Windows.
 
 * bug 7483 fixed - A wrong block id could lead to unopennable files.
@@ -86,7 +89,7 @@ Bug Fixes:
 
 * bug 7505 fixed - Last optionnal parameter of "legend" macros was not readed.
 
-* bug 7520 fixed - The Xcos context was not translated from parent diagram to 
+* bug 7520 fixed - The Xcos context was not translated from parent diagram to
                    child.
 
 * bug 7530 fixed - When connecting two links together in a superblock, the split
@@ -102,7 +105,7 @@ Bug Fixes:
 * bug 7534 fixed - On a RegionToSuperBlock action, the exported block parent
                    field were not updated with the new parent diagram.
 
-* bug 7540 fixed - Xcos did not serialized well ScilabInteger types. This 
+* bug 7540 fixed - Xcos did not serialized well ScilabInteger types. This
                    produced bugs on the LOGIC and BITSET blocks.
 
 * bug 7550 fixed - In SciNotes, the "case" keyword was misplaced in some conditions.
@@ -991,7 +994,7 @@ Bug fixes:
 
 * bug 6635 fixed - Incorrectly drawn Bode plots (calfrq bug).
 
-* bug 6666 fixed - emptystr() gave a wrong result instead of complaining 
+* bug 6666 fixed - emptystr() gave a wrong result instead of complaining
                    about hypermatrix.
 
 * bug 6682 fixed - mprintf, msprintf, mfprintf did not manage octal (%o) format.
