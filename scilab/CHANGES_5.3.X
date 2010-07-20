@@ -139,6 +139,9 @@ Graphics:
 Two additionnal Graphics demos about plotyy() and plotyyy() added. See bug #7687
 Thanks to Samuel Gougeon.
 
+* bug 7509 fixed - the legend help page did not correspond any more with the function
+
+
 Xcos:
 =====
 
@@ -444,7 +447,6 @@ Compilation:
 
 Bug Fixes:
 ==========
-
 * bug 3842 fixed - "native" and "double" evaluation modes added to the sum,
                    cumsum, prod and cumprod functions
                    For more information, see the SEP #46.
