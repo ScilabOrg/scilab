@@ -20,6 +20,9 @@
 */
 /*--------------------------------------------------------------------------*/ 
 #include <stdio.h> /* printf */
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
 #include "scicos_math.h"
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/ 
