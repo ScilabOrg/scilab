@@ -82,6 +82,7 @@ Bug Fixes:
 * bug 7491 fixed - Lines broken with a .. were not correctly handled and caused
                    a freeze of SciNotes.
 
+<<<<<<< HEAD
 * bug 7505 fixed - Last optionnal parameter of "legend" macros was not readed.
 
 * bug 7520 fixed - The Xcos context was not translated from parent diagram to 
@@ -105,6 +106,8 @@ Bug Fixes:
 
 * bug 7550 fixed - In SciNotes, the "case" keyword was misplaced in some conditions.
 
+* bug 7566 fixed - The cacsd module graphic functions (bode, black, nyquist,...) 
+                   did not preserve the immediate_drawing property value.
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
