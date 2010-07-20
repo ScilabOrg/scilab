@@ -444,6 +444,9 @@ Compilation:
 
 Bug Fixes:
 ==========
+* bug 7509 fixed - the legend help page did not correspond any more with the function
+
+* bug 7514 fixed - Some demo files were broken due to changes in x_mdialog function.
 
 * bug 3842 fixed - "native" and "double" evaluation modes added to the sum,
                    cumsum, prod and cumprod functions
