@@ -31,6 +31,11 @@ File input/output:
 
 * Rewrite 'mputl' as a built-in function for speed improvements. 
 
+Known incompatibilities:
+========================
+
+* It is no more possible to close a subwindow using its own "cross" when the subwindow is not docked.
+
 Bug Fixes:
 ==========
 
@@ -174,6 +179,8 @@ Bug Fixes:
 
 * bug 7568 fixed - In the completion window, an exception was thrown when an
                    item was selected.
+
+* bugs 7572,5519 fixed - The cross in the dockbar was confusing
 
 * bug 7574 fixed - The Xcos diagram configuration settings did not work with 
                    exponential values.
