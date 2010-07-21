@@ -137,6 +137,8 @@ Bug Fixes:
 * bug 7568 fixed - In the completion window, an exception was thrown when an
                    item was selected.
 
+* bug 7586 fixed - ShortCut for 'Save' action was missing in SciNotes.
+
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
 
