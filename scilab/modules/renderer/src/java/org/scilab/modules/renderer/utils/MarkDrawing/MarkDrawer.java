@@ -16,6 +16,7 @@ package org.scilab.modules.renderer.utils.MarkDrawing;
 
 import org.scilab.modules.renderer.DrawableObjectGL;
 import org.scilab.modules.renderer.utils.CoordinateTransformation;
+import org.scilab.modules.renderer.utils.geom3D.GeomAlgos;
 
 import javax.media.opengl.GL;
 
@@ -183,11 +184,11 @@ public class MarkDrawer extends DrawableObjectGL {
 	 * @param posZ Z coordinate of the mark
 	 */
 	public void drawMark(double posX, double posY, double posZ) {
-		if (drawer != null) {
+		if (drawer != null && GeomAlgos.isVector3DRepresentable(posX, posY, posZ)) {
 			GL gl = getGL();
 			gl.glPushMatrix();
 			// put position into integer in order to center the mark on pixels
-			gl.glTranslated(Math.round(posX), Math.round(posY), posZ);
+			gl.glTranslated(Math.round(GeomAlgos.glRepresentable(posX)), Math.round(GeomAlgos.glRepresentable(posY)), GeomAlgos.glRepresentable(posZ));
 			
 			// draw the mark
 			displayDL();
