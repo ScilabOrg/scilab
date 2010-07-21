@@ -152,6 +152,8 @@ Bug Fixes:
 * bug 7574 fixed - The Xcos diagram configuration settings did not work with 
                    exponential values.
 
+* bug 6968 fixed - Modelica Chaos Xcos demo was not simulating.
+
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
 
