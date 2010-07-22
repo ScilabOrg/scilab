@@ -48,7 +48,7 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     C2F(getgvariablesinfo)(&iGlobalVariablesTotal, &iGlobalVariablesUsed);
 
     char ** pstAllVariableNames = (char **) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
-    char ** pstAllVariableStandard = (char **) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
+    char ** pstAllVariableVisibility = (char **) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
     int * piAllVariableBytes = (int *) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
     int * piAllVariableTypes = (int *) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
 
@@ -62,7 +62,7 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         // Bytes used
         piAllVariableBytes[i] = getLocalSizefromId(i);
         // global / local ??
-        pstAllVariableStandard[i] = strdup("local");
+        pstAllVariableVisibility[i] = strdup("local");
     }
 
     // for each global variable get informations
@@ -71,7 +71,7 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         pstAllVariableNames[i] = getGlobalNamefromId(j);
         piAllVariableBytes[i] = getGlobalSizefromId(j);
         getNamedVarType(pvApiCtx, pstAllVariableNames[i], &piAllVariableTypes[i]);
-        pstAllVariableStandard[i] = strdup("global");
+        pstAllVariableVisibility[i] = strdup("global");
     }
 
     char *pstColumnNames[] = {_("Icon"), 
@@ -96,11 +96,11 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
         piAllVariableBytes, iLocalVariablesUsed + iGlobalVariablesUsed,
         piAllVariableTypes, iLocalVariablesUsed + iGlobalVariablesUsed,
-        pstAllVariableStandard, iLocalVariablesUsed + iGlobalVariablesUsed
+        pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed
         );
 
     freeArrayOfString(pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed);
-    freeArrayOfString(pstAllVariableStandard, iLocalVariablesUsed + iGlobalVariablesUsed);
+    freeArrayOfString(pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed);
     if (piAllVariableBytes)
     {
         FREE(piAllVariableBytes);
