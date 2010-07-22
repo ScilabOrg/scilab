@@ -41,6 +41,7 @@ import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.types.scilabTypes.ScilabTypeEnum;
+import org.scilab.modules.ui_data.BrowseVar;
 import org.scilab.modules.ui_data.actions.BooleanFilteringAction;
 import org.scilab.modules.ui_data.actions.CompiledFunctionFilteringAction;
 import org.scilab.modules.ui_data.actions.DoubleFilteringAction;
@@ -207,22 +208,31 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 
 			if (e.getClickCount() >= 2) {
 
-				String variableName = ((JTable) e.getSource()).getValueAt(((JTable) e.getSource()).getSelectedRow(), 1).toString();
+				String variableName = ((JTable) e.getSource())
+						.getValueAt(((JTable) e.getSource()).getSelectedRow(), BrowseVar.NAME_COLUMN_INDEX).toString();
 				final ActionListener action = new ActionListener() {
-
 					public void actionPerformed(ActionEvent e) {
 
 					}
 				};
 
+				StringBuilder scilabCmd = new StringBuilder();
+				
+				String variableVisibility = ((JTable) e.getSource())
+						.getValueAt(((JTable) e.getSource()).getSelectedRow(), BrowseVar.VISIBILITY_COLUMN_INDEX).toString();
+				if (variableVisibility.equals("global")) {
+					scilabCmd.append("global " + variableName + "; ");
+				}
+				scilabCmd.append("try ");
+				scilabCmd.append("editvar(\"" + variableName + "\"); ");
+				scilabCmd.append("catch ");
+				scilabCmd.append("messagebox(\"Variables of type \"\"\" + typeof (");
+				scilabCmd.append(variableName + ") + \"\"\" can not be edited.\"");
+				scilabCmd.append(",\"Variable editor\", \"error\", \"modal\");");
+				scilabCmd.append("end");
+														
 				try {
-					asynchronousScilabExec(action, "try "
-								+ "editvar(\"" + variableName + "\"); " 
-								+ "catch "
-								+ "messagebox(\"Variables of type \"\"\" + typeof (" 
-								+ variableName + ") + \"\"\" can not be edited.\""
-								+ ",\"Variable editor\", \"error\", \"modal\");"
-								+ "end");
+					asynchronousScilabExec(action, scilabCmd.toString());
 				} catch (InterpreterException e1) {
 					System.err.println("An error in the interpreter has been catched: " + e1.getLocalizedMessage()); 
 				}
