@@ -21,7 +21,6 @@
 
 #include "setHandleProperty.h"
 #include "SetProperty.h"
-#include "GetProperty.h" /* sciGetEntityType */
 #include "getPropertyAssignedValue.h"
 #include "Scierror.h"
 #include "localization.h"
@@ -43,7 +42,7 @@ int set_screen_position_property( sciPointObj * pobj, size_t stackPointer, int v
     return SET_PROPERTY_ERROR ;
   }
 
-	values = getDoubleMatrixFromStack( stackPointer ) ;
+  values = getDoubleMatrixFromStack( stackPointer ) ;
 
   if ( nbRow * nbCol != 2 )
   {
@@ -51,11 +50,13 @@ int set_screen_position_property( sciPointObj * pobj, size_t stackPointer, int v
     return SET_PROPERTY_ERROR ;
   }
 
-	if ( sciGetEntityType(pobj) != SCI_FIGURE )
+#if 0
+  if ( sciGetEntityType(pobj) != SCI_FIGURE )
   {
     Scierror(999, _("'%s' property does not exist for this handle.\n"),"screen_position");
     return SET_PROPERTY_ERROR ;
   }
+#endif
 
   int intValues[2];
 
@@ -70,6 +71,7 @@ int set_screen_position_property( sciPointObj * pobj, size_t stackPointer, int v
   }
   else
   {
+    Scierror(999, _("'%s' property does not exist for this handle.\n"),"screen_position");
     return SET_PROPERTY_ERROR;
   } 
 
@@ -81,7 +83,7 @@ int set_screen_position_property( sciPointObj * pobj, size_t stackPointer, int v
   enableFigureSynchronization(pobj);
 
   /* return set property unchanged since repaint is not really needed */
-	return sciSetNoRedrawStatus((SetPropertyStatus)status);
+  return sciSetNoRedrawStatus((SetPropertyStatus)status);
 #endif
 }
 /*------------------------------------------------------------------------*/
