@@ -162,17 +162,17 @@ int C2F(run)(void)
     if ((C2F(errgst).errpt >0) && (Pt >= C2F(errgst).errpt) && (Rstk[C2F(errgst).errpt]==618)) {
       /* error under try catch */
       for (p=Pt;p>=C2F(errgst).errpt;p--) {
-	if (Rstk[p]<=502 && Rstk[p]>=501){
-	  k = Lpt[1] - (13+nsiz);
-	  Lpt[1] = Lin[k+1];
-	  Lpt[2] = Lin[k+2];
-	  Lpt[3] = Lin[k+3];
-	  Lpt[4] = Lin[k+4];
-	  Lpt[6] = k;
-	  C2F(recu).macr--;
-	  if (Rstk[p-1]==909) Top--; /* execed function*/
-	}
-	/* may it will be necessary to take care of for loop variables */
+    if (Rstk[p]<=502 && Rstk[p]>=501){
+      k = Lpt[1] - (13+nsiz);
+      Lpt[1] = Lin[k+1];
+      Lpt[2] = Lin[k+2];
+      Lpt[3] = Lin[k+3];
+      Lpt[4] = Lin[k+4];
+      Lpt[6] = k;
+      C2F(recu).macr--;
+      if (Rstk[p-1]==909) Top--; /* execed function*/
+    }
+    /* may it will be necessary to take care of for loop variables */
       }
       Pt = C2F(errgst).errpt;
       goto L271;
@@ -183,7 +183,7 @@ int C2F(run)(void)
     if (C2F(errgst).errcatch == 0) goto L999;
     /* error under errcatch(....,'continue') */
 
-	/* @TODO : replace 903 909 1001 1002 by a #define ... */
+    /* @TODO : replace 903 909 1001 1002 by a #define ... */
     if (Rstk[Pt - 1] == 903 || Rstk[Pt - 1] == 909 || Rstk[Pt] == 1001 || Rstk[Pt] == 1002)  return 0;
   }
   if (lc - l0 == nc) { /* is current opcodes block (if, for, .. structure) finished ?*/
@@ -306,33 +306,41 @@ int C2F(run)(void)
 
       C2F(stackg)(istk(lname));
       if (Err > 0||C2F(errgst).err1 > 0) {
-	lc += 9;
-	goto L10;
+    lc += 9;
+    goto L10;
       }
+      if (Fin==0) {
+        SciError(4);
+        if (Err > 0||C2F(errgst).err1 > 0) {
+          lc += 9;
+          goto L10;
+        }
+      }
+
     } else {
       /* referenced name was function at compile time it is now a
        * primitive. Modify the code for further use */
       if (ifin != -4 && ifin != 0) {
-	/* function call */
-	/* change current  opcode to nop */
-	*istk(lc) = 0;
-	*istk(1 + lc) = 9;
-	lc += 9;
-	/* change the following opcode to matfn opcode */
-	op = C2F(com).fun * 100;
-	*istk(lc) = op;
-	*istk(1 + lc) = *istk(2 + lc) - 1;
-	*istk(2 + lc) = *istk(3 + lc);
-	*istk(3 + lc) = Fin;
-	goto L80;
+    /* function call */
+    /* change current  opcode to nop */
+    *istk(lc) = 0;
+    *istk(1 + lc) = 9;
+    lc += 9;
+    /* change the following opcode to matfn opcode */
+    op = C2F(com).fun * 100;
+    *istk(lc) = op;
+    *istk(1 + lc) = *istk(2 + lc) - 1;
+    *istk(2 + lc) = *istk(3 + lc);
+    *istk(3 + lc) = Fin;
+    goto L80;
       } else {
-	/* only reference to a function */
-	/* stackg opcode replaced by varfun opcode */
-	*istk(lc) = 27;
-	*istk(1 + lc) = C2F(com).fun;
-	*istk(2 + lc) = Fin;
-	C2F(putid)(istk(3 + lc), &Ids[1 + (Pt + 1) * nsiz]);
-	goto L10;
+    /* only reference to a function */
+    /* stackg opcode replaced by varfun opcode */
+    *istk(lc) = 27;
+    *istk(1 + lc) = C2F(com).fun;
+    *istk(2 + lc) = Fin;
+    C2F(putid)(istk(3 + lc), &Ids[1 + (Pt + 1) * nsiz]);
+    goto L10;
       }
     }
     lc += 9;
@@ -350,9 +358,9 @@ int C2F(run)(void)
       /* next two op code by a single store */
       /* skip extract op-code <5 3 1 1> */
       if (*istk(lc) != 5 || *istk(1 + lc) != 3) {
-	strcpy(C2F(cha1).buf,_("Unexpected opcode, please report into the Scilab bug tracker."));
-	SciError(9999);
-	return 0;
+    strcpy(C2F(cha1).buf,_("Unexpected opcode, please report into the Scilab bug tracker."));
+    SciError(9999);
+    return 0;
       }
       lc += 4;
     }
@@ -423,7 +431,7 @@ int C2F(run)(void)
     ++Top;
     if (C2F(cresmat)("run", &Top, &c__1, &c__1, &n, 3L)) {
       C2F(getsimat)("run", &Top, &Top, &mm1, &nn1, &c__1, &
-		    c__1, &lr, &nlr, 3L);
+            c__1, &lr, &nlr, 3L);
       C2F(icopy)(&n, istk(2 + lc), &c__1, istk(lr), &c__1);
     }
   }
@@ -767,7 +775,7 @@ int C2F(run)(void)
   Fin = 2;
   if (Lct[4] <= -10) {
     Fin = -1;
-	Lct[4] = -Lct[4] - 11;
+    Lct[4] = -Lct[4] - 11;
   }
   Ids[1 + Pt * nsiz] = lc;
   Ids[2 + Pt * nsiz] = Top;
@@ -812,7 +820,7 @@ int C2F(run)(void)
       Pt = p - 1;
       goto L70;
     } else if (Rstk[p] == 501 || Rstk[p] == 502 ||
-	       Rstk[p] == 503) {
+           Rstk[p] == 503) {
       /*     going outside a function an exec (break ignored) */
       ++lc;
       goto L10;
@@ -861,28 +869,28 @@ int C2F(run)(void)
     Lpt[2] = Lin[2 + k];
     Lpt[3] = Lin[3 + k];
     Lpt[4] = Lin[4 + k];
-	Lct[4] = Lin[6 + k ];
+    Lct[4] = Lin[6 + k ];
     Lpt[6] = k;
     if (Rstk[Pt] <= 502) {
       if (Pt>1) {
-	if (Rstk[Pt-1] != 903 && Rstk[Pt-1] != 909 && Rstk[Pt-1] != 706)
-	  Bot = Lin[5 + k];}
+    if (Rstk[Pt-1] != 903 && Rstk[Pt-1] != 909 && Rstk[Pt-1] != 706)
+      Bot = Lin[5 + k];}
       else
-	Bot = Lin[5 + k];
+    Bot = Lin[5 + k];
     }
     else if (Rstk[Pt] == 503) {
       if (C2F(iop).rio == C2F(iop).rte) {
-	    /* abort in a pause mode */
-	C2F(iop).rio = Pstk[Pt-1];
-	C2F(recu).paus--;
-	Bot = Lin[5 + k];}
+        /* abort in a pause mode */
+    C2F(iop).rio = Pstk[Pt-1];
+    C2F(recu).paus--;
+    Bot = Lin[5 + k];}
       else {
-	int mode[3];
-	int lunit = -C2F(iop).rio;
-	/*  abort in an exec*/
-	mode[0]=0;
-	C2F(clunit)(&lunit,C2F(cha1).buf,mode);
-	C2F(iop).rio = Pstk[Pt-1];
+    int mode[3];
+    int lunit = -C2F(iop).rio;
+    /*  abort in an exec*/
+    mode[0]=0;
+    C2F(clunit)(&lunit,C2F(cha1).buf,mode);
+    C2F(iop).rio = Pstk[Pt-1];
       }
     }
   }
@@ -909,7 +917,7 @@ int C2F(run)(void)
       /* running under errcatch(num,....) */
       if (Rstk[Pt] != 614 && Rstk[Pt] != 615 && Rstk[Pt] != 605) C2F(errgst).err1 = 0;
       if (Pt<C2F(errgst).errpt) {
-	C2F(errgst).errcatch = 0;
+    C2F(errgst).errcatch = 0;
       }
     }
     imode = (i2 = C2F(errgst).errct / 100000, abs(i2));
@@ -926,20 +934,20 @@ int C2F(run)(void)
     for (kmac=0;kmac<C2F(dbg).nmacs;kmac++) { /* loop on table of functions containing breakpoints */
       /* does the name of the current funtion fit the registered name*/
       if (C2F(eqid)(&(C2F(vstk).idstk[kfin * nsiz]), &(C2F(dbg).macnms[kmac * nsiz]))) {/* yes */
-	/* test if there is a registered breakpoint at the current line*/
-	i2 = C2F(dbg).lgptrs[kmac+1] - 1;
-	for (ibpt = C2F(dbg).lgptrs[kmac]; ibpt <= i2; ++ibpt) {
-	  if (Lct[8] == C2F(dbg).bptlg[ibpt - 1]) { /* yes */
-	    /* display a message */
-	    C2F(cvname)(&C2F(dbg).macnms[kmac * nsiz], tmp, &c__1, 24L);
-	    sprintf(C2F(cha1).buf,"%s %5d",tmp, Lct[8]);
-	    Msgs(32, 0);
-	    /* raise the interruption flag */
-	    C2F(basbrk).iflag = TRUE;
-	    goto L107;
-	  }
-	}
-	break;
+    /* test if there is a registered breakpoint at the current line*/
+    i2 = C2F(dbg).lgptrs[kmac+1] - 1;
+    for (ibpt = C2F(dbg).lgptrs[kmac]; ibpt <= i2; ++ibpt) {
+      if (Lct[8] == C2F(dbg).bptlg[ibpt - 1]) { /* yes */
+        /* display a message */
+        C2F(cvname)(&C2F(dbg).macnms[kmac * nsiz], tmp, &c__1, 24L);
+        sprintf(C2F(cha1).buf,"%s %5d",tmp, Lct[8]);
+        Msgs(32, 0);
+        /* raise the interruption flag */
+        C2F(basbrk).iflag = TRUE;
+        goto L107;
+      }
+    }
+    break;
       }
     }
   }
@@ -1013,8 +1021,8 @@ int C2F(run)(void)
     Pt = Pt - 1;
     /*  suppress loop variables if any */
     if (Rstk[Pt]==802 || Rstk[Pt]==612 || 
-	(Rstk[Pt]==805 && Ids[1 + Pt * nsiz]==iselect) ||  
-	(Rstk[Pt]==616 && Pstk[Pt] ==10)) Top--;
+    (Rstk[Pt]==805 && Ids[1 + Pt * nsiz]==iselect) ||  
+    (Rstk[Pt]==616 && Pstk[Pt] ==10)) Top--;
     if (Rstk[Pt] != 503) goto L121;
     /* recall macro to terminate the pause level */
     C2F(com).fun=0;
