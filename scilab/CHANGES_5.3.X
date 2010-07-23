@@ -64,6 +64,8 @@ Bug Fixes:
 
 * bug 7286 fixed - For some platform eps export of NaN values was buggy.
 
+* bug 7324 fixed - editvar() did not work for string variables.
+
 * bug 7328 fixed - editvar() window title did not contain the name of the edited variable.
 
 * bug 7329 fixed - If editvar() window was docked, calling editvar another time
