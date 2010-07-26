@@ -21,8 +21,8 @@
 #define os_wfopen       _wfopen
 #endif
 
-// Linux
-#ifdef __linux__
+// Linux & MacOS X
+#ifndef _MSC_VER
 #define os_wfopen       linux_fopen
 FILE* linux_fopen(const wchar_t* _pstFilename, const wchar_t* _pstMode);
 #endif
