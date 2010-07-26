@@ -15,7 +15,7 @@ package org.scilab.modules.xcos.palette.view;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-import org.scilab.modules.graph.ScilabComponent;
+import org.scilab.modules.graph.swing.ScilabComponent;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 

@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph;
+package org.scilab.modules.graph.model;
 
 import java.io.Serializable;
 import java.rmi.server.UID;

@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph.utils;
+package org.scilab.modules.graph.util;
 
 import java.awt.Component;
 import java.io.IOException;

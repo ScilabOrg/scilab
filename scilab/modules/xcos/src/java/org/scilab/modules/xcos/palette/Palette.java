@@ -27,7 +27,7 @@ import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.utils.ScilabExported;
+import org.scilab.modules.graph.util.ScilabExported;
 import org.scilab.modules.hdf5.read.H5Read;
 import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.scilab.modules.localization.Messages;

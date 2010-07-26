@@ -14,7 +14,7 @@ package org.scilab.modules.xcos.io;
 
 import java.util.Map;
 
-import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.util.StyleMap;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
 import org.scilab.modules.xcos.link.implicit.ImplicitLink;

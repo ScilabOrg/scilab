@@ -15,7 +15,7 @@ package org.scilab.modules.graph.io;
 import java.awt.Color;
 import java.util.Map;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

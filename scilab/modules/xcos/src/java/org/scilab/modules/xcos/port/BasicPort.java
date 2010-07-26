@@ -12,8 +12,8 @@
 
 package org.scilab.modules.xcos.port;
 
-import org.scilab.modules.graph.ScilabGraphUniqueObject;
-import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.model.ScilabGraphUniqueObject;
+import org.scilab.modules.graph.util.StyleMap;
 import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosMessages;

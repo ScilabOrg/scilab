@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.swing.Timer;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.utils.ScilabExported;
+import org.scilab.modules.graph.util.ScilabExported;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;
 import org.scilab.modules.types.scilabTypes.ScilabType;

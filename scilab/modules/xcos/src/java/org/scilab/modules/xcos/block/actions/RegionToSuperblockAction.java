@@ -23,9 +23,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import org.scilab.modules.graph.ScilabGraph;
-import org.scilab.modules.graph.ScilabGraphUniqueObject;
 import org.scilab.modules.graph.actions.base.VertexSelectionDependantAction;
+import org.scilab.modules.graph.model.ScilabGraphUniqueObject;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;

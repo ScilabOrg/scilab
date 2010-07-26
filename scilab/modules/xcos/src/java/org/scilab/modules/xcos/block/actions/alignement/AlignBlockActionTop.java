@@ -12,7 +12,7 @@
 
 package org.scilab.modules.xcos.block.actions.alignement;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosMessages;

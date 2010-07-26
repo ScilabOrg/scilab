@@ -15,8 +15,8 @@ package org.scilab.modules.xcos.block.actions.alignement;
 
 import java.awt.event.ActionEvent;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.MultiSelectionDependantAction;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 /**
  * Align selected blocks on axes (left-right-centered-top-bottom-middle)

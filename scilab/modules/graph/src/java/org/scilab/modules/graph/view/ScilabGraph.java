@@ -11,15 +11,15 @@
  *
  */
 
-package org.scilab.modules.graph;
+package org.scilab.modules.graph.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import org.scilab.modules.graph.utils.ScilabGraphConstants;
-import org.scilab.modules.graph.utils.ScilabGraphMessages;
-import org.scilab.modules.graph.view.ScilabGraphView;
+import org.scilab.modules.graph.swing.ScilabComponent;
+import org.scilab.modules.graph.util.ScilabGraphConstants;
+import org.scilab.modules.graph.util.ScilabGraphMessages;
 import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.window.ScilabWindow;

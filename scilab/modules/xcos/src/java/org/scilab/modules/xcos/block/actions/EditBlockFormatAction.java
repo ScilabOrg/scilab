@@ -26,10 +26,10 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.scilab.modules.graph.ScilabComponent;
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.swing.ScilabComponent;
+import org.scilab.modules.graph.util.StyleMap;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.utils.XcosMessages;

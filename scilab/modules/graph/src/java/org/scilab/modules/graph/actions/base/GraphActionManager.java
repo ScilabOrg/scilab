@@ -18,7 +18,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 /**
  * Implement construction methods for Actions. 

@@ -12,7 +12,7 @@
 
 package org.scilab.modules.graph.actions.base;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.util.mxEvent;
@@ -43,7 +43,7 @@ public abstract class VertexSelectionDependantAction extends DefaultAction {
 		 * @param action the action
 		 * @param scilabGraph the current graph
 		 * @see org.scilab.modules.graph.actions.base.ActionConstraint#install(org.scilab.modules.graph.actions.base.DefaultAction,
-		 *      org.scilab.modules.graph.ScilabGraph)
+		 *      org.scilab.modules.graph.view.ScilabGraph)
 		 */
 		@Override
 		public void install(DefaultAction action, ScilabGraph scilabGraph) {

@@ -29,9 +29,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.ScilabGraphRenderer;
+import org.scilab.modules.graph.util.ScilabGraphRenderer;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.bridge.filechooser.SwingScilabFileChooser;
 import org.scilab.modules.gui.filechooser.FileChooser;
 import org.scilab.modules.gui.filechooser.ScilabFileChooser;

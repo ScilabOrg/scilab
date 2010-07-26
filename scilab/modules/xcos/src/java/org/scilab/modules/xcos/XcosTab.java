@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
 import org.scilab.modules.graph.actions.DeleteAction;
@@ -32,6 +31,7 @@ import org.scilab.modules.graph.actions.ZoomInAction;
 import org.scilab.modules.graph.actions.ZoomOutAction;
 import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.event.ArrowKeyListener;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.checkboxmenuitem.CheckBoxMenuItem;

@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.swing.CellRendererPane;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.utils.MathMLRenderUtils;
+import org.scilab.modules.graph.util.MathMLRenderUtils;
 import org.xml.sax.SAXException;
 
 import com.mxgraph.canvas.mxGraphics2DCanvas;

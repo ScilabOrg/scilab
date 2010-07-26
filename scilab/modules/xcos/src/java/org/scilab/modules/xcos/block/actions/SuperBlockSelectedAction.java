@@ -12,9 +12,9 @@
 
 package org.scilab.modules.xcos.block.actions;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.actions.base.SpecificCellSelectedConstraint;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.xcos.block.SuperBlock;
 
 /**

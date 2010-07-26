@@ -12,7 +12,7 @@
 
 package org.scilab.modules.xcos.utils;
 
-import org.scilab.modules.graph.utils.ScilabGraphConstants;
+import org.scilab.modules.graph.util.ScilabGraphConstants;
 
 /**
  * Contains all the constants used trough the source code.

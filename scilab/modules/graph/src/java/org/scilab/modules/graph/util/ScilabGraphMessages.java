@@ -10,7 +10,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-package org.scilab.modules.graph.utils;
+package org.scilab.modules.graph.util;
 
 import org.scilab.modules.localization.Messages;
 

@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph.utils;
+package org.scilab.modules.graph.view;
 
 import java.awt.geom.Dimension2D;
 import java.io.IOException;
@@ -36,13 +36,12 @@ import org.scilab.forge.jlatexmath.ParseException;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
-import org.scilab.modules.graph.view.SupportedLabelType;
 import org.w3c.dom.Document;
 
 import com.mxgraph.util.mxUtils;
 
 /**
- * Utilities functions for ScilabGraph 
+ * Utilities functions for {@link ScilabGraph}
  */
 public final class ScilabGraphUtils extends mxUtils {
 	/**

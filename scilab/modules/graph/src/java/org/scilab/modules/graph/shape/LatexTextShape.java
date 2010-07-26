@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.swing.CellRendererPane;
 import javax.swing.Icon;
 
-import org.scilab.modules.graph.utils.ScilabGraphUtils;
+import org.scilab.modules.graph.view.ScilabGraphUtils;
 
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.shape.mxITextShape;

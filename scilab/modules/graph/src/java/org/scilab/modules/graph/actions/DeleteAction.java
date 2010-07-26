@@ -16,9 +16,9 @@ package org.scilab.modules.graph.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.OneSelectionDependantAction;
-import org.scilab.modules.graph.utils.ScilabGraphMessages;
+import org.scilab.modules.graph.util.ScilabGraphMessages;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 

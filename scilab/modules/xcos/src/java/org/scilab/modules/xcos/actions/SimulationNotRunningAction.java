@@ -15,9 +15,9 @@ package org.scilab.modules.xcos.actions;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.actions.base.GraphActionManager;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 /**
  * This action is enable when the simulation is not running, otherwise it is

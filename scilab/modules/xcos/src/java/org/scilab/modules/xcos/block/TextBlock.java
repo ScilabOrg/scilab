@@ -15,7 +15,7 @@ package org.scilab.modules.xcos.block;
 import java.util.Map;
 
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.util.StyleMap;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.types.scilabTypes.ScilabType;

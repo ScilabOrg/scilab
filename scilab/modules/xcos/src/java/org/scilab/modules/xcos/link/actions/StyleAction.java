@@ -16,8 +16,8 @@ package org.scilab.modules.xcos.link.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.xcos.link.BasicLink;
 
 /**

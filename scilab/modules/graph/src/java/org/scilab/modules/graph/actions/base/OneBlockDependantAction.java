@@ -12,7 +12,7 @@
 
 package org.scilab.modules.graph.actions.base;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 /**
  * Common class for actions that need at least 1 cell on the graph.

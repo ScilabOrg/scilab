@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph.utils;
+package org.scilab.modules.graph.util;
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
@@ -25,7 +25,7 @@ import org.apache.batik.svggen.GenericImageHandler;
 import org.apache.batik.svggen.SVGGeneratorContext;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.svggen.SVGGraphics2DIOException;
-import org.scilab.modules.graph.ScilabCanvas;
+import org.scilab.modules.graph.swing.view.ScilabCanvas;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 

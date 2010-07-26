@@ -10,12 +10,15 @@
  *
  */
 
-package org.scilab.modules.graph;
+package org.scilab.modules.graph.swing;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import org.scilab.modules.graph.swing.view.ScilabCanvas;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;

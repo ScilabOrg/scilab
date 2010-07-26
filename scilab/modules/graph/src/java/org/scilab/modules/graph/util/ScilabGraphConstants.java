@@ -10,11 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph.utils;
-
-import java.io.File;
-
-import org.scilab.modules.console.GuiManagement;
+package org.scilab.modules.graph.util;
 
 import com.mxgraph.util.mxConstants;
 

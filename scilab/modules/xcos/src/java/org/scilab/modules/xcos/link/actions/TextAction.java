@@ -15,7 +15,7 @@ package org.scilab.modules.xcos.link.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.utils.XcosMessages;

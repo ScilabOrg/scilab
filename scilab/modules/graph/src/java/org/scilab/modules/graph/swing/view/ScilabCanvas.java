@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph;
+package org.scilab.modules.graph.swing.view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -28,9 +28,9 @@ import org.apache.batik.gvt.GraphicsNode;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.shape.LatexTextShape;
 import org.scilab.modules.graph.shape.MathMLTextShape;
-import org.scilab.modules.graph.utils.MathMLRenderUtils;
-import org.scilab.modules.graph.utils.ScilabGraphConstants;
-import org.scilab.modules.graph.utils.ScilabGraphUtils;
+import org.scilab.modules.graph.util.MathMLRenderUtils;
+import org.scilab.modules.graph.util.ScilabGraphConstants;
+import org.scilab.modules.graph.view.ScilabGraphUtils;
 import org.scilab.modules.graph.view.SupportedLabelType;
 import org.xml.sax.SAXException;
 

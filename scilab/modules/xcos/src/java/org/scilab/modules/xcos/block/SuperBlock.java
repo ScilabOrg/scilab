@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.ScilabComponent;
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.swing.ScilabComponent;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;

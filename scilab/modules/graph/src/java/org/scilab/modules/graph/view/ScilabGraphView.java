@@ -17,8 +17,7 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import org.scilab.modules.graph.utils.MathMLRenderUtils;
-import org.scilab.modules.graph.utils.ScilabGraphUtils;
+import org.scilab.modules.graph.util.MathMLRenderUtils;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.xml.sax.SAXException;
 
@@ -51,6 +50,7 @@ public class ScilabGraphView extends mxGraphView {
 	 * Updates the label bounds in the given state.
 	 * @param state the cell visible state
 	 */
+	@Override
 	public void updateLabelBounds(mxCellState state) {
 		Object cell = state.getCell();
 		Map<String, Object> style = state.getStyle();

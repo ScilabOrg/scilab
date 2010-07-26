@@ -18,10 +18,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.ActionConstraint;
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.ScilabGraphMessages;
+import org.scilab.modules.graph.util.ScilabGraphMessages;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 
@@ -62,7 +62,7 @@ public class RedoAction extends DefaultAction {
 		 * @param scilabGraph
 		 *            the associated graph
 		 * @see org.scilab.modules.graph.actions.base.ActionConstraint#install(org.scilab.modules.graph.actions.base.DefaultAction,
-		 *      org.scilab.modules.graph.ScilabGraph)
+		 *      org.scilab.modules.graph.view.ScilabGraph)
 		 */
 		@Override
 		public void install(DefaultAction action, ScilabGraph scilabGraph) {

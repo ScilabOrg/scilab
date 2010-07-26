@@ -20,7 +20,7 @@ import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.graph.util.StyleMap;
 import org.scilab.modules.hdf5.read.H5Read;
 import org.scilab.modules.hdf5.write.H5Write;
 import org.scilab.modules.types.scilabTypes.ScilabList;

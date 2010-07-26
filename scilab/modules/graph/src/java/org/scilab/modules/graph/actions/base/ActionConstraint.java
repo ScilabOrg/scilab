@@ -15,7 +15,7 @@ package org.scilab.modules.graph.actions.base;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.scilab.modules.graph.ScilabGraph;
+import org.scilab.modules.graph.view.ScilabGraph;
 
 import com.mxgraph.util.mxEventSource.mxIEventListener;
 

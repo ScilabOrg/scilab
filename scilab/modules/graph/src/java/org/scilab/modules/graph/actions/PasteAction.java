@@ -20,9 +20,9 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.TransferHandler;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
-import org.scilab.modules.graph.utils.ScilabGraphMessages;
+import org.scilab.modules.graph.util.ScilabGraphMessages;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 
 import com.mxgraph.swing.handler.mxGraphTransferHandler;

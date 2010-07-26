@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.graph.utils;
+package org.scilab.modules.graph.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

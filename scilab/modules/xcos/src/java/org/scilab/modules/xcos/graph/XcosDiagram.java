@@ -43,14 +43,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
-import org.scilab.modules.graph.ScilabCanvas;
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.PasteAction;
 import org.scilab.modules.graph.actions.RedoAction;
 import org.scilab.modules.graph.actions.SelectAllAction;
 import org.scilab.modules.graph.actions.UndoAction;
 import org.scilab.modules.graph.actions.ZoomInAction;
 import org.scilab.modules.graph.actions.ZoomOutAction;
+import org.scilab.modules.graph.swing.view.ScilabCanvas;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.bridge.filechooser.SwingScilabFileChooser;
 import org.scilab.modules.gui.checkboxmenuitem.CheckBoxMenuItem;
@@ -1719,7 +1719,7 @@ public class XcosDiagram extends ScilabGraph {
     /**
      * Set the title of the diagram
      * @param title the title
-     * @see org.scilab.modules.graph.ScilabGraph#setTitle(java.lang.String)
+     * @see org.scilab.modules.graph.view.ScilabGraph#setTitle(java.lang.String)
      */
     @Override
     public void setTitle(String title) {

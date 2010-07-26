@@ -15,8 +15,8 @@ package org.scilab.modules.xcos.actions;
 
 import java.awt.event.ActionEvent;
 
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.checkboxmenuitem.CheckBoxMenuItem;
 import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.xcos.graph.XcosDiagram;

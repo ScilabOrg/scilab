@@ -15,7 +15,6 @@ package org.scilab.modules.graph.view;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.scilab.modules.graph.utils.ScilabGraphUtils;
 import org.scilab.modules.jvm.LoadClassPath;
 
 import com.mxgraph.util.mxUtils;

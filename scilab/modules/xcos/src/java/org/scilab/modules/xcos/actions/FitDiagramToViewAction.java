@@ -15,9 +15,9 @@ package org.scilab.modules.xcos.actions;
 
 import java.awt.event.ActionEvent;
 
-import org.scilab.modules.graph.ScilabComponent;
-import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.OneBlockDependantAction;
+import org.scilab.modules.graph.swing.ScilabComponent;
+import org.scilab.modules.graph.view.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xcos.utils.XcosMessages;
