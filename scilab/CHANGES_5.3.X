@@ -31,7 +31,7 @@ SciNotes:
 File input/output:
 ==================
 
-* Rewrite 'mputl' as a built-in function for speed improvements. 
+* Rewrite 'mputl' as a built-in function for speed improvements.
 
 Window management:
 ==================
@@ -82,7 +82,7 @@ Bug Fixes:
 * bug 7330 fixed - browsevar() called editvar() even if the latter did not
                    handle the variable type.
 
-* bug 7332 fixed - browsevar(): The "boolean" menu was reversed, if checked 
+* bug 7332 fixed - browsevar(): The "boolean" menu was reversed, if checked
                    booleans were hidden, if unchecked booleans were displayed.
 
 * bug 7333 fixed - browsevar(): The type of global variables had weird values.
@@ -96,7 +96,7 @@ Bug Fixes:
 
 * bug 7360 fixed - Modelica Hydraulics Xcos demo was not simulating.
 
-* bug 7371 fixed - Documentation about cell did not precise that the value 
+* bug 7371 fixed - Documentation about cell did not precise that the value
                    returned by A.dims could not be used as a subscript.
 
 * bug 7372 fixed - No message was displayed in the Xcos info bar during the
@@ -119,6 +119,8 @@ Bug Fixes:
 
 * bug 7443 fixed - The number of arguments of the "title", "xlabel", "ylabel" and
                    "zlabel" macros was incorrectly checked.
+
+* bug 7453 fixed - newfun() was broken after clearfun().
 
 * bug 7457 fixed - Under Linux and MacOS, the datatip mode icon was missing in
                    the graphic windows toolbar.
@@ -151,7 +153,7 @@ Bug Fixes:
 
 * bug 7514 fixed - Some demo files were broken due to changes in x_mdialog function.
 
-* bug 7520 fixed - The Xcos context was not translated from parent diagram to 
+* bug 7520 fixed - The Xcos context was not translated from parent diagram to
                    child.
 
 * bug 7530 fixed - When connecting two links together in a superblock, the split
@@ -182,7 +184,7 @@ Bug Fixes:
 * bug 7564 fixed - In SciNotes, no message was displayed when an unsuccessful
                    search occured.
 
-* bug 7566 fixed - The cacsd module graphic functions (bode, black, nyquist,...) 
+* bug 7566 fixed - The cacsd module graphic functions (bode, black, nyquist,...)
                    did not preserve the immediate_drawing property value.
 
 * bug 7568 fixed - In the completion window, an exception was thrown when an
@@ -194,7 +196,7 @@ Bug Fixes:
 * bugs 7572,5519 fixed - The cross in the dockbar was confusing when a window
                    was not docked.
 
-* bug 7574 fixed - The Xcos diagram configuration settings did not work with 
+* bug 7574 fixed - The Xcos diagram configuration settings did not work with
                    exponential values.
 
 * bug 7586 fixed - ShortCut for 'Save' action was missing in SciNotes.
@@ -203,7 +205,7 @@ Bug Fixes:
                    the Scilab session.
 
 * bug 7590 fixed - In SciNotes, there was a bad organization of the menus
-                   "Split..." and "Line Numbering...". 
+                   "Split..." and "Line Numbering...".
 
 * bug 7594 fixed - Undefined variable error was not properly handled since bug 6781 fix.
 
