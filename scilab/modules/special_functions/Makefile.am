@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_dlgamma.c \
@@ -18,8 +18,7 @@ sci_gateway/c/sci_besselj.c \
 sci_gateway/c/sci_oldbesselk.c \
 sci_gateway/c/sci_besselk.c \
 sci_gateway/c/sci_calerf.c \
-sci_gateway/c/gw_special_functions1.c \
-sci_gateway/c/gw_special_functions2.c \
+sci_gateway/c/gw_special_functions.c \
 sci_gateway/c/sci_lgamma.c
 
 GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_dlgamma.f \

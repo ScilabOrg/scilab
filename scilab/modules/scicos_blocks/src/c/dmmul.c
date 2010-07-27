@@ -19,8 +19,11 @@
 * See the file ./license.txt
 */
 /*--------------------------------------------------------------------------*/ 
-#if _MSC_VER
 #include <stdio.h> /* printf */
+#include <string.h>
+#ifdef UNIX
+  #include <unistd.h>
+  #include <sys/socket.h>
 #endif
 #include "scicos_math.h"
 #include "dynlib_scicos_blocks.h"

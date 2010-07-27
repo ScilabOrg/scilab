@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-04-16 07:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -50,11 +49,11 @@ msgstr ""
 "%s: L'argument d'entrada #%d té un valor incorrecte. Ha d'estar a l'interval "
 "[%d,%d].\n"
 
-msgid "// Begin Session : "
-msgstr "// Inici de sessió : "
+msgid "Begin Session : "
+msgstr "Inici de sessió : "
 
-msgid "// End Session   : "
-msgstr "// Final de sessió  : "
+msgid "End Session   : "
+msgstr "Final de sessió  : "
 
 msgid "Apr"
 msgstr "Abr"

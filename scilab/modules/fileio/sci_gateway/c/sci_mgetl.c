@@ -11,7 +11,7 @@
  *
  */
 /*--------------------------------------------------------------------------*/
-#include "gw_io.h"
+#include "gw_fileio.h"
 #include "stack-c.h"
 #include "localization.h"
 #include "Scierror.h"
@@ -124,6 +124,7 @@ int sci_mgetl(char *fname,unsigned long fname_len)
                     {
                         case MOPEN_NO_ERROR:
                             fileDescriptor = fd;
+                            if (expandedFileName) {FREE(expandedFileName); expandedFileName = NULL;}
                             break;
                         case MOPEN_NO_MORE_LOGICAL_UNIT:
                             {

@@ -15,10 +15,10 @@
 
 @SET_MAKE@
 
-##########
-### Allan CORNET
-### INRIA - Scilab 2007
-########## *
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2007 - INRIA - Allan CORNET
+#
+# This file is distributed under the same license as the Scilab package.
 
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) 2006-2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
@@ -64,6 +64,9 @@ DIST_COMMON = $(libscihistory_manager_la_include_HEADERS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@am__append_2 = java
+
+# With --enable-compilation-tests, launch java unitary tests
+@COMPILATION_TESTS_TRUE@am__append_3 = test
 subdir = modules/history_manager
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -319,6 +322,10 @@ OCAMLDEP = @OCAMLDEP@
 OCAMLLEX = @OCAMLLEX@
 OCAMLOPT = @OCAMLOPT@
 OCAMLYACC = @OCAMLYACC@
+OPENMP_CFLAGS = @OPENMP_CFLAGS@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
+OPENMP_ENABLE = @OPENMP_ENABLE@
+OPENMP_LIBS = @OPENMP_LIBS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -444,7 +451,6 @@ src/cpp/HistoryFile.cpp \
 src/cpp/HistoryManager.cpp \
 src/cpp/HistorySearch.cpp
 
-
 # List of the c files
 HISTORY_MANAGER_C_SOURCES = src/c/getCommentDateSession.c \
 	$(am__append_1)
@@ -466,17 +472,22 @@ sci_gateway/c/sci_sethistoryfile.c  \
 sci_gateway/c/sci_historymanager.c
 
 @GUI_TRUE@USEANT = 1
+@GUI_TRUE@GIWS_WRAPPERS = 
+@GIWS_TRUE@@GUI_TRUE@BUILT_SOURCES = giws
+@SWIG_TRUE@BUILT_SOURCES = swig
 
 # Includes need for the compilation
 libscihistory_manager_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 -I$(srcdir)/includes/ \
 -I$(srcdir)/src/cpp/ \
 -I$(srcdir)/src/c/ \
+-I$(srcdir)/src/jni/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/localization/includes \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/output_stream/includes/ \
--I$(top_srcdir)/modules/fileio/includes/
+-I$(top_srcdir)/modules/fileio/includes/ \
+-I$(top_srcdir)/modules/history_browser/includes/
 
 
 # Includes need for the compilation
@@ -528,7 +539,6 @@ includes/dynlib_history_manager.h
 
 #### SWIG Declaration ####
 SWIG_WRAPPERS = src/jni/HistoryManagement.i
-@SWIG_TRUE@BUILT_SOURCES = swig
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -541,7 +551,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_2)
+TARGETS_ALL = $(am__append_2) $(am__append_3)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -1182,7 +1192,7 @@ uninstall-am: uninstall-libscihistory_manager_la_etcDATA \
 
 
 # This target enables tests for Scilab
-check-local: $(top_builddir)/scilab-bin
+check-local: $(top_builddir)/scilab-bin test
 	@COMMAND="test_run('$(modulename)');quit";\
 	export LANG=C;\
 	$(top_builddir)/bin/scilab -nwni -nb -e "$$COMMAND"
@@ -1248,6 +1258,13 @@ clean-macros:
 		echo "rm -f $(builddir)/$$dir/$(MACROBINMASK)"; \
 		rm -f $(builddir)/$$dir/$(MACROBINMASK); \
 	done
+
+test:
+# More tests could be added here
+	@if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+	if test -f build.xml -a $$USEANT -eq 1; then \
+		$(ANT) test; \
+	fi
 
 all-local: $(TARGETS_ALL)
 

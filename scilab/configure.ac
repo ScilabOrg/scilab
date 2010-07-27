@@ -3,11 +3,11 @@
 # Copyright (C) INRIA - 2006-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Pierre MARECHAL <pierre.marechal@scilab.org>
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 
@@ -117,6 +117,9 @@ AC_ARG_WITH(tk,
 AC_ARG_WITH(javasci,
     AC_HELP_STRING([--without-javasci],[Disable the Java/Scilab interface (javasci)]))
 
+AC_ARG_ENABLE(compilation-tests,
+    AC_HELP_STRING([--enable-compilation-tests],[Enable unitary tests and checks at compilation time]))
+
 AC_ARG_WITH(gui,
     AC_HELP_STRING([--without-gui],[Disable the Scilab Graphical User Interface (GUI). Intended for embedded/clustering/grid Scilab ]))
 
@@ -136,7 +139,7 @@ AC_PROG_GREP
 
 ######
 #### Mac OS X set of fink path with provided
-######                 
+######
 
 AC_ARG_WITH(fink_prefix,
 AC_HELP_STRING([--with-fink-prefix],[Provide a fink prefix. Default: /sw/ ]))
@@ -148,11 +151,11 @@ case "$host" in
 	# use it to detect dependencies (for example, gfortran is not provided in xcode.
 	# Therefor, we use the one in fink)
 	FINK_PREFIX="$with_fink_prefix/"
-  
+
 	# Exec the init script of fink to make sure that the env is set
 	if test -f $with_fink_prefix/bin/init.sh; then
 	   echo "source $with_fink_prefix/bin/init.sh executed to set the env"
-	   source $with_fink_prefix/bin/init.sh	
+	   source $with_fink_prefix/bin/init.sh
         else
 	   AC_MSG_WARN([Could not find the fink init.sh script: $with_fink_prefix/bin/init.sh])
 	fi
@@ -163,7 +166,7 @@ case "$host" in
 esac
 
 #####################################################
-## Look for pkg-config 
+## Look for pkg-config
 #####################################################
 PKG_PROG_PKG_CONFIG
 
@@ -527,7 +530,7 @@ case "$CC" in
     ;;
 	 i*86-*-linux-gnu | *-pc-linux-gnu | i*86-*-linux )
 		CFLAGS="$CFLAGS  -DNARROWPROTO"
-	;;		
+	;;
 	 ia64-*-linux-gnu )
 		CFLAGS="$CFLAGS -DNARROWPROTO"
     ;;
@@ -561,7 +564,7 @@ case "$CC" in
 
   *-*-darwin*)
 case "$F77" in
-	     gfortran-*|gfortran) 
+	     gfortran-*|gfortran)
 	         # Extract from gfortran -v the version it has been built for
 	      	 MAC_DETECTED_ARCH="`$F77 -v 2>&1|grep "Target:"|sed -e "s/Target: \([[a-z0-9A-Z_]]*\).*/\1/g"`"
 		 ;;
@@ -652,7 +655,7 @@ AC_CHECK_UNDERSCORE_FORTRAN()
 #################
 
 AC_ARG_WITH(hdf5,
-	AC_HELP_STRING([--without-hdf5],[Disable the interface to the HDF5 library]))	
+	AC_HELP_STRING([--without-hdf5],[Disable the interface to the HDF5 library]))
 
 HDF5_ENABLE=no
 
@@ -698,7 +701,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 				JGRAPHX=$PACKAGE_JAR_FILE
 				AC_SUBST(JGRAPHX)
 
-				AC_JAVA_CHECK_VERSION_PACKAGE([jgraphx],[import com.mxgraph.view.mxGraph;],$JGRAPHX,[1.4.0.1],[mxGraph.VERSION])
+				AC_JAVA_CHECK_VERSION_PACKAGE([jgraphx],[import com.mxgraph.view.mxGraph;],$JGRAPHX,[1.4.0.2],[mxGraph.VERSION])
 
 				# Docking system
 				AC_JAVA_CHECK_PACKAGE([flexdock],[org.flexdock.docking.DockingManager],[Scilab Gui])
@@ -716,7 +719,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 				fi
 				AC_SUBST(LOOKS)
 
-				#  Skin Look and Feel 
+				#  Skin Look and Feel
 				AC_JAVA_CHECK_PACKAGE([skinlf],[com.l2fprod.util.AccessUtils],[Scilab Gui - Skin Look and Feel])
 				SKINLF=$PACKAGE_JAR_FILE
 				AC_SUBST(SKINLF)
@@ -734,9 +737,9 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 				   LDFLAGS="-L/usr/lib/jni -L/usr/lib64/jni/ -L$SCI_SRCDIR/thirdparty/ -L$SCI_SRCDIR/bin/"
 				   AC_CHECK_LIB([jogl], [glTexParameterf], [JOGL_LIBS="-ljogl"],[AC_MSG_WARN([Could not link against -ljogl. Will try against -ljogl -lGL])])
 				   if test -z "$JOGL_LIBS"; then # The previous test failed add more options to the LDFLAGS
-					   # the space after "jogl" in the following line is on	
+					   # the space after "jogl" in the following line is on
 					   # purpose to disable the cache
-				   	   AC_CHECK_LIB([jogl ], [glTexParameterf], 
+				   	   AC_CHECK_LIB([jogl ], [glTexParameterf],
 					   [JOGL_LIBS="-ljogl -lGL"],
 					   [AC_MSG_ERROR(["libjogl: Library
 missing (Cannot find symbol glTexParameterf). Check if libjogl - C/Java (JNI)
@@ -790,7 +793,7 @@ the the JNI libraries."])],
 
 
 				# MathML rendering solution
-				# Used in both graphic & help 
+				# Used in both graphic & help
 				AC_JAVA_CHECK_PACKAGE([jeuclid-core],[net.sourceforge.jeuclid.LayoutContext],[MathML rendering solution (at least version 3.1.X)])
 				JEUCLID_CORE=$PACKAGE_JAR_FILE
 				AC_SUBST(JEUCLID_CORE)
@@ -842,14 +845,6 @@ the the JNI libraries."])],
 
 				################ END Mandatory for graphic_export features #####
 
-
-				############ XCOS ############
-				if test $HDF5_ENABLE = yes;  then
-				# HDF5 java lib
-				  AC_JAVA_CHECK_PACKAGE([jhdf5],[ncsa.hdf.hdf5lib.HDF5Constants],[HDF5 Java library])
-				  JHDF5=$PACKAGE_JAR_FILE
-				  AC_SUBST(JHDF5)
-				fi
 
 				# Logging (flexdock dep)
 				AC_JAVA_CHECK_PACKAGE([commons-logging],[org.apache.commons.logging.LogFactory],[Apache logging])
@@ -1109,7 +1104,7 @@ TERMCAP_LIB=no
 
 # Various observations:
 #
-#  ncurses 
+#  ncurses
 #    - installs ncurses.h and possibly curses.h as a link to ncurses.h
 #    - installs -lncurses.
 #    - need to include term.h for tgetent() but tgetent() is in -lncurses.a
@@ -1169,29 +1164,24 @@ if test "$with_scicos" != no -a "$GUI_ENABLE" != no; then
    LIBS="$save_LIBS"
    AC_SUBST(RT_LIB)
 
-if test $HDF5_ENABLE = yes;  then
+
+#################
+## ocaml which only called when using Scicos
+#################
+
+   if test "$with_ocaml" != no; then
+      AC_CHECK_PROG_OCAML()
+   fi
+   SCICOS_ENABLE=yes
+
+# Java HDF5 is only needed for Xcos
+if test $HDF5_ENABLE = yes -a "$with_scicos" != no -a "$with_gui" != no;  then
+AC_JAVA_HDF5()
    if test "$MACOSX" = 1; then
    	  echo "Check of the presence of libjhdf5.jnilib disabled under Mac OS X"
    else
-      LDFLAGS_save=$LDFLAGS
-   # Provide known paths where distribs/OS can store JNI libs
-   	 LDFLAGS="-L/usr/lib/jni -L/usr/lib64/jni/ -L$SCI_SRCDIR/bin/ -L$SCI_SRCDIR/thirdparty/  -lpthread $HDF5_LIBS"
-   # -lpthread because of packaging bug in jhdf5
-      AC_CHECK_LIB([jhdf5], [h5JNIFatalError], [JHDF5_LIBS="-ljhdf5"],
-   	    [AC_MSG_ERROR([libjhdf5: Library missing (Cannot find symbol h5JNIFatalError). Check if libjhdf5 - C/Java (JNI) interface for HDF5 - is installed and if the version is correct. Note that you might have to update etc/librarypath.xml to provide the actual path the the JNI libraries.])])
-      LDFLAGS=$LDFLAGS_save
-
-      LD_LIBRARY_PATH_save=$LD_LIBRARY_PATH
-      LD_LIBRARY_PATH="/usr/lib/jni:/usr/lib64/jni/:$SCI_SRCDIR/bin/:$SCI_SRCDIR/thirdparty/:$with_hdf5_library"
-      export LD_LIBRARY_PATH
-      AC_JAVA_CHECK_VERSION_PACKAGE([hdf5],[import ncsa.hdf.hdf5lib.H5;],$JHDF5,[1.8.4],[ver],[int[] vers = new int[3];
-                try { H5.H5get_libversion(vers); }
-                catch (Throwable ex) {System.exit(-1);}
-                String ver = vers[0] + "."+ vers[1] +"."+vers[2];
-      ])
-      unset LD_LIBRARY_PATH
-      LD_LIBRARY_PATH=$LD_LIBRARY_PATH_save
-    fi
+      AC_JNI_HDF5()
+   fi
 fi #HDF5_ENABLE
 
 #################
@@ -1255,12 +1245,39 @@ AC_ARG_WITH(pvm,
 
 PVM_ENABLE=no
 if test "$with_pvm" != no; then
-   AC_PVM()	
+   AC_PVM()
    PVM_ENABLE=yes
 fi
 AC_SUBST(PVM_ENABLE)
 
 AM_CONDITIONAL(PVM, test "$with_pvm" != no)
+
+#################
+## OpenMP
+#################
+
+AC_ARG_WITH(openmp,
+    AC_HELP_STRING([--without-openmp],[Disable the usage of OpenMP (parallelization of some algoritms)]))
+
+OPENMP_ENABLE=no
+if test "$with_openmp" != no; then
+#   AC_OPENMP
+	OPENMP_CFLAGS="-fopenmp"
+	OPENMP_CXXFLAGS="-fopenmp"
+	OPENMP_LIBS="-lgomp"
+
+    AC_CHECK_HEADERS([omp.h], [],
+     [AC_MSG_ERROR([Could not find omp.h])])
+
+	OPENMP_ENABLE=yes
+fi
+AC_SUBST(OPENMP_ENABLE)
+AC_SUBST(OPENMP_CFLAGS)
+AC_SUBST(OPENMP_CXXFLAGS)
+AC_SUBST(OPENMP_LIBS)
+
+AM_CONDITIONAL(OPENMP, test "$with_openmp" != no)
+
 
 #######################
 ## Test for libxml
@@ -1347,7 +1364,7 @@ if test "$with_tk" != no; then
    if test "$MACOSX" = "1"; then
       AC_MSG_ERROR([Due to technical constraints, Tcl/Tk must be disabled under Mac OS X (--without-tk)])
    fi
-   
+
 	# check user arguments
 	USER_TCL_LIB_PATH=""
 	USER_TCL_INC_PATH=""
@@ -1375,7 +1392,7 @@ if test "$with_tk" != no; then
 
 ###########################
 ########## X11 checks
-########################### 	 
+###########################
 		## This check is mandatory since tk needs Xlib headers and libs
 		AC_PATH_XTRA
 		##
@@ -1427,21 +1444,21 @@ if test "$with_matio" != no; then
    else
       PKG_CHECK_MODULES(MATIO, [matio >= 1.3.3])
    fi
-   
+
    save_CFLAGS="$CFLAGS"
    save_LIBS="$LIBS"
 
    CFLAGS="$CFLAGS $MATIO_CFLAGS"
    LIBS="$LIBS $MATIO_LIBS"
-   
+
    AC_CHECK_HEADERS([matio.h matioConfig.h], [],
      [AC_MSG_ERROR([Invalid MATIO_CFLAGS returned by pkg-config. Try to define MATIO_CFLAGS.])])
    AC_CHECK_LIB([matio], [Mat_Open], [],
      [AC_MSG_ERROR([Invalid MATIO_LIBS returned by pkg-config. Try to define MATIO_LIBS.])])
-   
+
    LIBS="$save_LIBS"
    CFLAGS="$save_CFLAGS"
-   
+
    AC_DEFINE([WITH_MATIO], [], [With the MATIO library])
    MATIO_ENABLE=yes
 fi
@@ -1482,7 +1499,7 @@ AC_ARG_WITH(install-help-xml,
 HELP_INSTALL_ENABLE=no
 if test "$with_install_help_xml" != no -a "$with_install_help_xml" != ""; then
    HELP_INSTALL_ENABLE=yes
-fi 
+fi
 AM_CONDITIONAL(INSTALL_HELP_XML, test "$HELP_INSTALL_ENABLE" != "")
 
 ##############################################################
@@ -1497,6 +1514,23 @@ fi
 
 AC_SUBST(JAVASCI_ENABLE)
 
+
+##############################################################
+## Enable test a compilation time
+##############################################################
+
+COMPILATION_TESTS=no
+if test "$enable_compilation_tests" != no -a "$enable_compilation_tests" != ""; then
+   COMPILATION_TESTS=yes
+fi
+
+if test COMPILATION_TESTS=yes -a "$TESTNG" == ""; then
+   AC_MSG_WARN([--enable-compilation-tests deactivated: Could not find TestNG"])
+   COMPILATION_TESTS=no
+fi
+
+AM_CONDITIONAL(COMPILATION_TESTS, test "$COMPILATION_TESTS" != "no")
+
 ##############################################################
 ## demo_tools module
 ##############################################################
@@ -1504,7 +1538,7 @@ AC_SUBST(JAVASCI_ENABLE)
 DEMOTOOLS_ENABLE=yes
 
 if test "$GUI_ENABLE" = no; then
-   DEMOTOOLS_ENABLE=yes
+   DEMOTOOLS_ENABLE=no
 fi
 
 AC_SUBST(DEMOTOOLS_ENABLE)
@@ -1553,7 +1587,7 @@ AC_C_CONST()
 AC_C_INLINE()
 
 
-########## 
+##########
 ##### Code quality
 ##########
 AC_PATH_PROG(SPLINT, splint, no)
@@ -1672,8 +1706,12 @@ modules/parameters/Makefile
 modules/matio/Makefile
 modules/atoms/Makefile
 modules/xcos/Makefile
-modules/xpad/Makefile
+modules/scinotes/Makefile
+modules/ui_data/Makefile
 modules/graph/Makefile
+modules/parallel/Makefile
+modules/modules_manager/Makefile
+modules/history_browser/Makefile
 modules/Makefile
 libs/Makefile
 Makefile
@@ -1728,7 +1766,7 @@ AC_CONFIG_COMMANDS([modules/core/includes/stack.h],
 
 AC_OUTPUT
 
-# To distribution packager, you can uncomment this stuff is you want to 
+# To distribution packager, you can uncomment this stuff is you want to
 # disable the rpath issue
 # However, you will have to set all the LD_LIBRARY_PATH to .libs/ directory
 # since scilab is compiling macros and help into the source tree (ie before
@@ -1785,6 +1823,7 @@ echo "  TCL library (--with-tcl-library) ................. = $USER_TCL_LIB_PATH"
 echo "  TK include (--with-tk-include) ................... = $USER_TK_INC_PATH"
 echo "  TK library (--with-tk-library) ................... = $USER_TK_LIB_PATH"
 echo "  Install XML Help (--with-install-help-xml) ....... = $with_install_help_xml"
+echo "  Compilation tests (--enable-compilation-tests) ... = $COMPILATION_TESTS"
 echo "  Make the package relocatable (--enable-relocatable)= $RELOCATABLE"
 echo "  Use FFTW (--without-fftw) ........................ = $with_fftw"
 echo "  Use MATIO (--without-matio) ...................... = $with_matio"
@@ -1804,9 +1843,20 @@ if test "$with_ocaml" != no -a "$OCAMLC" != no -a "$OCAMLOPT" != no; then
 else
 	echo "Will not build Modelica compiler"
 fi
-else 
+else
    echo "Not using Scicos"
 fi
+fi
+
+echo ""
+if test $OPENMP_ENABLE = yes; then
+   echo "OpenMP Configuration:"
+   echo "OpenMP CFLAGS ...... = $OPENMP_CFLAGS"
+   echo "OpenMP CXXFLAGS .... = $OPENMP_CXXFLAGS"
+   echo "OpenMP LIBS ........ = $OPENMP_LIBS"
+   echo "OpenMP FFLAGS ...... = $OPENMP_LDFLAGS"
+else
+   echo "Not using OpenMP"
 fi
 
 echo ""
@@ -1957,7 +2007,7 @@ echo "  Antlr ............... = $ANTLR"
 echo "  TestNG .............. = $TESTNG"
 echo "  splint .............. = $SPLINT"
 
-echo "" 
+echo ""
 echo "TCL/TK configuration:"
 echo "  TK_INC_PATH ........ = $TK_INC_PATH"
 echo "  TCL_INC_PATH ....... = $TCL_INC_PATH"
@@ -1965,13 +2015,13 @@ echo "  TCLTK_LIBS ......... = $TCLTK_LIBS"
 echo "  TCL_SERIAL_VERSION . = $TCL_SERIAL_VERSION"
 echo "  TK_SERIAL_VERSION .. = $TK_SERIAL_VERSION"
 
-echo "" 
+echo ""
 echo "XML configuration:"
 echo "  XML_FLAGS .......... = $XML_FLAGS"
 echo "  XML_LIBS ........... = $XML_LIBS"
 echo "  XML_VERSION ........ = $XML_VERSION"
 
-echo "" 
+echo ""
 if test $HDF5_ENABLE = yes;  then
    echo "HDF5 configuration:"
    echo "  HDF5 CFLAGS ......... = $HDF5_CFLAGS"
@@ -1982,7 +2032,7 @@ else
    echo "Not using HDF5"
 fi
 
-echo "" 
+echo ""
 echo "PCRE configuration:"
 echo "  PCRE_CFLAGS ........ = $PCRE_CFLAGS"
 echo "  PCRE_LIBS .......... = $PCRE_LIBS"
@@ -2023,7 +2073,7 @@ if test "$SCI_SRCDIR_FULL" != "$SCI_BUILDDIR"; then
 echo "  VPATH build ......... = Activated"
 fi
 
-echo "" 
+echo ""
 echo "Platform informations:"
 echo "  host ........... = $host"
 echo "  host_cpu ....... = $host_cpu"

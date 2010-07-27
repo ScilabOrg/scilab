@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-04-16 07:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -46,11 +45,11 @@ msgstr ""
 "%s: Неверное значение входного параметра №%d: должно быть в интервале [%d, "
 "%d].\n"
 
-msgid "// Begin Session : "
-msgstr "// Начало сессии : "
+msgid "Begin Session : "
+msgstr "Начало сессии : "
 
-msgid "// End Session   : "
-msgstr "// Конец сессии   : "
+msgid "End Session   : "
+msgstr "Конец сессии   : "
 
 msgid "Apr"
 msgstr "Апр"

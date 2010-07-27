@@ -14,6 +14,9 @@ package org.scilab.modules.xcos.io.scicos;
 
 import static java.util.Arrays.asList;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
@@ -117,21 +120,6 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		}
 		
 		/*
-		 * Fill block with the data structure
-		 */
-		int field = 1;
-		graphicElement.decode(data.get(field), block);
-		
-		field++;
-		modelElement.decode(data.get(field), block);
-		
-		field++;
-		block.setInterfaceFunctionName(interfunction);
-		
-		field++;
-		fillDocStructure(data.get(field), block);
-		
-		/*
 		 * Allocate and setup ports
 		 */
 		InputPortElement inElement = new InputPortElement(data);
@@ -145,6 +133,21 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		for (int i = 0; i < numberOfOutputPorts; i++) {
 			block.addPort(outElement.decode(data, null));
 		}
+		
+		/*
+		 * Fill block with the data structure
+		 */
+		int field = 1;
+		graphicElement.decode(data.get(field), block);
+		
+		field++;
+		modelElement.decode(data.get(field), block);
+		
+		field++;
+		block.setInterfaceFunctionName(interfunction);
+		
+		field++;
+		fillDocStructure(data.get(field), block);
 		
 		/*
 		 * Set state dependent informations.
@@ -178,13 +181,35 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		 */
 		ScilabList list = (ScilabList) scilabType;
 		
-		if (list.size() > 0) {
-			if (list.get(0) instanceof ScilabString) {
-				ScilabString uid = (ScilabString) list.get(0);
-				into.setId(uid.getData()[0][0]);
+		if (list.size() > 1 && list.get(0) instanceof ScilabString) {
+			String uid = ((ScilabString) list.get(0)).getData()[0][0];
+			if (isValidUid(uid)) {
+				into.setId(uid);
+				return;
 			}
-		} else {
-			into.generateId();
+		}
+		
+		into.generateId();
+	}
+
+	/**
+	 * @param uid The uid to check
+	 * @return true if the uid is valid, false otherwise
+	 */
+	private boolean isValidUid(String uid) {
+		ByteArrayInputStream str = new ByteArrayInputStream(uid.getBytes());
+		DataInputStream inputStream = new DataInputStream(str);
+		
+		try {
+			inputStream.readInt();
+			char sep1 = inputStream.readChar();
+			inputStream.readLong();
+			char sep2 = inputStream.readChar();
+			inputStream.readInt();
+			
+			return inputStream.available() == 0 && sep1 == sep2 && sep1 == ':';
+		} catch (IOException e) {
+			return false;
 		}
 	}
 
@@ -209,7 +234,7 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		
 		// we test if the structure as enough field
 		if (data.size() != DATA_FIELD_NAMES.size()) {
-			throw new WrongStructureException();
+			throw new WrongStructureException(DATA_FIELD_NAMES);
 		}
 		
 		/*
@@ -218,17 +243,17 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		
 		// Check the first field
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
 		final String[] header = ((ScilabString) data.get(field)).getData()[0];
 		
 		// Checking for the field names
 		if (header.length != DATA_FIELD_NAMES.size()) {
-			throw new WrongStructureException();
+			throw new WrongStructureException(DATA_FIELD_NAMES);
 		}
 		for (int i = 0; i < header.length; i++) {
 			if (!header[i].equals(DATA_FIELD_NAMES.get(i))) {
-				throw new WrongStructureException();
+				throw new WrongStructureException(DATA_FIELD_NAMES);
 			}
 		}
 		
@@ -240,28 +265,28 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 		// block will be displayed )
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
 		
 		// the third field must contains all the informations needed to compile
 		// the block
 		field++;
 		if (!(data.get(field) instanceof ScilabMList)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
 		
 		// the fourth field must contains all the informations needed to represent
 		// the block
 		field++;
 		if (!(data.get(field) instanceof ScilabString)) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
 		
 		// the last field must contain a list of nothing aka scicos doc
 		field++;
 		if (!(data.get(field) instanceof ScilabList)
 				&& !isEmptyField(data.get(field))) {
-			throw new WrongTypeException();
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
 	}
 	// CSON: CyclomaticComplexity

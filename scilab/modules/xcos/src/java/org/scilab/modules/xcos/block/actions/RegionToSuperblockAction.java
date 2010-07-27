@@ -83,10 +83,10 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 	 * Any link which is broken by performing this action
 	 */
     private static class BrokenLink {
-	private BasicLink link;
-	private BasicPort port;
-	private mxGeometry geom;
-	private boolean outGoing;
+	private final BasicLink link;
+	private final BasicPort port;
+	private final mxGeometry geom;
+	private final boolean outGoing;
 	private int portNumber;
 
 	/**
@@ -220,12 +220,11 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 	superBlock.getGeometry().setX((maxX + minX) / 2.0);
 	superBlock.getGeometry().setY((maxY + minY) / 2.0);
 
-
-
 	/*
 	 * Creating the child graph
 	 */
 	SuperBlockDiagram diagram = new SuperBlockDiagram(superBlock);
+	diagram.installListeners();
 
 	diagram.getModel().beginUpdate();
 	diagram.addCells(cellsCopy.toArray());
@@ -248,6 +247,7 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 	 * Update block with real parameters
 	 */
 	superBlock.setRealParameters(new DiagramElement().encode(diagram));
+	diagram.installSuperBlockListeners();
 	superBlock.setChild(diagram);
 	
 	/*
@@ -465,14 +465,12 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 		if (link.getOutGoing()) { // OUT_f
 		    block = BlockFactory.createBlock("OUT_f");
 		    ExplicitInputPort port = new ExplicitInputPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(0) + 1);
 		    maxValues.set(0, maxValues.get(0) + 1);
 		} else { // IN_f
 		    block = BlockFactory.createBlock("IN_f");
 		    ExplicitOutputPort port = new ExplicitOutputPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(1) + 1);
 		    maxValues.set(1, maxValues.get(1) + 1);
@@ -481,14 +479,12 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 		if (link.getOutGoing()) { // OUTIMPL_f
 		    block = BlockFactory.createBlock("OUTIMPL_f");
 		    ImplicitInputPort port = new ImplicitInputPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(2) + 1);
 		    maxValues.set(2, maxValues.get(2) + 1);
 		} else { // INIMPL_f
 		    block = BlockFactory.createBlock("INIMPL_f");
 		    ImplicitOutputPort port = new ImplicitOutputPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(3) + 1);
 		    maxValues.set(3, maxValues.get(3) + 1);
@@ -497,14 +493,12 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 		if (link.getOutGoing()) { // CLKOUTV_f
 		    block = BlockFactory.createBlock("CLKOUTV_f");
 		    ControlPort port = new ControlPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(4) + 1);
 		    maxValues.set(4, maxValues.get(4) + 1);
 		} else { // CLKINV_f
 		    block = BlockFactory.createBlock("CLKINV_f");
 		    CommandPort port = new CommandPort();
-		    port.setDefaultValues();
 		    block.addPort(port);
 		    link.setPortNumber(maxValues.get(5) + 1);
 		    maxValues.set(5, maxValues.get(5) + 1);
@@ -535,14 +529,14 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 			.createLinkFromPorts((BasicPort) link.getLink()
 				.getSource(), (BasicPort) block.getChildAt(0));
 		newLink.setGeometry(link.getLink().getGeometry());
-		newLink.setSource((BasicPort) link.getPort());
-		newLink.setTarget((BasicPort) block.getChildAt(0));
+		newLink.setSource(link.getPort());
+		newLink.setTarget(block.getChildAt(0));
 	    } else { // new -> old
 		newLink = BasicLink.createLinkFromPorts((BasicPort) block
 			.getChildAt(0), (BasicPort) link.getLink().getTarget());
 		newLink.setGeometry(link.getLink().getGeometry());
-		newLink.setSource((BasicPort) block.getChildAt(0));
-		newLink.setTarget((BasicPort) link.getPort());
+		newLink.setSource(block.getChildAt(0));
+		newLink.setTarget(link.getPort());
 	    }
 
 	    diagram.getModel().beginUpdate();
@@ -661,9 +655,9 @@ public final class RegionToSuperblockAction extends VertexSelectionDependantActi
 	int maxValue = 0;
 	if (blocks != null) {
 	    for (int i = 0; i < blocks.size(); i++) {
-		if (((BasicBlock) blocks.get(i)).getExprs() instanceof ScilabString) {
+		if ((blocks.get(i)).getExprs() instanceof ScilabString) {
 		    maxValue = Math.max(maxValue, Integer
-			    .parseInt(((ScilabString) ((BasicBlock) blocks
+			    .parseInt(((ScilabString) (blocks
 				    .get(i)).getExprs()).getData()[0][0]));
 		}
 	    }
