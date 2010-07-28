@@ -12,6 +12,8 @@
 
 package org.scilab.modules.xcos.palette;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 
 import javax.swing.SwingUtilities;
@@ -43,7 +45,7 @@ import org.xml.sax.SAXException;
  */
 public final class PaletteManager {
 	private static final String UNABLE_TO_VALIDATE_CONFIG = "Unable to validate the configuration file.\n";
-	private static final String MODEL_CLASS_PACKAGE = "org.scilab.modules.xcos.palette.model";
+	public static final String MODEL_CLASS_PACKAGE = "org.scilab.modules.xcos.palette.model";
 	private static final String SCHEMA_FILENAME = "/PaletteConfiguration.xsd";
 	private static final String INSTANCE_FILENAME = "/palettes.xml";
 	
@@ -55,9 +57,11 @@ public final class PaletteManager {
 	
 	private PaletteManagerView view;
 	private Category root;
+	private final PropertyChangeSupport pcs;
 
 	/** Default constructor */
 	private PaletteManager() {
+		pcs = new PropertyChangeSupport(this);
 	}
 
 	/**
@@ -88,6 +92,22 @@ public final class PaletteManager {
 		return root;
 	}
 
+	/**
+	 * Add a PropertyChangeListener to the listener list.
+	 * @param listener the listener
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+	}
+	
+	/**
+	 * Add a PropertyChangeListener from the listener list.
+	 * @param listener the listener
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		pcs.removePropertyChangeListener(listener);
+	}
+	
 	/** @return the default instance */
 	public static synchronized PaletteManager getInstance() {
 		if (instance == null) {
@@ -114,6 +134,8 @@ public final class PaletteManager {
 			getInstance().setView(new PaletteManagerView(getInstance()));
 		}
 		getInstance().getView().setVisible(status);
+		
+		getInstance().pcs.firePropertyChange("visible", !status, status);		
 	}
 
 	/**
@@ -207,7 +229,6 @@ public final class PaletteManager {
 			try {
 				f = new File(ScilabConstants.SCIHOME.getAbsoluteFile()
 						+ INSTANCE_FILENAME);
-				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 				marshaller.marshal(getRoot(), f);
 			} catch (JAXBException e) {
 				LOG.warn(
@@ -216,7 +237,7 @@ public final class PaletteManager {
 			}
 
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			return;
 		}
 	}
@@ -244,6 +265,8 @@ public final class PaletteManager {
 					UNABLE_TO_VALIDATE_CONFIG
 							+ e);
 		}
+		
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	}
 
 	/**
