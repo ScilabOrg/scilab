@@ -54,6 +54,8 @@ SciNotes:
 
 * bug 7621 fixed - The change of the font generated an exception.
 
+* bug 7623 fixed - "Evaluate Selection" evaluated the selection with one added char.
+
 File input/output:
 ==================
 
