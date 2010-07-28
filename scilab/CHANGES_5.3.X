@@ -60,6 +60,9 @@ SciNotes:
 
 * bug 7595 fixed - In SciNotes, a string was broken if '..' was encountered.
 
+* bug 7618 fixed - The change of the background color generated an exception.
+
+* bug 7621 fixed - The change of the font generated an exception.
 
 File input/output:
 ==================
