@@ -8,6 +8,10 @@ Bug Fixes:
 
 * bug 7617 fixed - Editvar did not have any menu bar.
 
+* bug 7618 fixed - The change of the background color generated an exception.
+
+* bug 7621 fixed - The change of the font generated an exception.
+
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
 
@@ -59,7 +63,6 @@ SciNotes:
                    "Split..." and "Line Numbering..." menus. 
 
 * bug 7595 fixed - In SciNotes, a string was broken if '..' was encountered.
-
 
 File input/output:
 ==================
