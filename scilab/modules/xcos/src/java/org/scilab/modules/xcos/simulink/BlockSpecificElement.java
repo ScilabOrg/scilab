@@ -19,7 +19,7 @@ import edu.tum.cs.commons.collections.UnmodifiableIterator;
 import edu.tum.cs.simulink.model.SimulinkBlock;
 
 public class BlockSpecificElement {
-	PatternElement patternElement = new PatternElement();
+
 	private static final Log LOG = LogFactory.getLog(BlockSpecificElement.class);
 	
 	public static void print(SimulinkBlock from) {
@@ -33,3 +33,4 @@ public class BlockSpecificElement {
 		}
 	}
 }
+
