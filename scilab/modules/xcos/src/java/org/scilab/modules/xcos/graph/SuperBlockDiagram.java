@@ -15,6 +15,7 @@ package org.scilab.modules.xcos.graph;
 
 import java.io.Serializable;
 
+import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.utils.XcosEvent;
 
