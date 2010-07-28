@@ -255,7 +255,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
-			LOG.trace(evt.getPropertyName() + ": " + evt.getOldValue() + ", " + evt.getNewValue());
+			if (LOG.isTraceEnabled()) {
+				LOG.trace(evt.getPropertyName() + ": " + evt.getOldValue() + ", " + evt.getNewValue());
+			}
 		}
 	}
 	
@@ -745,27 +747,47 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      */
     public void updateBlockSettings(BasicBlock modifiedBlock) {
 	doUpdateBlockSettings(modifiedBlock);
-    }
+	}
 
-    /**
-     * Does the block update without using the undo manager 
-     * @param modifiedBlock the new settings
-     */
-    public void doUpdateBlockSettings(BasicBlock modifiedBlock) {
-	setDependsOnT(modifiedBlock.isDependsOnT());
-	setDependsOnU(modifiedBlock.isDependsOnU());
-	setExprs(modifiedBlock.getExprs());
+	/**
+	 * Does the block update without using the undo manager 
+	 * @param modifiedBlock the new settings
+	*/
+	public void doUpdateBlockSettings(BasicBlock modifiedBlock) {
+		//FIXME: Somwhere here Null pointers
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Updating block settings.");
+		}
+		
+		setDependsOnT(modifiedBlock.isDependsOnT());
+		setDependsOnU(modifiedBlock.isDependsOnU());
+		setExprs(modifiedBlock.getExprs());
+	
+		setRealParameters(modifiedBlock.getRealParameters());
+		setIntegerParameters(modifiedBlock.getIntegerParameters());
+		setObjectsParameters(modifiedBlock.getObjectsParameters());
+		try {	
+		setState(modifiedBlock.getState());
+		setDState(modifiedBlock.getDState());
 
-	setRealParameters(modifiedBlock.getRealParameters());
-	setIntegerParameters(modifiedBlock.getIntegerParameters());
-	setObjectsParameters(modifiedBlock.getObjectsParameters());
-
-	setState(modifiedBlock.getState());
-	setDState(modifiedBlock.getDState());
-	setODState(modifiedBlock.getODState());
-
-	setEquations(modifiedBlock.getEquations());
-
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("OdState:" + modifiedBlock.getODState());
+		}
+		if(modifiedBlock != null && modifiedBlock.getODState()!=null){
+			setODState(modifiedBlock.getODState());
+		} else {
+			setODState(new ScilabList());
+		}
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Equations:" + modifiedBlock.getEquations());
+		}
+		setEquations(modifiedBlock.getEquations());
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Settings update completed.");
+		}
+		} catch (NullPointerException ne) {
+			LOG.error("Error!");
+		}
 		// Update the children according to the modified block children. We are
 		// working on the last index in order to simplify the List.remove()
 		// call.
@@ -781,16 +803,21 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 				removePort((BasicPort) getChildAt(newChildCount + i));
 			}
 		}
-
-	/*
-	 * If the block is in a superblock then update it.
-	 */
-	if (getParentDiagram() instanceof SuperBlockDiagram) {
-	    SuperBlock parentBlock = ((SuperBlockDiagram) getParentDiagram()).getContainer();
-	    parentBlock.getParentDiagram().fireEvent(new mxEventObject(XcosEvent.SUPER_BLOCK_UPDATED, 
-		    XcosConstants.EVENT_BLOCK_UPDATED, parentBlock));
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Updating ports completed.");
+		}
+		/*
+		 * If the block is in a superblock then update it.
+		 */
+		if (getParentDiagram() instanceof SuperBlockDiagram) {
+			BasicBlock parentBlock = ((SuperBlockDiagram) getParentDiagram()).getContainer();
+			parentBlock.getParentDiagram().fireEvent(new mxEventObject(XcosEvent.SUPER_BLOCK_UPDATED, 
+				XcosConstants.EVENT_BLOCK_UPDATED, parentBlock));
+		}
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Updating superblock completed.");
+		}
 	}
-    }
 
     /**
      * @param context parent diagram context
@@ -823,8 +850,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tempInput.exists()) {
-					LOG.trace("Updating data.");
-					
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("Updating data.");
+					}
 				// Now read new Block
 			    BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
 			    updateBlockSettings(modifiedBlock);
@@ -833,7 +861,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 				    currentBlock));
 			    delete(tempInput);
 				} else {
-					LOG.trace("No needs to update data.");
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("No needs to update data.");
+					}
 				}
 				
 			    setLocked(false);
@@ -1077,6 +1107,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		ContextMenu menu = ScilabContextMenu.createContextMenu();
 		Map<Class< ? extends DefaultAction>, Menu> menuList = new HashMap<Class< ? extends DefaultAction>, Menu>();
 		
+		if(LOG.isTraceEnabled()){
+			LOG.trace("Creating context menu.");
+		}
+		
 		MenuItem value = BlockParametersAction.createMenu(graph);
 		menuList.put(BlockParametersAction.class, value);
 		menu.add(value);
@@ -1319,5 +1353,55 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		}
 		
 		return clone;
+	}
+	/**
+	 * @param child update diagram
+	 */
+	public void setChild(SuperBlockDiagram child) {	
+		// To be overridden by sub-classes
+	}
+	/**
+	 * force blocks update
+	 */
+	public void updateAllBlocksColor() {
+		// To be overridden by sub-classes
+	}
+	/**
+	 * update super block ports in parent diagram
+	 */
+	public void updateExportedPort() {
+		// To be overridden by sub-classes
+	}
+	/**
+	 * Action to be performed when the diagram is closed
+	 */
+	public void closeBlockSettings() {
+		// To be overridden by sub-classes
+	}
+	/**
+	 * @return diagram
+	 */
+	public SuperBlockDiagram getChild() {
+		// To be overridden by sub-classes
+		return new SuperBlockDiagram();
+		}
+	/**
+	 * Mask the SuperBlock
+	 */
+	public void mask() {
+		// To be overridden by sub-classes
+	}
+	/**
+	 * Unmask the SuperBlock
+	 */
+	public void unmask() {
+		// To be overridden by sub-classes
+	}
+	/**
+	 * @return True is the SuperBlock is masked, false otherwise
+	 */
+	public boolean isMasked() {
+		// To be overridden by sub-classes
+		return false;
 	}
 }

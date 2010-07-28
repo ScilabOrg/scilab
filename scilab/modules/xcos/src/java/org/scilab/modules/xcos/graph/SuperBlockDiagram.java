@@ -15,6 +15,7 @@ package org.scilab.modules.xcos.graph;
 
 import java.io.Serializable;
 
+import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.utils.XcosEvent;
 
@@ -27,7 +28,7 @@ import com.mxgraph.util.mxEventObject;
 public final class SuperBlockDiagram extends XcosDiagram implements Serializable {
 
     private static final long serialVersionUID = -402918614723713301L;
-    private SuperBlock container;
+    private BasicBlock container;
 
     /**
      * Constructor
@@ -48,13 +49,13 @@ public final class SuperBlockDiagram extends XcosDiagram implements Serializable
      * @return parent super block
      */
     public SuperBlock getContainer() {
-	return container;
+	return (SuperBlock) container;
     }
 
     /**
      * @param container parent super block
      */
-    public void setContainer(SuperBlock container) {
+    public void setContainer(BasicBlock container) {
 	this.container = container;
     }
 
@@ -163,4 +164,5 @@ public final class SuperBlockDiagram extends XcosDiagram implements Serializable
     public void setModifiedNonRecursively(boolean modified) {
 	super.setModified(modified);
     }
+
 }
