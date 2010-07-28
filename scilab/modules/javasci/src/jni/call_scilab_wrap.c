@@ -1010,7 +1010,9 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_javasci_Call_1ScilabJNI_putDoubl
   }
   result = (int)putDouble(arg1,arg2,arg3,arg4);
   jresult = (jint)result; 
-  SWIG_JavaArrayArgoutDouble(jenv, jarr2, arg2, jarg2); 
+  {
+    // Specific target because it was freeing the wrong argument
+  }
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
   return jresult;
 }
