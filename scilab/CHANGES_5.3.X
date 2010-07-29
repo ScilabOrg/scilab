@@ -15,6 +15,9 @@ Bug Fixes:
 
 * bug 7453 fixed - newfun() was broken after clearfun().
 
+* bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
+                   it was not visible even if the subwindow was docked.
+
 * bug 7615 fixed - When opening a SuperBlock, a non-blocking exception can be
                    thrown.
 
