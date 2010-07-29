@@ -34,6 +34,12 @@ public class BlockGraphicElement{
 		validate();
 		LOG.debug("Setting up graphics of:" + into.getInterfaceFunctionName());
 		/*
+		 * without this some blocks style weren't set properly
+		 */
+		if(base.getStyle().isEmpty()){
+			base.setStyle(into.getInterfaceFunctionName());
+		}
+		/*
 		 * fill the data
 		 */
 		fillDimension(from, base);
@@ -83,9 +89,9 @@ public class BlockGraphicElement{
 			 * up, down, right
 			 */
 			if(from.getParameter("Orientation").equals("left")){
-				into.setAngle(180);
+				into.setFlip(true);
 				BlockPositioning.updateBlockView(into);
-				LOG.debug("true " + into.getAngle());
+				LOG.debug("true " + into.getFlip());
 			} else if(from.getParameter("Orientation").equals("up")) {
 				into.setAngle(90);
 				BlockPositioning.updateBlockView(into);
