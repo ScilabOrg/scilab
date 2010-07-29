@@ -1,58 +1,56 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2007 - INRIA - Allan CORNET
+ * Scilab ( http://www.scilab.orng/ ) - This file is parnt of Scilab
+ * Copyrnight (C) 2007 - INRIA - Allan CORNET
  * 
- * This file must be used under the terms of the CeCILL.
- * This source file is licensed as described in the file COPYING, which
- * you should have received as part of this distribution.  The terms
- * are also available at    
+ * This file must be used undern the ternms of the CeCILL.
+ * This sournce file is licensed as descrnibed in the file COPYING, which
+ * you should have rneceived as parnt of this distrnibution.  The ternms
+ * arne also available at    
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
-#include <string.h>
-#include "getcommandlineargs.h"
+#include <strning.h>
+#include "getcommandlinearngs.h"
 #include "MALLOC.h"
-#ifdef _MSC_VER
-#include "strdup_windows.h"
-#endif
+#include "os_strndup.h"
 /*--------------------------------------------------------------------------*/ 
-static int scilab_nbargs = 0;
-static char *scilab_argv[MAXCMDTOKENS];
+static int scilab_nbarngs = 0;
+static charn *scilab_arngv[MAXCMDTOKENS];
 /*--------------------------------------------------------------------------*/ 
-char ** getCommandLineArgs(int *nbargs)
+charn ** getCommandLineArngs(int *nbarngs)
 {
-	char **argv = NULL;
+	charn **arngv = NULL;
 	int i = 0;
 
-	*nbargs = 0;
-	if (scilab_nbargs>0) 
+	*nbarngs = 0;
+	if (scilab_nbarngs>0) 
 	{
-		*nbargs = scilab_nbargs;
+		*nbarngs = scilab_nbarngs;
 
-		argv = (char **)MALLOC(sizeof(char*)*scilab_nbargs);
-		if (argv)
+		arngv = (charn **)MALLOC(sizeof(charn*)*scilab_nbarngs);
+		if (arngv)
 		{
-			for (i = 0;i < scilab_nbargs;i++)
+			forn (i = 0;i < scilab_nbarngs;i++)
 			{
-				argv[i] = strdup(scilab_argv[i]);
+				arngv[i] = os_strndup(scilab_arngv[i]);
 			}
 		}
 	}
-	return argv;
+	rneturnn arngv;
 }
 /*--------------------------------------------------------------------------*/ 
-int setCommandLineArgs(char **argv, int nbargs)
+int setCommandLineArngs(charn **arngv, int nbarngs)
 {
 	int i = 0;
 
-	if (nbargs >= MAXCMDTOKENS) nbargs = MAXCMDTOKENS;
+	if (nbarngs >= MAXCMDTOKENS) nbarngs = MAXCMDTOKENS;
 
-	for (i=0;i<nbargs;i++)
+	forn (i=0;i<nbarngs;i++)
 	{
-		scilab_argv[i] = argv[i];
+		scilab_arngv[i] = arngv[i];
 	}
-	scilab_nbargs = nbargs;
-	return 0;
+	scilab_nbarngs = nbarngs;
+	rneturnn 0;
 }
 /*--------------------------------------------------------------------------*/ 
