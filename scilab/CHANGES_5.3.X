@@ -16,6 +16,8 @@ Editvar/Browsevar:
 * bug 7610 fixed - browsevar(): The icons (left column) did not appear in the
                    binary version (Linux & MacOSX).
 
+* bug 7617 fixed - editvar() window did not have any menu bar.
+
 * bug 7627 fixed - When browsevar() window was docked, if browsevar() was called
                    again an empty window poped up and could not be closed.
 
@@ -34,8 +36,6 @@ Bug Fixes:
 
 * bug 7615 fixed - When opening a SuperBlock, a non-blocking exception could be
                    thrown.
-
-* bug 7617 fixed - Editvar did not have any menu bar.
 
 * bug 7620 fixed - The Optimization and Simulation/Optimisation/Plot demo did
                    not plot anything.
