@@ -18,7 +18,7 @@ extern "C"
 	#include "matrix_power.h"
 }
 
-int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut)
+int PowerDoubleByDouble(Double const* _pDouble1, Double const* _pDouble2, Double** _pDoubleOut)
 {
 	bool bComplex1		= _pDouble1->isComplex();
 	bool bComplex2		= _pDouble2->isComplex();
@@ -34,21 +34,21 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iPowerRealScalarByRealScalar(
-				_pDouble1->real_get()[0], 
+				_pDouble1->real_get()[0],
 				_pDouble2->real_get()[0],
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
 			iPowerRealScalarByComplexScalar(
-				_pDouble1->real_get()[0], 
+				_pDouble1->real_get()[0],
 				_pDouble2->real_get()[0], _pDouble2->img_get()[0],
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iPowerComplexScalarByRealScalar(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
+				_pDouble1->real_get()[0], _pDouble1->img_get()[0],
 				_pDouble2->real_get()[0],
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
@@ -67,28 +67,28 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iPowerRealScalarByRealMatrix(
-				_pDouble1->real_get()[0], 
+				_pDouble1->real_get()[0],
 				_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
 			iPowerRealScalarByComplexMatrix(
-				_pDouble1->real_get()[0], 
+				_pDouble1->real_get()[0],
 				_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iPowerComplexScalarByRealMatrix(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
+				_pDouble1->real_get()[0], _pDouble1->img_get()[0],
 				_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{
 			iPowerComplexScalarByComplexMatrix(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
+				_pDouble1->real_get()[0], _pDouble1->img_get()[0],
 				_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
@@ -96,13 +96,13 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 	else if(bScalar2 && ( _pDouble1->rows_get() == 1 || _pDouble1->cols_get() == 1 ))
 	{//_pDouble1 is a vector and _pDouble is a scalar
 		*_pDoubleOut = new Double(_pDouble1->rows_get(),_pDouble1->cols_get() , true);
-		
+
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 				iPowerRealScalarByRealScalar(
-					_pDouble1->real_get()[i], 
+					_pDouble1->real_get()[i],
 					_pDouble2->real_get()[0],
 					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i], &iComplex);
 			}
@@ -112,7 +112,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 				iPowerRealScalarByComplexScalar(
-					_pDouble1->real_get()[i], 
+					_pDouble1->real_get()[i],
 					_pDouble2->real_get()[0], _pDouble2->img_get()[0],
 					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i]);
 			}
@@ -122,7 +122,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 			iPowerComplexScalarByRealScalar(
-				_pDouble1->real_get()[i], _pDouble1->img_get()[i], 
+				_pDouble1->real_get()[i], _pDouble1->img_get()[i],
 				_pDouble2->real_get()[0],
 					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i]);
 			}
@@ -145,7 +145,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		{
 			iPowerRealSquareMatrixByRealScalar(
 				_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-				_pDouble2->real_get()[0], 
+				_pDouble2->real_get()[0],
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
@@ -155,7 +155,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		{
 			iPowerComplexSquareMatrixByRealScalar(
 				_pDouble1->real_get(), _pDouble1->img_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-				_pDouble2->real_get()[0], 
+				_pDouble2->real_get()[0],
 				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
@@ -170,7 +170,7 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 	return 0;
 }
 
-int PowerPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly** _pPolyOut)
+int PowerPolyByDouble(MatrixPoly const* _pPoly, Double const* _pDouble, MatrixPoly** _pPolyOut)
 {
 	return 0;
 }

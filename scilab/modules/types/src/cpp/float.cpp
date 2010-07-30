@@ -108,13 +108,13 @@ namespace types
 			m_pfImg = NULL;
 	}
 
-	Float* Float::clone()
+	Float* Float::clone() const
 	{
 		// FIXME : Implement me.
 		return NULL;
 	}
 
-	bool Float::isComplex()
+	bool Float::isComplex() const
 	{
 		return m_bComplex;
 	}
@@ -123,7 +123,7 @@ namespace types
 	/*	real_get	*/
 	/*------------*/
 	float*	Float::real_get() const
-	{ 
+	{
 		return m_pfReal;
 	}
 
@@ -131,7 +131,7 @@ namespace types
 	/*	img_get	*/
 	/*------------*/
 	float*	Float::img_get() const
-	{ 
+	{
 		return m_pfImg;
 	}
 
@@ -159,7 +159,7 @@ namespace types
 	/*	real_get	*/
 	/*------------*/
 	float	Float::real_get(int _iRows, int _iCols) const
-	{ 
+	{
 		if(m_pfReal != NULL)
 		{
 			return m_pfReal[_iCols * m_iRows + _iRows];
@@ -194,7 +194,7 @@ namespace types
 	/*	img_get	*/
 	/*------------*/
 	float	Float::img_get(int _iRows, int _iCols) const
-	{ 
+	{
 		if(m_pfImg != NULL)
 		{
 			return m_pfImg[_iCols * m_iRows + _iRows];
@@ -208,25 +208,29 @@ namespace types
 	/*--------------*/
 	/*		whoIAm		*/
 	/*--------------*/
-	void Float::whoAmI() 
-	{ 
-		std::cout << "types::Float"; 
+	void Float::whoAmI()  const
+	{
+		std::cout << "types::Float";
 	}
 
 	/*--------------*/
 	/*	getAsUInt		*/
 	/*--------------*/
-	Float* Float::getAsFloat(void)		
-	{ 
-		return this; 
+	Float* Float::getAsFloat(void)
+	{
+		return this;
+	}
+	Float const* Float::getAsFloat(void)const
+	{
+		return this;
 	}
 
 	/*------------*/
 	/*	getType		*/
 	/*------------*/
-	GenericType::RealType Float::getType(void)
+	GenericType::RealType Float::getType(void) const
 	{
-		return RealFloat; 
+		return RealFloat;
 	}
 
 	/*--------------*/
@@ -326,10 +330,10 @@ namespace types
 		else
 			return false;
 
-		return true;	
+		return true;
 	}
 
-	bool Float::operator==(const InternalType& it)
+	bool Float::operator==(const InternalType& it) const
 	{
 		if(const_cast<InternalType &>(it).getType() != RealFloat)
 		{
@@ -365,12 +369,12 @@ namespace types
 		return true;
 	}
 
-	bool Float::operator!=(const InternalType& it)
+	bool Float::operator!=(const InternalType& it) const
 	{
 		return !(*this == it);
 	}
 
-	GenericType*	Float::get_col_value(int _iPos)
+	GenericType*	Float::get_col_value(int _iPos) const
 	{
 		Float *pf = NULL;
 		if(_iPos < m_iCols)
@@ -424,7 +428,7 @@ namespace types
 		return true;
 	}
 
-	std::string Float::toString(int _iPrecision, int _iLineLen) 
+	std::string Float::toString(int _iPrecision, int _iLineLen)  const
 	{
 		std::ostringstream ostr;
 		// FIXME : Implement display method.

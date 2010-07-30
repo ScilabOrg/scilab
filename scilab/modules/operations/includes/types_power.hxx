@@ -13,12 +13,12 @@
 #ifndef __TYPES_POWER_HXX__
 #define __TYPES_POWER_HXX__
 
-#include "alltypes.hxx" 
+#include "alltypes.hxx"
 #include "operation.hxx"
 
 using namespace types;
 
-EXTERN_OP int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut);
-EXTERN_OP int PowerPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly** _pPolyOut);
+EXTERN_OP int PowerDoubleByDouble(Double const* _pDouble1, Double const* _pDouble2, Double** _pDoubleOut);
+EXTERN_OP int PowerPolyByDouble(MatrixPoly const* _pPoly, Double const* _pDouble, MatrixPoly** _pPolyOut);
 
 #endif /* __TYPES_POWER_HXX__ */

@@ -145,7 +145,7 @@ namespace types
 //		zero_set();
 	}
 
-	bool Double::isComplex()
+	bool Double::isComplex()const
 	{
 		return m_bComplex;
 	}
@@ -295,7 +295,7 @@ namespace types
 	/*--------------*/
 	/*		whoIAm		*/
 	/*--------------*/
-	void Double::whoAmI()
+	void Double::whoAmI()const
 	{
 		std::cout << "types::Double";
 	}
@@ -307,11 +307,15 @@ namespace types
 	{
 		return this;
 	}
+	Double const* Double::getAsDouble(void)const
+	{
+		return this;
+	}
 
 	/*------------*/
 	/*	getType		*/
 	/*------------*/
-	GenericType::RealType Double::getType(void)
+	GenericType::RealType Double::getType(void)const
 	{
 		return RealDouble;
 	}
@@ -410,7 +414,7 @@ namespace types
 		return true;
 	}
 
-	string Double::toString(int _iPrecision, int _iLineLen)
+	string Double::toString(int _iPrecision, int _iLineLen)const
 	{
 		ostringstream ostr;
 		//if(isComplex() == false)
@@ -778,7 +782,7 @@ namespace types
 		return ostr.str();
 	}
 
-	Double* Double::clone()
+	Double* Double::clone()const
 	{
 		double *pReal		= NULL;
 
@@ -842,14 +846,14 @@ namespace types
 							m_pdblReal[(i * _iNewRows) + j] = m_pdblReal[(i * rows_get()) + j];
 							m_pdblImg[(i * _iNewRows) + j] 	= m_pdblImg[(i * rows_get()) + j];
 						}
-						
+
 						//fill zero at the end of column
 						memset(m_pdblReal + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 						memset(m_pdblImg + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 					}
 				}
-			}	
-			
+			}
+
 		}
 		else
 		{
@@ -857,7 +861,7 @@ namespace types
 			{
 				//alloc 10% bigger than asked to prevent future resize
 				m_iSizeMax = static_cast<int>(_iNewRows * _iNewCols * 1.1);
-				
+
 				pdblReal	= new double[m_iSizeMax];
 				memset(pdblReal, 0x00, sizeof(double) * m_iSizeMax);
 
@@ -883,12 +887,12 @@ namespace types
 						{
 							m_pdblReal[(i * _iNewRows) + j] = m_pdblReal[(i * rows_get()) + j];
 						}
-						
+
 						//fill zero at the end of column
 						memset(m_pdblReal + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 					}
 				}
-			}	
+			}
 		}
 
 		m_iRows = _iNewRows;
@@ -949,7 +953,7 @@ namespace types
             for(int i = 0 ; i < iCols ; i++)
             {
                 //memcpy version
-/*                
+/*
                 int iDestOffset = i * m_iRows + _iRows;
                 int iOrigOffset = i * _poSource->rows_get();
                 if(_poSource->rows_get() == 1)
@@ -960,7 +964,7 @@ namespace types
                 {
                     memcpy(m_pdblReal + iDestOffset, _poSource->real_get() + iOrigOffset, _poSource->rows_get() * sizeof(double));
                 }
-*/                
+*/
                 //loop version
 /*
                 int iDestOffset = i * m_iRows + _iRows;
@@ -1049,7 +1053,7 @@ namespace types
 		return true;
 	}
 
-	bool Double::operator==(const InternalType& it)
+	bool Double::operator==(const InternalType& it)const
 	{
 		if(const_cast<InternalType &>(it).getType() != RealDouble)
 		{
@@ -1085,12 +1089,12 @@ namespace types
 		return true;
 	}
 
-	bool Double::operator!=(const InternalType& it)
+	bool Double::operator!=(const InternalType& it)const
 	{
 		return !(*this == it);
 	}
 
-	GenericType*	Double::get_col_value(int _iPos)
+	GenericType*	Double::get_col_value(int _iPos)const
 	{
 		Double *pdbl = NULL;
 		if(_iPos < m_iCols)
@@ -1291,8 +1295,8 @@ namespace types
 
 	Double* Double::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Double* _poSource, bool _bAsVector)
 	{
-		Double* pdbl	= NULL ; 
-		
+		Double* pdbl	= NULL ;
+
 		if(_bAsVector)
 		{
 			if(_poSource->cols_get() == 1)
@@ -1323,7 +1327,7 @@ namespace types
 		return pdbl;
 	}
 
-	Double* Double::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	Double* Double::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const
 	{
 		Double *pOut	= NULL;
 		int iRowsOut	= 0;
@@ -1403,7 +1407,7 @@ namespace types
 				}
 			}
 		}
-		
+
 		return pOut;
 	}
 }

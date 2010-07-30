@@ -176,10 +176,10 @@ namespace ast
 		{
 		  e.head_get()->accept(execHead);
 		}
-		catch (string sz) 
+		catch (string sz)
 		  {
 		    throw sz;
-		  } 
+		  }
 		if (execHead.result_get() != NULL && !execHead.result_get()->isStruct())
 		  {
 		    char szError[bsiz];
@@ -204,7 +204,7 @@ namespace ast
 			  {
 			    result_set(psValue->get(psvRightMember->name_get())->clone());
 			  }
-			else 
+			else
 			  {
 			    char szError[bsiz];
 #ifdef _MSC_VER
@@ -256,7 +256,7 @@ namespace ast
 					execVar[j].result_set(pIL->extract_matrix());
 					delete pIL;
 				}
-				
+
 				if(execVar[j].is_single_result())
 				{
 						in.push_back(execVar[j].result_get());
@@ -271,11 +271,11 @@ namespace ast
 					}
 				}
 			}
-			
+
 			int iRetCount = Max(1, expected_size_get());
 			OriginalVisitor execCall;
 			Function::ReturnValue Ret = pCall->call(in, iRetCount, out, &execCall);
-			
+
 			if(Ret == Callable::OK)
 			{
 				if(expected_size_get() == 1 && out.size() == 0) //to manage ans
@@ -292,7 +292,7 @@ namespace ast
 				{
 					result_set(out[0]);
 				}
-				else 
+				else
 				{
 					for(int i = 0 ; i < out.size() ; i++)
 					{
@@ -312,12 +312,12 @@ namespace ast
 				throw string(szError);
 			}
 
-			
+
 			for (j = 0; j < e.args_get().size(); j++)
 			{
 				execVar[j].result_get()->DecreaseRef();
 			}
-			
+
 //			std::cout << "before delete[]" << std::endl;
 			delete[] execVar;
 //			std::cout << "after delete[]" << std::endl;
@@ -356,7 +356,7 @@ namespace ast
 			case InternalType::RealDouble :
 				pOut = pIT->getAsDouble()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
 				break;
-			case InternalType::RealBool : 
+			case InternalType::RealBool :
 				pOut = pIT->getAsBool()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
 				break;
 			case InternalType::RealInt :
@@ -390,7 +390,7 @@ namespace ast
 				}
 				result_set(pOut);
 			}
-			else 
+			else
 			{
 				if(ResultList.size() == 0)
 				{
@@ -400,7 +400,7 @@ namespace ast
 					throw os.str();
 				}
 			}
-			
+
 			delete[] piDimSize;
 			delete[] piIndexSeq;
 			delete[] piMaxDim;
@@ -412,6 +412,7 @@ namespace ast
 #ifdef _MSC_VER
 			sprintf_s(pst, bsiz, _("Undefined variable %s.\n"), e.name_get());
 #else
+// FIXME cannot pass objects of non-POD type ‘const class ast::Exp’ through ‘...’; call will abort at runtime
 			sprintf(pst, _("Undefined variable %s.\n"), e.name_get());
 #endif
 			throw string(pst);
@@ -570,7 +571,7 @@ namespace ast
 					break;
 				}
 			}
-			
+
 			pVar->DecreaseRef();
 		}
 		else
@@ -579,7 +580,7 @@ namespace ast
 			GenericType* pVar = (GenericType*)execVar.result_get();
 			for(int i = 0 ; i < pVar->cols_get() ; i++)
 			{
-				GenericType* pNew = pVar->get_col_value(i);
+				GenericType const* pNew = pVar->get_col_value(i);
 				symbol::Context::getInstance()->put(e.vardec_get().name_get(), *pNew);
 				e.body_get().accept(execBody);
 				if(e.body_get().is_break())
@@ -607,7 +608,7 @@ namespace ast
 		{//return(x)
 			OriginalVisitor execVar;
 			e.exp_get().accept(execVar);
-			
+
 			for(int i = 0 ; i < execVar.result_size_get() ; i++)
 			{
 				result_set(i, execVar.result_get(i)->clone());
@@ -623,7 +624,7 @@ namespace ast
 		e.select_get()->accept(execMe);
 		bool bCase = false;
 
-		
+
 		if(execMe.result_get() != NULL)
 		{//find good case
 			cases_t::iterator it;
@@ -656,7 +657,7 @@ namespace ast
 
 	void OriginalVisitor::visit(const CaseExp &e)
 	{
-	  // FIXME : case ... 
+	  // FIXME : case ...
 	}
 
 
@@ -1061,14 +1062,14 @@ namespace ast
 			throw string(st);
 		}
 		catch(string sz)
-		{		
+		{
 			//TODO YaSp : Overloading
 			throw sz;
 		}
 	}
 	/** \} */
 
-			
+
 	int OriginalVisitor::GetIndexList(std::list<ast::Exp *>const& _plstArg, int** _piIndexSeq, int** _piMaxDim, InternalType *_pRefVar, int *_iDimSize)
 	{
 		//Create list of indexes

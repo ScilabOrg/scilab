@@ -59,6 +59,8 @@ namespace types
 			return &m_poPolyMatrix[_iCols * m_iRows + _iRows];
 		}
 	}
+	Poly const* MatrixPoly::poly_get(int _iRows, int _iCols) const
+	{ return const_cast<MatrixPoly*>(this)->poly_get( _iRows, _iCols); }
 
 	Poly* MatrixPoly::poly_get(int _iIdx)
 	{
@@ -72,12 +74,15 @@ namespace types
 		}
 	}
 
-	bool MatrixPoly::poly_set(int _iRows, int _iCols, Double *_pdblCoef)
+	Poly const* MatrixPoly::poly_get(int _iIdx) const
+	{ return const_cast<MatrixPoly*>(this)->poly_get(_iIdx); }
+
+	bool MatrixPoly::poly_set(int _iRows, int _iCols, Double const*_pdblCoef)
 	{
 		return poly_set(_iCols * m_iRows + _iRows, _pdblCoef);
 	}
 
-	bool MatrixPoly::poly_set(int _iIdx, Double *_pdblCoef)
+	bool MatrixPoly::poly_set(int _iIdx, Double const*_pdblCoef)
 	{
 		if(_iIdx < m_iSize)
 		{
@@ -94,7 +99,7 @@ namespace types
 		return true;
 	}
 
-	bool MatrixPoly::rank_get(int *_piRank)
+	bool MatrixPoly::rank_get(int *_piRank) const
 	{
 		if(_piRank == NULL || m_poPolyMatrix == NULL)
 		{
@@ -113,22 +118,27 @@ namespace types
 		return this;
 	}
 
-	GenericType::RealType MatrixPoly::getType()
+	MatrixPoly const* MatrixPoly::getAsPoly()const
+	{
+		return this;
+	}
+
+	GenericType::RealType MatrixPoly::getType() const
 	{
 		return RealPoly;
 	}
 
-	void MatrixPoly::whoAmI(void)
+	void MatrixPoly::whoAmI(void) const
 	{
 		std::cout << "types::Poly";
 	}
 
-	bool MatrixPoly::isComplex(void)
+	bool MatrixPoly::isComplex(void) const
 	{
 		return m_bComplex;
 	}
 
-	string MatrixPoly::var_get()
+	string MatrixPoly::var_get() const
 	{
 		return m_szVarName;
 	}
@@ -145,7 +155,7 @@ namespace types
 		}
 	}
 
-	MatrixPoly& MatrixPoly::operator= (MatrixPoly& poPoly)
+	MatrixPoly& MatrixPoly::operator= (MatrixPoly const& poPoly)
 	{
 		m_iRows			= (&poPoly)->rows_get();
 		m_iCols			= (&poPoly)->cols_get();
@@ -163,7 +173,7 @@ namespace types
 			m_poPolyMatrix[i].CreatePoly(NULL, NULL, piRank[i]);
 			if(m_poPolyMatrix[i].isComplex())
 				m_bComplex = true;
-			Double *pCoef = (&poPoly)->poly_get(i)->coef_get();
+			Double const*pCoef = (&poPoly)->poly_get(i)->coef_get();
 			m_poPolyMatrix[i].coef_set(pCoef);
 
 		}
@@ -243,7 +253,7 @@ namespace types
 		}
 	}
 
-	int MatrixPoly::rank_max_get(void)
+	int MatrixPoly::rank_max_get(void) const
 	{
 		int *piRank = new int[size_get()];
 		rank_get(piRank);
@@ -255,7 +265,7 @@ namespace types
 		return iMaxRank;
 	}
 
-	Double* MatrixPoly::coef_get(void)
+	Double* MatrixPoly::coef_get(void) const
 	{
 		int iMaxRank = rank_max_get();
 		Double *pCoef = new Double(rows_get(), cols_get() * iMaxRank, false);
@@ -271,7 +281,7 @@ namespace types
 		{
 			for(int i = 0 ; i < size_get() ; i++)
 			{
-				Poly *pPoly	= poly_get(i);
+				Poly const*pPoly	= poly_get(i);
 				if(iRank > pPoly->rank_get())
 				{
 					pCoefR[iRank * size_get() + i] = 0;
@@ -296,7 +306,7 @@ namespace types
 		return pCoef;
 	}
 
-	void MatrixPoly::coef_set(Double *_pCoef)
+	void MatrixPoly::coef_set(Double const*_pCoef)
 	{
 		int iMaxRank = rank_max_get();
 
@@ -323,7 +333,7 @@ namespace types
 		}
 	}
 
-	std::string	MatrixPoly::toString(int _iPrecison, int _iLineLen)
+	std::string	MatrixPoly::toString(int _iPrecison, int _iLineLen) const
 	{
 		ostringstream ostr;
 		ostringstream osExp;
@@ -407,7 +417,7 @@ namespace types
 		return ostr.str();
 	}
 
-	string MatrixPoly::GetMatrixString(int _iPrecison, int _iLineLen, bool _bComplex)
+	string MatrixPoly::GetMatrixString(int _iPrecison, int _iLineLen, bool _bComplex) const
 	{
 		ostringstream ostr;
 		ostringstream osExp;
@@ -605,7 +615,7 @@ namespace types
 		return ostr.str();
 	}
 
-	string MatrixPoly::GetRowString(int _iPrecison, int _iLineLen, bool _bComplex)
+	string MatrixPoly::GetRowString(int _iPrecison, int _iLineLen, bool _bComplex) const
 	{
 		int iLen				= 0;
 		int iLastFlush	= 0;
@@ -691,7 +701,7 @@ namespace types
 		return ostr.str();
 	}
 
-	string MatrixPoly::GetColString(int _iPrecison, int _iLineLen, bool _bComplex)
+	string MatrixPoly::GetColString(int _iPrecison, int _iLineLen, bool _bComplex) const
 	{
 		ostringstream ostr;
 		ostringstream osExp;
@@ -744,7 +754,7 @@ namespace types
 		}
 		return true;
 	}
-	Double* MatrixPoly::extract_coef(int _iRank)
+	Double* MatrixPoly::extract_coef(int _iRank) const
 	{
 		Double *pdbl	= new Double(m_iRows, m_iCols, m_bComplex);
 		double *pReal	= pdbl->real_get();
@@ -752,7 +762,7 @@ namespace types
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			Poly *pPoly = poly_get(i);
+			Poly const*pPoly = poly_get(i);
 
 			if(pPoly->rank_get() <= _iRank)
 			{
@@ -796,14 +806,14 @@ namespace types
 		return true;
 	}
 
-	bool MatrixPoly::operator==(const InternalType& it)
+	bool MatrixPoly::operator==(const InternalType& it) const
 	{
-		if(const_cast<InternalType &>(it).getType() != RealPoly)
+		if(it.getType() != RealPoly)
 		{
 			return false;
 		}
 
-		MatrixPoly* pM = const_cast<InternalType &>(it).getAsPoly();
+		MatrixPoly const* pM = it.getAsPoly();
 
 		if(pM->rows_get() != rows_get() || pM->cols_get() != cols_get())
 		{
@@ -817,8 +827,8 @@ namespace types
 
 		for(int i = 0 ; i < size_get() ; i++)
 		{
-			Poly* p1 = poly_get(i);
-			Poly* p2 = pM->poly_get(i);
+			Poly const* p1 = poly_get(i);
+			Poly const* p2 = pM->poly_get(i);
 
 			if(*p1 != *p2)
 			{
@@ -828,12 +838,12 @@ namespace types
 		return true;
 	}
 
-	bool MatrixPoly::operator!=(const InternalType& it)
+	bool MatrixPoly::operator!=(const InternalType& it)const
 	{
 		return !(*this == it);
 	}
 
-	GenericType* MatrixPoly::get_col_value(int _iPos)
+	GenericType* MatrixPoly::get_col_value(int _iPos)const
 	{
 		MatrixPoly* pMP = NULL;
 		if(_iPos < cols_get())

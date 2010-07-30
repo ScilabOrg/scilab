@@ -171,7 +171,7 @@ namespace symbol
 				}
 				else if((*it_scope).second->isString())
 				{
-					String *psz = (*it_scope).second->getAsString();
+					String const *psz = (*it_scope).second->getAsString();
 					ostr << psz->DimToString() << endl;
 					ostr << psz->toString(10, 75);
 					ostr << endl;

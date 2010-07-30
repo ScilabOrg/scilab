@@ -77,10 +77,10 @@ void visitprivate(const OpExp &e)
         }
         else if(TypeL == GenericType::RealString && TypeR == GenericType::RealString)
         {
-            String *pL = execMeL.result_get()->getAsString();
-            String *pR = execMeR.result_get()->getAsString();
+            String const*pL = execMeL.result_get()->getAsString();
+            String const*pR = execMeR.result_get()->getAsString();
 
-            int iResult = AddStringToString(pL, pR, (String**)&pResult);
+            int iResult = AddStringToString(pL, pR, (String **)&pResult);
 
             if(iResult != 0)
             {
@@ -354,7 +354,7 @@ void visitprivate(const OpExp &e)
             Double *pL			= execMeL.result_get()->getAsDouble();
             Double *pR			= execMeR.result_get()->getAsDouble();
 
-					
+
             int iResult = DotMultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
             if(iResult)
             {
@@ -419,8 +419,8 @@ void visitprivate(const OpExp &e)
         }
         else if(TypeL == GenericType::RealString && TypeR == GenericType::RealString)
         {
-            String *pL			= execMeL.result_get()->getAsString();
-            String *pR			= execMeR.result_get()->getAsString();
+            String const*pL			= execMeL.result_get()->getAsString();
+            String const*pR			= execMeR.result_get()->getAsString();
 
             if(pL->size_get() == 1)
             {
@@ -497,8 +497,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             if(pR->size_get() == 1)
             {
@@ -548,8 +548,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             if(pR->size_get() == 1)
             {
@@ -599,8 +599,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             if(pR->size_get() == 1)
             {
@@ -650,8 +650,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             if(pR->size_get() == 1)
             {
@@ -702,8 +702,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             if(pR->size_get() == 1)
             {
@@ -753,8 +753,8 @@ void visitprivate(const OpExp &e)
     {
         if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            Double const*pL			= execMeL.result_get()->getAsDouble();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             int iResult = PowerDoubleByDouble(pL, pR, (Double**)&pResult);
             if(iResult != 0)
@@ -768,8 +768,8 @@ void visitprivate(const OpExp &e)
         }
         else if(TypeL == GenericType::RealPoly && TypeR == GenericType::RealDouble)
         {
-            MatrixPoly *pL	= execMeL.result_get()->getAsPoly();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            MatrixPoly const*pL	= execMeL.result_get()->getAsPoly();
+            Double const*pR			= execMeR.result_get()->getAsDouble();
 
             int iResult = PowerPolyByDouble(pL, pR, (MatrixPoly**)&pResult);
             if(iResult != 0)
@@ -803,10 +803,10 @@ void visitprivate(const LogicalOpExp &e)
 
     if(TypeL == GenericType::RealImplicitList)
     {
-        ImplicitList* pIL = execMeL.result_get()->getAsImplicitList();
+        ImplicitList const* pIL = execMeL.result_get()->getAsImplicitList();
         if(pIL->computable())
         {
-            InternalType *pIT = pIL->extract_matrix();
+            InternalType const*pIT = pIL->extract_matrix();
             execMeL.result_set(pIT);
             TypeL = pIT->getType();
         }
@@ -829,7 +829,7 @@ void visitprivate(const LogicalOpExp &e)
         if(TypeL == GenericType::RealBool)
         {
 
-            Bool *pL	= execMeL.result_get()->getAsBool();
+            Bool const*pL	= execMeL.result_get()->getAsBool();
             int *piL	= pL->bool_get();
             int iL		= true;
 
@@ -854,10 +854,10 @@ void visitprivate(const LogicalOpExp &e)
 
                 if(TypeR == GenericType::RealImplicitList)
                 {
-                    ImplicitList* pIL = execMeR.result_get()->getAsImplicitList();
+                    ImplicitList const* pIL = execMeR.result_get()->getAsImplicitList();
                     if(pIL->computable())
                     {
-                        InternalType *pIT = pIL->extract_matrix();
+                        InternalType const*pIT = pIL->extract_matrix();
                         execMeR.result_set(pIT);
                         TypeR = pIT->getType();
                     }
@@ -865,7 +865,7 @@ void visitprivate(const LogicalOpExp &e)
 
                 if(TypeR == GenericType::RealBool)
                 {
-                    Bool *pR	= execMeR.result_get()->getAsBool();
+                    Bool const*pR	= execMeR.result_get()->getAsBool();
                     int* piR = pR->bool_get();
                     int* piL = pL->bool_get();
 

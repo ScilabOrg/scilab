@@ -1,13 +1,13 @@
 /*
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
-* 
+*
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
 *  you should have received as part of this distribution.  The terms
 *  are also available at
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-* 
+*
 */
 
 #include <sstream>
@@ -16,7 +16,7 @@
 #include "listundefined.hxx"
 #include "listinsert.hxx"
 
-namespace types 
+namespace types
 {
 	/**
 	** Constructor & Destructor (public)
@@ -26,7 +26,7 @@ namespace types
 		m_plData = new std::vector<InternalType *>();
 	}
 
-	List::~List() 
+	List::~List()
 	{
 		if(isDeletable() == true)
 		{
@@ -34,24 +34,27 @@ namespace types
 		}
 	}
 
-	/** 
+	/**
 	** Private Copy Constructor and data Access
 	*/
-	List::List(List *_oListCopyMe)
+	List::List(List const&_oListCopyMe)
 	{
-		std::vector<InternalType *>::iterator itValues;
-		m_plData = new std::vector<InternalType *>(_oListCopyMe->getData()->size());
 
-		for(int i = 0 ; i < _oListCopyMe->getData()->size() ; i++)
-		{
-			InternalType* pIT = (*_oListCopyMe->getData())[i];
-			(*m_plData)[i] = pIT->clone();
-		}
+        std::vector<InternalType *> const* data(_oListCopyMe.getData());
 
+		m_plData = new std::vector<InternalType *>(data->size());
+        for(std::size_t i(0); i != data->size(); ++i)
+        {
+            (*m_plData)[i]= (*data)[i]->clone();
+        }
 		m_iSize = (int)m_plData->size();
 	}
 
 	std::vector<InternalType *> *List::getData()
+	{
+		return m_plData;
+	}
+	std::vector<InternalType *>const * List::getData() const
 	{
 		return m_plData;
 	}
@@ -60,7 +63,7 @@ namespace types
 	** size_get
 	** Return the number of elements in list
 	*/
-	int List::size_get() 
+	int List::size_get() const
 	{
 		return (int)m_plData->size();
 	}
@@ -79,16 +82,16 @@ namespace types
 	** Clone
 	** Create a new List and Copy all values.
 	*/
-	List *List::clone()
+	List *List::clone() const
 	{
-		return new List(this);
+		return new List(*this);
 	}
 
 	/**
 	** toString to display Lists
 	** FIXME : Find a better indentation process
 	*/
-	std::string List::toString(int _iPrecision, int _iLineLen)
+	std::string List::toString(int _iPrecision, int _iLineLen)const
 	{
 		std::ostringstream ostr;
 

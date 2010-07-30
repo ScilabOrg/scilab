@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2010 - DIGITEO - Antoine ELIAS
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #ifndef __LISTOPERATION_HXX__
@@ -24,20 +24,21 @@ namespace types
                                 ListOperation(): InternalType(){};
         virtual                 ~ListOperation();
 
-        ListOperation*          clone();
+        ListOperation*          clone()const;
 
         ListOperation*          getAsListOperation(void);
-        RealType                getType(void);
+        ListOperation const*          getAsListOperation(void) const;
+        RealType                getType(void) const;
 
-        void                    whoAmI();
+        void                    whoAmI()const;
 
-        std::string             toString(int _iPrecision, int _iLineLen);
-        virtual bool            isAssignable(void) { return false; }
+        std::string             toString(int _iPrecision, int _iLineLen)const;
+        virtual bool            isAssignable(void)const { return false; }
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("listoperation");}
+        virtual std::string     getTypeStr()const {return string("listoperation");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("");}
+        virtual std::string     getShortTypeStr()const {return string("");}
     };
 }
 

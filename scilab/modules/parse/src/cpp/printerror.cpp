@@ -14,7 +14,7 @@
 #include <string>
 #include "parser.hxx"
 
-void Parser::PrintError(std::string msg) {
+void Parser::PrintError(std::string const& msg) {
  int i = 0;
 
  // FIXME : Should work under Windows
@@ -66,6 +66,6 @@ void Parser::PrintError(std::string msg) {
  //yylloc.first_line -= yylloc.last_line;
  //yylloc.last_line = yylloc.first_line;
  //yylloc.last_column = yylloc.first_column;
- 
+
  Parser::getInstance()->appendErrorMessage(ostr.str());
 }

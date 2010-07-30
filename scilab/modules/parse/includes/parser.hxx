@@ -119,9 +119,9 @@ public:
       }
     return AllControlClosed;
   }
-  void pushControlStatus(ControlStatus control_status) { 
+  void pushControlStatus(ControlStatus control_status) {
     //std::cout << "Push front : " << control_status << std::endl;
-    _control_status->push_front(control_status); 
+    _control_status->push_front(control_status);
   }
   void popControlStatus(void) {
     if(!_control_status->empty())
@@ -153,7 +153,7 @@ public:
   */
   char* getCodeLine(int line, char **codeLine);
 
-  static void PrintError(std::string msg);
+  static void PrintError(std::string const& msg);
 
 private :
   static Parser* me;

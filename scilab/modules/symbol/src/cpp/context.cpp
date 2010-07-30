@@ -88,14 +88,14 @@ namespace symbol
 		return EnvFunTable.get_funlist(_stModuleName);
 	}
 
-	bool Context::put(const string& key, InternalType &type)
+	bool Context::put(const string& key, InternalType const&type)
 	{
 		// FIXME
-		EnvVarTable.put(key, type);
+		EnvVarTable.put(key, const_cast<InternalType&>(type));
 		return true;
 	}
 
-	bool Context::put_in_previous_scope(const string& key, InternalType &type)
+	bool Context::put_in_previous_scope(const string& key, InternalType const&type)
 	{
 		// FIXME
 		EnvVarTable.put_in_previous_scope(key, type);

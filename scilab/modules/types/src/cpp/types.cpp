@@ -16,29 +16,29 @@
 namespace types
 {
 	/*commun functions*/
-	int GenericType::cols_get()
+	int GenericType::cols_get() const
 	{
 		return m_iCols;
 	}
 
-	int GenericType::rows_get()
+	int GenericType::rows_get() const
 	{
 		return m_iRows;
 	}
 
-	int GenericType::size_get()
+	int GenericType::size_get() const
 	{
 		return m_iSize;
 	}
 
-	std::string GenericType::DimToString()
+	std::string GenericType::DimToString() const
 	{
 		std::ostringstream ostr;
 		ostr << "(" << rows_get() << " x " << cols_get() << ")";
 		return ostr.str();
 	}
 
-	bool GenericType::isIdentity(void)
+	bool GenericType::isIdentity(void) const
 	{
 		if(m_iRows == -1 && m_iCols == -1)
 		{

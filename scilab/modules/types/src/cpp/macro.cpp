@@ -1,13 +1,13 @@
 /*
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2009-2009 - DIGITEO - Bruno JOFRET
-* 
+*
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
 *  you should have received as part of this distribution.  The terms
 *  are also available at
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-* 
+*
 */
 
 #include <sstream>
@@ -41,19 +41,23 @@ namespace types
 	/*--------------*/
 	/*	whoIAm		  */
 	/*--------------*/
-	void Macro::whoAmI()
+	void Macro::whoAmI()const
 	{
 		std::cout << "types::Macro";
 	}
 
 	Macro* Macro::getAsMacro(void)
 	{
-		return this; 
+		return this;
+	}
+	Macro const* Macro::getAsMacro(void)const
+	{
+		return this;
 	}
 
-	InternalType::RealType Macro::getType(void)
-	{ 
-		return RealMacro; 
+	InternalType::RealType Macro::getType(void)const
+	{
+		return RealMacro;
 	}
 
 	ast::SeqExp* Macro::body_get(void)
@@ -61,7 +65,7 @@ namespace types
 		return m_body;
 	}
 
-	std::string Macro::toString(int _iPrecision, int _iLineLen)
+	std::string Macro::toString(int _iPrecision, int _iLineLen)const
 	{
 	  std::ostringstream ostr;
 
@@ -70,7 +74,7 @@ namespace types
 
 	  return ostr.str();
 	}
-	
+
 	Callable::ReturnValue Macro::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc)
 	{
 		ReturnValue RetVal = Callable::OK;
@@ -100,7 +104,7 @@ namespace types
 			m_body->accept(*execFunc);
 			if(m_body->is_return())
 			{
-				m_body->returnable_set();				
+				m_body->returnable_set();
 			}
 
 
@@ -130,7 +134,7 @@ namespace types
 		  YaspWrite("\n");
 			RetVal = Callable::Error;
 		}
-		
+
 		//close the current scope
 		pContext->scope_end();
 

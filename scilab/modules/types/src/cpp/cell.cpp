@@ -1,13 +1,13 @@
 /*
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
-* 
+*
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
 *  you should have received as part of this distribution.  The terms
 *  are also available at
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-* 
+*
 */
 
 #include <sstream>
@@ -17,7 +17,7 @@
 #include "double.hxx"
 #include "tostring_common.hxx"
 
-namespace types 
+namespace types
 {
     /**
     ** Constructor & Destructor (public)
@@ -41,8 +41,8 @@ namespace types
         m_iCols = _iCols;
 		m_iSize = m_iRows * m_iCols;
 
-        m_plData = new InternalType*[size_get()];
-        
+        m_plData = new InternalType const*[size_get()];
+
         Double* pEmpty = new Double(0,0);
         for(int i = 0 ; i < size_get() ; i++)
         {
@@ -51,14 +51,14 @@ namespace types
         }
     }
 
-    Cell::~Cell() 
+    Cell::~Cell()
     {
         if(isDeletable() == true)
         {
             for(int i = 0 ; i < size_get() ; i++)
             {
-                m_plData[i]->DecreaseRef();
-                if(m_plData[i]->isDeletable())
+                const_cast<InternalType*>(m_plData[i])->DecreaseRef();
+                if(const_cast<InternalType*>(m_plData[i])->isDeletable())
                 {
                     delete m_plData[i];
                 }
@@ -67,25 +67,35 @@ namespace types
         }
     }
 
-    /** 
+    /**
     ** Private Copy Constructor and data Access
     */
-    Cell::Cell(Cell *_oCellCopyMe)
+    Cell::Cell(Cell const&_oCellCopyMe)
     {
-        createCell(_oCellCopyMe->rows_get(), _oCellCopyMe->cols_get());
+        createCell(_oCellCopyMe.rows_get(), _oCellCopyMe.cols_get());
         for(int i = 0 ; i < size_get() ; i++)
         {
-            
+// TODO
         }
+    }
+
+    InternalType const* Cell::get(int _iIndex) const
+    {
+        return const_cast<Cell*>(this)->get(_iIndex);
     }
 
     InternalType* Cell::get(int _iIndex)
     {
         if(_iIndex < size_get())
         {
-            return m_plData[_iIndex];
+            return const_cast<InternalType*>(m_plData[_iIndex]);
         }
         return NULL;
+    }
+
+    InternalType const* Cell::get(int _iRows, int _iCols) const
+    {
+        return const_cast<Cell*>(this)->get(_iRows, _iCols);
     }
 
     InternalType* Cell::get(int _iRows, int _iCols)
@@ -97,7 +107,7 @@ namespace types
         return NULL;
     }
 
-    bool Cell::set(int _iRows, int _iCols, InternalType* _pIT)
+    bool Cell::set(int _iRows, int _iCols, InternalType const* _pIT)
     {
         if(_iRows < rows_get() && _iCols < cols_get())
         {
@@ -105,21 +115,21 @@ namespace types
         }
         return false;
     }
-     
-    bool Cell::set(int _iIndex, InternalType* _pIT)
+
+    bool Cell::set(int _iIndex, InternalType const* _pIT)
     {
         if(_iIndex < size_get())
         {
             if(m_plData[_iIndex] != NULL)
             {
-                m_plData[_iIndex]->DecreaseRef();
-                if(m_plData[_iIndex]->isDeletable())
+                const_cast<InternalType*>(m_plData[_iIndex])->DecreaseRef();
+                if(const_cast<InternalType*>(m_plData[_iIndex])->isDeletable())
                 {
                     delete m_plData[_iIndex];
                 }
             }
-            
-            _pIT->IncreaseRef();
+
+            const_cast<InternalType*>(_pIT)->IncreaseRef();
             m_plData[_iIndex] = _pIT;
             return true;
         }
@@ -130,7 +140,7 @@ namespace types
     ** size_get
     ** Return the number of elements in struct
     */
-    int Cell::size_get() 
+    int Cell::size_get() const
     {
         return m_iSize;
     }
@@ -139,19 +149,19 @@ namespace types
     ** Clone
     ** Create a new Struct and Copy all values.
     */
-    Cell *Cell::clone()
+    Cell *Cell::clone()const
     {
-        return new Cell(this);
+        return new Cell(*this);
     }
 
     /**
     ** toString to display Structs
     ** FIXME : Find a better indentation process
     */
-    std::string Cell::toString(int _iPrecision, int _iLineLen)
+    std::string Cell::toString(int _iPrecision, int _iLineLen)const
     {
         std::ostringstream ostr;
-       
+
         if(size_get() == 0)
         {
             ostr << "   {}";
@@ -173,7 +183,7 @@ namespace types
             {
                 for(int i = 0 ; i < rows_get() ; i++)
                 {
-                    InternalType* pIT = get(i,j);
+                    InternalType const* pIT = get(i,j);
 
                     std::string strType = pIT->getTypeStr();
                     if(pIT->isAssignable())
@@ -209,7 +219,7 @@ namespace types
             {
                 for(int j = 0 ; j < cols_get() ; j++)
                 {
-                    InternalType* pIT = get(i,j);
+                    InternalType const* pIT = get(i,j);
 
                     ostr << "  [";
                     if(pIT->isAssignable())
@@ -256,7 +266,7 @@ namespace types
         return true;
     }
 
-    bool Cell::operator==(const InternalType& it)
+    bool Cell::operator==(const InternalType& it)const
     {
 		if(const_cast<InternalType &>(it).getType() != RealCell)
 		{
@@ -282,13 +292,13 @@ namespace types
         }
         return true;
     }
-    
-    bool Cell::operator!=(const InternalType& it)
+
+    bool Cell::operator!=(const InternalType& it)const
     {
 		return !(*this == it);
     }
 
-    Cell* Cell::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+    Cell* Cell::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const
     {
 		Cell* pOut		= NULL;
 		int iRowsOut	= 0;

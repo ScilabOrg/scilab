@@ -17,17 +17,17 @@
 
 namespace types
 {
-  Function *Function::createFunction(std::string _stName, GW_FUNC _pFunc, std::string _stModule)
+  Function *Function::createFunction(std::string const& _stName, GW_FUNC _pFunc, std::string const& _stModule)
   {
     return new Function(_stName, _pFunc, _stModule);
   }
 
-  Function *Function::createFunction(std::string _stName, OLDGW_FUNC _pFunc, std::string _stModule)
+  Function *Function::createFunction(std::string const& _stName, OLDGW_FUNC _pFunc, std::string const& _stModule)
   {
     return new WrapFunction(_stName, _pFunc, _stModule);
   }
 
-  Function::Function(std::string _stName, GW_FUNC _pFunc, std::string _stModule):
+  Function::Function(std::string const& _stName, GW_FUNC _pFunc, std::string const& _stModule):
     Callable(),
     m_pFunc(_pFunc)
   {
@@ -42,9 +42,13 @@ namespace types
       }
   }
 
-  Function* Function::getAsFunction(void)		
+  Function* Function::getAsFunction(void)
   {
-    return this; 
+    return this;
+  }
+  Function const* Function::getAsFunction(void)const
+  {
+    return this;
   }
 
 	Function::ReturnValue Function::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc)
@@ -55,19 +59,19 @@ namespace types
   /*--------------*/
   /*		whoIAm		*/
   /*--------------*/
-  void Function::whoAmI() 
-  { 
-    std::cout << "types::Function"; 
+  void Function::whoAmI()const
+  {
+    std::cout << "types::Function";
   }
 
-  WrapFunction::WrapFunction(std::string _stName, OLDGW_FUNC _pFunc, std::string _stModule)
+  WrapFunction::WrapFunction(std::string const&_stName, OLDGW_FUNC _pFunc, std::string const&_stModule)
   {
     m_stName = _stName;
     m_pOldFunc = _pFunc;
     m_stModule = _stModule;
   }
 
-  Function::ReturnValue WrapFunction::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc) 
+  Function::ReturnValue WrapFunction::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc)
   {
       ReturnValue retVal = Callable::OK;
       GatewayStruct* pStr = new GatewayStruct();
@@ -119,7 +123,7 @@ namespace types
       return retVal;
   }
 
-  std::string Function::toString(int _iPrecision, int _iLineLen)
+  std::string Function::toString(int _iPrecision, int _iLineLen)const
   {
     std::ostringstream ostr;
 

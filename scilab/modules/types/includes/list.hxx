@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #include <list>
@@ -19,18 +19,19 @@ namespace types
     {
     public :
                                         List();
-                                        ~List(); 
+                                        ~List();
 
     private :
-                                        List(List *_oListCopyMe);
+                                        List(List const&_oListCopyMe);
         std::vector<InternalType *>*    getData();
+        std::vector<InternalType *>const*    getData() const;
 
     public :
-        int                             size_get(); 
+        int                             size_get() const;
 
-        void                            whoAmI(void) { std::cout << "types::List"; };
+        void                            whoAmI(void) const{ std::cout << "types::List"; };
 
-        RealType                        getType(void) { return RealList; } 
+        RealType                        getType(void) const{ return RealList; }
 
         /**
         ** append(InternalType *_typedValue)
@@ -42,19 +43,20 @@ namespace types
         ** Clone
         ** Create a new List and Copy all values.
         */
-        List*                           clone();
+        List*                           clone() const;
 
-        std::string                     toString(int _iPrecision, int _iLineLen);
+        std::string                     toString(int _iPrecision, int _iLineLen) const;
 
         List*                           getAsList(void) { return this; }
+        List const*                           getAsList(void)const { return this; }
 
         bool                            insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, vector<types::InternalType*>* _poSource, bool _bAsVector);
         std::vector<InternalType*>      extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string             getTypeStr() {return string("list");}
+        virtual std::string             getTypeStr()const {return string("list");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string             getShortTypeStr() {return string("l");}
+        virtual std::string             getShortTypeStr()const {return string("l");}
 
     private :
         std::vector<InternalType *>*    m_plData;

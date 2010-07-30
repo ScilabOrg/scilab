@@ -27,7 +27,7 @@ namespace types
                                 String(const char *_pcData);
         virtual                 ~String();
 
-        GenericType*            get_col_value(int _iPos);
+        GenericType*            get_col_value(int _iPos) const;
 
         char**                  string_get() const;
         char*                   string_get(int _iRows, int _iCols) const;
@@ -37,27 +37,28 @@ namespace types
         bool                    string_set(int _iRows, int _iCols, const char *_pcData);
         bool                    string_set(int _iPos, const char *_pcData);
 
-        void                    whoAmI();
+        void                    whoAmI() const;
 
         String*                 getAsString(void);
-        string                  toString(int _iPrecision, int _iLineLen);
+        String const*                 getAsString(void) const;
+        string                  toString(int _iPrecision, int _iLineLen) const;
 
         bool                    resize(int _iNewRows, int _iNewCols);
-        bool                    insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        static String*          insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String* _poSource, bool _bAsVector);
-        String*                 extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+        bool                    insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType const* _poSource, bool _bAsVector);
+        static String*          insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String const* _poSource, bool _bAsVector);
+        String*                 extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const;
 
-        bool                    operator==(const InternalType& it);
-        bool                    operator!=(const InternalType& it);
+        bool                    operator==(const InternalType& it)const;
+        bool                    operator!=(const InternalType& it)const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("string");}
+        virtual std::string     getTypeStr() const {return string("string");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("c");}
-        String*                 clone();
+        virtual std::string     getShortTypeStr() const {return string("c");}
+        String*                 clone() const;
 
     protected :
-        RealType                getType();//			{ return RealString; }
+        RealType                getType() const;//			{ return RealString; }
 
     private :
         char**                  m_pstData;

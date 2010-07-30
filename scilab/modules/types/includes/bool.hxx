@@ -27,7 +27,7 @@ namespace types
                                 Bool(int _iRows, int _iCols, int **_piData);
                                 ~Bool();
 
-		Bool*                   clone();
+		Bool*                   clone()const;
 
 		/*data management*/
 		int*                    bool_get() const;
@@ -42,27 +42,28 @@ namespace types
 		bool                    true_set();
 
 		/*Config management*/
-        void                    whoAmI();
-		bool                    isComplex();
+        void                    whoAmI()const;
+		bool                    isComplex()const;
 
        Bool*                    getAsBool(void);
-		string                  toString(int _iPrecision, int _iLineLen);
+       Bool const*                    getAsBool(void) const;
+		string                  toString(int _iPrecision, int _iLineLen)const;
 
 		bool                    resize(int _iNewRows, int _iNewCols);
 		bool                    insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
 		static Bool*            insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Bool* _poSource, bool _bAsVector);
-		Bool*                   extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+		Bool*                   extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const;
 
-		bool                    operator==(const InternalType& it);
-		bool                    operator!=(const InternalType& it);
+		bool                    operator==(const InternalType& it)const;
+		bool                    operator!=(const InternalType& it)const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("boolean");}
+        virtual std::string     getTypeStr()const {return string("boolean");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("b");}
+        virtual std::string     getShortTypeStr()const {return string("b");}
 
     protected :
-		RealType				getType(void);
+		RealType				getType(void)const;
 
     private :
 		/*clean values array*/

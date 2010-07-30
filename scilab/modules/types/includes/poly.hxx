@@ -31,42 +31,46 @@ namespace types
                                 ~Poly();
 
         // FIXME : Should not return NULL;
-        Poly*                   clone() { return NULL; }
+        Poly*                   clone() const{ return NULL; }
 
         Poly*                   getAsSinglePoly(void);
+        Poly const*                   getAsSinglePoly(void)const;
         /*Config management*/
-        void                    whoAmI();
-        bool                    isComplex();
+        void                    whoAmI() const;
+        bool                    isComplex() const;
         void                    complex_set(bool _bComplex);
 
-        int                     rank_get();
+        int                     rank_get() const;
         bool                    rank_set(int _iRank, bool bSave = false);
         Double*                 coef_get();
+        Double const*                 coef_get() const;
         double*                 coef_real_get();
         double*                 coef_img_get();
-        bool                    coef_set(Double *_poPow);
-        bool                    coef_set(double *_pdblCoefR, double *_pdblCoefI);
+        double const*                 coef_real_get() const;
+        double const*                 coef_img_get()const;
+        bool                    coef_set(Double const*_poPow);
+        bool                    coef_set(double const*_pdblCoefR, double const*_pdblCoefI);
         bool                    evaluate(double _dblInR, double _dblInI, double *_pdblOutR, double *_pdblOutI);
         void                    update_rank(void);
 
         void                    CreatePoly(double**_pdblCoefR, double**_pdblCoefI, int _iRank);
-        void                    toStringReal(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef);
-        void                    toStringImg(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef);
+        void                    toStringReal(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef) const;
+        void                    toStringImg(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef) const;
 
-        std::string             toString(int _iPrecision, int _iLineLen);
+        std::string             toString(int _iPrecision, int _iLineLen) const;
 
-        bool                    operator==(const InternalType& it);
-        bool                    operator!=(const InternalType& it);
+        bool                    operator==(const InternalType& it) const;
+        bool                    operator!=(const InternalType& it) const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("poly");}
+        virtual std::string     getTypeStr() const {return string("poly");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("p");}
+        virtual std::string     getShortTypeStr()  const{return string("p");}
     protected :
-        RealType                getType(void);
+        RealType                getType(void) const;
 
-    private : 
-        void                    toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef);
+    private :
+        void                    toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef) const;
 
 
     private :

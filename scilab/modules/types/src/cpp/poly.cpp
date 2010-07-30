@@ -93,8 +93,13 @@ namespace types
 	{
 		return this;
 	}
+	Poly const* Poly::getAsSinglePoly(void)const
+	{
+		return this;
+	}
 
-	int Poly::rank_get()
+
+	int Poly::rank_get()const
 	{
 		return m_iRank;
 	}
@@ -153,8 +158,16 @@ namespace types
 	{
 		return m_pdblCoef;
 	}
+	Double const* Poly::coef_get()const
+	{
+		return m_pdblCoef;
+	}
 
 	double* Poly::coef_real_get()
+	{
+		return m_pdblCoef->real_get();
+	}
+	double const* Poly::coef_real_get() const
 	{
 		return m_pdblCoef->real_get();
 	}
@@ -164,7 +177,13 @@ namespace types
 		return m_pdblCoef->img_get();
 	}
 
-	bool	Poly::coef_set(Double* _pdblCoefR)
+
+	double const* Poly::coef_img_get()const
+	{
+		return m_pdblCoef->img_get();
+	}
+
+	bool	Poly::coef_set(Double const* _pdblCoefR)
 	{
 		if(m_pdblCoef == NULL || _pdblCoefR == NULL)
 		{
@@ -183,7 +202,7 @@ namespace types
 		m_bComplex = _bComplex;
 	}
 
-	bool Poly::coef_set(double* _pdblCoefR, double* _pdblCoefI)
+	bool Poly::coef_set(double const* _pdblCoefR, double const* _pdblCoefI)
 	{
 		if(m_pdblCoef == NULL)
 		{
@@ -212,17 +231,17 @@ namespace types
 		return true;
 	}
 
-	void Poly::whoAmI()
+	void Poly::whoAmI()const
 	{
 		std::cout << "types::Poly";
 	}
 
-	bool Poly::isComplex()
+	bool Poly::isComplex()const
 	{
 		return m_bComplex;
 	}
 
-	GenericType::RealType Poly::getType(void)
+	GenericType::RealType Poly::getType(void)const
 	{
 		return RealSinglePoly;
 	}
@@ -304,7 +323,7 @@ namespace types
 		}
 	}
 
-	std::string Poly::toString(int _iPrecision, int _iLineLen)
+	std::string Poly::toString(int _iPrecision, int _iLineLen)const
 	{
 	  std::ostringstream ostr;
 
@@ -314,12 +333,12 @@ namespace types
 	  return ostr.str();
 	}
 
-	void Poly::toStringReal(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)
+	void Poly::toStringReal(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)const
 	{
 		toStringInternal(m_pdblCoef->real_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
-	void Poly::toStringImg(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)
+	void Poly::toStringImg(int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)const
 	{
 		if(isComplex() == false)
 		{
@@ -331,7 +350,7 @@ namespace types
 		toStringInternal(m_pdblCoef->img_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
-	void Poly::toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)
+	void Poly::toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, string _szVar, list<string>* _pListExp , list<string>* _pListCoef)const
 	{
 		ostringstream ostemp;
 		ostringstream ostemp2;
@@ -416,7 +435,7 @@ namespace types
 		return;
 	}
 
-	bool Poly::operator==(const InternalType& it)
+	bool Poly::operator==(const InternalType& it)const
 	{
 		if(const_cast<InternalType &>(it).getType() != RealSinglePoly)
 		{
@@ -430,8 +449,8 @@ namespace types
 			return false;
 		}
 
-		double* pR1 = coef_real_get();
-		double *pR2 = pP->coef_real_get();
+		double const* pR1 = coef_real_get();
+		double const*pR2 = pP->coef_real_get();
 
 		if(memcmp(pR1, pR2, sizeof(double) * rank_get()) != 0)
 		{
@@ -440,8 +459,8 @@ namespace types
 
 		if(isComplex())
 		{
-			double* pI1 = coef_img_get();
-			double *pI2 = pP->coef_img_get();
+			double const* pI1 = coef_img_get();
+			double const* pI2 = pP->coef_img_get();
 
 			if(memcmp(pI1, pI2, sizeof(double) * rank_get()) != 0)
 			{
@@ -451,7 +470,7 @@ namespace types
 		return true;
 	}
 
-	bool Poly::operator!=(const InternalType& it)
+	bool Poly::operator!=(const InternalType& it)const
 	{
 		return !(*this == it);
 	}

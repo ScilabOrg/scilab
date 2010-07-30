@@ -2,11 +2,11 @@
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA
 * Copyright (C) DIGITEO - 2010
-* 
+*
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
-* are also available at    
+* are also available at
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
@@ -30,7 +30,7 @@ static char *temporaryPrompt = NULL;
 /*------------------------------------------------------------------------*/
 void C2F(setprlev)( int *pause)
 {
-	if ( *pause == 0 ) 
+	if ( *pause == 0 )
 	{
 		if(temporaryPrompt != NULL)
 		{
@@ -38,7 +38,7 @@ void C2F(setprlev)( int *pause)
 			ClearTemporaryPrompt();
 		}
 		else
-		{		
+		{
 			sprintf(Sci_Prompt,SCIPROMPT);
 		}
 	}
@@ -57,7 +57,7 @@ void C2F(setprlev)( int *pause)
 		// when we change prompt to a pause level, we change also temp. prompt
 		SetTemporaryPrompt(Sci_Prompt);
 	}
-	else 
+	else
 	{
 		sprintf(Sci_Prompt,SCIPROMPT_PAUSE);
 		// bug 5513
@@ -66,7 +66,7 @@ void C2F(setprlev)( int *pause)
 	}
 }
 /*------------------------------------------------------------------------*/
-void GetCurrentPrompt(char *CurrentPrompt)
+void GetCurrentPrompt(char const*CurrentPrompt)
 {
 	if (CurrentPrompt)
 	{
@@ -74,7 +74,7 @@ void GetCurrentPrompt(char *CurrentPrompt)
 	}
 }
 /*------------------------------------------------------------------------*/
-void SetTemporaryPrompt(char *tempPrompt)
+void SetTemporaryPrompt(char const*tempPrompt)
 {
 	ClearTemporaryPrompt();
 	temporaryPrompt = strdup(tempPrompt);

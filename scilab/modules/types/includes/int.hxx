@@ -42,9 +42,10 @@ namespace types
         static Int*             createInt(int _iRows, int _iCols, IntType _iIntType);
         static Int*             insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Int* _poSource, bool _bAsVector);
 
-        Int*                    getAsInt(void) { return this; }
-        virtual IntType         getIntType() = 0;
-        RealType                getType(void);
+        Int*                    getAsInt(void)  { return this; }
+        Int const*                    getAsInt(void) const { return this; }
+        virtual IntType         getIntType()const = 0;
+        RealType                getType(void) const;
 
         virtual bool            data_set(Int* _pData) = 0;
         virtual bool            data_set(int _iRows, int _iCols, long long _llData) = 0;
@@ -58,8 +59,8 @@ namespace types
         virtual bool            insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
 
 
-        virtual std::string     toString(int _iPrecision, int _iLineLen) = 0;
-        virtual Int*            clone() { return NULL; }
+        virtual std::string     toString(int _iPrecision, int _iLineLen) const= 0;
+        virtual Int*            clone()const { return NULL; }
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::string     getTypeStr() {return string("int");}
@@ -69,7 +70,7 @@ namespace types
         /* Only used by Int8,16, ... */
         bool                    extract_size_get(int* _piMaxDim, int* _piDimSize, bool _bAsVector, int* _piRows, int* _piCols);
 
-    protected : 
+    protected :
         IntType                 m_iIntType;
     };
 }

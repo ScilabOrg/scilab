@@ -18,7 +18,7 @@ extern "C"
 	#include "matrix_addition.h"
 }
 
-int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut)
+int AddDoubleToDouble(Double const*_pDouble1, Double const*_pDouble2, Double** _pDoubleOut)
 {
 	bool bComplex1 			= _pDouble1->isComplex();
 	bool bComplex2 			= _pDouble2->isComplex();
@@ -136,7 +136,7 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 		{
 			(*_pDoubleOut)	= new Double(_pDouble2->rows_get(), _pDouble2->cols_get(), &pReal);
 			iAddRealScalarToRealMatrix(
-					_pDouble1->real_get()[0], 
+					_pDouble1->real_get()[0],
 					_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 					(*_pDoubleOut)->real_get());
 		}
@@ -171,7 +171,7 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 		{
 			(*_pDoubleOut)	= new Double(_pDouble1->rows_get(), _pDouble1->cols_get(), &pReal);
 			iAddRealScalarToRealMatrix(
-					_pDouble2->real_get()[0], 
+					_pDouble2->real_get()[0],
 					_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
 					(*_pDoubleOut)->real_get());
 		}
@@ -206,7 +206,7 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 		{
 			(*_pDoubleOut)	= new Double(_pDouble2->rows_get(), _pDouble2->cols_get(), &pReal);
 			iAddRealMatrixToRealMatrix(
-					_pDouble1->real_get(), 
+					_pDouble1->real_get(),
 					_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 					(*_pDoubleOut)->real_get());
 		}
@@ -235,7 +235,7 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 					(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
 		}
 	}
-	else 
+	else
 	{
 		return 1;
 	}
@@ -243,7 +243,7 @@ int AddDoubleToDouble(Double *_pDouble1, Double *_pDouble2, Double** _pDoubleOut
 	return 0;
 }
 
-int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOut)
+int AddDoubleToPoly(MatrixPoly const*_pPoly, Double const*_pDouble, MatrixPoly ** _pPolyOut)
 {
 	bool bComplex1 			= _pPoly->isComplex();
 	bool bComplex2 			= _pDouble->isComplex();
@@ -253,7 +253,7 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 	double *pInDblR			= _pDouble->real_get();
 	double *pInDblI			= _pDouble->img_get();
 
-	if(bScalar1) 
+	if(bScalar1)
 	{//cas balaise
 		int *piRank = new int[_pDouble->size_get()];
 		for(int i = 0 ; i < _pDouble->size_get() ; i++)
@@ -269,8 +269,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 
 		for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 		{
-			Poly *pInPoly			= _pPoly->poly_get(0);
-			Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+			Poly const*pInPoly			= _pPoly->poly_get(0);
+			Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 			double *pInPolyR	= pInPoly->coef_get()->real_get();
 			double *pOutPolyR	= pOutPoly->coef_get()->real_get();
 
@@ -286,8 +286,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 		{
 			for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 			{
-				Poly *pInPoly			= _pPoly->poly_get(0);
-				Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+				Poly const*pInPoly			= _pPoly->poly_get(0);
+				Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 				double *pInPolyI	= pInPoly->coef_get()->img_get();
 				double *pOutPolyI	= pOutPoly->coef_get()->img_get();
 
@@ -309,8 +309,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 
 		for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 		{
-			Poly *pInPoly			= _pPoly->poly_get(i);
-			Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+			Poly const*pInPoly			= _pPoly->poly_get(i);
+			Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 			double *pInPolyR	= pInPoly->coef_get()->real_get();
 			double *pOutPolyR	= pOutPoly->coef_get()->real_get();
 
@@ -322,8 +322,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 			(*_pPolyOut)->complex_set(true);
 			for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 			{
-				Poly *pInPoly			= _pPoly->poly_get(i);
-				Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+				Poly const*pInPoly			= _pPoly->poly_get(i);
+				Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 				double *pInPolyI	= pInPoly->coef_get()->img_get();
 				double *pOutPolyI	= pOutPoly->coef_get()->img_get();
 
@@ -339,8 +339,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 
 		for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 		{
-			Poly *pInPoly			= _pPoly->poly_get(i);
-			Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+			Poly const*pInPoly			= _pPoly->poly_get(i);
+			Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 			double *pInPolyR	= pInPoly->coef_get()->real_get();
 			double *pOutPolyR	= pOutPoly->coef_get()->real_get();
 
@@ -352,8 +352,8 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 			(*_pPolyOut)->complex_set(true);
 			for(int i = 0 ; i < (*_pPolyOut)->size_get() ; i++)
 			{
-				Poly *pInPoly			= _pPoly->poly_get(i);
-				Poly *pOutPoly		= (*_pPolyOut)->poly_get(i);
+				Poly const*pInPoly			= _pPoly->poly_get(i);
+				Poly const*pOutPoly		= (*_pPolyOut)->poly_get(i);
 				double *pInPolyI	= pInPoly->coef_get()->img_get();
 				double *pOutPolyI	= pOutPoly->coef_get()->img_get();
 
@@ -365,10 +365,10 @@ int AddDoubleToPoly(MatrixPoly *_pPoly, Double *_pDouble, MatrixPoly ** _pPolyOu
 	{
 		return 1;
 	}
-	return 0;	
+	return 0;
 }
 
-int AddPolyToPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPolyOut)
+int AddPolyToPoly(MatrixPoly const* _pPoly1, MatrixPoly const* _pPoly2, MatrixPoly ** _pPolyOut)
 {
 	if(_pPoly1->var_get() != _pPoly2->var_get())
 	{
@@ -379,7 +379,7 @@ int AddPolyToPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPoly
 	bool bComplex2 			= _pPoly2->isComplex();
 	bool bScalar1				= _pPoly1->rows_get() == 1 && _pPoly1->cols_get() == 1;
 	bool bScalar2				= _pPoly2->rows_get() == 1 && _pPoly2->cols_get() == 1;
-	//3 cases : 
+	//3 cases :
 	//size(p1) == size(P2)
 	if(_pPoly1->rows_get() == _pPoly2->rows_get() && _pPoly1->cols_get() == _pPoly2->cols_get())
 	{
@@ -465,16 +465,16 @@ int AddPolyToPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPoly
 		}
 
 		//Result P1(0) + P2(i)
-		Double *pCoef1	= _pPoly1->poly_get(0)->coef_get();
+		Double const*pCoef1	= _pPoly1->poly_get(0)->coef_get();
 		double *p1R			= pCoef1->real_get();
 		double *p1I			= pCoef1->img_get();
 		for(int i = 0 ; i < _pPoly2->size_get() ; i++)
 		{
-			Double *pCoef2	= _pPoly2->poly_get(i)->coef_get();
+			Double const*pCoef2	= _pPoly2->poly_get(i)->coef_get();
 			double *p2R			= pCoef2->real_get();
 			double *p2I			= pCoef2->img_get();
 
-			Double *pCoefR	= (*_pPolyOut)->poly_get(i)->coef_get();
+			Double const*pCoefR	= (*_pPolyOut)->poly_get(i)->coef_get();
 			double *pRR			= pCoefR->real_get();
 			double *pRI			= pCoefR->img_get();
 
@@ -529,17 +529,17 @@ int AddPolyToPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPoly
 		}
 
 		//Result P1(i) + P2(0)
-		Double *pCoef2	= _pPoly2->poly_get(0)->coef_get();
+		Double const*pCoef2	= _pPoly2->poly_get(0)->coef_get();
 		double *p2R			= pCoef2->real_get();
 		double *p2I			= pCoef2->img_get();
 
 		for(int i = 0 ; i < _pPoly1->size_get() ; i++)
 		{
-			Double *pCoef1	= _pPoly1->poly_get(i)->coef_get();
+			Double const*pCoef1	= _pPoly1->poly_get(i)->coef_get();
 			double *p1R			= pCoef1->real_get();
 			double *p1I			= pCoef1->img_get();
 
-			Double *pCoefR	= (*_pPolyOut)->poly_get(i)->coef_get();
+			Double const*pCoefR	= (*_pPolyOut)->poly_get(i)->coef_get();
 			double *pRR			= pCoefR->real_get();
 			double *pRI			= pCoefR->img_get();
 
@@ -587,7 +587,7 @@ int AddPolyToPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly ** _pPoly
 	return 0;
 }
 
-int AddStringToString(String *_pString1, String *_pString2, String **_pStringOut)
+int AddStringToString(String const*_pString1, String const*_pString2, String **_pStringOut)
 {
 	bool bScalar1				= _pString1->rows_get() == 1 && _pString1->cols_get() == 1;
 	bool bScalar2				= _pString2->rows_get() == 1 && _pString2->cols_get() == 1;

@@ -1,20 +1,20 @@
 /*
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
-* 
+*
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
 *  you should have received as part of this distribution.  The terms
 *  are also available at
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-* 
+*
 */
 
 #include <sstream>
 #include "symbol.hxx"
 #include "struct.hxx"
 
-namespace types 
+namespace types
 {
     /**
     ** Constructor & Destructor (public)
@@ -27,7 +27,7 @@ namespace types
         m_iSize = 0;
     }
 
-    Struct::~Struct() 
+    Struct::~Struct()
     {
         if(isDeletable() == true)
         {
@@ -35,19 +35,19 @@ namespace types
         }
     }
 
-    /** 
+    /**
     ** Private Copy Constructor and data Access
     */
-    Struct::Struct(Struct *_oStructCopyMe)
+    Struct::Struct(Struct const&_oStructCopyMe)
     {
-        m_iRows = _oStructCopyMe->rows_get();
-        m_iCols = _oStructCopyMe->cols_get();
-        std::map<std::string, InternalType *>::iterator itValues;
+        m_iRows = _oStructCopyMe.rows_get();
+        m_iCols = _oStructCopyMe.cols_get();
         m_plData = new std::map<std::string, InternalType *>();
 
-        for (itValues = _oStructCopyMe->getData()->begin();
-            itValues != _oStructCopyMe->getData()->end();
-            itValues++)
+        for (std::map<std::string, InternalType *>::const_iterator
+                 itValues(_oStructCopyMe.getData()->begin());
+            itValues != _oStructCopyMe.getData()->end();
+            ++itValues)
         {
             (*m_plData)[(*itValues).first] = ((*itValues).second)->clone();
         }
@@ -58,11 +58,17 @@ namespace types
         return m_plData;
     }
 
+    std::map<std::string, InternalType *>const *Struct::getData()const
+
+    {
+        return m_plData;
+    }
+
     /**
     ** size_get
     ** Return the number of elements in struct
     */
-    int Struct::size_get() 
+    int Struct::size_get() const
     {
         return (int)m_plData->size();
     }
@@ -70,7 +76,7 @@ namespace types
     /**
     ** add(symbol::Symbol*_psKey, InternalType *_typedValue)
     ** Append the given value to the struct
-    */ 
+    */
     void Struct::add(const std::string& _sKey, InternalType *_typedValue)
     {
         m_iRows = 1;
@@ -95,7 +101,7 @@ namespace types
     /**
     ** add(symbol::Symbol*_psKey)
     ** Append an null value to the struct
-    */ 
+    */
     void Struct::add(const std::string& _sKey)
     {
         /* Look if we are replacing some existing value */
@@ -129,16 +135,16 @@ namespace types
     ** Clone
     ** Create a new Struct and Copy all values.
     */
-    Struct *Struct::clone()
+    Struct *Struct::clone() const
     {
-        return new Struct(this);
+        return new Struct(*this);
     }
 
     /**
     ** toString to display Structs
     ** FIXME : Find a better indentation process
     */
-    std::string Struct::toString(int _iPrecision, int _iLineLen)
+    std::string Struct::toString(int _iPrecision, int _iLineLen)const
     {
         std::ostringstream ostr;
 
@@ -153,7 +159,7 @@ namespace types
             for (itValues = m_plData->begin() ; itValues != m_plData->end() ; ++itValues)
             {
                 ostr << itValues->first << " : ";
-                switch  ((itValues->second)->getType()) 
+                switch  ((itValues->second)->getType())
                 {
                 case RealStruct :
                     ostr << "[ " << (itValues->second)->getAsStruct()->rows_get()

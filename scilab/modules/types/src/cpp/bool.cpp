@@ -60,7 +60,7 @@ namespace types
 		return;
 	}
 
-	Bool* Bool::clone()
+	Bool* Bool::clone()const
 	{
 	  Bool *pbClone =  new Bool(rows_get(), cols_get());
 	  pbClone->bool_set(m_piData);
@@ -90,7 +90,7 @@ namespace types
 			m_piData = NULL;
 	}
 
-	bool Bool::isComplex()
+	bool Bool::isComplex()const
 	{
 		return false;
 	}
@@ -99,7 +99,7 @@ namespace types
 	/*	bool_get	*/
 	/*------------*/
 	int*	Bool::bool_get() const
-	{ 
+	{
 		return m_piData;
 	}
 
@@ -107,7 +107,7 @@ namespace types
 	/*	bool_get	*/
 	/*------------*/
 	int	Bool::bool_get(int _iRows, int _iCols) const
-	{ 
+	{
 		if(m_piData != NULL)
 		{
 			return m_piData[_iCols * m_iRows + _iRows];
@@ -164,25 +164,30 @@ namespace types
 	/*--------------*/
 	/*		whoIAm		*/
 	/*--------------*/
-	void Bool::whoAmI() 
-	{ 
-		std::cout << "types::Bool"; 
+	void Bool::whoAmI() const
+	{
+		std::cout << "types::Bool";
 	}
 
 	/*--------------*/
 	/*	getAsInt		*/
 	/*--------------*/
-	Bool* Bool::getAsBool(void)		
-	{ 
-		return this; 
+	Bool* Bool::getAsBool(void)
+	{
+		return this;
+	}
+
+	Bool const* Bool::getAsBool(void)const
+	{
+		return this;
 	}
 
 	/*------------*/
 	/*	getType		*/
 	/*------------*/
-	GenericType::RealType Bool::getType(void)
+	GenericType::RealType Bool::getType(void)const
 	{
-		return RealBool; 
+		return RealBool;
 	}
 
 	/*--------------*/
@@ -230,10 +235,10 @@ namespace types
 		else
 			return false;
 
-		return true;	
+		return true;
 	}
 
-	string Bool::toString(int _iPrecision, int _iLineLen)
+	string Bool::toString(int _iPrecision, int _iLineLen)const
 	{
 		std::ostringstream ostr;
 		ostr << std::endl;
@@ -292,7 +297,7 @@ namespace types
 			ostr << szTemp;
 			ostr << std::endl;
 		}
-		else 
+		else
 		{
 			bool bWordWarp = false;
 			int iLineTag = 5000; //or not Oo
@@ -349,7 +354,7 @@ namespace types
 		return ostr.str();
 	}
 
-	bool Bool::operator==(const InternalType& it)
+	bool Bool::operator==(const InternalType& it)const
 	{
 		if(const_cast<InternalType &>(it).getType() != RealBool)
 		{
@@ -372,7 +377,7 @@ namespace types
 		return true;
 	}
 
-	bool Bool::operator!=(const InternalType& it)
+	bool Bool::operator!=(const InternalType& it)const
 	{
 		return !(*this == it);
 	}
@@ -525,8 +530,8 @@ namespace types
 
 	Bool* Bool::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Bool* _poSource, bool _bAsVector)
 	{
-		Bool* pb	= NULL ; 
-		
+		Bool* pb	= NULL ;
+
 		if(_bAsVector)
 		{
 			if(_poSource->cols_get() == 1)
@@ -557,7 +562,7 @@ namespace types
 		return pb;
 	}
 
-	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const
 	{
 		Bool* pOut		= NULL;
 		int iRowsOut	= 0;

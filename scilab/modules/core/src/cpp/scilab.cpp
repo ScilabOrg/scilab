@@ -219,7 +219,7 @@ extern "C"
 #endif
 #include "scilabmode.h"
 	extern char *TermReadAndProcess(void);
-	extern void ConsolePrintf(char*);
+	extern void ConsolePrintf(char const*);
 }
 
 
@@ -275,7 +275,7 @@ static void banner()
 {
 #define SCI_VERSION_STRING "scilab-branch-YaSp"
 	int i;
-	char *line = "        ___________________________________________        ";
+	char const*line = "        ___________________________________________        ";
 	int startVersion = (int)(floor((double)(strlen(line)/2)) - floor((double)(strlen(SCI_VERSION_STRING)/2)));
 
 	YaspWrite(line);
@@ -344,7 +344,7 @@ static int interactiveMain (void)
 
 	char *commentbeginsession = NULL;
 	InitializeHistoryManager();
-	
+
 	/* add date & time @ begin session */
 	//commentbeginsession = getCommentDateSession(TRUE);
 	//if (commentbeginsession)
@@ -353,7 +353,7 @@ static int interactiveMain (void)
 	//	FREE(commentbeginsession);
 	//	commentbeginsession=NULL;
 	//  }
-	
+
 
 
 	while (!exit)
@@ -364,7 +364,7 @@ static int interactiveMain (void)
 		//set prompt value
 		C2F(setprlev)(&pause);
 
-		if (pParser->getControlStatus() == Parser::AllControlClosed) 
+		if (pParser->getControlStatus() == Parser::AllControlClosed)
 		{
 			if(command)
 			{
@@ -447,7 +447,7 @@ static int interactiveMain (void)
 	return WELL_DONE;
 }
 
-static void TermPrintf(char *text)
+static void TermPrintf(char const*text)
 {
 	std::cout << text;
 }
@@ -500,8 +500,8 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
 
 	InitializeShell();
 
-	if ( 
-		!consoleMode ) 
+	if (
+		!consoleMode )
 	{
 		/* bug 3702 */
 		/* tclsci creates a TK window on Windows */
@@ -516,7 +516,7 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
 		loadGraphicModule() ;
 
 		/* Standard mode -> init Java Console */
-		//if ( !consoleMode ) 
+		//if ( !consoleMode )
 		{
 			/* Initialize console: lines... */
 			InitializeConsole();

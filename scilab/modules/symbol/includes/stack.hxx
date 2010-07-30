@@ -48,7 +48,7 @@ namespace symbol
       this->l_scope.pop_front();
     }
 
-    void	put_in_previous_scope(const string& key, InternalType &value)
+    void	put_in_previous_scope(const string& key, InternalType const&value)
 		{
 			size_t iSize = l_scope.size();
 			if(iSize > 1)
@@ -56,10 +56,10 @@ namespace symbol
 				std::list<Scope*>::iterator i;
 				i = l_scope.begin();
 				i++;
-				(*i)->put(key, value);
+				(*i)->put(key, const_cast<InternalType&>(value));
 			}
 		}
-		
+
     /** Associate value to key in the current scope. */
     void	put (const string& key, InternalType &value)
     {

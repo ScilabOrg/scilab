@@ -49,13 +49,13 @@ namespace types
 		case TypeUnsigned64 :
 			pOut = new UInt64(_iRows, _iCols);
 			break;
-		default : 
+		default :
 			break;
 		}
 		return pOut;
 	}
 
-	InternalType::RealType Int::getType(void)
+	InternalType::RealType Int::getType(void) const
 	{
 		return RealInt;
 	}
@@ -93,7 +93,7 @@ namespace types
 
 	Int* Int::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Int* _poSource, bool _bAsVector)
 	{
-		Int* pi	= NULL ; 
+		Int* pi	= NULL ;
 
 		if(_bAsVector)
 		{

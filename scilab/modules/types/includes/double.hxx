@@ -31,7 +31,7 @@ namespace types
                                     Double(int _iRows, int _iCols, double **_pdblReal, double **_pdblImg);
 
         /*data management*/
-        GenericType*                get_col_value(int _iPos);
+        GenericType*                get_col_value(int _iPos)const;
         double*                     real_get() const;
         double                      real_get(int _iRows, int _iCols) const;
         double*                     img_get() const;
@@ -48,14 +48,15 @@ namespace types
         bool                        one_set();
 
         /*Config management*/
-        void                        whoAmI();
-        bool                        isComplex();
+        void                        whoAmI()const;
+        bool                        isComplex()const;
         void                        complex_set(bool _bComplex);
 
         Double*                     getAsDouble(void);
-        string                      toString(int _iPrecision, int _iLineLen);
+        Double const*                     getAsDouble(void)const;
+        string                      toString(int _iPrecision, int _iLineLen)const;
 
-        Double*                     clone();
+        Double*                     clone()const;
         bool                        append(int _iRows, int _iCols, Double *_poSource);
         bool                        fillFromCol(int _iCols, Double *_poSource);
         bool                        fillFromRow(int _iRows, Double *_poSource);
@@ -63,18 +64,18 @@ namespace types
         bool                        resize(int _iNewRows, int _iNewCols);
         bool                        insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
         static Double*              insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Double* _poSource, bool _bAsVector);
-        Double*                     extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+        Double*                     extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const;
 
 
-        bool                        operator==(const InternalType& it);
-        bool                        operator!=(const InternalType& it);
+        bool                        operator==(const InternalType& it)const;
+        bool                        operator!=(const InternalType& it)const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string         getTypeStr() {return string("double");}
+        virtual std::string         getTypeStr()const {return string("double");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string	        getShortTypeStr() {return string("constant");}
+        virtual std::string	        getShortTypeStr()const {return string("constant");}
     protected :
-        RealType                    getType(void);
+        RealType                    getType(void)const;
 
         /*clean values array*/
         void                        real_delete();

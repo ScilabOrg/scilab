@@ -37,30 +37,31 @@ namespace types
         virtual                     ~GenericType() {}
 
     public :
-        void                        whoAmI(void) { std::cout << "types::GenericType"; }
+        void                        whoAmI(void) const { std::cout << "types::GenericType"; }
 
         /*commun functions*/
-        int                         cols_get();
-        int                         rows_get();
-        int                         size_get();
+        int                         cols_get() const;
+        int                         rows_get() const;
+        int                         size_get() const;
 
-        std::string                 DimToString();
+        std::string                 DimToString() const;
 
         /* GenericType */
         GenericType*                getAsGenericType(void) { return this; }
+        GenericType const*                getAsGenericType(void)const { return this; }
 
         /* FIXME : should be : virtual GenericType*	get(int _iPos) = 0; */
-        virtual GenericType*        get_col_value(int _iPos) { return NULL; }
+        virtual GenericType const*        get_col_value(int _iPos) const{ return NULL; }
 
-        bool                        isIdentity(void);
-        virtual bool                isAssignable(void) { return true; }
+        bool                        isIdentity(void) const;
+        virtual bool                isAssignable(void) const { return true; }
 
-        virtual RealType            getType(void) { return RealGeneric; }
+        virtual RealType            getType(void) const{ return RealGeneric; }
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string         getTypeStr() {return string("generictype");}
+        virtual std::string         getTypeStr() const {return string("generictype");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string         getShortTypeStr() {return string("");}
+        virtual std::string         getShortTypeStr() const {return string("");}
     };
 }
 #endif /* !__TYPES_HXX__ */

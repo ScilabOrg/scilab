@@ -37,7 +37,7 @@ namespace types
      ** Scilab : int64 -> 64 bytes -> C : long long
      */
 
-    template <typename T> 
+    template <typename T>
     class IntT : public Int
     {
         T* m_pData;
@@ -52,7 +52,7 @@ namespace types
 
             m_pData				= new T[m_iSize];
         }
-        
+
         IntT()
         {
         }
@@ -76,7 +76,7 @@ namespace types
                 m_pData[i] = _pTData[i];
             }
         }
-        
+
         ~IntT()
         {
             delete[] m_pData;
@@ -88,7 +88,7 @@ namespace types
             {
                 return false;
             }
-                
+
             for(int i = 0 ; i < m_iSize ; i++)
             {
                 m_pData[i] = static_cast<T>(_pTData->data_get(i));
@@ -154,23 +154,23 @@ namespace types
 
         GenericType* get_col_value(int _iPos)
         {
-            //FIXME 
+            //FIXME
             return NULL;
         }
-        
+
         Int* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
         {
             Int* pOut		= NULL;
             int iRowsOut	= 0;
             int iColsOut	= 0;
-                
+
             if(extract_size_get(_piMaxDim, _piDimSize, _bAsVector, &iRowsOut, &iColsOut) == false)
             {
                 return NULL;
             }
-                
+
             pOut	= Int::createInt(iRowsOut, iColsOut, getIntType());
-            return extract(pOut, _iSeqCount, _piSeqCoord, _piMaxDim, _piDimSize, _bAsVector); 
+            return extract(pOut, _iSeqCount, _piSeqCoord, _piMaxDim, _piDimSize, _bAsVector);
         }
 
 
@@ -255,9 +255,9 @@ namespace types
             }
             return true;
         }
-        
 
-        std::string toString(int _iPrecision, int _iLineLen)
+
+        std::string toString(int _iPrecision, int _iLineLen) const
         {
             std::ostringstream ostr;
             if(m_iRows == 1 && m_iCols == 1)
@@ -371,15 +371,15 @@ namespace types
                 ostr << ostemp.str();
             }
             return ostr.str();
-        }  
-        virtual IntType getIntType() = 0;
+        }
+        virtual IntType getIntType() const = 0;
 
     private :
-        virtual void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign = false, bool bPrintOne = true) = 0;
-        virtual void GetIntFormat(T _TVal, int *_piWidth) = 0;
+        virtual void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign = false, bool bPrintOne = true) const = 0;
+        virtual void GetIntFormat(T _TVal, int *_piWidth) const = 0;
 
     };
-    
+
     /*
     ** Class SignedIntT<typename T>
     ** \brief This is a inner class that derivates from IntT to define all __signed__ integers
@@ -394,16 +394,16 @@ namespace types
     {
     protected :
         SignedIntT(int _iRows, int _iCols) : IntT<T>(_iRows, _iCols) {}
-        void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign, bool bPrintOne)
+        void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign, bool bPrintOne) const
         {
             AddSignedIntValue(_postr, _TVal, _iWidth, bPrintPlusSign, bPrintOne);
         }
-        void GetIntFormat(T _TVal, int *_piWidth)
+        void GetIntFormat(T _TVal, int *_piWidth) const
         {
             GetSignedIntFormat(_TVal, _piWidth);
         }
     };
-    
+
     /*
     ** Class SignedIntT<typename T>
     ** \brief This is a inner class that derivates from IntT to define all __unsisigned__ integers
@@ -418,16 +418,16 @@ namespace types
     {
     protected :
         UnsignedIntT(int _iRows, int _iCols) : IntT<T>(_iRows, _iCols) {}
-        void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign, bool bPrintOne)
+        void AddIntValue(std::ostringstream *_postr, T _TVal, int _iWidth, bool bPrintPlusSign, bool bPrintOne) const
         {
             AddUnsignedIntValue(_postr, _TVal, _iWidth, bPrintPlusSign, bPrintOne);
         }
-        void GetIntFormat(T _TVal, int *_piWidth)
+        void GetIntFormat(T _TVal, int *_piWidth) const
         {
             GetUnsignedIntFormat(_TVal, _piWidth);
         }
     };
-    
+
     /*
     ** Class Int8 <-> Scilab int8(X)
     */
@@ -435,19 +435,19 @@ namespace types
     {
     public :
         Int8(int _iRows, int _iCols) : SignedIntT<char>(_iRows, _iCols) {}
-        IntType getIntType() { return Type8; }
-        string getTypeStr(){return "int8";}
+        IntType getIntType() const{ return Type8; }
+        string getTypeStr()const{return "int8";}
     };
 
     /*
     ** Class UInt8 <-> Scilab uint8(X)
-    */	
+    */
     class UInt8 : public UnsignedIntT<unsigned char>
     {
     public :
         UInt8(int _iRows, int _iCols) : UnsignedIntT<unsigned char>(_iRows, _iCols) {}
-        IntType getIntType() { return TypeUnsigned8; }
-        string getTypeStr(){return "uint8";}
+        IntType getIntType() const{ return TypeUnsigned8; }
+        string getTypeStr() const{return "uint8";}
     };
 
 //16 bits
@@ -458,10 +458,10 @@ namespace types
     {
     public :
         Int16(int _iRows, int _iCols) : SignedIntT<short>(_iRows, _iCols) {}
-        IntType getIntType() { return Type16; }
-        string getTypeStr(){return "int16";}
+        IntType getIntType() const{ return Type16; }
+        string getTypeStr() const{return "int16";}
     };
-	
+
     /*
     ** Class UInt16 <-> Scilab uint16(X)
     */
@@ -469,8 +469,8 @@ namespace types
     {
     public :
         UInt16(int _iRows, int _iCols) : UnsignedIntT<unsigned short>(_iRows, _iCols) {}
-        IntType getIntType() { return TypeUnsigned16; }
-        string getTypeStr(){return "uint16";}
+        IntType getIntType() const{ return TypeUnsigned16; }
+        string getTypeStr() const{return "uint16";}
     };
 
 //32 bits
@@ -481,10 +481,10 @@ namespace types
     {
     public :
         Int32(int _iRows, int _iCols) : SignedIntT<int>(_iRows, _iCols) {}
-        IntType getIntType() { return Type32; } 
-        string getTypeStr(){return "int32";}
+        IntType getIntType() const{ return Type32; }
+        string getTypeStr()const{return "int32";}
     };
-	
+
     /*
     ** Class UInt32 <-> Scilab uint32(X)
     */
@@ -492,8 +492,8 @@ namespace types
     {
     public :
         UInt32(int _iRows, int _iCols) : UnsignedIntT<unsigned int>(_iRows, _iCols) {}
-        IntType getIntType() { return TypeUnsigned32; } 
-        string getTypeStr(){return "uint32";}
+        IntType getIntType() const{ return TypeUnsigned32; }
+        string getTypeStr() const {return "uint32";}
     };
 
 //64 bits
@@ -504,10 +504,10 @@ namespace types
     {
     public :
         Int64(int _iRows, int _iCols) : SignedIntT<long long>(_iRows, _iCols) {}
-        IntType getIntType() { return Type64; } 
-        string getTypeStr(){return "int64";}
+        IntType getIntType() const{ return Type64; }
+        string getTypeStr()const{return "int64";}
     };
-	
+
     /*
     ** Class UInt64 <-> Scilab uint64(X) -*- NEW Scilab 6.0 -*-
     */
@@ -515,8 +515,8 @@ namespace types
     {
     public :
         UInt64(int _iRows, int _iCols) : UnsignedIntT<unsigned long long>(_iRows, _iCols) {}
-        IntType getIntType() { return TypeUnsigned64; } 
-        string getTypeStr(){return "uint64";}
+        IntType getIntType() const{ return TypeUnsigned64; }
+        string getTypeStr()const{return "uint64";}
     };
 }
 #endif /* __INTT_HH__ */

@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2010 - DIGITEO - Antoine ELIAS
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #ifndef __LISTDELETE_HXX__
@@ -26,19 +26,20 @@ namespace types
         virtual                 ~ListDelete();
 
         // FIXME : Should not return NULL;
-        ListDelete*             clone();
+        ListDelete*             clone() const;
 
         ListDelete*             getAsListDelete(void);
-        RealType                getType(void);
+        ListDelete const*             getAsListDelete(void) const;
+        RealType                getType(void) const;
 
-        void                    whoAmI();
+        void                    whoAmI() const;
 
-        std::string             toString(int _iPrecision, int _iLineLen);
+        std::string             toString(int _iPrecision, int _iLineLen)const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("listdelete");}
+        virtual std::string     getTypeStr()const {return string("listdelete");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("");}
+        virtual std::string     getShortTypeStr()const {return string("");}
     };
 }
 

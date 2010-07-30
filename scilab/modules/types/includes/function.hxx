@@ -30,32 +30,33 @@ namespace types
     class Function : public Callable
     {
     public :
-        typedef ReturnValue (*GW_FUNC)(typed_list &in, int _iRetCount, typed_list &out); 
+        typedef ReturnValue (*GW_FUNC)(typed_list &in, int _iRetCount, typed_list &out);
         typedef int (*OLDGW_FUNC)(char *fname, int* _piKey);
 
                             Function(): Callable() {};
-                            Function(std::string _szName, GW_FUNC _pFunc, std::string _szModule);
+                            Function(std::string const&_szName, GW_FUNC _pFunc, std::string const&_szModule);
                             ~Function();
 
         //FIXME : Should not return NULL
-        Function*           clone() { return NULL; }
+        Function*           clone() const { return NULL; }
 
-        static Function*    createFunction(std::string _szName, GW_FUNC _pFunc, std::string _szModule);
-        static Function*    createFunction(std::string _szName, OLDGW_FUNC _pFunc, std::string _szModule);
+        static Function*    createFunction(std::string const& _szName, GW_FUNC _pFunc, std::string const& _szModule);
+        static Function*    createFunction(std::string const& _szName, OLDGW_FUNC _pFunc, std::string const& _szModule);
 
         Function*           getAsFunction(void);
-        RealType            getType(void) { return RealFunction; }
+        Function const*           getAsFunction(void)const;
+        RealType            getType(void)const { return RealFunction; }
 
-        void                whoAmI();
+        void                whoAmI()const;
 
-        std::string         toString(int _iPrecision, int _iLineLen);
+        std::string         toString(int _iPrecision, int _iLineLen)const;
 
         virtual ReturnValue call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string getTypeStr() {return string("fptr");}
+        virtual std::string getTypeStr()const {return string("fptr");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string getShortTypeStr() {return string("fptr");}
+        virtual std::string getShortTypeStr()const {return string("fptr");}
     private :
         GW_FUNC             m_pFunc;
     };
@@ -63,7 +64,7 @@ namespace types
     class WrapFunction : public Function
     {
     public :
-                            WrapFunction(std::string _szName, OLDGW_FUNC _pFunc, std::string _szModule);
+                            WrapFunction(std::string const&_szName, OLDGW_FUNC _pFunc, std::string const&_szModule);
 
                             Callable::ReturnValue call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
     private :

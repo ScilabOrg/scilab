@@ -57,9 +57,9 @@ namespace symbol
 		void print();
 
 		/*add symbol and value in the stack*/
-		bool put(const string& key, InternalType &type);
+		bool put(const string& key, InternalType const&type);
 		/*add symbol and value in the previous scope*/
-		bool put_in_previous_scope(const string& key, InternalType &type);
+		bool put_in_previous_scope(const string& key, InternalType const&type);
 
 		bool AddFunction(types::Function *_info);
 		bool AddMacro(types::Macro *_info);

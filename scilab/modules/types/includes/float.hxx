@@ -27,10 +27,10 @@ namespace types
                             Float(int _iRows, int _iCols, float **_pfReal);
                             Float(int _iRows, int _iCols, float **_pfReal, float **_pfImg);
 
-        Float*              clone();
+        Float*              clone() const;
 
         /*data management*/
-        GenericType*        get_col_value(int _iPos);
+        GenericType*        get_col_value(int _iPos)const;
 
         float*              real_get() const;
         float               real_get(int _iRows, int _iCols) const;
@@ -49,17 +49,18 @@ namespace types
         bool                one_set();
 
         /*Config management*/
-        void                whoAmI();
-        bool                isComplex();
+        void                whoAmI()const;
+        bool                isComplex()const;
 
         Float*				getAsFloat(void);
+        Float const*				getAsFloat(void) const;
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string getTypeStr() {return string("float");}
+        virtual std::string getTypeStr()const {return string("float");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string getShortTypeStr() {return string("f");}
+        virtual std::string getShortTypeStr()const {return string("f");}
     protected :
-        RealType            getType(void);
+        RealType            getType(void)const;
 
         /*clean values array*/
         void                real_delete();
@@ -68,10 +69,10 @@ namespace types
 
         /*Internal "constructor*/
         void                CreateFloat(int _iRows, int _iCols, float **_pfReal, float **_pfImg);
-        std::string         toString(int _iPrecision, int _iLineLen);
+        std::string         toString(int _iPrecision, int _iLineLen)const;
 
-        bool                operator==(const InternalType& it);
-        bool                operator!=(const InternalType& it);
+        bool                operator==(const InternalType& it)const;
+        bool                operator!=(const InternalType& it)const;
 
     private :
         float*              m_pfReal;

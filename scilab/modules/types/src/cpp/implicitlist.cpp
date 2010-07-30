@@ -64,7 +64,7 @@ namespace types
 		compute();
 	}
 
-	ImplicitList* ImplicitList::clone()
+	ImplicitList* ImplicitList::clone()const
 	{
 		//FIXME : Implement me.
 		return NULL;
@@ -130,7 +130,7 @@ namespace types
 		m_bComputed = false;
 	}
 
-	long long ImplicitList::size_get()
+	long long ImplicitList::size_get() const
 	{
 		return m_iSize;
 	}
@@ -190,7 +190,7 @@ namespace types
 		}
 	}
 
-	bool ImplicitList::computable()
+	bool ImplicitList::computable()  const
 	{
 		if(m_eStartType != RealDouble && m_eStartType != RealInt)
 		{
@@ -232,7 +232,7 @@ namespace types
 		return true;
 	}
 
-	string ImplicitList::toString(int _iPrecision, int _iLineLen)
+	string ImplicitList::toString(int _iPrecision, int _iLineLen)const
 	{
 		if(computable())
 		{
@@ -328,7 +328,10 @@ namespace types
 		}
 		return pIT;
 	}
-
+	InternalType* ImplicitList::extract_matrix() const
+    {
+        return const_cast<ImplicitList*>(this)->extract_matrix();
+    }
 	//extract matrix in a Internaltype
 	InternalType* ImplicitList::extract_matrix()
 	{
@@ -357,7 +360,7 @@ namespace types
 	}
 
     template<typename T>
-	void ImplicitList::extract_matrix(T *_pT)
+	void ImplicitList::extract_matrix(T *_pT)const
 	{
         T tStart = static_cast<T>(convert_input(m_poStart));
 		T tStep	= static_cast<T>(convert_input(m_poStep));

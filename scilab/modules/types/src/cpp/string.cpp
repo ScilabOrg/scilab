@@ -47,10 +47,10 @@ namespace types
 		CreateString(_iRows, _iCols);
 	}
 
-	String *String::clone()
+	String *String::clone()const
 	{
 	  String *pstClone = new String(rows_get(), cols_get());
-	  
+
 	  pstClone->string_set(m_pstData);
 
 	  return pstClone;
@@ -69,7 +69,7 @@ namespace types
 		}
 	}
 
-	void String::whoAmI()
+	void String::whoAmI()const
 	{
 		cout << "types::String";
 	}
@@ -185,13 +185,17 @@ namespace types
 	{
 		return this;
 	}
+	String const* String::getAsString(void)const
+	{
+		return this;
+	}
 
-	GenericType::RealType String::getType()
+	GenericType::RealType String::getType()const
 	{
 		return GenericType::RealString;
 	}
 
-	string String::toString(int _iPrecision, int _iLineLen)
+	string String::toString(int _iPrecision, int _iLineLen)const
 	{
 		ostringstream ostr;
 
@@ -355,14 +359,14 @@ namespace types
 		return ostr.str();
 	}
 
-	bool String::operator==(const InternalType& it)
+	bool String::operator==(const InternalType& it)const
 	{
 		if(const_cast<InternalType&>(it).getType() != RealString)
 		{
 			return false;
 		}
 
-		String* pS = const_cast<InternalType&>(it).getAsString();
+		String const* pS = const_cast<InternalType&>(it).getAsString();
 
 		if(pS->rows_get() != rows_get() || pS->cols_get() != cols_get())
 		{
@@ -382,12 +386,12 @@ namespace types
 		return true;
 	}
 
-	bool String::operator!=(const InternalType& it)
+	bool String::operator!=(const InternalType& it)const
 	{
 		return !(*this == it);
 	}
 
-	GenericType* String::get_col_value(int _iPos)
+	GenericType* String::get_col_value(int _iPos)const
 	{
 		String *ps = NULL;
 		if(_iPos < m_iCols)
@@ -401,7 +405,7 @@ namespace types
 		return ps;
 	}
 
-	bool String::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+	bool String::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType const* _poSource, bool _bAsVector)
 	{
 		int iNewRows = rows_get();
 		int iNewCols = cols_get();
@@ -457,7 +461,7 @@ namespace types
 		{
 		case InternalType::RealString :
 			{
-				String *pIn = _poSource->getAsString();
+				String const*pIn = _poSource->getAsString();
 
 				//Only resize after all tests !
 				if(resize(iNewRows, iNewCols) == false)
@@ -517,10 +521,10 @@ namespace types
 		return true;
 	}
 
-	String*	String::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String* _poSource, bool _bAsVector)
+	String*	String::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String const* _poSource, bool _bAsVector)
 	{
-		String *pS	= NULL ; 
-		
+		String *pS	= NULL ;
+
 		if(_bAsVector)
 		{
 			if(_poSource->cols_get() == 1)
@@ -588,7 +592,7 @@ namespace types
 		return true;
 	}
 
-	String*	String::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	String*	String::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)const
 	{
 		String* pOut	= NULL;
 		int iRowsOut	= 0;
@@ -643,7 +647,7 @@ namespace types
 				pst[iCurIndex]	= strdup(m_pstData[iInIndex]);
 			}
 		}
-		
+
 		return pOut;
 	}
 

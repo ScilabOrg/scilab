@@ -2,13 +2,13 @@
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2010 - DIGITEO - Bruno JOFRET
  *  Copyright (C) 2009-2009 - DIGITEO - Antoine ELIAS
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #ifndef __MACROFILE_HXX__
@@ -28,14 +28,15 @@ namespace types
         virtual                 ~MacroFile(){};
 
         //FIXME : Should not return NULL
-        MacroFile*              clone() { return NULL; }
+        MacroFile*              clone() const{ return NULL; }
 
         MacroFile*              getAsMacroFile(void);
-        RealType                getType(void);
+        MacroFile const *        getAsMacroFile(void) const;
+        RealType                getType(void) const;
 
-        void                    whoAmI();
+        void                    whoAmI() const;
 
-        std::string             toString(int _iPrecision, int _iLineLen);
+        std::string             toString(int _iPrecision, int _iLineLen) const;
 
         Callable::ReturnValue   call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
         bool                    parse(void);
@@ -43,9 +44,9 @@ namespace types
         Macro*                  macro_get(void);
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string     getTypeStr() {return string("macrofile");}
+        virtual std::string     getTypeStr() const {return string("macrofile");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string     getShortTypeStr() {return string("function");}
+        virtual std::string     getShortTypeStr() const {return string("function");}
 
     private :
         Macro*                  m_pMacro;

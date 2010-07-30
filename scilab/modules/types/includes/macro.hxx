@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2010 - DIGITEO - Bruno JOFRET
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #ifndef __MACRO_HXX__
@@ -29,23 +29,24 @@ namespace types
         virtual                     ~Macro();
 
         // FIXME : Should not return NULL;
-        Macro*                      clone() { return NULL; }
+        Macro*                      clone() const{ return NULL; }
 
         Macro*                      getAsMacro(void);
-        RealType                    getType(void);
+        Macro const*                      getAsMacro(void)const;
+        RealType                    getType(void) const;
 
-        void                        whoAmI();
+        void                        whoAmI() const;
 
-        std::string                 toString(int _iPrecision, int _iLineLen);
+        std::string                 toString(int _iPrecision, int _iLineLen) const;
 
         Callable::ReturnValue       call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
 
         ast::SeqExp*                body_get();
 
         /* return type as string ( double, int, cell, list, ... )*/
-        virtual std::string         getTypeStr() {return string("macro");}
+        virtual std::string         getTypeStr()  const{return string("macro");}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::string         getShortTypeStr() {return string("function");}
+        virtual std::string         getShortTypeStr()  const{return string("function");}
 
     private :
         std::list<std::string>*     m_inputArgs;
