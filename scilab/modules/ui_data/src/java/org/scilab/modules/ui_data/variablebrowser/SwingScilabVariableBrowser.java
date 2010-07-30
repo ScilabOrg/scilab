@@ -231,12 +231,22 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 				}
 				
 				try {
-					asynchronousScilabExec(action, "try "
+					asynchronousScilabExec(action, 
+								"if exists(\"" + variableName + "\") == 1 then " 
+								+ "try "
 								+ "editvar(\"" + variableName + "\"); " 
 								+ "catch "
 								+ "messagebox(\"Variables of type \"\"\" + typeof (" 
 								+ variableName + ") + \"\"\" can not be edited.\""
 								+ ",\"" + UiDataMessages.VARIABLE_EDITOR + "\", \"error\", \"modal\");"
+								+ "clear ans;"   // clear return value of messagebox
+								+ "end "
+								+ "else "
+								+ "messagebox(\"Variable \"\"" 
+								+ variableName + "\"\" no more exists.\""
+								+ ",\"" + UiDataMessages.VARIABLE_EDITOR + "\", \"error\", \"modal\");"
+								+ "clear ans;"  // clear return value of messagebox
+								+ "browsevar();" // Reload browsevar to remove cleared variables
 								+ "end");
 				} catch (InterpreterException e1) {
 					System.err.println("An error in the interpreter has been catched: " + e1.getLocalizedMessage()); 
