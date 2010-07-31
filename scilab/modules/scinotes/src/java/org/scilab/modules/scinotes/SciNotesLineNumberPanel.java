@@ -62,7 +62,6 @@ public class SciNotesLineNumberPanel extends JPanel implements CaretListener, Do
     private int borderGap;
     private Color currentLineForeground;
     private boolean isHighlighted;
-    //private Color alternColor = new Color(240, 240, 240);
     private Color currentColor = Color.GRAY;
 
     private int numbers;
@@ -96,20 +95,20 @@ public class SciNotesLineNumberPanel extends JPanel implements CaretListener, Do
 
     /**
      * Set a line numbering compatible with the whereami function
-     * @param state 0 for normal, 1 for whereami and 2 for nothing
+     * @param state 0 for nothing, 1 for normal and 2 for whereami
      */
     public void setWhereamiLineNumbering(int state) {
-        if (state != 2) {
+        if (state != 0) {
             if (!display) {
                 textPane.getScrollPane().setRowHeaderView(this);
             }
-            whereami = state == 1;
+            whereami = state == 2;
             display = true;
         } else {
             textPane.getScrollPane().setRowHeaderView(null);
             display = false;
         }
-        updateLineNumber(0, 0);
+        updateLineNumber();
         this.state = state;
     }
 
@@ -246,10 +245,8 @@ public class SciNotesLineNumberPanel extends JPanel implements CaretListener, Do
     /**
      * Useful method to determinate the number of the lines in being compatible
      * with the whereami function
-     * @param p0 start position in the doc
-     * @param p1 end position in the doc
      */
-    private void updateLineNumber(int p0, int p1) {
+    private void updateLineNumber() {
         synchronized (doc) {
             Stack<Integer> stk = new Stack();
             Element root = doc.getDefaultRootElement();
@@ -293,7 +290,7 @@ public class SciNotesLineNumberPanel extends JPanel implements CaretListener, Do
      * @param e the event
      */
     public void insertUpdate(DocumentEvent e) {
-        handleEvent(e.getOffset(), e.getLength());
+        handleEvent(e);
     }
 
     /**
@@ -301,22 +298,27 @@ public class SciNotesLineNumberPanel extends JPanel implements CaretListener, Do
      * @param e the event
      */
     public void removeUpdate(DocumentEvent e) {
-        handleEvent(e.getOffset(), e.getLength());
+        handleEvent(e);
     }
 
     /**
      * Update the line numbering on a change in the document
-     * @param offset offset where the event occured
-     * @param length length of inserted or removed text
+     * @param e the document event
      */
-    private void handleEvent(int offset, int length) {
-        Element root = doc.getDefaultRootElement();
-        Element line = root.getElement(root.getElementIndex(offset));
-        ((ScilabDocument.ScilabLeafElement) line).resetType();
+    private void handleEvent(DocumentEvent e) {
         if (whereami) {
-            updateLineNumber(offset, offset + length);
+            Element root = doc.getDefaultRootElement();
+            DocumentEvent.ElementChange chg = e.getChange(root);
+            if (chg == null) {
+                // change occured only in one line
+                Element line = root.getElement(root.getElementIndex(e.getOffset()));
+                if (((ScilabDocument.ScilabLeafElement) line).isFunction()) {
+                    updateLineNumber();
+                }
+            } else {
+                updateLineNumber();
+            }
         }
-        repaint();
     }
 
     /**

@@ -28,6 +28,7 @@ import javax.swing.text.Element;
     public static Set<String> commands = new HashSet();
     public static Set<String> macros = new HashSet();
     public static Set<String> variables = new HashSet();
+    public Set<String> infile;
 
     private ScilabDocument doc;
     private boolean transposable;
@@ -37,6 +38,10 @@ import javax.swing.text.Element;
     public ScilabLexer(ScilabDocument doc) {
         this.doc = doc;
         this.elem = doc.getDefaultRootElement();
+        this.infile = doc.getFunctionsInDoc();
+        variables.clear();
+        commands.clear();
+        macros.clear();
         variables.addAll(Arrays.asList(ScilabKeywords.GetVariablesName()));
         commands.addAll(Arrays.asList(ScilabKeywords.GetFunctionsName()));
         macros.addAll(Arrays.asList(ScilabKeywords.GetMacrosName()));
@@ -122,6 +127,7 @@ controlKwds = "abort" | "break" | "quit" | "return" | "resume" | "pause" | "cont
 authors = "Calixte Denizet" | "Calixte DENIZET" | "Sylvestre Ledru" | "Sylvestre LEDRU" | "Yann Collette" | "Yann COLLETTE" | "Allan Cornet" | "Allan CORNET" | "Allan Simon" | "Allan SIMON" | "Antoine Elias" | "Antoine ELIAS" | "Bernard Hugueney" | "Bernard HUGUENEY" | "Bruno Jofret" | "Bruno JOFRET" | "Claude Gomez" | "Claude GOMEZ" | "Clement David" | "Clement DAVID" | "Jerome Picard" | "Jerome PICARD" | "Manuel Juliachs" | "Manuel JULIACHS" | "Michael Baudin" | "Michael BAUDIN" | "Pierre Lando" | "Pierre LANDO" | "Pierre Marechal" | "Pierre MARECHAL" | "Serge Steer" | "Serge STEER" | "Vincent Couvert" | "Vincent COUVERT" | "Vincent Liard" | "Vincent LIARD" | "Zhour Madini-Zouine" | "Zhour MADINI-ZOUINE" | "Vincent Lejeune" | "Vincent LEJEUNE" | "Sylvestre Koumar" | "Sylvestre KOUMAR" | "Inria" | "INRIA" | "DIGITEO" | "Digiteo" | "ENPC"
 
 break = ".."(".")*
+breakinstring = {break}[ \t]*{comment}
 
 special = "$" | ":" | {break}
 
@@ -190,12 +196,15 @@ number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
                                    } else if (macros.contains(str)) {
                                        yybegin(COMMANDS);
                                        return ScilabLexerConstants.MACROS;
-                                   } else if (variables.contains(str)) {
-                                       return ScilabLexerConstants.VARIABLES;
+                                   } else if (infile.contains(str)) {
+                                       yybegin(COMMANDS);
+                                       return ScilabLexerConstants.MACROINFILE;
                                    } else {
-                                       List<String>[] arr = doc.getLocalVariables(start + yychar);
+                                       List<String>[] arr = doc.getInOutArgs(start + yychar);
                                        if (arr != null && (arr[0].contains(str) || arr[1].contains(str))) {
-                                           return ScilabLexerConstants.LOCALVARIABLES;
+                                           return ScilabLexerConstants.INPUTOUTPUTARGS;
+                                       } else if (variables.contains(str)) {
+                                           return ScilabLexerConstants.VARIABLES;
                                        }
                                    }
                                    return ScilabLexerConstants.ID;
@@ -315,7 +324,7 @@ number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
 }
 
 <QSTRING> {
-  {break}                        {
+  {breakinstring}                {
                                    yypushback(yylength());
                                    yybegin(BREAKSTRING);
                                    transposable = false;

@@ -25,6 +25,7 @@
       <menuitem action="CloseAllAction" label="Close All"/>
       <menuitem action="CloseAllButThisAction" label="Close All But This"/>
       <separator/>
+      <menuitem action="RestoreOpenedFilesAction" label="Restore opened files on start-up"/>
       <menuitem action="ExitAction" label="Exit"/>
     </menu>
 
@@ -67,14 +68,12 @@
 
     <menu label="View" mnemonic="V">
       <menuitem action="HighlightCurrentLineAction" label="Highlight current line"/>
-      <menuitem action="LineNumbersAction" label="Whereami Line Numbering;Normal Line Numbering;No Line Numbering"/>
+      <menuitem action="LineNumbersAction" label="Line numbering;Off;Normal;Whereami compatible"/>
+      <menuitem action="SplitAction" label="Split View;Off;Horizontally;Vertically"/>
+      <separator/>
       <menuitem action="SetColorsAction" label="Set Colors"/>
       <menuitem action="SetFontAction" label="Set Font"/>
       <menuitem action="ResetFontAction" label="Reset default font"/>
-      <separator/>
-      <menuitem action="SplitVerticallyAction" label="Split vertically"/>
-      <menuitem action="SplitHorizontallyAction" label="Split horizontally"/>
-      <menuitem action="NoSplitAction" label="No split"/>
     </menu>
 
     <menu label="Document" mnemonic="D">

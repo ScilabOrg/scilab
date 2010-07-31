@@ -9,6 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "call_scilab.h"
@@ -28,6 +29,7 @@
 #include "storeCommand.h"
 #include "WindowList.h"
 #include "../../core/src/c/TerminateCore.h"
+#include "api_scilab.h"
 
 #ifdef _MSC_VER
 #include "SetScilabEnvironmentVariables.h"
@@ -177,5 +179,16 @@ void ScilabDoOneEvent(void)
 int ScilabHaveAGraph(void)
 {
   return sciHasFigures();
+}
+/*--------------------------------------------------------------------------*/
+sci_types getVariableType(char *varName) {
+    sci_types sciType = -1;
+    SciErr sciErr = getNamedVarType(pvApiCtx, (char*)varName, &sciType);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return -1;
+    }
+    return sciType;
 }
 /*--------------------------------------------------------------------------*/

@@ -59,7 +59,6 @@ public class EditVar {
 		}
 
 		VariableEditor editvar = ScilabVariableEditor.getVariableEditor(dataDouble, variableName);
-		editvar.setVisible(true);
 	}
 
 	/**
@@ -85,7 +84,6 @@ public class EditVar {
 		}
 
 		VariableEditor editvar = ScilabVariableEditor.getVariableEditor(dataString, variableName);
-		editvar.setVisible(true);
 	}
 	
 	/**
@@ -113,7 +111,6 @@ public class EditVar {
 		}
 
 		VariableEditor editvar = ScilabVariableEditor.getVariableEditor(dataDoubleComplex, variableName);
-		editvar.setVisible(true);
 	}
 	
 	
@@ -140,7 +137,6 @@ public class EditVar {
 		}
 
 		VariableEditor editvar = ScilabVariableEditor.getVariableEditor(dataBool, variableName);
-		editvar.setVisible(true);
 	}
 	
 	/**
@@ -183,11 +179,7 @@ public class EditVar {
 	 * @param errCode : the errCode given by Scilab, 0 if no error.
 	 */
 	public static void updateVariableEditor(String variableName, int row, int col, Object newValue, int errCode) {
-		if (errCode != 0) {
-			System.err.println("bad instruction");
-		} else {
-			ScilabVariableEditor.getVariableEditor().setValueAt(newValue, row - 1, col - 1);
-		}
+		ScilabVariableEditor.getVariableEditor().setValueAt(newValue, row - 1, col - 1);
 	}
 
 	/**
