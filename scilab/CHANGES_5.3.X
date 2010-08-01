@@ -54,6 +54,9 @@ Bug Fixes:
 * bug 7644 fixed - The last user palette could not be removed from the palette
                    tree.
 
+* bug 7661 fixed - Add some usage examples for the function 'warning'.
+
+
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
 
