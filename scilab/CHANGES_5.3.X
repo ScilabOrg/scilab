@@ -51,6 +51,9 @@ Bug Fixes:
 * bug 7636 fixed - The SUPER_f internal diagram was not coherent with the block
                    external view.
 
+* bug 7644 fixed - The last user palette could not be removed from the palette
+                   tree.
+
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
 
@@ -575,6 +578,17 @@ Localization:
 * bug 7220 fixed - On Windows, when you started Scilab with "WScilex -l ru_RU",
                    some menus were disabled.
 
+Source reorganization:
+======================
+
+* 'tbx_builder_src', 'tbx_build_macros', 'tbx_builder_gateway', ... functions
+   has been moved in modules_manager module.
+
+API_Scilab:
+===========
+
+* Error(x) is now deprecated and will be removed in Scilab 5.4.
+  Please consider SciError(x).
 
 Call_Scilab:
 ============
