@@ -65,7 +65,9 @@ Bug Fixes:
 * bug 7644 fixed - The last user palette could not be removed from the palette
                    tree.
 
-* bug 7693 fixed - With a corrupted palettes.xml file, the error message is not 
+* bug 7681 fixed - help_from_sci failed to process tabulated .sci files.
+
+* bug 7693 fixed - With a corrupted palettes.xml file, the error message is not
                    coherent with the recovering action.
 
 
