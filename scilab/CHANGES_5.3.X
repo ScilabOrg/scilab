@@ -79,8 +79,12 @@ Bug Fixes:
 
 * bug 7651 fixed - scicos_math.h was missing in binary package.
 
+* bug 7688 fixed - set("color_map", hsvcolormap(128)) produced
+                    a EXCEPTION_STACK_OVERFLOW.
+
 * bug 7693 fixed - With a corrupted palettes.xml file, the error message is not
                    coherent with the recovering action.
+
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
