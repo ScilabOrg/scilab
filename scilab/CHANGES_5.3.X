@@ -51,6 +51,9 @@ Bug Fixes:
 
 * bug 7519 fixed - Help page of getcallbackobject() did not describe input argument.
 
+* bug 7599 fixed - Intersci-n and intersci did not create code from a .desc file
+                   if it was not ended by a empty line.
+
 * bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
                    it was not visible even if the subwindow was docked.
 
