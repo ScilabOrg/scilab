@@ -62,6 +62,7 @@ FILEIO_IMPEXP int sci_movefile(char *fname, int* _piKey);
 FILEIO_IMPEXP int sci_basename(char *fname, int* _piKey);
 FILEIO_IMPEXP int sci_pathconvert(char *fname, int* _piKey);
 FILEIO_IMPEXP int sci_isfile(char *fname, int* _piKey);
+
 /*--------------------------------------------------------------------------*/ 
 #endif /* __GW_FILEIO_H__ */
 /*--------------------------------------------------------------------------*/
