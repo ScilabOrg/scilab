@@ -143,7 +143,8 @@ am__objects_1 = libscifileio_la-FileExist.lo \
 	libscifileio_la-basename.lo libscifileio_la-pathconvert.lo \
 	libscifileio_la-copyfile_others.lo \
 	libscifileio_la-getFullFilename.lo \
-	libscifileio_la-os_wfopen.lo libscifileio_la-mputl.lo
+	libscifileio_la-os_wfopen.lo libscifileio_la-os_wcsdup.lo \
+	libscifileio_la-mputl.lo
 am__objects_2 = libscifileio_la-expandPathVariable.lo \
 	libscifileio_la-mopen.lo libscifileio_la-mclose.lo \
 	libscifileio_la-mput.lo libscifileio_la-mget.lo \
@@ -510,6 +511,7 @@ src/c/pathconvert.c \
 src/c/copyfile_others.c \
 src/c/getFullFilename.c \
 src/c/os_wfopen.c \
+src/c/os_wcsdup.c \
 src/c/mputl.c
 
 GATEWAY_C_SOURCES = \
@@ -809,6 +811,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-mputstr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-mseek.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-mtell.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-os_wcsdup.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-os_wfopen.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-pathconvert.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscifileio_la-readline.Plo@am__quote@
@@ -1189,6 +1192,13 @@ libscifileio_la-os_wfopen.lo: src/c/os_wfopen.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/os_wfopen.c' object='libscifileio_la-os_wfopen.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifileio_la_CPPFLAGS) $(CPPFLAGS) $(libscifileio_la_CFLAGS) $(CFLAGS) -c -o libscifileio_la-os_wfopen.lo `test -f 'src/c/os_wfopen.c' || echo '$(srcdir)/'`src/c/os_wfopen.c
+
+libscifileio_la-os_wcsdup.lo: src/c/os_wcsdup.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifileio_la_CPPFLAGS) $(CPPFLAGS) $(libscifileio_la_CFLAGS) $(CFLAGS) -MT libscifileio_la-os_wcsdup.lo -MD -MP -MF $(DEPDIR)/libscifileio_la-os_wcsdup.Tpo -c -o libscifileio_la-os_wcsdup.lo `test -f 'src/c/os_wcsdup.c' || echo '$(srcdir)/'`src/c/os_wcsdup.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscifileio_la-os_wcsdup.Tpo $(DEPDIR)/libscifileio_la-os_wcsdup.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/os_wcsdup.c' object='libscifileio_la-os_wcsdup.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifileio_la_CPPFLAGS) $(CPPFLAGS) $(libscifileio_la_CFLAGS) $(CFLAGS) -c -o libscifileio_la-os_wcsdup.lo `test -f 'src/c/os_wcsdup.c' || echo '$(srcdir)/'`src/c/os_wcsdup.c
 
 libscifileio_la-mputl.lo: src/c/mputl.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifileio_la_CPPFLAGS) $(CPPFLAGS) $(libscifileio_la_CFLAGS) $(CFLAGS) -MT libscifileio_la-mputl.lo -MD -MP -MF $(DEPDIR)/libscifileio_la-mputl.Tpo -c -o libscifileio_la-mputl.lo `test -f 'src/c/mputl.c' || echo '$(srcdir)/'`src/c/mputl.c

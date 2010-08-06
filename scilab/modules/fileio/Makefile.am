@@ -48,6 +48,7 @@ src/c/pathconvert.c \
 src/c/copyfile_others.c \
 src/c/getFullFilename.c \
 src/c/os_wfopen.c \
+src/c/os_wcsdup.c \
 src/c/mputl.c
 
 GATEWAY_C_SOURCES = \
