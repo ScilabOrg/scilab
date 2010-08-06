@@ -386,7 +386,11 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 	 */
 	private void setupPortSize(BasicBlock from) {
 		// Getting children size per type.
-		int in, out, ein, eout;
+		int in;
+		int out;
+		int ein;
+		int eout;
+		
 		in = BasicBlockInfo.getAllTypedPorts(from, false, InputPort.class).size();
 		out = BasicBlockInfo.getAllTypedPorts(from, false, OutputPort.class).size();
 		ein = BasicBlockInfo.getAllTypedPorts(from, false, ControlPort.class).size();
