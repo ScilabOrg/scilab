@@ -14,6 +14,8 @@ SciNotes:
 
 * bug 7676 fixed - The SaveAs action didn't remove "readonly" mode.
 
+* bug 7677 fixed - User hadn't the possibilty to open files in his favorite directories.
+
 * bug 7678 fixed - Help action didn't give help on selection.
 
 * bug 7682 fixed - The knob of the vertical scrollbar moved badly on resize.
