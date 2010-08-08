@@ -145,7 +145,8 @@ am__objects_4 = libscixcos_la-sci_Xcos.lo \
 	libscixcos_la-sci_xcosPalDisable.lo \
 	libscixcos_la-sci_xcosPalGenerateIcon.lo \
 	libscixcos_la-sci_xcosConfigureXmlFile.lo
-am__objects_5 = libscixcos_la-callxcos.lo libscixcos_la-Xcos.lo \
+am__objects_5 = libscixcos_la-callxcos.lo \
+	libscixcos_la-callsimulinkimport.lo libscixcos_la-Xcos.lo \
 	libscixcos_la-Palette.lo libscixcos_la-Modelica.lo \
 	libscixcos_la-GiwsException.lo libscixcos_la-xcosUtilities.lo
 am_libscixcos_la_OBJECTS = $(am__objects_2) $(am__objects_3) \
@@ -462,6 +463,7 @@ libscixcos_la_etc_DATA = etc/xcos.quit \
 
 XCOS_C_SOURCES = 
 XCOS_CPP_SOURCES = src/cpp/callxcos.cpp \
+			src/cpp/callsimulinkimport.cpp \
 			src/jni/Xcos.cpp \
 			src/jni/Xcos.hxx \
 			src/jni/Palette.cpp \
@@ -958,6 +960,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-Modelica.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-Palette.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-Xcos.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-callsimulinkimport.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-callxcos.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-gw_xcos.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscixcos_la-sci_Xcos.Plo@am__quote@
@@ -1136,6 +1139,13 @@ libscixcos_la-callxcos.lo: src/cpp/callxcos.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/callxcos.cpp' object='libscixcos_la-callxcos.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscixcos_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscixcos_la-callxcos.lo `test -f 'src/cpp/callxcos.cpp' || echo '$(srcdir)/'`src/cpp/callxcos.cpp
+
+libscixcos_la-callsimulinkimport.lo: src/cpp/callsimulinkimport.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscixcos_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscixcos_la-callsimulinkimport.lo -MD -MP -MF $(DEPDIR)/libscixcos_la-callsimulinkimport.Tpo -c -o libscixcos_la-callsimulinkimport.lo `test -f 'src/cpp/callsimulinkimport.cpp' || echo '$(srcdir)/'`src/cpp/callsimulinkimport.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscixcos_la-callsimulinkimport.Tpo $(DEPDIR)/libscixcos_la-callsimulinkimport.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/callsimulinkimport.cpp' object='libscixcos_la-callsimulinkimport.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscixcos_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscixcos_la-callsimulinkimport.lo `test -f 'src/cpp/callsimulinkimport.cpp' || echo '$(srcdir)/'`src/cpp/callsimulinkimport.cpp
 
 libscixcos_la-Xcos.lo: src/jni/Xcos.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscixcos_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscixcos_la-Xcos.lo -MD -MP -MF $(DEPDIR)/libscixcos_la-Xcos.Tpo -c -o libscixcos_la-Xcos.lo `test -f 'src/jni/Xcos.cpp' || echo '$(srcdir)/'`src/jni/Xcos.cpp
@@ -1482,6 +1492,7 @@ uninstall-am: uninstall-libscixcos_la_etcDATA \
 	uninstall-nobase_libscixcos_la_imagesDATA \
 	uninstall-pkglibLTLIBRARIES
 
+	sci_gateway/cpp/sci_simulinkImport.cpp
 
 # This target enables tests for Scilab
 check-local: $(top_builddir)/scilab-bin test
