@@ -31,6 +31,7 @@ XCOS_IMPEXP int sci_xcosPalMove(char* fname, unsigned long l);
 XCOS_IMPEXP int sci_xcosPalEnable(char* fname, unsigned long l);
 XCOS_IMPEXP int sci_xcosPalDisable(char* fname, unsigned long l);
 XCOS_IMPEXP int sci_xcosPalGenerateIcon(char* fname, unsigned long l);
+XCOS_IMPEXP int sci_simulinkImport(char* fname, unsigned long l);
 /*--------------------------------------------------------------------------*/
 #endif /* __GW_XCOS__ */
 /*--------------------------------------------------------------------------*/

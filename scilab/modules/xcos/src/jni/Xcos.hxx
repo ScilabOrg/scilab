@@ -72,6 +72,7 @@ jmethodID voidcloseXcosFromScilabID; // cache method id
 jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID; // cache method id
 jmethodID voidxcosDiagramOpenjstringjbooleanID; // cache method id
 jmethodID voidxcosDiagramClosejstringID; // cache method id
+jmethodID voidsimulinkImportID; // cache method id
 
 
 /**
@@ -126,6 +127,10 @@ static int xcosDiagramToHDF5(JavaVM * jvm_, char * xcosFile, char * h5File, bool
 static void xcosDiagramOpen(JavaVM * jvm_, char * UID, bool show);
 
 static void xcosDiagramClose(JavaVM * jvm_, char * UID);
+
+static void simulinkImport(JavaVM * jvm_);
+
+static void simulinkImport(JavaVM * jvm_, char * fileName);
 
 
                         /**
