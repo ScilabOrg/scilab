@@ -22,6 +22,9 @@ SciNotes:
 
 * bug 7719 fixed - There was not the possibility to open several files at the same time.
 
+* bug 7722 fixed - Several FindReplace windows could be opened.
+
+
 Editvar/Browsevar:
 ==================
 
