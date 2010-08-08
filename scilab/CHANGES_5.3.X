@@ -20,6 +20,7 @@ SciNotes:
 
 * bug 7682 fixed - The knob of the vertical scrollbar moved badly on resize.
 
+* bug 7719 fixed - There was not the possibility to open several files at the same time.
 
 Editvar/Browsevar:
 ==================
