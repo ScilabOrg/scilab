@@ -189,6 +189,29 @@
           <para>See <link linkend="legend_properties">legend_properties</link> for details.</para>
         </listitem>
       </varlistentry>
+      <varlistentry>
+        <term>ImageRenderer: </term>
+        <listitem>
+          <para>
+          Allows the setting of ImageRenderer properties: scale, shear, and rotate.
+	  scale: takes two x, y double values from user input to scale the image
+          shear: takes two x, y double values from user input to shear the image
+          rotate: takes a single integer for image rotation
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>UiTable: </term>
+        <listitem>
+          <para>
+          Allows the setting of UiTable properties: colnames, rownames, tabledata
+	  colnames: accepts a string for column names in the table, each column is separated by a "|". E.g "1|2|3|4"
+          rownames: accepts a string for row names in the table, each column is separated by a "|". E.g "1|2|3|4"
+          tabledata: accepts a string for table data, each row is separated by a "|" and each table element is separated by a " ".
+                     E.g. "1 2 3 4| a b c d| 1.2 3.2 40 32"
+          </para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsection>
   <refsection>
