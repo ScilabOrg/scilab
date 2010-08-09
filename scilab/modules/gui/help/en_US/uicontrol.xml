@@ -350,7 +350,9 @@
           <para>This property represents the text appearing in a uicontrol
           (Except for Frame and Slider styles). For ListBoxes and PopupMenus,
           the value can be a vector of string or a string where the items are
-          separated by a "|". For Text uicontrols, this string can contain HTML code to format the text.</para>
+          separated by a "|". For Text uicontrols, this string can contain HTML code to format the text.
+	  For ImageRenderer, the value specifies the directory of the picture.
+          </para>
         </listitem>
       </varlistentry>
 
@@ -359,7 +361,7 @@
 
         <listitem>
           <para>{pushbutton} | radiobutton | checkbox | edit | text | slider |
-          frame | listbox | popupmenu</para>
+          frame | listbox | popupmenu | imagerenderer | uitable | uidisplaytree</para>
 
           <para>Style of the uicontrol. Here is a short description of each
           one:</para>
@@ -407,6 +409,20 @@
             <listitem>
               <para>Popupmenu: a button which make a menu appear when
               clicked.</para>
+            </listitem>
+
+	    <listitem>
+              <para>ImageRenderer: a window where the picture specified is
+	      displayed.</para>
+            </listitem>
+
+	    <listitem>
+              <para>UiTable: a table is created in the figure.</para>
+            </listitem>
+
+            <listitem>
+              <para>UiDisplayTree: a function that displays a tree in the
+              figure.</para>
             </listitem>
           </itemizedlist>
         </listitem>
