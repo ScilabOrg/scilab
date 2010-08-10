@@ -12,7 +12,6 @@
 
 package org.scilab.tests.modules.xcos;
 
-import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
