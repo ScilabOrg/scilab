@@ -4,14 +4,27 @@
 Scilab:
 =======
 
-Some long-standing usability bugs have been fixed in this release:
+Some long-standing usability bugs have been fixed in this release.
+Contributions from the Scilab team have been done on the flexdock project
+to fix these issues.
+
+* bugs 1589, 3994 fixed - On Startup, Scilab console did not have the focus. 
+                   The user had to click in the main window to gain focus.
+
+* bug 4423 fixed - It was not possible to navigate in Scilab's menu with arrow
+                   keys.
+
+* bug 5708 fixed - A problem of focus between the console and the editor
+                   happened when SciNotes was started from the console.
 
 * bug 7625 fixed - Some selection issues were appearing from time to time when
                    Scilab was losing the focus.
 
 
+
 SciNotes:
 =========
+
 
 * bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
