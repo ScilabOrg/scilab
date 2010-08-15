@@ -33,6 +33,7 @@ SciNotes:
 * bug 7731 fixed - In Find/Replace window, the buttons were not updated when an item was
                    choosen in the combobox Find.
 
+* bug 7746 fixed - Scilab was the owner of a named opened file.
 
 Editvar/Browsevar:
 ==================
