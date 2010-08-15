@@ -20,6 +20,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
@@ -123,6 +125,15 @@ public class SwingScilabTab extends View implements SimpleTab {
 	scrolling = null;
 
 	this.setVisible(true);
+
+	getTitlebar().addFocusListener(new FocusListener() {
+		
+		public void focusGained(FocusEvent e) {
+		    SwingScilabTab.this.requestFocusInWindow();
+		}
+
+		public void focusLost(FocusEvent e) { }
+	    });
     }
 
     /**
@@ -149,6 +160,15 @@ public class SwingScilabTab extends View implements SimpleTab {
 	setContentPane(scrolling.getAsContainer());
 
 	this.setVisible(true);
+
+	getTitlebar().addFocusListener(new FocusListener() {
+		
+		public void focusGained(FocusEvent e) {
+		    contentPane.requestFocus();
+		}
+		
+		public void focusLost(FocusEvent e) { }
+	    });
     }
 
     /**
