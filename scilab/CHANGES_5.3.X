@@ -4,7 +4,7 @@
 SciNotes:
 =========
 
-* bugs 7276, 7726 fixed - There was a problem of highlighting with default font. 
+* bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
 * bug 7554 fixed - Auto-completion on typing was too general.
 
@@ -63,7 +63,7 @@ Compilation:
 Documentation:
 ==============
 
-* bug 7755 fixed - Some sparse help pages moved from elementary_functions to 
+* bug 7755 fixed - Some sparse help pages moved from elementary_functions to
                    the sparse chapter.
 
 
@@ -145,6 +145,7 @@ Bug Fixes:
 * bug 7733 fixed - strstr crashed scilab if the second input argument was longer
                    than the first one.
 
+* bug 7740 fixed - edit() with a Scilab macro redefined failed.
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
