@@ -46,7 +46,6 @@ Editvar/Browsevar:
 * bug 7627 fixed - When browsevar() window was docked, if browsevar() was called
                    again an empty window poped up and could not be closed.
 
-
 Compilation:
 ============
 
@@ -67,6 +66,8 @@ Windows Installer:
   Interpreter in command line without the graphic, java or Tcl/Tk capabilities.
   Installation requires only 60 Mo on disk.
 
+* bug 7629 fixed - browsevar(): Trying to edit a variable that no more exists
+                   generated an error.
 
 Bug Fixes:
 ==========
