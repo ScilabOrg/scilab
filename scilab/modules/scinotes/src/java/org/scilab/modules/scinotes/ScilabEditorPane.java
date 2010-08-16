@@ -560,7 +560,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                 selection = getDocument().getText(start, end - start);
             }
             if (suppressCom) {
-                selection = selection.replaceAll("[ \t]*//[^\n]*\n", "");
+                selection = selection.replaceAll("[ \t]*//[^\n]*", "");
             }
         } catch (BadLocationException e) {
             selection = "";

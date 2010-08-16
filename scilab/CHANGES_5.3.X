@@ -34,6 +34,8 @@ SciNotes:
 
 * bug 7722 fixed - Several FindReplace windows could be opened.
 
+* bug 7764 fixed - The CR in comments was removed when executing from SciNotes.
+
 
 Editvar/Browsevar:
 ==================
