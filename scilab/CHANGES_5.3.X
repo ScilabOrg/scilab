@@ -52,6 +52,8 @@ Editvar/Browsevar:
 Compilation:
 ============
 
+* A problem on startup with GNU/Linux sparc has been fixed.
+
 * bug 7668 fixed -  Scilab 5.3.0-beta-2 did not build with Visual Studio 2008 Express.
 
 
