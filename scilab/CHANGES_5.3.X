@@ -147,7 +147,9 @@ Bug Fixes:
 
 * bug 7733 fixed - strstr crashed scilab if the second input argument was longer
                    than the first one.
-
+                   
+* bug 7751 fixed - justify() did not work correctly with strings embedded 
+                   leading or trailing spaces.
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
