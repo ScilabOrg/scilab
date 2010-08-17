@@ -103,6 +103,8 @@ Bug Fixes:
 
 * bug 7706 fixed - example in the help page of 'optim_ga' did not work.
 
+* bug 7756 fixed - sprand did not produce normal numbers.
+
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
@@ -1387,4 +1389,5 @@ Bug fixes:
 * bug 7278 fixed - strsplit did not work with some particular inputs.
 
 * bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
+
 
