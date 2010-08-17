@@ -1388,3 +1388,5 @@ Bug fixes:
 
 * bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
 
+* bug 7756 fixed - sprand did not produce normal numbers.
+
