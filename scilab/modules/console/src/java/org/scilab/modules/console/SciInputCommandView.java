@@ -67,6 +67,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
 	// Input command line is not editable when created
 	this.setEditable(false);
+	setCaret(new SciCaret(this));
     }
 
     /**
