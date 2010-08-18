@@ -152,11 +152,11 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = core output_stream arnoldi elementary_functions string \
-	api_scilab dynamic_link fileio history_manager spreadsheet \
-	tclsci localization action_binding renderer shell completion \
-	console graphic_export gui jvm commons graphics optimization \
-	symbolic randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	api_scilab commons dynamic_link fileio history_manager \
+	spreadsheet tclsci localization action_binding renderer shell \
+	completion console graphic_export gui jvm graphics \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci signal_processing call_scilab sound time sparse \
 	windows_tools functions overloading maple2scilab m2sci texmacs \
@@ -439,11 +439,11 @@ top_srcdir = @top_srcdir@
 # core is the main module of Scilab. All the compilation deps has been removed
 # since it already linked almost the whole world
 SUBDIRS = core output_stream arnoldi elementary_functions string \
-	api_scilab dynamic_link fileio history_manager spreadsheet \
-	tclsci localization action_binding renderer shell completion \
-	console graphic_export gui jvm commons graphics optimization \
-	symbolic randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	api_scilab commons dynamic_link fileio history_manager \
+	spreadsheet tclsci localization action_binding renderer shell \
+	completion console graphic_export gui jvm graphics \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci signal_processing core call_scilab interpolation \
 	sound time randlib sparse windows_tools functions overloading \
