@@ -124,10 +124,8 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
     
     // now handle pal_block_img argument
     pal_block_img_invalid = %t;
-    if exists("pal_block_img", 'l') == 1 then
-        if ~isempty(pal_block_img) then
-            pal_block_img_invalid = %f;
-        end
+    if exists("pal_block_img", 'l') == 1 & ~isempty(pal_block_img) then
+        pal_block_img_invalid = %f;
     end
     
     if pal_block_img_invalid then
@@ -148,10 +146,8 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
     
     // now handle style argument
     style_invalid = %t;
-    if exists("style", 'l') == 1 then
-        if ~isempty(style) then
-            style = %f;
-        end
+    if exists("style", 'l') == 1 & ~isempty(style) then
+        style_invalid = %f;
     end
     
     if style_invalid then
