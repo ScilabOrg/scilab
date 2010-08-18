@@ -88,6 +88,8 @@ Compilation:
 * bug 7668 fixed - Scilab 5.3.0-beta-2 did not build with Visual Studio 2008
                    Express.
 
+* Update Lapack to 3.2.2 on Windows (fix bugs 7754, 7485, 6477).
+
 Documentation:
 ==============
 
@@ -101,12 +103,14 @@ Windows Installer:
   Interpreter in command line without the graphic, java or Tcl/Tk capabilities.
   Installation requires only 60 Mo on disk.
 
-
 Xcos:
 =====
 
 * bug 7256 fixed - Saving a diagram with a non-ASCII filename create a 
                    corrupted file on Windows.
+
+* bug 7498 fixed - SPLIT_f were not always deleted when one of its connection
+                   were.
 
 * bug 7622 fixed - When opening an Xcos diagram done on 5.2.2, an exception
                    could be thrown.
@@ -149,6 +153,8 @@ Scilab/LabView Gateway:
 Bug Fixes:
 ==========
 
+* bug 6477 fixed - in some case, schur returned wrong values on Windows.
+
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
 
@@ -157,8 +163,7 @@ Bug Fixes:
 
 * bug 7453 fixed - newfun() was broken after clearfun().
 
-* bug 7498 fixed - SPLIT_f were not always deleted when one of its connection
-                   were.
+* bug 7485 fixed - Division of matrices of complex numbers crashed on Windows.
 
 * bug 7519 fixed - Help page of getcallbackobject() did not describe input argument.
 
@@ -208,6 +213,8 @@ Bug Fixes:
 
 * bug 7751 fixed - justify() did not work correctly if the subject embedded
                    leading or trailing spaces.
+
+* bug 7754 fixed - umfpack did not work with Scilab 5.3.0-beta-2 on Windows.
 
 * bug 7756 fixed - sprand did not produce normal numbers.
 
