@@ -1,6 +1,7 @@
 //
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) DIGITEO - 2010-2010 - Clément DAVID
+// Copyright (C) DIGITEO - 2010-2010 - Jérôme Picard
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -150,7 +151,7 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
     style_invalid = %t;
     if exists("style", 'l') == 1 then
         if ~isempty(style) then
-            style = %f;
+	     style_invalid = %f;
         end
     end
     
