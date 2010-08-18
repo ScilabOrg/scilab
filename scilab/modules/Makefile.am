@@ -22,6 +22,7 @@ arnoldi \
 elementary_functions \
 string \
 api_scilab \
+commons \
 dynamic_link \
 fileio \
 history_manager \
@@ -36,7 +37,6 @@ console \
 graphic_export \
 gui \
 jvm \
-commons \
 graphics \
 optimization \
 symbolic \
