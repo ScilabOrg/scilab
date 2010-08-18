@@ -30,9 +30,6 @@ function   [ok]=compile_init_modelica(xmlmodel,paremb,jaco)
 
   // called by Initilization IHM
   lines(0);
-  if %tk then
-    %_winId = TCL_GetVar("IHMLoc");
-  end
   global icpr;
 
   //set paths for generated files  
@@ -80,9 +77,6 @@ function   [ok]=compile_init_modelica(xmlmodel,paremb,jaco)
   [nipar, nrpar, nopar, nz, nx, nx_der, nx_ns, nin, nout, nm, ng, dep_u] = reading_incidence(incidencei);
 
   if (~ok) then
-    if %tk then
-      TCL_EvalStr("Compile_finished nok "+ %_winId); 
-    end
     return; 
   end
 
@@ -90,9 +84,6 @@ function   [ok]=compile_init_modelica(xmlmodel,paremb,jaco)
     MSG3 = mgetl(tmpdir + 'imodelicac.err');
     disp(['-------Modelica compiler error flat2C:-------'; MSG3; 'Please read the error message in the Scilab window']);
     ok = %f;
-    if %tk then
-      TCL_EvalStr("Compile_finished nok "+ %_winId); 
-    end
     return	         
  end
 
@@ -118,10 +109,8 @@ function   [ok]=compile_init_modelica(xmlmodel,paremb,jaco)
   %scicos_solver = 100;
   icpr = c_pass2(bllst, connectmat, clkconnect, cor, corinv);
 
-  if icpr == list() then 
-    if %tk then
-      TCL_EvalStr("Compile_finished nok "+ %_winId); 
-    end
+  if icpr == list() then
+    ok = %f;
     return,
   end   
 
@@ -135,10 +124,6 @@ function   [ok]=compile_init_modelica(xmlmodel,paremb,jaco)
 	icpr.sim.funs(i)(1) = 'trash';
       end
     end
-  end
-  
-  if %tk then
-    TCL_EvalStr("Compile_finished ok "+ %_winId); 
   end
 endfunction
 //-----------------------------------------------------------------------------
