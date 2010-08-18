@@ -222,10 +222,6 @@ function result = atomsInstall(packages,section)
 
     end
 
-    // Force update the system informations
-    // =========================================================================
-    atomsDESCRIPTIONget(%T)
-
     // Get the install list
     // =========================================================================
     [install_package_list,dependency_tree] = atomsInstallList(packages,section);
