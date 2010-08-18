@@ -149,6 +149,9 @@ Bug Fixes:
 * bug 7620 fixed - The Optimization and Simulation/Optimisation/Plot demo did
                    not plot anything.
 
+* bug 7625 fixed - Problem with selection which disappeared when a window lost
+                   the focus.
+
 * bug 7661 fixed - Add some usage examples for the function 'warning'.
 
 * bug 7681 fixed - help_from_sci failed to process tabulated .sci files.

@@ -39,6 +39,8 @@ import com.artenum.rosetta.interfaces.ui.PromptView;
 import com.artenum.rosetta.ui.ConsoleTextPane;
 import com.artenum.rosetta.util.StringConstants;
 
+import org.scilab.modules.gui.utils.ScilabCaret;
+
 /**
  * Scilab UI that contains the line edited by th euser
  * @author Vincent COUVERT
@@ -67,6 +69,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
 	// Input command line is not editable when created
 	this.setEditable(false);
+	setCaret(new ScilabCaret(this));
     }
 
     /**
