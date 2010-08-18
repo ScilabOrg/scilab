@@ -76,6 +76,12 @@ function result = atomsLoad(packages)
     loaded = atomsLoadLoad();
     nbAdd  = 0;
 
+    // Remove duplicate packages (name - version)
+    // =========================================================================
+
+    [matout,index] = unique([packages(:,1) packages(:,2)],"r");
+    packages       = packages(gsort(index,"g","i"),:);
+
     // Loop on input parameter
     // =========================================================================
 
@@ -133,6 +139,7 @@ function result = atomsLoad(packages)
             for j=1:size(sections,"*")
                 if atomsIsInstalled([packages(i,1) packages(i,2)],sections(j)) then
                     packages(i,3) = sections(j);
+                    break
                 end
             end
 
