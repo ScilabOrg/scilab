@@ -10,7 +10,7 @@ function ged(k,win)
   //xset, xget used because ged should handle both old and new style
   
   if ~%tk then
-   warning('TCL/TK interface not installed.');
+   warning(msprintf(gettext("Tcl/Tk interface not installed.")));
    return
   end
 
@@ -1478,7 +1478,7 @@ function ged_eventhandler(win,x,y,ibut)
       [x,y]=xchange(x,y,'i2f')
       pos=[x,y]
       while %t then
-	rep=xgetmouse(0,[%t %t])
+	rep=xgetmouse([%t %t])
 	if rep(3)>0 then break,end
 	
 	move(ged_handle,rep(1:2)-pos)
@@ -2374,42 +2374,42 @@ function ged_move_entity()
   select r.type
   case 'Rectangle' then
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.data(1:2)= r.data(1:2)+(rep(1:2)-pos)
       pos=rep(1:2)
       show_pixmap()
     end 
   case 'Segs' then //Segment
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.data=r.data+ones(2,1)*(rep(1:2)-pos)
       pos=rep(1:2)
       show_pixmap()
     end 
   case 'Polyline' then //Polyline
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.data(:,1:2)=r.data(:,1:2)+ones(r.data(:,1))*(rep(1:2)-pos)
       pos=rep(1:2)
       show_pixmap()
     end 
    case 'Arc' then //Circle
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.data(1:2)= r.data(1:2)+(rep(1:2)-pos)
       pos=rep(1:2)
       show_pixmap()
     end 
   case 'Text' then
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.data(1:2)= r.data(1:2)+(rep(1:2)-pos)
       pos=rep(1:2)
       show_pixmap()
     end 
   case 'Label' then
     while rep(3)==-1 do
-      rep=xgetmouse(0,[%t %t])
+      rep=xgetmouse([%t %t])
       r.position= r.position+(rep(1:2)-pos)
       r.auto_position = "off"
       pos=rep(1:2)
