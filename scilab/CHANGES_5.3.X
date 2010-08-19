@@ -70,13 +70,16 @@ Editvar/Browsevar:
 * bug 7629 fixed - browsevar(): Trying to edit a variable that no more exists
                    generated an error.
 
-Compilation:
-============
+Compilation & run:
+==================
 
 * -fwritable-strings C argument removed for all architectures under Linux
   (was causing some build issues under sparc, alpha and powerpc)
 
 * A problem on startup with GNU/Linux sparc has been fixed.
+
+* Add /usr/lib/jvm/default-java to the default directories of the JVM under
+  GNU/Linux (new default path for the JVM under Debian and Ubuntu)
 
 * bug 7668 fixed - Scilab 5.3.0-beta-2 did not build with Visual Studio 2008
                    Express.
