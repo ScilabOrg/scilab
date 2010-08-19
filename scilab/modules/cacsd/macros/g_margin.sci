@@ -47,8 +47,9 @@ function [gm,fr]=g_margin(h)
   if k==[] then gm=%inf,fr=[],return,end
   mingain=abs(mingain(k));
   ws=abs(ws(k))// select positive frequency
-  //disp([ws,1/mingain])
+  
+  [ws,k]=min(ws);mingain=mingain(k);//select the minimum
+  
   gm=-20*log(mingain)/log(10) //tranform into Db
-  [gm,k]=min(gm);ws=ws(k)//select the minimum
-  fr=ws/(2*%pi) 
+  fr=ws/(2*%pi) //transform in Hz
 endfunction

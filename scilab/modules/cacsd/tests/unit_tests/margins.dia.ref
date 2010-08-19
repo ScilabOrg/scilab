@@ -1,48 +1,109 @@
 //gain margin
 //-----------
 //discrete time case
+//the exact solutions are computed using Maple
+//z:=exp(I*w):
+//assume(w, 'real', w > 0)
+//h:= rational fraction in z
+//s := solve(Im(h) = 0, w)
 h = syslin(0.1,0.04798*%z+0.0464,%z^2-1.81*%z+0.9048);//pk
 [g ,f]=g_margin(h);
-if norm(g - 6.2423793565916954)>1d-5  then bugmes();quit;end
-if norm(f - 0.86539118158628991)>1d-5  then bugmes();quit;end
+f_exact=atan(sqrt(9003479136639)/4963519)/(0.1*2*%pi);
+if norm(f - f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
 h=syslin(0.1,0.086-0.161*%z+0.078*%z^2,-0.67+2.286*%z-2.61*%z^2+%z^3);//ok
 [g ,f]=g_margin(h);
-if norm(g- 12.3470513198133762)>1d-5  then bugmes();quit;end
-if norm(f-0.26109869168929700)>1d-5  then bugmes();quit;end
+f_exact=atan((1/215)*sqrt(1136805-8330*sqrt(5970))/(833/43+(1/215)*sqrt(5970)))/(0.1*2*%pi);
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
 h=syslin(0.1,3*(0.086-0.161*%z+0.078*%z^2),-0.67+2.286*%z-2.61*%z^2+%z^3);//ok
 [g ,f]=g_margin(h);
-if norm(g-2.80462622542011131)>1d-5  then bugmes();quit;end
-if norm(f-0.26109869168929828)>1d-5  then bugmes();quit;end
+f_exact=atan((1/215)*sqrt(1136805-8330*sqrt(5970))/(833/43+(1/215)*sqrt(5970)))/(0.1*2*%pi);
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
+h=syslin(1,(0.042-0.03933*%z-0.15407*%z^2+0.18518*%z^3+6.939e-18*%z^4),(-0.042+0.088*%z+0.114*%z^2-0.36*%z^3+0.2*%z^4));
+[g,f]=g_margin(h);
+f_exact=1/2
+ f_exact  =
+ 
+    0.5  
+if abs(f-f_exact)>1d-10 then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
 //continuuous time case
+//the exact solutions are computed using Maple
+//s:=I*w:
+//assume(w, 'real', w > 0)
+//h:= rational fraction in z
+//s := solve(Im(h) = 0, w)
 h=syslin('c',-1+%s,3+2*%s+%s^2);//ok
 [g,f]=g_margin(h);
 if norm(g-20*log(3)/log(10))>1d-5  then bugmes();quit;end
-if norm(f)>1d-5  then bugmes();quit;end
+f_exact=0
+ f_exact  =
+ 
+    0.  
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
  h = syslin('c',0.2+0.8*%s+0.3*%s^3,0.0409+0.1827*%s+1.28225*%s^2+3.1909*%s^3+2.56*%s^4+%s^5);
 [g,f]=g_margin(h);
-if norm(g + 4.91687406933815385)>1d-5  then bugmes();quit;end
-if norm(f-0.07145552582020068)>1d-5  then bugmes();quit;end
+f_exact=0.071455525820200674015;
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
+h=syslin('c', 485000,%s*(%s+100)^2 );
+[g,f]=g_margin(h);
+f_exact=100/(2*%pi);
+if abs(f-f_exact)>1d-10 then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
+h = syslin('c',1,%s*(1+%s)^2);  
+[g,f]=g_margin(h);
+f_exact=1/(2*%pi)
+ f_exact  =
+ 
+    0.1591549  
+if abs(f-f_exact)>1d-10 then bugmes();quit;end
+r=repfreq(h,f);
+if ~isreal(r,1e-10)|real(r)>0 then bugmes();quit;end
+if abs(20*log10(1/abs(r))-g)>1d-10 then bugmes();quit;end
 //phase margin
 //-----------
 //discrete time case
 h = syslin(0.1,0.04798*%z+0.0464,%z^2-1.81*%z+0.9048);//ok
 [p ,f]=p_margin(h);
-if norm(p-13.5711556361199754)>1d-5  then bugmes();quit;end
-if norm(f-0.69301660031536083)>1d-5  then bugmes();quit;end
+f_exact=0.693016600315284442350578876;
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if abs(p-(180+atan(imag(r),real(r))*180/%pi))>1d-10  then bugmes();quit;end
 h=syslin(0.1,0.086-0.161*%z+0.078*%z^2,-0.67+2.286*%z-2.61*%z^2+%z^3);//ok
 [p ,f]=p_margin(h);
 if p<>%inf  then bugmes();quit;end
 if f<>[]  then bugmes();quit;end
 h=syslin(0.1,3*(0.086-0.161*%z+0.078*%z^2),-0.67+2.286*%z-2.61*%z^2+%z^3);//ok
 [p ,f]=p_margin(h);
-if norm(p-52.9496741629204308 )>1d-5  then bugmes();quit;end
-if norm(f-0.21233648894721618)>1d-5  then bugmes();quit;end
+f_exact=0.212336488950669705771059018;
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if abs(p-(180+atan(imag(r),real(r))*180/%pi))>1d-10  then bugmes();quit;end
 //continuous case
 h=syslin('c',1.1+2.4*%s+0.7*%s^2,3+2*%s+%s^2);
 [p,f]=p_margin(h);
-if norm(p-(-148.547076202317413))>1d-5  then bugmes();quit;end
-if norm(f-0.18945852512301298)>1d-5  then bugmes();quit;end
+f_exact=(1/51)*sqrt(15861+204*sqrt(3562))/(2*%pi);
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if abs(p-(180+atan(imag(r),real(r))*180/%pi))>1d-10  then bugmes();quit;end
  h = syslin('c',0.2+0.8*%s+0.3*%s^3,0.0409+0.1827*%s+1.28225*%s^2+3.1909*%s^3+2.56*%s^4+%s^5);
 [p,f]=p_margin(h);
-if norm(p + 13.1128497150069734 )>1d-5  then bugmes();quit;end
-if norm(f-0.09144216563554157  )>1d-5  then bugmes();quit;end
+f_exact=0.09144216563554157543991;
+if norm(f-f_exact)>1d-10  then bugmes();quit;end
+r=repfreq(h,f);
+if abs(p-(180+atan(imag(r),real(r))*180/%pi))>1d-10  then bugmes();quit;end
