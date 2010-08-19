@@ -111,6 +111,19 @@ Xcos:
 * bug 7715 fixed - Performances of xcosDiagramToHDF5 degraded after several
                    subsequent calls to this function.
 
+call_scilab:
+============
+
+* in 'API' mode, history manager is disabled.
+
+* bug 7601 fixed - call_scilab C functions did not check if engine was started.
+
+* bug 7602 fixed - it was not possible to start/close a Scilab engine at anytime.
+
+Scilab/LabView Gateway:
+=======================
+
+* bug 7791 fixed - it was no more possible to restart .VI already started.
 
 Bug Fixes:
 ==========
@@ -133,8 +146,6 @@ Bug Fixes:
 
 * bug 7599 fixed - Intersci-n and intersci did not create code from a .desc file
                    if it was not ended by an empty line.
-
-* bug 7601 fixed - call_scilab C functions did not check if engine was started.
 
 * bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
                    it was not visible even if the subwindow was docked.

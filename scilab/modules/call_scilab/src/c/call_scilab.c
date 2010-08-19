@@ -160,6 +160,7 @@ BOOL TerminateScilab(char *ScilabQuit)
         {
             TerminateCorePart2();
         }
+        ReleaseLaunchScilabSignal();
         setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
         return TRUE;
     }
