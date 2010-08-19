@@ -114,6 +114,7 @@ Xcos:
 
 Bug Fixes:
 ==========
+* bug 7095 fixed - the margins unit_test failed.
 
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
