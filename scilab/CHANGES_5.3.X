@@ -233,6 +233,7 @@ Bug Fixes:
 
 * bug 7756 fixed - sprand did not produce normal numbers.
 
+<<<<<<< HEAD
 * bug 7766 fixed - cdff, cdffnc functions did not display %inf in error messages
 
 * bug 7802 fixed - the graduate function complained about obsolete maxi and mini
@@ -241,6 +242,9 @@ Bug Fixes:
 * bug 7803 fixed - edit edit failed.
 
 * bug 7840 fixed - big lines were splitted by mgetl.
+
+* bug 7775 fixed - ged action 6 (selection and move of a graphic entity) was
+                   broken.
 
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
