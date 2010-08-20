@@ -13,9 +13,14 @@ function out=generic_i_st(i,in,out)
 // out.i=in  
 // this function is called only if the i field is not already defined in out
 //
-  if prod(out.dims)>1 then
-    error(1);
-  end
+if prod(out.dims)>1,
+    if min(out.dims)<2                  // patch
+        execstr("out(:)."+i+"=out(1); out(:)."+i+"=in;");
+    else
+        execstr("out(:,:)."+i+"=out(1); out(:,:)."+i+"=in;");
+    end
+    return
+end
   T=getfield(1,out);
   T($+1)=i;setfield(1,T,out)
   setfield($+1,in,out)
