@@ -153,10 +153,10 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = core output_stream arnoldi elementary_functions string \
 	api_scilab dynamic_link fileio history_manager spreadsheet \
-	tclsci localization action_binding renderer shell completion \
-	console graphic_export gui jvm graphics optimization symbolic \
-	randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	tclsci localization commons action_binding renderer shell \
+	completion console graphic_export gui jvm graphics \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci signal_processing call_scilab sound time sparse \
 	windows_tools functions overloading maple2scilab m2sci texmacs \
@@ -440,10 +440,10 @@ top_srcdir = @top_srcdir@
 # since it already linked almost the whole world
 SUBDIRS = core output_stream arnoldi elementary_functions string \
 	api_scilab dynamic_link fileio history_manager spreadsheet \
-	tclsci localization action_binding renderer shell completion \
-	console graphic_export gui jvm graphics optimization symbolic \
-	randlib statistics special_functions interpolation \
-	linear_algebra integer data_structures mexlib \
+	tclsci localization commons action_binding renderer shell \
+	completion console graphic_export gui jvm graphics \
+	optimization symbolic randlib statistics special_functions \
+	interpolation linear_algebra integer data_structures mexlib \
 	differential_equations cacsd polynomials boolean double pvm io \
 	intersci signal_processing core call_scilab interpolation \
 	sound time randlib sparse windows_tools functions overloading \
@@ -527,7 +527,8 @@ ENGINE_LIBS = $(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/fftw/libscifftw.la \
 	$(top_builddir)/modules/hdf5/libscihdf5.la \
 	$(top_builddir)/modules/functions/libscifunctions.la \
-	$(top_builddir)/modules/parallel/libsciparallel.la
+	$(top_builddir)/modules/parallel/libsciparallel.la \
+	$(top_builddir)/modules/commons/libscicommons.la
 
 
 # These libraries are loaded dynamically from Scilab.

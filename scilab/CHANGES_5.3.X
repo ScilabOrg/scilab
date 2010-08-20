@@ -1,8 +1,21 @@
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================
 
+Scilab:
+=======
+
+Some long-standing usability bugs have been fixed in this release:
+
+* bug 7625 fixed - Some selection issues were appearing from time to time when
+                   Scilab was losing the focus.
+
+
 SciNotes:
 =========
+
+* bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
+
+* bug 7554 fixed - Auto-completion on typing was too general.
 
 * bug 7618 fixed - The change of the background color generated an exception.
 
@@ -10,32 +23,90 @@ SciNotes:
 
 * bug 7623 fixed - "Evaluate Selection" evaluated the selection with one added char.
 
+* bug 7673 fixed - The extension ".dem" was not available in Open or Save actions.
+
+* bug 7676 fixed - The SaveAs action did not remove "readonly" mode.
+
+* bug 7677 fixed - User had not the possibilty to open files in his favorite
+                   directories.
+
+* bug 7678 fixed - Help action did not give help on selection.
+
+* bug 7682 fixed - The knob of the vertical scrollbar moved badly on resize.
+
+* bug 7719 fixed - There was not the possibility to open several files at the
+                   same time through the file chooser.
+
+* bug 7718 fixed - There was a bad detection of a function when the list of args
+                   was broken.
+
+* bug 7719 fixed - There was not the possibility to open several files at the
+                   same time.
+
+* bug 7722 fixed - Several FindReplace windows could be opened.
+
+* bug 7731 fixed - In Find/Replace window, buttons were not updated when an
+                   item was choosen in the combobox Find.
+
+* bug 7746 fixed - File streams were not closed. This was causing some issues
+                   under Windows.
+
+* bug 7764 fixed - The CR in comments was removed when executing from SciNotes.
+
+* bug 7801 fixed - The FindReplace window could not be cancelled with ESC.
+
+* bug 7807 fixed - The SaveAs or Save actions emitted an error message when cancelled.
+
+* bug 7808 fixed - The RestoreSession window could not be cancelled with ESC.
+
 Editvar/Browsevar:
 ==================
+
+* bug 7324 fixed - editvar() did not work for string variables.
 
 * bug 7610 fixed - browsevar(): The icons (left column) did not appear in the
                    binary version (Linux & MacOSX).
 
+* bug 7617 fixed - editvar() window did not have any menu bar.
+
 * bug 7627 fixed - When browsevar() window was docked, if browsevar() was called
                    again an empty window poped up and could not be closed.
 
-Bug Fixes:
-==========
+* bug 7629 fixed - browsevar(): Trying to edit a variable that no more exists
+                   generated an error.
 
-* bug 7453 fixed - newfun() was broken after clearfun().
+Compilation:
+============
 
-* bug 7498 fixed - SPLIT_f were not always deleted when one of its connection
-                   were.
+* -fwritable-strings C argument removed for all architectures under Linux
+  (was causing some build issues under sparc, alpha and powerpc)
 
-* bug 7519 fixed - Help page of getcallbackobject() did not describe input argument.
+* A problem on startup with GNU/Linux sparc has been fixed.
 
-* bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
-                   it was not visible even if the subwindow was docked.
+* The Java "user.home" property has been set to SCIHOME.
 
-* bug 7615 fixed - When opening a SuperBlock, a non-blocking exception could be
-                   thrown.
+* bug 7668 fixed - Scilab 5.3.0-beta-2 did not build with Visual Studio 2008
+                   Express.
 
-* bug 7617 fixed - Editvar did not have any menu bar.
+Documentation:
+==============
+
+* bug 7755 fixed - Some sparse help pages moved from elementary_functions to
+                   the sparse chapter.
+
+Windows Installer:
+==================
+
+* Add "Command Line - Minimal Installation (no gui)" Configuration.
+  Interpreter in command line without the graphic, java or Tcl/Tk capabilities.
+  Installation requires only 60 Mo on disk.
+
+
+Xcos:
+=====
+
+* bug 7256 fixed - Saving a diagram with a non-ASCII filename create a 
+                   corrupted file on Windows.
 
 * bug 7622 fixed - When opening an Xcos diagram done on 5.2.2, an exception
                    could be thrown.
@@ -53,6 +124,93 @@ Bug Fixes:
 
 * bug 7644 fixed - The last user palette could not be removed from the palette
                    tree.
+
+* bug 7651 fixed - scicos_math.h was missing in binary package.
+
+* bug 7715 fixed - Performances of xcosDiagramToHDF5 degraded after several
+                   subsequent calls to this function.
+
+* bug 7778 fixed - The disabled buttons were badly colorized.
+
+call_scilab:
+============
+
+* in 'API' mode, history manager is disabled.
+
+* bug 7601 fixed - call_scilab C functions did not check if engine was started.
+
+* bug 7602 fixed - it was not possible to start/close a Scilab engine at anytime.
+
+Scilab/LabView Gateway:
+=======================
+
+* bug 7791 fixed - it was no more possible to restart .VI already started.
+
+Bug Fixes:
+==========
+
+* bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
+                   for the loaded matrix.
+
+* bug 7452 fixed - demos nmplot from Optimization and Simulation -> fminsearch
+                   -> nmplot* did not work.
+
+* bug 7453 fixed - newfun() was broken after clearfun().
+
+* bug 7498 fixed - SPLIT_f were not always deleted when one of its connection
+                   were.
+
+* bug 7519 fixed - Help page of getcallbackobject() did not describe input argument.
+
+* bug 7525 fixed - Scilab failed to assign 2-d matrices into 3-d matrices, on
+                   Windows.
+
+* bug 7599 fixed - Intersci-n and intersci did not create code from a .desc file
+                   if it was not ended by an empty line.
+
+* bug 7611 fixed - The cross to close a subwindow and the little arrow to undock
+                   it was not visible even if the subwindow was docked.
+
+* bug 7615 fixed - When opening a SuperBlock, a non-blocking exception could be
+                   thrown.
+
+* bug 7616 fixed - fullfile did not work with only one input argument.
+
+* bug 7619 fixed - get_function_path did not return all available paths.
+
+* bug 7620 fixed - The Optimization and Simulation/Optimisation/Plot demo did
+                   not plot anything.
+
+* bug 7661 fixed - Add some usage examples for the function 'warning'.
+
+* bug 7681 fixed - help_from_sci failed to process tabulated .sci files.
+
+* bug 7685 fixed - Demo Graphics => More surfaces => Sphere did not appear
+                   as spherical.
+
+* bug 7688 fixed - set("color_map", hsvcolormap(128)) produced
+                   a EXCEPTION_STACK_OVERFLOW.
+
+* bug 7693 fixed - With a corrupted palettes.xml file, the error message is not
+                   coherent with the recovering action.
+
+* bug 7703 fixed - 'coding_ga_identity' help contained false "See Also".
+
+* bug 7704 fixed - 'init_ga_default' help did not tell the default values of
+                   the optional parameters.
+
+* bug 7706 fixed - example in the help page of 'optim_ga' did not work.
+
+* bug 7733 fixed - strstr crashed scilab if the second input argument was longer
+                   than the first one.
+
+* bug 7740 fixed - edit() with a Scilab macro redefined failed.
+
+* bug 7751 fixed - justify() did not work correctly if the subject embedded
+                   leading or trailing spaces.
+
+* bug 7756 fixed - sprand did not produce normal numbers.
+
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
@@ -279,8 +437,6 @@ Bug Fixes:
                    item was selected.
 
 * bug 7594 fixed - Undefined variable error was not properly handled since bug 6781 fix.
-
-
 
            Changes between version 5.2.X and 5.3.0-beta1 of Scilab
            =======================================================
