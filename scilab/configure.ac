@@ -521,10 +521,6 @@ case "$CC" in
    CFLAGS="$CFLAGS -fno-stack-protector" # bug 3131
 
    case "$host" in
-   # Linux sparc | Linux, old binary format a.out (NO LONGER SUPPORTED)
-	 sparc-*-linux-gnu|*-pc-linux-gnuaout)
-	    CFLAGS="$CFLAGS -fwritable-strings"
-	;;
 	 x86_64-*-linux-gnu | x86_64-linux-gnu)
 		CFLAGS="$CFLAGS -DNARROWPROTO -m64"
     ;;
@@ -535,11 +531,11 @@ case "$CC" in
 		CFLAGS="$CFLAGS -DNARROWPROTO"
     ;;
 	 alpha-*-linux-gnu)
-		CFLAGS="$CFLAGS  -mieee-with-inexact -fwritable-strings"
+		CFLAGS="$CFLAGS  -mieee-with-inexact"
 		LDFLAGS="$LDFLAGS -mieee-with-inexact"
 	;;
 	 powerpc-*-linux-gnu)
-		CFLAGS="$CFLAGS -D_GNU_SOURCE -fwritable-strings"
+		CFLAGS="$CFLAGS -D_GNU_SOURCE"
 	;;
 	 *-*-solaris*)
         if test "$enable_debug_C" = yes; then
@@ -1650,6 +1646,7 @@ modules/shell/Makefile
 modules/completion/Makefile
 modules/history_manager/Makefile
 modules/jvm/Makefile
+modules/commons/Makefile
 modules/sound/Makefile
 modules/statistics/Makefile
 modules/mexlib/Makefile
