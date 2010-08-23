@@ -9,6 +9,10 @@ Some long-standing usability bugs have been fixed in this release:
 * bug 7625 fixed - Some selection issues were appearing from time to time when
                    Scilab was losing the focus.
 
+* 'whos' function updated, variables sorted by name (case insensitive).
+  If a variable is global, a * appears after his type name.
+  (Thanks to Samuel Gaugeon).
+
 
 SciNotes:
 =========
@@ -105,7 +109,7 @@ Windows Installer:
 Xcos:
 =====
 
-* bug 7256 fixed - Saving a diagram with a non-ASCII filename create a 
+* bug 7256 fixed - Saving a diagram with a non-ASCII filename create a
                    corrupted file on Windows.
 
 * bug 7622 fixed - When opening an Xcos diagram done on 5.2.2, an exception
