@@ -31,6 +31,7 @@
 #include "WindowList.h"
 #include "../../core/src/c/TerminateCore.h"
 #include "call_scilab_engine_state.h"
+#include "api_scilab.h"
 
 #ifdef _MSC_VER
 #include "SetScilabEnvironmentVariables.h"
@@ -64,7 +65,24 @@ void DisableInteractiveMode(void)
     setScilabMode(SCILAB_NWNI);
 }
 /*--------------------------------------------------------------------------*/
-BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
+BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize) {
+	return Call_ScilabOpen (SCIpath, ScilabStartup, Stacksize) == 0;
+}
+/*--------------------------------------------------------------------------*/
+/**
+ * Start Scilab engine
+ * Function created in the context of javasci v2. 
+ * This function is just like StartScilab but provides more error messages
+ * in case or error. For now, it is only used in javasci v2 but it might
+ * be public sooner or later.
+ * @return 
+ * 0: success
+ * -1: already running
+ * -2: Could not find SCI
+ * -3: No existing directory
+ * Any other positive integer: A Scilab internal error
+ */
+int Call_ScilabOpen(char* SCIpath, char *ScilabStartup, int *Stacksize)
 {
 #define FORMAT_SCRIPT_STARTUP "exec(\"%s\",-1);quit;"
     char *ScilabStartupUsed = NULL;
@@ -74,7 +92,9 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
 
     static int iflag = -1, ierr = 0;
 
-    if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED) return FALSE;
+	DisableInteractiveMode();
+
+	if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED) return -1;
 
     SetFromCToON();
 
@@ -87,7 +107,7 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
 #else 
         /* Other doesn't */
         fprintf(stderr,"StartScilab: Could not find SCI\n");
-        return FALSE;
+        return -2;
 #endif
     }
     else
@@ -96,7 +116,7 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
         {
             /* Check if the directory actually exists */
             fprintf(stderr,"StartScilab: Could not find the directory %s\n", SCIpath);
-            return FALSE;
+            return -3;
         }
         else
         {
@@ -134,7 +154,7 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
 
     /* Scilab Initialization */
     C2F(inisci)(&iflag, &StacksizeUsed, &ierr);
-    if ( ierr > 0 ) return FALSE;
+    if ( ierr > 0 ) return ierr;
 
     lengthStringToScilab = (int)(strlen(FORMAT_SCRIPT_STARTUP) + strlen(ScilabStartupUsed + 1));
     InitStringToScilab = (char*)MALLOC(lengthStringToScilab*sizeof(char));
@@ -146,7 +166,7 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup,int *Stacksize)
     if (InitStringToScilab) {FREE(InitStringToScilab); InitStringToScilab = NULL;}
 
     setCallScilabEngineState(CALL_SCILAB_ENGINE_STARTED);
-    return TRUE;
+    return 0;
 }
 /*--------------------------------------------------------------------------*/
 BOOL TerminateScilab(char *ScilabQuit)
