@@ -13,6 +13,9 @@ Some long-standing usability bugs have been fixed in this release:
 SciNotes:
 =========
 
+Anchors can be added in the source code and one can navigate between them with
+the Code Navigator. 
+
 * bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
 * bug 7554 fixed - Auto-completion on typing was too general.
@@ -50,6 +53,8 @@ SciNotes:
 
 * bug 7746 fixed - File streams were not closed. This was causing some issues
                    under Windows.
+
+* bug 7759 fixed - Several instances of the Code Navigator were possible.
 
 * bug 7764 fixed - The CR in comments was removed when executing from SciNotes.
 
