@@ -141,6 +141,8 @@ Xcos:
 
 * bug 7778 fixed - The disabled buttons were badly colorized.
 
+* bug 7809 fixed - The AFFICH_m block settings did not update the block view.
+
 call_scilab:
 ============
 

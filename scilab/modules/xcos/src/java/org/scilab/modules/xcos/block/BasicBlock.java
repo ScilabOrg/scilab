@@ -36,6 +36,7 @@ import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.graph.ScilabGraph;
@@ -44,6 +45,7 @@ import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
 import org.scilab.modules.graph.actions.DeleteAction;
 import org.scilab.modules.graph.actions.base.DefaultAction;
+import org.scilab.modules.graph.utils.ScilabGraphConstants;
 import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
@@ -97,6 +99,7 @@ import org.scilab.modules.xcos.utils.XcosMessages;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 
@@ -216,7 +219,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		 * @return The corresponding Scilab/Scicos descriptor
 		 */
 		public double getAsDouble() {
-			return this.value;
+			return value;
 		}
 	};
 
@@ -1000,24 +1003,24 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      */
     public String getToolTipText() {
 	StringBuilder result = new StringBuilder();
-	result.append(XcosConstants.HTML_BEGIN);
-	result.append("Block Name : " + getInterfaceFunctionName() + XcosConstants.HTML_NEWLINE);
-	result.append("Simulation : " + getSimulationFunctionName() + XcosConstants.HTML_NEWLINE);
+	result.append(ScilabGraphConstants.HTML_BEGIN);
+	result.append("Block Name : " + getInterfaceFunctionName() + ScilabGraphConstants.HTML_NEWLINE);
+	result.append("Simulation : " + getSimulationFunctionName() + ScilabGraphConstants.HTML_NEWLINE);
 
 	if (getParentDiagram() instanceof PaletteDiagram) {
 	    if (getIntegerParameters() != null) {
-		result.append("Integer parameters : " + getIntegerParameters() + XcosConstants.HTML_NEWLINE);
+		result.append("Integer parameters : " + getIntegerParameters() + ScilabGraphConstants.HTML_NEWLINE);
 	    }
 	    
 	    if (getRealParameters() != null && getRealParameters().getHeight() != 0 && getRealParameters().getWidth() != 0) {
-		result.append("Real parameters : " + getRealParameters() + XcosConstants.HTML_NEWLINE);
+		result.append("Real parameters : " + getRealParameters() + ScilabGraphConstants.HTML_NEWLINE);
 	    }
 	    
 	    if (getObjectsParameters() != null) {
-		result.append("Object parameters : " + getObjectsParameters() + XcosConstants.HTML_NEWLINE);
+		result.append("Object parameters : " + getObjectsParameters() + ScilabGraphConstants.HTML_NEWLINE);
 	    }
 	} else {
-	    result.append("UID : " + getId() + XcosConstants.HTML_NEWLINE);
+	    result.append("UID : " + getId() + ScilabGraphConstants.HTML_NEWLINE);
 		final int length = getStyle().length();
 		result.append("Style : ");
 		if (length > XcosConstants.MAX_CHAR_IN_STYLE) {
@@ -1026,20 +1029,20 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		} else {
 			result.append(getStyle());
 		}
-		result.append(XcosConstants.HTML_NEWLINE);
-	    result.append("Flip : " + getFlip() + XcosConstants.HTML_NEWLINE);
-	    result.append("Mirror : " + getMirror() + XcosConstants.HTML_NEWLINE);
-	    result.append("Input ports : " + BasicBlockInfo.getAllTypedPorts(this, false, InputPort.class).size() + XcosConstants.HTML_NEWLINE);
-	    result.append("Output ports : " + BasicBlockInfo.getAllTypedPorts(this, false, OutputPort.class).size() + XcosConstants.HTML_NEWLINE);
-	    result.append("Control ports : " + BasicBlockInfo.getAllTypedPorts(this, false, ControlPort.class).size() + XcosConstants.HTML_NEWLINE);
-	    result.append("Command ports : " + BasicBlockInfo.getAllTypedPorts(this, false, CommandPort.class).size() + XcosConstants.HTML_NEWLINE);
+		result.append(ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Flip : " + getFlip() + ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Mirror : " + getMirror() + ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Input ports : " + BasicBlockInfo.getAllTypedPorts(this, false, InputPort.class).size() + ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Output ports : " + BasicBlockInfo.getAllTypedPorts(this, false, OutputPort.class).size() + ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Control ports : " + BasicBlockInfo.getAllTypedPorts(this, false, ControlPort.class).size() + ScilabGraphConstants.HTML_NEWLINE);
+	    result.append("Command ports : " + BasicBlockInfo.getAllTypedPorts(this, false, CommandPort.class).size() + ScilabGraphConstants.HTML_NEWLINE);
 	}
 
-	result.append("x : " + getGeometry().getX() + XcosConstants.HTML_NEWLINE);
-	result.append("y : " + getGeometry().getY() + XcosConstants.HTML_NEWLINE);
-	result.append("w : " + getGeometry().getWidth() + XcosConstants.HTML_NEWLINE);
-	result.append("h : " + getGeometry().getHeight() + XcosConstants.HTML_NEWLINE);
-	result.append(XcosConstants.HTML_END);
+	result.append("x : " + getGeometry().getX() + ScilabGraphConstants.HTML_NEWLINE);
+	result.append("y : " + getGeometry().getY() + ScilabGraphConstants.HTML_NEWLINE);
+	result.append("w : " + getGeometry().getWidth() + ScilabGraphConstants.HTML_NEWLINE);
+	result.append("h : " + getGeometry().getHeight() + ScilabGraphConstants.HTML_NEWLINE);
+	result.append(ScilabGraphConstants.HTML_END);
 	return result.toString();
     }
 
@@ -1150,7 +1153,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 
 		@Override
 	    public void callBack() {
-		ScilabInterpreterManagement.requestScilabExec("help " + getInterfaceFunctionName());
+		InterpreterManagement.requestScilabExec("help " + getInterfaceFunctionName());
 	    }
 	});
 	menu.add(help);
@@ -1258,7 +1261,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 			isFlipped = flip;
 			final mxIGraphModel model = getParentDiagram().getModel();
 			mxUtils.setCellStyles(model, new Object[] { this },
-					XcosConstants.STYLE_FLIP, Boolean.toString(flip));
+					ScilabGraphConstants.STYLE_FLIP, Boolean.toString(flip));
 		}
 	}
 
@@ -1286,7 +1289,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 			isMirrored = mirror;
 			final mxIGraphModel model = getParentDiagram().getModel();
 			mxUtils.setCellStyles(model, new Object[] { this },
-					XcosConstants.STYLE_MIRROR, Boolean.toString(mirror));
+					ScilabGraphConstants.STYLE_MIRROR, Boolean.toString(mirror));
 		}
 	}
 
@@ -1333,7 +1336,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 	this.angle = angle;
 	
 	if (getParentDiagram() != null) {
-	    mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] {this}, XcosConstants.STYLE_ROTATION, Integer.toString(angle));
+	    mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] {this}, mxConstants.STYLE_ROTATION, Integer.toString(angle));
 	}
     }
 
@@ -1343,14 +1346,14 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 	public void updateFieldsFromStyle() {
 		StyleMap map = new StyleMap(getStyle());
 
-		if (map.get(XcosConstants.STYLE_ROTATION) != null) {
-			angle = Integer.parseInt(map.get(XcosConstants.STYLE_ROTATION));
+		if (map.get(mxConstants.STYLE_ROTATION) != null) {
+			angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
 		} else {
 			angle = 0;
 		}
 		
-		isFlipped = Boolean.parseBoolean(map.get(XcosConstants.STYLE_FLIP));
-		isMirrored = Boolean.parseBoolean(map.get(XcosConstants.STYLE_MIRROR));
+		isFlipped = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_FLIP));
+		isMirrored = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_MIRROR));
 	}
 
 	/**
