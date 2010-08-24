@@ -159,7 +159,7 @@ pal = xcosPalAddBlock(pal, blockPath, iconPath)
 current = pwd();
 cd(SCI);
 pal = xcosPal();
-pal = xcosPalAddBlock(pal, blockPath, "modules/xcos/images/palettes/NPN.pn?")
+pal = xcosPalAddBlock(pal, blockPath, "modules/xcos/images/palettes/NPN.png")
  pal  =
  
  
@@ -219,7 +219,8 @@ pal = xcosPalAddBlock(pal, blockPath, [], myStyle)
  
        pal(6)
  
- noLabel=1;image=file:SCI/modules/xcos/images/palette/NPN.png;   
+ block;image=SCI/modules/xcos/images/pal 
+      ettes/NPN.png;                                                    
 pal = xcosPal();
 pal = xcosPalAddBlock(pal, blockPath, [], iconPath)
  pal  =
@@ -247,11 +248,12 @@ pal = xcosPalAddBlock(pal, blockPath, [], iconPath)
  
        pal(6)
  
- noLabel=1;image=file:SCI/modules/xcos/images/palettes/NPN.png;   
+ noLabel=1;image=file:SCI/modules/xcos/i 
+      mages/palettes/NPN.png;                                           
 // Test pal_block_img argument and style argument simultaneously
 // an image for the block in the diagram and an image for the icon of the block
 pal = xcosPal();
-pal = xcosPalAddBlock(pal, blockPath,iconPath,"modules/xcos/images/palettes/NPN.pn?")
+pal = xcosPalAddBlock(pal, blockPath,iconPath,"modules/xcos/images/palettes/NPN.png")
  pal  =
  
  
@@ -273,9 +275,10 @@ pal = xcosPalAddBlock(pal, blockPath,iconPath,"modules/xcos/images/palettes/NPN.
  
        pal(5)
  
- SCI/modules/xcos/images/palettes/NPN.png
+ SCI/modules/xcos/images/palettes/NPN.pn 
+      g                                                                 
  
        pal(6)
  
- noLabel=1;image=file:SCI/modules/xcos/images/palettes/NPN.png;
-
+ noLabel=1;image=file:SCI/modules/xcos/i 
+      mages/palettes/NPN.png;                                           

@@ -33,7 +33,7 @@ pal = xcosPalAddBlock(pal, blockPath, iconPath)
 current = pwd();
 cd(SCI);
 pal = xcosPal();
-pal = xcosPalAddBlock(pal, blockPath, "modules/xcos/images/palettes/NPN.pn?")
+pal = xcosPalAddBlock(pal, blockPath, "modules/xcos/images/palettes/NPN.png")
 cd(current);
 
 // Test style argument
@@ -48,5 +48,5 @@ pal = xcosPalAddBlock(pal, blockPath, [], iconPath)
 // Test pal_block_img argument and style argument simultaneously
 // an image for the block in the diagram and an image for the icon of the block
 pal = xcosPal();
-pal = xcosPalAddBlock(pal, blockPath,iconPath,"modules/xcos/images/palettes/NPN.pn?")
+pal = xcosPalAddBlock(pal, blockPath,iconPath,"modules/xcos/images/palettes/NPN.png")
 

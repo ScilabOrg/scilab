@@ -11,50 +11,52 @@
 //
 
 function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
-// Add a block to a Scilab/Xcos palette instance. Some optional properties can be added to customize the palette icon and the style of the block.
+//  Add a block to a Scilab/Xcos palette instance. Some optional properties can be added to customize the palette icon and the style of the block.
 //
 // Calling Sequence
-//   pal = xcosPalAddBlock(pal, block);
-//   pal = xcosPalAddBlock(pal, block, pal_block_img);
-//   pal = xcosPalAddBlock(pal, block, [], style);
-//   pal = xcosPalAddBlock(pal, block, pal_block_img, style);
+//  pal = xcosPalAddBlock(pal, block);
+//  pal = xcosPalAddBlock(pal, block, pal_block_img);
+//  pal = xcosPalAddBlock(pal, block, [], style);
+//  pal = xcosPalAddBlock(pal, block, pal_block_img, style);
 //
 // Parameters
-//   pal: the palette to update
-//   block: the block to add to the palette
-//   pal_block_img: the block icon to use on the palette manager.
-//   style: the style to apply to the block
+//  pal: the palette to update
+//  block: the block to add to the palette
+//  pal_block_img: the block icon to use on the palette manager.
+//  style: the style to apply to the block
 //
 // Description
-// This macros add a block instance to a palette. This block parameter can be an instantiated block or a name (interface-function) or a path to a saved instance. Some operations are performed to load this block and check it's availability so it's interface-function must be loaded on Scilab. Some temporary files are also generated without full path arguments.
+//  This macros add a block instance to a palette. This block parameter can be an instantiated block or a name (interface-function) or a path to a saved instance. Some operations are performed to load this block and check it's availability so it's interface-function must be loaded on Scilab. Some temporary files are also generated without full path arguments.
 //
-// The optional pal_block_img argument is generated on the <link linkend="TMPDIR">TMPDIR</link> using Scilab graphics if not specified. Be careful that if you use our palette to be persistent you then need to specify it. Otherwise the generated image will be deleted at the end of the Scilab session.
+//  The optional pal_block_img argument is generated on the <link linkend="TMPDIR">TMPDIR</link> using Scilab graphics if not specified.Be careful that if you use our palette to be persistent you then need to specify it. Otherwise the generated image will be deleted at the end of the Scilab session.
 //
-// The optional style argument allow the user to determine the kind of style to be used by this block. This argument can be typed as a path <link linkend="string">string</link> or a <link linkend="struct">struct</link>. If it is a string then a default style value is generated and formatted as a style else a struct is wrapped to a key-value jgraphx settings.
-// 
+//  The optional style argument allow the user to determine the kind of style to be used by this block. This argument can be typed as a path <link linkend="string">string</link> or a <link linkend="struct">struct</link>. If it is a string then a default style value is generated and formatted as a style else a struct is wrapped to a key-value jgraphx settings. The <link linkend="jgraphx-style-list">following style</link> correspond to jgraphx version 1.4.0.2. These style keys can change with new version of jgraphx without any warranty.
+//
+//
 // Examples
-//   loadScicosLibs();
-//   pal = xcosPal();
-//   
-//   sumPath = TMPDIR + "/sum.h5";
-//   bigSomPath = TMPDIR + "/sum.h5";
-//   
-//   scs_m = SUM_f("define");
-//   export_to_hdf5(sumPath, "scs_m");
-//   scs_m = BIGSOM_f("define");
-//   export_to_hdf5(bigSomPath, "scs_m");
-//   
-//   pal = xcosPalAddBlock(pal, sumPath);
-//   pal = xcosPalAddBlock(pal, bigSomPath);
-//   
-//   xcosPalAdd(pal);
+//  loadScicosLibs();
+//  pal = xcosPal();
+//  
+//  sumPath = TMPDIR + "/sum.h5";
+//  bigSomPath = TMPDIR + "/sum.h5";
+//  
+//  scs_m = SUM_f("define");
+//  export_to_hdf5(sumPath, "scs_m");
+//  scs_m = BIGSOM_f("define");
+//  export_to_hdf5(bigSomPath, "scs_m");
+//  
+//  pal = xcosPalAddBlock(pal, sumPath);
+//  pal = xcosPalAddBlock(pal, bigSomPath);
+//
+//  xcosPalAdd(pal);
 //
 // See also
-//   xcosPal
-//   xcosPalAdd
+//  xcosPal
+//  xcosPalAdd
 //
 // Authors
-//   Clément DAVID
+//  Clément DAVID
+//  Yann COLLETTE
 
     // Checking arguments
     [lhs,rhs] = argn(0)
@@ -69,6 +71,7 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
     if typeof(pal) <> "palette" then
         error(msprintf(gettext("%s: Wrong type for input argument ""%s"": palette type expected.\n"), "xcosPalAddBlock", "pal"));
     end
+    
     
     // check and tranform block argument
     
@@ -134,11 +137,10 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
         if typeof(pal_block_img) <> "string" then
             error(msprintf(gettext("%s: Wrong type for input argument ""%s"": path string expected.\n"), "xcosPalAddBlock", "pal_block_img"));
         end
-        currentFile = ls(pal_block_img); // evaluate wildcard and path
-        if size(currentFile, '*') <> 1 then
+        if ~isfile(pal_block_img) then
             error(msprintf(gettext("%s: Wrong type for input argument ""%s"": path string expected.\n"), "xcosPalAddBlock", "pal_block_img"));
         end
-        pal_block_img = fullpath(currentFile);
+        pal_block_img = fullpath(pathconvert(pal_block_img, %f));
     end
     
     // now handle style argument
@@ -168,12 +170,11 @@ function pal = xcosPalAddBlock(pal, block, pal_block_img, style)
             end
             style = formattedStyle;
         elseif typeof(style) == "string" then
-            currentFile = ls(style); // evaluate wildcard and path
-            if size(currentFile, '*') == 1 then
-                style = fullpath(currentFile);
+            if isfile(style) then
+                style = fullpath(pathconvert(style));
                 style = "noLabel=1;image=file:" + style + ";";
-            else
-                // assume well formatted string, do nothing
+//          else
+//              assume a well formatted string, do nothing
             end
         end
     end
