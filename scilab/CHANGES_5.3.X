@@ -295,6 +295,9 @@ SciNotes:
 
 * bug 7595 fixed - In SciNotes, a string was broken if '..' was encountered.
 
+* bug 7857 fixed - If an event_handler is previously assigned to a graphic window 
+                   the datatips toogle tool icon had to be clicked twice to make it active.
+
 File input/output:
 ==================
 
