@@ -24,6 +24,11 @@ to fix these issues.
   If a variable is global, a * appears after his type name.
   (Thanks to Samuel Gaugeon).
 
+Graphics:
+========
+
+It's now possible to use LaTeX or MathML as label for uimenu or pushbutton 
+in uicontrol.
 
 SciNotes:
 =========
@@ -194,6 +199,8 @@ Bug Fixes:
 
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
+
+* bug 7366 fixed - There wasn't the possibility to have LaTeX in menus.
 
 * bug 7405 fixed - The toolbar wasn't updated when an undocking occured.
 
