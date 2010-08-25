@@ -139,6 +139,10 @@ Graphics:
 Two additionnal Graphics demos about plotyy() and plotyyy() added. See bug #7687
 Thanks to Samuel Gougeon.
 
+* bug 7857 fixed - If an event_handler is previously assigned to a graphic window 
+                   the datatips toogle tool icon had to be clicked twice to make it active.
+
+
 Xcos:
 =====
 
@@ -286,7 +290,6 @@ Bug Fixes:
 
 * bug 7840 fixed - big lines were splitted by mgetl.
 
-
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
 
@@ -338,6 +341,7 @@ SciNotes:
                    "Split..." and "Line Numbering..." menus.
 
 * bug 7595 fixed - In SciNotes, a string was broken if '..' was encountered.
+
 
 File input/output:
 ==================
