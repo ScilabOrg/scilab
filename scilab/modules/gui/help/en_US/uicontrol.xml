@@ -351,6 +351,8 @@
           (Except for Frame and Slider styles). For ListBoxes and PopupMenus,
           the value can be a vector of string or a string where the items are
           separated by a "|". For Text uicontrols, this string can contain HTML code to format the text.</para>
+	  <para>For Pushbutton, if the text is enclosed between two $ (dollar sign), then it will be 
+	  considered as a LaTeX expression.</para>
         </listitem>
       </varlistentry>
 

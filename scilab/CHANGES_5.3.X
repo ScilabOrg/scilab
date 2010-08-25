@@ -195,6 +195,8 @@ Bug Fixes:
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
 
+* bug 7366 fixed - There wasn't the possibility to have LaTeX in menus.
+
 * bug 7405 fixed - The toolbar wasn't updated when an undocking occured.
 
 * bug 7452 fixed - demos nmplot from Optimization and Simulation -> fminsearch
