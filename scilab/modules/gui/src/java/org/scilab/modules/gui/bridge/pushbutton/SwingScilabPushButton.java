@@ -14,7 +14,10 @@
 package org.scilab.modules.gui.bridge.pushbutton;
 
 import java.awt.Dimension;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -46,19 +49,31 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 */
 	public SwingScilabPushButton() {
 		super();
-		this.setFocusable(false);
+		setFocusable(false);
+		
 		/* Avoid the L&F to erase user background settings */
 		setContentAreaFilled(false);
 		setOpaque(true);
+		addPropertyChangeListener(ICON_CHANGED_PROPERTY, new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				final Icon newIcon = (Icon) evt.getNewValue();
+				final boolean iconEnable = newIcon != null;
+				
+				setContentAreaFilled(iconEnable);
+				setOpaque(!iconEnable);
+			}
+		});
 	}
 
 	/**
 	 * Draws a swing Scilab PushButton
 	 * @see org.scilab.modules.gui.uielement.UIElement#draw()
 	 */
+	@Override
 	public void draw() {
-		this.setVisible(true);
-		this.doLayout();
+		setVisible(true);
+		doLayout();
 	}
 
 	/**
@@ -66,6 +81,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * @return the dimensions of the PushButton
 	 * @see org.scilab.modules.gui.uielement.UIElement#getDims()
 	 */
+	@Override
 	public Size getDims() {
 		return new Size(super.getSize().width, super.getSize().height);
 	}
@@ -75,6 +91,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * @return the position of the PushButton
 	 * @see org.scilab.modules.gui.uielement.UIElement#getPosition()
 	 */
+	@Override
 	public Position getPosition() {
 		return PositionConverter.javaToScilab(getLocation(), getSize(), getParent());
 	}
@@ -84,6 +101,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * @param newSize the dimensions to set to the PushButton
 	 * @see org.scilab.modules.gui.uielement.UIElement#setDims(org.scilab.modules.gui.utils.Size)
 	 */
+	@Override
 	public void setDims(Size newSize) {
 		setSize(newSize.getWidth(), newSize.getHeight());
 		setPreferredSize(new Dimension(newSize.getWidth(), newSize.getHeight()));
@@ -94,6 +112,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * @param newPosition the position to set to the PushButton
 	 * @see org.scilab.modules.gui.uielement.UIElement#setPosition(org.scilab.modules.gui.utils.Position)
 	 */
+	@Override
 	public void setPosition(Position newPosition) {
 		Position javaPosition = PositionConverter.scilabToJava(newPosition, getDims(), getParent());
 		setLocation(javaPosition.getX(), javaPosition.getY());
@@ -103,24 +122,16 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Sets the icon of a PushButton
 	 * @param filename the path to the icon image to set to the PushButton
 	 */
+	@Override
 	public void setIcon(String filename) {
-		this.setIcon(new ImageIcon(filename));
-	}
-	
-	/**
-	 * Sets the icon of a PushButton
-	 * @param image the icon image to set to the PushButton
-	 */
-	public void setIcon(ImageIcon image) {
-		super.setIcon(image);
-		setContentAreaFilled(true);
-		setOpaque(false);
+		super.setIcon(new ImageIcon(filename));
 	}
 	
 	/**
 	 * Add a callback to the pushbutton
 	 * @param callback the callback to set.
 	 */
+	@Override
 	public void setCallback(CallBack callback) {
 		if (this.callback != null) {
 			removeActionListener(this.callback);
@@ -133,6 +144,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Set if the pushbutton is enabled or not
 	 * @param status true if the pushbutton is enabled
 	 */
+	@Override
 	public void setEnabled(boolean status) {
 		super.setEnabled(status);
 		/* (Des)Activate the callback */ 
@@ -150,6 +162,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Setter for MenuBar
 	 * @param menuBarToAdd the MenuBar associated to the Tab.
 	 */
+	@Override
 	public void addMenuBar(MenuBar menuBarToAdd) {
 		/* Unimplemented for pushbuttons */
 		throw new UnsupportedOperationException();
@@ -159,6 +172,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Setter for ToolBar
 	 * @param toolBarToAdd the ToolBar associated to the Tab.
 	 */
+	@Override
 	public void addToolBar(ToolBar toolBarToAdd) {
 		/* Unimplemented for pushbuttons */
 		throw new UnsupportedOperationException();
@@ -168,6 +182,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Getter for MenuBar
 	 * @return MenuBar: the MenuBar associated to the Tab.
 	 */
+	@Override
 	public MenuBar getMenuBar() {
 		/* Unimplemented for pushbuttons */
 		throw new UnsupportedOperationException();
@@ -177,6 +192,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Getter for ToolBar
 	 * @return ToolBar: the ToolBar associated to the Tab.
 	 */
+	@Override
 	public ToolBar getToolBar() {
 		/* Unimplemented for pushbuttons */
 		throw new UnsupportedOperationException();
@@ -186,6 +202,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Set the horizontal alignment for the PushButton text
 	 * @param alignment the value for the alignment (See ScilabAlignment.java)
 	 */
+	@Override
 	public void setHorizontalAlignment(String alignment) {
 		setHorizontalAlignment(ScilabAlignment.toSwingAlignment(alignment));
 	}
@@ -194,6 +211,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Set the vertical alignment for the PushButton text
 	 * @param alignment the value for the alignment (See ScilabAlignment.java)
 	 */
+	@Override
 	public void setVerticalAlignment(String alignment) {
 		setVerticalAlignment(ScilabAlignment.toSwingAlignment(alignment));
 	}
@@ -202,6 +220,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Set the Relief of the PushButton
 	 * @param reliefType the type of the relief to set (See ScilabRelief.java)
 	 */
+	@Override
 	public void setRelief(String reliefType) {
 		setBorder(ScilabRelief.getBorderFromRelief(reliefType));
 	}
@@ -209,6 +228,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	/**
 	 * Destroy the PushButton
 	 */
+	@Override
 	public void destroy() {
 		ScilabSwingUtilities.removeFromParent(this);
 	}
@@ -217,6 +237,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Setter for InfoBar
 	 * @param infoBarToAdd the InfoBar associated to the PushButton.
 	 */
+	@Override
 	public void addInfoBar(TextBox infoBarToAdd) {
 		/* Unimplemented for PushButtons */
 		throw new UnsupportedOperationException();
@@ -226,6 +247,7 @@ public class SwingScilabPushButton extends JButton implements SimplePushButton {
 	 * Getter for InfoBar
 	 * @return the InfoBar associated to the PushButton.
 	 */
+	@Override
 	public TextBox getInfoBar() {
 		/* Unimplemented for PushButtons */
 		throw new UnsupportedOperationException();
