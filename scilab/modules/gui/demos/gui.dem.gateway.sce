@@ -7,7 +7,8 @@
 demopath = get_absolute_file_path("gui.dem.gateway.sce");
 
 subdemolist = ["Dialogs"   ,"dialog.dem.sce" ; ..
-	"Uicontrols 1" ,"uicontrol.dem.sce"      ];
+	"Uicontrols 1" ,"uicontrol.dem.sce" ; ..
+	"Uicontrols with LaTeX/MathML" ,  "uicontrol_LaTeX.dem.sce" ];
 
 if ~ usecanvas() then
 	subdemolist = [ subdemolist ; "Uicontrols 2" ,"uicontrol_plot3d.dem.sce" ];
