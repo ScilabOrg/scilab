@@ -13,6 +13,8 @@ bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 Bug Fixes:
 ==========
 
+* bug 7366 fixed - There wasn't the possibility to have LaTeX in menus.
+
 * bug 7943 - On a linux binary version, it was not possible to use
              the fortran_block block.
 
@@ -56,6 +58,11 @@ to fix these issues.
   If a variable is global, a * appears after his type name.
   (Thanks to Samuel Gougeon).
 
+Graphics:
+========
+
+It's now possible to use LaTeX or MathML as label for uimenu or Pushbutton and 
+Text in uicontrols.
 
 SciNotes:
 =========
