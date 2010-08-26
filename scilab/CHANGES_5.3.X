@@ -31,7 +31,7 @@ SciNotes:
 =========
 
 Anchors can be added in the source code and one can navigate between them with
-the Code Navigator. 
+the Code Navigator.
 
 * bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
@@ -274,6 +274,9 @@ Bug Fixes:
 
 * bug 7821 fixed - In a messagebox, an exception was thrown when clicking on a
                    mal-formed url.
+
+* bug 7831 fixed - Some reference of the old editvar UI were present in the
+                   source directory tree.
 
 * bug 7840 fixed - big lines were splitted by mgetl.
 
