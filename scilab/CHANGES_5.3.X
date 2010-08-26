@@ -31,7 +31,7 @@ SciNotes:
 =========
 
 Anchors can be added in the source code and one can navigate between them with
-the Code Navigator. 
+the Code Navigator.
 
 * bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
@@ -174,6 +174,8 @@ Xcos:
 
 * bug 7834 fixed - The last argument of xcosPalAddBlock about the block style
                    could not be changed by the user.
+
+* bug 7845 fixed - Code generation was broken.
 
 call_scilab:
 ============
