@@ -42,6 +42,12 @@ public class Label extends TextObject {
 		autoPosition = false;
 		position = new double[3];
 		autoRotation = false;
+
+		Integer[] textDimensions = {1, 1};
+		String[] textStrings = {""};
+
+		setTextArrayDimensions(textDimensions);
+		setTextStrings(textStrings);
 	}
 
 	/**
