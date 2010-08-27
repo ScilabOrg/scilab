@@ -31,7 +31,7 @@ SciNotes:
 =========
 
 Anchors can be added in the source code and one can navigate between them with
-the Code Navigator. 
+the Code Navigator.
 
 * bugs 7276, 7726 fixed - There was a problem of highlighting with default font.
 
@@ -198,6 +198,9 @@ Bug Fixes:
 
 * bug 6504 fixed - Due to a bug in Java, the <br> tag wasn't copied as a CR
                    in a messagebox.
+
+* bug 6938 fixed - frexp returned a wrong message error with a complex as
+                   input argument.
 
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
