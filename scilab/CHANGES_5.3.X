@@ -144,6 +144,8 @@ Graphics:
 * It's now possible to use LaTeX or MathML as label for uimenu or pushbutton
   in uicontrol.
 
+* bug 6910 fixed - The font size in LaTeX labels was too big.
+
 * bug 7137 fixed - In Text uicontrol, fontsize was rounded which was problematic when
                    fontUnits was 'normalized'.
 
