@@ -199,6 +199,8 @@ Scilab/LabView Gateway:
 Bug Fixes:
 ==========
 
+* bug 3614 fixed - Sub-applications couldn't have their own icon.
+
 * bug 5697 fixed - In Help Browser, external hyperlinks were opened in it rather
                    than in Web Browser.
 
