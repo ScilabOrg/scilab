@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2010 - Paul Griffiths
  * desc : Factory for axes objects. Automatically create an axes 
  * drawer with the right algorithms from the graphic handle
  * 
@@ -52,7 +53,7 @@ void DrawableAxesFactory::setStrategies( ConcreteDrawableAxes * axes )
   sciPointObj * pAxes = axes->getDrawedObject();
 
   // create ticksDrawer
-  TicksDrawer * ticksDrawer = new TicksDrawer();
+  TicksDrawer * ticksDrawer = new TicksDrawer(axes);
   ticksDrawer->setTicksDrawer(new AxesTicksDrawerJoGL(axes));
   ticksDrawer->setTicksComputer(new AxesTicksComputer(axes));
   ticksDrawer->setSubticksComputer(new AxesSubticksComputer(axes));
