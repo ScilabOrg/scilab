@@ -3,6 +3,7 @@
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2010 - Paul Griffiths
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -114,6 +115,8 @@ char ** ReBuildUserTicks( char old_logflag, char new_logflag, double * u_xgrads,
 int set_log_flags_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
   char * flags;
+  // logSwitch is marked if any axis changes from linear to log or vice versa. Then auto subtics are enabled.
+  char logSwitch = FALSE;
   sciSubWindow * ppSubWin = NULL ;
   char curLogFlags[4] = "nnn";
 
@@ -158,26 +161,31 @@ int set_log_flags_property( sciPointObj * pobj, size_t stackPointer, int valueTy
     return SET_PROPERTY_ERROR ;
   }
   ppSubWin->axes.u_xlabels = ReBuildUserTicks( curLogFlags[0], flags[0],
-                                               ppSubWin->axes.u_xgrads, 
-                                               &ppSubWin->axes.u_nxgrads, 
+                                               ppSubWin->axes.u_xgrads,
+                                               &ppSubWin->axes.u_nxgrads,
                                                ppSubWin->axes.u_xlabels   );
+  if(curLogFlags[0] != flags[0])
+  {
+    curLogFlags[0] = flags[0];
+    logSwitch = TRUE;
+  }
 
-
-  curLogFlags[0] = flags[0];
 
   /* Y axes */
   if( ( ppSubWin->SRect[2] <= 0. || ppSubWin->SRect[3] <= 0. ) && flags[1] == 'l' )
-  { 
+  {
       Scierror(999, _("Error: data_bounds on %s axis must be strictly positive to switch to logarithmic mode.\n"),"y");
       return SET_PROPERTY_ERROR ;
   }
-  ppSubWin->axes.u_ylabels = ReBuildUserTicks( curLogFlags[1], flags[1],  
-                                               ppSubWin->axes.u_ygrads, 
-                                               &ppSubWin->axes.u_nygrads, 
+  ppSubWin->axes.u_ylabels = ReBuildUserTicks( curLogFlags[1], flags[1],
+                                               ppSubWin->axes.u_ygrads,
+                                               &ppSubWin->axes.u_nygrads,
                                                ppSubWin->axes.u_ylabels  ) ;
-
-  curLogFlags[1] = flags[1];
-
+  if(curLogFlags[1] != flags[1])
+  {
+    curLogFlags[1] = flags[1];
+    logSwitch = TRUE;
+  }
 
   if ( nbRow * nbCol == 3 )
   {
@@ -193,12 +201,21 @@ int set_log_flags_property( sciPointObj * pobj, size_t stackPointer, int valueTy
       return SET_PROPERTY_ERROR ;
     }
 
-    ppSubWin->axes.u_zlabels = ReBuildUserTicks( curLogFlags[2], flags[2],  
-                                                 ppSubWin->axes.u_zgrads, 
-                                                 &ppSubWin->axes.u_nzgrads, 
+    ppSubWin->axes.u_zlabels = ReBuildUserTicks( curLogFlags[2], flags[2],
+                                                 ppSubWin->axes.u_zgrads,
+                                                 &ppSubWin->axes.u_nzgrads,
                                                  ppSubWin->axes.u_zlabels) ;
-    curLogFlags[2] = flags[2];
+    if(curLogFlags[2] != flags[2])
+    {
+      curLogFlags[2] = flags[2];
+      logSwitch = TRUE;
+    }
+  }
 
+  // When switching from log to linear or vice versa, the subtics should revert to automatic
+  if( logSwitch )
+  {
+    ppSubWin->flagNax = FALSE; // enable auto tics
   }
 
   sciSetLogFlags(pobj, curLogFlags);
