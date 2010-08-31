@@ -105,6 +105,9 @@ overlaying for big values.
 * bug 7492 fixed - If its "data_mapping" property was set to "direct", the Grayplot
                    object's data seemed to be transposed when displayed.
 
+* bug 7836 fixed - The sub_tics property was not correctly tracking the number
+                   of displayed sub-ticks. Thanks to Paul Griffiths.
+
 SciNotes:
 =========
 

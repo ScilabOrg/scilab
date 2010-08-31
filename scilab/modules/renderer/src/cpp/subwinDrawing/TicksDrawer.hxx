@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy 
+ * Copyright (C) 2010 - Paul Griffiths
  * desc : Class specialized in drawing ticks  
  * 
  * This file must be used under the terms of the CeCILL.
@@ -28,8 +29,9 @@ namespace sciGraphics
 class TicksDrawer
 {
 public:
-  
-  TicksDrawer(void);
+  enum EAxes { NONE, XAXIS, YAXIS, ZAXIS };
+
+  TicksDrawer(DrawableObject * subwin);
 
   virtual ~TicksDrawer(void);
 
@@ -42,6 +44,11 @@ public:
   void setAxisPositioner(AxisPositioner * positioner);
 
   void setTicksDrawer(TicksDrawerBridge * drawer);
+
+  void setAssignedAxis(TicksDrawer::EAxes axis);
+
+  TicksDrawer::EAxes getAssignedAxis(void) const;
+
 
   /**
    * To be called before any draw
@@ -67,6 +74,12 @@ public:
    * Get the initial number of ticks (with no reduction) that will be drawn
    */
   int getInitNbTicks(void);
+
+  /**
+   * Get the initial number of subticks (with no reduction) that will be drawn per
+   * major tick graduation. The sub_tics property for axes is found by querying this function.
+   */
+  int getInitNbSubticksPerGrad(void);
 
   /**
    * Get the initial ticks positions and labels (with no reduction) that will be drawn.
@@ -101,6 +114,13 @@ protected:
   GridDrawer * m_pGridDrawer;
 
   TicksDrawerBridge * m_pTicksDrawer;
+
+  DrawableObject * m_pDrawer;
+
+  /**
+    * Indicates the axis that the tick drawer is associated with.
+    */
+  EAxes m_assigned_axis;
   /*----------------------------------------------------------------------*/
 };
 
