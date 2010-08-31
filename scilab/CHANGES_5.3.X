@@ -10,6 +10,12 @@ bug 7922 fixed - The Automotive Suspension demo did not work.
 
 bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 
+Graphics:
+=========
+
+* bug 7836 fixed - The sub_tics property was not correctly tracking the number
+                   of displayed sub-ticks.
+
 GUI creation:
 =============
 
@@ -20,7 +26,7 @@ Bug Fixes:
 ==========
 
 * bug 7943 fixed - On a linux binary version, it was not possible to use
-             the fortran_block block.
+                   the fortran_block block.
 
 * bug 7951 fixed - strcat crashed with row concatenation option on linux.
 
