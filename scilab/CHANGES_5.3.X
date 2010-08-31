@@ -1,3 +1,18 @@
+         Changes between version 5.3.0-beta-3 and 5.3.0 of Scilab
+         ===============================================================
+
+Obsolete Functions:
+===================
+
+* ilib_for_link, ilib_build will not accept files with ".o" or ".obj" extensions
+  for source files in Scilab 5.3.1.
+
+Bug Fixes:
+==========
+* bug 7907 fixed -  ilib_build, ilib_for_link, ... did not check 'files' input
+                    argument.
+
+
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================
 
@@ -23,7 +38,7 @@ to fix these issues.
 * bug 5708 fixed - A problem of focus between the console and the editor
                    happened when SciNotes was started from the console.
 
-* bug 7369 fixed - fun2string  produced incorrect code for expressions in 
+* bug 7369 fixed - fun2string  produced incorrect code for expressions in
                    parentheses exponentiation.
 
 * bug 7625 fixed - Some selection issues were appearing from time to time when
@@ -151,7 +166,7 @@ Thanks to Samuel Gougeon.
 * bug 7137 fixed - In Text uicontrol, fontsize was rounded which was problematic when
                    fontUnits was 'normalized'.
 
-* bug 7857 fixed - If an event_handler is previously assigned to a graphic window 
+* bug 7857 fixed - If an event_handler is previously assigned to a graphic window
                    the datatips toogle tool icon had to be clicked twice to make it active.
 
 
@@ -224,7 +239,7 @@ Bug Fixes:
 * bug 6504 fixed - Due to a bug in Java, the <br> tag wasn't copied as a CR
                    in a messagebox.
 
-* bug 6938 fixed - frexp returned a wrong error message with a complex as 
+* bug 6938 fixed - frexp returned a wrong error message with a complex as
                    input argument.
 
 * bug 7125 fixed - fscanfMat() did not read correctly %inf, -%inf and
