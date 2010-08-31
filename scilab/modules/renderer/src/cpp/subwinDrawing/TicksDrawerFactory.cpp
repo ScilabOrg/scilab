@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2009 - INRIA - Pierre Lando
+ * Copyright (C) 2010 - Paul Griffiths
  * desc : Factory for TicksDrawer classes
  * 
  * This file must be used under the terms of the CeCILL.
@@ -62,7 +63,8 @@ TicksDrawer * TicksDrawerFactory::createXTicksDrawer(void)
   BOOL axesVisible[3];
   sciGetAxesVisible(pSubwin, axesVisible);
 
-  TicksDrawer * newTicksDrawer = new TicksDrawer();
+  TicksDrawer * newTicksDrawer = new TicksDrawer(m_pDrawer);
+  newTicksDrawer->setAssignedAxis(TicksDrawer::XAXIS);
 
   if (axesVisible[0])
   {
@@ -174,7 +176,8 @@ TicksDrawer * TicksDrawerFactory::createYTicksDrawer(void)
   sciGetAxesVisible(pSubwin, axesVisible);
   
 
-  TicksDrawer * newTicksDrawer = new TicksDrawer();
+  TicksDrawer * newTicksDrawer = new TicksDrawer(m_pDrawer);
+  newTicksDrawer->setAssignedAxis(TicksDrawer::YAXIS);
 
   if (axesVisible[1])
   {
@@ -288,7 +291,8 @@ TicksDrawer * TicksDrawerFactory::createZTicksDrawer(void)
     return NULL;
   }
 
-  TicksDrawer * newTicksDrawer = new TicksDrawer();
+  TicksDrawer * newTicksDrawer = new TicksDrawer(m_pDrawer);
+  newTicksDrawer->setAssignedAxis(TicksDrawer::ZAXIS);
 
   if (axesVisible[2])
   {
