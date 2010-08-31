@@ -42,6 +42,7 @@
 #include "MALLOC.h" /* MALLOC */
 #include "localization.h"
 
+#include "math.h"
 //#include "../../../tclsci/includes/GedManagement.h"
 
 
@@ -429,31 +430,159 @@ BOOL sci_update_frame_bounds_3d(sciPointObj *pobj)
 
 
 
-
+/** ComputeNbSubTics. Compute an appropriate number of subtics based on the number of major ticks, 
+ * the tick graduations, and the axes scaling (log or normal).  If auto subtics is off, then nbsubtics_input is returned. 
+ * If the axis scaling is linear and the major tick graduations lie along multiples of 10^n, where n is the greatest 
+ * integer such that 10^n is less than the graduation step size, then the number of subtics is selected to
+ * place subtics also at multiples of 10^n. If major ticks are at every multiple of 10^n, a heuristic is used to 
+ * compute the number of subtics within a graduation. This heuristic assigns more subtics as the number of major 
+ * ticks decreases. If the graduations are not provided (grads = NULL), the heuristic is used. 
+ *
+ * For logarithmic scaling, the number of subticks returned is 8 if the major tick graduations are at every factor of 10.
+ * Subtics are suppressed (0 is returned) if the number of major ticks exceeds a fixed threshold. If major tick 
+ * graduations are separated by factors of 10^n (n>1) then the number of subtics is selected to place subtics 
+ * at factors of 10.
+ * 
+ * (Update 8/24/2010 by Paul Griffiths to resolve poor choice of subtics. See bug#6686.) 
+ *
+ * @param pobj Pointer to a sciSubWindow.
+ * @param nbtics Number of major ticks.
+ * @param logflag Character value of 'l' or 'n' that indicates log or normal axis scaling, respectively.
+ * @param grads Value of major tick graduations. May be NULL.
+ * @param nbsubtics_input Value returned if auto subtics feature is disabled.
+ * @return Number of subticks to display.
+ */
 int ComputeNbSubTics(sciPointObj * pobj, int nbtics, char logflag, const double * grads, int nbsubtics_input)
 {
-  int ticsval[] =    {2 ,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-  int subticsval[] = {9,6,4,4,3,3,2,1,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 };
-  int i;
+  /* Parameters for calculating the number of subtics */
+  const int subticsval_len = 13; /* <--- MUST MATCH LENGTH OF subticsval */
+  /** Lookup-table Heuristic for number of subtics based on the number of tics */
+  const int subticsval[] =      {0,0,19,9,7,4,4,3,2,2,1 ,1, 0}; 
+  const int dec_subticsval[] =  {0,0, 9,9,4,4,4,4,1,1,1 ,1, 0}; 
+  /** Maximum subtics beyond the heuristic when fitting subtics along integer intervals of base 10. */
+  const int max_extra_tics = 2;   
+  /** Threshold remainder used to decide if one number is a mulitple of the other. */
+  const double mult_thrsh = 1e-6;
+  /** Threshold number of major ticks above which subtics are supressed in logarithmic-scaling. */
+  const int lognbtics_thrsh  = 7;
+
+  double grads_diff;	/* Used for computing spacing between major ticks. */
+  int nbtics_safe;	/* nbtics clamped to the range 0 to subticsval_len-1. Safe as an index into subticsval. */
+
   sciSubWindow * ppsubwin = pSUBWIN_FEATURE (pobj);
 
+  if( nbtics_safe < 0 )
+    nbtics_safe = 0;
+  else if( nbtics >= subticsval_len) 
+    nbtics_safe = subticsval_len - 1;
+  else
+    nbtics_safe = nbtics;
 
-  if(logflag =='l'){
-    return 8; /* 9 subtics to have a pretty tics/grid in log.*/
+  if(logflag =='l')
+  {
+    /* If tics are at every power of 10, then return 8 subtics
+     * If tics are at every 10^n (n>1), then place subtics at powers of 10. */
+    
+    /* Without provided graduations, suggest 8. */
+    if( grads == NULL )
+      return 8; /* This may or may not be a good value but it maintains this function's old behavior. */
+
+    /* We need at least two tics to be able to place subtics. */
+    if( nbtics < 2 )
+      return 0;
+     
+    /* Compute average. (Note that nbtics >= 2.) */
+    grads_diff = (grads[nbtics-1] - grads[0] ) / (nbtics-1); 
+    grads_diff = fabs( grads_diff );  // Make into a positive difference.
+
+    /* Check that graduations are actually on powers of 10 (not just spaced by factors of 10) */
+    if( fabs( round( grads[0] ) - grads[0] ) >=  mult_thrsh )
+      return 0; /* Not on powers of 10. Suppress subtics. */
+
+    /* If grads_diff is nearly 1.0 (i.e. major graduations are at every factor of 10)
+     * then return 8 unless there are too many major ticks. */
+    if( fabs(grads_diff - 1.0) < mult_thrsh )
+    {
+      if( nbtics < lognbtics_thrsh )
+         return 8; /* show logarithmic subdivision */
+      else
+         return 0; /* Too many major ticks -- suppress subtics. */
+    }
+    else
+    {
+      /* Try to place subtics at each factor 10 */
+      int nbsubtics = round( grads_diff ) - 1; 
+
+      /* Use the heuristic to guide the maximum allowable subtics based on the 
+       * the number of major tics. */ 
+      if( nbsubtics <= subticsval[ nbtics_safe ] ) 
+        return /* nbsubtics */ 0;  /* !! We have to suppress subtics because the subtic drawer assumes linear spacing between subtics. */
+      else
+        return 0;
+    }
   }
-  else{
+  else /* linear scaling case */
+  {
     if(ppsubwin->flagNax == FALSE) /* if auto subtics mode == ON */
-      { 
-	for(i=0;i<19;i++)
-	  if(nbtics == ticsval[i])
-	    {
-	      return subticsval[i];
-	    }
-      }
+    { 
+      /* Without graduations, use the heuristic */
+      if( grads == NULL )
+        return subticsval[nbtics_safe]; 
+
+      /* We need at least two tics to be able to place subtics. */
+      if( nbtics < 2 )
+        return 0;
+
+      /* Compute average graduation. (Note that nbtics >= 2.) */
+      grads_diff = (grads[nbtics-1] - grads[0]) / (double)(nbtics-1); 
+      grads_diff = fabs( grads_diff );  /* Make into a positive difference. */
+      
+      /* Compute the largest integral power of 10 smaller than grads_diff. */
+      double intbase10 = pow(10, floor( log10(grads_diff) ) );
+
+      /* Check if grads_diff is very close to a multiple of intbase10 -- if not, try one power of 10 lower */
+      if( fabs( round( grads_diff/intbase10 ) - grads_diff/intbase10 ) >= mult_thrsh )
+        intbase10 /= 10;
+
+      if( fabs( round( grads_diff/intbase10 ) - grads_diff/intbase10 ) < mult_thrsh )
+      {
+        /* Place subtics at integer multiples of intbase10  */
+        int intvls = round( grads_diff / intbase10 ); 
+ 
+        /* If ticks are already placed at every multiple of intbase10, use the heuristic to subdivide. */
+        if( intvls == 1 )
+        {
+          return dec_subticsval[ nbtics_safe ]; /* Use heuristic */
+        }
+        else
+        {
+          /* It may be necessary to use multiples of intbase10 to have an acceptable number of subtics.
+           * Find a divisor from 1-9 such that nbsubtics+1 is evenly divisible and use the heuristic
+           * plus max_extra_tics as a maximum number of subtics. */
+          int d;
+
+          for( d=1; d < 10; d++ )
+          { 
+            int max_subtics = subticsval[ nbtics_safe ]; /* compute just once */
+
+            /* Check divisibility by d. */
+            if( intvls % d != 0 )
+              continue;
+
+            /* Compare nbsubtics with the heuristic subticsval[i].  */
+            if( (intvls/d - 1) <= max_subtics ) 
+	        return intvls/d - 1; /* subtics on intervals of intbase10 */             
+          }
+          return 0;  /* Cannot fit enough subtics to cover intervals using m*intbase10 (0<m<10).  */
+        }
+      } 
+      else /* Did not find a reasonable integer multiple of 10^n along which to place subtics. */
+        return 0;  
+    }
     else /* if auto subtics mode == OFF already computed in Plo2dn.c, Champ.c routines... */
-      {  /* or given via a.subtics=[nbsubtics_on_x, nbsubtics_on_y, nbsubtics_on_z] command */
+    {  /* or given via a.subtics=[nbsubtics_on_x, nbsubtics_on_y, nbsubtics_on_z] command */
 	return nbsubtics_input;
-      }
+    }
   }
   
   return -1;
