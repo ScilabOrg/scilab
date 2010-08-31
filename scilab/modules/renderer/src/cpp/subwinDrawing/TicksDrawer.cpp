@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
+ * Copyright (C) 2010 - Paul Griffiths
  * desc : Class specialized in drawing ticks
  *
  * This file must be used under the terms of the CeCILL.
@@ -21,6 +22,7 @@ extern "C"
 {
 #include <string.h>
 #include "GetProperty.h"
+#include "SetProperty.h"
 };
 
 using std::sprintf;
@@ -29,13 +31,15 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------------------------*/
-TicksDrawer::TicksDrawer(void)
+TicksDrawer::TicksDrawer(DrawableObject * drawable)
 {
   m_pTicksComputer = NULL;
   m_pSubticksComputer = NULL;
   m_pGridDrawer = NULL;
   m_pPositioner = NULL;
   m_pTicksDrawer = NULL;
+  m_assigned_axis = TicksDrawer::NONE;
+  m_pDrawer = drawable;
 }
 /*------------------------------------------------------------------------------------------*/
 TicksDrawer::~TicksDrawer(void)
@@ -45,6 +49,7 @@ TicksDrawer::~TicksDrawer(void)
   setGridDrawer(NULL);
   setAxisPositioner(NULL);
   setTicksDrawer(NULL);
+  setAssignedAxis(TicksDrawer::NONE);
 }
 /*------------------------------------------------------------------------------------------*/
 void TicksDrawer::setTicksComputer(ComputeTicksStrategy * ticksComputer)
@@ -90,6 +95,16 @@ void TicksDrawer::setTicksDrawer(TicksDrawerBridge * drawer)
     delete m_pTicksDrawer;
   }
   m_pTicksDrawer = drawer;
+}
+/*------------------------------------------------------------------------------------------*/
+void TicksDrawer::setAssignedAxis(TicksDrawer::EAxes axis)
+{
+  m_assigned_axis = axis;
+}
+/*------------------------------------------------------------------------------------------*/
+TicksDrawer::EAxes TicksDrawer::getAssignedAxis(void) const
+{
+  return m_assigned_axis;
 }
 /*------------------------------------------------------------------------------------------*/
 void TicksDrawer::initializeDrawing(void)
@@ -146,6 +161,37 @@ int TicksDrawer::getInitNbTicks(void)
   m_pTicksComputer->reinit();
   return m_pTicksComputer->getNbTicks();
 }
+/*------------------------------------------------------------------------------------------*/
+int TicksDrawer::getInitNbSubticksPerGrad(void)
+{
+  /* Determine the initial number of subticks per major graduation. Possibly fewer subticks
+   * are displayed when the figure is forced to a small size. */
+  int nbsubtics = 0;
+
+  m_pTicksComputer->reinit();
+
+  /* allocate positions and ticks */
+  int initNbTicks = m_pTicksComputer->getNbTicks();
+  double * ticksPos = new double[initNbTicks];
+
+  /* Compute just ticksPos (not labels). */
+  m_pTicksComputer->getTicksPosition(ticksPos, NULL, NULL);
+
+  /* Ticks are computed. We can then return subticks. */
+  if( initNbTicks > 1) {
+    /* getNbSubticks returns the total number of subticks,
+       so we divide by the number of graduations. */
+    nbsubtics =  m_pSubticksComputer->getNbSubticks(ticksPos, initNbTicks) / (initNbTicks-1);
+  }
+  else {
+    nbsubtics = 0;
+  }
+
+  delete[] ticksPos;
+
+  return nbsubtics;
+}
+
 /*------------------------------------------------------------------------------------------*/
 void TicksDrawer::getInitTicksPos(double ticksPositions[], char ** ticksLabels)
 {
@@ -288,6 +334,30 @@ double TicksDrawer::drawTicks(void)
 
   // everything is computed so draw!!!
   //double dist = drawTicks(ticksPos, labels, labelsExponents, nbTicks, subticksPos, nbSubticks);
+
+  // Make number of subticks track the number drawn. (P. Griffiths, Aug 23, 2010)
+  int subTicksPerGrad = (nbTicks > 1 ? nbSubticks / (nbTicks-1) : nbSubticks);
+
+  sciPointObj * pObj = m_pDrawer->getDrawedObject();
+  switch(sciGetEntityType(pObj))
+  {
+  case SCI_SUBWIN:
+    switch( m_assigned_axis )
+    {
+    case TicksDrawer::XAXIS:
+      sciSetNbXSubTics( pObj, subTicksPerGrad );
+      break;
+    case TicksDrawer::YAXIS:
+      sciSetNbYSubTics( pObj, subTicksPerGrad );
+      break;
+    case TicksDrawer::ZAXIS:
+      sciSetNbZSubTics( pObj, subTicksPerGrad );
+      break;
+    }
+    break;
+  case SCI_AXES:
+    pAXES_FEATURE( pObj )->subint = subTicksPerGrad;
+  }
 
   // draw grid
   if (m_pGridDrawer != NULL)
