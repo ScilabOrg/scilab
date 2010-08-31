@@ -4,8 +4,10 @@
 Bug Fixes:
 ==========
 
-* bug 7907 fixed -  ilib_build, ilib_for_link, ... did not check 'files' input
-                    argument.
+* bug 7897 fixed - Fix a bashim in the configure which was failing under FreeBSD
+
+* bug 7907 fixed - ilib_build, ilib_for_link, ... did not check 'files' input
+                   argument.
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
