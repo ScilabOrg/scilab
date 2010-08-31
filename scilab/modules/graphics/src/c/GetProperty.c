@@ -5,6 +5,7 @@
  * Copyright (C) 2002 - 2004 - INRIA - Serge Steer
  * Copyright (C) 2004 - 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2010 - Paul Griffiths
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -3471,6 +3472,27 @@ BOOL sciGetAutoSubticks(sciPointObj * pObj)
     default:
         return FALSE;
         printSetGetErrorMessage("auto_subticks");
+        break;
+    }
+}
+/*----------------------------------------------------------------------------------*/
+/**
+* Get nbsubtics for each axis
+*/
+void sciGetNbSubTics(sciPointObj * pObj, int nbsubtics[3])
+{
+    switch(sciGetEntityType(pObj))
+    {
+    case SCI_SUBWIN:
+        nbsubtics[0] = pSUBWIN_FEATURE(pObj)->axes.nbsubtics[0];
+        nbsubtics[1] = pSUBWIN_FEATURE(pObj)->axes.nbsubtics[1];
+        nbsubtics[2] = pSUBWIN_FEATURE(pObj)->axes.nbsubtics[2];
+        break;
+    default:
+        nbsubtics[0] = 0;
+        nbsubtics[1] = 0;
+        nbsubtics[2] = 0;
+        printSetGetErrorMessage("nbsubtics");
         break;
     }
 }
