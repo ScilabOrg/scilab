@@ -9,6 +9,9 @@ Obsolete Functions:
 
 Bug Fixes:
 ==========
+
+* bug 6686 fixed - The automatic sub-ticking gave wrong results.
+
 * bug 7907 fixed -  ilib_build, ilib_for_link, ... did not check 'files' input
                     argument.
 
