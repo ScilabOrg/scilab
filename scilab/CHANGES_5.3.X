@@ -1,6 +1,17 @@
          Changes between version 5.3.0-beta-3 and 5.3.0 of Scilab
          ========================================================
 
+Obsolete Functions:
+===================
+
+* ilib_for_link, ilib_build will not accept files with ".o" or ".obj" extensions
+  for source files in Scilab 5.3.1.
+
+Bug Fixes:
+==========
+* bug 7907 fixed -  ilib_build, ilib_for_link, ... did not check 'files' input
+                    argument.
+
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================
 
