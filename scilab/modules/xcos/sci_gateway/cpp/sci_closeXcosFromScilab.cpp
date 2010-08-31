@@ -11,6 +11,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "Xcos.hxx"
+#include "GiwsException.hxx"
 
 extern "C"
 {
@@ -33,7 +34,19 @@ int sci_closeXcosFromScilab(char *fname,unsigned long fname_len)
 	CheckRhs(0,0);
 	CheckLhs(0,1);
 
-	Xcos::closeXcosFromScilab(getScilabJavaVM());
+	try {
+	    Xcos::closeXcosFromScilab(getScilabJavaVM());
+    }
+    catch (GiwsException::JniCallMethodException exception)
+    {
+        Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
+        return 0;
+    }
+    catch (GiwsException::JniException exception)
+    {
+        Scierror(999, "%s: %s\n", fname, exception.what());
+        return 0;
+    }
 
 	LhsVar(1) = 0;
 	PutLhsVar();
