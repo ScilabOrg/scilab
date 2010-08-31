@@ -1,13 +1,17 @@
          Changes between version 5.3.0-beta-3 and 5.3.0 of Scilab
          ========================================================
 
+Bug Fixes:
+==========
+
+Scilab:
+=======
+
+
 Xcos:
 =====
 
 * Include all the old-scicos palettes on the binary version.
-
-Bug Fixes:
-==========
 
 * bug 7943 - On a linux binary version, it was not possible to use
              the fortran_block block.
