@@ -13,8 +13,12 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
-* bug 7943 - On a linux binary version, it was not possible to use
-             the fortran_block block.
+* bug 7908 fixed - The number of values modified by scicos_getvalues could not
+                   by more than 20. This value has been updated to 30 
+                   variables.
+
+* bug 7943 fixed - On a linux binary version, it was not possible to use
+                   the fortran_block block.
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================
