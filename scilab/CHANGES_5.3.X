@@ -248,6 +248,7 @@ Graphics:
 
 * bug 8766 fixed - For small input matrices, the "Matplot1" function was not
                    correctly taking its rectangle argument into account.
+
 GUI:
 ====
 
@@ -286,6 +287,9 @@ Dynamic link:
 =============
 
 * Intel Fortran Composer XE 2011 (12) used by default if it is detected.
+
+* Added 'ilib_includes_path' macro to handle includes flag for platform
+  compiler.
 
 
 Scilab:
