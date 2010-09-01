@@ -9,6 +9,8 @@ Xcos:
 Bug Fixes:
 ==========
 
+* bug 7924 - pathconvert failed conversion to cygwin format.
+
 * bug 7943 - On a linux binary version, it was not possible to use
              the fortran_block block.
 
