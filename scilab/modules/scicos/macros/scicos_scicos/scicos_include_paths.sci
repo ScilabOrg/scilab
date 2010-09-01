@@ -23,6 +23,8 @@ function p = scicos_include_paths(modules)
     modules = ["scicos_blocks", "dynamic_link", "scicos", "core"];
   end
   
+  p = [];
+  
   if getos() == "Windows" then 
     // Windows
     p= """" + SCI + "/modules/" + modules + "/includes" + """";
