@@ -196,6 +196,9 @@ public class EditFormatAction extends DefaultAction {
 		
 		StyleMap style = new StyleMap(cell.getStyle());
 		
+		// Apply first the standard block for labels
+		style.put("Label", null);
+		
 		if (!borderColor.equals(DEFAULT_BORDERCOLOR)) {
 			style.put(mxConstants.STYLE_STROKECOLOR, mxUtils.hexString(borderColor));
 		}
@@ -238,7 +241,6 @@ public class EditFormatAction extends DefaultAction {
 				.getAsComponent(), NAME, (mxCell) selectedCells[0]);
 		
 		graph.getView().clear(selectedCells[0], true, true);
-		graph.updateCellSize(selectedCells[0]);
 		graph.refresh();
 	}
 	

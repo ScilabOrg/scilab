@@ -6,6 +6,8 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
+* bug 7600 fixed - the block default shape did not change on style modification.
+
 * bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
 
