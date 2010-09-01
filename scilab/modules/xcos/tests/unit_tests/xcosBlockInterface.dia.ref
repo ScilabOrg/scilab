@@ -9,7 +9,7 @@ loadScicosLibs;
 function [result]=x_mdialog(dialog_title,labels,default_inputs_vector)
 	result = default_inputs_vector;
 endfunction
-Warning : redefining function: x_mdialog               . Use funcprot(0) to avoid this message
+Attention: redéfinition de la fonction: x_mdialog               . Utilisez funcprot(0) pour éviter ce message
 
 // variables
 hdf5FileToLoad = TMPDIR + "/hdf5FileToLoad.h5";

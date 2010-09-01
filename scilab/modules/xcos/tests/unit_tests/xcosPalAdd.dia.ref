@@ -13,7 +13,7 @@ function [status, msg] = xcosPalExport(pal, path)
     msg = "";
     disp("export to " + path);
 endfunction
-Warning : redefining function: xcosPalExport           . Use funcprot(0) to avoid this message
+Attention: redéfinition de la fonction: xcosPalExport           . Utilisez funcprot(0) pour éviter ce message
 
 function xcosPalLoad(pal, category)
     if typeof(pal) <> "string" then bugmes();quit;end
@@ -21,7 +21,7 @@ function xcosPalLoad(pal, category)
     if typeof(category) <> "string" then bugmes();quit;end
     if and([size(category, 'r') > 1, size(category, 'c') > 1]) then bugmes();quit;end
 endfunction
-Warning : redefining function: xcosPalLoad             . Use funcprot(0) to avoid this message
+Attention: redéfinition de la fonction: xcosPalLoad             . Utilisez funcprot(0) pour éviter ce message
 
 // start of the test
 pal = xcosPal();
