@@ -6,6 +6,9 @@ Xcos:
 
 * bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as wrong links and block names.
 
+* bug 7600 fixed - the block default shape did not change on style modification.
+
+
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================
 

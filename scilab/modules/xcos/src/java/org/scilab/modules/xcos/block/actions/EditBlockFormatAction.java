@@ -196,6 +196,9 @@ public class EditBlockFormatAction extends DefaultAction {
 		
 		StyleMap style = new StyleMap(cell.getStyle());
 		
+		// Apply first the standard block for labels
+		style.put("Label", null);
+		
 		if (!borderColor.equals(DEFAULT_BORDERCOLOR)) {
 			style.put(mxConstants.STYLE_STROKECOLOR, mxUtils.hexString(borderColor));
 		}
