@@ -1,0 +1,5 @@
+ref_flag=" -I"+SCI+"/bin "+"-I"+SCI+"/modules -I/usr/include";
+includes_path = [ "bin" , "modules" , "/usr/include" ];
+cd SCI;
+output_flag = ilib_includes_flag(includes_path);
+if (ref_flag ~= output_flag) then bugmes();quit;end

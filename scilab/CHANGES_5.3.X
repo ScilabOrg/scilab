@@ -1016,6 +1016,9 @@ Dynamic Link:
   'ilib_gen_Make', 'ilib_mex_build', 'ilib_build' is deprecated.
   default value of makefile name must be [].
 
+* Added 'ilib_includes_path' macro to handle includes flag for platform
+  compiler.
+
 * bug 4265 fixed - The execution of the dynamic link functions (ilib_*)
                    continued even if a compiler was not available.
 
