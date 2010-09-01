@@ -20,11 +20,16 @@ Known incompatibilities:
   uimenus are no more (un)checked on mouse click. Moreover, they can now have
   a callback.
 
+Dynamic Link:
+=============
+
+* Added 'ilib_includes_path' macro to handle includes flag for platform
+  compiler.
+
 Xcos:
 =====
 
 * bug 8081 fixed - The context was not checked before being set.
-
 
 SciNotes:
 =========
