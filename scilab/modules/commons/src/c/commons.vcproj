@@ -375,6 +375,10 @@
 				RelativePath=".\DllmainCommons.c"
 				>
 			</File>
+			<File
+				RelativePath="..\jni\ScilabCommons_wrap.c"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
