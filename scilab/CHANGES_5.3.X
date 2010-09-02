@@ -8,6 +8,7 @@ Xcos:
 
 bug 7922 fixed - The Automotive Suspension demo did not work.
 
+bug 7219 fixed - The old gain demo did not work.
 
 Bug Fixes:
 ==========
