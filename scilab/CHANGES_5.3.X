@@ -150,7 +150,7 @@ Thanks to Samuel Gougeon.
 * bug 7137 fixed - In Text uicontrol, fontsize was rounded which was problematic when
                    fontUnits was 'normalized'.
 
-* bug 7857 fixed - If an event_handler was previously assigned to a graphic window 
+* bug 7857 fixed - If an event_handler was previously assigned to a graphic window
                    the datatips toogle tool icon had to be clicked twice to make it active.
 
 
@@ -224,7 +224,7 @@ Bug Fixes:
 * bug 6504 fixed - Due to a bug in Java, the <br> tag was not copied as a CR
                    in a messagebox.
 
-* bug 6938 fixed - frexp returned a wrong error message with a complex as 
+* bug 6938 fixed - frexp returned a wrong error message with a complex as
                    input argument.
 
 * bug 7125 fixed - fscanfMat() did not read correctly %inf, -%inf and
@@ -279,6 +279,8 @@ Bug Fixes:
 * bug 7688 fixed - set("color_map", hsvcolormap(128)) produced
                    a EXCEPTION_STACK_OVERFLOW.
 
+* bug 7690 fixed - Avoiding long lines in parallel_run help.
+
 * bug 7693 fixed - With a corrupted palettes.xml file, the error message was not
                    coherent with the recovering action.
 
@@ -325,6 +327,8 @@ Bug Fixes:
                    source directory tree.
 
 * bug 7840 fixed - big lines were splitted by mgetl.
+
+* bug 7940 fixed - fixed typo in parallel_run documentation.
 
          Changes between version 5.3.0-beta-1 and 5.3.0-beta-2 of Scilab
          ===============================================================
