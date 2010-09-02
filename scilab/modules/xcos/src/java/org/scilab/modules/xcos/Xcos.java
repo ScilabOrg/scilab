@@ -104,9 +104,9 @@ public final class Xcos {
 		 */
 		try {
 			LogManager.getLogManager().readConfiguration();
-		} catch (SecurityException e) {
+		} catch (final SecurityException e) {
 			LOG.error(e);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			LOG.error(e);
 		}
 		
@@ -462,7 +462,14 @@ public final class Xcos {
 		} catch (final InterruptedException e) {
 			LOG.error(e);
 		} catch (final InvocationTargetException e) {
-			LOG.error(e);
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 
@@ -534,7 +541,14 @@ public final class Xcos {
 		} catch (final InterruptedException e) {
 			throw new RuntimeException(e);
 		} catch (final InvocationTargetException e) {
-			throw new RuntimeException(e.getCause());
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 
 		return 0;
@@ -591,7 +605,14 @@ public final class Xcos {
 		} catch (final InterruptedException e) {
 			LOG.error(e);
 		} catch (final InvocationTargetException e) {
-			LOG.error(e);
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 
@@ -623,7 +644,14 @@ public final class Xcos {
 		} catch (final InterruptedException e) {
 			LOG.error(e);
 		} catch (final InvocationTargetException e) {
-			LOG.error(e);
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 }

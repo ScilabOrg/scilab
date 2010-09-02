@@ -6,6 +6,8 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
+* Use a user-friendly error message on the palette management implementation.
+
 Bug Fixes:
 ==========
 
