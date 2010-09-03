@@ -21,6 +21,21 @@ extern "C" {
 #include "parameters.h"
 #include "stack-def.h" /* #define nlgh nsiz*4   */
 #include "stack-c.h"  /* #define Nbvars C2F(intersci).nbvars, Top & cie */
+#include "Thread_Wrapper.h" /* locks for concurrency access */
+
+#ifdef _MSC_VER
+
+#include "mmapWindows.h"
+#include "strdup_windows.h"
+
+#else
+#include <sys/mman.h>
+#ifndef MAP_ANONYMOUS
+# define MAP_ANONYMOUS MAP_ANON
+#endif
+#endif
+
+#include "concurrency.h" /* prototype for concurrency query function */
 }
 
 #include <cstdlib>
@@ -62,6 +77,9 @@ extern "C"
 
 namespace
 {
+    int threadConcurrencyLevel;
+    int processConcurrencyLevel;
+
     /* to distinguish scilab variable 'address' from usual int* */
     typedef int* scilabVar_t;
 
@@ -802,7 +820,74 @@ namespace
         }
         char const* fun;
     };
+
+    struct ConcurrencyState
+    {
+        ConcurrencyState()
+        {
+            lock = static_cast<__threadSignalLock*>(mmap(0, sizeof( __threadSignalLock), PROT_READ | PROT_WRITE,MAP_SHARED |  MAP_ANONYMOUS, -1, 0));
+            processConcurrencyLevelPtr= static_cast<int*>(mmap(0, sizeof(int), PROT_READ | PROT_WRITE,MAP_SHARED |  MAP_ANONYMOUS, -1, 0));
+            __InitSignalLock(lock);
+        }
+
+        struct ScopedUpdater
+        {
+            ScopedUpdater(ConcurrencyState& c, bool threads)
+                : lock(c.lock), countPtr( threads
+                                   ? &c.threadConcurrencyLevel
+                                   : c.processConcurrencyLevelPtr)
+            {
+                __LockSignal(lock);
+                ++(*countPtr);
+                __UnLockSignal(lock);
+            }
+            ~ScopedUpdater()
+            {
+                __LockSignal(lock);
+                --(*countPtr);
+                __UnLockSignal(lock);
+            }
+            __threadSignalLock* lock;
+            int* countPtr;
+        };
+        ScopedUpdater scopedUpdater(bool threads)
+        {
+            return ScopedUpdater(*this, threads);
+        }
+
+        int get() const
+        {
+           __LockSignal(lock);
+           int res((threadConcurrencyLevel ? 1 : 0) | (*processConcurrencyLevelPtr ? 2 : 0));
+           __UnLockSignal(lock);
+           return res;
+        }
+
+        ~ConcurrencyState()/* called by exit() for static variables */
+        {
+            __UnLockSignal(lock);
+        }
+        __threadSignalLock* lock;
+        int* processConcurrencyLevelPtr; /* must be in shared mem */
+        int threadConcurrencyLevel;
+    };
+
+
 }
+
+ConcurrencyState concurrencyState;
+
+int concurrency()
+{
+    return concurrencyState.get();
+}
+int forbidden(char const* fname)
+{
+    Scierror(999,_("%s: This function is forbidden in a concurrent execution context.\n"), fname);
+    return 0;
+}
+
+
 
 /* Calling point from Scilab.
  * checking args and contruction a wrapper around function call of a foreign function or a Scilab macro.
@@ -856,6 +941,9 @@ int sci_parallel_run(char *fname,unsigned long fname_len)
     varsContainer_t::iterator functionArg= std::find_if(stack.begin(), stack.end(), &isFunctionOrString);
     wrapper w(stack.begin(), functionArg, stack.end(), Lhs);
     bool const withThreads(w.isForeignFunction() && sharedMemory);
+
+    ConcurrencyState::ScopedUpdater u(concurrencyState.scopedUpdater(withThreads));
+
     simple_wrapper prologue(prologueName), epilogue(epilogueName);
 
     make_parallel_wrapper(w.argsDataBegin(), w.argsSizesBegin(), w.argsNbBegin(), w.nbRhs(), w.tasksNb()

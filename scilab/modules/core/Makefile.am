@@ -295,6 +295,7 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/string/includes \
 	-I$(top_srcdir)/modules/fileio/includes \
 	-I$(top_srcdir)/modules/shell/includes \
+	-I$(top_srcdir)/modules/parallel/includes \
 	$(XML_FLAGS)
 
 libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
