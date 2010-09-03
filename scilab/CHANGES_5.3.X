@@ -18,7 +18,9 @@ Bug Fixes:
 
 * bug 7951 - strcat crashed with row concatenation option on linux.
 
-* bug 7952 -  libraryinfo did not check size of input argument.
+* bug 7952 - libraryinfo did not check size of input argument.
+
+* bug 7964 - errclear(2) cleared all errors and not only error 2 as written in help.
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
