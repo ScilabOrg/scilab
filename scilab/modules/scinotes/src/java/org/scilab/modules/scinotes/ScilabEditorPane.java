@@ -50,6 +50,7 @@ import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.scinotes.actions.OpenSourceFileOnKeywordAction;
 import org.scilab.modules.scinotes.utils.NavigatorWindow;
 import org.scilab.modules.scinotes.utils.SciNotesMessages;
+import org.scilab.modules.scinotes.utils.SciNotesLaTeXViewer;
 
 /**
  * Class ScilabEditorPane
@@ -184,6 +185,16 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                             ScilabEditorPane.this.editor.getInfoBar().setText(infoBar);
                             infoBarChanged = false;
                         }
+			if (ScilabLexerConstants.isLaTeX(e.getType())) {
+			    try {
+				int start = e.getStart();
+				int end = start + e.getLength();
+				String exp = ((ScilabDocument) getDocument()).getText(start, e.getLength());
+				SciNotesLaTeXViewer.displayExpression(ScilabEditorPane.this, exp, start, end);
+			    } catch (BadLocationException ex) { }
+			} else {
+			    SciNotesLaTeXViewer.removeLaTeXViewer(ScilabEditorPane.this);
+			}
                     }
                 }
             });

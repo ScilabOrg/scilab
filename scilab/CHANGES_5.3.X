@@ -10,6 +10,12 @@ bug 7922 fixed - The Automotive Suspension demo did not work.
 
 bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 
+SciNotes:
+=========
+
+* It's now possible to preview a LaTeX formula in comments or in a string on
+mouseover event.
+
 GUI creation:
 =============
 
