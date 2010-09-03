@@ -23,7 +23,7 @@ Xcos:
 SciNotes:
 =========
 
-* LaTeX formula in comments or in a string are now rendered when the mouse 
+* LaTeX formula in comments or in a string are now rendered when the mouse
   cursor is over.
 
 * Block text (function, if, while...) are now easily selectable. See bug #7546.
@@ -65,6 +65,8 @@ Bug Fixes:
 * bug 7951 fixed - strcat crashed with row concatenation option on linux.
 
 * bug 7952 fixed - libraryinfo did not check size of input argument.
+
+* bug 7959 fixed - fscanf did not manage file descriptor as input argument.
 
 * bug 7974 fixed - Customized xerbla.f subroutine did not return enough
                    information.
