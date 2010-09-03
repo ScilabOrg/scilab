@@ -821,6 +821,16 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     }
 
     /**
+     * Get a keyword at the current position in the document.
+     * @param strict if true the char just after the caret is ignored
+     * @return the KeywordEvent containing infos about keyword.
+     */
+    public KeywordEvent getKeywordEvent(boolean strict) {
+        int tok = lexer.getKeyword(getCaretPosition(), strict);
+        return new KeywordEvent(this, null, tok, lexer.start + lexer.yychar(), lexer.yylength());
+    }
+
+    /**
      * Prevents the different KeywordListener that a MouseEvent occured
      * @param position of the mouse
      * @param ev the event which occured
