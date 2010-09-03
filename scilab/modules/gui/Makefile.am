@@ -283,9 +283,12 @@ libscigui_la_sci_gateway_DATA = sci_gateway/gui_gateway.xml
 
 #### gui : icons files ####
 libscigui_la_iconsdir=$(mydatadir)/
-nobase_libscigui_la_icons_DATA = images/icons/aboutscilab.png \
+nobase_libscigui_la_icons_DATA = images/icons/32x32/apps/accessories-text-editor.png \
+images/icons/32x32/apps/utilities-system-monitor.png \
+images/icons/aboutscilab.png \
 images/icons/accessories-text-editor.png \
 images/icons/applications-system.png \
+images/icons/check-icon.png \
 images/icons/close-tab.png \
 images/icons/datatips.png \
 images/icons/document-new.png \
@@ -306,6 +309,7 @@ images/icons/edit-undo.png \
 images/icons/emblem-readonly.png \
 images/icons/folder.png \
 images/icons/format-text-bold.png \
+images/icons/graphic-window.png \
 images/icons/help-browser.png \
 images/icons/list-add.png \
 images/icons/list-remove.png \
@@ -325,10 +329,7 @@ images/icons/undock_default.png \
 images/icons/utilities-system-monitor.png \
 images/icons/window-new.png \
 images/icons/zoom-area-cursor.png \
-images/icons/zoom-area.png \
-images/icons/32x32/apps/accessories-text-editor.png \
-images/icons/32x32/apps/utilities-system-monitor.png \
-images/icons/graphic-window.png
+images/icons/zoom-area.png
 
 if GUI
 USEANT=1

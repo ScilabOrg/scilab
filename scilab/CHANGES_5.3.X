@@ -24,6 +24,8 @@ GUI creation:
 * It is now possible to use LaTeX or MathML as label for uimenu or pushbutton
 in uicontrol. See bug #7366.
 
+bug 7822 fixed - Xcos menu bar was larger than the Scilab one.
+
 Bug Fixes:
 ==========
 
