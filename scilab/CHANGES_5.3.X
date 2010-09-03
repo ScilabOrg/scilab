@@ -230,6 +230,10 @@ Bug Fixes:
 * bug 7125 fixed - fscanfMat() did not read correctly %inf, -%inf and
                    %nan values respectively recorded by fprintfMat().
 
+* bug 7140 fixed - Modifying the stack with gstacksize() and stacksize()
+                   is now forbidden in concurrent execution context
+                   (was crashing).
+
 * bug 7208 fixed - The help for atomsGetLoaded() gave the wrong shape
                    for the loaded matrix.
 
