@@ -704,6 +704,8 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
 				FLEXDOCK=$PACKAGE_JAR_FILE
 				AC_SUBST(FLEXDOCK)
 
+				AC_JAVA_CHECK_VERSION_PACKAGE([flexdock],[import org.flexdock.util.Utilities;],$FLEXDOCK,[0.5.2],[Utilities.VERSION])
+
 				# Swing look&feel implementations
 				AC_JAVA_CHECK_PACKAGE([looks],[com.jgoodies.looks.common.RenderingUtils],[Scilab Gui - Look and feel],"yes")
 				LOOKS=$PACKAGE_JAR_FILE
@@ -852,7 +854,7 @@ the the JNI libraries."])],
                 JLATEXMATH=$PACKAGE_JAR_FILE
                 AC_SUBST(JLATEXMATH)
 
-				AC_JAVA_CHECK_VERSION_PACKAGE([jlatexmath],[import org.scilab.forge.jlatexmath.TeXFormula;],$JLATEXMATH,[0.8.8],[TeXFormula.VERSION])
+				AC_JAVA_CHECK_VERSION_PACKAGE([jlatexmath],[import org.scilab.forge.jlatexmath.TeXFormula;],$JLATEXMATH,[0.9.2],[TeXFormula.VERSION])
 
 				AC_DEFINE([WITH_GUI],[],[With the JAVA stuff (GUI, Console, JOGL...)])
 
