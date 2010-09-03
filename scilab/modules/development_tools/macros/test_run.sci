@@ -189,7 +189,7 @@ function test_run(varargin)
 
 		for i=1:size(module_list,"*")
 			module    = module_new();
-			module    = module_set_name(module,module_list(i))
+			module    = module_set_name(module,module_list(i));
 			module    = module_set_path(module,pathconvert(SCI+"/modules/"+module.name,%F));
 			tests     = get_tests_from_module(module,type_filter,skip_mat);
 			testsuite = testsuite_add_tests( testsuite, tests );
@@ -453,7 +453,7 @@ function my_tests = get_tests_from_module(module,type_filter,skip_mat)
 
 	my_tests = list();
 
-	for i=1:length(my_directories)
+	for i=1:size(my_directories)
 
 		directory = my_directories(i);
 		tests_in  = get_tests_from_directory(directory.path);

@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2005-2008 - INRIA - Allan CORNET
+// Copyright (C) 2010 - INRIA - Antoine ELIAS
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,4 +7,8 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-genlib('data_structureslib','SCI/modules/data_structures/macros',%f,%t);
+
+//bool <> bool
+function result=%b_n_b(var1, var2)
+    result = ~(var1 == var2);
+endfunction
