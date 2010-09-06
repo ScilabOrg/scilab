@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.jvm.utils.ScilabConstants;
+import org.scilab.modules.commons.ScilabConstants;
 import org.w3c.dom.Document;
 
 import com.mxgraph.io.mxCodec;
@@ -51,12 +51,12 @@ public final class FileUtils {
 	 * @throws IOException
 	 *             when an errors has occured
 	 */
-	public static void copy(File in, File out) throws IOException {
-		FileChannel inChannel = new FileInputStream(in).getChannel();
-		FileChannel outChannel = new FileOutputStream(out).getChannel();
+	public static void copy(final File in, final File out) throws IOException {
+		final FileChannel inChannel = new FileInputStream(in).getChannel();
+		final FileChannel outChannel = new FileOutputStream(out).getChannel();
 		try {
 			inChannel.transferTo(0, inChannel.size(), outChannel);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			LogFactory.getLog(FileUtils.class).warn(e);
 			throw e;
 		} finally {
@@ -77,14 +77,14 @@ public final class FileUtils {
 	 * @param out
 	 *            the output file
 	 */
-	public static void forceCopy(File in, File out) {
+	public static void forceCopy(final File in, final File out) {
 		FileChannel inChannel = null;
 		FileChannel outChannel = null;
 		
 		if (!out.exists()) {
 			try {
 				out.createNewFile();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				LogFactory.getLog(FileUtils.class).warn(e);
 			}
 		}
@@ -93,20 +93,20 @@ public final class FileUtils {
 			inChannel = new FileInputStream(in).getChannel();
 			outChannel = new FileOutputStream(out).getChannel();
 			inChannel.transferTo(0, inChannel.size(), outChannel);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			LogFactory.getLog(FileUtils.class).warn(e);
 		} finally {
 			if (inChannel != null) {
 				try {
 					inChannel.close();
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					LogFactory.getLog(FileUtils.class).warn(e);
 				}
 			}
 			if (outChannel != null) {
 				try {
 					outChannel.close();
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					LogFactory.getLog(FileUtils.class).warn(e);
 				}
 			}
@@ -127,7 +127,7 @@ public final class FileUtils {
 	 * Delete the file and log an error message if unable to do so.
 	 * @param f the file to delete.
 	 */
-	public static void delete(File f) {
+	public static void delete(final File f) {
 		if (!f.delete()) {
 			LogFactory.getLog(FileUtils.class).error(XcosMessages.UNABLE_TO_DELETE + f);
 		}
@@ -153,7 +153,7 @@ public final class FileUtils {
 		if (!userStyleSheet.exists()) {
 			final String sciPath = ScilabConstants.SCI.getAbsolutePath();
 
-			File baseStyleSheet = new File(sciPath + "/modules/xcos/etc/" + STYLE_FILENAME);
+			final File baseStyleSheet = new File(sciPath + "/modules/xcos/etc/" + STYLE_FILENAME);
 			FileUtils.forceCopy(baseStyleSheet, userStyleSheet);
 		}
 		
@@ -166,7 +166,7 @@ public final class FileUtils {
 		String xml = mxUtils.readFile(userStyleSheet.getAbsolutePath());
 		xml = xml.replaceAll("\\$SCILAB", sciURL);
 		xml = xml.replaceAll("\\$SCIHOME", homeURL);
-		Document document = mxUtils.parse(xml);
+		final Document document = mxUtils.parse(xml);
 		new mxCodec().decode(document.getDocumentElement(), styleSheet);
 	}
 }

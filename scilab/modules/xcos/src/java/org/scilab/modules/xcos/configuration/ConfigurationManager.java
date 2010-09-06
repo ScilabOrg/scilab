@@ -31,9 +31,9 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
-import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.scilab.modules.xcos.actions.OpenAction;
 import org.scilab.modules.xcos.configuration.model.DocumentType;
 import org.scilab.modules.xcos.configuration.model.ObjectFactory;
@@ -104,13 +104,13 @@ public final class ConfigurationManager {
 						+ INSTANCE_FILENAME);
 				
 				if (!f.exists()) {
-					File base = new File(ScilabConstants.SCI.getAbsoluteFile()
+					final File base = new File(ScilabConstants.SCI.getAbsoluteFile()
 							+ XcosConstants.XCOS_ETC + INSTANCE_FILENAME);
 					FileUtils.forceCopy(base, f);
 				}
 				
 				return (SettingType) unmarshaller.unmarshal(f);
-			} catch (JAXBException e) {
+			} catch (final JAXBException e) {
 				LogFactory.getLog(ConfigurationManager.class).warn(
 						"user configuration file is not valid.\n"
 								+ "Switching to the default one."
@@ -124,7 +124,7 @@ public final class ConfigurationManager {
 					f = new File(ScilabConstants.SCI.getAbsoluteFile()
 							+ XcosConstants.XCOS_ETC + INSTANCE_FILENAME);
 					return (SettingType) unmarshaller.unmarshal(f);
-				} catch (JAXBException ex) {
+				} catch (final JAXBException ex) {
 					LogFactory.getLog(ConfigurationManager.class).error(
 							"base configuration file corrupted.\n"
 							+ ex);
@@ -132,7 +132,7 @@ public final class ConfigurationManager {
 				}
 			}
 
-		} catch (JAXBException e) {
+		} catch (final JAXBException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -146,7 +146,7 @@ public final class ConfigurationManager {
 		final String schemaPath = ScilabConstants.SCI.getAbsolutePath()
 		+ XcosConstants.XCOS_ETC + SCHEMA_FILENAME;
 		
-		JAXBContext jaxbContext = JAXBContext
+		final JAXBContext jaxbContext = JAXBContext
 				.newInstance(MODEL_CLASS_PACKAGE);
 		unmarshaller = jaxbContext.createUnmarshaller();
 
@@ -156,7 +156,7 @@ public final class ConfigurationManager {
 					XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(
 					new File(schemaPath));
 			unmarshaller.setSchema(schema);
-		} catch (SAXException e) {
+		} catch (final SAXException e) {
 			LogFactory.getLog(ConfigurationManager.class).error(
 					UNABLE_TO_VALIDATE_CONFIG
 							+ e);
@@ -178,13 +178,13 @@ public final class ConfigurationManager {
 						+ INSTANCE_FILENAME);
 				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 				marshaller.marshal(getSettings(), f);
-			} catch (JAXBException e) {
+			} catch (final JAXBException e) {
 				LogFactory.getLog(ConfigurationManager.class).warn(
 						"Unable to save user configuration file.\n"
 						+ e);
 			}
 
-		} catch (JAXBException e) {
+		} catch (final JAXBException e) {
 			e.printStackTrace();
 			return;
 		}
@@ -198,7 +198,7 @@ public final class ConfigurationManager {
 		final String schemaPath = ScilabConstants.SCI.getAbsolutePath()
 		+ XcosConstants.XCOS_ETC + SCHEMA_FILENAME;
 		
-		JAXBContext jaxbContext = JAXBContext
+		final JAXBContext jaxbContext = JAXBContext
 				.newInstance(MODEL_CLASS_PACKAGE);
 		marshaller = jaxbContext.createMarshaller();
 
@@ -208,7 +208,7 @@ public final class ConfigurationManager {
 					XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(
 					new File(schemaPath));
 			marshaller.setSchema(schema);
-		} catch (SAXException e) {
+		} catch (final SAXException e) {
 			LogFactory.getLog(ConfigurationManager.class).warn(
 					UNABLE_TO_VALIDATE_CONFIG
 							+ e);
@@ -222,8 +222,8 @@ public final class ConfigurationManager {
 	 * 
 	 * @param string the file path to add
 	 */
-	public void addToRecentFiles(File string) {
-		List<DocumentType> files = getSettings().getRecentFiles().getDocument();
+	public void addToRecentFiles(final File string) {
+		final List<DocumentType> files = getSettings().getRecentFiles().getDocument();
 		
 		/*
 		 * Create the url
@@ -231,7 +231,7 @@ public final class ConfigurationManager {
 		String url;
 		try {
 			url = string.toURI().toURL().toExternalForm();
-		} catch (MalformedURLException e1) {
+		} catch (final MalformedURLException e1) {
 			LogFactory.getLog(ConfigurationManager.class).error(e1);
 			return;
 		}
@@ -242,7 +242,7 @@ public final class ConfigurationManager {
 		DatatypeFactory factory;
 		try {
 			factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
+		} catch (final DatatypeConfigurationException e) {
 			LogFactory.getLog(OpenAction.class).error(e);
 			return;
 		} 
@@ -250,21 +250,21 @@ public final class ConfigurationManager {
 		/*
 		 * Initialize the new element
 		 */
-		DocumentType element = (new ObjectFactory()).createDocumentType();
+		final DocumentType element = (new ObjectFactory()).createDocumentType();
 		element.setUrl(url);
 		element.setDate(factory.newXMLGregorianCalendar(new GregorianCalendar()));
 		
 		/*
 		 * Create an arrays sorted by name.
 		 */
-		DocumentType[] perNameSortedFiles = files.toArray(new DocumentType[files.size()]);
+		final DocumentType[] perNameSortedFiles = files.toArray(new DocumentType[files.size()]);
 		Arrays.sort(perNameSortedFiles, ConfigurationConstants.FILENAME_COMPARATOR);		
 		
 		/*
 		 * Insert the element 
 		 */
 		DocumentType oldElement = null;
-		int search = Arrays.binarySearch(perNameSortedFiles, element,
+		final int search = Arrays.binarySearch(perNameSortedFiles, element,
 				ConfigurationConstants.FILENAME_COMPARATOR);
 		
 		if (search >= 0) {
@@ -305,7 +305,7 @@ public final class ConfigurationManager {
      * @param propertyName  The name of the property to listen on.
      * @param listener  The PropertyChangeListener to be added
      */
-	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+	public void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 		changeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 	
@@ -323,8 +323,8 @@ public final class ConfigurationManager {
      * @param oldValue  The old value of the property.
      * @param newValue  The new value of the property.
      */
-    public void firePropertyChange(String propertyName,
-                                        Object oldValue, Object newValue) {
+    public void firePropertyChange(final String propertyName,
+                                        final Object oldValue, final Object newValue) {
     	changeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 }

@@ -12,52 +12,48 @@
  */
 package org.scilab.modules.helptools;
 
-import java.io.IOException;
+import java.awt.Color;
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.Writer;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
-import java.net.URI;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.SAXException;
-import org.xml.sax.Locator;
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.DefaultHandler;
 
-import org.apache.batik.transcoder.TranscoderException;
+import net.sourceforge.jeuclid.MutableLayoutContext;
+import net.sourceforge.jeuclid.context.LayoutContextImpl;
+import net.sourceforge.jeuclid.context.Parameter;
+import net.sourceforge.jeuclid.converter.Converter;
+
 import org.apache.batik.transcoder.ErrorHandler;
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.Transcoder;
 import org.apache.batik.transcoder.XMLAbstractTranscoder;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.transcoder.image.PNGTranscoder;
-
-import net.sourceforge.jeuclid.context.Parameter;
-import net.sourceforge.jeuclid.LayoutContext;
-import net.sourceforge.jeuclid.MutableLayoutContext;
-import net.sourceforge.jeuclid.context.LayoutContextImpl;
-import net.sourceforge.jeuclid.converter.Converter;
-
-import org.scilab.modules.jvm.utils.ScilabConstants;
-import org.scilab.forge.jlatexmath.TeXConstants; 
-import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.ParseException;
-import java.awt.Color;
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Preprocess before building the documentation
@@ -100,7 +96,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
      *
      * @param verbose true if enable
      */
-    public void setVerbose(boolean verbose) {
+    public void setVerbose(final boolean verbose) {
         this.verbose = verbose;
     }
 
@@ -109,7 +105,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
      *
      * @param printFormat  The print format
      */
-    public void setPrintFormat(String printFormat) {
+    public void setPrintFormat(final String printFormat) {
         this.printFormat = printFormat;
     }
     
@@ -120,7 +116,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
      * the jlatexmath-fop plugin.
      * @param isLatexConverted true if LaTeX label are converted in PNG
      */
-    public void setLatexConverted(boolean isLatexConverted) {
+    public void setLatexConverted(final boolean isLatexConverted) {
         this.isLatexConverted = isLatexConverted;
     }
 
@@ -132,16 +128,16 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
      * @param inFile Input file
      * @param outputFile Output file
      */
-    public void run(File inFile, File outputFile)
+    public void run(final File inFile, final File outputFile)
         throws SAXParseException, SAXException, IOException {
-        File outFile = outputFile.getCanonicalFile();
+        final File outFile = outputFile.getCanonicalFile();
         outDir = outFile.getParentFile();
         if (!outDir.isDirectory() && !outDir.mkdirs()) {
             throw new IOException("Cannot create directory '" + outDir + "'");
         }
 
         try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
+            final SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
             // We need qNames and xmlns*.
             factory.setFeature(
@@ -150,7 +146,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             //factory.setXIncludeAware(false);
 
             parser = factory.newSAXParser();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new SAXParseException(
                 "Cannot create a properly configured SAX parser: " + Helpers.reason(e), locator);
         }
@@ -169,7 +165,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             if (out.checkError()) {
                 throw new IOException("Error writing '" + outFile + "'");
             }
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             if (locator != null) {
                 throw new SAXParseException("Cannot parse " + inFile + " " + Helpers.reason(e), locator);
             } else {
@@ -189,28 +185,33 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
      *
      * @param locator  The locator
      */
-    public void setDocumentLocator(Locator locator) {
+    @Override
+	public void setDocumentLocator(final Locator locator) {
         this.locator = locator;
     }
 
-    public void startDocument() throws SAXException {
+    @Override
+	public void startDocument() throws SAXException {
         out.write("<?xml version='1.0' encoding='UTF-8'?>\n");
     }
 
-    public void endDocument() throws SAXException {
+    @Override
+	public void endDocument() throws SAXException {
     }
 
 
-    public void startPrefixMapping(String prefix, String uri)
+    @Override
+	public void startPrefixMapping(final String prefix, final String uri)
         throws SAXException {
         inScopePrefixes.add(new String[] {prefix, uri });
     }
 
-    public void endPrefixMapping(String prefix)
+    @Override
+	public void endPrefixMapping(final String prefix)
         throws SAXException {
-        int count = inScopePrefixes.size();
+        final int count = inScopePrefixes.size();
         for (int i = count - 1; i >= 0; --i) {
-            String[] pair = inScopePrefixes.get(i);
+            final String[] pair = inScopePrefixes.get(i);
             if (pair[0].equals(prefix)) {
                 inScopePrefixes.remove(i);
                 break;
@@ -218,8 +219,9 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    public void startElement(String uri, String localName, String qName,
-                             Attributes atts)
+    @Override
+	public void startElement(final String uri, final String localName, final String qName,
+                             final Attributes atts)
         throws SAXException {
         out.write('<');
         
@@ -230,10 +232,10 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         
         out.write(qName);
         
-        boolean isImage = "imagedata".equals(localName);
+        final boolean isImage = "imagedata".equals(localName);
         boolean isGraphicsFile = false;
 
-        int count = atts.getLength();
+        final int count = atts.getLength();
         for (int i = 0; i < count; ++i) {
             String attValue = atts.getValue(i);
 
@@ -243,9 +245,9 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                 URL url = null;
 
                 try {
-                    URL base = new URL(locator.getSystemId());
+                    final URL base = new URL(locator.getSystemId());
                     url = new URL(base, attValue);
-                } catch (MalformedURLException e) {
+                } catch (final MalformedURLException e) {
                     reportError("Malformed URL '" + attValue + "'");
                 }
 
@@ -254,14 +256,14 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
 
                     try {
                         graphicsFile = new File(url.toURI());
-                    } catch (URISyntaxException e) {
+                    } catch (final URISyntaxException e) {
                         reportError("Malformed URI '" + url + "'");
-                    } catch (IllegalArgumentException e) {
+                    } catch (final IllegalArgumentException e) {
                         reportError("'" + url + "', not a 'file:' URL");
                     }
 
                     if (graphicsFile != null) {
-                        String converted =
+                        final String converted =
                             copyConvertGraphics(graphicsFile);
                         if (converted != null) {
                             // Substitute the basename of the converted file
@@ -292,10 +294,10 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         if (!isImage || isGraphicsFile) {
             out.write('>');
         } else {
-            File extractedFile =
+            final File extractedFile =
                 new File(outDir, "graphics-" + (++graphicsCounter) + ".tmp");
             try {
-                PrintWriter extracted = new PrintWriter(
+                final PrintWriter extracted = new PrintWriter(
                     new OutputStreamWriter(new FileOutputStream(extractedFile),
                                            "UTF-8"));
 
@@ -306,7 +308,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                 out.write("<?xml version='1.0' encoding='UTF-8'?>\n");
 
                 embeddedGraphicsIsMathML = -1;
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 reportError("Cannot create file '" + extractedFile + "': "
                            + Helpers.reason(e));
                 // Keep embedded graphics.
@@ -315,23 +317,23 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    private void declarePrefixes(Attributes atts) {
-        HashMap<String, String> uniquePrefixes = new HashMap<String, String>();
+    private void declarePrefixes(final Attributes atts) {
+        final HashMap<String, String> uniquePrefixes = new HashMap<String, String>();
 
-        int count = inScopePrefixes.size();
+        final int count = inScopePrefixes.size();
         for (int i = 0; i < count; ++i) {
-            String[] pair = inScopePrefixes.get(i);
+            final String[] pair = inScopePrefixes.get(i);
 
             uniquePrefixes.put(pair[0], pair[1]);
         }
 
-        Iterator<Map.Entry<String, String>> iter =
+        final Iterator<Map.Entry<String, String>> iter =
             uniquePrefixes.entrySet().iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, String> e = iter.next();
+            final Map.Entry<String, String> e = iter.next();
 
-            String prefix = e.getKey();
-            String namespace = e.getValue();
+            final String prefix = e.getKey();
+            final String namespace = e.getValue();
 
             String xmlns;
             if (prefix.length() == 0) {
@@ -350,7 +352,8 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    public void endElement(String uri, String localName, String qName)
+    @Override
+	public void endElement(final String uri, final String localName, final String qName)
         throws SAXException {
         if ("latex".equals(localName)) {
             latexElem.generate(locator);
@@ -359,7 +362,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
 
         if ("imagedata".equals(localName) && mainOut != null) {
-            String rootName = "graphics-" + graphicsCounter;
+            final String rootName = "graphics-" + graphicsCounter;
             String baseName = rootName + ".tmp";
             File extractedFile = new File(outDir, baseName);
 
@@ -371,7 +374,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             } else {
                 out.close(); // Close now otherwise rename fails on Windows
 
-                File extractedFile2 = new File(
+                final File extractedFile2 = new File(
                   outDir,
                   rootName + ((embeddedGraphicsIsMathML == 1) ? ".mml" : ".svg"));
                 if (!extractedFile.renameTo(extractedFile2)) {
@@ -389,7 +392,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             if (extractedFile != null) {
                 reportInfo("Extracted embedded graphics from '" + extractedFile + "' to '" + extractedFile + "'.");
 
-                String converted = copyConvertGraphics(extractedFile);
+                final String converted = copyConvertGraphics(extractedFile);
                 if (converted != null) {
                     baseName = converted;
 
@@ -409,7 +412,8 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    public void characters(char[] ch, int start, int length)
+    @Override
+	public void characters(final char[] ch, final int start, final int length)
         throws SAXException {
         if (latexElem != null) {
             latexElem.setLaTeX(new String(ch, start, length));
@@ -419,7 +423,8 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         Helpers.escapeXML(ch, start, length, out);
     }
 
-    public void processingInstruction(String target, String data)
+    @Override
+	public void processingInstruction(final String target, final String data)
         throws SAXException {
         // The DocBook XSL style sheets make use of processing-instructions.
         out.write("<?");
@@ -429,25 +434,27 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         out.write("?>");
     }
 
-    public void ignorableWhitespace(char[] ch, int start, int length)
+    @Override
+	public void ignorableWhitespace(final char[] ch, final int start, final int length)
         throws SAXException { }
 
-    public void skippedEntity(String name)
+    @Override
+	public void skippedEntity(final String name)
         throws SAXException { }
 
     // -----------------------------------------------------------------------
     // Copy & convert graphics file
     // -----------------------------------------------------------------------
 
-    private String copyConvertGraphics(File graphicsFile) {
+    private String copyConvertGraphics(final File graphicsFile) {
         if (!graphicsFile.isFile()) {
             reportError("'" + graphicsFile + "' not found");
             return null;
         }
 
         String baseName = graphicsFile.getName();
-        String rootName = Helpers.setFileExtension(baseName, null);
-        String ext = Helpers.getFileExtension(baseName);
+        final String rootName = Helpers.setFileExtension(baseName, null);
+        final String ext = Helpers.getFileExtension(baseName);
 
         if ("tex".equalsIgnoreCase(ext)) {
             if ("ps".equalsIgnoreCase(printFormat)) {
@@ -457,7 +464,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             } else {
                 baseName = rootName + "_tex.png";
             }
-            File convertedFile = new File(outDir, baseName);
+            final File convertedFile = new File(outDir, baseName);
 
             if (!convertedFile.exists() || convertedFile.lastModified() < graphicsFile.lastModified()) {
                 reportInfo("Converting TeX '" + graphicsFile + "' to '"
@@ -469,7 +476,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             }
         } else if ("mml".equalsIgnoreCase(ext)) {
             baseName = rootName + "_mml.png";
-            File convertedFile = new File(outDir, baseName);
+            final File convertedFile = new File(outDir, baseName);
 
             if (!convertedFile.exists() || convertedFile.lastModified() < graphicsFile.lastModified()) {
                 reportInfo("Converting MathML '" + graphicsFile + "' to '"
@@ -481,7 +488,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             }
         } else if ("svg".equalsIgnoreCase(ext) || "svgz".equalsIgnoreCase(ext)) {
             baseName = rootName + "_svg.png";
-            File convertedFile = new File(outDir, baseName);
+            final File convertedFile = new File(outDir, baseName);
 
             if (!convertedFile.exists() || convertedFile.lastModified() < graphicsFile.lastModified()) {
                 reportInfo("Converting SVG '" + graphicsFile + "' to '"
@@ -494,14 +501,14 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         } else {
             // Just copy the file ---
 
-            File outFile = new File(outDir, baseName);
+            final File outFile = new File(outDir, baseName);
             if (!outFile.exists() || outFile.lastModified() < graphicsFile.lastModified()) {
                 reportInfo("Copying '" + graphicsFile + "' to '"
                            + outFile + "'...");
 
                 try {
                     Helpers.copyFile(graphicsFile, outFile);
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     reportError("Cannot copy '" + graphicsFile + "' to '"
                                 + outFile + "': " + Helpers.reason(e));
                 }
@@ -511,7 +518,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         return baseName;
     }
 
-    private boolean convertTeX(File inFile, File outFile) {
+    private boolean convertTeX(final File inFile, final File outFile) {
         if (!initTeX()) {
             return false;
         }
@@ -519,7 +526,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         try {
             doConvertTeX(inFile, outFile);
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             reportError("Cannot convert '" + inFile + "' to '"
                         + outFile + "': " + Helpers.reason(e));
             return false;
@@ -538,7 +545,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                 reportError("Don't find executable 'dvips' in PATH");
             }
 
-            String appName = Helpers.IS_WINDOWS ? "gswin32c" : "gs";
+            final String appName = Helpers.IS_WINDOWS ? "gswin32c" : "gs";
             gs = Helpers.findInPath(appName);
             if (gs == null) {
                 reportError("Don't find executable '" + appName + "' in PATH");
@@ -558,19 +565,19 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         return (initTeX == 1);
     }
 
-    private void doConvertTeX(File inFile, File outFile)
+    private void doConvertTeX(final File inFile, final File outFile)
         throws IOException, InterruptedException {
-        File latexFile = wrapTeX(inFile);
+        final File latexFile = wrapTeX(inFile);
 
-        File tmpDir = latexFile.getParentFile();
+        final File tmpDir = latexFile.getParentFile();
 
-        String latexBaseName = latexFile.getName();
-        String latexRootName = Helpers.setFileExtension(latexBaseName, null);
+        final String latexBaseName = latexFile.getName();
+        final String latexRootName = Helpers.setFileExtension(latexBaseName, null);
 
-        File auxFile = new File(tmpDir, latexRootName + ".aux");
-        File logFile = new File(tmpDir, latexRootName + ".log");
-        File dviFile = new File(tmpDir, latexRootName + ".dvi");
-        File epsFile = new File(tmpDir, latexRootName + ".eps");
+        final File auxFile = new File(tmpDir, latexRootName + ".aux");
+        final File logFile = new File(tmpDir, latexRootName + ".log");
+        final File dviFile = new File(tmpDir, latexRootName + ".dvi");
+        final File epsFile = new File(tmpDir, latexRootName + ".eps");
 
         try {
             StringBuilder cmd = new StringBuilder();
@@ -641,13 +648,13 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    private File wrapTeX(File inFile)
+    private File wrapTeX(final File inFile)
         throws IOException {
-        String tex = Helpers.loadString(inFile, "ISO-8859-1");
+        final String tex = Helpers.loadString(inFile, "ISO-8859-1");
 
-        File latexFile = File.createTempFile("CopyConvert", ".tex", TMPDIR);
+        final File latexFile = File.createTempFile("CopyConvert", ".tex", TMPDIR);
 
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
         buffer.append("\\documentclass[12pt]{article}\n");
         buffer.append("\\usepackage[latin1]{inputenc}\n");
         buffer.append("\\pagestyle{empty}\n");
@@ -661,9 +668,9 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         return latexFile;
     }
 
-    private void shellExec(String command, File workDir)
+    private void shellExec(final String command, final File workDir)
         throws IOException, InterruptedException {
-        int status =
+        final int status =
             Helpers.shellExec(command, /*envp*/ null, workDir, verbose);
         if (status != 0) {
             throw new RuntimeException("command '" + command
@@ -672,8 +679,8 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         }
     }
 
-    private boolean convertMathML(File inFile, File outFile) {
-        MutableLayoutContext context = new LayoutContextImpl(LayoutContextImpl
+    private boolean convertMathML(final File inFile, final File outFile) {
+        final MutableLayoutContext context = new LayoutContextImpl(LayoutContextImpl
                 .getDefaultLayoutContext());
         context.setParameter(Parameter.ANTIALIAS, "true");
         // Workaround a XEP problem. FOP 1 is OK.
@@ -684,14 +691,14 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             Converter.getInstance().convert(inFile, outFile, "image/png", context);
 
             return true;
-        } catch (IOException e) {
+        } catch (final IOException e) {
             reportError("Cannot convert '" + inFile + "' to '" + outFile + "': " + Helpers.reason(e));
             return false;
         }
     }
 
-    private boolean convertSVG(boolean gunzip, File inFile, File outFile) {
-        Transcoder transcoder = new PNGTranscoder();
+    private boolean convertSVG(final boolean gunzip, final File inFile, final File outFile) {
+        final Transcoder transcoder = new PNGTranscoder();
         transcoder.addTranscodingHint(
             ImageTranscoder.KEY_FORCE_TRANSPARENT_WHITE,
             Boolean.TRUE);
@@ -703,7 +710,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             }
 
             try {
-                TranscoderInput input = new TranscoderInput(in);
+                final TranscoderInput input = new TranscoderInput(in);
                 input.setURI(inFile.toURI().toASCIIString());
 
                 // Failing to do so causes Batik to report this error: SAX2
@@ -718,10 +725,10 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                     XMLAbstractTranscoder.KEY_XML_PARSER_VALIDATING,
                     Boolean.FALSE);
 
-                OutputStream outf = new FileOutputStream(outFile);
+                final OutputStream outf = new FileOutputStream(outFile);
 
                 try {
-                    TranscoderOutput output = new TranscoderOutput(outf);
+                    final TranscoderOutput output = new TranscoderOutput(outf);
                     transcoder.transcode(input, output);
                     outf.flush();
                 } finally {
@@ -731,7 +738,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                 in.close();
             }
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             reportError("Cannot convert '" + inFile + "' to '"
                         + outFile + "': " + Helpers.reason(e));
             return false;
@@ -742,21 +749,21 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
     // Batik's ErrorHandler
     // -----------------------------------
 
-    public void warning(TranscoderException e)
+    public void warning(final TranscoderException e)
         throws TranscoderException {
-        String msg = "SVG transcoder warning: " + Helpers.reason(e);
+        final String msg = "SVG transcoder warning: " + Helpers.reason(e);
         reportWarning(msg);
     }
 
-    public void error(TranscoderException e)
+    public void error(final TranscoderException e)
         throws TranscoderException {
-        String msg = "SVG transcoder error: " + Helpers.reason(e);
+        final String msg = "SVG transcoder error: " + Helpers.reason(e);
         reportError(msg);
     }
 
-    public void fatalError(TranscoderException e)
+    public void fatalError(final TranscoderException e)
         throws TranscoderException {
-        String msg = "SVG transcoder fatal error: " + Helpers.reason(e);
+        final String msg = "SVG transcoder fatal error: " + Helpers.reason(e);
         reportError(msg);
     }
 
@@ -764,17 +771,17 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
     // Utilities
     // -----------------------------------------------------------------------
 
-    private void reportInfo(String message) {
+    private void reportInfo(final String message) {
         if (verbose) {
             System.out.println(message);
         }
     }
 
-    private static void reportWarning(String message) {
+    private static void reportWarning(final String message) {
         System.err.println("warning: " + message);
     }
 
-    private static void reportError(String message) {
+    private static void reportError(final String message) {
         System.err.println("*** error: " + message);
     }
 
@@ -782,14 +789,14 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
     // Main
     // -----------------------------------------------------------------------
 
-    public static int main(String[] args) {
+    public static int main(final String[] args) {
         boolean verbose = false;
         String printFormat = null;
         boolean usage = false;
         int l = 0;
 
         for (; l < args.length; ++l) {
-            String arg = args[l];
+            final String arg = args[l];
 
             if ("-v".equalsIgnoreCase(arg)) {
                 verbose = true;
@@ -827,16 +834,16 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             return 1;
         }
 
-        File inFile = new File(args[l]);
-        File outFile = new File(args[l+1]);
+        final File inFile = new File(args[l]);
+        final File outFile = new File(args[l+1]);
 
-        CopyConvert copyConvert = new CopyConvert();
+        final CopyConvert copyConvert = new CopyConvert();
         copyConvert.verbose = verbose;
         copyConvert.printFormat = printFormat;
 
         try {
             copyConvert.run(inFile, outFile);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             reportError("Cannot copy/convert '" + inFile + "' to '" + outFile
                     + "': " + Helpers.reason(e));
             return 2;
@@ -853,15 +860,15 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
         boolean exported;
         String attribs, align = "";
 
-        protected LaTeXElement(Attributes attrs, boolean exported) {
+        protected LaTeXElement(final Attributes attrs, final boolean exported) {
             this.exported = exported;
-            int n = attrs.getLength();
+            final int n = attrs.getLength();
             String fgS = "", bgS = "";
             String dispS = "display";
             
             for (int i = 0; i < n; i++) {
-                String attr = attrs.getValue(i);
-                String name = attrs.getLocalName(i);
+                final String attr = attrs.getValue(i);
+                final String name = attrs.getLocalName(i);
                 if ("align".equals(name)) {
                     code += " align=\'" + attr + "\'";
                     align = attr;
@@ -877,7 +884,7 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
                 } else if ("size".equals(name)) {
                     try {
                         size = Integer.parseInt(attr);
-                    } catch (NumberFormatException e) {
+                    } catch (final NumberFormatException e) {
                         size = 16;
                     }
                 } else if ("fg".equals(name)) {
@@ -900,11 +907,11 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             }   
         }
 
-        protected void setLaTeX(String str) {
+        protected void setLaTeX(final String str) {
             LaTeX += str;
         }
 
-        protected void generate(Locator loc) throws SAXParseException {
+        protected void generate(final Locator loc) throws SAXParseException {
             if (exported) {
                 generatePNG(loc);
                 return;
@@ -912,16 +919,16 @@ public class CopyConvert extends DefaultHandler implements ErrorHandler {
             out.write("latex" + attribs  + " xmlns=\"http://forge.scilab.org/p/jlatexmath\"><![CDATA[" + LaTeX + "]]></latex>");
         }
 
-	    protected void generatePNG(Locator loc) throws SAXParseException {
+	    protected void generatePNG(final Locator loc) throws SAXParseException {
             TeXFormula tf;
             try {
                 tf = new TeXFormula(LaTeX);
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 throw new SAXParseException(
                         "\nThere was a problem in parsing the LaTeX' formula : \n"
                                 + e.getMessage(), locator);
             }
-            File f = new File(outDir, "graphics-" + (++graphicsCounter)
+            final File f = new File(outDir, "graphics-" + (++graphicsCounter)
                     + "_latex.png");
             reportInfo("Converting LaTeX formula to " + f + "'...");
             tf.createPNG(disp, size, f.getPath(), bg, fg);

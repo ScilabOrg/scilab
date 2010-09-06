@@ -11,11 +11,9 @@
  *
  */
 
-package org.scilab.modules.jvm.utils;
+package org.scilab.modules.commons;
 
 import java.io.File;
-
-import org.scilab.modules.commons.ScilabCommons;
 
 /**
  * Define all the constants used on a Scilab

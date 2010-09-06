@@ -19,6 +19,7 @@ package org.scilab.modules.core;
 import javax.swing.JPopupMenu;
 
 import org.flexdock.docking.DockingConstants;
+import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -33,7 +34,6 @@ import org.scilab.modules.gui.utils.MenuBarBuilder;
 import org.scilab.modules.gui.utils.ToolBarBuilder;
 import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.gui.window.Window;
-import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.scilab.modules.localization.Messages;
 
 /**
@@ -72,7 +72,7 @@ public class Scilab {
      * Constructor Scilab Class.
      * @param mode Mode Scilab -NW -NWNI -STD -API
      */
-    public Scilab(int mode) {
+    public Scilab(final int mode) {
         /*
          * Set Scilab directory. Note that it is done in the constructor
          * and not as directly when setting the member because we had some
@@ -87,7 +87,7 @@ public class Scilab {
             System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
             System.setProperty("user.home", ScilabConstants.SCIHOME.getCanonicalPath());
             
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.err.println("Cannot retrieve the variable SCI. Please report on http://bugzilla.scilab.org/");
             System.err.println(e.getLocalizedMessage());
             System.exit(-1);
@@ -127,7 +127,7 @@ public class Scilab {
                 /* Init the LookAndFeelManager all the time since we can
                  * create windows in the NW mode */
 
-                LookAndFeelManager lookAndFeel = new LookAndFeelManager();
+                final LookAndFeelManager lookAndFeel = new LookAndFeelManager();
 
                 if (lookAndFeel.isSupportedLookAndFeel(scilabLookAndFeel)) {
                     lookAndFeel.setLookAndFeel(scilabLookAndFeel);
@@ -135,7 +135,7 @@ public class Scilab {
                     lookAndFeel.setSystemLookAndFeel();
                 }
 
-            } catch (java.lang.NoClassDefFoundError exception) {
+            } catch (final java.lang.NoClassDefFoundError exception) {
                 System.err.println("Could not initialize graphics Environment");
                 System.err.println("Scilab Graphical option may not be working correctly.");
                 System.err.println("An error occurred: " + exception.getLocalizedMessage());
@@ -149,12 +149,12 @@ public class Scilab {
 
             try {
                 mainView = ScilabWindow.createWindow();
-            } catch (NoClassDefFoundError exception) {
+            } catch (final NoClassDefFoundError exception) {
                 System.err.println("Cannot create Scilab Window.\n"
                         + "Check if the thirdparties are available (Flexdock, JOGL...).\n" + SEE_DEFAULT_PATHS);
                 System.err.println(CLASS_NOT_FOUND + exception.getLocalizedMessage());
                 System.exit(-1);
-            } catch (java.awt.HeadlessException exception) {
+            } catch (final java.awt.HeadlessException exception) {
                 System.err.println("Error during the initialization of the window: "  + exception.getLocalizedMessage());
                 System.exit(-1);
             }
@@ -165,12 +165,12 @@ public class Scilab {
             /************/
             /* MENU BAR */
             /************/
-            MenuBar menuBar = MenuBarBuilder.buildMenuBar(MENUBARXMLFILE);
+            final MenuBar menuBar = MenuBarBuilder.buildMenuBar(MENUBARXMLFILE);
 
             /************/
             /* TOOL BAR */
             /************/
-            ToolBar toolBar = ToolBarBuilder.buildToolBar(TOOLBARXMLFILE);
+            final ToolBar toolBar = ToolBarBuilder.buildToolBar(TOOLBARXMLFILE);
 
             /* Create the console */
             Tab consoleTab = null;
@@ -182,14 +182,14 @@ public class Scilab {
                 consoleTab.setCallback(CallBack.createCallback("exit();", CallBack.SCILAB_INSTRUCTION));
 
                 ScilabConsole.createConsole();
-            } catch (NoClassDefFoundError exception) {
+            } catch (final NoClassDefFoundError exception) {
                 System.err.println("Cannot create Scilab Console.\nCheck if the thirdparties are available (JoGL/JRosetta...).\n"
                         + SEE_DEFAULT_PATHS);
                 System.err.println(CLASS_NOT_FOUND + exception.getLocalizedMessage());
                 System.exit(-1);
             }
 
-            TextBox infoBar = ScilabTextBox.createTextBox();
+            final TextBox infoBar = ScilabTextBox.createTextBox();
 
             /** Adding content into container */
             toolBar.setVisible(false); // Enabled in scilab.start
@@ -208,7 +208,7 @@ public class Scilab {
      * Sets the prompt displayed in Scilab console
      * @param prompt the prompt to be displayed as a String
      */
-    public void setPrompt(String prompt) {
+    public void setPrompt(final String prompt) {
         ScilabConsole.getConsole().setPrompt(prompt);
     }
 
@@ -250,7 +250,7 @@ public class Scilab {
      */
     public static double findWindowsVersion() {
         // default valu enot windows
-        double windowsVersion = -1.0;
+        final double windowsVersion = -1.0;
 
         if (isWindowsPlateform()) {
             // windows plateform

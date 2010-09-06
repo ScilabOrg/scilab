@@ -17,12 +17,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
-import com.icl.saxon.StyleSheet; /* saxon */
-
-import org.scilab.modules.jvm.utils.ScilabConstants;
+import com.icl.saxon.StyleSheet;
 
 /**
  * This classes intends to wrap Saxon features in a easy-to-use class.
@@ -58,7 +56,7 @@ public class BuildDocObject extends StyleSheet {
 	private String language;
 	private String docbookPath;
 	private String styleDoc;
-	private ArrayList<String> specificArgs = new ArrayList<String>();
+	private final ArrayList<String> specificArgs = new ArrayList<String>();
 	private boolean isLatexConverted = true;
 
     /**
@@ -86,7 +84,7 @@ public class BuildDocObject extends StyleSheet {
      * See: http://wiki.docbook.org/topic/DocBookXslStylesheets
      * @param docbookPath The absolute path to the base directory
 	 */
-	public void setDocbookPath(String docbookPath) {
+	public void setDocbookPath(final String docbookPath) {
 		this.docbookPath = docbookPath;
 	}
 
@@ -97,8 +95,8 @@ public class BuildDocObject extends StyleSheet {
      * @param outputDirectory The path to the directory
      * @return If the directory exists
 	 */
-	public boolean setOutputDirectory(String outputDirectory) {
-		File directory = new File(outputDirectory);
+	public boolean setOutputDirectory(final String outputDirectory) {
+		final File directory = new File(outputDirectory);
 		if (!directory.isDirectory()) {
 			if (!directory.mkdirs()) {
 				return false;
@@ -113,7 +111,7 @@ public class BuildDocObject extends StyleSheet {
      *
      * @param language the language (xx_XX ex: en_US, fr_FR)
 	 */
-	public void setWorkingLanguage(String language) {
+	public void setWorkingLanguage(final String language) {
 		this.language = language;
 	}
 
@@ -122,7 +120,7 @@ public class BuildDocObject extends StyleSheet {
      * Defines the export format
      * @param format the format (among the list CHM, HTML, PDF, JH, PS)
 	 */
-	public void setExportFormat(String format) {
+	public void setExportFormat(final String format) {
 
 		// Need to work with a String instead of a enum since it needs
 		// to be called from C/C++ and GIWS doesn't manage this type.
@@ -152,13 +150,13 @@ public class BuildDocObject extends StyleSheet {
 			this.styleDoc = docbookPath + "/html/chunk.xsl";
 
 			/* Copy the css file for thr HTML pages */
-			String cssFile = new String(SCI + "/modules/helptools/css/html.css");
+			final String cssFile = new String(SCI + "/modules/helptools/css/html.css");
 			try {
 				Helpers.copyFile(new File(cssFile), new File(outputDirectory + "/html.css"));
-			} catch (java.io.FileNotFoundException e) {
+			} catch (final java.io.FileNotFoundException e) {
 				System.err.println(ERROR_WHILE_COPYING + cssFile + TO 
 						+ outputDirectory + COLON + e.getMessage());			
-			} catch (java.io.IOException e) {
+			} catch (final java.io.IOException e) {
 				System.err.println(ERROR_WHILE_COPYING + cssFile + TO 
 						+ outputDirectory + COLON + e.getMessage());			
 			}
@@ -174,13 +172,13 @@ public class BuildDocObject extends StyleSheet {
 			this.styleDoc = docbookPath + "/htmlhelp/htmlhelp.xsl";
 
 			/* Copy the css file for thr HTML pages */
-			String cssFile = new String(SCI + "/modules/helptools/css/htmlhelp.css");
+			final String cssFile = new String(SCI + "/modules/helptools/css/htmlhelp.css");
 			try {
 				Helpers.copyFile(new File(cssFile), new File(outputDirectory + "/htmlhelp.css"));
-			} catch (java.io.FileNotFoundException e) {
+			} catch (final java.io.FileNotFoundException e) {
 				System.err.println(ERROR_WHILE_COPYING + cssFile + TO 
 						+ outputDirectory + COLON + e.getMessage());			
-			} catch (java.io.IOException e) {
+			} catch (final java.io.IOException e) {
 				System.err.println(ERROR_WHILE_COPYING + cssFile + TO 
 						+ outputDirectory + COLON + e.getMessage());			
 			}
@@ -206,31 +204,31 @@ public class BuildDocObject extends StyleSheet {
 	 * @param styleSheet CSS to be used
 	 * @return the absolute path the the new master file
 	 */
-	private String preProcessMaster(String masterXML, String styleSheet) {
+	private String preProcessMaster(final String masterXML, final String styleSheet) {
 
-		String filename = (String) new File(masterXML).getName();
+		final String filename = new File(masterXML).getName();
 		/* Create the output file which will be created by copyconvert.run into the working directory  */
-		File masterXMLTransformed = new File(this.outputDirectory 
+		final File masterXMLTransformed = new File(this.outputDirectory 
 				+ File.separator + filename.substring(0, filename.lastIndexOf(".")) + "-processed.xml");
 		/* Where it will be stored */
-		String out = this.outputDirectory + File.separator + (String) new File(styleSheet).getName();
+		final String out = this.outputDirectory + File.separator + new File(styleSheet).getName();
 
 		try {
 			Helpers.copyFile(new File(styleSheet), new File(out));
-		} catch (java.io.FileNotFoundException e) {
+		} catch (final java.io.FileNotFoundException e) {
 			System.err.println(ERROR_WHILE_COPYING + styleSheet + TO + out + COLON + e.getMessage());			
-		} catch (java.io.IOException e) {
+		} catch (final java.io.IOException e) {
 			System.err.println(ERROR_WHILE_COPYING + styleSheet + TO + out + COLON + e.getMessage());			
 		}
 
-        CopyConvert copyConvert = new CopyConvert();
+        final CopyConvert copyConvert = new CopyConvert();
         copyConvert.setVerbose(true);
         copyConvert.setPrintFormat(this.format);
 		copyConvert.setLatexConverted(isLatexConverted);
 	
         try {
             copyConvert.run(new File(masterXML), masterXMLTransformed);
-        } catch (SAXParseException e) {
+        } catch (final SAXParseException e) {
             System.err.println(CANNOT_COPY_CONVERT + masterXML + TO_WITH_QUOTES
 					   + masterXMLTransformed + COLON_WITH_QUOTES + Helpers.reason(e));
             System.err.println("Line: " + e.getLineNumber());
@@ -238,12 +236,12 @@ public class BuildDocObject extends StyleSheet {
 			System.err.println("Public ID: " + e.getPublicId());
 			System.err.println("System Id: " + e.getSystemId());
             return null;
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
            System.err.println(CANNOT_COPY_CONVERT + masterXML + TO_WITH_QUOTES
 					  + masterXMLTransformed + COLON_WITH_QUOTES + Helpers.reason(e));
 		   return null;
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
            System.err.println(CANNOT_COPY_CONVERT + masterXML + TO_WITH_QUOTES
         		   + masterXMLTransformed + COLON_WITH_QUOTES + Helpers.reason(e));
             return null;
@@ -276,19 +274,19 @@ public class BuildDocObject extends StyleSheet {
  */
 
 	private File generateExtendedStyle() {
-		String mainStyleDoc = SCI + "/modules/helptools/schema/extendedStyle.xsl";
+		final String mainStyleDoc = SCI + "/modules/helptools/schema/extendedStyle.xsl";
 		try {
 			String contentMainStyleDoc = Helpers.loadString(new File(mainStyleDoc), "UTF-8");
 
 			/* STYLE_DOC is a predefined variable */
-			File tmpFileForURI = new File(this.styleDoc);
+			final File tmpFileForURI = new File(this.styleDoc);
 			contentMainStyleDoc = contentMainStyleDoc.replaceAll("STYLE_DOC", tmpFileForURI.toURI().toString());
 
-			File temporaryStyleFile = File.createTempFile("style_",".xsl");
+			final File temporaryStyleFile = File.createTempFile("style_",".xsl");
 
 			Helpers.saveString(contentMainStyleDoc, temporaryStyleFile, "UTF-8");
 			return temporaryStyleFile;
-		} catch (java.io.IOException e) {
+		} catch (final java.io.IOException e) {
 			System.err.println("Could not convert "+mainStyleDoc);
 			return null;
 		}
@@ -302,8 +300,8 @@ public class BuildDocObject extends StyleSheet {
 	 * @return The path to the file/directory created.
 	 * @throws FileNotFoundException Raises an exception if no file/dir found
 	 */
-	public String process(String sourceDoc, String styleSheet) throws FileNotFoundException {
-		ArrayList<String> args = new ArrayList<String>();
+	public String process(final String sourceDoc, final String styleSheet) throws FileNotFoundException {
+		final ArrayList<String> args = new ArrayList<String>();
 
 		if (!new File(sourceDoc).isFile()) {
 			throw new FileNotFoundException("Could not find master document: " + sourceDoc);
@@ -328,7 +326,7 @@ public class BuildDocObject extends StyleSheet {
 			throw new FileNotFoundException("Could not find directory: " + this.outputDirectory);
 		}
 		
-		String sourceDocProcessed = this.preProcessMaster(sourceDoc, styleSheet);
+		final String sourceDocProcessed = this.preProcessMaster(sourceDoc, styleSheet);
 		
 		if (sourceDocProcessed == null) {
 		    throw new FileNotFoundException("Unable to parse generated master file.");
@@ -370,15 +368,15 @@ public class BuildDocObject extends StyleSheet {
      *
      * @param arg Useless arg
 	 */
-	public static void main(String[] arg) {
+	public static void main(final String[] arg) {
 		try {
-			BuildDocObject d = new BuildDocObject();
+			final BuildDocObject d = new BuildDocObject();
 			d.setOutputDirectory("/tmp/");
 			d.setExportFormat(JH_FORMAT);
 			d.setDocbookPath("/usr/share/xml/docbook/stylesheet/nwalsh/");
 			d.process(SCI + "/modules/helptools/master_en_US_help.xml",
 					SCI + "/modules/helptools/css/javahelp.css");
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			System.err.println("Exception catched: " + e.getMessage());
 		}
 	}

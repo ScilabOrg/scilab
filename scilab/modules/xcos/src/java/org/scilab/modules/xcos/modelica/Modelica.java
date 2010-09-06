@@ -35,8 +35,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.graph.utils.ScilabExported;
-import org.scilab.modules.jvm.utils.ScilabConstants;
 import org.scilab.modules.xcos.modelica.model.Model;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.xml.sax.SAXException;
@@ -67,7 +67,7 @@ public final class Modelica {
 			marshaller = jaxbContext.createMarshaller();
 			unmarshaller = jaxbContext.createUnmarshaller();
 
-			Schema schema = SchemaFactory.newInstance(
+			final Schema schema = SchemaFactory.newInstance(
 					XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(
 					new File(schemaPath));
 
@@ -81,9 +81,9 @@ public final class Modelica {
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, LATIN1_ENCODING);
 			
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-		} catch (JAXBException e) {
+		} catch (final JAXBException e) {
 			throw new RuntimeException(e);
-		} catch (SAXException e) {
+		} catch (final SAXException e) {
 			LogFactory.getLog(Modelica.class).error(e);
 		}
 	}
@@ -124,11 +124,11 @@ public final class Modelica {
 	 *             on error
 	 */
 	@SuppressWarnings("unchecked")
-	public Model load(File file) throws JAXBException {
+	public Model load(final File file) throws JAXBException {
 		InputStreamReader reader;
 		try {
 			reader = new InputStreamReader(new FileInputStream(file), Charset.forName(LATIN1_ENCODING));
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			LogFactory.getLog(Modelica.class).error(e);
 			return null;
 		}
@@ -145,7 +145,7 @@ public final class Modelica {
 	 * @throws JAXBException
 	 *             on error
 	 */
-	public void save(Model root, File file) throws JAXBException {
+	public void save(final Model root, final File file) throws JAXBException {
 		try {
 			final StringWriter strw = new StringWriter();
 			marshaller.marshal(root, strw);
@@ -156,8 +156,8 @@ public final class Modelica {
 			final StringBuffer buffer = strw.getBuffer();
 			final String newline = System.getProperty("line.separator");
 
-			Pattern pat = Pattern.compile("(/\\w*>)(<[\\w/])");
-			Matcher m = pat.matcher(buffer);
+			final Pattern pat = Pattern.compile("(/\\w*>)(<[\\w/])");
+			final Matcher m = pat.matcher(buffer);
 			while (m.find()) {
 				final int index = m.end(1);
 				buffer.insert(index, newline);
@@ -166,11 +166,11 @@ public final class Modelica {
 			buffer.append(newline);
 
 			new FileOutputStream(file).write(strw.toString().getBytes());
-		} catch (FactoryConfigurationError e) {
+		} catch (final FactoryConfigurationError e) {
 			LogFactory.getLog(Modelica.class).error(e);
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			LogFactory.getLog(Modelica.class).error(e);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			LogFactory.getLog(Modelica.class).error(e);
 		}
 	}
