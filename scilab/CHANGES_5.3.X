@@ -10,7 +10,8 @@ Xcos:
 
 * bug 7922 fixed - The Automotive Suspension demo did not work.
 
-* bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as wrong links and block names.
+* bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as 
+                                wrong links and block names.
 
 * bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 
@@ -28,6 +29,9 @@ in uicontrol. See bug #7366.
 
 Bug Fixes:
 ==========
+
+* bug 7140 fixed - Modifying the stack with gstacksize() and stacksize()
+                   is now forbidden in concurrent execution context.
 
 * bug 7943 fixed - On a linux binary version, it was not possible to use
              the fortran_block block.
