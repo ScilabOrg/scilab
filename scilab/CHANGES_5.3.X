@@ -6,6 +6,8 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
+* bug 7219 fixed - The old gain demo did not work.
+
 * bug 7822 fixed - Xcos menu bar was larger than the Scilab one.
 
 * bug 7922 fixed - The Automotive Suspension demo did not work.
