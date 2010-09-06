@@ -16,7 +16,8 @@ Xcos:
 
 * bug 7922 fixed - The Automotive Suspension demo did not work.
 
-* bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as wrong links and block names.
+* bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as
+                                wrong links and block names.
 
 * bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 
@@ -52,6 +53,9 @@ Compilation:
 
 Bug Fixes:
 ==========
+
+* bug 7140 fixed - Modifying the stack with gstacksize() and stacksize()
+                   is now forbidden in concurrent execution context.
 
 * bug 7231 fixed - mtlb_num2str did not manage second input argument.
 

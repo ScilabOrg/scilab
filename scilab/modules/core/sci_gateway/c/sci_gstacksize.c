@@ -6,7 +6,7 @@
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -18,8 +18,9 @@
 #include "localization.h"
 #include "stackinfo.h"
 #include "Scierror.h"
+#include "dynamic_parallel.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(adjustgstacksize)();
+extern int C2F(adjustgstacksize)(unsigned long*, unsigned long *, int*);
 /*--------------------------------------------------------------------------*/
 #define MIN_GSTACKSIZE 11000
 #define PARAM_MAX_STR "max"
@@ -42,6 +43,7 @@ extern int C2F(adjustgstacksize)();
 * sz : 2-vector [total used]
 */
 /*--------------------------------------------------------------------------*/
+
 static int sci_gstacksizeNoRhs(char *fname);
 static int sci_gstacksizeOneRhs(char *fname);
 static int sci_gstacksizeMax(char *fname);
@@ -51,6 +53,7 @@ static int setGStacksizeMax(char *fname);
 static int setGStacksize(unsigned long newsize);
 static unsigned long getCurrentGStacksize(void);
 static unsigned long getUsedGStacksize(void);
+
 /*--------------------------------------------------------------------------*/
 int C2F(sci_gstacksize)(char *fname,unsigned long fname_len)
 {
@@ -64,7 +67,8 @@ int C2F(sci_gstacksize)(char *fname,unsigned long fname_len)
 	}
 	else
 	{
-		return sci_gstacksizeOneRhs(fname);
+        /* setting the stack size moves the memory, which is not allowed in concurernt context */
+        return dynParallelConcurrency() ? dynParallelForbidden(fname) : sci_gstacksizeOneRhs(fname);
 	}
 	return 0;
 }
@@ -281,7 +285,7 @@ static int setGStacksize(unsigned long newsize)
 			C2F(scigmem)(&newsize, &ptr);
 			l = C2F(vstk).lstk[C2F(vstk).gtop] - C2F(vstk).lstk[C2F(vstk).isiz + 1];
 
-			if (ptr) 
+			if (ptr)
 			{
 				LhsVar(1) = 0;
 				C2F(putlhsvar)();
