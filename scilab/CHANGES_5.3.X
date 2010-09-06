@@ -30,9 +30,11 @@ Bug Fixes:
 * bug 7943 fixed - On a linux binary version, it was not possible to use
              the fortran_block block.
 
+* bug 7950 fixed - spec crashed on Windows.
+
 * bug 7951 fixed - strcat crashed with row concatenation option on linux.
 
-* bug 7952 fixed -  libraryinfo did not check size of input argument.
+* bug 7952 fixed - libraryinfo did not check size of input argument.
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
@@ -73,7 +75,7 @@ to fix these issues.
 Graphics:
 ========
 
-It's now possible to use LaTeX or MathML as label for uimenu or Pushbutton and 
+It's now possible to use LaTeX or MathML as label for uimenu or Pushbutton and
 Text in uicontrols.
 
 SciNotes:
