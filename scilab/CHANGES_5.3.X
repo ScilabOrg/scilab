@@ -32,7 +32,9 @@ Bug Fixes:
 
 * bug 7951 fixed - strcat crashed with row concatenation option on linux.
 
-* bug 7952 fixed -  libraryinfo did not check size of input argument.
+* bug 7952 fixed - libraryinfo did not check size of input argument.
+
+* bug 7974 fixed - customized xerbla.f subroutine did not return enough information.
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
@@ -73,7 +75,7 @@ to fix these issues.
 Graphics:
 ========
 
-It's now possible to use LaTeX or MathML as label for uimenu or Pushbutton and 
+It's now possible to use LaTeX or MathML as label for uimenu or Pushbutton and
 Text in uicontrols.
 
 SciNotes:
