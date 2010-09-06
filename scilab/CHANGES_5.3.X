@@ -17,10 +17,10 @@ Xcos:
 SciNotes:
 =========
 
-* It is now possible to preview a LaTeX formula in comments or in a string on
-mouseover event.
+* LaTeX formula in comments or in a string are now rendered when the mouse 
+  cursor is over.
 
-* bug 7546 fixed - It was not possible to select easily a block.
+* Block text (function, if, while...) are now easily selectable. See bug #7546.
 
 GUI creation:
 =============
