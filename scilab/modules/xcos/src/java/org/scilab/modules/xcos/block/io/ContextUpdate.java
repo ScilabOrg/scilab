@@ -21,11 +21,15 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabList;
+import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
@@ -51,6 +55,7 @@ import com.mxgraph.util.mxEventObject;
  */
 public abstract class ContextUpdate extends BasicBlock {
 
+	private static final Log LOG_LOCAL = LogFactory.getLog(ContextUpdate.class);
 	private static final long serialVersionUID = 6076826729067963560L;
 
 	/**
@@ -82,12 +87,12 @@ public abstract class ContextUpdate extends BasicBlock {
 		 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
 		 */
 		@Override
-		public void propertyChange(PropertyChangeEvent evt) {
-			ScilabType data = (ScilabType) evt.getNewValue();
-			ContextUpdate ioBlock = (ContextUpdate) evt.getSource();
+		public void propertyChange(final PropertyChangeEvent evt) {
+			final ScilabType data = (ScilabType) evt.getNewValue();
+			final ContextUpdate ioBlock = (ContextUpdate) evt.getSource();
 			
 			if (!data.isEmpty()) {
-				int newIndex = (int) ((ScilabDouble) data).getRealPart()[0][0];
+				final int newIndex = (int) ((ScilabDouble) data).getRealPart()[0][0];
 				
 				int oldIndex;
 				if (evt.getOldValue() instanceof ScilabDouble
@@ -111,11 +116,57 @@ public abstract class ContextUpdate extends BasicBlock {
 	}
 	
 	/**
+	 * Implement a listener to update the {@link ContextUpdate#isContextDependent} flag.
+	 */
+	private static final class ExprsChangeAdapter implements PropertyChangeListener, Serializable {
+		private static final Pattern INTEGER_PATTERN = Pattern.compile("\\d+");
+
+		private static ExprsChangeAdapter instance;
+		
+		/**
+		 * Default constructor
+		 */
+		public ExprsChangeAdapter() { }
+		
+		/**
+		 * @return the shared instance
+		 */
+		public static ExprsChangeAdapter getInstance() {
+			if (instance == null) {
+				instance = new ExprsChangeAdapter();
+			}
+			return instance;
+		}
+		
+		/**
+		 * isContextDependant field
+		 * 
+		 * @param evt the event
+		 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+		 */
+		@Override
+		public void propertyChange(final PropertyChangeEvent evt) {
+			final ScilabType data = (ScilabType) evt.getNewValue();
+			final ContextUpdate ioBlock = (ContextUpdate) evt.getSource();
+			
+			if (!data.isEmpty()) {
+				final String newIndex = ((ScilabString) data).getData()[0][0];
+				
+				if (!INTEGER_PATTERN.matcher(newIndex).matches()) {
+					ioBlock.isContextDependent = true;
+				} else {
+					ioBlock.isContextDependent = false;
+				}
+			}
+		}
+	}
+	
+	/**
 	 * This enum represent all the subclasses of ContextUpdate .
 	 * 
 	 * It is used to easily loop over a BasicBlock I/O blocks
 	 */
-	public enum IOBlocks {
+	public static enum IOBlocks {
 		/** Map a control port to an event input block */
 		EventInBlock(EventInBlock.class, ControlPort.class),
 		/** Map a command port to an event output block */
@@ -138,8 +189,8 @@ public abstract class ContextUpdate extends BasicBlock {
 		 * @param port
 		 *            the associated port class
 		 */
-		private IOBlocks(Class< ? extends ContextUpdate> ioBlock,
-				Class< ? extends BasicPort> port) {
+		private IOBlocks(final Class< ? extends ContextUpdate> ioBlock,
+				final Class< ? extends BasicPort> port) {
 			this.ioBlock = ioBlock;
 			this.port = port;
 		}
@@ -151,12 +202,12 @@ public abstract class ContextUpdate extends BasicBlock {
 		 *            the parent
 		 * @return the port list mapped by port type
 		 */
-		public static Map<IOBlocks, List<mxICell>> getAllPorts(SuperBlock parent) {
+		public static Map<IOBlocks, List<mxICell>> getAllPorts(final SuperBlock parent) {
 			final EnumMap<IOBlocks, List<mxICell>> ret = new EnumMap<IOBlocks, List<mxICell>>(
 					IOBlocks.class);
 
 			/* Allocation */
-			for (IOBlocks b : IOBlocks.values()) {
+			for (final IOBlocks b : IOBlocks.values()) {
 				ret.put(b, new ArrayList<mxICell>());
 			}
 
@@ -167,7 +218,7 @@ public abstract class ContextUpdate extends BasicBlock {
 				final mxICell child = parent.getChildAt(i);
 
 				/* if compatible add it to the list */
-				for (IOBlocks b : IOBlocks.values()) {
+				for (final IOBlocks b : IOBlocks.values()) {
 					if (child.getClass().equals(b.getReferencedPortClass())) {
 						ret.get(b).add(child);
 					}
@@ -184,7 +235,7 @@ public abstract class ContextUpdate extends BasicBlock {
 		 *            the parent
 		 * @return the port list mapped by port type
 		 */
-		public static Map<IOBlocks, List<mxICell>> getAllBlocks(SuperBlock parent) {
+		public static Map<IOBlocks, List<mxICell>> getAllBlocks(final SuperBlock parent) {
 			final EnumMap<IOBlocks, List<mxICell>> ret = new EnumMap<IOBlocks, List<mxICell>>(
 					IOBlocks.class);
 
@@ -194,7 +245,7 @@ public abstract class ContextUpdate extends BasicBlock {
 			}
 			
 			/* Allocation */
-			for (IOBlocks b : IOBlocks.values()) {
+			for (final IOBlocks b : IOBlocks.values()) {
 				ret.put(b, new ArrayList<mxICell>());
 			}
 
@@ -204,11 +255,11 @@ public abstract class ContextUpdate extends BasicBlock {
 			final Object[] children = mxGraphModel.getChildCells(
 					defaultModel, defaultParent, true, false);
 			
-			for (int i = 0; i < children.length; i++) {
-				final mxICell child = (mxICell) children[i];
+			for (final Object element : children) {
+				final mxICell child = (mxICell) element;
 
 				/* if compatible add it to the list */
-				for (IOBlocks b : IOBlocks.values()) {
+				for (final IOBlocks b : IOBlocks.values()) {
 					if (child.getClass().equals(b.getReferencedClass())) {
 						ret.get(b).add(child);
 					}
@@ -233,14 +284,18 @@ public abstract class ContextUpdate extends BasicBlock {
 		}
 	}
 	
+	private transient boolean isContextDependent;
+	
 	/**
 	 * Constructor.
 	 */
 	public ContextUpdate() {
 		super();
 		
-		getParametersPCS().addPropertyChangeListener("integerParameters",
+		getParametersPCS().addPropertyChangeListener(INTEGER_PARAMETERS,
 				IndexChangeAdapter.getInstance());
+		getParametersPCS().addPropertyChangeListener(EXPRS,
+				ExprsChangeAdapter.getInstance());
 	}
 
 	/**
@@ -259,12 +314,19 @@ public abstract class ContextUpdate extends BasicBlock {
 	 * @param context
 	 *            new context
 	 */
-	public void onContextChange(String[] context) {
+	public void onContextChange(final String[] context) {
 		// prevent to open twice
 		if (isLocked()) {
 			return;
 		}
 
+		// do not evaluate context is the block is not context dependent.
+		if (!isContextDependent) {
+			return;
+		}
+		
+		LOG_LOCAL.trace("Update the I/O value from the context");
+		
 		final File tempOutput;
 		final File tempInput;
 		final File tempContext;
@@ -277,20 +339,20 @@ public abstract class ContextUpdate extends BasicBlock {
 			// Write context
 			tempContext = exportContext(context);
 
-			String cmd = ScilabInterpreterManagement.buildCall("xcosBlockEval",
+			final String cmd = ScilabInterpreterManagement.buildCall("xcosBlockEval",
 					tempOutput.getAbsolutePath(), tempInput.getAbsolutePath(),
 					getInterfaceFunctionName().toCharArray(), tempContext.getAbsolutePath());
 
 			try {
 				ScilabInterpreterManagement.synchronousScilabExec(cmd);
-			} catch (InterpreterException e) {
+			} catch (final InterpreterException e) {
 				e.printStackTrace();
 			}
-			BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
+			final BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
 			updateBlockSettings(modifiedBlock);
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (final IOException e) {
+			LOG_LOCAL.error(e);
 		}
 	}
 }
