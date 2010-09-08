@@ -6,7 +6,7 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
-* bug 7770 fixed - It was not possible to compile a diagram with Modelica 
+* bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
 
 * bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
@@ -59,6 +59,8 @@ Bug Fixes:
                    information.
 
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
+
+* bug 7988 fixed - Inverted pendulum demo failed with f2c version on Windows.
 
 
 
