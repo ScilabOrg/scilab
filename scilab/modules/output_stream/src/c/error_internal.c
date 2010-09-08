@@ -25,10 +25,10 @@ extern int C2F(errloc)(int *n); /* fortran */
 extern int C2F(errmgr)(); /* fortran */
 extern int C2F(errcontext)(); /* fortran */
 extern int C2F(whatln)(int *lpt1,int *lpt2,int *lpt6,int *nct,int *idebut,int *ifin); /* fortran */
-
 /*--------------------------------------------------------------------------*/ 
-int error_internal(int *n,char *buffer,int mode)
+int error_internal(int *n,char *buffer)
 {
+    int len = 0;
     int num = 0;
     int lct1 = 0;
     int imode = 0;
@@ -65,27 +65,20 @@ int error_internal(int *n,char *buffer,int mode)
             C2F(iop).lct[0] = -1;
         }
 
-        if (mode == ERROR_FROM_FORTRAN)
-        {
-            /* output and store error message */
-            C2F(errmsg)(n, &errtyp);
-        }
-        else /* ERROR_FROM_C */
-        {
-            int len = (int) strlen(buffer);
+        len = (int) strlen(buffer);
 
-            /* free message table */
-            C2F(freemsgtable)();
+        /* free message table */
+        C2F(freemsgtable)();
 
-            /* store error number */
-            setLastErrorValue(*n);
+        /* store error number */
+        setLastErrorValue(*n);
 
-            /* store message */
-            C2F(msgstore)(buffer,&len);
+        /* store message */
+        C2F(msgstore)(buffer,&len);
 
-            /* display error */
-            if (C2F(iop).lct[0] != -1) sciprint(buffer);
-        }
+        /* display error */
+        if (C2F(iop).lct[0] != -1) sciprint(buffer);
+
         C2F(iop).lct[0] = 0;
     }
     C2F(errcontext)(); 

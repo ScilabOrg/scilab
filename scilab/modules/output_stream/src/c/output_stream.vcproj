@@ -420,10 +420,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\errmsg.c"
-				>
-			</File>
-			<File
 				RelativePath=".\erro.c"
 				>
 			</File>
@@ -433,6 +429,10 @@
 			</File>
 			<File
 				RelativePath=".\error_internal.c"
+				>
+			</File>
+			<File
+				RelativePath=".\errorTable.c"
 				>
 			</File>
 			<File
@@ -549,10 +549,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\errmsg.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\includes\erro.h"
 				>
 			</File>
@@ -562,6 +558,10 @@
 			</File>
 			<File
 				RelativePath=".\error_internal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\errorTable.h"
 				>
 			</File>
 			<File
