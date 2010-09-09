@@ -212,8 +212,10 @@ int C2F(sci_error)(char *fname,unsigned long fname_len)
                     errorCode = (int)(*stk(l1));
                     if (errorCode > 0)
                     {
-                        Scierror(errorCode,InputString_Parameter2[0]);
+                        strcpy(bufferErrorMessage,InputString_Parameter2[0]);
                         freeArrayOfString(InputString_Parameter2,m2*n2);
+                        C2F(iop).err = errorPosition;
+                        SciError(errorCode);
                     }
                     else
                     {
