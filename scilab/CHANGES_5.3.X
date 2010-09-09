@@ -44,6 +44,9 @@ Graphics:
 Bug Fixes:
 ==========
 
+* bug 7640 fixed - xs2pdf, xs2eps, xs2emf crashed if filename prefix had less
+                   of three characters.
+
 * bug 7924 fixed - pathconvert failed conversion to cygwin format.
 
 * bug 7943 fixed - On a GNU/Linux binary version, it was not possible to use
