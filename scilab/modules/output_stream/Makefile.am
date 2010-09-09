@@ -26,6 +26,7 @@ OUTPUT_STREAM_C_SOURCES = 	src/c/erro.c \
 				src/c/basout.c \
 				src/c/sciprint.c \
 				src/c/sciprint_full.c \
+				src/c/getNumberOfArgsAfterFormat.c \
 				src/c/errmds.c \
 				src/c/errmsg.c \
 				src/c/error.c \

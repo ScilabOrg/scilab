@@ -444,6 +444,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\getNumberOfArgsAfterFormat.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\c\gw_output_stream.c"
 				>
 			</File>
@@ -570,6 +574,10 @@
 			</File>
 			<File
 				RelativePath="..\cpp\getFullFilename.hxx"
+				>
+			</File>
+			<File
+				RelativePath=".\getNumberOfArgsAfterFormat.h"
 				>
 			</File>
 			<File
