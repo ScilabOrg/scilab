@@ -6,7 +6,7 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
-* bug 7770 fixed - It was not possible to compile a diagram with Modelica 
+* bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
 
 * bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
@@ -43,6 +43,8 @@ Graphics:
 
 Bug Fixes:
 ==========
+
+* bug 7231 fixed - mtlb_num2str did not manage second input argument.
 
 * bug 7924 fixed - pathconvert failed conversion to cygwin format.
 
