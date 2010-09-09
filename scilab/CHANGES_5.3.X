@@ -60,6 +60,9 @@ Bug Fixes:
 
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
 
+* bug 7998 fixed - Accessing to a shared property of the elements of a matrix
+                   of graphic handle, may crashed scilab.
+
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab

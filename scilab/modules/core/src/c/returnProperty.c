@@ -30,6 +30,10 @@ int sciReturnEmptyMatrix( void )
 /*--------------------------------------------------------------------------*/
 int sciReturnString( const char * value )
 {
+  if (value == NULL) {
+    return -1;
+  }
+
   int numRow   = 1 ;
   int numCol   = (int)strlen( value );
   int outIndex = 0 ;
