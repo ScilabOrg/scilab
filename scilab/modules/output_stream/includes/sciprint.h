@@ -28,6 +28,12 @@ extern "C" {
  */
 void sciprint(const char *fmt,...) ;
 
+/**
+ * Print a buffer
+ * @param fmt buffer to print.
+ */
+void sciprintbuffer(const char *fmt) ;
+
 
 /**
 * Print: works as sciprint

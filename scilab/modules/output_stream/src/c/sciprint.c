@@ -45,6 +45,11 @@ void sciprint(const char *fmt,...)
 	va_end (ap);
 }
 /*--------------------------------------------------------------------------*/ 
+void sciprintbuffer(const char *fmt)
+{
+  printf_scilab(fmt);
+}
+/*--------------------------------------------------------------------------*/ 
 int scivprint(const char *fmt,va_list args)
 {
 	static char s_buf[MAXPRINTF];

@@ -71,6 +71,8 @@ Bug Fixes:
 
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
 
+* bug 8000 fixed - Call to 'error' or 'get' with C tagged string caused scilab to crash.
+
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab

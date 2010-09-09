@@ -33,6 +33,7 @@ extern int C2F(prntid)(); /* to print variables on stack */
 /*--------------------------------------------------------------------------*/
 static void strip_blank(char *source);
 static void displayAndStoreError(const char *msg,...);
+static void displayAndStoreErrorBuffer(const char *msg);
 static void resetLastError(void);
 static char *getConvertedNameFromStack(int cvnametype);
 static char *defaultStringError(void);
@@ -1572,7 +1573,7 @@ int C2F(errmsg)(int *n,int *errtyp)
             char *buffer = defaultStringError();
             if (buffer)
             {
-                displayAndStoreError(buffer);
+                displayAndStoreErrorBuffer(buffer);
                 FREE(buffer);
                 buffer = NULL;
             }
@@ -1662,9 +1663,6 @@ static char *getConvertedNameFromStack(int cvnametype)
 /*--------------------------------------------------------------------------*/
 static void displayAndStoreError(const char *msg,...)
 {
-    int io = 0;
-    int len = 0;
-
     va_list ap;
     static char s_buf[bsiz];
 
@@ -1682,9 +1680,14 @@ static void displayAndStoreError(const char *msg,...)
     va_end(ap);
 
     /* store and display error(lasterror) */
-
-    len = (int)strlen(s_buf);
-    C2F(msgout)(&io,&C2F(iop).wte,s_buf,len);
+    displayAndStoreErrorBuffer(s_buf);
+}
+/*--------------------------------------------------------------------------*/
+static void displayAndStoreErrorBuffer(const char *msg)
+{
+  int io = 0;
+  int len = (int)strlen(msg);
+  C2F(msgout)(&io,&C2F(iop).wte,msg,len);
 }
 /*--------------------------------------------------------------------------*/
 static void resetLastError(void)
