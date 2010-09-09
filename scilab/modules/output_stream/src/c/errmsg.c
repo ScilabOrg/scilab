@@ -27,6 +27,7 @@
 #ifdef _MSC_VER
 #include "strdup_Windows.h"
 #endif
+#include "getNumberOfArgsAfterFormat.h"
 /*--------------------------------------------------------------------------*/
 extern int C2F(showstack)(); /* used in error 115 */
 extern int C2F(prntid)(); /* to print variables on stack */
@@ -1580,7 +1581,7 @@ int C2F(errmsg)(int *n,int *errtyp)
             char *buffer = defaultStringError();
             if (buffer)
             {
-                displayAndStoreError(buffer);
+                displayAndStoreError(buffer, NULL);
                 FREE(buffer);
                 buffer = NULL;
             }
@@ -1672,27 +1673,39 @@ static void displayAndStoreError(const char *msg,...)
 {
     int io = 0;
     int len = 0;
-
     va_list ap;
     static char s_buf[bsiz];
+    int nbArgs = 0;
+
+    if (msg == NULL) return;
 
     va_start(ap,msg);
 
-#if defined(linux) || defined(_MSC_VER)
+    nbArgs = getNumberOfArgsAfterFormat(msg, ap);
+
+    if (nbArgs > 0)
     {
-        int count=0;
-        count= vsnprintf(s_buf,bsiz, msg, ap );
-        if (count == -1) s_buf[bsiz-1]='\0';
-    }
+
+#if defined(linux) || defined(_MSC_VER)
+        {
+            int count=0;
+            count= vsnprintf(s_buf,bsiz, msg, ap );
+            if (count == -1) s_buf[bsiz-1]='\0';
+        }
 #else
-    (void )vsprintf(s_buf, msg, ap );
+        (void )vsprintf(s_buf, msg, ap );
 #endif
-    va_end(ap);
+        va_end(ap);
 
-    /* store and display error(lasterror) */
-
-    len = (int)strlen(s_buf);
-    C2F(msgout)(&io,&C2F(iop).wte,s_buf,len);
+        /* store and display error(lasterror) */
+        len = (int)strlen(s_buf);
+        C2F(msgout)(&io,&C2F(iop).wte,s_buf,len);
+    }
+    else
+    {
+        len = (int)strlen(msg);
+        C2F(msgout)(&io,&C2F(iop).wte,msg,len);
+    }
 }
 /*--------------------------------------------------------------------------*/
 static void resetLastError(void)

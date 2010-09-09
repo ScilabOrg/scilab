@@ -84,7 +84,7 @@ int error_internal(int *n,char *buffer,int mode)
             C2F(msgstore)(buffer,&len);
 
             /* display error */
-            if (C2F(iop).lct[0] != -1) sciprint(buffer);
+            if (C2F(iop).lct[0] != -1) sciprint(buffer, NULL);
         }
         C2F(iop).lct[0] = 0;
     }

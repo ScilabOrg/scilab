@@ -310,6 +310,8 @@ Bug fixes:
 * bug 7691 fixed - Giving complex arguments to inverse degree trigonometric
                    functions produced inconsistent results.
 
+* bug 8000 fixed - Call to 'error' or 'get' with C tagged string caused scilab to crash.
+
 * bug 8478 fixed - A searched path was missing for docbook xsl under Gentoo.
 
 * bug 8492 fixed - When the documentation was generated, error messages were not
