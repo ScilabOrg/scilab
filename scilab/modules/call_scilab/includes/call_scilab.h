@@ -53,7 +53,7 @@ BOOL StartScilab(char *SCIpath, char *ScilabStartup, int Stacksize);
  * -3: No existing directory
  * Any other positive integer: A Scilab internal error
  */
-int Call_ScilabOpen(char* SCIpath, char *ScilabStartup, int *Stacksize);
+int Call_ScilabOpen(char* SCIpath, char *ScilabStartup, int Stacksize);
 
 /**
  * Terminate Scilab
@@ -119,7 +119,8 @@ int ScilabHaveAGraph(void);
  * This function is supposed to be used only in the call_scilab context
  * 
  * @param varName the variable name
- * @return the type of the variable (the enum is defined in sci_types)
+ * @return the type of the variable (the enum is defined in sci_types) 
+ * Returns -1 when an error occurs -2 when varName cannot be find
  */
 sci_types getVariableType(char *varName);
 
