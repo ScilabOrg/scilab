@@ -6,8 +6,11 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
-* bug 7770 fixed - It was not possible to compile a diagram with Modelica 
+* bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
+
+* bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
+                   did not simulate.
 
 * bug 7822 fixed - Xcos menu bar was larger than the Scilab one.
 
@@ -20,8 +23,10 @@ Xcos:
 SciNotes:
 =========
 
-* It is now possible to preview a LaTeX formula in comments or in a string on
-mouseover event.
+* LaTeX formula in comments or in a string are now rendered when the mouse
+  cursor is over.
+
+* Block text (function, if, while...) are now easily selectable. See bug #7546.
 
 * bug 7524 fixed - Tabulation representation had a bad size in whitespace mode.
 
@@ -38,8 +43,20 @@ Graphics:
 
 * The icons has been updated to the Tango Art libre icons and to the Inkscape themable icons.
 
+* bug 6686 fixed - The automatic sub-ticking gave wrong results.
+
 Bug Fixes:
 ==========
+
+* bug 7231 fixed - mtlb_num2str did not manage second input argument.
+
+* bug 7640 fixed - xs2pdf, xs2eps, xs2emf crashed if filename prefix had less
+                   of three characters.
+
+* bug 7872 fixed - Riemann Surface demo returned a error if window was closed by
+                   the cross button.
+
+* bug 7897 fixed - configure failed under FreeBSD (bashim)
 
 * bug 7924 fixed - pathconvert failed conversion to cygwin format.
 
@@ -52,11 +69,14 @@ Bug Fixes:
 
 * bug 7952 fixed - libraryinfo did not check size of input argument.
 
+* bug 7959 fixed - fscanf did not manage file descriptor as input argument.
+
 * bug 7974 fixed - Customized xerbla.f subroutine did not return enough
                    information.
 
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
 
+* bug 7988 fixed - Inverted pendulum demo failed with f2c version on Windows.
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
@@ -556,6 +576,8 @@ Bug Fixes:
 * bug 5366 fixed - Help of modules_manager was not built.
 
 * bug 6639 fixed - "hypermat"  did not remove the higher dimensions equal to 1.
+
+* bug 6741 fixed - Some source files were useless.
 
 * bug 6849 fixed - add_profiling badly handled "else" which made plotprofile
                    function produced an incorrect report.

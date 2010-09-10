@@ -5,16 +5,20 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- JVM NOT MANDATORY -->
+// <-- JVM MANDATORY -->
 //
-// <-- Non-regression test for bug 7124 -->
+// <-- INTERACTIVE TEST -->
+//
+// <-- Non-regression test for bug 7988 -->
 //
 // <-- Bugzilla URL -->
-// http://bugzilla.scilab.org/show_bug.cgi?id=7124
+// http://bugzilla.scilab.org/show_bug.cgi?id=7988
 //
 // <-- Short Description -->
-// mputl returned a wrong error message if file does not exist.
+// Inverted pendulum demo failed with f2c version on Windows.
 //
-ierr = execstr("mputl(""ABC"", ""xzwz\names"")", "errcatch");
-if ierr <> 999 then bugmes();quit;end
-if lasterror() <> strsubst(msprintf(_("%s: Cannot open file %s.\n"), "mputl", "xzwz/names"), "/", "\") then bugmes();quit;end
+// start demo:
+// CACSD --> Inverted pendulum
+
+// and check all tests in differential_equations are passed/
+

@@ -5,16 +5,18 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- JVM NOT MANDATORY -->
+// <-- TEST WITH GRAPHIC -->
 //
-// <-- Non-regression test for bug 7124 -->
+// <-- INTERACTIVE TEST -->
+//
+// <-- Non-regression test for bug 7872 -->
 //
 // <-- Bugzilla URL -->
-// http://bugzilla.scilab.org/show_bug.cgi?id=7124
+// http://bugzilla.scilab.org/show_bug.cgi?id=782
 //
 // <-- Short Description -->
-// mputl returned a wrong error message if file does not exist.
-//
-ierr = execstr("mputl(""ABC"", ""xzwz\names"")", "errcatch");
-if ierr <> 999 then bugmes();quit;end
-if lasterror() <> strsubst(msprintf(_("%s: Cannot open file %s.\n"), "mputl", "xzwz/names"), "/", "\") then bugmes();quit;end
+// Riemann Surface demo returned a error if window was closed by the cross button.
+
+// start demo : Graphics --> Animation --> Riemann Surface
+// click on cross button 
+// check that you have no error message

@@ -7,14 +7,20 @@
 //
 // <-- JVM NOT MANDATORY -->
 //
-// <-- Non-regression test for bug 7124 -->
+// <-- Non-regression test for bug 7959 -->
 //
 // <-- Bugzilla URL -->
-// http://bugzilla.scilab.org/show_bug.cgi?id=7124
+// http://bugzilla.scilab.org/show_bug.cgi?id=7959
 //
 // <-- Short Description -->
-// mputl returned a wrong error message if file does not exist.
+// fscanf did not manage file descriptor as input argument
 //
-ierr = execstr("mputl(""ABC"", ""xzwz\names"")", "errcatch");
-if ierr <> 999 then bugmes();quit;end
-if lasterror() <> strsubst(msprintf(_("%s: Cannot open file %s.\n"), "mputl", "xzwz/names"), "/", "\") then bugmes();quit;end
+text =["blablabla"];
+mputl(text, TMPDIR + "/test1.txt");
+s1 = fscanf(TMPDIR + "/test1.txt", "%s");
+if text <> s1 then bugmes();quit;end
+fd = mopen(TMPDIR + "/test1.txt", "rt");
+s2 = fscanf(fd, "%s");
+mclose(fd);
+if text <> s2 then bugmes();quit;end
+if s1 <> s2 then bugmes();quit;end
