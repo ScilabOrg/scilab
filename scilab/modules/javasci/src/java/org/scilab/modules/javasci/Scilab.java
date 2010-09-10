@@ -23,6 +23,9 @@ import org.scilab.modules.types.scilabTypes.ScilabBoolean;
 import org.scilab.modules.types.scilabTypes.ScilabInteger;
 import org.scilab.modules.javasci.Call_Scilab;
 import org.scilab.modules.javasci.JavasciException.InitializationException;
+import org.scilab.modules.javasci.JavasciException.UnsupportedTypeException;
+import org.scilab.modules.javasci.JavasciException.UndefinedVariableException;
+import org.scilab.modules.javasci.JavasciException.UnknownTypeException;
 
 public class Scilab {
     private String SCI = null;
@@ -242,16 +245,19 @@ public class Scilab {
      * @return the type of the variable
      * @todo check the enum here
     */
-    public ScilabTypeEnum getVariableType(String varName) {
+    public ScilabTypeEnum getVariableType(String varName) throws JavasciException {
         ScilabTypeEnum variableType = null;
         try {
             variableType = Call_Scilab.getVariableType(varName);
         } catch (IllegalArgumentException e) {
-            System.err.println("Could not find variable type: " + e.getLocalizedMessage());
+            String lastWord = e.getMessage().substring(e.getMessage().lastIndexOf(' ')+1);
+            if (lastWord.equals("-2")) { /* Crappy workaround. Parse the exception */
+                throw new UndefinedVariableException("Could not find variable '"+varName+"'");
+            }
+            throw new UnknownTypeException("Type of "+varName+" unkown");
+
         }
-
         return variableType;
-
     }
 
 
@@ -263,50 +269,47 @@ public class Scilab {
      * @param varname the name of the variable
      * @return return the variable
     */
-    public ScilabType get(String varname) {
-        ScilabTypeEnum sciType = this.getVariableType(varname);
-        switch (sciType) {
-            case sci_matrix:
+    public ScilabType get(String varname) throws JavasciException {
+		ScilabTypeEnum sciType = this.getVariableType(varname);
+		switch (sciType) {
+			case sci_matrix:
                 if (!Call_Scilab.isComplex(varname)) {
                     return new ScilabDouble(Call_Scilab.getDouble(varname));
                 } else {
                     return new ScilabDouble(Call_Scilab.getDoubleComplexReal(varname), Call_Scilab.getDoubleComplexImg(varname));
                 }
+			case sci_boolean:
+				return new ScilabBoolean(Call_Scilab.getBoolean(varname));
 
-            case sci_boolean:
-                return new ScilabBoolean(Call_Scilab.getBoolean(varname));
+			case sci_strings:
+				return new ScilabString(Call_Scilab.getString(varname));
 
-            case sci_strings:
-                return new ScilabString(Call_Scilab.getString(varname));
-
-            case sci_ints:
-                ScilabIntegerTypeEnum typeInt = Call_Scilab.getIntegerPrecision(varname);
-
-                switch (typeInt) {
-                    case sci_int8:
-                        return new ScilabInteger(Call_Scilab.getByte(varname), false);
-                    case sci_uint8:
-                        return new ScilabInteger(Call_Scilab.getUnsignedByte(varname), true);
-                    case sci_int16:
-                        return new ScilabInteger(Call_Scilab.getShort(varname), false);
-                    case sci_uint16:
-                        return new ScilabInteger(Call_Scilab.getUnsignedShort(varname), true);
-                    case sci_int32:
-                        return new ScilabInteger(Call_Scilab.getInt(varname), false);
-                    case sci_uint32:
-                        return new ScilabInteger(Call_Scilab.getUnsignedInt(varname), true);
-                    case sci_int64:
-                    case sci_uint64:
-//  throw new UnsupportedTypeException();
-                        // Unspported operation
-                        // will be available in Scilab 6
-                        // Type = long
-                }
-
+			case sci_ints:
+				ScilabIntegerTypeEnum typeInt = Call_Scilab.getIntegerPrecision(varname);
+				switch (typeInt) {
+					case sci_int8:
+						return new ScilabInteger(Call_Scilab.getByte(varname), false);
+					case sci_uint8:
+						return new ScilabInteger(Call_Scilab.getUnsignedByte(varname), true);
+					case sci_int16:
+						return new ScilabInteger(Call_Scilab.getShort(varname), false);
+					case sci_uint16:
+						return new ScilabInteger(Call_Scilab.getUnsignedShort(varname), true);
+					case sci_int32:
+						return new ScilabInteger(Call_Scilab.getInt(varname), false);
+					case sci_uint32:
+						return new ScilabInteger(Call_Scilab.getUnsignedInt(varname), true);
+					case sci_int64:
+					case sci_uint64:
+// 	throw new UnsupportedTypeException();
+						// Unsupported operation
+						// will be available in Scilab 6
+						// Type = long
+				}
             default:
-        //      throw new UnsupportedTypeException();
-        }
-        return null;
+                throw new UnsupportedTypeException("Type not managed: " + sciType);
+        
+		}
     }
 
 
@@ -315,19 +318,19 @@ public class Scilab {
      * Throws an exception if the datatype is not managed or if the variable is not available
      * @param varname the name of the variable
      * @param varname the variable itself
-     * @return if the operation is successful
+     * @return true if the operation is successful
     */
-    public boolean put(String varname, ScilabType theVariable) {
-        int err = -999;
+    public boolean put(String varname, ScilabType theVariable) throws JavasciException {
+		int err = -999; /* -999: if the type is not handled */
 
         if (theVariable instanceof ScilabDouble) {
             ScilabDouble sciDouble = (ScilabDouble)theVariable;
             if (sciDouble.isReal()) {
                 err = Call_Scilab.putDouble(varname, sciDouble.getRealPart());
             } else {
-// Special case. Serialize the matrix from Scilab same way Scilab stores them
-// (columns by columns)
-// plus the complex values at the second part of the array
+				// Special case. Serialize the matrix from Scilab same way
+				//  Scilab stores them (columns by columns)
+				// plus the complex values at the second part of the array
                 err = Call_Scilab.putDoubleComplex(varname,sciDouble.getSerializedComplexMatrix(), sciDouble.getHeight(), sciDouble.getWidth());
             }
         }
@@ -371,12 +374,8 @@ public class Scilab {
         }
 
 
-        //TODO: a remplacer par la bonne exception return new UnsupportedTypeException();
-        //      throw new UnsupportedTypeException();
         if (err == -999) {
-                // Exception a lancer
-
-            System.err.println("Type not managed: " + theVariable.getClass());
+            throw new UnsupportedTypeException("Type not managed: " + theVariable.getClass());
         } else {
             if (err != 0) {
                 // Exception a lancer
