@@ -197,6 +197,8 @@ Bug Fixes:
 * bug 7748 fixed - The help page of rcond was wrong: only one output 
                    argument is provided.
 
+* bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
+
 * bug 7862 fixed - "savematfile" only saved the first string in the vector
                    (or matrix) when variable was a vector (or matrix) of strings.
 
