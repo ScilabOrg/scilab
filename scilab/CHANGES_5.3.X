@@ -48,6 +48,9 @@ Graphics:
 Bug Fixes:
 ==========
 
+* bug 6767 fixed - The "uicontrol" help page said the "Style" property of an 
+                   uicontrol can be set after creation but it does not.
+
 * bug 7231 fixed - mtlb_num2str did not manage second input argument.
 
 * bug 7640 fixed - xs2pdf, xs2eps, xs2emf crashed if filename prefix had less
