@@ -16,9 +16,10 @@
 #include "sci_types.h"
 #include "BOOL.h"
 #include "lasterror.h"
-typedef unsigned char byte;
+#include "javasci2_helper.h"
 
-BOOL isComplex(char *variableName) {
+
+BOOL isComplexVar(char *variableName) {
     int iComplex = isNamedVarComplex(pvApiCtx, variableName);
 
     return iComplex != 0; /* 0 = not complex */
@@ -27,7 +28,6 @@ BOOL isComplex(char *variableName) {
 sci_int_types getIntegerPrecision(char* variableName) {
     SciErr sciErr;
 
-	int *piAddr;
 	int iPrec;
 
 	sciErr = getNamedMatrixOfIntegerPrecision(pvApiCtx, variableName, &iPrec);
@@ -65,7 +65,7 @@ sci_int_types getIntegerPrecision(char* variableName) {
 				break;
 
 		}
-
+    return -1;
 }
 
 double * getDouble(char* variableName, int *nbRow, int *nbCol) {
@@ -92,7 +92,7 @@ double * getDouble(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putDouble(char* variableName, double *variable, int *nbRow, int *nbCol) {
+int putDouble(char* variableName, double *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfDouble(pvApiCtx,variableName,nbRow,nbCol, variable);
     if(sciErr.iErr)
@@ -191,7 +191,7 @@ BOOL * getBoolean(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putBoolean(char* variableName, BOOL *variable, int *nbRow, int *nbCol) {
+int putBoolean(char* variableName, BOOL *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfBoolean(pvApiCtx,variableName,nbRow,nbCol, variable);
     if(sciErr.iErr)
@@ -231,7 +231,7 @@ byte * getByte(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putByte(char* variableName, byte *variable, int *nbRow, int *nbCol) {
+int putByte(char* variableName, byte *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfInteger8(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -267,7 +267,7 @@ byte * getUnsignedByte(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putUnsignedByte(char* variableName, byte *variable, int *nbRow, int *nbCol) {
+int putUnsignedByte(char* variableName, byte *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfUnsignedInteger8(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -305,7 +305,7 @@ short * getShort(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putShort(char* variableName, short *variable, int *nbRow, int *nbCol) {
+int putShort(char* variableName, short *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfInteger16(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -342,7 +342,7 @@ unsigned short * getUnsignedShort(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putUnsignedShort(char* variableName, unsigned short *variable, int *nbRow, int *nbCol) {
+int putUnsignedShort(char* variableName, unsigned short *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfUnsignedInteger16(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -380,7 +380,7 @@ int * getInt(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putInt(char* variableName, int *variable, int *nbRow, int *nbCol) {
+int putInt(char* variableName, int *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfInteger32(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -416,7 +416,7 @@ unsigned int * getUnsignedInt(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putUnsignedInt(char* variableName, unsigned int *variable, int *nbRow, int *nbCol) {
+int putUnsignedInt(char* variableName, unsigned int *variable, int nbRow, int nbCol) {
     SciErr sciErr;
     sciErr = createNamedMatrixOfUnsignedInteger32(pvApiCtx, variableName, nbRow, nbCol, variable);
     if(sciErr.iErr)
@@ -511,9 +511,9 @@ int putUnsignedLong(char* variableName, unsigned long *variable, int *nbRow, int
  * Take the result (a matrix of string) and concatenate into a single string
  * This is way easier to manage in swig.
 */
-char* getLastErrorMessageSingle() {
+char* getLastErrorMessageSingle(void) {
     int iNbLines, i, nbChar=0;
-    char **msgs = getLastErrorMessage(&iNbLines);
+    const char **msgs = getLastErrorMessage(&iNbLines);
     char *concat;
 
     for (i=0; i<iNbLines; i++)
@@ -572,7 +572,7 @@ char ** getString(char* variableName, int *nbRow, int *nbCol) {
 }
 
 
-int putString(char* variableName, char **variable, int *nbRow, int *nbCol) {
+int putString(char* variableName, char **variable, int nbRow, int nbCol) {
     SciErr sciErr;
 
     sciErr = createNamedMatrixOfString(pvApiCtx, variableName, nbRow, nbCol, variable);
