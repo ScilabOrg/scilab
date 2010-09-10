@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-package org.scilab.tests.modules.javasci;
+package org.scilab.tests.modules.type;
 
 import org.testng.annotations.*;
 
@@ -18,6 +18,7 @@ import java.util.Arrays;
 import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabInteger;
+import org.scilab.modules.types.scilabTypes.ScilabIntegerTypeEnum;
 import org.scilab.modules.types.scilabTypes.ScilabBoolean;
 import org.scilab.modules.types.scilabTypes.ScilabString;
 import org.scilab.modules.types.scilabTypes.ScilabList;
@@ -92,6 +93,12 @@ public class testEquals {
 		assert d[0][0] == 32;
 		assert d2[0][0] == 32;
 		assert Arrays.deepEquals(a,d);
+        assert aMatrix.getPrec() == ScilabIntegerTypeEnum.sci_uint8;
+        assert dMatrix.getPrec() == ScilabIntegerTypeEnum.sci_int8;
+        assert aMatrix.isUnsigned() == true;
+        assert dMatrix.isUnsigned() == false;
+        assert ScilabInteger.convertOldType("TYPE8", true) == ScilabIntegerTypeEnum.sci_uint8;
+        assert ScilabInteger.convertOldType("TYPE8", false) == ScilabIntegerTypeEnum.sci_int8;
     }
 
 
@@ -119,6 +126,12 @@ public class testEquals {
 		assert d[0][0] == 32;
 		assert d2[0][0] == 32;
 		assert Arrays.deepEquals(a,d);
+        assert aMatrix.getPrec() == ScilabIntegerTypeEnum.sci_uint16;
+        assert dMatrix.getPrec() == ScilabIntegerTypeEnum.sci_int16;
+        assert aMatrix.isUnsigned() == true;
+        assert dMatrix.isUnsigned() == false;
+        assert ScilabInteger.convertOldType("TYPE16", true) == ScilabIntegerTypeEnum.sci_uint16;
+        assert ScilabInteger.convertOldType("TYPE16", false) == ScilabIntegerTypeEnum.sci_int16;
     }
 
 	@Test
@@ -145,6 +158,12 @@ public class testEquals {
 		assert d[0][0] == 32;
 		assert d2[0][0] == 32;
 		assert Arrays.deepEquals(a,d);
+        assert aMatrix.getPrec() == ScilabIntegerTypeEnum.sci_uint32;
+        assert dMatrix.getPrec() == ScilabIntegerTypeEnum.sci_int32;
+        assert aMatrix.isUnsigned() == true;
+        assert dMatrix.isUnsigned() == false;
+        assert ScilabInteger.convertOldType("TYPE32", true) == ScilabIntegerTypeEnum.sci_uint32;
+        assert ScilabInteger.convertOldType("TYPE32", false) == ScilabIntegerTypeEnum.sci_int32;
     }
 
 	@Test
@@ -171,6 +190,12 @@ public class testEquals {
 		assert d[0][0] == 32;
 		assert d2[0][0] == 32;
 		assert Arrays.deepEquals(a,d);
+        assert aMatrix.getPrec() == ScilabIntegerTypeEnum.sci_uint64;
+        assert dMatrix.getPrec() == ScilabIntegerTypeEnum.sci_int64;
+        assert aMatrix.isUnsigned() == true;
+        assert dMatrix.isUnsigned() == false;
+        assert ScilabInteger.convertOldType("TYPE64", true) == ScilabIntegerTypeEnum.sci_uint64;
+        assert ScilabInteger.convertOldType("TYPE64", false) == ScilabIntegerTypeEnum.sci_int64;
     }
 
 
