@@ -53,6 +53,8 @@ Bug Fixes:
 * bug 7640 fixed - xs2pdf, xs2eps, xs2emf crashed if filename prefix had less
                    of three characters.
 
+* bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
+
 * bug 7872 fixed - Riemann Surface demo returned a error if window was closed by
                    the cross button.
 
@@ -77,6 +79,7 @@ Bug Fixes:
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
 
 * bug 7988 fixed - Inverted pendulum demo failed with f2c version on Windows.
+
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
