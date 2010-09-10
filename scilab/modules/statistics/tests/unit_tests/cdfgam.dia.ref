@@ -1,30 +1,90 @@
 // =============================================================================
-// Tests for cdfgam() function
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA
+// Copyright (C) 2010 - DIGITEO - Michael Baudin
 //
-// Scilab Team
-// Copyright INRIA
-//
+//  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-prec  = 1.e-5;
-shape = 2;
-scale = 3;
-bn    = 1;
-deff('[y]=Gamma(x)','y=bn*(x^(shape-1) * exp(-scale*x))');
-bn     = intg(0,10^3,Gamma);
-bn     = 1/bn;
-x      = 1:10;
-[P,Q]  = cdfgam("PQ",x,shape*ones(x),scale*ones(x));
-P1     = [];
-for xx=x
-	P1=[P1,intg(0,xx,Gamma)];
+// <-- JVM NOT MANDATORY -->
+//
+// assert_close --
+//   Returns 1 if the two real matrices computed and expected are close,
+//   i.e. if the relative distance between computed and expected is lesser than epsilon.
+// Arguments
+//   computed, expected : the two matrices to compare
+//   epsilon : a small number
+//
+function flag = assert_close ( computed, expected, epsilon )
+  if expected==0.0 then
+    shift = norm(computed-expected);
+  else
+    shift = norm(computed-expected)/norm(expected);
+  end
+  if shift < epsilon then
+    flag = 1;
+  else
+    flag = 0;
+  end
+  if flag <> 1 then bugmes();quit;end
+endfunction
+//
+// assert_equal --
+//   Returns 1 if the two real matrices computed and expected are equal.
+// Arguments
+//   computed, expected : the two matrices to compare
+//   epsilon : a small number
+//
+function flag = assert_equal ( computed , expected )
+  if computed==expected then
+    flag = 1;
+  else
+    flag = 0;
+  end
+  if flag <> 1 then bugmes();quit;end
+endfunction
+//
+// Assessing the quality of the Normal distribution function
+// References
+//   Yalta, A. T. 2008. The accuracy of statistical distributions in Microsoft®Excel 2007. Comput. Stat. Data Anal. 52, 10 (Jun. 2008), 4579-4586. DOI= http://dx.doi.org/10.1016/j.csda.2008.03.005 
+//   Computation of Statistical Distributions (ELV), Leo Knüsel 
+// Table 5
+// Check Gamma distribution with parameters (x, alpha, beta = 1, Sigma = 1)
+//
+// Table of inputs computed from R-2.8.1
+// [x shape scale P precision]
+precision = 10*%eps;
+table = [
+ 0.1 , 0.1 , 1 , 0.8275517595858506 , precision
+ 0.2 , 0.1 , 1 , 0.879419626790057 , precision
+ 0.2 , 0.2 , 1 , 0.764434597502919 , precision
+ 0.3 , 0.2 , 1 , 0.816526794333653 , precision
+ 0.3 , 0.3 , 1 , 0.726957343710366 , precision
+ 0.4 , 0.3 , 1 , 0.776380581016636 , precision
+ 0.4 , 0.4 , 1 , 0.7014412706419404 , precision
+ 0.5 , 0.4 , 1 , 0.7480185547260104 , precision
+ 0.5 , 0.5 , 1 , 0.682689492137086 , precision
+ 0.6 , 0.5 , 1 , 0.726678321707702 , precision
+];
+// For the inversion of Shape, require only 8 digits, as 
+// a consequence of bug #7569: http://bugzilla.scilab.org/show_bug.cgi?id=7569
+precinverse = 1.e-8;
+ntests = size(table,"r");
+for i = 1 : ntests
+  x = table(i,1);
+  shape = table(i,2);
+  scale = table(i,3);
+  expected = table(i,4);
+  precision = table(i,5);
+  // Caution: this is the rate !
+  rate = 1/scale;
+  [p,q]=cdfgam("PQ",x,shape,rate);
+  assert_close ( p , expected , precision );
+  assert_close ( q , 1 - expected , precision );
+  // Test inversion procedures
+  x1     = cdfgam("X",shape,rate,p,q);
+  assert_close ( x1 , x , precision );
+  shape1 = cdfgam("Shape",rate,p,q,x);
+  assert_close ( shape1 , shape , precinverse );
+  rate1 = cdfgam("Rate",p,q,x,shape);
+  assert_close ( rate1 , rate , precinverse );
 end
-if norm(P1-P) > prec then bugmes();quit;end
-shape    = 2*x;
-scale    = 3*x;
-[P,Q]    = cdfgam("PQ",x,shape,scale);
-[x1]     = cdfgam("X",shape,scale,P,Q);
-[shape1] = cdfgam("Shape",scale,P,Q,x);
-[scale1] = cdfgam("Scale",P,Q,x,shape);
-if norm(shape1-shape) > 10*prec then bugmes();quit;end
-if norm(scale1-scale) > 10*prec then bugmes();quit;end
-if norm(x1-x)         > prec    then bugmes();quit;end
