@@ -54,6 +54,8 @@ Bug Fixes:
 
 * bug 7981 fixed - copyfile failed with localized filenames on linux.
 
+* bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
+
 
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
