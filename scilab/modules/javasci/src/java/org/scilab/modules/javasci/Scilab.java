@@ -332,32 +332,29 @@ public class Scilab {
 		if (theVariable instanceof ScilabInteger) {
             ScilabInteger sciInteger = (ScilabInteger)theVariable;
 			switch (sciInteger.getPrec()) {
-				case TYPE8: // byte
-					if (sciInteger.isUnsigned()) {
-						err = Call_Scilab.putUnsignedByte(varname, sciInteger.getDataAsByte());
-					} else {
-						err = Call_Scilab.putByte(varname, sciInteger.getDataAsByte());
-					}
+                case sci_uint8:
+                    err = Call_Scilab.putUnsignedByte(varname, sciInteger.getDataAsByte());
+                    break;
+                case sci_int8:
+                    err = Call_Scilab.putByte(varname, sciInteger.getDataAsByte());
 					break;
-				case TYPE16: // short 
-					if (sciInteger.isUnsigned()) {
-						err = Call_Scilab.putUnsignedShort(varname, sciInteger.getDataAsShort());
-					} else {
-						err = Call_Scilab.putShort(varname, sciInteger.getDataAsShort());
-					}
+                case sci_uint16:
+                    err = Call_Scilab.putUnsignedShort(varname, sciInteger.getDataAsShort());
+                    break;
+                case sci_int16:
+                    err = Call_Scilab.putShort(varname, sciInteger.getDataAsShort());
 					break;
-				case TYPE32: // int
-					if (sciInteger.isUnsigned()) {
-						err = Call_Scilab.putUnsignedInt(varname, sciInteger.getDataAsInt());
-					} else {
-						err = Call_Scilab.putInt(varname, sciInteger.getDataAsInt());
-						}
+                case sci_uint32:
+                    err = Call_Scilab.putUnsignedInt(varname, sciInteger.getDataAsInt());
+                case sci_int32:
+                    err = Call_Scilab.putInt(varname, sciInteger.getDataAsInt());
 					break;
-				case TYPE64: // long. unsupported by Scilab 5.X
+                case sci_uint64:
+//                    err = Call_Scilab.putUnsignedLong(varname, sciInteger.getData_());
+                case sci_int64:
+//                    err = Call_Scilab.putLong(varname, sciInteger.getData_());
 					break;
 			}
-
-			//			Call_Scilab.putLong(varname, sciInteger.getData_());
 		}
 
 		if (theVariable instanceof ScilabBoolean) {

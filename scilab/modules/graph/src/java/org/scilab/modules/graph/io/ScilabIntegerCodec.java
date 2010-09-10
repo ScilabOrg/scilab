@@ -16,7 +16,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.types.scilabTypes.ScilabInteger;
-import org.scilab.modules.types.scilabTypes.ScilabInteger.IntegerType;
+import org.scilab.modules.types.scilabTypes.ScilabIntegerTypeEnum;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -28,9 +28,10 @@ import com.mxgraph.io.mxCodecRegistry;
  */
 public class ScilabIntegerCodec extends ScilabObjectCodec {
 
-    private static final String BUNSIGNED = "bUnsigned";
+    private static final String BUNSIGNED = "bUnsigned"; /* With old IntegerType */
     private static final String VALUE = "value";
-    private static final String PREC = "precision";
+    private static final String PREC = "precision"; /* With old IntegerType */
+    private static final String PRECISION = "intPrecision"; /* with ScilabIntegerTypeEnum */
 
     /**
      * Default constructor
@@ -61,7 +62,7 @@ public class ScilabIntegerCodec extends ScilabObjectCodec {
 	ScilabInteger scilabInteger = (ScilabInteger) obj;
 	mxCodec.setAttribute(node, WIDTH, scilabInteger.getWidth());
 	mxCodec.setAttribute(node, HEIGHT, scilabInteger.getHeight());
-	mxCodec.setAttribute(node, PREC, scilabInteger.getPrec().name());
+	mxCodec.setAttribute(node, PRECISION, scilabInteger.getPrec().name());
 
 	for (int i = 0; i < scilabInteger.getHeight(); ++i) {
 	    for (int j = 0; j < scilabInteger.getWidth(); ++j) {
@@ -69,7 +70,6 @@ public class ScilabIntegerCodec extends ScilabObjectCodec {
 		mxCodec.setAttribute(data, LINE, i);
 		mxCodec.setAttribute(data, COLUMN, j);
 		mxCodec.setAttribute(data, VALUE, scilabInteger.getData()[i][j]);
-		mxCodec.setAttribute(data, BUNSIGNED, scilabInteger.isUnsigned());
 		node.appendChild(data);
 	    }
 	}
@@ -112,38 +112,50 @@ public class ScilabIntegerCodec extends ScilabObjectCodec {
 				return obj;
 			}
 			
-			final Node u = attrs.getNamedItem(BUNSIGNED);
-			final boolean unsigned;
-			/*
-			 * the default boolean value is false, this value is not serialized
-			 * by jgraphx this if we doesn't have attribute the value is
-			 * "false".
-			 */
-			unsigned = u != null;
-			
+
+			final Node precNode = attrs.getNamedItem(PRECISION);
+			ScilabIntegerTypeEnum precision = ScilabIntegerTypeEnum.valueOf(precNode.getNodeValue());
+
 			final Node prec = attrs.getNamedItem(PREC);
-			final IntegerType precision = IntegerType.valueOf(prec.getNodeValue());
-			
+            if (prec != null) {
+                /* Old version, we have to convert to the new one */
+                final Node u = attrs.getNamedItem(BUNSIGNED);
+                final boolean unsigned;
+                /*
+                 * the default boolean value is false, this value is not serialized
+                 * by jgraphx this if we doesn't have attribute the value is
+                 * "false".
+                 */
+                unsigned = u != null;
+                
+                precision = ScilabInteger.convertOldType(prec.getNodeValue(), unsigned);
+
+            }
+
+
 			switch (precision) {
-				case TYPE8:
+				case sci_int8:
+				case sci_uint8:
 					final byte[][] data8 = new byte[height][width];
 					fillData(node, data8);
-					obj.setData(data8, unsigned);
+                    obj.setData(data8, precision == ScilabIntegerTypeEnum.sci_uint8);
 					break;
-				case TYPE16:
+				case sci_int16:
+				case sci_uint16:
 					final short[][] data16 = new short[height][width];
 					fillData(node, data16);
-					obj.setData(data16, unsigned);
+                    obj.setData(data16, precision == ScilabIntegerTypeEnum.sci_uint16);
 					break;
-				case TYPE32:
+				case sci_int32:
+				case sci_uint32:
 					final int[][] data32 = new int[height][width];
 					fillData(node, data32);
-					obj.setData(data32, unsigned);
+                    obj.setData(data32, precision == ScilabIntegerTypeEnum.sci_uint32);
 					break;
 				default:
 					final long[][] data64 = new long[height][width];
 					fillData(node, data64);
-					obj.setData(data64, unsigned);
+                    obj.setData(data64, precision == ScilabIntegerTypeEnum.sci_uint64);
 					break;
 			}
 
