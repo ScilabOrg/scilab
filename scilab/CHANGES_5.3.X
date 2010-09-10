@@ -173,6 +173,8 @@ Bug Fixes:
 
 * bug 7690 fixed - Long lines removed in the parallel_run help page.
 
+* bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
+
 * bug 7862 fixed - "savematfile" only saved the first string in the vector
                    (or matrix) when variable is a vector (or matrix) of strings.
 
@@ -220,6 +222,7 @@ Bug Fixes:
 
 * bug 8055 fixed - lines() was wrongly updated when the console had the focus
                    back.
+
 
          Changes between version 5.3.0-beta-2 and 5.3.0-beta-3 of Scilab
          ===============================================================

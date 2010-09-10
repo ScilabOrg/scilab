@@ -1,11 +1,19 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+<<<<<<< HEAD
 // Copyright (C) 2010 - INRIA - Michael Baudin
+=======
+// Copyright (C) ????-2008 - INRIA
+// Copyright (C) 2010 - DIGITEO - Michael Baudin
+>>>>>>> fa3deed... statistics: Fixed bug #7768: for cdfgam, the Scale parameter was, in fact, the Rate
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- JVM NOT MANDATORY -->
+<<<<<<< HEAD
 // <-- ENGLISH IMPOSED -->
+=======
+>>>>>>> fa3deed... statistics: Fixed bug #7768: for cdfgam, the Scale parameter was, in fact, the Rate
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -42,6 +50,7 @@ function flag = assert_equal ( computed , expected )
   end
   if flag <> 1 then bugmes();quit;end
 endfunction
+<<<<<<< HEAD
 function d = assert_computedigits ( computed , expected )
   nre = size(expected,"r")
   nce = size(expected,"c")
@@ -84,6 +93,8 @@ function d = assert_computedigits ( computed , expected )
   // Reshape
   d = matrix(d,nre,nce)
 endfunction
+=======
+>>>>>>> fa3deed... statistics: Fixed bug #7768: for cdfgam, the Scale parameter was, in fact, the Rate
 //
 // Assessing the quality of the Normal distribution function
 // References
@@ -92,6 +103,7 @@ endfunction
 // Table 5
 // Check Gamma distribution with parameters (x, alpha, beta = 1, Sigma = 1)
 //
+<<<<<<< HEAD
 // Table of inputs from Yalta, 2008
 // [x shape scale P ]
 table = [
@@ -164,12 +176,32 @@ table = [
 //
 // Prints the number of accurate digits.
 precision = 1.e-12;
+=======
+// Table of inputs computed from R-2.8.1
+// [x shape scale P precision]
+precision = 10*%eps;
+table = [
+ 0.1 , 0.1 , 1 , 0.8275517595858506 , precision
+ 0.2 , 0.1 , 1 , 0.879419626790057 , precision
+ 0.2 , 0.2 , 1 , 0.764434597502919 , precision
+ 0.3 , 0.2 , 1 , 0.816526794333653 , precision
+ 0.3 , 0.3 , 1 , 0.726957343710366 , precision
+ 0.4 , 0.3 , 1 , 0.776380581016636 , precision
+ 0.4 , 0.4 , 1 , 0.7014412706419404 , precision
+ 0.5 , 0.4 , 1 , 0.7480185547260104 , precision
+ 0.5 , 0.5 , 1 , 0.682689492137086 , precision
+ 0.6 , 0.5 , 1 , 0.726678321707702 , precision
+];
+// For the inversion of Shape, require only 8 digits, as 
+// a consequence of bug #7569: http://bugzilla.scilab.org/show_bug.cgi?id=7569
+>>>>>>> fa3deed... statistics: Fixed bug #7768: for cdfgam, the Scale parameter was, in fact, the Rate
 precinverse = 1.e-8;
 ntests = size(table,"r");
 for i = 1 : ntests
   x = table(i,1);
   shape = table(i,2);
   scale = table(i,3);
+<<<<<<< HEAD
   p = table(i,5);
   q = table(i,6);
   // Caution: this is the rate !
@@ -193,4 +225,20 @@ for i = 1 : ntests
     dr = assert_computedigits ( rate1 , rate );
     mprintf("Test #%3d/%3d: Digits p1= %.1f, q1=%.1f, X= %.1f, S= %.1f, R= %.1f\n",i,ntests,dp,dq,dx,ds,dr);
   end
+=======
+  expected = table(i,4);
+  precision = table(i,5);
+  // Caution: this is the rate !
+  rate = 1/scale;
+  [p,q]=cdfgam("PQ",x,shape,rate);
+  assert_close ( p , expected , precision );
+  assert_close ( q , 1 - expected , precision );
+  // Test inversion procedures
+  x1     = cdfgam("X",shape,rate,p,q);
+  assert_close ( x1 , x , precision );
+  shape1 = cdfgam("Shape",rate,p,q,x);
+  assert_close ( shape1 , shape , precinverse );
+  rate1 = cdfgam("Rate",p,q,x,shape);
+  assert_close ( rate1 , rate , precinverse );
+>>>>>>> fa3deed... statistics: Fixed bug #7768: for cdfgam, the Scale parameter was, in fact, the Rate
 end
