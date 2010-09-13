@@ -12,12 +12,16 @@
 package org.scilab.tests.modules.javasci;
 
 import org.testng.annotations.*;
+import java.io.IOException;
 
 import org.scilab.modules.javasci.Scilab;
 import org.scilab.modules.types.scilabTypes.ScilabType;
 import org.scilab.modules.types.scilabTypes.ScilabDouble;
 import org.scilab.modules.types.scilabTypes.ScilabBoolean;
+import org.scilab.modules.javasci.JavasciException;
 import org.scilab.modules.javasci.JavasciException.InitializationException;
+
+import org.scilab.modules.commons.ScilabConstants;
 
 public class testOpenClose {
 	private Scilab sci;
@@ -42,21 +46,27 @@ public class testOpenClose {
         assert sci.close() == true;
     }
 
+        @Test(sequential = true, expectedExceptions = InitializationException.class)
+    public void specificSCIPathTest() throws NullPointerException, InitializationException {
+        assert sci.close() == true;
+        sci = new Scilab(System.getProperty("java.io.tmpdir")+"/non-existing-directory-scilab/");
+    }
+
 	@Test(sequential = true)
-    public void OpenWithJobTest() throws NullPointerException, InitializationException {
+    public void OpenWithJobTest() throws NullPointerException, JavasciException {
         assert sci.close() == true;
         assert sci.open("a=42*2;") == true;
-        
+
         ScilabType a = sci.get("a");
-        
+
         assert ((ScilabDouble)a).getRealPart()[0][0] == 84.0;
     }
 
 	@Test(sequential = true)
-    public void OpenWithJobsTest() throws NullPointerException, InitializationException {
+    public void OpenWithJobsTest() throws NullPointerException, JavasciException {
         assert sci.close() == true;
         assert sci.open(new String[]{"a=42*2;","b=44*2", "c=(a==b)"}) == true;
-        
+
         ScilabType a = sci.get("a");
         assert ((ScilabDouble)a).getRealPart()[0][0] == 84.0;
 
