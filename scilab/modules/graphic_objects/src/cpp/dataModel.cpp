@@ -100,6 +100,7 @@ char* DataModel::createDataObject(char* _pstID, char* _sType)
 
     (*m_dataMap)[std::string(_pstID)] = newObject;
 
+    return _pstID;
 }
 
 /* To be implemented */
