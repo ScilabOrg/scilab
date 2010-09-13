@@ -25,12 +25,20 @@ import org.scilab.modules.javasci.Call_Scilab;
 import org.scilab.modules.javasci.JavasciException.InitializationException;
 
 public class Scilab {
+<<<<<<< HEAD
 
 	private String SCI = null;
 	
 
 	/**
 	 * Creator of the Scilab Javasci object. 
+=======
+	private String SCI = null;
+
+
+	/**
+	 * Creator of the Scilab Javasci object.
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 	 * Under GNU/Linux / Mac OS X, try to detect Scilab base path
 	 * if the property SCI is set, use it
 	 * if not, try with the global variable SCI
@@ -39,6 +47,7 @@ public class Scilab {
 	 * @param SCI provide the path to Scilab data
 	 */
 	public Scilab() throws InitializationException {
+<<<<<<< HEAD
 		// Auto detect 
 		String detectedSCI;
 		try {
@@ -59,12 +68,37 @@ public class Scilab {
 
 	/**
 	 * Creator of the Scilab Javasci object. 
+=======
+		// Auto detect
+		 if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			this.initScilab(null);
+		} else {
+			String detectedSCI;
+			try {
+				detectedSCI = System.getProperty("SCI");
+				if (detectedSCI == null || detectedSCI.length() == 0) {
+					detectedSCI = System.getenv("SCI");
+					if (detectedSCI == null || detectedSCI.length() == 0) {
+						throw new InitializationException("Auto detection of SCI failed.\nSCI empty.");
+					}
+				}
+				this.initScilab(detectedSCI);
+			} catch (Exception e) {
+				throw new InitializationException("Auto detection of SCI failed.\nCould not retrieve the variable SCI.", e);
+			}
+		}
+	}
+
+	/**
+	 * Creator of the Scilab Javasci object.
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 	 * @param SCI provide the path to Scilab data
 	 */
 	public Scilab(String SCI) throws InitializationException {
 		this.initScilab(SCI);
 	}
 
+<<<<<<< HEAD
     private void initScilab(String SCI) throws InitializationException {
         if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
             File f = new File(SCI);
@@ -74,6 +108,17 @@ public class Scilab {
             this.SCI = SCI;
         }
     }
+=======
+	private void initScilab(String SCI) throws InitializationException {
+		if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
+			File f = new File(SCI);
+			if (!f.isDirectory()) {
+				throw new InitializationException("Could not find directory " + f.getAbsolutePath());
+			}
+			this.SCI = SCI;
+		}
+	}
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 
 	/**
 	 * Open a connection to the Scilab engine
@@ -83,10 +128,13 @@ public class Scilab {
 	 * @return if the operation is successful
 	 */
 	public boolean open() throws InitializationException {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 		int res = Call_Scilab.Call_ScilabOpen(this.SCI, null, -1);
 		switch (res) {
-			case -1: 
+			case -1:
 				throw new InitializationException("Javasci already running");
 			case -2:
 				/* Should not occurd (processed before) */
@@ -241,16 +289,31 @@ public class Scilab {
 	 * @return the type of the variable
 	 * @todo check the enum here
 	*/
+<<<<<<< HEAD
 	public ScilabTypeEnum getVariableType(String varName) {
+=======
+	public ScilabTypeEnum getVariableType(String varName) throws JavasciException {
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 		ScilabTypeEnum variableType = null;
 		try {
 			variableType = Call_Scilab.getVariableType(varName);
 		} catch (IllegalArgumentException e) {
+<<<<<<< HEAD
 			System.err.println("Could not find variable type: " + e.getLocalizedMessage());
 		}
 
 		return variableType;
 
+=======
+			String lastWord = e.getMessage().substring(e.getMessage().lastIndexOf(' ')+1);
+			if (lastWord.equals("-2")) { /* Crappy workaround. Parse the exception */
+				throw new UndefinedVariableException("Could not find variable '"+varName+"'");
+			}
+			throw new UnknownTypeException("Type of "+varName+" unkown");
+
+		}
+		return variableType;
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 	}
 
 
@@ -260,9 +323,15 @@ public class Scilab {
 	 * Returns a variable named varname
 	 * Throws an exception if the datatype is not managed or if the variable is not available
 	 * @param varname the name of the variable
+<<<<<<< HEAD
 	 * @return return the variable 
 	*/
 	public ScilabType get(String varname) {
+=======
+	 * @return return the variable
+	*/
+	public ScilabType get(String varname) throws JavasciException {
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 		ScilabTypeEnum sciType = this.getVariableType(varname);
 		switch (sciType) {
 			case sci_matrix:
@@ -271,7 +340,10 @@ public class Scilab {
 				} else {
 					return new ScilabDouble(Call_Scilab.getDoubleComplexReal(varname), Call_Scilab.getDoubleComplexImg(varname));
 				}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 			case sci_boolean:
 				return new ScilabBoolean(Call_Scilab.getBoolean(varname));
 
@@ -301,6 +373,7 @@ public class Scilab {
 						// will be available in Scilab 6
 						// Type = long
 				}
+<<<<<<< HEAD
 
 			default:
 		//		throw new UnsupportedTypeException();
@@ -309,24 +382,46 @@ public class Scilab {
 	}
 
 
+=======
+			default:
+				throw new UnsupportedTypeException("Type not managed: " + sciType);
+		
+		}
+	}
+
+
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 	/**
 	 * Send to Scilab a variable theVariable named varname
 	 * Throws an exception if the datatype is not managed or if the variable is not available
 	 * @param varname the name of the variable
 	 * @param varname the variable itself
+<<<<<<< HEAD
 	 * @return if the operation is successful
 	*/
 	public boolean put(String varname, ScilabType theVariable) {
 		int err = -999;
+=======
+	 * @return true if the operation is successful
+	*/
+	public boolean put(String varname, ScilabType theVariable) throws JavasciException {
+		int err = -999; /* -999: if the type is not handled */
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 
 		if (theVariable instanceof ScilabDouble) {
 			ScilabDouble sciDouble = (ScilabDouble)theVariable;
 			if (sciDouble.isReal()) {
 				err = Call_Scilab.putDouble(varname, sciDouble.getRealPart());
 			} else {
+<<<<<<< HEAD
 // Special case. Serialize the matrix from Scilab same way Scilab stores them
 // (columns by columns)
 // plus the complex values at the second part of the array
+=======
+				// Special case. Serialize the matrix from Scilab same way
+				//  Scilab stores them (columns by columns)
+				// plus the complex values at the second part of the array
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 				err = Call_Scilab.putDoubleComplex(varname,sciDouble.getSerializedComplexMatrix(), sciDouble.getHeight(), sciDouble.getWidth());
 			}
 		}
@@ -336,6 +431,7 @@ public class Scilab {
 			switch (sciInteger.getPrec()) {
 				case sci_uint8:
 					err = Call_Scilab.putUnsignedByte(varname, sciInteger.getDataAsByte());
+<<<<<<< HEAD
 					break;
 				case sci_int8:
 					err = Call_Scilab.putByte(varname, sciInteger.getDataAsByte());
@@ -351,6 +447,24 @@ public class Scilab {
 				case sci_int32:
 					err = Call_Scilab.putInt(varname, sciInteger.getDataAsInt());
 					break;
+=======
+					break;
+				case sci_int8:
+					err = Call_Scilab.putByte(varname, sciInteger.getDataAsByte());
+					break;
+				case sci_uint16:
+					err = Call_Scilab.putUnsignedShort(varname, sciInteger.getDataAsShort());
+					break;
+				case sci_int16:
+					err = Call_Scilab.putShort(varname, sciInteger.getDataAsShort());
+					break;
+				case sci_uint32:
+					err = Call_Scilab.putUnsignedInt(varname, sciInteger.getDataAsInt());
+					break;
+				case sci_int32:
+					err = Call_Scilab.putInt(varname, sciInteger.getDataAsInt());
+					break;
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 				case sci_uint64:
 //					err = Call_Scilab.putUnsignedLong(varname, sciInteger.getData_());
 				case sci_int64:
@@ -370,12 +484,17 @@ public class Scilab {
 		}
 
 
+<<<<<<< HEAD
 		//TODO: a remplacer par la bonne exception return new UnsupportedTypeException();
 		//		throw new UnsupportedTypeException();
 		if (err == -999) {
 				// Exception a lancer
 
 			System.err.println("Type not managed: " + theVariable.getClass());
+=======
+		if (err == -999) {
+			throw new UnsupportedTypeException("Type not managed: " + theVariable.getClass());
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 		} else {
 			if (err != 0) {
 				// Exception a lancer
@@ -385,6 +504,9 @@ public class Scilab {
 
 		return true;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8decf9c... Fix a bug in the get of the unsigned int32
 
 }
