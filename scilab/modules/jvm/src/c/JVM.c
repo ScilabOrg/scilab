@@ -201,6 +201,15 @@ BOOL startJVM(char *SCI_PATH)
 				{
 					fprintf(stderr,_("Error in the creation of the Java VM: %s\n"),getJniErrorFromStatusCode(status));
 					FreeDynLibJVM();
+					if (vm_args.options)
+					{
+						fprintf(stderr,_("Options:\n"));
+						int j = 0;
+						for (j = 0 ; j < vm_args.nOptions ; j++)
+						{
+							fprintf(stderr,"%d: %s\n", j, vm_args.options[j]);
+						}
+					}
 					return FALSE;
 				}
 			}
