@@ -18,7 +18,7 @@ import org.scilab.modules.javasci.JavasciException;
 import org.scilab.modules.javasci.JavasciException.InitializationException;
 import org.scilab.modules.javasci.JavasciException.UnsupportedTypeException;
 import org.scilab.modules.javasci.JavasciException.UndefinedVariableException;
-import org.scilab.modules.types.scilabTypes.ScilabDouble;
+import org.scilab.modules.types.ScilabDouble;
 
 public class testExistingVariable {
 	private Scilab sci;
