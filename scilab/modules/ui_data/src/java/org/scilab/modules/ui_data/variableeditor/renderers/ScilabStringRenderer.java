@@ -16,19 +16,21 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class ScilabStringRenderer extends DefaultTableCellRenderer {
 	
-	public  ScilabStringRenderer() {
-		super();
-	}
+    /**
+     * Constructor
+     */
+    public ScilabStringRenderer() {
+	super();
+    }
 
-	@Override
-	protected void setValue(Object value) {
-		if (value == null){
-			super.setValue("");
-		} else {
-			value = ((String)value).replace("\"","\"\"");
-			value = ((String)value).replace("'","''");
-			super.setValue("\""+ value+"\"");
-		}
-	}
-	
+    /**
+     * {@inheritDoc}
+     */
+    protected void setValue(Object value) {
+	if (value == null) {
+	    super.setValue("");
+	} else {
+	    super.setValue(value);
+	}	
+    }
 }
