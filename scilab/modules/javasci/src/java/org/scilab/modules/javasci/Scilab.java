@@ -14,18 +14,19 @@ package org.scilab.modules.javasci;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.scilab.modules.types.scilabTypes.ScilabType;
-import org.scilab.modules.types.scilabTypes.ScilabTypeEnum;
-import org.scilab.modules.types.scilabTypes.ScilabIntegerTypeEnum;
-import org.scilab.modules.types.scilabTypes.ScilabDouble;
-import org.scilab.modules.types.scilabTypes.ScilabString;
-import org.scilab.modules.types.scilabTypes.ScilabBoolean;
-import org.scilab.modules.types.scilabTypes.ScilabInteger;
+import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.types.ScilabTypeEnum;
+import org.scilab.modules.types.ScilabIntegerTypeEnum;
+import org.scilab.modules.types.ScilabDouble;
+import org.scilab.modules.types.ScilabString;
+import org.scilab.modules.types.ScilabBoolean;
+import org.scilab.modules.types.ScilabInteger;
 import org.scilab.modules.javasci.Call_Scilab;
 import org.scilab.modules.javasci.JavasciException.InitializationException;
 import org.scilab.modules.javasci.JavasciException.UnsupportedTypeException;
 import org.scilab.modules.javasci.JavasciException.UndefinedVariableException;
 import org.scilab.modules.javasci.JavasciException.UnknownTypeException;
+import org.scilab.modules.javasci.JavasciException.AlreadyRunningException;
 import org.scilab.modules.javasci.JavasciException.ScilabInternalException;
 
 
@@ -90,12 +91,11 @@ public class Scilab {
 	 * A second launch will return FALSE
 	 * @return if the operation is successful
 	 */
-	public boolean open() throws InitializationException {
-
+	public boolean open() throws JavasciException, AlreadyRunningException, InitializationException {
 		int res = Call_Scilab.Call_ScilabOpen(this.SCI, null, -1);
 		switch (res) {
 			case -1: 
-				throw new InitializationException("Javasci already running.");
+				throw new AlreadyRunningException("Javasci already running.");
 			case -2:
 				/* Should not occurd (processed before) */
 				throw new InitializationException("Could not find SCI.");
@@ -113,7 +113,7 @@ public class Scilab {
 	 * @param job The job to run on startup
 	 * @return if the operation is successful
 	 */
-	public boolean open(String job) throws InitializationException {
+	public boolean open(String job) throws JavasciException {
 		if (!this.open()) {
 			return false;
 		}
@@ -129,7 +129,7 @@ public class Scilab {
 	 * @param jobs The serie of jobs to run on startup
 	 * @return if the operation is successful
 	 */
-	public boolean open(String jobs[]) throws InitializationException {
+	public boolean open(String jobs[]) throws JavasciException {
 		if (!this.open()) {
 			return false;
 		}
@@ -146,7 +146,7 @@ public class Scilab {
 	 * @param job The script to execute on startup
 	 * @return if the operation is successful
 	 */
-	public boolean open(File scriptFilename) throws InitializationException, FileNotFoundException {
+	public boolean open(File scriptFilename) throws JavasciException, FileNotFoundException {
 		if (!this.open()) {
 			return false;
 		}
