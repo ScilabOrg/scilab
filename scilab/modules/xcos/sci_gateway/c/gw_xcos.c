@@ -24,39 +24,51 @@
 static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/
 static gw_generic_table Tab[] = {
-  {sci_Xcos,                            "xcos"},
-  {sci_warnBlockByUID,                  "warnBlockByUID"},
-  {sci_closeXcosFromScilab,             "closeXcos"},
-  {sci_xcosDiagramToHDF5,               "xcosDiagramToHDF5"},
-  {sci_xcosDiagramOpen,                 "xcosDiagramOpen"},
-  {sci_xcosDiagramClose,                "xcosDiagramClose"},
-  {sci_xcosPalLoad,                     "xcosPalLoad"},
-  {sci_xcosPalCategoryAdd,              "xcosPalCategoryAdd"},
-  {sci_xcosPalDelete,                   "xcosPalDelete"},
-  {sci_xcosPalMove,                     "xcosPalMove"},
-  {sci_xcosPalEnable,                   "xcosPalEnable"},
-  {sci_xcosPalDisable,                  "xcosPalDisable"},
-  {sci_xcosPalGenerateIcon,             "xcosPalGenerateIcon"},
-  {sci_xcosConfigureXmlFile,       "xcosConfigureXmlFile"}
+    {sci_Xcos,                            "xcos"},
+    {sci_warnBlockByUID,                  "warnBlockByUID"},
+    {sci_closeXcosFromScilab,             "closeXcos"},
+    {sci_xcosDiagramToHDF5,               "xcosDiagramToHDF5"},
+    {sci_xcosDiagramOpen,                 "xcosDiagramOpen"},
+    {sci_xcosDiagramClose,                "xcosDiagramClose"},
+    {sci_xcosPalLoad,                     "xcosPalLoad"},
+    {sci_xcosPalCategoryAdd,              "xcosPalCategoryAdd"},
+    {sci_xcosPalDelete,                   "xcosPalDelete"},
+    {sci_xcosPalMove,                     "xcosPalMove"},
+    {sci_xcosPalEnable,                   "xcosPalEnable"},
+    {sci_xcosPalDisable,                  "xcosPalDisable"},
+    {sci_xcosPalGenerateIcon,             "xcosPalGenerateIcon"},
+    {sci_xcosConfigureXmlFile,            "xcosConfigureXmlFile"}
 };
 
 /*--------------------------------------------------------------------------*/
 int gw_xcos(void)
 {
-	Rhs = Max(0, Rhs);
+#define CLOSEXCOS_ID 2
+    Rhs = Max(0, Rhs);
 
-	if ( getScilabMode() == SCILAB_NWNI)
-	{
-		Scierror(999,_("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "xcos");
-		return 0;
-	}
+    /* CloseXcos can be called in all scilab modes */
+    if (strcmp(Tab[Fin-1].name, Tab[CLOSEXCOS_ID].name) == 0)
+    {
+        callFunctionFromGateway(Tab,  SIZE_CURRENT_GENERIC_TABLE(Tab));
+        return 0;
+    }
+    else if  ( getScilabMode() == SCILAB_NWNI)
+    {
+        Scierror(999,_("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "xcos");
+        return 0;
+    }
 
-	if (!loadedDep) 
-	{
-		loadOnUseClassPath("XCos");
-		loadedDep = TRUE;
-	}
-	callFunctionFromGateway(Tab,  SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    if (!loadedDep) 
+    {
+        loadOnUseClassPath("XCos");
+        loadedDep = TRUE;
+    }
+    callFunctionFromGateway(Tab,  SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
+int xcosStarted(void)
+{
+    return loadedDep;
 }
 /*--------------------------------------------------------------------------*/
