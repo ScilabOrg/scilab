@@ -25,6 +25,7 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.types.ScilabMList;
 
+
 public class testEquals {
 
 	@Test
