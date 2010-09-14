@@ -13,13 +13,18 @@
 package org.scilab.modules.commons.gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 import javax.swing.UIManager;
 import javax.swing.text.DefaultCaret;
+
+import org.scilab.modules.scinotes.ScilabEditorPane;
 
 /**
  * This class handles the tabulation
@@ -33,6 +38,8 @@ public class ScilabCaret extends DefaultCaret {
     private static Color inactiveSelectionColor;
 
     private JTextComponent editor;
+
+    private boolean overwriteMode;
 
     /**
      * Constructor
@@ -82,5 +89,62 @@ public class ScilabCaret extends DefaultCaret {
     public void mouseDragged(MouseEvent e) {
         editor.setSelectionColor(selectionColor);
         super.mouseDragged(e);
+    }
+
+    /**
+     * @param overwriteMode if true, the caret will be drawn as solid rectangle
+     */
+    public void setOverwriteMode(boolean overwriteMode) {
+        this.overwriteMode = overwriteMode;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void paint(Graphics g) {
+        if (isVisible() && overwriteMode) {
+            Rectangle r = null;
+            int pos = editor.getCaretPosition();
+            try {
+                r = editor.modelToView(pos);
+            } catch (BadLocationException e) { }
+            if (r != null && (r.width != 0 || r.height != 0)) {
+                if ( (x != r.x) || (y != r.y) ) {
+                    repaint();
+                    x = r.x;
+                    y = r.y;
+                    height = r.height;
+                    if (editor instanceof ScilabEditorPane) {
+                        width = ((ScilabEditorPane) editor).getWhiteWidth() + 1;
+                    } else {
+                        width = editor.getFontMetrics(editor.getFont()).charWidth('W') + 1;
+                    }
+                } else {
+                    g.setColor(editor.getCaretColor());
+                    g.setXORMode(editor.getBackground());
+                    g.fillRect(x, y, width, height);
+                }
+            }
+        } else {
+            super.paint(g);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected synchronized void damage(Rectangle r) {
+        if (overwriteMode) {
+            if (r == null) {
+                return;
+            }
+
+            x = r.x;
+            y = r.y;
+            height = r.height;
+            repaint();
+        } else {
+            super.damage(r);
+        }
     }
 }
