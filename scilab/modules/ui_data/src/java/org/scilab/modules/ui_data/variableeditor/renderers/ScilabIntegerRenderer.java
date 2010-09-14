@@ -14,9 +14,9 @@ package org.scilab.modules.ui_data.variableeditor.renderers;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class ScilabBooleanRenderer extends DefaultTableCellRenderer {
+public class ScilabIntegerRenderer extends DefaultTableCellRenderer {
 	
-    public ScilabBooleanRenderer() {
+    public ScilabIntegerRenderer() {
 	super();
     }
 
@@ -26,14 +26,7 @@ public class ScilabBooleanRenderer extends DefaultTableCellRenderer {
 	} else if (value instanceof String) {
 	    super.setValue(value);
 	} else {
-	    boolean b = ((Boolean) value).booleanValue();
-	    String bool;
-	    if (b) {
-		bool = "T";
-	    } else {
-		bool = "F";
-	    }
-	    super.setValue(bool);
-	}    
+	    super.setValue(value);
+	}
     }
 }

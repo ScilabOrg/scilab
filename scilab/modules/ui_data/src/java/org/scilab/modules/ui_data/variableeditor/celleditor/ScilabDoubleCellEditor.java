@@ -13,9 +13,21 @@
 
 package org.scilab.modules.ui_data.variableeditor.celleditor;
 
-
-public class ScilabDoubleCellEditor extends ScilabGenericCellEditor {
+public class ScilabDoubleCellEditor extends ScilabComplexCellEditor {
     
     private static final long serialVersionUID = 3866054279955696250L;
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getDataAsScilabString(Object value) {
+	String newValue = "";
+        if (value != null && value instanceof Double) {
+	    newValue = convertDouble((Double) value);
+        } else if (value instanceof String) {
+	    newValue = (String) value;
+	}
+	
+	return newValue;
+    }
 }
