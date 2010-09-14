@@ -74,6 +74,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     private boolean highlightEnable;
     private Object highlightCL;
     private boolean matchingEnable;
+    private boolean overwriteMode;
     private ScilabLexer lexer;
     private SciNotes editor;
     private IndentManager indent;
@@ -232,6 +233,22 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      */
     public boolean getScrollableTracksViewportWidth() {
         return split == null;
+    }
+
+    public boolean getOverwriteMode() {
+        return this.overwriteMode;
+    }
+
+    public void setOverwriteMode(boolean overwriteMode) {
+        this.overwriteMode = overwriteMode;
+    }
+
+    public void replaceSelection(String content) {
+        if (overwriteMode && getSelectionStart() == getSelectionEnd()) {
+            int pos = getCaretPosition();
+            select(pos, pos + content.length());
+        }
+        super.replaceSelection(content);
     }
 
     /**
@@ -395,6 +412,14 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      */
     public String getInfoBarText() {
         return infoBar;
+    }
+
+    /**
+     * @return the String which must be displayed in the infobar
+     */
+    public void setInfoBarText(String text) {
+        this.infoBar = text;
+        editor.getInfoBar().setText(getInfoBarText());
     }
 
     /**
