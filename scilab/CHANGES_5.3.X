@@ -36,6 +36,8 @@ SciNotes:
 
 * bug 7546 fixed - It was not possible to select easily a block.
 
+* bug 8008 fixed - Bad name for menu 'Edition'.
+
 GUI creation:
 =============
 
