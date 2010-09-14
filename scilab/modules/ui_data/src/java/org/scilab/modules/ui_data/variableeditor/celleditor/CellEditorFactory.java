@@ -16,18 +16,19 @@ import javax.swing.DefaultCellEditor;
 
 public class CellEditorFactory {
 	
-	public static DefaultCellEditor createCellEditor(Object[][] data){
-		
-		if (data instanceof String[][]) {
-			return new ScilabStringCellEditor();
-		} else if (data instanceof Double[][][]) {
-			return new ScilabComplexCellEditor();
-		} else if (data instanceof Double[][]) {
-			return new ScilabDoubleCellEditor();
-		} else if (data instanceof Boolean[][]) {
-			return new ScilabBooleanCellEditor();
-		}
-		return new ScilabDoubleCellEditor();
-	}
+    public static DefaultCellEditor createCellEditor(String type){
+	if (type.equals("String")) {
+            return new ScilabStringCellEditor();
+        } else if (type.equals("Complex")) {
+	    return new ScilabComplexCellEditor();
+        } else if (type.equals("Double")) {
+            return new ScilabDoubleCellEditor();
+        } else if (type.equals("Boolean")) {
+            return new ScilabBooleanCellEditor();
+        } else if (type.equals("Integer")) {
+            return new ScilabIntegerCellEditor();
+        }
 
+        return new ScilabStringCellEditor();
+    }
 }

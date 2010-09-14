@@ -11,6 +11,14 @@
  */
 package org.scilab.modules.ui_data.variableeditor;
 
+import java.awt.Component;
+import java.util.Map;
+import java.util.WeakHashMap;
+
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
+
+import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
 import org.scilab.modules.gui.events.callback.ScilabCallBack;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
@@ -21,112 +29,115 @@ import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.localization.Messages;
 
 /**
- * 
  * Class ScilabVariableEditor
  * Implements a ScilabWindow containing Variable Editor (JTable) 
- *
  */
 public class ScilabVariableEditor extends ScilabWindow implements VariableEditor {
 
-	private static final String MENUBARXMLFILE = System.getenv("SCI") + "/modules/ui_data/etc/variableeditor_menubar.xml";
+    private static final String MENUBARXMLFILE = System.getenv("SCI") + "/modules/ui_data/etc/variableeditor_menubar.xml";
+    
+    private static Map<String, Component> map = new WeakHashMap();
 
-	private static VariableEditor instance;
-	private static String variableName;
+    private static VariableEditor instance;
 
-	private static SimpleVariableEditor editorTab;
+    private static SimpleVariableEditor editorTab;
+    private static JTabbedPane tabPane;
 
-	/**
-	 * Constructor
-	 * @param data the jtable data.
-	 * @param variableName the name in Scilab of the variable being edited.
-	 */
-	private ScilabVariableEditor(Object[][] data, String variableName) {
-		super();
-		ScilabVariableEditor.variableName = variableName;
-		editorTab = new SwingScilabVariableEditor(data);
-		editorTab.setCallback(ScilabCallBack
-				.createCallback("org.scilab.modules.ui_data.EditVar.closeVariableEditor",
-						ScilabCallBack.JAVA_OUT_OF_XCLICK_AND_XGETMOUSE));
-		MenuBar menubar = MenuBarBuilder.buildMenuBar(MENUBARXMLFILE);
-		editorTab.addMenuBar(menubar);
+    /**
+     * Constructor
+     * @param data the jtable data.
+     * @param variableName the name in Scilab of the variable being edited.
+     */
+    private ScilabVariableEditor(String type, Object[][] data, String variableName) {
+	super();
+	editorTab = new SwingScilabVariableEditor(variableName, type, data);
+	tabPane = ((SwingScilabVariableEditor) editorTab).getTabPane();
+	editorTab.setCallback(ScilabCallBack.createCallback("org.scilab.modules.ui_data.EditVar.closeVariableEditor",
+							    ScilabCallBack.JAVA_OUT_OF_XCLICK_AND_XGETMOUSE));
+	MenuBar menubar = MenuBarBuilder.buildMenuBar(MENUBARXMLFILE);
+	editorTab.addMenuBar(menubar);
 
-		TextBox infobar = ScilabTextBox.createTextBox();
-		editorTab.addInfoBar(infobar);
-		addTab(editorTab);
+	TextBox infobar = ScilabTextBox.createTextBox();
+	editorTab.addInfoBar(infobar);
+	addTab(editorTab);
+	map.put(variableName, tabPane.getSelectedComponent());
+    }
+
+    /**
+     * Close Variable Editor
+     */
+    public void close() {
+	ScilabWindow editvarWindow = (ScilabWindow) UIElementMapper.getCorrespondingUIElement(editorTab.getParentWindowId());
+	editvarWindow.removeTab(editorTab);
+	editorTab.setVisible(false);
+	editorTab.close();
+	instance = null;
+	map.clear();
+    }
+
+    /**
+     * Set data displayed in JTable
+     * @param data : data to be displayed in JTable
+     */
+    public void updateData(String name, String type, Object[][] data) {
+	if (map.containsKey(name)) {
+	    ((SwingScilabVariableEditor) editorTab).updateData(map.get(name), type, data);
+	} else {
+	    editorTab.setData(name, type, data);
+	    map.put(name, tabPane.getSelectedComponent());
+	}
+    }
+
+    /**
+     * Get the variable editor singleton
+     * @return the Variable Editor
+     */
+    public static VariableEditor getVariableEditor() {
+	return instance;
+    }
+
+    /**
+     * Get the variable editor singleton with specified data.
+     * @param data : the data to fill the editor with
+     * @param variableName : the scilab name of the variable being edited.
+     * @return the Variable Editor
+     */
+    public static VariableEditor getVariableEditor(final String type, final Object[][] data, final String variableName) {
+	if (instance == null) {
+	    instance = new ScilabVariableEditor(type, data, variableName);
+	    instance.setVisible(true);
+	} else {
+	    SwingUtilities.invokeLater(new Thread() {
+		    public void run() {
+			instance.updateData(variableName, type, data);
+		    }
+		});
 	}
 
-	/**
-	 * Close Variable Editor
-	 */
-	public void close() {
-		ScilabWindow editvarWindow = (ScilabWindow) UIElementMapper.getCorrespondingUIElement(editorTab.getParentWindowId());
-		editvarWindow.removeTab(editorTab);
-		editorTab.setVisible(false);
-		editorTab.close();
-		instance = null;
-	}
+	editorTab.setName(Messages.gettext("Variable Editor") + " - " + variableName + "  (" + type + ")");
+	return instance;
+    }
 
-	/**
-	 * Set data displayed in JTable
-	 * @param data : data to be displayed in JTable
-	 */
-	public void setData(Object[][] data) {
-		editorTab.setData(data);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setValueAt(Object value, int row, int col) {
-		editorTab.setValueAt(value, row, col);
-
-	}
-
-	/**
-	 * Get the variable editor singleton
-	 * @return the Variable Editor
-	 */
-	public static VariableEditor getVariableEditor() {
-		return instance;
-	}
-
-	/**
-	 * Get the variable editor singleton with specified data.
-	 * @param data : the data to fill the editor with
-	 * @param variableName : the scilab name of the variable being edited.
-	 * @return the Variable Editor
-	 */
-	public static VariableEditor getVariableEditor(Object[][] data, String variableName) {
-		if (instance == null) {
-			instance = new ScilabVariableEditor(data, variableName);
-			instance.setVisible(true);
-		} else {
-			instance.setVariableName(variableName);
-			instance.setData(data);
-		}
-		editorTab.setName(Messages.gettext("Variable Editor") + " - " + variableName);
-		return instance;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getVariablename() {
-		return ScilabVariableEditor.variableName;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setVariableName(String variableName) {
-		ScilabVariableEditor.variableName = variableName;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setVisible(boolean status) {
-		super.setVisible(status);
-		editorTab.setVisible(status);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public String getVariablename() {
+	String title = tabPane.getTitleAt(tabPane.getSelectedIndex());
+	return title.substring(SwingScilabVariableEditor.PREFIX.length());
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void setVariableName(String variableName) {
+	tabPane.setTitleAt(tabPane.getSelectedIndex(), SwingScilabVariableEditor.PREFIX + variableName);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void setVisible(boolean status) {
+	super.setVisible(status);
+	editorTab.setVisible(status);
+    }
 }

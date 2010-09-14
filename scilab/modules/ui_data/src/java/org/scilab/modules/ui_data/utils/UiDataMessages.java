@@ -31,7 +31,6 @@ public final class UiDataMessages {
     /* File menu */
     public static final String FILE = Messages.gettext("File");
     public static final String CLOSE = Messages.gettext("Close");
-    
     public static final String FILTER = Messages.gettext("Filter");
     
     public static final String DOUBLE = Messages.gettext("Double");
@@ -57,6 +56,8 @@ public final class UiDataMessages {
     public static final String VARIABLE_BROWSER = Messages.gettext("Variable Browser");
 
     public static final String GLOBAL_NOT_EDITABLE = Messages.gettext("Global variables can not be edited.");
+
+    public static final String REFRESH = Messages.gettext("Refresh");
     
     /** This class is a static singleton, thus it must not be instantiated */
     private UiDataMessages() { }
