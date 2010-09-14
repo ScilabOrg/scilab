@@ -17,9 +17,13 @@ public class ScilabStringCellEditor extends ScilabGenericCellEditor {
    
     private static final long serialVersionUID = 3866054279955696250L;
     
-    @Override
-    protected String getDataAsScilabString() {
-        return "\"\""+super.getDataAsScilabString()+"\"\"";
+    public String getDataAsScilabString(Object value) {
+	String newValue = "";
+        if (value != null && value instanceof String) {
+	    newValue = (String) value;
+	}
+	
+	return newValue;
     }
 }
 

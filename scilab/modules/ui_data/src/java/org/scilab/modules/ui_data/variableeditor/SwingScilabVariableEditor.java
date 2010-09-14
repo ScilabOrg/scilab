@@ -14,9 +14,21 @@ package org.scilab.modules.ui_data.variableeditor;
 
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
+import javax.swing.AbstractAction;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
@@ -31,10 +43,9 @@ import org.scilab.modules.localization.Messages;
 import org.scilab.modules.ui_data.datatable.SwingEditvarTableModel;
 import org.scilab.modules.ui_data.rowheader.RowHeader;
 import org.scilab.modules.ui_data.rowheader.RowHeaderModel;
-import org.scilab.modules.ui_data.variableeditor.celleditor.CellEditorFactory;
-import org.scilab.modules.ui_data.variableeditor.listeners.ExpandListener;
 import org.scilab.modules.ui_data.variableeditor.renderers.RendererFactory;
-
+import org.scilab.modules.ui_data.variableeditor.celleditor.CellEditorFactory;
+import org.scilab.modules.ui_data.variableeditor.celleditor.ScilabGenericCellEditor;
 
 /**
  * Swing implementation of Scilab Variable Editor
@@ -42,102 +53,165 @@ import org.scilab.modules.ui_data.variableeditor.renderers.RendererFactory;
  */
 public class SwingScilabVariableEditor extends SwingScilabTab implements Tab, SimpleVariableEditor {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private SwingEditvarTableModel<Object> dataModel;
-	private JTable table;
-	private JScrollPane scrollPane;
+    public static final String PREFIX = "Var - ";
 
-	/**
-	 * Create a JTable with data Model.
-	 * @param data : The JTable data.
-	 */
-	public SwingScilabVariableEditor(Object[][] data) {
-		super(Messages.gettext("Variable Browser"));
-		
-		setData(data);
+    private static final long serialVersionUID = 1L;
+    
+    private SwingEditvarTableModel dataModel;
+    private JTabbedPane tabPane;
+    private JScrollPane scrollPane;
+
+    /**
+     * Create a JTable with data Model.
+     * @param data : The JTable data.
+     */
+    public SwingScilabVariableEditor(String name, String type, Object[][] data) {
+	super(Messages.gettext("Variable Editor"));
+	tabPane = new JTabbedPane();
+	setContentPane(tabPane);
+	setData(name, type, data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addInfoBar(TextBox infoBarToAdd) {
+	setInfoBar(infoBarToAdd);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addMenuBar(MenuBar menuBarToAdd) {
+	setMenuBar(menuBarToAdd);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addToolBar(ToolBar toolBarToAdd) {
+	setToolBar(toolBarToAdd);
+    }
+
+    public JTabbedPane getTabPane() {
+	return tabPane;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setData(String name, String type, Object[][] data) {
+	JTable table = new JTable();
+	scrollPane = new JScrollPane(table);
+	table.setFillsViewportHeight(true);
+	table.setAutoResizeMode(CENTER);
+	table.setRowHeight(25);
+
+	updateData(table, type, data);
+
+	table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+	table.setCellSelectionEnabled(true);		
+
+	table.setBackground(Color.WHITE);
+	tabPane.add(PREFIX + name, scrollPane);
+	tabPane.setSelectedComponent(scrollPane);
+    }
+
+    public void updateData(JTable table, String type, Object[][] data) {
+	ScilabGenericCellEditor cellEditor = (ScilabGenericCellEditor) CellEditorFactory.createCellEditor(type);
+	if (table.getModel() instanceof SwingEditvarTableModel) {
+	    cellEditor.setExpressions(((SwingEditvarTableModel) table.getModel()).getCellEditor().getExpressions());
 	}
+	dataModel = new SwingEditvarTableModel(type, data, cellEditor);
+	table.setModel(dataModel);
+	RowHeaderModel rowHeaderModel = new RowHeaderModel(dataModel);
+	RowHeader rowHeader = new RowHeader(rowHeaderModel, table);
+	scrollPane.setRowHeaderView(rowHeader);
+	table.setDefaultEditor(Object.class, cellEditor);
+	table.setDefaultRenderer(Object.class, RendererFactory.createRenderer(type));
+	addCopyPaste(table);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addInfoBar(TextBox infoBarToAdd) {
-		setInfoBar(infoBarToAdd);
-	}
+    public void updateData(Component c, String type, Object[][] data) {
+	tabPane.setSelectedComponent(c);
+	JTable table = (JTable) ((JScrollPane) c).getViewport().getComponent(0);
+	updateData(table, type, data);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addMenuBar(MenuBar menuBarToAdd) {
-		setMenuBar(menuBarToAdd);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public SimpleTab getAsSimpleTab() {
+	return this;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addToolBar(ToolBar toolBarToAdd) {
-		setToolBar(toolBarToAdd);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public Window getParentWindow() {
+	return (Window) UIElementMapper.getCorrespondingUIElement(getParentWindowId());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
+    private void addCopyPaste(final JTable table) {
+	KeyStroke copy = KeyStroke.getKeyStroke("ctrl C");
+	KeyStroke paste = KeyStroke.getKeyStroke("ctrl V");
+	AbstractAction copyAction = new AbstractAction() {
+		public void actionPerformed(ActionEvent e) {
+		    int[] cols = table.getSelectedColumns();
+		    int[] rows = table.getSelectedRows();
+		    table.setColumnSelectionInterval(cols[0], cols[cols.length - 1]);
+		    table.setRowSelectionInterval(rows[0], rows[rows.length - 1]);
+		    StringBuffer buf = new StringBuffer();
+		    for (int i = rows[0]; i <= rows[rows.length - 1]; i++) {
+			for (int j = cols[0]; j <= cols[cols.length - 1]; j++) {
+			    String exp = ((SwingEditvarTableModel) table.getModel()).getCellEditor().getExpression(i, j); 
+			    if (exp != null) {
+				buf.append("=" + exp);
+			    } else {
+				buf.append(((SwingEditvarTableModel) table.getModel()).getScilabValueAt(i, j));
+			    }
+			    if (j < cols[cols.length - 1]) {
+				buf.append("\t");
+			    }
+			}
+			buf.append("\n");
+		    }
+		    StringSelection sel  = new StringSelection(buf.toString());
+		    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel, sel);
+		}
+	    };
 
-	public void setData(Object[][] data) {
-		dataModel = new SwingEditvarTableModel<Object>(data);
+	AbstractAction pasteAction = new AbstractAction() {
+		public void actionPerformed(ActionEvent e) {
+		    int col = table.getSelectedColumn();
+		    int row = table.getSelectedRow();
+		    table.setColumnSelectionInterval(col, col);
+		    table.setRowSelectionInterval(row, row);
+		    String str = "";
+		    try {
+			str = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this).getTransferData(DataFlavor.stringFlavor);
+		    } catch (UnsupportedFlavorException ex1) { 
+			System.err.println(ex1);
+		    } catch (IOException ex2) {
+			System.err.println(ex2);
+		    }
+		    StringTokenizer rElems = new StringTokenizer(str, "\n");
+		    for (int i = 0; rElems.hasMoreTokens(); i++) {
+			StringTokenizer cElems = new StringTokenizer(rElems.nextToken(), "\t");
+			for (int j = 0; cElems.hasMoreTokens(); j++) {
+			    String value = (String) cElems.nextToken();
+			    //if (row + i < table.getRowCount() && col + j < table.getColumnCount()) {
+				((SwingEditvarTableModel) table.getModel()).setValueAtAndUpdate(false, value, row + i, col + j);
+				//}
+			}
+		    }
+		    ((SwingEditvarTableModel) table.getModel()).updateMatrix();
+		}
+	    };
 
-		table = new JTable(dataModel);
-		table.setDefaultEditor(Object.class, CellEditorFactory.createCellEditor(data));
-		table.setFillsViewportHeight(true);
-		table.setAutoResizeMode(CENTER);
-		table.setRowHeight(25);
-		table.setDefaultRenderer(Object.class, RendererFactory.createRenderer(data));
-
-		//table.getColumnModel().setColumnMargin(2);
-
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setCellSelectionEnabled(true);		
-
-		RowHeaderModel rowHeaderModel = new RowHeaderModel(dataModel);
-		RowHeader rowHeader = new RowHeader(rowHeaderModel, table);
-
-
-		scrollPane = new JScrollPane(table);
-		scrollPane.setRowHeaderView(rowHeader);
-		scrollPane.getHorizontalScrollBar().addAdjustmentListener(new ExpandListener());
-
-		table.setBackground(Color.WHITE);
-		setContentPane(scrollPane);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setValueAt(Object value, int row, int col) {
-		// Update renderer in case we changed type after openning value
-	    // ex : a = 10; editvar("a"); change value to "hello" 
-	    table.setDefaultRenderer(Object.class, RendererFactory.createRenderer(value));
-	    
-	    dataModel.setValueAt(value, row, col);
-		RowHeaderModel rowHeaderModel = new RowHeaderModel(dataModel);
-		RowHeader rowHeader = new RowHeader(rowHeaderModel, table);
-		scrollPane.setRowHeaderView(rowHeader);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public SimpleTab getAsSimpleTab() {
-		return this;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public Window getParentWindow() {
-		return (Window) UIElementMapper.getCorrespondingUIElement(getParentWindowId());
-	}
-
+	table.getActionMap().put("Copy", copyAction);
+	table.getInputMap().put(copy, "Copy");
+	table.getActionMap().put("Paste", pasteAction);
+	table.getInputMap().put(paste, "Paste");
+    }
 }

@@ -17,31 +17,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class RendererFactory {
 
-    public static DefaultTableCellRenderer createRenderer(Object[][] data){
-        if (data instanceof String[][]) {
+    public static DefaultTableCellRenderer createRenderer(String type){
+        if (type.equals("String")) {
             return new ScilabStringRenderer();
-        } else if (data instanceof Double[][][]) {
+        } else if (type.equals("Complex")) {
         	return new ScilabComplexRenderer();
-        } else if (data instanceof Double[][]) {
+        } else if (type.equals("Double")) {
             return new ScilabDoubleRenderer();
-        } else if (data instanceof Boolean[][]) {
+        } else if (type.equals("Boolean")) {
             return new ScilabBooleanRenderer();
+        } else if (type.equals("Integer")) {
+            return new ScilabIntegerRenderer();
         }
+
         return new ScilabStringRenderer();
-
-    }
-
-    public static DefaultTableCellRenderer createRenderer(Object data){
-        if (data instanceof String) {
-            return new ScilabStringRenderer();
-        } else if (data instanceof Double[]) {
-            return new ScilabComplexRenderer();
-        } else if (data instanceof Double) {
-            return new ScilabDoubleRenderer();
-        } else if (data instanceof Boolean) {
-            return new ScilabBooleanRenderer();
-        }
-        return new ScilabStringRenderer();
-
     }
 }
