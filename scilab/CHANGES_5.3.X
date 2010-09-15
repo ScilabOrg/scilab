@@ -6,6 +6,9 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
+* bug 7716 fixed - Block inter-functions were not loaded after using the 
+                   xcosPal API and then starting Xcos.
+
 * bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
 
