@@ -49,7 +49,33 @@ import org.scilab.modules.javasci.JavasciException.ScilabInternalException;
 public class Scilab {
 
 	private String SCI = null;
-	
+	private boolean advancedMode = false;
+
+	/**
+	 * Creator of the Scilab Javasci object. 
+	 * Scilab data path is autodetected and advanced features disabled
+	 */
+	public Scilab() throws InitializationException {
+		this(null, false);
+	}
+
+	/**
+	 * Creator of the Scilab Javasci object with a specific Scilab path.
+	 * Advanced features are disabled (faster)
+	 * @param SCI provide the path to Scilab data
+	 */
+	public Scilab(String SCI) throws InitializationException {
+		this(SCI, false);
+	}
+
+	/**
+	 * Creator of the Scilab Javasci object in advanced mode
+	 * Scilab data path is autodetected 
+	 * @param advancedMode true enables the advanced mode (GUI, graphics, Tcl/Tk, sciNotes...). Smaller.
+	 */
+	public Scilab(boolean advancedMode) throws InitializationException {
+		this(null, advancedMode);
+	}
 
 	/**
 	 * Creator of the Scilab Javasci object. 
@@ -58,34 +84,32 @@ public class Scilab {
 	 * if not, try with the global variable SCI
 	 * if not, throws a new exception
 	 * Under Windows, use also the registery
+	 * @param SCIPath the path to Scilab data
+	 * @param advancedMode true enables the advanced mode (GUI, graphics, Tcl/Tk, sciNotes...). Smaller.
 	 */
-	public Scilab() throws InitializationException {
+	public Scilab(String SCIPath, boolean advancedMode) throws InitializationException {
+		String SCI = SCIPath;
 		if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
-			// Auto detect 
-			String detectedSCI;
-			try {
-				detectedSCI = System.getProperty("SCI");
-				if (detectedSCI == null || detectedSCI.length() == 0) {
-					detectedSCI = System.getenv("SCI");
-					if (detectedSCI == null || detectedSCI.length() == 0) {
-						throw new InitializationException("Auto detection of SCI failed.\nSCI empty.");
+			if (SCI==null) {
+				// Auto detect
+				try {
+					SCI = System.getProperty("SCI");
+					if (SCI == null || SCI.length() == 0) {
+						SCI = System.getenv("SCI");
+						if (SCI == null || SCI.length() == 0) {
+							throw new InitializationException("Auto detection of SCI failed.\nSCI empty.");
+						}
 					}
+				} catch (Exception e) {
+					throw new InitializationException("Auto detection of SCI failed.\nCould not retrieve the variable SCI.", e);
 				}
-				this.initScilab(detectedSCI);
-
-			} catch (Exception e) {
-				throw new InitializationException("Auto detection of SCI failed.\nCould not retrieve the variable SCI.", e);
 			}
 		}
+		this.advancedMode = advancedMode;
+		this.initScilab(SCI);
+
 	}
 
-	/**
-	 * Creator of the Scilab Javasci object. 
-	 * @param SCI provide the path to Scilab data
-	 */
-	public Scilab(String SCI) throws InitializationException {
-		this.initScilab(SCI);
-	}
 
 	private void initScilab(String SCI) throws InitializationException {
 		/* Let Scilab engine knows that he is run through the Javasci API */
@@ -107,7 +131,7 @@ public class Scilab {
 	 * @return if the operation is successful
 	 */
 	public boolean open() throws JavasciException, AlreadyRunningException, InitializationException {
-		int res = Call_Scilab.Call_ScilabOpen(this.SCI, null, -1);
+		int res = Call_Scilab.Call_ScilabOpen(this.SCI, this.advancedMode, null, -1);
 		switch (res) {
 			case -1: 
 				throw new AlreadyRunningException("Javasci already running.");
