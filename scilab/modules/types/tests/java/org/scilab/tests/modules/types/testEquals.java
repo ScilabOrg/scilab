@@ -413,7 +413,6 @@ public class testEquals {
 		assert tlistFromAnOther.toString().equals("tlist([\"a\", \"b\", \"c\"], [\"hello\"], [2.0], [51.0])");
 	}
 
-
 	@Test
 	public void compareMListTest() throws NullPointerException {
 		ScilabMList data = new ScilabMList();
@@ -455,6 +454,5 @@ public class testEquals {
 		assert mlistFromAnOther.toString().equals("mlist([\"a\", \"b\", \"c\"], [\"hello\"], [2.0], [51.0])");
 
 	}
-
 
 }
