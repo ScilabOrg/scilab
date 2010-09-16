@@ -74,7 +74,7 @@ public final class BlockPositioning {
 			
 			double nonVariantPosition = -portGeom.getWidth();
 			double alignedPosition = calculateAlignedPosition(gridSize,
-					segLength, i);
+					segLength, port.getOrdering() - 1);
 			
 			portGeom.setX(nonVariantPosition);
 			portGeom.setY(alignedPosition);
