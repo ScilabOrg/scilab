@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import javax.swing.RowFilter;
 
-import org.scilab.modules.types.ScilabTypeEnum;
+import org.scilab.modules.types.scilabTypes.ScilabTypeEnum;
 
 public class VariableBrowserRowFilter extends RowFilter<Object, Object>{
 
