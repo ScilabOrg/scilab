@@ -6,7 +6,11 @@ Xcos:
 
 * Include all the old-scicos palettes on the binary version.
 
+* bug 6500 fixed - The ideal transformer block was unusable due to wrong port
+                   positioning.
+
 * bug 7219 fixed - The old gain demo did not work.
+
 
 * bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
                    did not simulate.
@@ -18,7 +22,7 @@ Xcos:
 
 * bug 7922 fixed - The Automotive Suspension demo did not work.
 
-* bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as wrong links and block names.
+* bugs 7931, 7933, 7934 fixed - Some artefact were visible on diagrams such as wrong links and block names.
 
 * bug 7945 fixed - The path of the diagram was not displayed in the title bar.
 
