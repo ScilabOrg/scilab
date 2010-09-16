@@ -16,6 +16,9 @@ Xcos:
 
 * bug 7822 fixed - Xcos menu bar was larger than the Scilab one.
 
+* bug 7868 fixed - Resizing a super-block with a lot of inputs or outputs
+                   sometimes changed the order of the ports.
+
 * bug 7922 fixed - The Automotive Suspension demo did not work.
 
 * bugs 7931, 7933, 7934 fixed - Some artifacts were visible on diagrams such as wrong links and block names.
