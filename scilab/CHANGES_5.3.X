@@ -120,7 +120,7 @@ The matrices of integer are now handled.
 Graphics:
 =========
 
-* The icons has been updated to the Tango Art libre icons and to the Inkscape 
+* The icons has been updated to the Tango Art libre icons and to the Inkscape
   themable icons.
 
 * bug 6395 fixed - evans display improved to take special care of the
@@ -152,10 +152,13 @@ Bug Fixes:
 * bug 7163 fixed - tree2code wrongly replaced every (:) occurence in a function
                    definition with (eye()).
 
+* bug 7140 fixed - Modifying the stack with gstacksize() and stacksize()
+                   is now forbidden in concurrent execution context.
+
 * bug 7231 fixed - mtlb_num2str did not manage second input argument.
 
-* bug 7569 fixed - the number of accurate digits during inversion of cdfbet, 
-                   cdfgam, cdfbin, cdfchi, cdfchin, cdff, cdffnc, cdfnbn, cdfpoi 
+* bug 7569 fixed - the number of accurate digits during inversion of cdfbet,
+                   cdfgam, cdfbin, cdfchi, cdfchin, cdff, cdffnc, cdfnbn, cdfpoi
                    was only 8.
 
 * bug 7640 fixed - xs2pdf, xs2eps, xs2emf crashed if filename prefix had less
