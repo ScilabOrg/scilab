@@ -11,9 +11,10 @@ Xcos:
 
 * bug 7219 fixed - The old gain demo did not work.
 
-
 * bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
                    did not simulate.
+
+* bug 7600 fixed - the block default shape did not change on style modification.
 
 * bug 7770 fixed - It was not possible to compile a diagram with Modelica
                    blocks.
