@@ -70,20 +70,14 @@ in uicontrol. See bug #7366.
 Graphics:
 =========
 
-* The icons has been updated to the Tango Art libre icons and to the Inkscape themable icons.
+* The icons has been updated to the Tango Art libre icons and to the Inkscape 
+  themable icons.
 
 Call_Scilab:
 ============
 
 * In function StartScilab, argument "int *Stacksize" changed to "int Stacksize"
 
-* bug 6395 fixed - evans display improved to take special care of the
-                   root loci points where complex conjugates roots
-                   collapse in a pair of real roots. Datatips
-                   customization added. Root locus grids "sgrid" and
-                   "zgrid" superposition improved.
-
-* bug 6686 fixed - The automatic sub-ticking gave wrong results.
 
 Compilation:
 ============
@@ -94,7 +88,15 @@ Compilation:
 Bug Fixes:
 ==========
 
+* bug 6395 fixed - evans display improved to take special care of the
+                   root loci points where complex conjugates roots
+                   collapse in a pair of real roots. Datatips
+                   customization added. Root locus grids "sgrid" and
+                   "zgrid" superposition improved.
+
 * bug 6514 fixed - "help %k" and "help %asn" pointed to the symbols help page.
+
+* bug 6686 fixed - The automatic sub-ticking gave wrong results.
 
 * bug 6767 fixed - The "uicontrol" help page said the "Style" property of an
                    uicontrol can be set after creation but it does not.
@@ -138,7 +140,8 @@ Bug Fixes:
 
 * bug 7959 fixed - fscanf did not manage file descriptor as input argument.
 
-* bug 7964 - errclear(2) cleared all errors and not only error 2 as written in help.
+* bug 7964 fixed - errclear(2) cleared all errors and not only error 2 as written
+                   in help.
 
 * bug 7974 fixed - Customized xerbla.f subroutine did not return enough
                    information.
