@@ -234,7 +234,13 @@ public class SwingScilabMenuItem extends JMenuItem implements SimpleMenuItem {
 	 * Destroy the MenuItem
 	 */
 	public void destroy() {
-		ScilabSwingUtilities.removeFromParent(this);
+		if (meAsAMenu != null) {
+			ScilabSwingUtilities.removeFromParent((SwingScilabMenu) meAsAMenu.getAsSimpleMenu());
+		} else if (meAsACheckBoxMenuItem != null) {
+			ScilabSwingUtilities.removeFromParent((SwingScilabCheckBoxMenuItem) meAsACheckBoxMenuItem.getAsSimpleCheckBoxMenuItem());
+		} else {
+			ScilabSwingUtilities.removeFromParent(this);
+		}
 	}
 
 	/**
@@ -351,6 +357,18 @@ public class SwingScilabMenuItem extends JMenuItem implements SimpleMenuItem {
 	 */
 	public void addSeparator() {
 		throw new UnsupportedOperationException();
+	}
+	
+	/**
+	 * Set the MenuItem Visibility (See bug #7368)
+	 * @param status true if the MenuItem is visible
+	 * @see org.scilab.modules.gui.menu.SimpleMenu#setVisible()
+	 */
+	public void setVisible(boolean status) {
+		super.setVisible(status);
+		if (meAsACheckBoxMenuItem != null) {
+			meAsACheckBoxMenuItem.setVisible(status);
+		}
 	}
 
 }

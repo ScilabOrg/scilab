@@ -23,9 +23,9 @@ import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
-import org.scilab.modules.types.scilabTypes.ScilabDouble;
-import org.scilab.modules.types.scilabTypes.ScilabList;
-import org.scilab.modules.types.scilabTypes.ScilabMList;
+import org.scilab.modules.types.ScilabDouble;
+import org.scilab.modules.types.ScilabList;
+import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
@@ -50,6 +50,7 @@ import org.scilab.modules.xcos.utils.XcosEvent;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxICell;
+import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 
@@ -216,6 +217,7 @@ public final class SuperBlock extends BasicBlock {
 			getChild().setModifiedNonRecursively(false);
 			
 			new XcosTab(getChild()).setVisible(true);
+			getChild().fireEvent(new mxEventObject(mxEvent.ROOT));
 			getChild().getView().invalidate();
 		}
 		
