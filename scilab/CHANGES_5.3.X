@@ -67,6 +67,9 @@ SciNotes:
 * bug 8027 fixed - In a splitted view, a frame was not informed of a change in
                    the other frame.
 
+* bug 8056 fixed - Comments were bad colorized when after a command without
+                   parenthesis.
+
 GUI creation:
 =============
 
