@@ -28,6 +28,7 @@ import java.net.URL;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -1532,17 +1533,15 @@ public class XcosDiagram extends ScilabGraph {
 	 * 
 	 * @param force
 	 *            true if the close must be forced.
-	 * @return status of the close operation (true if the close is successful,
-	 *         false otherwise)
+	 * @return true if the diagram can be removed from the diagram list, false otherwise.
 	 */
 	public boolean close(final boolean force) {
 
 		if (!canClose()) {
-			close();
+			closeView(); // close the current diagram but keep it on the opened list 
 			return false;
 		}
 
-		boolean wantToClose = true;
 		if (isModified()) {
 			// Ask the user want he want to do !
 			final AnswerOption answer;
@@ -1560,29 +1559,26 @@ public class XcosDiagram extends ScilabGraph {
 			case YES_OPTION:
 				if (!saveDiagram()) {
 					// if save is canceled, cancel close windows
-					wantToClose = false;
+					return false;
 				}
+				closeView();
 				break;
 			case CANCEL_OPTION:
-				wantToClose = false;
-				break;
+				return false;
 			case NO_OPTION:
+				closeView();
 			default:
 				break;
 			}
 		}
-
-		if (wantToClose) {
-			close();
-		}
 		
 		return true;
 	}
-
+	
 	/**
-	 * Close the current diagram without prompting anything
+	 * Close the current diagram views without prompting anything
 	 */
-	private void close() {
+	protected void closeView() {
 		if (getParentTab() != null) {
 			getParentTab().close();
 			setParentTab(null);

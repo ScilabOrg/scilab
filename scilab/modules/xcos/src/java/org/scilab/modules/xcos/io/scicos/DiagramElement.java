@@ -34,11 +34,13 @@ import org.scilab.modules.xcos.io.scicos.ScicosFormatException.VersionMismatchEx
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.link.BasicLink;
+import org.scilab.modules.xcos.utils.BlockPositioning;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.util.mxEventObject;
 
 /**
  * Perform a diagram transformation between Scicos and Xcos.
@@ -231,6 +233,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
 			if (blockElement.canDecode(data)) {
 				BasicBlock block = blockElement.decode(data, null);
 				blocks.put(i, block);
+				BlockPositioning.updateBlockView(block);
 				cell = block;
 				
 				minimalYaxisValue = Math.min(minimalYaxisValue, ((mxCell) cell).getGeometry().getY());

@@ -805,7 +805,6 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      */
     public void addPort(BasicPort port) {
     	insert(port);
-    	BlockPositioning.updateBlockView(this);
     	port.setOrdering(BasicBlockInfo.getAllTypedPorts(this, false, port.getClass()).size());
     }
 
