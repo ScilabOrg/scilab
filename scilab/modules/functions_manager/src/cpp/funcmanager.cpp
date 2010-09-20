@@ -304,7 +304,9 @@ bool FuncManager::CreateModuleList(void)
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"io", &IoModule::Load));
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"functions", &FunctionsModule::Load));
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"output_stream", &OutputStreamModule::Load));
+#ifdef HAVE_LIBMATIO
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"matio", &MatioModule::Load));
+#endif
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"fileio", &FileioModule::Load));
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"gui", &GuiModule::Load));
 	m_ModuleMap.insert(pair<wstring, GW_MOD>(L"time", &TimeModule::Load));
