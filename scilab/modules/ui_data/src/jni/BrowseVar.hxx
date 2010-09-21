@@ -2,8 +2,11 @@
 /*
 
 Copyright 2007-2008 INRIA
+Copyright 2008-2010 DIGITEO
 
 Author : Sylvestre Ledru & others
+
+This is generated code.
 
 This software is a computer program whose purpose is to hide the complexity
 of accessing Java objects/methods from C++ code.
@@ -44,6 +47,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 #include <stdlib.h>
 #include <jni.h>
 
+#include "GiwsException.hxx"
+
 #ifndef _MSC_VER /* Defined anyway with Visual */
 #if !defined(byte)
 typedef signed char byte;
@@ -60,10 +65,8 @@ JavaVM * jvm;
 jobject instance;
 
 jclass instanceClass; // cache class
-jmethodID voidopenVariableBrowserID; // cache method id
-jmethodID voidopenVariableBrowserjobjectArray_ID; // cache method id
+jmethodID voidopenVariableBrowserjobjectArray_jobjectArray_jintArray_jintArray_jobjectArray_jintID; // cache method id
 jclass stringArrayClass;
-jmethodID voidopenVariableBrowserjobjectArray_jobjectArray_jobjectArray_jobjectArray_jobjectArray_ID; // cache method id
 jmethodID voidcloseVariableBrowserID; // cache method id
 
 
@@ -106,11 +109,7 @@ void synchronize();
 void endSynchronize();
 
 // Methods
-static void openVariableBrowser(JavaVM * jvm_);
-
-static void openVariableBrowser(JavaVM * jvm_, char ** columnNames, int columnNamesSize);
-
-static void openVariableBrowser(JavaVM * jvm_, char ** columnNames, int columnNamesSize, char ** variableNames, int variableNamesSize, int* variableBytes, int variableBytesSize, int* variableTypes, int variableTypesSize, char ** variableVisibility, int variableVisibilitySize);
+static void openVariableBrowser(JavaVM * jvm_, char ** columnNames, int columnNamesSize, char ** variableNames, int variableNamesSize, int* variableBytes, int variableBytesSize, int* variableTypes, int variableTypesSize, char ** variableVisibility, int variableVisibilitySize, int refresh);
 
 static void closeVariableBrowser(JavaVM * jvm_);
 
