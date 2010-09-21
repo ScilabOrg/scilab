@@ -14,6 +14,9 @@ package org.scilab.modules.graphic_objects.graphicObject;
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
 
+import org.scilab.modules.graphic_objects.graphicModel.GraphicModel;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +75,20 @@ public abstract class GraphicObject implements Cloneable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	    
+
+            List newchildren = new ArrayList<String>(0);
+
+            for (int i = 0; i < children.size(); i++) {
+                String childclone = GraphicController.getController().cloneObject(children.get(i));
+                newchildren.add(childclone);
+
+		GraphicObject clone = (GraphicObject) GraphicController.getController().getObjectFromId(childclone);
+
+		clone.setParentIdentifier(copy.getIdentifier());
+            }
+
+	    copy.setChildren(newchildren);
+
 	    return (GraphicObject) copy;
 	}
 	
@@ -271,10 +287,18 @@ public abstract class GraphicObject implements Cloneable {
 	}
 
 	/**
+	 * Sets the parent object identifier and adds the object
+	 * to the parent's own list of children
 	 * @param parent the parent to set
 	 */
 	public void setParent(String parent) {
 		this.parent = parent;
+
+		GraphicObject parentObject = (GraphicObject) GraphicModel.getModel().getObjectFromId(parent);
+
+		if (parentObject != null) {
+			parentObject.addChild(this.getIdentifier());
+		}
 	}
 
 	/**
@@ -355,4 +379,22 @@ public abstract class GraphicObject implements Cloneable {
     public void setReferenced(Boolean referenced) {
         this.referenced = referenced;
     }
+
+	/**
+	 * addChild
+	 * @param childIdentifier the added child's identifier
+	 */
+	public void addChild(String childIdentifier) {
+		this.children.add(childIdentifier);
+	}
+
+	public void setParentIdentifier(String parentIdentifier) {
+		this.parent = parentIdentifier;
+	}
+
+	public void updateChildrenParent() {
+		for (int i = 0; i < children.size(); i++) {
+			( (GraphicObject) GraphicController.getController().getObjectFromId(children.get(i))).setParentIdentifier(this.getIdentifier());
+		}
+	}
 }

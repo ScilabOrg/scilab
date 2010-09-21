@@ -48,6 +48,7 @@ sciPointObj * sciGetCurrentFigure( void )
   /* debug F.Leray 22.07.04 */
   sciPointObj * pFigure = getCurrentPointedFigure();
 
+
   if( !sciHasFigures() )
   {
     /* it would mean that we have change the driver to GIF,Pos or PPM and perform a xinit F.Leray 22.07.04 */
@@ -55,6 +56,13 @@ sciPointObj * sciGetCurrentFigure( void )
       int iZero = 0;
       pFigure = sciCloneObj(getFigureModel());
       setGraphicObjectProperty(pFigure->UID, __GO_ID__, &iZero, jni_int, 1);
+
+      /* Experimental */
+#if 1
+      addNewFigureToList(pFigure);
+
+      sciSetCurrentFigure(pFigure);
+#endif
 
       // Register handle to Scilab.
       sciAddNewHandle(pFigure);
