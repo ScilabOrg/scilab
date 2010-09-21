@@ -948,7 +948,9 @@ Graphics:
 * Datatips tools added.
   For more information, see the help page of datatips or SEP #29.
 
-* The frequency response plots ("bode", "black", "nyquist", "gainplot",...)
+* the event_handler_function now manages figure resize events.
+
+* The frequency response plots ("bode", "black", "nyquist", "gainplot",...) 
   support cutomized datatips.
 
 * bug 2651 fixed - "plot2d" was not working when the x argument was not given
