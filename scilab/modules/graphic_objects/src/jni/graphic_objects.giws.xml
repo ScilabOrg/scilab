@@ -18,6 +18,11 @@
       <parameter name="propertyName" type="String"/>
       <parameter name="value" type="String"/>
     </method>
+    
+    <method name="setRelationShip" returnType="void" modifier="static">
+      <parameter name="parentId" type="String"/>
+      <parameter name="childId" type="String"/>
+    </method>    
 
     <method name="getGraphicObjectPropertyAsStringVector" returnType="String[]" modifier="static">
       <parameter name="id" type="String"/>

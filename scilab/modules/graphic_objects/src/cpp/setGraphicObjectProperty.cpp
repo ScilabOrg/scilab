@@ -25,6 +25,11 @@ extern "C"
 
 using namespace org_scilab_modules_graphic_objects;
 
+void setRelationShip(char *_parentId, char *_childId)
+{
+    CallGraphicController::setRelationShip(getScilabJavaVM(), _parentId, _childId);
+}
+
 BOOL setGraphicObjectProperty(char *_pstID, char *_pstName, void *_pvValue, _ReturnType_ _valueType, int numElements)
 {
     bool result = false;
