@@ -116,7 +116,7 @@ public class GraphicModel {
      * @return the created object's id
      */
     public String createObject(String id, GraphicObject.Type type) {
-    	GraphicObject object = createTypedObject(type);
+    	GraphicObject object = createTypedObject(type, id);
 
     	if (object != null) {
     		allObjects.put(id, object);
@@ -138,6 +138,8 @@ public class GraphicModel {
         GraphicObject object = allObjects.get(id);
         GraphicObject objectClone = object.clone();
         objectClone.setIdentifier(newId);
+
+	objectClone.updateChildrenParent();
         
         allObjects.put(newId, objectClone);
         
@@ -149,7 +151,7 @@ public class GraphicModel {
      * @param type the object type
      * @return the created typed object
      */
-    private GraphicObject createTypedObject(Type type) {
+    private GraphicObject createTypedObject(Type type, String id) {
 		switch (type) {
 
 		case ARC:
@@ -167,7 +169,7 @@ public class GraphicModel {
 		case FEC:
 			return new Fec();
 		case FIGURE:
-			return new Figure();
+			return new Figure(id);
 		case GRAYPLOT:
 			return new Grayplot();
 		case LABEL:

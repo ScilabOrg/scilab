@@ -70,6 +70,7 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
 {
     sciPointObj *pClone = sciCloneObj(getFigureModel());
     setGraphicObjectProperty(pClone->UID, __GO_ID__, figureIndex, jni_int, 1);
+addNewFigureToList(pClone);
     return pClone;
 
 #ifdef __OLD_IMPLEMENTATION__

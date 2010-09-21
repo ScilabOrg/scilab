@@ -244,7 +244,7 @@ public class Figure extends GraphicObject {
 	private RotationType rotation;
 
 	/** Constructor */
-	public Figure() {
+	public Figure(String id) {
 		super();
 		dimensions = new FigureDimensions();
 		canvas = new Canvas();
@@ -266,7 +266,16 @@ public class Figure extends GraphicObject {
 		String AxesId = GraphicController.getController().askObject(Type.AXES);
 		List<String> children = new ArrayList<String>();
 		children.add(AxesId);
-		
+
+		GraphicObject axes = (GraphicObject) GraphicController.getController().getObjectFromId(AxesId);
+
+		/*
+		 * setParent normally also adds the object id (here axes') to the list of children of its parent
+		 * However, since the Figure object has not been yet added to the object map,
+		 * it cannot be retrieved via id and be added the axes object, hence the setChildren call below
+		 */
+		axes.setParent(id);
+
 		setChildren(children);
 	}
 	
