@@ -6,6 +6,7 @@
           <parameter type="int[]" name="variableBytes"/>
           <parameter type="int[]" name="variableTypes"/>
           <parameter type="String[]" name="variableVisibility"/>
+          <parameter type="int" name="refresh"/>
         </method>
         <method name="closeVariableBrowser" returnType="void" modifier="static"/>
     </object>

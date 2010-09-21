@@ -39,9 +39,86 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     int iLocalVariablesUsed = 0;
     int iLocalVariablesTotal = 0;
     int i = 0;
+    int refresh = 0;
 
-    CheckRhs(0, 0);
-    CheckLhs(0, 1);	
+    int iType = 0;    
+    int *piAddressVarOne = NULL;
+    char *pStVarOne = NULL;
+    int lenStVarOne = 0;
+    int m1 = 0, n1 = 0;
+    SciErr sciErr;
+
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
+
+    /* get address */
+    if (Rhs == 1)
+    {
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+	if(sciErr.iErr)
+        {
+	    printError(&sciErr, 0);
+	    return 0;
+        }
+	
+	sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType);
+	if(sciErr.iErr)
+        {
+	    printError(&sciErr, 0);
+	    return 0;
+        }
+	
+	if (iType != sci_strings)
+        {
+	    Scierror(999,_("%s: Wrong type for input argument #%d: \'R\' expected.\n"), fname, 1);
+	    return 0;
+        }
+	
+	/* get dimensions */
+	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
+	if(sciErr.iErr)
+        {
+	    printError(&sciErr, 0);
+	    return 0;
+        }
+	
+	/* TODO maybe allow vectors in case someone wants to edit several variables in the same time? */
+	if(m1 != 1 || n1 != 1)
+        {
+	    Scierror(999,_("%s: Wrong size for input argument #%d: \'R\' expected.\n"), fname, 1);
+	    return 0;
+        }
+	
+	/* get lengths */
+	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
+	if(sciErr.iErr)
+        {
+	    printError(&sciErr, 0);
+	    return 0;
+        }
+	
+	pStVarOne = (char*)MALLOC(sizeof(char*) * (lenStVarOne + 1));
+	
+	/* get variable name to edit */
+	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
+	if(sciErr.iErr)
+        {
+	    FREE(pStVarOne);
+	    printError(&sciErr, 0);
+	    return 0;
+        }
+	
+	if(strcmp(pStVarOne, "R") != 0)
+        {
+	    Scierror(999,_("%s: String \'R\' expected\n"), fname);
+	    FREE(pStVarOne);
+	    return 0;
+        }
+	else 
+        {
+	    refresh = 1;
+        }
+    }
 
     // First get how many global / local variable we have.
     C2F(getvariablesinfo)(&iLocalVariablesTotal, &iLocalVariablesUsed);
@@ -97,6 +174,7 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         //_("Std"),
         _("Visibility")
     };
+    
 
     // Launch Java Variable Browser through JNI
     BrowseVar::openVariableBrowser(getScilabJavaVM(), 
@@ -104,7 +182,8 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
         piAllVariableBytes, iLocalVariablesUsed + iGlobalVariablesUsed,
         piAllVariableTypes, iLocalVariablesUsed + iGlobalVariablesUsed,
-        pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed
+        pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed,
+	refresh
         );
 
     freeArrayOfString(pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed);
