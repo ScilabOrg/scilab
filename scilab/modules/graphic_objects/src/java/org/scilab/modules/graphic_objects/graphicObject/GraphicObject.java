@@ -19,6 +19,7 @@ import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * GraphicObject class
@@ -293,12 +294,6 @@ public abstract class GraphicObject implements Cloneable {
 	 */
 	public void setParent(String parent) {
 		this.parent = parent;
-
-		GraphicObject parentObject = (GraphicObject) GraphicModel.getModel().getObjectFromId(parent);
-
-		if (parentObject != null) {
-			parentObject.addChild(this.getIdentifier());
-		}
 	}
 
 	/**
