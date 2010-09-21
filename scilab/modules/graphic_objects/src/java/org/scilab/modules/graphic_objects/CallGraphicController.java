@@ -22,6 +22,10 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
  **/
 public final class CallGraphicController {
 
+    public static void setRelationShip(String parentId, String childId) {
+        GraphicController.getController().setRelationShip(parentId, childId);
+    }
+
     public static String cloneGraphicObject(String id) {
         return GraphicController.getController().cloneObject(id);
     }
