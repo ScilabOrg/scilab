@@ -596,6 +596,9 @@ Bug Fixes:
 
 * bug 7690 fixed - Long lines removed in the parallel_run help page.
 
+* bug 7691 fixed - Giving complex arguments to inverse degree trigonometric 
+                   functions produced inconsistent results.
+
 * bug 7748 fixed - The help page of rcond was wrong: only one output
                    argument is provided.
 
