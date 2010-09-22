@@ -31,6 +31,7 @@
 #include "zzledt.h"
 #include "GetCommandLine.h"
 #include "TermReadAndProcess.h"
+#include "UpdateBrowseVar.h"
 #ifdef _MSC_VER
 
 #include "mmapWindows.h"
@@ -101,6 +102,7 @@ static void getCommandLine(void)
         }
       else
         {
+          UpdateBrowseVar(TRUE);
           SetConsolePrompt(Sci_Prompt);
         }
       setSearchedTokenInScilabHistory(NULL);

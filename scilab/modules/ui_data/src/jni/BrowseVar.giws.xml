@@ -7,6 +7,7 @@
           <parameter type="int[]" name="variableTypes"/>
           <parameter type="String[]" name="variableVisibility"/>
         </method>
+	<method name="isVariableBrowserOpened" returnType="boolean" modifier="static"/>
         <method name="closeVariableBrowser" returnType="void" modifier="static"/>
     </object>
 </package>
