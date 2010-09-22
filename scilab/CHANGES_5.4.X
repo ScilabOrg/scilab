@@ -1,12 +1,6 @@
             Changes between version 5.3.X and 5.4.0 of Scilab
             =================================================
 
-SciNotes:
-=========
-
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
-
-
 File input/output:
 ==================
 
@@ -25,6 +19,12 @@ New functions
   point numbers, which allows to check that two numbers are
   "numerically almost equal", i.e. that the relative error is small.
   This automatically fixes the bug #4381.
+
+
+Graphical User Interface:
+=========================
+
+* The variable browser now refresh itself automatically (See bug 9446).
 
 
 Documentation:
@@ -91,3 +91,4 @@ Bug fixes:
 * bug 9277 fixed - escape character "\" did not work with msprintf.
 
 * bug 9479 fixed - Typo fixed (intput => input).
+
