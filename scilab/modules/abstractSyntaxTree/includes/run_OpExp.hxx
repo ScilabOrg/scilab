@@ -71,6 +71,21 @@ void visitprivate(const OpExp &e)
             }
             result_set(pResult);
         }
+        else if(TypeR == GenericType::RealSparse && TypeL == GenericType::RealSparse)
+        {
+            types::Sparse *pL = execMeL.result_get()->getAsSparse();
+            types::Sparse *pR = execMeR.result_get()->getAsSparse();
+
+            int iResult = AddSparseToSparse(pL, pR, (types::Sparse**)&pResult);
+            if(iResult != 0)
+            {
+                std::ostringstream os;
+                os << "inconsistent row/column dimensions";
+                os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+                throw os.str();
+            }
+            result_set(pResult);
+        }	
         else if(TypeL == GenericType::RealBool && TypeR == GenericType::RealBool)
         {
             //nothing to do, all in macro : %b_+_b
@@ -183,6 +198,21 @@ void visitprivate(const OpExp &e)
             }
             result_set(pResult);
         }
+        else if(TypeR == GenericType::RealSparse && TypeL == GenericType::RealSparse)
+        {
+            types::Sparse *pL = execMeL.result_get()->getAsSparse();
+            types::Sparse *pR = execMeR.result_get()->getAsSparse();
+
+            int iResult = SubstractSparseToSparse(pL, pR, (types::Sparse**)&pResult);
+            if(iResult != 0)
+            {
+                std::ostringstream os;
+                os << "inconsistent row/column dimensions";
+                os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+                throw os.str();
+            }
+            result_set(pResult);
+        }	
         else if(TypeL == GenericType::RealPoly && TypeR == GenericType::RealDouble)
         {
             MatrixPoly *pL			= execMeL.result_get()->getAsPoly();
@@ -243,6 +273,21 @@ void visitprivate(const OpExp &e)
 
             result_set(pResult);
         }
+        else if(TypeR == GenericType::RealSparse && TypeL == GenericType::RealSparse)
+        {
+            types::Sparse *pL = execMeL.result_get()->getAsSparse();
+            types::Sparse *pR = execMeR.result_get()->getAsSparse();
+
+            int iResult = MultiplySparseToSparse(pL, pR, (types::Sparse**)&pResult);
+            if(iResult != 0)
+            {
+                std::ostringstream os;
+                os << "inconsistent row/column dimensions";
+                os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+                throw os.str();
+            }
+            result_set(pResult);
+        }	
         else if(TypeL == InternalType::RealDouble && TypeR == InternalType::RealPoly)
         {
             Double *pL			    = execMeL.result_get()->getAsDouble();
