@@ -553,7 +553,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
         if (!_SciErr.iErr) 
         {
             *_piSize  = m_tmp * n_tmp;
-            *_piValue = (int)tmp_dbl[0];
+            for(i=0;i<*_piSize;i++) _piValue[i] = (int)tmp_dbl[i];
         } 
         else 
         {
@@ -562,7 +562,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 sciprint(_("%s: wrong parameter type. %s expected. Return default value %d.\n"), "getColVectorOfIntInPList","int",_iDefaultValue);
             }
             *_piSize  = _iDefaultSize;
-            *_piValue = _iDefaultValue;
+            for(i=0;i<*_piSize;i++) _piValue[i] = _iDefaultValue;
         }
     }
     else
@@ -572,7 +572,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
             sciprint(_("%s: parameter not found. Return default value %d.\n"), "getColVectorOfIntInPList",_iDefaultValue);
         }
         *_piSize  = _iDefaultSize;
-        *_piValue = _iDefaultValue;
+        for(i=0;i<*_piSize;i++) _piValue[i] = _iDefaultValue;
     }
 
     /* Now check parameters */
@@ -597,7 +597,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 {
                     sciprint(_("%s: wrong size for parameter %s: %d requested, got %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piSize);
                 }
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong size for parameter %s: %d requested, got %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piSize);
                 return _SciErr;
             }
@@ -611,7 +611,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 {
                     sciprint(_("%s: wrong min bound for parameter %s: min bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 }
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong min bound for parameter %s: min bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 return _SciErr;
             }
@@ -625,7 +625,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 {
                     sciprint(_("%s: wrong max bound for parameter %s: max bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 }
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong max bound for parameter %s: max bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 return _SciErr;
             }
@@ -639,7 +639,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 {
                     sciprint(_("%s: wrong min bound for parameter %s: min bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 }
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
                 va_end(vl);
                 addErrorMessage(&_SciErr, 999, _("%s: wrong min bound for parameter %s: min bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 return _SciErr;
@@ -653,7 +653,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                 {
                     sciprint(_("%s: wrong max bound for parameter %s: max bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 }
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong max bound for parameter %s: max bound %d, value %d\n"), "getColVectorOfIntInPList", _pstLabel, value_to_check, *_piValue);
                 return _SciErr;
             }
@@ -684,7 +684,7 @@ SciErr getColVectorOfIntInPList(void* _pvCtx, int * _piAddress, const char * _ps
                     sciprint("\n");
                 }
 
-                *_piValue = _iDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _piValue[i] = _iDefaultValue;
 
                 va_end(vl);
                 addErrorMessage(&_SciErr, 999, _("%s: wrong value for parameter %s: value %d\n"), "getColVectorOfIntInPList", _pstLabel, *_piValue);
@@ -731,7 +731,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
         if (!_SciErr.iErr) 
         {
             *_piSize  = m_tmp*n_tmp;
-            *_pdblValue = tmp_values[0];
+            for(i=0;i<*_piSize;i++) _pdblValue[i] = tmp_values[i];
         }
         else 
         {
@@ -740,7 +740,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 sciprint(_("%s: wrong parameter type. %s expected. Return default value %f.\n"), "getColVectorOfDoubleInPList","double",_dblDefaultValue);
             }
             *_piSize  = _iDefaultSize;
-            *_pdblValue = _dblDefaultValue;
+            for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
         }
     }
     else
@@ -750,7 +750,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
             sciprint(_("%s: parameter not found. Return default value %f.\n"), "getColVectorOfDoubleInPList",_dblDefaultValue);
         }
         *_piSize  = _iDefaultSize;
-        *_pdblValue = _dblDefaultValue;
+        for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
     }
 
     /* Now check parameters */
@@ -775,7 +775,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 {
                     sciprint(_("%s: wrong size for parameter %s: %d requested, got %d\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_piSize);
                 }
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong size for parameter %s: %d requested, got %d\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_piSize);
                 return _SciErr;
             }
@@ -789,7 +789,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 {
                     sciprint(_("%s: wrong min bound for parameter %s: min bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 }
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong min bound for parameter %s: min bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 return _SciErr;
             }
@@ -803,7 +803,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 {
                     sciprint(_("%s: wrong max bound for parameter %s: max bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 }
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong max bound for parameter %s: max bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 return _SciErr;
             }
@@ -817,7 +817,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 {
                     sciprint(_("%s: wrong min bound for parameter %s: min bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 }
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
                 va_end(vl);
                 addErrorMessage(&_SciErr, 999, _("%s: wrong min bound for parameter %s: min bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 return _SciErr;
@@ -831,7 +831,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                 {
                     sciprint(_("%s: wrong max bound for parameter %s: max bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 }
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
                 addErrorMessage(&_SciErr, 999, _("%s: wrong max bound for parameter %s: max bound %f, value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, value_to_check, *_pdblValue);
                 return _SciErr;
             }
@@ -861,7 +861,7 @@ SciErr getColVectorOfDoubleInPList(void* _pvCtx, int * _piAddress, const char * 
                     sciprint("\n");
                 }
 
-                *_pdblValue = _dblDefaultValue;
+                for(i=0;i<_iDefaultSize;i++) _pdblValue[i] = _dblDefaultValue;
 
                 va_end(vl);
                 addErrorMessage(&_SciErr, 999, _("%s: wrong value for parameter %s: value %f\n"), "getColVectorOfDoubleInPList", _pstLabel, *_pdblValue);
