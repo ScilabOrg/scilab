@@ -90,4 +90,7 @@ Bug fixes:
 
 * bug 9277 fixed - escape character "\" did not work with msprintf.
 
+* bug 9446 fixed - Variable browser did not refresh automatically.
+
 * bug 9479 fixed - Typo fixed (intput => input).
+
