@@ -64,6 +64,9 @@ Xcos:
                    super-blocks parameters.
 
 
+* bug 8081 fixed - The context was not checked before being set.
+
+
 Statistics:
 ===========
 
