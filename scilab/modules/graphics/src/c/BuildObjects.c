@@ -1282,7 +1282,8 @@ ConstructPolyline (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, do
   }
 #endif
 
-  setGraphicObjectProperty(pobj->UID, __GO_PARENT__, pparentsubwin->UID, jni_string, 1);
+//  setGraphicObjectProperty(pobj->UID, __GO_PARENT__, pparentsubwin->UID, jni_string, 1);
+  setRelationShip(pparentsubwin->UID, pobj->UID); 
 
   if (sciAddNewHandle(pobj) == -1)
   {
