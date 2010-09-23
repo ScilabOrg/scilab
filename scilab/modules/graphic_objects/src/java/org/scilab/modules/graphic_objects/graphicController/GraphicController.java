@@ -189,5 +189,37 @@ public class GraphicController {
         }
     }
 
+    /**
+     * Set relationship between two object and remove old relationship.
+     * @param parentId id of the parent object.
+     * @param childId id of the child object.
+     */
+    public void setRelationShip(String parentId, String childId) {
+        Object oldParent = getProperty(childId, GraphicObjectProperties.__GO_PARENT__);
 
+        if (oldParent != null && oldParent instanceof String) {
+            String oldParentId = (String) oldParent;
+
+            if (oldParentId.equals(parentId)) {
+                return;
+            }
+
+            if (!oldParentId.equals("")) {
+                String[] children = (String[]) GraphicController.getController().getProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__);
+                List list = Arrays.asList(children);
+                list.remove(childId);
+                setProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__, list);
+            }
+        }
+
+        if (parentId != null && !parentId.equals("")) {
+            String[] children = (String[]) GraphicController.getController().getProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__);
+            String[] newChildren = new String[children.length + 1]; 
+            System.arraycopy(children, 0, newChildren, 0, children.length);
+            newChildren[children.length] = childId;
+            setProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__, Arrays.asList(newChildren));
+        }
+
+        setProperty(childId, GraphicObjectProperties.__GO_PARENT__, parentId);
+    }
 }
