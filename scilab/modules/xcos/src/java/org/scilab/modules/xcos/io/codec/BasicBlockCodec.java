@@ -18,9 +18,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.xcos.block.BasicBlock;
-import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BasicBlock.SimulationFunctionType;
+import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
+import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.io.XcosObjectCodec;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -80,7 +81,6 @@ public class BasicBlockCodec extends XcosObjectCodec {
 		BasicBlockCodec codec = (BasicBlockCodec) mxCodecRegistry.getCodec("AfficheBlock");
 		codec.exclude.add("printTimer");
 		codec.exclude.add("updateAction");
-		
 	}
 	
 	/**
@@ -131,6 +131,14 @@ public class BasicBlockCodec extends XcosObjectCodec {
 		}
 	    }
 
+	    // Re associate the diagram container
+	    if (obj instanceof SuperBlock) {
+	    	final SuperBlock block = (SuperBlock) obj;
+	    	if (block.getChild() != null) {
+	    		block.getChild().setContainer(block);
+	    	}
+	    }
+	    
 	    // update style to replace direction by rotation and add the 
 	    // default style if absent
 	    StyleMap map = new StyleMap(((Element) node).getAttribute(STYLE));

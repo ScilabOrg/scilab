@@ -24,12 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.logging.LogManager;
 
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
+import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.graph.utils.ScilabExported;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.xcos.block.BasicBlock;
@@ -59,7 +60,7 @@ public final class Xcos {
 	/*
 	 * Dependencies version
 	 */
-	private static final List<String> MXGRAPH_VERSIONS = Arrays.asList("1.4.0.2");
+	private static final List<String> MXGRAPH_VERSIONS = Arrays.asList("1.4.1.0");
 	private static final List<String> HDF5_VERSIONS = Arrays.asList("[1, 8, 4]");
 	private static final List<String> BATIK_VERSIONS = Arrays.asList("1.7");
 	
@@ -97,9 +98,18 @@ public final class Xcos {
 	 * There must be only one Xcos instance per Scilab application
 	 */
 	private Xcos() {
-		/* load scicos libraries (macros) */
-		ScilabInterpreterManagement.requestScilabExec("loadScicosLibs();");
-
+		/*
+		 * Read the configuration to support dynamic (before Xcos launch)
+		 * settings. 
+		 */
+		try {
+			LogManager.getLogManager().readConfiguration();
+		} catch (final SecurityException e) {
+			LOG.error(e);
+		} catch (final IOException e) {
+			LOG.error(e);
+		}
+		
 		/* Check the dependencies at startup time */
 		checkDependencies();
 		
@@ -119,8 +129,8 @@ public final class Xcos {
 
 		try {
 			FileUtils.decodeStyle(styleSheet);
-		} catch (IOException e) {
-			LogFactory.getLog(Xcos.class).error(e);
+		} catch (final IOException e) {
+			LOG.error(e);
 		}
 	}
 
@@ -140,21 +150,21 @@ public final class Xcos {
 		/* JGraphx */
 		String mxGraphVersion = "";
 		try {
-			Class< ? > klass = loader.loadClass("com.mxgraph.view.mxGraph");
+			final Class< ? > klass = loader.loadClass("com.mxgraph.view.mxGraph");
 			mxGraphVersion = (String) klass.getDeclaredField("VERSION").get(null);
 				
 			if (!MXGRAPH_VERSIONS.contains(mxGraphVersion)) {
 				throw new Exception();
 			}
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			throw new RuntimeException(String.format(UNABLE_TO_LOAD_JGRAPHX,
 					MXGRAPH_VERSIONS.get(0), mxGraphVersion), e);
 		}
 		
 		/* HDF5 */
-		int[] libVersion = new int[3]; 
+		final int[] libVersion = new int[3]; 
 		try {
-			Class< ? > klass = loader.loadClass("ncsa.hdf.hdf5lib.H5");
+			final Class< ? > klass = loader.loadClass("ncsa.hdf.hdf5lib.H5");
 			
 			/* hdf5-java */
 			int ret = (Integer) klass.getMethod("H5get_libversion", libVersion.getClass())
@@ -176,7 +186,7 @@ public final class Xcos {
 				throw new RuntimeException(UNABLE_TO_LOAD_HDF5);
 			}
 			
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			if (!(e instanceof RuntimeException)) {
 				throw new RuntimeException(String.format(UNABLE_TO_LOAD_JHDF5,
 						HDF5_VERSIONS.get(0), Arrays.toString(libVersion)), e);
@@ -186,7 +196,7 @@ public final class Xcos {
 		/* Batik */
 		String batikVersion = null;
 		try {
-			Class< ? > klass = loader.loadClass("org.apache.batik.Version");
+			final Class< ? > klass = loader.loadClass("org.apache.batik.Version");
 			batikVersion = klass.getPackage().getImplementationVersion()
 								.split("\\+")[0];
 			
@@ -194,7 +204,7 @@ public final class Xcos {
 				throw new Exception();
 			}
 			
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			throw new RuntimeException(String.format(UNABLE_TO_LOAD_BATIK,
 					BATIK_VERSIONS.get(0), batikVersion), e);
 		}
@@ -208,9 +218,18 @@ public final class Xcos {
 	public static synchronized Xcos getInstance() {
 		if (sharedInstance == null) {
 			sharedInstance = new Xcos();
+			LOG.trace("Session started");
 		}
 
 		return sharedInstance;
+	}
+	
+	/**
+	 * Clear the shared instance.
+	 */
+	private static synchronized void clearInstance() {
+		sharedInstance = null;
+		LOG.trace("Session ended");
 	}
 
 	/**
@@ -236,7 +255,7 @@ public final class Xcos {
 	 * @param filename
 	 *            the file to open. If null an empty diagram is created.
 	 */
-	public void open(String filename) {
+	public void open(final File filename) {
 		if (!SwingUtilities.isEventDispatchThread()) {
 			LOG.error(CALLED_OUTSIDE_THE_EDT_THREAD);
 		}
@@ -245,14 +264,13 @@ public final class Xcos {
 
 		if (filename != null) {
 			configuration.addToRecentFiles(filename);
-			configuration.saveConfig();
 
 			/*
 			 * looking for an already opened diagram
 			 */
-			for (XcosDiagram diagram : diagrams) {
+			for (final XcosDiagram diagram : diagrams) {
 				if (diagram.getSavedFile() != null
-						&& diagram.getSavedFile().compareTo(filename) == 0) {
+						&& diagram.getSavedFile().equals(filename)) {
 					diag = diagram;
 					break;
 				}
@@ -266,13 +284,14 @@ public final class Xcos {
 			 */
 			diag = new XcosDiagram();
 			diag.installListeners();
+			final XcosTab tab = new XcosTab(diag);
 
 			if (filename != null) {
 				diag.openDiagramFromFile(filename);
 			}
 
 			diagrams.add(diag);
-			new XcosTab(diag).setVisible(true);
+			tab.setVisible(true);
 
 		} else {
 
@@ -295,7 +314,7 @@ public final class Xcos {
 	 * @return the closing status (true, the diagram has been closed; false,
 	 *         otherwise)
 	 */
-	public boolean close(XcosDiagram diagram, boolean force) {
+	public boolean close(final XcosDiagram diagram, final boolean force) {
 		if (!SwingUtilities.isEventDispatchThread()) {
 			LOG.error(CALLED_OUTSIDE_THE_EDT_THREAD);
 		}
@@ -310,7 +329,7 @@ public final class Xcos {
 		    	Xcos.closeSession();
 		    } else {
 		    	// we must also close the session is no diagram is visible
-		    	for (XcosDiagram diag : diagrams) {
+		    	for (final XcosDiagram diag : diagrams) {
 					if (diag.getParentTab() != null) {
 						return true;
 					}
@@ -357,8 +376,6 @@ public final class Xcos {
 			instance.palette.getView().close();
 			instance.palette.setView(null);
 		}
-
-		sharedInstance = null;
 	}
 
 	/**
@@ -367,7 +384,7 @@ public final class Xcos {
 	 * @param args
 	 *            command line args (Not used)
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		xcos();
 	}
 
@@ -390,8 +407,12 @@ public final class Xcos {
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
 	public static void xcos() {
 		final Xcos instance = getInstance();
+		
+		/* load scicos libraries (macros) */
+		InterpreterManagement.requestScilabExec("loadScicosLibs();");
 
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				instance.open(null);
 				PaletteManager.setVisible(true);
@@ -408,10 +429,14 @@ public final class Xcos {
 	 *            The filename
 	 */
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static void xcos(String fileName) {
-		final String filename = fileName;
-
+	public static void xcos(final String fileName) {
+		final File filename = new File(fileName);
+		
+		/* load scicos libraries (macros) */
+		InterpreterManagement.requestScilabExec("loadScicosLibs();");
+		
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				getInstance().open(filename);
 			}
@@ -428,14 +453,27 @@ public final class Xcos {
 	public static void closeXcosFromScilab() {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
 				public void run() {
+					// Saving modified data
+					getInstance().palette.saveConfig();
+					getInstance().configuration.saveConfig();
+					
 					closeSession();
+					clearInstance();
 				}
 			});
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			LOG.error(e);
-		} catch (InvocationTargetException e) {
-			LOG.error(e);
+		} catch (final InvocationTargetException e) {
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 
@@ -451,7 +489,7 @@ public final class Xcos {
 	 *            The message to display.
 	 */
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static void warnCellByUID(String uid, String message) {
+	public static void warnCellByUID(final String uid, final String message) {
 		final List<XcosDiagram> diagrams = getInstance().diagrams;
 
 		final String localId = uid;
@@ -481,9 +519,9 @@ public final class Xcos {
 	 * @return Not used (compatibility)
 	 */
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static int xcosDiagramToHDF5(String xcosFile, String h5File,
-			boolean forceOverwrite) {
-		final String file = xcosFile;
+	public static int xcosDiagramToHDF5(final String xcosFile, final String h5File,
+			final boolean forceOverwrite) {
+		final File file = new File(xcosFile);
 		final File temp = new File(h5File);
 		final boolean overwrite = forceOverwrite;
 
@@ -499,15 +537,22 @@ public final class Xcos {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {
-					XcosDiagram diagram = new XcosDiagram();
+					final XcosDiagram diagram = new XcosDiagram();
 					diagram.openDiagramFromFile(file);
-					diagram.dumpToHdf5File(temp.getAbsolutePath());
+					diagram.dumpToHdf5File(temp);
 				}
 			});
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e.getCause());
+		} catch (final InvocationTargetException e) {
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 
 		return 0;
@@ -524,16 +569,17 @@ public final class Xcos {
 	 *            True if you want the diagram to be shown, false otherwise.
 	 */
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static void xcosDiagramOpen(String uid, boolean showed) {
+	public static void xcosDiagramOpen(final String uid, final boolean showed) {
 		final List<XcosDiagram> diagrams = getInstance().diagrams;
 		final String id = uid;
 		final boolean show = showed;
 
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
 				public void run() {
 					BasicBlock block = null;
-					for (XcosDiagram diagram : diagrams) {
+					for (final XcosDiagram diagram : diagrams) {
 
 						// exclude SuperBlock from parsing
 						if (diagram instanceof SuperBlockDiagram) {
@@ -542,7 +588,7 @@ public final class Xcos {
 
 						block = diagram.getChildById(id);
 						if (block != null) {
-							SuperBlock newSP = (SuperBlock) BlockFactory
+							final SuperBlock newSP = (SuperBlock) BlockFactory
 									.createBlock("SUPER_f");
 							newSP.setRealParameters(block.getRealParameters());
 							newSP.setParentDiagram(block.getParentDiagram());
@@ -560,10 +606,17 @@ public final class Xcos {
 					}
 				}
 			});
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			LOG.error(e);
-		} catch (InvocationTargetException e) {
-			LOG.error(e);
+		} catch (final InvocationTargetException e) {
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 
@@ -576,11 +629,12 @@ public final class Xcos {
 	 *            The diagram id
 	 */
 	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static void xcosDiagramClose(String uid) {
+	public static void xcosDiagramClose(final String uid) {
 		final String id = uid;
 
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
 				public void run() {
 
 					SuperBlock sp = getInstance().openedSuperBlock.get(id);
@@ -591,10 +645,17 @@ public final class Xcos {
 					}
 				}
 			});
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			LOG.error(e);
-		} catch (InvocationTargetException e) {
-			LOG.error(e);
+		} catch (final InvocationTargetException e) {
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
 		}
 	}
 }

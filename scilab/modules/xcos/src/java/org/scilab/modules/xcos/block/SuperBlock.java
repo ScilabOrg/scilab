@@ -23,9 +23,9 @@ import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
-import org.scilab.modules.types.scilabTypes.ScilabDouble;
-import org.scilab.modules.types.scilabTypes.ScilabList;
-import org.scilab.modules.types.scilabTypes.ScilabMList;
+import org.scilab.modules.types.ScilabDouble;
+import org.scilab.modules.types.ScilabList;
+import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
@@ -33,13 +33,13 @@ import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskCreateAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskCustomizeAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskRemoveAction;
+import org.scilab.modules.xcos.block.io.ContextUpdate.IOBlocks;
 import org.scilab.modules.xcos.block.io.EventInBlock;
 import org.scilab.modules.xcos.block.io.EventOutBlock;
 import org.scilab.modules.xcos.block.io.ExplicitInBlock;
 import org.scilab.modules.xcos.block.io.ExplicitOutBlock;
 import org.scilab.modules.xcos.block.io.ImplicitInBlock;
 import org.scilab.modules.xcos.block.io.ImplicitOutBlock;
-import org.scilab.modules.xcos.block.io.ContextUpdate.IOBlocks;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
@@ -50,6 +50,7 @@ import org.scilab.modules.xcos.utils.XcosEvent;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxICell;
+import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 
@@ -216,6 +217,7 @@ public final class SuperBlock extends BasicBlock {
 			getChild().setModifiedNonRecursively(false);
 			
 			new XcosTab(getChild()).setVisible(true);
+			getChild().fireEvent(new mxEventObject(mxEvent.ROOT));
 			getChild().getView().invalidate();
 		}
 		
@@ -315,7 +317,6 @@ public final class SuperBlock extends BasicBlock {
 			}
 			
 			child.installSuperBlockListeners();
-			child.setChildrenParentDiagram();
 			updateAllBlocksColor();
 			// only for loading and generate sub block UID
 			if (generatedUID) {
@@ -435,7 +436,9 @@ public final class SuperBlock extends BasicBlock {
 
 		// populate
 		for (int i = 0; i < array.length; i++) {
-			int index = (Integer) ((BasicBlock) blocks.get(i)).getValue();
+			final ScilabDouble data = (ScilabDouble) ((BasicBlock) blocks.get(i)).getIntegerParameters();
+			final int index = (int) data.getRealPart()[0][0];
+			
 			if (index <= array.length) {
 				array[index - 1] = 1;
 			}
@@ -479,7 +482,8 @@ public final class SuperBlock extends BasicBlock {
 			Arrays.fill(isDone, false);
 
 			for (int i = 0; i < blocks.size(); i++) {
-				int index = (Integer) ((BasicBlock) blocks.get(i)).getValue();
+				final ScilabDouble data = (ScilabDouble) ((BasicBlock) blocks.get(i)).getIntegerParameters();
+				final int index = (int) data.getRealPart()[0][0];
 				if (index > countUnique || isDone[index - 1]) {
 					child.getAsComponent().setCellWarning(blocks.get(i),
 							"Wrong port number");
