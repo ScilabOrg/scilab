@@ -261,13 +261,6 @@ public class Figure extends GraphicObject {
 		eventHandler = new EventHandler();
 		tag = "";
 		rotation = RotationType.UNARY;
-		
-		// Create a default Axes to put in.
-		String AxesId = GraphicController.getController().askObject(Type.AXES);
-		List<String> children = new ArrayList<String>();
-		children.add(AxesId);
-		
-		setChildren(children);
 	}
 	
 	@Override
