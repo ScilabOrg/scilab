@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
@@ -48,11 +49,11 @@ public class testScilabString {
 
 		ScilabString data = new ScilabString();
 		fileId = H5Read.openFile(tempDir + "/singleStringFromJava.h5");
-		assert H5Read.getRootType(fileId).equals(H5ScilabConstant.SCILAB_CLASS_STRING);
+		Assert.assertEquals(H5Read.getRootType(fileId), H5ScilabConstant.SCILAB_CLASS_STRING);
 		H5Read.readDataFromFile(fileId, data);
-		assert data.getData().length == 1;
-		assert data.getData()[0].length == 1;
-		assert data.getData()[0][0].equals(myString);
+		Assert.assertEquals(data.getData().length, 1);
+		Assert.assertEquals(data.getData()[0].length, 1);
+		Assert.assertEquals(data.getData()[0][0], myString);
     }
 
 	@Test
@@ -74,13 +75,13 @@ public class testScilabString {
 
 		ScilabString data = new ScilabString();
 		fileId = H5Read.openFile(tempDir + "/matrixStringFromJava.h5");
-		assert H5Read.getRootType(fileId).equals(H5ScilabConstant.SCILAB_CLASS_STRING);
+		Assert.assertEquals(H5Read.getRootType(fileId), H5ScilabConstant.SCILAB_CLASS_STRING);
 		H5Read.readDataFromFile(fileId, data);
-		assert data.getData().length == ROWS;
-		assert data.getData()[0].length == COLS;
+		Assert.assertEquals(data.getData().length, ROWS);
+		Assert.assertEquals(data.getData()[0].length, COLS);
 		for (int i = 0 ; i < ROWS ; ++i) {
 			for (int j = 0 ; j < COLS ; ++j) {
-				assert data.getData()[i][j].equals(dataStringMatix[i][j]);
+				Assert.assertEquals(data.getData()[i][j], dataStringMatix[i][j]);
 			}
 		}
 
@@ -106,13 +107,13 @@ public class testScilabString {
 
 		ScilabString data = new ScilabString();
 		fileId = H5Read.openFile(tempDir + "/matrixMultiByteStringFromJava.h5");
-		assert H5Read.getRootType(fileId).equals(H5ScilabConstant.SCILAB_CLASS_STRING);
+		Assert.assertEquals(H5Read.getRootType(fileId), H5ScilabConstant.SCILAB_CLASS_STRING);
 		H5Read.readDataFromFile(fileId, data);
-		assert data.getData().length == ROWS;
-		assert data.getData()[0].length == COLS;
+		Assert.assertEquals(data.getData().length, ROWS);
+		Assert.assertEquals(data.getData()[0].length, COLS);
 		for (int i = 0 ; i < ROWS ; ++i) {
 			for (int j = 0 ; j < COLS ; ++j) {
-				assert data.getData()[i][j].equals(dataStringMatix[i][j]);
+				Assert.assertEquals(data.getData()[i][j], dataStringMatix[i][j]);
 			}
 		}
 	}
@@ -128,8 +129,7 @@ public class testScilabString {
 		Object obj = new testScilabString();
 		Method[] tests = testScilabString.class.getDeclaredMethods();
 		for (Method method : tests) {
-			int modifiers = method.getModifiers();
-			if ((modifiers | Modifier.STATIC) != modifiers) {
+			if (method.getAnnotation(Test.class) != null) {
 				method.invoke(obj, (Object[]) null);
 			}
 		}
