@@ -855,9 +855,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		/*
 		 * Update the children ports
 		 */
-		if (children != null) {
-			updateChildren(modifiedBlock);
-		}
+		updateChildren(modifiedBlock);
 
 		/*
 		 * If the block is in a superblock then update it.
@@ -967,6 +965,11 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 			oldPorts.put(type, new LinkedList<mxICell>());
 		}
 		
+		// when no children return an allocated empty value
+		if (children == null) {
+			return oldPorts;
+		}
+		
 		// children lookup
 		for (Object cell : children) {
 			
@@ -979,7 +982,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 			}
 			
 			final Deque<mxICell> current = oldPorts.get(klass);
-			current.add((mxICell) cell);
+			if (current != null) {
+				current.add((mxICell) cell);
+			}
 		}
 		
 		return oldPorts;
