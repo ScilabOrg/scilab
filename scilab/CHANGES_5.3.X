@@ -4,6 +4,8 @@
 Xcos:
 =====
 
+* Loop link on a block produced some error when openning it.
+
 * bug 8081 fixed - The context was not checked before being set.
 
 
