@@ -21,5 +21,6 @@ bool TypesModule::Load()
   symbol::Context::getInstance()->AddFunction(Function::createFunction("insert", &sci_insert, MODULE_NAME));
   symbol::Context::getInstance()->AddFunction(Function::createFunction("cell", &sci_cell, MODULE_NAME));
   symbol::Context::getInstance()->AddFunction(Function::createFunction("makecell", &sci_makecell, MODULE_NAME));
+  symbol::Context::getInstance()->AddFunction(Function::createFunction("sparse", &sci_sparse, MODULE_NAME));
   return true;
 }
