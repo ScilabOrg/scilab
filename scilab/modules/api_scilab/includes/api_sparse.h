@@ -91,7 +91,7 @@ SciErr allocComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols,
  * @return if the operation successed (0) or not ( !0 )
  */
 
-SciErr createSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
+SciErr createSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal);
 
 /**
  * Create sparse variable
@@ -106,7 +106,7 @@ SciErr createSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _
  * @return if the operation successed (0) or not ( !0 )
  */
 
-SciErr createComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
+SciErr createComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal, const double* _pdblImg);
 
 /**
  * Create named sparse variable
@@ -120,7 +120,7 @@ SciErr createComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols
  * @return if the operation successed (0) or not ( !0 )
  */
 
-SciErr createNamedSparseMatrix(void* _pvCtx, char* _pstName, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal);
+SciErr createNamedSparseMatrix(void* _pvCtx, char* _pstName, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal);
 
 /**
  * Create named sparse variable
@@ -135,7 +135,7 @@ SciErr createNamedSparseMatrix(void* _pvCtx, char* _pstName, int _iRows, int _iC
  * @return if the operation successed (0) or not ( !0 )
  */
 
-SciErr createNamedComplexSparseMatrix(void* _pvCtx, char* _pstName, int _iRows, int _iCols, int _iNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
+SciErr createNamedComplexSparseMatrix(void* _pvCtx, char* _pstName, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal, const double* _pdblImg);
 
 /**
  * Read named sparse variable
