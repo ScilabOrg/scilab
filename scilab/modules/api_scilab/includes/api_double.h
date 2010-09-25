@@ -81,7 +81,7 @@ SciErr allocComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCol
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, double* _pdblReal);
+SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const double* _pdblReal);
 
 /**
  * Get double variable data
@@ -92,7 +92,7 @@ SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, dou
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
+SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg);
 
 /**
  * Get complex double variable data
@@ -102,7 +102,7 @@ SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCo
  * @param[ ] _pdblData pointer on Z format data ( Real1, Img1, Real2, Img2, ... )
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, doublecomplex* _pdblData);
+SciErr createComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const doublecomplex* _pdblData);
 
 /**
  * Get double variable data
@@ -112,7 +112,7 @@ SciErr createComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iC
  * @param[in] _pdblReal pointer on data
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createNamedMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, double* _pdblReal);
+SciErr createNamedMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, const double* _pdblReal);
 
 /**
  * Get double variable data
@@ -123,7 +123,7 @@ SciErr createNamedMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _
  * @param[in] _pdblImg pointer on img data
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createNamedComplexMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, double* _pdblReal, double* _pdblImg);
+SciErr createNamedComplexMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg);
 
 /**
  * Get double variable data
@@ -133,7 +133,7 @@ SciErr createNamedComplexMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows
  * @param[in] _pdblData pointer on Z format data ( Real1, Img1, Real2, Img2, ... )
  * @return if the operation successed (0) or not ( !0 )
  */
-SciErr createNamedComplexZMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, doublecomplex* _pdblData);
+SciErr createNamedComplexZMatrixOfDouble(void* _pvCtx, char* _pstName, int _iRows, int _iCols, const doublecomplex* _pdblData);
 
 /**
  * Get double named variable data
