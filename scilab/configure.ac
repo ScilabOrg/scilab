@@ -1237,6 +1237,11 @@ fi
 AC_SUBST(FFTW_ENABLE)
 AM_CONDITIONAL(FFTW, test "$with_fftw" != no)
 
+#################
+## EIGEN
+#################
+
+AC_EIGEN()
 
 #################
 ## MPI
@@ -1839,6 +1844,10 @@ if test $FFTW_ENABLE = yes;  then
 else
    echo "Not using FFTW"
 fi
+
+echo ""
+echo "Eigen3 Configuration:"
+echo "  EIGEN CPPFLAGS ...... = $EIGEN_CPPFLAGS"
 
 echo ""
 if test $MATIO_ENABLE = yes;  then
