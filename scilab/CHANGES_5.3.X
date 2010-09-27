@@ -12,6 +12,8 @@ Bug Fixes:
 * bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni 
                    mode on Linux and MacOS X.
 
+* bug 8095 fixed - In SciNotes, the Set Colors window was too height with OpenJDK.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
