@@ -1,10 +1,23 @@
             Changes between version 5.3.0-beta-4 and 5.3.0 of Scilab
             ========================================================
 
+Known incompatibilities:
+========================
+
+* Due to bug 7364 fix, "Checked" uimenus have to be manually managed, these
+  uimenus are no more (un)checked on mouse click. Moreover, they can now have
+  a callback.
+
 Xcos:
 =====
 
 * bug 8081 fixed - The context was not checked before being set.
+
+Bug Fixes:
+==========
+
+* bug 7364 fixed - The "Checked" property misworked for uimenus and they could
+                   not have a callback.
 
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
