@@ -13,12 +13,19 @@ Bug Fixes:
                    mode on Linux and MacOS X.
 
 
+Bug Fixes:
+==========
+
+* bug 8079 fixed - When the max number of variable available has been reached,
+                   it was not possible to leave Scilab.
+
+
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
 
 
 Due to a critical bug from an underlying library of Scilab, a new beta release
-of Scilab has been decided. This will allow further testing and avoid potential 
+of Scilab has been decided. This will allow further testing and avoid potential
 side effects in the future stable release.
 
 Xcos:
@@ -38,7 +45,7 @@ Xcos:
 * bug 7445 fixed - The Kalman filter and the Cont-Plant-Hybrid-Observer demos
                    did not simulate.
 
-* bug 7716 fixed - Block inter-functions were not loaded after using the 
+* bug 7716 fixed - Block inter-functions were not loaded after using the
                    xcosPal API and then starting Xcos.
 
 * bug 7770 fixed - It was not possible to compile a diagram with Modelica
@@ -72,10 +79,10 @@ Xcos:
 
 * bug 8052 fixed - The I/O block value was used for computational purpose.
 
-* bug 8071 fixed - The PROD_f block in the Fibonacci demo was not well 
+* bug 8071 fixed - The PROD_f block in the Fibonacci demo was not well
                    rendered.
 
-* bug 8073 fixed - The child context could not be used to specify masked 
+* bug 8073 fixed - The child context could not be used to specify masked
                    super-blocks parameters.
 
 
@@ -140,7 +147,7 @@ The integer matrices are now handled.
 
 In a cell of editvar, expressions such as =2+2 are now accepted. See bug #7319.
 
-A refresh button to synchronise the variable from Scilab has been added. 
+A refresh button to synchronise the variable from Scilab has been added.
 See bug #7321
 
 * bug 7325 fixed - An error message did not respect the standard format.
@@ -209,7 +216,7 @@ Bug Fixes:
 
 * bug 7690 fixed - Long lines removed in the parallel_run help page.
 
-* bug 7748 fixed - The help page of rcond was wrong: only one output 
+* bug 7748 fixed - The help page of rcond was wrong: only one output
                    argument is provided.
 
 * bug 7862 fixed - "savematfile" only saved the first string in the vector
@@ -237,7 +244,7 @@ Bug Fixes:
 
 * bug 7950 fixed - spec crashed on Windows.
 
-* bug 7951 fixed - strcat crashed with the row concatenation option on 
+* bug 7951 fixed - strcat crashed with the row concatenation option on
                    GNU/Linux.
 
 * bug 7952 fixed - libraryinfo did not check size of the input argument.
