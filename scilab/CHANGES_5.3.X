@@ -6,6 +6,12 @@ Xcos:
 
 * bug 8081 fixed - The context was not checked before being set.
 
+Bug fixes:
+==========
+
+* bug 8097 fixed - Scilab crashed when plotting on a figure with "Units" 
+                   property set to "pixels".
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
