@@ -42,6 +42,8 @@ Bug Fixes:
 
 * bug 8081 fixed - msprintf did not manage tabulation as format.
 
+* bug 8096 fixed - With Russian localization, the banner was not centered.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
