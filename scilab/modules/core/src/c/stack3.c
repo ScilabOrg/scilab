@@ -1983,16 +1983,16 @@ void vGetPointerFromDoubleComplex(const doublecomplex *_poComplex, int _iSize, d
 
 	if(_pdblReal != NULL && _pdblImg != NULL)
 	{
-		C2F(scidcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
-		C2F(scidcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
+		C2F(dcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
+		C2F(dcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
 	}
 	else if(_pdblReal != NULL && _pdblImg == NULL)
 	{
-		C2F(scidcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
+		C2F(dcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
 	}
 	else if(_pdblReal == NULL && _pdblImg != NULL)
 	{
-		C2F(scidcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
+		C2F(dcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
 	}
 }
 doublecomplex* oGetDoubleComplexFromPointer(double *_pdblReal, double *_pdblImg, int _iSize)
