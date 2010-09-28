@@ -42,6 +42,11 @@ Bug Fixes:
 
 * bug 8081 fixed - msprintf did not manage tabulation as format.
 
+* bug 8108 fixed - Modules that starts by the letter "n" were not well managed
+                   by ATOMS. The cause of the issue is the behaviour of the
+                   msprintf function, which considers "\n" in file paths as a
+                   new line insertion.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
