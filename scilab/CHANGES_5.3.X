@@ -14,6 +14,8 @@ Bug Fixes:
 
 * bug 8095 fixed - In SciNotes, the Set Colors window was too height with OpenJDK.
 
+* bug 8096 fixed - With Russian localization, the banner was not centered.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
