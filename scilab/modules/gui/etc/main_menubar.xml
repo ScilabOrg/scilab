@@ -5,7 +5,7 @@
 
    <!-- File menu -->
    <menu label="&amp;File" enabled="false">
-        <submenu label="&amp;Execute...">
+        <submenu label="&amp;Execute..." accelerator="control E">
             <callback
             instruction='
               %fileToExec = uigetfile("*.sc*", "", gettext("Select a file to execute"));
@@ -17,7 +17,7 @@
             type="0"/>
         </submenu>
         <separator/>
-        <submenu label="&amp;Open a file...">
+        <submenu label="&amp;Open a file..." accelerator="control O">
             <callback
             instruction='
               %fileToOpen = uigetfile("*.sc*", "", gettext("Select a file to open with SciNotes"));
@@ -27,7 +27,7 @@
               clear("%fileToOpen");'
             type="0"/>
         </submenu>
-        <submenu label="&amp;Load environment...">
+        <submenu label="&amp;Load environment..." accelerator="control L">
             <callback
             instruction='
               %fileToLoad = uigetfile("*.sav", "", gettext("Select a file to load"));
@@ -38,7 +38,7 @@
               clear("%fileToLoad");'
             type="0"/>
         </submenu>
-        <submenu label="&amp;Save environment...">
+        <submenu label="&amp;Save environment..." accelerator="control S">
             <callback
             instruction='
               %fileToSave = uiputfile("*.sav", "", gettext("Select a file to write"));
@@ -70,24 +70,24 @@
         <submenu label="P&amp;age setup...">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.pageSetup' type="3"/>
         </submenu>
-        <submenu label="&amp;Print...">
+        <submenu label="&amp;Print..." accelerator="control P">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.printConsoleContents' type="3"/>
         </submenu>
         <separator/>
-        <submenu label="&amp;Quit">
+        <submenu label="&amp;Quit" accelerator="control Q">
             <callback instruction='exit();' type="0"/>
         </submenu>
     </menu>
 
     <!-- Edit menu -->
     <menu label="&amp;Edit" enabled="false">
-        <submenu label="C&amp;ut">
+        <submenu label="C&amp;ut" accelerator="control X">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.cutConsoleSelection' type="3"/>
         </submenu>
-        <submenu label="&amp;Copy">
+        <submenu label="&amp;Copy" accelerator="control C">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.copyConsoleSelection' type="3"/>
         </submenu>
-        <submenu label="&amp;Paste">
+        <submenu label="&amp;Paste" accelerator="control V">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.pasteClipboardIntoConsole' type="3"/>
         </submenu>
         <separator/>
@@ -95,7 +95,7 @@
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.emptyClipboard' type="3"/>
         </submenu>
         <separator/>
-        <submenu label="&amp;Select all">
+        <submenu label="&amp;Select all" accelerator="control A">
             <callback instruction='org.scilab.modules.gui.bridge.CallScilabBridge.selectAllConsoleContents' type="3"/>
         </submenu>
     </menu>
@@ -174,7 +174,7 @@
 
     <!-- Help menu -->
     <menu label="&amp;?" enabled="false">
-        <submenu label="Scilab &amp;Help">
+        <submenu label="Scilab &amp;Help" accelerator="F1">
             <callback instruction='help();' type="0"/>
         </submenu>
         <separator/>
@@ -200,7 +200,7 @@
             </submenu>
         </submenu>
         <separator/>
-        <submenu label="&amp;About Scilab...">
+        <submenu label="&amp;About Scilab..." accelerator="shift F1">
               <callback instruction='about()' type="0"/>
         </submenu>
     </menu>
