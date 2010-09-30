@@ -34,7 +34,7 @@ Bug Fixes:
 
 * bug 8068 fixed - Figures were not all closed at the end of a demonstration.
 
-* bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni 
+* bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni
                    mode on Linux and MacOS X.
 
 * bug 8079 fixed - When the max number of variable available has been reached,
@@ -52,6 +52,8 @@ Bug Fixes:
 
 * bug 8110 fixed - ATOMS: When removing a module, its main directory
                    was not deleted even if it was empty.
+
+* bug 8128 fixed - A warning was displayed on 'Save' action in a graphic window.
 
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
