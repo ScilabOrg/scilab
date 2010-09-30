@@ -34,9 +34,12 @@ Bug Fixes:
 * bug 7364 fixed - The "Checked" property misworked for uimenus and they could
                    not have a callback.
 
+* bug 7970 fixed - The eager loading of openmp support library was crashing
+                   on Linux with unsupported configuration for openmp.
+
 * bug 8068 fixed - Figures were not all closed at the end of a demonstration.
 
-* bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni 
+* bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni
                    mode on Linux and MacOS X.
 
 * bug 8079 fixed - When the max number of variable available has been reached,
