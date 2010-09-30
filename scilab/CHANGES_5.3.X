@@ -53,6 +53,7 @@ Bug Fixes:
 * bug 8110 fixed - ATOMS: When removing a module, its main directory
                    was not deleted even if it was empty.
 
+* bug 8126 fixed - Some demos from the GUI modules where hanging.
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
