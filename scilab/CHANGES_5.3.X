@@ -31,6 +31,9 @@ SciNotes:
 
 * Incremental search added with the shortcut: the F2 key.
 
+* Add a "Save file in..." menu which gives the possibility to save a file
+  in favorite directories.
+
 * bug 8095 fixed - The Set Colors window was too height with OpenJDK.
 
 * bug 8135 fixed - An exception was thrown when restoring files on MacOS X.
