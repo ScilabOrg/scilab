@@ -47,7 +47,7 @@ extern "C" {
 
 #include "all.hxx"
 #include "types.hxx"
-
+#include "sparse.hxx"
 
 namespace ast
 {
@@ -185,8 +185,8 @@ namespace ast
 		bool m_bSingleResult;
 		int _excepted_result;
 	};
-    
-	template <class T> 
+
+	template <class T>
     class RunVisitorT : public RunVisitor
 	{
 	protected :
@@ -365,7 +365,7 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const CellExp &e)
         {
             std::list<MatrixLineExp *>::const_iterator row;
@@ -412,14 +412,14 @@ namespace ast
 
         /** \name Visit Constant Expressions nodes.
          ** \{ */
-        
+
         void visitprivate(const StringExp &e)
         {
             String *psz = new String(e.value_get().c_str());
             result_set(psz);
         }
 
-        
+
         void visitprivate(const CommentExp &e)
         {
             /*
@@ -427,7 +427,7 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const IntExp  &e)
         {
             /*
@@ -435,7 +435,7 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const FloatExp  &e)
         {
             /*
@@ -443,21 +443,21 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const DoubleExp  &e)
         {
             Double *pdbl = new Double(e.value_get());
             result_set(pdbl);
         }
 
-        
+
         void visitprivate(const BoolExp  &e)
         {
             Bool *pb = new Bool(e.value_get());
             result_set(pb);
         }
 
-        
+
         void visitprivate(const NilExp &e)
         {
             /*
@@ -465,7 +465,7 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const SimpleVar &e)
         {
             InternalType *pI = symbol::Context::getInstance()->get(e.name_get());
@@ -494,7 +494,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const ColonVar &e)
         {
             int pRank[1] = {2};
@@ -516,7 +516,7 @@ namespace ast
             */
         }
 
-        
+
         void visitprivate(const DollarVar &e)
         {
             int pRank[1] = {2};
@@ -530,7 +530,7 @@ namespace ast
             result_set(pVar);
         }
 
-        
+
         void visitprivate(const ArrayListVar &e)
         {
             /*
@@ -538,7 +538,7 @@ namespace ast
              */
         }
 
-        
+
         void visitprivate(const FieldExp &e)
         {
             /*
@@ -549,10 +549,10 @@ namespace ast
             {
                 e.head_get()->accept(execHead);
             }
-            catch (string sz) 
+            catch (string sz)
             {
                 throw sz;
-            } 
+            }
 
             if (execHead.result_get() != NULL && !execHead.result_get()->isStruct())
             {
@@ -579,7 +579,7 @@ namespace ast
                         InternalType* pIT = psValue->get(psvRightMember->name_get());
                         result_set(pIT->clone());
                     }
-                    else 
+                    else
                     {
                         char szError[bsiz];
 #ifdef _MSC_VER
@@ -603,7 +603,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const CellCallExp &e)
         {
         }
@@ -654,8 +654,8 @@ namespace ast
                 }
             }
 
-            if(e.is_breakable() 
-               && ( (&e.else_get())->is_break() 
+            if(e.is_breakable()
+               && ( (&e.else_get())->is_break()
                     || (&e.then_get())->is_break() ))
             {
                 const_cast<IfExp*>(&e)->break_set();
@@ -663,8 +663,8 @@ namespace ast
                 const_cast<Exp*>(&e.then_get())->break_reset();
             }
 
-            if(e.is_returnable() 
-               && ( (&e.else_get())->is_return() 
+            if(e.is_returnable()
+               && ( (&e.else_get())->is_return()
                     || (&e.then_get())->is_return() ))
             {
                 const_cast<IfExp*>(&e)->return_set();
@@ -673,12 +673,12 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const TryCatchExp  &e)
         {
         }
 
-        
+
         void visitprivate(const WhileExp  &e)
         {
             ConditionVisitor execMeTest;
@@ -711,7 +711,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const ForExp  &e)
         {
             T execVar;
@@ -766,7 +766,7 @@ namespace ast
                         break;
                     }
                 }
-			
+
                 pVar->DecreaseRef();
             }
             else
@@ -792,20 +792,20 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const BreakExp &e)
         {
             const_cast<BreakExp*>(&e)->break_set();
         }
 
-        
+
         void visitprivate(const ReturnExp &e)
         {
             if(e.is_global() == false)
             {//return(x)
                 T execVar;
                 e.exp_get().accept(execVar);
-			
+
                 for(int i = 0 ; i < execVar.result_size_get() ; i++)
                 {
                     result_set(i, execVar.result_get(i)->clone());
@@ -814,7 +814,7 @@ namespace ast
             const_cast<ReturnExp*>(&e)->return_set();
         }
 
-        
+
         void visitprivate(const SelectExp &e)
         {
             // FIXME : exec select ... case ... else ... end
@@ -822,7 +822,7 @@ namespace ast
             e.select_get()->accept(execMe);
             bool bCase = false;
 
-		
+
             if(execMe.result_get() != NULL)
             {//find good case
                 cases_t::iterator it;
@@ -853,12 +853,12 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const CaseExp &e)
         {
         }
 
-        
+
         void visitprivate(const SeqExp  &e)
         {
             std::list<Exp *>::const_iterator	itExp;
@@ -951,7 +951,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const ArrayListExp  &e)
         {
             std::list<Exp *>::const_iterator it;
@@ -965,7 +965,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const AssignListExp  &e)
         {
         }
@@ -973,7 +973,7 @@ namespace ast
 
         /** \name Visit Single Operation nodes.
          ** \{ */
-        
+
         void visitprivate(const NotExp &e)
         {
             /*
@@ -1009,7 +1009,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const TransposeExp &e)
         {
             /*
@@ -1050,6 +1050,10 @@ namespace ast
                     vTransposeRealMatrix(pInR, pdbl->rows_get(), pdbl->cols_get(), pOutR);
                 }
                 result_set(pReturn);
+            }
+            else if(execMe.result_get()->isSparse())
+            {
+                result_set(execMe.result_get()->getAsSparse()->newTransposed());
             }
             else if(execMe.result_get()->isPoly())
             {
@@ -1104,7 +1108,7 @@ namespace ast
         /** \name Visit Declaration nodes.
          ** \{ */
         /** \brief Visit Var declarations. */
-        
+
         void visitprivate(const VarDec  &e)
         {
             /*Create local exec visitor*/
@@ -1122,7 +1126,7 @@ namespace ast
             }
         }
 
-        
+
         void visitprivate(const FunctionDec  &e)
         {
             /*
@@ -1148,7 +1152,7 @@ namespace ast
             }
 
             //types::Macro macro(VarList, RetList, (SeqExp&)e.body_get());
-            types::Macro *pMacro = new types::Macro(e.name_get(), *pVarList, *pRetList, 
+            types::Macro *pMacro = new types::Macro(e.name_get(), *pVarList, *pRetList,
                                                     static_cast<SeqExp&>(const_cast<Exp&>(e.body_get())), "script");
             symbol::Context::getInstance()->AddMacro(pMacro);
         }
@@ -1156,7 +1160,7 @@ namespace ast
 
         /** \name Visit Type dedicated Expressions related node.
          ** \{ */
-        
+
         void visitprivate(const ListExp &e)
         {
             T	execMeStart;
@@ -1268,7 +1272,7 @@ namespace ast
                 throw string(st);
             }
             catch(string sz)
-            {		
+            {
                 //TODO YaSp : Overloading
                 throw sz;
             }

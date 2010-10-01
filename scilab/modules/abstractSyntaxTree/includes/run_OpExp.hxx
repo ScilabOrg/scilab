@@ -28,7 +28,6 @@ void visitprivate(const OpExp &e)
     e.right_get().accept(execMeR);
     GenericType::RealType TypeL = execMeL.result_get()->getType();
     GenericType::RealType TypeR = execMeR.result_get()->getType();
-
     if(TypeL == GenericType::RealImplicitList)
     {
         ImplicitList* pIL = execMeL.result_get()->getAsImplicitList();
@@ -56,12 +55,16 @@ void visitprivate(const OpExp &e)
     {
     case OpExp::plus :
     {
-        if(TypeR == GenericType::RealDouble && TypeL == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL = execMeL.result_get()->getAsDouble();
-            Double *pR = execMeR.result_get()->getAsDouble();
+            int const iResult ((TypeL == GenericType::RealDouble)
+                               ? ((TypeR == GenericType::RealDouble)
+                                  ? AddDoubleToDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                  : AddDoubleToSparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)&pResult))
+                               :((TypeR == GenericType::RealDouble)
+                                  ? AddSparseToDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                 :AddSparseToSparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)&pResult)));
 
-            int iResult = AddDoubleToDouble(pL, pR, (Double**)&pResult);
             if(iResult != 0)
             {
                 std::ostringstream os;
@@ -153,16 +156,20 @@ void visitprivate(const OpExp &e)
     }
     case OpExp::minus :
     {
-        if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL = execMeL.result_get()->getAsDouble();
-            Double *pR = execMeR.result_get()->getAsDouble();
+            int const iResult ((TypeL == GenericType::RealDouble)
+                               ? ((TypeR == GenericType::RealDouble)
+                                  ? SubstractDoubleToDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                  : SubstractDoubleToSparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)&pResult))
+                               :((TypeR == GenericType::RealDouble)
+                                  ? SubstractSparseToDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                 :SubstractSparseToSparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)&pResult)));
 
-            int iResult = SubstractDoubleToDouble(pL, pR, (Double**)&pResult);
             if(iResult != 0)
             {
                 std::ostringstream os;
-                os << _("Inconsistent row/column dimensions.\n");
+                os << "inconsistent row/column dimensions";
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -227,20 +234,23 @@ void visitprivate(const OpExp &e)
     }
     case OpExp::times:
     {
-        if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
+            int const iResult ((TypeL == GenericType::RealDouble)
+                               ? ((TypeR == GenericType::RealDouble)
+                                  ? MultiplyDoubleByDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                  : MultiplyDoubleBySparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)&pResult))
+                               :((TypeR == GenericType::RealDouble)
+                                  ? MultiplySparseByDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                 :MultiplySparseBySparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)&pResult)));
 
-            int iResult = MultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
-            if(iResult)
+            if(iResult != 0)
             {
                 std::ostringstream os;
-                os << _("Inconsistent row/column dimensions.\n");
+                os << "inconsistent row/column dimensions";
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
-
             result_set(pResult);
         }
         else if(TypeL == InternalType::RealDouble && TypeR == InternalType::RealPoly)
@@ -354,7 +364,7 @@ void visitprivate(const OpExp &e)
             Double *pL			= execMeL.result_get()->getAsDouble();
             Double *pR			= execMeR.result_get()->getAsDouble();
 
-					
+
             int iResult = DotMultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
             if(iResult)
             {
