@@ -31,6 +31,9 @@ SciNotes:
 Bug Fixes:
 ==========
 
+* bug 4818 fixed - It was not possible to export a figure with a lot of circle
+                   marks.
+
 * bug 7364 fixed - The "Checked" property misworked for uimenus and they could
                    not have a callback.
 

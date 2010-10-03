@@ -2394,7 +2394,7 @@ static void gl2psParseFeedbackBuffer(int used)
         break;
       case GL2PS_DRAW_PIXELS_TOKEN :
       case GL2PS_TEXT_TOKEN :
-        if(auxindex < gl2psListNbr(gl2ps->auxprimitives))
+	if(auxindex < gl2psListNbr(gl2ps->auxprimitives))
           gl2psListAdd(gl2ps->primitives, 
                        gl2psListPointer(gl2ps->auxprimitives, auxindex++));
         else
