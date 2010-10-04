@@ -29,6 +29,7 @@ Scinotes:
 * Name of the current function and position (line, column) are now displayedno
 in the status bar of Scinotes.
 
+* There is now a rectangular selection tool.
 
 Graphics:
 =========
