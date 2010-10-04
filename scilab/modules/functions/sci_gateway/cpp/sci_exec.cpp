@@ -47,188 +47,188 @@ void printExp(std::ifstream* _pFile, Exp* _pExp, char* _pstPrompt, int* _piLine 
 /*--------------------------------------------------------------------------*/
 Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-	bool bErrCatch	= false;
-	int iMode				= EXEC_MODE_VERBOSE;
-	Exp* pExp				= NULL;
-    Parser parser;
-
-	if(in.size() < 1 || in.size() > 3)
-	{
-		return Function::Error;
-	}
-
-	if(in.size() > 1)
-	{//errcatch or mode
-		if(in[1]->getType() == InternalType::RealString)
-		{//errcatch
-			String* pS = in[1]->getAsString();
-			if(pS->size_get() != 1)
-			{
-				return Function::Error;
-			}
-
-			if(os_wcsicmp(pS->string_get(0), L"errcatch") == 0)
-			{
-				bErrCatch = true;
-			}
-			else
-			{
-				wchar_t stErr[1024];
-#ifdef _MSC_VER
-				swprintf_s(stErr, 1024, L"\"%s\" value is not a valid value for exec function", pS->string_get(0));
-#else
-				swprintf(stErr, 1024, L"\"%ls\" value is not a valid value for exec function", pS->string_get(0));
-#endif
-				YaspWriteW(stErr);
-				return Function::Error;
-			}
-
-			if(in.size() > 2)
-			{
-				if(in[2]->getType() == InternalType::RealDouble)
-				{//mode
-					Double* pD = in[2]->getAsDouble();
-					if(pD->size_get() != 1 || pD->isComplex())
-					{
-						return Function::Error;
-					}
-
-					iMode = (int)pD->real_get()[0];
-				}
-			}
-			else
-			{
-				YaspWriteW(L"Bad 3rd parameter type in exec call");
-				return Function::Error;
-			}
-		}
-		else if(in[1]->getType() == InternalType::RealDouble)
-		{//mode
-			Double* pD = in[1]->getAsDouble();
-			if(pD->size_get() != 1 || pD->isComplex())
-			{
-				return Function::Error;
-			}
-
-			iMode = (int)pD->real_get()[0];
-		}
-		else
-		{//not managed
-			YaspWriteW(L"Bad 2nd parameter type in exec call");
-			return Function::Error;
-		}
-	}
-
-	if(in[0]->getType() == InternalType::RealString)
-	{//1st argument is a path, parse file and execute it
-		int iParsePathLen		= 0;
-		String* pS = in[0]->getAsString();
-		if(pS->size_get() != 1)
-		{
-			return Function::Error;
-		}
-
-		wchar_t* pstFile = pS->string_get(0);
-        wchar_t *expandedPath = expandPathVariableW(pstFile);
-        parser.parseFile(expandedPath, L"exec");
-        FREE(expandedPath);
-		if(parser.getExitStatus() !=  Parser::Succeded)
-		{
-			YaspWriteW(parser.getErrorMessage());
-			parser.freeTree();
-			return Function::Error;
-		}
-
-		pExp = parser.getTree();
-	}
-	else if(in[0]->getType() == InternalType::RealMacro)
-	{//1st argument is a macro name, execute it in the current environnement
-		pExp = in[0]->getAsMacro()->body_get();
-	}
-	else if(in[0]->getType() == InternalType::RealMacroFile)
-	{//1st argument is a macro name, parse and execute it in the current environnement
-		if(in[0]->getAsMacroFile()->parse() == false)
-		{
-			return Function::Error;
-		}
-		pExp = in[0]->getAsMacroFile()->macro_get()->body_get();
-	}
-	else
-	{
-		return Function::Error;
-	}
-
-	std::list<Exp *>::iterator j;
-	std::list<Exp *>LExp = ((SeqExp*)pExp)->exps_get();
-
-	char stPrompt[64];
-	//get prompt
-	GetCurrentPrompt(stPrompt);
-
-    char *pstFilename = wide_string_to_UTF8(in[0]->getAsString()->string_get(0));
-	std::ifstream file(pstFilename);
-    FREE(pstFilename);
-
-	char str[1024];
-	int iCurrentLine = -1; //no data in str
-	for(j = LExp.begin() ; j != LExp.end() ; j++)
-	{
-		try
-		{
-			if(checkPrompt(iMode, EXEC_MODE_MUTE))
-			{
-				//manage mute option
-				(*j)->mute();
-				MuteVisitor mute;
-				(*j)->accept(mute);
-			}
-			else if(checkPrompt(iMode, EXEC_MODE_VERBOSE))
-			{
-				printExp(&file, *j, stPrompt, &iCurrentLine, str, iMode);
-			}
-
-			//excecute script
-			ExecVisitor execMe;
-			(*j)->accept(execMe);
-
-			//update ans variable.
-			if(execMe.result_get() != NULL && execMe.result_get()->isDeletable())
-			{
-				wstring varName = L"ans";
-				symbol::Context::getInstance()->put(varName, *execMe.result_get());
-				if((*j)->is_verbose() && !checkPrompt(iMode, EXEC_MODE_MUTE) && checkPrompt(iMode, EXEC_MODE_VERBOSE))
-				{
-					std::wostringstream ostr;
-					ostr << L"ans = " << std::endl;
-					ostr << std::endl;
-					ostr << execMe.result_get()->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth()) << std::endl;
-					YaspWriteW(ostr.str().c_str());
-				}
-			}
-
-			if(!checkPrompt(iMode, EXEC_MODE_MUTE) && checkPrompt(iMode, EXEC_MODE_VERBOSE))
-			{
-				YaspWriteW(L"\n");
-			}
-
-		}
-		catch(std::wstring st)
-		{
-			//print last line
-			if(checkPrompt(iMode, EXEC_MODE_MUTE))
-			{
-				printExp(&file, *j, stPrompt, &iCurrentLine, str, iMode);
-			}
-
-			//print error
-			YaspWriteW(st.c_str());
-			file.close();
-			return Function::Error;
-		}
-	}
-
-	parser.freeTree();
-	file.close();
+//	bool bErrCatch	= false;
+//	int iMode				= EXEC_MODE_VERBOSE;
+//	Exp* pExp				= NULL;
+//    Parser parser;
+//
+//	if(in.size() < 1 || in.size() > 3)
+//	{
+//		return Function::Error;
+//	}
+//
+//	if(in.size() > 1)
+//	{//errcatch or mode
+//		if(in[1]->getType() == InternalType::RealString)
+//		{//errcatch
+//			String* pS = in[1]->getAsString();
+//			if(pS->size_get() != 1)
+//			{
+//				return Function::Error;
+//			}
+//
+//			if(os_wcsicmp(pS->string_get(0), L"errcatch") == 0)
+//			{
+//				bErrCatch = true;
+//			}
+//			else
+//			{
+//				wchar_t stErr[1024];
+//#ifdef _MSC_VER
+//				swprintf_s(stErr, 1024, L"\"%s\" value is not a valid value for exec function", pS->string_get(0));
+//#else
+//				swprintf(stErr, 1024, L"\"%ls\" value is not a valid value for exec function", pS->string_get(0));
+//#endif
+//				YaspWriteW(stErr);
+//				return Function::Error;
+//			}
+//
+//			if(in.size() > 2)
+//			{
+//				if(in[2]->getType() == InternalType::RealDouble)
+//				{//mode
+//					Double* pD = in[2]->getAsDouble();
+//					if(pD->size_get() != 1 || pD->isComplex())
+//					{
+//						return Function::Error;
+//					}
+//
+//					iMode = (int)pD->real_get()[0];
+//				}
+//			}
+//			else
+//			{
+//				YaspWriteW(L"Bad 3rd parameter type in exec call");
+//				return Function::Error;
+//			}
+//		}
+//		else if(in[1]->getType() == InternalType::RealDouble)
+//		{//mode
+//			Double* pD = in[1]->getAsDouble();
+//			if(pD->size_get() != 1 || pD->isComplex())
+//			{
+//				return Function::Error;
+//			}
+//
+//			iMode = (int)pD->real_get()[0];
+//		}
+//		else
+//		{//not managed
+//			YaspWriteW(L"Bad 2nd parameter type in exec call");
+//			return Function::Error;
+//		}
+//	}
+//
+//	if(in[0]->getType() == InternalType::RealString)
+//	{//1st argument is a path, parse file and execute it
+//		int iParsePathLen		= 0;
+//		String* pS = in[0]->getAsString();
+//		if(pS->size_get() != 1)
+//		{
+//			return Function::Error;
+//		}
+//
+//		wchar_t* pstFile = pS->string_get(0);
+//        wchar_t *expandedPath = expandPathVariableW(pstFile);
+//        parser.parseFile(expandedPath, L"exec");
+//        FREE(expandedPath);
+//		if(parser.getExitStatus() !=  Parser::Succeded)
+//		{
+//			YaspWriteW(parser.getErrorMessage());
+//			parser.freeTree();
+//			return Function::Error;
+//		}
+//
+//		pExp = parser.getTree();
+//	}
+//	else if(in[0]->getType() == InternalType::RealMacro)
+//	{//1st argument is a macro name, execute it in the current environnement
+//		pExp = in[0]->getAsMacro()->body_get();
+//	}
+//	else if(in[0]->getType() == InternalType::RealMacroFile)
+//	{//1st argument is a macro name, parse and execute it in the current environnement
+//		if(in[0]->getAsMacroFile()->parse() == false)
+//		{
+//			return Function::Error;
+//		}
+//		pExp = in[0]->getAsMacroFile()->macro_get()->body_get();
+//	}
+//	else
+//	{
+//		return Function::Error;
+//	}
+//
+//	std::list<Exp *>::iterator j;
+//	std::list<Exp *>LExp = ((SeqExp*)pExp)->exps_get();
+//
+//	char stPrompt[64];
+//	//get prompt
+//	GetCurrentPrompt(stPrompt);
+//
+//    char *pstFilename = wide_string_to_UTF8(in[0]->getAsString()->string_get(0));
+//	std::ifstream file(pstFilename);
+//    FREE(pstFilename);
+//
+//	char str[1024];
+//	int iCurrentLine = -1; //no data in str
+//	for(j = LExp.begin() ; j != LExp.end() ; j++)
+//	{
+//		try
+//		{
+//			if(checkPrompt(iMode, EXEC_MODE_MUTE))
+//			{
+//				//manage mute option
+//				(*j)->mute();
+//				MuteVisitor mute;
+//				(*j)->accept(mute);
+//			}
+//			else if(checkPrompt(iMode, EXEC_MODE_VERBOSE))
+//			{
+//				printExp(&file, *j, stPrompt, &iCurrentLine, str, iMode);
+//			}
+//
+//			//excecute script
+//			ExecVisitor execMe;
+//			(*j)->accept(execMe);
+//
+//			//update ans variable.
+//			if(execMe.result_get() != NULL && execMe.result_get()->isDeletable())
+//			{
+//				wstring varName = L"ans";
+//				symbol::Context::getInstance()->put(varName, *execMe.result_get());
+//				if((*j)->is_verbose() && !checkPrompt(iMode, EXEC_MODE_MUTE) && checkPrompt(iMode, EXEC_MODE_VERBOSE))
+//				{
+//					std::wostringstream ostr;
+//					ostr << L"ans = " << std::endl;
+//					ostr << std::endl;
+//					ostr << execMe.result_get()->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth()) << std::endl;
+//					YaspWriteW(ostr.str().c_str());
+//				}
+//			}
+//
+//			if(!checkPrompt(iMode, EXEC_MODE_MUTE) && checkPrompt(iMode, EXEC_MODE_VERBOSE))
+//			{
+//				YaspWriteW(L"\n");
+//			}
+//
+//		}
+//		catch(std::wstring st)
+//		{
+//			//print last line
+//			if(checkPrompt(iMode, EXEC_MODE_MUTE))
+//			{
+//				printExp(&file, *j, stPrompt, &iCurrentLine, str, iMode);
+//			}
+//
+//			//print error
+//			YaspWriteW(st.c_str());
+//			file.close();
+//			return Function::Error;
+//		}
+//	}
+//
+//	parser.freeTree();
+//	file.close();
 	return Function::OK;
 }
 
@@ -303,10 +303,10 @@ void printExp(std::ifstream* _pFile, Exp* _pExp, char* _pstPrompt, int* _piLine 
 
 void printLine(char* _stPrompt, char* _stLine)
 {
-	//print prompt
-	YaspWrite(_stPrompt);
-	//print first line
-	YaspWrite(_stLine);
-	YaspWrite("\n");
+	////print prompt
+	//YaspWrite(_stPrompt);
+	////print first line
+	//YaspWrite(_stLine);
+	//YaspWrite("\n");
 }
 /*--------------------------------------------------------------------------*/
