@@ -55,6 +55,9 @@ Bug Fixes:
 * bug 8110 fixed - ATOMS: When removing a module, its main directory
                    was not deleted even if it was empty.
 
+* bug 8160 fixed - The derivative function did not check for input 
+                   argument #1, if it was a list.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
