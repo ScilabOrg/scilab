@@ -60,6 +60,7 @@ Bug Fixes:
 
 * bug 8124 fixed - Some translations were not up to date.
 
+* bug 8164 fixed - Typo in the fileparts help page.
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
