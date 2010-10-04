@@ -23,6 +23,8 @@
   <entry key="CopyAction">control C</entry>
   <entry key="CutAction">control X</entry>
   <entry key="PasteAction">control V</entry>
+  <entry key="PasteColumnAction">control shift V</entry>
+  <entry key="RepeatSelectionOnColumnAction">control shift Z</entry>
   <entry key="UndoAction">control Z</entry>
   <entry key="RedoAction">control Y</entry>
 
@@ -62,5 +64,7 @@
 
   <entry key="NextTabAction">ctrl UP</entry>
   <entry key="PreviousTabAction">ctrl DOWN</entry>
+
+  <entry key="DeleteAction">DELETE</entry>
 
 </properties>
