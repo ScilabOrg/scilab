@@ -29,6 +29,8 @@ Scinotes:
 * Name of the current function and position (line, column) are now displayedno
 in the status bar of Scinotes.
 
+* A rectangular selection tool is now available. CTRL+selection will enable it.
+  This improves the selection (of data for example).
 
 Graphics:
 =========
