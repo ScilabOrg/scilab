@@ -27,6 +27,8 @@ SciNotes:
 
 * bug 8135 fixed - An exception was thrown when restoring files on MacOS X.
 
+* bug 8144 fixed - There was no rectangular selection tool.
+
 
 Bug Fixes:
 ==========

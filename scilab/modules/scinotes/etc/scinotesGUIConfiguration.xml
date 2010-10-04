@@ -37,6 +37,9 @@
       <menuitem action="PasteAction" label="Paste"/>
       <menuitem action="DeleteAction" label="Delete"/>
       <separator/>
+      <menuitem action="PasteColumnAction" label="Paste Column"/>
+      <menuitem action="RepeatSelectionOnColumnAction" label="Repeat on the Column"/>
+      <separator/>
       <menuitem action="SelectAllAction" label="Select All"/>
       <menuitem action="SelectBlockAction" label="Select current block"/>
       <separator/>
@@ -119,6 +122,7 @@
     <menuitem action="CopyAction" label="Copy"/>
     <menuitem action="CutAction" label="Cut"/>
     <menuitem action="PasteAction" label="Paste"/>
+    <menuitem action="PasteColumnAction" label="Paste Column"/>
     <separator/>
     <menuitem action="HelpOnKeywordInPopupAction" label="Help on ;Help on selection"/>
     <menuitem action="OpenSourceFileOnKeywordAction" label="Open function source file"/>

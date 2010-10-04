@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Bruno JOFRET
+ * Copyright (C) 2010 - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -22,7 +23,7 @@ import org.scilab.modules.scinotes.SciNotes;
 /**
  * CopyAction Class
  * @author Bruno JOFRET
- *
+ * @author Calixte DENIZET
  */
 public final class CopyAction extends DefaultAction {
 
@@ -44,7 +45,9 @@ public final class CopyAction extends DefaultAction {
      * doAction
      */
     public void doAction() {
-        getEditor().getTextPane().getActionMap().get(DefaultEditorKit.copyAction).actionPerformed(null);
+        if (!getEditor().getTextPane().copyColumnSelectionInClipBoard()) {
+            getEditor().getTextPane().getActionMap().get(DefaultEditorKit.copyAction).actionPerformed(null);
+        }
     }
 
     /**
