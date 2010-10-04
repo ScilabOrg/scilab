@@ -36,6 +36,9 @@ in the status bar of Scinotes.
 
 * A bad identifier is now shown in the text editor.
 
+* A rectangular selection tool is now available. CTRL+selection will enable it.
+  This improves the selection (of data for example).
+
 * bug 8697 fixed - An exception was thrown when an empty document was reload.
 
 Xcos:
