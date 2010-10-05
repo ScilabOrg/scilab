@@ -25,6 +25,11 @@ Xcos:
 
 * bug 8081 fixed - The context was not checked before being set.
 
+Compilation:
+============
+
+* bug 7489 fixed - VPATH was failing on scicos_blocks generation headers.
+
 
 SciNotes:
 =========
