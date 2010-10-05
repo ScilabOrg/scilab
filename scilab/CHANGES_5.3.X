@@ -47,6 +47,8 @@ Bug Fixes:
 * bug 7364 fixed - The "Checked" property misworked for uimenus and they could
                    not have a callback.
 
+* bug 7606 fixed - Build option -Wold-style-cast removed for C++.
+
 * bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
 
 * bug 8068 fixed - Figures were not all closed at the end of a demonstration.
