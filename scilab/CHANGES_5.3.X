@@ -70,6 +70,8 @@ Bug Fixes:
 
 * bug 8164 fixed - Typo in the fileparts help page.
 
+* bug 8166 fixed - All the checkboxes in SciNotes 'Preferences' menu were inefficient.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
