@@ -140,7 +140,8 @@ GUI_LIBS = 	$(top_builddir)/modules/gui/libscigui.la \
 	$(top_builddir)/modules/scinotes/libsciscinotes.la \
 	$(top_builddir)/modules/ui_data/libsciui_data.la \
 	$(top_builddir)/modules/history_browser/libscihistory_browser.la \
-	$(top_builddir)/modules/commons/libscicommons.la
+	$(top_builddir)/modules/commons/libscicommons.la \
+	$(top_builddir)/modules/tclsci/libscitclsci.la
 
 if HDF5
 GUI_LIBS += $(top_builddir)/modules/hdf5/libscihdf5-forceload.la
