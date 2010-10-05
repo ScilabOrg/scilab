@@ -51,6 +51,8 @@ Bug Fixes:
 
 * bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
 
+* bug 8046 fixed - msprintf did not manage tabulation as format.
+
 * bug 8068 fixed - Figures were not all closed at the end of a demonstration.
 
 * bug 8077 fixed - browsevar, scinotes, xcos functions were not disabled in -nwni
@@ -59,10 +61,7 @@ Bug Fixes:
 * bug 8079 fixed - When the max number of variable available has been reached,
                    it was not possible to leave Scilab.
 
-* bug 8081 fixed - msprintf did not manage tabulation as format.
-
 * bug 8087 fixed - prettyprint did not handle %inf and %nan.
-
 
 * bug 8108 fixed - ATOMS: Modules that start by the letter "n" were not well
                    managed by ATOMS. The cause of the issue is the behaviour of
@@ -73,6 +72,8 @@ Bug Fixes:
                    was not deleted even if it was empty.
 
 * bug 8124 fixed - Some translations were not up to date.
+
+* bug 8126 fixed - Some demos from the GUI modules where hanging.
 
 * bug 8128 fixed - A warning was displayed on 'Save' action in a graphic window.
 
@@ -145,6 +146,9 @@ Xcos:
 
 * bug 8073 fixed - The child context could not be used to specify masked
                    super-blocks parameters.
+
+* bug 8097 fixed - Scilab crashed when plotting on a figure with "Units"
+                   property set to "pixels".
 
 
 Statistics:
