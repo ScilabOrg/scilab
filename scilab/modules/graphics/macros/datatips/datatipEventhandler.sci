@@ -282,12 +282,8 @@ function datatipSetReplaceMode(curve_handle,m)
 // m            : %t (interpolation active) or %f
   if argn(2)==1 then m=%f,end
   if type(curve_handle)<>9|or(curve_handle.type<>"Polyline") then
-<<<<<<< HEAD
     error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),...
-=======
-    error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),...
->>>>>>> fc553df... bug 8163 fix  datatipToggle cannot be called without argument
-                   "datatipCreate",1,"Polyline"))
+                  "datatipCreate",1,"Polyline"))
   end
 
   ud=datatipGetStruct(curve_handle);

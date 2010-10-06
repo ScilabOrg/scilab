@@ -8,7 +8,10 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function datatipRemove(handle,ind)
-;
+  if argn(2)<1 then
+    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),"datatipRemove",1))
+  end
+
   drawlater()
   if argn(2)==1 then //handle on a tip
     if type(handle)<>9|or(handle.type<>"Compound") then

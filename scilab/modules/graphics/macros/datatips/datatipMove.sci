@@ -7,11 +7,13 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-
-
 function datatipMove(tip_handle,ax)
 //moves a datatip along the associated curve
 // tip_handle : handle on the given datatip compound;
+  if argn(2)<1 then
+    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),"datatipMove",1))
+  end
+
   if type(tip_handle)<>9|or(tip_handle.type<>"Compound") then
     error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipMove",1,"datatip"))
   end

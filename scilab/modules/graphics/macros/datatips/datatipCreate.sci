@@ -13,6 +13,10 @@ function datatip_handle=datatipCreate(curve,index,ax)
 //curve : handle on the curve
 //index : index of the mesh point of the curve
 //ax    : optional (the axes which contains the curve;
+  if argn(2)<2 then
+    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),"datatipCreate",2))
+  end
+  
   bg=addcolor([255 255 238]/255);
   if type(curve)<>9|and(curve.type<>["Polyline"]) then
     error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipCreate",1,"Polyline"))
