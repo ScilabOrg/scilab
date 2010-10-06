@@ -11,7 +11,7 @@
 function datatipSetOrientation(tip_handle,o)
   orientations=["automatic" "upper left" "upper right", "lower left","lower right"]
   if type(tip_handle)<>9|or(tip_handle.type<>"Compound") then
-    error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipSetOrientation",1,"datatip"))
+    error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipSetOrientation",1,"datatip"))
   end
 
   k=find(orientations==convstr(o))

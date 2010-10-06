@@ -13,7 +13,7 @@ function datatipSetInterp(curve_handle,m)
 // m            : %t (interpolation active) or %f
   if argn(2)==1 then m=%f,end
   if type(curve_handle)<>9|or(curve_handle.type<>"Polyline") then
-    error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipSetInterp",1,"Polyline"))
+    error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipSetInterp",1,"Polyline"))
   end
 
   ud=datatipGetStruct(curve_handle)

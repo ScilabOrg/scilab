@@ -12,7 +12,7 @@ function datatipRemove(handle,ind)
   drawlater()
   if argn(2)==1 then //handle on a tip
     if type(handle)<>9|or(handle.type<>"Compound") then
-      error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"datatip"))
+      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"datatip"))
     end
     ind=[]
     curve_handles=datatipGetEntities(handle.parent)
@@ -31,7 +31,7 @@ function datatipRemove(handle,ind)
   else
     curve_handle=handle;
     if type(curve_handle)<>9|or(curve_handle.type<>"Polyline") then
-      error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"Polyline"))
+      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"Polyline"))
     end
   end
 

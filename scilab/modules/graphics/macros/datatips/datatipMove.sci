@@ -13,7 +13,7 @@ function datatipMove(tip_handle,ax)
 //moves a datatip along the associated curve
 // tip_handle : handle on the given datatip compound;
   if type(tip_handle)<>9|or(tip_handle.type<>"Compound") then
-    error(msprintf(_("%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipMove",1,"datatip"))
+    error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipMove",1,"datatip"))
   end
 
   if argn(2)==1 then
@@ -21,7 +21,7 @@ function datatipMove(tip_handle,ax)
     while ax.type<>"Axes" then ax=ax.parent,end
   else
     if type(ax)<>9|or(ax.type<>"Axes") then
-      error(msprintf(_( "%s: Wrong size for input argument #%d: A ''%s'' handle expected.\n"),"datatipMove",2,"Axes"))
+      error(msprintf(_( "%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipMove",2,"Axes"))
     end
   end
   point_handle=tip_handle.children(1)
