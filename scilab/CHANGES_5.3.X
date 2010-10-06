@@ -80,6 +80,7 @@ Bug Fixes:
 
 * bug 8164 fixed - Typo in the fileparts help page.
 
+* bug 8174 fixed - ss2tf produced bad results if applied to a complex state space system.
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
