@@ -16,12 +16,20 @@
 #include <string.h>
 #include "parser.hxx"
 #include "parser_private.hxx"
+#include "scilabexception.hxx"
 
 #ifdef _MSC_VER
 #include "windows.h"
 #include "charEncoding.h"
 #include "MALLOC.h"
 #endif
+
+extern "C"
+{
+#include "Scierror.h"
+#include "localization.h"
+#include "os_swprintf.h"
+}
 
 extern FILE*    yyin;
 extern int      yyparse();
@@ -69,8 +77,9 @@ void ParserSingleInstance::parseFile(const wstring& fileName, const wstring& pro
 
     if (!yyin)
     {
-        wcerr << L"*** Error -> cannot open `" << fileName << L"`" << std::endl;
-        exit (SYSTEM_ERROR);
+        wchar_t szError[bsiz];
+        os_swprintf(szError, bsiz, _W("%ls: Cannot open file %ls.\n"), L"parser", fileName);
+        throw ast::ScilabError(szError);
     }
 
     ParserSingleInstance::disableStrictMode();
