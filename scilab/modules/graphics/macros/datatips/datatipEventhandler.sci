@@ -198,7 +198,7 @@ function [curve,dmin,ptmin,l]=datatipGetNearestEntity(pt,ax)
 
   dmin=%inf;
   l=0;
-  curve=[];
+  curve=[];kmin=[]
   ptmin=[];
   if argn(2)==1 then
     //only a point given look into the axes where the point lies
@@ -256,7 +256,9 @@ function [curve,dmin,ptmin,l]=datatipGetNearestEntity(pt,ax)
       end
     end
   end
-  curve=curves(kmin)
+  if kmin<>[] then
+    curve=curves(kmin)
+  end
 endfunction
 
 function datatipSelectFunction(curve)

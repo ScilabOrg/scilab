@@ -81,7 +81,9 @@ Bug Fixes:
 * bug 8163 fixed - datatipToggle could not be called without argument as 
                    stated in the help page.
 
-* bug 8164 fixed - Typo in the fileparts help page.
+* bug 8164 fixed - Adding a datatip in a figure that mix surface and curve  
+                   generated a zero divide error.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
