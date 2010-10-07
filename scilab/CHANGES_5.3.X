@@ -31,6 +31,8 @@ SciNotes:
 
 * Incremental search added with the shortcut: the F2 key.
 
+* bugs 5321, 7760 fixed - It was not easy to configure the tabulation.
+
 * bug 8095 fixed - The Set Colors window was too height with OpenJDK.
 
 * bug 8135 fixed - An exception was thrown when restoring files on MacOS X.
