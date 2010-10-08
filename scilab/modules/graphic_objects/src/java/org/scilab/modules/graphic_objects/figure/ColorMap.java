@@ -21,8 +21,8 @@ public class ColorMap {
      */
     private static final int CHANNELS_NUMBER = 3;
 
-    private static final float[] BLACK_COLOR = new float[]{0, 0, 0};
-    private static final float[] WHITE_COLOR = new float[]{1, 1, 1};
+    private static final Double[] BLACK_COLOR = new Double[]{0., 0., 0.};
+    private static final Double[] WHITE_COLOR = new Double[]{1., 1., 1.};
 
     /**
      * The data of this ColorMap.
@@ -60,7 +60,7 @@ public class ColorMap {
      * @param index the given Scilab index.
      * @return the color corresponding to the given Scilab index.
      */
-    public float[] getScilabColor(int index) {
+    public Double[] getScilabColor(int index) {
 
         int lastScilabIndex = getSize();
 
@@ -77,16 +77,16 @@ public class ColorMap {
         }
 
         if (index==-1) {
-            return BLACK_COLOR.clone();
+            return BLACK_COLOR;
         } else if (index==-2) {
-            return WHITE_COLOR.clone();
+            return WHITE_COLOR;
         } else {
             index = index - 1;
-            float[] returned = new float[CHANNELS_NUMBER];
-            for (int i = 0 ; i<CHANNELS_NUMBER ; i++) {
-                returned[i] = data[index + getSize() * i].floatValue();
-            }
-            return returned;
+            return new Double[]{
+                data[index],
+                data[index + getSize()],
+                data[index + getSize() * 2]
+            };
         }
     }
 
