@@ -39,6 +39,8 @@ GRAPHIC_OBJECTS_CPP_SOURCES = 	src/cpp/createGraphicObject.cpp \
 								src/cpp/deleteGraphicObject.cpp \
 								src/cpp/dataModel.cpp \
 								src/cpp/Data3D.cpp \
+								src/cpp/NativeGL.cpp \
+								src/cpp/NativeGL_wrap.cxx \
 								src/cpp/NgonData.cpp \
 								src/cpp/NgonGeneralData.cpp \
 								src/cpp/NgonPolylineData.cpp
@@ -88,7 +90,7 @@ if GUI
 pkglib_LTLIBRARIES += libscigraphic_objects.la
 endif
 
-libscigraphic_objects_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
+libscigraphic_objects_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS) -lGLEW -lGLU -lGL -lglut $(X_LIBS) $(X_EXTRA_LIBS)
 
 libscigraphic_objects_la_SOURCES = $(GRAPHIC_OBJECTS_GEN_SOURCES) $(GRAPHIC_OBJECTS_C_SOURCES) $(GRAPHIC_OBJECTS_JNI_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(GRAPHIC_OBJECTS_CPP_SOURCES)
 
