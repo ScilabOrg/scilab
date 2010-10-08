@@ -13,25 +13,28 @@
 
 package org.scilab.modules.graphic_objects.axes;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
-
-import java.util.ArrayList;
-
 import org.scilab.modules.graphic_objects.arc.Arc.ArcDrawingMethod;
 import org.scilab.modules.graphic_objects.arc.Arc.ArcProperty;
 import org.scilab.modules.graphic_objects.axes.AxisProperty.AxisLocation;
 import org.scilab.modules.graphic_objects.axes.Box.BoxType;
 import org.scilab.modules.graphic_objects.axes.Camera.ViewType;
 import org.scilab.modules.graphic_objects.contouredObject.Line;
-import org.scilab.modules.graphic_objects.contouredObject.Line.*;
+import org.scilab.modules.graphic_objects.contouredObject.Line.LinePropertyType;
+import org.scilab.modules.graphic_objects.contouredObject.Line.LineType;
 import org.scilab.modules.graphic_objects.contouredObject.Mark;
-import org.scilab.modules.graphic_objects.contouredObject.Mark.*;
+import org.scilab.modules.graphic_objects.contouredObject.Mark.MarkPropertyType;
+import org.scilab.modules.graphic_objects.contouredObject.Mark.MarkSizeUnitType;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty;
-import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty.*;
-import org.scilab.modules.graphic_objects.graphicController.*;
+import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty.ClipStateType;
+import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty.ClippablePropertyType;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
-import org.scilab.modules.graphic_objects.label.Label;
+import org.scilab.modules.graphic_objects.graphicObject.IVisitor;
 import org.scilab.modules.graphic_objects.textObject.FormattedText;
+
+import java.util.ArrayList;
+
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
 
 /**
  * Axes class
@@ -152,8 +155,13 @@ public class Axes extends GraphicObject {
 
 	    return copy;
 	}
-	
-	/**
+
+    @Override
+    public void accept(IVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    /**
 	 * Returns the enum associated to a property name
 	 * @param propertyName the property name
 	 * @return the property enum
