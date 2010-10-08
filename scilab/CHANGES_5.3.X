@@ -47,7 +47,15 @@ Bug Fixes:
 * bug 7364 fixed - The "Checked" property misworked for uimenus and they could
                    not have a callback.
 
+* bug 7606 fixed - Build option -Wold-style-cast removed for C++.
+
 * bug 7768 fixed - for cdfgam, the Scale parameter was, in fact, the Rate.
+
+* bug 7970 fixed - The eager loading of openmp support library was crashing
+                   on Linux with unsupported configuration for openmp.
+
+* bug 7997 fixed - Function getfreememory adapted for FreeBSD. Thanks to Rob
+                   Farmer.
 
 * bug 8046 fixed - msprintf did not manage tabulation as format.
 
