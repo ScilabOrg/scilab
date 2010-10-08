@@ -302,7 +302,12 @@ libscirenderer_la_CFLAGS=	-I$(srcdir)/includes/
 # All the sources needed by libscirenderer.la
 libscirenderer_la_SOURCES = $(RENDERER_CPP_SOURCES) $(GATEWAY_C_SOURCES)
 
-SWIG_WRAPPERS = src/jni/FigureScilabCall.i
+SWIG_WRAPPERS = src/jni/FigureScilabCall.i \
+                src/jni/NativeGL.i
+                
+if SWIG
+  BUILT_SOURCES=swig
+endif
 
 # For the code check (splint)
 CHECK_SRC= $(GATEWAY_C_SOURCES)
