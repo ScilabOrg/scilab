@@ -303,6 +303,10 @@ libscirenderer_la_CFLAGS=	-I$(srcdir)/includes/
 libscirenderer_la_SOURCES = $(RENDERER_CPP_SOURCES) $(GATEWAY_C_SOURCES)
 
 SWIG_WRAPPERS = src/jni/FigureScilabCall.i
+                
+if SWIG
+  BUILT_SOURCES=swig
+endif
 
 # For the code check (splint)
 CHECK_SRC= $(GATEWAY_C_SOURCES)
