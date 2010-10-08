@@ -1288,7 +1288,6 @@ ConstructPolyline (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, do
    * its parent's list of children.
    */
   setGraphicObjectRelationship(pparentsubwin->UID, pobj->UID); 
-
   if (sciAddNewHandle(pobj) == -1)
   {
     deleteGraphicObject(pobj->UID);

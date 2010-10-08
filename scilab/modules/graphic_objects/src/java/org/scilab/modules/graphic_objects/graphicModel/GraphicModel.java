@@ -69,7 +69,7 @@ public class GraphicModel {
      * @param id the id of the object to get
      * @return the object
      */
-    public Object getObjectFromId(String id) {
+    public GraphicObject getObjectFromId(String id) {
     	return allObjects.get(id);
     }
 
