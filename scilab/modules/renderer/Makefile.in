@@ -118,7 +118,9 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libscirenderer_la_DEPENDENCIES = $(top_builddir)/libs/doublylinkedlist/libscidoublylinkedlist.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la
-am__objects_1 = libscirenderer_la-DrawableSubwinFactory.lo \
+am__objects_1 = libscirenderer_la-CallGraphicJoGLView.lo \
+	libscirenderer_la-callJoGLView.lo \
+	libscirenderer_la-DrawableSubwinFactory.lo \
 	libscirenderer_la-DrawableSubwin.lo \
 	libscirenderer_la-DrawableFigureJoGL.lo \
 	libscirenderer_la-DrawableFigureBridgeFactory.lo \
@@ -563,6 +565,7 @@ RT_LIB = @RT_LIB@
 SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
+SCIRENDERER = @SCIRENDERER@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SET_RELOCATABLE = @SET_RELOCATABLE@
@@ -665,6 +668,8 @@ libscirenderer_la_etc_DATA = etc/renderer.quit etc/renderer.start
 
 # List of the c files
 RENDERER_CPP_SOURCES = \
+src/jni/CallGraphicJoGLView.cpp \
+src/cpp/callJoGLView.cpp \
 src/cpp/subwinDrawing/DrawableSubwinFactory.cpp \
 src/cpp/subwinDrawing/DrawableSubwin.cpp \
 src/cpp/figureDrawing/DrawableFigureJoGL.cpp \
@@ -943,6 +948,11 @@ libscirenderer_la_CFLAGS = -I$(srcdir)/includes/
 libscirenderer_la_SOURCES = $(RENDERER_CPP_SOURCES) $(GATEWAY_C_SOURCES)
 SWIG_WRAPPERS = src/jni/FigureScilabCall.i
 
+# Provides macros compilation, Java compilation, cleaning
+# If you want Makefile to call ant, added USEANT=1
+@GIWS_TRUE@BUILT_SOURCES = giws
+@SWIG_TRUE@BUILT_SOURCES = swig
+
 # For the code check (splint)
 CHECK_SRC = $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscirenderer_la_CFLAGS)
@@ -951,7 +961,8 @@ INCLUDE_FLAGS = $(libscirenderer_la_CFLAGS)
 libscirenderer_la_LIBADD = $(top_builddir)/libs/doublylinkedlist/libscidoublylinkedlist.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 # needs the rendererer before $(top_builddir)/modules/jvm/libscijvm.la
-GIWS_WRAPPERS = src/jni/ArcFillDrawerGL.giws.xml \
+GIWS_WRAPPERS = src/jni/JoGLView.giws.xml \
+src/jni/ArcFillDrawerGL.giws.xml \
 src/jni/ArcLineDrawerGL.giws.xml \
 src/jni/BackTrihedronDrawerGL.giws.xml \
 src/jni/CenteredTextDrawerGL.giws.xml \
@@ -996,10 +1007,6 @@ src/jni/RenderingChecker.giws.xml \
 src/jni/XlFontManager.giws.xml \
 src/jni/SubwinBackgroundDrawerGL.giws.xml
 
-
-# Provides macros compilation, Java compilation, cleaning
-# If you want Makefile to call ant, added USEANT=1
-@GIWS_TRUE@BUILT_SOURCES = giws
 @GUI_TRUE@USEANT = 1
 @GUI_TRUE@pkglib_LTLIBRARIES = libscirenderer.la
 libscirenderer_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
@@ -1163,6 +1170,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-BasicAlgos.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-BottomXAxisPositioner.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-BuildDrawingObserver.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-CallGraphicJoGLView.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-Camera.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-CameraBridge.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-CameraBridgeFactory.Plo@am__quote@
@@ -1394,6 +1402,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ZAxisPositioner.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ZGridDrawerJoGL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-ZLabelPositioner.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-callJoGLView.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-getHandleDrawer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscirenderer_la-rendererBasicAlgos.Plo@am__quote@
 
@@ -1445,6 +1454,20 @@ libscirenderer_la-FigureScilabCall_wrap.lo: src/jni/FigureScilabCall_wrap.c
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
+
+libscirenderer_la-CallGraphicJoGLView.lo: src/jni/CallGraphicJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-CallGraphicJoGLView.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-CallGraphicJoGLView.Tpo -c -o libscirenderer_la-CallGraphicJoGLView.lo `test -f 'src/jni/CallGraphicJoGLView.cpp' || echo '$(srcdir)/'`src/jni/CallGraphicJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscirenderer_la-CallGraphicJoGLView.Tpo $(DEPDIR)/libscirenderer_la-CallGraphicJoGLView.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/CallGraphicJoGLView.cpp' object='libscirenderer_la-CallGraphicJoGLView.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-CallGraphicJoGLView.lo `test -f 'src/jni/CallGraphicJoGLView.cpp' || echo '$(srcdir)/'`src/jni/CallGraphicJoGLView.cpp
+
+libscirenderer_la-callJoGLView.lo: src/cpp/callJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-callJoGLView.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-callJoGLView.Tpo -c -o libscirenderer_la-callJoGLView.lo `test -f 'src/cpp/callJoGLView.cpp' || echo '$(srcdir)/'`src/cpp/callJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscirenderer_la-callJoGLView.Tpo $(DEPDIR)/libscirenderer_la-callJoGLView.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/callJoGLView.cpp' object='libscirenderer_la-callJoGLView.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscirenderer_la-callJoGLView.lo `test -f 'src/cpp/callJoGLView.cpp' || echo '$(srcdir)/'`src/cpp/callJoGLView.cpp
 
 libscirenderer_la-DrawableSubwinFactory.lo: src/cpp/subwinDrawing/DrawableSubwinFactory.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscirenderer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscirenderer_la-DrawableSubwinFactory.lo -MD -MP -MF $(DEPDIR)/libscirenderer_la-DrawableSubwinFactory.Tpo -c -o libscirenderer_la-DrawableSubwinFactory.lo `test -f 'src/cpp/subwinDrawing/DrawableSubwinFactory.cpp' || echo '$(srcdir)/'`src/cpp/subwinDrawing/DrawableSubwinFactory.cpp
