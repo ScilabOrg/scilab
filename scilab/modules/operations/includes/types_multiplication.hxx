@@ -14,11 +14,15 @@
 
 #include "operation.hxx"
 #include "alltypes.hxx"
-
+#include "sparse.hxx"
+#include <Eigen/Sparse>
 
 using namespace types;
 
 EXTERN_OP int MultiplyDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleOut);
+EXTERN_OP int MultiplySparseBySparse(Sparse* _pSparse1, Sparse* _pSparse2, Sparse** _pSparseOut);
+EXTERN_OP int MultiplyDoubleBySparse(Double* _pDouble, Sparse *_pSparse, Double** _pDoubleOut);
+EXTERN_OP int MultiplySparseByDouble(Sparse *_pSparse, Double*_pDouble, Double** _pDoubleOut);
 EXTERN_OP int MultiplyDoubleByPoly(Double* _pDouble, MatrixPoly* _pPoly, MatrixPoly** _pPolyOut);
 EXTERN_OP int MultiplyPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly **_pPolyOut);
 EXTERN_OP int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _pPolyOut);

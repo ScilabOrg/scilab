@@ -40,6 +40,7 @@ namespace types
     class ListInsert;
     class ListUndefined;
     class Cell;
+    class Sparse;
 }
 
 #endif /* !__ANY_TYPES_HXX__ */

@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 // This code is separated in run_CallExp.hxx
@@ -40,7 +40,7 @@ void visitprivate(const CallExp &e)
                 execVar[j].result_set(pIL->extract_matrix());
                 delete pIL;
             }
-				
+
             if(execVar[j].is_single_result())
             {
                 in.push_back(execVar[j].result_get());
@@ -55,12 +55,12 @@ void visitprivate(const CallExp &e)
                 }
             }
         }
-			
+
         int iRetCount = Max(1, expected_size_get());
 
         T execCall;
         Function::ReturnValue Ret = pCall->call(in, iRetCount, out, &execCall);
-			
+
         if(Ret == Callable::OK)
         {
             if(expected_size_get() == 1 && out.size() == 0) //to manage ans
@@ -77,7 +77,7 @@ void visitprivate(const CallExp &e)
             {
                 result_set(out[0]);
             }
-            else 
+            else
             {
                 for(int i = 0 ; i < static_cast<int>(out.size()) ; i++)
                 {
@@ -97,12 +97,12 @@ void visitprivate(const CallExp &e)
             throw string(szError);
         }
 
-			
+
         for (unsigned int k = 0; k < e.args_get().size(); k++)
         {
             execVar[k].result_get()->DecreaseRef();
         }
-			
+
 //			std::cout << "before delete[]" << std::endl;
         delete[] execVar;
 //			std::cout << "after delete[]" << std::endl;
@@ -166,12 +166,15 @@ void visitprivate(const CallExp &e)
             case InternalType::RealDouble :
                 pOut = pIT->getAsDouble()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
-            case InternalType::RealBool : 
+            case InternalType::RealBool :
                 pOut = pIT->getAsBool()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
             case InternalType::RealInt :
                 pOut = pIT->getAsInt()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
+            case InternalType::RealSparse :
+                pOut = pIT->getAsSparse()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
+                    break;
             case InternalType::RealString :
                 pOut = pIT->getAsString()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
@@ -208,7 +211,7 @@ void visitprivate(const CallExp &e)
             }
             result_set(pOut);
         }
-        else 
+        else
         {
             if(ResultList.size() == 0)
             {
