@@ -73,7 +73,7 @@ public class Box {
 		box = BoxType.OFF;
 		hiddenAxisColor = 0;
 		tightLimits = false;
-		dataBounds = new double[6];
+		dataBounds = new double[]{-1, 1, -1, 1, -1, 1};
 		realDataBounds = new double[6];
 		zoomEnabled = false;
 		zoomBox = new double[6];
