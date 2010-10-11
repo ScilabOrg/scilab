@@ -129,7 +129,7 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
 
     if(pWriter == NULL)
     {
-        os_swprintf(pstVerbose, 65535, _W("%s: Cannot open file ''%s''.\n"), L"genlib", pstParseFile);
+        os_swprintf(pstVerbose, 65535, _W("%ls: Cannot open file ''%ls''.\n"), L"genlib", pstParseFile);
         YaspWriteW(pstVerbose);
 
         out.push_back(new Bool(0));
