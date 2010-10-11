@@ -97,6 +97,8 @@ Bug Fixes:
 
 * bug 8164 fixed - Typo in the fileparts help page.
 
+* bug 8206 fixed - isnum did not manage blanks.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
