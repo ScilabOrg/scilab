@@ -184,6 +184,7 @@ public class SwingScilabHelpBrowser extends JHelp implements SimpleHelpBrowser {
 				helpSet = new HelpSet(/*classLoader*/ null, helpSetURL);
 			} catch (HelpSetException e) {
 				System.out.println("Could not load file: " + jarFiles[i] + ". Please check its contents, must be a Java Help file.");
+				System.out.println("Error message: "+e.getLocalizedMessage());
 				/* Reinit status bar and cursor */
 				if (ScilabConsole.isExistingConsole() && ScilabConsole.getConsole().getInfoBar() != null) {
 					ScilabConsole.getConsole().getInfoBar().setText("");
