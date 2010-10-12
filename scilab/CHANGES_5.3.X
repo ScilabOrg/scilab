@@ -140,6 +140,9 @@ Bug Fixes:
 
 * bug 8206 fixed - isnum did not manage blanks.
 
+* bug 8218 fixed - file association with filename with accentued characters
+                   did not work.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
