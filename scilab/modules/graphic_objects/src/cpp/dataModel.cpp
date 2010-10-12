@@ -69,7 +69,11 @@ char* DataModel::createDataObject(char* _pstID, char* _sType)
      * To be implemented as the Java graphicObject class' similar function
      * (getTypeFromName) in order to avoid strcmp calls.
      */
-    if (strcmp(_sType, __GO_MATPLOT__) == 0)
+    if (strcmp(_sType, __GO_GRAYPLOT__) == 0)
+    {
+       newObject = new NgonGridData();
+    }
+    else if (strcmp(_sType, __GO_MATPLOT__) == 0)
     {
        newObject = new NgonGridData();
     }
@@ -87,7 +91,7 @@ char* DataModel::createDataObject(char* _pstID, char* _sType)
     }
     else if (strcmp(_sType, __GO_FEC__) == 0)
     {
-        newObject = new TriangleMeshData();
+        newObject = new TriangleMeshFecData();
     }
     else
     {
