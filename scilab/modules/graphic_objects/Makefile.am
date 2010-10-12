@@ -41,7 +41,9 @@ GRAPHIC_OBJECTS_CPP_SOURCES = 	src/cpp/createGraphicObject.cpp \
 								src/cpp/Data3D.cpp \
 								src/cpp/NgonData.cpp \
 								src/cpp/NgonGeneralData.cpp \
-								src/cpp/NgonPolylineData.cpp
+								src/cpp/NgonPolylineData.cpp \
+								src/cpp/TriangleMeshData.cpp \
+								src/cpp/TriangleMeshFecData.cpp
 
 
 GIWS_WRAPPERS = src/jni/graphic_objects.giws.xml
