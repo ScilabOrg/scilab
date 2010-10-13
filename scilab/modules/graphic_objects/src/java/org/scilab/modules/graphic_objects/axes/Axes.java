@@ -46,6 +46,8 @@ public class Axes extends GraphicObject {
 		YAXISTICKS, YAXISAUTOTICKS, YAXISNUMBERTICKS, YAXISTICKSLOCATIONS, YAXISTICKSLABELS, YAXISSUBTICKS,
 		ZAXISVISIBLE, ZAXISREVERSE, ZAXISGRIDCOLOR, ZAXISLABEL, ZAXISLOCATION, ZAXISLOGFLAG,
 		ZAXISTICKS, ZAXISAUTOTICKS, ZAXISNUMBERTICKS, ZAXISTICKSLOCATIONS, ZAXISTICKSLABELS, ZAXISSUBTICKS,
+		AUTOSUBTICKS,
+		FONT_STYLE, FONT_SIZE, FONT_COLOR, FONT_FRACTIONAL,
 		GRIDPOSITION, TITLE, AUTOCLEAR, FILLED, BACKGROUND,
 		MARGINS, AXESBOUNDS,
 		HIDDENCOLOR };
@@ -73,6 +75,15 @@ public class Axes extends GraphicObject {
 
 	/** 3-element array (properties of the X, Y and Z axes) */
 	private AxisProperty[] axes;
+
+	/**
+	 * Specifies whether subticks are automatically computed or not
+	 * Used as an internal state only
+	 * Note: shared by the three axes to be compatible with the
+	 * former flagNax internal state (autoSubticks is equivalent to !flagNax)
+	 * This should eventually become a per-axis property (as the auto ticks flag).
+	 */
+	private boolean autoSubticks;
 
 	/** Grid position */
 	private GridPosition gridPosition;
@@ -231,6 +242,16 @@ public class Axes extends GraphicObject {
 			return AxesProperty.ZAXISTICKSLABELS;
 		} else if (propertyName.equals(__GO_Z_AXIS_SUBTICKS__)) {
 			return AxesProperty.ZAXISSUBTICKS;
+		} else if (propertyName.equals(__GO_AUTO_SUBTICKS__)) {
+			return AxesProperty.AUTOSUBTICKS;
+		} else if (propertyName.equals(__GO_FONT_STYLE__)) {
+			return AxesProperty.FONT_STYLE;
+		} else if (propertyName.equals(__GO_FONT_SIZE__)) {
+			return AxesProperty.FONT_SIZE;
+		} else if (propertyName.equals(__GO_FONT_COLOR__)) {
+			return AxesProperty.FONT_COLOR;
+		} else if (propertyName.equals(__GO_FONT_FRACTIONAL__)) {
+			return AxesProperty.FONT_FRACTIONAL;
 		} else if (propertyName.equals(__GO_GRID_POSITION__)) {
 			return AxesProperty.GRIDPOSITION;
 		} else if (propertyName.equals(__GO_TITLE__)) {
@@ -265,6 +286,8 @@ public class Axes extends GraphicObject {
 			return Box.BoxProperty.ZOOMBOX;
 		} else if (propertyName.equals(__GO_AUTO_SCALE__)) {
 			return Box.BoxProperty.AUTOSCALE;
+		} else if (propertyName.equals(__GO_FIRST_PLOT__)) {
+			return Box.BoxProperty.FIRSTPLOT;
 		} else if (propertyName.equals(__GO_MARGINS__)) {
 			return AxesProperty.MARGINS;
 		} else if (propertyName.equals(__GO_AXES_BOUNDS__)) {
@@ -295,6 +318,8 @@ public class Axes extends GraphicObject {
 			return ClippablePropertyType.CLIPSTATE;
 		} else if (propertyName.equals(__GO_CLIP_BOX__)) {
 			return ClippablePropertyType.CLIPBOX;
+		} else if (propertyName.equals(__GO_CLIP_BOX_SET__)) {
+			return ClippablePropertyType.CLIPBOXSET;
 		} else if (propertyName.equals(__GO_ARC_DRAWING_METHOD__)) {
 			return ArcProperty.ARCDRAWINGMETHOD;
 		} else {
@@ -380,6 +405,16 @@ public class Axes extends GraphicObject {
 			return getZAxisTicksLabels();
 		} else if (property == AxesProperty.ZAXISSUBTICKS) {
 			return getZAxisSubticks();
+		} else if (property == AxesProperty.AUTOSUBTICKS) {
+			return getAutoSubticks();
+		} else if (property == AxesProperty.FONT_STYLE) {
+			return getFontStyle();
+		} else if (property == AxesProperty.FONT_SIZE) {
+			return getFontSize();
+		} else if (property == AxesProperty.FONT_COLOR) {
+			return getFontColor();
+		} else if (property == AxesProperty.FONT_FRACTIONAL) {
+			return getFontFractional();
 		} else if (property == AxesProperty.GRIDPOSITION) {
 			return getGridPosition();
 		} else if (property == AxesProperty.TITLE) {
@@ -414,6 +449,8 @@ public class Axes extends GraphicObject {
 			return getZoomBox();
 		} else if (property == Box.BoxProperty.AUTOSCALE) {
 			return getAutoScale();
+		} else if (property == Box.BoxProperty.FIRSTPLOT) {
+			return getFirstPlot();
 		} else if (property == AxesProperty.MARGINS) {
 			return getMargins();
 		} else if (property == AxesProperty.AXESBOUNDS) {
@@ -444,6 +481,8 @@ public class Axes extends GraphicObject {
 			return getClipState();
 		} else if (property == ClippablePropertyType.CLIPBOX) {
 			return getClipBox();
+		} else if (property == ClippablePropertyType.CLIPBOXSET) {
+			return getClipBoxSet();
 		} else if (property == ArcProperty.ARCDRAWINGMETHOD) {
 			return getArcDrawingMethod();
 		} else {
@@ -524,6 +563,16 @@ public class Axes extends GraphicObject {
 			setZAxisTicksLabels((String[]) value);
 		} else if (property == AxesProperty.ZAXISSUBTICKS) {
 			setZAxisSubticks((Integer) value);
+		} else if (property == AxesProperty.AUTOSUBTICKS) {
+			setAutoSubticks((Boolean) value);
+		} else if (property == AxesProperty.FONT_STYLE) {
+			setFontStyle((Integer) value);
+		} else if (property == AxesProperty.FONT_SIZE) {
+			setFontSize((Double) value);
+		} else if (property == AxesProperty.FONT_COLOR) {
+			setFontColor((Integer) value);
+		} else if (property == AxesProperty.FONT_FRACTIONAL) {
+			setFontFractional((Boolean) value);
 		} else if (property == AxesProperty.GRIDPOSITION) {
 			setGridPosition((Integer) value);
 		} else if (property == AxesProperty.TITLE) {
@@ -558,6 +607,8 @@ public class Axes extends GraphicObject {
 			setZoomBox((Double[]) value);
 		} else if (property == Box.BoxProperty.AUTOSCALE) {
 			setAutoScale((Boolean) value);
+		} else if (property == Box.BoxProperty.FIRSTPLOT) {
+			setFirstPlot((Boolean) value);
 		} else if (property == AxesProperty.MARGINS) {
 			setMargins((Double[]) value);
 		} else if (property == AxesProperty.AXESBOUNDS) {
@@ -588,6 +639,8 @@ public class Axes extends GraphicObject {
 			setClipState((Integer) value);
 		} else if (property == ClippablePropertyType.CLIPBOX) {
 			setClipBox((Double[]) value);
+		} else if (property == ClippablePropertyType.CLIPBOXSET) {
+			setClipBoxSet((Boolean) value);
 		} else if (property == ArcProperty.ARCDRAWINGMETHOD) {
 			setArcDrawingMethod((Integer) value);
 		} else {
@@ -783,7 +836,7 @@ public class Axes extends GraphicObject {
 	 * @param ticksLocations the x axis ticks locations to set
 	 */
 	public void setXAxisTicksLocations(Double[] ticksLocations) {
-			axes[0].setTicksLocations(ticksLocations);
+		axes[0].setTicksLocations(ticksLocations);
 	}
 
 	/**
@@ -1235,6 +1288,116 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
+	 * @return the autosubticks
+	 */
+	public Boolean getAutoSubticks() {
+		return autoSubticks;
+	}
+
+	/**
+	 * @param autoSubticks the autosubticks to set
+	 */
+	public void setAutoSubticks(Boolean autoSubticks) {
+		this.autoSubticks = autoSubticks;
+	}
+
+	/**
+	 * Gets the ticks labels font style.
+	 * It supposes all ticks labels within a single axis have the same font style value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @return the ticks labels font style
+	 */
+	public Integer getFontStyle() {
+		return axes[0].getFontStyle();
+	}
+
+	/**
+	 * Sets the ticks labels font style.
+	 * It supposes all ticks labels within a single axis have the same font style value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @param fontStyle the ticks labels font style to set
+	 */
+	public void setFontStyle(Integer fontStyle) {
+		for (int i = 0; i < axes.length; i++) {
+			axes[i].setFontStyle(fontStyle);
+		}
+	}
+
+	/**
+	 * Gets the ticks labels font size.
+	 * It supposes all ticks labels within a single axis have the same font size value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @return the ticks labels font size
+	 */
+	public Double getFontSize() {
+		return axes[0].getFontSize();
+	}
+
+	/**
+	 * Sets the ticks labels font size.
+	 * It supposes all ticks labels within a single axis have the same font size value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @param fontSize the ticks labels font size to set
+	 */
+	public void setFontSize(Double fontSize) {
+		for (int i = 0; i < axes.length; i++) {
+			axes[i].setFontSize(fontSize);
+		}
+	}
+
+	/**
+	 * Gets the ticks labels font color.
+	 * It supposes all ticks labels within a single axis have the same font color value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @return the ticks labels font color
+	 */
+	public Integer getFontColor() {
+		return axes[0].getFontColor();
+	}
+
+	/**
+	 * Sets the ticks labels font color.
+	 * It supposes all ticks labels within a single axis have the same font color value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @param fontColor the ticks labels font color to set
+	 */
+	public void setFontColor(Integer fontColor) {
+		for (int i = 0; i < axes.length; i++) {
+			axes[i].setFontColor(fontColor);
+		}
+	}
+
+	/**
+	 * Gets the ticks labels font fractional.
+	 * It supposes all ticks labels within a single axis have the same font fractional value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @return the ticks labels font fractional
+	 */
+	public Boolean getFontFractional() {
+		return axes[0].getFontFractional();
+	}
+
+	/**
+	 * Sets the ticks labels font fractional.
+	 * It supposes all ticks labels within a single axis have the same font fractional value
+         * and that this value is the same for the 3 axes.
+	 * To be corrected.
+	 * @param fontFractional the ticks labels font fractional to set
+	 */
+	public void setFontFractional(Boolean fontFractional) {
+		for (int i = 0; i < axes.length; i++) {
+			axes[i].setFontFractional(fontFractional);
+		}
+	}
+
+	/**
 	 * @return the axesBounds
 	 */
 	public Double[] getAxesBounds() {
@@ -1441,6 +1604,20 @@ public class Axes extends GraphicObject {
 	}
 
 	/**
+	 * @return the clip box set
+	 */
+	public Boolean getClipBoxSet() {
+		return clipProperty.getClipBoxSet();
+	}
+
+	/**
+	 * @param clipBoxSet the clip box set to set
+	 */
+	public void setClipBoxSet(Boolean clipBoxSet) {
+		clipProperty.setClipBoxSet(clipBoxSet);
+	}
+
+	/**
 	 * @return the arcDrawingMethod
 	 */
 	public Integer getArcDrawingMethod() {
@@ -1592,6 +1769,20 @@ public class Axes extends GraphicObject {
 	 */
 	public void setAutoScale(Boolean autoScale) {
 		box.setAutoScale(autoScale);
+	}
+
+	/**
+	 * @return the firstplot
+	 */
+	public Boolean getFirstPlot() {
+		return box.getFirstPlot();
+	}
+
+	/**
+	 * @param firstPlot the firstplot to set
+	 */
+	public void setFirstPlot(Boolean firstPlot) {
+		box.setFirstPlot(firstPlot);
 	}
 
 	/**
