@@ -48,6 +48,15 @@ GRAPHICS_IMPEXP sciPointObj * sciCopyObj (sciPointObj * pobj, sciPointObj * psub
 GRAPHICS_IMPEXP int cloneGraphicContext( sciPointObj * pObjSource, sciPointObj * pObjDest ) ;
 /*--------------------------------------------------------------------------*/
 /**
+ * copy the Contoured properties of an object to another
+ * Performs the same operations as cloneGraphicContext but uses
+ * MVC set/getGraphicObjectProperty calls.
+ * @param sourceIdentifier the source object's MVC identifier
+ * @param destIdentifier the destination object's MVC identifier
+ */
+GRAPHICS_IMPEXP int cloneGraphicContextMVC(char* sourceIdentifier, char* destIdentifier);
+/*--------------------------------------------------------------------------*/
+/**
  * copy the fontContext of an object to another.
  * @param pObjSource the object from which the FC is taken
  * @param pObjDest the object in which the FC is paste
