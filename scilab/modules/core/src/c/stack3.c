@@ -609,18 +609,24 @@ int Name2where(char *namex)
 int C2F(str2name)(char *namex, int *id, unsigned long name_len)
 {
 	int ix = 0;
-	const int lon = (int)strlen(namex);
+	char* temp = 0;
 
-	/* remove blanks in namex */
-	for (ix = 0; ix < lon; ix++)
+	for (ix = 0; namex[ix] != ' ' && namex[ix] != '\0'; ix++);
+	if (namex[ix] == '\0')
 	{
-		if ( namex[ix] == ' ' )
-		{
-			namex[ix] = '\0';
-			break;
-		}
+		C2F(cvname)(id, namex, &cx0, ix);
 	}
-	C2F(cvname)(id, namex, &cx0, ix);
+	else
+	{
+		temp = (char*)malloc(ix + 1);
+		memcpy(temp, namex, ix);
+		temp[ix] = '\0';
+
+		C2F(cvname)(id, temp, &cx0, ix);
+
+		free(temp);
+	}
+
 	return 0;
 }
 /*----------------------------------------------------------------
