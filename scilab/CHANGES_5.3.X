@@ -63,6 +63,9 @@ SciNotes:
 
 * bug 8135 fixed - An exception was thrown when restoring files on MacOS X.
 
+* bug 8227 fixed - The commands evaluated with "Evaluate selection" were not
+                   stored in history.
+
 
 Compilation:
 ============
