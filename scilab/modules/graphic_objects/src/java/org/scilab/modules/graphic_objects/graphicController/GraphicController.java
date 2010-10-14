@@ -20,10 +20,8 @@ import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 import org.scilab.modules.renderer.JoGLView.JoGLView;
 
 import java.rmi.server.UID;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -210,19 +208,12 @@ public class GraphicController {
             }
 
             if (!oldParentId.equals("")) {
-                String[] children = (String[]) GraphicController.getController().getProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__);
-                List list = Arrays.asList(children);
-                list.remove(childId);
-                setProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__, list);
+                getObjectFromId(oldParentId).removeChildren(childId);
             }
         }
 
         if (parentId != null && !parentId.equals("")) {
-            String[] children = (String[]) GraphicController.getController().getProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__);
-            String[] newChildren = new String[children.length + 1]; 
-            System.arraycopy(children, 0, newChildren, 0, children.length);
-            newChildren[children.length] = childId;
-            setProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__, Arrays.asList(newChildren));
+            getObjectFromId(parentId).addChildren(childId);
         }
 
         setProperty(childId, GraphicObjectProperties.__GO_PARENT__, parentId);

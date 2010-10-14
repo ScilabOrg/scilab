@@ -12,7 +12,7 @@
 
 package org.scilab.modules.graphic_objects.graphicObject;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.*;
@@ -25,7 +25,7 @@ public abstract class GraphicObject implements Cloneable {
 	/** User data array default size */
 	public static final int USER_DATA_DEFAULT_SIZE = 0;
 
-	/** Graphic objects types */
+    /** Graphic objects types */
 	public enum Type { ARC, AXES, AXIS, CHAMP, COMPOUND, FAC3D, FEC, FIGURE, GRAYPLOT,
 		LABEL, LEGEND, MATPLOT, PLOT3D, POLYLINE, RECTANGLE, SEGS, TEXT, UNKNOWNOBJECT };
 	
@@ -57,7 +57,7 @@ public abstract class GraphicObject implements Cloneable {
 	public GraphicObject() {
 		identifier = null;
 		parent = "";
-		children = new ArrayList<String>(0);
+		children = new LinkedList<String>();
 		visible = true;
 		userData = null;
 		valid = true;
@@ -249,6 +249,24 @@ public abstract class GraphicObject implements Cloneable {
 		
 		return result;
 	}
+
+    /**
+     * Add a children.
+     * @param child the identifier of the added children.
+     */
+    public void addChildren(String child) {
+        if (!children.contains(child)) {
+            children.add(child);
+        }
+    }
+
+    /**
+     * Remove a children.
+     * @param child the identifier of the removed children.
+     */
+    public void removeChildren(String child) {
+        children.remove(child);                      
+    }
 
 	/**
 	 * @param children the children to set
