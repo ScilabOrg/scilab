@@ -19,11 +19,8 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 
 import java.rmi.server.UID;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -204,19 +201,14 @@ public class GraphicController {
             }
 
             if (!oldParentId.equals("")) {
-                String[] children = (String[]) GraphicController.getController().getProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__);
-                List<String> list = new ArrayList(Arrays.asList(children));
-                list.remove(childId);
-                setProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__, list);
+                getObjectFromId(oldParentId).removeChild(childId);
+                objectUpdate(oldParentId, GraphicObjectProperties.__GO_CHILDREN__);
             }
         }
 
         if (parentId != null && !parentId.equals("")) {
-            String[] children = (String[]) GraphicController.getController().getProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__);
-            String[] newChildren = new String[children.length + 1];
-            System.arraycopy(children, 0, newChildren, 0, children.length);
-            newChildren[children.length] = childId;
-            setProperty(parentId, GraphicObjectProperties.__GO_CHILDREN__, Arrays.asList(newChildren));
+            getObjectFromId(parentId).addChild(childId);
+            objectUpdate(parentId, GraphicObjectProperties.__GO_CHILDREN__);
         }
 
         setProperty(childId, GraphicObjectProperties.__GO_PARENT__, parentId);
