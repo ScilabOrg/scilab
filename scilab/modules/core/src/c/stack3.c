@@ -611,13 +611,8 @@ int C2F(str2name)(char *namex, int *id, unsigned long name_len)
 	int ix = 0;
 	int lon = 0;
 
-	for (ix = 0 ; ix < (int)  name_len ; ix++ )
-	{
-		if ( namex[ix] == '\0') break;
-		lon++;
-	}
-
 	lon = (int)strlen(namex);
+
 	/* remove blanks in namex */
 	for (ix = 0; ix < lon; ix++)
 	{
