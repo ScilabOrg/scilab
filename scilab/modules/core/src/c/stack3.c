@@ -606,21 +606,21 @@ int Name2where(char *namex)
  *             since it can be wrong (ex when name is transmited
  *             by fort (intfort : function )
  *----------------------------------------------------------------*/
-int C2F(str2name)(char *namex, int *id, unsigned long name_len)
+int C2F(str2name)(const char *namex, int *id, unsigned long name_len)
 {
 	int ix = 0;
-	const int lon = (int)strlen(namex);
+	char* temp = 0;
 
-	/* remove blanks in namex */
-	for (ix = 0; ix < lon; ix++)
-	{
-		if ( namex[ix] == ' ' )
-		{
-			namex[ix] = '\0';
-			break;
-		}
-	}
-	C2F(cvname)(id, namex, &cx0, ix);
+	for (ix = 0; namex[ix] != ' ' && namex[ix] != '\0'; ix++);
+
+	temp = (char*)malloc(ix + 1);
+	memcpy(temp, namex, ix);
+	temp[ix] = '\0';
+
+	C2F(cvname)(id, temp, &cx0, ix);
+
+	free(temp);
+
 	return 0;
 }
 /*----------------------------------------------------------------
