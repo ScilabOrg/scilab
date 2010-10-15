@@ -56,13 +56,7 @@ AC_CONFIG_HEADERS([modules/core/includes/machine.h])
 AM_PROG_INSTALL_STRIP
 AC_PROG_LN_S
 
-AC_SYS_LARGEFILE
 
-# In order to be able to change the scilab directory
-# See http://wiki.debian.org/RpathIssue
-AC_RELOCATABLE
-AC_RELOCATABLE_LIBRARY
-AC_LIB_RPATH
 
 # If configure detect that timestamp changed,
 # it tries to rebuild configure & makefile which can be a painmaker
@@ -134,9 +128,6 @@ AC_ARG_ENABLE(build-giws,
 ########## compilator & misc programs detection
 ################################################
 
-AC_PROG_CPP
-AC_PROG_GREP
-
 ######
 #### Mac OS X set of fink path with provided
 ######
@@ -165,10 +156,6 @@ case "$host" in
      ;;
 esac
 
-#####################################################
-## Look for pkg-config
-#####################################################
-PKG_PROG_PKG_CONFIG
 
 #####################################################
 ## check if options are correct (or not)
@@ -183,6 +170,13 @@ if test "$with_intelcompilers" = yes -a "$with_gcc" = yes; then
 fi
 
 ######## fortran ########
+if test "$with_intelcompilers" = yes; then
+   AC_PROG_F77([ifc ifort])
+   if test -z "$F77"; then
+     AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
+	fi
+fi
+
 if test "$with_g77" = yes; then
    AC_PROG_F77(g77)
    if test -z "$F77"; then
@@ -197,16 +191,9 @@ if test "$with_gfortran" = yes; then
 	fi
 fi
 
-if test "$with_intelcompilers" = yes; then
-   AC_PROG_F77(ifc ifort)
-   if test -z "$F77"; then
-     AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
-	fi
-fi
-
 if test -z "$F77"; then
 ## No Frotran compiler specified... We rely on Autoconf to find the best
-   AC_PROG_F77
+   AC_PROG_F77()
 fi
 
 
@@ -272,7 +259,29 @@ AC_CHECK_SIZEOF([int])
 AC_CHECK_SIZEOF([long])
 
 ### C++ ###
-AC_PROG_CXX
+if test "$with_gcc" = yes; then
+   AC_PROG_CXX(g++)
+   if test -z "$CXX"; then
+     AC_MSG_ERROR([You asked me to use gcc but i haven't been able to find it])
+	fi
+fi
+
+if test "$with_intelcompilers" = yes; then
+   AC_PROG_CXX(icc ecc)
+   if test -z "$CXX"; then
+     AC_MSG_ERROR([You asked me to use icc (intel C compiler) but I haven't been able to find it])
+	fi
+fi
+
+if test -z "$CXX"; then
+# No C compiler specified... We rely on Autoconf to find the best
+   AC_PROG_CXX
+fi
+
+if test -z "$CXX"; then
+  AC_MSG_ERROR([No C Compiler found. Cannot compile Scilab without a C compiler])
+fi
+
 # we can't just do something like
 # AC_CHECK_PROG(cxx_present, $CXX, "yes", "no")
 # because if the user has specified the full path of the desired C++ compiler then AC_CHECK_PROG
@@ -427,6 +436,23 @@ dnl @TODO : Maybe we should check that it is actually gfortran
 	  esac
 #	   FFLAGS_O0=`echo $FFLAGS | sed 's/-O[0-9]*//g'`
 fi
+
+#########################
+# Now we have relyable C compiler check for large file support
+#########################
+AC_SYS_LARGEFILE
+AC_PROG_GREP
+
+# In order to be able to change the scilab directory
+# See http://wiki.debian.org/RpathIssue
+AC_RELOCATABLE
+AC_RELOCATABLE_LIBRARY
+AC_LIB_RPATH
+
+#####################################################
+## Look for pkg-config
+#####################################################
+PKG_PROG_PKG_CONFIG
 
 #########################
 # setting parameters according to system types
