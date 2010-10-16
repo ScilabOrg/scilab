@@ -157,6 +157,7 @@ Bug Fixes:
 * bug 8208 fixed - Error in creating the temporary directory in function
                    createScilabTMPDIR.
 
+* bug 8240 fixed - Demo of polarplot improved (Thanks to Samuel Gougeon).
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
