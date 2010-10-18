@@ -14,10 +14,14 @@
 #include <math.h>
 #include "double.hxx"
 #include "tostring_common.hxx"
+#include "scilabexception.hxx"
 
 extern "C"
 {
+    #include "localization.h"
 	#include "elem_common.h"
+    #include "charEncoding.h"
+    #include "os_swprintf.h"
 }
 
 using namespace std;
@@ -117,35 +121,47 @@ namespace types
 	/*----------------------*/
 	void Double::CreateDouble(int _iRows, int _iCols, double **_pdblReal, double **_pdblImg)
 	{
-		m_iCols	= _iCols;
-		m_iRows	= _iRows;
-		m_iSize = m_iCols * m_iRows;
-		m_iSizeMax = m_iSize;
+        try
+        {
+            m_iCols	= _iCols;
+            m_iRows	= _iRows;
+            m_iSize = m_iCols * m_iRows;
+            m_iSizeMax = m_iSize;
 
-		if(_pdblReal != NULL)
-		{
-			/*alloc Real array*/
-			m_pdblReal = new double[m_iSize];
+            if(_pdblReal != NULL)
+            {
+                /*alloc Real array*/
+                m_pdblReal = new double[m_iSize];
 
-			/*return it*/
-			*_pdblReal = m_pdblReal;
-		}
-		else
-			m_pdblReal = NULL;
+                /*return it*/
+                *_pdblReal = m_pdblReal;
+            }
+            else
+                m_pdblReal = NULL;
 
-		if(_pdblImg != NULL)
-		{
-			/*alloc Img array*/
-			m_pdblImg = new double[m_iSize];
+            if(_pdblImg != NULL)
+            {
+                /*alloc Img array*/
+                m_pdblImg = new double[m_iSize];
 
-			/*return it*/
-			*_pdblImg = m_pdblImg;
+                /*return it*/
+                *_pdblImg = m_pdblImg;
 
-			/*set complex flag*/
-			m_bComplex = true;
-		}
-		else
-			m_pdblImg = NULL;
+                /*set complex flag*/
+                m_bComplex = true;
+            }
+            else
+            {
+                m_pdblImg = NULL;
+            }
+        }
+        catch (std::bad_alloc &e)
+        {
+            wchar_t message[bsiz];
+            os_swprintf(message, bsiz, _W("Can not allocate %.2f MB memory.\n"),  (double) ((double) _iCols * (double) _iRows * sizeof(double)) / 1.e6);
+            throw(ast::ScilabError(message));
+        }
+
 
 //		zero_set();
 	}
@@ -881,14 +897,14 @@ namespace types
 							m_pdblReal[(i * _iNewRows) + j] = m_pdblReal[(i * rows_get()) + j];
 							m_pdblImg[(i * _iNewRows) + j] 	= m_pdblImg[(i * rows_get()) + j];
 						}
-						
+
 						//fill zero at the end of column
 						memset(m_pdblReal + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 						memset(m_pdblImg + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 					}
 				}
-			}	
-			
+			}
+
 		}
 		else
 		{
@@ -896,7 +912,7 @@ namespace types
 			{
 				//alloc 10% bigger than asked to prevent future resize
 				m_iSizeMax = static_cast<int>(_iNewRows * _iNewCols * 1.1);
-				
+
 				pdblReal	= new double[m_iSizeMax];
 				memset(pdblReal, 0x00, sizeof(double) * m_iSizeMax);
 
@@ -922,12 +938,12 @@ namespace types
 						{
 							m_pdblReal[(i * _iNewRows) + j] = m_pdblReal[(i * rows_get()) + j];
 						}
-						
+
 						//fill zero at the end of column
 						memset(m_pdblReal + (i * _iNewRows) + rows_get(), 0x00, sizeof(double) * (_iNewRows - rows_get()));
 					}
 				}
-			}	
+			}
 		}
 
 		m_iRows = _iNewRows;
@@ -988,7 +1004,7 @@ namespace types
             for(int i = 0 ; i < iCols ; i++)
             {
                 //memcpy version
-/*                
+/*
                 int iDestOffset = i * m_iRows + _iRows;
                 int iOrigOffset = i * _poSource->rows_get();
                 if(_poSource->rows_get() == 1)
@@ -999,7 +1015,7 @@ namespace types
                 {
                     memcpy(m_pdblReal + iDestOffset, _poSource->real_get() + iOrigOffset, _poSource->rows_get() * sizeof(double));
                 }
-*/                
+*/
                 //loop version
 /*
                 int iDestOffset = i * m_iRows + _iRows;
@@ -1330,8 +1346,8 @@ namespace types
 
 	Double* Double::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Double* _poSource, bool _bAsVector)
 	{
-		Double* pdbl	= NULL ; 
-		
+		Double* pdbl	= NULL ;
+
 		if(_bAsVector)
 		{
 			if(_poSource->cols_get() == 1)
@@ -1442,7 +1458,7 @@ namespace types
 				}
 			}
 		}
-		
+
 		return pOut;
 	}
 }
