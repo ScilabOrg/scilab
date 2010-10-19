@@ -25,6 +25,8 @@ Xcos:
 
 * bug 8081 fixed - The context was not checked before being set.
 
+* bug 8220 fixed - Improve the link creation with split block adding.
+
 Graphic export:
 ===============
 
