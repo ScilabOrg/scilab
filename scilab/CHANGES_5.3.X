@@ -160,6 +160,10 @@ Bug Fixes:
 * bug 8232 fixed - drag and drop of .scg files (on console) used "xload"
                    and not "load".
 
+* bug 8254 fixed - The nearfloat function did not work properly for near 
+                   denormalized numbers.
+
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
