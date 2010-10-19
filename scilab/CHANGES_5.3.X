@@ -94,7 +94,7 @@ Compilation:
 * bug 8013 fixed - In some cases, the build of the compiler of modelica failed.
 
 * bug 8274 fixed - Improve detection of Java regarding Apple changes:
-      	           Java for Mac OS X 10.6 Update 3 and 10.5 Update 8 Release
+                   Java for Mac OS X 10.6 Update 3 and 10.5 Update 8 Release
                    Notes
 
 Bug Fixes:
@@ -193,7 +193,11 @@ Bug Fixes:
                    datatipLookfor is an internal function that has not be used
                    directly.
 
+* bug 8254 fixed - The nearfloat function did not work properly for near
+                   denormalized numbers.
+
 * bug 8300 fixed - a(48400, 48400) = 0 crashed scilab.
+
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
