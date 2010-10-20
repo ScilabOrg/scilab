@@ -397,7 +397,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
 		 * Check the version if applicable
 		 */
 		final String scicosVersion = ((ScilabString) base.get(VERSION_INDEX)).getData()[0][0];
-		final boolean versionIsValid = !scicosVersion.equals(VERSION);
+		final boolean versionIsValid = scicosVersion.equals(VERSION);
 		return typeIsValid && versionIsValid;
 	}
 	
