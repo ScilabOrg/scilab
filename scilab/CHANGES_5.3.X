@@ -27,6 +27,8 @@ Xcos:
 
 * bug 8195 fixed - Creating implicit links was not working.
 
+* bug 8186 fixed - Demos with Superblocks were not simulating.
+
 Graphic export:
 ===============
 
