@@ -57,6 +57,11 @@ GUI:
 * bug 8203 fixed - It was not possible to close the fontchooser or the 
                    colorchooser with the escape key.
 
+Xcos:
+=====
+
+* Version of jgraphx updated to version 1.4.2.0
+
 Quality assurance:
 ==================
 
