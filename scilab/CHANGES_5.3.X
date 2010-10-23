@@ -65,6 +65,8 @@ SciNotes:
 
 * bug 8135 fixed - An exception was thrown when restoring files on MacOS X.
 
+* bug 8229 fixed - There was a problem of selection after an indentation.
+
 
 Compilation:
 ============
