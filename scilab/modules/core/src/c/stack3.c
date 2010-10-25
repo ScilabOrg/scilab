@@ -609,26 +609,18 @@ int Name2where(char *namex)
 int C2F(str2name)(char *namex, int *id, unsigned long name_len)
 {
 	int ix = 0;
-	int lon = 0;
+	const int lon = (int)strlen(namex);
 
-	for (ix = 0 ; ix < (int)  name_len ; ix++ )
-	{
-		if ( namex[ix] == '\0') break;
-		lon++;
-	}
-
-	lon = (int)strlen(namex);
 	/* remove blanks in namex */
 	for (ix = 0; ix < lon; ix++)
 	{
-		if ( namex[ix] == ' ')
+		if ( namex[ix] == ' ' )
 		{
 			namex[ix] = '\0';
-			lon = (int)strlen(namex);
 			break;
 		}
 	}
-	C2F(cvname)(id, namex, &cx0, lon);
+	C2F(cvname)(id, namex, &cx0, ix);
 	return 0;
 }
 /*----------------------------------------------------------------
@@ -1978,21 +1970,21 @@ void vGetPointerFromDoubleComplex(const doublecomplex *_poComplex, int _iSize, d
 
 	int iTwo	= 2;
 	int iOne	= 1;
-	const double *pReal = &_poComplex[0].r;
-	const double *pImg = &_poComplex[0].i;
+	double *pReal = (double*)&_poComplex[0].r;
+	double *pImg = (double*)&_poComplex[0].i;
 
 	if(_pdblReal != NULL && _pdblImg != NULL)
 	{
-		C2F(scidcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
-		C2F(scidcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
+		C2F(dcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
+		C2F(dcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
 	}
 	else if(_pdblReal != NULL && _pdblImg == NULL)
 	{
-		C2F(scidcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
+		C2F(dcopy)(&_iSize, pReal, &iTwo, _pdblReal, &iOne);
 	}
 	else if(_pdblReal == NULL && _pdblImg != NULL)
 	{
-		C2F(scidcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
+		C2F(dcopy)(&_iSize, pImg, &iTwo, _pdblImg, &iOne);
 	}
 }
 doublecomplex* oGetDoubleComplexFromPointer(double *_pdblReal, double *_pdblImg, int _iSize)
