@@ -34,6 +34,8 @@ Xcos:
 
 * bug 8186 fixed - Demos with Superblocks were not simulating.
 
+* bug 8291 fixed - Some blocks (PDE, SQRT) did not display any label.
+
 Graphic export:
 ===============
 
