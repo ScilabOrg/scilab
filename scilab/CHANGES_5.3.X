@@ -264,6 +264,8 @@ Bug Fixes:
                    datatipLookfor is an internal function that has not be used
                    directly.
 
+* bug 8294 fixed - added a help about "support compilers"
+
 * bug 8296 fixed - size( M,3) crashed scilab 5.3.0-beta-4.
 
 * bug 8300 fixed - a(48400, 48400) = 0 crashed scilab.
