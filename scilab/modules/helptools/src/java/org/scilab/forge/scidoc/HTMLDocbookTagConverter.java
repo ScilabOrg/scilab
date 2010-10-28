@@ -759,12 +759,17 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             throw new SAXException("No linkend attribute in tag link");
         }
 
-        String id = mapId.get(link);
-        if (id == null) {
-            warnings++;
-            System.err.println("Warning (should be fixed): invalid internal link to " + link + " in " + currentFileName + "\nat line " + locator.getLineNumber());
-            return null;
-        }
+	String id;
+	if (!link.endsWith(".html")) {
+	    id = mapId.get(link);
+	    if (id == null) {
+		warnings++;
+		System.err.println("Warning (should be fixed): invalid internal link to " + link + " in " + currentFileName + "\nat line " + locator.getLineNumber());
+		return null;
+	    }
+	} else {
+	    id = link;
+	}
 
         return encloseContents("a", new String[]{"href", id, "class", "link"}, contents);
     }
