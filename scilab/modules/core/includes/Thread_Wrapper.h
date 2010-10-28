@@ -102,6 +102,8 @@ Linux uses PTHREAD_MUTEX_ERRORCHECK_NP other Posix use PTHREAD_MUTEX_ERRORCHECK
 
 #define __CreateThread(threadId, functionName)  pthread_create(threadId, NULL, functionName, NULL)
 
+#define __CreateThreadWithParams(threadId, functionName, params)  pthread_create(threadId, NULL, functionName, params)
+
 #define __WaitThreadDie(threadId)		pthread_join(threadId, NULL)
 
 #define __Terminate(threadId)			pthread_cancel(threadId)
