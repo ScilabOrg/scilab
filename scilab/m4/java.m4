@@ -729,6 +729,7 @@ AC_DEFUN([AC_JAVA_WITH_JDK], [
 #	JAVAH
 #	JAR
 #	JDB
+#   JAVADOC
 #
 # DEPENDS ON:
 #	This macro must be run after the AC_JAVA_DETECT_JVM macro as
@@ -751,6 +752,9 @@ AC_DEFUN([AC_JAVA_TOOLS], [
     AC_JAVA_TOOLS_CHECK(JAVAH, $TOOL, $ac_java_jvm_dir/bin)  
 
     AC_JAVA_TOOLS_CHECK(JAR, jar, $ac_java_jvm_dir/bin)
+
+    # Don't error if javadoc can not be found
+    AC_JAVA_TOOLS_CHECK(JAVADOC, javadoc, $ac_java_jvm_dir/bin, 1)
 
     # Don't error if jdb can not be found
     AC_JAVA_TOOLS_CHECK(JDB, jdb, $ac_java_jvm_dir/bin, 1)
