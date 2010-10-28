@@ -300,6 +300,11 @@ c     copy arg3 elements in r
          do 114 i = 0, mi-1
             ll = lr+istk(ili+i)-1+ljj*mr
             ls = l3+(i+j*m3)*inc3
+c           bug 8300 : check ll and ls values
+            if (ll.le.0.or.ls.le.0) then
+              call error(17)
+              return 
+            endif
             stk(ll) = stk(ls)
             if(it3.eq.1) then
                stk(ll+mnr)=stk(ls+mn3)
