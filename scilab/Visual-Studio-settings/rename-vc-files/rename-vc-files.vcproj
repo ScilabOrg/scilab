@@ -140,7 +140,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Rename Header Files"
+			Name="Rename *.vc Files"
 			>
 			<File
 				RelativePath="..\..\modules\scicos_blocks\includes\blocks.h.vc"
@@ -152,6 +152,10 @@
 			</File>
 			<File
 				RelativePath="..\..\etc\jvm_options.xml.vc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\etc\logging.properties.vc"
 				>
 			</File>
 			<File
