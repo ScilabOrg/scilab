@@ -75,7 +75,10 @@ public class DisplayPI {
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-        <link linkend="compile_and_run_javasci">Compile and run with Javasci</link>
+        <link linkend="javadoc/org/scilab/modules/javasci/Scilab.html">Javadoc of Scilab object</link>
+      </member>
+      <member>
+	<link linkend="compile_and_run_javasci">Compile and run with Javasci</link>
       </member>
       <member>
         <link linkend="javasci_faq">Javasci FAQ</link>
