@@ -39,8 +39,8 @@ knowledge of the CeCILL-B license and that you accept its terms.
 */
 
 
-#ifndef __ORG_SCILAB_MODULES_HELPTOOLS_BUILDDOCOBJECT__
-#define __ORG_SCILAB_MODULES_HELPTOOLS_BUILDDOCOBJECT__
+#ifndef __ORG_SCILAB_FORGE_SCIDOC_SCIDOCMAIN__
+#define __ORG_SCILAB_FORGE_SCIDOC_SCIDOCMAIN__
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -57,14 +57,15 @@ typedef signed char byte;
 #endif
 #endif
 
-namespace org_scilab_modules_helptools {
+namespace org_scilab_forge_scidoc {
 
-class BuildDocObject {
+class SciDocMain {
 private:
 JavaVM * jvm;
 jobject instance;
 
 jclass instanceClass; // cache class
+jmethodID voidbuildDocumentationjstringID; // cache method id
 jmethodID jbooleansetOutputDirectoryjstringID; // cache method id
 jmethodID voidsetWorkingLanguagejstringID; // cache method id
 jmethodID voidsetExportFormatjstringID; // cache method id
@@ -83,17 +84,17 @@ public:
 * It will call the default constructor
 * @param JEnv_ the Java Env
 */
-BuildDocObject(JavaVM * jvm_);
+SciDocMain(JavaVM * jvm_);
 /**
 * Create a wrapping of an already existing object from a JNIEnv.
 * The object must have already been instantiated
 * @param JEnv_ the Java Env
 * @param JObj the object
 */
-BuildDocObject(JavaVM * jvm_, jobject JObj);
+SciDocMain(JavaVM * jvm_, jobject JObj);
 
 // Destructor
-~BuildDocObject();
+~SciDocMain();
 
 // Generic method
 // Synchronization methods
@@ -110,6 +111,8 @@ void synchronize();
 void endSynchronize();
 
 // Methods
+void buildDocumentation(char * type);
+
 bool setOutputDirectory(char * directory);
 
 void setWorkingLanguage(char * language);
@@ -126,7 +129,7 @@ char * process(char * sourceDoc, char * styleSheet);
                         
                 static const std::string className()
                 {
-                return "org/scilab/modules/helptools/BuildDocObject";
+                return "org/scilab/forge/scidoc/SciDocMain";
                 }
                 
 };
