@@ -80,6 +80,8 @@ SciNotes:
 * bug 8277 fixed - Under Windows, exceptions were thrown when a key was hit on
                    a keyboard in chinese mode.
 
+* bug 8309 fixed - Bad display of the line number in whereami mode with broken lines.
+
 
 Compilation:
 ============
