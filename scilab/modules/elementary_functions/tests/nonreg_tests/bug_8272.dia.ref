@@ -1,0 +1,33 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- JVM NOT MANDATORY -->
+// <-- Non-regression test for bug 8272 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=8272
+//
+// <-- Short Description -->
+// toeplitz crashed scilab if input argument is too big
+X = zeros(220,220);
+if execstr("b = toeplitz(X);","errcatch") <> 17 then bugmes();quit;end
+A = toeplitz(1:5);
+ref = [    1.    2.    3.    4.    5.  ;
+           2.    1.    2.    3.    4.  ;
+           3.    2.    1.    2.    3.  ;
+           4.    3.    2.    1.    2.  ;
+           5.    4.    3.    2.    1.  ];
+if ~and(A == ref) then bugmes();quit;end
+T = toeplitz(1:5,1:2:7);
+T1 = [1 3 5 7;2 1 3 5;3 2 1 3;4 3 2 1;5 4 3 2];
+if ~and(T == T1) then bugmes();quit;end
+s = poly(0, 's');
+t = toeplitz([s, s+1, s^2, 1 - s]);
+t1 = [s, 1+s, s*s, 1-s; 1+s, s, 1+s, s*s; s*s, 1+s, s, 1+s; 1-s, s*s, 1+s, s];
+if ~and(t == t1) then bugmes();quit;end
+t = toeplitz(['1', '2', '3', '4']);
+t1 = ['1', '2', '3', '4'; '2', '1', '2', '3'; '3', '2', '1', '2' ;'4', '3', '2', '1'];
+if ~and(t == t1) then bugmes();quit;end
