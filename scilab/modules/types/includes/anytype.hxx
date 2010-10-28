@@ -43,6 +43,7 @@ namespace types
     class TList;
     class MList;
     class File;
+    class Sparse;
 }
 
 #endif /* !__ANY_TYPES_HXX__ */

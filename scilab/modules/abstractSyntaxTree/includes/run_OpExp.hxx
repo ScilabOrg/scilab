@@ -27,7 +27,6 @@ void visitprivate(const OpExp &e)
     e.right_get().accept(execMeR);
     GenericType::RealType TypeL = execMeL.result_get()->getType();
     GenericType::RealType TypeR = execMeR.result_get()->getType();
-
     if(TypeL == GenericType::RealImplicitList)
     {
         ImplicitList* pIL = execMeL.result_get()->getAsImplicitList();
@@ -55,16 +54,20 @@ void visitprivate(const OpExp &e)
     {
     case OpExp::plus :
     {
-        if(TypeR == GenericType::RealDouble && TypeL == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL = execMeL.result_get()->getAsDouble();
-            Double *pR = execMeR.result_get()->getAsDouble();
+            int const iResult ((TypeL == GenericType::RealDouble)
+                               ? ((TypeR == GenericType::RealDouble)
+                                  ? AddDoubleToDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                  : AddDoubleToSparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)&pResult))
+                               :((TypeR == GenericType::RealDouble)
+                                  ? AddSparseToDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)&pResult)
+                                 :AddSparseToSparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)&pResult)));
 
-            int iResult = AddDoubleToDouble(pL, pR, (Double**)&pResult);
             if(iResult != 0)
             {
                 std::wostringstream os;
-                os << L"inconsistent row/column dimensions";
+                os << _W("Inconsistent row/column dimensions.\n");
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -84,7 +87,7 @@ void visitprivate(const OpExp &e)
             if(iResult != 0)
             {
                 std::wostringstream os;
-                os << L"inconsistent row/column dimensions";
+                os << _W("Inconsistent row/column dimensions.\n");
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -102,7 +105,7 @@ void visitprivate(const OpExp &e)
             if(iResult != 0)
             {
                 std::wostringstream os;
-                os << L"inconsistent row/column dimensions";
+                os << _W("Inconsistent row/column dimensions.\n");
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -117,7 +120,7 @@ void visitprivate(const OpExp &e)
             if(iResult != 0)
             {
                 std::wostringstream os;
-                os << L"inconsistent row/column dimensions";
+                os << _W("Inconsistent row/column dimensions.\n");
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
@@ -134,14 +137,14 @@ void visitprivate(const OpExp &e)
                 if(iResult == 1)
                 {
                     std::wostringstream os;
-                    os << L"inconsistent row/column dimensions";
+                    os << _W("Inconsistent row/column dimensions.\n");
                     os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                     throw os.str();
                 }
                 else if(iResult == 2)
                 {
                     std::wostringstream os;
-                    os << L"variables don't have the same formal variable";
+                    os << L"variables don't have the same formal variable"; // FIXME "Input arguments should have the same formal variable name.\n" .
                     os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                     throw os.str();
                 }
@@ -157,12 +160,31 @@ void visitprivate(const OpExp &e)
     }
     case OpExp::minus :
     {
-        if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL = execMeL.result_get()->getAsDouble();
-            Double *pR = execMeR.result_get()->getAsDouble();
-
-            int iResult = SubstractDoubleToDouble(pL, pR, (Double**)&pResult);
+            int iResult(0);
+            if(TypeL == GenericType::RealDouble)
+            {
+                if(TypeR == GenericType::RealDouble)
+                {
+                    iResult= SubstractDoubleToDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)(&pResult));
+                }
+                else
+                {
+                    iResult= SubstractDoubleToSparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)(&pResult));
+                }
+            }
+            else
+            {
+                if(TypeR == GenericType::RealDouble)
+                {
+                    iResult= SubstractSparseToDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)(&pResult));
+                }
+                else
+                {
+                    iResult= SubstractSparseToSparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)(&pResult));
+                }
+            }
             if(iResult != 0)
             {
                 std::wostringstream os;
@@ -226,20 +248,38 @@ void visitprivate(const OpExp &e)
     }
     case OpExp::times:
     {
-        if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
+        if((TypeR == GenericType::RealDouble || TypeR == GenericType::RealSparse) && (TypeL == GenericType::RealDouble)||(TypeL == GenericType::RealSparse))
         {
-            Double *pL			= execMeL.result_get()->getAsDouble();
-            Double *pR			= execMeR.result_get()->getAsDouble();
-
-            int iResult = MultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
-            if(iResult)
+            int iResult(0);
+            if(TypeL == GenericType::RealDouble)
+            {
+                if(TypeR == GenericType::RealDouble)
+                {
+                    iResult= MultiplyDoubleByDouble( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsDouble(), (Double**)(&pResult));
+                }
+                else
+                {
+                    iResult= MultiplyDoubleBySparse( execMeL.result_get()->getAsDouble(),  execMeR.result_get()->getAsSparse(), (Double**)(&pResult));
+                }
+            }
+            else
+            {
+                if(TypeR == GenericType::RealDouble)
+                {
+                    iResult= MultiplySparseByDouble( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsDouble(), (Double**)(&pResult));
+                }
+                else
+                {
+                    iResult= MultiplySparseBySparse( execMeL.result_get()->getAsSparse(),  execMeR.result_get()->getAsSparse(), (Sparse**)(&pResult));
+                }
+            }
+            if(iResult != 0)
             {
                 std::wostringstream os;
                 os << _W("Inconsistent row/column dimensions.\n");
                 os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
                 throw os.str();
             }
-
             result_set(pResult);
         }
         else if(TypeL == InternalType::RealDouble && TypeR == InternalType::RealPoly)
