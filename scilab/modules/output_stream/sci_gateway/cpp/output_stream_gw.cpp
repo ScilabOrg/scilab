@@ -12,10 +12,16 @@
 
 #include "output_stream_gw.hxx"
 
+extern "C"
+{
+    #include "gw_output_stream.h"
+}
+
 #define MODULE_NAME L"output_stream"
 
 bool OutputStreamModule::Load()
 {
 	symbol::Context::getInstance()->AddFunction(Function::createFunction(L"disp", &sci_disp, MODULE_NAME));
+	symbol::Context::getInstance()->AddFunction(Function::createFunction(L"diary", &sci_diary, MODULE_NAME));
   return true;
 }
