@@ -1,4 +1,4 @@
-/*
+/*9
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - Calixte DENIZET
  *
@@ -28,6 +28,8 @@ import java.util.Stack;
 
 import org.xml.sax.SAXException;
 
+import org.scilab.modules.localization.LocaleToLCID;
+
 /**
  * Class to convert DocBook to CHM
  * @author Calixte DENIZET
@@ -37,6 +39,7 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
     private StringBuilder buffer = new StringBuilder(8192);
     private String outName;
     private List<String> filesList = new ArrayList();
+    private String language;
 
     /**
      * Constructor
@@ -45,9 +48,10 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
      * @param macroConf the file containing the macros of Scilab
      * @param out the output stream
      */
-    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, boolean checkLast) throws IOException, SAXException {
+    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, boolean checkLast, String language) throws IOException, SAXException {
         super(inName, outName, primConf, macroConf, template, version, imageDir, checkLast);
         this.outName = new File(outName).getCanonicalPath() + File.separator;
+        this.language = language;
     }
 
     /**
@@ -189,7 +193,7 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
         buffer.append("Display compile progress=Yes\n");
         buffer.append("Full-text search=Yes\n");
         buffer.append("Language=");
-        buffer.append("0x0409");// Allan : code pr la langue
+        buffer.append(LocaleToLCID.convert(language));
         buffer.append("\nTitle=");
         buffer.append(bookTitle);
         buffer.append("\nEnhanced decompilation=No\n\n");
