@@ -192,6 +192,9 @@ Bug Fixes:
 
 * bug 8300 fixed - a(48400, 48400) = 0 crashed scilab.
 
+* bug 8321 fixed - in some case, configure_msvc failed and returned a wrong 
+                   error message.
+
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
 
