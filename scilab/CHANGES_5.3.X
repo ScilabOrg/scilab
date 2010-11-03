@@ -195,6 +195,8 @@ Bug Fixes:
 
 * bug 8300 fixed - a(48400, 48400) = 0 crashed scilab.
 
+* bug 8332 fixed - Some use of clipboard function crashed Scilab.
+
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
 
