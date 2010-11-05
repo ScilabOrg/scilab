@@ -114,7 +114,7 @@
 #endif
 /*--------------------------------------------------------------------------*/
 //#ifndef HAVE_TERMCAP
-//	#undef TERMCAP
+//      #undef TERMCAP
 //#endif
 
 #ifdef B42UNIX
@@ -255,7 +255,7 @@ static char *CL=NULL;            /* clear screen */
 #endif
 
 
-//void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,	int *menusflag,int * modex,long int dummy1);
+//void C2F(zzledt)(char *buffer,int *buf_size,int *len_line,int * eof,  int *menusflag,int * modex,long int dummy1);
 
 /*-------------- End of Declarations  specific for console mode-----------------  */
 static void updateToken(char *linebuffer)
@@ -804,7 +804,7 @@ static void TermCompletionOnFiles(char **dictionaryFiles, int sizedictionaryFile
         {
             char *common = getCommonPart(dictionaryFiles, sizedictionaryFiles);
 
-            displayCompletionDictionary(dictionaryFiles, 
+            displayCompletionDictionary(dictionaryFiles,
                 sizedictionaryFiles, gettext("File or Directory"));
 
             display_string("\r\n");
@@ -864,7 +864,7 @@ static void TermCompletionOnFiles(char **dictionaryFiles, int sizedictionaryFile
 static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, char *defaultPattern,
                                 char *wk_buf, int *cursor, int *cursor_max)
 {
-    if ( defaultPattern && strcmp(defaultPattern, "") )
+    if ( defaultPattern )
     {
         int numberWordFound = 0;
 
@@ -883,24 +883,43 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
         char **completionDictionaryHandleGraphicsProperties = NULL;
         int sizecompletionDictionaryHandleGraphicsProperties = 0;
 
-        completionDictionaryFunctions = completionOnFunctions(defaultPattern, 
-            &sizecompletionDictionaryFunctions);
+        char **completionDictionaryFields = NULL;
+        int sizecompletionDictionaryFields = 0;
 
-        completionDictionaryCommandWords = completionOnCommandWords(defaultPattern, 
-            &sizecompletionDictionaryCommandWords);
+        int lenBeforeCaret = strlen(lineBeforeCaret);
+        int lenDefaultPattern = strlen(defaultPattern);
+        if (lenBeforeCaret > lenDefaultPattern + 1 && lineBeforeCaret[lenBeforeCaret - lenDefaultPattern - 1] == '.')
+        {
+            char *lineBeforePoint = (char*)MALLOC(sizeof(char) * (lenBeforeCaret - lenDefaultPattern - 1));
+            memcpy(lineBeforePoint, lineBeforeCaret, lenBeforeCaret - lenDefaultPattern - 1);
+            lineBeforePoint[lenBeforeCaret - lenDefaultPattern - 1] = '\0';
+            char *mlist = getPartLevel(lineBeforePoint);
+            completionDictionaryFields = completionOnFields(mlist, defaultPattern, &sizecompletionDictionaryFields);
+            FREE(mlist);
+            FREE(lineBeforePoint);
+        }
 
-        completionDictionaryMacros = completionOnMacros(defaultPattern, 
-            &sizecompletionDictionaryMacros);
+        if (!completionDictionaryFields && strcmp(defaultPattern, ""))
+        {
+            completionDictionaryFunctions = completionOnFunctions(defaultPattern,
+                                                                  &sizecompletionDictionaryFunctions);
 
-        completionDictionaryVariables = completionOnVariablesWithoutMacros(defaultPattern, 
-            &sizecompletionDictionaryVariables);
+            completionDictionaryCommandWords = completionOnCommandWords(defaultPattern,
+                                                                        &sizecompletionDictionaryCommandWords);
 
-        completionDictionaryHandleGraphicsProperties = completionOnHandleGraphicsProperties(defaultPattern, 
-            &sizecompletionDictionaryHandleGraphicsProperties);
+            completionDictionaryMacros = completionOnMacros(defaultPattern,
+                                                            &sizecompletionDictionaryMacros);
+
+            completionDictionaryVariables = completionOnVariablesWithoutMacros(defaultPattern,
+                                                                               &sizecompletionDictionaryVariables);
+
+            completionDictionaryHandleGraphicsProperties = completionOnHandleGraphicsProperties(defaultPattern,
+                                                                                                &sizecompletionDictionaryHandleGraphicsProperties);
+        }
 
         numberWordFound = sizecompletionDictionaryFunctions + sizecompletionDictionaryCommandWords +
-            sizecompletionDictionaryMacros + sizecompletionDictionaryVariables +
-            sizecompletionDictionaryHandleGraphicsProperties;
+          sizecompletionDictionaryMacros + sizecompletionDictionaryVariables +
+          sizecompletionDictionaryHandleGraphicsProperties + sizecompletionDictionaryFields;
 
         if (numberWordFound > 0)
         {
@@ -909,17 +928,18 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
                 char **completionDictionary = NULL;
                 char *new_line = NULL;
 
+                if (completionDictionaryFields) completionDictionary = completionDictionaryFields;
                 if (completionDictionaryFunctions) completionDictionary = completionDictionaryFunctions;
                 if (completionDictionaryCommandWords) completionDictionary = completionDictionaryCommandWords;
                 if (completionDictionaryMacros) completionDictionary = completionDictionaryMacros;
                 if (completionDictionaryVariables) completionDictionary = completionDictionaryVariables;
                 if (completionDictionaryHandleGraphicsProperties) completionDictionary = completionDictionaryHandleGraphicsProperties;
 
-                new_line = completeLine(lineBeforeCaret, completionDictionary[0],NULL,defaultPattern,FALSE, lineAfterCaret);
+                new_line = completeLine(lineBeforeCaret, completionDictionary[0], NULL, defaultPattern, FALSE, lineAfterCaret);
                 if (new_line)
                 {
                     char buflinetmp[WK_BUF_SIZE + 1];
-                    strcpy(buflinetmp,new_line);
+                    strcpy(buflinetmp, new_line);
                     FREE(new_line);
 
                     backspace(*cursor);
@@ -932,37 +952,50 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
             }
             else
             {
-                char *commonFunctions = getCommonPart(completionDictionaryFunctions,sizecompletionDictionaryFunctions);
-                char *commonCommandWords = getCommonPart(completionDictionaryCommandWords,sizecompletionDictionaryCommandWords);
-                char *commonMacros = getCommonPart(completionDictionaryMacros,sizecompletionDictionaryMacros);
-                char *commonVariables = getCommonPart(completionDictionaryVariables,sizecompletionDictionaryVariables);
-                char *commonHandleGraphicsProperties = getCommonPart(completionDictionaryHandleGraphicsProperties,sizecompletionDictionaryHandleGraphicsProperties);
-
                 char *commonAll = NULL;
 
-                int sizecommonsDictionary = 0;
-                char **commonsDictionary = concatenateStrings(&sizecommonsDictionary, commonFunctions,
-                    commonMacros, commonCommandWords, commonVariables, commonHandleGraphicsProperties);
-
-                if (sizecommonsDictionary > 0)
+                if (completionDictionaryFields)
                 {
-                    if (sizecommonsDictionary == 1)
-                    {
-                        commonAll = strdup(commonsDictionary[0]);
-                    }
-                    else
-                    {
-                        commonAll = getCommonPart(commonsDictionary, sizecommonsDictionary);
-
-                    }
-                    freeArrayOfString(commonsDictionary, sizecommonsDictionary);
+                    commonAll = getCommonPart(completionDictionaryFields, sizecompletionDictionaryFields);
+                    displayCompletionDictionary(completionDictionaryFields, sizecompletionDictionaryFields, (char *)_("Scilab Fields"));
+                    freeArrayOfString(completionDictionaryFields, sizecompletionDictionaryFields);
                 }
+                else
+                {
+                    char *commonFunctions = getCommonPart(completionDictionaryFunctions, sizecompletionDictionaryFunctions);
+                    char *commonCommandWords = getCommonPart(completionDictionaryCommandWords, sizecompletionDictionaryCommandWords);
+                    char *commonMacros = getCommonPart(completionDictionaryMacros, sizecompletionDictionaryMacros);
+                    char *commonVariables = getCommonPart(completionDictionaryVariables, sizecompletionDictionaryVariables);
+                    char *commonHandleGraphicsProperties = getCommonPart(completionDictionaryHandleGraphicsProperties, sizecompletionDictionaryHandleGraphicsProperties);
 
-                displayCompletionDictionary(completionDictionaryFunctions, sizecompletionDictionaryFunctions,(char *)_("Scilab Function"));
-                displayCompletionDictionary(completionDictionaryCommandWords, sizecompletionDictionaryCommandWords,(char *)_("Scilab Command"));
-                displayCompletionDictionary(completionDictionaryMacros, sizecompletionDictionaryMacros,(char *)_("Scilab Macro"));
-                displayCompletionDictionary(completionDictionaryVariables, sizecompletionDictionaryVariables,(char *)_("Scilab Variable"));
-                displayCompletionDictionary(completionDictionaryHandleGraphicsProperties, sizecompletionDictionaryHandleGraphicsProperties,(char *)_("Graphics handle field"));
+                    int sizecommonsDictionary = 0;
+                    char **commonsDictionary = concatenateStrings(&sizecommonsDictionary, commonFunctions,
+                                                                  commonMacros, commonCommandWords, commonVariables, commonHandleGraphicsProperties);
+
+                    if (sizecommonsDictionary > 0)
+                    {
+                        if (sizecommonsDictionary == 1)
+                        {
+                            commonAll = strdup(commonsDictionary[0]);
+                        }
+                        else
+                        {
+                            commonAll = getCommonPart(commonsDictionary, sizecommonsDictionary);
+                        }
+                        freeArrayOfString(commonsDictionary, sizecommonsDictionary);
+                    }
+
+                    displayCompletionDictionary(completionDictionaryFunctions, sizecompletionDictionaryFunctions,(char *)_("Scilab Function"));
+                    displayCompletionDictionary(completionDictionaryCommandWords, sizecompletionDictionaryCommandWords,(char *)_("Scilab Command"));
+                    displayCompletionDictionary(completionDictionaryMacros, sizecompletionDictionaryMacros,(char *)_("Scilab Macro"));
+                    displayCompletionDictionary(completionDictionaryVariables, sizecompletionDictionaryVariables,(char *)_("Scilab Variable"));
+                    displayCompletionDictionary(completionDictionaryHandleGraphicsProperties, sizecompletionDictionaryHandleGraphicsProperties, (char *)_("Graphics handle field"));
+                    freeArrayOfString(completionDictionaryFunctions, sizecompletionDictionaryFunctions);
+                    freeArrayOfString(completionDictionaryCommandWords, sizecompletionDictionaryCommandWords);
+                    freeArrayOfString(completionDictionaryMacros, sizecompletionDictionaryMacros);
+                    freeArrayOfString(completionDictionaryVariables, sizecompletionDictionaryVariables);
+                    freeArrayOfString(completionDictionaryHandleGraphicsProperties, sizecompletionDictionaryHandleGraphicsProperties);
+                }
 
                 display_string("\r\n");
 
@@ -977,7 +1010,7 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
                 {
                     char *new_line = NULL;
 
-                    new_line = completeLine(lineBeforeCaret, commonAll,NULL,defaultPattern,FALSE, lineAfterCaret);
+                    new_line = completeLine(lineBeforeCaret, commonAll, NULL, defaultPattern, FALSE, lineAfterCaret);
                     if (new_line)
                     {
                         char buflinetmp[WK_BUF_SIZE + 1];
@@ -991,12 +1024,6 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
                     commonAll = NULL;
                 }
             }
-
-            freeArrayOfString(completionDictionaryFunctions,sizecompletionDictionaryFunctions);
-            freeArrayOfString(completionDictionaryCommandWords,sizecompletionDictionaryCommandWords);
-            freeArrayOfString(completionDictionaryMacros,sizecompletionDictionaryMacros);
-            freeArrayOfString(completionDictionaryVariables,sizecompletionDictionaryVariables);
-            freeArrayOfString(completionDictionaryHandleGraphicsProperties,sizecompletionDictionaryHandleGraphicsProperties);
         }
     }
 }
@@ -1048,7 +1075,7 @@ static char *getLineAfterCaret(char *wk_buf, int *cursor, int *cursor_max)
     {
         if (*cursor != *cursor_max)
         {
-            int len =  *cursor_max - *cursor;  
+            int len =  *cursor_max - *cursor;
             char aftercaret[WK_BUF_SIZE];
             strcpy(aftercaret, &wk_buf[*cursor]);
             aftercaret[len + 1] = '\0';
