@@ -72,6 +72,13 @@ COMPLETION_IMPEXP char **completionOnVariablesWithoutMacros(char *somechars, int
 */
 COMPLETION_IMPEXP char **completionOnFiles(char *somechars, int *sizeArrayReturned);
 
+/**
+* completion function on files for scilab
+* @param[in] name the name of a mlist
+* @param[in] fieldpart first characters of a field
+* @return a array of chars 
+*/
+COMPLETION_IMPEXP char **completionOnFields(char *name, char *fieldpart, int *sizeArrayReturned);
 
 /**
 * completion handle graphics properties for scilab

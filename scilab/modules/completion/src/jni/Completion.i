@@ -140,6 +140,17 @@ public";
 char **searchFilesDictionary(char *somechars);
 
 /* JavaDoc */
+%javamethodmodifiers searchFieldsDictionary(char *somechars, char *fieldpart) "
+/**
+* completion function on files for scilab
+* @param[in] name the name of a mlist
+* @param[in] fieldpart first characters of a field
+* @return a array of chars 
+*/
+public";
+char **searchFieldsDictionary(char *name, char *fieldpart);
+
+/* JavaDoc */
 %javamethodmodifiers searchHandleGraphicsPropertiesDictionary(char *somechars) "
 /**
 * completion handle graphics properties for scilab

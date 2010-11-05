@@ -57,27 +57,39 @@ public class SciCompletionManager implements CompletionManager {
 		String[] scilabFilesDictionnary = Completion.searchFilesDictionary(fileSearchedPattern);
 		addItemsToDictionnary(Messages.gettext("File or Directory"), scilabFilesDictionnary);
 
-		if (scilabFilesDictionnary == null) {
-			// Get the completion part used to filter the dictionary
-			String searchedPattern = inputParsingManager.getPartLevel(compLevel);
+                if (scilabFilesDictionnary == null) {
+                        // Get the completion part used to filter the dictionary
+                        String searchedPattern = inputParsingManager.getPartLevel(compLevel);
+                        String commandLine = inputParsingManager.getCommandLine();
+                        String[] scilabFieldsDictionnary = null;
+                        commandLine = commandLine.substring(0, commandLine.length() - searchedPattern.length());
+                        if (commandLine.endsWith(".")) {
+                            String mlist = Completion.getPartLevel(commandLine.substring(0, commandLine.length() - 1));
+                            scilabFieldsDictionnary = Completion.searchFieldsDictionary(mlist, searchedPattern);
+                            if (scilabFieldsDictionnary != null) {
+                                addItemsToDictionnary(Messages.gettext("Fields of ") + mlist, scilabFieldsDictionnary);
+                            }
+                        }
 
-			String[] scilabCommandsDictionnary = Completion.searchCommandsDictionary(searchedPattern);
-			addItemsToDictionnary(Messages.gettext("Scilab Command"), scilabCommandsDictionnary);
-
-			String[] scilabFunctionsDictionnary = Completion.searchFunctionsDictionary(searchedPattern);
-			addItemsToDictionnary(Messages.gettext("Scilab Function"), scilabFunctionsDictionnary);
-
-			String[] scilabHandlesDictionnary = Completion.searchHandleGraphicsPropertiesDictionary(searchedPattern);
-			addItemsToDictionnary(Messages.gettext("Graphics handle field"), scilabHandlesDictionnary);
-
-			String[] scilabMacrosDictionnary = Completion.searchMacrosDictionary(searchedPattern);
-			addItemsToDictionnary(Messages.gettext("Scilab Macro"), scilabMacrosDictionnary);
-
-			String[] scilabVariablesDictionnary = Completion.searchVariablesDictionary(searchedPattern);
-			addItemsToDictionnary(Messages.gettext("Scilab Variable"), scilabVariablesDictionnary);
-		}
-		return dictionnary;
-	}
+                        if (scilabFieldsDictionnary == null) {
+                            String[] scilabCommandsDictionnary = Completion.searchCommandsDictionary(searchedPattern);
+                            addItemsToDictionnary(Messages.gettext("Scilab Command"), scilabCommandsDictionnary);
+                            
+                            String[] scilabFunctionsDictionnary = Completion.searchFunctionsDictionary(searchedPattern);
+                            addItemsToDictionnary(Messages.gettext("Scilab Function"), scilabFunctionsDictionnary);
+                            
+                            String[] scilabHandlesDictionnary = Completion.searchHandleGraphicsPropertiesDictionary(searchedPattern);
+                            addItemsToDictionnary(Messages.gettext("Graphics handle field"), scilabHandlesDictionnary);
+                            
+                            String[] scilabMacrosDictionnary = Completion.searchMacrosDictionary(searchedPattern);
+                            addItemsToDictionnary(Messages.gettext("Scilab Macro"), scilabMacrosDictionnary);
+                            
+                            String[] scilabVariablesDictionnary = Completion.searchVariablesDictionary(searchedPattern);
+                            addItemsToDictionnary(Messages.gettext("Scilab Variable"), scilabVariablesDictionnary);
+                        }
+                }
+                return dictionnary;
+        }
 
 	/**
 	 * Associate a parsing tool to this completion manager

@@ -60,6 +60,14 @@ char **searchVariablesDictionary(char *somechars);
 char **searchFilesDictionary(char *somechars);
 
 /**
+* completion function on files for scilab
+* @param[in] name the name of a mlist
+* @param[in] fieldpart first characters of a field
+* @return a array of chars 
+*/
+char **searchFieldsDictionary(char *name, char *fieldpart);
+
+/**
 * completion handle graphics properties for scilab
 * @param[in] somechars first characters of a word
 * @return a array of chars 

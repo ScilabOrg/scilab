@@ -83,6 +83,17 @@ public static String[] searchFilesDictionary(String somechars) {
 
   
 /**
+* completion function on files for scilab
+* @param[in] name the name of a mlist
+* @param[in] fieldpart first characters of a field
+* @return a array of chars 
+*/
+public static String[] searchFieldsDictionary(String name, String fieldpart) {
+    return CompletionJNI.searchFieldsDictionary(name, fieldpart);
+  }
+
+  
+/**
 * completion handle graphics properties for scilab
 * @param[in] somechars first characters of a word
 * @return a array of chars 
