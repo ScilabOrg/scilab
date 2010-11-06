@@ -230,6 +230,13 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     }
 
     /**
+     * @return the lexer
+     */
+    public ScilabLexer getLexer() {
+        return lexer;
+    }
+
+    /**
      * {@inheritDoc}
      * When no split, this method return true and the consequence is
      * that there is no horizontal scrollbar.
