@@ -125,6 +125,8 @@ SciNotes:
 
 * bug 8230 fixed - Save As action did not propose the current file name as default.
 
+* bug 8267 fixed - The default encoding was not the system default.
+
 * bug 8277 fixed - Under Windows, exceptions were thrown when a key was hit on
                    a keyboard in chinese mode.
 
