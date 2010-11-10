@@ -29,5 +29,7 @@ FILEIO_IMPEXP char *getshortpathname(char *longpathname, BOOL *convertok);
 
 FILEIO_IMPEXP int C2F(getshortpathname)(char *pathname,int *len);
 
+FILEIO_IMPEXP wchar_t* getshortpathnameW(wchar_t* _pwstLongPathName, BOOL* _pbOK);
+
 #endif /* __GETSHORTPATHNAME_H__ */
 /*--------------------------------------------------------------------------*/
