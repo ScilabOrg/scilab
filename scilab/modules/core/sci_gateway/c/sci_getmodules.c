@@ -37,8 +37,10 @@ int C2F(sci_getmodules) (char *fname,unsigned long fname_len)
 	LhsVar(1)=Rhs+1;
 	C2F(putlhsvar)();
 
-	/* je ne libere pas Modules pour accelerer le prochain appel à getmodule */
-	/* liberé dans sciquit.c */
+	/* I do not free Modules on purpose in order to speed the next call
+	 * to call to getmodule.
+	 * This is free in sciquit.c 
+	 */
 
 	return 0;
 }
