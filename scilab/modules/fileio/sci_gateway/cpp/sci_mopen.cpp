@@ -34,6 +34,13 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
     wchar_t* pstMode        = L"wb";
     int iSwap               = 0;
 
+    //check output parameters
+    if(_iRetCount != 1 && _iRetCount != 2)
+    {
+        ScierrorW(78, _W("%ls: Wrong number of output argument(s): %d to %d expected.\n"), L"getshortpathname", 1, 2);
+        return Function::Error;
+    }
+
     //check input parameters
     if(in.size() >= 1)
     {//filename
@@ -105,11 +112,7 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
-
-	std::wcout << L"mode : " << pstMode << std::endl;
     iErr = mopen(pstFilename, pstMode, iSwap, &iID);
-
-
     if(iErr != MOPEN_NO_ERROR)
     {//mange file open errors
         if(_iRetCount == 1)
@@ -143,5 +146,11 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
 
     Double* pD = new Double(static_cast<double>(iID));
     out.push_back(pD);
+
+    if(_iRetCount == 2)
+    {
+        Double* pD2 = new Double(iErr);
+        out.push_back(pD2);
+    }
     return Function::OK;
 }
