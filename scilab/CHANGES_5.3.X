@@ -2211,3 +2211,6 @@ Bug fixes:
 
 * bug 7312 fixed - isnum() diplayed warnings when using some unusual parameters.
 
+* bug 8170 fixed - Loading HDF5 files in non-Scilab format causes crash 
+                   of application.
+

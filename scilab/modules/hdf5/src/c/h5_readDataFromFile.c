@@ -1098,6 +1098,10 @@ int getScilabTypeFromDataSet(int _iDatasetId)
 	int iVarType					= 0;
 	char *pstScilabClass	= readAttribute(_iDatasetId, g_SCILAB_CLASS);
 
+    if(pstScilabClass == NULL)
+    {
+        return -1;
+    }
 	/* HDF5 Float type + SCILAB_Class = double <=> double */
 	if(strcmp(pstScilabClass, g_SCILAB_CLASS_DOUBLE) == 0)
 	{
