@@ -33,7 +33,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
     global %helps_modules;
 
     if %helps_modules == [] then
-      moduleslist = getmodules();
+      moduleslist = mgetl(SCI + "/modules/helptools/etc/MAIN_CHAPTERS");
       for i = 1:size(moduleslist,'*')
         add_module_help_chapter(moduleslist(i));
       end
