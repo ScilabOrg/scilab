@@ -78,6 +78,8 @@ Xcos:
 
 * Loop link on a block produced some error when openning it.
 
+* Xcos simulation was blocked after any Modelica translator error.
+
 * bug 8081 fixed - The context was not checked before being set.
 
 * bug 8140 fixed - Masked suberblock became empty when copied and pasted
