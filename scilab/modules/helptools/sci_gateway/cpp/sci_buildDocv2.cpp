@@ -68,10 +68,10 @@ extern "C"
         int* piAddr = NULL;
         int iRet    = 0;
 
-        CheckRhs(0,4);
-        CheckLhs(1,1);
+        CheckRhs(0, 5);
+        CheckLhs(1, 1);
 
-        styleSheet = SciPath+PATHTOCSS;
+        styleSheet = SciPath + PATHTOCSS;
 
         if (Rhs < 1)
         {
@@ -81,21 +81,21 @@ extern "C"
         {
             char* pstData = NULL;
             sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
             }
 
-            if(!isStringType(pvApiCtx, piAddr))
+            if (!isStringType(pvApiCtx, piAddr))
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"),fname,1);
+                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 1);
                 return 0;
                 // Wrong type string
             }
 
             iRet = getAllocatedSingleString(pvApiCtx, piAddr, &pstData);
-            if(iRet)
+            if (iRet)
             {
                 freeAllocatedSingleString(pstData);
                 return iRet;
@@ -105,7 +105,7 @@ extern "C"
 
         }
 
-        if ( Rhs < 3) /* Language not provided */
+        if (Rhs < 3) /* Language not provided */
         {
             language = getlanguage();
         }
@@ -113,27 +113,27 @@ extern "C"
         {
             char* pstData = NULL;
             sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
             }
 
-            if(!isStringType(pvApiCtx, piAddr))
+            if (!isStringType(pvApiCtx, piAddr))
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"),fname,3);
+                Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 3);
                 return 0;
                 // Wrong type string
             }
 
-            if(!isScalar(pvApiCtx, piAddr))
+            if (!isScalar(pvApiCtx, piAddr))
             {
                 language = getlanguage();
             }
             else
             {
                 iRet = getAllocatedSingleString(pvApiCtx, piAddr, &pstData);
-                if(iRet)
+                if (iRet)
                 {
                     freeAllocatedSingleString(pstData);
                     return iRet;
@@ -147,28 +147,28 @@ extern "C"
         if (Rhs < 2)
         {
             /* Update the path with the localization */
-            masterXMLTMP = std::string("/modules/helptools/master_")+language+std::string("_help.xml");
+            masterXMLTMP = std::string("/modules/helptools/master_") + language+std::string("_help.xml");
             masterXML = SciPath + masterXMLTMP;
         }
         else
         {
             char* pstData = NULL;
             sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
             }
-            if(!isStringType(pvApiCtx, piAddr))
+            if (!isStringType(pvApiCtx, piAddr))
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"),fname,2);
+                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 2);
                 return 0;
                 // Wrong type string
             }
 
 
             iRet = getAllocatedSingleString(pvApiCtx, piAddr, &pstData);
-            if(iRet)
+            if (iRet)
             {
                 freeAllocatedSingleString(pstData);
                 return iRet;
@@ -177,38 +177,65 @@ extern "C"
             freeAllocatedSingleString(pstData);
         }
 
-        if (Rhs == 4)
+        if (Rhs >= 4)
         {
             char* pstData = NULL;
             sciErr = getVarAddressFromPosition(pvApiCtx, 4, &piAddr);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
             }
-            if(!isStringType(pvApiCtx, piAddr))
+            if (!isStringType(pvApiCtx, piAddr))
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"),fname,4);
+                Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 4);
                 return 0;
                 // Wrong type string
             }
 
             iRet = getAllocatedSingleString(pvApiCtx, piAddr, &pstData);
-            if(iRet)
+            if (iRet)
             {
                 freeAllocatedSingleString(pstData);
                 return iRet;
             }
-            outputDirectory = std::string(pstData)+std::string("/scilab_")+language+std::string("_help/");
-            freeAllocatedSingleString(pstData);
+            if (Rhs == 4)
+            {
+                outputDirectory = std::string(pstData) + std::string("/scilab_") + language + std::string("_help/");
+            }
+            else
+            {
+                char* tbxName = NULL;
+                sciErr = getVarAddressFromPosition(pvApiCtx, 5, &piAddr);
+                if (sciErr.iErr)
+                {
+                    printError(&sciErr, 0);
+                    return 0;
+                }
+                if (!isStringType(pvApiCtx, piAddr))
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: Single string expected.\n"), fname, 5);
+                    return 0;
+                    // Wrong type string
+                }
 
+                iRet = getAllocatedSingleString(pvApiCtx, piAddr, &tbxName);
+                if (iRet)
+                {
+                    freeAllocatedSingleString(tbxName);
+                    return iRet;
+                }
+                outputDirectory = std::string(pstData) + std::string("/") + std::string(tbxName) + std::string("_") + language + std::string("_help/");
+                freeAllocatedSingleString(tbxName);
+            }
+            freeAllocatedSingleString(pstData);
         }
         else /* Scilab help */
         {
             /* Update the path with the localization */
             outputDirectoryTMP = std::string("/modules/helptools/")+std::string(exportFormat)+std::string("/scilab_")+language+std::string("_help/");
 
-            outputDirectory = SciPath+outputDirectoryTMP;
+            outputDirectory = SciPath + outputDirectoryTMP;
         }
 
         try
@@ -232,11 +259,11 @@ extern "C"
             }
             else
             {
-                Scierror(999,_("%s: Could find or create the working directory %s.\n"), fname, outputDirectory.c_str());
+                Scierror(999, _("%s: Could find or create the working directory %s.\n"), fname, outputDirectory.c_str());
                 return FALSE;
             }
         }
-        catch(GiwsException::JniException ex)
+        catch (GiwsException::JniException ex)
         {
             Scierror(999,_("%s: Error while building documentation: %s.\n"), fname, ex.getJavaDescription().c_str());
             Scierror(999,_("%s: Execution Java stack: %s.\n"), fname, ex.getJavaStackTrace().c_str());

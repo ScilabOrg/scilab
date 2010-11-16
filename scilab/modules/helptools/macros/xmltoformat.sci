@@ -10,7 +10,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function generated_files = xmltoformat(output_format,dirs,titles,directory_language,default_language)
+function generated_files = xmltoformat(output_format,dirs,titles,directory_language,default_language,toolbox_id)
 
     // =========================================================================
     // + output_format : "javaHelp", "pdf", "chm", "ps"
@@ -63,11 +63,15 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
     // Too much parameters
     // ---------------------------------------------------------------------
 
-    if rhs > 5 | rhs < 1 then
-        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"xmltoformat",1,5));
+    if rhs > 6 | rhs < 1 then
+        error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"xmltoformat",1,6));
     end
 
     // Transformation du %helps_modules jar => help/language
+
+    if rhs < 6 then
+        toolbox_id = "scilab";
+    end
 
     // Default case : construction de l'aide en ligne de Scilab
     // ---------------------------------------------------------------------
@@ -211,7 +215,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
     // All is specified
     // ---------------------------------------------------------------------
 
-    elseif rhs == 5 then
+    elseif rhs >= 5 then
 
         language_system   = [];
 
@@ -473,7 +477,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
         end
 
         // Define and create the path of buildDoc working directory
-        buildDoc_dir  = pathconvert(SCI+"/modules/helptools/"+ output_format + "/scilab_" + my_wanted_language + "_help",%t,%f);
+        buildDoc_dir  = pathconvert(SCI+"/modules/helptools/"+ output_format + "/" + toolbox_id +"_" + my_wanted_language + "_help",%t,%f);
 
         if ~isdir(pathconvert(SCI+"/modules/helptools/"+output_format,%f,%f)) then
             mkdir(pathconvert(SCI+"/modules/helptools/"+output_format,%f,%f));
@@ -487,9 +491,9 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
         if is_chm then
             final_help_file = pathconvert(buildDoc_dir + "htmlhelp.hhp",%f,%f);
         elseif is_html then
-            final_help_file = pathconvert(final_output_dir+"/index.html",%f,%f); 
+            final_help_file = pathconvert(final_output_dir + "/index.html",%f,%f); 
        else
-            final_help_file = pathconvert(final_output_dir+"/scilab_" + my_wanted_language + "_help." + output_format_ext,%f,%f);
+            final_help_file = pathconvert(final_output_dir + "/" + toolbox_id + "_" + my_wanted_language + "_help." + output_format_ext,%f,%f);
         end
 
         // Define the path of the generated file created by buildDoc
@@ -498,7 +502,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
         elseif is_html then
             buildDoc_file = pathconvert(buildDoc_dir + "index.html",%f,%f);
         else
-            buildDoc_file = pathconvert(buildDoc_dir + "scilab_" + my_wanted_language + "_help." + output_format_ext,%f,%f);
+            buildDoc_file = pathconvert(buildDoc_dir + toolbox_id +"_" + my_wanted_language + "_help." + output_format_ext,%f,%f);
         end
 
         // Save the current directory
@@ -511,7 +515,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 
         // process the build
         if output_format=="javaHelp" | output_format=="html" | output_format=="chm" then
-          buildDocv2(output_format,modules_tree("master_document"), my_wanted_language);
+          buildDocv2(output_format,modules_tree("master_document"), my_wanted_language, toolbox_id);
         else
           buildDoc(output_format,modules_tree("master_document"), my_wanted_language);
         end
@@ -575,7 +579,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             end
 
             // Define and create the path of buildDoc working directory
-            buildDoc_dir  = pathconvert(dirs_c(k) + "/scilab_" + directory_language_c(k) + "_help",%t,%f);
+            buildDoc_dir  = pathconvert(dirs_c(k) + "/" + toolbox_id +"_" + directory_language_c(k) + "_help",%t,%f);
             if ~isdir(buildDoc_dir) then
                 mkdir(buildDoc_dir);
             end
@@ -584,9 +588,9 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             if is_chm then
                 final_help_file = pathconvert(buildDoc_dir + "htmlhelp.hhp",%f,%f);
             elseif is_html then
-                final_help_file = pathconvert(final_output_dir+"/index.html",%f,%f);
+                final_help_file = pathconvert(final_output_dir + "/index.html",%f,%f);
             else
-                final_help_file = pathconvert(final_output_dir+"/scilab_" + directory_language_c(k) + "_help." + output_format_ext,%f,%f);
+                final_help_file = pathconvert(final_output_dir + "/" + toolbox_id +"_" + directory_language_c(k) + "_help." + output_format_ext,%f,%f);
             end
 
 
@@ -596,7 +600,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             elseif is_html then
                 buildDoc_file = pathconvert(buildDoc_dir + "index.html",%f,%f);
             else
-                buildDoc_file = pathconvert(buildDoc_dir + "scilab_" + directory_language_c(k) + "_help." + output_format_ext,%f,%f);
+                buildDoc_file = pathconvert(buildDoc_dir + toolbox_id +"_" + directory_language_c(k) + "_help." + output_format_ext,%f,%f);
             end
 
             // Save the current directory
@@ -609,7 +613,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 
             // process the build
             if output_format=="javaHelp" | output_format=="html" | output_format=="chm" then
-              buildDocv2(output_format,this_tree("master_document"),directory_language_c(k),dirs_c(k));
+              buildDocv2(output_format,this_tree("master_document"),directory_language_c(k),dirs_c(k), toolbox_id);
             else
               buildDoc(output_format,this_tree("master_document"),directory_language_c(k),dirs_c(k));
             end
@@ -700,7 +704,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             end
 
             // Define and create the path of buildDoc working directory
-            buildDoc_dir  = pathconvert(dirs(k) + "/scilab_" + directory_language(k) + "_help",%t,%f);
+            buildDoc_dir  = pathconvert(dirs(k) + "/" + toolbox_id +"_" + directory_language(k) + "_help",%t,%f);
             if ~isdir(buildDoc_dir) then
                 mkdir(buildDoc_dir);
             end
@@ -710,9 +714,9 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
                 final_help_file = pathconvert(buildDoc_dir + "htmlhelp.hhp",%f,%f);
             else
                 if is_html then
-                    final_help_file = pathconvert(final_output_dir+"/index.html",%f,%f);
+                    final_help_file = pathconvert(final_output_dir + "/index.html",%f,%f);
                 else
-                    final_help_file = pathconvert(final_output_dir+"/scilab_" + directory_language(k) + "_help." + output_format_ext,%f,%f);
+                    final_help_file = pathconvert(final_output_dir + "/" + toolbox_id +"_" + directory_language(k) + "_help." + output_format_ext,%f,%f);
                 end
             end
 
@@ -722,7 +726,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             elseif is_html then
                 buildDoc_file = pathconvert(buildDoc_dir + "index.html",%f,%f);
             else
-                buildDoc_file = pathconvert(buildDoc_dir + "scilab_" + directory_language(k) + "_help." + output_format_ext,%f,%f);
+                buildDoc_file = pathconvert(buildDoc_dir + toolbox_id +"_" + directory_language(k) + "_help." + output_format_ext,%f,%f);
             end
 
             // Change Scilab current directory so that Java Indexer works
@@ -732,7 +736,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 
             // process the build
             if output_format=="javaHelp" | output_format=="html" | output_format=="chm" then
-              buildDocv2(output_format,this_tree("master_document"),directory_language(k),dirs(k));
+              buildDocv2(output_format,this_tree("master_document"),directory_language(k),dirs(k), toolbox_id);
             else
               buildDoc(output_format,this_tree("master_document"),directory_language(k),dirs(k));
              end
@@ -1137,8 +1141,8 @@ function directories = x2f_get_directories(directory)
     // Remove blank strings from the list
     directories(find(directories == '')) = [];
 
-    // Remove all scilab_xx_XX_help directories from the list
-    directories( grep(directories,"/^scilab_[a-z][a-z]_[A-Z][A-Z]_help$/","r") ) = []
+    // Remove all tbxName_xx_XX_help directories from the list
+    directories(grep(directories,"/^([a-z][A-Z][0-9])+_[a-z][a-z]_[A-Z][A-Z]_help$/","r") ) = []
 
 endfunction
 
