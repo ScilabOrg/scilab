@@ -168,7 +168,15 @@ SciErr getVarAddressFromName(void* _pvCtx, const char* _pstName, int** _piAddres
 
 	//get variable address
 	getNewVarAddressFromPosition(_pvCtx, Fin, &piAddr);
-
+    if(piAddr[0] < 0)
+    {//get address from reference
+        int iStackRef       = *Lstk(Fin);
+        int iStackAddr      = iadr(iStackRef);
+        int iNewStackRef    = iStackAddr + 1;
+        int iNewStackPtr    = *istk(iNewStackRef);
+        int iNewStackAddr   = iadr(iNewStackPtr);
+        piAddr              = istk(iNewStackAddr);
+    }
 	*_piAddress = piAddr;
 	return sciErr;
 }
