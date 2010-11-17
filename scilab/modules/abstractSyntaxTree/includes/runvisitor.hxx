@@ -927,6 +927,10 @@ namespace ast
             const_cast<BreakExp*>(&e)->break_set();
         }
 
+        void visitprivate(const ContinueExp &e)
+        {
+            // FIXME : Need some implementation.
+        }
 
         void visitprivate(const ReturnExp &e)
         {
