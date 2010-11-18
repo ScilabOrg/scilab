@@ -73,7 +73,17 @@ for file in $LAUNCHPAD_DIRECTORY/*.po; do
             echo "Error detected in the copy"
             exit 1;
         fi
+	
+	# Check if the file contains single apos or single double quote 
+	G=`/bin/grep "\"[^'\"]*\(['\"][^'\"]\).*\"" $DIR/$MODULE.po`
+	if [ -n "$G" ]
+	then
+	    echo "An error of ' or \" in file $DIR/$MODULE.po"
+	    echo $G
+	fi
     else
         echo "Ignore locale $LOC"
     fi
 done
+msgid "%s: Unhandled class ''%s''.\n"
+msgstr "%s: unbehandelte Klasse '%s'.\n"
