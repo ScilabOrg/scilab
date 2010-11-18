@@ -61,7 +61,7 @@ typedef HANDLE				__threadSignal;
 
 #define __StaticInitThreadSignal            NULL
 
-#define __GetCurrentThreadId                    GetCurrentThreadId
+#define __GetCurrentThreadId                    GetCurrentThread
 
 #define __SuspendThread( ThreadId)              SuspendThread(ThreadId)
 
