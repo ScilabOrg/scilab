@@ -9,7 +9,7 @@
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # This script takes a list of localization files dumped by launchpad
-# here https://translations.launchpad.net/scilab/trunk/+export 
+# here https://translations.launchpad.net/scilab/trunk/+export
 # and dispatch them into Scilab source tree
 
 if test $# -ne 1; then
@@ -22,7 +22,7 @@ if test $# -ne 1; then
 fi
 
 if test -z "$SCI"; then
-        echo "Please define the variable SCI" 
+        echo "Please define the variable SCI"
         exit -2
 fi
 
@@ -37,7 +37,7 @@ fi
 FILES=$(find $LAUNCHPAD_DIRECTORY/ -mindepth 2 -iname '*.po' -type f)
 /bin/cp -fiu $FILES $LAUNCHPAD_DIRECTORY/
 
-for file in $LAUNCHPAD_DIRECTORY/*.po; do 
+for file in $LAUNCHPAD_DIRECTORY/*.po; do
     file=`echo $file|awk -F / '{print $NF}'` # get only the filename
     LOC=`echo $file|cut -d. -f1|awk -F - '{print $NF}'` # Get the locale (fr_FR, en_US ...)
 
@@ -73,6 +73,22 @@ for file in $LAUNCHPAD_DIRECTORY/*.po; do
             echo "Error detected in the copy"
             exit 1;
         fi
+
+        # Check if the file contains single apos or single double quote
+        #G=`cat $DIR/$MODULE.po | tr -d '\n' | grep "msgid \"[^']*''[^\"]*\"msgstr \"[^'\"]*'[^']"`
+        #G=`perl -0777 -ne "print if /msgid \"[^\']*\'\'[^\"]*\"\nmsgstr \"[^\'\"]*\'[^\']/" $DIR/$MODULE.po`
+        awk 'BEGIN {FS = "\n"; RS = "\n"}
+             NF > 0 { if ($1 ~ /^msgid/ ) {
+                          x = split($1, tab, "\047\047");
+                      } else if ( $1 ~ /^msgstr/ ) {
+                          if ( x % 2 == 1) {
+                              y = split($1, tab, "\047\047");
+                              if ( x != y ) {
+                                  printf("File %s: error at line %i\n>>>> %s\n", FILENAME, NR, $1);
+                              }
+                          }
+                      }
+                    }' $DIR/$MODULE.po
     else
         echo "Ignore locale $LOC"
     fi
