@@ -27,7 +27,6 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
-import org.scilab.modules.xcos.actions.NewDiagramAction;
 import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
 import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskCreateAction;
@@ -41,7 +40,6 @@ import org.scilab.modules.xcos.block.io.ExplicitOutBlock;
 import org.scilab.modules.xcos.block.io.ImplicitInBlock;
 import org.scilab.modules.xcos.block.io.ImplicitOutBlock;
 import org.scilab.modules.xcos.graph.PaletteDiagram;
-import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
@@ -51,7 +49,6 @@ import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosEvent;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
-import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -198,7 +195,8 @@ public final class SuperBlock extends BasicBlock {
 		 * In this case child was null and we need to reconstruct child diagram
 		 * from scs_m.
 		 */
-		if (getChild() == null) {
+		if (getChild() == null || getChild().getChildVertices(getChild().getDefaultParent()).length == 0) {
+			child = null;
 			createChildDiagram();
 		} else {
 			// reassociate (useful on clone and load operation)
