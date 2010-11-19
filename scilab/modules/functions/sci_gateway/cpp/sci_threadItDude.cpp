@@ -1,0 +1,62 @@
+/*
+ *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
+ *
+ *  This file must be used under the terms of the CeCILL.
+ *  This source file is licensed as described in the file COPYING, which
+ *  you should have received as part of this distribution.  The terms
+ *  are also available at
+ *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+#include "functions_gw.hxx"
+#include "threadId.hxx"
+#include "string.hxx"
+#include "execvisitor.hxx"
+#include "parser.hxx"
+#include "runner.hxx"
+
+extern "C"
+{
+#include "Thread_Wrapper.h"
+#include "Scierror.h"
+#include "localization.h"
+}
+
+using namespace types;
+
+Function::ReturnValue sci_threadItDude(types::typed_list &in, int _iRetCount, types::typed_list &out)
+{
+	if(in.size() != 1)
+	{
+        ScierrorW(999, _W("%ls: Wrong number of input arguments: %d expected.\n"), L"threadItDude" , 1);
+        return Function::Error;
+	}
+
+    if(in[0]->isString() == false || in[0]->getAsString()->size_get() != 1)
+    {
+        ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A string expected.\n"), L"threadItDude", 1);
+        return Function::Error;
+    }
+
+    Parser parser;
+    wchar_t* pstCommand = in[0]->getAsString()->string_get(0);
+
+	parser.parse(pstCommand);
+    if(parser.getExitStatus() !=  Parser::Succeded)
+	{
+        ScierrorW(999, L"%s", parser.getErrorMessage());
+		return Function::Error;
+	}
+
+    ExecVisitor *visitor = new ExecVisitor();
+    Runner *runner = new Runner();
+
+    __threadId tid = runner->exec(parser.getTree(), visitor);
+
+    out.push_back(ThreadId::createThreadId(tid));
+
+    return Function::OK;
+
+}

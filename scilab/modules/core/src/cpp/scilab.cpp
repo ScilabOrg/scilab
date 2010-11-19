@@ -520,7 +520,7 @@ static int interactiveMain (void)
                 YaspWriteW(parser->getErrorMessage());
             }
 
-            parser->freeTree();
+            //parser->freeTree();
             FREE(pstCommand);
         }
     }
@@ -530,9 +530,13 @@ static int interactiveMain (void)
     return ConfigVariable::getExitStatus();
 }
 
+static __threadLock TermPrintfLock;
+
 static void TermPrintf(char *text)
 {
+    __Lock(&TermPrintfLock);
     std::cout << text;
+    __UnLock(&TermPrintfLock);
 }
 
 /*

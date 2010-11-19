@@ -42,11 +42,13 @@ public :
         }
     }
 
-    void exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
+    __threadId exec(ast::Exp* _theProgram, ast::ExecVisitor *_visitor)
     {
         m_theProgram = _theProgram;
         m_visitor = _visitor;
         __CreateThreadWithParams(&m_threadId, &Runner::launch, this);
+
+        return m_threadId;
     }
 
     ast::ExecVisitor *getVisitor()
@@ -62,9 +64,9 @@ public :
 private :
     static void *launch(void *args)
     {
+        Runner *me = (Runner *)args;
         try
         {
-            Runner *me = (Runner *)args;
             me->getProgram()->accept(*(me->getVisitor()));
             ConfigVariable::clearLastError();
         }
@@ -72,6 +74,9 @@ private :
         {
             YaspWriteW(se.GetErrorMessage().c_str());
         }
+
+        //delete me->getProgram();
+        delete me->getVisitor();
         return NULL;
     }
 

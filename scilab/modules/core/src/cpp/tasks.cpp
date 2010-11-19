@@ -155,7 +155,6 @@ void execAstTask(ast::Exp* tree, bool timed, bool ASTtimed)
 
     Runner engine;
     engine.execAndWait(tree, exec);
-    delete exec;
 
     if(timed)
     {
