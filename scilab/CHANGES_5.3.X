@@ -5,6 +5,10 @@ Due to an important change from Apple in the Java environnement, a new beta
 release of Scilab has been decided. This will allow further testing for
 this architecture.
 
+Incompatibilities:
+==================
+* the graph of the nyquist function (CACDS module) has been symetrized.
+
 Documentation:
 ==============
 
@@ -239,6 +243,9 @@ Bug Fixes:
 * bug 8016 fixed - An error in a german translation gave an error message.
 
 * bug 8046 fixed - msprintf did not manage tabulation as format.
+
+* bug 8067 fixed - Nyquist unitary test failed due to a change of the nyquist function
+                   the graph has been symetrized.
 
 * bug 8068 fixed - Figures were not all closed at the end of a demonstration.
 
