@@ -22,6 +22,8 @@ Source: bin\{#XCOS}.dll; DestDir: {app}\bin; Components: {#COMPN_XCOS}
 ;
 Source: modules\{#XCOS}\jar\org.scilab.modules.{#XCOS}.jar; DestDir: {app}\modules\{#XCOS}\jar; Components: {#COMPN_XCOS}
 ;
+Source: modules\{#XCOS}\examples\integral.xcos; DestDir: {app}\modules\{#XCOS}\examples; Components: {#COMPN_XCOS}
+;
 Source: modules\{#XCOS}\VERSION.xml; DestDir: {app}\modules\{#XCOS}; Components: {#COMPN_XCOS}
 Source: modules\{#XCOS}\readme.txt; DestDir: {app}\modules\{#XCOS}; Components: {#COMPN_XCOS}
 Source: modules\{#XCOS}\license.txt; DestDir: {app}\modules\{#XCOS}; Components: {#COMPN_XCOS}
