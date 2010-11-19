@@ -198,7 +198,11 @@ function [curve,dmin,ptmin,l]=datatipGetNearestEntity(pt,ax)
 
   dmin=%inf;
   l=0;
+<<<<<<< HEAD
   curve=[];kmin=[]
+=======
+  curve=[];
+>>>>>>> f29e569... bug 8163 fix  datatipToggle cannot be called without argument+ error message fixed
   ptmin=[];
   if argn(2)==1 then
     //only a point given look into the axes where the point lies
@@ -256,9 +260,13 @@ function [curve,dmin,ptmin,l]=datatipGetNearestEntity(pt,ax)
       end
     end
   end
+<<<<<<< HEAD
   if kmin<>[] then
     curve=curves(kmin)
   end
+=======
+  curve=curves(kmin)
+>>>>>>> f29e569... bug 8163 fix  datatipToggle cannot be called without argument+ error message fixed
 endfunction
 
 function datatipSelectFunction(curve)
