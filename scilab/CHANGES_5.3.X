@@ -286,6 +286,9 @@ Bug Fixes:
 * bug 8160 fixed - The derivative function did not check for input
                    argument #1, if it was a list.
 
+* bug 8163 fixed - datatipToggle could not be called without argument as 
+                   stated in the help page.
+
 * bug 8164 fixed - Typo in the fileparts help page.
 
 * bug 8166 fixed - All the checkboxes in SciNotes 'Preferences' menu were
@@ -338,7 +341,6 @@ Bug Fixes:
                    error message.
 
 * bug 8332 fixed - Some use of clipboard function crashed Scilab.
-
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
