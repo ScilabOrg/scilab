@@ -18,8 +18,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyVetoException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.server.UID;
@@ -28,6 +33,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -1435,7 +1442,10 @@ public class XcosDiagram extends ScilabGraph {
 	    setModified(false);
 	    isSuccess = true;
 	} catch (final TransformerException e) {
-		LogFactory.getLog(XcosDiagram.class).error(e);
+		LOG.error(e);
+		XcosDialogs.couldNotSaveFile(this);
+	} catch (IOException e) {
+		LOG.error(e);
 		XcosDialogs.couldNotSaveFile(this);
 	}
 	
@@ -1449,14 +1459,29 @@ public class XcosDiagram extends ScilabGraph {
 	 * @param file the file
 	 * @throws TransformerException on error
 	 */
-	private void save(final File file) throws TransformerException {
+	private void save(final File file) throws IOException, TransformerException {
 		final XcosCodec codec = new XcosCodec();
 		final TransformerFactory tranFactory = TransformerFactory.newInstance();
 		final Transformer aTransformer = tranFactory.newTransformer();
 		
-		final DOMSource src = new DOMSource(codec.encode(this));
-		final StreamResult result = new StreamResult(file);
-		aTransformer.transform(src, result);
+		OutputStream stream = null;
+		try {
+			final FileOutputStream fStream = new FileOutputStream(file);
+			stream = new GZIPOutputStream(fStream);
+				
+			final DOMSource src = new DOMSource(codec.encode(this));
+			final StreamResult result = new StreamResult(stream);
+			aTransformer.transform(src, result);
+			
+		} finally {
+			if (stream != null) {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					LogFactory.getLog(XcosDiagram.class).error(e);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -1465,16 +1490,42 @@ public class XcosDiagram extends ScilabGraph {
 	 * @param file the file
 	 * @throws TransformerException on error
 	 */
-	private void load(final File file) throws TransformerException {
+	private void load(final File file) throws FileNotFoundException, TransformerException {
 		final XcosCodec codec = new XcosCodec();
 		final TransformerFactory tranFactory = TransformerFactory.newInstance();
 		final Transformer aTransformer = tranFactory.newTransformer();
 		
-		final StreamSource src = new StreamSource(file);
-		final DOMResult result = new DOMResult();
-		aTransformer.transform(src, result);
-		
-		codec.decode(result.getNode().getFirstChild(), this);
+		InputStream stream = null;
+		try {
+			
+			final FileInputStream fStream = new FileInputStream(file);
+			try {
+				// try to get the compressed format
+				stream = new GZIPInputStream(fStream);
+			} catch (IOException e) {
+				// Non compressed format
+				try {
+					fStream.close();
+				} catch (IOException e1) {
+					LOG.error(e1);
+				}
+				stream = new FileInputStream(file);
+			}
+			
+			final StreamSource src = new StreamSource(stream);
+			final DOMResult result = new DOMResult();
+			aTransformer.transform(src, result);
+			
+			codec.decode(result.getNode().getFirstChild(), this);
+		} finally {
+			if (stream != null) {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					LogFactory.getLog(XcosFileType.class).error(e);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -1695,6 +1746,9 @@ public class XcosDiagram extends ScilabGraph {
 		    }
 			result = true;
 		} catch (final TransformerException e) {
+			LOG.error(e);
+			result = false;
+		} catch (FileNotFoundException e) {
 			LOG.error(e);
 			result = false;
 		}

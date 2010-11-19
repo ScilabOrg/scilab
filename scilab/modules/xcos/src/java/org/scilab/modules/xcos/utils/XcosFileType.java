@@ -15,7 +15,9 @@ package org.scilab.modules.xcos.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
@@ -68,9 +70,10 @@ public enum XcosFileType {
 		}
 	},
 	/**
-	 * Represent the Xcos XML format.
+	 * Represent the Xcos XML format (compressed or not).
 	 */
 	XCOS("xcos", XcosMessages.FILE_XCOS),
+	
 	/**
 	 * Any other format.
 	 */
@@ -144,9 +147,19 @@ public enum XcosFileType {
 			byte[] xmlMagic = "<?xml".getBytes();
 			byte[] readMagic = new byte[xmlMagic.length];
 
-			FileInputStream stream = null;
+			InputStream stream = null;
 			try {
-				stream = new FileInputStream(theFile);
+				
+				final FileInputStream fStream = new FileInputStream(theFile);
+				try {
+					// try to get the compressed format
+					stream = new GZIPInputStream(fStream);
+				} catch (IOException e) {
+					// Non compressed format
+					fStream.close();
+					stream = new FileInputStream(theFile);
+				}
+				
 				int length;
 				length = stream.read(readMagic);
 				if (length != xmlMagic.length
@@ -225,7 +238,7 @@ public enum XcosFileType {
 	 * @param filename The file to execute in scilab.
 	 * @return The exported data in hdf5.
 	 */
-	public static File loadScicosDiagram(File filename) {
+	private static File loadScicosDiagram(File filename) {
 	    File tempOutput = null;
 	    try {
 		tempOutput = FileUtils.createTempFile();
