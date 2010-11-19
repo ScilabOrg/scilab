@@ -671,6 +671,9 @@ Bug Fixes:
 * bug 8160 fixed - The derivative function did not check for input argument #1,
                    if it was a list.
 
+* bug 8163 fixed - datatipToggle could not be called without argument as 
+                   stated in the help page.
+
 * bug 8164 fixed - Typo in the fileparts help page.
 
 * bug 8170 fixed - Loading HDF5 files in non-Scilab format caused crash
@@ -724,7 +727,6 @@ Bug Fixes:
 
 * bug 8413 fixed - fscanfMat crashed when file included text lines at the
                    beginning.
-
 
          Changes between version 5.3.0-beta-3 and 5.3.0-beta-4 of Scilab
          ===============================================================
