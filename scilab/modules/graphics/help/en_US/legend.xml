@@ -234,8 +234,8 @@ hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
  ]]></programlisting>
   </refsection>
 
-  <refsection>
-    <title>See Also</title>
+  <refsection role="see also">
+<title>See Also</title>
 
     <simplelist type="inline">
       <member><link linkend="plot2d">plot2d</link></member>
