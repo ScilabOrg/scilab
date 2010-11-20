@@ -649,8 +649,8 @@ scale       x          e          /  gamma(shape)
       and do the same  for the second method.  This assures that the initial data  for method two is 
       that used by  method  one.  When both  have concluded,  advance the block for both generators.</para>
   </refsection>
-  <refsection>
-    <title>See Also</title>
+  <refsection role="see also">
+<title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="rand">rand</link>
