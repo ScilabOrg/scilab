@@ -204,6 +204,11 @@ Compilation:
                    Java for Mac OS X 10.6 Update 3 and 10.5 Update 8 Release
                    Notes
 
+Dynamic link:
+=============
+
+* Intel Fortran Composr XE 2011 (12) support on Windows x86 and x64 platform.
+
 Bug Fixes:
 ==========
 
